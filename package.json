@@ -17,8 +17,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start:web": "react-scripts start",
+    "build:web": "PUBLIC_URL=./ react-scripts build",
+    "build:descktop": "tsc -p electron/tsconfig.json",
+    "start:descktop": "npm run build:descktop && electron ./build/electron.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
