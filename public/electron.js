@@ -1,18 +1,24 @@
-import { app, BrowserWindow } from "electron";
-import * as path from "path";
+// import { app, BrowserWindow } from "electron";
+// import * as path from "path";
+
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
+
+const isDev = require("electron-is-dev")
 
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      preload: ("./preload.js"),
     },
     width: 800,
   });
 
+  mainWindow.loadURL(isDev ? "http://localhost:3000/" : `file://${path.join(__dirname, "../build/index.html")}`);
+
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, "./index.html"));
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
