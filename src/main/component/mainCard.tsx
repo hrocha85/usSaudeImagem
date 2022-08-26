@@ -11,6 +11,7 @@ import React from "react";
 import IconButtonPlus from "./iconButtonPlus";
 import Clinica from "../configuracao/clinicas";
 import ItemObservation from "./itemObeservation";
+import Drs from "../configuracao/drs";
 
 const MainCard = ({ titulo }) => {
   function showIcon() {
@@ -20,11 +21,9 @@ const MainCard = ({ titulo }) => {
   function cards(titulo) {
     switch (titulo) {
       case "Clínicas":
-        return (
-          <>
-            <Clinica />
-          </>
-        );
+        return <Clinica />;
+      case "Doutor(a)":
+        return <Drs />;
       default:
         break;
     }
@@ -58,4 +57,3 @@ const MainCard = ({ titulo }) => {
 };
 
 export default MainCard;
-

@@ -33,6 +33,9 @@ const Configuracoes = () => {
         align="center"
       >
         <MainCard titulo="Clínicas" />
+        <MainCard titulo="Doutor(a)" />
+        <MainCard titulo="Doutor(a)" />
+        <MainCard titulo="Doutor(a)" />
         
       </HStack>
 
