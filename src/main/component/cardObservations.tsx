@@ -33,7 +33,7 @@ const CardObservation = () => {
         templateRows="repeat(6, 1fr)"
         gap={0}
       >
-        <ItemObservation />
+        <ItemObservation/>
       </Grid>
     </Box>
   );

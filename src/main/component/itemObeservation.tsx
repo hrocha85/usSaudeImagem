@@ -1,4 +1,5 @@
 import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
+import React from "react";
 import FieldDefault from "./fieldDefault";
 
 const ItemObservation = () => {
@@ -29,9 +30,13 @@ const ItemObservation = () => {
     { id: 24, observacao: "Articulações" },
   ];
 
-  return observacoes.map((observacoes) =>
-    <FieldDefault text={observacoes.observacao} textColor={'#1A202C'} />);
+  return (
+    <>
+      {observacoes.map((observacoes) => (
+        <FieldDefault text={observacoes.observacao} textColor={"#1A202C"} />
+      ))}
+    </>
+  );
 };
 
 export default ItemObservation;
-

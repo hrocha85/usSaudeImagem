@@ -18,7 +18,7 @@ const IconButtonPlus = () => {
         w="22"
         size="xs"
         textColor="blue"
-        onClick={}
+        onClick={()=>{}}
       />
       ;
     </>

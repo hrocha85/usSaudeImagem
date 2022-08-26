@@ -3,6 +3,7 @@ import MainCard from "../component/mainCard";
 import CardObservation from "../component/cardObservations";
 import ImageHome from "../images/icon_x5F_home_1_.png";
 import BGImage from "../images/bgImage.jpg";
+import Clinica from "./clinicas";
 
 const Configuracoes = () => {
   return (
@@ -20,7 +21,6 @@ const Configuracoes = () => {
     >
       <Spacer />
       <Box>
-       
         <Text textColor="black" fontWeight="bold" fontSize="20px">
           Configurações
         </Text>
@@ -33,9 +33,7 @@ const Configuracoes = () => {
         align="center"
       >
         <MainCard titulo="Clínicas" />
-        <MainCard titulo="Doutor(a)" />
-        <MainCard titulo="Doutor(a)" />
-        <MainCard titulo="Doutor(a)" />
+        
       </HStack>
 
       <CardObservation />

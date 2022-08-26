@@ -1,6 +1,9 @@
-import { GridItem, Text } from "@chakra-ui/react";
+import { GridItem, Stack, Text, Icon, color } from "@chakra-ui/react";
+import PropsTypes from "prop-types";
+import { GoAlert } from "react-icons/go";
+import { IconContext } from "react-icons";
 
-const FieldDefault = ({text,textColor}) => {
+const FieldDefault = ({ text, textColor }) => {
   return (
     <>
       <GridItem
@@ -22,13 +25,23 @@ const FieldDefault = ({text,textColor}) => {
           fontWeight="medium"
           verticalAlign="center"
           paddingTop="4.5"
-          paddingStart="16px"
-              >
-                  {text}
+          paddingStart="12px"
+        >
+          {text}
         </Text>
       </GridItem>
     </>
   );
 };
 
-export default FieldDefault
+FieldDefault.protoTypes = {
+  text: PropsTypes.string,
+  textColor: PropsTypes.string,
+};
+
+FieldDefault.defaultProps = {
+  text: "Título",
+  textColor: "FFFFFF",
+};
+
+export default FieldDefault;
