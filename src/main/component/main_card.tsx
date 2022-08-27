@@ -1,33 +1,29 @@
-import {
-  Box,
-  Button,
-  Stack,
-  Text,
-  IconButton,
-  Icon,
-  Grid,
-} from "@chakra-ui/react";
+import { Box, Stack, Text } from "@chakra-ui/react";
 import React from "react";
-import IconButtonPlus from "./iconButtonPlus";
+import IconButtonPlus from "./icon_button_plus";
 import Clinica from "../configuracao/clinicas";
-import ItemObservation from "./itemObeservation";
 import Drs from "../configuracao/drs";
 
-const MainCard = ({ titulo }) => {
-  function showIcon() {
-    return <IconButtonPlus />;
+const MainCard = ({ titulo, icon }) => {
+  function ShowIcon(icon: boolean) {
+    if (icon) {
+      return <IconButtonPlus />;
+    }
   }
 
-  function cards(titulo) {
+  function Cards(titulo) {
     switch (titulo) {
       case "Clínicas":
         return <Clinica />;
+
       case "Doutor(a)":
         return <Drs />;
+
       default:
         break;
     }
   }
+
   return (
     <Box
       bg="#FAFAFA"
@@ -47,11 +43,11 @@ const MainCard = ({ titulo }) => {
           >
             {titulo}
           </Text>
-          if ({titulo == "Clínicas"}) {<IconButtonPlus />}
+          {ShowIcon(icon)}
         </Stack>
       </Box>
 
-      <Box>{cards(titulo)}</Box>
+      <Box>{Cards(titulo)}</Box>
     </Box>
   );
 };

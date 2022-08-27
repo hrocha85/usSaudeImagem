@@ -1,9 +1,5 @@
-import FieldDefault from "../component/fieldDefault";
-import { Box, HStack, Stack, Grid, Spacer, Text } from "@chakra-ui/react";
-import MainCard from "../component/mainCard";
-import IconButtonPlus from "../component/iconButtonPlus";
 import { FaRegFolderOpen } from "react-icons/fa";
-import FieldDefaultIcon from "../component/fieldDefaultIcon";
+import FieldDefaultIcon from "../component/field_default_icon";
 
 const Clinica = () => {
   let clinicas = [
@@ -17,7 +13,7 @@ const Clinica = () => {
       {clinicas.map((cln) => (
         <FieldDefaultIcon
           text={cln.clinica + " " + 0 + cln.id}
-          textColor="black"
+          textColor="#4A5568"
           icon={FaRegFolderOpen}
         />
       ))}

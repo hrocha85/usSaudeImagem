@@ -1,7 +1,5 @@
-import { GridItem, Stack, Text, Icon, color } from "@chakra-ui/react";
+import { GridItem, Text } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
-import { GoAlert } from "react-icons/go";
-import { IconContext } from "react-icons";
 
 const FieldDefault = ({ text, textColor }) => {
   return (

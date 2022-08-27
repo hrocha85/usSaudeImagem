@@ -1,7 +1,6 @@
 import { IconButton } from "@chakra-ui/react";
 import React from "react";
 import PlusButton from "../images/button_plus.png";
-import Clinica from "../configuracao/clinicas";
 
 
 const button = React.createElement("img", { src: PlusButton });

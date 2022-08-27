@@ -1,6 +1,6 @@
 import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
-import FieldDefault from "./fieldDefault";
+import FieldDefault from "./field_default";
 
 const ItemObservation = () => {
   const observacoes = [

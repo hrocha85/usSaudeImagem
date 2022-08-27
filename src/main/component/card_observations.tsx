@@ -1,21 +1,19 @@
 import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
-import ItemObservation from "./itemObeservation";
-import Clinica from "../configuracao/clinicas";
 
-const CardObservation = () => {
+
+const RectangularCard = ({titulo, altura, item }) => {
   return (
     <Box
-      paddingBottom='16px'
+      paddingBottom="16px"
       bg="#FAFAFA"
       w="933px"
-      h="282px"
+      h={altura}
       m="20px"
-      marginBottom='165px'
-      marginStart='37px'
+      marginBottom="165px"
+      marginStart="37px"
       color="white"
       borderRadius="10.85px"
-      boxShadow='dark-lg'
-
+      boxShadow="dark-lg"
     >
       <p>
         <Text
@@ -25,7 +23,7 @@ const CardObservation = () => {
           paddingTop="16px"
           marginBottom="16px"
         >
-          Observações
+         {titulo}
         </Text>
       </p>
       <Grid
@@ -33,10 +31,10 @@ const CardObservation = () => {
         templateRows="repeat(6, 1fr)"
         gap={0}
       >
-        <ItemObservation/>
+        {item}
       </Grid>
     </Box>
   );
 };
 
-export default CardObservation;
+export default RectangularCard ;

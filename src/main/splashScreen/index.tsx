@@ -1,7 +1,7 @@
 import { Box,Button,ButtonGroup,Flex,Heading,Spacer,Text } from "@chakra-ui/react";
 import React from "react";
 import "./styles.css";
-import Card from "../component/mainCard";
+import Card from "../component/main_card";
 import Configuracoes from "../configuracao/configuracoes";
 
 

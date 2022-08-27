@@ -1,9 +1,11 @@
-import { Box, HStack, Image, Spacer, Text } from "@chakra-ui/react";
-import MainCard from "../component/mainCard";
-import CardObservation from "../component/cardObservations";
-import ImageHome from "../images/icon_x5F_home_1_.png";
-import BGImage from "../images/bgImage.jpg";
-import Clinica from "./clinicas";
+import { Box, HStack, Image, Progress, Button, Icon } from "@chakra-ui/react";
+import MainCard from "../component/main_card";
+import RectangularCard from "../component/card_observations";
+import ImageHome from "../images/icon_home.png";
+import BGImage from "../images/background_image.jpg";
+import BoxTitleBackground from "../component/box_title_background";
+import ItemObservation from "../component/item_obeservation";
+import { FaRegFolderOpen } from "react-icons/fa";
 
 const Configuracoes = () => {
   return (
@@ -13,18 +15,34 @@ const Configuracoes = () => {
       verticalAlign="center"
       alignSelf="center"
       backgroundImage={BGImage}
-      backgroundPosition="center"
-      backgroundSize="100%"
+      backgroundPosition="fixed"
+      backgroundSize="cover"
       backgroundClip="padding-box"
       backgroundRepeat="no-repeat"
       paddingBottom="10px"
     >
-      <Spacer />
-      <Box>
-        <Text textColor="black" fontWeight="bold" fontSize="20px">
-          Configurações
-        </Text>
-      </Box>
+      <HStack
+        justifyItems="center"
+        paddingStart="37px"
+        align="stretch"
+        alignItems="center"
+        spacing="170px"
+      >
+        <BoxTitleBackground titulo="Configurações" />
+
+        <Progress
+          value={50}
+          size="sm"
+          w="259px"
+          colorScheme="blue"
+          backgroundColor="#C8C8C8"
+          borderRadius="0.5rem"
+        />
+
+        <Button borderRadius="50%" backgroundColor="#E2E8F0" w="42" h="42">
+          <Icon as={FaRegFolderOpen} />
+        </Button>
+      </HStack>
 
       <HStack
         spacing="20px"
@@ -32,14 +50,18 @@ const Configuracoes = () => {
         paddingTop="147px"
         align="center"
       >
-        <MainCard titulo="Clínicas" />
-        <MainCard titulo="Doutor(a)" />
-        <MainCard titulo="Doutor(a)" />
-        <MainCard titulo="Doutor(a)" />
-        
+        <MainCard titulo="Clínicas" icon={true} />
+        <MainCard titulo="Doutor(a)" icon={false} />
+        <MainCard titulo="Doutor(a)" icon={false} />
+        <MainCard titulo="Doutor(a)" icon={false} />
       </HStack>
 
-      <CardObservation />
+      <RectangularCard
+        titulo="Observações"
+        altura="282px"
+        item={<ItemObservation />}
+      />
+
       <Box margin="30px">
         <Image src={ImageHome} />
       </Box>
