@@ -1,40 +1,43 @@
-import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
+import BasicUsage from "../modal/modal_clinica";
 
-
-const RectangularCard = ({titulo, altura, item }) => {
+const RectangularCard = ({ titulo, altura, item }) => {
   return (
-    <Box
-      paddingBottom="16px"
-      bg="#FAFAFA"
-      w="933px"
-      h={altura}
-      m="20px"
-      marginBottom="165px"
-      marginStart="37px"
-      color="white"
-      borderRadius="10.85px"
-      boxShadow="dark-lg"
-    >
-      <p>
-        <Text
-          color="black"
-          fontSize="16px"
-          paddingStart="8px"
-          paddingTop="16px"
-          marginBottom="16px"
-        >
-         {titulo}
-        </Text>
-      </p>
-      <Grid
-        templateColumns="repeat(4,1fr)"
-        templateRows="repeat(6, 1fr)"
-        gap={0}
+    <Flex w='100%'>
+      <Box
+        paddingBottom="16px"
+        bg="#FAFAFA"
+        w="100%"
+        h="100%"
+        m="20px"
+        color="white"
+        borderRadius="10.85px"
+        boxShadow="dark-lg"
       >
-        {item}
-      </Grid>
-    </Box>
+        <p>
+          <Text
+            color="black"
+            fontSize="16px"
+            paddingStart="8px"
+            paddingTop="16px"
+            marginBottom="16px"
+          >
+            {titulo}
+          </Text>
+        </p>
+        <Grid
+          templateColumns="repeat(4,1fr)"
+          templateRows="repeat(6, 1fr)"
+          gap={1}
+        >
+          {item}
+        </Grid>
+      </Box>
+      <>
+     
+      </>
+    </Flex>
   );
 };
 
-export default RectangularCard ;
+export default RectangularCard;

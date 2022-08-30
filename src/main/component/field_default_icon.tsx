@@ -1,13 +1,13 @@
-import { GridItem, Stack, Text, Icon } from "@chakra-ui/react";
+import { GridItem, Stack, Text, Icon,Flex } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
 import { IconContext } from "react-icons";
 
 const FieldDefaultIcon = ({ text, textColor, icon }) => {
   return (
-    <>
+    <Flex>
       <GridItem
-        w="193.75"
-        h="29px"
+        w="100%"
+        h="100%"
         borderRadius="4px"
         marginBottom="8px"
         marginEnd="42px"
@@ -34,7 +34,7 @@ const FieldDefaultIcon = ({ text, textColor, icon }) => {
           </Text>
         </Stack>
       </GridItem>
-    </>
+    </Flex>
   );
 };
 

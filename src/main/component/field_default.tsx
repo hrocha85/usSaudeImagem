@@ -1,12 +1,12 @@
-import { GridItem, Text } from "@chakra-ui/react";
+import { Box, Flex, GridItem, Text } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
 
 const FieldDefault = ({ text, textColor }) => {
   return (
-    <>
+    <Flex>
       <GridItem
-        w="193.75"
-        h="29px"
+        w="100%"
+        h="100%"
         borderRadius="4px"
         marginBottom="8px"
         marginEnd="42px"
@@ -14,7 +14,9 @@ const FieldDefault = ({ text, textColor }) => {
         bg="#FEFFFE"
         borderStyle="solid"
         borderWidth="2px"
-        borderColor="#e2e8f0"
+        borderStartWidth='4px'
+        borderStartColor='#47AFFC'
+        
       >
         <Text
           textColor={textColor}
@@ -28,7 +30,7 @@ const FieldDefault = ({ text, textColor }) => {
           {text}
         </Text>
       </GridItem>
-    </>
+    </Flex>
   );
 };
 

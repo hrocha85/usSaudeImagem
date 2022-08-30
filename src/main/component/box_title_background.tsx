@@ -5,8 +5,6 @@ const BoxTitleBackground = ({ titulo }) => {
   return (
     <Box
       padding="20px"
-      marginStart="37px"
-      marginTop="37px"
       backgroundImage={TitleBackground}
       backgroundRepeat="no-repeat"
       backgroundSize="180px"

@@ -32,6 +32,7 @@ const MainCard = ({ titulo, icon }) => {
       color="white"
       borderRadius="10.85px"
       boxShadow="md"
+      //minW="218px"
     >
       <Box margin="10px">
         <Stack direction="row" spacing="100px">
