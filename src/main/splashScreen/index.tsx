@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { Image, Box, Container } from '@chakra-ui/react'
 import logo from './logo.png'
 import './styles.css'
 
