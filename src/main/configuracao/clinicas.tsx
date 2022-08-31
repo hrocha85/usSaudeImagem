@@ -1,6 +1,5 @@
 import { FaRegFolderOpen } from "react-icons/fa";
 import FieldDefaultIcon from "../component/field_default_icon";
-
 const Clinica = () => {
   let clinicas = [
     { id: 1, clinica: "Clínica" },

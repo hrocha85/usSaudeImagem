@@ -1,4 +1,4 @@
-import { Box, Flex, GridItem, Text } from "@chakra-ui/react";
+import { Flex, GridItem, Text } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
 
 const FieldDefault = ({ text, textColor }) => {

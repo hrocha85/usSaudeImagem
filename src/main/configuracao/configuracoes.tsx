@@ -1,20 +1,14 @@
 import {
-  Box,
-  Stack,
-  HStack,
-  Image,
-  Progress,
-  Button,
-  Icon,
-  Flex,
+  Box, Button, Flex, Icon, Image,
+  Progress, Stack
 } from "@chakra-ui/react";
-import MainCard from "../component/main_card";
-import RectangularCard from "../component/card_observations";
-import ImageHome from "../images/icon_home.png";
-import BGImage from "../images/background_image.jpg";
-import BoxTitleBackground from "../component/box_title_background";
-import ItemObservation from "../component/item_obeservation";
 import { FaRegFolderOpen } from "react-icons/fa";
+import BoxTitleBackground from "../component/box_title_background";
+import RectangularCard from "../component/card_observations";
+import ItemObservation from "../component/item_obeservation";
+import MainCard from "../component/main_card";
+import BGImage from "../images/background_image.jpg";
+import ImageHome from "../images/icon_home.png";
 
 const Configuracoes = () => {
   return (
@@ -31,8 +25,12 @@ const Configuracoes = () => {
       backgroundRepeat="no-repeat"
       paddingBottom="10px"
     >
-      <Flex direction='row' justify='space-between' margin='20px 80px 100px 20px' align='center'>
-        
+      <Flex
+        direction="row"
+        justify="space-between"
+        margin="20px 80px 100px 20px"
+        align="center"
+      >
         <BoxTitleBackground titulo="Configurações" />
 
         <Progress
@@ -48,10 +46,9 @@ const Configuracoes = () => {
         <Button borderRadius="50%" backgroundColor="#E2E8F0" w="42" h="42">
           <Icon as={FaRegFolderOpen} />
         </Button>
-      
       </Flex>
 
-      <Flex h="100%" direction="row" justify='space-between' margin="20px">
+      <Flex h="100%" direction="row" justify="space-between" margin="20px">
         <MainCard titulo="Clínicas" icon={true} />
         <MainCard titulo="Doutor(a)" icon={false} />
         <MainCard titulo="Doutor(a)" icon={false} />

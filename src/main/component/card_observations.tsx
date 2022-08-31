@@ -1,5 +1,4 @@
-import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
-import BasicUsage from "../modal/modal_clinica";
+import { Box, Flex, Grid, Text } from "@chakra-ui/react";
 
 const RectangularCard = ({ titulo, altura, item }) => {
   return (

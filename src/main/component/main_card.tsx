@@ -1,8 +1,7 @@
 import { Box, Stack, Text } from "@chakra-ui/react";
-import React from "react";
-import IconButtonPlus from "./icon_button_plus";
 import Clinica from "../configuracao/clinicas";
 import Drs from "../configuracao/drs";
+import IconButtonPlus from "./icon_button_plus";
 
 const MainCard = ({ titulo, icon }) => {
   function ShowIcon(icon: boolean) {

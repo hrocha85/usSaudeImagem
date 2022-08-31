@@ -6,6 +6,7 @@ import Configuracoes from "../configuracao/configuracoes";
 
 
 const SplashScreen = () => {
+
     return(
         /*<Flex minWidth='max-content' alignItems='center' gap='2'>
         <Box p='2'>
