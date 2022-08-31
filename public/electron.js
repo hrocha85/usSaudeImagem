@@ -14,12 +14,15 @@ function createWindow() {
       preload: ("./preload.js"),
     },
     width: 800,
+    show: false
   });
 
   mainWindow.loadURL(isDev ? "http://localhost:3000/" : `file://${path.join(__dirname, "../build/index.html")}`);
 
   // and load the index.html of the app.
-
+  mainWindow.once("ready-to-show", () => {
+    mainWindow.show()
+  })
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 }

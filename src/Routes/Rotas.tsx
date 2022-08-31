@@ -7,8 +7,8 @@ function Rotas() {
   return (
     <Routes>
       <Route path="/" element={<SplashScreen />} />
-      <Route path="AbdomemTotal" element={<AbdomemTotal />} />
-      <Route path="Tireoide" element={<Tireoide />} />
+      <Route path="/AbdomemTotal" element={<AbdomemTotal />} />
+      <Route path="/Tireoide" element={<Tireoide />} />
     </Routes>
   );
 }
