@@ -1,9 +1,31 @@
 import {
-  Button, Center, Container, Divider, Grid,
-  GridItem, Icon, IconButton, Image, Modal, ModalBody,
-  ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure
+  Button,
+  Center,
+  Container,
+  Divider,
+  Grid,
+  GridItem,
+  Icon,
+  IconButton,
+  Image,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+  Stack,
+  Textarea,
+  Flex,
+  Wrap,
+  Box,
+  WrapItem,
+  Input,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { BiCamera } from "react-icons/bi";
 import PlusButton from "../images/button_plus.png";
 
@@ -11,6 +33,16 @@ const button = React.createElement("img", { src: PlusButton });
 
 const IconButtonPlus = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [name, setName] = useState("Nome da clínica");
+
+  const [enable, setEnable] = useState(true);
+  
+  const [focus, setFocus] = useState('unstyled');
+  
+  const [autoFocus, setAutoFocus] = useState(false);
+
+  
 
   return (
     <>
@@ -29,23 +61,42 @@ const IconButtonPlus = () => {
           <ModalOverlay />
           <ModalContent>
             <ModalHeader></ModalHeader>
+            <Divider orientation="horizontal" marginTop="5px" />
+            <ModalCloseButton onClick={() => setFocus('unstyled')}/>
+
+            <Stack direction="row" justify="center" margin="10px">
+              <Box sx={{ flexGrow: 1 }}>
+                <Input
+                  textAlign="center"
+                  paddingStart="60px"
+                  fontWeight="bold"
+                  fontSize="20px"
+                  placeholder={name}
+                  isDisabled={enable}
+                  onChange={(e) => setName(e.target.value)}
+                  variant={focus}
+                  autoFocus={autoFocus}
+                ></Input>
+              </Box>
+
+              <Box sx={{ alignSelf: "flex-end" }}>
+                <Button
+                  color="#4759FC"
+                  paddingEnd="5px"
+                  fontSize="16px"
+                  fontWeight="bold"
+                  backgroundColor="transparent"
+                  alignItems="center"
+                  onClick={() => { setEnable(false); setFocus('filled'); setAutoFocus(true)}}
+                >
+                  Editar
+                </Button>
+              </Box>
+            </Stack>
+
             <Divider orientation="horizontal" />
-            <ModalCloseButton />
 
-            <Grid w="100%" templateColumns="repeat(2, 1fr)" gap={1}>
-              <GridItem justifyContent="center" colSpan={4}>
-                <Text textAlign="center" fontWeight="bold">
-                  Nome da Clínica
-                </Text>
-              </GridItem>
-              <GridItem colEnd={6}>
-                <Text>Editar</Text>
-              </GridItem>
-            </Grid>
-
-            <Divider orientation="horizontal" />
-
-            <Container centerContent h="100%" w="100%" backgroundColor="yellow">
+            <Container centerContent h="100%" w="100%" marginTop="5px">
               <ModalBody>
                 <Image
                   borderRadius="full"
@@ -54,23 +105,31 @@ const IconButtonPlus = () => {
                   alt="Dan Abramov"
                 />
                 <Center>
-                  <Icon as={BiCamera} marginTop="2px" />
+                  <Icon as={BiCamera} marginTop="2px" color="#4658fc" />
                 </Center>
                 <Center>
-                  <Grid templateColumns="repeat(1, 1fr)">
-                    <Text>Editar</Text>
-                    <Text>Editar</Text>
-                    <Text>Editar</Text>
+                  <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
+                    <Text size="16">(11)0000-000</Text>
+
+                    <Stack direction="row" justify="center">
+                      <Text fontWeight="bold" size="20px">
+                        CEP:
+                      </Text>
+                      <Text size="20px">13020-000</Text>
+                    </Stack>
+
+                    <Center>
+                      <Text textColor="#4759FC" size="16px">
+                        Editar
+                      </Text>
+                    </Center>
                   </Grid>
                 </Center>
               </ModalBody>
             </Container>
 
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <Button variant="ghost">Secondary Action</Button>
+              <Textarea placeholder="Endereço" />
             </ModalFooter>
           </ModalContent>
         </Modal>
@@ -80,3 +139,11 @@ const IconButtonPlus = () => {
 };
 
 export default IconButtonPlus;
+/**
+ *
+ * <Text textColor="#4759FC" size="16px">
+                Editar
+              </Text>
+ *
+ *
+ */
