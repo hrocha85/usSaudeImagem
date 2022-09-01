@@ -8,6 +8,7 @@ import RectangularCard from "../component/card_observations";
 import ItemObservation from "../component/item_obeservation";
 import MainCard from "../component/main_card";
 import BGImage from "../images/background_image.jpg";
+import BGImg from "../images/fundoazul.svg";
 import ImageHome from "../images/icon_home.png";
 
 const Configuracoes = () => {

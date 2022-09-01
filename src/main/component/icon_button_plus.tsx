@@ -1,13 +1,14 @@
 import {
+  Box,
   Button,
   Center,
   Container,
   Divider,
   Grid,
-  GridItem,
   Icon,
   IconButton,
   Image,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -15,34 +16,43 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Text,
-  useDisclosure,
   Stack,
+  Text,
   Textarea,
-  Flex,
-  Wrap,
-  Box,
-  WrapItem,
-  Input,
+  useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { BiCamera } from "react-icons/bi";
 import PlusButton from "../images/button_plus.png";
+import Clinica from "../configuracao/clinicas";
+import { Cln } from "../configuracao/cln";
 
 const button = React.createElement("img", { src: PlusButton });
 
 const IconButtonPlus = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [name, setName] = useState("Nome da clínica");
+  const [nome, setClinica] = useState("Nome da clínica");
 
   const [enable, setEnable] = useState(true);
-  
-  const [focus, setFocus] = useState('unstyled');
-  
-  const [autoFocus, setAutoFocus] = useState(false);
 
-  
+  const [focus, setFocus] = useState("unstyled");
+
+  const [endereco, setEndereco] = useState("");
+
+  const [cep, setCep] = useState("");
+
+  const [telefone, setTelefone] = useState("");
+
+  const clinicas: Cln[] = [];
+
+  const addClinica = () => {
+    const cln = new Cln(nome, endereco, cep, telefone);
+
+    clinicas.push(cln);
+
+    Clinica(clinicas);
+  };
 
   return (
     <>
@@ -61,21 +71,27 @@ const IconButtonPlus = () => {
           <ModalOverlay />
           <ModalContent>
             <ModalHeader></ModalHeader>
-            <Divider orientation="horizontal" marginTop="5px" />
-            <ModalCloseButton onClick={() => setFocus('unstyled')}/>
+            <Divider orientation="horizontal" marginTop="10px" />
+            <ModalCloseButton
+              onClick={() => {
+                setFocus("unstyled");
+                setEnable(true);
+              }}
+            />
 
             <Stack direction="row" justify="center" margin="10px">
               <Box sx={{ flexGrow: 1 }}>
                 <Input
+                  id="clinica"
                   textAlign="center"
                   paddingStart="60px"
                   fontWeight="bold"
                   fontSize="20px"
-                  placeholder={name}
+                  placeholder={nome}
                   isDisabled={enable}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => setClinica(e.target.value)}
                   variant={focus}
-                  autoFocus={autoFocus}
+                  value={nome}
                 ></Input>
               </Box>
 
@@ -87,7 +103,10 @@ const IconButtonPlus = () => {
                   fontWeight="bold"
                   backgroundColor="transparent"
                   alignItems="center"
-                  onClick={() => { setEnable(false); setFocus('filled'); setAutoFocus(true)}}
+                  onClick={() => {
+                    setEnable(false);
+                    setFocus("filled");
+                  }}
                 >
                   Editar
                 </Button>
@@ -119,8 +138,12 @@ const IconButtonPlus = () => {
                     </Stack>
 
                     <Center>
-                      <Text textColor="#4759FC" size="16px">
-                        Editar
+                      <Text
+                        textColor="#4759FC"
+                        size="16px"
+                        onClick={addClinica}
+                      >
+                        Salvar
                       </Text>
                     </Center>
                   </Grid>
@@ -129,7 +152,11 @@ const IconButtonPlus = () => {
             </Container>
 
             <ModalFooter>
-              <Textarea placeholder="Endereço" />
+              <Textarea
+                placeholder="Endereço"
+                value={endereco}
+                onChange={(e) => setEndereco(e.target.value)}
+              />
             </ModalFooter>
           </ModalContent>
         </Modal>
