@@ -21,11 +21,11 @@ import {
   Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { BiCamera } from "react-icons/bi";
-import PlusButton from "../images/button_plus.png";
 import Clinica from "../configuracao/clinicas";
-import { Cln } from "../configuracao/cln";
+import PlusButton from "../images/button_plus.png";
+import Clinic from "../images/clinic.jpg";
 
 const button = React.createElement("img", { src: PlusButton });
 
@@ -44,15 +44,16 @@ const IconButtonPlus = () => {
 
   const [telefone, setTelefone] = useState("");
 
-  const clinicas: Cln[] = [];
-
-  const addClinica = () => {
-    const cln = new Cln(nome, endereco, cep, telefone);
-
-    clinicas.push(cln);
-
-    Clinica(clinicas);
+  let cl = {
+    nome: nome,
+    endereco: endereco,
+    telefone: telefone,
+    cep: cep,
   };
+
+  function addClinica(clinica) {
+    Clinica(cl);
+  }
 
   return (
     <>
@@ -82,7 +83,6 @@ const IconButtonPlus = () => {
             <Stack direction="row" justify="center" margin="10px">
               <Box sx={{ flexGrow: 1 }}>
                 <Input
-                  id="clinica"
                   textAlign="center"
                   paddingStart="60px"
                   fontWeight="bold"
@@ -120,7 +120,7 @@ const IconButtonPlus = () => {
                 <Image
                   borderRadius="full"
                   boxSize="150px"
-                  src="https://bit.ly/dan-abramov"
+                  srcSet={Clinic}
                   alt="Dan Abramov"
                 />
                 <Center>
@@ -141,7 +141,7 @@ const IconButtonPlus = () => {
                       <Text
                         textColor="#4759FC"
                         size="16px"
-                        onClick={addClinica}
+                        onClick={() => addClinica(cl)}
                       >
                         Salvar
                       </Text>

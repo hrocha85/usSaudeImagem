@@ -1,7 +1,8 @@
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, Stack, Text,Image } from "@chakra-ui/react";
 import Clinica from "../configuracao/clinicas";
 import Drs from "../configuracao/drs";
 import IconButtonPlus from "./icon_button_plus";
+
 
 const MainCard = ({ titulo, icon }) => {
   function ShowIcon(icon: boolean) {
@@ -14,12 +15,7 @@ const MainCard = ({ titulo, icon }) => {
     switch (titulo) {
       case "Clínicas":
         return (
-          <Clinica
-            nome_clinica='clinica'
-            endereco='endereco'
-            cep='cep'
-            telefone='telefone'
-          />
+         <Clinica />
         );
 
       case "Doutor(a)":
@@ -31,7 +27,7 @@ const MainCard = ({ titulo, icon }) => {
   }
 
   return (
-    <Box
+    <Box 
       bg="#FAFAFA"
       w="218px"
       h="383px"
@@ -40,7 +36,7 @@ const MainCard = ({ titulo, icon }) => {
       boxShadow="md"
       //minW="218px"
     >
-      <Box margin="10px">
+      <Box margin="10px" >
         <Stack direction="row" spacing="100px">
           <Text
             color="#1A202C"
@@ -54,7 +50,11 @@ const MainCard = ({ titulo, icon }) => {
         </Stack>
       </Box>
 
-      <Box>{Cards(titulo)}</Box>
+      <Box>{Cards(titulo)}
+</Box>
+
+
+
     </Box>
   );
 };
