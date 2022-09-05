@@ -26,8 +26,7 @@ import { BiCamera } from "react-icons/bi";
 import Clinica from "../configuracao/clinicas";
 import PlusButton from "../images/button_plus.png";
 import Clinic from "../images/clinic.jpg";
-import infoClinicas from "../../Data/Clinicas.json"
-
+import infoClinicas from "../../Data/Clinicas.json";
 
 const button = React.createElement("img", { src: PlusButton });
 
@@ -48,30 +47,26 @@ const IconButtonPlus = () => {
 
   const [clin, setClin] = useState({});
 
-  const minhasClinicas = infoClinicas.clinicas
+  const minhasClinicas = infoClinicas.clinicas;
 
-
-  useEffect(() => {
-
-  }, [])
-
+  useEffect(() => {}, []);
 
   const addClinica = () => {
-
     const obj = {
       nomeClinica: nome,
       enderecoRuaNumero: endereco,
-      cidade:"santos",
-      uf:"sp",
+      cidade: "fdgdfgn",
+      uf: "sp",
       cep: "heheh",
       foto: "hehehr",
-      teleFone:"henru"
-    }
+      teleFone: "henru",
+    };
 
-    minhasClinicas.push(obj)
+    minhasClinicas.push(obj);
+
     
-      console.log(minhasClinicas)
-    //clinicas.push({...infoClinica})
+
+    Clinica(minhasClinicas)
   };
 
   return (
@@ -157,22 +152,11 @@ const IconButtonPlus = () => {
                     </Stack>
 
                     <Center>
-                      <Text
-                        textColor="#4759FC"
-                        size="16px"
-                       
-                      >
+                      <Text textColor="#4759FC" size="16px">
                         Salvar
                       </Text>
-                      <Button onClick={() => addClinica()}>
-                        Salvar !!!
-                                          
-                      
-                      </Button>
-                      <Button>
-                        Console
-                                                               
-                      </Button>
+                      <Button onClick={() => addClinica()}>Salvar !!!</Button>
+                      <Button>Console</Button>
                     </Center>
                   </Grid>
                 </Center>
