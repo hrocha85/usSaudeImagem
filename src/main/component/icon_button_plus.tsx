@@ -32,7 +32,7 @@ const button = React.createElement("img", { src: PlusButton });
 const IconButtonPlus = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [nome, setClinica] = useState("Nome da clínica");
+  const [nome, setClinica] = useState("");
 
   const [enable, setEnable] = useState(true);
 
@@ -44,16 +44,16 @@ const IconButtonPlus = () => {
 
   const [telefone, setTelefone] = useState("");
 
-  let cl = {
-    nome: nome,
-    endereco: endereco,
-    telefone: telefone,
-    cep: cep,
-  };
+  const [clin, setClin] = useState({});
 
-  function addClinica(clinica) {
-    Clinica(cl);
-  }
+
+  const addClinica = () => {
+    var numeros = ["arroz"];
+    numeros.push("teste");
+
+      console.log(numeros)
+    //clinicas.push({...infoClinica})
+  };
 
   return (
     <>
@@ -141,10 +141,19 @@ const IconButtonPlus = () => {
                       <Text
                         textColor="#4759FC"
                         size="16px"
-                        onClick={() => addClinica(cl)}
+                       
                       >
                         Salvar
                       </Text>
+                      <Button onClick={() => addClinica()}>
+                        Salvar !!!
+                                          
+                      
+                      </Button>
+                      <Button>
+                        Console
+                                                               
+                      </Button>
                     </Center>
                   </Grid>
                 </Center>

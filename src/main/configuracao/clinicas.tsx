@@ -2,20 +2,24 @@ import { FaRegFolderOpen } from "react-icons/fa";
 import FieldDefaultIcon from "../component/field_default_icon";
 import React, { useEffect, useState } from "react";
 
-const Clinica = (cln) => {
-  const [clinicas, setNewClinica] = useState([{}]);
+const Clinica = (data) => {
 
-  function addClinica() {
-    const itensCopy = Array.from(clinicas);
-    itensCopy.push(cln);
-    setNewClinica(itensCopy);
-  }
+  let clinicas = [
+  {nome: 'Clínica1'}
+ 
+  ]
+  
+    clinicas.push(data)
+
+console.log(clinicas)
 
   return (
     <>
-      {clinicas.map((cln) => (
+      
+      {        
+        clinicas.map((item) => (
         <FieldDefaultIcon
-          text={"cln.nome_clinica"}
+          text={item.nome}
           textColor="#4A5568"
           icon={FaRegFolderOpen}
         />
@@ -26,35 +30,4 @@ const Clinica = (cln) => {
 
 export default Clinica;
 
-/**
- * 
- *  let clinicas = [
-    //{ id: 1, nome_clinica: "Clínica", endereco: "", cep: "", telefone: "" },
-    //{ id: 2, nome_clinica: "Clínica", endereco: "", cep: "", telefone: "" },
-    //{ id: 3, nome_clinica: "Clínica", endereco: "", cep: "", telefone: "" },
-  ];
- * 
 
-
- {clinicas.map((cln) => (
-          
-
-        <FieldDefaultIcon
-          text={cln.nome}
-          textColor="#4A5568"
-          icon={FaRegFolderOpen}
-        />
-      ))}
-
-
- {clinicaobjt.map((cln) => (
-        console.log(cln),
-        <FieldDefaultIcon
-          text={'cln.nome_clinica'}
-          textColor="#4A5568"
-          icon={FaRegFolderOpen}
-        />
-      ))}
-
-
- */
