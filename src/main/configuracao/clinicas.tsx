@@ -2,6 +2,9 @@ import { FaRegFolderOpen } from "react-icons/fa";
 import FieldDefaultIcon from "../component/field_default_icon";
 import React, { useEffect, useState } from "react";
 
+import InfoClinicas from "../../Data/Clinicas.json"
+
+
 const Clinica = (data) => {
 
   let clinicas = [
@@ -17,9 +20,9 @@ console.log(clinicas)
     <>
       
       {        
-        clinicas.map((item) => (
+        InfoClinicas.clinicas.map((item) => (
         <FieldDefaultIcon
-          text={item.nome}
+          text={item.nomeClinica}
           textColor="#4A5568"
           icon={FaRegFolderOpen}
         />

@@ -21,11 +21,13 @@ import {
   Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiCamera } from "react-icons/bi";
 import Clinica from "../configuracao/clinicas";
 import PlusButton from "../images/button_plus.png";
 import Clinic from "../images/clinic.jpg";
+import infoClinicas from "../../Data/Clinicas.json"
+
 
 const button = React.createElement("img", { src: PlusButton });
 
@@ -46,12 +48,29 @@ const IconButtonPlus = () => {
 
   const [clin, setClin] = useState({});
 
+  const minhasClinicas = infoClinicas.clinicas
+
+
+  useEffect(() => {
+
+  }, [])
+
 
   const addClinica = () => {
-    var numeros = ["arroz"];
-    numeros.push("teste");
 
-      console.log(numeros)
+    const obj = {
+      nomeClinica: nome,
+      enderecoRuaNumero: endereco,
+      cidade:"santos",
+      uf:"sp",
+      cep: "heheh",
+      foto: "hehehr",
+      teleFone:"henru"
+    }
+
+    minhasClinicas.push(obj)
+    
+      console.log(minhasClinicas)
     //clinicas.push({...infoClinica})
   };
 
@@ -87,7 +106,7 @@ const IconButtonPlus = () => {
                   paddingStart="60px"
                   fontWeight="bold"
                   fontSize="20px"
-                  placeholder={nome}
+                  placeholder="Nome"
                   isDisabled={enable}
                   onChange={(e) => setClinica(e.target.value)}
                   variant={focus}

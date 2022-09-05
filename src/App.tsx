@@ -1,13 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import SplashScreen from './main/splashScreen';
 import { ChakraProvider } from '@chakra-ui/react'
+import Rotas from './Routes/Rotas';
+import tema from './main/Theme/Tema';
 
 function App() {
   return (
-    <ChakraProvider>
-      <SplashScreen></SplashScreen>
+    <ChakraProvider theme={tema}>
+      <Rotas />
     </ChakraProvider>
   );
 }
