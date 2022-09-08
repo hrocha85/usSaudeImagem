@@ -45,17 +45,16 @@ const IconButtonPlus = () => {
 
   const [telefone, setTelefone] = useState("");
 
-  const [clin, setClin] = useState({});
 
+  
   const minhasClinicas = infoClinicas.clinicas;
 
-  useEffect(() => {}, []);
-
+  
   const addClinica = () => {
     const obj = {
       nomeClinica: nome,
       enderecoRuaNumero: endereco,
-      cidade: "fdgdfgn",
+      cidade: "santos",
       uf: "sp",
       cep: "heheh",
       foto: "hehehr",
@@ -63,10 +62,10 @@ const IconButtonPlus = () => {
     };
 
     minhasClinicas.push(obj);
+    Clinica(minhasClinicas)
+   
 
     
-
-    Clinica(minhasClinicas)
   };
 
   return (
@@ -156,7 +155,6 @@ const IconButtonPlus = () => {
                         Salvar
                       </Text>
                       <Button onClick={() => addClinica()}>Salvar !!!</Button>
-                      <Button>Console</Button>
                     </Center>
                   </Grid>
                 </Center>
