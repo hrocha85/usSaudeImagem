@@ -69,6 +69,8 @@ const IconButtonPlus = () => {
     }
 
     minhasClinicas.push(obj)
+
+    localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
     
       console.log(minhasClinicas)
     //clinicas.push({...infoClinica})

@@ -7,18 +7,23 @@ import InfoClinicas from "../../Data/Clinicas.json"
 
 const Clinica = (data) => {
 
-  let clinicas = [
-  {nome: 'Clínica1'}
- 
-  ]
-  
-    clinicas.push(data)
+  const [listaClinicas, setListaClinicas]<undefined> = useState()
 
-console.log(clinicas)
+
+const pegarClinicas = () =>{
+  var item = localStorage.getItem("minhasClinicas");
+
+  setListaClinicas(item)
+
+}
+
+useEffect(() => {
+  pegarClinicas()
+}, [])
+
 
   return (
     <>
-      
       {        
         InfoClinicas.clinicas.map((item) => (
         <FieldDefaultIcon
