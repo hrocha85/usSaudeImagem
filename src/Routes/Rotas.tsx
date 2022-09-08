@@ -9,10 +9,10 @@ function Rotas() {
   return (
     <Routes>
       <Route path="/" element={<SplashScreen />} />
-      <Route path="Home" element={<Home/>} />
-      <Route path="/1" element={<AbdomemTotal />} />
-      <Route path="/2" element={<Tireoide />} />
-      <Route path="/Configuracoes" element={<Configuracoes/>} />
+      <Route path="/Home" element={<Home />} />
+      <Route path="/Home/1" element={<AbdomemTotal />} />
+      <Route path="/Home/9" element={<Tireoide />} />
+      <Route path="/Configuracoes" element={<Configuracoes />} />
     </Routes>
   );
 }
