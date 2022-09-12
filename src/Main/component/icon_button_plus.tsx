@@ -19,18 +19,13 @@ import {
   Stack,
   Text,
   Textarea,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { BiCamera } from "react-icons/bi";
-import Clinica from "../configuracao/clinicas";
+import infoClinicas from "../../Data/Clinicas.json";
 import PlusButton from "../images/button_plus.png";
 import Clinic from "../images/clinic.jpg";
-import infoClinicas from "../../Data/Clinicas.json";
-<<<<<<< HEAD:src/main/component/icon_button_plus.tsx
-=======
-import { type } from "os";
->>>>>>> origin/atualizar-lista-react:src/Main/component/icon_button_plus.tsx
 
 const button = React.createElement("img", { src: PlusButton });
 
