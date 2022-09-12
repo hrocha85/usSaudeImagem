@@ -14,13 +14,9 @@ const MainCard = ({ titulo, icon }) => {
   function Cards(titulo) {
     switch (titulo) {
       case "Clínicas":
-<<<<<<< HEAD
-        return <Clinica />;
-=======
         return (
          <Clinica />
         );
->>>>>>> feature_configuracao
 
       case "Doutor(a)":
         return <Drs />;
