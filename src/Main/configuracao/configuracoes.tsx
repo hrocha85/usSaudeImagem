@@ -26,7 +26,8 @@ import {
   PopoverTrigger,
   Progress,
   Stack,
-  Text, useDisclosure
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { BiCamera } from "react-icons/bi";
@@ -52,9 +53,6 @@ const Configuracoes = () => {
   const [nome, setDoutor] = useState("Nome do Doutor(a)");
 
   const [endereco, setEndereco] = useState("");
-
-  
-
 
   function Laudos() {
     return (
@@ -129,7 +127,15 @@ const Configuracoes = () => {
         </Popover>
       </Flex>
 
-      <Flex h="100%" direction="row" justify="space-between" margin="60px">
+      <Flex
+        h="100%"
+        direction="row"
+        justify="space-between"
+        margin="60px"
+        flexWrap="wrap"
+        gap='10px'
+        
+      >
         <MainCard titulo="Clínicas" icon={true} />
         <MainCard titulo="Doutor(a)" icon={false} />
         <MainCard titulo="Doutor(a)" icon={false} />
@@ -244,7 +250,6 @@ const Configuracoes = () => {
                   className: "sigCanvas",
                 }}
               />
-            
             </ModalFooter>
           </ModalContent>
         </Modal>
