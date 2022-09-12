@@ -21,11 +21,16 @@ import {
   Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiCamera } from "react-icons/bi";
 import Clinica from "../configuracao/clinicas";
 import PlusButton from "../images/button_plus.png";
 import Clinic from "../images/clinic.jpg";
+import infoClinicas from "../../Data/Clinicas.json";
+<<<<<<< HEAD:src/main/component/icon_button_plus.tsx
+=======
+import { type } from "os";
+>>>>>>> origin/atualizar-lista-react:src/Main/component/icon_button_plus.tsx
 
 const button = React.createElement("img", { src: PlusButton });
 
@@ -46,13 +51,25 @@ const IconButtonPlus = () => {
 
   const [clin, setClin] = useState({});
 
+  const minhasClinicas = infoClinicas.clinicas;
 
+  useEffect(() => {}, []);
+
+  
   const addClinica = () => {
-    var numeros = ["arroz"];
-    numeros.push("teste");
+    const obj = {
+      nomeClinica: nome,
+      enderecoRuaNumero: endereco,
+      cidade: "santos",
+      uf: "sp",
+      cep: "heheh",
+      foto: "hehehr",
+      teleFone: "henru",
+    };
 
-      console.log(numeros)
-    //clinicas.push({...infoClinica})
+    minhasClinicas.push(obj);
+
+    localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
   };
 
   return (
@@ -87,7 +104,7 @@ const IconButtonPlus = () => {
                   paddingStart="60px"
                   fontWeight="bold"
                   fontSize="20px"
-                  placeholder={nome}
+                  placeholder="Nome"
                   isDisabled={enable}
                   onChange={(e) => setClinica(e.target.value)}
                   variant={focus}
@@ -138,22 +155,11 @@ const IconButtonPlus = () => {
                     </Stack>
 
                     <Center>
-                      <Text
-                        textColor="#4759FC"
-                        size="16px"
-                       
-                      >
+                      <Text textColor="#4759FC" size="16px">
                         Salvar
                       </Text>
-                      <Button onClick={() => addClinica()}>
-                        Salvar !!!
-                                          
-                      
-                      </Button>
-                      <Button>
-                        Console
-                                                               
-                      </Button>
+                      <Button onClick={() => addClinica()}>Salvar !!!</Button>
+                      <Button>Console</Button>
                     </Center>
                   </Grid>
                 </Center>

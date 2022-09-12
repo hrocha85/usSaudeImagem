@@ -1,5 +1,12 @@
 {
-  "name": "version3",
+  "name": "laudos",
+  "main": "public/electron.js",
+  "homepage": "./",
+  "author": {
+    "name": "UpBase",
+    "email": "comercial@upbase.com.br"
+  },
+  "description": "Gerador de Laudos",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,24 +18,42 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.54",
-    "@types/react": "^18.0.17",
+    "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/typescript": "^2.0.0",
+    "electron-is-dev": "^2.0.0",
     "framer-motion": "^6.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-signature-canvas": "^1.0.6",
     "typescript": "^4.7.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yarn": "^1.22.19"
   },
   "scripts": {
     "start:web": "react-scripts start",
-    "build:web": "PUBLIC_URL=./ react-scripts build",
-    "build:descktop": "tsc -p electron/tsconfig.json",
-    "start:descktop": "npm run build:descktop && electron ./build/electron.js",
+    "build:web": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron:package:win": "npm run build:web && electron-builder -w -c.extraMetadata.main=build/electron.js",
+    "electron:package:mac": "npm run build:web && electron-builder -m -c.extraMetadata.main=build/electron.js",
+    "electron:package:linux": "npm run build:web && electron-builder -l -c.extraMetadata.main=build/electron.js",
+    "start:desktop": "electron ./public/electron.js"
+  },
+  "build": {
+    "appId": "com.exemple.electron",
+    "productName": "Laudos",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "public"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -49,6 +74,8 @@
     ]
   },
   "devDependencies": {
-    "@types/react-signature-canvas": "^1.0.2"
+    "@types/react-signature-canvas": "^1.0.2",
+    "electron": "^20.1.0",
+    "electron-builder": "^23.3.3"
   }
 }
