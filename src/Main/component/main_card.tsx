@@ -14,7 +14,7 @@ const MainCard = ({ titulo, icon }) => {
   function Cards(titulo) {
     switch (titulo) {
       case "Clínicas":
-        return <Clinica/>;
+        return <Clinica />;
 
       case "Doutor(a)":
         return <Drs />;

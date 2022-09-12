@@ -50,8 +50,6 @@ const IconButtonPlus = () => {
 
   const minhasClinicas = infoClinicas.clinicas;
 
-  useEffect(() => {}, []);
-
   const addClinica = () => {
     const obj = {
       nomeClinica: nome,
@@ -64,8 +62,9 @@ const IconButtonPlus = () => {
     };
 
     minhasClinicas.push(obj);
-
     localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
+    
+
   };
 
   return (
@@ -155,7 +154,6 @@ const IconButtonPlus = () => {
                         Salvar
                       </Text>
                       <Button onClick={() => addClinica()}>Salvar !!!</Button>
-                      <Button>Console</Button>
                     </Center>
                   </Grid>
                 </Center>
@@ -177,11 +175,3 @@ const IconButtonPlus = () => {
 };
 
 export default IconButtonPlus;
-/**
- *
- * <Text textColor="#4759FC" size="16px">
-                Editar
-              </Text>
- *
- *
- */
