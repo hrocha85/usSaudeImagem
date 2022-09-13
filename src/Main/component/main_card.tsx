@@ -1,5 +1,4 @@
-import { Box, Stack, Text, Image } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { Box, Stack, Text } from "@chakra-ui/react";
 import Clinica from "../configuracao/clinicas";
 import Drs from "../configuracao/drs";
 import IconButtonPlus from "./icon_button_plus";

@@ -21,12 +21,12 @@ import {
   Textarea,
   useDisclosure
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiCamera } from "react-icons/bi";
 import infoClinicas from "../../Data/Clinicas.json";
+import { getData } from "../configuracao/clinicas";
 import PlusButton from "../images/button_plus.png";
 import Clinic from "../images/clinic.jpg";
-import { type } from "os";
 
 const button = React.createElement("img", { src: PlusButton });
 
@@ -45,14 +45,13 @@ const IconButtonPlus = () => {
 
   const [telefone, setTelefone] = useState("");
 
-  const [clin, setClin] = useState({});
-
+  const [clin, setClin] = useState(true);
+  
   const minhasClinicas = infoClinicas.clinicas;
 
-  useEffect(() => {}, []);
-
   
-  const addClinica = () => {
+  
+  const AddClinica = () => {
     const obj = {
       nomeClinica: nome,
       enderecoRuaNumero: endereco,
@@ -65,8 +64,10 @@ const IconButtonPlus = () => {
 
     minhasClinicas.push(obj);
     localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
-    
-
+  
+  
+  
+  
   };
 
   return (
@@ -155,7 +156,7 @@ const IconButtonPlus = () => {
                       <Text textColor="#4759FC" size="16px">
                         Salvar
                       </Text>
-                      <Button onClick={() => addClinica()}>Salvar !!!</Button>
+                      <Button onClick={() => AddClinica()}>Salvar !!!</Button>
                     </Center>
                   </Grid>
                 </Center>
