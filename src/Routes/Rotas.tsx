@@ -5,6 +5,7 @@ import SplashScreen from "../Main/splashScreen";
 import Configuracoes from "../Main/configuracao/configuracoes";
 import Home from "../Main/home/index"
 
+
 function Rotas() {
   return (
     <Routes>
