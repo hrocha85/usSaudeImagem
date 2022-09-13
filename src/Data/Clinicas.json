@@ -1,0 +1,13 @@
+{
+    "clinicas": [
+      {
+        "nomeClinica": "medi henri",
+        "enderecoRuaNumero": "7777",
+        "cidade":"santos",
+        "uf":"sp",
+        "cep": "heheh",
+        "foto": "hehehr",
+        "teleFone":"3333333"
+      }
+    ]
+  }

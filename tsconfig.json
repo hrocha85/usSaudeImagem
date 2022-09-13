@@ -18,11 +18,14 @@
     "resolveJsonModule": true,
     "isolatedModules": false,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false
   },
   "include": [
     "src",
     "electron/**/*",
-    "public/electron.js"
+    "public/electron.js",
+    "src/main/component/.tsx"
   ]
 }
