@@ -1,3 +1,4 @@
+import { Text } from "@chakra-ui/react";
 import FieldDefaultHome from "./field_default_home";
 
 const ItemExamesHome = () => {
@@ -102,9 +103,11 @@ const ItemExamesHome = () => {
 
   return (
     <>
-      {exames.map((exames) => (
-        <FieldDefaultHome text={exames.nomeExame} textColor={"#1A202C"} id={exames.key.toString()} />
-      ))}
+      {
+        exames.map((exames) => (
+          <FieldDefaultHome text={exames.nomeExame} textColor={"#1A202C"} id={exames.key.toString()} />
+        ))
+      }
     </>
   );
 }

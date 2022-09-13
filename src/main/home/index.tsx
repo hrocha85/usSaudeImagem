@@ -1,54 +1,40 @@
-import { Box, Stack } from "@chakra-ui/react";
+import { Box, Center, Stack } from "@chakra-ui/react";
+import CardListaMedicos from "../component/card_Lista_Medicos";
 import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
 import BGImage from "../images/bg_img.png";
 
-
 function Home() {
-
-  const ListaExame = {
-    exames: [
-      {
-        key: 1,
-        nomeExame: "Abdomen total",
-      },
-      {
-        key: 2,
-        nomeExame: "Abdomen Superior",
-      }
-    ]
-  }
-
 
   return (
     <Box
       w="100%"
-      h="700px"
-      verticalAlign="center"
-      alignSelf="center"
-      alignItems="center"
+      h="100%"
+      // verticalAlign="center"
+      // alignSelf="center"
+      // alignItems="center"
       backgroundImage={BGImage}
       backgroundPosition="fixed"
       backgroundSize="cover"
       backgroundClip="padding-box"
       backgroundRepeat="no-repeat"
       paddingBottom="10px"
+      alignItems="center"
     >
-      {/* <Box>
-        {ListaExame.exames.map(exame => {
-          return (
-            <Link to={exame.key.toString()}>
-              {exame.nomeExame}
-            </Link>
-          )
-        })}
-      </Box> */}
+      <Center>
+        <Stack>
+          <LayoutExame
+            item={<ItemExamesHome />}
+          />
+        </Stack>
+      </Center>
 
-      <Stack h="100%" direction="row" justify="center">
-        <LayoutExame
-          item={<ItemExamesHome />}
+      <Stack h="100%" alignItems="center" mt='50px' >
+        <CardListaMedicos
+          altura="356px"
         />
       </Stack>
+
     </Box>
   );
 }

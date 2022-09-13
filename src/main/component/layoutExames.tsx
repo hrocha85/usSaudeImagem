@@ -3,10 +3,9 @@ import { Box, Flex, Grid } from "@chakra-ui/react";
 const LayoutExame = ({ item }) => {
   return (
     <Flex w='100%'>
-      <Box>
+      <Box h='100%' >
         <Grid
           w="100%"
-          h="100%"
           templateColumns="repeat(4, 1fr)"
           templateRows="repeat(6, 1fr)"
           gap={1}
@@ -14,9 +13,6 @@ const LayoutExame = ({ item }) => {
           {item}
         </Grid>
       </Box>
-      <>
-
-      </>
     </Flex>
   );
 };
