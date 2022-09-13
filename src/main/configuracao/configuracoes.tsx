@@ -53,7 +53,7 @@ const Configuracoes = () => {
 
   const [endereco, setEndereco] = useState("");
 
-  
+
 
 
   function Laudos() {
@@ -244,7 +244,7 @@ const Configuracoes = () => {
                   className: "sigCanvas",
                 }}
               />
-            
+
             </ModalFooter>
           </ModalContent>
         </Modal>

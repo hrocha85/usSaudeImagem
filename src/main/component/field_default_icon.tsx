@@ -1,4 +1,4 @@
-import { GridItem, Stack, Text, Icon,Flex } from "@chakra-ui/react";
+import { GridItem, Stack, Text, Icon, Flex } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
 import { IconContext } from "react-icons";
 

@@ -9,11 +9,11 @@ const isDev = require("electron-is-dev")
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 600,
+    height: 1000,
     webPreferences: {
       preload: ("./preload.js"),
     },
-    width: 800,
+    width: 1200,
     show: false
   });
 
