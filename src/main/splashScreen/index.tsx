@@ -8,7 +8,7 @@ const SplashScreen = () => {
   //tempo de 5 segundos para sair da pagina
   setTimeout(() => setRedirectNow(true), 5000);
   //está sendo jogado para abdomen total pqe nao temos a pagina principal, ajustar isso futuramente
-  return redirectNow ? (<Navigate to="/AbdomemTotal" />) :
+  return redirectNow ? (<Navigate to="/Home" />) :
     (
       <div className='body'>
         <div className='container'>
@@ -20,4 +20,4 @@ const SplashScreen = () => {
     );
 }
 
-export default SplashScreen; 
+export default SplashScreen;
