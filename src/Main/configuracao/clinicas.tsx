@@ -1,30 +1,25 @@
 import { useCallback, useEffect, useState } from "react";
 import { FaRegFolderOpen } from "react-icons/fa";
 import FieldDefaultIcon from "../component/field_default_icon";
-
-
-
+import { minhasClinicas } from "../component/icon_button_plus";
 
 const Clinica = () => {
-  
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
-  var item;
-  var item_parse;
-
- const pegarClinicas = useCallback(() => {
+  const pegarClinicas = () => {
+    var item;
+    var item_parse;
     if (localStorage.getItem("minhasClinicas") != null) {
       item = localStorage.getItem("minhasClinicas");
 
       item_parse = JSON.parse(item);
       setListaClinicas(item_parse);
     }
-
-  }, [listaClinicas]);
+  };
 
   useEffect(() => {
     pegarClinicas();
-  }, [pegarClinicas]);
+  }, []);
 
   return (
     <>

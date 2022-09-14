@@ -19,16 +19,16 @@ import {
   Stack,
   Text,
   Textarea,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiCamera } from "react-icons/bi";
 import infoClinicas from "../../Data/Clinicas.json";
-import { getData } from "../configuracao/clinicas";
 import PlusButton from "../images/button_plus.png";
 import Clinic from "../images/clinic.jpg";
 
 const button = React.createElement("img", { src: PlusButton });
+export const minhasClinicas = infoClinicas.clinicas;
 
 const IconButtonPlus = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -46,11 +46,7 @@ const IconButtonPlus = () => {
   const [telefone, setTelefone] = useState("");
 
   const [clin, setClin] = useState(true);
-  
-  const minhasClinicas = infoClinicas.clinicas;
 
-  
-  
   const AddClinica = () => {
     const obj = {
       nomeClinica: nome,
@@ -64,10 +60,6 @@ const IconButtonPlus = () => {
 
     minhasClinicas.push(obj);
     localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
-  
-  
-  
-  
   };
 
   return (
