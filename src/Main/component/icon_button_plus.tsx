@@ -30,7 +30,7 @@ import Clinic from "../images/clinic.jpg";
 const button = React.createElement("img", { src: PlusButton });
 export const minhasClinicas = infoClinicas.clinicas;
 
-const IconButtonPlus = () => {
+const IconButtonPlus = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [nome, setClinica] = useState("");
@@ -60,6 +60,7 @@ const IconButtonPlus = () => {
 
     minhasClinicas.push(obj);
     localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
+    props.setAtualizar(!props.atualizar)
   };
 
   return (

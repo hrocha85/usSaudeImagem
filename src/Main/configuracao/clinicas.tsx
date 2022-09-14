@@ -3,7 +3,7 @@ import { FaRegFolderOpen } from "react-icons/fa";
 import FieldDefaultIcon from "../component/field_default_icon";
 import { minhasClinicas } from "../component/icon_button_plus";
 
-const Clinica = () => {
+const Clinica = (props) => {
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
   const pegarClinicas = () => {
@@ -17,9 +17,10 @@ const Clinica = () => {
     }
   };
 
+ 
   useEffect(() => {
     pegarClinicas();
-  }, []);
+  }, [props.atualizar]);
 
   return (
     <>

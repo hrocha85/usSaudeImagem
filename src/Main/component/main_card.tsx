@@ -2,11 +2,20 @@ import { Box, Stack, Text } from "@chakra-ui/react";
 import Clinica from "../configuracao/clinicas";
 import Drs from "../configuracao/drs";
 import IconButtonPlus from "./icon_button_plus";
+import { useEffect, useState } from 'react';
+
 
 const MainCard = ({ titulo, icon }) => {
+  const [atualizar, setAtualizar] = useState(true)
+
+useEffect(() => {
+ console.log(atualizar,"atualizar")
+}, [atualizar])
+
   function ShowIcon(icon: boolean) {
+
     if (icon) {
-      return <IconButtonPlus />;
+      return <IconButtonPlus atualizar={atualizar} setAtualizar={setAtualizar}  />;
     }
   }
 
@@ -14,7 +23,7 @@ const MainCard = ({ titulo, icon }) => {
     switch (titulo) {
       case "Clínicas":
         return (
-         <Clinica />
+         <Clinica atualizar={atualizar} />
         );
 
       case "Doutor(a)":
