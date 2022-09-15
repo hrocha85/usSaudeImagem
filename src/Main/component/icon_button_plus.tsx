@@ -9,6 +9,8 @@ import {
   IconButton,
   Image,
   Input,
+  InputGroup,
+  InputLeftAddon,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -19,9 +21,11 @@ import {
   Stack,
   Text,
   Textarea,
+  Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { clickOptions } from "@testing-library/user-event/dist/click";
+import React, { MutableRefObject, useRef, useState } from "react";
 import { BiCamera } from "react-icons/bi";
 import infoClinicas from "../../Data/Clinicas.json";
 import PlusButton from "../images/button_plus.png";
@@ -53,28 +57,50 @@ const IconButtonPlus = (props) => {
       enderecoRuaNumero: endereco,
       cidade: "santos",
       uf: "sp",
-      cep: "heheh",
+      cep: cep,
       foto: "hehehr",
-      teleFone: "henru",
+      teleFone: telefone,
     };
 
     minhasClinicas.push(obj);
     localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
-    props.setAtualizar(!props.atualizar)
+    props.setAtualizar(!props.atualizar);
+    onClose();
+  };
+
+  const ResetDados = () => {
+    setClinica("");
+    setEndereco("");
+  };
+
+  const inputFile = useRef<HTMLInputElement | null>(null);
+
+  const openFiles = () => {
+    inputFile.current?.click();
   };
 
   return (
     <>
-      <IconButton
-        aria-label="sdfs"
-        icon={button}
-        variant="link"
-        h="22"
-        w="22"
-        size="xs"
-        textColor="blue"
-        onClick={onOpen}
-      />
+      <Tooltip
+        label="Adicionar Clínica"
+        backgroundColor="white"
+        placement="top"
+        defaultIsOpen={false}
+        hasArrow
+        arrowSize={15}
+      >
+        <IconButton
+          aria-label="sdfs"
+          icon={button}
+          variant="link"
+          h="22"
+          w="22"
+          size="xs"
+          textColor="blue"
+          onClick={onOpen}
+        />
+      </Tooltip>
+
       <>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
@@ -85,6 +111,7 @@ const IconButtonPlus = (props) => {
               onClick={() => {
                 setFocus("unstyled");
                 setEnable(true);
+                ResetDados();
               }}
             />
 
@@ -99,7 +126,6 @@ const IconButtonPlus = (props) => {
                   isDisabled={enable}
                   onChange={(e) => setClinica(e.target.value)}
                   variant={focus}
-                  value={nome}
                 ></Input>
               </Box>
 
@@ -132,25 +158,60 @@ const IconButtonPlus = (props) => {
                   alt="Dan Abramov"
                 />
                 <Center>
-                  <Icon as={BiCamera} marginTop="2px" color="#4658fc" />
+                  <input
+                    type="file"
+                    id="file"
+                    ref={inputFile}
+                    style={{ display: "none" }}
+                  />
+
+                  <Icon
+                    as={BiCamera}
+                    marginTop="2px"
+                    color="#4658fc"
+                    onClick={openFiles}
+                  />
                 </Center>
                 <Center>
                   <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
-                    <Text size="16">(11)0000-000</Text>
+                    <Center paddingTop={"5px"}>
+                      <Input
+                        placeholder="(11) 00000-000"
+                        variant={"unstyled"}
+                        width={"120px"}
+                        textAlign={"center"}
+                        onChange={(e) => setTelefone(e.target.value)}
+                      ></Input>
+                    </Center>
 
-                    <Stack direction="row" justify="center">
-                      <Text fontWeight="bold" size="20px">
-                        CEP:
-                      </Text>
-                      <Text size="20px">13020-000</Text>
-                    </Stack>
+                    <Center paddingTop={"5px"}>
+                      <InputGroup variant={"unstyled"} width={"122px"}>
+                        <InputLeftAddon
+                          children="CEP"
+                          paddingEnd={"5px"}
+                          fontWeight={"bold"}
+                        />
+                        <Input
+                          placeholder="13000-000"
+                          textAlign={"center"}
+                          onChange={(e) => setCep(e.target.value)}
+                        />
+                      </InputGroup>
+                    </Center>
 
                     <Center>
                       <Text textColor="#4759FC" size="16px">
-                        Salvar
+                        Editar
                       </Text>
-                      <Button onClick={() => AddClinica()}>Salvar !!!</Button>
                     </Center>
+                    <Button
+                      onClick={() => {
+                        AddClinica();
+                        ResetDados();
+                      }}
+                    >
+                      Salvar
+                    </Button>
                   </Grid>
                 </Center>
               </ModalBody>
