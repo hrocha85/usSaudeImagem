@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import AbdomemTotal from "../Main/exames/abdomemTotal";
-import Tireoide from "../Main/exames/tireoide";
-import SplashScreen from "../Main/splashScreen";
-import Configuracoes from "../Main/configuracao/configuracoes";
-import Home from "../Main/home/index"
+import AbdomemTotal from "../main/exames/abdomemTotal";
+import Tireoide from "../main/exames/tireoide";
+import SplashScreen from "../main/splashScreen";
+import Configuracoes from "../main/configuracao/configuracoes";
+import Home from "../main/home/index"
 
 
 function Rotas() {
