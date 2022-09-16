@@ -1,8 +1,24 @@
-import { Box, Checkbox, Stack, Text } from "@chakra-ui/react";
-import BGImage from "./background_image.jpg";
+import { Box } from "@chakra-ui/react";
+import BoxTitleBackground from "../../component/box_title_background";
+import BGImage from "../../images/bg_img.png";
+import Baco from "./baco/baco";
+import Figado from './figado/figado'
+import Exames from "./folha_exames/Exames";
+import LiquidoLivre from "./liquido_livre/liquido_livre";
+import Aorta from "./aorta/aorta";
+import Pancreas from "./pancreas/pancreas";
+import ViasBiliares from "./vias biliares/vias_biliares";
+import VesiculaBiliar from "./vesicula_bliar/vesicula_biliar";
+import RimDireito from "./rim_direito/rim_direito";
+import Dilatacao from "./dilatacao/dilatacao";
+import RimEsquerdo from "./rim_esquerdo/rim_esquerdo";
+import Cisto from "./cisto/cisto";
+import Bexiga from "./bexiga/bexiga";
 
 function AbdomemTotal() {
+
     return (
+
         <Box
             w="100%"
             h="100%"
@@ -16,161 +32,39 @@ function AbdomemTotal() {
             backgroundRepeat="no-repeat"
             paddingBottom="10px"
         >
-            <Box
-                bg="#A0AEC0"
-                w="80%"
-                h="383px"
-                pr="5px"
-                color="white"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                borderRadius="10.85px"
-                boxShadow="md"
-            >
-                <Box margin="10px">
-                    <Stack direction="row" spacing="100px">
-                        <Text
-                            color="#1A202C"
-                            fontSize="16px"
-                            paddingStart="8px"
-                            alignSelf="center"
-                        >
-                            Figado</Text>
-                    </Stack>
-                </Box>
+            <BoxTitleBackground titulo="Adbomen Total" />
 
-                <Checkbox >Normal</Checkbox>
-                <Checkbox >Hepatite Aguda</Checkbox>
-                <Checkbox >Hepatopatia Crônica</Checkbox>
-                <Checkbox >Dimensões</Checkbox>
-                <Checkbox >Esteatose</Checkbox>
-            </Box>
-            <Box
-                bg="#A0AEC0"
-                w="80%"
-                h="383px"
-                pr="5px"
-                color="white"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                borderRadius="10.85px"
-                boxShadow="md"
-            >
-                <Box margin="10px">
-                    <Stack direction="row" spacing="100px">
-                        <Text
-                            color="#1A202C"
-                            fontSize="16px"
-                            paddingStart="8px"
-                            alignSelf="center"
-                        >
-                            Baço</Text>
-                    </Stack>
-                </Box>
+            <Exames></Exames>
 
-                <Box>'aqui'</Box>
-            </Box>
             <Box
-                bg="#A0AEC0"
-                w="80%"
-                h="383px"
-                pr="5px"
-                color="white"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                borderRadius="10.85px"
-                boxShadow="md"
-            >
-                <Box margin="10px">
-                    <Stack direction="row" spacing="100px">
-                        <Text
-                            color="#1A202C"
-                            fontSize="16px"
-                            paddingStart="8px"
-                            alignSelf="center"
-                        >
-                            Vias biliares</Text>
-                    </Stack>
-                </Box>
+                ml='10px'>
 
-                <Box>'aqui'</Box>
-            </Box>
-            <Box
-                bg="#A0AEC0"
-                w="80%"
-                h="383px"
-                pr="5px"
-                color="white"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                borderRadius="10.85px"
-                boxShadow="md"
-            >
-                <Box margin="10px">
-                    <Stack direction="row" spacing="100px">
-                        <Text
-                            color="#1A202C"
-                            fontSize="16px"
-                            paddingStart="8px"
-                            alignSelf="center"
-                        >
-                            Pãncreas</Text>
-                    </Stack>
-                </Box>
+                <Figado />
 
-                <Box>{'aqui'}</Box>
-            </Box>
-            <Box
-                bg="#A0AEC0"
-                w="80%"
-                h="383px"
-                pr="5px"
-                color="white"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                borderRadius="10.85px"
-                boxShadow="md"
-            >
-                <Box margin="10px">
-                    <Stack direction="row" spacing="100px">
-                        <Text
-                            color="#1A202C"
-                            fontSize="16px"
-                            paddingStart="8px"
-                            alignSelf="center"
-                        >
-                            Líquido Livre</Text>
-                    </Stack>
-                </Box>
+                <Baco />
 
-                <Box>{'aqui'}</Box>
-            </Box>
-            <Box
-                bg="#A0AEC0"
-                w="80%"
-                h="383px"
-                pr="5px"
-                color="white"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                borderRadius="10.85px"
-                boxShadow="md"
-            >
-                <Box margin="10px">
-                    <Stack direction="row" spacing="100px">
-                        <Text
-                            color="#1A202C"
-                            fontSize="16px"
-                            paddingStart="8px"
-                            alignSelf="center"
-                        >
-                            Aorta</Text>
-                    </Stack>
-                </Box>
+                <ViasBiliares />
 
-                <Box>{'aqui'}</Box>
-            </Box>
-        </Box>
+                <Pancreas />
+
+                <LiquidoLivre />
+
+                <Aorta />
+
+                <VesiculaBiliar />
+
+                <RimDireito />
+
+                <Dilatacao />
+
+                <RimEsquerdo />
+
+                <Cisto />
+
+                <Bexiga />
+
+            </Box >
+        </Box >
     );
 }
 

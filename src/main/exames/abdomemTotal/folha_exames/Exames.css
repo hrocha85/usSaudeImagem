@@ -1,0 +1,11 @@
+.fixo {
+    position: fixed;
+    /* deixando o elemento na posição desejada */
+    right: 10px;
+    top: 65px;
+    /* apenas para aparência */
+    background-color: rgb(207, 207, 207);
+    border: 1px solid rgb(0, 0, 0);
+    width: 420px;
+    height: 500px;
+}
