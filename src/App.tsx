@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { ChakraProvider } from '@chakra-ui/react'
 import Rotas from './Routes/Rotas';
-import tema from './Main/Theme/Tema';
+import tema from './main/Theme/Tema';
 
 function App() {
   return (
