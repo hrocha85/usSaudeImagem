@@ -13,7 +13,7 @@ function Rotas() {
       <Route path="/Home" element={<Home />} />
       <Route path="/Home/1" element={<AbdomemTotal />} />
       <Route path="/Home/9" element={<Tireoide />} />
-      <Route path="/Configuracoes" element={<Configuracoes />} />
+      <Route path="/Home/Configuracoes" element={<Configuracoes />} />
     </Routes>
   );
 }
