@@ -1,58 +1,71 @@
-import { Button, Flex, Grid, GridItem, Input, Center } from "@chakra-ui/react";
+import { Button, Text, Input, Center, Select, Box, HStack } from "@chakra-ui/react";
 
 const CardListaMedicos = ({ altura }) => {
   return (
     <Center>
-      <Flex w='100%'
+      <Box
+        w='100%'
         display='flex'
       //alignItems='center'
       >
-        <Center
+        <Box
           display='flex'
           //paddingBottom="16px"
           bg="#FAFAFA"
           w="597px"
-          h={altura}
+          h='100%'
           color="white"
           borderRadius="10.85px"
           boxShadow="dark-lg"
+        //alignItems="center"
         >
-          <Grid
-            templateRows='repeat(6, 1fr)'
-            templateColumns='repeat(2, 1fr)'
-            h='100%'
-            gap='1'
+          <Box
             color='blackAlpha.700'
             fontWeight='bold'
+            w='100%'
           >
-            <GridItem pl='24px' pt="10px" colSpan={2}>
-              <Input borderColor="black" bg="#E2E8F0" placeholder='Lista de Médicos' size='sm' h="40px" w="311px" />
-              <Button ml="16px" mr="16px" colorScheme='blue'>Confirmar</Button>
+            <Text
+              textAlign="center"
+              mt='10px'
+              mb='10px'>
+              Insira os dados do paciente:
+            </Text>
+            <HStack
+              display='flex'
+              ml='15px'
+            >
+              <Input borderColor="black" placeholder='Nome' size='sm' h="40px" w="250px" />
+              <Input borderColor="black" placeholder='Idade' size='sm' h="40px" w="150px" />
+              <Select placeholder='Sexo'
+                borderColor="black"
+                w='150px'>
+                <option value='option1'>Masculino</option>
+                <option value='option2'>Feminino</option>
+              </Select>
+            </HStack>
+            <HStack
+              display='flex'
+              ml='60px'
+              mt='10px'
+              mb='20px'
+              spacing='15px'
+            >
+              <Select placeholder='Lista de Médicos'
+                w='200px'
+                borderColor="black">
+                <option value='option1'>Médico 1</option>
+                <option value='option2'>Médico 2</option>
+                <option value='option3'>Médico 3</option>
+              </Select>
+              <Button colorScheme='blue'>Confirmar</Button>
               <Button colorScheme='black' variant='outline'>
                 Limpar
               </Button>
-            </GridItem>
-            <GridItem pl='50px' h="40px" mt="10px" colSpan={2}>
-              Se não estiver na lista, entre com os dados:
-            </GridItem>
-            <GridItem pl='2' mt="-10px" colSpan={1} >
-              <Input borderColor="black" bg="#E2E8F0" placeholder='DR/DRA' size='sm' h="40px" w="268px" />
-            </GridItem>
-            <GridItem pl='2' mt="-10px">
-              <Input borderColor="black" bg="#E2E8F0" placeholder='Cartão do SUS' size='sm' h="40px" w="268px" />
-            </GridItem>
-            <GridItem pl='2' mt="-10px" >
-              <Input borderColor="black" bg="#E2E8F0" placeholder='Nome' size='sm' h="40px" w="268px" />
-            </GridItem>
-            <GridItem pl='2' mt="-10px" h='50px' colSpan={1}>
-              <Input borderColor="black" bg="#E2E8F0" placeholder='Incluir' size='sm' h="40px" w="268px" />
-            </GridItem>
-            <GridItem pl='2' mt="-10px" h="50">
-              <Input borderColor="black" bg="#E2E8F0" placeholder='CRM' size='sm' h="40px" w="268px" />
-            </GridItem>
-          </Grid>
-        </Center>
-      </Flex >
+            </HStack>
+
+          </Box>
+        </Box>
+      </Box >
     </Center>
   );
 };
