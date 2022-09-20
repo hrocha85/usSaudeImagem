@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Center,
   Container,
@@ -18,20 +17,20 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Stack,
-  Text,
   Textarea,
   Tooltip,
   useDisclosure,
+  useOutsideClick,
 } from "@chakra-ui/react";
-import { clickOptions } from "@testing-library/user-event/dist/click";
-import React, { MutableRefObject, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BiCamera } from "react-icons/bi";
 import infoClinicas from "../../Data/Clinicas.json";
 import PlusButton from "../images/button_plus.png";
-import Clinic from "../images/clinic.jpg";
+import DefaultImageClinica from "../images/clinica_default.png";
+
 
 const button = React.createElement("img", { src: PlusButton });
+
 export const minhasClinicas = infoClinicas.clinicas;
 
 const IconButtonPlus = (props) => {
@@ -39,17 +38,23 @@ const IconButtonPlus = (props) => {
 
   const [nome, setClinica] = useState("");
 
-  const [enable, setEnable] = useState(true);
-
-  const [focus, setFocus] = useState("unstyled");
-
   const [endereco, setEndereco] = useState("");
 
   const [cep, setCep] = useState("");
 
   const [telefone, setTelefone] = useState("");
 
-  const [clin, setClin] = useState(true);
+  const [selectedFile, setSelectedFile] = useState();
+
+  const [defaultUserImage, setDefaultUserImage] = useState(DefaultImageClinica);
+
+  const inputFile = useRef<HTMLInputElement | null>(null);
+
+  const [InputNomeClinica, setInputNomeClinica] = useState(false);
+
+  const [InputTelefone, setInputTelefone] = useState(false);
+
+  const [InputCEP, setInputCEP] = useState(false);
 
   const AddClinica = () => {
     const obj = {
@@ -58,25 +63,58 @@ const IconButtonPlus = (props) => {
       cidade: "santos",
       uf: "sp",
       cep: cep,
-      foto: "hehehr",
+      foto: defaultUserImage,
       teleFone: telefone,
     };
-
     minhasClinicas.push(obj);
     localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
     props.setAtualizar(!props.atualizar);
     onClose();
   };
 
-  const ResetDados = () => {
-    setClinica("");
-    setEndereco("");
-  };
 
-  const inputFile = useRef<HTMLInputElement | null>(null);
+  const refTelefone = useRef<HTMLInputElement | null>(null);
+  useOutsideClick({
+    ref: refTelefone,
+    handler: () => setInputTelefone(false),
+  });
+
+  const refCEP = useRef<HTMLInputElement | null>(null);
+  useOutsideClick({
+    ref: refCEP,
+    handler: () => setInputCEP(false),
+  });
+
+  const refNomeClinica = useRef<HTMLInputElement | null>(null);
+  useOutsideClick({
+    ref: refNomeClinica,
+    handler: () => setInputNomeClinica(false),
+  });
 
   const openFiles = () => {
     inputFile.current?.click();
+  };
+
+  useEffect(() => {
+    if (selectedFile) {
+      const objectURL = URL.createObjectURL(selectedFile);
+      setDefaultUserImage(objectURL);
+      return () => URL.revokeObjectURL(objectURL);
+    }
+  }, [selectedFile]);
+
+  
+  function onChangeFile(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    var file = event.target.files[0];
+    setSelectedFile(file);
+  }
+
+  const ResetDados = () => {
+    setClinica("");
+    setEndereco("");
+    setDefaultUserImage(DefaultImageClinica);
   };
 
   return (
@@ -109,65 +147,67 @@ const IconButtonPlus = (props) => {
             <Divider orientation="horizontal" marginTop="10px" />
             <ModalCloseButton
               onClick={() => {
-                setFocus("unstyled");
-                setEnable(true);
                 ResetDados();
               }}
             />
 
-            <Stack direction="row" justify="center" margin="10px">
-              <Box sx={{ flexGrow: 1 }}>
-                <Input
-                  textAlign="center"
-                  paddingStart="60px"
-                  fontWeight="bold"
-                  fontSize="20px"
-                  placeholder="Nome"
-                  isDisabled={enable}
-                  onChange={(e) => setClinica(e.target.value)}
-                  variant={focus}
-                ></Input>
-              </Box>
-
-              <Box sx={{ alignSelf: "flex-end" }}>
-                <Button
-                  color="#4759FC"
-                  paddingEnd="5px"
-                  fontSize="16px"
-                  fontWeight="bold"
-                  backgroundColor="transparent"
-                  alignItems="center"
-                  onClick={() => {
-                    setEnable(false);
-                    setFocus("filled");
-                  }}
-                >
-                  Editar
-                </Button>
-              </Box>
-            </Stack>
+            {InputNomeClinica ? (
+              <Input
+                ref={refNomeClinica}
+                w="435px"
+                margin="5px"
+                textAlign="center"
+                fontSize="20px"
+                placeholder="Nome"
+                _placeholder={{ fontWeight: "bold", color: "black" }}
+                fontWeight="bold"
+                onChange={(e) => setClinica(e.target.value)}
+                variant={"filled"}
+                onClick={() => {}}
+              ></Input>
+            ) : (
+              <Input
+                ref={refNomeClinica}
+                w="435px"
+                margin="5px"
+                textAlign="center"
+                fontSize="20px"
+                placeholder="Nome"
+                fontWeight="bold"
+                _placeholder={{ fontWeight: "bold", color: "black" }}
+                onChange={(e) => setClinica(e.target.value)}
+                variant={"unstyled"}
+                onClick={() => {
+                  setInputNomeClinica(true);
+                }}
+              ></Input>
+            )}
 
             <Divider orientation="horizontal" />
 
             <Container centerContent h="100%" w="100%" marginTop="5px">
               <ModalBody>
-                <Image
-                  borderRadius="full"
-                  boxSize="150px"
-                  srcSet={Clinic}
-                  alt="Dan Abramov"
-                />
+                <Center>
+                  <Image
+                    borderRadius="full"
+                    boxSize="150px"
+                    srcSet={defaultUserImage}
+                    alt="Image Clinica"
+                  />
+                </Center>
+
                 <Center>
                   <input
                     type="file"
                     id="file"
                     ref={inputFile}
                     style={{ display: "none" }}
+                    onChange={onChangeFile.bind(this)}
                   />
 
                   <Icon
                     as={BiCamera}
-                    marginTop="2px"
+                    margin="10px"
                     color="#4658fc"
                     onClick={openFiles}
                   />
@@ -175,43 +215,68 @@ const IconButtonPlus = (props) => {
                 <Center>
                   <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
                     <Center paddingTop={"5px"}>
-                      <Input
-                        placeholder="(11) 00000-000"
-                        variant={"unstyled"}
-                        width={"120px"}
-                        textAlign={"center"}
-                        onChange={(e) => setTelefone(e.target.value)}
-                      ></Input>
-                    </Center>
-
-                    <Center paddingTop={"5px"}>
-                      <InputGroup variant={"unstyled"} width={"122px"}>
+                      <InputGroup variant={"unstyled"} width={"160px"}>
                         <InputLeftAddon
-                          children="CEP"
+                          children="TEL:"
                           paddingEnd={"5px"}
                           fontWeight={"bold"}
                         />
-                        <Input
-                          placeholder="13000-000"
-                          textAlign={"center"}
-                          onChange={(e) => setCep(e.target.value)}
-                        />
+
+                        {InputTelefone ? (
+                          <Input
+                            ref={refTelefone}
+                            placeholder="(11) 0000-0000"
+                            textAlign={"center"}
+                            onChange={(e) => setTelefone(e.target.value)}
+                            variant={"filled"}
+                            onClick={() => {}}
+                          />
+                        ) : (
+                          <Input
+                            ref={refTelefone}
+                            placeholder="(11) 0000-0000"
+                            textAlign={"center"}
+                            onChange={(e) => setTelefone(e.target.value)}
+                            variant={"unstyled"}
+                            onClick={() => {
+                              setInputTelefone(true);
+                            }}
+                          />
+                        )}
                       </InputGroup>
                     </Center>
 
-                    <Center>
-                      <Text textColor="#4759FC" size="16px">
-                        Editar
-                      </Text>
+                    <Center paddingTop={"5px"}>
+                      <InputGroup variant={"unstyled"} width={"165px"}>
+                        <InputLeftAddon
+                          children="CEP:"
+                          paddingEnd={"5px"}
+                          fontWeight={"bold"}
+                        />
+
+                        {InputCEP ? (
+                          <Input
+                            ref={refCEP}
+                            placeholder="13000-000"
+                            textAlign={"center"}
+                            onChange={(e) => setCep(e.target.value)}
+                            variant={"filled"}
+                            onClick={() => {}}
+                          />
+                        ) : (
+                          <Input
+                            ref={refCEP}
+                            placeholder="13000-000"
+                            textAlign={"center"}
+                            onChange={(e) => setCep(e.target.value)}
+                            variant={"unstyled"}
+                            onClick={() => {
+                              setInputCEP(true);
+                            }}
+                          />
+                        )}
+                      </InputGroup>
                     </Center>
-                    <Button
-                      onClick={() => {
-                        AddClinica();
-                        ResetDados();
-                      }}
-                    >
-                      Salvar
-                    </Button>
                   </Grid>
                 </Center>
               </ModalBody>
@@ -224,6 +289,17 @@ const IconButtonPlus = (props) => {
                 onChange={(e) => setEndereco(e.target.value)}
               />
             </ModalFooter>
+            <Button
+              textColor="white"
+              backgroundColor="#0e63fe"
+              margin="10px"
+              onClick={() => {
+                AddClinica();
+                ResetDados();
+              }}
+            >
+              Salvar
+            </Button>
           </ModalContent>
         </Modal>
       </>

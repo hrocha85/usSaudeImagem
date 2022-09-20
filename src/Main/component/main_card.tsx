@@ -7,9 +7,7 @@ import { useEffect, useState } from "react";
 const MainCard = ({ titulo, icon }) => {
   const [atualizar, setAtualizar] = useState(true);
 
-  useEffect(() => {
-    console.log(atualizar, "atualizar");
-  }, [atualizar]);
+  useEffect(() => {}, [atualizar]);
 
   function ShowIcon(icon: boolean) {
     if (icon) {

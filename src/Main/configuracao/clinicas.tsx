@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegFolderOpen } from "react-icons/fa";
 import FieldDefaultIcon from "../component/field_default_icon";
-import { minhasClinicas } from "../component/icon_button_plus";
 
 const Clinica = (props) => {
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
@@ -17,7 +16,6 @@ const Clinica = (props) => {
     }
   };
 
- 
   useEffect(() => {
     pegarClinicas();
   }, [props.atualizar]);
@@ -29,6 +27,7 @@ const Clinica = (props) => {
           text={item.nomeClinica}
           textColor="#4A5568"
           icon={FaRegFolderOpen}
+          clinica={item}
         />
       ))}
     </>
@@ -36,16 +35,3 @@ const Clinica = (props) => {
 };
 
 export default Clinica;
-/**
- * 
- * 
- * 
- *  if (localStorage.getItem("minhasClinicas") != null) {
-      item = localStorage.getItem("minhasClinicas");
-
-      item_parse = JSON.parse(item);
-      setListaClinicas(item_parse);
-
-    }
- * 
- */
