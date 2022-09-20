@@ -46,18 +46,17 @@ function LiquidoLivre() {
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px' >
-                            <Select placeholder='Quantidade'
+                            <Select
                                 w='150px'>
-                                <option value='option1'>Leves</option>
-                                <option value='option2'>Option 2</option>
-                                <option value='option3'>Option 3</option>
+                                <option value='' disabled selected>Quantidade</option>
+                                <option value='Pequena'>Pequena</option>
+                                <option value='Moderada'>Moderada</option>
+                                <option value='Grande'>Grande</option>
                             </Select>
                         </GridItem>
-
                     </Grid>
                 </Box>
             </Box >
-
         </Box >
     );
 }

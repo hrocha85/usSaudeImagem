@@ -1,8 +1,51 @@
-import { Box, Checkbox, Stack, Text, Select, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Checkbox, Stack, Input, Select, Grid, GridItem } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 
 function Figado() {
+
+    var CheckNormal = document.querySelector('#CheckboxNormal') as HTMLInputElement
+    var CheckHepatite = document.querySelector('#CheckboxHepatite') as HTMLInputElement
+    var CheckHepatopatia = document.querySelector('#CheckboxHepatopatia') as HTMLInputElement
+    var CheckDimensoes = document.querySelector('#CheckboxDimensoes') as HTMLInputElement
+    var CheckEsteatose = document.querySelector('#CheckboxEsteatose') as HTMLInputElement
+
+    var selectEsteatose = document.querySelector('#SelectEsteatose') as HTMLInputElement
+    var selectDimensoes = document.querySelector('#SelectDimensoes') as HTMLInputElement
+
+    var CheckCalcificacao = document.querySelector('#CheckboxCalcificacao') as HTMLInputElement
+    var CheckCisto01 = document.querySelector('#CheckboxCisto01') as HTMLInputElement
+    var CheckCisto02 = document.querySelector('#CheckboxCisto02') as HTMLInputElement
+    var CheckCisto03 = document.querySelector('#CheckboxCisto03') as HTMLInputElement
+    var CheckMultiplosCistos = document.querySelector('#CheckboxMultiplosCistos') as HTMLInputElement
+
+    var selectCalcificacao = document.querySelector('#SelectCalcificacao') as HTMLInputElement
+    var selectCisto01 = document.querySelector('#SelectCisto01') as HTMLInputElement
+    var selectCisto02 = document.querySelector('#SelectCisto02') as HTMLInputElement
+    var selectCisto03 = document.querySelector('#SelectCisto03') as HTMLInputElement
+    var selectMultiplosCistos = document.querySelector('#SelectMultiplosCistos') as HTMLInputElement
+    var inputMultiplosCistos = document.querySelector('#InputMultiplosCistos') as HTMLInputElement
+
+    const normal = (e) => {
+        console.log(e)
+        if (CheckEsteatose.checked === true) {
+            CheckNormal.checked = false
+            console.log('esteatose', CheckNormal.checked)
+            console.log('aqui')
+            selectEsteatose.disabled = false
+        } else {
+            console.log('la')
+            selectEsteatose.disabled = true
+        }
+        CheckDimensoes.checked === true ? selectDimensoes.disabled = false : selectDimensoes.disabled = true
+
+        CheckCalcificacao.checked === true ? selectCalcificacao.disabled = false : selectCalcificacao.disabled = true
+        CheckCisto01.checked === true ? selectCisto01.disabled = false : selectCisto01.disabled = true
+        CheckCisto02.checked === true ? selectCisto02.disabled = false : selectCisto02.disabled = true
+        CheckCisto03.checked === true ? selectCisto03.disabled = false : selectCisto03.disabled = true
+        CheckMultiplosCistos.checked === true ? selectMultiplosCistos.disabled = false : selectMultiplosCistos.disabled = true
+    }
+
     const altura = '100%'
     const largura = '890px'
 
@@ -20,15 +63,30 @@ function Figado() {
         >
             <Box
                 borderBottom='1px'>
-
                 <TituloNomeExame titulo='Figado' />
-
-                <Box>
-                    <Checkbox mr='25px'>Normal</Checkbox>
-                    <Checkbox mr='25px'>Hepatite Aguda</Checkbox>
-                    <Checkbox mr='25px'>Hepatopatia Crônica</Checkbox>
-                    <Checkbox mr='53px'>Dimensões</Checkbox>
-                    <Checkbox >Esteatose</Checkbox>
+                <Box >
+                    <Checkbox onChange={(e) => normal(e.target.value)}
+                        id='CheckboxNormal'
+                        mr='25px'
+                        value='normal'>Normal</Checkbox>
+                    <Checkbox onChange={(e) => normal(e.target.value)}
+                        mr='25px'
+                        id="CheckboxHepatite"
+                        value='Hepatite Aguda'>Hepatite Aguda</Checkbox>
+                    <Checkbox
+                        onChange={(e) => normal(e.target.value)}
+                        mr='25px'
+                        id="CheckboxHepatopatia"
+                        value="Hepatopatia Crônica">Hepatopatia Crônica</Checkbox>
+                    <Checkbox
+                        onChange={(e) => normal(e.target.value)}
+                        mr='53px'
+                        id="CheckboxDimensoes"
+                        value="Dimensões">Dimensões</Checkbox>
+                    <Checkbox
+                        onChange={(e) => normal(e.target.value)}
+                        id='CheckboxEsteatose'
+                        value="Esteatose">Esteatose</Checkbox>
                 </Box>
 
                 <Box
@@ -36,19 +94,22 @@ function Figado() {
                     mb='20px'
                     display='flex'
                 >
-                    <Select placeholder='Select option'
+                    <Select
                         ml='450px'
-                        w='150px'>
-                        <option value='option1'>Aumentadas</option>
-                        <option value='option2'>Option 2</option>
-                        <option value='option3'>Option 3</option>
+                        w='150px'
+                        id='SelectDimensoes'>
+                        <option value='' disabled selected>Selecione</option>
+                        <option value='Aumentadas'>Aumentadas</option>
+                        <option value='Reduzidas'>Reduzidas</option>
                     </Select>
-                    <Select placeholder='Select option'
+                    <Select
                         ml='10px'
-                        w='150px'>
-                        <option value='option1'>Leves</option>
-                        <option value='option2'>Option 2</option>
-                        <option value='option3'>Option 3</option>
+                        w='150px'
+                        id='SelectEsteatose'>
+                        <option value='' disabled selected>Selecione</option>
+                        <option value='Leve'>Leve</option>
+                        <option value='Moderada'>Moderada</option>
+                        <option value='Acentuada'>Acentuada</option>
                     </Select>
                 </Box>
             </Box>
@@ -64,116 +125,139 @@ function Figado() {
                     gap={3}
                 >
                     <GridItem w='100%' h='28px'>
-                        <Checkbox>Calcificação</Checkbox>
+                        <Checkbox
+                            id='CheckboxCalcificacao'
+                            onChange={(e) => normal(e.target.value)}
+                        >Calcificação</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-5px'>
-                        <Checkbox>Cisto 01</Checkbox>
+                        <Checkbox
+                            id='CheckboxCisto01'
+                            onChange={(e) => normal(e.target.value)}
+                        >Cisto 01</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-10px'>
-                        <Checkbox>Cisto 02</Checkbox>
+                        <Checkbox
+                            onChange={(e) => normal(e.target.value)}
+                            id='CheckboxCisto02'>Cisto 02</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-15px'>
-                        <Checkbox>Cisto 03</Checkbox>
+                        <Checkbox
+                            onChange={(e) => normal(e.target.value)}
+                            id='CheckboxCisto03'>Cisto 03</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px'>
-                        <Checkbox ml='-40px'>Múltiplos cistos, o maior:</Checkbox>
+                        <Checkbox ml='-40px'
+                            onChange={(e) => normal(e.target.value)}
+                            id='CheckboxMultiplosCistos'>Múltiplos cistos, o maior:</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-8px'>
-                        <Select placeholder='select'
-                            w='150px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                        <Select w='150px'
+                            id='SelectCalcificacao'>
+                            <option value='' disabled selected>Selecione</option>
+                            <option value='Segmento I'>Segmento I</option>
+                            <option value='Segmento II'>Segmento II</option>
+                            <option value='Segmento III'>Segmento III</option>
+                            <option value='Segmento IV'>Segmento IV</option>
+                            <option value='Segmento V'>Segmento V</option>
+                            <option value='Segmento VI'>Segmento VI</option>
+                            <option value='Segmento VII'>Segmento VII</option>
+                            <option value='Segmento VIII'>Segmento VIII</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-8px' ml='-5px'>
-                        <Select placeholder='Select option'
-                            w='150px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                        <Select
+                            w='150px'
+                            id='SelectCisto01'>
+                            <option value='' disabled selected>Selecione</option>
+                            <option value='Segmento I'>Segmento I</option>
+                            <option value='Segmento II'>Segmento II</option>
+                            <option value='Segmento III'>Segmento III</option>
+                            <option value='Segmento IV'>Segmento IV</option>
+                            <option value='Segmento V'>Segmento V</option>
+                            <option value='Segmento VI'>Segmento VI</option>
+                            <option value='Segmento VII'>Segmento VII</option>
+                            <option value='Segmento VIII'>Segmento VIII</option>
                         </Select>
 
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-8px' ml='-10px'>
-                        <Select placeholder='aqui'
+                        <Select
+                            id='SelectCisto02'
                             w='150px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Selecione</option>
+                            <option value='Segmento I'>Segmento I</option>
+                            <option value='Segmento II'>Segmento II</option>
+                            <option value='Segmento III'>Segmento III</option>
+                            <option value='Segmento IV'>Segmento IV</option>
+                            <option value='Segmento V'>Segmento V</option>
+                            <option value='Segmento VI'>Segmento VI</option>
+                            <option value='Segmento VII'>Segmento VII</option>
+                            <option value='Segmento VIII'>Segmento VIII</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-8px' ml='-15px'>
-                        <Select placeholder='Select option'
+                        <Select
+                            id='SelectCisto03'
                             w='130px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Selecione</option>
+                            <option value='Segmento I'>Segmento I</option>
+                            <option value='Segmento II'>Segmento II</option>
+                            <option value='Segmento III'>Segmento III</option>
+                            <option value='Segmento IV'>Segmento IV</option>
+                            <option value='Segmento V'>Segmento V</option>
+                            <option value='Segmento VI'>Segmento VI</option>
+                            <option value='Segmento VII'>Segmento VII</option>
+                            <option value='Segmento VIII'>Segmento VIII</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-8px' ml='-40px'>
-                        <Select placeholder='aqui option'
+                        <Select
+                            id='SelectMultiplosCistos'
                             w='160px' >
-                            <option value='option1'>Ecogenicidade</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Selecione</option>
+                            <option value='Segmento I'>Segmento I</option>
+                            <option value='Segmento II'>Segmento II</option>
+                            <option value='Segmento III'>Segmento III</option>
+                            <option value='Segmento IV'>Segmento IV</option>
+                            <option value='Segmento V'>Segmento V</option>
+                            <option value='Segmento VI'>Segmento VI</option>
+                            <option value='Segmento VII'>Segmento VII</option>
+                            <option value='Segmento VIII'>Segmento VIII</option>
                         </Select>
 
                     </GridItem>
 
                     <GridItem w='100%' h='28px' >
-                        <Select placeholder='Select option'
-                            w='150px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select>
-
+                        <Input
+                            id='SelectCalcificacao' w='150px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-5px'>
-                        <Select placeholder='Select option'
-                            w='150px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select>
+                        <Input w='150px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-10px'>
-                        <Select placeholder='Select option'
-                            w='150px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select>
+                        <Input w='150px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-15px'>
-                        <Select placeholder='Select option'
-                            w='130px' >
-                            <option value='option1'>option 2</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select>
+                        <Input w='130px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-40px'>
-                        <Select placeholder='Select option'
-                            w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select>
+                        <Input
+                            id='InputMultiplosCistos'
+                            w='150px' placeholder='mm' />
                     </GridItem>
 
                 </Grid>
@@ -212,185 +296,200 @@ function Figado() {
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-8px'>
-                        <Select placeholder='Localizado'
+                        <Select
                             w='150px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado</option>
+                            <option value='Segmento I'>Segmento I</option>
+                            <option value='Segmento II'>Segmento II</option>
+                            <option value='Segmento III'>Segmento III</option>
+                            <option value='Segmento IV'>Segmento IV</option>
+                            <option value='Segmento V'>Segmento V</option>
+                            <option value='Segmento VI'>Segmento VI</option>
+                            <option value='Segmento VII'>Segmento VII</option>
+                            <option value='Segmento VIII'>Segmento VIII</option>
                         </Select>
                     </GridItem>
                     <GridItem w='100%' h='28px' mt='-8px' ml='-5px'>
 
-                        <Select placeholder='Localizado'
+                        <Select
                             w='150px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado</option>
+                            <option value='Segmento I'>Segmento I</option>
+                            <option value='Segmento II'>Segmento II</option>
+                            <option value='Segmento III'>Segmento III</option>
+                            <option value='Segmento IV'>Segmento IV</option>
+                            <option value='Segmento V'>Segmento V</option>
+                            <option value='Segmento VI'>Segmento VI</option>
+                            <option value='Segmento VII'>Segmento VII</option>
+                            <option value='Segmento VIII'>Segmento VIII</option>
                         </Select>
 
                     </GridItem>
                     <GridItem w='100%' h='28px' mt='-8px' ml='-10px'>
 
-                        <Select placeholder='Localizado'
+                        <Select
                             w='150px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado</option>
+                            <option value='Segmento I'>Segmento I</option>
+                            <option value='Segmento II'>Segmento II</option>
+                            <option value='Segmento III'>Segmento III</option>
+                            <option value='Segmento IV'>Segmento IV</option>
+                            <option value='Segmento V'>Segmento V</option>
+                            <option value='Segmento VI'>Segmento VI</option>
+                            <option value='Segmento VII'>Segmento VII</option>
+                            <option value='Segmento VIII'>Segmento VIII</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-8px' ml='-15px'>
-                        <Select placeholder='Localizado'
+                        <Select
                             w='130px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado</option>
+                            <option value='Segmento I'>Segmento I</option>
+                            <option value='Segmento II'>Segmento II</option>
+                            <option value='Segmento III'>Segmento III</option>
+                            <option value='Segmento IV'>Segmento IV</option>
+                            <option value='Segmento V'>Segmento V</option>
+                            <option value='Segmento VI'>Segmento VI</option>
+                            <option value='Segmento VII'>Segmento VII</option>
+                            <option value='Segmento VIII'>Segmento VIII</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-8px' ml='-40px'>
 
-                        <Select placeholder='Localizado'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado</option>
+                            <option value='Segmento I'>Segmento I</option>
+                            <option value='Segmento II'>Segmento II</option>
+                            <option value='Segmento III'>Segmento III</option>
+                            <option value='Segmento IV'>Segmento IV</option>
+                            <option value='Segmento V'>Segmento V</option>
+                            <option value='Segmento VI'>Segmento VI</option>
+                            <option value='Segmento VII'>Segmento VII</option>
+                            <option value='Segmento VIII'>Segmento VIII</option>
                         </Select>
 
                     </GridItem>
 
                     <GridItem w='100%' h='28px' >
-                        <Select placeholder='mm'
-                            w='150px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select>
+                        <Input w='150px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-5px'>
-                        <Select placeholder='mm'
-                            w='150px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select>
+                        <Input w='150px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-10px'>
-                        <Select placeholder='mm'
-                            w='150px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select>
+                        <Input w='150px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-15px'>
-                        <Select placeholder='mm'
-                            w='130px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select>
+                        <Input w='130px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-40px'>
-                        <Select placeholder='mm'
-                            w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select>
+                        <Input w='150px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px'>
-                        <Select placeholder='Localizado'
+                        <Select
                             w='150px' mt='10px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Contornos</option>
+                            <option value='Regulares'>Regulares</option>
+                            <option value='Irregulares'>Irregulares</option>
+                            <option value='Lobulados'>Lobulados</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-5px'>
-                        <Select placeholder='Localizado'
+                        <Select
                             w='150px' mt='10px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Contornos</option>
+                            <option value='Regulares'>Regulares</option>
+                            <option value='Irregulares'>Irregulares</option>
+                            <option value='Lobulados'>Lobulados</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-10px'>
-                        <Select placeholder='Localizado'
+                        <Select
                             w='150px' mt='10px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Contornos</option>
+                            <option value='Regulares'>Regulares</option>
+                            <option value='Irregulares'>Irregulares</option>
+                            <option value='Lobulados'>Lobulados</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-15px'>
-                        <Select placeholder='Localizado'
+                        <Select
                             w='130px' mt='10px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Contornos</option>
+                            <option value='Regulares'>Regulares</option>
+                            <option value='Irregulares'>Irregulares</option>
+                            <option value='Lobulados'>Lobulados</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-40px'>
-                        <Select placeholder='Localizado'
+                        <Select
                             w='160px' mt='10px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Contornos</option>
+                            <option value='Regulares'>Regulares</option>
+                            <option value='Irregulares'>Irregulares</option>
+                            <option value='Lobulados'>Lobulados</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px'>
-                        <Select placeholder='Ecogenicidade'
+                        <Select
                             w='150px' mt='20px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Ecogenicidade</option>
+                            <option value='Hippoecogenico'>Hipoecogênico</option>
+                            <option value='Hiperecogênico'>Hiperecogênico</option>
+                            <option value='Isoecogênico'>Isoecogênico</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-5px'>
-                        <Select placeholder='Ecogenicidade'
+                        <Select
                             w='150px' mt='20px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Ecogenicidade</option>
+                            <option value='Hippoecogenico'>Hipoecogênico</option>
+                            <option value='Hiperecogênico'>Hiperecogênico</option>
+                            <option value='Isoecogênico'>Isoecogênico</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-10px'>
-                        <Select placeholder='Ecogenicidade'
+                        <Select
                             w='150px' mt='20px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Ecogenicidade</option>
+                            <option value='Hippoecogenico'>Hipoecogênico</option>
+                            <option value='Hiperecogênico'>Hiperecogênico</option>
+                            <option value='Isoecogênico'>Isoecogênico</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-15px'>
-                        <Select placeholder='Ecogenicidade'
+                        <Select
                             w='130px' mt='20px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Ecogenicidade</option>
+                            <option value='Hippoecogenico'>Hipoecogênico</option>
+                            <option value='Hiperecogênico'>Hiperecogênico</option>
+                            <option value='Isoecogênico'>Isoecogênico</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-40px'>
-                        <Select placeholder='Ecogenicidade'
+                        <Select
                             w='160px' mt='20px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Ecogenicidade</option>
+                            <option value='Hippoecogenico'>Hipoecogênico</option>
+                            <option value='Hiperecogênico'>Hiperecogênico</option>
+                            <option value='Isoecogênico'>Isoecogênico</option>
                         </Select>
                     </GridItem>
 

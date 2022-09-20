@@ -52,11 +52,11 @@ function RimDireito() {
 
 
                         <GridItem w='100%' h='28px' mt='-8px' ml='-80px'>
-                            <Select placeholder='select'
+                            <Select
                                 w='150px'>
-                                <option value='option1'>Aumentadas</option>
-                                <option value='option2'>Option 2</option>
-                                <option value='option3'>Option 3</option>
+                                <option value='' disabled selected>Selecione</option>
+                                <option value='ausenciaCirurgica'>Ausência cirúrgica</option>
+                                <option value='interposicaoGasosa'>Interposição gasosa</option>
                             </Select>
                         </GridItem>
 
@@ -122,76 +122,80 @@ function RimDireito() {
                     </GridItem>
 
                     <GridItem w='100%' h='28px' >
-                        <Select placeholder='Localizado no'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Ecogenicidade</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado no</option>
+                            <option value='tercoSuperior'>Terço superior</option>
+                            <option value='tercoMedio'>Terço médio</option>
+                            <option value='tercoInferior'>Terço inferior</option>
                         </Select>
 
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-5px' >
-                        <Select placeholder='Localizado no'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado no</option>
+                            <option value='tercoSuperior'>Terço superior</option>
+                            <option value='tercoMedio'>Terço médio</option>
+                            <option value='tercoInferior'>Terço inferior</option>
                         </Select>
 
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-10px'>
-                        <Select placeholder='Localizado no'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado no</option>
+                            <option value='tercoSuperior'>Terço superior</option>
+                            <option value='tercoMedio'>Terço médio</option>
+                            <option value='tercoInferior'>Terço inferior</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-15px'>
-                        <Select placeholder='Localizado no'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado no</option>
+                            <option value='tercoSuperior'>Terço superior</option>
+                            <option value='tercoMedio'>Terço médio</option>
+                            <option value='tercoInferior'>Terço inferior</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='8px'>
-                        <Select placeholder='Do'
+                        <Select
                             w='160px' >
-                            <option value='option1'>option 2</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Do</option>
+                            <option value='rimDireito'>Rim direito</option>
+                            <option value='rimEsquerdo'>Rim esquerdo</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='8px' ml='-5px'>
-                        <Select placeholder='Do'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Do</option>
+                            <option value='rimDireito'>Rim direito</option>
+                            <option value='rimEsquerdo'>Rim esquerdo</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='8px' ml='-10px'>
-                        <Select placeholder='Do'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Do</option>
+                            <option value='rimDireito'>Rim direito</option>
+                            <option value='rimEsquerdo'>Rim esquerdo</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='8px' ml='-15px'>
-                        <Select placeholder='Do'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Do</option>
+                            <option value='rimDireito'>Rim direito</option>
+                            <option value='rimEsquerdo'>Rim esquerdo</option>
                         </Select>
                     </GridItem>
 
@@ -234,56 +238,60 @@ function RimDireito() {
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-15px'>
-                        <Select placeholder='Localizado no'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado no</option>
+                            <option value='tercoSuperior'>Terço superior</option>
+                            <option value='tercoMedio'>Terço médio</option>
+                            <option value='tercoInferior'>Terço inferior</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-15px' ml='-5px'>
 
-                        <Select placeholder='Localizado no'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado no</option>
+                            <option value='tercoSuperior'>Terço superior</option>
+                            <option value='tercoMedio'>Terço médio</option>
+                            <option value='tercoInferior'>Terço inferior</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-15px' ml='-10px' >
-                        <Select placeholder='Localizado no'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado no</option>
+                            <option value='tercoSuperior'>Terço superior</option>
+                            <option value='tercoMedio'>Terço médio</option>
+                            <option value='tercoInferior'>Terço inferior</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-20px'>
-                        <Select placeholder='mm'
+                        {/* <Select placeholder='mm'
                             w='160px' >
                             <option value='option1'>Aumentadas</option>
                             <option value='option2'>Option 2</option>
                             <option value='option3'>Option 3</option>
-                        </Select>
+                        </Select> */}
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-20px' ml='-5px'>
-                        <Select placeholder='mm'
+                        {/* <Select placeholder='mm'
                             w='160px' >
                             <option value='option1'>Aumentadas</option>
                             <option value='option2'>Option 2</option>
                             <option value='option3'>Option 3</option>
-                        </Select>
+                        </Select> */}
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-20px' ml='-10px'>
-                        <Select placeholder='mm'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
+                            <option value='' disabled selected>Do ureter</option>
+                            <option value='direito'>Direito</option>
+                            <option value='esquerdo'>Esquerdo</option>
                             <option value='option3'>Option 3</option>
                         </Select>
                     </GridItem>

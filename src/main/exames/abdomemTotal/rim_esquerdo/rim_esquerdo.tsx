@@ -56,11 +56,11 @@ function RimEsquerdo() {
                         <GridItem w='100%' h='28px' mt='-8px' />
 
                         <GridItem w='100%' h='28px' mt='-8px' ml='-40px'>
-                            <Select placeholder='Homogênea'
+                            <Select
                                 w='160px'>
-                                <option value='option1'>Aumentadas</option>
-                                <option value='option2'>Option 2</option>
-                                <option value='option3'>Option 3</option>
+                                <option value='' disabled selected>Homogênea</option>
+                                <option value='ausenciaCirurgica'>Ausência cirúrgica</option>
+                                <option value='interposicaoGasosa'>Interposição gasosa</option>
                             </Select>
                         </GridItem>
 
@@ -100,20 +100,21 @@ function RimEsquerdo() {
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-8px'>
-                        <Select placeholder='Homogênea'
+                        <Select
                             w='160px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Selecione</option>
+                            <option value='rimDireiro'>Rim direito</option>
+                            <option value='rimEsquerdo'>Rim esquerdo</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-8px'>
-                        <Select placeholder='Homogênea'
+                        <Select
                             w='160px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Selecione</option>
+                            <option value='rimDireiro'>Rim direito</option>
+                            <option value='rimEsquerdo'>Rim esquerdo</option>
+                            <option value='bilaretal'>Bilateral</option>
                         </Select>
                     </GridItem>
                 </Grid>

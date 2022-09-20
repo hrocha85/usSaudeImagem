@@ -105,11 +105,11 @@ function VesiculaBiliar() {
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-8px'>
-                        <Select placeholder='Quantidade'
+                        <Select
                             w='150px'>
-                            <option value='option1'>Leves</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Selecione</option>
+                            <option value='ausenciaCirurgica'>Ausência cirúrgica</option>
+                            <option value='interposicaoGasosa'>Interposição gasosa</option>
                         </Select>
                     </GridItem>
                 </Grid>

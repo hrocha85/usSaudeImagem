@@ -42,20 +42,22 @@ function Dilatacao() {
 
 
                         <GridItem w='100%' h='28px' mt='-8px' ml=''>
-                            <Select placeholder='select'
+                            <Select
                                 w='160px'>
-                                <option value='option1'>Aumentadas</option>
-                                <option value='option2'>Option 2</option>
-                                <option value='option3'>Option 3</option>
+                                <option value='' disabled selected>Selecione</option>
+                                <option value='leve'>Leve</option>
+                                <option value='moderada'>Moderada</option>
+                                <option value='acentuada'>Acentuada</option>
                             </Select>
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px' ml='5'>
-                            <Select placeholder='select'
+                            <Select
                                 w='160px'>
-                                <option value='option1'>Aumentadas</option>
-                                <option value='option2'>Option 2</option>
-                                <option value='option3'>Option 3</option>
+                                <option value='' disabled selected>Selecione</option>
+                                <option value='leve'>Leve</option>
+                                <option value='moderada'>Moderada</option>
+                                <option value='acentuada'>Acentuada</option>
                             </Select>
                         </GridItem>
 
@@ -92,20 +94,22 @@ function Dilatacao() {
                     </GridItem>
 
                     <GridItem w='100%' h='40px' mt='-10px'>
-                        <Select placeholder='Localizado no'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Ecogenicidade</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado no</option>
+                            <option value='tercoSuperior'>Terço superior</option>
+                            <option value='tercoMedio'>Terço medio</option>
+                            <option value='tercoInferior'>Terço inferior</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='40px' mt='-10px' >
-                        <Select placeholder='Localizado no'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Ecogenicidade</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localizado no</option>
+                            <option value='tercoSuperior'>Terço superior</option>
+                            <option value='tercoMedio'>Terço medio</option>
+                            <option value='tercoInferior'>Terço inferior</option>
                         </Select>
                     </GridItem>
 
@@ -119,37 +123,39 @@ function Dilatacao() {
                     </GridItem>
 
                     <GridItem w='100%' h='40px' mt='-10px' >
-                        <Select placeholder='Contorno'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Ecogenicidade</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Contornos</option>
+                            <option value='regulares'>Regulares</option>
+                            <option value='irregulares'>Irregulares</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='40px' >
-                        <Select placeholder='Contorno'
+                        <Select
                             w='160px' mt='-10px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Contornos</option>
+                            <option value='regulares'>Regulares</option>
+                            <option value='irregulares'>Irregulares</option>
                         </Select>
                     </GridItem>
                     <GridItem w='100%' h='40px' mt='-10px' >
-                        <Select placeholder='Ecogenicidade'
+                        <Select
                             w='160px' >
-                            <option value='option1'>Ecogenicidade</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Ecogenicidade</option>
+                            <option value='hipoecogenico'>Hipoecogênico</option>
+                            <option value='hiperecogenico'>Hiperecogênico</option>
+                            <option value='isoecogenico'>Isoecogênico</option>
                         </Select>
                     </GridItem>
 
                     <GridItem w='100%' h='40px' >
-                        <Select placeholder='Ecogenicidade'
+                        <Select
                             w='160px' mt='-10px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Ecogenicidade</option>
+                            <option value='hipoecogenico'>Hipoecogênico</option>
+                            <option value='hiperecogenico'>Hiperecogênico</option>
+                            <option value='isoecogenico'>Isoecogênico</option>
                         </Select>
                     </GridItem>
 

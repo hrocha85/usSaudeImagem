@@ -58,20 +58,19 @@ function Baco() {
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px' ml='-65px'>
-                            <Select placeholder='Homogênea'
+                            <Select
                                 w='160px'>
-                                <option value='option1'>Aumentadas</option>
-                                <option value='option2'>Option 2</option>
-                                <option value='option3'>Option 3</option>
+                                <option value='' disabled selected>Homogênea</option>
+                                <option value='Homogênea'>Homogênea</option>
+                                <option value='Heterogênea'>Heterogênea</option>
                             </Select>
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px'>
-                            <Select placeholder='Ausência'
+                            <Select
                                 w='160px'>
-                                <option value='option1'>Aumentadas</option>
-                                <option value='option2'>Option 2</option>
-                                <option value='option3'>Option 3</option>
+                                <option value='ausenciaCirurgica'>ausência cirúrgica</option>
+                                <option value='interposicaoGasosa'>interposição gasosa</option>
                             </Select>
                         </GridItem>
 

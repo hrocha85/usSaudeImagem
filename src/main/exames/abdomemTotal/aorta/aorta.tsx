@@ -56,11 +56,15 @@ function Aorta() {
 
 
                     <GridItem w='100%' h='28px' mt='-8px'>
-                        <Select placeholder='select'
+                        <Select
                             w='160px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
+                            <option value='' disabled selected>Localização</option>
+                            <option value='supra-renal'>Supra-renal</option>
+                            <option value='tercoProximal'>terço proximal</option>
+                            <option value='tercoMedio'>Terço médio</option>
+                            <option value='tercoDistal'>Terço distal</option>
+                            <option value='bifurcacao'>Bifurcação</option>
+                            <option value='infraRenal'>Infra-renal</option>
                         </Select>
                     </GridItem>
 
