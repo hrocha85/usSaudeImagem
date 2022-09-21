@@ -52,6 +52,7 @@ import Medicos from "../../Data/Medicos.json";
 import { render } from "@testing-library/react";
 import ReactSignatureCanvas from "react-signature-canvas";
 import React from "react";
+import DefaultImageClinica from "../images/clinica_default.png";
 
 const Configuracoes = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -60,13 +61,19 @@ const Configuracoes = () => {
 
   const [focus, setFocus] = useState("unstyled");
 
-  const [nome, setNome] = useState("Nome do Doutor(a)");
+  const [nome, setNome] = useState("");
 
   const [crm, setCrm] = useState("");
 
   const [endereco, setEndereco] = useState("");
 
   const [medicos, setMedicos] = useState<any[]>([]);
+
+  const [defaultUserImage, setDefaultUserImage] = useState(DefaultImageClinica);
+
+  const inputFile = useRef<HTMLInputElement | null>(null);
+
+  const [selectedFile, setSelectedFile] = useState();
 
   let lista_medicos = Medicos.medicos;
 
@@ -75,6 +82,25 @@ const Configuracoes = () => {
   const clear = () => {
     padRef.current?.clear();
   };
+
+  const openFiles = () => {
+    inputFile.current?.click();
+  };
+
+  useEffect(() => {
+    if (selectedFile) {
+      const objectURL = URL.createObjectURL(selectedFile);
+      setDefaultUserImage(objectURL);
+      return () => URL.revokeObjectURL(objectURL);
+    }
+  }, [selectedFile]);
+
+  function onChangeFile(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    var file = event.target.files[0];
+    setSelectedFile(file);
+  }
 
   function Laudos() {
     return (
@@ -115,6 +141,13 @@ const Configuracoes = () => {
     setMedicos(lista_medicos);
   }
 
+  const ResetDados = () => {
+    setNome("");
+    setCrm("");
+    setDefaultUserImage(DefaultImageClinica);
+    setFocus('unstyled')
+  };
+
   return (
     <Box
       w="100%"
@@ -128,6 +161,8 @@ const Configuracoes = () => {
       backgroundClip="padding-box"
       backgroundRepeat="no-repeat"
       paddingBottom="10px"
+      paddingTop="5px"
+     
     >
       <Flex
         direction="row"
@@ -163,7 +198,7 @@ const Configuracoes = () => {
       <Flex
         h="100%"
         direction="row"
-        justify='space-evenly'
+        justify="space-evenly"
         margin="60px"
         flexWrap="wrap"
         gap="10px"
@@ -191,8 +226,8 @@ const Configuracoes = () => {
               <Image
                 srcSet={PlusButton}
                 alt="Second Icon Plus"
-                h="20px"
-                w="20px"
+                h="30px"
+                w="30px"
               />
             </Button>
           </Tooltip>
@@ -209,6 +244,7 @@ const Configuracoes = () => {
               onClick={() => {
                 setFocus("unstyled");
                 setEnable(true);
+                ResetDados()
               }}
             />
 
@@ -219,7 +255,7 @@ const Configuracoes = () => {
                   paddingStart="60px"
                   fontWeight="bold"
                   fontSize="20px"
-                  placeholder='Nome Doutor'
+                  placeholder="Nome Doutor"
                   isDisabled={enable}
                   variant={focus}
                   onChange={(e) => setNome(e.target.value)}
@@ -252,22 +288,32 @@ const Configuracoes = () => {
                 <Image
                   borderRadius="full"
                   boxSize="150px"
-                  srcSet={Avatar}
+                  srcSet={defaultUserImage}
                   alt="Image DR"
                 />
               </Center>
 
               <Center>
+                <input
+                  type="file"
+                  id="file"
+                  ref={inputFile}
+                  style={{ display: "none" }}
+                  onChange={onChangeFile.bind(this)}
+                />
                 <Icon
                   as={BiCamera}
                   marginTop="2px"
                   color="#4658fc"
                   margin="10px"
+                  onClick={openFiles}
                 />
               </Center>
               <Center>
                 <HStack>
-                  <Text marginEnd="5px">Clínicas</Text>
+                  <Text marginEnd="5px" fontWeight="bold">
+                    Clínicas:
+                  </Text>
                   <Select placeholder="Clínicas Cadastradas" variant="filled">
                     <option value="option1">Clínica 1</option>
                     <option value="option2">Clínica 2</option>
@@ -278,15 +324,20 @@ const Configuracoes = () => {
               <Center paddingTop={"30px"}>
                 <InputGroup
                   variant={"unstyled"}
-                  width={"245px"}
+                  width={"250px"}
                   marginEnd="50px"
                 >
-                  <InputLeftAddon children="CRM/UF:" paddingEnd={"5px"} />
+                  <InputLeftAddon
+                    children="CRM/UF:"
+                    paddingEnd={"5px"}
+                    fontWeight="bold"
+                  />
                   <Input
                     placeholder="00000000-0/BR"
                     fontSize="18px"
                     textAlign={"center"}
-                    _placeholder={{ fontWeight: "bold", color: "black" }}
+                    onChange={(e) => setCrm(e.target.value)}
+
                   />
                 </InputGroup>
               </Center>
@@ -322,6 +373,7 @@ const Configuracoes = () => {
               onClick={() => {
                 AddMedico();
                 onClose();
+                ResetDados()
               }}
             >
               Salvar
