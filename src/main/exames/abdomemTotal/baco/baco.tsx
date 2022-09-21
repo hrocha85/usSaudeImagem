@@ -1,29 +1,27 @@
 import { Box, Checkbox, Select, Grid, GridItem, Input } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
-import {useState} from 'react';
+import { useState } from 'react';
 
 function Baco() {
     const altura = '100%'
     const largura = '890px'
 
-    const [baco, setBaco]= useState({ 
-        normal: false, 
-        aumentadoComEcotextura:"",
-        naoVisibilizado:"",
-        bacoAcessorio:"", 
-        calcificacoes:""
+    const [baco, setBaco] = useState({
+        normal: false,
+        aumentadoComEcotextura: "",
+        naoVisibilizado: "",
+        bacoAcessorio: "",
+        calcificacoes: ""
     })
-    const [checkValue, setCheckvalue] = useState({ 
-        normal: false, 
-        aumentadoComEcotextura:false,
-        naoVisibilizado:false,
-        bacoAcessorio:false, 
-        calcificacoes:false
+    const [checkValue, setCheckvalue] = useState({
+        normal: false,
+        aumentadoComEcotextura: false,
+        naoVisibilizado: false,
+        bacoAcessorio: false,
+        calcificacoes: false
     })
 
-
-
-    const criarString = (value) =>{
+    const criarString = (value) => {
         console.log(value.id, "valor recebio")
 
     }
@@ -33,86 +31,109 @@ function Baco() {
 
         switch (value.id) {
             case 'normal':
-                if(value.checked == true){
-                setCheckvalue({
-                    aumentadoComEcotextura:true,
-                    normal:false,
-                    naoVisibilizado:true,
-                    bacoAcessorio:true,
-                    calcificacoes:true
+                if (value.checked == true) {
+                    setCheckvalue({
+                        aumentadoComEcotextura: true,
+                        normal: false,
+                        naoVisibilizado: true,
+                        bacoAcessorio: true,
+                        calcificacoes: true
                     })
-                }else{
+                } else {
                     setCheckvalue({
-                    aumentadoComEcotextura:false,
-                    normal:false,
-                    naoVisibilizado:false,
-                    bacoAcessorio:false,
-                    calcificacoes:false
-                 })}
-            
-              break;
+                        aumentadoComEcotextura: false,
+                        normal: false,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                }
+
+                break;
             case 'aumentadoComEcotextura':
-                if(value.checked == true){
+                if (value.checked == true) {
                     setCheckvalue({
-                        aumentadoComEcotextura:false,
-                        normal:true,
-                        naoVisibilizado:true,
-                        bacoAcessorio:true,
-                        calcificacoes:true
-                        })
-                    }else{
-                        setCheckvalue({
-                        aumentadoComEcotextura:false,
-                        normal:false,
-                        naoVisibilizado:false,
-                        bacoAcessorio:false,
-                        calcificacoes:false
-                     })}
+                        aumentadoComEcotextura: false,
+                        normal: true,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                } else {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: false,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                }
                 break;
             case 'naoVisibilizado':
-                if(value.checked == true){
+                if (value.checked == true) {
                     setCheckvalue({
-                        aumentadoComEcotextura:true,
-                        normal:true,
-                        naoVisibilizado:false,
-                        bacoAcessorio:true,
-                        calcificacoes:true
-                        })
-                    }else{
-                        setCheckvalue({
-                        aumentadoComEcotextura:false,
-                        normal:false,
-                        naoVisibilizado:false,
-                        bacoAcessorio:false,
-                        calcificacoes:false
-                     })}
+                        aumentadoComEcotextura: false,
+                        normal: true,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                } else {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: false,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                }
                 break;
-              case 'calcificacoes':
-                if(value.checked == true){
+            case 'calcificacoes':
+                if (value.checked == true) {
                     setCheckvalue({
-                        aumentadoComEcotextura:true,
-                        normal:true,
-                        naoVisibilizado:true,
-                        bacoAcessorio:true,
-                        calcificacoes:false
-                        })
-                    }else{
-                        setCheckvalue({
-                        aumentadoComEcotextura:false,
-                        normal:false,
-                        naoVisibilizado:false,
-                        bacoAcessorio:false,
-                        calcificacoes:false
-                     })}
+                        aumentadoComEcotextura: false,
+                        normal: true,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                } else {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: false,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                }
+                break;
+            case 'bacoAcessorio':
+                if (value.checked == true) {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: true,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                } else {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: false,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                }
                 break;
             default:
-              console.log("nao achou o id");
-              break;
-          }
-          
+                console.log("nao achou o id");
+                break;
+        }
+
     }
 
-    
+
 
 
     return (
@@ -144,18 +165,18 @@ function Baco() {
                         gap={3}
                     >
                         <GridItem w='100%' h='28px'>
-                            <Checkbox 
-                            disabled={checkValue.normal}
-                            id="normal"
-                            onChange={(e) =>{verificaChecked(e.target)}}
+                            <Checkbox
+                                disabled={checkValue.normal}
+                                id="normal"
+                                onChange={(e) => { verificaChecked(e.target) }}
                             >Normal</Checkbox>
                         </GridItem>
 
                         <GridItem w='100%' h='28px'>
                             <Checkbox ml='-65px'
-                            disabled={checkValue.aumentadoComEcotextura}
-                            id="aumentadoComEcotextura"
-                            onChange={(e) =>{verificaChecked(e.target)}}
+                                disabled={checkValue.aumentadoComEcotextura}
+                                id="aumentadoComEcotextura"
+                                onChange={(e) => { verificaChecked(e.target) }}
                             >Aumentado com ecotextura</Checkbox>
                         </GridItem>
 
@@ -163,25 +184,25 @@ function Baco() {
 
                         <GridItem w='100%' h='28px'>
                             <Checkbox
-                              disabled={checkValue.naoVisibilizado}
-                              id="naoVisibilizado"
-                              onChange={(e) =>{verificaChecked(e.target)}}
+                                disabled={checkValue.naoVisibilizado}
+                                id="naoVisibilizado"
+                                onChange={(e) => { verificaChecked(e.target) }}
                             >Não visibilizado</Checkbox>
                         </GridItem>
 
                         <GridItem w='100%' h='28px' ml='10px'>
                             <Checkbox
-                              disabled={checkValue.bacoAcessorio}
-                              id="bacoAcessorio"
-                              onChange={(e) =>{verificaChecked(e.target)}}
+                                disabled={checkValue.bacoAcessorio}
+                                id="bacoAcessorio"
+                                onChange={(e) => { verificaChecked(e.target) }}
                             >Baço Acessório</Checkbox>
                         </GridItem>
 
                         <GridItem w='100%' h='28px'>
                             <Checkbox
-                              disabled={checkValue.calcificacoes}
-                              id="calcificacoes"
-                              onChange={(e) =>{verificaChecked(e.target)}}>Calcificalções</Checkbox>
+                                disabled={checkValue.calcificacoes}
+                                id="calcificacoes"
+                                onChange={(e) => { verificaChecked(e.target) }}>Calcificalções</Checkbox>
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px'>
@@ -190,6 +211,9 @@ function Baco() {
 
                         <GridItem w='100%' h='28px' mt='-8px' ml='-65px'>
                             <Select
+                                disabled={checkValue.aumentadoComEcotextura}
+                                id="aumentadoComEcotextura"
+                                onChange={(e) => { verificaChecked(e.target) }}
                                 w='160px'>
                                 <option value='' disabled selected>Homogênea</option>
                                 <option value='Homogênea'>Homogênea</option>
@@ -199,6 +223,9 @@ function Baco() {
 
                         <GridItem w='100%' h='28px' mt='-8px'>
                             <Select
+                                disabled={checkValue.naoVisibilizado}
+                                id="naoVisibilizado"
+                                onChange={(e) => { verificaChecked(e.target) }}
                                 w='160px'>
                                 <option value='ausenciaCirurgica'>ausência cirúrgica</option>
                                 <option value='interposicaoGasosa'>interposição gasosa</option>
@@ -206,11 +233,19 @@ function Baco() {
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px' ml='10px'>
-                            <Input w='160px' placeholder='mm' />
+                            <Input
+                                disabled={checkValue.bacoAcessorio}
+                                id="bacoAcessorio"
+                                onChange={(e) => { verificaChecked(e.target) }}
+                                w='160px' placeholder='mm' />
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px'>
-                            <Input w='160px' placeholder='mm' />
+                            <Input
+                                disabled={checkValue.calcificacoes}
+                                id="calcificacoes"
+                                onChange={(e) => { verificaChecked(e.target) }}
+                                w='160px' placeholder='mm' />
                         </GridItem>
 
                     </Grid>

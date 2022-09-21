@@ -1,53 +1,326 @@
-import { Box, Checkbox, Stack, Input, Select, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Checkbox, Input, Select, Grid, GridItem } from "@chakra-ui/react";
+import { useState } from "react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 
 function Figado() {
-
-    var CheckNormal = document.querySelector('#CheckboxNormal') as HTMLInputElement
-    var CheckHepatite = document.querySelector('#CheckboxHepatite') as HTMLInputElement
-    var CheckHepatopatia = document.querySelector('#CheckboxHepatopatia') as HTMLInputElement
-    var CheckDimensoes = document.querySelector('#CheckboxDimensoes') as HTMLInputElement
-    var CheckEsteatose = document.querySelector('#CheckboxEsteatose') as HTMLInputElement
-
-    var selectEsteatose = document.querySelector('#SelectEsteatose') as HTMLInputElement
-    var selectDimensoes = document.querySelector('#SelectDimensoes') as HTMLInputElement
-
-    var CheckCalcificacao = document.querySelector('#CheckboxCalcificacao') as HTMLInputElement
-    var CheckCisto01 = document.querySelector('#CheckboxCisto01') as HTMLInputElement
-    var CheckCisto02 = document.querySelector('#CheckboxCisto02') as HTMLInputElement
-    var CheckCisto03 = document.querySelector('#CheckboxCisto03') as HTMLInputElement
-    var CheckMultiplosCistos = document.querySelector('#CheckboxMultiplosCistos') as HTMLInputElement
-
-    var selectCalcificacao = document.querySelector('#SelectCalcificacao') as HTMLInputElement
-    var selectCisto01 = document.querySelector('#SelectCisto01') as HTMLInputElement
-    var selectCisto02 = document.querySelector('#SelectCisto02') as HTMLInputElement
-    var selectCisto03 = document.querySelector('#SelectCisto03') as HTMLInputElement
-    var selectMultiplosCistos = document.querySelector('#SelectMultiplosCistos') as HTMLInputElement
-    var inputMultiplosCistos = document.querySelector('#InputMultiplosCistos') as HTMLInputElement
-
-    const normal = (e) => {
-        console.log(e)
-        if (CheckEsteatose.checked === true) {
-            CheckNormal.checked = false
-            console.log('esteatose', CheckNormal.checked)
-            console.log('aqui')
-            selectEsteatose.disabled = false
-        } else {
-            console.log('la')
-            selectEsteatose.disabled = true
-        }
-        CheckDimensoes.checked === true ? selectDimensoes.disabled = false : selectDimensoes.disabled = true
-
-        CheckCalcificacao.checked === true ? selectCalcificacao.disabled = false : selectCalcificacao.disabled = true
-        CheckCisto01.checked === true ? selectCisto01.disabled = false : selectCisto01.disabled = true
-        CheckCisto02.checked === true ? selectCisto02.disabled = false : selectCisto02.disabled = true
-        CheckCisto03.checked === true ? selectCisto03.disabled = false : selectCisto03.disabled = true
-        CheckMultiplosCistos.checked === true ? selectMultiplosCistos.disabled = false : selectMultiplosCistos.disabled = true
-    }
-
     const altura = '100%'
     const largura = '890px'
+
+    const [checkValue, setCheckvalue] = useState({
+        normal: false,
+        HepatiteAguda: false,
+        HepatiteCronica: false,
+        dimensoes: false,
+        esteatose: false
+    })
+
+    const verificaChecked = (value) => {
+        console.log(value, value.checked, "value recebido")
+
+        switch (value.id) {
+            case 'normal':
+                if (value.checked == true) {
+                    setCheckvalue({
+                        HepatiteAguda: true,
+                        normal: false,
+                        HepatiteCronica: true,
+                        esteatose: true,
+                        dimensoes: true
+                    })
+                } else {
+                    setCheckvalue({
+                        HepatiteAguda: false,
+                        normal: false,
+                        HepatiteCronica: false,
+                        esteatose: false,
+                        dimensoes: false
+                    })
+                }
+                break;
+            case 'HepatiteAguda':
+                if (value.checked == true) {
+                    setCheckvalue({
+                        HepatiteAguda: false,
+                        normal: true,
+                        HepatiteCronica: false,
+                        esteatose: false,
+                        dimensoes: false
+                    })
+                } else {
+                    setCheckvalue({
+                        HepatiteAguda: false,
+                        normal: false,
+                        HepatiteCronica: false,
+                        esteatose: false,
+                        dimensoes: false
+                    })
+                }
+                break;
+            case 'HepatiteCronica':
+                if (value.checked == true) {
+                    setCheckvalue({
+                        HepatiteAguda: false,
+                        normal: true,
+                        HepatiteCronica: false,
+                        esteatose: false,
+                        dimensoes: false
+                    })
+                } else {
+                    setCheckvalue({
+                        HepatiteAguda: false,
+                        normal: false,
+                        HepatiteCronica: false,
+                        esteatose: false,
+                        dimensoes: false
+                    })
+                }
+                break;
+            case 'dimensoes':
+                if (value.checked == true) {
+                    setCheckvalue({
+                        HepatiteAguda: false,
+                        normal: true,
+                        HepatiteCronica: false,
+                        esteatose: false,
+                        dimensoes: false
+                    })
+                } else {
+                    setCheckvalue({
+                        HepatiteAguda: false,
+                        normal: false,
+                        HepatiteCronica: false,
+                        esteatose: false,
+                        dimensoes: false
+                    })
+                }
+                break;
+            case 'esteatose':
+                if (value.checked == true) {
+                    setCheckvalue({
+                        HepatiteAguda: false,
+                        normal: true,
+                        HepatiteCronica: false,
+                        esteatose: false,
+                        dimensoes: false
+                    })
+                } else {
+                    setCheckvalue({
+                        HepatiteAguda: false,
+                        normal: false,
+                        HepatiteCronica: false,
+                        esteatose: false,
+                        dimensoes: false
+                    })
+                }
+                break;
+            default:
+                console.log("nao achou o id");
+                break;
+        }
+    }
+
+    const [checkValueCistos, setCheckvalueCistos] = useState({
+        calcificacao: false,
+        cisto01: false,
+        cisto02: false,
+        cisto03: false,
+        MultiplosCistos: false
+    })
+
+
+    const verificaCheckedCistos = (value) => {
+        console.log(value, value.checked, "value recebido")
+
+        switch (value.id) {
+            case 'calcificacao':
+                if (value.checked == true) {
+                    setCheckvalueCistos({
+                        calcificacao: false,
+                        cisto01: true,
+                        cisto03: true,
+                        cisto02: true,
+                        MultiplosCistos: true
+                    })
+                } else {
+                    setCheckvalueCistos({
+                        calcificacao: false,
+                        cisto01: false,
+                        cisto03: false,
+                        cisto02: false,
+                        MultiplosCistos: false
+                    })
+                }
+                break;
+            case 'cisto01':
+                if (value.checked == true) {
+                    setCheckvalueCistos({
+                        calcificacao: true,
+                        cisto01: false,
+                        cisto03: false,
+                        cisto02: false,
+                        MultiplosCistos: false
+                    })
+                } else {
+                    setCheckvalueCistos({
+                        calcificacao: false,
+                        cisto01: false,
+                        cisto03: false,
+                        cisto02: false,
+                        MultiplosCistos: false
+                    })
+                }
+                break;
+            case 'cisto02':
+                if (value.checked == true) {
+                    setCheckvalueCistos({
+                        calcificacao: true,
+                        cisto01: false,
+                        cisto03: false,
+                        cisto02: false,
+                        MultiplosCistos: false
+                    })
+                } else {
+                    setCheckvalueCistos({
+                        calcificacao: false,
+                        cisto01: false,
+                        cisto03: false,
+                        cisto02: false,
+                        MultiplosCistos: false
+                    })
+                }
+                break;
+            case 'cisto03':
+                if (value.checked == true) {
+                    setCheckvalueCistos({
+                        calcificacao: true,
+                        cisto01: false,
+                        cisto03: false,
+                        cisto02: false,
+                        MultiplosCistos: false
+                    })
+                } else {
+                    setCheckvalueCistos({
+                        calcificacao: false,
+                        cisto01: false,
+                        cisto03: false,
+                        cisto02: false,
+                        MultiplosCistos: false
+                    })
+                }
+                break;
+            case 'MultiplosCistos':
+                if (value.checked == true) {
+                    setCheckvalueCistos({
+                        calcificacao: true,
+                        cisto01: false,
+                        cisto03: false,
+                        cisto02: false,
+                        MultiplosCistos: false
+                    })
+                } else {
+                    setCheckvalueCistos({
+                        calcificacao: false,
+                        cisto01: false,
+                        cisto03: false,
+                        cisto02: false,
+                        MultiplosCistos: false
+                    })
+                }
+                break;
+            default:
+                console.log("nao achou o id");
+                break;
+        }
+    }
+
+    const [checkValueNodulos, setCheckvalueNodulus] = useState({
+        nodulo01: true,
+        nodulo02: true,
+        nodulo03: true,
+        multiplosNodulos: true
+    })
+
+
+    const verificaCheckedNodulos = (value) => {
+        console.log(value, value.checked, "value recebido")
+
+        switch (value.id) {
+            case 'nodulo01':
+                if (value.checked == true) {
+                    setCheckvalueNodulus({
+                        nodulo01: false,
+                        nodulo02: true,
+                        nodulo03: true,
+                        multiplosNodulos: true
+                    })
+                } else {
+                    setCheckvalueNodulus({
+                        nodulo01: true,
+                        nodulo02: true,
+                        nodulo03: true,
+                        multiplosNodulos: true
+                    })
+                }
+                break;
+            case 'nodulo02':
+                if (value.checked == true) {
+                    setCheckvalueNodulus({
+                        nodulo01: true,
+                        nodulo02: false,
+                        nodulo03: true,
+                        multiplosNodulos: true
+                    })
+                } else {
+                    setCheckvalueNodulus({
+                        nodulo01: true,
+                        nodulo02: true,
+                        nodulo03: true,
+                        multiplosNodulos: true
+                    })
+                }
+                break;
+            case 'nodulo03':
+                if (value.checked == true) {
+                    setCheckvalueNodulus({
+                        nodulo01: true,
+                        nodulo02: true,
+                        nodulo03: false,
+                        multiplosNodulos: true
+                    })
+                } else {
+                    setCheckvalueNodulus({
+                        nodulo01: true,
+                        nodulo02: true,
+                        nodulo03: true,
+                        multiplosNodulos: true
+                    })
+                }
+                break;
+            case 'multiplosNodulos':
+                if (value.checked == true) {
+                    setCheckvalueNodulus({
+                        nodulo01: true,
+                        nodulo02: true,
+                        nodulo03: true,
+                        multiplosNodulos: false
+                    })
+                } else {
+                    setCheckvalueNodulus({
+                        nodulo01: true,
+                        nodulo02: true,
+                        nodulo03: true,
+                        multiplosNodulos: true
+                    })
+                }
+                break;
+            default:
+                console.log("nao achou o id");
+                break;
+        }
+    }
+
+
 
     return (
 
@@ -65,28 +338,39 @@ function Figado() {
                 borderBottom='1px'>
                 <TituloNomeExame titulo='Figado' />
                 <Box >
-                    <Checkbox onChange={(e) => normal(e.target.value)}
-                        id='CheckboxNormal'
-                        mr='25px'
-                        value='normal'>Normal</Checkbox>
-                    <Checkbox onChange={(e) => normal(e.target.value)}
-                        mr='25px'
-                        id="CheckboxHepatite"
-                        value='Hepatite Aguda'>Hepatite Aguda</Checkbox>
                     <Checkbox
-                        onChange={(e) => normal(e.target.value)}
+                        disabled={checkValue.normal}
+                        id="normal"
+                        onChange={(e) => { verificaChecked(e.target) }}
                         mr='25px'
-                        id="CheckboxHepatopatia"
-                        value="Hepatopatia Crônica">Hepatopatia Crônica</Checkbox>
+                    >Normal</Checkbox>
                     <Checkbox
-                        onChange={(e) => normal(e.target.value)}
+                        mr='25px'
+                        disabled={checkValue.HepatiteAguda}
+                        id="HepatiteAguda"
+                        onChange={(e) => { verificaChecked(e.target) }}
+                    >Hepatite Aguda
+                    </Checkbox>
+                    <Checkbox
+                        mr='25px'
+                        disabled={checkValue.HepatiteCronica}
+                        id="HepatiteCronica"
+                        onChange={(e) => { verificaChecked(e.target) }}
+                    >Hepatopatia Crônica
+                    </Checkbox>
+                    <Checkbox
                         mr='53px'
-                        id="CheckboxDimensoes"
-                        value="Dimensões">Dimensões</Checkbox>
+                        disabled={checkValue.dimensoes}
+                        id="dimensoes"
+                        onChange={(e) => { verificaChecked(e.target) }}
+                    >Dimensões
+                    </Checkbox>
                     <Checkbox
-                        onChange={(e) => normal(e.target.value)}
-                        id='CheckboxEsteatose'
-                        value="Esteatose">Esteatose</Checkbox>
+                        disabled={checkValue.esteatose}
+                        id="esteatose"
+                        onChange={(e) => { verificaChecked(e.target) }}
+                    >Esteatose
+                    </Checkbox>
                 </Box>
 
                 <Box
@@ -97,7 +381,10 @@ function Figado() {
                     <Select
                         ml='450px'
                         w='150px'
-                        id='SelectDimensoes'>
+                        disabled={checkValue.dimensoes}
+                        id="dimensoes"
+                        onChange={(e) => { verificaChecked(e.target) }}
+                    >
                         <option value='' disabled selected>Selecione</option>
                         <option value='Aumentadas'>Aumentadas</option>
                         <option value='Reduzidas'>Reduzidas</option>
@@ -105,7 +392,10 @@ function Figado() {
                     <Select
                         ml='10px'
                         w='150px'
-                        id='SelectEsteatose'>
+                        disabled={checkValue.esteatose}
+                        id="esteatose"
+                        onChange={(e) => { verificaChecked(e.target) }}
+                    >
                         <option value='' disabled selected>Selecione</option>
                         <option value='Leve'>Leve</option>
                         <option value='Moderada'>Moderada</option>
@@ -126,39 +416,50 @@ function Figado() {
                 >
                     <GridItem w='100%' h='28px'>
                         <Checkbox
-                            id='CheckboxCalcificacao'
-                            onChange={(e) => normal(e.target.value)}
+                            disabled={checkValueCistos.calcificacao}
+                            id="calcificacao"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
                         >Calcificação</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-5px'>
                         <Checkbox
-                            id='CheckboxCisto01'
-                            onChange={(e) => normal(e.target.value)}
+                            disabled={checkValueCistos.cisto01}
+                            id="cisto01"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
                         >Cisto 01</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-10px'>
                         <Checkbox
-                            onChange={(e) => normal(e.target.value)}
-                            id='CheckboxCisto02'>Cisto 02</Checkbox>
+                            disabled={checkValueCistos.cisto02}
+                            id="cisto02"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
+                        >Cisto 02</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-15px'>
                         <Checkbox
-                            onChange={(e) => normal(e.target.value)}
-                            id='CheckboxCisto03'>Cisto 03</Checkbox>
+                            disabled={checkValueCistos.cisto03}
+                            id="cisto03"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
+                        >Cisto 03</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px'>
                         <Checkbox ml='-40px'
-                            onChange={(e) => normal(e.target.value)}
-                            id='CheckboxMultiplosCistos'>Múltiplos cistos, o maior:</Checkbox>
+                            disabled={checkValueCistos.MultiplosCistos}
+                            id="MultiplosCistos"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
+                        >Múltiplos cistos, o maior:</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-8px'>
                         <Select w='150px'
-                            id='SelectCalcificacao'>
+                            disabled={checkValueCistos.calcificacao}
+                            id="calcificacao"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
+                        >
                             <option value='' disabled selected>Selecione</option>
                             <option value='Segmento I'>Segmento I</option>
                             <option value='Segmento II'>Segmento II</option>
@@ -174,7 +475,9 @@ function Figado() {
                     <GridItem w='100%' h='28px' mt='-8px' ml='-5px'>
                         <Select
                             w='150px'
-                            id='SelectCisto01'>
+                            disabled={checkValueCistos.cisto01}
+                            id="cisto01"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}>
                             <option value='' disabled selected>Selecione</option>
                             <option value='Segmento I'>Segmento I</option>
                             <option value='Segmento II'>Segmento II</option>
@@ -190,7 +493,9 @@ function Figado() {
 
                     <GridItem w='100%' h='28px' mt='-8px' ml='-10px'>
                         <Select
-                            id='SelectCisto02'
+                            disabled={checkValueCistos.cisto02}
+                            id="cisto02"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
                             w='150px'>
                             <option value='' disabled selected>Selecione</option>
                             <option value='Segmento I'>Segmento I</option>
@@ -206,7 +511,9 @@ function Figado() {
 
                     <GridItem w='100%' h='28px' mt='-8px' ml='-15px'>
                         <Select
-                            id='SelectCisto03'
+                            disabled={checkValueCistos.cisto03}
+                            id="cisto03"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
                             w='130px' >
                             <option value='' disabled selected>Selecione</option>
                             <option value='Segmento I'>Segmento I</option>
@@ -222,7 +529,9 @@ function Figado() {
 
                     <GridItem w='100%' h='28px' mt='-8px' ml='-40px'>
                         <Select
-                            id='SelectMultiplosCistos'
+                            disabled={checkValueCistos.MultiplosCistos}
+                            id="MultiplosCistos"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
                             w='160px' >
                             <option value='' disabled selected>Selecione</option>
                             <option value='Segmento I'>Segmento I</option>
@@ -239,24 +548,41 @@ function Figado() {
 
                     <GridItem w='100%' h='28px' >
                         <Input
-                            id='SelectCalcificacao' w='150px' placeholder='mm' />
+                            disabled={checkValueCistos.calcificacao}
+                            id="calcificacao"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
+                            w='150px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-5px'>
-                        <Input w='150px' placeholder='mm' />
+                        <Input
+                            disabled={checkValueCistos.cisto01}
+                            id="cisto01"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
+                            w='150px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-10px'>
-                        <Input w='150px' placeholder='mm' />
+                        <Input
+                            disabled={checkValueCistos.cisto02}
+                            id="cisto02"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
+                            w='150px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-15px'>
-                        <Input w='130px' placeholder='mm' />
+                        <Input
+                            disabled={checkValueCistos.cisto03}
+                            id="cisto03"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
+                            w='130px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-40px'>
                         <Input
-                            id='InputMultiplosCistos'
+                            disabled={checkValueCistos.MultiplosCistos}
+                            id="MultiplosCistos"
+                            onChange={(e) => { verificaCheckedCistos(e.target) }}
                             w='150px' placeholder='mm' />
                     </GridItem>
 
@@ -271,32 +597,47 @@ function Figado() {
                 h='130px'
             >
                 <Grid
-                    templateColumns='repeat(5, 1fr)'
+                    templateColumns='repeat(4, 1fr)'
                     templateRows='repeat(5, 1fr)'
                     gap={3}
                 >
                     <GridItem w='100%' h='28px'>
-                        <Checkbox>Nódulo 01</Checkbox>
+                        <Checkbox
+                            // disabled={checkValueNodulos.nodulo01}
+                            id="nodulo01"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
+                        >Nódulo 01</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-5px'>
-                        <Checkbox>Nódulo 02</Checkbox>
+                        <Checkbox
+                            // disabled={checkValueNodulos.nodulo02}
+                            id="nodulo02"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
+                        >Nódulo 02</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-10px'>
-                        <Checkbox>Nódulo 03</Checkbox>
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' ml='-15px'>
-                        <Checkbox>Nódulo 01</Checkbox>
+                        <Checkbox
+                            // disabled={checkValueNodulos.nodulo03}
+                            id="nodulo03"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
+                        >Nódulo 03</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px'>
-                        <Checkbox ml='-55px'>Múltiplos Nódulos, o maior:</Checkbox>
+                        <Checkbox
+                            // disabled={checkValueNodulos.multiplosNodulos}
+                            id="multiplosNodulos"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
+                            ml='-55px'>Múltiplos Nódulos, o maior:</Checkbox>
                     </GridItem>
 
                     <GridItem w='100%' h='28px' mt='-8px'>
                         <Select
+                            disabled={checkValueNodulos.nodulo01}
+                            id="nodulo01"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
                             w='150px'>
                             <option value='' disabled selected>Localizado</option>
                             <option value='Segmento I'>Segmento I</option>
@@ -312,6 +653,9 @@ function Figado() {
                     <GridItem w='100%' h='28px' mt='-8px' ml='-5px'>
 
                         <Select
+                            disabled={checkValueNodulos.nodulo02}
+                            id="nodulo02"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
                             w='150px'>
                             <option value='' disabled selected>Localizado</option>
                             <option value='Segmento I'>Segmento I</option>
@@ -328,22 +672,10 @@ function Figado() {
                     <GridItem w='100%' h='28px' mt='-8px' ml='-10px'>
 
                         <Select
+                            disabled={checkValueNodulos.nodulo03}
+                            id="nodulo03"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
                             w='150px'>
-                            <option value='' disabled selected>Localizado</option>
-                            <option value='Segmento I'>Segmento I</option>
-                            <option value='Segmento II'>Segmento II</option>
-                            <option value='Segmento III'>Segmento III</option>
-                            <option value='Segmento IV'>Segmento IV</option>
-                            <option value='Segmento V'>Segmento V</option>
-                            <option value='Segmento VI'>Segmento VI</option>
-                            <option value='Segmento VII'>Segmento VII</option>
-                            <option value='Segmento VIII'>Segmento VIII</option>
-                        </Select>
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-8px' ml='-15px'>
-                        <Select
-                            w='130px' >
                             <option value='' disabled selected>Localizado</option>
                             <option value='Segmento I'>Segmento I</option>
                             <option value='Segmento II'>Segmento II</option>
@@ -359,6 +691,9 @@ function Figado() {
                     <GridItem w='100%' h='28px' mt='-8px' ml='-40px'>
 
                         <Select
+                            disabled={checkValueNodulos.multiplosNodulos}
+                            id="multiplosNodulos"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
                             w='160px' >
                             <option value='' disabled selected>Localizado</option>
                             <option value='Segmento I'>Segmento I</option>
@@ -373,28 +708,41 @@ function Figado() {
 
                     </GridItem>
 
-                    <GridItem w='100%' h='28px' >
-                        <Input w='150px' placeholder='mm' />
+                    <GridItem w='100%' h='28px'                    >
+                        <Input
+                            disabled={checkValueNodulos.nodulo01}
+                            id="nodulo01"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
+                            w='150px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-5px'>
-                        <Input w='150px' placeholder='mm' />
+                        <Input
+                            disabled={checkValueNodulos.nodulo02}
+                            id="nodulo02"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
+                            w='150px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-10px'>
-                        <Input w='150px' placeholder='mm' />
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' ml='-15px'>
-                        <Input w='130px' placeholder='mm' />
+                        <Input
+                            disabled={checkValueNodulos.nodulo03}
+                            id="nodulo03"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
+                            w='150px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-40px'>
-                        <Input w='150px' placeholder='mm' />
+                        <Input disabled={checkValueNodulos.multiplosNodulos}
+                            id="multiplosNodulos"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }} w='160px' placeholder='mm' />
                     </GridItem>
 
                     <GridItem w='100%' h='28px'>
                         <Select
+                            disabled={checkValueNodulos.nodulo01}
+                            id="nodulo01"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
                             w='150px' mt='10px'>
                             <option value='' disabled selected>Contornos</option>
                             <option value='Regulares'>Regulares</option>
@@ -405,6 +753,9 @@ function Figado() {
 
                     <GridItem w='100%' h='28px' ml='-5px'>
                         <Select
+                            disabled={checkValueNodulos.nodulo02}
+                            id="nodulo02"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
                             w='150px' mt='10px'>
                             <option value='' disabled selected>Contornos</option>
                             <option value='Regulares'>Regulares</option>
@@ -415,6 +766,9 @@ function Figado() {
 
                     <GridItem w='100%' h='28px' ml='-10px'>
                         <Select
+                            disabled={checkValueNodulos.nodulo03}
+                            id="nodulo03"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
                             w='150px' mt='10px'>
                             <option value='' disabled selected>Contornos</option>
                             <option value='Regulares'>Regulares</option>
@@ -423,18 +777,12 @@ function Figado() {
                         </Select>
                     </GridItem>
 
-                    <GridItem w='100%' h='28px' ml='-15px'>
-                        <Select
-                            w='130px' mt='10px'>
-                            <option value='' disabled selected>Contornos</option>
-                            <option value='Regulares'>Regulares</option>
-                            <option value='Irregulares'>Irregulares</option>
-                            <option value='Lobulados'>Lobulados</option>
-                        </Select>
-                    </GridItem>
 
                     <GridItem w='100%' h='28px' ml='-40px'>
                         <Select
+                            disabled={checkValueNodulos.multiplosNodulos}
+                            id="multiplosNodulos"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
                             w='160px' mt='10px'>
                             <option value='' disabled selected>Contornos</option>
                             <option value='Regulares'>Regulares</option>
@@ -445,6 +793,9 @@ function Figado() {
 
                     <GridItem w='100%' h='28px'>
                         <Select
+                            disabled={checkValueNodulos.nodulo01}
+                            id="nodulo01"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
                             w='150px' mt='20px'>
                             <option value='' disabled selected>Ecogenicidade</option>
                             <option value='Hippoecogenico'>Hipoecogênico</option>
@@ -455,6 +806,9 @@ function Figado() {
 
                     <GridItem w='100%' h='28px' ml='-5px'>
                         <Select
+                            disabled={checkValueNodulos.nodulo02}
+                            id="nodulo02"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
                             w='150px' mt='20px'>
                             <option value='' disabled selected>Ecogenicidade</option>
                             <option value='Hippoecogenico'>Hipoecogênico</option>
@@ -465,17 +819,10 @@ function Figado() {
 
                     <GridItem w='100%' h='28px' ml='-10px'>
                         <Select
+                            disabled={checkValueNodulos.nodulo03}
+                            id="nodulo03"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
                             w='150px' mt='20px'>
-                            <option value='' disabled selected>Ecogenicidade</option>
-                            <option value='Hippoecogenico'>Hipoecogênico</option>
-                            <option value='Hiperecogênico'>Hiperecogênico</option>
-                            <option value='Isoecogênico'>Isoecogênico</option>
-                        </Select>
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' ml='-15px'>
-                        <Select
-                            w='130px' mt='20px'>
                             <option value='' disabled selected>Ecogenicidade</option>
                             <option value='Hippoecogenico'>Hipoecogênico</option>
                             <option value='Hiperecogênico'>Hiperecogênico</option>
@@ -485,6 +832,9 @@ function Figado() {
 
                     <GridItem w='100%' h='28px' ml='-40px'>
                         <Select
+                            disabled={checkValueNodulos.multiplosNodulos}
+                            id="multiplosNodulos"
+                            onChange={(e) => { verificaCheckedNodulos(e.target) }}
                             w='160px' mt='20px'>
                             <option value='' disabled selected>Ecogenicidade</option>
                             <option value='Hippoecogenico'>Hipoecogênico</option>
