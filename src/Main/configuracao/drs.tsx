@@ -12,6 +12,7 @@ const Drs = () => {
           textColor="#4A5568"
           icon={HiOutlineUser}
           clinica={drs}
+          clinicas={null}
         />
       ))}
     </>

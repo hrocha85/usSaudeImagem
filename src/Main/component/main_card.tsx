@@ -4,7 +4,7 @@ import Drs from "../configuracao/drs";
 import IconButtonPlus from "./icon_button_plus";
 import { useEffect, useState } from "react";
 
-const MainCard = ({ titulo, icon }) => {
+const MainCard = ({ titulo, icon,nome }) => {
   const [atualizar, setAtualizar] = useState(true);
 
   useEffect(() => {}, [atualizar]);
@@ -48,7 +48,7 @@ const MainCard = ({ titulo, icon }) => {
             paddingStart="8px"
             alignSelf="center"
           >
-            {titulo}
+            {nome ? (nome) : titulo}
           </Text>
           {ShowIcon(icon)}
         </Stack>

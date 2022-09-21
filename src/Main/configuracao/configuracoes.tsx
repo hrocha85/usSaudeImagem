@@ -1,28 +1,57 @@
 import {
   Box,
-  Button, Flex, Icon,
-  Image, List,
+  Button,
+  Center,
+  Container,
+  Divider,
+  Flex,
+  Grid,
+  HStack,
+  Icon,
+  Image,
+  Input,
+  InputGroup,
+  InputLeftAddon,
+  List,
   ListIcon,
-  ListItem, Popover,
+  ListItem,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Popover,
   PopoverArrow,
   PopoverBody,
   PopoverContent,
   PopoverTrigger,
   Progress,
-  Stack, Tooltip,
-  useDisclosure
+  Select,
+  Stack,
+  Text,
+  Tooltip,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { BiCamera } from "react-icons/bi";
+import { AiOutlineClear } from "react-icons/ai";
 import { FaRegFolderOpen } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
+import SignatureCanvas from "react-signature-canvas";
 import BoxTitleBackground from "../component/box_title_background";
 import RectangularCard from "../component/card_observations";
 import ItemObservation from "../component/item_obeservation";
 import MainCard from "../component/main_card";
-import ModalDrs from "../component/modal_dr";
+import Avatar from "../images/Avatar.png";
 import BG from "../images/bg_img.png";
 import PlusButton from "../images/button_plus.png";
 import ImageHome from "../images/icon_home.png";
+import Medicos from "../../Data/Medicos.json";
+import { render } from "@testing-library/react";
+import ReactSignatureCanvas from "react-signature-canvas";
+import React from "react";
 
 const Configuracoes = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,11 +60,21 @@ const Configuracoes = () => {
 
   const [focus, setFocus] = useState("unstyled");
 
-  const [nome, setDoutor] = useState("Nome do Doutor(a)");
+  const [nome, setNome] = useState("Nome do Doutor(a)");
+
+  const [crm, setCrm] = useState("");
 
   const [endereco, setEndereco] = useState("");
 
-  const [modalDrs, setModalDrs] = useState(false);
+  const [medicos, setMedicos] = useState<any[]>([]);
+
+  let lista_medicos = Medicos.medicos;
+
+  let padRef = React.useRef<SignatureCanvas>(null);
+
+  const clear = () => {
+    padRef.current?.clear();
+  };
 
   function Laudos() {
     return (
@@ -63,7 +102,18 @@ const Configuracoes = () => {
       </List>
     );
   }
- 
+
+  function AddMedico() {
+    const obj = {
+      nome: nome,
+      crm: "7777",
+      uf: "sp",
+      assinatura: " heheh",
+      foto: "hehehr",
+    };
+    lista_medicos.push(obj);
+    setMedicos(lista_medicos);
+  }
 
   return (
     <Box
@@ -113,39 +163,172 @@ const Configuracoes = () => {
       <Flex
         h="100%"
         direction="row"
-        justify="space-between"
+        justify='space-evenly'
         margin="60px"
         flexWrap="wrap"
         gap="10px"
       >
-        <MainCard titulo="Clínicas" icon={true} />
-        <MainCard titulo="Doutor(a)" icon={false} />
-        <MainCard titulo="Doutor(a)" icon={false} />
-        <MainCard titulo="Doutor(a)" icon={false} />
-        <Tooltip
-          label="Adicionar Médico"
-          backgroundColor="white"
-          placement="top"
-          defaultIsOpen={false}
-          hasArrow
-          arrowSize={15}
-        >
-          <Button
-            position="absolute"
-            right="1"
-            variant="ghost"
-            onClick={() => setModalDrs(true)}
+        <>
+          <MainCard titulo="Clínicas" icon={true} nome={null} />
+          {medicos.map((med) => {
+            return <MainCard titulo="Doutor(a)" icon={false} nome={med.nome} />;
+          })}
+
+          <Tooltip
+            label="Adicionar Médico"
+            backgroundColor="white"
+            placement="top"
+            defaultIsOpen={false}
+            hasArrow
+            arrowSize={15}
           >
-            <Image
-              srcSet={PlusButton}
-              alt="Second Icon Plus"
-              h="20px"
-              w="20px"
-            />
-          </Button>
-        </Tooltip>
+            <Button
+              position="absolute"
+              right="1"
+              variant="ghost"
+              onClick={onOpen}
+            >
+              <Image
+                srcSet={PlusButton}
+                alt="Second Icon Plus"
+                h="20px"
+                w="20px"
+              />
+            </Button>
+          </Tooltip>
+        </>
       </Flex>
-      
+
+      <>
+        <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader></ModalHeader>
+            <Divider orientation="horizontal" marginTop="10px" />
+            <ModalCloseButton
+              onClick={() => {
+                setFocus("unstyled");
+                setEnable(true);
+              }}
+            />
+
+            <Stack direction="row" justify="center" margin="10px">
+              <Box sx={{ flexGrow: 1 }}>
+                <Input
+                  textAlign="center"
+                  paddingStart="60px"
+                  fontWeight="bold"
+                  fontSize="20px"
+                  placeholder='Nome Doutor'
+                  isDisabled={enable}
+                  variant={focus}
+                  onChange={(e) => setNome(e.target.value)}
+                  _placeholder={{ fontWeight: "bold", color: "black" }}
+                ></Input>
+              </Box>
+
+              <Box sx={{ alignSelf: "flex-end" }}>
+                <Button
+                  color="#4759FC"
+                  paddingEnd="5px"
+                  fontSize="16px"
+                  fontWeight="bold"
+                  backgroundColor="transparent"
+                  alignItems="center"
+                  onClick={() => {
+                    setEnable(false);
+                    setFocus("filled");
+                  }}
+                >
+                  Editar
+                </Button>
+              </Box>
+            </Stack>
+
+            <Divider orientation="horizontal" />
+
+            <ModalBody>
+              <Center>
+                <Image
+                  borderRadius="full"
+                  boxSize="150px"
+                  srcSet={Avatar}
+                  alt="Image DR"
+                />
+              </Center>
+
+              <Center>
+                <Icon
+                  as={BiCamera}
+                  marginTop="2px"
+                  color="#4658fc"
+                  margin="10px"
+                />
+              </Center>
+              <Center>
+                <HStack>
+                  <Text marginEnd="5px">Clínicas</Text>
+                  <Select placeholder="Clínicas Cadastradas" variant="filled">
+                    <option value="option1">Clínica 1</option>
+                    <option value="option2">Clínica 2</option>
+                    <option value="option3">Clínica 3</option>
+                  </Select>
+                </HStack>
+              </Center>
+              <Center paddingTop={"30px"}>
+                <InputGroup
+                  variant={"unstyled"}
+                  width={"245px"}
+                  marginEnd="50px"
+                >
+                  <InputLeftAddon children="CRM/UF:" paddingEnd={"5px"} />
+                  <Input
+                    placeholder="00000000-0/BR"
+                    fontSize="18px"
+                    textAlign={"center"}
+                    _placeholder={{ fontWeight: "bold", color: "black" }}
+                  />
+                </InputGroup>
+              </Center>
+            </ModalBody>
+
+            <ModalFooter>
+              <Box>
+                <SignatureCanvas
+                  ref={padRef}
+                  backgroundColor="#F7FAFC"
+                  penColor="black"
+                  canvasProps={{
+                    width: 400,
+                    height: 200,
+                    className: "sigCanvas",
+                  }}
+                />
+                <Flex justify="end">
+                  <Icon
+                    as={AiOutlineClear}
+                    color="#4658fc"
+                    margin="5px"
+                    alignItems="end"
+                    onClick={clear}
+                  />
+                </Flex>
+              </Box>
+            </ModalFooter>
+            <Button
+              textColor="white"
+              backgroundColor="#0e63fe"
+              margin="10px"
+              onClick={() => {
+                AddMedico();
+                onClose();
+              }}
+            >
+              Salvar
+            </Button>
+          </ModalContent>
+        </Modal>
+      </>
       <Stack h="100%" direction="row" justify="center">
         <RectangularCard
           titulo="Observações"

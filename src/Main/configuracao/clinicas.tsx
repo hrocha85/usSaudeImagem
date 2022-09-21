@@ -28,6 +28,7 @@ const Clinica = (props) => {
           textColor="#4A5568"
           icon={FaRegFolderOpen}
           clinica={item}
+          clinicas={listaClinicas}
         />
       ))}
     </>

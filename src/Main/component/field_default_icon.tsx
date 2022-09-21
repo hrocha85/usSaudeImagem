@@ -31,7 +31,7 @@ import { IconContext } from "react-icons";
 import { BiCamera } from "react-icons/bi";
 import { minhasClinicas } from "./icon_button_plus";
 
-const FieldDefaultIcon = ({ text, textColor, icon, clinica }) => {
+const FieldDefaultIcon = ({ text, textColor, icon, clinica, clinicas }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [focus, setFocus] = useState("unstyled");
@@ -107,16 +107,12 @@ const FieldDefaultIcon = ({ text, textColor, icon, clinica }) => {
   }
 
   function UpdateLocalStorage(nomeCLinicaP) {
-    var item;
-    var item_parse;
+    var cln = clinicas;
+    clinica.nomeClinica = nomeCLinicaP;
+    localStorage.setItem("minhasClinicas", JSON.stringify(clinica));
 
-    if (localStorage.getItem("minhasClinicas") != null) {
-      item = localStorage.getItem("minhasClinicas");
-      item_parse = JSON.parse(item);
-      item_parse.nomeClinica = nomeCLinicaP;
-      localStorage.setItem("minhasClinicas", JSON.stringify(item_parse));
-    }
   }
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -280,10 +276,9 @@ const FieldDefaultIcon = ({ text, textColor, icon, clinica }) => {
             backgroundColor="#0e63fe"
             margin="10px"
             onClick={() => {
+              UpdateLocalStorage(nome);
               ResetStates();
               onClose();
-              UpdateLocalStorage(nome);
-              console.log(minhasClinicas);
             }}
           >
             Salvar
