@@ -126,6 +126,8 @@ const IconButtonPlus = (props) => {
         defaultIsOpen={false}
         hasArrow
         arrowSize={15}
+        textColor='black'
+
       >
         <IconButton
           aria-label="sdfs"

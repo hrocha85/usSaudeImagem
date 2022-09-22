@@ -4,8 +4,16 @@ import Drs from "../configuracao/drs";
 import IconButtonPlus from "./icon_button_plus";
 import { useEffect, useState } from "react";
 
-const MainCard = ({ titulo, icon,clinica,medicos }) => {
+const MainCard = ({ titulo, icon, clinica, medicos }) => {
   const [atualizar, setAtualizar] = useState(true);
+
+  const [H, setH] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("minhasClinicas") == null) {
+      setH("100%");
+    } else setH("383px");
+  }, [localStorage.getItem("minhasClinicas")]);
 
   useEffect(() => {}, [atualizar]);
 
@@ -16,7 +24,7 @@ const MainCard = ({ titulo, icon,clinica,medicos }) => {
       );
     }
   }
-  
+
   function Cards(titulo) {
     switch (titulo) {
       case "Clínicas":
@@ -34,7 +42,7 @@ const MainCard = ({ titulo, icon,clinica,medicos }) => {
     <Box
       bg="#FAFAFA"
       w="218px"
-      h="383px"
+      h={H}
       color="white"
       borderRadius="10.85px"
       boxShadow="md"
@@ -48,7 +56,7 @@ const MainCard = ({ titulo, icon,clinica,medicos }) => {
             paddingStart="8px"
             alignSelf="center"
           >
-            {medicos ? (medicos.nome) : titulo}
+            {medicos ? medicos.nome : titulo}
           </Text>
           {ShowIcon(icon)}
         </Stack>
@@ -60,3 +68,5 @@ const MainCard = ({ titulo, icon,clinica,medicos }) => {
 };
 
 export default MainCard;
+/**      h="383px"
+ */

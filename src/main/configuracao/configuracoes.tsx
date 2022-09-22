@@ -30,7 +30,7 @@ import {
   Stack,
   Text,
   Tooltip,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
@@ -148,12 +148,13 @@ const Configuracoes = () => {
       uf: "sp",
       assinatura: " heheh",
       foto: "hehehr",
-      clinica: {},
+      clinica: clinica,
     };
     lista_medicos.push(obj);
     localStorage.setItem("medicos", JSON.stringify(lista_medicos));
     setMedicos(lista_medicos);
   }
+  console.log(clinica);
 
   const ResetDados = () => {
     setNome("");
@@ -218,10 +219,21 @@ const Configuracoes = () => {
         gap="10px"
       >
         <>
-          <MainCard titulo="Clínicas" icon={true} clinica={null} medicos={null} />
+          <MainCard
+            titulo="Clínicas"
+            icon={true}
+            clinica={null}
+            medicos={null}
+          />
+
           {medicos.map((med) => {
             return (
-              <MainCard titulo="Doutor(a)" icon={false} clinica={clinica} medicos={med} />
+              <MainCard
+                titulo="Doutor(a)"
+                icon={false}
+                clinica={clinica}
+                medicos={med}
+              />
             );
           })}
 
@@ -232,6 +244,7 @@ const Configuracoes = () => {
             defaultIsOpen={false}
             hasArrow
             arrowSize={15}
+            textColor="black"
           >
             <Button
               position="absolute"
@@ -333,10 +346,7 @@ const Configuracoes = () => {
                   <Text marginEnd="5px" fontWeight="bold">
                     Clínicas:
                   </Text>
-                  <Select
-                    placeholder="Clínicas Cadastradas"
-                    variant="filled"
-                  >
+                  <Select placeholder="Clínicas Cadastradas" variant="filled">
                     {listaClinicas.map((e) => {
                       return <option value={e}>{e.nomeClinica}</option>;
                     })}
