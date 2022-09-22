@@ -1,10 +1,10 @@
-import { Box, Checkbox, Stack, Text, Select, Grid, GridItem, Input } from "@chakra-ui/react";
+import { Box, Text, Checkbox, Select, Input } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import BGImage from "../../images/bg_img.png";
 
 function Aorta() {
     const altura = '100%'
-    const largura = '890px'
+    const largura = '66%'
 
     return (
 
@@ -16,7 +16,7 @@ function Aorta() {
             bgRepeat="no-repeat"
             borderRadius="10.85px"
             boxShadow="md"
-            padding='24px 15px 48px 15px'
+            padding='24px 15px 20px 15px'
             mt='15px'
         >
             <Box
@@ -25,56 +25,54 @@ function Aorta() {
                 <TituloNomeExame titulo='Aorta' />
 
                 <Box
-                    mb='20px'>
-                    <Checkbox mr='25px'>Normal</Checkbox>
-                    <Checkbox mr='25px'>Não Visibilizado</Checkbox>
-                    <Checkbox mr='25px'>Ateromatosa</Checkbox>
+                    gap='30px'
+                    display='flex'
+                    flexWrap='wrap'
+                    mb='20px'
+                >
+                    <Checkbox >Normal</Checkbox>
+                    <Checkbox >Não Visibilizado</Checkbox>
+                    <Checkbox >Ateromatosa</Checkbox>
                     <Checkbox>Aneurisma</Checkbox>
                 </Box>
 
             </Box>
             {/* ------------------------------------------------------------------------------------------------------------ */}
+
             <Box
+                gap='30px'
+                display='flex'
+                flexWrap='wrap'
                 mt='20px'
             >
-                <Grid
-                    templateColumns='repeat(3, 1fr)'
-                    templateRows='repeat(2, 1fr)'
-                    gap={3}
-                >
-                    <GridItem w='100%' h='28px'>
-                        <Checkbox>Localização:</Checkbox>
-                    </GridItem>
 
-                    <GridItem w='100%' h='28px' ml='-80px'>
-                        <Checkbox>Calire máximo:</Checkbox>
-                    </GridItem>
+                <Box >
+                    <Text>Localização:</Text>
 
-                    <GridItem w='100%' h='28px' ml='-160px'>
-                        <Checkbox>Extensão:</Checkbox>
-                    </GridItem>
+                    <Select >
+                        <option value='' disabled selected>Localização</option>
+                        <option value='supra-renal'>Supra-renal</option>
+                        <option value='tercoProximal'>terço proximal</option>
+                        <option value='tercoMedio'>Terço médio</option>
+                        <option value='tercoDistal'>Terço distal</option>
+                        <option value='bifurcacao'>Bifurcação</option>
+                        <option value='infraRenal'>Infra-renal</option>
+                    </Select>
+                </Box>
 
+                <Box w='200px'>
+                    <Text>Calire máximo:</Text>
 
-                    <GridItem w='100%' h='28px' mt='-8px'>
-                        <Select placeholder='select'
-                            w='160px'>
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select>
-                    </GridItem>
+                    <Input w='100%' placeholder='mm' />
+                </Box>
 
-                    <GridItem w='100%' h='28px' mt='-8px' ml='-80px'>
-                        <Input w='160px' placeholder='mm' />
-                    </GridItem>
+                <Box w='200px'>
+                    <Text>Extensão:</Text>
 
-                    <GridItem w='100%' h='28px' mt='-8px' ml='-160px'>
-                        <Input w='160px' placeholder='mm' />
-                    </GridItem>
-
-                </Grid>
+                    <Input w='100%' placeholder='mm' />
+                </Box>
             </Box>
-        </Box>
+        </Box >
     );
 }
 

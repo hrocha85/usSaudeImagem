@@ -26,18 +26,17 @@ function AbdomemTotal() {
             alignSelf="center"
             alignItems="center"
             backgroundImage={BGImage}
-            backgroundPosition="fixed"
             backgroundSize="cover"
-            backgroundClip="padding-box"
             backgroundRepeat="no-repeat"
-            paddingBottom="10px"
-        >
-            <BoxTitleBackground titulo="Adbomen Total" />
 
-            <Exames></Exames>
+        >
+            {/* <BoxTitleBackground titulo="Adbomen Total" /> */}
+
+            {/* <Exames></Exames> */}
 
             <Box
-                ml='10px'>
+                ml='10px'
+            >
 
                 <Figado />
 

@@ -3,7 +3,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Bexiga() {
     const altura = '100%'
-    const largura = '890px'
+    const largura = '66%'
 
     return (
 
@@ -15,7 +15,7 @@ function Bexiga() {
             bgRepeat="no-repeat"
             borderRadius="10.85px"
             boxShadow="md"
-            padding='24px 15px 48px 15px'
+            padding='24px 15px 20px 15px'
             mt='15px'
         >
             <Box
@@ -24,51 +24,41 @@ function Bexiga() {
                 <TituloNomeExame titulo='Bexiga' />
 
                 <Box
-                    mb='20px'>
-                    <Checkbox mr='25px'>Normal</Checkbox>
-                    <Checkbox mr='25px'>De Esforço</Checkbox>
-                    <Checkbox mr='25px'>Vazia</Checkbox>
+                    mb='20px'
+                    gap='30px'
+                    display='flex'
+                    flexWrap='wrap'
+                    mt='20px'>
+                    <Checkbox >Normal</Checkbox>
+                    <Checkbox >De Esforço</Checkbox>
+                    <Checkbox >Vazia</Checkbox>
                     <Checkbox>Omitir Bexiga</Checkbox>
                 </Box>
 
             </Box>
             {/* ------------------------------------------------------------------------------------------------------------ */}
             <Box
+                gap='30px'
+                display='flex'
+                flexWrap='wrap'
                 mt='20px'
             >
-                <Grid
-                    templateColumns='repeat(3, 1fr)'
-                    templateRows='repeat(2, 1fr)'
-                    gap={3}
-                >
-                    <GridItem w='100%' h='28px'>
-                        <Checkbox>Cálculo mede:</Checkbox>
-                    </GridItem>
+                <Box w='200px' >
+                    <Checkbox>Cálculo mede:</Checkbox>
+                    <Input w='150px' placeholder='mm' />
+                </Box>
 
-                    <GridItem w='100%' h='28px' ml='-80px'>
-                        <Checkbox>Cálculo mede:</Checkbox>
-                    </GridItem>
+                <Box w='200px'  >
+                    <Checkbox>Cálculo mede:</Checkbox>
+                    <Input w='150px' placeholder='mm' />
+                </Box>
 
-                    <GridItem w='100%' h='28px' ml='-160px'>
-                        <Checkbox>Cálculo mede:</Checkbox>
-                    </GridItem>
-
-
-                    <GridItem w='100%' h='28px' mt='-8px'>
-                        <Input w='160px' placeholder='mm' />
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-8px' ml='-80px'>
-                        <Input w='160px' placeholder='mm' />
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-8px' ml='-160px'>
-                        <Input w='160px' placeholder='mm' />
-                    </GridItem>
-
-                </Grid>
+                <Box w='200px'>
+                    <Checkbox>Cálculo mede:</Checkbox>
+                    <Input w='150px' placeholder='mm' />
+                </Box>
             </Box>
-        </Box>
+        </Box >
     );
 }
 
