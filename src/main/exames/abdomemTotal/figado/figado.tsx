@@ -354,7 +354,7 @@ function Figado() {
             bgRepeat="no-repeat"
             borderRadius="10.85px"
             boxShadow="md"
-            padding='24px 15px 130px 15px'
+            padding='24px 15px 15px 15px'
         >
 
             <Box
@@ -599,16 +599,20 @@ function Figado() {
 
             <Box
                 mt='20px'
-                h='100%'
+                gap='25px'
+                display='flex'
+                flexWrap='wrap'
             >
 
-                <Box >
+                <Box
+                    w='150px'>
                     <Checkbox
                         // disabled={checkValueNodulos.nodulo01}
                         id="nodulo01"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
                     >Nódulo 01</Checkbox>
                     <Select
+                        mt='5px'
                         disabled={checkValueNodulos.nodulo01}
                         id="nodulo01"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
@@ -624,11 +628,13 @@ function Figado() {
                         <option value='Segmento VIII'>Segmento VIII</option>
                     </Select>
                     <Input
+                        mt='5px'
                         disabled={checkValueNodulos.nodulo01}
                         id="nodulo01"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
                         placeholder='mm' />
                     <Select
+                        mt='5px'
                         disabled={checkValueNodulos.nodulo01}
                         id="nodulo01"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
@@ -639,6 +645,7 @@ function Figado() {
                         <option value='Lobulados'>Lobulados</option>
                     </Select>
                     <Select
+                        mt='5px'
                         disabled={checkValueNodulos.nodulo01}
                         id="nodulo01"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
@@ -650,13 +657,15 @@ function Figado() {
                     </Select>
                 </Box>
 
-                <Box >
+                <Box
+                    w='150px'>
                     <Checkbox
                         // disabled={checkValueNodulos.nodulo02}
                         id="nodulo02"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
                     >Nódulo 02</Checkbox>
                     <Select
+                        mt='5px'
                         disabled={checkValueNodulos.nodulo02}
                         id="nodulo02"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
@@ -672,11 +681,13 @@ function Figado() {
                         <option value='Segmento VIII'>Segmento VIII</option>
                     </Select>
                     <Input
+                        mt='5px'
                         disabled={checkValueNodulos.nodulo02}
                         id="nodulo02"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
                         placeholder='mm' />
                     <Select
+                        mt='5px'
                         disabled={checkValueNodulos.nodulo02}
                         id="nodulo02"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
@@ -687,6 +698,7 @@ function Figado() {
                         <option value='Lobulados'>Lobulados</option>
                     </Select>
                     <Select
+                        mt='5px'
                         disabled={checkValueNodulos.nodulo02}
                         id="nodulo02"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
@@ -698,13 +710,15 @@ function Figado() {
                     </Select>
                 </Box>
 
-                <Box >
+                <Box
+                    w='150px'>
                     <Checkbox
                         // disabled={checkValueNodulos.nodulo03}
                         id="nodulo03"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
                     >Nódulo 03</Checkbox>
                     <Select
+                        mt='5px'
                         disabled={checkValueNodulos.nodulo03}
                         id="nodulo03"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
@@ -720,11 +734,13 @@ function Figado() {
                         <option value='Segmento VIII'>Segmento VIII</option>
                     </Select>
                     <Input
+                        mt='5px'
                         disabled={checkValueNodulos.nodulo03}
                         id="nodulo03"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
                         placeholder='mm' />
                     <Select
+                        mt='5px'
                         disabled={checkValueNodulos.nodulo03}
                         id="nodulo03"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
@@ -735,6 +751,7 @@ function Figado() {
                         <option value='Lobulados'>Lobulados</option>
                     </Select>
                     <Select
+                        mt='5px'
                         disabled={checkValueNodulos.nodulo03}
                         id="nodulo03"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
@@ -751,8 +768,9 @@ function Figado() {
                         // disabled={checkValueNodulos.multiplosNodulos}
                         id="multiplosNodulos"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
-                        ml='-55px'>Múltiplos Nódulos, o maior:</Checkbox>
+                    >Múltiplos Nódulos, o maior:</Checkbox>
                     <Select
+                        mt='5px'
                         disabled={checkValueNodulos.multiplosNodulos}
                         id="multiplosNodulos"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
@@ -767,10 +785,13 @@ function Figado() {
                         <option value='Segmento VII'>Segmento VII</option>
                         <option value='Segmento VIII'>Segmento VIII</option>
                     </Select>
-                    <Input disabled={checkValueNodulos.multiplosNodulos}
+                    <Input
+                        mt='5px'
+                        disabled={checkValueNodulos.multiplosNodulos}
                         id="multiplosNodulos"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }} placeholder='mm' />
                     <Select
+                        mt='5px'
                         disabled={checkValueNodulos.multiplosNodulos}
                         id="multiplosNodulos"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}
@@ -781,6 +802,7 @@ function Figado() {
                         <option value='Lobulados'>Lobulados</option>
                     </Select>
                     <Select
+                        mt='5px'
                         disabled={checkValueNodulos.multiplosNodulos}
                         id="multiplosNodulos"
                         onChange={(e) => { verificaCheckedNodulos(e.target) }}

@@ -4,7 +4,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function RimDireito() {
     const altura = '100%'
-    const largura = '890px'
+    const largura = '66%'
 
     return (
 
@@ -16,289 +16,219 @@ function RimDireito() {
             bgRepeat="no-repeat"
             borderRadius="10.85px"
             boxShadow="md"
-            padding='24px 15px 130px 15px'
+            padding='24px 15px 10px 15px'
             mt='20px'
         >
             <Box>
                 <TituloNomeExame titulo='Rim Direito' />
 
                 <Box
-                    mt='10px'
-                    mb='20px'
+                    gap='25px'
                     display='flex'
+                    flexWrap='wrap'
+                    mb='10px'
                 >
-                    <Grid
-                        templateColumns='repeat(4, 1fr)'
-                        templateRows='repeat(3, 1fr)'
-                        gap={3}
-                    >
-                        <GridItem w='100%' h='28px'>
-                            <Checkbox>Presente</Checkbox>
-                        </GridItem>
 
-                        <GridItem w='100%' h='28px' ml='-80px'>
-                            <Checkbox >Ausente</Checkbox>
-                        </GridItem>
+                    <Box w='100px' >
+                        <Checkbox>Presente</Checkbox>
+                    </Box>
 
-                        <GridItem w='100%' h='28px' >
-                            <Checkbox ml='-80px'>Medidas</Checkbox>
-                        </GridItem>
+                    <Box w='150px' >
+                        <Checkbox >Ausente
+                        </Checkbox>
+                        <Select
+                            w='100%'>
+                            <option value='' disabled selected>Selecione</option>
+                            <option value='ausenciaCirurgica'>Ausência cirúrgica</option>
+                            <option value='interposicaoGasosa'>Interposição gasosa</option>
+                        </Select>
+                    </Box>
 
-                        <GridItem w='100%' h='28px' >
-                            <Checkbox>Dimensões	Reduzidas</Checkbox>
-                        </GridItem>
+                    <Box w='165px'  >
+                        <Checkbox >Medidas</Checkbox>
+                        <Input w='100%' placeholder='00 x 00' />
 
-                        <GridItem w='100%' h='28px' mt='-8px' />
+                        <Input mt='5px' w='100%' placeholder='Parênquima(mm)' />
+                    </Box>
 
-
-                        <GridItem w='100%' h='28px' mt='-8px' ml='-80px'>
-                            <Select
-                                w='150px'>
-                                <option value='' disabled selected>Selecione</option>
-                                <option value='ausenciaCirurgica'>Ausência cirúrgica</option>
-                                <option value='interposicaoGasosa'>Interposição gasosa</option>
-                            </Select>
-                        </GridItem>
-
-                        <GridItem w='100%' h='28px' mt='-8px' ml='-80px'>
-                            <Input w='165px' placeholder='00 x 00' />
-                        </GridItem>
-
-                        <GridItem w='100%' h='28px' mt='-8px' />
-                        <GridItem w='100%' h='28px' mt='-8px' />
-                        <GridItem w='100%' h='28px' mt='-8px' />
-
-                        <GridItem w='100%' h='28px' ml='-80px'>
-                            <Input w='165px' placeholder='Parênquima (mm)' />
-                        </GridItem>
-
-
-
-                    </Grid>
+                    <Box w='200px'  >
+                        <Checkbox>Dimensões	Reduzidas</Checkbox>
+                    </Box>
                 </Box>
             </Box >
 
             {/* ------------------------------------------------------------------------------------------------------------ */}
+
             <Box
                 mt='20px'
-                h='220px'
-                borderBottom='1px'>
+                h='100%'
+                borderBottom='1px'
+                mb='20px'>
                 <TituloNomeExame titulo='Cálculos' />
-                <Grid
-                    templateColumns='repeat(4, 1fr)'
-                    templateRows='repeat(3, 1fr)'
-                    gap={3}
-                >
-                    <GridItem w='100%' h='28px'>
+                <Box
+                    gap='25px'
+                    display='flex'
+                    flexWrap='wrap'
+                    mb='10px'>
+
+
+                    <Box w='150px'>
                         <Checkbox>Cálculo 01</Checkbox>
-                    </GridItem>
+                        <Input placeholder='mm' />
+                        <Select
+                            mt='5px'
+                        >
+                            <option value='' disabled selected>Localizado no</option>
+                            <option value='tercoSuperior'>Terço superior</option>
+                            <option value='tercoMedio'>Terço médio</option>
+                            <option value='tercoInferior'>Terço inferior</option>
+                        </Select>
+                        <Select
+                            mt='5px'>
+                            <option value='' disabled selected>Do</option>
+                            <option value='rimDireito'>Rim direito</option>
+                            <option value='rimEsquerdo'>Rim esquerdo</option>
+                        </Select>
+                    </Box>
 
-                    <GridItem w='100%' h='28px' ml='-5px'>
+                    <Box w='150px' >
                         <Checkbox>Cálculo 02</Checkbox>
-                    </GridItem>
+                        <Input placeholder='mm' />
+                        <Select
+                            mt='5px'
+                        >
+                            <option value='' disabled selected>Localizado no</option>
+                            <option value='tercoSuperior'>Terço superior</option>
+                            <option value='tercoMedio'>Terço médio</option>
+                            <option value='tercoInferior'>Terço inferior</option>
+                        </Select>
+                        <Select
+                            mt='5px'
+                        >
+                            <option value='' disabled selected>Do</option>
+                            <option value='rimDireito'>Rim direito</option>
+                            <option value='rimEsquerdo'>Rim esquerdo</option>
+                        </Select>
+                    </Box>
 
-                    <GridItem w='100%' h='28px' ml='-10px'>
+                    <Box w='150px' >
                         <Checkbox>Cálculo 03</Checkbox>
-                    </GridItem>
+                        <Input placeholder='mm' />
+                        <Select
+                            mt='5px'
+                        >
+                            <option value='' disabled selected>Localizado no</option>
+                            <option value='tercoSuperior'>Terço superior</option>
+                            <option value='tercoMedio'>Terço médio</option>
+                            <option value='tercoInferior'>Terço inferior</option>
+                        </Select>
+                        <Select
+                            mt='5px'
+                        >
+                            <option value='' disabled selected>Do</option>
+                            <option value='rimDireito'>Rim direito</option>
+                            <option value='rimEsquerdo'>Rim esquerdo</option>
+                        </Select>
+                    </Box>
 
-                    <GridItem w='100%' h='28px' ml='-15px'>
+                    <Box w='150px' >
                         <Checkbox>Cálculo 04</Checkbox>
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-8px'>
-                        <Input w='160px' placeholder='00 x 00' />
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-8px' ml='-5px'>
-                        <Input w='160px' placeholder='00 x 00' />
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-8px' ml='-10px'>
-                        <Input w='160px' placeholder='00 x 00' />
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-8px' ml='-15px'>
-                        <Input w='160px' placeholder='00 x 00' />
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' >
+                        <Input placeholder='mm' />
                         <Select
-                            w='160px' >
+                            mt='5px'
+                        >
                             <option value='' disabled selected>Localizado no</option>
                             <option value='tercoSuperior'>Terço superior</option>
                             <option value='tercoMedio'>Terço médio</option>
                             <option value='tercoInferior'>Terço inferior</option>
                         </Select>
-
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' ml='-5px' >
                         <Select
-                            w='160px' >
-                            <option value='' disabled selected>Localizado no</option>
-                            <option value='tercoSuperior'>Terço superior</option>
-                            <option value='tercoMedio'>Terço médio</option>
-                            <option value='tercoInferior'>Terço inferior</option>
-                        </Select>
-
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' ml='-10px'>
-                        <Select
-                            w='160px' >
-                            <option value='' disabled selected>Localizado no</option>
-                            <option value='tercoSuperior'>Terço superior</option>
-                            <option value='tercoMedio'>Terço médio</option>
-                            <option value='tercoInferior'>Terço inferior</option>
-                        </Select>
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' ml='-15px'>
-                        <Select
-                            w='160px' >
-                            <option value='' disabled selected>Localizado no</option>
-                            <option value='tercoSuperior'>Terço superior</option>
-                            <option value='tercoMedio'>Terço médio</option>
-                            <option value='tercoInferior'>Terço inferior</option>
-                        </Select>
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='8px'>
-                        <Select
-                            w='160px' >
+                            mt='5px'
+                        >
                             <option value='' disabled selected>Do</option>
                             <option value='rimDireito'>Rim direito</option>
                             <option value='rimEsquerdo'>Rim esquerdo</option>
                         </Select>
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='8px' ml='-5px'>
-                        <Select
-                            w='160px' >
-                            <option value='' disabled selected>Do</option>
-                            <option value='rimDireito'>Rim direito</option>
-                            <option value='rimEsquerdo'>Rim esquerdo</option>
-                        </Select>
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='8px' ml='-10px'>
-                        <Select
-                            w='160px' >
-                            <option value='' disabled selected>Do</option>
-                            <option value='rimDireito'>Rim direito</option>
-                            <option value='rimEsquerdo'>Rim esquerdo</option>
-                        </Select>
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='8px' ml='-15px'>
-                        <Select
-                            w='160px' >
-                            <option value='' disabled selected>Do</option>
-                            <option value='rimDireito'>Rim direito</option>
-                            <option value='rimEsquerdo'>Rim esquerdo</option>
-                        </Select>
-                    </GridItem>
-
-                </Grid>
+                    </Box>
+                </Box>
 
             </Box>
 
             {/* ------------------------------------------------------------------------------------------------------------ */}
+
             <Box
-                mt='20px'
-                h='130px'
+                gap='25px'
+                display='flex'
+                flexWrap='wrap'
+                mb='10px'
             >
-                <Grid
-                    templateColumns='repeat(3, 1fr)'
-                    templateRows='repeat(4, 1fr)'
-                    gap={3}
-                >
-                    <GridItem w='100%' h='45px'>
-                        <Checkbox>Mútiplos Cáculos no rim direito, o maior mede</Checkbox>
-                    </GridItem>
 
-                    <GridItem w='100%' h='45px' ml='-5px'>
-                        <Checkbox>Mútiplos Cáculos no rim esquerdo, o maior mede</Checkbox>
-                    </GridItem>
+                <Box w='250px'>
+                    <Checkbox>Mútiplos Cáculos no rim direito, o maior mede</Checkbox>
+                    <Input placeholder='00 x 00' />
+                    <Select
+                        mt='5px'
+                    >
+                        <option value='' disabled selected>Localizado no</option>
+                        <option value='tercoSuperior'>Terço superior</option>
+                        <option value='tercoMedio'>Terço médio</option>
+                        <option value='tercoInferior'>Terço inferior</option>
+                    </Select>
+                    <Select
+                        mt='5px'
+                    >
+                        <option value='' disabled selected>Do ureter</option>
+                        <option value='direito'>Direito</option>
+                        <option value='esquerdo'>Esquerdo</option>
+                        <option value='option3'>Option 3</option>
+                    </Select>
+                </Box>
 
-                    <GridItem w='100%' h='45px' ml='-10px'>
-                        <Checkbox>Cálculo Ureteral mede</Checkbox>
-                    </GridItem>
+                <Box w='250px' >
+                    <Checkbox>Mútiplos Cáculos no rim esquerdo, o maior mede</Checkbox>
+                    <Input placeholder='00 x 00' />
+                    <Select
+                        mt='5px'
+                    >
+                        <option value='' disabled selected>Localizado no</option>
+                        <option value='tercoSuperior'>Terço superior</option>
+                        <option value='tercoMedio'>Terço médio</option>
+                        <option value='tercoInferior'>Terço inferior</option>
+                    </Select>
+                    <Select
+                        mt='5px'
+                    >
+                        <option value='' disabled selected>Do ureter</option>
+                        <option value='direito'>Direito</option>
+                        <option value='esquerdo'>Esquerdo</option>
+                        <option value='option3'>Option 3</option>
+                    </Select>
+                </Box>
 
-                    <GridItem w='100%' h='45px' mt='-8px'>
-                        <Input w='160px' placeholder='00 x 00' />
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-8px' ml='-5px'>
-                        <Input w='160px' placeholder='00 x 00' />
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-8px' ml='-10px'>
-                        <Input w='160px' placeholder='00 x 00' />
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-15px'>
-                        <Select
-                            w='160px' >
-                            <option value='' disabled selected>Localizado no</option>
-                            <option value='tercoSuperior'>Terço superior</option>
-                            <option value='tercoMedio'>Terço médio</option>
-                            <option value='tercoInferior'>Terço inferior</option>
-                        </Select>
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-15px' ml='-5px'>
-
-                        <Select
-                            w='160px' >
-                            <option value='' disabled selected>Localizado no</option>
-                            <option value='tercoSuperior'>Terço superior</option>
-                            <option value='tercoMedio'>Terço médio</option>
-                            <option value='tercoInferior'>Terço inferior</option>
-                        </Select>
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-15px' ml='-10px' >
-                        <Select
-                            w='160px' >
-                            <option value='' disabled selected>Localizado no</option>
-                            <option value='tercoSuperior'>Terço superior</option>
-                            <option value='tercoMedio'>Terço médio</option>
-                            <option value='tercoInferior'>Terço inferior</option>
-                        </Select>
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-20px'>
-                        {/* <Select placeholder='mm'
-                            w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select> */}
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-20px' ml='-5px'>
-                        {/* <Select placeholder='mm'
-                            w='160px' >
-                            <option value='option1'>Aumentadas</option>
-                            <option value='option2'>Option 2</option>
-                            <option value='option3'>Option 3</option>
-                        </Select> */}
-                    </GridItem>
-
-                    <GridItem w='100%' h='28px' mt='-20px' ml='-10px'>
-                        <Select
-                            w='160px' >
-                            <option value='' disabled selected>Do ureter</option>
-                            <option value='direito'>Direito</option>
-                            <option value='esquerdo'>Esquerdo</option>
-                            <option value='option3'>Option 3</option>
-                        </Select>
-                    </GridItem>
-
-                </Grid>
+                <Box w='250px' >
+                    <Checkbox>Cálculo Ureteral mede</Checkbox>
+                    <Input
+                        mt='10px'
+                        placeholder='00 x 00' />
+                    <Select
+                        mt='5px'
+                    >
+                        <option value='' disabled selected>Localizado no</option>
+                        <option value='tercoSuperior'>Terço superior</option>
+                        <option value='tercoMedio'>Terço médio</option>
+                        <option value='tercoInferior'>Terço inferior</option>
+                    </Select>
+                    <Select
+                        mt='5px'
+                    >
+                        <option value='' disabled selected>Do ureter</option>
+                        <option value='direito'>Direito</option>
+                        <option value='esquerdo'>Esquerdo</option>
+                        <option value='option3'>Option 3</option>
+                    </Select>
+                </Box>
             </Box>
-        </Box>
+        </Box >
     );
 }
 
