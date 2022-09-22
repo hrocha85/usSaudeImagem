@@ -1,6 +1,5 @@
 import { Box, Text, Checkbox, Select, Input } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
-import BGImage from "../../images/bg_img.png";
 
 function Aorta() {
     const altura = '100%'
