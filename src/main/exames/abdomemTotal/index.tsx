@@ -30,7 +30,7 @@ function AbdomemTotal() {
             backgroundRepeat="no-repeat"
 
         >
-            {/* <BoxTitleBackground titulo="Adbomen Total" /> */}
+            <BoxTitleBackground titulo="Adbomen Total" />
 
             {/* <Exames></Exames> */}
 
