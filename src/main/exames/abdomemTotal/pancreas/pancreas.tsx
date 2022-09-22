@@ -3,7 +3,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Pancreas() {
     const altura = '100%'
-    const largura = '890px'
+    const largura = '66%'
 
     return (
 
@@ -24,44 +24,32 @@ function Pancreas() {
                 <TituloNomeExame titulo='Pâncreas' />
 
                 <Box
-                    mt='10px'
-                    mb='20px'
+                    gap='25px'
                     display='flex'
+                    flexWrap='wrap'
+                    mb='10px'
                 >
-                    <Grid
-                        templateColumns='repeat(5, 1fr)'
-                        templateRows='repeat(2, 1fr)'
-                        gap={3}
-                    >
-                        <GridItem w='100%' h='28px'>
-                            <Checkbox>Normal</Checkbox>
-                        </GridItem>
+                    <Box >
+                        <Checkbox>Normal</Checkbox>
+                    </Box>
 
-                        <GridItem w='100%' h='28px' >
-                            <Checkbox ml='-50px'>Cisto</Checkbox>
-                        </GridItem>
+                    <Box w='100px' >
+                        <Checkbox>Cisto</Checkbox>
+                        <Input w='100%' placeholder='mm' />
+                    </Box>
 
-                        <GridItem w='100%' h='28px'>
-                            <Checkbox ml='-30px'>Não visibilizado</Checkbox>
-                        </GridItem>
+                    <Box >
+                        <Checkbox >Não visibilizado</Checkbox>
+                    </Box>
 
-                        <GridItem w='100%' h='28px' >
-                            <Checkbox ml='-30px'>Pancreatite Aguda</Checkbox>
-                        </GridItem>
+                    <Box  >
+                        <Checkbox >Pancreatite Aguda</Checkbox>
+                    </Box>
 
-                        <GridItem w='100%' h='28px'>
-                            <Checkbox ml='-10px'>Pancreatite Crônica</Checkbox>
-                        </GridItem>
+                    <Box >
+                        <Checkbox >Pancreatite Crônica</Checkbox>
+                    </Box>
 
-                        <GridItem w='100%' mt='-8px'>
-
-                        </GridItem>
-
-                        <GridItem w='100%' h='28px' mt='-8px' >
-                            <Input w='160px' ml='-50px' placeholder='mm' />
-                        </GridItem>
-
-                    </Grid>
                 </Box>
             </Box >
 

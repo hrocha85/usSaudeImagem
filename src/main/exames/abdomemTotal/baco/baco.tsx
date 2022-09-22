@@ -1,9 +1,140 @@
 import { Box, Checkbox, Select, Grid, GridItem, Input } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
+import { useState } from 'react';
 
 function Baco() {
     const altura = '100%'
     const largura = '890px'
+
+    const [baco, setBaco] = useState({
+        normal: false,
+        aumentadoComEcotextura: "",
+        naoVisibilizado: "",
+        bacoAcessorio: "",
+        calcificacoes: ""
+    })
+    const [checkValue, setCheckvalue] = useState({
+        normal: false,
+        aumentadoComEcotextura: false,
+        naoVisibilizado: false,
+        bacoAcessorio: false,
+        calcificacoes: false
+    })
+
+    const criarString = (value) => {
+        console.log(value.id, "valor recebio")
+
+    }
+
+    const verificaChecked = (value) => {
+        console.log(value, value.checked, "value recebido")
+
+        switch (value.id) {
+            case 'normal':
+                if (value.checked == true) {
+                    setCheckvalue({
+                        aumentadoComEcotextura: true,
+                        normal: false,
+                        naoVisibilizado: true,
+                        bacoAcessorio: true,
+                        calcificacoes: true
+                    })
+                } else {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: false,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                }
+
+                break;
+            case 'aumentadoComEcotextura':
+                if (value.checked == true) {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: true,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                } else {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: false,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                }
+                break;
+            case 'naoVisibilizado':
+                if (value.checked == true) {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: true,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                } else {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: false,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                }
+                break;
+            case 'calcificacoes':
+                if (value.checked == true) {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: true,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                } else {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: false,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                }
+                break;
+            case 'bacoAcessorio':
+                if (value.checked == true) {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: true,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                } else {
+                    setCheckvalue({
+                        aumentadoComEcotextura: false,
+                        normal: false,
+                        naoVisibilizado: false,
+                        bacoAcessorio: false,
+                        calcificacoes: false
+                    })
+                }
+                break;
+            default:
+                console.log("nao achou o id");
+                break;
+        }
+
+    }
+
+
+
 
     return (
 
@@ -34,23 +165,44 @@ function Baco() {
                         gap={3}
                     >
                         <GridItem w='100%' h='28px'>
-                            <Checkbox>Normal</Checkbox>
-                        </GridItem>
-
-                        <GridItem w='100%' h='28px' >
-                            <Checkbox ml='-65px'>Aumentado com ecotextura</Checkbox>
+                            <Checkbox
+                                disabled={checkValue.normal}
+                                id="normal"
+                                onChange={(e) => { verificaChecked(e.target) }}
+                            >Normal</Checkbox>
                         </GridItem>
 
                         <GridItem w='100%' h='28px'>
-                            <Checkbox>Não visibilizado</Checkbox>
+                            <Checkbox ml='-65px'
+                                disabled={checkValue.aumentadoComEcotextura}
+                                id="aumentadoComEcotextura"
+                                onChange={(e) => { verificaChecked(e.target) }}
+                            >Aumentado com ecotextura</Checkbox>
+                        </GridItem>
+
+
+
+                        <GridItem w='100%' h='28px'>
+                            <Checkbox
+                                disabled={checkValue.naoVisibilizado}
+                                id="naoVisibilizado"
+                                onChange={(e) => { verificaChecked(e.target) }}
+                            >Não visibilizado</Checkbox>
                         </GridItem>
 
                         <GridItem w='100%' h='28px' ml='10px'>
-                            <Checkbox>Baço Acessório</Checkbox>
+                            <Checkbox
+                                disabled={checkValue.bacoAcessorio}
+                                id="bacoAcessorio"
+                                onChange={(e) => { verificaChecked(e.target) }}
+                            >Baço Acessório</Checkbox>
                         </GridItem>
 
                         <GridItem w='100%' h='28px'>
-                            <Checkbox>Calcificalções</Checkbox>
+                            <Checkbox
+                                disabled={checkValue.calcificacoes}
+                                id="calcificacoes"
+                                onChange={(e) => { verificaChecked(e.target) }}>Calcificalções</Checkbox>
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px'>
@@ -58,29 +210,42 @@ function Baco() {
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px' ml='-65px'>
-                            <Select placeholder='Homogênea'
+                            <Select
+                                disabled={checkValue.aumentadoComEcotextura}
+                                id="aumentadoComEcotextura"
+                                onChange={(e) => { verificaChecked(e.target) }}
                                 w='160px'>
-                                <option value='option1'>Aumentadas</option>
-                                <option value='option2'>Option 2</option>
-                                <option value='option3'>Option 3</option>
+                                <option value='' disabled selected>Homogênea</option>
+                                <option value='Homogênea'>Homogênea</option>
+                                <option value='Heterogênea'>Heterogênea</option>
                             </Select>
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px'>
-                            <Select placeholder='Ausência'
+                            <Select
+                                disabled={checkValue.naoVisibilizado}
+                                id="naoVisibilizado"
+                                onChange={(e) => { verificaChecked(e.target) }}
                                 w='160px'>
-                                <option value='option1'>Aumentadas</option>
-                                <option value='option2'>Option 2</option>
-                                <option value='option3'>Option 3</option>
+                                <option value='ausenciaCirurgica'>ausência cirúrgica</option>
+                                <option value='interposicaoGasosa'>interposição gasosa</option>
                             </Select>
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px' ml='10px'>
-                            <Input w='160px' placeholder='mm' />
+                            <Input
+                                disabled={checkValue.bacoAcessorio}
+                                id="bacoAcessorio"
+                                onChange={(e) => { verificaChecked(e.target) }}
+                                w='160px' placeholder='mm' />
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px'>
-                            <Input w='160px' placeholder='mm' />
+                            <Input
+                                disabled={checkValue.calcificacoes}
+                                id="calcificacoes"
+                                onChange={(e) => { verificaChecked(e.target) }}
+                                w='160px' placeholder='mm' />
                         </GridItem>
 
                     </Grid>

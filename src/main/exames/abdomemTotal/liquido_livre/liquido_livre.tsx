@@ -1,9 +1,9 @@
-import { Box, Checkbox, Text, Select, Grid, GridItem, Input } from "@chakra-ui/react";
+import { Box, Checkbox, Text, Select, Grid, Input } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function LiquidoLivre() {
     const altura = '100%'
-    const largura = '890px'
+    const largura = '66%'
 
     return (
 
@@ -24,40 +24,28 @@ function LiquidoLivre() {
                 <TituloNomeExame titulo='Líquido Livre' />
 
                 <Box
-                    mt='10px'
-                    mb='20px'
+                    gap='30px'
                     display='flex'
+                    flexWrap='wrap'
+                    mb='10px'
                 >
-                    <Grid
-                        templateColumns='repeat(2, 1fr)'
-                        templateRows='repeat(2, 1fr)'
-                        gap={3}
-                    >
-                        <GridItem w='100%' h='28px'>
-                            <Checkbox>Normal</Checkbox>
-                        </GridItem>
 
-                        <GridItem w='100%' h='28px' >
-                            <Checkbox >Cisto</Checkbox>
-                        </GridItem>
+                    <Box >
+                        <Checkbox>Normal</Checkbox>
+                    </Box>
 
-                        <GridItem w='100%' mt='-8px'>
+                    <Box  >
+                        <Checkbox >Cisto</Checkbox>
+                        <Select>
+                            <option value='' disabled selected>Quantidade</option>
+                            <option value='Pequena'>Pequena</option>
+                            <option value='Moderada'>Moderada</option>
+                            <option value='Grande'>Grande</option>
+                        </Select>
+                    </Box>
 
-                        </GridItem>
-
-                        <GridItem w='100%' h='28px' mt='-8px' >
-                            <Select placeholder='Quantidade'
-                                w='150px'>
-                                <option value='option1'>Leves</option>
-                                <option value='option2'>Option 2</option>
-                                <option value='option3'>Option 3</option>
-                            </Select>
-                        </GridItem>
-
-                    </Grid>
                 </Box>
             </Box >
-
         </Box >
     );
 }
