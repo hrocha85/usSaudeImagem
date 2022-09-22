@@ -5,6 +5,7 @@ import Rotas from './Routes/Rotas';
 import tema from './main/Theme/Tema';
 import { LaudosProvider } from './context/LuadosContext'
 
+
 function App() {
   return (
     <LaudosProvider>
