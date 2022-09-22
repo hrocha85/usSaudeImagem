@@ -2,10 +2,8 @@ import {
   Box,
   Button,
   Center,
-  Container,
   Divider,
   Flex,
-  Grid,
   HStack,
   Icon,
   Image,
@@ -32,27 +30,23 @@ import {
   Stack,
   Text,
   Tooltip,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { BiCamera } from "react-icons/bi";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
+import { BiCamera } from "react-icons/bi";
 import { FaRegFolderOpen } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import SignatureCanvas from "react-signature-canvas";
+import Medicos from "../../Data/Medicos.json";
 import BoxTitleBackground from "../component/box_title_background";
 import RectangularCard from "../component/card_observations";
 import ItemObservation from "../component/item_obeservation";
 import MainCard from "../component/main_card";
-import Avatar from "../images/Avatar.png";
 import BG from "../images/bg_img.png";
 import PlusButton from "../images/button_plus.png";
-import ImageHome from "../images/icon_home.png";
-import Medicos from "../../Data/Medicos.json";
-import { render } from "@testing-library/react";
-import ReactSignatureCanvas from "react-signature-canvas";
-import React from "react";
 import DefaultImageClinica from "../images/clinica_default.png";
+import ImageHome from "../images/icon_home.png";
 
 const Configuracoes = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -65,6 +59,8 @@ const Configuracoes = () => {
 
   const [crm, setCrm] = useState("");
 
+  const [clinica, setClinica] = useState({});
+
   const [endereco, setEndereco] = useState("");
 
   const [medicos, setMedicos] = useState<any[]>([]);
@@ -75,11 +71,27 @@ const Configuracoes = () => {
 
   const [selectedFile, setSelectedFile] = useState();
 
+  const [selectedClinica, setSelectedClinica] = useState();
+
+  const [listaClinicas, setListaClinicas] = useState<any[]>([]);
+
+  const [stateClickAddMedico, setStateClickAddMedico] = useState(false);
+
   let lista_medicos = Medicos.medicos;
 
   let padRef = React.useRef<SignatureCanvas>(null);
 
-  const clear = () => {
+  useEffect(() => {
+    var item;
+    var item_parse;
+    if (localStorage.getItem("minhasClinicas") != null) {
+      item = localStorage.getItem("minhasClinicas");
+      item_parse = JSON.parse(item);
+      setListaClinicas(item_parse);
+    }
+  }, [stateClickAddMedico]);
+
+  const clearAssinatura = () => {
     padRef.current?.clear();
   };
 
@@ -136,8 +148,10 @@ const Configuracoes = () => {
       uf: "sp",
       assinatura: " heheh",
       foto: "hehehr",
+      clinica: {},
     };
     lista_medicos.push(obj);
+    localStorage.setItem("medicos", JSON.stringify(lista_medicos));
     setMedicos(lista_medicos);
   }
 
@@ -145,7 +159,8 @@ const Configuracoes = () => {
     setNome("");
     setCrm("");
     setDefaultUserImage(DefaultImageClinica);
-    setFocus('unstyled')
+    setFocus("unstyled");
+    setStateClickAddMedico(false);
   };
 
   return (
@@ -162,7 +177,6 @@ const Configuracoes = () => {
       backgroundRepeat="no-repeat"
       paddingBottom="10px"
       paddingTop="5px"
-     
     >
       <Flex
         direction="row"
@@ -204,9 +218,11 @@ const Configuracoes = () => {
         gap="10px"
       >
         <>
-          <MainCard titulo="Clínicas" icon={true} nome={null} />
+          <MainCard titulo="Clínicas" icon={true} clinica={null} medicos={null} />
           {medicos.map((med) => {
-            return <MainCard titulo="Doutor(a)" icon={false} nome={med.nome} />;
+            return (
+              <MainCard titulo="Doutor(a)" icon={false} clinica={clinica} medicos={med} />
+            );
           })}
 
           <Tooltip
@@ -221,7 +237,10 @@ const Configuracoes = () => {
               position="absolute"
               right="1"
               variant="ghost"
-              onClick={onOpen}
+              onClick={() => {
+                onOpen();
+                setStateClickAddMedico(true);
+              }}
             >
               <Image
                 srcSet={PlusButton}
@@ -244,7 +263,7 @@ const Configuracoes = () => {
               onClick={() => {
                 setFocus("unstyled");
                 setEnable(true);
-                ResetDados()
+                ResetDados();
               }}
             />
 
@@ -314,13 +333,17 @@ const Configuracoes = () => {
                   <Text marginEnd="5px" fontWeight="bold">
                     Clínicas:
                   </Text>
-                  <Select placeholder="Clínicas Cadastradas" variant="filled">
-                    <option value="option1">Clínica 1</option>
-                    <option value="option2">Clínica 2</option>
-                    <option value="option3">Clínica 3</option>
+                  <Select
+                    placeholder="Clínicas Cadastradas"
+                    variant="filled"
+                  >
+                    {listaClinicas.map((e) => {
+                      return <option value={e}>{e.nomeClinica}</option>;
+                    })}
                   </Select>
                 </HStack>
               </Center>
+
               <Center paddingTop={"30px"}>
                 <InputGroup
                   variant={"unstyled"}
@@ -337,7 +360,6 @@ const Configuracoes = () => {
                     fontSize="18px"
                     textAlign={"center"}
                     onChange={(e) => setCrm(e.target.value)}
-
                   />
                 </InputGroup>
               </Center>
@@ -361,7 +383,7 @@ const Configuracoes = () => {
                     color="#4658fc"
                     margin="5px"
                     alignItems="end"
-                    onClick={clear}
+                    onClick={clearAssinatura}
                   />
                 </Flex>
               </Box>
@@ -373,7 +395,7 @@ const Configuracoes = () => {
               onClick={() => {
                 AddMedico();
                 onClose();
-                ResetDados()
+                ResetDados();
               }}
             >
               Salvar

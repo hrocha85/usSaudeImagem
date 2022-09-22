@@ -110,7 +110,6 @@ const FieldDefaultIcon = ({ text, textColor, icon, clinica, clinicas }) => {
     var cln = clinicas;
     clinica.nomeClinica = nomeCLinicaP;
     localStorage.setItem("minhasClinicas", JSON.stringify(clinica));
-
   }
 
   return (

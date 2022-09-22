@@ -4,7 +4,7 @@ import Drs from "../configuracao/drs";
 import IconButtonPlus from "./icon_button_plus";
 import { useEffect, useState } from "react";
 
-const MainCard = ({ titulo, icon,nome }) => {
+const MainCard = ({ titulo, icon,clinica,medicos }) => {
   const [atualizar, setAtualizar] = useState(true);
 
   useEffect(() => {}, [atualizar]);
@@ -16,7 +16,7 @@ const MainCard = ({ titulo, icon,nome }) => {
       );
     }
   }
-
+  
   function Cards(titulo) {
     switch (titulo) {
       case "Clínicas":
@@ -48,7 +48,7 @@ const MainCard = ({ titulo, icon,nome }) => {
             paddingStart="8px"
             alignSelf="center"
           >
-            {nome ? (nome) : titulo}
+            {medicos ? (medicos.nome) : titulo}
           </Text>
           {ShowIcon(icon)}
         </Stack>

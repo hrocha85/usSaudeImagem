@@ -2,8 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import AbdomemTotal from "../main/exames/abdomemTotal";
 import SplashScreen from "../main/splashScreen";
 import Configuracoes from "../main/configuracao/configuracoes";
-import Home from "../main/home/index"
-
+import Home from "../main/home/index";
 
 function Rotas() {
   return (
