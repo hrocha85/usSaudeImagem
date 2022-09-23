@@ -23,13 +23,12 @@ import {
   Text,
   Textarea,
   useDisclosure,
-  useOutsideClick,
+  useOutsideClick
 } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { IconContext } from "react-icons";
 import { BiCamera } from "react-icons/bi";
-import { minhasClinicas } from "./icon_button_plus";
 
 const FieldDefaultIcon = ({ text, textColor, icon, clinica, clinicas }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

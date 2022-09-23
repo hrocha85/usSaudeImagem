@@ -49,6 +49,10 @@ import DefaultImageClinica from "../images/clinica_default.png";
 import ImageHome from "../images/icon_home.png";
 
 const Configuracoes = () => {
+  let lista_medicos = Medicos.medicos;
+
+  let padRef = React.useRef<SignatureCanvas>(null);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [enable, setEnable] = useState(true);
@@ -60,8 +64,6 @@ const Configuracoes = () => {
   const [crm, setCrm] = useState("");
 
   const [clinica, setClinica] = useState({});
-
-  const [endereco, setEndereco] = useState("");
 
   const [medicos, setMedicos] = useState<any[]>([]);
 
@@ -77,19 +79,26 @@ const Configuracoes = () => {
 
   const [stateClickAddMedico, setStateClickAddMedico] = useState(false);
 
-  let lista_medicos = Medicos.medicos;
+  const [URLSignature, setURLSignature] = useState<string | undefined>();
 
-  let padRef = React.useRef<SignatureCanvas>(null);
+  const AddMedico = () => {
+    const obj = {
+      nome: nome,
+      crm: crm,
+      uf: "sp",
+      assinatura: URLSignature!,
+      foto: defaultUserImage,
+      clinica: "clinica",
+    };
+    lista_medicos.push(obj);
+    localStorage.setItem("medicos", JSON.stringify(lista_medicos));
+    setMedicos(lista_medicos);
+  };
 
-  useEffect(() => {
-    var item;
-    var item_parse;
-    if (localStorage.getItem("minhasClinicas") != null) {
-      item = localStorage.getItem("minhasClinicas");
-      item_parse = JSON.parse(item);
-      setListaClinicas(item_parse);
-    }
-  }, [stateClickAddMedico]);
+  const SaveSignature = () => {
+    const url = padRef.current?.getTrimmedCanvas().toDataURL("image/png");
+    if (url) setURLSignature(url);
+  };
 
   const clearAssinatura = () => {
     padRef.current?.clear();
@@ -99,22 +108,14 @@ const Configuracoes = () => {
     inputFile.current?.click();
   };
 
-  useEffect(() => {
-    if (selectedFile) {
-      const objectURL = URL.createObjectURL(selectedFile);
-      setDefaultUserImage(objectURL);
-      return () => URL.revokeObjectURL(objectURL);
-    }
-  }, [selectedFile]);
-
-  function onChangeFile(event) {
+  const onChangeFile = (event) => {
     event.stopPropagation();
     event.preventDefault();
     var file = event.target.files[0];
     setSelectedFile(file);
-  }
+  };
 
-  function Laudos() {
+  const Laudos = () => {
     return (
       <List spacing={2} size="15px">
         <ListItem>
@@ -139,22 +140,7 @@ const Configuracoes = () => {
         </ListItem>
       </List>
     );
-  }
-
-  function AddMedico() {
-    const obj = {
-      nome: nome,
-      crm: "7777",
-      uf: "sp",
-      assinatura: " heheh",
-      foto: "hehehr",
-      clinica: clinica,
-    };
-    lista_medicos.push(obj);
-    localStorage.setItem("medicos", JSON.stringify(lista_medicos));
-    setMedicos(lista_medicos);
-  }
-  console.log(clinica);
+  };
 
   const ResetDados = () => {
     setNome("");
@@ -163,6 +149,24 @@ const Configuracoes = () => {
     setFocus("unstyled");
     setStateClickAddMedico(false);
   };
+
+  useEffect(() => {
+    if (selectedFile) {
+      const objectURL = URL.createObjectURL(selectedFile);
+      setDefaultUserImage(objectURL);
+      return () => URL.revokeObjectURL(objectURL);
+    }
+  }, [selectedFile]);
+
+  useEffect(() => {
+    var item;
+    var item_parse;
+    if (localStorage.getItem("minhasClinicas") != null) {
+      item = localStorage.getItem("minhasClinicas");
+      item_parse = JSON.parse(item);
+      setListaClinicas(item_parse);
+    }
+  }, [stateClickAddMedico]);
 
   return (
     <Box
@@ -346,9 +350,13 @@ const Configuracoes = () => {
                   <Text marginEnd="5px" fontWeight="bold">
                     Clínicas:
                   </Text>
-                  <Select placeholder="Clínicas Cadastradas" variant="filled">
+                  <Select
+                    placeholder="Clínicas Cadastradas"
+                    variant="filled"
+                    onChange={(e) => setClinica(e.target.value)}
+                  >
                     {listaClinicas.map((e) => {
-                      return <option value={e}>{e.nomeClinica}</option>;
+                      return <option value={e.nome}>{e.nomeClinica}</option>;
                     })}
                   </Select>
                 </HStack>
@@ -369,7 +377,7 @@ const Configuracoes = () => {
                     placeholder="00000000-0/BR"
                     fontSize="18px"
                     textAlign={"center"}
-                    onChange={(e) => setCrm(e.target.value)}
+                    onChange={(event) => setCrm(event.target.value)}
                   />
                 </InputGroup>
               </Center>
@@ -380,6 +388,7 @@ const Configuracoes = () => {
                 <SignatureCanvas
                   ref={padRef}
                   backgroundColor="#F7FAFC"
+                  
                   penColor="black"
                   canvasProps={{
                     width: 400,
@@ -404,8 +413,9 @@ const Configuracoes = () => {
               margin="10px"
               onClick={() => {
                 AddMedico();
-                onClose();
                 ResetDados();
+                SaveSignature();
+                onClose();
               }}
             >
               Salvar

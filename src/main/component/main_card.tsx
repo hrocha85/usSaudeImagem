@@ -7,13 +7,9 @@ import { useEffect, useState } from "react";
 const MainCard = ({ titulo, icon, clinica, medicos }) => {
   const [atualizar, setAtualizar] = useState(true);
 
-  const [H, setH] = useState("");
 
-  useEffect(() => {
-    if (localStorage.getItem("minhasClinicas") == null) {
-      setH("100%");
-    } else setH("383px");
-  }, [localStorage.getItem("minhasClinicas")]);
+
+
 
   useEffect(() => {}, [atualizar]);
 
@@ -31,7 +27,7 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
         return <Clinica atualizar={atualizar} />;
 
       case "Doutor(a)":
-        return <Drs />;
+        return <Drs  />;
 
       default:
         break;
@@ -42,7 +38,7 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
     <Box
       bg="#FAFAFA"
       w="218px"
-      h={H}
+      h='100%'
       color="white"
       borderRadius="10.85px"
       boxShadow="md"

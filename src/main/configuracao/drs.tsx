@@ -8,7 +8,7 @@ const Drs = () => {
     <>
       {drs.map((dr) => (
         <FieldDefaultIcon
-          text={dr.clinica + " " + 0 + dr.id}
+          text={'clinica'}
           textColor="#4A5568"
           icon={HiOutlineUser}
           clinica={drs}
