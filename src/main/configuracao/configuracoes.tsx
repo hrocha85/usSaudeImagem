@@ -49,6 +49,17 @@ import DefaultImageClinica from "../images/clinica_default.png";
 import ImageHome from "../images/icon_home.png";
 
 const Configuracoes = () => {
+  const getMedicos = () => {
+    var medicos;
+    var item;
+    if (localStorage.getItem("medicos") != null) {
+      item = localStorage.getItem("medicos");
+
+      medicos = JSON.parse(item);
+    } else medicos = [];
+    return medicos;
+  };
+
   let lista_medicos = Medicos.medicos;
 
   let padRef = React.useRef<SignatureCanvas>(null);
@@ -63,17 +74,15 @@ const Configuracoes = () => {
 
   const [crm, setCrm] = useState("");
 
-  const [clinica, setClinica] = useState({});
+  const [clinica, setClinica] = useState("");
 
-  const [medicos, setMedicos] = useState<any[]>([]);
+  const [medicos, setMedicos] = useState<any[]>(getMedicos);
 
   const [defaultUserImage, setDefaultUserImage] = useState(DefaultImageClinica);
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
   const [selectedFile, setSelectedFile] = useState();
-
-  const [selectedClinica, setSelectedClinica] = useState();
 
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
@@ -88,13 +97,12 @@ const Configuracoes = () => {
       uf: "sp",
       assinatura: URLSignature!,
       foto: defaultUserImage,
-      clinica: "clinica",
+      clinica: clinica,
     };
     lista_medicos.push(obj);
     localStorage.setItem("medicos", JSON.stringify(lista_medicos));
     setMedicos(lista_medicos);
   };
-
   const SaveSignature = () => {
     const url = padRef.current?.getTrimmedCanvas().toDataURL("image/png");
     if (url) setURLSignature(url);
@@ -356,7 +364,9 @@ const Configuracoes = () => {
                     onChange={(e) => setClinica(e.target.value)}
                   >
                     {listaClinicas.map((e) => {
-                      return <option value={e.nome}>{e.nomeClinica}</option>;
+                      return (
+                        <option value={e.nomeClinica}>{e.nomeClinica}</option>
+                      );
                     })}
                   </Select>
                 </HStack>
@@ -388,7 +398,6 @@ const Configuracoes = () => {
                 <SignatureCanvas
                   ref={padRef}
                   backgroundColor="#F7FAFC"
-                  
                   penColor="black"
                   canvasProps={{
                     width: 400,

@@ -3,6 +3,7 @@ import Clinica from "../configuracao/clinicas";
 import Drs from "../configuracao/drs";
 import IconButtonPlus from "./icon_button_plus";
 import { useEffect, useState } from "react";
+import ModalDrs from "./modal_dr";
 
 const MainCard = ({ titulo, icon, clinica, medicos }) => {
   const [atualizar, setAtualizar] = useState(true);
@@ -27,7 +28,7 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
         return <Clinica atualizar={atualizar} />;
 
       case "Doutor(a)":
-        return <Drs  />;
+        return <Drs  medicos={medicos} />;
 
       default:
         break;
