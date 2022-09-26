@@ -47,6 +47,7 @@ import BG from "../images/bg_img.png";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import ImageHome from "../images/icon_home.png";
+import Drs from "./drs";
 
 const Configuracoes = () => {
   const getMedicos = () => {
@@ -89,6 +90,7 @@ const Configuracoes = () => {
   const [stateClickAddMedico, setStateClickAddMedico] = useState(false);
 
   const [URLSignature, setURLSignature] = useState<string | undefined>();
+
 
   const AddMedico = () => {
     const obj = {
@@ -238,14 +240,9 @@ const Configuracoes = () => {
             medicos={null}
           />
 
-          {medicos.map((med) => {
+          {medicos.map((medico) => {
             return (
-              <MainCard
-                titulo="Doutor(a)"
-                icon={false}
-                clinica={clinica}
-                medicos={med}
-              />
+              <Drs medico={medico}/>
             );
           })}
 

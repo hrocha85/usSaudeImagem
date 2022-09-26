@@ -27,8 +27,7 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
       case "Clínicas":
         return <Clinica atualizar={atualizar} />;
 
-      case "Doutor(a)":
-        return <Drs  medicos={medicos} />;
+     
 
       default:
         break;
