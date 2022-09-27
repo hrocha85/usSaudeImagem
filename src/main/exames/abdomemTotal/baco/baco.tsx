@@ -1,4 +1,4 @@
-import { Box, Checkbox, Select, Grid, GridItem, Input } from "@chakra-ui/react";
+import { Box, Checkbox, Select, Grid, Input } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import { useContext, useState } from 'react';
 import { LaudosContext } from '../../../../context/LuadosContext';
@@ -6,7 +6,12 @@ import { LaudosContext } from '../../../../context/LuadosContext';
 
 function Baco() {
     const altura = '100%'
-    const largura = '890px'
+    const largura = '66%'
+
+    let aumentadoComEcotextura = document.querySelector('#aumentadoComEcotextura') as HTMLInputElement
+    let naoVisibilizado = document.querySelector('#naoVisibilizado') as HTMLInputElement
+    let bacoAcessorio = document.querySelector('#bacoAcessorio') as HTMLInputElement
+    let calcificacoes = document.querySelector('#calcificacoes') as HTMLInputElement
 
     const { laudoPrin, signIn, setLaudoPrin } = useContext(LaudosContext);
 
@@ -16,114 +21,331 @@ function Baco() {
         naoVisibilizado: "",
         bacoAcessorio: "",
         calcificacoes: ""
+
     })
+
     const [checkValue, setCheckvalue] = useState({
         normal: false,
         aumentadoComEcotextura: false,
         naoVisibilizado: false,
         bacoAcessorio: false,
-        calcificacoes: false
+        calcificacoes: false,
+        SelectAumentadoComEcotextura: true,
+        SelectNaoVisibilizado: true,
+        InputBacoAcessorio: true,
+        InputCalcificacoes: true,
     })
 
-
-
     const criarString = (value) => {
-        console.log(value.id, "valor recebio")
+        // console.log("Valor cria string = ", value);
+        setLaudoPrin(arr => [...arr, value])
+        console.log("criaString = ", laudoPrin)
+    }
+
+    const removeItemString = (value) => {
+        // console.log("valor remove = ", value);
+        laudoPrin.splice(laudoPrin.indexOf(value), 1)
+        //removeValueSelectAumentadocomEcotextura()
+        setLaudoPrin(arr => [...arr])
+        // console.log("laudosPrin", laudoPrin)
+    }
+
+    const removeValueSelectAumentadocomEcotextura = () => {
+        if (aumentadoComEcotextura.checked === true) {
+            console.log('entrou')
+            laudoPrin.splice(laudoPrin.indexOf('Homogênea'), 1)
+            //setLaudoPrin(arr => [...arr])
+            console.log(laudoPrin)
+        }
 
     }
 
+    // const captaValoresSelects = (value) => {
+    //     if (aumentadoComEcotextura.checked === true) {
+    //         console.log("Valor cria string Option = ", value);
+    //         setLaudoPrin(arr => [...arr, value])
+    //         console.log("criaStringOption = ", laudoPrin)
+    //     } else {
+    //         laudoPrin.splice(laudoPrin.indexOf(value), 1)
+    //     }
+    // }
+
+    const DeterminaCondicaoCheckbox = () => {
+        if (aumentadoComEcotextura.checked === true ||
+            naoVisibilizado.checked === true || bacoAcessorio.checked === true ||
+            calcificacoes.checked === true) {
+            setCheckvalue({
+                aumentadoComEcotextura: false,
+                normal: true,
+                naoVisibilizado: false,
+                bacoAcessorio: false,
+                calcificacoes: false,
+                SelectAumentadoComEcotextura: false,
+                SelectNaoVisibilizado: false,
+                InputBacoAcessorio: false,
+                InputCalcificacoes: false,
+            })
+        } else {
+            setCheckvalue({
+                aumentadoComEcotextura: false,
+                normal: false,
+                naoVisibilizado: false,
+                bacoAcessorio: false,
+                calcificacoes: false,
+                SelectAumentadoComEcotextura: true,
+                SelectNaoVisibilizado: true,
+                InputBacoAcessorio: true,
+                InputCalcificacoes: true,
+            })
+        }
+    }
+
     const verificaChecked = (value) => {
-
-        console.log(value, value.checked, "value recebido")
-
         switch (value.id) {
             case 'normal':
-                if (value.checked == true) {
-                    setLaudoPrin("lucas esta normal")
+                if (value.checked === true) {
+                    criarString(value.value)
                     setCheckvalue({
                         aumentadoComEcotextura: true,
                         normal: false,
                         naoVisibilizado: true,
                         bacoAcessorio: true,
-                        calcificacoes: true
+                        calcificacoes: true,
+                        SelectAumentadoComEcotextura: true,
+                        SelectNaoVisibilizado: true,
+                        InputBacoAcessorio: true,
+                        InputCalcificacoes: true,
                     })
                 } else {
+                    removeItemString(value.value)
                     setCheckvalue({
                         aumentadoComEcotextura: false,
                         normal: false,
                         naoVisibilizado: false,
                         bacoAcessorio: false,
-                        calcificacoes: false
+                        calcificacoes: false,
+                        SelectAumentadoComEcotextura: true,
+                        SelectNaoVisibilizado: true,
+                        InputBacoAcessorio: true,
+                        InputCalcificacoes: true,
                     })
                 }
-
                 break;
             case 'aumentadoComEcotextura':
-                if (value.checked == true) {
-                    setCheckvalue({
-                        aumentadoComEcotextura: false,
-                        normal: true,
-                        naoVisibilizado: true,
-                        bacoAcessorio: true,
-                        calcificacoes: true
-                    })
+                if (value.checked === true) {
+                    criarString(value.value)
+                    DeterminaCondicaoCheckbox()
                 } else {
-                    setCheckvalue({
-                        aumentadoComEcotextura: false,
-                        normal: false,
-                        naoVisibilizado: false,
-                        bacoAcessorio: false,
-                        calcificacoes: false
-                    })
+                    removeItemString(value.value)
+
+                    DeterminaCondicaoCheckbox()
                 }
                 break;
             case 'naoVisibilizado':
-                if (value.checked == true) {
-                    setCheckvalue({
-                        aumentadoComEcotextura: true,
-                        normal: true,
-                        naoVisibilizado: false,
-                        bacoAcessorio: true,
-                        calcificacoes: true
-                    })
+                if (value.checked === true) {
+                    criarString(value.value)
+                    DeterminaCondicaoCheckbox()
                 } else {
-                    setCheckvalue({
-                        aumentadoComEcotextura: false,
-                        normal: false,
-                        naoVisibilizado: false,
-                        bacoAcessorio: false,
-                        calcificacoes: false
-                    })
+                    removeItemString(value.value)
+                    DeterminaCondicaoCheckbox()
                 }
                 break;
             case 'calcificacoes':
-                if (value.checked == true) {
-                    setCheckvalue({
-                        aumentadoComEcotextura: true,
-                        normal: true,
-                        naoVisibilizado: true,
-                        bacoAcessorio: true,
-                        calcificacoes: false
-                    })
+                if (value.checked === true) {
+                    criarString(value.value)
+                    DeterminaCondicaoCheckbox()
                 } else {
-                    setCheckvalue({
-                        aumentadoComEcotextura: false,
-                        normal: false,
-                        naoVisibilizado: false,
-                        bacoAcessorio: false,
-                        calcificacoes: false
-                    })
+                    removeItemString(value.value)
+                    DeterminaCondicaoCheckbox()
+                }
+                break;
+            case 'bacoAcessorio':
+                if (value.checked === true) {
+                    criarString(value.value)
+                    DeterminaCondicaoCheckbox()
+                } else {
+                    removeItemString(value.value)
+                    DeterminaCondicaoCheckbox()
+                }
+                break;
+            case 'SelectAumentadoComEcotextura':
+                if (aumentadoComEcotextura.checked === true) {
+                    criarString(value.value)
                 }
                 break;
             default:
+                console.log("esta aqui", value.id)
                 console.log("nao achou o id");
                 break;
         }
 
     }
+    // const verificaChecked = (value) => {
+    //     switch (value.id) {
+    //         case 'normal':
+    //             if (value.checked === true) {
+    //                 criarString('paciente está normal ')
+    //                 setCheckvalue({
+    //                     aumentadoComEcotextura: true,
+    //                     normal: false,
+    //                     naoVisibilizado: true,
+    //                     bacoAcessorio: true,
+    //                     calcificacoes: true,
+    //                     SelectAumentadoComEcotextura: true,
+    //                     SelectNaoVisibilizado: true,
+    //                     InputBacoAcessorio: true,
+    //                     InputCalcificacoes: true,
+    //                 })
+    //             } else {
+    //                 removeItemString('paciente está normal ')
+    //                 setCheckvalue({
+    //                     aumentadoComEcotextura: false,
+    //                     normal: false,
+    //                     naoVisibilizado: false,
+    //                     bacoAcessorio: false,
+    //                     calcificacoes: false,
+    //                     SelectAumentadoComEcotextura: true,
+    //                     SelectNaoVisibilizado: true,
+    //                     InputBacoAcessorio: true,
+    //                     InputCalcificacoes: true,
+    //                 })
+    //             }
 
+    //             break;
+    //         case 'aumentadoComEcotextura':
+    //             if (value.checked === true) {
+    //                 criarString('aumentado com ecotextura ')
+    //                 setCheckvalue({
+    //                     aumentadoComEcotextura: false,
+    //                     normal: true,
+    //                     naoVisibilizado: false,
+    //                     bacoAcessorio: false,
+    //                     calcificacoes: false,
+    //                     SelectAumentadoComEcotextura: false,
+    //                     SelectNaoVisibilizado: true,
+    //                     InputBacoAcessorio: true,
+    //                     InputCalcificacoes: true,
+    //                 })
+    //             } else if (liberarNormal === true) {
+    //                 removeItemString('aumentado com ecotextura ')
+    //                 DeterminaCondicaoCheckbox()
+    //             } else {
+    //                 removeItemString('aumentado com ecotextura ')
+    //                 setCheckvalue({
+    //                     aumentadoComEcotextura: false,
+    //                     normal: false,
+    //                     naoVisibilizado: false,
+    //                     bacoAcessorio: false,
+    //                     calcificacoes: false,
+    //                     SelectAumentadoComEcotextura: true,
+    //                     SelectNaoVisibilizado: true,
+    //                     InputBacoAcessorio: true,
+    //                     InputCalcificacoes: true,
+    //                 })
+    //             }
+    //             break;
+    //         case 'naoVisibilizado':
+    //             if (value.checked === true) {
+    //                 criarString('nao visibilizado ')
+    //                 setCheckvalue({
+    //                     aumentadoComEcotextura: false,
+    //                     normal: true,
+    //                     naoVisibilizado: false,
+    //                     bacoAcessorio: false,
+    //                     calcificacoes: false,
+    //                     SelectAumentadoComEcotextura: true,
+    //                     SelectNaoVisibilizado: false,
+    //                     InputBacoAcessorio: true,
+    //                     InputCalcificacoes: true,
+    //                 })
+    //             } else if (liberarNormal === true) {
+    //                 removeItemString('aumentado com ecotextura ')
+    //                 DeterminaCondicaoCheckbox()
+    //             } else {
+    //                 removeItemString('nao visibilizado ')
+    //                 setCheckvalue({
+    //                     aumentadoComEcotextura: false,
+    //                     normal: false,
+    //                     naoVisibilizado: false,
+    //                     bacoAcessorio: false,
+    //                     calcificacoes: false,
+    //                     SelectAumentadoComEcotextura: true,
+    //                     SelectNaoVisibilizado: true,
+    //                     InputBacoAcessorio: true,
+    //                     InputCalcificacoes: true,
+    //                 })
+    //             }
+    //             break;
+    //         case 'calcificacoes':
+    //             if (value.checked === true) {
+    //                 criarString('calcificações ')
+    //                 setCheckvalue({
+    //                     aumentadoComEcotextura: false,
+    //                     normal: true,
+    //                     naoVisibilizado: false,
+    //                     bacoAcessorio: false,
+    //                     calcificacoes: false,
+    //                     SelectAumentadoComEcotextura: true,
+    //                     SelectNaoVisibilizado: true,
+    //                     InputBacoAcessorio: true,
+    //                     InputCalcificacoes: false,
+    //                 })
+    //             } else if (liberarNormal === true) {
+    //                 removeItemString('aumentado com ecotextura ')
+    //                 DeterminaCondicaoCheckbox()
+    //             } else {
+    //                 removeItemString('calcificações ')
+    //                 setCheckvalue({
+    //                     aumentadoComEcotextura: false,
+    //                     normal: false,
+    //                     naoVisibilizado: false,
+    //                     bacoAcessorio: false,
+    //                     calcificacoes: false,
+    //                     SelectAumentadoComEcotextura: true,
+    //                     SelectNaoVisibilizado: true,
+    //                     InputBacoAcessorio: true,
+    //                     InputCalcificacoes: true,
+    //                 })
+    //             }
+    //             break;
+    //         case 'bacoAcessorio':
+    //             if (value.checked === true) {
+    //                 criarString('Baço Acessório ')
+    //                 setCheckvalue({
+    //                     aumentadoComEcotextura: false,
+    //                     normal: true,
+    //                     naoVisibilizado: false,
+    //                     bacoAcessorio: false,
+    //                     calcificacoes: false,
+    //                     SelectAumentadoComEcotextura: true,
+    //                     SelectNaoVisibilizado: true,
+    //                     InputBacoAcessorio: false,
+    //                     InputCalcificacoes: true,
+    //                 })
+    //             } else if (liberarNormal === true) {
+    //                 removeItemString('aumentado com ecotextura ')
+    //                 DeterminaCondicaoCheckbox()
+    //             } else {
+    //                 removeItemString('Baço Acessório ')
+    //                 setCheckvalue({
+    //                     aumentadoComEcotextura: false,
+    //                     normal: false,
+    //                     naoVisibilizado: false,
+    //                     bacoAcessorio: false,
+    //                     calcificacoes: false,
+    //                     SelectAumentadoComEcotextura: true,
+    //                     SelectNaoVisibilizado: true,
+    //                     InputBacoAcessorio: true,
+    //                     InputCalcificacoes: true,
+    //                 })
+    //             }
+    //             break;
+    //         default:
+    //             console.log("nao achou o id");
+    //             break;
+    //     }
 
-
+    // }
 
     return (
 
@@ -135,7 +357,7 @@ function Baco() {
             bgRepeat="no-repeat"
             borderRadius="10.85px"
             boxShadow="md"
-            padding='24px 15px 0px 15px'
+            padding='24px 15px 20px 15px'
             mt='15px'
         >
             <Box
@@ -144,110 +366,96 @@ function Baco() {
                 <TituloNomeExame titulo='Baço' />
 
                 <Box
-                    mt='10px'
                     mb='20px'
+                    gap='30px'
                     display='flex'
+                    flexWrap='wrap'
+                    mt='20px'
                 >
-                    <Grid
-                        templateColumns='repeat(5, 1fr)'
-                        templateRows='repeat(2, 1fr)'
-                        gap={3}
-                    >
-                        <GridItem w='100%' h='28px'>
-                            <Checkbox
-                                disabled={checkValue.normal}
-                                id="normal"
-                                onChange={(e) => {
-                                    verificaChecked(e.target)
-                                }}
-                            >Normal</Checkbox>
-                        </GridItem>
-                        <b>{laudoPrin}</b>
 
-                        <GridItem w='100%' h='28px'>
-                            <Checkbox ml='-65px'
-                                disabled={checkValue.aumentadoComEcotextura}
-                                id="aumentadoComEcotextura"
-                                onChange={(e) => { verificaChecked(e.target) }}
-                            >Aumentado com ecotextura</Checkbox>
-                        </GridItem>
+                    <Box w='100px' >
+                        <Checkbox
+                            disabled={checkValue.normal}
+                            id="normal"
+                            value="paciente está normal "
+                            onChange={(e) => {
+                                verificaChecked(e.target)
+                            }}
+                        >Normal</Checkbox>
+                    </Box>
+
+                    <Box w='220px' >
+                        <Checkbox disabled={checkValue.aumentadoComEcotextura}
+                            id="aumentadoComEcotextura"
+                            value='aumentado com ecotextura '
+                            onChange={(e) => { verificaChecked(e.target) }}
+                        >Aumentado com ecotextura</Checkbox>
+                        <Select
+                            disabled={checkValue.SelectAumentadoComEcotextura}
+                            id="SelectAumentadoComEcotextura"
+                            onChange={(e) => { verificaChecked(e.target) }}
+                        >
+                            <option value='' disabled selected>Selecione</option>
+                            <option value='Homogênea'>Homogênea</option>
+                            <option value='Heterogênea'>Heterogênea</option>
+                        </Select>
+                    </Box>
 
 
 
-                        <GridItem w='100%' h='28px'>
-                            <Checkbox
-                                disabled={checkValue.naoVisibilizado}
-                                id="naoVisibilizado"
-                                onChange={(e) => { verificaChecked(e.target) }}
-                            >Não visibilizado</Checkbox>
-                        </GridItem>
+                    <Box w='150px' >
+                        <Checkbox
+                            disabled={checkValue.naoVisibilizado}
+                            id="naoVisibilizado"
+                            value='nao visibilizado '
+                            onChange={(e) => { verificaChecked(e.target) }}
+                        >Não visibilizado</Checkbox>
+                        <Select
+                            disabled={checkValue.SelectNaoVisibilizado}
+                            id="SelectNaoVisibilizado"
+                            onChange={(e) => { verificaChecked(e.target) }}
+                        >
+                            <option value='' disabled selected>Selecione</option>
+                            <option value='ausenciaCirurgica'>ausência cirúrgica</option>
+                            <option value='interposicaoGasosa'>interposição gasosa</option>
+                        </Select>
+                    </Box>
 
-                        <GridItem w='100%' h='28px' ml='10px'>
-                            <Checkbox
-                                disabled={checkValue.bacoAcessorio}
-                                id="bacoAcessorio"
-                                onChange={(e) => { verificaChecked(e.target) }}
-                            >Baço Acessório</Checkbox>
-                        </GridItem>
+                    <Box w='140px'>
+                        <Checkbox
+                            disabled={checkValue.bacoAcessorio}
+                            id="bacoAcessorio"
+                            value='Baço Acessório '
+                            onChange={(e) => { verificaChecked(e.target) }}
+                        >Baço Acessório</Checkbox>
+                        <Input
+                            disabled={checkValue.InputBacoAcessorio}
+                            id="InputBacoAcessorio"
+                            onChange={(e) => { verificaChecked(e.target) }}
+                            placeholder='mm' />
+                    </Box>
 
-                        <GridItem w='100%' h='28px'>
-                            <Checkbox
-                                disabled={checkValue.calcificacoes}
-                                id="calcificacoes"
-                                onChange={(e) => { verificaChecked(e.target) }}>Calcificalções</Checkbox>
-                        </GridItem>
-
-                        <GridItem w='100%' h='28px' mt='-8px'>
-
-                        </GridItem>
-
-                        <GridItem w='100%' h='28px' mt='-8px' ml='-65px'>
-                            <Select
-                                w='160px'>
-                                <option value='' disabled selected>Homogênea</option>
-                                <option value='Homogênea'>Homogênea</option>
-                                <option value='Heterogênea'>Heterogênea</option>
-                            </Select>
-                        </GridItem>
-
-                        <GridItem w='100%' h='28px' mt='-8px'>
-                            <Select
-                                w='160px'>
-                                <option value='ausenciaCirurgica'>ausência cirúrgica</option>
-                                <option value='interposicaoGasosa'>interposição gasosa</option>
-                            </Select>
-                        </GridItem>
-
-                        <GridItem w='100%' h='28px' mt='-8px' ml='10px'>
-                            <Input w='160px' placeholder='mm' />
-                        </GridItem>
-
-                        <GridItem w='100%' h='28px' mt='-8px'>
-                            <Input w='160px' placeholder='mm' />
-                        </GridItem>
-
-                    </Grid>
+                    <Box w='100px' >
+                        <Checkbox
+                            disabled={checkValue.calcificacoes}
+                            id="calcificacoes"
+                            value='calcificações '
+                            onChange={(e) => { verificaChecked(e.target) }}>Calcificalções</Checkbox>
+                        <Input
+                            disabled={checkValue.InputCalcificacoes}
+                            id="InputCalcificacoes"
+                            onChange={(e) => { verificaChecked(e.target) }} placeholder='mm' />
+                    </Box>
                 </Box>
             </Box >
 
-            <Box
-                mt='20px'
-                h='100px'
-            >
-                <Grid
-                    templateColumns='repeat(1, 1fr)'
-                    templateRows='repeat(2, 1fr)'
-                    gap={3}
-                >
-                    <GridItem w='100%' h='28px'>
-                        <Checkbox>Cisto</Checkbox>
-                    </GridItem>
 
-                    <GridItem w='100%' h='28px' mt='-8px'>
-                        <Input w='200px' placeholder='mm' />
-                    </GridItem>
-                </Grid>
+            <Box w='100px'
+                mt='20px'>
+                <Checkbox>Cisto</Checkbox>
+                <Input placeholder='mm' />
             </Box>
+
         </Box >
     );
 }
