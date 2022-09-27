@@ -29,6 +29,7 @@ const Clinica = (props) => {
           icon={FaRegFolderOpen}
           clinica={item}
           clinicas={listaClinicas}
+          onClickModal={true}
         />
       ))}
     </>

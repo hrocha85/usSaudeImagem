@@ -2,10 +2,8 @@ import {
   Box,
   Button,
   Center,
-  Container,
   Divider,
   Flex,
-  Grid,
   HStack,
   Icon,
   Image,
@@ -32,29 +30,41 @@ import {
   Stack,
   Text,
   Tooltip,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { BiCamera } from "react-icons/bi";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
+import { BiCamera } from "react-icons/bi";
 import { FaRegFolderOpen } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import SignatureCanvas from "react-signature-canvas";
+import Medicos from "../../Data/Medicos.json";
 import BoxTitleBackground from "../component/box_title_background";
 import RectangularCard from "../component/card_observations";
 import ItemObservation from "../component/item_obeservation";
 import MainCard from "../component/main_card";
-import Avatar from "../images/Avatar.png";
 import BG from "../images/bg_img.png";
 import PlusButton from "../images/button_plus.png";
-import ImageHome from "../images/icon_home.png";
-import Medicos from "../../Data/Medicos.json";
-import { render } from "@testing-library/react";
-import ReactSignatureCanvas from "react-signature-canvas";
-import React from "react";
 import DefaultImageClinica from "../images/clinica_default.png";
+import ImageHome from "../images/icon_home.png";
+import Drs from "./drs";
 
 const Configuracoes = () => {
+  const getMedicos = () => {
+    var medicos;
+    var item;
+    if (localStorage.getItem("medicos") != null) {
+      item = localStorage.getItem("medicos");
+
+      medicos = JSON.parse(item);
+    } else medicos = [];
+    return medicos;
+  };
+
+  let padRef = React.useRef<SignatureCanvas>(null);
+
+  let lista_medicos = Medicos.medicos;
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [enable, setEnable] = useState(true);
@@ -65,9 +75,9 @@ const Configuracoes = () => {
 
   const [crm, setCrm] = useState("");
 
-  const [endereco, setEndereco] = useState("");
+  const [clinica, setClinica] = useState("");
 
-  const [medicos, setMedicos] = useState<any[]>([]);
+  const [medicos, setMedicos] = useState<any[]>(getMedicos);
 
   const [defaultUserImage, setDefaultUserImage] = useState(DefaultImageClinica);
 
@@ -75,11 +85,38 @@ const Configuracoes = () => {
 
   const [selectedFile, setSelectedFile] = useState();
 
-  let lista_medicos = Medicos.medicos;
+  const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
-  let padRef = React.useRef<SignatureCanvas>(null);
+  const [stateClickAddMedico, setStateClickAddMedico] = useState(false);
 
-  const clear = () => {
+  const [URLSignature, setURLSignature] = useState<string | null>();
+
+  const SaveSignature = () => {
+    let url = padRef.current?.getCanvas().toDataURL("image/png");
+    if (url) setURLSignature(url);
+  };
+
+  const AddMedico = () => {
+    const obj = {
+      nome: nome,
+      crm: crm,
+      uf: "sp",
+      assinatura: URLSignature!,
+      foto: defaultUserImage,
+      clinica: clinica,
+    };
+    lista_medicos.push(obj);
+
+    lista_medicos.map((e) => {
+      if (e.nome == "NOME") {
+        lista_medicos.shift();
+      }
+    });
+    localStorage.setItem("medicos", JSON.stringify(lista_medicos));
+    setMedicos(lista_medicos);
+  };
+
+  const clearAssinatura = () => {
     padRef.current?.clear();
   };
 
@@ -87,22 +124,14 @@ const Configuracoes = () => {
     inputFile.current?.click();
   };
 
-  useEffect(() => {
-    if (selectedFile) {
-      const objectURL = URL.createObjectURL(selectedFile);
-      setDefaultUserImage(objectURL);
-      return () => URL.revokeObjectURL(objectURL);
-    }
-  }, [selectedFile]);
-
-  function onChangeFile(event) {
+  const onChangeFile = (event) => {
     event.stopPropagation();
     event.preventDefault();
     var file = event.target.files[0];
     setSelectedFile(file);
-  }
+  };
 
-  function Laudos() {
+  const Laudos = () => {
     return (
       <List spacing={2} size="15px">
         <ListItem>
@@ -127,26 +156,33 @@ const Configuracoes = () => {
         </ListItem>
       </List>
     );
-  }
-
-  function AddMedico() {
-    const obj = {
-      nome: nome,
-      crm: "7777",
-      uf: "sp",
-      assinatura: " heheh",
-      foto: "hehehr",
-    };
-    lista_medicos.push(obj);
-    setMedicos(lista_medicos);
-  }
+  };
 
   const ResetDados = () => {
     setNome("");
     setCrm("");
     setDefaultUserImage(DefaultImageClinica);
-    setFocus('unstyled')
+    setFocus("unstyled");
+    setStateClickAddMedico(false);
   };
+
+  useEffect(() => {
+    if (selectedFile) {
+      const objectURL = URL.createObjectURL(selectedFile);
+      setDefaultUserImage(objectURL);
+      return () => URL.revokeObjectURL(objectURL);
+    }
+  }, [selectedFile]);
+
+  useEffect(() => {
+    var item;
+    var item_parse;
+    if (localStorage.getItem("minhasClinicas") != null) {
+      item = localStorage.getItem("minhasClinicas");
+      item_parse = JSON.parse(item);
+      setListaClinicas(item_parse);
+    }
+  }, [stateClickAddMedico]);
 
   return (
     <Box
@@ -162,7 +198,6 @@ const Configuracoes = () => {
       backgroundRepeat="no-repeat"
       paddingBottom="10px"
       paddingTop="5px"
-     
     >
       <Flex
         direction="row"
@@ -204,11 +239,16 @@ const Configuracoes = () => {
         gap="10px"
       >
         <>
-          <MainCard titulo="Clínicas" icon={true} nome={null} />
-          {medicos.map((med) => {
-            return <MainCard titulo="Doutor(a)" icon={false} nome={med.nome} />;
-          })}
+          <MainCard
+            titulo="Clínicas"
+            icon={true}
+            clinica={null}
+            medicos={null}
+          />
 
+          {medicos.map((medico) => {
+            return <Drs medico={medico} />;
+          })}
           <Tooltip
             label="Adicionar Médico"
             backgroundColor="white"
@@ -216,12 +256,16 @@ const Configuracoes = () => {
             defaultIsOpen={false}
             hasArrow
             arrowSize={15}
+            textColor="black"
           >
             <Button
               position="absolute"
               right="1"
               variant="ghost"
-              onClick={onOpen}
+              onClick={() => {
+                onOpen();
+                setStateClickAddMedico(true);
+              }}
             >
               <Image
                 srcSet={PlusButton}
@@ -244,42 +288,22 @@ const Configuracoes = () => {
               onClick={() => {
                 setFocus("unstyled");
                 setEnable(true);
-                ResetDados()
+                ResetDados();
               }}
             />
 
-            <Stack direction="row" justify="center" margin="10px">
-              <Box sx={{ flexGrow: 1 }}>
-                <Input
-                  textAlign="center"
-                  paddingStart="60px"
-                  fontWeight="bold"
-                  fontSize="20px"
-                  placeholder="Nome Doutor"
-                  isDisabled={enable}
-                  variant={focus}
-                  onChange={(e) => setNome(e.target.value)}
-                  _placeholder={{ fontWeight: "bold", color: "black" }}
-                ></Input>
-              </Box>
-
-              <Box sx={{ alignSelf: "flex-end" }}>
-                <Button
-                  color="#4759FC"
-                  paddingEnd="5px"
-                  fontSize="16px"
-                  fontWeight="bold"
-                  backgroundColor="transparent"
-                  alignItems="center"
-                  onClick={() => {
-                    setEnable(false);
-                    setFocus("filled");
-                  }}
-                >
-                  Editar
-                </Button>
-              </Box>
-            </Stack>
+            <Input
+              alignSelf="center"
+              textAlign="center"
+              fontWeight="bold"
+              fontSize="20px"
+              margin="10px"
+              placeholder="Nome Doutor"
+              isDisabled={false}
+              variant={focus}
+              onChange={(e) => setNome(e.target.value)}
+              _placeholder={{ fontWeight: "bold", color: "black" }}
+            ></Input>
 
             <Divider orientation="horizontal" />
 
@@ -314,13 +338,20 @@ const Configuracoes = () => {
                   <Text marginEnd="5px" fontWeight="bold">
                     Clínicas:
                   </Text>
-                  <Select placeholder="Clínicas Cadastradas" variant="filled">
-                    <option value="option1">Clínica 1</option>
-                    <option value="option2">Clínica 2</option>
-                    <option value="option3">Clínica 3</option>
+                  <Select
+                    placeholder="Clínicas Cadastradas"
+                    variant="filled"
+                    onChange={(e) => setClinica(e.target.value)}
+                  >
+                    {listaClinicas.map((e) => {
+                      return (
+                        <option value={e.nomeClinica}>{e.nomeClinica}</option>
+                      );
+                    })}
                   </Select>
                 </HStack>
               </Center>
+
               <Center paddingTop={"30px"}>
                 <InputGroup
                   variant={"unstyled"}
@@ -336,8 +367,7 @@ const Configuracoes = () => {
                     placeholder="00000000-0/BR"
                     fontSize="18px"
                     textAlign={"center"}
-                    onChange={(e) => setCrm(e.target.value)}
-
+                    onChange={(event) => setCrm(event.target.value)}
                   />
                 </InputGroup>
               </Center>
@@ -361,7 +391,7 @@ const Configuracoes = () => {
                     color="#4658fc"
                     margin="5px"
                     alignItems="end"
-                    onClick={clear}
+                    onClick={clearAssinatura}
                   />
                 </Flex>
               </Box>
@@ -371,9 +401,10 @@ const Configuracoes = () => {
               backgroundColor="#0e63fe"
               margin="10px"
               onClick={() => {
+                SaveSignature();
                 AddMedico();
+                ResetDados();
                 onClose();
-                ResetDados()
               }}
             >
               Salvar
