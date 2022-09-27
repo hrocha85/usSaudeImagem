@@ -1,10 +1,14 @@
 import { Box, Checkbox, Select, Grid, GridItem, Input } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { LaudosContext } from '../../../../context/LuadosContext';
+
 
 function Baco() {
     const altura = '100%'
     const largura = '890px'
+
+    const { laudoPrin, signIn, setLaudoPrin } = useContext(LaudosContext);
 
     const [baco, setBaco] = useState({
         normal: false,
@@ -21,17 +25,21 @@ function Baco() {
         calcificacoes: false
     })
 
+
+
     const criarString = (value) => {
         console.log(value.id, "valor recebio")
 
     }
 
     const verificaChecked = (value) => {
+
         console.log(value, value.checked, "value recebido")
 
         switch (value.id) {
             case 'normal':
                 if (value.checked == true) {
+                    setLaudoPrin("lucas esta normal")
                     setCheckvalue({
                         aumentadoComEcotextura: true,
                         normal: false,
@@ -55,9 +63,9 @@ function Baco() {
                     setCheckvalue({
                         aumentadoComEcotextura: false,
                         normal: true,
-                        naoVisibilizado: false,
-                        bacoAcessorio: false,
-                        calcificacoes: false
+                        naoVisibilizado: true,
+                        bacoAcessorio: true,
+                        calcificacoes: true
                     })
                 } else {
                     setCheckvalue({
@@ -72,11 +80,11 @@ function Baco() {
             case 'naoVisibilizado':
                 if (value.checked == true) {
                     setCheckvalue({
-                        aumentadoComEcotextura: false,
+                        aumentadoComEcotextura: true,
                         normal: true,
                         naoVisibilizado: false,
-                        bacoAcessorio: false,
-                        calcificacoes: false
+                        bacoAcessorio: true,
+                        calcificacoes: true
                     })
                 } else {
                     setCheckvalue({
@@ -91,29 +99,10 @@ function Baco() {
             case 'calcificacoes':
                 if (value.checked == true) {
                     setCheckvalue({
-                        aumentadoComEcotextura: false,
+                        aumentadoComEcotextura: true,
                         normal: true,
-                        naoVisibilizado: false,
-                        bacoAcessorio: false,
-                        calcificacoes: false
-                    })
-                } else {
-                    setCheckvalue({
-                        aumentadoComEcotextura: false,
-                        normal: false,
-                        naoVisibilizado: false,
-                        bacoAcessorio: false,
-                        calcificacoes: false
-                    })
-                }
-                break;
-            case 'bacoAcessorio':
-                if (value.checked == true) {
-                    setCheckvalue({
-                        aumentadoComEcotextura: false,
-                        normal: true,
-                        naoVisibilizado: false,
-                        bacoAcessorio: false,
+                        naoVisibilizado: true,
+                        bacoAcessorio: true,
                         calcificacoes: false
                     })
                 } else {
@@ -168,9 +157,12 @@ function Baco() {
                             <Checkbox
                                 disabled={checkValue.normal}
                                 id="normal"
-                                onChange={(e) => { verificaChecked(e.target) }}
+                                onChange={(e) => {
+                                    verificaChecked(e.target)
+                                }}
                             >Normal</Checkbox>
                         </GridItem>
+                        <b>{laudoPrin}</b>
 
                         <GridItem w='100%' h='28px'>
                             <Checkbox ml='-65px'
@@ -211,9 +203,6 @@ function Baco() {
 
                         <GridItem w='100%' h='28px' mt='-8px' ml='-65px'>
                             <Select
-                                disabled={checkValue.aumentadoComEcotextura}
-                                id="aumentadoComEcotextura"
-                                onChange={(e) => { verificaChecked(e.target) }}
                                 w='160px'>
                                 <option value='' disabled selected>Homogênea</option>
                                 <option value='Homogênea'>Homogênea</option>
@@ -223,9 +212,6 @@ function Baco() {
 
                         <GridItem w='100%' h='28px' mt='-8px'>
                             <Select
-                                disabled={checkValue.naoVisibilizado}
-                                id="naoVisibilizado"
-                                onChange={(e) => { verificaChecked(e.target) }}
                                 w='160px'>
                                 <option value='ausenciaCirurgica'>ausência cirúrgica</option>
                                 <option value='interposicaoGasosa'>interposição gasosa</option>
@@ -233,19 +219,11 @@ function Baco() {
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px' ml='10px'>
-                            <Input
-                                disabled={checkValue.bacoAcessorio}
-                                id="bacoAcessorio"
-                                onChange={(e) => { verificaChecked(e.target) }}
-                                w='160px' placeholder='mm' />
+                            <Input w='160px' placeholder='mm' />
                         </GridItem>
 
                         <GridItem w='100%' h='28px' mt='-8px'>
-                            <Input
-                                disabled={checkValue.calcificacoes}
-                                id="calcificacoes"
-                                onChange={(e) => { verificaChecked(e.target) }}
-                                w='160px' placeholder='mm' />
+                            <Input w='160px' placeholder='mm' />
                         </GridItem>
 
                     </Grid>
