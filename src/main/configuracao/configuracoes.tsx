@@ -30,7 +30,7 @@ import {
   Stack,
   Text,
   Tooltip,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
@@ -89,19 +89,19 @@ const Configuracoes = () => {
 
   const [stateClickAddMedico, setStateClickAddMedico] = useState(false);
 
-  const [URLSignature, setURLSignature] = useState<string | null>();
+  /*const [URLSignature, setURLSignature] = useState<string | null>();
 
   const SaveSignature = () => {
     let url = padRef.current?.getCanvas().toDataURL("image/png");
     if (url) setURLSignature(url);
-  };
+  };*/
 
   const AddMedico = () => {
     const obj = {
       nome: nome,
       crm: crm,
       uf: "sp",
-      assinatura: URLSignature!,
+      assinatura: padRef.current?.getCanvas().toDataURL("image/png")!,
       foto: defaultUserImage,
       clinica: clinica,
     };
@@ -374,11 +374,11 @@ const Configuracoes = () => {
             </ModalBody>
 
             <ModalFooter>
-              <Box>
+              <Box boxShadow="lg">
                 <SignatureCanvas
                   ref={padRef}
                   backgroundColor="#F7FAFC"
-                  penColor="black"
+                  penColor="black"                  
                   canvasProps={{
                     width: 400,
                     height: 200,
@@ -401,7 +401,7 @@ const Configuracoes = () => {
               backgroundColor="#0e63fe"
               margin="10px"
               onClick={() => {
-                SaveSignature();
+                //SaveSignature();
                 AddMedico();
                 ResetDados();
                 onClose();
