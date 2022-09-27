@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 
 
 type ILaudos = {
-    laudoPrin?: string;
+    laudoPrin?: any;
     setLaudoPrin?: any;
     signIn?: any;
 }
@@ -12,7 +12,7 @@ export const LaudosContext = createContext({} as ILaudos);
 
 export function LaudosProvider({ children }) {
 
-    const [laudoPrin, setLaudoPrin] = useState("meu alaudo");
+    const [laudoPrin, setLaudoPrin] = useState([]);
 
     function signIn() {
         console.log("contex funcionando")
