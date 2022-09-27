@@ -3,7 +3,7 @@ import BoxTitleBackground from "../../component/box_title_background";
 import BGImage from "../../images/bg_img.png";
 import Baco from "./baco/baco";
 import Figado from './figado/figado'
-import Exames from "./folha_exames/Exames";
+import Exames from "../../folha_laudos/Laudos";
 import LiquidoLivre from "./liquido_livre/liquido_livre";
 import Aorta from "./aorta/aorta";
 import Pancreas from "./pancreas/pancreas";
@@ -32,7 +32,7 @@ function AbdomemTotal() {
         >
             <BoxTitleBackground titulo="Adbomen Total" />
 
-            {/* <Exames></Exames> */}
+            <Exames></Exames>
 
             <Box
                 ml='10px'
