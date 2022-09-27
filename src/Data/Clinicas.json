@@ -1,14 +1,13 @@
 {
-    "clinicas": [
-      {
-        
-        "nomeClinica": "",
-        "enderecoRuaNumero": "",
-        "cidade":"",
-        "uf":"",
-        "cep": "",
-        "foto": "",
-        "teleFone":""
-      }
-    ]
-  }
+  "clinicas": [
+    {
+      "nomeClinica": "clinica",
+      "enderecoRuaNumero": "",
+      "cidade": "",
+      "uf": "",
+      "cep": "",
+      "foto": "",
+      "teleFone": ""
+    }
+  ]
+}

@@ -1,16 +1,10 @@
 import { Box, Stack, Text } from "@chakra-ui/react";
-import Clinica from "../configuracao/clinicas";
-import Drs from "../configuracao/drs";
-import IconButtonPlus from "./icon_button_plus";
 import { useEffect, useState } from "react";
-import ModalDrs from "./modal_dr";
+import Clinica from "../configuracao/clinicas";
+import IconButtonPlus from "./icon_button_plus";
 
 const MainCard = ({ titulo, icon, clinica, medicos }) => {
   const [atualizar, setAtualizar] = useState(true);
-
-
-
-
 
   useEffect(() => {}, [atualizar]);
 
@@ -27,8 +21,6 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
       case "Clínicas":
         return <Clinica atualizar={atualizar} />;
 
-     
-
       default:
         break;
     }
@@ -38,7 +30,7 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
     <Box
       bg="#FAFAFA"
       w="218px"
-      h='100%'
+      h="100%"
       color="white"
       borderRadius="10.85px"
       boxShadow="md"

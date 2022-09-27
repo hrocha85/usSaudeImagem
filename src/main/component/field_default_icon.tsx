@@ -23,14 +23,21 @@ import {
   Text,
   Textarea,
   useDisclosure,
-  useOutsideClick
+  useOutsideClick,
 } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { IconContext } from "react-icons";
 import { BiCamera } from "react-icons/bi";
 
-const FieldDefaultIcon = ({ text, textColor, icon, clinica, clinicas }) => {
+const FieldDefaultIcon = ({
+  text,
+  textColor,
+  icon,
+  clinica,
+  clinicas,
+  onClickModal,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [focus, setFocus] = useState("unstyled");
@@ -296,7 +303,12 @@ const FieldDefaultIcon = ({ text, textColor, icon, clinica, clinicas }) => {
           borderStyle="solid"
           borderWidth="2px"
           borderColor="#e2e8f0"
-          onClick={onOpen}
+          onClick={() => {
+            return (
+              onClickModal ? onOpen() : null
+
+            )
+          }}
         >
           <Stack direction="row" alignItems="center">
             <IconContext.Provider value={{ color: "#4A5568" }}>

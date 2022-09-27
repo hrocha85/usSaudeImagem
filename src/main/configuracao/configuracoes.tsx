@@ -30,7 +30,7 @@ import {
   Stack,
   Text,
   Tooltip,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
@@ -61,9 +61,9 @@ const Configuracoes = () => {
     return medicos;
   };
 
-  let lista_medicos = Medicos.medicos;
-
   let padRef = React.useRef<SignatureCanvas>(null);
+
+  let lista_medicos = Medicos.medicos;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -89,8 +89,12 @@ const Configuracoes = () => {
 
   const [stateClickAddMedico, setStateClickAddMedico] = useState(false);
 
-  const [URLSignature, setURLSignature] = useState<string | undefined>();
+  const [URLSignature, setURLSignature] = useState<string | null>();
 
+  const SaveSignature = () => {
+    let url = padRef.current?.getCanvas().toDataURL("image/png");
+    if (url) setURLSignature(url);
+  };
 
   const AddMedico = () => {
     const obj = {
@@ -102,12 +106,14 @@ const Configuracoes = () => {
       clinica: clinica,
     };
     lista_medicos.push(obj);
+
+    lista_medicos.map((e) => {
+      if (e.nome == "NOME") {
+        lista_medicos.shift();
+      }
+    });
     localStorage.setItem("medicos", JSON.stringify(lista_medicos));
     setMedicos(lista_medicos);
-  };
-  const SaveSignature = () => {
-    const url = padRef.current?.getTrimmedCanvas().toDataURL("image/png");
-    if (url) setURLSignature(url);
   };
 
   const clearAssinatura = () => {
@@ -241,11 +247,8 @@ const Configuracoes = () => {
           />
 
           {medicos.map((medico) => {
-            return (
-              <Drs medico={medico}/>
-            );
+            return <Drs medico={medico} />;
           })}
-
           <Tooltip
             label="Adicionar Médico"
             backgroundColor="white"
@@ -289,38 +292,18 @@ const Configuracoes = () => {
               }}
             />
 
-            <Stack direction="row" justify="center" margin="10px">
-              <Box sx={{ flexGrow: 1 }}>
-                <Input
-                  textAlign="center"
-                  paddingStart="60px"
-                  fontWeight="bold"
-                  fontSize="20px"
-                  placeholder="Nome Doutor"
-                  isDisabled={enable}
-                  variant={focus}
-                  onChange={(e) => setNome(e.target.value)}
-                  _placeholder={{ fontWeight: "bold", color: "black" }}
-                ></Input>
-              </Box>
-
-              <Box sx={{ alignSelf: "flex-end" }}>
-                <Button
-                  color="#4759FC"
-                  paddingEnd="5px"
-                  fontSize="16px"
-                  fontWeight="bold"
-                  backgroundColor="transparent"
-                  alignItems="center"
-                  onClick={() => {
-                    setEnable(false);
-                    setFocus("filled");
-                  }}
-                >
-                  Editar
-                </Button>
-              </Box>
-            </Stack>
+            <Input
+              alignSelf="center"
+              textAlign="center"
+              fontWeight="bold"
+              fontSize="20px"
+              margin="10px"
+              placeholder="Nome Doutor"
+              isDisabled={false}
+              variant={focus}
+              onChange={(e) => setNome(e.target.value)}
+              _placeholder={{ fontWeight: "bold", color: "black" }}
+            ></Input>
 
             <Divider orientation="horizontal" />
 
@@ -418,9 +401,9 @@ const Configuracoes = () => {
               backgroundColor="#0e63fe"
               margin="10px"
               onClick={() => {
+                SaveSignature();
                 AddMedico();
                 ResetDados();
-                SaveSignature();
                 onClose();
               }}
             >

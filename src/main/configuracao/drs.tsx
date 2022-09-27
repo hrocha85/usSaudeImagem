@@ -17,24 +17,19 @@ import {
   ModalOverlay,
   Stack,
   Text,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { BiCamera } from "react-icons/bi";
 import { HiOutlineUser } from "react-icons/hi";
 import FieldDefaultIcon from "../component/field_default_icon";
-import { BiCamera } from "react-icons/bi";
 
 const Drs = ({ medico }) => {
-  console.log(medico)
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [enable, setEnable] = useState(true);
 
   const [focus, setFocus] = useState("unstyled");
-
-  const [nome, setDoutor] = useState("Nome do Doutor(a)");
-
-  const [endereco, setEndereco] = useState("");
 
   let drs: any[] = [];
   drs.push(medico);
@@ -67,6 +62,7 @@ const Drs = ({ medico }) => {
           icon={HiOutlineUser}
           clinica={drs}
           clinicas={null}
+          onClickModal={false}
         />
       ))}
       <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
@@ -88,10 +84,28 @@ const Drs = ({ medico }) => {
                 paddingStart="60px"
                 fontWeight="bold"
                 fontSize="20px"
-                placeholder={nome}
+                value={medico.nome}
                 isDisabled={enable}
                 variant={focus}
+                _placeholder={{ fontWeight: "bold", color: "black" }}
               ></Input>
+            </Box>
+
+            <Box sx={{ alignSelf: "flex-end" }}>
+              <Button
+                color="#4759FC"
+                paddingEnd="5px"
+                fontSize="16px"
+                fontWeight="bold"
+                backgroundColor="transparent"
+                alignItems="center"
+                onClick={() => {
+                  setEnable(false);
+                  setFocus("filled");
+                }}
+              >
+                Editar
+              </Button>
             </Box>
           </Stack>
 
@@ -114,7 +128,7 @@ const Drs = ({ medico }) => {
 
                   <Stack direction="row" justify="center">
                     <Text fontWeight="bold" size="20px">
-                      00000000-0/BR
+                      {medico.crm}
                     </Text>
                   </Stack>
 
@@ -141,12 +155,3 @@ const Drs = ({ medico }) => {
 };
 
 export default Drs;
-
-/**
- * <Image
-              width="400px"
-              height="200"
-              srcSet={medicos.assinatura}
-              alt="Assinatura"
-            />
- */
