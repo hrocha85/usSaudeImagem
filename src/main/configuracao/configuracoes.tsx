@@ -10,6 +10,7 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  Link,
   List,
   ListIcon,
   ListItem,
@@ -378,7 +379,7 @@ const Configuracoes = () => {
                 <SignatureCanvas
                   ref={padRef}
                   backgroundColor="#F7FAFC"
-                  penColor="black"                  
+                  penColor="black"
                   canvasProps={{
                     width: 400,
                     height: 200,
@@ -420,7 +421,9 @@ const Configuracoes = () => {
         />
       </Stack>
       <Box margin="50px 0px 0px 30px">
-        <Image src={ImageHome} />
+        <Link href={`#/Home/`}>
+          <Image src={ImageHome} />
+        </Link>
       </Box>
     </Box>
   );
