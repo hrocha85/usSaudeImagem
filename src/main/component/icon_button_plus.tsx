@@ -67,6 +67,11 @@ const IconButtonPlus = (props) => {
       teleFone: telefone,
     };
     minhasClinicas.push(obj);
+    minhasClinicas.map((e) => {
+      if (e.nomeClinica == "clinica") {
+        minhasClinicas.shift()
+      }
+    })
     localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
     props.setAtualizar(!props.atualizar);
     onClose();
@@ -126,6 +131,8 @@ const IconButtonPlus = (props) => {
         defaultIsOpen={false}
         hasArrow
         arrowSize={15}
+        textColor='black'
+
       >
         <IconButton
           aria-label="sdfs"
