@@ -32,6 +32,7 @@ import {
   Text,
   Tooltip,
   useDisclosure,
+  useOutsideClick,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
@@ -39,7 +40,7 @@ import { BiCamera } from "react-icons/bi";
 import { FaRegFolderOpen } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import SignatureCanvas from "react-signature-canvas";
-import Medicos from "../../Data/Medicos.json";
+import MedicosJSON from "../../Data/Medicos.json";
 import BoxTitleBackground from "../component/box_title_background";
 import RectangularCard from "../component/card_observations";
 import ItemObservation from "../component/item_obeservation";
@@ -48,7 +49,8 @@ import BG from "../images/bg_img.png";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import ImageHome from "../images/icon_home.png";
-import Drs from "./drs";
+import ImageAssinaturaIcon from "../images/SignIcon_generated.jpg";
+import Medicos from "./medicos";
 
 const Configuracoes = () => {
   const getMedicos = () => {
@@ -64,7 +66,7 @@ const Configuracoes = () => {
 
   let padRef = React.useRef<SignatureCanvas>(null);
 
-  let lista_medicos = Medicos.medicos;
+  let lista_medicos = MedicosJSON.medicos;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -90,12 +92,13 @@ const Configuracoes = () => {
 
   const [stateClickAddMedico, setStateClickAddMedico] = useState(false);
 
-  /*const [URLSignature, setURLSignature] = useState<string | null>();
+  const [InputNomeDoutor, setInputNomeDoutor] = useState(false);
 
-  const SaveSignature = () => {
-    let url = padRef.current?.getCanvas().toDataURL("image/png");
-    if (url) setURLSignature(url);
-  };*/
+  const [placeHolderAddDoutor, setplaceHolderDoutor] = useState("Nome");
+
+  const [imageAssinatura, setImageAssinatura] = useState(true);
+
+  const refNomeDoutor = useRef<HTMLInputElement | null>(null);
 
   const AddMedico = () => {
     const obj = {
@@ -117,19 +120,46 @@ const Configuracoes = () => {
     setMedicos(lista_medicos);
   };
 
-  const clearAssinatura = () => {
-    padRef.current?.clear();
-  };
-
-  const openFiles = () => {
-    inputFile.current?.click();
-  };
-
-  const onChangeFile = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    var file = event.target.files[0];
-    setSelectedFile(file);
+  const showImageAssinatura = () => {
+    return (
+      <>
+        {imageAssinatura == true ? (
+          <Box
+            boxShadow="lg"
+            width="400px"
+            height="200px"
+            backgroundImage={ImageAssinaturaIcon}
+            backgroundPosition="center"
+            backgroundSize="cover"
+            backgroundClip="padding-box"
+            backgroundRepeat="no-repeat"
+            onClickCapture={() => setImageAssinatura(false)}
+          ></Box>
+        ) : (
+          <Box boxShadow="lg">
+            <SignatureCanvas
+              ref={padRef}
+              backgroundColor="#F7FAFC"
+              penColor="black"
+              canvasProps={{
+                width: 400,
+                height: 200,
+                className: "sigCanvas",
+              }}
+            />
+            <Flex justify="end">
+              <Icon
+                as={AiOutlineClear}
+                color="#4658fc"
+                margin="5px"
+                alignItems="end"
+                onClick={clearAssinatura}
+              />
+            </Flex>
+          </Box>
+        )}
+      </>
+    );
   };
 
   const Laudos = () => {
@@ -159,12 +189,28 @@ const Configuracoes = () => {
     );
   };
 
+  const clearAssinatura = () => {
+    padRef.current?.clear();
+  };
+
   const ResetDados = () => {
     setNome("");
     setCrm("");
     setDefaultUserImage(DefaultImageClinica);
     setFocus("unstyled");
     setStateClickAddMedico(false);
+    setImageAssinatura(true);
+  };
+
+  const openFiles = () => {
+    inputFile.current?.click();
+  };
+
+  const onChangeFile = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    var file = event.target.files[0];
+    setSelectedFile(file);
   };
 
   useEffect(() => {
@@ -184,6 +230,22 @@ const Configuracoes = () => {
       setListaClinicas(item_parse);
     }
   }, [stateClickAddMedico]);
+
+  useEffect(() => {
+    showImageAssinatura();
+  }, [imageAssinatura]);
+
+  useOutsideClick({
+    ref: refNomeDoutor,
+    handler: () => {
+      setInputNomeDoutor(false);
+      if (nome.length != 0) {
+        setplaceHolderDoutor(nome);
+      } else {
+        setplaceHolderDoutor("Nome");
+      }
+    },
+  });
 
   return (
     <Box
@@ -220,7 +282,7 @@ const Configuracoes = () => {
 
         <Popover>
           <PopoverTrigger>
-            <Button borderRadius="50%" backgroundColor="#E2E8F0" w="42" h="42">
+            <Button borderRadius="50%" backgroundColor="white" w="42" h="42">
               <Icon as={FaRegFolderOpen} />
             </Button>
           </PopoverTrigger>
@@ -247,8 +309,8 @@ const Configuracoes = () => {
             medicos={null}
           />
 
-          {medicos.map((medico) => {
-            return <Drs medico={medico} />;
+          {medicos.map((medico, key) => {
+            return <Medicos key={key} medico={medico} />;
           })}
           <Tooltip
             label="Adicionar Médico"
@@ -292,19 +354,40 @@ const Configuracoes = () => {
                 ResetDados();
               }}
             />
-
-            <Input
-              alignSelf="center"
-              textAlign="center"
-              fontWeight="bold"
-              fontSize="20px"
-              margin="10px"
-              placeholder="Nome Doutor"
-              isDisabled={false}
-              variant={focus}
-              onChange={(e) => setNome(e.target.value)}
-              _placeholder={{ fontWeight: "bold", color: "black" }}
-            ></Input>
+            {InputNomeDoutor ? (
+              <Input
+                w="435px"
+                alignSelf="center"
+                textAlign="center"
+                fontWeight="bold"
+                fontSize="20px"
+                margin="10px"
+                placeholder={placeHolderAddDoutor}
+                isDisabled={false}
+                variant={"filled"}
+                onChange={(e) => setNome(e.target.value)}
+                _placeholder={{ fontWeight: "bold", color: "black" }}
+              ></Input>
+            ) : (
+              <Input
+                w="435px"
+                alignSelf="center"
+                textAlign="center"
+                fontWeight="bold"
+                fontSize="20px"
+                margin="10px"
+                paddingEnd="10px"
+                placeholder={placeHolderAddDoutor}
+                isDisabled={false}
+                variant={"unstyled"}
+                onChange={(e) => setNome(e.target.value)}
+                _placeholder={{ fontWeight: "bold", color: "black" }}
+                onClick={() => {
+                  setInputNomeDoutor(true);
+                  setplaceHolderDoutor("");
+                }}
+              ></Input>
+            )}
 
             <Divider orientation="horizontal" />
 
@@ -315,6 +398,7 @@ const Configuracoes = () => {
                   boxSize="150px"
                   srcSet={defaultUserImage}
                   alt="Image DR"
+                  onClick={openFiles}
                 />
               </Center>
 
@@ -344,9 +428,11 @@ const Configuracoes = () => {
                     variant="filled"
                     onChange={(e) => setClinica(e.target.value)}
                   >
-                    {listaClinicas.map((e) => {
+                    {listaClinicas.map((e, key) => {
                       return (
-                        <option value={e.nomeClinica}>{e.nomeClinica}</option>
+                        <option key={key} value={e.nomeClinica}>
+                          {e.nomeClinica}
+                        </option>
                       );
                     })}
                   </Select>
@@ -368,36 +454,17 @@ const Configuracoes = () => {
                     placeholder="00000000-0/BR"
                     fontSize="18px"
                     textAlign={"center"}
+                    maxLength={6}
                     onChange={(event) => setCrm(event.target.value)}
                   />
                 </InputGroup>
               </Center>
             </ModalBody>
 
-            <ModalFooter>
-              <Box boxShadow="lg">
-                <SignatureCanvas
-                  ref={padRef}
-                  backgroundColor="#F7FAFC"
-                  penColor="black"
-                  canvasProps={{
-                    width: 400,
-                    height: 200,
-                    className: "sigCanvas",
-                  }}
-                />
-                <Flex justify="end">
-                  <Icon
-                    as={AiOutlineClear}
-                    color="#4658fc"
-                    margin="5px"
-                    alignItems="end"
-                    onClick={clearAssinatura}
-                  />
-                </Flex>
-              </Box>
-            </ModalFooter>
+            <ModalFooter>{showImageAssinatura()}</ModalFooter>
             <Button
+              alignSelf="center"
+              width="400px"
               textColor="white"
               backgroundColor="#0e63fe"
               margin="10px"

@@ -28,7 +28,6 @@ import infoClinicas from "../../Data/Clinicas.json";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 
-
 const button = React.createElement("img", { src: PlusButton });
 
 export const minhasClinicas = infoClinicas.clinicas;
@@ -44,6 +43,8 @@ const IconButtonPlus = (props) => {
 
   const [telefone, setTelefone] = useState("");
 
+  const [placeHolderAddClinica, setplaceHolderAddClinica] = useState("Nome");
+
   const [selectedFile, setSelectedFile] = useState();
 
   const [defaultUserImage, setDefaultUserImage] = useState(DefaultImageClinica);
@@ -55,6 +56,12 @@ const IconButtonPlus = (props) => {
   const [InputTelefone, setInputTelefone] = useState(false);
 
   const [InputCEP, setInputCEP] = useState(false);
+
+  const refTelefone = useRef<HTMLInputElement | null>(null);
+
+  const refCEP = useRef<HTMLInputElement | null>(null);
+
+  const refNomeClinica = useRef<HTMLInputElement | null>(null);
 
   const AddClinica = () => {
     const obj = {
@@ -69,36 +76,52 @@ const IconButtonPlus = (props) => {
     minhasClinicas.push(obj);
     minhasClinicas.map((e) => {
       if (e.nomeClinica == "clinica") {
-        minhasClinicas.shift()
+        minhasClinicas.shift();
       }
-    })
+    });
     localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
     props.setAtualizar(!props.atualizar);
     onClose();
   };
 
+  const openFiles = () => {
+    inputFile.current?.click();
+  };
 
-  const refTelefone = useRef<HTMLInputElement | null>(null);
+  const onChangeFile = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    var file = event.target.files[0];
+    setSelectedFile(file);
+  };
+
+  const ResetDados = () => {
+    setClinica("");
+    setEndereco("");
+    setDefaultUserImage(DefaultImageClinica);
+  };
+
   useOutsideClick({
     ref: refTelefone,
     handler: () => setInputTelefone(false),
   });
 
-  const refCEP = useRef<HTMLInputElement | null>(null);
   useOutsideClick({
     ref: refCEP,
     handler: () => setInputCEP(false),
   });
 
-  const refNomeClinica = useRef<HTMLInputElement | null>(null);
   useOutsideClick({
     ref: refNomeClinica,
-    handler: () => setInputNomeClinica(false),
+    handler: () => {
+      setInputNomeClinica(false);
+      if (nome.length != 0) {
+        setplaceHolderAddClinica(nome);
+      } else {
+        setplaceHolderAddClinica("Nome");
+      }
+    },
   });
-
-  const openFiles = () => {
-    inputFile.current?.click();
-  };
 
   useEffect(() => {
     if (selectedFile) {
@@ -107,20 +130,6 @@ const IconButtonPlus = (props) => {
       return () => URL.revokeObjectURL(objectURL);
     }
   }, [selectedFile]);
-
-  
-  function onChangeFile(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    var file = event.target.files[0];
-    setSelectedFile(file);
-  }
-
-  const ResetDados = () => {
-    setClinica("");
-    setEndereco("");
-    setDefaultUserImage(DefaultImageClinica);
-  };
 
   return (
     <>
@@ -131,8 +140,7 @@ const IconButtonPlus = (props) => {
         defaultIsOpen={false}
         hasArrow
         arrowSize={15}
-        textColor='black'
-
+        textColor="black"
       >
         <IconButton
           aria-label="sdfs"
@@ -165,12 +173,11 @@ const IconButtonPlus = (props) => {
                 margin="5px"
                 textAlign="center"
                 fontSize="20px"
-                placeholder="Nome"
+                placeholder={placeHolderAddClinica}
                 _placeholder={{ fontWeight: "bold", color: "black" }}
                 fontWeight="bold"
                 onChange={(e) => setClinica(e.target.value)}
                 variant={"filled"}
-                onClick={() => {}}
               ></Input>
             ) : (
               <Input
@@ -179,13 +186,14 @@ const IconButtonPlus = (props) => {
                 margin="5px"
                 textAlign="center"
                 fontSize="20px"
-                placeholder="Nome"
+                placeholder={placeHolderAddClinica}
                 fontWeight="bold"
                 _placeholder={{ fontWeight: "bold", color: "black" }}
                 onChange={(e) => setClinica(e.target.value)}
                 variant={"unstyled"}
                 onClick={() => {
                   setInputNomeClinica(true);
+                  setplaceHolderAddClinica("");
                 }}
               ></Input>
             )}
@@ -200,6 +208,7 @@ const IconButtonPlus = (props) => {
                     boxSize="150px"
                     srcSet={defaultUserImage}
                     alt="Image Clinica"
+                    onClick={openFiles}
                   />
                 </Center>
 
@@ -225,7 +234,7 @@ const IconButtonPlus = (props) => {
                       <InputGroup variant={"unstyled"} width={"160px"}>
                         <InputLeftAddon
                           children="TEL:"
-                          paddingEnd={"5px"}
+                          paddingEnd={"px"}
                           fontWeight={"bold"}
                         />
 
@@ -235,7 +244,7 @@ const IconButtonPlus = (props) => {
                             placeholder="(11) 0000-0000"
                             textAlign={"center"}
                             onChange={(e) => setTelefone(e.target.value)}
-                            variant={"filled"}
+                            variant="flushed"
                             onClick={() => {}}
                           />
                         ) : (
@@ -267,7 +276,7 @@ const IconButtonPlus = (props) => {
                             placeholder="13000-000"
                             textAlign={"center"}
                             onChange={(e) => setCep(e.target.value)}
-                            variant={"filled"}
+                            variant="flushed"
                             onClick={() => {}}
                           />
                         ) : (
@@ -299,7 +308,9 @@ const IconButtonPlus = (props) => {
             <Button
               textColor="white"
               backgroundColor="#0e63fe"
-              margin="10px"
+              marginEnd="20px"
+              marginStart="23px"
+              marginBottom="10px"
               onClick={() => {
                 AddClinica();
                 ResetDados();
@@ -309,6 +320,7 @@ const IconButtonPlus = (props) => {
             </Button>
           </ModalContent>
         </Modal>
+        <form></form>
       </>
     </>
   );
