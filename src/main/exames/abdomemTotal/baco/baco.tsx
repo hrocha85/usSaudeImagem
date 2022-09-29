@@ -24,15 +24,26 @@ function Baco() {
 
     })
 
-    const [checkValue, setCheckvalue] = useState({
+    const [checkValueNormal, setCheckvalueNormal] = useState({
         normal: false,
+    })
+
+    const [checkValueAumentadoEcotextura, setCheckvalueAumentadoEcotextura] = useState({
         aumentadoComEcotextura: false,
-        naoVisibilizado: false,
-        bacoAcessorio: false,
-        calcificacoes: false,
         SelectAumentadoComEcotextura: true,
+    })
+
+    const [checkValueNaoVisibilizado, setCheckvalueNaoVisibilizado] = useState({
+        naoVisibilizado: false,
         SelectNaoVisibilizado: true,
+    })
+
+    const [checkValueBacoAcessorio, setCheckvalueBacoAcessorio] = useState({
+        bacoAcessorio: false,
         InputBacoAcessorio: true,
+    })
+    const [checkValueCalcificacoes, setCheckvalueCalcificacoes] = useState({
+        calcificacoes: false,
         InputCalcificacoes: true,
     })
 
@@ -43,59 +54,27 @@ function Baco() {
     }
 
     const removeItemString = (value) => {
-        // console.log("valor remove = ", value);
-        laudoPrin.splice(laudoPrin.indexOf(value), 1)
-        //removeValueSelectAumentadocomEcotextura()
-        setLaudoPrin(arr => [...arr])
-        // console.log("laudosPrin", laudoPrin)
-    }
-
-    const removeValueSelectAumentadocomEcotextura = () => {
-        if (aumentadoComEcotextura.checked === true) {
-            console.log('entrou')
-            laudoPrin.splice(laudoPrin.indexOf('Homogênea'), 1)
-            //setLaudoPrin(arr => [...arr])
-            console.log(laudoPrin)
+        console.log("valor remove = ", value);
+        var index = laudoPrin.indexOf(value);
+        if (index > -1) {
+            const teste = laudoPrin.splice(index, 1)
+            setLaudoPrin(arr => [...arr])
+            console.log('aqui teste', teste)
         }
-
+        console.log('posicao', index)
+        console.log("laudosPrin", laudoPrin)
     }
 
-    // const captaValoresSelects = (value) => {
-    //     if (aumentadoComEcotextura.checked === true) {
-    //         console.log("Valor cria string Option = ", value);
-    //         setLaudoPrin(arr => [...arr, value])
-    //         console.log("criaStringOption = ", laudoPrin)
-    //     } else {
-    //         laudoPrin.splice(laudoPrin.indexOf(value), 1)
-    //     }
-    // }
-
-    const DeterminaCondicaoCheckbox = () => {
+    const DeterminaCondicaoCheckNormal = () => {
         if (aumentadoComEcotextura.checked === true ||
             naoVisibilizado.checked === true || bacoAcessorio.checked === true ||
             calcificacoes.checked === true) {
-            setCheckvalue({
-                aumentadoComEcotextura: false,
-                normal: true,
-                naoVisibilizado: false,
-                bacoAcessorio: false,
-                calcificacoes: false,
-                SelectAumentadoComEcotextura: false,
-                SelectNaoVisibilizado: false,
-                InputBacoAcessorio: false,
-                InputCalcificacoes: false,
+            setCheckvalueNormal({
+                normal: true
             })
         } else {
-            setCheckvalue({
-                aumentadoComEcotextura: false,
-                normal: false,
-                naoVisibilizado: false,
-                bacoAcessorio: false,
-                calcificacoes: false,
-                SelectAumentadoComEcotextura: true,
-                SelectNaoVisibilizado: true,
-                InputBacoAcessorio: true,
-                InputCalcificacoes: true,
+            setCheckvalueNormal({
+                normal: false
             })
         }
     }
@@ -105,72 +84,140 @@ function Baco() {
             case 'normal':
                 if (value.checked === true) {
                     criarString(value.value)
-                    setCheckvalue({
+                    setCheckvalueAumentadoEcotextura({
                         aumentadoComEcotextura: true,
-                        normal: false,
-                        naoVisibilizado: true,
-                        bacoAcessorio: true,
-                        calcificacoes: true,
                         SelectAumentadoComEcotextura: true,
+                    })
+                    setCheckvalueNaoVisibilizado({
+                        naoVisibilizado: true,
                         SelectNaoVisibilizado: true,
+                    })
+                    setCheckvalueBacoAcessorio({
+                        bacoAcessorio: true,
                         InputBacoAcessorio: true,
+                    })
+                    setCheckvalueCalcificacoes({
+                        calcificacoes: true,
                         InputCalcificacoes: true,
                     })
+
                 } else {
                     removeItemString(value.value)
-                    setCheckvalue({
+                    setCheckvalueAumentadoEcotextura({
                         aumentadoComEcotextura: false,
-                        normal: false,
-                        naoVisibilizado: false,
-                        bacoAcessorio: false,
-                        calcificacoes: false,
                         SelectAumentadoComEcotextura: true,
+                    })
+                    setCheckvalueNaoVisibilizado({
+                        naoVisibilizado: false,
                         SelectNaoVisibilizado: true,
+                    })
+                    setCheckvalueBacoAcessorio({
+                        bacoAcessorio: false,
                         InputBacoAcessorio: true,
+                    })
+                    setCheckvalueCalcificacoes({
+                        calcificacoes: false,
                         InputCalcificacoes: true,
                     })
                 }
                 break;
             case 'aumentadoComEcotextura':
                 if (value.checked === true) {
-                    criarString(value.value)
-                    DeterminaCondicaoCheckbox()
+                    setCheckvalueAumentadoEcotextura({
+                        aumentadoComEcotextura: false,
+                        SelectAumentadoComEcotextura: false,
+                    })
+                    console.log(laudoPrin)
+                    DeterminaCondicaoCheckNormal()
                 } else {
-                    removeItemString(value.value)
-
-                    DeterminaCondicaoCheckbox()
+                    setCheckvalueAumentadoEcotextura({
+                        aumentadoComEcotextura: false,
+                        SelectAumentadoComEcotextura: true,
+                    })
+                    console.log(laudoPrin)
+                    DeterminaCondicaoCheckNormal()
+                    removeItemString('Aumentado com ecotextura heterogênea ')
+                    removeItemString('Aumentado com ecotextura homogênea ')
+                }
+                break;
+            case 'SelectAumentadoComEcotextura':
+                if (value.value === 'Aumentado com ecotextura homogênea ') {
+                    removeItemString('Aumentado com ecotextura heterogênea ')
+                    criarString(value.value)
+                } else {
+                    removeItemString('Aumentado com ecotextura homogênea ')
+                    criarString(value.value)
                 }
                 break;
             case 'naoVisibilizado':
                 if (value.checked === true) {
-                    criarString(value.value)
-                    DeterminaCondicaoCheckbox()
+                    setCheckvalueNaoVisibilizado({
+                        naoVisibilizado: false,
+                        SelectNaoVisibilizado: false,
+                    })
+                    console.log(laudoPrin)
+                    DeterminaCondicaoCheckNormal()
                 } else {
-                    removeItemString(value.value)
-                    DeterminaCondicaoCheckbox()
+                    setCheckvalueNaoVisibilizado({
+                        naoVisibilizado: false,
+                        SelectNaoVisibilizado: true,
+                    })
+                    console.log(laudoPrin)
+                    DeterminaCondicaoCheckNormal()
+                    removeItemString('Não visibilizado com interposição gasosa ')
+                    removeItemString('Não visibilizado com Ausênsia cirurgica ')
                 }
                 break;
-            case 'calcificacoes':
-                if (value.checked === true) {
+            case 'SelectNaoVisibilizado':
+                console.log(laudoPrin)
+                if (value.value === 'Não visibilizado com interposição gasosa ') {
+                    removeItemString('Não visibilizado com Ausênsia cirurgica ')
                     criarString(value.value)
-                    DeterminaCondicaoCheckbox()
                 } else {
-                    removeItemString(value.value)
-                    DeterminaCondicaoCheckbox()
+                    removeItemString('Não visibilizado com interposição gasosa ')
+                    criarString(value.value)
                 }
+
                 break;
             case 'bacoAcessorio':
                 if (value.checked === true) {
+                    setCheckvalueBacoAcessorio({
+                        bacoAcessorio: false,
+                        InputBacoAcessorio: false,
+                    })
                     criarString(value.value)
-                    DeterminaCondicaoCheckbox()
+                    DeterminaCondicaoCheckNormal()
                 } else {
                     removeItemString(value.value)
-                    DeterminaCondicaoCheckbox()
+                    setCheckvalueBacoAcessorio({
+                        bacoAcessorio: false,
+                        InputBacoAcessorio: true,
+                    })
+                    DeterminaCondicaoCheckNormal()
                 }
                 break;
-            case 'SelectAumentadoComEcotextura':
-                if (aumentadoComEcotextura.checked === true) {
-                    criarString(value.value)
+            case 'InputBacoAcessorio':
+                console.log(laudoPrin)
+
+                criarString(value.value)
+
+                break;
+            case 'calcificacoes':
+                console.log(laudoPrin)
+                if (value.checked === true) {
+                    setCheckvalueCalcificacoes({
+                        calcificacoes: false,
+                        InputCalcificacoes: false,
+                    })
+                    DeterminaCondicaoCheckNormal()
+
+                } else {
+                    setCheckvalueCalcificacoes({
+                        calcificacoes: false,
+                        InputCalcificacoes: true,
+                    })
+                    //   removeItemString(value.value)
+                    DeterminaCondicaoCheckNormal()
                 }
                 break;
             default:
@@ -375,7 +422,7 @@ function Baco() {
 
                     <Box w='100px' >
                         <Checkbox
-                            disabled={checkValue.normal}
+                            disabled={checkValueNormal.normal}
                             id="normal"
                             value="paciente está normal "
                             onChange={(e) => {
@@ -385,19 +432,18 @@ function Baco() {
                     </Box>
 
                     <Box w='220px' >
-                        <Checkbox disabled={checkValue.aumentadoComEcotextura}
+                        <Checkbox disabled={checkValueAumentadoEcotextura.aumentadoComEcotextura}
                             id="aumentadoComEcotextura"
-                            value='aumentado com ecotextura '
                             onChange={(e) => { verificaChecked(e.target) }}
                         >Aumentado com ecotextura</Checkbox>
                         <Select
-                            disabled={checkValue.SelectAumentadoComEcotextura}
-                            id="SelectAumentadoComEcotextura"
+                            disabled={checkValueAumentadoEcotextura.SelectAumentadoComEcotextura}
+                            id='SelectAumentadoComEcotextura'
                             onChange={(e) => { verificaChecked(e.target) }}
                         >
                             <option value='' disabled selected>Selecione</option>
-                            <option value='Homogênea'>Homogênea</option>
-                            <option value='Heterogênea'>Heterogênea</option>
+                            <option value='Aumentado com ecotextura homogênea '>Homogênea</option>
+                            <option value='Aumentado com ecotextura heterogênea '>Heterogênea</option>
                         </Select>
                     </Box>
 
@@ -405,31 +451,31 @@ function Baco() {
 
                     <Box w='150px' >
                         <Checkbox
-                            disabled={checkValue.naoVisibilizado}
+                            disabled={checkValueNaoVisibilizado.naoVisibilizado}
                             id="naoVisibilizado"
                             value='nao visibilizado '
                             onChange={(e) => { verificaChecked(e.target) }}
                         >Não visibilizado</Checkbox>
                         <Select
-                            disabled={checkValue.SelectNaoVisibilizado}
+                            disabled={checkValueNaoVisibilizado.SelectNaoVisibilizado}
                             id="SelectNaoVisibilizado"
                             onChange={(e) => { verificaChecked(e.target) }}
                         >
                             <option value='' disabled selected>Selecione</option>
-                            <option value='ausenciaCirurgica'>ausência cirúrgica</option>
-                            <option value='interposicaoGasosa'>interposição gasosa</option>
+                            <option value='Não visibilizado com Ausênsia cirurgica '>ausência cirúrgica</option>
+                            <option value='Não visibilizado com interposição gasosa '>interposição gasosa</option>
                         </Select>
                     </Box>
 
                     <Box w='140px'>
                         <Checkbox
-                            disabled={checkValue.bacoAcessorio}
+                            disabled={checkValueBacoAcessorio.bacoAcessorio}
                             id="bacoAcessorio"
-                            value='Baço Acessório '
+                            value='Baço Acessório com'
                             onChange={(e) => { verificaChecked(e.target) }}
                         >Baço Acessório</Checkbox>
                         <Input
-                            disabled={checkValue.InputBacoAcessorio}
+                            disabled={checkValueBacoAcessorio.InputBacoAcessorio}
                             id="InputBacoAcessorio"
                             onChange={(e) => { verificaChecked(e.target) }}
                             placeholder='mm' />
@@ -437,12 +483,12 @@ function Baco() {
 
                     <Box w='100px' >
                         <Checkbox
-                            disabled={checkValue.calcificacoes}
+                            disabled={checkValueCalcificacoes.calcificacoes}
                             id="calcificacoes"
                             value='calcificações '
                             onChange={(e) => { verificaChecked(e.target) }}>Calcificalções</Checkbox>
                         <Input
-                            disabled={checkValue.InputCalcificacoes}
+                            disabled={checkValueCalcificacoes.InputCalcificacoes}
                             id="InputCalcificacoes"
                             onChange={(e) => { verificaChecked(e.target) }} placeholder='mm' />
                     </Box>
