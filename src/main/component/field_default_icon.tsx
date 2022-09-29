@@ -166,6 +166,7 @@ const FieldDefaultIcon = ({
 
             <Box sx={{ alignSelf: "flex-end" }}>
               <Button
+                isDisabled={true}
                 color="#4759FC"
                 fontSize="16px"
                 fontWeight="bold"
@@ -251,6 +252,7 @@ const FieldDefaultIcon = ({
 
                   <Center>
                     <Button
+                      isDisabled={true}
                       color="#4759FC"
                       fontSize="16px"
                       fontWeight="bold"

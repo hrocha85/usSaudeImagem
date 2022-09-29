@@ -24,15 +24,15 @@ import { BiCamera } from "react-icons/bi";
 import { HiOutlineUser } from "react-icons/hi";
 import FieldDefaultIcon from "../component/field_default_icon";
 
-const Drs = ({ medico }) => {
+const Medicos = ({ medico }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [enable, setEnable] = useState(true);
 
   const [focus, setFocus] = useState("unstyled");
 
-  let drs: any[] = [];
-  drs.push(medico);
+  let medicos: any[] = [];
+  medicos.push(medico);
 
   return (
     <Box
@@ -55,12 +55,13 @@ const Drs = ({ medico }) => {
         </Text>
       </Box>
 
-      {drs.map((dr) => (
+      {medicos.map((dr,key) => (
         <FieldDefaultIcon
+          key={key}
           text={dr.clinica}
           textColor="#4A5568"
           icon={HiOutlineUser}
-          clinica={drs}
+          clinica={medicos}
           clinicas={null}
           onClickModal={false}
         />
@@ -154,4 +155,4 @@ const Drs = ({ medico }) => {
   );
 };
 
-export default Drs;
+export default Medicos;

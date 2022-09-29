@@ -30,8 +30,8 @@ const ItemObservation = () => {
 
   return (
     <>
-      {observacoes.map((observacoes) => (
-        <FieldDefault text={observacoes.observacao} textColor={"#1A202C"} />
+      {observacoes.map((observacoes,key) => (
+        <FieldDefault key={key} text={observacoes.observacao} textColor={"#1A202C"} />
       ))}
     </>
   );
