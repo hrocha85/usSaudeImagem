@@ -231,10 +231,10 @@ const IconButtonPlus = (props) => {
                 <Center>
                   <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
                     <Center paddingTop={"5px"}>
-                      <InputGroup variant={"unstyled"} width={"160px"}>
+                      <InputGroup variant={"unstyled"} width={"210px"}>
                         <InputLeftAddon
                           children="TEL:"
-                          paddingEnd={"px"}
+                          paddingEnd={"5px"}
                           fontWeight={"bold"}
                         />
 
@@ -244,7 +244,10 @@ const IconButtonPlus = (props) => {
                             placeholder="(11) 0000-0000"
                             textAlign={"center"}
                             onChange={(e) => setTelefone(e.target.value)}
-                            variant="flushed"
+                            variant="filled"
+                            borderStartRadius={"md"}
+                            borderEndRadius={"md"}
+                            maxLength={13}
                             onClick={() => {}}
                           />
                         ) : (
@@ -263,10 +266,11 @@ const IconButtonPlus = (props) => {
                     </Center>
 
                     <Center paddingTop={"5px"}>
-                      <InputGroup variant={"unstyled"} width={"165px"}>
+                      <InputGroup variant={"unstyled"} width={"210px"}>
                         <InputLeftAddon
                           children="CEP:"
                           paddingEnd={"5px"}
+                          marginEnd={"5px"}
                           fontWeight={"bold"}
                         />
 
@@ -276,7 +280,10 @@ const IconButtonPlus = (props) => {
                             placeholder="13000-000"
                             textAlign={"center"}
                             onChange={(e) => setCep(e.target.value)}
-                            variant="flushed"
+                            variant="filled"
+                            borderStartRadius={"md"}
+                            borderEndRadius={"md"}
+                            maxLength={9}
                             onClick={() => {}}
                           />
                         ) : (

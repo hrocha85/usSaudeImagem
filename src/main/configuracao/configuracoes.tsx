@@ -90,9 +90,13 @@ const Configuracoes = () => {
 
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
+  const refCRM = useRef<HTMLInputElement | null>(null);
+
   const [stateClickAddMedico, setStateClickAddMedico] = useState(false);
 
   const [InputNomeDoutor, setInputNomeDoutor] = useState(false);
+
+  const [propsBoxAssinatura, setpropsBoxAssinatura] = useState(false);
 
   const [placeHolderAddDoutor, setplaceHolderDoutor] = useState("Nome");
 
@@ -200,6 +204,7 @@ const Configuracoes = () => {
     setFocus("unstyled");
     setStateClickAddMedico(false);
     setImageAssinatura(true);
+    setpropsBoxAssinatura(false);
   };
 
   const openFiles = () => {
@@ -454,14 +459,47 @@ const Configuracoes = () => {
                     placeholder="00000000-0/BR"
                     fontSize="18px"
                     textAlign={"center"}
-                    maxLength={6}
+                    maxLength={9}
                     onChange={(event) => setCrm(event.target.value)}
                   />
                 </InputGroup>
               </Center>
             </ModalBody>
 
-            <ModalFooter>{showImageAssinatura()}</ModalFooter>
+            <ModalFooter>
+              <Box
+                w="100%"
+                h="100%"
+                backgroundColor={"#F7FAFC"}
+                borderColor={propsBoxAssinatura == true ? "#3183cf" : "white"}
+                borderWidth={propsBoxAssinatura == true ? "2px" : "0px"}
+                boxShadow="md"
+                borderRadius={"md"}
+                onClick={() => setpropsBoxAssinatura(true)}
+              >
+                <SignatureCanvas
+                  ref={padRef}
+                  backgroundColor="#F7FAFC"
+                  onBegin={() => setpropsBoxAssinatura(true)}
+                  penColor="black"
+                  canvasProps={{
+                    width: 390,
+                    height: 230,
+                    className: "sigCanvas",
+                  }}
+                />
+
+                <Flex justify="end">
+                  <Icon
+                    as={AiOutlineClear}
+                    color="#4658fc"
+                    margin="5px"
+                    alignItems="end"
+                    onClick={clearAssinatura}
+                  />
+                </Flex>
+              </Box>
+            </ModalFooter>
             <Button
               alignSelf="center"
               width="400px"
