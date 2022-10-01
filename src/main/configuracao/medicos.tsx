@@ -17,22 +17,77 @@ import {
   ModalOverlay,
   Stack,
   Text,
-  useDisclosure
+  useDisclosure,
+  useOutsideClick,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { BiCamera } from "react-icons/bi";
 import { HiOutlineUser } from "react-icons/hi";
 import FieldDefaultIcon from "../component/field_default_icon";
 
 const Medicos = ({ medico }) => {
+  let medicos: any[] = [];
+  medicos.push(medico);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [enable, setEnable] = useState(true);
 
   const [focus, setFocus] = useState("unstyled");
 
-  let medicos: any[] = [];
-  medicos.push(medico);
+  const [InputNomeMedico, setInputNomeMedico] = useState(false);
+
+  const refNomeMedico = useRef<HTMLInputElement | null>(null);
+
+  useOutsideClick({
+    ref: refNomeMedico,
+    handler: () => setInputNomeMedico(false),
+  });
+
+  /* const UpdateLocalStorage = (
+    nomeUpdate,
+    telefoneUpdate,
+    cepUpdate,
+    enderecoUpdate
+  ) => {
+    if (nomeUpdate != null) {
+      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      var item = array[id];
+      minhasClinicas[id].nomeClinica = nomeUpdate;
+
+      item.nomeClinica = nomeUpdate;
+      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      setNomeClinica(nomeUpdate);
+    }
+
+    if (cepUpdate != null) {
+      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      var item = array[id];
+      minhasClinicas[id].cep = cepUpdate;
+
+      item.cep = cepUpdate;
+      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      setCep(cepUpdate);
+    }
+    if (telefoneUpdate != null) {
+      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      var item = array[id];
+      minhasClinicas[id].teleFone = telefoneUpdate;
+
+      item.teleFone = telefoneUpdate;
+      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      setTelefone(telefoneUpdate);
+    }
+    if (enderecoUpdate != null) {
+      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      var item = array[id];
+      minhasClinicas[id].enderecoRuaNumero = enderecoUpdate;
+
+      item.enderecoRuaNumero = enderecoUpdate;
+      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      setEndereco(enderecoUpdate);
+    }
+  };*/
 
   return (
     <Box
@@ -55,7 +110,7 @@ const Medicos = ({ medico }) => {
         </Text>
       </Box>
 
-      {medicos.map((dr,key) => (
+      {medicos.map((dr, key) => (
         <FieldDefaultIcon
           key={key}
           text={dr.clinica}
@@ -64,6 +119,7 @@ const Medicos = ({ medico }) => {
           clinica={medicos}
           clinicas={null}
           onClickModal={false}
+          id={key}
         />
       ))}
       <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
@@ -80,16 +136,29 @@ const Medicos = ({ medico }) => {
 
           <Stack direction="row" justify="center" margin="10px">
             <Box sx={{ flexGrow: 1 }}>
-              <Input
-                textAlign="center"
-                paddingStart="60px"
-                fontWeight="bold"
-                fontSize="20px"
-                value={medico.nome}
-                isDisabled={enable}
-                variant={focus}
-                _placeholder={{ fontWeight: "bold", color: "black" }}
-              ></Input>
+              {InputNomeMedico ? (
+                <Input
+                  ref={refNomeMedico}
+                  textAlign="center"
+                  paddingStart="60px"
+                  fontWeight="bold"
+                  fontSize="20px"
+                  value={medico.nome}
+                  isDisabled={false}
+                  variant={"filled"}
+                ></Input>
+              ) : (
+                <Input
+                  ref={refNomeMedico}
+                  textAlign="center"
+                  paddingStart="60px"
+                  fontWeight="bold"
+                  fontSize="20px"
+                  value={medico.nome}
+                  isDisabled={true}
+                  variant="unstyled"
+                ></Input>
+              )}
             </Box>
 
             <Box sx={{ alignSelf: "flex-end" }}>
@@ -103,6 +172,7 @@ const Medicos = ({ medico }) => {
                 onClick={() => {
                   setEnable(false);
                   setFocus("filled");
+                  setInputNomeMedico(true)
                 }}
               >
                 Editar
@@ -142,6 +212,9 @@ const Medicos = ({ medico }) => {
           <ModalFooter>
             {medico.assinatura ? (
               <Image
+                boxShadow="lg"
+                backgroundColor={"#F7FAFC"}
+                borderRadius={"md"}
                 width="400px"
                 height="200px"
                 srcSet={medico.assinatura}
@@ -149,6 +222,19 @@ const Medicos = ({ medico }) => {
               />
             ) : null}
           </ModalFooter>
+          <Button
+            marginTop="5px"
+            textColor="white"
+            backgroundColor="#0e63fe"
+            marginEnd="20px"
+            marginStart="23px"
+            marginBottom="10px"
+            onClick={() => {
+              onClose();
+            }}
+          >
+            Salvar
+          </Button>
         </ModalContent>
       </Modal>
     </Box>
