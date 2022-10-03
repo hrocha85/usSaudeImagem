@@ -24,8 +24,9 @@ import { useRef, useState } from "react";
 import { BiCamera } from "react-icons/bi";
 import { HiOutlineUser } from "react-icons/hi";
 import FieldDefaultIcon from "../component/field_default_icon";
+import { lista_medicos } from "./configuracoes";
 
-const Medicos = ({ medico }) => {
+const Medicos = ({ medico, Id }) => {
   let medicos: any[] = [];
   medicos.push(medico);
 
@@ -33,62 +34,58 @@ const Medicos = ({ medico }) => {
 
   const [enable, setEnable] = useState(true);
 
-  const [focus, setFocus] = useState("unstyled");
+  const [CRMenable, setCRMEnable] = useState(true);
 
   const [InputNomeMedico, setInputNomeMedico] = useState(false);
 
+  const [InputCRM, setInputCRM] = useState(false);
+
   const refNomeMedico = useRef<HTMLInputElement | null>(null);
+
+  const refCRM = useRef<HTMLInputElement | null>(null);
+
+  const [updateNome, setUpdateNome] = useState<string | null>("");
+
+  const [updateCRM, setUpdateCRM] = useState<string | null>("");
+
+  const [nomeMedico, setNomeMedico] = useState(medico.nome);
+
+  const [crm, setCRM] = useState(medico.crm);
 
   useOutsideClick({
     ref: refNomeMedico,
     handler: () => setInputNomeMedico(false),
   });
-
-  /* const UpdateLocalStorage = (
-    nomeUpdate,
-    telefoneUpdate,
-    cepUpdate,
-    enderecoUpdate
-  ) => {
+  useOutsideClick({
+    ref: refCRM,
+    handler: () => {
+      setInputCRM(false);
+    },
+  });
+  const UpdateLocalStorage = (nomeUpdate, CRMupdate) => {
     if (nomeUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
-      minhasClinicas[id].nomeClinica = nomeUpdate;
+      var array = JSON.parse(localStorage.getItem("medicos")!);
+      var item = array[Id];
+      lista_medicos[Id].nome = nomeUpdate;
 
-      item.nomeClinica = nomeUpdate;
-      localStorage.setItem("minhasClinicas", JSON.stringify(array));
-      setNomeClinica(nomeUpdate);
+      item.nome = nomeUpdate;
+      localStorage.setItem("medicos", JSON.stringify(array));
+      setNomeMedico(nomeUpdate);
     }
+    if (CRMupdate != null) {
+      var array = JSON.parse(localStorage.getItem("medicos")!);
+      var item = array[Id];
+      lista_medicos[Id].crm = CRMupdate;
 
-    if (cepUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
-      minhasClinicas[id].cep = cepUpdate;
-
-      item.cep = cepUpdate;
-      localStorage.setItem("minhasClinicas", JSON.stringify(array));
-      setCep(cepUpdate);
+      item.crm = CRMupdate;
+      localStorage.setItem("medicos", JSON.stringify(array));
+      setCRM(CRMupdate);
     }
-    if (telefoneUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
-      minhasClinicas[id].teleFone = telefoneUpdate;
-
-      item.teleFone = telefoneUpdate;
-      localStorage.setItem("minhasClinicas", JSON.stringify(array));
-      setTelefone(telefoneUpdate);
-    }
-    if (enderecoUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
-      minhasClinicas[id].enderecoRuaNumero = enderecoUpdate;
-
-      item.enderecoRuaNumero = enderecoUpdate;
-      localStorage.setItem("minhasClinicas", JSON.stringify(array));
-      setEndereco(enderecoUpdate);
-    }
-  };*/
-
+  };
+  const ResetStates = () => {
+    setCRMEnable(true);
+    setEnable(true);
+  };
   return (
     <Box
       bg="#FAFAFA"
@@ -106,14 +103,14 @@ const Medicos = ({ medico }) => {
           paddingStart="8px"
           alignSelf="center"
         >
-          {medico.nome}
+          {nomeMedico}
         </Text>
       </Box>
 
-      {medicos.map((dr, key) => (
+      {medicos.map((key) => (
         <FieldDefaultIcon
           key={key}
-          text={dr.clinica}
+          text={medico.clinica}
           textColor="#4A5568"
           icon={HiOutlineUser}
           clinica={medicos}
@@ -121,6 +118,7 @@ const Medicos = ({ medico }) => {
           onClickModal={false}
           id={key}
         />
+        
       ))}
       <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
         <ModalOverlay />
@@ -129,8 +127,7 @@ const Medicos = ({ medico }) => {
           <Divider orientation="horizontal" marginTop="10px" />
           <ModalCloseButton
             onClick={() => {
-              setFocus("unstyled");
-              setEnable(true);
+              ResetStates();
             }}
           />
 
@@ -143,9 +140,13 @@ const Medicos = ({ medico }) => {
                   paddingStart="60px"
                   fontWeight="bold"
                   fontSize="20px"
-                  value={medico.nome}
-                  isDisabled={false}
+                  defaultValue={nomeMedico}
+                  isDisabled={enable}
                   variant={"filled"}
+                  onChange={(e) => {
+                    setUpdateNome(e.target.value);
+                    UpdateLocalStorage(updateNome, null);
+                  }}
                 ></Input>
               ) : (
                 <Input
@@ -154,8 +155,8 @@ const Medicos = ({ medico }) => {
                   paddingStart="60px"
                   fontWeight="bold"
                   fontSize="20px"
-                  value={medico.nome}
-                  isDisabled={true}
+                  defaultValue={nomeMedico}
+                  isDisabled={enable}
                   variant="unstyled"
                 ></Input>
               )}
@@ -171,8 +172,7 @@ const Medicos = ({ medico }) => {
                 alignItems="center"
                 onClick={() => {
                   setEnable(false);
-                  setFocus("filled");
-                  setInputNomeMedico(true)
+                  setInputNomeMedico(true);
                 }}
               >
                 Editar
@@ -184,26 +184,67 @@ const Medicos = ({ medico }) => {
 
           <Container centerContent h="100%" w="100%" marginTop="5px">
             <ModalBody>
-              <Image
-                borderRadius="full"
-                boxSize="150px"
-                srcSet={medico.foto}
-                alt="Image DR"
-              />
+              <Center>
+                <Image
+                  borderRadius="full"
+                  boxSize="150px"
+                  srcSet={medico.foto}
+                  alt="Image DR"
+                />
+              </Center>
               <Center>
                 <Icon as={BiCamera} marginTop="2px" color="#4658fc" />
               </Center>
               <Center>
                 <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
                   <Text size="16">CRM/UF</Text>
-
-                  <Stack direction="row" justify="center">
-                    <Text fontWeight="bold" size="20px">
-                      {medico.crm}
-                    </Text>
-                  </Stack>
-
-                  <Center></Center>
+                  <Center>
+                    {InputCRM ? (
+                      <Input
+                        ref={refCRM}
+                        justifySelf="center"
+                        fontWeight="bold"
+                        width="150px"
+                        defaultValue={crm}
+                        variant={"filled"}
+                        textAlign="center"
+                        isDisabled={CRMenable}
+                        borderStartRadius={"md"}
+                        borderEndRadius={"md"}
+                        maxLength={9}
+                        onChange={(e) => {
+                          setUpdateCRM(e.target.value);
+                          UpdateLocalStorage(null, updateCRM);
+                        }}
+                      ></Input>
+                    ) : (
+                      <Input
+                        ref={refCRM}
+                        fontWeight="bold"
+                        justifySelf="center"
+                        width="150px"
+                        defaultValue={crm}
+                        variant={"unstyled"}
+                        isDisabled={CRMenable}
+                        textAlign="center"
+                      ></Input>
+                    )}
+                  </Center>
+                  <Center>
+                    <Button
+                      color="#4759FC"
+                      fontSize="16px"
+                      fontWeight="bold"
+                      backgroundColor="transparent"
+                      alignItems="center"
+                      onClick={() => {
+                        setCRMEnable(false);
+                        setInputCRM(true);
+                      }}
+                    >
+                      Editar
+                    </Button>
+                  </Center>
                 </Grid>
               </Center>
             </ModalBody>
@@ -230,6 +271,7 @@ const Medicos = ({ medico }) => {
             marginStart="23px"
             marginBottom="10px"
             onClick={() => {
+              ResetStates();
               onClose();
             }}
           >

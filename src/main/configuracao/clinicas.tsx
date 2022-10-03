@@ -22,23 +22,18 @@ const Clinica = (props) => {
 
   return (
     <>
-      {listaClinicas.map(
-        (item, key) => (
-          console.log("key", key),
-          (
-            <FieldDefaultIcon
-              key={key}
-              text={item.nomeClinica}
-              textColor="#4A5568"
-              icon={FaRegFolderOpen}
-              clinica={item}
-              clinicas={listaClinicas}
-              onClickModal={true}
-              id={key}
-            />
-          )
-        )
-      )}
+      {listaClinicas.map((item, key) => (
+        <FieldDefaultIcon
+          key={key}
+          text={item.nomeClinica}
+          textColor="#4A5568"
+          icon={FaRegFolderOpen}
+          clinica={item}
+          clinicas={listaClinicas}
+          onClickModal={true}
+          id={key}
+        />
+      ))}
     </>
   );
 };

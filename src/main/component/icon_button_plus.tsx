@@ -82,6 +82,7 @@ const IconButtonPlus = (props) => {
     localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
     props.setAtualizar(!props.atualizar);
     onClose();
+    
   };
 
   const openFiles = () => {

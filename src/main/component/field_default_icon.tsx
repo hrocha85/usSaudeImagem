@@ -140,8 +140,6 @@ const FieldDefaultIcon = ({
     }
   };
 
-  
-
   useEffect(() => {
     if (selectedFile) {
       const objectURL = URL.createObjectURL(selectedFile);
@@ -342,11 +340,11 @@ const FieldDefaultIcon = ({
             />
           </ModalFooter>
           <Button
-             textColor="white"
-             backgroundColor="#0e63fe"
-             marginEnd="20px"
-             marginStart="23px"
-             marginBottom="10px"
+            textColor="white"
+            backgroundColor="#0e63fe"
+            marginEnd="20px"
+            marginStart="23px"
+            marginBottom="10px"
             onClick={() => {
               ResetStates();
               onClose();
@@ -392,7 +390,7 @@ const FieldDefaultIcon = ({
               fontWeight="medium"
               paddingTop="4.5"
             >
-              {nome}
+              {text}
             </Text>
           </Stack>
         </GridItem>
