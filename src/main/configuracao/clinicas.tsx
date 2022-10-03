@@ -22,8 +22,9 @@ const Clinica = (props) => {
 
   return (
     <>
-      {listaClinicas.map((item) => (
+      {listaClinicas.map((item, key) => (
         <FieldDefaultIcon
+          key={key}
           text={item.nomeClinica}
           textColor="#4A5568"
           icon={FaRegFolderOpen}

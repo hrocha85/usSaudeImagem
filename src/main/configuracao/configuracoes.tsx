@@ -10,6 +10,7 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  Link,
   List,
   ListIcon,
   ListItem,
@@ -31,6 +32,7 @@ import {
   Text,
   Tooltip,
   useDisclosure,
+  useOutsideClick,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
@@ -38,7 +40,7 @@ import { BiCamera } from "react-icons/bi";
 import { FaRegFolderOpen } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import SignatureCanvas from "react-signature-canvas";
-import Medicos from "../../Data/Medicos.json";
+import MedicosJSON from "../../Data/Medicos.json";
 import BoxTitleBackground from "../component/box_title_background";
 import RectangularCard from "../component/card_observations";
 import ItemObservation from "../component/item_obeservation";
@@ -47,7 +49,8 @@ import BG from "../images/bg_img.png";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import ImageHome from "../images/icon_home.png";
-import Drs from "./drs";
+import ImageAssinaturaIcon from "../images/SignIcon_generated.jpg";
+import Medicos from "./medicos";
 
 const Configuracoes = () => {
   const getMedicos = () => {
@@ -63,7 +66,7 @@ const Configuracoes = () => {
 
   let padRef = React.useRef<SignatureCanvas>(null);
 
-  let lista_medicos = Medicos.medicos;
+  let lista_medicos = MedicosJSON.medicos;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -89,12 +92,15 @@ const Configuracoes = () => {
 
   const [stateClickAddMedico, setStateClickAddMedico] = useState(false);
 
-  /*const [URLSignature, setURLSignature] = useState<string | null>();
+  const [InputNomeDoutor, setInputNomeDoutor] = useState(false);
 
-  const SaveSignature = () => {
-    let url = padRef.current?.getCanvas().toDataURL("image/png");
-    if (url) setURLSignature(url);
-  };*/
+  const [propsBoxAssinatura, setpropsBoxAssinatura] = useState(false);
+
+  const [placeHolderAddDoutor, setplaceHolderDoutor] = useState("Nome");
+
+  const [imageAssinatura, setImageAssinatura] = useState(true);
+
+  const refNomeDoutor = useRef<HTMLInputElement | null>(null);
 
   const AddMedico = () => {
     const obj = {
@@ -116,19 +122,46 @@ const Configuracoes = () => {
     setMedicos(lista_medicos);
   };
 
-  const clearAssinatura = () => {
-    padRef.current?.clear();
-  };
-
-  const openFiles = () => {
-    inputFile.current?.click();
-  };
-
-  const onChangeFile = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    var file = event.target.files[0];
-    setSelectedFile(file);
+  const showImageAssinatura = () => {
+    return (
+      <>
+        {imageAssinatura == true ? (
+          <Box
+            boxShadow="lg"
+            width="400px"
+            height="200px"
+            backgroundImage={ImageAssinaturaIcon}
+            backgroundPosition="center"
+            backgroundSize="cover"
+            backgroundClip="padding-box"
+            backgroundRepeat="no-repeat"
+            onClickCapture={() => setImageAssinatura(false)}
+          ></Box>
+        ) : (
+          <Box boxShadow="lg">
+            <SignatureCanvas
+              ref={padRef}
+              backgroundColor="#F7FAFC"
+              penColor="black"
+              canvasProps={{
+                width: 400,
+                height: 200,
+                className: "sigCanvas",
+              }}
+            />
+            <Flex justify="end">
+              <Icon
+                as={AiOutlineClear}
+                color="#4658fc"
+                margin="5px"
+                alignItems="end"
+                onClick={clearAssinatura}
+              />
+            </Flex>
+          </Box>
+        )}
+      </>
+    );
   };
 
   const Laudos = () => {
@@ -158,12 +191,29 @@ const Configuracoes = () => {
     );
   };
 
+  const clearAssinatura = () => {
+    padRef.current?.clear();
+  };
+
   const ResetDados = () => {
     setNome("");
     setCrm("");
     setDefaultUserImage(DefaultImageClinica);
     setFocus("unstyled");
     setStateClickAddMedico(false);
+    setImageAssinatura(true);
+    setpropsBoxAssinatura(false);
+  };
+
+  const openFiles = () => {
+    inputFile.current?.click();
+  };
+
+  const onChangeFile = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    var file = event.target.files[0];
+    setSelectedFile(file);
   };
 
   useEffect(() => {
@@ -184,14 +234,30 @@ const Configuracoes = () => {
     }
   }, [stateClickAddMedico]);
 
+  useEffect(() => {
+    showImageAssinatura();
+  }, [imageAssinatura]);
+
+  useOutsideClick({
+    ref: refNomeDoutor,
+    handler: () => {
+      setInputNomeDoutor(false);
+      if (nome.length != 0) {
+        setplaceHolderDoutor(nome);
+      } else {
+        setplaceHolderDoutor("Nome");
+      }
+    },
+  });
+
   return (
     <Box
       w="100%"
-      h="100%"
+      h="100vh"
+      backgroundImage={BG}
       verticalAlign="center"
       alignSelf="center"
       alignItems="center"
-      backgroundImage={BG}
       backgroundPosition="fixed"
       backgroundSize="cover"
       backgroundClip="padding-box"
@@ -199,228 +265,274 @@ const Configuracoes = () => {
       paddingBottom="10px"
       paddingTop="5px"
     >
-      <Flex
-        direction="row"
-        justify="space-between"
-        margin="20px 80px 100px 20px"
-        align="center"
-      >
-        <BoxTitleBackground titulo="Configurações" />
+      <Box>
+        <Flex
+          direction="row"
+          justify="space-between"
+          margin="20px 80px 100px 20px"
+          align="center"
+        >
+          <BoxTitleBackground titulo="Configurações" />
 
-        <Progress
-          value={50}
-          size="sm"
-          w="259px"
-          minW="259px"
-          colorScheme="blue"
-          backgroundColor="#C8C8C8"
-          borderRadius="0.5rem"
-        />
-
-        <Popover>
-          <PopoverTrigger>
-            <Button borderRadius="50%" backgroundColor="#E2E8F0" w="42" h="42">
-              <Icon as={FaRegFolderOpen} />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent borderRadius="20px" w="225px">
-            <PopoverArrow />
-
-            <PopoverBody>{Laudos()}</PopoverBody>
-          </PopoverContent>
-        </Popover>
-      </Flex>
-      <Flex
-        h="100%"
-        direction="row"
-        justify="space-evenly"
-        margin="60px"
-        flexWrap="wrap"
-        gap="10px"
-      >
-        <>
-          <MainCard
-            titulo="Clínicas"
-            icon={true}
-            clinica={null}
-            medicos={null}
+          <Progress
+            value={50}
+            size="sm"
+            w="259px"
+            minW="259px"
+            colorScheme="blue"
+            backgroundColor="#C8C8C8"
+            borderRadius="0.5rem"
           />
 
-          {medicos.map((medico) => {
-            return <Drs medico={medico} />;
-          })}
-          <Tooltip
-            label="Adicionar Médico"
-            backgroundColor="white"
-            placement="top"
-            defaultIsOpen={false}
-            hasArrow
-            arrowSize={15}
-            textColor="black"
+          <Popover>
+            <PopoverTrigger>
+              <Button borderRadius="50%" backgroundColor="white" w="42" h="42">
+                <Icon as={FaRegFolderOpen} />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent borderRadius="20px" w="225px">
+              <PopoverArrow />
+
+              <PopoverBody>{Laudos()}</PopoverBody>
+            </PopoverContent>
+          </Popover>
+        </Flex>
+        <Box alignSelf='center' marginTop='200px'>
+          <Flex
+            h="100%"
+            direction="row"
+            justify="space-evenly"
+            margin="60px"
+            flexWrap="wrap"
+            gap="10px"
           >
-            <Button
-              position="absolute"
-              right="1"
-              variant="ghost"
-              onClick={() => {
-                onOpen();
-                setStateClickAddMedico(true);
-              }}
-            >
-              <Image
-                srcSet={PlusButton}
-                alt="Second Icon Plus"
-                h="30px"
-                w="30px"
+            <>
+              <MainCard
+                titulo="Clínicas"
+                icon={true}
+                clinica={null}
+                medicos={null}
               />
-            </Button>
-          </Tooltip>
-        </>
-      </Flex>
 
-      <>
-        <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader></ModalHeader>
-            <Divider orientation="horizontal" marginTop="10px" />
-            <ModalCloseButton
-              onClick={() => {
-                setFocus("unstyled");
-                setEnable(true);
-                ResetDados();
-              }}
-            />
-
-            <Input
-              alignSelf="center"
-              textAlign="center"
-              fontWeight="bold"
-              fontSize="20px"
-              margin="10px"
-              placeholder="Nome Doutor"
-              isDisabled={false}
-              variant={focus}
-              onChange={(e) => setNome(e.target.value)}
-              _placeholder={{ fontWeight: "bold", color: "black" }}
-            ></Input>
-
-            <Divider orientation="horizontal" />
-
-            <ModalBody>
-              <Center>
-                <Image
-                  borderRadius="full"
-                  boxSize="150px"
-                  srcSet={defaultUserImage}
-                  alt="Image DR"
-                />
-              </Center>
-
-              <Center>
-                <input
-                  type="file"
-                  id="file"
-                  ref={inputFile}
-                  style={{ display: "none" }}
-                  onChange={onChangeFile.bind(this)}
-                />
-                <Icon
-                  as={BiCamera}
-                  marginTop="2px"
-                  color="#4658fc"
-                  margin="10px"
-                  onClick={openFiles}
-                />
-              </Center>
-              <Center>
-                <HStack>
-                  <Text marginEnd="5px" fontWeight="bold">
-                    Clínicas:
-                  </Text>
-                  <Select
-                    placeholder="Clínicas Cadastradas"
-                    variant="filled"
-                    onChange={(e) => setClinica(e.target.value)}
-                  >
-                    {listaClinicas.map((e) => {
-                      return (
-                        <option value={e.nomeClinica}>{e.nomeClinica}</option>
-                      );
-                    })}
-                  </Select>
-                </HStack>
-              </Center>
-
-              <Center paddingTop={"30px"}>
-                <InputGroup
-                  variant={"unstyled"}
-                  width={"250px"}
-                  marginEnd="50px"
+              {medicos.map((medico, key) => {
+                return <Medicos key={key} medico={medico} />;
+              })}
+              <Tooltip
+                label="Adicionar Médico"
+                backgroundColor="white"
+                placement="top"
+                defaultIsOpen={false}
+                hasArrow
+                arrowSize={15}
+                textColor="black"
+              >
+                <Button
+                  position="absolute"
+                  right="1"
+                  variant="ghost"
+                  onClick={() => {
+                    onOpen();
+                    setStateClickAddMedico(true);
+                  }}
                 >
-                  <InputLeftAddon
-                    children="CRM/UF:"
-                    paddingEnd={"5px"}
-                    fontWeight="bold"
+                  <Image
+                    srcSet={PlusButton}
+                    alt="Second Icon Plus"
+                    h="30px"
+                    w="30px"
                   />
-                  <Input
-                    placeholder="00000000-0/BR"
-                    fontSize="18px"
-                    textAlign={"center"}
-                    onChange={(event) => setCrm(event.target.value)}
-                  />
-                </InputGroup>
-              </Center>
-            </ModalBody>
+                </Button>
+              </Tooltip>
+            </>
+          </Flex>
 
-            <ModalFooter>
-              <Box boxShadow="lg">
-                <SignatureCanvas
-                  ref={padRef}
-                  backgroundColor="#F7FAFC"
-                  penColor="black"                  
-                  canvasProps={{
-                    width: 400,
-                    height: 200,
-                    className: "sigCanvas",
+          <>
+            <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader></ModalHeader>
+                <Divider orientation="horizontal" marginTop="10px" />
+                <ModalCloseButton
+                  onClick={() => {
+                    setFocus("unstyled");
+                    setEnable(true);
+                    ResetDados();
                   }}
                 />
-                <Flex justify="end">
-                  <Icon
-                    as={AiOutlineClear}
-                    color="#4658fc"
-                    margin="5px"
-                    alignItems="end"
-                    onClick={clearAssinatura}
-                  />
-                </Flex>
-              </Box>
-            </ModalFooter>
-            <Button
-              textColor="white"
-              backgroundColor="#0e63fe"
-              margin="10px"
-              onClick={() => {
-                //SaveSignature();
-                AddMedico();
-                ResetDados();
-                onClose();
-              }}
-            >
-              Salvar
-            </Button>
-          </ModalContent>
-        </Modal>
-      </>
-      <Stack h="100%" direction="row" justify="center">
-        <RectangularCard
-          titulo="Observações"
-          altura="282px"
-          item={<ItemObservation />}
-        />
-      </Stack>
-      <Box margin="50px 0px 0px 30px">
-        <Image src={ImageHome} />
+                {InputNomeDoutor ? (
+                  <Input
+                    w="435px"
+                    alignSelf="center"
+                    textAlign="center"
+                    fontWeight="bold"
+                    fontSize="20px"
+                    margin="10px"
+                    placeholder={placeHolderAddDoutor}
+                    isDisabled={false}
+                    variant={"filled"}
+                    onChange={(e) => setNome(e.target.value)}
+                    _placeholder={{ fontWeight: "bold", color: "black" }}
+                  ></Input>
+                ) : (
+                  <Input
+                    w="435px"
+                    alignSelf="center"
+                    textAlign="center"
+                    fontWeight="bold"
+                    fontSize="20px"
+                    margin="10px"
+                    paddingEnd="10px"
+                    placeholder={placeHolderAddDoutor}
+                    isDisabled={false}
+                    variant={"unstyled"}
+                    onChange={(e) => setNome(e.target.value)}
+                    _placeholder={{ fontWeight: "bold", color: "black" }}
+                    onClick={() => {
+                      setInputNomeDoutor(true);
+                      setplaceHolderDoutor("");
+                    }}
+                  ></Input>
+                )}
+
+                <Divider orientation="horizontal" />
+
+                <ModalBody>
+                  <Center>
+                    <Image
+                      borderRadius="full"
+                      boxSize="150px"
+                      srcSet={defaultUserImage}
+                      alt="Image DR"
+                      onClick={openFiles}
+                    />
+                  </Center>
+
+                  <Center>
+                    <input
+                      type="file"
+                      id="file"
+                      ref={inputFile}
+                      style={{ display: "none" }}
+                      onChange={onChangeFile.bind(this)}
+                    />
+                    <Icon
+                      as={BiCamera}
+                      marginTop="2px"
+                      color="#4658fc"
+                      margin="10px"
+                      onClick={openFiles}
+                    />
+                  </Center>
+                  <Center>
+                    <HStack>
+                      <Text marginEnd="5px" fontWeight="bold">
+                        Clínicas:
+                      </Text>
+                      <Select
+                        placeholder="Clínicas Cadastradas"
+                        variant="filled"
+                        onChange={(e) => setClinica(e.target.value)}
+                      >
+                        {listaClinicas.map((e, key) => {
+                          return (
+                            <option key={key} value={e.nomeClinica}>
+                              {e.nomeClinica}
+                            </option>
+                          );
+                        })}
+                      </Select>
+                    </HStack>
+                  </Center>
+
+                  <Center paddingTop={"30px"}>
+                    <InputGroup
+                      variant={"unstyled"}
+                      width={"250px"}
+                      marginEnd="50px"
+                    >
+                      <InputLeftAddon
+                        children="CRM/UF:"
+                        paddingEnd={"5px"}
+                        fontWeight="bold"
+                      />
+                      <Input
+                        placeholder="00000000-0/BR"
+                        fontSize="18px"
+                        textAlign={"center"}
+                        maxLength={9}
+                        onChange={(event) => setCrm(event.target.value)}
+                      />
+                    </InputGroup>
+                  </Center>
+                </ModalBody>
+
+                <ModalFooter>
+                  <Box
+                    w="100%"
+                    h="100%"
+                    backgroundColor={"#F7FAFC"}
+                    borderColor={
+                      propsBoxAssinatura == true ? "#3183cf" : "white"
+                    }
+                    borderWidth={propsBoxAssinatura == true ? "2px" : "0px"}
+                    boxShadow="md"
+                    borderRadius={"md"}
+                    onClick={() => setpropsBoxAssinatura(true)}
+                  >
+                    <SignatureCanvas
+                      ref={padRef}
+                      backgroundColor="#F7FAFC"
+                      onBegin={() => setpropsBoxAssinatura(true)}
+                      penColor="black"
+                      canvasProps={{
+                        width: 390,
+                        height: 230,
+                        className: "sigCanvas",
+                      }}
+                    />
+
+                    <Flex justify="end">
+                      <Icon
+                        as={AiOutlineClear}
+                        color="#4658fc"
+                        margin="5px"
+                        alignItems="end"
+                        onClick={clearAssinatura}
+                      />
+                    </Flex>
+                  </Box>
+                </ModalFooter>
+                <Button
+                  alignSelf="center"
+                  width="400px"
+                  textColor="white"
+                  backgroundColor="#0e63fe"
+                  margin="10px"
+                  onClick={() => {
+                    //SaveSignature();
+                    AddMedico();
+                    ResetDados();
+                    onClose();
+                  }}
+                >
+                  Salvar
+                </Button>
+              </ModalContent>
+            </Modal>
+          </>
+          <Stack h="100%" direction="row" justify="center">
+            <RectangularCard
+              titulo="Observações"
+              altura="282px"
+              item={<ItemObservation />}
+            />
+          </Stack>
+          <Box margin="120px 0px 0px 30px" >
+            <Link href={`#/Home/`}>
+              <Image src={ImageHome} />
+            </Link>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );

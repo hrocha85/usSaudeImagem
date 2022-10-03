@@ -1,101 +1,142 @@
-import { Box, Checkbox, Select, Grid, Input } from "@chakra-ui/react";
+import { Box, Checkbox, Select, Input } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import { useContext, useState } from 'react';
 import { LaudosContext } from '../../../../context/LuadosContext';
-
+import { InputsContext } from '../../../../context/InputsContext';
 
 function Baco() {
     const altura = '100%'
     const largura = '66%'
 
+
     let aumentadoComEcotextura = document.querySelector('#aumentadoComEcotextura') as HTMLInputElement
     let naoVisibilizado = document.querySelector('#naoVisibilizado') as HTMLInputElement
     let bacoAcessorio = document.querySelector('#bacoAcessorio') as HTMLInputElement
     let calcificacoes = document.querySelector('#calcificacoes') as HTMLInputElement
+    let cisto = document.querySelector('#cisto') as HTMLInputElement
+
+    let SelectAumentadoComEcotextura = document.querySelector('#SelectAumentadoComEcotextura') as HTMLInputElement
+    let SelectNaoVisibilizado = document.querySelector('#SelectNaoVisibilizado') as HTMLInputElement
+    let Input1BacoAcessorio = document.querySelector('#Input1BacoAcessorio') as HTMLInputElement
+    let Input2BacoAcessorio = document.querySelector('#Input2BacoAcessorio') as HTMLInputElement
+    let InputCalcificacoes = document.querySelector('#InputCalcificacoes') as HTMLInputElement
+    let InputCisto = document.querySelector('#InputCisto') as HTMLInputElement
 
     const { laudoPrin, signIn, setLaudoPrin } = useContext(LaudosContext);
+    const { inputBacoAcessorio, setinputBacoAcessorio } = useContext(InputsContext);
+    const [inputBaco, setInputBaco] = useState('')
+    const [inputCalcificacoes, setInputCalcificacoes] = useState('')
+    const [inputCisto, setInputCisto] = useState('')
 
-    const [baco, setBaco] = useState({
+    const [checkValueNormal, setCheckvalueNormal] = useState({
         normal: false,
-        aumentadoComEcotextura: "",
-        naoVisibilizado: "",
-        bacoAcessorio: "",
-        calcificacoes: ""
-
     })
 
-    const [checkValue, setCheckvalue] = useState({
-        normal: false,
+    const [checkValueAumentadoEcotextura, setCheckvalueAumentadoEcotextura] = useState({
         aumentadoComEcotextura: false,
-        naoVisibilizado: false,
-        bacoAcessorio: false,
-        calcificacoes: false,
         SelectAumentadoComEcotextura: true,
+    })
+
+    const [checkValueNaoVisibilizado, setCheckvalueNaoVisibilizado] = useState({
+        naoVisibilizado: false,
         SelectNaoVisibilizado: true,
+    })
+
+    const [checkValueBacoAcessorio, setCheckvalueBacoAcessorio] = useState({
+        bacoAcessorio: false,
         InputBacoAcessorio: true,
+    })
+    const [checkValueCalcificacoes, setCheckvalueCalcificacoes] = useState({
+        calcificacoes: false,
         InputCalcificacoes: true,
     })
+    const [checkValueCisto, setCheckvalueCisto] = useState({
+        cisto: false,
+        InputCisto: true,
+    })
 
-    const criarString = (value) => {
-        // console.log("Valor cria string = ", value);
+    const criarString = (value, valueId?, valueInput?) => {
+        //console.log("Valor cria string = ", value);
+
         setLaudoPrin(arr => [...arr, value])
-        console.log("criaString = ", laudoPrin)
+        //console.log("criaString = ", laudoPrin)
     }
 
     const removeItemString = (value) => {
-        // console.log("valor remove = ", value);
-        laudoPrin.splice(laudoPrin.indexOf(value), 1)
-        //removeValueSelectAumentadocomEcotextura()
-        setLaudoPrin(arr => [...arr])
-        // console.log("laudosPrin", laudoPrin)
-    }
-
-    const removeValueSelectAumentadocomEcotextura = () => {
-        if (aumentadoComEcotextura.checked === true) {
-            console.log('entrou')
-            laudoPrin.splice(laudoPrin.indexOf('Homogênea'), 1)
-            //setLaudoPrin(arr => [...arr])
-            console.log(laudoPrin)
+        console.log("valor remove = ", value);
+        var index = laudoPrin.indexOf(value);
+        if (index > -1) {
+            const teste = laudoPrin.splice(index, 1)
+            setLaudoPrin(arr => [...arr])
+            console.log('aqui teste', teste)
         }
-
+        console.log('posicao', index)
+        console.log("laudosPrin", laudoPrin)
     }
 
-    // const captaValoresSelects = (value) => {
-    //     if (aumentadoComEcotextura.checked === true) {
-    //         console.log("Valor cria string Option = ", value);
-    //         setLaudoPrin(arr => [...arr, value])
-    //         console.log("criaStringOption = ", laudoPrin)
-    //     } else {
-    //         laudoPrin.splice(laudoPrin.indexOf(value), 1)
-    //     }
-    // }
 
-    const DeterminaCondicaoCheckbox = () => {
+    const capturaTamanhoBaco = (value) => {
+        //console.log(value)
+        setinputBacoAcessorio([value])
+        //console.log(inputBacoAcessorio)
+    }
+
+    const pegaValorInputBaco = (value) => {
+        let dadoInputBaco2 = value.value
+        const valorInput = 'Baço acessório com ' + inputBacoAcessorio[0] + ' x ' + dadoInputBaco2 + 'mm '
+        setLaudoPrin(arr => [...arr, valorInput])
+        setInputBaco(valorInput)
+    }
+
+    const removeStringBaco = () => {
+        const index = laudoPrin.indexOf(inputBaco)
+        if (index > -1) {
+            laudoPrin.splice(index, 1)
+            setLaudoPrin(arr => [...arr])
+        }
+    }
+
+    const pegaValorInputCalcificacao = (value) => {
+        let dadoInputCalcificacao = value.value
+        const valorInput = 'Calcificações com ' + dadoInputCalcificacao + 'mm '
+        setLaudoPrin(arr => [...arr, valorInput])
+        setInputCalcificacoes(valorInput)
+    }
+
+
+    const removeStringCalcificacoes = () => {
+        const index = laudoPrin.indexOf(inputCalcificacoes)
+        if (index > -1) {
+            laudoPrin.splice(index, 1)
+            setLaudoPrin(arr => [...arr])
+        }
+    }
+
+    const pegaValorInputCisto = (value) => {
+        let dadoInputCisto = value.value
+        const valorInput = 'Cisto com ' + dadoInputCisto + 'mm '
+        setLaudoPrin(arr => [...arr, valorInput])
+        setInputCisto(valorInput)
+    }
+
+    const removeStringCisto = () => {
+        const index = laudoPrin.indexOf(inputCisto)
+        if (index > -1) {
+            laudoPrin.splice(index, 1)
+            setLaudoPrin(arr => [...arr])
+        }
+    }
+
+    const DeterminaCondicaoCheckNormal = () => {
         if (aumentadoComEcotextura.checked === true ||
             naoVisibilizado.checked === true || bacoAcessorio.checked === true ||
-            calcificacoes.checked === true) {
-            setCheckvalue({
-                aumentadoComEcotextura: false,
-                normal: true,
-                naoVisibilizado: false,
-                bacoAcessorio: false,
-                calcificacoes: false,
-                SelectAumentadoComEcotextura: false,
-                SelectNaoVisibilizado: false,
-                InputBacoAcessorio: false,
-                InputCalcificacoes: false,
+            calcificacoes.checked === true || cisto.checked === true) {
+            setCheckvalueNormal({
+                normal: true
             })
         } else {
-            setCheckvalue({
-                aumentadoComEcotextura: false,
-                normal: false,
-                naoVisibilizado: false,
-                bacoAcessorio: false,
-                calcificacoes: false,
-                SelectAumentadoComEcotextura: true,
-                SelectNaoVisibilizado: true,
-                InputBacoAcessorio: true,
-                InputCalcificacoes: true,
+            setCheckvalueNormal({
+                normal: false
             })
         }
     }
@@ -105,74 +146,179 @@ function Baco() {
             case 'normal':
                 if (value.checked === true) {
                     criarString(value.value)
-                    setCheckvalue({
+                    setCheckvalueAumentadoEcotextura({
                         aumentadoComEcotextura: true,
-                        normal: false,
-                        naoVisibilizado: true,
-                        bacoAcessorio: true,
-                        calcificacoes: true,
                         SelectAumentadoComEcotextura: true,
+                    })
+                    setCheckvalueNaoVisibilizado({
+                        naoVisibilizado: true,
                         SelectNaoVisibilizado: true,
+                    })
+                    setCheckvalueBacoAcessorio({
+                        bacoAcessorio: true,
                         InputBacoAcessorio: true,
+                    })
+                    setCheckvalueCalcificacoes({
+                        calcificacoes: true,
                         InputCalcificacoes: true,
                     })
+                    setCheckvalueCisto({
+                        cisto: true,
+                        InputCisto: true,
+                    })
+
                 } else {
                     removeItemString(value.value)
-                    setCheckvalue({
+                    setCheckvalueAumentadoEcotextura({
                         aumentadoComEcotextura: false,
-                        normal: false,
-                        naoVisibilizado: false,
-                        bacoAcessorio: false,
-                        calcificacoes: false,
                         SelectAumentadoComEcotextura: true,
+                    })
+                    setCheckvalueNaoVisibilizado({
+                        naoVisibilizado: false,
                         SelectNaoVisibilizado: true,
+                    })
+                    setCheckvalueBacoAcessorio({
+                        bacoAcessorio: false,
                         InputBacoAcessorio: true,
+                    })
+                    setCheckvalueCalcificacoes({
+                        calcificacoes: false,
                         InputCalcificacoes: true,
+                    })
+                    setCheckvalueCisto({
+                        cisto: false,
+                        InputCisto: true,
                     })
                 }
                 break;
             case 'aumentadoComEcotextura':
                 if (value.checked === true) {
-                    criarString(value.value)
-                    DeterminaCondicaoCheckbox()
+                    setCheckvalueAumentadoEcotextura({
+                        aumentadoComEcotextura: false,
+                        SelectAumentadoComEcotextura: false,
+                    })
+                    console.log(laudoPrin)
+                    DeterminaCondicaoCheckNormal()
                 } else {
-                    removeItemString(value.value)
-
-                    DeterminaCondicaoCheckbox()
+                    setCheckvalueAumentadoEcotextura({
+                        aumentadoComEcotextura: false,
+                        SelectAumentadoComEcotextura: true,
+                    })
+                    console.log(laudoPrin)
+                    DeterminaCondicaoCheckNormal()
+                    removeItemString('Aumentado com ecotextura heterogênea ')
+                    removeItemString('Aumentado com ecotextura homogênea ')
+                    SelectAumentadoComEcotextura.value = ("")
+                }
+                break;
+            case 'SelectAumentadoComEcotextura':
+                if (value.value === 'Aumentado com ecotextura homogênea ') {
+                    removeItemString('Aumentado com ecotextura heterogênea ')
+                    criarString(value.value)
+                } else {
+                    removeItemString('Aumentado com ecotextura homogênea ')
+                    criarString(value.value)
                 }
                 break;
             case 'naoVisibilizado':
                 if (value.checked === true) {
-                    criarString(value.value)
-                    DeterminaCondicaoCheckbox()
+                    setCheckvalueNaoVisibilizado({
+                        naoVisibilizado: false,
+                        SelectNaoVisibilizado: false,
+                    })
+                    console.log(laudoPrin)
+                    DeterminaCondicaoCheckNormal()
                 } else {
-                    removeItemString(value.value)
-                    DeterminaCondicaoCheckbox()
+                    setCheckvalueNaoVisibilizado({
+                        naoVisibilizado: false,
+                        SelectNaoVisibilizado: true,
+                    })
+                    console.log(laudoPrin)
+                    DeterminaCondicaoCheckNormal()
+                    removeItemString('Não visibilizado com interposição gasosa ')
+                    removeItemString('Não visibilizado com Ausênsia cirurgica ')
+                    SelectNaoVisibilizado.value = ("")
                 }
                 break;
-            case 'calcificacoes':
-                if (value.checked === true) {
+            case 'SelectNaoVisibilizado':
+                console.log(laudoPrin)
+                if (value.value === 'Não visibilizado com interposição gasosa ') {
+                    removeItemString('Não visibilizado com Ausênsia cirurgica ')
                     criarString(value.value)
-                    DeterminaCondicaoCheckbox()
                 } else {
-                    removeItemString(value.value)
-                    DeterminaCondicaoCheckbox()
+                    removeItemString('Não visibilizado com interposição gasosa ')
+                    criarString(value.value)
                 }
+
                 break;
             case 'bacoAcessorio':
                 if (value.checked === true) {
-                    criarString(value.value)
-                    DeterminaCondicaoCheckbox()
+                    setCheckvalueBacoAcessorio({
+                        bacoAcessorio: false,
+                        InputBacoAcessorio: false,
+                    })
+                    DeterminaCondicaoCheckNormal()
                 } else {
-                    removeItemString(value.value)
-                    DeterminaCondicaoCheckbox()
+                    setCheckvalueBacoAcessorio({
+                        bacoAcessorio: false,
+                        InputBacoAcessorio: true,
+                    })
+
+                    removeStringBaco()
+                    DeterminaCondicaoCheckNormal()
+                    Input1BacoAcessorio.value = ''
+                    Input2BacoAcessorio.value = ''
                 }
                 break;
-            case 'SelectAumentadoComEcotextura':
-                if (aumentadoComEcotextura.checked === true) {
-                    criarString(value.value)
+            case 'Input1BacoAcessorio':
+                capturaTamanhoBaco(value.value)
+                break;
+            case 'Input2BacoAcessorio':
+                pegaValorInputBaco(value)
+                break;
+            case 'calcificacoes':
+                if (value.checked === true) {
+                    setCheckvalueCalcificacoes({
+                        calcificacoes: false,
+                        InputCalcificacoes: false,
+                    })
+                    DeterminaCondicaoCheckNormal()
+
+                } else {
+                    setCheckvalueCalcificacoes({
+                        calcificacoes: false,
+                        InputCalcificacoes: true,
+                    })
+                    removeStringCalcificacoes()
+                    DeterminaCondicaoCheckNormal()
+                    InputCalcificacoes.value = ''
+
                 }
                 break;
+            case 'InputCalcificacoes':
+                pegaValorInputCalcificacao(value)
+                break;
+            case 'cisto':
+                if (value.checked === true) {
+                    setCheckvalueCisto({
+                        cisto: false,
+                        InputCisto: false,
+                    })
+                    DeterminaCondicaoCheckNormal()
+
+                } else {
+                    setCheckvalueCisto({
+                        cisto: false,
+                        InputCisto: true,
+                    })
+                    DeterminaCondicaoCheckNormal()
+                    removeStringCisto()
+                    InputCisto.value = ''
+                }
+                break;
+            case 'InputCisto':
+                pegaValorInputCisto(value)
+                break
             default:
                 console.log("esta aqui", value.id)
                 console.log("nao achou o id");
@@ -180,172 +326,6 @@ function Baco() {
         }
 
     }
-    // const verificaChecked = (value) => {
-    //     switch (value.id) {
-    //         case 'normal':
-    //             if (value.checked === true) {
-    //                 criarString('paciente está normal ')
-    //                 setCheckvalue({
-    //                     aumentadoComEcotextura: true,
-    //                     normal: false,
-    //                     naoVisibilizado: true,
-    //                     bacoAcessorio: true,
-    //                     calcificacoes: true,
-    //                     SelectAumentadoComEcotextura: true,
-    //                     SelectNaoVisibilizado: true,
-    //                     InputBacoAcessorio: true,
-    //                     InputCalcificacoes: true,
-    //                 })
-    //             } else {
-    //                 removeItemString('paciente está normal ')
-    //                 setCheckvalue({
-    //                     aumentadoComEcotextura: false,
-    //                     normal: false,
-    //                     naoVisibilizado: false,
-    //                     bacoAcessorio: false,
-    //                     calcificacoes: false,
-    //                     SelectAumentadoComEcotextura: true,
-    //                     SelectNaoVisibilizado: true,
-    //                     InputBacoAcessorio: true,
-    //                     InputCalcificacoes: true,
-    //                 })
-    //             }
-
-    //             break;
-    //         case 'aumentadoComEcotextura':
-    //             if (value.checked === true) {
-    //                 criarString('aumentado com ecotextura ')
-    //                 setCheckvalue({
-    //                     aumentadoComEcotextura: false,
-    //                     normal: true,
-    //                     naoVisibilizado: false,
-    //                     bacoAcessorio: false,
-    //                     calcificacoes: false,
-    //                     SelectAumentadoComEcotextura: false,
-    //                     SelectNaoVisibilizado: true,
-    //                     InputBacoAcessorio: true,
-    //                     InputCalcificacoes: true,
-    //                 })
-    //             } else if (liberarNormal === true) {
-    //                 removeItemString('aumentado com ecotextura ')
-    //                 DeterminaCondicaoCheckbox()
-    //             } else {
-    //                 removeItemString('aumentado com ecotextura ')
-    //                 setCheckvalue({
-    //                     aumentadoComEcotextura: false,
-    //                     normal: false,
-    //                     naoVisibilizado: false,
-    //                     bacoAcessorio: false,
-    //                     calcificacoes: false,
-    //                     SelectAumentadoComEcotextura: true,
-    //                     SelectNaoVisibilizado: true,
-    //                     InputBacoAcessorio: true,
-    //                     InputCalcificacoes: true,
-    //                 })
-    //             }
-    //             break;
-    //         case 'naoVisibilizado':
-    //             if (value.checked === true) {
-    //                 criarString('nao visibilizado ')
-    //                 setCheckvalue({
-    //                     aumentadoComEcotextura: false,
-    //                     normal: true,
-    //                     naoVisibilizado: false,
-    //                     bacoAcessorio: false,
-    //                     calcificacoes: false,
-    //                     SelectAumentadoComEcotextura: true,
-    //                     SelectNaoVisibilizado: false,
-    //                     InputBacoAcessorio: true,
-    //                     InputCalcificacoes: true,
-    //                 })
-    //             } else if (liberarNormal === true) {
-    //                 removeItemString('aumentado com ecotextura ')
-    //                 DeterminaCondicaoCheckbox()
-    //             } else {
-    //                 removeItemString('nao visibilizado ')
-    //                 setCheckvalue({
-    //                     aumentadoComEcotextura: false,
-    //                     normal: false,
-    //                     naoVisibilizado: false,
-    //                     bacoAcessorio: false,
-    //                     calcificacoes: false,
-    //                     SelectAumentadoComEcotextura: true,
-    //                     SelectNaoVisibilizado: true,
-    //                     InputBacoAcessorio: true,
-    //                     InputCalcificacoes: true,
-    //                 })
-    //             }
-    //             break;
-    //         case 'calcificacoes':
-    //             if (value.checked === true) {
-    //                 criarString('calcificações ')
-    //                 setCheckvalue({
-    //                     aumentadoComEcotextura: false,
-    //                     normal: true,
-    //                     naoVisibilizado: false,
-    //                     bacoAcessorio: false,
-    //                     calcificacoes: false,
-    //                     SelectAumentadoComEcotextura: true,
-    //                     SelectNaoVisibilizado: true,
-    //                     InputBacoAcessorio: true,
-    //                     InputCalcificacoes: false,
-    //                 })
-    //             } else if (liberarNormal === true) {
-    //                 removeItemString('aumentado com ecotextura ')
-    //                 DeterminaCondicaoCheckbox()
-    //             } else {
-    //                 removeItemString('calcificações ')
-    //                 setCheckvalue({
-    //                     aumentadoComEcotextura: false,
-    //                     normal: false,
-    //                     naoVisibilizado: false,
-    //                     bacoAcessorio: false,
-    //                     calcificacoes: false,
-    //                     SelectAumentadoComEcotextura: true,
-    //                     SelectNaoVisibilizado: true,
-    //                     InputBacoAcessorio: true,
-    //                     InputCalcificacoes: true,
-    //                 })
-    //             }
-    //             break;
-    //         case 'bacoAcessorio':
-    //             if (value.checked === true) {
-    //                 criarString('Baço Acessório ')
-    //                 setCheckvalue({
-    //                     aumentadoComEcotextura: false,
-    //                     normal: true,
-    //                     naoVisibilizado: false,
-    //                     bacoAcessorio: false,
-    //                     calcificacoes: false,
-    //                     SelectAumentadoComEcotextura: true,
-    //                     SelectNaoVisibilizado: true,
-    //                     InputBacoAcessorio: false,
-    //                     InputCalcificacoes: true,
-    //                 })
-    //             } else if (liberarNormal === true) {
-    //                 removeItemString('aumentado com ecotextura ')
-    //                 DeterminaCondicaoCheckbox()
-    //             } else {
-    //                 removeItemString('Baço Acessório ')
-    //                 setCheckvalue({
-    //                     aumentadoComEcotextura: false,
-    //                     normal: false,
-    //                     naoVisibilizado: false,
-    //                     bacoAcessorio: false,
-    //                     calcificacoes: false,
-    //                     SelectAumentadoComEcotextura: true,
-    //                     SelectNaoVisibilizado: true,
-    //                     InputBacoAcessorio: true,
-    //                     InputCalcificacoes: true,
-    //                 })
-    //             }
-    //             break;
-    //         default:
-    //             console.log("nao achou o id");
-    //             break;
-    //     }
-
-    // }
 
     return (
 
@@ -375,7 +355,7 @@ function Baco() {
 
                     <Box w='100px' >
                         <Checkbox
-                            disabled={checkValue.normal}
+                            disabled={checkValueNormal.normal}
                             id="normal"
                             value="paciente está normal "
                             onChange={(e) => {
@@ -385,19 +365,18 @@ function Baco() {
                     </Box>
 
                     <Box w='220px' >
-                        <Checkbox disabled={checkValue.aumentadoComEcotextura}
+                        <Checkbox disabled={checkValueAumentadoEcotextura.aumentadoComEcotextura}
                             id="aumentadoComEcotextura"
-                            value='aumentado com ecotextura '
                             onChange={(e) => { verificaChecked(e.target) }}
                         >Aumentado com ecotextura</Checkbox>
                         <Select
-                            disabled={checkValue.SelectAumentadoComEcotextura}
-                            id="SelectAumentadoComEcotextura"
+                            disabled={checkValueAumentadoEcotextura.SelectAumentadoComEcotextura}
+                            id='SelectAumentadoComEcotextura'
                             onChange={(e) => { verificaChecked(e.target) }}
                         >
                             <option value='' disabled selected>Selecione</option>
-                            <option value='Homogênea'>Homogênea</option>
-                            <option value='Heterogênea'>Heterogênea</option>
+                            <option value='Aumentado com ecotextura homogênea '>Homogênea</option>
+                            <option value='Aumentado com ecotextura heterogênea '>Heterogênea</option>
                         </Select>
                     </Box>
 
@@ -405,46 +384,50 @@ function Baco() {
 
                     <Box w='150px' >
                         <Checkbox
-                            disabled={checkValue.naoVisibilizado}
+                            disabled={checkValueNaoVisibilizado.naoVisibilizado}
                             id="naoVisibilizado"
-                            value='nao visibilizado '
                             onChange={(e) => { verificaChecked(e.target) }}
                         >Não visibilizado</Checkbox>
                         <Select
-                            disabled={checkValue.SelectNaoVisibilizado}
+                            disabled={checkValueNaoVisibilizado.SelectNaoVisibilizado}
                             id="SelectNaoVisibilizado"
                             onChange={(e) => { verificaChecked(e.target) }}
                         >
                             <option value='' disabled selected>Selecione</option>
-                            <option value='ausenciaCirurgica'>ausência cirúrgica</option>
-                            <option value='interposicaoGasosa'>interposição gasosa</option>
+                            <option value='Não visibilizado com Ausênsia cirurgica '>ausência cirúrgica</option>
+                            <option value='Não visibilizado com interposição gasosa '>interposição gasosa</option>
                         </Select>
                     </Box>
 
                     <Box w='140px'>
                         <Checkbox
-                            disabled={checkValue.bacoAcessorio}
+                            disabled={checkValueBacoAcessorio.bacoAcessorio}
                             id="bacoAcessorio"
-                            value='Baço Acessório '
                             onChange={(e) => { verificaChecked(e.target) }}
                         >Baço Acessório</Checkbox>
-                        <Input
-                            disabled={checkValue.InputBacoAcessorio}
-                            id="InputBacoAcessorio"
-                            onChange={(e) => { verificaChecked(e.target) }}
-                            placeholder='mm' />
+                        <Input w='50px'
+                            disabled={checkValueBacoAcessorio.InputBacoAcessorio}
+                            id="Input1BacoAcessorio"
+                            onBlur={(e) => { verificaChecked(e.target) }}
+                            placeholder='0' />
+                        x
+                        <Input w='50px'
+                            disabled={checkValueBacoAcessorio.InputBacoAcessorio}
+                            id="Input2BacoAcessorio"
+                            onBlur={(e) => { verificaChecked(e.target) }}
+                            placeholder='0' />
+                        mm
                     </Box>
 
                     <Box w='100px' >
                         <Checkbox
-                            disabled={checkValue.calcificacoes}
+                            disabled={checkValueCalcificacoes.calcificacoes}
                             id="calcificacoes"
-                            value='calcificações '
-                            onChange={(e) => { verificaChecked(e.target) }}>Calcificalções</Checkbox>
+                            onChange={(e) => { verificaChecked(e.target) }}>Calcificações</Checkbox>
                         <Input
-                            disabled={checkValue.InputCalcificacoes}
+                            disabled={checkValueCalcificacoes.InputCalcificacoes}
                             id="InputCalcificacoes"
-                            onChange={(e) => { verificaChecked(e.target) }} placeholder='mm' />
+                            onBlur={(e) => { verificaChecked(e.target) }} placeholder='mm' />
                     </Box>
                 </Box>
             </Box >
@@ -452,8 +435,15 @@ function Baco() {
 
             <Box w='100px'
                 mt='20px'>
-                <Checkbox>Cisto</Checkbox>
-                <Input placeholder='mm' />
+                <Checkbox
+                    disabled={checkValueCisto.cisto}
+                    id="cisto"
+                    onChange={(e) => { verificaChecked(e.target) }}
+                >Cisto</Checkbox>
+                <Input
+                    disabled={checkValueCisto.InputCisto}
+                    id="InputCisto"
+                    onBlur={(e) => { verificaChecked(e.target) }} placeholder='mm' />
             </Box>
 
         </Box >

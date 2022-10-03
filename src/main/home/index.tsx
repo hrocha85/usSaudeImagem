@@ -10,15 +10,15 @@ function Home() {
   return (
     <Box
       w="100%"
-      h="100%"
+      h="100vh"
       backgroundImage={BGImage}
-      backgroundPosition="fixed"
       backgroundSize="cover"
       backgroundClip="padding-box"
       backgroundRepeat="no-repeat"
       paddingBottom="10px"
       alignItems="center"
     >
+    
       <Box>
         <Button position="absolute" right="1" variant="ghost" >
           <Link
@@ -40,7 +40,7 @@ function Home() {
         </Stack>
       </Center>
 
-      <Stack h="100%" alignItems="center" mt='30px' mb='40px' >
+      <Stack alignItems="center" mt='30px' mb='40px' >
         <CardListaMedicos
           altura="300px"
         />
