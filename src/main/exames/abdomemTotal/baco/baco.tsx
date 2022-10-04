@@ -1,8 +1,7 @@
-import { Box, Checkbox, Select, Input } from "@chakra-ui/react";
+import { Box, Checkbox, Select, Input, extendTheme } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import { useContext, useState } from 'react';
 import { LaudosContext } from '../../../../context/LuadosContext';
-import { InputsContext } from '../../../../context/InputsContext';
 
 function Baco() {
     const altura = '100%'
@@ -23,10 +22,16 @@ function Baco() {
     let InputCisto = document.querySelector('#InputCisto') as HTMLInputElement
 
     const { laudoPrin, signIn, setLaudoPrin } = useContext(LaudosContext);
-    const { inputBacoAcessorio, setinputBacoAcessorio } = useContext(InputsContext);
+    const [inputBacoAcessorio, setinputBacoAcessorio] = useState('');
     const [inputBaco, setInputBaco] = useState('')
     const [inputCalcificacoes, setInputCalcificacoes] = useState('')
     const [inputCisto, setInputCisto] = useState('')
+
+    const [corBordaAumentadoEcotextura, setCorBordaAumentadoEcotextura] = useState('#E0E0E0')
+    const [corBordaNaoVisibilizado, setCorBordaNaoVisibilizado] = useState('#E0E0E0')
+    const [corBordaBacoAcessorio, setCorBordaBacoAcessorio] = useState('#E0E0E0')
+    const [corBordaCalcificacoes, setCorBordaCalcificacoes] = useState('#E0E0E0')
+    const [corBordaCisto, setCorBordaCisto] = useState('#E0E0E0')
 
     const [checkValueNormal, setCheckvalueNormal] = useState({
         normal: false,
@@ -55,39 +60,43 @@ function Baco() {
         InputCisto: true,
     })
 
+
     const criarString = (value, valueId?, valueInput?) => {
         //console.log("Valor cria string = ", value);
-
+        //arr => [...arr] captura os dados que já estavam e os mantem no array
         setLaudoPrin(arr => [...arr, value])
         //console.log("criaString = ", laudoPrin)
     }
 
     const removeItemString = (value) => {
-        console.log("valor remove = ", value);
+        // console.log("valor remove = ", value);
         var index = laudoPrin.indexOf(value);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-            const teste = laudoPrin.splice(index, 1)
+            laudoPrin.splice(index, 1)
             setLaudoPrin(arr => [...arr])
-            console.log('aqui teste', teste)
+
         }
-        console.log('posicao', index)
-        console.log("laudosPrin", laudoPrin)
+        // console.log('posicao', index)
+        // console.log("laudosPrin", laudoPrin)
     }
 
-
+    //captura primeiro tamanho do baço e joga em inputBacoAcessorio 
     const capturaTamanhoBaco = (value) => {
         //console.log(value)
-        setinputBacoAcessorio([value])
+        setinputBacoAcessorio(value)
         //console.log(inputBacoAcessorio)
     }
-
-    const pegaValorInputBaco = (value) => {
+    //pega valor enviado pelo value, cria string e seta ela no laudo principal
+    //setInputBaço é usado para armezenar string para remover posteriormente
+    const criaValorInputBaco = (value) => {
         let dadoInputBaco2 = value.value
-        const valorInput = 'Baço acessório com ' + inputBacoAcessorio[0] + ' x ' + dadoInputBaco2 + 'mm '
+        const valorInput = 'Baço acessório com ' + inputBacoAcessorio + ' x ' + dadoInputBaco2 + 'mm '
         setLaudoPrin(arr => [...arr, valorInput])
         setInputBaco(valorInput)
     }
 
+    //captura posição usando inputBaco, remove e seta laudo Principal novamente
     const removeStringBaco = () => {
         const index = laudoPrin.indexOf(inputBaco)
         if (index > -1) {
@@ -127,6 +136,7 @@ function Baco() {
         }
     }
 
+    //caso algum item esteja selecionado, normal fica bloqueado
     const DeterminaCondicaoCheckNormal = () => {
         if (aumentadoComEcotextura.checked === true ||
             naoVisibilizado.checked === true || bacoAcessorio.checked === true ||
@@ -139,6 +149,25 @@ function Baco() {
                 normal: false
             })
         }
+    }
+
+    const TrocaCorBorda = (value) => {
+
+        (value.id === 'aumentadoComEcotextura' && aumentadoComEcotextura.checked === true) ?
+            setCorBordaAumentadoEcotextura('#0000FF') : setCorBordaAumentadoEcotextura('#E0E0E0');
+
+        (value.id === 'naoVisibilizado' && naoVisibilizado.checked === true) ?
+            setCorBordaNaoVisibilizado('#0000FF') : setCorBordaNaoVisibilizado('#E0E0E0');
+
+        (value.id === 'bacoAcessorio' && bacoAcessorio.checked === true) ?
+            setCorBordaBacoAcessorio('#0000FF') : setCorBordaBacoAcessorio('#E0E0E0');
+
+        (value.id === 'calcificacoes' && calcificacoes.checked === true) ?
+            setCorBordaCalcificacoes('#0000FF') : setCorBordaCalcificacoes('#E0E0E0');
+
+        (value.id === 'cisto' && cisto.checked === true) ?
+            setCorBordaCisto('#0000FF') : setCorBordaCisto('#E0E0E0');
+
     }
 
     const verificaChecked = (value) => {
@@ -198,6 +227,7 @@ function Baco() {
                         SelectAumentadoComEcotextura: false,
                     })
                     console.log(laudoPrin)
+                    TrocaCorBorda(value)
                     DeterminaCondicaoCheckNormal()
                 } else {
                     setCheckvalueAumentadoEcotextura({
@@ -206,8 +236,11 @@ function Baco() {
                     })
                     console.log(laudoPrin)
                     DeterminaCondicaoCheckNormal()
+                    TrocaCorBorda(value)
+
                     removeItemString('Aumentado com ecotextura heterogênea ')
                     removeItemString('Aumentado com ecotextura homogênea ')
+
                     SelectAumentadoComEcotextura.value = ("")
                 }
                 break;
@@ -227,6 +260,7 @@ function Baco() {
                         SelectNaoVisibilizado: false,
                     })
                     console.log(laudoPrin)
+                    TrocaCorBorda(value)
                     DeterminaCondicaoCheckNormal()
                 } else {
                     setCheckvalueNaoVisibilizado({
@@ -234,6 +268,7 @@ function Baco() {
                         SelectNaoVisibilizado: true,
                     })
                     console.log(laudoPrin)
+                    TrocaCorBorda(value)
                     DeterminaCondicaoCheckNormal()
                     removeItemString('Não visibilizado com interposição gasosa ')
                     removeItemString('Não visibilizado com Ausênsia cirurgica ')
@@ -257,13 +292,15 @@ function Baco() {
                         bacoAcessorio: false,
                         InputBacoAcessorio: false,
                     })
+
                     DeterminaCondicaoCheckNormal()
+                    TrocaCorBorda(value)
                 } else {
                     setCheckvalueBacoAcessorio({
                         bacoAcessorio: false,
                         InputBacoAcessorio: true,
                     })
-
+                    TrocaCorBorda(value)
                     removeStringBaco()
                     DeterminaCondicaoCheckNormal()
                     Input1BacoAcessorio.value = ''
@@ -274,7 +311,7 @@ function Baco() {
                 capturaTamanhoBaco(value.value)
                 break;
             case 'Input2BacoAcessorio':
-                pegaValorInputBaco(value)
+                criaValorInputBaco(value)
                 break;
             case 'calcificacoes':
                 if (value.checked === true) {
@@ -283,12 +320,13 @@ function Baco() {
                         InputCalcificacoes: false,
                     })
                     DeterminaCondicaoCheckNormal()
-
+                    TrocaCorBorda(value)
                 } else {
                     setCheckvalueCalcificacoes({
                         calcificacoes: false,
                         InputCalcificacoes: true,
                     })
+                    TrocaCorBorda(value)
                     removeStringCalcificacoes()
                     DeterminaCondicaoCheckNormal()
                     InputCalcificacoes.value = ''
@@ -305,12 +343,13 @@ function Baco() {
                         InputCisto: false,
                     })
                     DeterminaCondicaoCheckNormal()
-
+                    TrocaCorBorda(value)
                 } else {
                     setCheckvalueCisto({
                         cisto: false,
                         InputCisto: true,
                     })
+                    TrocaCorBorda(value)
                     DeterminaCondicaoCheckNormal()
                     removeStringCisto()
                     InputCisto.value = ''
@@ -326,6 +365,8 @@ function Baco() {
         }
 
     }
+
+
 
     return (
 
@@ -370,6 +411,7 @@ function Baco() {
                             onChange={(e) => { verificaChecked(e.target) }}
                         >Aumentado com ecotextura</Checkbox>
                         <Select
+                            borderColor={corBordaAumentadoEcotextura}
                             disabled={checkValueAumentadoEcotextura.SelectAumentadoComEcotextura}
                             id='SelectAumentadoComEcotextura'
                             onChange={(e) => { verificaChecked(e.target) }}
@@ -390,6 +432,7 @@ function Baco() {
                         >Não visibilizado</Checkbox>
                         <Select
                             disabled={checkValueNaoVisibilizado.SelectNaoVisibilizado}
+                            borderColor={corBordaNaoVisibilizado}
                             id="SelectNaoVisibilizado"
                             onChange={(e) => { verificaChecked(e.target) }}
                         >
@@ -408,12 +451,14 @@ function Baco() {
                         <Input w='50px'
                             disabled={checkValueBacoAcessorio.InputBacoAcessorio}
                             id="Input1BacoAcessorio"
+                            borderColor={corBordaBacoAcessorio}
                             onBlur={(e) => { verificaChecked(e.target) }}
                             placeholder='0' />
                         x
                         <Input w='50px'
                             disabled={checkValueBacoAcessorio.InputBacoAcessorio}
                             id="Input2BacoAcessorio"
+                            borderColor={corBordaBacoAcessorio}
                             onBlur={(e) => { verificaChecked(e.target) }}
                             placeholder='0' />
                         mm
@@ -427,6 +472,7 @@ function Baco() {
                         <Input
                             disabled={checkValueCalcificacoes.InputCalcificacoes}
                             id="InputCalcificacoes"
+                            borderColor={corBordaCalcificacoes}
                             onBlur={(e) => { verificaChecked(e.target) }} placeholder='mm' />
                     </Box>
                 </Box>
@@ -443,6 +489,7 @@ function Baco() {
                 <Input
                     disabled={checkValueCisto.InputCisto}
                     id="InputCisto"
+                    borderColor={corBordaCisto}
                     onBlur={(e) => { verificaChecked(e.target) }} placeholder='mm' />
             </Box>
 
