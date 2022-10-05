@@ -430,6 +430,7 @@ const Configuracoes = () => {
                       <Select
                         placeholder="Clínicas Cadastradas"
                         variant="filled"
+                        textAlign='center'
                         onChange={(e) => setClinica(e.target.value)}
                       >
                         {listaClinicas.map((e, key) => {

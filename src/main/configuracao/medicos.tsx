@@ -41,6 +41,8 @@ const Medicos = ({ medico, id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [enable, setEnable] = useState(true);
+  
+  const [enableSelectedClinica, setSelectedClinica] = useState(true);
 
   const [crm, setCRM] = useState(medico.crm);
 
@@ -53,6 +55,10 @@ const Medicos = ({ medico, id }) => {
   const [updateNome, setUpdateNome] = useState<string | null>(null);
 
   const [nomeMedico, setNomeMedico] = useState(medico.nome);
+
+  const [clinica, setClinica] = useState(medico.clinica);
+
+  const [updateClinica, setUpdateClinica] = useState<string | null>(null);
 
   const [InputNomeMedico, setInputNomeMedico] = useState(false);
 
@@ -95,7 +101,7 @@ const Medicos = ({ medico, id }) => {
     }
   }, [selectedFile]);
 
-  const UpdateLocalStorage = (nomeUpdate, CRMupdate) => {
+  const UpdateLocalStorage = (nomeUpdate, CRMupdate, clinicaUpdate) => {
     setTimeout(() => {
       if (nomeUpdate != null) {
         var array = JSON.parse(localStorage.getItem("medicos")!);
@@ -116,6 +122,16 @@ const Medicos = ({ medico, id }) => {
         localStorage.setItem("medicos", JSON.stringify(array));
         setCRM(CRMupdate);
         setUpdateCRM(null);
+      }
+      if (clinicaUpdate != null) {
+        var array = JSON.parse(localStorage.getItem("medicos")!);
+        var item = array[id];
+        lista_medicos[id].clinica = clinicaUpdate;
+
+        item.clinica = clinicaUpdate;
+        localStorage.setItem("medicos", JSON.stringify(array));
+        setClinica(updateClinica);
+        setUpdateClinica(null);
       }
       if (AssinaturaUpdate) {
         var array = JSON.parse(localStorage.getItem("medicos")!);
@@ -143,6 +159,7 @@ const Medicos = ({ medico, id }) => {
     setInputAssinatura(false);
     setnewAssinaturaEdit(false);
     setAssinaturaUpdate(false);
+    setSelectedClinica(true)
   };
   useOutsideClick({
     ref: refNomeMedico,
@@ -154,6 +171,10 @@ const Medicos = ({ medico, id }) => {
       setInputCRM(false);
     },
   });
+
+  useEffect(() => {
+    setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));
+  }, [localStorage.getItem("minhasClinicas")!]);
   return (
     <Box
       bg="#FAFAFA"
@@ -281,7 +302,14 @@ const Medicos = ({ medico, id }) => {
                     <Text marginEnd="5px" fontWeight="bold" fontSize="17px">
                       Clínicas:
                     </Text>
-                    <Select placeholder="Clínicas Cadastradas" variant="filled">
+                    <Select
+                      defaultValue={clinica}
+                      width='220px'
+                      variant="filled"
+                      isDisabled={enableSelectedClinica}
+                      textAlign='center'
+                      onChange={(e) => setUpdateClinica(e.target.value)}
+                    >
                       {listaClinicas.map((e, key) => {
                         return (
                           <option key={key} value={e.nomeClinica}>
@@ -363,6 +391,7 @@ const Medicos = ({ medico, id }) => {
                         setCRMEnable(false);
                         setInputCRM(true);
                         setInputAssinatura(true);
+                        setSelectedClinica(false)
                       }}
                     >
                       Editar
@@ -388,8 +417,8 @@ const Medicos = ({ medico, id }) => {
                   <SignatureCanvas
                     ref={padRef}
                     backgroundColor="#F7FAFC"
-                    penColor="black"                    
-                    onEnd={() => UpdateLocalStorage(null, null)}
+                    penColor="black"
+                    onEnd={() => UpdateLocalStorage(null, null,null)}
                     canvasProps={{
                       width: 390,
                       height: 230,
@@ -440,7 +469,7 @@ const Medicos = ({ medico, id }) => {
             marginStart="23px"
             marginBottom="10px"
             onClick={() => {
-              UpdateLocalStorage(updateNome, updateCRM);
+              UpdateLocalStorage(updateNome, updateCRM, updateClinica);
               ResetStates();
               onClose();
             }}
