@@ -32,6 +32,7 @@ const Clinica = (props) => {
           clinicas={listaClinicas}
           onClickModal={true}
           id={key}
+          isMedic={false}
         />
       ))}
     </>

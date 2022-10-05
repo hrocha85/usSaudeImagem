@@ -39,6 +39,7 @@ const FieldDefaultIcon = ({
   clinicas,
   onClickModal,
   id,
+  isMedic,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -54,7 +55,13 @@ const FieldDefaultIcon = ({
 
   const [nome, setNomeClinica] = useState(clinica.nomeClinica);
 
-  const [updateNome, setUpdateNome] = useState("");
+  const [updateNome, setUpdateNome] = useState<string | null>(null);
+
+  const [updateTelefone, setUpdateTelefone] = useState<string | null>(null);
+
+  const [updateCEP, setUpdateCEP] = useState<string | null>(null);
+
+  const [updateEndereco, setUpdateEndereco] = useState<string | null>(null);
 
   const [endereco, setEndereco] = useState(clinica.enderecoRuaNumero);
 
@@ -101,43 +108,49 @@ const FieldDefaultIcon = ({
     cepUpdate,
     enderecoUpdate
   ) => {
-    if (nomeUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
-      minhasClinicas[id].nomeClinica = nomeUpdate;
+    setTimeout(() => {
+      if (nomeUpdate != null) {
+        var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+        var item = array[id];
+        minhasClinicas[id].nomeClinica = nomeUpdate;
 
-      item.nomeClinica = nomeUpdate;
-      localStorage.setItem("minhasClinicas", JSON.stringify(array));
-      setNomeClinica(nomeUpdate);
-    }
+        item.nomeClinica = nomeUpdate;
+        localStorage.setItem("minhasClinicas", JSON.stringify(array));
+        setNomeClinica(nomeUpdate);
+        setUpdateNome(null);
+      }
 
-    if (cepUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
-      minhasClinicas[id].cep = cepUpdate;
+      if (cepUpdate != null) {
+        var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+        var item = array[id];
+        minhasClinicas[id].cep = cepUpdate;
 
-      item.cep = cepUpdate;
-      localStorage.setItem("minhasClinicas", JSON.stringify(array));
-      setCep(cepUpdate);
-    }
-    if (telefoneUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
-      minhasClinicas[id].teleFone = telefoneUpdate;
+        item.cep = cepUpdate;
+        localStorage.setItem("minhasClinicas", JSON.stringify(array));
+        setCep(cepUpdate);
+        setUpdateCEP(null);
+      }
+      if (telefoneUpdate != null) {
+        var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+        var item = array[id];
+        minhasClinicas[id].teleFone = telefoneUpdate;
 
-      item.teleFone = telefoneUpdate;
-      localStorage.setItem("minhasClinicas", JSON.stringify(array));
-      setTelefone(telefoneUpdate);
-    }
-    if (enderecoUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
-      minhasClinicas[id].enderecoRuaNumero = enderecoUpdate;
+        item.teleFone = telefoneUpdate;
+        localStorage.setItem("minhasClinicas", JSON.stringify(array));
+        setTelefone(telefoneUpdate);
+        setUpdateTelefone(null);
+      }
+      if (enderecoUpdate != null) {
+        var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+        var item = array[id];
+        minhasClinicas[id].enderecoRuaNumero = enderecoUpdate;
 
-      item.enderecoRuaNumero = enderecoUpdate;
-      localStorage.setItem("minhasClinicas", JSON.stringify(array));
-      setEndereco(enderecoUpdate);
-    }
+        item.enderecoRuaNumero = enderecoUpdate;
+        localStorage.setItem("minhasClinicas", JSON.stringify(array));
+        setEndereco(enderecoUpdate);
+        setUpdateEndereco(null);
+      }
+    }, 200);
   };
 
   useEffect(() => {
@@ -188,7 +201,6 @@ const FieldDefaultIcon = ({
                 onChange={(e) => {
                   setNomeClinica(e.target.value);
                   setUpdateNome(e.target.value);
-                  UpdateLocalStorage(updateNome, null, null, null);
                 }}
               ></Input>
             ) : (
@@ -205,7 +217,6 @@ const FieldDefaultIcon = ({
                 fontWeight={"bold"}
                 textColor={"black"}
                 _placeholder={{ fontWeight: "bold", color: "black" }}
-                onChange={(e) => setNomeClinica(e.target.value)}
                 variant={"unstyled"}
                 onClick={() => {}}
                 isDisabled={disableNome}
@@ -241,6 +252,7 @@ const FieldDefaultIcon = ({
                   boxSize="150px"
                   srcSet={defaultUserImage}
                   alt="Image Clinica"
+                  onClick={openFiles}
                 />
               </Center>
               <Center>
@@ -249,7 +261,7 @@ const FieldDefaultIcon = ({
                   id="file"
                   ref={inputFile}
                   style={{ display: "none" }}
-                  //onChange={onChangeFile.bind(this)}
+                  onChange={onChangeFile.bind(this)}
                 />
 
                 <Icon
@@ -270,7 +282,7 @@ const FieldDefaultIcon = ({
                       />
                       <Input
                         textAlign={"center"}
-                        value={telefone}
+                        defaultValue={telefone}
                         isDisabled={disable}
                         variant={focusEdit}
                         borderStartRadius={"md"}
@@ -278,9 +290,10 @@ const FieldDefaultIcon = ({
                         maxLength={13}
                         fontWeight={"bold"}
                         textColor={"black"}
-                        onChange={(e) =>
-                          UpdateLocalStorage(null, e.target.value, null, null)
-                        }
+                        onChange={(e) => {
+                          setUpdateTelefone(e.target.value);
+                          setTelefone(e.target.value);
+                        }}
                       />
                     </InputGroup>
                   </Center>
@@ -295,7 +308,7 @@ const FieldDefaultIcon = ({
                       <Input
                         textAlign={"center"}
                         justifySelf={"center"}
-                        value={cep}
+                        defaultValue={cep}
                         isDisabled={disable}
                         variant={focusEdit}
                         borderStartRadius={"md"}
@@ -303,9 +316,10 @@ const FieldDefaultIcon = ({
                         fontWeight={"bold"}
                         textColor={"black"}
                         maxLength={9}
-                        onChange={(e) =>
-                          UpdateLocalStorage(null, null, e.target.value, null)
-                        }
+                        onChange={(e) => {
+                          setUpdateCEP(e.target.value);
+                          setCep(e.target.value);
+                        }}
                       />
                     </InputGroup>
                   </Center>
@@ -332,11 +346,12 @@ const FieldDefaultIcon = ({
 
           <ModalFooter>
             <Textarea
-              value={endereco}
+              defaultValue={endereco}
               isDisabled={disable}
-              onChange={(e) =>
-                UpdateLocalStorage(null, null, null, e.target.value)
-              }
+              onChange={(e) => {
+                setUpdateEndereco(e.target.value);
+                setEndereco(e.target.value);
+              }}
             />
           </ModalFooter>
           <Button
@@ -346,6 +361,12 @@ const FieldDefaultIcon = ({
             marginStart="23px"
             marginBottom="10px"
             onClick={() => {
+              UpdateLocalStorage(
+                updateNome,
+                updateTelefone,
+                updateCEP,
+                updateEndereco
+              );
               ResetStates();
               onClose();
             }}
@@ -390,7 +411,7 @@ const FieldDefaultIcon = ({
               fontWeight="medium"
               paddingTop="4.5"
             >
-              {text}
+              {isMedic == true ? text : nome}
             </Text>
           </Stack>
         </GridItem>

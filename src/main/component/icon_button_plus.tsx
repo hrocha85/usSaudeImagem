@@ -128,7 +128,6 @@ const IconButtonPlus = (props) => {
     if (selectedFile) {
       const objectURL = URL.createObjectURL(selectedFile);
       setDefaultUserImage(objectURL);
-      return () => URL.revokeObjectURL(objectURL);
     }
   }, [selectedFile]);
 

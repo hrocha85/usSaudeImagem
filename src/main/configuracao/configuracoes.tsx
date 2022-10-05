@@ -220,7 +220,6 @@ const Configuracoes = () => {
     if (selectedFile) {
       const objectURL = URL.createObjectURL(selectedFile);
       setDefaultUserImage(objectURL);
-      return () => URL.revokeObjectURL(objectURL);
     }
   }, [selectedFile]);
 
@@ -315,7 +314,7 @@ const Configuracoes = () => {
               />
 
               {medicos.map((medico, key) => {
-                return <Medicos key={key} medico={medico} Id={key} />;
+                return <Medicos key={key} medico={medico} id={key} />;
               })}
               <Tooltip
                 label="Adicionar Médico"
