@@ -52,6 +52,8 @@ import ImageHome from "../images/icon_home.png";
 import ImageAssinaturaIcon from "../images/SignIcon_generated.jpg";
 import Medicos from "./medicos";
 
+export const lista_medicos = MedicosJSON.medicos;
+
 const Configuracoes = () => {
   const getMedicos = () => {
     var medicos;
@@ -65,8 +67,6 @@ const Configuracoes = () => {
   };
 
   let padRef = React.useRef<SignatureCanvas>(null);
-
-  let lista_medicos = MedicosJSON.medicos;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -220,7 +220,6 @@ const Configuracoes = () => {
     if (selectedFile) {
       const objectURL = URL.createObjectURL(selectedFile);
       setDefaultUserImage(objectURL);
-      return () => URL.revokeObjectURL(objectURL);
     }
   }, [selectedFile]);
 
@@ -297,7 +296,7 @@ const Configuracoes = () => {
             </PopoverContent>
           </Popover>
         </Flex>
-        <Box alignSelf='center' marginTop='200px'>
+        <Box alignSelf="center" marginTop="200px">
           <Flex
             h="100%"
             direction="row"
@@ -315,7 +314,7 @@ const Configuracoes = () => {
               />
 
               {medicos.map((medico, key) => {
-                return <Medicos key={key} medico={medico} />;
+                return <Medicos key={key} medico={medico} id={key} />;
               })}
               <Tooltip
                 label="Adicionar Médico"
@@ -431,6 +430,7 @@ const Configuracoes = () => {
                       <Select
                         placeholder="Clínicas Cadastradas"
                         variant="filled"
+                        textAlign='center'
                         onChange={(e) => setClinica(e.target.value)}
                       >
                         {listaClinicas.map((e, key) => {
@@ -527,7 +527,7 @@ const Configuracoes = () => {
               item={<ItemObservation />}
             />
           </Stack>
-          <Box margin="120px 0px 0px 30px" >
+          <Box margin="120px 0px 0px 30px">
             <Link href={`#/Home/`}>
               <Image src={ImageHome} />
             </Link>

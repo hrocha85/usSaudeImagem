@@ -29,6 +29,7 @@ import PropsTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { IconContext } from "react-icons";
 import { BiCamera } from "react-icons/bi";
+import { minhasClinicas } from "./icon_button_plus";
 
 const FieldDefaultIcon = ({
   text,
@@ -37,6 +38,8 @@ const FieldDefaultIcon = ({
   clinica,
   clinicas,
   onClickModal,
+  id,
+  isMedic,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -50,9 +53,17 @@ const FieldDefaultIcon = ({
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
-  const [nome, setClinica] = useState(clinica.nomeClinica);
+  const [nome, setNomeClinica] = useState(clinica.nomeClinica);
 
-  const [endereco, setEndereco] = useState(clinica.endereco);
+  const [updateNome, setUpdateNome] = useState<string | null>(null);
+
+  const [updateTelefone, setUpdateTelefone] = useState<string | null>(null);
+
+  const [updateCEP, setUpdateCEP] = useState<string | null>(null);
+
+  const [updateEndereco, setUpdateEndereco] = useState<string | null>(null);
+
+  const [endereco, setEndereco] = useState(clinica.enderecoRuaNumero);
 
   const [cep, setCep] = useState(clinica.cep);
 
@@ -70,22 +81,77 @@ const FieldDefaultIcon = ({
 
   const refTelefone = useRef<HTMLInputElement | null>(null);
 
-  useOutsideClick({
-    ref: refTelefone,
-    handler: () => setInputTelefone(false),
-  });
-
   const refCEP = useRef<HTMLInputElement | null>(null);
-  useOutsideClick({
-    ref: refCEP,
-    handler: () => setInputCEP(false),
-  });
 
   const refNomeClinica = useRef<HTMLInputElement | null>(null);
-  useOutsideClick({
-    ref: refNomeClinica,
-    handler: () => setInputNomeClinica(false),
-  });
+
+  const openFiles = () => {
+    inputFile.current?.click();
+  };
+
+  const onChangeFile = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    var file = event.target.files[0];
+    setSelectedFile(file);
+  };
+
+  const ResetStates = () => {
+    setFocusEdit("unstyled");
+    setDisable(true);
+    setDisableNome(true);
+  };
+
+  const UpdateLocalStorage = (
+    nomeUpdate,
+    telefoneUpdate,
+    cepUpdate,
+    enderecoUpdate
+  ) => {
+    setTimeout(() => {
+      if (nomeUpdate != null) {
+        var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+        var item = array[id];
+        minhasClinicas[id].nomeClinica = nomeUpdate;
+
+        item.nomeClinica = nomeUpdate;
+        localStorage.setItem("minhasClinicas", JSON.stringify(array));
+        setNomeClinica(nomeUpdate);
+        setUpdateNome(null);
+      }
+
+      if (cepUpdate != null) {
+        var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+        var item = array[id];
+        minhasClinicas[id].cep = cepUpdate;
+
+        item.cep = cepUpdate;
+        localStorage.setItem("minhasClinicas", JSON.stringify(array));
+        setCep(cepUpdate);
+        setUpdateCEP(null);
+      }
+      if (telefoneUpdate != null) {
+        var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+        var item = array[id];
+        minhasClinicas[id].teleFone = telefoneUpdate;
+
+        item.teleFone = telefoneUpdate;
+        localStorage.setItem("minhasClinicas", JSON.stringify(array));
+        setTelefone(telefoneUpdate);
+        setUpdateTelefone(null);
+      }
+      if (enderecoUpdate != null) {
+        var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+        var item = array[id];
+        minhasClinicas[id].enderecoRuaNumero = enderecoUpdate;
+
+        item.enderecoRuaNumero = enderecoUpdate;
+        localStorage.setItem("minhasClinicas", JSON.stringify(array));
+        setEndereco(enderecoUpdate);
+        setUpdateEndereco(null);
+      }
+    }, 200);
+  };
 
   useEffect(() => {
     if (selectedFile) {
@@ -95,28 +161,20 @@ const FieldDefaultIcon = ({
     }
   }, [selectedFile]);
 
-  const openFiles = () => {
-    inputFile.current?.click();
-  };
+  useOutsideClick({
+    ref: refNomeClinica,
+    handler: () => setInputNomeClinica(false),
+  });
 
-  function onChangeFile(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    var file = event.target.files[0];
-    setSelectedFile(file);
-  }
+  useOutsideClick({
+    ref: refCEP,
+    handler: () => setInputCEP(false),
+  });
 
-  function ResetStates() {
-    setFocusEdit("unstyled");
-    setDisable(true);
-    setDisableNome(true);
-  }
-
-  function UpdateLocalStorage(nomeCLinicaP) {
-    var cln = clinicas;
-    clinica.nomeClinica = nomeCLinicaP;
-    localStorage.setItem("minhasClinicas", JSON.stringify(clinica));
-  }
+  useOutsideClick({
+    ref: refTelefone,
+    handler: () => setInputTelefone(false),
+  });
 
   return (
     <>
@@ -134,16 +192,16 @@ const FieldDefaultIcon = ({
                 w="360px"
                 margin="5px"
                 textAlign="center"
-                alignContent="center"
-                paddingRight="40px"
-                marginStart="75px"
                 fontSize="20px"
                 defaultValue={nome}
                 _placeholder={{ fontWeight: "bold", color: "black" }}
                 fontWeight="bold"
                 variant={"filled"}
                 onClick={() => {}}
-                onChange={(e) => setClinica(e.target.value)}
+                onChange={(e) => {
+                  setNomeClinica(e.target.value);
+                  setUpdateNome(e.target.value);
+                }}
               ></Input>
             ) : (
               <Input
@@ -155,9 +213,10 @@ const FieldDefaultIcon = ({
                 paddingRight="40px"
                 fontSize="20px"
                 textAlign={"center"}
-                defaultValue={nome}
+                value={nome}
+                fontWeight={"bold"}
+                textColor={"black"}
                 _placeholder={{ fontWeight: "bold", color: "black" }}
-                onChange={(e) => setClinica(e.target.value)}
                 variant={"unstyled"}
                 onClick={() => {}}
                 isDisabled={disableNome}
@@ -166,7 +225,6 @@ const FieldDefaultIcon = ({
 
             <Box sx={{ alignSelf: "flex-end" }}>
               <Button
-                isDisabled={true}
                 color="#4759FC"
                 fontSize="16px"
                 fontWeight="bold"
@@ -194,6 +252,7 @@ const FieldDefaultIcon = ({
                   boxSize="150px"
                   srcSet={defaultUserImage}
                   alt="Image Clinica"
+                  onClick={openFiles}
                 />
               </Center>
               <Center>
@@ -202,7 +261,7 @@ const FieldDefaultIcon = ({
                   id="file"
                   ref={inputFile}
                   style={{ display: "none" }}
-                  //onChange={onChangeFile.bind(this)}
+                  onChange={onChangeFile.bind(this)}
                 />
 
                 <Icon
@@ -215,44 +274,58 @@ const FieldDefaultIcon = ({
               <Center>
                 <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
                   <Center paddingTop={"5px"}>
-                    <InputGroup variant={"unstyled"} width={"160px"}>
+                    <InputGroup variant={"unstyled"} width={"210px"}>
                       <InputLeftAddon
                         children="TEL:"
                         paddingEnd={"5px"}
                         fontWeight={"bold"}
                       />
                       <Input
-                        size="sm"
-                        placeholder="(11) 0000-0000"
                         textAlign={"center"}
-                        value={telefone}
+                        defaultValue={telefone}
                         isDisabled={disable}
                         variant={focusEdit}
+                        borderStartRadius={"md"}
+                        borderEndRadius={"md"}
+                        maxLength={13}
+                        fontWeight={"bold"}
+                        textColor={"black"}
+                        onChange={(e) => {
+                          setUpdateTelefone(e.target.value);
+                          setTelefone(e.target.value);
+                        }}
                       />
                     </InputGroup>
                   </Center>
 
                   <Center paddingTop={"5px"}>
-                    <InputGroup variant={"unstyled"} width={"165px"}>
+                    <InputGroup variant={"unstyled"} width={"215px"}>
                       <InputLeftAddon
                         children="CEP:"
                         paddingEnd={"5px"}
                         fontWeight={"bold"}
                       />
                       <Input
-                        size="sm"
-                        placeholder="13000-000"
                         textAlign={"center"}
-                        value={cep}
+                        justifySelf={"center"}
+                        defaultValue={cep}
                         isDisabled={disable}
                         variant={focusEdit}
+                        borderStartRadius={"md"}
+                        borderEndRadius={"md"}
+                        fontWeight={"bold"}
+                        textColor={"black"}
+                        maxLength={9}
+                        onChange={(e) => {
+                          setUpdateCEP(e.target.value);
+                          setCep(e.target.value);
+                        }}
                       />
                     </InputGroup>
                   </Center>
 
                   <Center>
                     <Button
-                      isDisabled={true}
                       color="#4759FC"
                       fontSize="16px"
                       fontWeight="bold"
@@ -273,17 +346,27 @@ const FieldDefaultIcon = ({
 
           <ModalFooter>
             <Textarea
-              placeholder="Endereço"
-              value={clinica.enderecoRuaNumero}
+              defaultValue={endereco}
               isDisabled={disable}
+              onChange={(e) => {
+                setUpdateEndereco(e.target.value);
+                setEndereco(e.target.value);
+              }}
             />
           </ModalFooter>
           <Button
             textColor="white"
             backgroundColor="#0e63fe"
-            margin="10px"
+            marginEnd="20px"
+            marginStart="23px"
+            marginBottom="10px"
             onClick={() => {
-              UpdateLocalStorage(nome);
+              UpdateLocalStorage(
+                updateNome,
+                updateTelefone,
+                updateCEP,
+                updateEndereco
+              );
               ResetStates();
               onClose();
             }}
@@ -306,10 +389,7 @@ const FieldDefaultIcon = ({
           borderWidth="2px"
           borderColor="#e2e8f0"
           onClick={() => {
-            return (
-              onClickModal ? onOpen() : null
-
-            )
+            return onClickModal ? onOpen() : null;
           }}
         >
           <Stack direction="row" alignItems="center">
@@ -331,7 +411,7 @@ const FieldDefaultIcon = ({
               fontWeight="medium"
               paddingTop="4.5"
             >
-              {text}
+              {isMedic == true ? text : nome}
             </Text>
           </Stack>
         </GridItem>

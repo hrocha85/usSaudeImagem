@@ -82,6 +82,7 @@ const IconButtonPlus = (props) => {
     localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
     props.setAtualizar(!props.atualizar);
     onClose();
+    
   };
 
   const openFiles = () => {
@@ -127,7 +128,6 @@ const IconButtonPlus = (props) => {
     if (selectedFile) {
       const objectURL = URL.createObjectURL(selectedFile);
       setDefaultUserImage(objectURL);
-      return () => URL.revokeObjectURL(objectURL);
     }
   }, [selectedFile]);
 
