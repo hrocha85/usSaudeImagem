@@ -4,10 +4,14 @@ import {
   Center,
   Container,
   Divider,
+  Flex,
   Grid,
+  HStack,
   Icon,
   Image,
   Input,
+  InputGroup,
+  InputLeftAddon,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -15,25 +19,162 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Select,
   Stack,
   Text,
-  useDisclosure
+  useDisclosure,
+  useOutsideClick,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { AiOutlineClear } from "react-icons/ai";
 import { BiCamera } from "react-icons/bi";
 import { HiOutlineUser } from "react-icons/hi";
+import SignatureCanvas from "react-signature-canvas";
 import FieldDefaultIcon from "../component/field_default_icon";
+import { lista_medicos } from "./configuracoes";
 
-const Medicos = ({ medico }) => {
+const Medicos = ({ medico, id }) => {
+  let medicos: any[] = [];
+
+  medicos.push(medico);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [enable, setEnable] = useState(true);
+  
+  const [enableSelectedClinica, setSelectedClinica] = useState(true);
 
-  const [focus, setFocus] = useState("unstyled");
+  const [crm, setCRM] = useState(medico.crm);
 
-  let medicos: any[] = [];
-  medicos.push(medico);
+  const [CRMenable, setCRMEnable] = useState(true);
 
+  const [updateCRM, setUpdateCRM] = useState<string | null>(null);
+
+  const [InputCRM, setInputCRM] = useState(false);
+
+  const [updateNome, setUpdateNome] = useState<string | null>(null);
+
+  const [nomeMedico, setNomeMedico] = useState(medico.nome);
+
+  const [clinica, setClinica] = useState(medico.clinica);
+
+  const [updateClinica, setUpdateClinica] = useState<string | null>(null);
+
+  const [InputNomeMedico, setInputNomeMedico] = useState(false);
+
+  const [InputAssinatura, setInputAssinatura] = useState(false);
+
+  const [newAssinaturaEdit, setnewAssinaturaEdit] = useState(false);
+
+  const [AssinaturaUpdate, setAssinaturaUpdate] = useState(false);
+
+  const [assinatura, setAssinatura] = useState(medico.assinatura);
+
+  const refNomeMedico = useRef<HTMLInputElement | null>(null);
+
+  const refCRM = useRef<HTMLInputElement | null>(null);
+  const [selectedFile, setSelectedFile] = useState();
+  const [defaultUserImage, setDefaultUserImage] = useState(medico.foto);
+  const inputFile = useRef<HTMLInputElement | null>(null);
+
+  const [listaClinicas, setListaClinicas] = useState(
+    JSON.parse(localStorage.getItem("minhasClinicas")!)
+  );
+
+  let padRef = React.useRef<SignatureCanvas>(null);
+
+  const openFiles = () => {
+    inputFile.current?.click();
+  };
+
+  const onChangeFile = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    var file = event.target.files[0];
+    setSelectedFile(file);
+  };
+
+  useEffect(() => {
+    if (selectedFile) {
+      const objectURL = URL.createObjectURL(selectedFile);
+      setDefaultUserImage(objectURL);
+    }
+  }, [selectedFile]);
+
+  const UpdateLocalStorage = (nomeUpdate, CRMupdate, clinicaUpdate) => {
+    setTimeout(() => {
+      if (nomeUpdate != null) {
+        var array = JSON.parse(localStorage.getItem("medicos")!);
+        var item = array[id];
+        lista_medicos[id].nome = nomeUpdate;
+
+        item.nome = nomeUpdate;
+        localStorage.setItem("medicos", JSON.stringify(array));
+        setNomeMedico(nomeUpdate);
+        setUpdateNome(null);
+      }
+      if (CRMupdate != null) {
+        var array = JSON.parse(localStorage.getItem("medicos")!);
+        var item = array[id];
+        lista_medicos[id].crm = CRMupdate;
+
+        item.crm = CRMupdate;
+        localStorage.setItem("medicos", JSON.stringify(array));
+        setCRM(CRMupdate);
+        setUpdateCRM(null);
+      }
+      if (clinicaUpdate != null) {
+        var array = JSON.parse(localStorage.getItem("medicos")!);
+        var item = array[id];
+        lista_medicos[id].clinica = clinicaUpdate;
+
+        item.clinica = clinicaUpdate;
+        localStorage.setItem("medicos", JSON.stringify(array));
+        setClinica(updateClinica);
+        setUpdateClinica(null);
+      }
+      if (AssinaturaUpdate) {
+        var array = JSON.parse(localStorage.getItem("medicos")!);
+        var item = array[id];
+        lista_medicos[id].assinatura = padRef.current
+          ?.getCanvas()
+          .toDataURL("image/png")!;
+
+        item.assinatura = padRef.current?.getCanvas().toDataURL("image/png")!;
+        localStorage.setItem("medicos", JSON.stringify(array));
+        setAssinatura(padRef.current?.getCanvas().toDataURL("image/png")!);
+        setAssinaturaUpdate(false);
+      }
+    }, 200);
+  };
+
+  const clearAssinatura = () => {
+    padRef.current?.clear();
+    setAssinaturaUpdate(true);
+  };
+
+  const ResetStates = () => {
+    setCRMEnable(true);
+    setEnable(true);
+    setInputAssinatura(false);
+    setnewAssinaturaEdit(false);
+    setAssinaturaUpdate(false);
+    setSelectedClinica(true)
+  };
+  useOutsideClick({
+    ref: refNomeMedico,
+    handler: () => setInputNomeMedico(false),
+  });
+  useOutsideClick({
+    ref: refCRM,
+    handler: () => {
+      setInputCRM(false);
+    },
+  });
+
+  useEffect(() => {
+    setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));
+  }, [localStorage.getItem("minhasClinicas")!]);
   return (
     <Box
       bg="#FAFAFA"
@@ -51,19 +192,21 @@ const Medicos = ({ medico }) => {
           paddingStart="8px"
           alignSelf="center"
         >
-          {medico.nome}
+          {nomeMedico}
         </Text>
       </Box>
 
-      {medicos.map((dr,key) => (
+      {medicos.map((key) => (
         <FieldDefaultIcon
           key={key}
-          text={dr.clinica}
+          text={medico.clinica}
           textColor="#4A5568"
           icon={HiOutlineUser}
           clinica={medicos}
           clinicas={null}
           onClickModal={false}
+          id={key}
+          isMedic={true}
         />
       ))}
       <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
@@ -73,23 +216,38 @@ const Medicos = ({ medico }) => {
           <Divider orientation="horizontal" marginTop="10px" />
           <ModalCloseButton
             onClick={() => {
-              setFocus("unstyled");
-              setEnable(true);
+              ResetStates();
             }}
           />
 
           <Stack direction="row" justify="center" margin="10px">
             <Box sx={{ flexGrow: 1 }}>
-              <Input
-                textAlign="center"
-                paddingStart="60px"
-                fontWeight="bold"
-                fontSize="20px"
-                value={medico.nome}
-                isDisabled={enable}
-                variant={focus}
-                _placeholder={{ fontWeight: "bold", color: "black" }}
-              ></Input>
+              {InputNomeMedico ? (
+                <Input
+                  ref={refNomeMedico}
+                  textAlign="center"
+                  paddingStart="60px"
+                  fontWeight="bold"
+                  fontSize="20px"
+                  defaultValue={nomeMedico}
+                  isDisabled={enable}
+                  variant={"filled"}
+                  onChange={(e) => {
+                    setUpdateNome(e.target.value);
+                  }}
+                ></Input>
+              ) : (
+                <Input
+                  ref={refNomeMedico}
+                  textAlign="center"
+                  paddingStart="60px"
+                  fontWeight="bold"
+                  fontSize="20px"
+                  defaultValue={nomeMedico}
+                  isDisabled={enable}
+                  variant="unstyled"
+                ></Input>
+              )}
             </Box>
 
             <Box sx={{ alignSelf: "flex-end" }}>
@@ -102,7 +260,7 @@ const Medicos = ({ medico }) => {
                 alignItems="center"
                 onClick={() => {
                   setEnable(false);
-                  setFocus("filled");
+                  setInputNomeMedico(true);
                 }}
               >
                 Editar
@@ -114,41 +272,210 @@ const Medicos = ({ medico }) => {
 
           <Container centerContent h="100%" w="100%" marginTop="5px">
             <ModalBody>
-              <Image
-                borderRadius="full"
-                boxSize="150px"
-                srcSet={medico.foto}
-                alt="Image DR"
-              />
               <Center>
-                <Icon as={BiCamera} marginTop="2px" color="#4658fc" />
+                <Image
+                  borderRadius="full"
+                  boxSize="150px"
+                  srcSet={defaultUserImage}
+                  alt="Image DR"
+                  onClick={openFiles}
+                />
               </Center>
               <Center>
-                <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
-                  <Text size="16">CRM/UF</Text>
-
-                  <Stack direction="row" justify="center">
-                    <Text fontWeight="bold" size="20px">
-                      {medico.crm}
+                <input
+                  type="file"
+                  id="file"
+                  ref={inputFile}
+                  style={{ display: "none" }}
+                  onChange={onChangeFile.bind(this)}
+                />
+                <Icon
+                  as={BiCamera}
+                  marginTop="2px"
+                  color="#4658fc"
+                  onClick={openFiles}
+                />
+              </Center>
+              {listaClinicas ? (
+                <Center>
+                  <HStack margin="10px">
+                    <Text marginEnd="5px" fontWeight="bold" fontSize="17px">
+                      Clínicas:
                     </Text>
-                  </Stack>
+                    <Select
+                      defaultValue={clinica}
+                      width='220px'
+                      variant="filled"
+                      isDisabled={enableSelectedClinica}
+                      textAlign='center'
+                      onChange={(e) => setUpdateClinica(e.target.value)}
+                    >
+                      {listaClinicas.map((e, key) => {
+                        return (
+                          <option key={key} value={e.nomeClinica}>
+                            {e.nomeClinica}
+                          </option>
+                        );
+                      })}
+                    </Select>
+                  </HStack>
+                </Center>
+              ) : null}
 
-                  <Center></Center>
+              <Center>
+                <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
+                  <Center>
+                    {InputCRM ? (
+                      <Center paddingTop={"5px"}>
+                        <InputGroup
+                          width={"250px"}
+                          marginEnd="55px"
+                          variant={"unstyled"}
+                        >
+                          <InputLeftAddon
+                            children="CRM/UF:"
+                            paddingEnd={"5px"}
+                            fontWeight="bold"
+                          />
+                          <Input
+                            isDisabled={CRMenable}
+                            variant={"filled"}
+                            borderStartRadius={"md"}
+                            borderEndRadius={"md"}
+                            marginStart="5px"
+                            maxLength={9}
+                            ref={refCRM}
+                            defaultValue={crm}
+                            fontSize="18px"
+                            textAlign={"center"}
+                            onChange={(e) => {
+                              setUpdateCRM(e.target.value);
+                            }}
+                          />
+                        </InputGroup>
+                      </Center>
+                    ) : (
+                      <Center paddingTop={"5px"}>
+                        <InputGroup
+                          variant={"unstyled"}
+                          width={"250px"}
+                          marginEnd="55px"
+                        >
+                          <InputLeftAddon
+                            children="CRM/UF:"
+                            paddingEnd={"5px"}
+                            fontWeight="bold"
+                          />
+                          <Input
+                            ref={refCRM}
+                            defaultValue={crm}
+                            fontSize="18px"
+                            variant={"unstyled"}
+                            isDisabled={CRMenable}
+                            textAlign={"center"}
+                            maxLength={9}
+                          />
+                        </InputGroup>
+                      </Center>
+                    )}
+                  </Center>
+
+                  <Center>
+                    <Button
+                      color="#4759FC"
+                      fontSize="16px"
+                      fontWeight="bold"
+                      backgroundColor="transparent"
+                      alignItems="center"
+                      onClick={() => {
+                        setCRMEnable(false);
+                        setInputCRM(true);
+                        setInputAssinatura(true);
+                        setSelectedClinica(false)
+                      }}
+                    >
+                      Editar
+                    </Button>
+                  </Center>
                 </Grid>
               </Center>
             </ModalBody>
           </Container>
 
           <ModalFooter>
-            {medico.assinatura ? (
+            {InputAssinatura ? (
+              <Box
+                w="100%"
+                h="100%"
+                backgroundColor={"#F7FAFC"}
+                borderColor="#3183cf"
+                borderWidth="2px"
+                boxShadow="md"
+                borderRadius={"md"}
+              >
+                {newAssinaturaEdit ? (
+                  <SignatureCanvas
+                    ref={padRef}
+                    backgroundColor="#F7FAFC"
+                    penColor="black"
+                    onEnd={() => UpdateLocalStorage(null, null,null)}
+                    canvasProps={{
+                      width: 390,
+                      height: 230,
+                      className: "sigCanvas",
+                    }}
+                  />
+                ) : (
+                  <Image
+                    backgroundColor={"#F7FAFC"}
+                    borderRadius={"md"}
+                    width="400px"
+                    height="200px"
+                    srcSet={assinatura}
+                    alt="Assinatura"
+                  />
+                )}
+
+                <Flex justify="end">
+                  <Icon
+                    as={AiOutlineClear}
+                    color="#4658fc"
+                    margin="5px"
+                    alignItems="end"
+                    onClick={() => {
+                      clearAssinatura();
+                      setnewAssinaturaEdit(true);
+                    }}
+                  />
+                </Flex>
+              </Box>
+            ) : (
               <Image
+                boxShadow="lg"
+                backgroundColor={"#F7FAFC"}
+                borderRadius={"md"}
                 width="400px"
                 height="200px"
-                srcSet={medico.assinatura}
+                srcSet={assinatura}
                 alt="Assinatura"
               />
-            ) : null}
+            )}
           </ModalFooter>
+          <Button
+            marginTop="5px"
+            textColor="white"
+            backgroundColor="#0e63fe"
+            marginEnd="20px"
+            marginStart="23px"
+            marginBottom="10px"
+            onClick={() => {
+              UpdateLocalStorage(updateNome, updateCRM, updateClinica);
+              ResetStates();
+              onClose();
+            }}
+          >
+            Salvar
+          </Button>
         </ModalContent>
       </Modal>
     </Box>

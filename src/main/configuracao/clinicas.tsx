@@ -31,6 +31,8 @@ const Clinica = (props) => {
           clinica={item}
           clinicas={listaClinicas}
           onClickModal={true}
+          id={key}
+          isMedic={false}
         />
       ))}
     </>
