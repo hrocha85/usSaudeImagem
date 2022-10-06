@@ -102,6 +102,10 @@ const Configuracoes = () => {
 
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
 
+  useEffect(() => {
+    setMedicos(getMedicos())
+  }, [localStorage.getItem("medicos")!]);
+
   const AddMedico = () => {
     const obj = {
       nome: nome,
@@ -430,7 +434,7 @@ const Configuracoes = () => {
                       <Select
                         placeholder="Clínicas Cadastradas"
                         variant="filled"
-                        textAlign='center'
+                        textAlign="center"
                         onChange={(e) => setClinica(e.target.value)}
                       >
                         {listaClinicas.map((e, key) => {

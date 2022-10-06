@@ -24,14 +24,28 @@ import {
   Text,
   useDisclosure,
   useOutsideClick,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
 import { BiCamera } from "react-icons/bi";
 import { HiOutlineUser } from "react-icons/hi";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import SignatureCanvas from "react-signature-canvas";
 import FieldDefaultIcon from "../component/field_default_icon";
 import { lista_medicos } from "./configuracoes";
+import { useLongPress } from "use-long-press";
+import { IconContext } from "react-icons";
+import { useForceUpdate } from "framer-motion";
 
 const Medicos = ({ medico, id }) => {
   let medicos: any[] = [];
@@ -40,8 +54,14 @@ const Medicos = ({ medico, id }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const {
+    isOpen: isOpenLongModal,
+    onOpen: onOpenLongModal,
+    onClose: onCloseLongModal,
+  } = useDisclosure();
+
   const [enable, setEnable] = useState(true);
-  
+
   const [enableSelectedClinica, setSelectedClinica] = useState(true);
 
   const [crm, setCRM] = useState(medico.crm);
@@ -70,18 +90,31 @@ const Medicos = ({ medico, id }) => {
 
   const [assinatura, setAssinatura] = useState(medico.assinatura);
 
+  const [openModalLongPress, setOpenModalLongPress] = useState(false);
+
   const refNomeMedico = useRef<HTMLInputElement | null>(null);
 
   const refCRM = useRef<HTMLInputElement | null>(null);
+
   const [selectedFile, setSelectedFile] = useState();
+
   const [defaultUserImage, setDefaultUserImage] = useState(medico.foto);
+
   const inputFile = useRef<HTMLInputElement | null>(null);
+
+  const initialFocusRef = useRef<HTMLButtonElement | null>(null);
 
   const [listaClinicas, setListaClinicas] = useState(
     JSON.parse(localStorage.getItem("minhasClinicas")!)
   );
 
   let padRef = React.useRef<SignatureCanvas>(null);
+
+  const bindLongPress = useLongPress(() => {
+    {
+      onOpenLongModal();
+    }
+  });
 
   const openFiles = () => {
     inputFile.current?.click();
@@ -148,6 +181,12 @@ const Medicos = ({ medico, id }) => {
     }, 200);
   };
 
+  const RemoveItem = () => {
+    var array = JSON.parse(localStorage.getItem("medicos")!);
+    array.splice(id, 1);
+    localStorage.setItem("medicos", JSON.stringify(array));
+  };
+
   const clearAssinatura = () => {
     padRef.current?.clear();
     setAssinaturaUpdate(true);
@@ -159,7 +198,7 @@ const Medicos = ({ medico, id }) => {
     setInputAssinatura(false);
     setnewAssinaturaEdit(false);
     setAssinaturaUpdate(false);
-    setSelectedClinica(true)
+    setSelectedClinica(true);
   };
   useOutsideClick({
     ref: refNomeMedico,
@@ -184,17 +223,29 @@ const Medicos = ({ medico, id }) => {
       borderRadius="10.85px"
       boxShadow="md"
       onClick={onOpen}
+      {...bindLongPress()}
     >
-      <Box margin="10px">
-        <Text
-          color="#1A202C"
-          fontSize="16px"
-          paddingStart="8px"
-          alignSelf="center"
-        >
+      <Stack margin="10px" direction="row" justifyContent="space-between">
+        <Text color="#1A202C" fontSize="16px" paddingStart="8px" align="center">
           {nomeMedico}
         </Text>
-      </Box>
+
+        <Flex justify="end">
+          <IconContext.Provider value={{ color: "#4A5568" }}>
+            <Icon
+              margin="5px"
+              as={BsThreeDotsVertical}
+              w={5}
+              h={4}
+              marginStart="15px"
+              onClick={() => {
+                console.log("3");
+                RemoveItem();
+              }}
+            />
+          </IconContext.Provider>
+        </Flex>
+      </Stack>
 
       {medicos.map((key) => (
         <FieldDefaultIcon
@@ -304,10 +355,10 @@ const Medicos = ({ medico, id }) => {
                     </Text>
                     <Select
                       defaultValue={clinica}
-                      width='220px'
+                      width="220px"
                       variant="filled"
                       isDisabled={enableSelectedClinica}
-                      textAlign='center'
+                      textAlign="center"
                       onChange={(e) => setUpdateClinica(e.target.value)}
                     >
                       {listaClinicas.map((e, key) => {
@@ -391,7 +442,7 @@ const Medicos = ({ medico, id }) => {
                         setCRMEnable(false);
                         setInputCRM(true);
                         setInputAssinatura(true);
-                        setSelectedClinica(false)
+                        setSelectedClinica(false);
                       }}
                     >
                       Editar
@@ -418,7 +469,7 @@ const Medicos = ({ medico, id }) => {
                     ref={padRef}
                     backgroundColor="#F7FAFC"
                     penColor="black"
-                    onEnd={() => UpdateLocalStorage(null, null,null)}
+                    onEnd={() => UpdateLocalStorage(null, null, null)}
                     canvasProps={{
                       width: 390,
                       height: 230,
@@ -476,6 +527,23 @@ const Medicos = ({ medico, id }) => {
           >
             Salvar
           </Button>
+        </ModalContent>
+      </Modal>
+      <Modal isOpen={isOpenLongModal} onClose={onCloseLongModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Excluir Doutor(a) {nomeMedico} ?</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text> Deseja excluir Doutor(a) {nomeMedico} ?</Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onCloseLongModal}>
+              Cancelar
+            </Button>
+            <Button variant="ghost">Exluir </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </Box>
