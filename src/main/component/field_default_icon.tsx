@@ -12,6 +12,9 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  List,
+  ListIcon,
+  ListItem,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -19,6 +22,11 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
   Stack,
   Text,
   Textarea,
@@ -29,6 +37,7 @@ import PropsTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { IconContext } from "react-icons";
 import { BiCamera } from "react-icons/bi";
+import { BsThreeDotsVertical, BsTrash } from "react-icons/bs";
 import { minhasClinicas } from "./icon_button_plus";
 
 const FieldDefaultIcon = ({
@@ -175,13 +184,68 @@ const FieldDefaultIcon = ({
     ref: refTelefone,
     handler: () => setInputTelefone(false),
   });
+  const {
+    isOpen: isOpenLongModal,
+    onOpen: onOpenLongModal,
+    onClose: onCloseLongModal,
+  } = useDisclosure();
 
+  const ExcluirClinica = () => {
+    return (
+      <List>
+        <ListItem textColor="black">
+          <ListIcon as={BsTrash} />
+          Excluir Clínica
+        </ListItem>
+      </List>
+    );
+  };
+  const RemoveItem = () => {
+    var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+    array.splice(id, 1);
+    localStorage.setItem("minhasClinicas", JSON.stringify(array));
+    window.location.reload();
+  };
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader></ModalHeader>
+          <ModalHeader>
+            <Popover>
+              <PopoverTrigger>
+                <Button
+                  size="auto"
+                  backgroundColor="transparent"
+                  variant="ghost"
+                  _hover={{ bg: "transparent" }}
+                >
+                  <IconContext.Provider value={{ color: "#4A5568" }}>
+                    <Icon
+                      margin="5px"
+                      as={BsThreeDotsVertical}
+                      w={5}
+                      h={4}
+                      marginStart="15px"
+                    />
+                  </IconContext.Provider>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent borderRadius="20px" w="auto">
+                <PopoverArrow />
+                <Button
+                  onClick={() => onOpenLongModal()}
+                  size="auto"
+                  fontWeight="normal"
+                  backgroundColor="transparent"
+                  variant="ghost"
+                  _hover={{ bg: "transparent" }}
+                >
+                  <PopoverBody>{ExcluirClinica()}</PopoverBody>
+                </Button>
+              </PopoverContent>
+            </Popover>
+          </ModalHeader>
           <Divider orientation="horizontal" marginTop="10px" />
           <ModalCloseButton onClick={() => ResetStates()} />
 
@@ -416,6 +480,26 @@ const FieldDefaultIcon = ({
           </Stack>
         </GridItem>
       </Flex>
+
+      <Box>
+        <Modal isOpen={isOpenLongModal} onClose={onCloseLongModal}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Excluir Clínica {nome} ?</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Text> Deseja excluir Clínica {nome} ?</Text>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onCloseLongModal}>
+                Cancelar
+              </Button>
+              <Button variant="ghost" onClick={() => RemoveItem()}>Excluir</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </Box>
     </>
   );
 };

@@ -32,7 +32,7 @@ import {
   Text,
   Tooltip,
   useDisclosure,
-  useOutsideClick,
+  useOutsideClick
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
@@ -103,7 +103,7 @@ const Configuracoes = () => {
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    setMedicos(getMedicos())
+    setMedicos(getMedicos);
   }, [localStorage.getItem("medicos")!]);
 
   const AddMedico = () => {
@@ -238,6 +238,10 @@ const Configuracoes = () => {
   }, [stateClickAddMedico]);
 
   useEffect(() => {
+    setMedicos(getMedicos);
+  }, [localStorage.getItem("medicos")]);
+
+  useEffect(() => {
     showImageAssinatura();
   }, [imageAssinatura]);
 
@@ -320,6 +324,7 @@ const Configuracoes = () => {
               {medicos.map((medico, key) => {
                 return <Medicos key={key} medico={medico} id={key} />;
               })}
+
               <Tooltip
                 label="Adicionar Médico"
                 backgroundColor="white"
