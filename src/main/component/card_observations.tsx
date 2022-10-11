@@ -2,7 +2,7 @@ import { Box, Flex, Grid, Text } from "@chakra-ui/react";
 
 const RectangularCard = ({ titulo, altura, item }) => {
   return (
-    <Flex w='100%'>
+    <Flex w="100%" h="auto">
       <Box
         paddingBottom="16px"
         bg="#FAFAFA"
@@ -32,9 +32,6 @@ const RectangularCard = ({ titulo, altura, item }) => {
           {item}
         </Grid>
       </Box>
-      <>
-     
-      </>
     </Flex>
   );
 };

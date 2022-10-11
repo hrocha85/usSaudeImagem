@@ -30,6 +30,7 @@ import {
   Stack,
   Text,
   Textarea,
+  Tooltip,
   useDisclosure,
   useOutsideClick,
 } from "@chakra-ui/react";
@@ -84,6 +85,8 @@ const FieldDefaultIcon = ({
 
   const [InputCEP, setInputCEP] = useState(false);
 
+  const [closeTooltip, setcloseTooltip] = useState(true);
+
   const [disable, setDisable] = useState(true);
 
   const [disableNome, setDisableNome] = useState(true);
@@ -109,6 +112,7 @@ const FieldDefaultIcon = ({
     setFocusEdit("unstyled");
     setDisable(true);
     setDisableNome(true);
+    setcloseTooltip(true);
   };
 
   const UpdateLocalStorage = (
@@ -212,39 +216,53 @@ const FieldDefaultIcon = ({
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            <Popover>
-              <PopoverTrigger>
-                <Button
-                  size="auto"
-                  backgroundColor="transparent"
-                  variant="ghost"
-                  _hover={{ bg: "transparent" }}
-                >
-                  <IconContext.Provider value={{ color: "#4A5568" }}>
-                    <Icon
-                      margin="5px"
-                      as={BsThreeDotsVertical}
-                      w={5}
-                      h={4}
-                      marginStart="15px"
-                    />
-                  </IconContext.Provider>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent borderRadius="20px" w="auto">
-                <PopoverArrow />
-                <Button
-                  onClick={() => onOpenLongModal()}
-                  size="auto"
-                  fontWeight="normal"
-                  backgroundColor="transparent"
-                  variant="ghost"
-                  _hover={{ bg: "transparent" }}
-                >
-                  <PopoverBody>{ExcluirClinica()}</PopoverBody>
-                </Button>
-              </PopoverContent>
-            </Popover>
+            <Tooltip
+              isDisabled={closeTooltip}
+              label="Opções"
+              backgroundColor="white"
+              placement="top"
+              hasArrow
+              arrowSize={15}
+              textColor="black"
+            >
+              <span style={{ position: "fixed", marginBottom: "20px" }}>
+                <Popover>
+                  <PopoverTrigger>
+                    <Button
+                      onClick={() => setcloseTooltip(true)}
+                      size="auto"
+                      backgroundColor="transparent"
+                      variant="ghost"
+                      _hover={{ bg: "transparent" }}
+                    >
+                      <IconContext.Provider value={{ color: "#4A5568" }}>
+                        <Icon
+                          onMouseOver={() => setcloseTooltip(false)}
+                          as={BsThreeDotsVertical}
+                          w={5}
+                          h={4}
+                          marginStart="5px"
+                          marginBottom="25px"
+                        />
+                      </IconContext.Provider>
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent borderRadius="20px" w="auto">
+                    <PopoverArrow />
+                    <Button
+                      onClick={() => onOpenLongModal()}
+                      size="auto"
+                      fontWeight="normal"
+                      backgroundColor="transparent"
+                      variant="ghost"
+                      _hover={{ bg: "transparent" }}
+                    >
+                      <PopoverBody>{ExcluirClinica()}</PopoverBody>
+                    </Button>
+                  </PopoverContent>
+                </Popover>
+              </span>
+            </Tooltip>
           </ModalHeader>
           <Divider orientation="horizontal" marginTop="10px" />
           <ModalCloseButton onClick={() => ResetStates()} />
@@ -495,7 +513,9 @@ const FieldDefaultIcon = ({
               <Button colorScheme="blue" mr={3} onClick={onCloseLongModal}>
                 Cancelar
               </Button>
-              <Button variant="ghost" onClick={() => RemoveItem()}>Excluir</Button>
+              <Button variant="ghost" onClick={() => RemoveItem()}>
+                Excluir
+              </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>

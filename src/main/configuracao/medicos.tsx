@@ -30,6 +30,7 @@ import {
   Select,
   Stack,
   Text,
+  Tooltip,
   useDisclosure,
   useOutsideClick,
 } from "@chakra-ui/react";
@@ -85,6 +86,8 @@ const Medicos = ({ medico, id }) => {
   const [InputNomeMedico, setInputNomeMedico] = useState(false);
 
   const [InputAssinatura, setInputAssinatura] = useState(false);
+
+  const [closeTooltip, setcloseTooltip] = useState(false);
 
   const [newAssinaturaEdit, setnewAssinaturaEdit] = useState(false);
 
@@ -209,6 +212,7 @@ const Medicos = ({ medico, id }) => {
     setnewAssinaturaEdit(false);
     setAssinaturaUpdate(false);
     setSelectedClinica(true);
+    setcloseTooltip(false);
   };
   useOutsideClick({
     ref: refNomeMedico,
@@ -241,42 +245,53 @@ const Medicos = ({ medico, id }) => {
         >
           {nomeMedico}
         </Text>
-
-        <Flex justify="end">
-          <Popover>
-            <PopoverTrigger>
-              <Button
-                size="auto"
-                backgroundColor="transparent"
-                variant="ghost"
-                _hover={{ bg: "transparent" }}
-              >
-                <IconContext.Provider value={{ color: "#4A5568" }}>
-                  <Icon
-                    margin="5px"
-                    as={BsThreeDotsVertical}
-                    w={5}
-                    h={4}
-                    marginStart="15px"
-                  />
-                </IconContext.Provider>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent borderRadius="20px" w="auto">
-              <PopoverArrow />
-              <Button
-                onClick={() => onOpenLongModal()}
-                size="auto"
-                fontWeight="normal"
-                backgroundColor="transparent"
-                variant="ghost"
-                _hover={{ bg: "transparent" }}
-              >
-                <PopoverBody>{ExcluirMedico()}</PopoverBody>
-              </Button>
-            </PopoverContent>
-          </Popover>
-        </Flex>
+        <Tooltip
+          isDisabled={closeTooltip}
+          label="Opções"
+          backgroundColor="white"
+          placement="top"
+          hasArrow
+          arrowSize={15}
+          textColor="black"
+        >
+          <Flex justify="end">
+            <Popover>
+              <PopoverTrigger>
+                <Button
+                  onClick={() => setcloseTooltip(true)}
+                  size="auto"
+                  backgroundColor="transparent"
+                  variant="ghost"
+                  _hover={{ bg: "transparent" }}
+                >
+                  <IconContext.Provider value={{ color: "#4A5568" }}>
+                    <Icon
+                      onMouseOver={() => setcloseTooltip(false)}
+                      margin="5px"
+                      as={BsThreeDotsVertical}
+                      w={5}
+                      h={4}
+                      marginStart="15px"
+                    />
+                  </IconContext.Provider>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent borderRadius="20px" w="auto">
+                <PopoverArrow />
+                <Button
+                  onClick={() => onOpenLongModal()}
+                  size="auto"
+                  fontWeight="normal"
+                  backgroundColor="transparent"
+                  variant="ghost"
+                  _hover={{ bg: "transparent" }}
+                >
+                  <PopoverBody>{ExcluirMedico()}</PopoverBody>
+                </Button>
+              </PopoverContent>
+            </Popover>
+          </Flex>
+        </Tooltip>
       </Stack>
       <Box onClick={onOpen}>
         {medicos.map((key) => (
