@@ -1,4 +1,4 @@
-import { Box, Checkbox, Select, Input, extendTheme } from "@chakra-ui/react";
+import { Box, Checkbox, Select, Input } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import { useContext, useState } from 'react';
 import { LaudosContext } from '../../../../context/LuadosContext';
@@ -6,7 +6,6 @@ import { LaudosContext } from '../../../../context/LuadosContext';
 function Baco() {
     const altura = '100%'
     const largura = '66%'
-
 
     let aumentadoComEcotextura = document.querySelector('#aumentadoComEcotextura') as HTMLInputElement
     let naoVisibilizado = document.querySelector('#naoVisibilizado') as HTMLInputElement
@@ -21,7 +20,7 @@ function Baco() {
     let InputCalcificacoes = document.querySelector('#InputCalcificacoes') as HTMLInputElement
     let InputCisto = document.querySelector('#InputCisto') as HTMLInputElement
 
-    const { laudoPrin, signIn, setLaudoPrin } = useContext(LaudosContext);
+    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
     const [inputBacoAcessorio, setinputBacoAcessorio] = useState('');
     const [inputBaco, setInputBaco] = useState('')
     const [inputCalcificacoes, setInputCalcificacoes] = useState('')
@@ -66,6 +65,7 @@ function Baco() {
         //arr => [...arr] captura os dados que já estavam e os mantem no array
         setLaudoPrin(arr => [...arr, value])
         //console.log("criaString = ", laudoPrin)
+
     }
 
     const removeItemString = (value) => {
@@ -81,12 +81,6 @@ function Baco() {
         // console.log("laudosPrin", laudoPrin)
     }
 
-    //captura primeiro tamanho do baço e joga em inputBacoAcessorio 
-    const capturaTamanhoBaco = (value) => {
-        //console.log(value)
-        setinputBacoAcessorio(value)
-        //console.log(inputBacoAcessorio)
-    }
     //pega valor enviado pelo value, cria string e seta ela no laudo principal
     //setInputBaço é usado para armezenar string para remover posteriormente
     const criaValorInputBaco = (value) => {
@@ -228,14 +222,14 @@ function Baco() {
                     })
                     console.log(laudoPrin)
                     TrocaCorBorda(value)
-                    DeterminaCondicaoCheckNormal()
+
                 } else {
                     setCheckvalueAumentadoEcotextura({
                         aumentadoComEcotextura: false,
                         SelectAumentadoComEcotextura: true,
                     })
                     console.log(laudoPrin)
-                    DeterminaCondicaoCheckNormal()
+
                     TrocaCorBorda(value)
 
                     removeItemString('Aumentado com ecotextura heterogênea ')
@@ -243,6 +237,7 @@ function Baco() {
 
                     SelectAumentadoComEcotextura.value = ("")
                 }
+                DeterminaCondicaoCheckNormal()
                 break;
             case 'SelectAumentadoComEcotextura':
                 if (value.value === 'Aumentado com ecotextura homogênea ') {
@@ -261,7 +256,7 @@ function Baco() {
                     })
                     console.log(laudoPrin)
                     TrocaCorBorda(value)
-                    DeterminaCondicaoCheckNormal()
+
                 } else {
                     setCheckvalueNaoVisibilizado({
                         naoVisibilizado: false,
@@ -269,11 +264,12 @@ function Baco() {
                     })
                     console.log(laudoPrin)
                     TrocaCorBorda(value)
-                    DeterminaCondicaoCheckNormal()
+
                     removeItemString('Não visibilizado com interposição gasosa ')
                     removeItemString('Não visibilizado com Ausênsia cirurgica ')
                     SelectNaoVisibilizado.value = ("")
                 }
+                DeterminaCondicaoCheckNormal()
                 break;
             case 'SelectNaoVisibilizado':
                 console.log(laudoPrin)
@@ -293,7 +289,7 @@ function Baco() {
                         InputBacoAcessorio: false,
                     })
 
-                    DeterminaCondicaoCheckNormal()
+
                     TrocaCorBorda(value)
                 } else {
                     setCheckvalueBacoAcessorio({
@@ -302,13 +298,14 @@ function Baco() {
                     })
                     TrocaCorBorda(value)
                     removeStringBaco()
-                    DeterminaCondicaoCheckNormal()
+
                     Input1BacoAcessorio.value = ''
                     Input2BacoAcessorio.value = ''
                 }
+                DeterminaCondicaoCheckNormal()
                 break;
             case 'Input1BacoAcessorio':
-                capturaTamanhoBaco(value.value)
+                setinputBacoAcessorio(value.value)
                 break;
             case 'Input2BacoAcessorio':
                 criaValorInputBaco(value)
@@ -319,7 +316,6 @@ function Baco() {
                         calcificacoes: false,
                         InputCalcificacoes: false,
                     })
-                    DeterminaCondicaoCheckNormal()
                     TrocaCorBorda(value)
                 } else {
                     setCheckvalueCalcificacoes({
@@ -328,10 +324,9 @@ function Baco() {
                     })
                     TrocaCorBorda(value)
                     removeStringCalcificacoes()
-                    DeterminaCondicaoCheckNormal()
                     InputCalcificacoes.value = ''
-
                 }
+                DeterminaCondicaoCheckNormal()
                 break;
             case 'InputCalcificacoes':
                 pegaValorInputCalcificacao(value)
@@ -342,7 +337,7 @@ function Baco() {
                         cisto: false,
                         InputCisto: false,
                     })
-                    DeterminaCondicaoCheckNormal()
+
                     TrocaCorBorda(value)
                 } else {
                     setCheckvalueCisto({
@@ -350,10 +345,11 @@ function Baco() {
                         InputCisto: true,
                     })
                     TrocaCorBorda(value)
-                    DeterminaCondicaoCheckNormal()
+
                     removeStringCisto()
                     InputCisto.value = ''
                 }
+                DeterminaCondicaoCheckNormal()
                 break;
             case 'InputCisto':
                 pegaValorInputCisto(value)
