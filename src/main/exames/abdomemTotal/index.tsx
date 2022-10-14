@@ -14,6 +14,8 @@ import Dilatacao from "./dilatacao/dilatacao";
 import RimEsquerdo from "./rim_esquerdo/rim_esquerdo";
 import Cisto from "./cisto/cisto";
 import Bexiga from "./bexiga/bexiga";
+import Calculos from "./calculos/calculos";
+import Nodulos from "./nodulos/nodulos";
 
 function AbdomemTotal() {
 
@@ -54,9 +56,12 @@ function AbdomemTotal() {
 
                 <RimDireito />
 
-                <Dilatacao />
-
                 <RimEsquerdo />
+
+                <Calculos />
+
+                <Dilatacao />
+                <Nodulos />
 
                 <Cisto />
 
