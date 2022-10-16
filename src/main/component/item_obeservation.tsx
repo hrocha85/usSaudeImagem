@@ -21,14 +21,14 @@ import PlusButton from "../images/button_plus.png";
 
 const ItemObservation = () => {
   const button_plus = React.createElement("img", { src: PlusButton });
+  const refText = useRef<HTMLTextAreaElement | null>(null);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [titulo, setTitulo] = useState<string | null>("");
-  const [inputObs, setObs] = useState<string[]>([]);
+  const [inputObservacoes, setInputObservacoes] = useState<string[]>([]);
   const [id, setId] = useState<number | null>();
   const [value, setValue] = useState("");
-  const refText = useRef<HTMLTextAreaElement | null>(null);
   const [clickSave, setClickSave] = useState(false);
-  const [showObservacoes, setShowObservacoes] = useState(false);
 
   const observacoes = [
     {
@@ -134,55 +134,63 @@ const ItemObservation = () => {
   ];
   const observacoesJSON = Observacoes.observacoes;
 
-  const AddObservacao = (value) => {
-    if (localStorage.getItem("observacoes")! != null) {
-      var array = localStorage.getItem("observacoes")!;
-
-      if (!array.includes(titulo!)) {
-        const obs = {
-          id: id!,
-          titulo_observacao: titulo!,
-          observacao: inputObs,
-        };
-        observacoesJSON.push(obs);
-        observacoesJSON.map((e) => {
-          if (e.titulo_observacao == "") {
-            observacoesJSON.shift();
-          }
-        });
-        localStorage.setItem("observacoes", JSON.stringify(observacoesJSON));
+  const checkListaObservacao = () => {
+    var arrayObservacoes = localStorage.getItem("observacoes")!;
+    if (arrayObservacoes != null) {
+      if (!arrayObservacoes.includes(titulo!)) {
+        addNewObsercao();
       } else {
-        observacoesJSON.map((e) => {
-          if (e.id == id) {
-            e.observacao.push(value);
-            localStorage.setItem(
-              "observacoes",
-              JSON.stringify(observacoesJSON)
-            );
-          }
-        });
+        updateListaObservacoes();
       }
     } else {
-      const obs = {
-        id: id!,
-        titulo_observacao: titulo!,
-        observacao: inputObs,
-      };
-      observacoesJSON.push(obs);
-      observacoesJSON.map((e) => {
-        if (e.titulo_observacao == "") {
-          observacoesJSON.shift();
-        }
-      });
-      localStorage.setItem("observacoes", JSON.stringify(observacoesJSON));
+      setListaObservacoes();
     }
     setClickSave(false);
+  };
+
+  const setListaObservacoes = () => {
+    const obs = {
+      id: id!,
+      titulo_observacao: titulo!,
+      observacao: inputObservacoes,
+    };
+    observacoesJSON.push(obs);
+    observacoesJSON.map((e) => {
+      if (e.titulo_observacao == "") {
+        observacoesJSON.shift();
+      }
+    });
+    localStorage.setItem("observacoes", JSON.stringify(observacoesJSON));
+  };
+
+  const addNewObsercao = () => {
+    const obs = {
+      id: id!,
+      titulo_observacao: titulo!,
+      observacao: inputObservacoes,
+    };
+    observacoesJSON.push(obs);
+    observacoesJSON.map((e) => {
+      if (e.titulo_observacao == "") {
+        observacoesJSON.shift();
+      }
+    });
+    localStorage.setItem("observacoes", JSON.stringify(observacoesJSON));
+  };
+
+  const updateListaObservacoes = () => {
+    observacoesJSON.map((e) => {
+      if (e.id == id) {
+        e.observacao.push(value);
+        localStorage.setItem("observacoes", JSON.stringify(observacoesJSON));
+      }
+    });
   };
 
   const ResetStates = () => {
     setId(null);
     setTitulo(null);
-    setObs([]);
+    setInputObservacoes([]);
     setValue("");
     setClickSave(false);
   };
@@ -242,14 +250,11 @@ const ItemObservation = () => {
 
   useEffect(() => {
     if (clickSave == true) {
-      AddObservacao(value);
+      checkListaObservacao();
       ItensObservacao();
     }
   });
-  useEffect(() => {
-    if (showObservacoes == true) {
-    }
-  }, [observacoesJSON]);
+
   return (
     <>
       {observacoes.map((observacoes, key) => (
@@ -314,8 +319,7 @@ const ItemObservation = () => {
               colorScheme="blue"
               onClick={() => {
                 setClickSave(true);
-                setShowObservacoes(true);
-                setObs((prevObs) => [...prevObs, value]);
+                setInputObservacoes((prevObs) => [...prevObs, value]);
                 refText.current!.value = "";
               }}
             >
