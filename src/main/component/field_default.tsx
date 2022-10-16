@@ -20,20 +20,29 @@ import Observacoes from "../../Data/Observacoes.json";
 
 const FieldDefault = ({ observacao, textColor }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [descricao, setDescricao] = useState("");
+  const [descricao, setDescricao] = useState<string|null>(null);
+
+  const [id_observacao, setId] = useState(0);
+
   const [localStorageObservacoes, setLocalStorageObservacoes] = useState(
     JSON.parse(localStorage.getItem("observacoes")!)
   );
   const observacoes = Observacoes.observacoes;
 
+  var descricoes:any|string = []
+
+  const addObservacoes = () => {
+    descricoes.push(descricao)
+    console.log('desc', descricao)
+    setDescricao(null)
+  }
+
   const addObservacao = () => {
-    observacao.observacao.push(descricao)
     const obs = {
       id: observacao.id,
       titulo_observacao: observacao.titulo_observacao,
       observacao: observacao.observacao,
     };
-
     observacoes.push(obs);
     observacoes.map((e) => {
       if (e.id == 0) {
@@ -42,8 +51,21 @@ const FieldDefault = ({ observacao, textColor }) => {
     });
     localStorage.setItem("observacoes", JSON.stringify(observacoes));
   };
+ 
 
-  
+  /*const updateObservacao = (observacao, id) => {
+   
+    var array = JSON.parse(localStorage.getItem("observacoes")!);
+    array.forEach((element) => {
+      if (element.id == id_observacao) {
+        element.oberservacao = observacoes
+        observacoes[id].observacao.push(observacao);
+        localStorage.setItem("observacoes", JSON.stringify(array));
+        setDescricao(null);
+        
+      }
+    });
+  };*/
 
   return (
     <>
@@ -60,7 +82,10 @@ const FieldDefault = ({ observacao, textColor }) => {
           borderWidth="2px"
           borderStartWidth="4px"
           borderStartColor="#47AFFC"
-          onClick={onOpen}
+          onClick={() => {
+            onOpen();
+            setId(observacao.id);
+          }}
         >
           <Text
             textColor={textColor}
@@ -88,23 +113,23 @@ const FieldDefault = ({ observacao, textColor }) => {
 
             {localStorageObservacoes != null
               ? observacoes.map((e) => {
-                console.log('e',e)
                   return (
-                    <Box
-                      w="400px"
-                      h="40px"
-                      borderColor={"#e3e8f1"}
-                      borderWidth="1px"
-                      borderRadius="md"
-                      marginTop="5px"
-                    >
-                      
-                    </Box>
+                    <>
+                      <Box
+                        w="400px"
+                        h="40px"
+                        borderColor={"#e3e8f1"}
+                        borderWidth="1px"
+                        borderRadius="md"
+                        marginTop="5px"
+                      >
+                        <Text>{descricao}</Text>
+                      </Box>
+                    </>
                   );
                 })
               : null}
           </ModalBody>
-
           <ModalFooter>
             <Button mr={3} onClick={onClose}>
               Cancelar
@@ -112,7 +137,9 @@ const FieldDefault = ({ observacao, textColor }) => {
             <Button
               colorScheme="blue"
               onClick={() => {
-                addObservacao();
+                addObservacoes()
+                //addObservacao();
+                //updateObservacao(descricao, id_observacao);
                 //onClose();
               }}
             >

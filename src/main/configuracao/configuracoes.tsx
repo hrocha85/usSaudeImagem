@@ -530,7 +530,11 @@ const Configuracoes = () => {
             </Modal>
           </>
           <Stack h="100%" direction="row" justify="center">
-            <ItemObservation/>
+          <RectangularCard
+              titulo="Observações"
+              altura="282px"
+              item={<ItemObservation />}
+            />
           </Stack>
           <Box margin="120px 0px 0px 30px">
             <Link href={`#/Home/`}>
