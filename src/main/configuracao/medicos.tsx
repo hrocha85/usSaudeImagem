@@ -182,7 +182,7 @@ const Medicos = ({ medico, id }) => {
     }, 200);
   };
 
-  const ExcluirMedico = () => {
+  const POPExcluirMedico = () => {
     return (
       <List>
         <ListItem textColor="black">
@@ -286,7 +286,7 @@ const Medicos = ({ medico, id }) => {
                   variant="ghost"
                   _hover={{ bg: "transparent" }}
                 >
-                  <PopoverBody>{ExcluirMedico()}</PopoverBody>
+                  <PopoverBody>{POPExcluirMedico()}</PopoverBody>
                 </Button>
               </PopoverContent>
             </Popover>

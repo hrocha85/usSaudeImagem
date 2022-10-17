@@ -32,7 +32,7 @@ import {
   Text,
   Tooltip,
   useDisclosure,
-  useOutsideClick
+  useOutsideClick,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
@@ -78,7 +78,7 @@ const Configuracoes = () => {
 
   const [crm, setCrm] = useState("");
 
-  const [clinica, setClinica] = useState("");
+  const [clinica, setClinica] = useState<string[]>([]);
 
   const [medicos, setMedicos] = useState<any[]>(getMedicos);
 
@@ -440,7 +440,12 @@ const Configuracoes = () => {
                         placeholder="Clínicas Cadastradas"
                         variant="filled"
                         textAlign="center"
-                        onChange={(e) => setClinica(e.target.value)}
+                        onChange={(e) =>
+                          setClinica((prevClin) => [
+                            ...prevClin,
+                            e.target.value,
+                          ])
+                        }
                       >
                         {listaClinicas.map((e, key) => {
                           return (
@@ -530,7 +535,7 @@ const Configuracoes = () => {
             </Modal>
           </>
           <Stack h="100%" direction="row" justify="center">
-          <RectangularCard
+            <RectangularCard
               titulo="Observações"
               altura="282px"
               item={<ItemObservation />}
