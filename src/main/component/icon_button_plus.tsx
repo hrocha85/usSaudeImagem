@@ -143,7 +143,7 @@ const IconButtonPlus = (props) => {
         textColor="black"
       >
         <IconButton
-          aria-label="sdfs"
+          aria-label="Botao Adicionar Clinica"
           icon={button}
           variant="link"
           h="22"
