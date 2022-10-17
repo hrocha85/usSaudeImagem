@@ -32,7 +32,7 @@ import {
   Text,
   Tooltip,
   useDisclosure,
-  useOutsideClick,
+  useOutsideClick
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
@@ -101,6 +101,10 @@ const Configuracoes = () => {
   const [imageAssinatura, setImageAssinatura] = useState(true);
 
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    setMedicos(getMedicos);
+  }, [localStorage.getItem("medicos")!]);
 
   const AddMedico = () => {
     const obj = {
@@ -234,6 +238,10 @@ const Configuracoes = () => {
   }, [stateClickAddMedico]);
 
   useEffect(() => {
+    setMedicos(getMedicos);
+  }, [localStorage.getItem("medicos")]);
+
+  useEffect(() => {
     showImageAssinatura();
   }, [imageAssinatura]);
 
@@ -316,6 +324,7 @@ const Configuracoes = () => {
               {medicos.map((medico, key) => {
                 return <Medicos key={key} medico={medico} id={key} />;
               })}
+
               <Tooltip
                 label="Adicionar Médico"
                 backgroundColor="white"
@@ -430,7 +439,7 @@ const Configuracoes = () => {
                       <Select
                         placeholder="Clínicas Cadastradas"
                         variant="filled"
-                        textAlign='center'
+                        textAlign="center"
                         onChange={(e) => setClinica(e.target.value)}
                       >
                         {listaClinicas.map((e, key) => {
@@ -521,7 +530,7 @@ const Configuracoes = () => {
             </Modal>
           </>
           <Stack h="100%" direction="row" justify="center">
-            <RectangularCard
+          <RectangularCard
               titulo="Observações"
               altura="282px"
               item={<ItemObservation />}
