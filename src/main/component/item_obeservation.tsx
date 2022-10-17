@@ -202,10 +202,8 @@ const ItemObservation = () => {
           console.log(e);
           if (e.id == id) {
             return e.observacao.map((item) => {
-              console.log("aaaaa", item);
               return (
                 <>
-                  {console.log("ha")}
                   <Box
                     margin="20px"
                     marginBottom="10px"
@@ -231,8 +229,8 @@ const ItemObservation = () => {
                         aria-label="Botao"
                         icon={button_plus}
                         variant="link"
-                        h="20"
-                        w="20"
+                        h="5"
+                        w="5"
                         marginEnd="5px"
                         size="xs"
                         textColor="blue"
