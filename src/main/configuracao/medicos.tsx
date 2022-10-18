@@ -29,6 +29,9 @@ import {
   PopoverTrigger,
   Select,
   Stack,
+  Tag,
+  TagCloseButton,
+  TagLabel,
   Text,
   Tooltip,
   useDisclosure,
@@ -41,7 +44,6 @@ import { BiCamera } from "react-icons/bi";
 import { BsThreeDotsVertical, BsTrash } from "react-icons/bs";
 import { HiOutlineUser } from "react-icons/hi";
 import SignatureCanvas from "react-signature-canvas";
-import { useLongPress } from "use-long-press";
 import FieldDefaultIcon from "../component/field_default_icon";
 import { lista_medicos } from "./configuracoes";
 
@@ -110,12 +112,6 @@ const Medicos = ({ medico, id }) => {
   );
 
   let padRef = React.useRef<SignatureCanvas>(null);
-
-  const bindLongPress = useLongPress(() => {
-    {
-      //onOpenLongModal();
-    }
-  });
 
   const openFiles = () => {
     inputFile.current?.click();
@@ -233,7 +229,6 @@ const Medicos = ({ medico, id }) => {
       color="white"
       borderRadius="10.85px"
       boxShadow="md"
-      {...bindLongPress()}
     >
       <Stack margin="10px" direction="row" justifyContent="space-between">
         <Text
@@ -394,6 +389,7 @@ const Medicos = ({ medico, id }) => {
                     onClick={openFiles}
                   />
                 </Center>
+
                 {listaClinicas ? (
                   <Center>
                     <HStack margin="10px">

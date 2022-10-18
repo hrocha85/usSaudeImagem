@@ -199,45 +199,43 @@ const ItemObservation = () => {
     return (
       <>
         {observacoesJSON.map((e) => {
-          console.log(e);
           if (e.id == id) {
-            return e.observacao.map((item) => {
+            return e.observacao.map((item, key) => {
               return (
-                <>
-                  <Box
-                    margin="20px"
-                    marginBottom="10px"
-                    marginTop="0px"
-                    borderWidth="2px"
-                    borderColor="#f0f2f6"
-                    h="48px"
-                    borderRadius="md"
-                  >
-                    <Flex justify="space-between">
-                      <Text
-                        margin="10px"
-                        fontWeight="medium"
-                        textOverflow="ellipsis"
-                        overflow="hidden"
-                        whiteSpace="nowrap"
-                        maxW="320px"
-                      >
-                        {item}
-                      </Text>
-                      <IconButton
-                        justifyContent="flex-end"
-                        aria-label="Botao"
-                        icon={button_plus}
-                        variant="link"
-                        h="5"
-                        w="5"
-                        marginEnd="5px"
-                        size="xs"
-                        textColor="blue"
-                      />
-                    </Flex>
-                  </Box>
-                </>
+                <Box
+                  key={key}
+                  margin="20px"
+                  marginBottom="10px"
+                  marginTop="0px"
+                  borderWidth="2px"
+                  borderColor="#f0f2f6"
+                  h="48px"
+                  borderRadius="md"
+                >
+                  <Flex justify="space-between">
+                    <Text
+                      margin="10px"
+                      fontWeight="medium"
+                      textOverflow="ellipsis"
+                      overflow="hidden"
+                      whiteSpace="nowrap"
+                      maxW="320px"
+                    >
+                      {item}
+                    </Text>
+                    <IconButton
+                      justifyContent="flex-end"
+                      aria-label="Botao"
+                      icon={button_plus}
+                      variant="link"
+                      h="5"
+                      w="5"
+                      marginEnd="5px"
+                      size="xs"
+                      textColor="blue"
+                    />
+                  </Flex>
+                </Box>
               );
             });
           }
@@ -256,42 +254,40 @@ const ItemObservation = () => {
   return (
     <>
       {observacoes.map((observacoes, key) => (
-        <>
-          <Flex>
-            <GridItem
-              key={key}
-              w="100%"
-              h="100%"
-              _hover={{ borderColor: "#47AEFC" }}
-              borderRadius="4px"
-              marginBottom="8px"
-              marginEnd="42px"
-              marginStart="16px"
-              bg="#FEFFFE"
-              borderStyle="solid"
-              borderWidth="2px"
-              borderStartWidth="4px"
-              borderStartColor="#47AFFC"
-              onClick={() => {
-                onOpen();
-                setTitulo(observacoes.titulo_observacao);
-                setId(observacoes.id);
-              }}
+        <Flex key={key}>
+          <GridItem
+            key={key}
+            w="100%"
+            h="100%"
+            _hover={{ borderColor: "#47AEFC" }}
+            borderRadius="4px"
+            marginBottom="8px"
+            marginEnd="42px"
+            marginStart="16px"
+            bg="#FEFFFE"
+            borderStyle="solid"
+            borderWidth="2px"
+            borderStartWidth="4px"
+            borderStartColor="#47AFFC"
+            onClick={() => {
+              onOpen();
+              setTitulo(observacoes.titulo_observacao);
+              setId(observacoes.id);
+            }}
+          >
+            <Text
+              textColor={"black"}
+              textStyle="solid"
+              fontSize="12px"
+              fontWeight="medium"
+              verticalAlign="center"
+              paddingTop="4.5"
+              paddingStart="12px"
             >
-              <Text
-                textColor={"black"}
-                textStyle="solid"
-                fontSize="12px"
-                fontWeight="medium"
-                verticalAlign="center"
-                paddingTop="4.5"
-                paddingStart="12px"
-              >
-                {observacoes.titulo_observacao}
-              </Text>
-            </GridItem>
-          </Flex>
-        </>
+              {observacoes.titulo_observacao}
+            </Text>
+          </GridItem>
+        </Flex>
       ))}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
