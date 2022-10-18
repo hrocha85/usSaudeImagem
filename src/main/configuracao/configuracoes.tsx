@@ -4,6 +4,7 @@ import {
   Center,
   Divider,
   Flex,
+  Grid,
   HStack,
   Icon,
   Image,
@@ -29,6 +30,9 @@ import {
   Progress,
   Select,
   Stack,
+  Tag,
+  TagCloseButton,
+  TagLabel,
   Text,
   Tooltip,
   useDisclosure,
@@ -78,7 +82,7 @@ const Configuracoes = () => {
 
   const [crm, setCrm] = useState("");
 
-  const [clinica, setClinica] = useState<string[]>([]);
+  const [clinicas, setClinica] = useState<string[]>([]);
 
   const [medicos, setMedicos] = useState<any[]>(getMedicos);
 
@@ -93,6 +97,8 @@ const Configuracoes = () => {
   const [stateClickAddMedico, setStateClickAddMedico] = useState(false);
 
   const [InputNomeDoutor, setInputNomeDoutor] = useState(false);
+
+  const [updateTAGS, setUpdateTAGS] = useState(false);
 
   const [propsBoxAssinatura, setpropsBoxAssinatura] = useState(false);
 
@@ -113,7 +119,7 @@ const Configuracoes = () => {
       uf: "sp",
       assinatura: padRef.current?.getCanvas().toDataURL("image/png")!,
       foto: defaultUserImage,
-      clinica: clinica,
+      clinica: clinicas,
     };
     lista_medicos.push(obj);
 
@@ -220,6 +226,34 @@ const Configuracoes = () => {
     setSelectedFile(file);
   };
 
+  const TAGS = () => {
+    return (
+      <Center margin="25px">
+        <Grid templateColumns="repeat(4, 10)" gap={1}>
+          {clinicas.map((clinica, key) => {
+            return (
+              <Tag
+                key={key}
+                size="md"
+                borderRadius="full"
+                variant="solid"
+                colorScheme="blue"
+              >
+                <TagLabel key={key}>{clinica}</TagLabel>
+                <TagCloseButton
+                  onClick={() => {
+                    clinicas.splice(key, 1);
+                    setUpdateTAGS(true);
+                  }}
+                />
+              </Tag>
+            );
+          })}
+        </Grid>
+      </Center>
+    );
+  };
+
   useEffect(() => {
     if (selectedFile) {
       const objectURL = URL.createObjectURL(selectedFile);
@@ -256,6 +290,11 @@ const Configuracoes = () => {
       }
     },
   });
+
+  useEffect(() => {
+    TAGS();
+    setUpdateTAGS(false);
+  }, [updateTAGS == true]);
 
   return (
     <Box
@@ -365,6 +404,7 @@ const Configuracoes = () => {
                     setFocus("unstyled");
                     setEnable(true);
                     ResetDados();
+                    setClinica([]);
                   }}
                 />
                 {InputNomeDoutor ? (
@@ -431,6 +471,7 @@ const Configuracoes = () => {
                       onClick={openFiles}
                     />
                   </Center>
+                  <TAGS />
                   <Center>
                     <HStack>
                       <Text marginEnd="5px" fontWeight="bold">
@@ -440,12 +481,13 @@ const Configuracoes = () => {
                         placeholder="Clínicas Cadastradas"
                         variant="filled"
                         textAlign="center"
-                        onChange={(e) =>
+                        onChange={(e) => {
                           setClinica((prevClin) => [
                             ...prevClin,
                             e.target.value,
-                          ])
-                        }
+                          ]);
+                          TAGS();
+                        }}
                       >
                         {listaClinicas.map((e, key) => {
                           return (
