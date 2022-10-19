@@ -4,6 +4,7 @@ import {
   Center,
   Divider,
   Flex,
+  Grid,
   HStack,
   Icon,
   Image,
@@ -29,10 +30,13 @@ import {
   Progress,
   Select,
   Stack,
+  Tag,
+  TagCloseButton,
+  TagLabel,
   Text,
   Tooltip,
   useDisclosure,
-  useOutsideClick
+  useOutsideClick,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
@@ -78,7 +82,7 @@ const Configuracoes = () => {
 
   const [crm, setCrm] = useState("");
 
-  const [clinica, setClinica] = useState("");
+  const [clinicas, setClinica] = useState<string[]>([]);
 
   const [medicos, setMedicos] = useState<any[]>(getMedicos);
 
@@ -93,6 +97,8 @@ const Configuracoes = () => {
   const [stateClickAddMedico, setStateClickAddMedico] = useState(false);
 
   const [InputNomeDoutor, setInputNomeDoutor] = useState(false);
+
+  const [updateTAGS, setUpdateTAGS] = useState(false);
 
   const [propsBoxAssinatura, setpropsBoxAssinatura] = useState(false);
 
@@ -113,7 +119,7 @@ const Configuracoes = () => {
       uf: "sp",
       assinatura: padRef.current?.getCanvas().toDataURL("image/png")!,
       foto: defaultUserImage,
-      clinica: clinica,
+      clinica: clinicas,
     };
     lista_medicos.push(obj);
 
@@ -207,6 +213,7 @@ const Configuracoes = () => {
     setStateClickAddMedico(false);
     setImageAssinatura(true);
     setpropsBoxAssinatura(false);
+    setClinica([]);
   };
 
   const openFiles = () => {
@@ -218,6 +225,45 @@ const Configuracoes = () => {
     event.preventDefault();
     var file = event.target.files[0];
     setSelectedFile(file);
+  };
+
+  const TAGS = () => {
+    return (
+      <Center margin="25px">
+        <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
+          {clinicas.map((clinica, key) => {
+            return (
+              <Tooltip
+                key={key}
+                label={clinica}
+                size="md"
+                backgroundColor="white"
+                placement="top"
+                hasArrow
+                arrowSize={15}
+                textColor="black"
+              >
+                <Tag
+                  key={key}
+                  size="md"
+                  borderRadius="full"
+                  variant="solid"
+                  colorScheme="twitter"
+                >
+                  <TagLabel key={key}>{clinica}</TagLabel>
+                  <TagCloseButton
+                    onClick={() => {
+                      clinicas.splice(key, 1);
+                      setUpdateTAGS(true);
+                    }}
+                  />
+                </Tag>
+              </Tooltip>
+            );
+          })}
+        </Flex>
+      </Center>
+    );
   };
 
   useEffect(() => {
@@ -256,6 +302,11 @@ const Configuracoes = () => {
       }
     },
   });
+
+  useEffect(() => {
+    TAGS();
+    setUpdateTAGS(false);
+  }, [updateTAGS == true]);
 
   return (
     <Box
@@ -365,6 +416,7 @@ const Configuracoes = () => {
                     setFocus("unstyled");
                     setEnable(true);
                     ResetDados();
+                    setClinica([]);
                   }}
                 />
                 {InputNomeDoutor ? (
@@ -431,6 +483,7 @@ const Configuracoes = () => {
                       onClick={openFiles}
                     />
                   </Center>
+                  <TAGS />
                   <Center>
                     <HStack>
                       <Text marginEnd="5px" fontWeight="bold">
@@ -440,7 +493,13 @@ const Configuracoes = () => {
                         placeholder="Clínicas Cadastradas"
                         variant="filled"
                         textAlign="center"
-                        onChange={(e) => setClinica(e.target.value)}
+                        onChange={(e) => {
+                          setClinica((prevClin) => [
+                            ...prevClin,
+                            e.target.value,
+                          ]);
+                          TAGS();
+                        }}
                       >
                         {listaClinicas.map((e, key) => {
                           return (
@@ -518,7 +577,6 @@ const Configuracoes = () => {
                   backgroundColor="#0e63fe"
                   margin="10px"
                   onClick={() => {
-                    //SaveSignature();
                     AddMedico();
                     ResetDados();
                     onClose();
@@ -530,7 +588,7 @@ const Configuracoes = () => {
             </Modal>
           </>
           <Stack h="100%" direction="row" justify="center">
-          <RectangularCard
+            <RectangularCard
               titulo="Observações"
               altura="282px"
               item={<ItemObservation />}

@@ -121,49 +121,47 @@ const FieldDefaultIcon = ({
     cepUpdate,
     enderecoUpdate
   ) => {
-    setTimeout(() => {
-      if (nomeUpdate != null) {
-        var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-        var item = array[id];
-        minhasClinicas[id].nomeClinica = nomeUpdate;
+    if (nomeUpdate != null) {
+      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      var item = array[id];
+      minhasClinicas[id].nomeClinica = nomeUpdate;
 
-        item.nomeClinica = nomeUpdate;
-        localStorage.setItem("minhasClinicas", JSON.stringify(array));
-        setNomeClinica(nomeUpdate);
-        setUpdateNome(null);
-      }
+      item.nomeClinica = nomeUpdate;
+      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      setNomeClinica(nomeUpdate);
+      setUpdateNome(null);
+    }
 
-      if (cepUpdate != null) {
-        var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-        var item = array[id];
-        minhasClinicas[id].cep = cepUpdate;
+    if (cepUpdate != null) {
+      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      var item = array[id];
+      minhasClinicas[id].cep = cepUpdate;
 
-        item.cep = cepUpdate;
-        localStorage.setItem("minhasClinicas", JSON.stringify(array));
-        setCep(cepUpdate);
-        setUpdateCEP(null);
-      }
-      if (telefoneUpdate != null) {
-        var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-        var item = array[id];
-        minhasClinicas[id].teleFone = telefoneUpdate;
+      item.cep = cepUpdate;
+      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      setCep(cepUpdate);
+      setUpdateCEP(null);
+    }
+    if (telefoneUpdate != null) {
+      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      var item = array[id];
+      minhasClinicas[id].teleFone = telefoneUpdate;
 
-        item.teleFone = telefoneUpdate;
-        localStorage.setItem("minhasClinicas", JSON.stringify(array));
-        setTelefone(telefoneUpdate);
-        setUpdateTelefone(null);
-      }
-      if (enderecoUpdate != null) {
-        var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-        var item = array[id];
-        minhasClinicas[id].enderecoRuaNumero = enderecoUpdate;
+      item.teleFone = telefoneUpdate;
+      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      setTelefone(telefoneUpdate);
+      setUpdateTelefone(null);
+    }
+    if (enderecoUpdate != null) {
+      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      var item = array[id];
+      minhasClinicas[id].enderecoRuaNumero = enderecoUpdate;
 
-        item.enderecoRuaNumero = enderecoUpdate;
-        localStorage.setItem("minhasClinicas", JSON.stringify(array));
-        setEndereco(enderecoUpdate);
-        setUpdateEndereco(null);
-      }
-    }, 200);
+      item.enderecoRuaNumero = enderecoUpdate;
+      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      setEndereco(enderecoUpdate);
+      setUpdateEndereco(null);
+    }
   };
 
   useEffect(() => {
