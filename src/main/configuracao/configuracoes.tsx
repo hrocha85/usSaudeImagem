@@ -213,6 +213,7 @@ const Configuracoes = () => {
     setStateClickAddMedico(false);
     setImageAssinatura(true);
     setpropsBoxAssinatura(false);
+    setClinica([]);
   };
 
   const openFiles = () => {
@@ -229,27 +230,38 @@ const Configuracoes = () => {
   const TAGS = () => {
     return (
       <Center margin="25px">
-        <Grid templateColumns="repeat(4, 10)" gap={1}>
+        <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
           {clinicas.map((clinica, key) => {
             return (
-              <Tag
+              <Tooltip
                 key={key}
+                label={clinica}
                 size="md"
-                borderRadius="full"
-                variant="solid"
-                colorScheme="blue"
+                backgroundColor="white"
+                placement="top"
+                hasArrow
+                arrowSize={15}
+                textColor="black"
               >
-                <TagLabel key={key}>{clinica}</TagLabel>
-                <TagCloseButton
-                  onClick={() => {
-                    clinicas.splice(key, 1);
-                    setUpdateTAGS(true);
-                  }}
-                />
-              </Tag>
+                <Tag
+                  key={key}
+                  size="md"
+                  borderRadius="full"
+                  variant="solid"
+                  colorScheme="twitter"
+                >
+                  <TagLabel key={key}>{clinica}</TagLabel>
+                  <TagCloseButton
+                    onClick={() => {
+                      clinicas.splice(key, 1);
+                      setUpdateTAGS(true);
+                    }}
+                  />
+                </Tag>
+              </Tooltip>
             );
           })}
-        </Grid>
+        </Flex>
       </Center>
     );
   };
@@ -565,7 +577,6 @@ const Configuracoes = () => {
                   backgroundColor="#0e63fe"
                   margin="10px"
                   onClick={() => {
-                    //SaveSignature();
                     AddMedico();
                     ResetDados();
                     onClose();

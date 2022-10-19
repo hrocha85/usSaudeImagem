@@ -85,6 +85,8 @@ const Medicos = ({ medico, id }) => {
 
   const [updateClinica, setUpdateClinica] = useState<string | null>(null);
 
+  const [updateTAGS, setUpdateTAGS] = useState(false);
+
   const [InputNomeMedico, setInputNomeMedico] = useState(false);
 
   const [InputAssinatura, setInputAssinatura] = useState(false);
@@ -107,11 +109,13 @@ const Medicos = ({ medico, id }) => {
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
+  let padRef = React.useRef<SignatureCanvas>(null);
+
   const [listaClinicas, setListaClinicas] = useState(
     JSON.parse(localStorage.getItem("minhasClinicas")!)
   );
 
-  let padRef = React.useRef<SignatureCanvas>(null);
+  const [ClinicasMedico, setClinicaMedico] = useState(medico.clinica);
 
   const openFiles = () => {
     inputFile.current?.click();
@@ -123,14 +127,6 @@ const Medicos = ({ medico, id }) => {
     var file = event.target.files[0];
     setSelectedFile(file);
   };
-
-  useEffect(() => {
-    if (selectedFile) {
-      const objectURL = URL.createObjectURL(selectedFile);
-      setDefaultUserImage(objectURL);
-    }
-  }, [selectedFile]);
-
   const UpdateLocalStorage = (nomeUpdate, CRMupdate, clinicaUpdate) => {
     setTimeout(() => {
       if (nomeUpdate != null) {
@@ -210,6 +206,65 @@ const Medicos = ({ medico, id }) => {
     setSelectedClinica(true);
     setcloseTooltip(false);
   };
+
+  const TAGS = () => {
+
+    return (
+      <Center margin="25px">
+        <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
+          {ClinicasMedico.map((clinica, key) => {
+            return (
+              <Tooltip
+                key={key}
+                label={clinica}
+                size="md"
+                backgroundColor="white"
+                placement="top"
+                hasArrow
+                arrowSize={15}
+                textColor="black"
+              >
+                <Tag
+                  key={key}
+                  size="md"
+                  borderRadius="full"
+                  variant="solid"
+                  colorScheme="twitter"
+                >
+                  <TagLabel key={key}>{clinica}</TagLabel>
+                  <TagCloseButton
+                    onClick={() => {
+                      ClinicasMedico.splice(key, 1);
+                      setUpdateTAGS(true);
+                      var array = JSON.parse(localStorage.getItem("medicos")!);
+                      var item = array[id];
+                      lista_medicos[id].clinica = ClinicasMedico;
+
+                      item.clinica = ClinicasMedico;
+                      localStorage.setItem("medicos", JSON.stringify(array));
+                    }}
+                  />
+                </Tag>
+              </Tooltip>
+            );
+          })}
+        </Flex>
+      </Center>
+    );
+  };
+
+  useEffect(() => {
+    if (selectedFile) {
+      const objectURL = URL.createObjectURL(selectedFile);
+      setDefaultUserImage(objectURL);
+    }
+  }, [selectedFile]);
+
+  useEffect(() => {
+    TAGS();
+    setUpdateTAGS(false);
+  }, [updateTAGS == true]);
+
   useOutsideClick({
     ref: refNomeMedico,
     handler: () => setInputNomeMedico(false),
@@ -289,19 +344,21 @@ const Medicos = ({ medico, id }) => {
         </Tooltip>
       </Stack>
       <Box onClick={onOpen}>
-        {medicos.map((key) => (
-          <FieldDefaultIcon
-            key={key}
-            text={medico.clinica}
-            textColor="#4A5568"
-            icon={HiOutlineUser}
-            clinica={medicos}
-            clinicas={null}
-            onClickModal={false}
-            id={key}
-            isMedic={true}
-          />
-        ))}
+        {ClinicasMedico.map((clinica, key) => {
+          return (
+            <FieldDefaultIcon
+              key={key}
+              text={clinica}
+              textColor="#4A5568"
+              icon={HiOutlineUser}
+              clinica={medicos}
+              clinicas={null}
+              onClickModal={false}
+              id={key}
+              isMedic={true}
+            />
+          );
+        })}
         <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
           <ModalOverlay />
           <ModalContent>
@@ -389,7 +446,7 @@ const Medicos = ({ medico, id }) => {
                     onClick={openFiles}
                   />
                 </Center>
-
+                <TAGS />
                 {listaClinicas ? (
                   <Center>
                     <HStack margin="10px">
@@ -397,12 +454,18 @@ const Medicos = ({ medico, id }) => {
                         Clínicas:
                       </Text>
                       <Select
-                        defaultValue={clinica}
+                        placeholder="Clínicas Cadastradas"
                         width="220px"
                         variant="filled"
                         isDisabled={enableSelectedClinica}
                         textAlign="center"
-                        onChange={(e) => setUpdateClinica(e.target.value)}
+                        onChange={(e) => {
+                          setUpdateClinica(e.target.value);
+                          setClinicaMedico((prevClinicas) => [
+                            ...prevClinicas,
+                            e.target.value,
+                          ]);
+                        }}
                       >
                         {listaClinicas.map((e, key) => {
                           return (
