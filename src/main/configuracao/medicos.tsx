@@ -115,7 +115,7 @@ const Medicos = ({ medico, id }) => {
     JSON.parse(localStorage.getItem("minhasClinicas")!)
   );
 
-  const [ClinicasMedico, setClinicaMedico] = useState(medico.clinica);
+  const [ClinicasMedico, setClinicaMedico] = useState<string[]>(medico.clinica);
 
   const openFiles = () => {
     inputFile.current?.click();
@@ -152,9 +152,9 @@ const Medicos = ({ medico, id }) => {
       if (clinicaUpdate != null) {
         var array = JSON.parse(localStorage.getItem("medicos")!);
         var item = array[id];
-        lista_medicos[id].clinica = clinicaUpdate;
+        lista_medicos[id].clinica = ClinicasMedico;
 
-        item.clinica = clinicaUpdate;
+        item.clinica = ClinicasMedico;
         localStorage.setItem("medicos", JSON.stringify(array));
         setClinica(updateClinica);
         setUpdateClinica(null);
@@ -192,6 +192,15 @@ const Medicos = ({ medico, id }) => {
     window.location.reload();
   };
 
+  const RemoveTAG = () => {
+    var array = JSON.parse(localStorage.getItem("medicos")!);
+    var item = array[id];
+    lista_medicos[id].clinica = ClinicasMedico;
+
+    item.clinica = ClinicasMedico;
+    localStorage.setItem("medicos", JSON.stringify(array));
+  };
+
   const clearAssinatura = () => {
     padRef.current?.clear();
     setAssinaturaUpdate(true);
@@ -208,7 +217,6 @@ const Medicos = ({ medico, id }) => {
   };
 
   const TAGS = () => {
-
     return (
       <Center margin="25px">
         <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
@@ -236,12 +244,7 @@ const Medicos = ({ medico, id }) => {
                     onClick={() => {
                       ClinicasMedico.splice(key, 1);
                       setUpdateTAGS(true);
-                      var array = JSON.parse(localStorage.getItem("medicos")!);
-                      var item = array[id];
-                      lista_medicos[id].clinica = ClinicasMedico;
-
-                      item.clinica = ClinicasMedico;
-                      localStorage.setItem("medicos", JSON.stringify(array));
+                      RemoveTAG()
                     }}
                   />
                 </Tag>
@@ -254,11 +257,41 @@ const Medicos = ({ medico, id }) => {
   };
 
   useEffect(() => {
+    setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));
+  }, [localStorage.getItem("minhasClinicas")!]);
+
+  useEffect(() => {
     if (selectedFile) {
       const objectURL = URL.createObjectURL(selectedFile);
       setDefaultUserImage(objectURL);
     }
   }, [selectedFile]);
+
+  const RenderFieldDefault = () => {
+    return (
+      <>
+        {ClinicasMedico.map((clinica, key) => {
+          return (
+            <FieldDefaultIcon
+              key={key}
+              text={clinica}
+              textColor="#4A5568"
+              icon={HiOutlineUser}
+              clinica={medicos}
+              clinicas={null}
+              onClickModal={false}
+              id={key}
+              isMedic={true}
+            />
+          );
+        })}
+      </>
+    );
+  };
+
+  useEffect(() => {
+    RenderFieldDefault();
+  }, [ClinicasMedico]);
 
   useEffect(() => {
     TAGS();
@@ -292,6 +325,7 @@ const Medicos = ({ medico, id }) => {
           paddingStart="8px"
           align="center"
           onClick={onOpen}
+          _hover={{ cursor: "pointer" }}
         >
           {nomeMedico}
         </Text>
@@ -344,21 +378,7 @@ const Medicos = ({ medico, id }) => {
         </Tooltip>
       </Stack>
       <Box onClick={onOpen}>
-        {ClinicasMedico.map((clinica, key) => {
-          return (
-            <FieldDefaultIcon
-              key={key}
-              text={clinica}
-              textColor="#4A5568"
-              icon={HiOutlineUser}
-              clinica={medicos}
-              clinicas={null}
-              onClickModal={false}
-              id={key}
-              isMedic={true}
-            />
-          );
-        })}
+        <RenderFieldDefault />
         <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
           <ModalOverlay />
           <ModalContent>
@@ -465,6 +485,7 @@ const Medicos = ({ medico, id }) => {
                             ...prevClinicas,
                             e.target.value,
                           ]);
+
                         }}
                       >
                         {listaClinicas.map((e, key) => {
