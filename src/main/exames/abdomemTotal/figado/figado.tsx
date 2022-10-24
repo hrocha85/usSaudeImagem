@@ -1,8 +1,8 @@
 import { Box, Checkbox, Input, Select } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import { LaudosContext } from '../../../../context/LuadosContext';
-
+import { NormalContext } from "../../../../context/NormalContext";
 
 function Figado() {
     const altura = '100%'
@@ -55,7 +55,6 @@ function Figado() {
     let SelectNodulo03 = document.querySelector('#SelectNodulo03') as HTMLInputElement
     let Select2Nodulo03 = document.querySelector('#Select2Nodulo03') as HTMLInputElement
     let Select3Nodulo03 = document.querySelector('#SelectN3odulo03') as HTMLInputElement
-    let InputNodulo03 = document.querySelector('#InputNodulo03') as HTMLInputElement
 
     let multiplosNodulos = document.querySelector('#multiplosNodulos') as HTMLInputElement
     let SelectMultiplosNodulos = document.querySelector('#SelectMultiplosNodulos') as HTMLInputElement
@@ -63,8 +62,8 @@ function Figado() {
     let Select3MultiplosNodulos = document.querySelector('#Select3MultiplosNodulos') as HTMLInputElement
     let InputMultiplosNodulos = document.querySelector('#InputMultiplosNodulos') as HTMLInputElement
 
-
     const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+    const { laudoNormal } = useContext(NormalContext);
 
     const [selectCalcificacao, setSelectCalcificacao] = useState('')
     const [inputCalcificacao, setInputCalcificacao] = useState('')
@@ -105,6 +104,9 @@ function Figado() {
     const [corBordaEsteatose, setCorBordaEsteatose] = useState('#E0E0E0')
     const [corBordaDimensoes, setCorBordaDimensoes] = useState('#E0E0E0')
 
+    const [defaultValueNormal, setDefaultValueNormal] = useState({
+        defaultValueNormal: false,
+    })
     const [checkValueNormal, setCheckValueNormal] = useState({
         normal: false,
     })
@@ -198,7 +200,6 @@ function Figado() {
             laudoPrin.splice(index, 1)
             setLaudoPrin(arr => [...arr])
         }
-
     }
 
     const DeterminaCondicaoCheckNormal = () => {
@@ -364,12 +365,155 @@ function Figado() {
         }
     }
 
+    const removeNormal = () => {
+        setLaudoPrin(arr => [])
+    }
+
+    useEffect(() => {
+        if (laudoNormal === true) {
+            setDefaultValueNormal({ defaultValueNormal: true })
+            criarString('Figado está normal ')
+            console.log(laudoPrin)
+            setCheckValueHepatiteAguda({
+                HepatiteAguda: true,
+            })
+            setCheckValueHepatiteCronica({
+                HepatiteCronica: true,
+
+            })
+            setCheckValueDimensoes({
+                dimensoes: true,
+                SelectDimensoes: true,
+            })
+            setCheckValueEsteatose({
+                esteatose: true,
+                SelectEsteatose: true
+            })
+
+            //----------------------------------------------------
+
+            setCheckValueCalcificacao({
+                calcificacao: true,
+                SelectCalcificacao: true,
+                InputCalcificacao: true
+            })
+            setCheckValueCisto01({
+                cisto01: true,
+                SelectCisto01: true,
+                InputCisto01: true
+            })
+            setCheckValueCisto02({
+                cisto02: true,
+                SelectCisto02: true,
+                InputCisto02: true
+            })
+            setCheckValueCisto03({
+                cisto03: true,
+                SelectCisto03: true,
+                InputCisto03: true
+            })
+            setCheckValueMultiplosCistos({
+                MultiplosCistos: true,
+                SelectMultiplosCistos: true,
+                InputMultiplosCistos: true
+            })
+            //-------------------------------------------------------------------
+            setCheckValueNodulo01({
+                nodulo01: true,
+                SelectNodulo01: true,
+                InputNodulo01: true,
+            })
+            setCheckValueNodulo02({
+                nodulo02: true,
+                SelectNodulo02: true,
+                InputNodulo02: true,
+            })
+            setCheckValueNodulo03({
+                nodulo03: true,
+                SelectNodulo03: true,
+                InputNodulo03: true,
+            })
+            setCheckValueMultiplosNodulos({
+                MultiplosNodulos: true,
+                SelectMultiplosNodulos: true,
+                InputMultiplosNodulos: true,
+            })
+        } else {
+            setDefaultValueNormal({ defaultValueNormal: false })
+            removeNormal()
+            setCheckValueHepatiteAguda({
+                HepatiteAguda: false,
+            })
+            setCheckValueHepatiteCronica({
+                HepatiteCronica: false,
+
+            })
+            setCheckValueDimensoes({
+                dimensoes: false,
+                SelectDimensoes: true,
+            })
+            setCheckValueEsteatose({
+                esteatose: false,
+                SelectEsteatose: true
+            })
+
+            //-----------------------------------------------------------------
+            setCheckValueCalcificacao({
+                calcificacao: false,
+                SelectCalcificacao: true,
+                InputCalcificacao: true
+            })
+            setCheckValueCisto01({
+                cisto01: false,
+                SelectCisto01: true,
+                InputCisto01: true
+            })
+            setCheckValueCisto02({
+                cisto02: false,
+                SelectCisto02: true,
+                InputCisto02: true
+            })
+            setCheckValueCisto03({
+                cisto03: false,
+                SelectCisto03: true,
+                InputCisto03: true
+            })
+            setCheckValueMultiplosCistos({
+                MultiplosCistos: false,
+                SelectMultiplosCistos: true,
+                InputMultiplosCistos: true
+            })
+            //--------------------------------------
+            setCheckValueNodulo01({
+                nodulo01: false,
+                SelectNodulo01: true,
+                InputNodulo01: true,
+            })
+            setCheckValueNodulo02({
+                nodulo02: false,
+                SelectNodulo02: true,
+                InputNodulo02: true,
+            })
+            setCheckValueNodulo03({
+                nodulo03: false,
+                SelectNodulo03: true,
+                InputNodulo03: true,
+            })
+            setCheckValueMultiplosNodulos({
+                MultiplosNodulos: false,
+                SelectMultiplosNodulos: true,
+                InputMultiplosNodulos: true,
+            })
+        }
+    }, [laudoNormal])
 
     const verificaChecked = (value) => {
         switch (value.id) {
-            case 'normal':
+            case ('normal'):
+                //console.log(value)
                 if (value.checked === true) {
                     criarString(value.value)
+                    setDefaultValueNormal({ defaultValueNormal: true })
                     setCheckValueHepatiteAguda({
                         HepatiteAguda: true,
                     })
@@ -437,6 +581,7 @@ function Figado() {
 
                 } else {
                     removeItemString(value.value)
+                    setDefaultValueNormal({ defaultValueNormal: false })
                     setCheckValueHepatiteAguda({
                         HepatiteAguda: false,
                     })
@@ -500,6 +645,7 @@ function Figado() {
                         SelectMultiplosNodulos: true,
                         InputMultiplosNodulos: true,
                     })
+                    console.log('caiu bem aqui')
                 }
                 break;
             case 'HepatiteAguda':
@@ -920,9 +1066,10 @@ function Figado() {
                 >
                     <Box>
                         <Checkbox
+                            isChecked={defaultValueNormal.defaultValueNormal}
                             disabled={checkValueNormal.normal}
                             id="normal"
-                            value="Figado está normal"
+                            value="Figado está normal "
                             onChange={(e) => { verificaChecked(e.target) }}
                         >Normal</Checkbox>
                     </Box>

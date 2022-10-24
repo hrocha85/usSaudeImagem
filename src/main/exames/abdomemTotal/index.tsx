@@ -16,7 +16,9 @@ import Cisto from "./cisto/cisto";
 import Bexiga from "./bexiga/bexiga";
 import Calculos from "./calculos/calculos";
 import Nodulos from "./nodulos/nodulos";
-
+import Normal from "./abdomenNormal/normal";
+import { useContext, useEffect } from "react";
+import { LaudosContext } from "../../../context/LuadosContext";
 function AbdomemTotal() {
 
     return (
@@ -39,6 +41,7 @@ function AbdomemTotal() {
             <Box
                 ml='10px'
             >
+                <Normal></Normal>
 
                 <Figado />
 
@@ -61,6 +64,7 @@ function AbdomemTotal() {
                 <Calculos />
 
                 <Dilatacao />
+
                 <Nodulos />
 
                 <Cisto />

@@ -1,17 +1,35 @@
-import { Box, Checkbox, RadioGroup, Radio } from "@chakra-ui/react";
+import { Box, Checkbox } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import { LaudosContext } from '../../../../context/LuadosContext';
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { NormalContext } from "../../../../context/NormalContext";
 
 function ViasBiliares() {
     const altura = '100%'
     const largura = '66%'
 
-    let coledocoNormal = document.querySelector('#ColedocoNormal') as HTMLInputElement
-    let coledocoEcasiado = document.querySelector('#ColedocoEcasiado') as HTMLInputElement
     let viasBiliaresDilatadas = document.querySelector('#ViasBiliaresDilatadas') as HTMLInputElement
 
+    const { laudoNormal } = useContext(NormalContext);
     const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+    const [defaultValueNormal, setDefaultValueNormal] = useState({
+        defaultValueNormal: false,
+    })
+    const [checkValueNormal, setCheckvalueNormal] = useState({
+        normal: false,
+    })
+    const [checkValueColedocoEcstasiado, setCheckvalueColedocoEcstasiado] = useState({
+        ColedocoEcstasiado: false,
+    })
+
+    const criarString = (value, valueId?, valueInput?) => {
+        //console.log("Valor cria string = ", value);
+        //arr => [...arr] captura os dados que já estavam e os mantem no array
+        setLaudoPrin(arr => [...arr, value])
+        //console.log("criaString = ", laudoPrin)
+
+    }
 
     const removeItemString = (value) => {
         // console.log("valor remove = ", value);
@@ -23,15 +41,56 @@ function ViasBiliares() {
         }
     }
 
-    const setValueFraseColedoco = (value) => {
-        if (coledocoNormal.checked === true) {
-            removeItemString('Colédoco Ectasiado')
-            setLaudoPrin(arr => [...arr, value.value])
-        } else if (coledocoEcasiado.checked === true) {
-            removeItemString('Colédoco Normal');
-            setLaudoPrin(arr => [...arr, value.value])
+    const verificaChecked = (value) => {
+        switch (value.id) {
+            case 'ColedocoNormal':
+                if (value.checked === true) {
+                    setDefaultValueNormal({ defaultValueNormal: true })
+                    setLaudoPrin(arr => [...arr, value.value])
+                    setCheckvalueColedocoEcstasiado({
+                        ColedocoEcstasiado: true
+                    })
+                } else {
+                    setDefaultValueNormal({ defaultValueNormal: false })
+                    removeItemString(value.value);
+                    setCheckvalueColedocoEcstasiado({
+                        ColedocoEcstasiado: false
+                    })
+                }
+                break
+            case 'ColedocoEcasiado':
+                if (value.checked === true) {
+
+                    setLaudoPrin(arr => [...arr, value.value])
+                    setCheckvalueNormal({
+                        normal: true
+                    })
+                } else {
+                    removeItemString(value.value);
+                    setCheckvalueNormal({
+                        normal: false
+                    })
+                }
+                break
         }
     }
+
+    useEffect(() => {
+        if (laudoNormal === true) {
+            criarString('Colédoco Normal ')
+            setDefaultValueNormal({ defaultValueNormal: true })
+            setCheckvalueColedocoEcstasiado({
+                ColedocoEcstasiado: true
+            })
+        } else {
+            setDefaultValueNormal({ defaultValueNormal: false })
+            //removeNormal()
+            //removeItemString('Colédoco Normal ');
+            setCheckvalueColedocoEcstasiado({
+                ColedocoEcstasiado: false
+            })
+        }
+    }, [laudoNormal])
 
     const setValueFraseViasBiliares = (value) => {
         (viasBiliaresDilatadas.checked === true) ? setLaudoPrin(arr => [...arr, value.value]) : removeItemString(value.value)
@@ -52,27 +111,32 @@ function ViasBiliares() {
         >
             <TituloNomeExame titulo='Vias Biliares' />
 
-            <RadioGroup>
-                <Box
-                    gap='25px'
-                    display='flex'
-                    flexWrap='wrap'
-                    mb='10px'
-                >
-                    <Radio value='Colédoco Normal' id='ColedocoNormal'
-                        onChange={(e) => { setValueFraseColedoco(e.target) }}>
-                        Colédoco Normal
-                    </Radio>
-                    <Radio value='Colédoco Ectasiado' id='ColedocoEcasiado'
-                        onChange={(e) => { setValueFraseColedoco(e.target) }}>
-                        Colédoco Ectasiado
-                    </Radio>
-                    <Checkbox value='Vias Biliares Intra-Hepáticas Dilatadas' id='ViasBiliaresDilatadas'
-                        onChange={(e) => { setValueFraseViasBiliares(e.target) }}>
-                        Vias Biliares Intra-Hepáticas Dilatadas
-                    </Checkbox>
-                </Box>
-            </RadioGroup>
+
+            <Box
+                gap='25px'
+                display='flex'
+                flexWrap='wrap'
+                mb='10px'
+            >
+                <Checkbox
+                    isChecked={defaultValueNormal.defaultValueNormal}
+                    disabled={checkValueNormal.normal}
+                    value='Colédoco Normal ' id='ColedocoNormal'
+                    onChange={(e) => { verificaChecked(e.target) }}>
+                    Colédoco Normal
+                </Checkbox>
+                <Checkbox
+                    disabled={checkValueColedocoEcstasiado.ColedocoEcstasiado}
+                    value='Colédoco Ectasiado ' id='ColedocoEcasiado'
+                    onChange={(e) => { verificaChecked(e.target) }}>
+                    Colédoco Ectasiado
+                </Checkbox>
+                <Checkbox value='Vias Biliares Intra-Hepáticas Dilatadas' id='ViasBiliaresDilatadas'
+                    onChange={(e) => { setValueFraseViasBiliares(e.target) }}>
+                    Vias Biliares Intra-Hepáticas Dilatadas
+                </Checkbox>
+            </Box>
+
         </Box >
     );
 }
