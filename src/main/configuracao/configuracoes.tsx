@@ -330,7 +330,7 @@ const Configuracoes = () => {
           margin="20px 80px 100px 20px"
           align="center"
         >
-          <BoxTitleBackground titulo="Configurações" />
+          <BoxTitleBackground PadLeft="20px" fontsize="19px" tamanho="180px" titulo="Configurações" />
 
           <Progress
             value={50}

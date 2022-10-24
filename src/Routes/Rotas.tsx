@@ -3,6 +3,7 @@ import AbdomemTotal from "../main/exames/abdomemTotal";
 import SplashScreen from "../main/splashScreen";
 import Configuracoes from "../main/configuracao/configuracoes";
 import Home from "../main/home/index";
+import AbdomemSuperior from "../main/exames/abdomenSuperior";
 
 function Rotas() {
   return (
@@ -10,6 +11,7 @@ function Rotas() {
       <Route path="/" element={<SplashScreen />} />
       <Route path="/Home" element={<Home />} />
       <Route path="/Home/1" element={<AbdomemTotal />} />
+      <Route path="/Home/5" element={<AbdomemSuperior />} />
       <Route path="/Home/Configuracoes" element={<Configuracoes />} />
     </Routes>
   );
