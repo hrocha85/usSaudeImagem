@@ -1,7 +1,8 @@
-import { Box, Text, Checkbox, Select, Input, RadioGroup, Radio } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { Box, Text, Checkbox, Select, Input } from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { NormalContext } from "../../../../context/NormalContext";
 
 
 function Aorta() {
@@ -12,14 +13,30 @@ function Aorta() {
     let inputCalibreMaximo = document.querySelector('#InputCalibreMaximo') as HTMLInputElement
     let inputExtensao = document.querySelector('#InputExtensao') as HTMLInputElement
 
-
+    const { laudoNormal } = useContext(NormalContext);
     const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
     const [valueFraseAneurisma, setValueFraseAneurisma] = useState('')
 
     const [valueLocalizacaoAneurmisma, setValueLocalizacaoAneurmisma] = useState('')
     const [valueInputCalibreMax, setValueInputCalibreMax] = useState('')
 
+    const [defaultValueNormal, setDefaultValueNormal] = useState({
+        defaultValueNormal: false,
+    })
+
+    const [checkValueNormal, setCheckValueNormal] = useState({
+        normal: false,
+    })
+
+    const [checkValueNaoVisibilizada, setCheckValueNaoVisibilizada] = useState({
+        NaoVisibilizada: false,
+    })
+    const [checkValueAteromatosa, setCheckValueAteromatosa] = useState({
+        ateromatosa: false,
+    })
+
     const [checkValueAneurisma, setCheckvalueAneurisma] = useState({
+        aneurisma: false,
         selectLocalizacao: true,
         inputCalibreMaximo: true,
         inputExtensao: true,
@@ -33,11 +50,6 @@ function Aorta() {
             laudoPrin.splice(index, 1)
             setLaudoPrin(arr => [...arr])
         }
-        // setCheckvalueAneurisma({
-        //     selectLocalizacao: true,
-        //     inputCalibreMaximo: true,
-        //     inputExtensao: true,
-        // })
         inputExtensao.value = ''
         selectLocalizacao.value = ''
         inputCalibreMaximo.value = ''
@@ -45,6 +57,7 @@ function Aorta() {
 
     const removeStringAneurisma = () => {
         setCheckvalueAneurisma({
+            aneurisma: false,
             selectLocalizacao: true,
             inputCalibreMaximo: true,
             inputExtensao: true,
@@ -64,41 +77,178 @@ function Aorta() {
         setLaudoPrin(arr => [...arr, string])
     }
 
+    const criarString = (value, valueId?, valueInput?) => {
+        //console.log("Valor cria string = ", value);
+        //arr => [...arr] captura os dados que já estavam e os mantem no array
+        setLaudoPrin(arr => [...arr, value])
+        //console.log("criaString = ", laudoPrin)
+
+    }
+    useEffect(() => {
+        if (laudoNormal === true) {
+            setDefaultValueNormal({ defaultValueNormal: true })
+            criarString('Aorta Normal ')
+            setCheckValueNaoVisibilizada({
+                NaoVisibilizada: true
+            })
+            setCheckValueAteromatosa({
+                ateromatosa: true
+            })
+            setCheckvalueAneurisma({
+                aneurisma: true,
+                selectLocalizacao: true,
+                inputCalibreMaximo: true,
+                inputExtensao: true,
+            })
+
+        } else {
+            setDefaultValueNormal({ defaultValueNormal: false })
+            //   removeNormal()
+            setCheckValueNaoVisibilizada({
+                NaoVisibilizada: false
+            })
+            setCheckValueAteromatosa({
+                ateromatosa: false
+            })
+            setCheckvalueAneurisma({
+                aneurisma: false,
+                selectLocalizacao: true,
+                inputCalibreMaximo: true,
+                inputExtensao: true,
+            })
+        }
+    }, [laudoNormal])
+
+
     const verificaChecked = (value) => {
         switch (value.id) {
             case 'AortaNormal':
-                console.log('normal')
-                removeItemString('Aneurisma')
-                removeItemString('Ateromatosa')
-                removeItemString('Nao Visibilizada')
-                removeStringAneurisma()
-                setLaudoPrin(arr => [...arr, value.value])
+                if (value.checked === true) {
+                    setDefaultValueNormal({ defaultValueNormal: true })
+                    setLaudoPrin(arr => [...arr, value.value])
+                    setCheckValueNaoVisibilizada({
+                        NaoVisibilizada: true
+                    })
+                    setCheckValueAteromatosa({
+                        ateromatosa: true
+                    })
+                    setCheckvalueAneurisma({
+                        aneurisma: true,
+                        selectLocalizacao: true,
+                        inputCalibreMaximo: true,
+                        inputExtensao: true,
+                    })
+                } else {
+                    setDefaultValueNormal({ defaultValueNormal: false })
+                    removeItemString(value.value)
+                    setCheckValueNaoVisibilizada({
+                        NaoVisibilizada: false
+                    })
+                    setCheckValueAteromatosa({
+                        ateromatosa: false
+                    })
+                    setCheckvalueAneurisma({
+                        aneurisma: false,
+                        selectLocalizacao: true,
+                        inputCalibreMaximo: true,
+                        inputExtensao: true,
+                    })
+                }
                 break
             case 'NaoVisibilizada':
-                console.log('nao visibilizado')
-                removeItemString('Aneurisma')
-                removeItemString('Ateromatosa')
-                removeItemString('Aorta Normal')
-                removeStringAneurisma()
-                setLaudoPrin(arr => [...arr, value.value])
+                if (value.checked === true) {
+                    setLaudoPrin(arr => [...arr, value.value])
+                    setCheckValueNormal({
+                        normal: true
+                    })
+                    setCheckValueAteromatosa({
+                        ateromatosa: true
+                    })
+                    setCheckvalueAneurisma({
+                        aneurisma: true,
+                        selectLocalizacao: true,
+                        inputCalibreMaximo: true,
+                        inputExtensao: true,
+                    })
+                } else {
+                    removeItemString(value.value)
+                    setCheckValueNormal({
+                        normal: false
+                    })
+                    setCheckValueAteromatosa({
+                        ateromatosa: false
+                    })
+                    setCheckvalueAneurisma({
+                        aneurisma: false,
+                        selectLocalizacao: true,
+                        inputCalibreMaximo: true,
+                        inputExtensao: true,
+                    })
+                }
                 break
             case 'Ateromatosa':
-                console.log('Ateromatosa')
-                removeItemString('Aneurisma')
-                removeItemString('Aorta Normal')
-                removeItemString('Nao Visibilizada')
-                removeStringAneurisma()
-                setLaudoPrin(arr => [...arr, value.value])
+                if (value.checked === true) {
+                    setLaudoPrin(arr => [...arr, value.value])
+                    setCheckValueNormal({
+                        normal: true
+                    })
+                    setCheckValueNaoVisibilizada({
+                        NaoVisibilizada: true
+                    })
+                    setCheckvalueAneurisma({
+                        aneurisma: true,
+                        selectLocalizacao: true,
+                        inputCalibreMaximo: true,
+                        inputExtensao: true,
+                    })
+                } else {
+                    removeItemString(value.value)
+                    setCheckValueNormal({
+                        normal: false
+                    })
+                    setCheckValueNaoVisibilizada({
+                        NaoVisibilizada: false
+                    })
+                    setCheckvalueAneurisma({
+                        aneurisma: false,
+                        selectLocalizacao: true,
+                        inputCalibreMaximo: true,
+                        inputExtensao: true,
+                    })
+                }
                 break
             case 'Aneurisma':
-                setCheckvalueAneurisma({
-                    selectLocalizacao: false,
-                    inputCalibreMaximo: false,
-                    inputExtensao: false,
-                })
-                removeItemString('Ateromatosa')
-                removeItemString('Aorta Normal')
-                removeItemString('Nao Visibilizada')
+                if (value.checked === true) {
+                    setCheckvalueAneurisma({
+                        aneurisma: false,
+                        selectLocalizacao: false,
+                        inputCalibreMaximo: false,
+                        inputExtensao: false,
+                    })
+                    setCheckValueNormal({
+                        normal: true
+                    })
+                    setCheckValueNaoVisibilizada({
+                        NaoVisibilizada: true
+                    })
+                    setCheckValueAteromatosa({
+                        ateromatosa: true
+                    })
+                } else {
+                    setCheckValueNormal({
+                        normal: false
+                    })
+                    setCheckValueNaoVisibilizada({
+                        NaoVisibilizada: false
+                    })
+                    setCheckValueAteromatosa({
+                        ateromatosa: false
+                    })
+                    removeStringAneurisma()
+                    removeItemString('Ateromatosa')
+                    removeItemString('Aorta Normal ')
+                    removeItemString('Nao Visibilizada')
+                }
                 break
 
             case 'InputCalibreMaximo':
@@ -130,30 +280,35 @@ function Aorta() {
                 borderBottom='1px'>
 
                 <TituloNomeExame titulo='Aorta' />
-                <RadioGroup>
-                    <Box
-                        gap='30px'
-                        display='flex'
-                        flexWrap='wrap'
-                        mb='20px'
-                    >
-                        <Radio
-                            value='Aorta Normal'
-                            id='AortaNormal'
-                            onChange={(e) => { verificaChecked(e.target) }}
-                        >Normal</Radio>
-                        <Radio
-                            value='Nao Visibilizada'
-                            onChange={(e) => { verificaChecked(e.target) }}
-                            id='NaoVisibilizada'>Não Visibilizado</Radio>
-                        <Radio value='Ateromatosa'
-                            onChange={(e) => { verificaChecked(e.target) }}
-                            id='Ateromatosa' >Ateromatosa</Radio>
-                        <Radio value=''
-                            onChange={(e) => { verificaChecked(e.target) }}
-                            id='Aneurisma' >Aneurisma</Radio>
-                    </Box>
-                </RadioGroup>
+
+                <Box
+                    gap='30px'
+                    display='flex'
+                    flexWrap='wrap'
+                    mb='20px'
+                >
+                    <Checkbox
+                        isChecked={defaultValueNormal.defaultValueNormal}
+                        value='Aorta Normal  '
+                        disabled={checkValueNormal.normal}
+                        id='AortaNormal'
+                        onChange={(e) => { verificaChecked(e.target) }}
+                    >Normal</Checkbox>
+                    <Checkbox
+                        disabled={checkValueNaoVisibilizada.NaoVisibilizada}
+                        value='Nao Visibilizada'
+                        onChange={(e) => { verificaChecked(e.target) }}
+                        id='NaoVisibilizada'>Não Visibilizado</Checkbox>
+                    <Checkbox value='Ateromatosa'
+                        disabled={checkValueAteromatosa.ateromatosa}
+                        onChange={(e) => { verificaChecked(e.target) }}
+                        id='Ateromatosa' >Ateromatosa</Checkbox>
+                    <Checkbox value=''
+                        disabled={checkValueAneurisma.aneurisma}
+                        onChange={(e) => { verificaChecked(e.target) }}
+                        id='Aneurisma' >Aneurisma</Checkbox>
+                </Box>
+
             </Box >
             {/* ------------------------------------------------------------------------------------------------------------ */}
 

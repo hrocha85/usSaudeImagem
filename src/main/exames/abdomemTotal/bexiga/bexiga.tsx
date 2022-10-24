@@ -1,7 +1,8 @@
-import { Box, Checkbox, Stack, Text, Select, Grid, GridItem, Input } from "@chakra-ui/react";
+import { Box, Checkbox, Input } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { LaudosContext } from '../../../../context/LuadosContext';
+import { NormalContext } from "../../../../context/NormalContext";
 
 function Bexiga() {
     const altura = '100%'
@@ -17,11 +18,16 @@ function Bexiga() {
     let UretroceleMede = document.querySelector('#UretroceleMede') as HTMLInputElement
     let InputUretroceleMede = document.querySelector('#InputUretroceleMede') as HTMLInputElement
 
+    const { laudoNormal } = useContext(NormalContext);
     const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
 
     const [valueInputCalculoMede, setValueInputCalculoMede] = useState('')
     const [valueInputDiverticuloMede, setValueInputDiverticuloMede] = useState('')
     const [valueInputUretroceleMede, setValueInputUretroceleMede] = useState('')
+
+    const [defaultValueNormal, setDefaultValueNormal] = useState({
+        defaultValueNormal: false,
+    })
 
     const [checkValueNormal, setCheckvalueNormal] = useState({
         normal: false,
@@ -88,10 +94,63 @@ function Bexiga() {
         }
     }
 
+    useEffect(() => {
+        if (laudoNormal === true) {
+            setDefaultValueNormal({ defaultValueNormal: true })
+            criarString('Aorta Normal ')
+            setCheckvalueEsforco({
+                esforco: true
+            })
+            setCheckvalueVazia({
+                vazia: true
+            })
+            setCheckvalueoOmitirBexiga({
+                OmitirBexiga: true
+            })
+            setCheckvalueoCalculoMede({
+                CalculoMede: true,
+                InputCalculoMede: true
+            })
+            setCheckvalueoUretroceleMede({
+                UretroceleMede: true,
+                InputUretroceleMede: true
+            })
+            setCheckvalueoDiverticuloMede({
+                DiverticuloMede: true,
+                InputDiverticuloMede: true
+            })
+        } else {
+            setDefaultValueNormal({ defaultValueNormal: false })
+            setCheckvalueEsforco({
+                esforco: false
+            })
+            setCheckvalueVazia({
+                vazia: false
+            })
+            setCheckvalueoOmitirBexiga({
+                OmitirBexiga: false
+            })
+            setCheckvalueoCalculoMede({
+                CalculoMede: false,
+                InputCalculoMede: true
+            })
+            setCheckvalueoUretroceleMede({
+                UretroceleMede: false,
+                InputUretroceleMede: true
+            })
+            setCheckvalueoDiverticuloMede({
+                DiverticuloMede: false,
+                InputDiverticuloMede: true
+            })
+        }
+    }, [laudoNormal])
+
+
     const verificaChecked = (value) => {
         switch (value.id) {
             case 'normal':
                 if (value.checked === true) {
+                    setDefaultValueNormal({ defaultValueNormal: true })
                     criarString(value.value)
                     setCheckvalueEsforco({
                         esforco: true
@@ -115,6 +174,7 @@ function Bexiga() {
                         InputDiverticuloMede: true
                     })
                 } else {
+                    setDefaultValueNormal({ defaultValueNormal: false })
                     removeItemString(value.value)
                     setCheckvalueEsforco({
                         esforco: false
@@ -255,6 +315,7 @@ function Bexiga() {
                     flexWrap='wrap'
                     mt='20px'>
                     <Checkbox
+                        isChecked={defaultValueNormal.defaultValueNormal}
                         onChange={(e) => { verificaChecked(e.target) }}
                         id='normal'
                         value='Bexiga normal'
