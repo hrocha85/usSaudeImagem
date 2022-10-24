@@ -17,8 +17,7 @@ import Bexiga from "./bexiga/bexiga";
 import Calculos from "./calculos/calculos";
 import Nodulos from "./nodulos/nodulos";
 import Normal from "./abdomenNormal/normal";
-import { useContext, useEffect } from "react";
-import { LaudosContext } from "../../../context/LuadosContext";
+
 function AbdomemTotal() {
 
     return (
@@ -32,9 +31,8 @@ function AbdomemTotal() {
             backgroundImage={BGImage}
             backgroundSize="cover"
             backgroundRepeat="no-repeat"
-
         >
-            <BoxTitleBackground titulo="Adbomen Total" />
+            <BoxTitleBackground PadLeft="20px" fontsize="19px" tamanho="180px" titulo="Abdômen Total" />
 
             <Exames></Exames>
 
