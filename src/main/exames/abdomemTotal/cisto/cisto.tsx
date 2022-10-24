@@ -1,4 +1,4 @@
-import { Box, Checkbox, Select, Grid, Input } from "@chakra-ui/react";
+import { Box, Checkbox, Select, Input } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import { LaudosContext } from '../../../../context/LuadosContext';
 import { useContext, useState } from "react";

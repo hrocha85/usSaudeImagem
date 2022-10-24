@@ -23,7 +23,6 @@ function Dilatacao() {
         //console.log("Valor cria string = ", value);
         //arr => [...arr] captura os dados que já estavam e os mantem no array
         setLaudoPrin(arr => [...arr, value])
-        //console.log("criaString = ", laudoPrin)
 
     }
 
@@ -34,10 +33,7 @@ function Dilatacao() {
         if (index > -1) {
             laudoPrin.splice(index, 1)
             setLaudoPrin(arr => [...arr])
-
         }
-        // console.log('posicao', index)
-        // console.log("laudosPrin", laudoPrin)
     }
 
     const verificaChecked = (value) => {

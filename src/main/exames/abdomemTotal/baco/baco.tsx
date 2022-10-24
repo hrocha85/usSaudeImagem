@@ -1,7 +1,9 @@
 import { Box, Checkbox, Select, Input } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { LaudosContext } from '../../../../context/LuadosContext';
+import { NormalContext } from "../../../../context/NormalContext";
+import { StringNormalContext } from "../../../../context/StringNormalContext";
 
 function Baco() {
     const altura = '100%'
@@ -20,6 +22,7 @@ function Baco() {
     let InputCalcificacoes = document.querySelector('#InputCalcificacoes') as HTMLInputElement
     let InputCisto = document.querySelector('#InputCisto') as HTMLInputElement
 
+    const { laudoNormal } = useContext(NormalContext);
     const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
     const [inputBacoAcessorio, setinputBacoAcessorio] = useState('');
     const [inputBaco, setInputBaco] = useState('')
@@ -31,6 +34,10 @@ function Baco() {
     const [corBordaBacoAcessorio, setCorBordaBacoAcessorio] = useState('#E0E0E0')
     const [corBordaCalcificacoes, setCorBordaCalcificacoes] = useState('#E0E0E0')
     const [corBordaCisto, setCorBordaCisto] = useState('#E0E0E0')
+
+    const [defaultValueNormal, setDefaultValueNormal] = useState({
+        defaultValueNormal: false,
+    })
 
     const [checkValueNormal, setCheckvalueNormal] = useState({
         normal: false,
@@ -164,10 +171,62 @@ function Baco() {
 
     }
 
+    useEffect(() => {
+        if (laudoNormal === true) {
+            setDefaultValueNormal({ defaultValueNormal: true })
+            criarString('paciente está normal ')
+            setCheckvalueAumentadoEcotextura({
+                aumentadoComEcotextura: true,
+                SelectAumentadoComEcotextura: true,
+            })
+            setCheckvalueNaoVisibilizado({
+                naoVisibilizado: true,
+                SelectNaoVisibilizado: true,
+            })
+            setCheckvalueBacoAcessorio({
+                bacoAcessorio: true,
+                InputBacoAcessorio: true,
+            })
+            setCheckvalueCalcificacoes({
+                calcificacoes: true,
+                InputCalcificacoes: true,
+            })
+            setCheckvalueCisto({
+                cisto: true,
+                InputCisto: true,
+            })
+
+        } else {
+            setDefaultValueNormal({ defaultValueNormal: false })
+            //   removeNormal()
+            setCheckvalueAumentadoEcotextura({
+                aumentadoComEcotextura: false,
+                SelectAumentadoComEcotextura: true,
+            })
+            setCheckvalueNaoVisibilizado({
+                naoVisibilizado: false,
+                SelectNaoVisibilizado: true,
+            })
+            setCheckvalueBacoAcessorio({
+                bacoAcessorio: false,
+                InputBacoAcessorio: true,
+            })
+            setCheckvalueCalcificacoes({
+                calcificacoes: false,
+                InputCalcificacoes: true,
+            })
+            setCheckvalueCisto({
+                cisto: false,
+                InputCisto: true,
+            })
+        }
+    }, [laudoNormal])
+
     const verificaChecked = (value) => {
         switch (value.id) {
             case 'normal':
                 if (value.checked === true) {
+                    setDefaultValueNormal({ defaultValueNormal: true })
                     criarString(value.value)
                     setCheckvalueAumentadoEcotextura({
                         aumentadoComEcotextura: true,
@@ -191,6 +250,7 @@ function Baco() {
                     })
 
                 } else {
+                    setDefaultValueNormal({ defaultValueNormal: false })
                     removeItemString(value.value)
                     setCheckvalueAumentadoEcotextura({
                         aumentadoComEcotextura: false,
@@ -392,6 +452,7 @@ function Baco() {
 
                     <Box w='100px' >
                         <Checkbox
+                            isChecked={defaultValueNormal.defaultValueNormal}
                             disabled={checkValueNormal.normal}
                             id="normal"
                             value="paciente está normal "
@@ -486,7 +547,8 @@ function Baco() {
                     disabled={checkValueCisto.InputCisto}
                     id="InputCisto"
                     borderColor={corBordaCisto}
-                    onBlur={(e) => { verificaChecked(e.target) }} placeholder='mm' />
+                    onBlur={(e) => { verificaChecked(e.target) }}
+                    placeholder='mm' />
             </Box>
 
         </Box >

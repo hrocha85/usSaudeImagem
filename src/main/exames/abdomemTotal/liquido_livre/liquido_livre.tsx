@@ -61,6 +61,7 @@ function LiquidoLivre() {
                 break;
             case 'LiquidoLivrePresente':
                 if (value.checked === true) {
+                    console.log(laudoPrin)
                     setCheckvalueNormal({
                         normal: true
                     })
