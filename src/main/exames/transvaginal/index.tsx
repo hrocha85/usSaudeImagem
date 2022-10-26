@@ -1,7 +1,9 @@
-import { Box } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
 import BGImage from "../../images/bg_img.png";
+import Ovario_Direito from "./ovarios/ovario_direito";
+import Ovario_Esquerdo from "./ovarios/ovario_esquedo";
 import Utero from "./utero/utero";
 
 function Transvaginal() {
@@ -26,6 +28,10 @@ function Transvaginal() {
 
       <Box ml="10px">
         <Utero />
+        <HStack alignItems="baseline" >
+          <Ovario_Esquerdo />
+          <Ovario_Direito />
+        </HStack>
       </Box>
     </Box>
   );
