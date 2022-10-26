@@ -8,6 +8,7 @@ import Idade from "./idade/idade";
 import EcotexturaParenquima from "./EcotexturaParenquima/EcotexturaParenquima";
 import Cirurgias from "./cirurgias/cirurgias";
 import Medidas from "./medidas/medidas";
+import Nodulos from "./nodulos/nodulos";
 
 
 function Tireoide() {
@@ -43,6 +44,7 @@ function Tireoide() {
 
                 <Idade></Idade>
 
+                <Nodulos></Nodulos>
             </Box >
         </Box >
     );
