@@ -21,7 +21,6 @@ function Utero() {
   const [medidaUtero1, setmedidaUtero1] = useState("");
   const [medidaUtero2, setmedidaUtero2] = useState("");
   const [medidaUtero3, setmedidaUtero3] = useState("");
-
   //States Medidas Utero - Fim
 
   //States Medida Polipo - Inicio
@@ -144,7 +143,7 @@ function Utero() {
 
   //Funcao checkBox Endometrio
   const criaStringEndometrioCheckBox = () => {
-    var string = "Endométrio heterogêneo e espessado";
+    var string = "Endométrio heterogêneo e espessado ";
     if (endometrioCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setEndometrioCheckBox(false);
@@ -157,7 +156,7 @@ function Utero() {
   const criaStringPolipoEndometrial = (medida1, medida2) => {
     removePolipoEndometrial();
     if (medidaPolipo1 != "" && medidaPolipo2 != "") {
-      var string = `Pólipo mede ${medida1} x ${medida2} mm`;
+      var string = `Pólipo mede ${medida1} x ${medida2} mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -177,7 +176,7 @@ function Utero() {
 
   //Funcoes DIU Posicionado - Inicio
   const criaStringDIUBemPosicionado = () => {
-    var string = "DIU bem posicionado";
+    var string = "DIU bem posicionado ";
     setLaudoPrin((arr) => [...arr, string]);
   };
   const removeDIUPosicionado = () => {
@@ -198,7 +197,7 @@ function Utero() {
   const criaStringDIUDistancia = (distancia) => {
     removeDIUDistancia();
     if (distancia != "") {
-      var string = `DIU distando ${distancia} mm do fundo da cavidade uterina`;
+      var string = `DIU distando ${distancia} mm do fundo da cavidade uterina `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -218,7 +217,7 @@ function Utero() {
 
   //Funcoes Liquido Endometrial - Incio
   const criaStringLiquidoEndometrial = () => {
-    var string = "Líquido na cavidade endometrial";
+    var string = "Líquido na cavidade endometrial ";
     setLaudoPrin((arr) => [...arr, string]);
     return string;
   };
@@ -241,7 +240,7 @@ function Utero() {
   const criaStringCistoNaboth = (medida) => {
     removeCistoNaboth();
     if (medida != "") {
-      var string = `Cisto de Naboth com ${medida}mm`;
+      var string = `Cisto de Naboth com ${medida}mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
