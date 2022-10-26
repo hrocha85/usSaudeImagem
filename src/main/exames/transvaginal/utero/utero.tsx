@@ -21,8 +21,7 @@ function Utero() {
   const [medidaUtero1, setmedidaUtero1] = useState("");
   const [medidaUtero2, setmedidaUtero2] = useState("");
   const [medidaUtero3, setmedidaUtero3] = useState("");
-  const [medidasPreenchidas, setmedidasPreenchidas] = useState(false);
-  const [medidasBlur, setmedidasBlur] = useState(false);
+
   //States Medidas Utero - Fim
 
   //States Medida Polipo - Inicio
@@ -100,9 +99,8 @@ function Utero() {
   // Funcoes medidas Utero - Inicio
   const criaStringMedidasUtero = () => {
     if (medidaUtero1 != "" && medidaUtero2 != "" && medidaUtero3 != "") {
-      var string = `Útero com ${medidaUtero1} x ${medidaUtero2} x ${medidaUtero3} MM `;
+      var string = `Útero com ${medidaUtero1} x ${medidaUtero2} x ${medidaUtero3} mm `;
       setLaudoPrin((arr) => [...arr, string]);
-      setmedidasPreenchidas(false);
     }
   };
   const removeMedidas = () => {
@@ -123,7 +121,7 @@ function Utero() {
   //Funcoes medida Endometrio - Inicio
   const criaStringEndometrio = () => {
     if (endometrio != null && endometrio != "") {
-      var string = `Endométrio com ${endometrio} MM `;
+      var string = `Endométrio com ${endometrio} mm `;
       removeEndometrio();
       setLaudoPrin((arr) => [...arr, string]);
     }
@@ -159,7 +157,7 @@ function Utero() {
   const criaStringPolipoEndometrial = (medida1, medida2) => {
     removePolipoEndometrial();
     if (medidaPolipo1 != "" && medidaPolipo2 != "") {
-      var string = `Pólipo mede ${medida1} x ${medida2} MM`;
+      var string = `Pólipo mede ${medida1} x ${medida2} mm`;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -200,7 +198,7 @@ function Utero() {
   const criaStringDIUDistancia = (distancia) => {
     removeDIUDistancia();
     if (distancia != "") {
-      var string = `DIU distando ${distancia} MM do fundo da cavidade uterina`;
+      var string = `DIU distando ${distancia} mm do fundo da cavidade uterina`;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -243,7 +241,7 @@ function Utero() {
   const criaStringCistoNaboth = (medida) => {
     removeCistoNaboth();
     if (medida != "") {
-      var string = `Cisto de Naboth com ${medida}MM`;
+      var string = `Cisto de Naboth com ${medida}mm`;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -372,9 +370,7 @@ function Utero() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <Box borderBottom="1px">
-        <TituloNomeExame titulo="Útero" />
-      </Box>
+      <TituloNomeExame titulo="Útero" />
 
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <Box>
@@ -420,9 +416,8 @@ function Utero() {
               onChange={(e) => {
                 setmedidaUtero3(e.target.value);
               }}
-              onBlur={() => setmedidasBlur(true)}
             />
-            <Text>MM</Text>
+            <Text>mm</Text>
           </HStack>
         </Box>
 
@@ -439,7 +434,7 @@ function Utero() {
                 setEndometrio(e.target.value);
               }}
             />
-            <Text>MM</Text>
+            <Text>mm</Text>
           </HStack>
         </Box>
         <Stack>
@@ -477,7 +472,7 @@ function Utero() {
               textAlign="center"
               onChange={handleChangeMedidaPolipo2}
             />
-            <Text>MM</Text>
+            <Text>mm</Text>
           </HStack>
           <Checkbox
             onChange={() =>
@@ -510,7 +505,7 @@ function Utero() {
               textAlign="center"
               onChange={handleChangeDistanciaDIU}
             />
-            <Text>MM do fundo da cavidade uterina</Text>
+            <Text>mm do fundo da cavidade uterina</Text>
           </HStack>
           <HStack>
             <Checkbox
@@ -528,7 +523,7 @@ function Utero() {
               textAlign="center"
               onChange={handleChangeCistoNaboth}
             />
-            <Text>MM</Text>
+            <Text>mm</Text>
           </HStack>
         </Stack>
       </Box>

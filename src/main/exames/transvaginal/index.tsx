@@ -22,6 +22,7 @@ function Transvaginal() {
 
       <Box ml="10px">
         <Utero />
+        
       </Box>
     </Box>
   );
