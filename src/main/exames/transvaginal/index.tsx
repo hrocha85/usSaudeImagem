@@ -16,13 +16,16 @@ function Transvaginal() {
       backgroundSize="cover"
       backgroundRepeat="no-repeat"
     >
-      <BoxTitleBackground titulo="Transvaginal" />
-
+      <BoxTitleBackground
+        PadLeft="20px"
+        fontsize="19px"
+        tamanho="180px"
+        titulo="Transvaginal"
+      />
       <Exames></Exames>
 
       <Box ml="10px">
         <Utero />
-        
       </Box>
     </Box>
   );
