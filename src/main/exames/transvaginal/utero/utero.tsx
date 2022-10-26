@@ -18,10 +18,11 @@ function Utero() {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
 
   //States Medidas Utero - Inicio
-  const [medidaUtero1, setmedidaUtero1] = useState<string | null>(null);
-  const [medidaUtero2, setmedidaUtero2] = useState<string | null>(null);
-  const [medidaUtero3, setmedidaUtero3] = useState<string | null>(null);
+  const [medidaUtero1, setmedidaUtero1] = useState("");
+  const [medidaUtero2, setmedidaUtero2] = useState("");
+  const [medidaUtero3, setmedidaUtero3] = useState("");
   const [medidasPreenchidas, setmedidasPreenchidas] = useState(false);
+  const [medidasBlur, setmedidasBlur] = useState(false);
   //States Medidas Utero - Fim
 
   //States Medida Polipo - Inicio
@@ -96,21 +97,28 @@ function Utero() {
   };
   //Funcoes Posicao - Fim
 
-  // Funcao medidas Utero
-  const criaStringMedidasUtero = (medida1, medida2, medida3) => {
-    var string = `Útero com ${medida1} x ${medida2} x ${medida3} MM `;
-    setLaudoPrin((arr) => [...arr, string]);
-    setmedidaUtero1(null);
-    setmedidaUtero2(null);
-    setmedidaUtero3(null);
-    setmedidasPreenchidas(false);
+  // Funcoes medidas Utero - Inicio
+  const criaStringMedidasUtero = () => {
+    if (medidaUtero1 != "" && medidaUtero2 != "" && medidaUtero3 != "") {
+      var string = `Útero com ${medidaUtero1} x ${medidaUtero2} x ${medidaUtero3} MM `;
+      setLaudoPrin((arr) => [...arr, string]);
+      setmedidasPreenchidas(false);
+    }
   };
-
-  const checkChangeMedida = () => {
+  const removeMedidas = () => {
+    // console.log("valor remove = ", value);
     laudoPrin.map((e) => {
-      console.log(e);
+      if (e.includes("Útero com")) {
+        var index = laudoPrin.indexOf(e);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+        if (index > -1) {
+          laudoPrin.splice(index, 1);
+          setLaudoPrin((arr) => [...arr]);
+        }
+      }
     });
   };
+  // Funcoes medidas Utero - Fim
 
   //Funcoes medida Endometrio - Inicio
   const criaStringEndometrio = () => {
@@ -127,7 +135,6 @@ function Utero() {
       if (e.includes("Endométrio")) {
         var index = laudoPrin.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-        console.log(index);
         if (index > -1) {
           laudoPrin.splice(index, 1);
           setLaudoPrin((arr) => [...arr]);
@@ -161,7 +168,6 @@ function Utero() {
       if (e.includes("Pólipo")) {
         var index = laudoPrin.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-        console.log(index);
         if (index > -1) {
           laudoPrin.splice(index, 1);
           setLaudoPrin((arr) => [...arr]);
@@ -181,7 +187,6 @@ function Utero() {
       if (e.includes("DIU bem posicionado")) {
         var index = laudoPrin.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-        console.log(index);
         if (index > -1) {
           laudoPrin.splice(index, 1);
           setLaudoPrin((arr) => [...arr]);
@@ -204,7 +209,6 @@ function Utero() {
       if (e.includes("DIU distando")) {
         var index = laudoPrin.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-        console.log(index);
         if (index > -1) {
           laudoPrin.splice(index, 1);
           setLaudoPrin((arr) => [...arr]);
@@ -226,7 +230,6 @@ function Utero() {
       if (e.includes("Líquido")) {
         var index = laudoPrin.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-        console.log(index);
         if (index > -1) {
           laudoPrin.splice(index, 1);
           setLaudoPrin((arr) => [...arr]);
@@ -249,7 +252,6 @@ function Utero() {
       if (e.includes("Naboth")) {
         var index = laudoPrin.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-        console.log(index);
         if (index > -1) {
           laudoPrin.splice(index, 1);
           setLaudoPrin((arr) => [...arr]);
@@ -270,16 +272,11 @@ function Utero() {
     }
   };
 
-  //Valida se todos os campos de medidas estao preenchidos,
-  //caso sim seta o state para true e chama a funcao para criar a string
+  //Observa as mudancas nos inputs de medidas e chama a funcao criarstring
   useEffect(() => {
-    if (medidaUtero1 != null && medidaUtero2 != null && medidaUtero3 != null) {
-      setmedidasPreenchidas(true);
-    }
-    if (medidasPreenchidas) {
-      criaStringMedidasUtero(medidaUtero1, medidaUtero2, medidaUtero3);
-    }
-  });
+    removeMedidas();
+    criaStringMedidasUtero();
+  }, [medidaUtero1, medidaUtero2, medidaUtero3]);
 
   //Observa o state do endometrio e quando mudar chama a funcao para criar a string
   useEffect(() => {
@@ -402,7 +399,7 @@ function Utero() {
               padding="5px"
               maxLength={2}
               textAlign="center"
-              onBlur={(e) => setmedidaUtero1(e.target.value)}
+              onChange={(e) => setmedidaUtero1(e.target.value)}
             />
             <Text>x</Text>
             <Input
@@ -423,6 +420,7 @@ function Utero() {
               onChange={(e) => {
                 setmedidaUtero3(e.target.value);
               }}
+              onBlur={() => setmedidasBlur(true)}
             />
             <Text>MM</Text>
           </HStack>
