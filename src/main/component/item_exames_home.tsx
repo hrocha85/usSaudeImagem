@@ -21,7 +21,7 @@ const ItemExamesHome = () => {
     },
     {
       key: 5,
-      nomeExame: "Abdomem Superior",
+      nomeExame: "Abdomen Superior",
     },
     {
       key: 6,
