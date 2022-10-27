@@ -125,7 +125,7 @@ function LiquidoLivre() {
             <Box
             >
 
-                <TituloNomeExame titulo='Cirurgias' />
+                <TituloNomeExame titulo='Líquido Livre' />
 
                 <Box
                     gap='30px'
