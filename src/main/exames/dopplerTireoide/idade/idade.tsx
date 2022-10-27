@@ -1,0 +1,101 @@
+import { Box, Checkbox } from "@chakra-ui/react";
+import TituloNomeExame from "../../../component/titulo_nome_exame";
+import { LaudosContext } from '../../../../context/LuadosContext';
+import { useContext, useState } from "react";
+
+function Idade() {
+    const altura = '100%'
+    const largura = '66%'
+
+    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+    const [checkValueAdulto, setCheckvalueAdulto] = useState({
+        normal: false,
+    })
+    const [checkValueMenor14Anos, setCheckvalueMenor14Anos] = useState({
+        Menor14Anos: false,
+    })
+
+
+    const removeItemString = (value) => {
+        // console.log("valor remove = ", value);
+        var index = laudoPrin.indexOf(value);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+        if (index > -1) {
+            laudoPrin.splice(index, 1)
+            setLaudoPrin(arr => [...arr])
+        }
+    }
+
+    const verificaChecked = (value) => {
+        switch (value.id) {
+            case 'Adulto':
+                if (value.checked === true) {
+                    setLaudoPrin(arr => [...arr, value.value])
+                    setCheckvalueMenor14Anos({
+                        Menor14Anos: true
+                    })
+                } else {
+                    removeItemString(value.value);
+                    setCheckvalueMenor14Anos({
+                        Menor14Anos: false
+                    })
+                }
+                break
+            case 'Menor14Anos':
+                if (value.checked === true) {
+                    setLaudoPrin(arr => [...arr, value.value])
+                    setCheckvalueAdulto({
+                        normal: true
+                    })
+                } else {
+                    removeItemString(value.value);
+                    setCheckvalueAdulto({
+                        normal: false
+                    })
+                }
+                break
+        }
+    }
+
+    return (
+
+        <Box
+            bg="#FAFAFA"
+            w={largura}
+            h={altura}
+            bgPosition="center"
+            bgRepeat="no-repeat"
+            borderRadius="10.85px"
+            boxShadow="md"
+            padding='24px 15px 24px 15px'
+            mt='15px'
+        >
+            <TituloNomeExame titulo='Idade' />
+
+
+            <Box
+                gap='25px'
+                display='flex'
+                flexWrap='wrap'
+                mb='10px'
+            >
+                <Checkbox
+                    disabled={checkValueAdulto.normal}
+                    value='Adulto ' id='Adulto'
+                    onChange={(e) => { verificaChecked(e.target) }}>
+                    Adulto
+                </Checkbox>
+                <Checkbox
+                    disabled={checkValueMenor14Anos.Menor14Anos}
+                    value='Menor de 14 anos ' id='Menor14Anos'
+                    onChange={(e) => { verificaChecked(e.target) }}>
+                    Menor de 14 anos
+                </Checkbox>
+            </Box>
+
+        </Box >
+    );
+}
+
+export default Idade;
