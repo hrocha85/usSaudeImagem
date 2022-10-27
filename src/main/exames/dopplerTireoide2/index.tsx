@@ -2,16 +2,16 @@ import { Box } from "@chakra-ui/react";
 import BoxTitleBackground from "../../component/box_title_background";
 import BGImage from "../../images/bg_img.png";
 import Exames from "../../folha_laudos/Laudos";
-import Normal from "./Tireoide2Normal/normal";
+import Normal from "./dopplerTireoide2Normal/normal";
 import Cisto from "./cisto/cisto";
 import Idade from "./idade/idade";
 import EcotexturaParenquima from "./EcotexturaParenquima/EcotexturaParenquima";
 import Cirurgias from "./cirurgias/cirurgias";
 import Medidas from "./medidas/medidas";
-import Nodulos from "./nodulos/nodulos";
+import Nodulos from "./nodulos/nodulos"
 
 
-function Tireoide2() {
+function DopplerTireoide2() {
 
     return (
 
@@ -25,7 +25,7 @@ function Tireoide2() {
             backgroundSize="cover"
             backgroundRepeat="no-repeat"
         >
-            <BoxTitleBackground PadLeft="30px" fontsize='19px' tamanho="150px 65px" titulo="Tireoide 2" />
+            <BoxTitleBackground PadLeft="30px" fontsize='19px' tamanho="252px 67px" titulo="Doppler da Tireoide 2" />
 
             <Exames></Exames>
 
@@ -50,4 +50,4 @@ function Tireoide2() {
     );
 }
 
-export default Tireoide2;
+export default DopplerTireoide2;
