@@ -1,19 +1,96 @@
-import { Checkbox, HStack, Input, Select } from "@chakra-ui/react";
+import { Button, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
+import { isLineBreak } from "typescript";
+import { LaudosContext } from "../../../../context/LuadosContext";
 
-export default function IndividualizarNodulos({ numNodulo }) {
+export default function IndividualizarNodulos({ numNodulo, disable }) {
+  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+  const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
+  const [posicaoNodulosSelect, setPosicaoNodulosSelect] = useState("");
+  const [localizacaoNodulosSelect, setlocalizacaoNodulosSelect] = useState("");
+  const [multiplosNodulosCheckBox, setmultiplosNodulosCheckBox] =
+    useState(false);
+
+  const handleChangeNoduloInput = (event) => {
+    settamanhoNoduloInput(event.target.value);
+  };
+
+  const criaStringMultiplosNodulos = (
+    tamanhoNoduloInput,
+    nodulosSelect,
+    localizado
+  ) => {
+    removeMultiplosNodulos();
+
+    if (tamanhoNoduloInput != "" && nodulosSelect != "" && localizado != "") {
+      var string = `Nódulo ${numNodulo} mede ${tamanhoNoduloInput} mm ${nodulosSelect} localizado ${localizado} `;
+      setLaudoPrin((arr) => [...arr, string]);
+    }
+  };
+
+  const removeMultiplosNodulos = () => {
+    laudoPrin.map((e) => {
+      if (e.includes(`Nódulo ${numNodulo}`)) {
+        var index = laudoPrin.indexOf(e);
+
+        if (index > -1) {
+          laudoPrin.splice(index, 1);
+          setLaudoPrin((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (multiplosNodulosCheckBox) {
+      criaStringMultiplosNodulos(
+        tamanhoNoduloInput,
+        posicaoNodulosSelect,
+        localizacaoNodulosSelect
+      );
+    } else {
+      removeMultiplosNodulos();
+      settamanhoNoduloInput("");
+      setPosicaoNodulosSelect("");
+      setlocalizacaoNodulosSelect("");
+    }
+  }, [
+    multiplosNodulosCheckBox,
+    posicaoNodulosSelect,
+    tamanhoNoduloInput,
+    localizacaoNodulosSelect,
+  ]);
+
   return (
     <HStack>
-      <Checkbox whiteSpace="nowrap">Nódulo {numNodulo} </Checkbox>
+      <Checkbox
+        whiteSpace="nowrap"
+        isDisabled={disable}
+        onChange={() => setmultiplosNodulosCheckBox(!multiplosNodulosCheckBox)}
+      >
+        Nódulo {numNodulo}
+      </Checkbox>
 
       <Input
-        w="50px"
+        isDisabled={disable}
+        value={tamanhoNoduloInput}
+        w="60px"
         h="77x"
         padding="5px"
         maxLength={2}
         textAlign="center"
+        onChange={handleChangeNoduloInput}
         placeholder={"mm"}
       />
-      <Select w="auto">
+      <Select
+        w="auto"
+        isDisabled={disable}
+        onChange={(e) => {
+          setPosicaoNodulosSelect(e.target.value);
+        }}
+        value={posicaoNodulosSelect}
+      >
         <option value="" disabled selected>
           Posição
         </option>
@@ -22,7 +99,14 @@ export default function IndividualizarNodulos({ numNodulo }) {
         <option value="Submucoso">Submucoso</option>
       </Select>
 
-      <Select w="auto">
+      <Select
+        w="auto"
+        isDisabled={disable}
+        onChange={(e) => {
+          setlocalizacaoNodulosSelect(e.target.value);
+        }}
+        value={localizacaoNodulosSelect}
+      >
         <option value="" disabled selected>
           Localizado
         </option>

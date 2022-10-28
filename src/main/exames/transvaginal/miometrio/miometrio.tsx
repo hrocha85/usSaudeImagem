@@ -19,65 +19,20 @@ function Miometrio() {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   var numberArray = [1, 2, 3, 4, 5];
 
-  const [medidaOvario1, setmedidaOvario1] = useState("");
-  const [medidaOvario2, setmedidaOvario2] = useState("");
-  const [medidaOvario3, setmedidaOvario3] = useState("");
-
   const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
-  const [disableCistoInput, setdisableCistoInput] = useState(true);
-  const [cistoCheckBox, setCistoCheckBox] = useState(false);
   const [posicaoNodulosSelect, setPosicaoNodulosSelect] = useState("");
   const [localizacaoNodulosSelect, setlocalizacaoNodulosSelect] = useState("");
+  
+  const [multiplosNodulosCheckBox, setmultiplosNodulosCheckBox] =
+    useState(false);
+  
+  const [miometrioSemNodulosCheckBox, setmiometrioSemNodulosCheckBox] =
+    useState(true);
 
   const handleChangeNoduloInput = (event) => {
     settamanhoNoduloInput(event.target.value);
   };
 
-  const [multiplosNodulosCheckBox, setmultiplosNodulosCheckBox] =
-    useState(false);
-
-  const [padraoFolicularCheckBox, setpadraoFolicularCheckBox] = useState(false);
-
-  const [miometrioSemNodulosCheckBox, setmiometrioSemNodulosCheckBox] =
-    useState(true);
-
-  const criaStringMedidasOvario = () => {
-    if (medidaOvario1 != "" && medidaOvario2 != "" && medidaOvario3 != "") {
-      var string = `Ovário Direito mede ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
-    }
-  };
-
-  const removeMedidasOvario = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Ovário Direito")) {
-        var index = laudoPrin.indexOf(e);
-
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
-        }
-      }
-    });
-  };
-
-  const criaStringPadraoFolicular = () => {
-    var string = "Ovário direito com padrão folicular ";
-    setLaudoPrin((arr) => [...arr, string]);
-  };
-
-  const removePadraoFolicular = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("folicular")) {
-        var index = laudoPrin.indexOf(e);
-
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
-        }
-      }
-    });
-  };
   const criaStringMultiplosNodulos = (
     tamanhoNoduloInput,
     nodulosSelect,
@@ -94,27 +49,6 @@ function Miometrio() {
   const removeMultiplosNodulos = () => {
     laudoPrin.map((e) => {
       if (e.includes("mioma")) {
-        var index = laudoPrin.indexOf(e);
-
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
-        }
-      }
-    });
-  };
-
-  const criaStringCisto = (medida, cisto) => {
-    removeCisto();
-    if (medida != "") {
-      var string = `Cisto no ovário direito com ${medida}mm ${cisto} `;
-      setLaudoPrin((arr) => [...arr, string]);
-    }
-  };
-
-  const removeCisto = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Cisto")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
@@ -145,11 +79,6 @@ function Miometrio() {
   };
 
   useEffect(() => {
-    removeMedidasOvario();
-    criaStringMedidasOvario();
-  }, [medidaOvario1, medidaOvario2, medidaOvario3]);
-
-  useEffect(() => {
     if (multiplosNodulosCheckBox) {
       criaStringMultiplosNodulos(
         tamanhoNoduloInput,
@@ -168,24 +97,6 @@ function Miometrio() {
     tamanhoNoduloInput,
     localizacaoNodulosSelect,
   ]);
-
-  useEffect(() => {
-    if (padraoFolicularCheckBox) {
-      criaStringPadraoFolicular();
-    } else {
-      removePadraoFolicular();
-    }
-  }, [padraoFolicularCheckBox]);
-
-  useEffect(() => {
-    if (cistoCheckBox) {
-      setdisableCistoInput(false);
-    } else {
-      removeCisto();
-      setdisableCistoInput(true);
-      settamanhoNoduloInput("");
-    }
-  }, [cistoCheckBox]);
 
   return (
     <Box
@@ -278,8 +189,14 @@ function Miometrio() {
             </Text>
             <Stack>
               <>
-                {numberArray.map((num) => {
-                  return <IndividualizarNodulos numNodulo={num} />;
+                {numberArray.map((num, key) => {
+                  return (
+                    <IndividualizarNodulos
+                      key={key}
+                      numNodulo={num}
+                      disable={!miometrioSemNodulosCheckBox}
+                    />
+                  );
                 })}
               </>
             </Stack>
