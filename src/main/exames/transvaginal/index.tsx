@@ -2,6 +2,7 @@ import { Box, HStack } from "@chakra-ui/react";
 import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
 import BGImage from "../../images/bg_img.png";
+import Cirurgias from "./cirurgias/cirurgias";
 import Miometrio from "./miometrio/miometrio";
 import Ovario_Direito from "./ovarios/ovario_direito";
 import Ovario_Esquerdo from "./ovarios/ovario_esquedo";
@@ -33,7 +34,8 @@ function Transvaginal() {
           <Ovario_Esquerdo />
           <Ovario_Direito />
         </HStack>
-        <Miometrio/>
+        <Miometrio />
+        <Cirurgias/>
       </Box>
     </Box>
   );
