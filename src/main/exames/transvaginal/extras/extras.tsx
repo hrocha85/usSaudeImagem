@@ -24,7 +24,7 @@ function Extras() {
     removeStringUteroBi();
 
     if (uteroBiCheckBox) {
-      var string = "Útero Bicorno ";
+      var string = "Útero bicorno ";
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
