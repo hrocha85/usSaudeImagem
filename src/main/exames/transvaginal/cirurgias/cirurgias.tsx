@@ -16,6 +16,9 @@ function Cirurgias() {
   const [histerectomiaSubtotalCheckBox, setHisterectomiaSubTotalCheckBox] =
     useState(false);
 
+  const [isCheckedHisterectomiaSubTotal, setisCheckedHisterectomiaSubTotal] =
+    useState(false);
+
   const [histerectmoiaTotalCheckBox, sethisterectomiaTotalCheckBox] =
     useState(true);
 
@@ -24,6 +27,11 @@ function Cirurgias() {
     if (histerectmoiaTotalCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       sethisterectomiaTotalCheckBox(false);
+      setisCheckedHisterectomiaSubTotal(false);
+      removeMedidaHisterectomiaSubtotal();
+      setmedidaHisterectomia1("");
+      setmedidaHisterectomia2("");
+      setmedidaHisterectomia3("");
     } else {
       removeItemString(string);
     }
@@ -111,11 +119,13 @@ function Cirurgias() {
                 <Checkbox
                   whiteSpace="nowrap"
                   isDisabled={!histerectmoiaTotalCheckBox}
-                  onChange={() =>
+                  isChecked={isCheckedHisterectomiaSubTotal}
+                  onChange={() => {
                     setHisterectomiaSubTotalCheckBox(
                       !histerectomiaSubtotalCheckBox
-                    )
-                  }
+                    );
+                    setisCheckedHisterectomiaSubTotal(!isCheckedHisterectomiaSubTotal);
+                  }}
                 >
                   Histerectomia Subtotal
                 </Checkbox>

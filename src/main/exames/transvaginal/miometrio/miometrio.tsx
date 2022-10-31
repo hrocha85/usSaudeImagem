@@ -41,7 +41,7 @@ function Miometrio() {
     removeMultiplosNodulos();
 
     if (tamanhoNoduloInput != "" && nodulosSelect != "" && localizado != "") {
-      var string = `Múltiplos nódulos de mioma, o maior mede ${tamanhoNoduloInput}mm ${nodulosSelect} localizado ${localizado}`;
+      var string = `Múltiplos nódulos de mioma, o maior mede ${tamanhoNoduloInput}mm ${nodulosSelect} localizado ${localizado} `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
