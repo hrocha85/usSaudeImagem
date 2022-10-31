@@ -4,7 +4,7 @@ import Exames from "../../folha_laudos/Laudos";
 import BGImage from "../../images/bg_img.png";
 import LiquidoLivre from "../abdomemTotal/liquido_livre/liquido_livre";
 import Cirurgias from "./cirurgias/cirurgias";
-import Extras from "./extras/extras";
+import Extras from "./adicionais/extras";
 import Hidatide from "./hidatide/hidatide";
 import Hidrossalpinge from "./hidrossalpinge/hidrossalpinge";
 import Liquido_Livre from "./liquido_livre/liquido_livre";
