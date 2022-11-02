@@ -13,7 +13,9 @@ import BGImage from "../../images/bg_img.png";
 import Ovario_Direito from "../transvaginal/ovarios/ovario_direito";
 import Ovario_Esquerdo from "../transvaginal/ovarios/ovario_esquedo";
 import styles from "./Doppler.module.css";
-import Femoral_Comum from "./femoral_comum/femoral_comum";
+import Femoral_Comum_Direita from "./femoral_comum/femoral_comum_direita";
+import Femoral_Comum_Esquerda from "./femoral_comum/femoral_comum_esquerda";
+import Femoral_Superficial_Esquerda from "./femoral_superficial/femoral_superficial_esquerda";
 
 function Doppler_Arterial_MMII() {
   return (
@@ -38,14 +40,15 @@ function Doppler_Arterial_MMII() {
 
       <Box ml="10px">
         <HStack>
-          <VStack w="33%" backgroundColor="yellow">
-            <Femoral_Comum />
+          <VStack w="32.5%">
+            <Femoral_Comum_Esquerda />
+            <Femoral_Superficial_Esquerda />
           </VStack>
           <Center>
             <span className={styles.vl}></span>
           </Center>
-          <VStack w="33%" backgroundColor="yellow">
-            <Femoral_Comum />
+          <VStack w="33%">
+            <Femoral_Comum_Direita />
           </VStack>
         </HStack>
       </Box>
