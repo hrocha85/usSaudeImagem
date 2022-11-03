@@ -1,14 +1,9 @@
-import {
-  Box,
-  Checkbox,
-  Flex,
-  HStack
-} from "@chakra-ui/react";
+import { Box, Checkbox, Flex, HStack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Femoral_Superficial_Esquerda() {
+function Tibial_Anterior_Esquerda() {
   const altura = "100%";
   const largura = "100%";
 
@@ -19,15 +14,15 @@ function Femoral_Superficial_Esquerda() {
   const [EstenoseCheckBox, setEstenoseCheckBox] = useState(false);
 
   const criaStringFluxoAusente = () => {
-    var string = "Fluxo ausente femoral superficial esquerda ";
+    var string = "Tibial anterior esquerda fluxo ausente ";
     setLaudoPrin((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
     laudoPrin.map((e) => {
-      if (e.includes("Fluxo ausente femoral superficial esquerda ")) {
+      if (e.includes("Tibial anterior esquerda fluxo ausente ")) {
         var index = laudoPrin.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+
         if (index > -1) {
           laudoPrin.splice(index, 1);
           setLaudoPrin((arr) => [...arr]);
@@ -37,15 +32,15 @@ function Femoral_Superficial_Esquerda() {
   };
 
   const criaStringPosEstenotico = () => {
-    var string = "Pós estenótico femoral superficial esquerda ";
+    var string = "Pós estenótico tibial anterior esquerda ";
     setLaudoPrin((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
     laudoPrin.map((e) => {
-      if (e.includes("Pós estenótico femoral superficial esquerda ")) {
+      if (e.includes("Pós estenótico tibial anterior esquerda ")) {
         var index = laudoPrin.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+
         if (index > -1) {
           laudoPrin.splice(index, 1);
           setLaudoPrin((arr) => [...arr]);
@@ -55,15 +50,15 @@ function Femoral_Superficial_Esquerda() {
   };
 
   const criaStringEstenose = () => {
-    var string = "Estenose femoral superficial esquerda acima de 50% ";
+    var string = "Estenose tibial anterior esquerda acima de 50% ";
     setLaudoPrin((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
     laudoPrin.map((e) => {
-      if (e.includes("Estenose femoral superficial esquerda acima de 50% ")) {
+      if (e.includes("Estenose tibial anterior esquerda acima de 50% ")) {
         var index = laudoPrin.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+
         if (index > -1) {
           laudoPrin.splice(index, 1);
           setLaudoPrin((arr) => [...arr]);
@@ -108,7 +103,7 @@ function Femoral_Superficial_Esquerda() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Femoral Superficial" />
+      <TituloNomeExame titulo="Tibial Anterior" />
 
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <HStack>
@@ -137,4 +132,4 @@ function Femoral_Superficial_Esquerda() {
     </Box>
   );
 }
-export default Femoral_Superficial_Esquerda;
+export default Tibial_Anterior_Esquerda;
