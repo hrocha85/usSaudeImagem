@@ -3,6 +3,7 @@
 import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { NormalContext } from "../../../../context/NormalContext";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function HerniaIncisional() {
@@ -11,8 +12,11 @@ function HerniaIncisional() {
 
     const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
 
+    const { laudoNormal } = useContext(NormalContext);
     const [HerniaIncisional, setHerniaIncisional] = useState('')
     const [HerniaIncisionalCheckbox, setCheckboxHerniaIncisional] = useState(false)
+    const [disableSelectHerniaIncisional, setDisableSelectHerniaIncisional] = useState(true)
+
     const [disableHerniaIncisional, setDisableHerniaIncisional] = useState(true)
 
     const [LocalSelect, setLocalSelect] = useState("");
@@ -21,8 +25,12 @@ function HerniaIncisional() {
     const [medida2Nodulo, setMedida2Nodulo] = useState('')
 
     useEffect(() => {
-        HerniaIncisionalCheckbox ? setDisableHerniaIncisional(false) :
-            setDisableHerniaIncisional(true); removeHerniaIncisional(); setHerniaIncisional('');
+        laudoNormal ? setDisableHerniaIncisional(true) : setDisableHerniaIncisional(false)
+    })
+
+    useEffect(() => {
+        HerniaIncisionalCheckbox ? setDisableSelectHerniaIncisional(false) :
+            setDisableSelectHerniaIncisional(true); removeHerniaIncisional(); setHerniaIncisional('');
         setLocalSelect(''); setTercoSelect(''); setMedida1Nodulo(''); setMedida2Nodulo('')
     }, [HerniaIncisionalCheckbox])
 
@@ -65,14 +73,16 @@ function HerniaIncisional() {
             padding="15px 15px 20px 15px"
             mt="10px"
         >
+            <Text>Parede Abdominal</Text>
             <TituloNomeExame titulo="Hérnia incisional" />
 
             <Box gap="15px" display="flex" flexWrap="wrap">
 
                 <Stack
                     w='100%'>
-
-                    <Checkbox onChange={(e) => setCheckboxHerniaIncisional(!HerniaIncisionalCheckbox)}
+                    <Checkbox
+                        isDisabled={disableHerniaIncisional}
+                        onChange={(e) => setCheckboxHerniaIncisional(!HerniaIncisionalCheckbox)}
                         mr='30px'
                     >Hérnia incisional</Checkbox>
 
@@ -82,7 +92,7 @@ function HerniaIncisional() {
                     >
                         <Text w='80px'>Local</Text>
                         <Select
-                            isDisabled={disableHerniaIncisional}
+                            isDisabled={disableSelectHerniaIncisional}
                             w='200px'
                             value={LocalSelect}
                             onChange={(e) => { setLocalSelect(e.target.value) }}
@@ -103,7 +113,7 @@ function HerniaIncisional() {
                         display='flex'>
                         <Text w='80px'>no terço</Text>
                         <Select
-                            isDisabled={disableHerniaIncisional}
+                            isDisabled={disableSelectHerniaIncisional}
                             w='200px'
                             value={TercoSelect}
                             onChange={(e) => { setTercoSelect(e.target.value) }}
@@ -120,7 +130,7 @@ function HerniaIncisional() {
                         display='flex'>
                         <Text>Medindo</Text>
                         <Input
-                            isDisabled={disableHerniaIncisional}
+                            isDisabled={disableSelectHerniaIncisional}
                             w="35px"
                             h="30px"
                             value={medida1Nodulo}
@@ -131,7 +141,7 @@ function HerniaIncisional() {
                         />
                         <Text>x</Text>
                         <Input
-                            isDisabled={disableHerniaIncisional}
+                            isDisabled={disableSelectHerniaIncisional}
                             w="35px"
                             h="30px"
                             value={medida2Nodulo}

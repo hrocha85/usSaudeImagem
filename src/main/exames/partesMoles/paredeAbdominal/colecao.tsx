@@ -3,6 +3,7 @@
 import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { NormalContext } from "../../../../context/NormalContext";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Colecao() {
@@ -10,6 +11,7 @@ function Colecao() {
     const largura = "95%";
 
     const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+    const { laudoNormal } = useContext(NormalContext);
 
     const [inputLocalColecao, setInputLocalColecao] = useState('')
     const [LocalColecaoCheckbox, setCheckboxLocalColecao] = useState(false)
@@ -21,6 +23,13 @@ function Colecao() {
     const [medida2Colecao, setMedida2Colecao] = useState('')
     const [medida3Colecao, setMedida3Colecao] = useState('')
     const [MedidaDistanciaPele, setMedidaDistanciaPele] = useState('')
+
+
+    const [disableColecao, setDisableColecao] = useState(false)
+
+    useEffect(() => {
+        laudoNormal ? setDisableColecao(true) : setDisableColecao(false)
+    })
 
     const criaStringLocalColecao = (local, colecao, plano, medida1, medida2, medida3, MedidaDistanciaPele) => {
         removeLocalColecao()
@@ -67,6 +76,7 @@ function Colecao() {
             padding="15px 15px 20px 15px"
             mt="10px"
         >
+            <Text>Parede Abdominal</Text>
             <TituloNomeExame titulo="Coleção" />
 
             <Box gap="15px" display="flex" flexWrap="wrap">
@@ -75,7 +85,9 @@ function Colecao() {
                 <Stack
                     w='100%'>
                     <HStack >
-                        <Checkbox onChange={(e) => setCheckboxLocalColecao(!LocalColecaoCheckbox)}
+                        <Checkbox
+                            isDisabled={disableColecao}
+                            onChange={(e) => setCheckboxLocalColecao(!LocalColecaoCheckbox)}
                             mr='30px'
                         >Coleção</Checkbox>
                         <Text>Local</Text>
