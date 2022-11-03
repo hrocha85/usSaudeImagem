@@ -3,20 +3,21 @@
 import { Box, Checkbox, HStack, Input, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { NormalContext } from "../../../../context/NormalContext";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function HerniaUmbilical() {
     const altura = "100%";
     const largura = "95%";
 
+    const { laudoNormal } = useContext(NormalContext);
     const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
     const [checkedHerniaUmbilicalCheckBox, setCheckedHerniaUmbilicalCheckBox] = useState(false);
     const [checkedAnelHerniacoCheckBox, setCheckedAnelHerniacoCheckBox] = useState(false);
     const [checkedSacoHerniacoCheckBox, setCheckedSacoHerniacoCheckBox] = useState(false);
 
-    const [inputHerniaUmbilical, setInputHerniaUmbilical] = useState('')
     const [HerniaUmbilicalCheckbox, setCheckboxHerniaUmbilical] = useState(false)
-    const [disableInputHerniaco, setDisableInputHerniaco] = useState(true)
+    const [disableHerniaUmbilical, setDisableHerniaUmbilical] = useState(false)
 
     const [disableCheckboxHerniaco, setDisableCheckboxHerniaco] = useState(true)
     const [AnelHerniacoCheckbox, setAnelHerniacoCheckbox] = useState(false)
@@ -28,6 +29,10 @@ function HerniaUmbilical() {
     const [disableCistoInput2, setDisableCistoInput2] = useState(true)
     const [medida1SacoHerniaco, setMedida1SacoHerniaco] = useState('')
     const [medida2SacoHerniaco, setMedida2SacoHerniaco] = useState('')
+
+    useEffect(() => {
+        laudoNormal ? setDisableHerniaUmbilical(true) : setDisableHerniaUmbilical(false)
+    })
 
     useEffect(() => {
         if (HerniaUmbilicalCheckbox) {
@@ -137,12 +142,14 @@ function HerniaUmbilical() {
             padding="15px 15px 20px 15px"
             mt="10px"
         >
+            <Text>Parede Abdominal</Text>
             <TituloNomeExame titulo="Hérnia umbilical" />
 
             <Box gap="15px" display="flex" flexWrap="wrap">
                 <Stack>
                     <HStack >
                         <Checkbox
+                            isDisabled={disableHerniaUmbilical}
                             isChecked={checkedHerniaUmbilicalCheckBox}
                             onChange={(e) => setCheckboxHerniaUmbilical(!HerniaUmbilicalCheckbox)}
                             mr='30px'

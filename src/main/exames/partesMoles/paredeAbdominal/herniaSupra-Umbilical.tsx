@@ -3,16 +3,20 @@
 import { Box, Checkbox, HStack, Input, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { NormalContext } from "../../../../context/NormalContext";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function HerniaSupraUmbilical() {
     const altura = "100%";
     const largura = "95%";
 
+    const { laudoNormal } = useContext(NormalContext);
     const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
     const [checkedHerniaUmbilicalCheckBox, setCheckedHerniaUmbilicalCheckBox] = useState(false);
     const [checkedAnelHerniacoCheckBox, setCheckedAnelHerniacoCheckBox] = useState(false);
     const [checkedSacoHerniacoCheckBox, setCheckedSacoHerniacoCheckBox] = useState(false);
+
+    const [disableHerniaSupraUmbilical, setDisableHerniaSupraUmbilical] = useState(false)
 
     const [HerniaUmbilicalCheckbox, setCheckboxHerniaUmbilical] = useState(false)
 
@@ -28,6 +32,11 @@ function HerniaSupraUmbilical() {
     const [medida2SacoHerniaco, setMedida2SacoHerniaco] = useState('')
 
     const [medida3Distancia, setMedida3Distancia] = useState('')
+
+
+    useEffect(() => {
+        laudoNormal ? setDisableHerniaSupraUmbilical(true) : setDisableHerniaSupraUmbilical(false)
+    })
 
     useEffect(() => {
         if (HerniaUmbilicalCheckbox) {
@@ -139,12 +148,14 @@ function HerniaSupraUmbilical() {
             padding="15px 15px 20px 15px"
             mt="10px"
         >
+            <Text>Parede Abdominal</Text>
             <TituloNomeExame titulo="Hérnia supra umbilical" />
 
             <Box gap="15px" display="flex" flexWrap="wrap">
                 <Stack>
                     <HStack >
                         <Checkbox
+                            isDisabled={disableHerniaSupraUmbilical}
                             isChecked={checkedHerniaUmbilicalCheckBox}
                             onChange={(e) => setCheckboxHerniaUmbilical(!HerniaUmbilicalCheckbox)}
                             mr='30px'

@@ -11,6 +11,8 @@ import HerniaSupraUmbilical from "./paredeAbdominal/herniaSupra-Umbilical";
 import HerniaUmbilical from "./paredeAbdominal/herniaUmbilical";
 import ParedeAbdominalNormal from "./paredeAbdominal/normal";
 import Partes_Moles from "./partes_moles/partesMoles";
+import Esquerda from "./regiaoInguinal/direita";
+import Direita from "./regiaoInguinal/direita";
 
 function PartesMoles() {
     return (
@@ -34,6 +36,7 @@ function PartesMoles() {
             <Box
                 ml="10px">
                 <Partes_Moles></Partes_Moles>
+
                 <Box w='70%'
                     display='flex'
                     flexWrap='wrap'
@@ -77,6 +80,21 @@ function PartesMoles() {
                         w='400px'
                         mb='15px'>
                         <Colecao></Colecao>
+                    </Box>
+                </Box>
+                <Box w='70%'
+                    display='flex'
+                    flexWrap='wrap'
+                >
+                    <Box
+                        w='400px'
+                        mb='15px'>
+                        <Direita></Direita>
+                    </Box>
+                    <Box
+                        w='400px'
+                        mb='15px'>
+                        <Esquerda></Esquerda>
                     </Box>
                 </Box>
             </Box>
