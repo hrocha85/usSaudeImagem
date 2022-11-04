@@ -9,7 +9,11 @@ import Tireoide from "../main/exames/tireoide";
 import Tireoide2 from "../main/exames/tireoide2";
 import DopplerTireoide from "../main/exames/dopplerTireoide";
 import DopplerTireoide2 from "../main/exames/dopplerTireoide2";
+<<<<<<< HEAD
 import PartesMoles from "../main/exames/partesMoles";
+=======
+import Doppler_Arterial_MMII from "../main/exames/doppler_arterial_MMII";
+>>>>>>> origin/feature_doppler_arterial_MMII
 
 function Rotas() {
   return (
@@ -24,6 +28,7 @@ function Rotas() {
       <Route path="/Home/17" element={<DopplerTireoide />} />
       <Route path="/Home/18" element={<PartesMoles />} />
       <Route path="/Home/21" element={<DopplerTireoide2 />} />
+      <Route path="/Home/12" element={<Doppler_Arterial_MMII />} />
       <Route path="/Home/Configuracoes" element={<Configuracoes />} />
     </Routes>
   );

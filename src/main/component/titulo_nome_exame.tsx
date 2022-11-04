@@ -8,6 +8,7 @@ const TituloNomeExame = ({ titulo }) => {
                 color="#1A202C"
                 fontSize="20px"
                 fontWeight="bold"
+                
             >
                 {titulo}
             </Text>

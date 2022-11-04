@@ -10,7 +10,12 @@ const BoxTitleBackground = ({ titulo, tamanho, PadLeft, fontsize }) => {
       backgroundRepeat="no-repeat"
       backgroundSize={tamanho}
     >
-      <Text textColor="black" fontWeight="bold" fontSize={fontsize} paddingEnd='5px'>
+      <Text
+        textColor="black"
+        fontWeight="bold"
+        fontSize={fontsize}
+        paddingEnd="5px"
+      >
         {titulo}
       </Text>
     </Box>

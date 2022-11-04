@@ -179,6 +179,7 @@ function Utero() {
     var string = "DIU bem posicionado ";
     setLaudoPrin((arr) => [...arr, string]);
   };
+  
   const removeDIUPosicionado = () => {
     laudoPrin.map((e) => {
       if (e.includes("DIU bem posicionado")) {

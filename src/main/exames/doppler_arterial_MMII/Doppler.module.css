@@ -1,0 +1,6 @@
+.vl {
+  content: "";
+  height: 95%;
+  position: absolute;
+  border: 1px solid #b0d0db;
+}
