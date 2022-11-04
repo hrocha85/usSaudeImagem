@@ -1,11 +1,13 @@
 import {
   Box,
+  Button,
   Checkbox,
   Flex,
   HStack,
   Select,
   Stack,
-  Text
+  Text,
+  Textarea,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
@@ -29,6 +31,14 @@ export default function Observacoes_Direita() {
 
   const [SegmentoCheckBox, setSegmentoCheckBox] = useState(false);
   const [SegmentoSelect, setSegmentoSelect] = useState("");
+
+  const [OutrasObservacoesCheckBox, setOutrasObservacoesCheckBox] =
+    useState(false);
+  const [OutrasObservacoesInput, setOutrasObservacoesInput] = useState("");
+
+  const handleOutrasObservacoesInput = (event) => {
+    setOutrasObservacoesInput(event.target.value);
+  };
 
   const criaStringCistoBaker = () => {
     var string = `Cisto Baker lado direito `;
@@ -115,6 +125,29 @@ export default function Observacoes_Direita() {
     });
   };
 
+  const criaStringOutrasObservacoes = () => {
+    removeOutrasObservacoes();
+    if (OutrasObservacoesInput != "") {
+      setLaudoPrin((arr) => [...arr, OutrasObservacoesInput]);
+    }
+  };
+
+  const removeOutrasObservacoes = () => {
+    laudoPrin.map((e) => {
+      if (OutrasObservacoesInput != "") {
+        if (e.includes(OutrasObservacoesInput)) {
+          var index = laudoPrin.indexOf(e);
+
+          if (index > -1) {
+            laudoPrin.splice(index, 1);
+            setLaudoPrin((arr) => [...arr]);
+            setOutrasObservacoesInput("");
+          }
+        }
+      }
+    });
+  };
+
   useEffect(() => {
     if (CistoBakerCheckBox) {
       criaStringCistoBaker();
@@ -151,6 +184,12 @@ export default function Observacoes_Direita() {
       setSegmentoSelect("");
     }
   }, [SegmentoCheckBox, SegmentoSelect]);
+
+  useEffect(() => {
+    if (!OutrasObservacoesCheckBox) {
+      removeOutrasObservacoes();
+    }
+  }, [OutrasObservacoesCheckBox]);
 
   return (
     <Box
@@ -288,6 +327,28 @@ export default function Observacoes_Direita() {
                 <option value="segmento da perna">Segmento da perna</option>
               </Select>
             </HStack>
+            <Checkbox
+              whiteSpace="nowrap"
+              onChange={() =>
+                setOutrasObservacoesCheckBox(!OutrasObservacoesCheckBox)
+              }
+            >
+              Outras Observações
+            </Checkbox>
+            <Textarea
+              isDisabled={!OutrasObservacoesCheckBox}
+              placeholder="Observações"
+              borderColor="black"
+              value={OutrasObservacoesInput}
+              onChange={(e) => setOutrasObservacoesInput(e.target.value)}
+            />
+            <Button
+              isDisabled={!OutrasObservacoesCheckBox}
+              colorScheme="blue"
+              onClick={() => criaStringOutrasObservacoes()}
+            >
+              Adicionar Observação
+            </Button>
           </Stack>
         </Flex>
       </Box>
