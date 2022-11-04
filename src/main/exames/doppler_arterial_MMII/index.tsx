@@ -11,7 +11,10 @@ import Femoral_Superficial_Direita from "./femoral_superficial/femoral_superfici
 import Femoral_Superficial_Esquerda from "./femoral_superficial/femoral_superficial_esquerda";
 import Fibular_Direita from "./fibular/fibular_direita";
 import Fibular_Esquerda from "./fibular/fibular_esquerda";
-import Observacoes from "./observacoes";
+import Lado from "./lado";
+import Observacoes_Direita from "./observacoes/observacoes_direita";
+import Observacoes_Esquerda from "./observacoes/observacoes_esquerda";
+
 import Poplitea_Direita from "./poplitea/poplitea_direita";
 import Poplitea_Esquerda from "./poplitea/poplitea_esquerda";
 import Tibial_Anterior_Direita from "./tibial_anterior/tibial_anterior_direita";
@@ -32,9 +35,9 @@ function Doppler_Arterial_MMII() {
       backgroundRepeat="no-repeat"
     >
       <BoxTitleBackground
-        PadLeft="2px"
-        fontsize="15px"
-        tamanho="220px"
+        PadLeft="23px"
+        fontsize="16px"
+        tamanho="260px"
         titulo="Doppler Arterial de MMII "
       />
 
@@ -43,6 +46,8 @@ function Doppler_Arterial_MMII() {
       <Box ml="10px">
         <HStack>
           <VStack w="32.5%">
+            <Lado lado={"Esquerdo"} />
+
             <Femoral_Comum_Esquerda />
             <Femoral_Superficial_Esquerda />
             <Femoral_Profunda_Esquerda />
@@ -50,12 +55,13 @@ function Doppler_Arterial_MMII() {
             <Tibial_Anterior_Esquerda />
             <Tibial_Posterior_Esquerda />
             <Fibular_Esquerda />
-            <Observacoes lado={"esquerda"} />
+            <Observacoes_Esquerda />
           </VStack>
           <Center>
             <span className={styles.vl}></span>
           </Center>
           <VStack w="33%">
+            <Lado lado={"Direito"} />
             <Femoral_Comum_Direita />
             <Femoral_Superficial_Direita />
             <Femoral_Profunda_Direita />
@@ -63,7 +69,7 @@ function Doppler_Arterial_MMII() {
             <Tibial_Anterior_Direita />
             <Tibial_Posterior_Direita />
             <Fibular_Direita />
-            <Observacoes lado={"direita"} />
+            <Observacoes_Direita />
           </VStack>
         </HStack>
       </Box>

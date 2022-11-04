@@ -1,17 +1,18 @@
 import {
-    Box,
-    Checkbox,
-    Flex,
-    HStack,
-    Select,
-    Stack,
-    Text
+  Box,
+  Checkbox,
+  Flex,
+  HStack,
+  Select,
+  Stack,
+  Text
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../context/LuadosContext";
-import TituloNomeExame from "../../component/titulo_nome_exame";
+import { LaudosContext } from "../../../../context/LuadosContext";
+import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-export default function Observacoes({ lado }) {
+
+export default function Observacoes_Esquerda() {
   const altura = "100%";
   const largura = "100%";
 
@@ -31,7 +32,7 @@ export default function Observacoes({ lado }) {
   const [SegmentoSelect, setSegmentoSelect] = useState("");
 
   const criaStringCistoBaker = () => {
-    var string = `Cisto Baker lado ${lado}`;
+    var string = `Cisto Baker lado esquerdo `;
     setLaudoPrin((arr) => [...arr, string]);
   };
 
@@ -52,14 +53,15 @@ export default function Observacoes({ lado }) {
     removeEdema();
 
     if (TipoEdemaSelect != "" && LocalEdemaSelect != "") {
-      var string = `Edema ${TipoEdemaSelect} na ${LocalEdemaSelect} ${lado}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      var stringEdema = `Edema ${TipoEdemaSelect} na ${LocalEdemaSelect} esquerda `;
+      setLaudoPrin((arr) => [...arr, stringEdema]);
+      console.log(laudoPrin);
     }
   };
 
   const removeEdema = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Edema")) {
+    laudoPrin.some((e) => {
+      if (e.includes("Edema") && e.includes("esquerda")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
@@ -74,14 +76,15 @@ export default function Observacoes({ lado }) {
     removeLinfedema();
 
     if (TipoLinfedemaSelect != "" && LocalLinfedemaSelect != "") {
-      var string = `Linfedema ${TipoLinfedemaSelect} na ${LocalLinfedemaSelect} ${lado}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      var stringLinfedema = `Linfedema ${TipoLinfedemaSelect} na ${LocalLinfedemaSelect} esquerda `;
+
+      setLaudoPrin((arr) => [...arr, stringLinfedema]);
     }
   };
 
   const removeLinfedema = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Linfedema")) {
+    laudoPrin.some((e) => {
+      if (e.includes("Linfedema") && e.includes("esquerda")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
@@ -96,14 +99,15 @@ export default function Observacoes({ lado }) {
     removeSegmento();
 
     if (SegmentoSelect != "") {
-      var string = `Segmento não avaliado devido à presença de curativo oclusivo no ${SegmentoSelect} ${lado}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      var stringSegmento = `Segmento não avaliado devido à presença de curativo oclusivo no ${SegmentoSelect} esquerda `;
+
+      setLaudoPrin((arr) => [...arr, stringSegmento]);
     }
   };
 
   const removeSegmento = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Segmento")) {
+    laudoPrin.some((e) => {
+      if (e.includes("Segmento") && e.includes("esquerda")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
@@ -256,7 +260,7 @@ export default function Observacoes({ lado }) {
                 whiteSpace="nowrap"
                 onChange={() => setSegmentoCheckBox(!SegmentoCheckBox)}
               >
-                <Text whiteSpace="pre-line">
+                <Text whiteSpace="pre-line" fontSize="14.5px">
                   Segmento não avaliado devido à presença de curativo oclusivo
                 </Text>
               </Checkbox>

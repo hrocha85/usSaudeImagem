@@ -1,4 +1,6 @@
 .vl {
-    border-left: 2px solid green;
-    height: 98vh;
-  }
+  content: "";
+  height: 95%;
+  position: absolute;
+  border: 1px solid #b0d0db;
+}
