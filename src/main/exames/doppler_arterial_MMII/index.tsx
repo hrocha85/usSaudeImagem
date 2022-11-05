@@ -23,6 +23,8 @@ import Tibial_Posterior_Direita from "./tibial_posterior/tibial_posterior_direit
 import Tibial_Posterior_Esquerda from "./tibial_posterior/tibial_posterior_esquerda";
 
 function Doppler_Arterial_MMII() {
+  const now = new Date();
+  console.log(now);
   return (
     <Box
       w="100%"
