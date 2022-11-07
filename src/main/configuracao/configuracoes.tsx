@@ -53,7 +53,6 @@ import BG from "../images/bg_img.png";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import ImageHome from "../images/icon_home.png";
-import ImageAssinaturaIcon from "../images/SignIcon_generated.jpg";
 import Medicos from "./medicos";
 
 export const lista_medicos = MedicosJSON.medicos;
@@ -140,7 +139,6 @@ const Configuracoes = () => {
             boxShadow="lg"
             width="400px"
             height="200px"
-            backgroundImage={ImageAssinaturaIcon}
             backgroundPosition="center"
             backgroundSize="cover"
             backgroundClip="padding-box"
@@ -330,7 +328,12 @@ const Configuracoes = () => {
           margin="20px 80px 100px 20px"
           align="center"
         >
-          <BoxTitleBackground PadLeft="20px" fontsize="19px" tamanho="180px" titulo="Configurações" />
+          <BoxTitleBackground
+            PadLeft="20px"
+            fontsize="19px"
+            tamanho="180px"
+            titulo="Configurações"
+          />
 
           <Progress
             value={50}
