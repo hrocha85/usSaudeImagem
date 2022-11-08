@@ -15,6 +15,7 @@ import PartesMoles from "../main/exames/partesMoles";
 import Doppler_Arterial_MMII from "../main/exames/doppler_arterial_MMII";
 import Pelvico from "../main/exames/pelvico";
 import DopplerTransvaginal from "../main/exames/dopplerTransvaginal";
+import DopplerCarotidas from "../main/exames/dopplerCarotidas";
 
 function Rotas() {
   return (
@@ -26,6 +27,7 @@ function Rotas() {
       <Route path="/Home/5" element={<AbdomemSuperior />} />
       <Route path="/Home/6" element={<Transvaginal />} />
       <Route path="/Home/9" element={<Tireoide />} />
+      <Route path="/Home/10" element={<DopplerCarotidas />} />
       <Route path="/Home/13" element={<Tireoide2 />} />
       <Route path="/Home/17" element={<DopplerTireoide />} />
       <Route path="/Home/18" element={<PartesMoles />} />
