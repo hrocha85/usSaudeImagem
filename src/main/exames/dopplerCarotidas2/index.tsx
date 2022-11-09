@@ -17,7 +17,7 @@ import BulboCarotideoEsquerdo from "./esquerdo/bulboCarotideo";
 
 
 
-function DopplerCarotidas() {
+function DopplerCarotidas2() {
 
     return (
 
@@ -120,4 +120,4 @@ function DopplerCarotidas() {
     );
 }
 
-export default DopplerCarotidas;
+export default DopplerCarotidas2;
