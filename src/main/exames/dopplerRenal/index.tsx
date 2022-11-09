@@ -41,68 +41,58 @@ function DopplerRenal() {
                 </Box>
 
                 <Box
-                    mb='10px'
-                    display='flex'
-                    flexWrap='wrap'>
-
-                    <Box
-                        w='33%'
-                        textAlign="center" >
-                        <LadoDireito />
-                    </Box>
-
-                    <Box
-                        w='33%'
-                        textAlign="center">
-                        <LadoEsquerdo />
-                    </Box>
-
-                </Box>
-                <Box w='70%'
                     display='flex'
                     flexWrap='wrap'
+                    w='66%'
                 >
-                    <Box
-                        w='450px'
-                        mb='15px'>
-                        <ArteriaRenalDireita />
-                    </Box>
-                    <Box
-                        w='450px'
-                        mb='15px'>
-                        <ArteriaRenalEsquerda />
-                    </Box>
-                </Box>
-                <Box w='70%'
-                    display='flex'
-                    flexWrap='wrap'
-                >
-                    <Box
-                        w='450px'
-                        mb='15px'>
-                        <ArteriaSegmentarDireita />
-                    </Box>
-                    <Box
-                        w='450px'
-                        mb='15px'>
-                        <ArteriaSegmentarEsquerda />
-                    </Box>
-                </Box>
+                    <Box mb='10px'>
+                        <Box
+                            w='450px'
+                            textAlign="center" >
+                            <LadoDireito />
+                        </Box>
 
+                        <Box
+                            w='450px'
+                            mb='15px'>
+                            <ArteriaRenalDireita />
+                        </Box>
 
-                <Box w='70%'
-                    display='flex'
-                    flexWrap='wrap'
-                >
-                    <Box
-                        w='450px'
-                        mb='15px'>
-                        <ArteriaInterlobarDireita />
+                        <Box
+                            w='450px'
+                            mb='15px'>
+                            <ArteriaSegmentarDireita />
+                        </Box>
+                        <Box
+                            w='450px'
+                            mb='15px'>
+                            <ArteriaInterlobarDireita />
+                        </Box>
+
                     </Box>
-                    <Box
-                        w='450px'
-                        mb='15px'>
-                        <ArteriaInterlobarEsquerda />
+
+                    <Box w='45%'>
+                        <Box
+                            w='450px'
+                            textAlign="center">
+                            <LadoEsquerdo />
+                        </Box>
+                        <Box
+                            w='450px'
+                            mb='15px'>
+                            <ArteriaRenalEsquerda />
+                        </Box>
+                        <Box
+                            w='450px'
+                            mb='15px'>
+                            <ArteriaSegmentarEsquerda />
+                        </Box>
+
+                        <Box
+                            w='450px'
+                            mb='15px'>
+                            <ArteriaInterlobarEsquerda />
+                        </Box>
                     </Box>
                 </Box>
             </Box >
