@@ -1,5 +1,5 @@
 import { Box, Center, Stack, Button, Image, Link } from "@chakra-ui/react";
-import CardListaMedicos from "../component/card_Lista_Medicos";
+import CardListaMedicos from "../component/card_paciente_home";
 import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
 import BGImage from "../images/bg_img.png";

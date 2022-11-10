@@ -6,13 +6,33 @@ import {
   Input,
   Select,
   Text,
+  useToast,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { BsCheckCircle } from "react-icons/bs";
 
 const CardListaMedicos = ({ altura }) => {
+  const toast = useToast();
+  const id = "test-toast";
+
   const [nomePaciente, setNomePaciente] = useState<string>();
   const [idadePaciente, setIdadePaciente] = useState<string>();
   const [sexoPaciente, setSexoPaciente] = useState<string>();
+
+  const [isDisable, setisDisable] = useState(true);
+
+  const getMedicos = () => {
+    var medicos;
+    var item;
+    if (localStorage.getItem("medicos") != null) {
+      item = localStorage.getItem("medicos");
+      medicos = JSON.parse(item);
+    } else medicos = [];
+    return medicos;
+  };
+  var lista_medico = getMedicos();
 
   const handleNomePacienteInput = (event) => {
     setNomePaciente(event.target.value);
@@ -39,23 +59,23 @@ const CardListaMedicos = ({ altura }) => {
     setIdadePaciente("");
     setSexoPaciente("");
     localStorage.removeItem("paciente");
-
   };
 
-  const getMedicos = () => {
-    var medicos;
-    var item;
-    if (localStorage.getItem("medicos") != null) {
-      item = localStorage.getItem("medicos");
-      medicos = JSON.parse(item);
-    } else medicos = [];
-    return medicos;
+  const checkDisable = () => {
+    if (nomePaciente != null && idadePaciente != null && sexoPaciente != null) {
+      setisDisable(false);
+    } else {
+      setisDisable(true);
+    }
   };
-  var lista_medico = getMedicos();
 
   useEffect(() => {
     lista_medico = getMedicos();
   }, [localStorage.getItem("medicos")]);
+
+  useEffect(() => {
+    checkDisable();
+  }, [nomePaciente, idadePaciente, sexoPaciente]);
 
   return (
     <Center>
@@ -98,7 +118,6 @@ const CardListaMedicos = ({ altura }) => {
                 h="40px"
                 w="150px"
                 borderRadius="md"
-
                 maxLength={3}
                 onChange={handleIdadePacienteInput}
               />
@@ -106,19 +125,32 @@ const CardListaMedicos = ({ altura }) => {
                 placeholder="Sexo"
                 value={sexoPaciente}
                 borderColor="black"
-                w="150px"
+                w="200px"
                 onChange={handleSexoPacienteInput}
               >
                 <option value="Masculino">Masculino</option>
                 <option value="Feminino">Feminino</option>
               </Select>
-              <Button
-                colorScheme="blue"
-                padding="20px"
-                onClick={() => addPaciente()}
-              >
-                Confirmar
-              </Button>
+              <Wrap>
+                <WrapItem w="245px">
+                  <Button
+                    isDisabled={isDisable}
+                    colorScheme="blue"
+                    padding="20px"
+                    onClick={() => {
+                      addPaciente();
+                      toast({
+                        duration: 3000,
+                        title: `Paciente adicionado com sucesso`,
+                        position: "bottom",
+                        isClosable: true,
+                      });
+                    }}
+                  >
+                    Confirmar
+                  </Button>
+                </WrapItem>
+              </Wrap>
               <Button
                 colorScheme="black"
                 variant="outline"
@@ -127,7 +159,6 @@ const CardListaMedicos = ({ altura }) => {
                 Limpar
               </Button>
             </HStack>
-            <HStack></HStack>
           </Box>
         </Box>
       </Box>
