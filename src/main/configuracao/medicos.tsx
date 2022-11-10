@@ -115,7 +115,8 @@ const Medicos = ({ medico, id }) => {
     JSON.parse(localStorage.getItem("minhasClinicas")!)
   );
 
-  const [ClinicasMedico, setClinicaMedico] = useState<string[]>(medico.clinica);
+  const [ClinicasMedico, setClinicaMedico] = useState<any[]>(medico.clinica);
+  
 
   const openFiles = () => {
     inputFile.current?.click();
@@ -127,51 +128,50 @@ const Medicos = ({ medico, id }) => {
     var file = event.target.files[0];
     setSelectedFile(file);
   };
+
   const UpdateLocalStorage = (nomeUpdate, CRMupdate, clinicaUpdate) => {
-    setTimeout(() => {
-      if (nomeUpdate != null) {
-        var array = JSON.parse(localStorage.getItem("medicos")!);
-        var item = array[id];
-        lista_medicos[id].nome = nomeUpdate;
+    if (nomeUpdate != null) {
+      var array = JSON.parse(localStorage.getItem("medicos")!);
+      var item = array[id];
+      lista_medicos[id].nome = nomeUpdate;
 
-        item.nome = nomeUpdate;
-        localStorage.setItem("medicos", JSON.stringify(array));
-        setNomeMedico(nomeUpdate);
-        setUpdateNome(null);
-      }
-      if (CRMupdate != null) {
-        var array = JSON.parse(localStorage.getItem("medicos")!);
-        var item = array[id];
-        lista_medicos[id].crm = CRMupdate;
+      item.nome = nomeUpdate;
+      localStorage.setItem("medicos", JSON.stringify(array));
+      setNomeMedico(nomeUpdate);
+      setUpdateNome(null);
+    }
+    if (CRMupdate != null) {
+      var array = JSON.parse(localStorage.getItem("medicos")!);
+      var item = array[id];
+      lista_medicos[id].crm = CRMupdate;
 
-        item.crm = CRMupdate;
-        localStorage.setItem("medicos", JSON.stringify(array));
-        setCRM(CRMupdate);
-        setUpdateCRM(null);
-      }
-      if (clinicaUpdate != null) {
-        var array = JSON.parse(localStorage.getItem("medicos")!);
-        var item = array[id];
-        lista_medicos[id].clinica = ClinicasMedico;
+      item.crm = CRMupdate;
+      localStorage.setItem("medicos", JSON.stringify(array));
+      setCRM(CRMupdate);
+      setUpdateCRM(null);
+    }
+    if (clinicaUpdate != null) {
+      var array = JSON.parse(localStorage.getItem("medicos")!);
+      var item = array[id];
+      lista_medicos[id].clinica = ClinicasMedico;
 
-        item.clinica = ClinicasMedico;
-        localStorage.setItem("medicos", JSON.stringify(array));
-        setClinica(updateClinica);
-        setUpdateClinica(null);
-      }
-      if (AssinaturaUpdate) {
-        var array = JSON.parse(localStorage.getItem("medicos")!);
-        var item = array[id];
-        lista_medicos[id].assinatura = padRef.current
-          ?.getCanvas()
-          .toDataURL("image/png")!;
+      item.clinica = ClinicasMedico;
+      localStorage.setItem("medicos", JSON.stringify(array));
+      setClinica(updateClinica);
+      setUpdateClinica(null);
+    }
+    if (AssinaturaUpdate) {
+      var array = JSON.parse(localStorage.getItem("medicos")!);
+      var item = array[id];
+      lista_medicos[id].assinatura = padRef.current
+        ?.getCanvas()
+        .toDataURL("image/png")!;
 
-        item.assinatura = padRef.current?.getCanvas().toDataURL("image/png")!;
-        localStorage.setItem("medicos", JSON.stringify(array));
-        setAssinatura(padRef.current?.getCanvas().toDataURL("image/png")!);
-        setAssinaturaUpdate(false);
-      }
-    }, 200);
+      item.assinatura = padRef.current?.getCanvas().toDataURL("image/png")!;
+      localStorage.setItem("medicos", JSON.stringify(array));
+      setAssinatura(padRef.current?.getCanvas().toDataURL("image/png")!);
+      setAssinaturaUpdate(false);
+    }
   };
 
   const POPExcluirMedico = () => {
@@ -221,10 +221,11 @@ const Medicos = ({ medico, id }) => {
       <Center margin="25px">
         <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
           {ClinicasMedico.map((clinica, key) => {
+            var parseClinica = JSON.parse(clinica)
             return (
               <Tooltip
                 key={key}
-                label={clinica}
+                label={parseClinica.nomeClinica}
                 size="md"
                 backgroundColor="white"
                 placement="top"
@@ -239,12 +240,12 @@ const Medicos = ({ medico, id }) => {
                   variant="solid"
                   colorScheme="twitter"
                 >
-                  <TagLabel key={key}>{clinica}</TagLabel>
+                  <TagLabel key={key}>{parseClinica.nomeClinica}</TagLabel>
                   <TagCloseButton
                     onClick={() => {
                       ClinicasMedico.splice(key, 1);
                       setUpdateTAGS(true);
-                      RemoveTAG()
+                      RemoveTAG();
                     }}
                   />
                 </Tag>
@@ -267,14 +268,17 @@ const Medicos = ({ medico, id }) => {
     }
   }, [selectedFile]);
 
+ 
+
   const RenderFieldDefault = () => {
     return (
       <>
         {ClinicasMedico.map((clinica, key) => {
-          return (
+            var parseClinica = JSON.parse(clinica)
+            return (
             <FieldDefaultIcon
               key={key}
-              text={clinica}
+              text={parseClinica.nomeClinica}
               textColor="#4A5568"
               icon={HiOutlineUser}
               clinica={medicos}
@@ -485,13 +489,12 @@ const Medicos = ({ medico, id }) => {
                             ...prevClinicas,
                             e.target.value,
                           ]);
-
                         }}
                       >
-                        {listaClinicas.map((e, key) => {
+                        {listaClinicas.map((clinica, key) => {
                           return (
-                            <option key={key} value={e.nomeClinica}>
-                              {e.nomeClinica}
+                            <option key={key} value={JSON.stringify(clinica)}>
+                              {clinica.nomeClinica}
                             </option>
                           );
                         })}

@@ -3,9 +3,7 @@ import {
   Button,
   Center,
   Divider,
-  Flex,
-  Grid,
-  HStack,
+  Flex, HStack,
   Icon,
   Image,
   Input,
@@ -36,7 +34,7 @@ import {
   Text,
   Tooltip,
   useDisclosure,
-  useOutsideClick,
+  useOutsideClick
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
@@ -68,6 +66,15 @@ const Configuracoes = () => {
     } else medicos = [];
     return medicos;
   };
+  const getUser = () => {
+    if (localStorage.getItem("user") != null) {
+      var user = JSON.parse(localStorage.getItem("user")!);
+    }
+
+    if (user != null) return user.isLogged;
+  };
+
+  const [userLogged, setuserLogged] = useState(getUser());
 
   let padRef = React.useRef<SignatureCanvas>(null);
 
@@ -81,7 +88,7 @@ const Configuracoes = () => {
 
   const [crm, setCrm] = useState("");
 
-  const [clinicas, setClinica] = useState<string[]>([]);
+  const [clinicas, setClinica] = useState<string[] | any[]>([]);
 
   const [medicos, setMedicos] = useState<any[]>(getMedicos);
 
@@ -116,7 +123,7 @@ const Configuracoes = () => {
       nome: nome,
       crm: crm,
       uf: "sp",
-      assinatura: padRef.current?.getCanvas().toDataURL("image/png")!,
+      assinatura: padRef.current?.getTrimmedCanvas().toDataURL("image/png")!,
       foto: defaultUserImage,
       clinica: clinicas,
     };
@@ -230,10 +237,12 @@ const Configuracoes = () => {
       <Center margin="25px">
         <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
           {clinicas.map((clinica, key) => {
+            var clinicaParse = JSON.parse(clinica);
+
             return (
               <Tooltip
                 key={key}
-                label={clinica}
+                label={clinicaParse.nomeClinica}
                 size="md"
                 backgroundColor="white"
                 placement="top"
@@ -248,7 +257,7 @@ const Configuracoes = () => {
                   variant="solid"
                   colorScheme="twitter"
                 >
-                  <TagLabel key={key}>{clinica}</TagLabel>
+                  <TagLabel key={key}>{clinicaParse.nomeClinica}</TagLabel>
                   <TagCloseButton
                     onClick={() => {
                       clinicas.splice(key, 1);
@@ -506,7 +515,7 @@ const Configuracoes = () => {
                       >
                         {listaClinicas.map((e, key) => {
                           return (
-                            <option key={key} value={e.nomeClinica}>
+                            <option key={key} value={JSON.stringify(e)}>
                               {e.nomeClinica}
                             </option>
                           );
@@ -552,7 +561,7 @@ const Configuracoes = () => {
                   >
                     <SignatureCanvas
                       ref={padRef}
-                      backgroundColor="#F7FAFC"
+                      backgroundColor='transparent'
                       onBegin={() => setpropsBoxAssinatura(true)}
                       penColor="black"
                       canvasProps={{
@@ -598,9 +607,15 @@ const Configuracoes = () => {
             />
           </Stack>
           <Box margin="120px 0px 0px 30px">
-            <Link href={`#/Home/`}>
-              <Image src={ImageHome} />
-            </Link>
+            {userLogged ? (
+              <Link href={`#/Home/`}>
+                <Image src={ImageHome} />
+              </Link>
+            ) : (
+              <Link href={`#/Login`}>
+                <Image src={ImageHome} />
+              </Link>
+            )}
           </Box>
         </Box>
       </Box>

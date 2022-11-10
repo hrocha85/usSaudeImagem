@@ -1,15 +1,17 @@
 import { Box, Button, Center, Link, Select, Stack } from "@chakra-ui/react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BGImage from "../images/bg_img.png";
+import UserJSON from "../../Data/User.json";
 
 function Login() {
   const [medicoString, setmedicoString] = useState<any>();
   const [medicoSelecionado, setmedicoSelecionado] = useState<any | null>(null);
 
   const [clinicaString, setclinicaString] = useState<any>();
-  const [clinicaSelecionada, setclinicaSelecionada] = useState<any | null>(
-    null
-  );
+  const [clinicaSelecionada, setClinSelecionada] = useState<any | null>(null);
+  const [clinicasMedSelect, setClinicaMedSelect] = useState<any[]>([]);
+
+  const [isDisabledEntrar, setisDisabledEntrar] = useState(true);
 
   const getMedicos = () => {
     var medicos;
@@ -22,13 +24,23 @@ function Login() {
   };
   var lista_medico = getMedicos();
 
+  const loginUser = () => {
+    const user = {
+      isLogged: true,
+      medico: medicoSelecionado,
+      clinica: clinicaSelecionada,
+    };
+    localStorage.setItem("user", JSON.stringify(user));
+  };
+
   const parseMedicoSelecionado = () => {
     if (medicoString != undefined)
       setmedicoSelecionado(JSON.parse(medicoString));
   };
+
   const parseClinicaSelecionada = () => {
     if (clinicaString != undefined)
-      setclinicaSelecionada(JSON.parse(clinicaString));
+      setClinSelecionada(JSON.parse(clinicaString));
   };
 
   useEffect(() => {
@@ -39,11 +51,21 @@ function Login() {
     parseClinicaSelecionada();
   }, [clinicaString]);
 
+  useEffect(() => {
+    if (medicoSelecionado != null && medicoSelecionado != undefined)
+      setClinicaMedSelect(medicoSelecionado.clinica);
+  }, [medicoSelecionado]);
+
+  useEffect(() => {
+    if (clinicaSelecionada != null && medicoSelecionado != null)
+      setisDisabledEntrar(false);
+  }, [clinicaSelecionada, medicoSelecionado]);
+
   return (
     <Box
       w="100%"
       h="100vh"
-      backgroundImage={BGImage} 
+      backgroundImage={BGImage}
       backgroundSize="cover"
       backgroundClip="padding-box"
       backgroundRepeat="no-repeat"
@@ -91,10 +113,11 @@ function Login() {
                   <option value="" disabled selected>
                     Clínicas
                   </option>
-                  {medicoSelecionado.clinica.map((clinica, key) => {
+                  {clinicasMedSelect.map((clinica, key) => {
+                    var parseClinica = JSON.parse(clinica);
                     return (
-                      <option value={clinica} key={key}>
-                        {clinica}
+                      <option value={JSON.stringify(clinica)} key={key}>
+                        {parseClinica.nomeClinica}
                       </option>
                     );
                   })}
@@ -106,7 +129,15 @@ function Login() {
                 href={`#/Home`}
                 style={{ textDecoration: "none" }}
               >
-                <Button colorScheme="blue" display="block" w="100%">
+                <Button
+                  colorScheme="blue"
+                  display="block"
+                  w="100%"
+                  isDisabled={isDisabledEntrar}
+                  onClick={() => {
+                    loginUser();
+                  }}
+                >
                   Entrar
                 </Button>
               </Link>

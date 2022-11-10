@@ -1,16 +1,46 @@
 import {
-  Button,
-  Text,
-  Input,
-  Center,
-  Select,
   Box,
+  Button,
+  Center,
   HStack,
+  Input,
+  Select,
+  Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 const CardListaMedicos = ({ altura }) => {
-  const [medicoSelecionado, setmedicoSelecionado] = useState<object>();
+  const [nomePaciente, setNomePaciente] = useState<string>();
+  const [idadePaciente, setIdadePaciente] = useState<string>();
+  const [sexoPaciente, setSexoPaciente] = useState<string>();
+
+  const handleNomePacienteInput = (event) => {
+    setNomePaciente(event.target.value);
+  };
+  const handleIdadePacienteInput = (event) => {
+    setIdadePaciente(event.target.value);
+  };
+  const handleSexoPacienteInput = (event) => {
+    setSexoPaciente(event.target.value);
+  };
+
+  const addPaciente = () => {
+    const pacienteProps = {
+      nome: nomePaciente,
+      idadePaciente: idadePaciente,
+      sexo: sexoPaciente,
+    };
+
+    localStorage.setItem("paciente", JSON.stringify(pacienteProps));
+  };
+
+  const resetDados = () => {
+    setNomePaciente("");
+    setIdadePaciente("");
+    setSexoPaciente("");
+    localStorage.removeItem("paciente");
+
+  };
 
   const getMedicos = () => {
     var medicos;
@@ -26,8 +56,6 @@ const CardListaMedicos = ({ altura }) => {
   useEffect(() => {
     lista_medico = getMedicos();
   }, [localStorage.getItem("medicos")]);
-
-  console.log('meds',medicoSelecionado)
 
   return (
     <Center>
@@ -51,45 +79,55 @@ const CardListaMedicos = ({ altura }) => {
             <Text textAlign="center" mt="10px" mb="10px">
               Insira os dados do paciente:
             </Text>
-            <HStack display="flex" ml="15px">
+            <HStack display="flex" margin="20px" spacing="10px">
               <Input
                 borderColor="black"
                 placeholder="Nome"
+                value={nomePaciente}
                 size="sm"
                 h="40px"
                 w="250px"
+                borderRadius="md"
+                onChange={handleNomePacienteInput}
               />
               <Input
                 borderColor="black"
                 placeholder="Idade"
+                value={idadePaciente}
                 size="sm"
                 h="40px"
                 w="150px"
+                borderRadius="md"
+
+                maxLength={3}
+                onChange={handleIdadePacienteInput}
               />
-              <Select placeholder="Sexo" borderColor="black" w="150px">
-                <option value="option1">Masculino</option>
-                <option value="option2">Feminino</option>
+              <Select
+                placeholder="Sexo"
+                value={sexoPaciente}
+                borderColor="black"
+                w="150px"
+                onChange={handleSexoPacienteInput}
+              >
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
               </Select>
-            </HStack>
-            <HStack display="flex" ml="60px" mt="10px" mb="20px" spacing="15px">
-              <Select w="200px" borderColor="black" onChange={(e)=>setmedicoSelecionado(e.target)}>
-                <option value="" disabled selected>
-                  Lista de médicos
-                </option>
-                {lista_medico.map((med, key) => {
-                  return (
-                    <option key={key} value={med}>
-                      {med.nome}
-                    </option>
-                  );
-                })}
-              </Select>
-             
-              <Button colorScheme="blue">Confirmar</Button>
-              <Button colorScheme="black" variant="outline">
+              <Button
+                colorScheme="blue"
+                padding="20px"
+                onClick={() => addPaciente()}
+              >
+                Confirmar
+              </Button>
+              <Button
+                colorScheme="black"
+                variant="outline"
+                onClick={() => resetDados()}
+              >
                 Limpar
               </Button>
             </HStack>
+            <HStack></HStack>
           </Box>
         </Box>
       </Box>

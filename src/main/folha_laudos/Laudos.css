@@ -16,5 +16,6 @@
 .zoom:hover {
   transform: scale(1.2);
   margin: 80px;
-  height: 70vh;
+  height: 80%;
+  display: flexbox;
 }
