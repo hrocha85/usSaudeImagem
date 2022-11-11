@@ -16,6 +16,8 @@ import Doppler_Arterial_MMII from "../main/exames/doppler_arterial_MMII";
 import Pelvico from "../main/exames/pelvico";
 import Login from "../main/login/login";
 
+import Format_PDF from "../main/folha_laudos/format_pdf";
+
 function Rotas() {
   return (
     <Routes>
@@ -33,6 +35,7 @@ function Rotas() {
       <Route path="/Home/21" element={<DopplerTireoide2 />} />
       <Route path="/Home/12" element={<Doppler_Arterial_MMII />} />
       <Route path="/Home/Configuracoes" element={<Configuracoes />} />
+      <Route path="/Format_PDF" element={<Format_PDF />} />
     </Routes>
   );
 }

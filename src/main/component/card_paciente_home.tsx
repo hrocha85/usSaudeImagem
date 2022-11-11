@@ -8,10 +8,10 @@ import {
   Text,
   useToast,
   Wrap,
-  WrapItem,
+  WrapItem
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { BsCheckCircle } from "react-icons/bs";
+
 
 const CardListaMedicos = ({ altura }) => {
   const toast = useToast();
