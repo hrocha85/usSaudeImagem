@@ -19,12 +19,15 @@ import DopplerCarotidas from "../main/exames/dopplerCarotidas";
 import DopplerCarotidas2 from "../main/exames/dopplerCarotidas2";
 import DopplerRenal from "../main/exames/dopplerRenal";
 import Testiculo from "../main/exames/testiculo";
+import DopplerBolsaTesticular from "../main/exames/dopplerBolsaTesticular";
+import Login from "../main/login/login";
 
 function Rotas() {
   return (
     <Routes>
       <Route path="/" element={<SplashScreen />} />
       <Route path="/Home" element={<Home />} />
+      <Route path="/Login" element={<Login />} />
       <Route path="/Home/1" element={<AbdomemTotal />} />
       <Route path="/Home/2" element={<DopplerTransvaginal />} />
       <Route path="/Home/5" element={<AbdomemSuperior />} />
@@ -37,6 +40,7 @@ function Rotas() {
       <Route path="/Home/17" element={<DopplerTireoide />} />
       <Route path="/Home/18" element={<PartesMoles />} />
       <Route path="/Home/19" element={<Testiculo />} />
+      <Route path="/Home/20" element={<DopplerBolsaTesticular />} />
       <Route path="/Home/22" element={<Pelvico />} />
       <Route path="/Home/21" element={<DopplerTireoide2 />} />
       <Route path="/Home/12" element={<Doppler_Arterial_MMII />} />
