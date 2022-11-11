@@ -1,0 +1,9 @@
+{
+  "user": [
+    {
+      "isLogged": false,
+      "medico": {},
+      "clinica": {}
+    }
+  ]
+}

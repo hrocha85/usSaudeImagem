@@ -3,9 +3,7 @@ import {
   Button,
   Center,
   Divider,
-  Flex,
-  Grid,
-  HStack,
+  Flex, HStack,
   Icon,
   Image,
   Input,
@@ -36,7 +34,7 @@ import {
   Text,
   Tooltip,
   useDisclosure,
-  useOutsideClick,
+  useOutsideClick
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
@@ -53,7 +51,6 @@ import BG from "../images/bg_img.png";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import ImageHome from "../images/icon_home.png";
-import ImageAssinaturaIcon from "../images/SignIcon_generated.jpg";
 import Medicos from "./medicos";
 
 export const lista_medicos = MedicosJSON.medicos;
@@ -69,6 +66,15 @@ const Configuracoes = () => {
     } else medicos = [];
     return medicos;
   };
+  const getUser = () => {
+    if (localStorage.getItem("user") != null) {
+      var user = JSON.parse(localStorage.getItem("user")!);
+    }
+
+    if (user != null) return user.isLogged;
+  };
+
+  const [userLogged, setuserLogged] = useState(getUser());
 
   let padRef = React.useRef<SignatureCanvas>(null);
 
@@ -82,7 +88,7 @@ const Configuracoes = () => {
 
   const [crm, setCrm] = useState("");
 
-  const [clinicas, setClinica] = useState<string[]>([]);
+  const [clinicas, setClinica] = useState<string[] | any[]>([]);
 
   const [medicos, setMedicos] = useState<any[]>(getMedicos);
 
@@ -117,7 +123,7 @@ const Configuracoes = () => {
       nome: nome,
       crm: crm,
       uf: "sp",
-      assinatura: padRef.current?.getCanvas().toDataURL("image/png")!,
+      assinatura: padRef.current?.getTrimmedCanvas().toDataURL("image/png")!,
       foto: defaultUserImage,
       clinica: clinicas,
     };
@@ -140,7 +146,6 @@ const Configuracoes = () => {
             boxShadow="lg"
             width="400px"
             height="200px"
-            backgroundImage={ImageAssinaturaIcon}
             backgroundPosition="center"
             backgroundSize="cover"
             backgroundClip="padding-box"
@@ -232,10 +237,12 @@ const Configuracoes = () => {
       <Center margin="25px">
         <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
           {clinicas.map((clinica, key) => {
+            var clinicaParse = JSON.parse(clinica);
+
             return (
               <Tooltip
                 key={key}
-                label={clinica}
+                label={clinicaParse.nomeClinica}
                 size="md"
                 backgroundColor="white"
                 placement="top"
@@ -250,7 +257,7 @@ const Configuracoes = () => {
                   variant="solid"
                   colorScheme="twitter"
                 >
-                  <TagLabel key={key}>{clinica}</TagLabel>
+                  <TagLabel key={key}>{clinicaParse.nomeClinica}</TagLabel>
                   <TagCloseButton
                     onClick={() => {
                       clinicas.splice(key, 1);
@@ -330,7 +337,12 @@ const Configuracoes = () => {
           margin="20px 80px 100px 20px"
           align="center"
         >
-          <BoxTitleBackground PadLeft="20px" fontsize="19px" tamanho="180px" titulo="Configurações" />
+          <BoxTitleBackground
+            PadLeft="20px"
+            fontsize="19px"
+            tamanho="180px"
+            titulo="Configurações"
+          />
 
           <Progress
             value={50}
@@ -503,7 +515,7 @@ const Configuracoes = () => {
                       >
                         {listaClinicas.map((e, key) => {
                           return (
-                            <option key={key} value={e.nomeClinica}>
+                            <option key={key} value={JSON.stringify(e)}>
                               {e.nomeClinica}
                             </option>
                           );
@@ -549,7 +561,7 @@ const Configuracoes = () => {
                   >
                     <SignatureCanvas
                       ref={padRef}
-                      backgroundColor="#F7FAFC"
+                      backgroundColor='transparent'
                       onBegin={() => setpropsBoxAssinatura(true)}
                       penColor="black"
                       canvasProps={{
@@ -595,9 +607,15 @@ const Configuracoes = () => {
             />
           </Stack>
           <Box margin="120px 0px 0px 30px">
-            <Link href={`#/Home/`}>
-              <Image src={ImageHome} />
-            </Link>
+            {userLogged ? (
+              <Link href={`#/Home/`}>
+                <Image src={ImageHome} />
+              </Link>
+            ) : (
+              <Link href={`#/Login`}>
+                <Image src={ImageHome} />
+              </Link>
+            )}
           </Box>
         </Box>
       </Box>
