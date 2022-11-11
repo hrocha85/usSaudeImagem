@@ -1,5 +1,5 @@
-import { Box, Flex } from "@chakra-ui/react";
-import { Text } from "@react-pdf/renderer";
+import { Flex, Text } from "@chakra-ui/react";
+import { pdf } from "@react-pdf/renderer";
 import {
   useContext,
   useEffect,
@@ -7,16 +7,11 @@ import {
   useRef,
   useState,
 } from "react";
+import { useNavigate } from "react-router-dom";
 import Pdf from "react-to-pdf";
 import { LaudosContext } from "../../context/LuadosContext";
 
 export default function Format_PDF() {
-  useLayoutEffect(() => {
-    <Pdf targetRef={ref} filename="code-example.pdf">
-      {({ toPdf }) => <p onClick={toPdf}></p>}
-    </Pdf>;
-  });
-
   const ref = useRef<HTMLDivElement | null>(null);
 
   const getUserClinica = () => {
@@ -40,7 +35,9 @@ export default function Format_PDF() {
       return "Nome paciente";
     }
   };
-
+  //
+  //
+  //
   const getCurrentDate = () => {
     const timeStamp = new Date();
 
@@ -48,27 +45,49 @@ export default function Format_PDF() {
       timeStamp.getMonth() + 1
     }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
   };
+  const navigate = useNavigate();
 
   const { laudoPrin } = useContext(LaudosContext);
   const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
   const [medico, setMedico] = useState(getUserMedico());
+  const [goBack, setGoback] = useState(false);
+  const [execute, setExecute] = useState(0);
+
+  useEffect(() => {
+    if (goBack) {
+      navigate(-1);
+      setExecute(0);
+    }
+  }, [goBack]);
 
   return (
-    <Flex
-      ref={ref}
-      borderWidth="2px"
-      borderColor="black"
-      w="21cm"
-      h="29.7cm"
-      backgroundColor="grey"
-      onFocusCapture={()=>console.log('load')}
-    >
-      <Pdf targetRef={ref} filename="code-example.pdf">
+    <>
+      <Pdf
+        targetRef={ref}
+        filename="code-example.pdf"
+        onComplete={() => setExecute(1)}
+      >
         {({ toPdf }) => (
-          <Box h="100%" w='100%' backgroundColor="white" onClick={toPdf}></Box>
+          <Flex
+            ref={ref}
+            borderWidth="2px"
+            borderColor="black"
+            w="21cm"
+            h="29.7cm"
+            backgroundColor="grey"
+          >
+            <Text>sdgfsdfgsdfg</Text>
+            <>
+              {execute == 0
+                ? setTimeout(() => {
+                    toPdf();
+                    setExecute(1);
+                  }, 0)
+                : null}
+            </>
+          </Flex>
         )}
       </Pdf>
-      ;<Text>teste</Text>
-    </Flex>
+    </>
   );
 }
