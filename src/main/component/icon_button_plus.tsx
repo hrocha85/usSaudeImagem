@@ -126,6 +126,7 @@ const IconButtonPlus = (props) => {
 
   useEffect(() => {
     if (selectedFile) {
+      URL.revokeObjectURL(defaultUserImage)
       const objectURL = URL.createObjectURL(selectedFile);
       setDefaultUserImage(objectURL);
     }
@@ -204,7 +205,7 @@ const IconButtonPlus = (props) => {
               <ModalBody>
                 <Center>
                   <Image
-                    borderRadius="full"
+                   
                     boxSize="150px"
                     srcSet={defaultUserImage}
                     alt="Image Clinica"

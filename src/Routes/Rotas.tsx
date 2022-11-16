@@ -21,12 +21,15 @@ import DopplerRenal from "../main/exames/dopplerRenal";
 import Testiculo from "../main/exames/testiculo";
 import DopplerBolsaTesticular from "../main/exames/dopplerBolsaTesticular";
 import RinseViasUrinarias from "../main/exames/RinsViasUrinarias";
+import Login from "../main/login/login";
+
 
 function Rotas() {
   return (
     <Routes>
       <Route path="/" element={<SplashScreen />} />
       <Route path="/Home" element={<Home />} />
+      <Route path="/Login" element={<Login />} />
       <Route path="/Home/1" element={<AbdomemTotal />} />
       <Route path="/Home/2" element={<DopplerTransvaginal />} />
       <Route path="/Home/5" element={<AbdomemSuperior />} />
