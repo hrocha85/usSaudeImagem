@@ -20,7 +20,9 @@ import DopplerCarotidas2 from "../main/exames/dopplerCarotidas2";
 import DopplerRenal from "../main/exames/dopplerRenal";
 import Testiculo from "../main/exames/testiculo";
 import DopplerBolsaTesticular from "../main/exames/dopplerBolsaTesticular";
+import RinseViasUrinarias from "../main/exames/RinsViasUrinarias";
 import Login from "../main/login/login";
+
 
 function Rotas() {
   return (
@@ -37,6 +39,7 @@ function Rotas() {
       <Route path="/Home/10" element={<DopplerCarotidas />} />
       <Route path="/Home/13" element={<Tireoide2 />} />
       <Route path="/Home/14" element={<DopplerCarotidas2 />} />
+      <Route path="/Home/15" element={<RinseViasUrinarias />} />
       <Route path="/Home/17" element={<DopplerTireoide />} />
       <Route path="/Home/18" element={<PartesMoles />} />
       <Route path="/Home/19" element={<Testiculo />} />
