@@ -22,6 +22,7 @@ import Testiculo from "../main/exames/testiculo";
 import DopplerBolsaTesticular from "../main/exames/dopplerBolsaTesticular";
 import RinseViasUrinarias from "../main/exames/RinsViasUrinarias";
 import Login from "../main/login/login";
+import Mamas from "../main/exames/mamas";
 
 
 function Rotas() {
@@ -32,6 +33,7 @@ function Rotas() {
       <Route path="/Login" element={<Login />} />
       <Route path="/Home/1" element={<AbdomemTotal />} />
       <Route path="/Home/2" element={<DopplerTransvaginal />} />
+      <Route path="/Home/3" element={<Mamas />} />
       <Route path="/Home/5" element={<AbdomemSuperior />} />
       <Route path="/Home/6" element={<Transvaginal />} />
       <Route path="/Home/7" element={<DopplerRenal />} />
