@@ -7,7 +7,7 @@
   background-color: white;
   border: 1px solid rgb(136, 135, 135);
   width: 32%;
-  height: 90vh;
+  height: 83vh;
   transition: 0.2s;
   padding-bottom: 50px;
   
@@ -17,5 +17,6 @@
   transform: scale(1.2);
   margin: 80px;
   height: 80%;
+  margin-bottom:50px;
 }
 
