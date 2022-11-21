@@ -3,16 +3,16 @@ import { Box, Flex, HStack } from "@chakra-ui/react";
 import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
 import BGImage from "../../images/bg_img.png";
-import CistoAnecoico from "./cistoAnecoico/cistoAnecoico";
-import CistoSebaceo from "./cistoSebaceo/cistoSebaceo";
-import Colecao from "./paredeAbdominal/colecao";
-import HerniaIncisional from "./paredeAbdominal/herniaIncisional";
-import HerniaSupraUmbilical from "./paredeAbdominal/herniaSupra-Umbilical";
-import HerniaUmbilical from "./paredeAbdominal/herniaUmbilical";
-import ParedeAbdominalNormal from "./paredeAbdominal/normal";
-import Partes_Moles from "./partes_moles/partesMoles";
-import Esquerda from "./regiaoInguinal/direita";
-import Direita from "./regiaoInguinal/direita";
+import CistoAnecoico from "../partesMoles/cistoAnecoico/cistoAnecoico";
+import CistoSebaceo from "../partesMoles/cistoSebaceo/cistoSebaceo";
+import Colecao from "../partesMoles/paredeAbdominal/colecao";
+import HerniaIncisional from "../partesMoles/paredeAbdominal/herniaIncisional";
+import HerniaSupraUmbilical from "../partesMoles/paredeAbdominal/herniaSupra-Umbilical";
+import HerniaUmbilical from "../partesMoles/paredeAbdominal/herniaUmbilical";
+import ParedeAbdominalNormal from "../partesMoles/paredeAbdominal/normal";
+import Partes_Moles from "../partesMoles/partes_moles/partesMoles";
+import Esquerda from "../partesMoles/regiaoInguinal/direita";
+import Direita from "../partesMoles/regiaoInguinal/direita";
 
 function PartesMoles() {
     return (
