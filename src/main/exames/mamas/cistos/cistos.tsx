@@ -122,9 +122,6 @@ function Cisto() {
     ConteudoCistosMamaEsquerdoSelect
   ]);
 
-
-
-
   return (
     <Box
       bg="#FAFAFA"
