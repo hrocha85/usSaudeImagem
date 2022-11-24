@@ -126,6 +126,7 @@ const Configuracoes = () => {
       assinatura: padRef.current?.getTrimmedCanvas().toDataURL("image/png")!,
       foto: defaultUserImage,
       clinica: clinicas,
+      laudos:[{}]
     };
     lista_medicos.push(obj);
 
@@ -344,16 +345,6 @@ const Configuracoes = () => {
             titulo="Configurações"
           />
 
-          <Progress
-            value={50}
-            size="sm"
-            w="259px"
-            minW="259px"
-            colorScheme="blue"
-            backgroundColor="#C8C8C8"
-            borderRadius="0.5rem"
-          />
-
           <Popover>
             <PopoverTrigger>
               <Button borderRadius="50%" backgroundColor="white" w="42" h="42">
@@ -367,7 +358,7 @@ const Configuracoes = () => {
             </PopoverContent>
           </Popover>
         </Flex>
-        <Box alignSelf="center" marginTop="200px">
+        <Box alignSelf="center" marginTop="200px" backgroundColor='transparent'>
           <Flex
             h="100%"
             direction="row"

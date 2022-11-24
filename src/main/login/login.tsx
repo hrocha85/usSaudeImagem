@@ -44,6 +44,11 @@ function Login() {
   };
 
   useEffect(() => {
+    parseMedicoSelecionado()
+    loginUser()
+  }, [localStorage.getItem("medicos")!]);
+
+  useEffect(() => {
     parseMedicoSelecionado();
   }, [medicoString]);
 

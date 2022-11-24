@@ -1,16 +1,16 @@
-import React, { useContext, useState } from "react";
-import ReactPDF, {
+import {
+  Document,
+  Font,
+  Image,
   Page,
+  PDFDownloadLink,
+  PDFViewer,
+  StyleSheet,
   Text,
   View,
-  Document,
-  StyleSheet,
-  Image,
-  PDFViewer,
-  Font,
 } from "@react-pdf/renderer";
+import { useContext, useState } from "react";
 import { LaudosContext } from "../../context/LuadosContext";
-import { Center } from "@chakra-ui/react";
 
 export default function Format_PDF() {
   const getUserClinica = () => {
@@ -56,6 +56,7 @@ export default function Format_PDF() {
       },
     ],
   });
+  
   Font.register({
     family: "Montserrat2",
 
@@ -65,6 +66,7 @@ export default function Format_PDF() {
       },
     ],
   });
+
   Font.register({
     family: "MontserratBold",
 
@@ -166,58 +168,67 @@ export default function Format_PDF() {
     },
   });
 
-  return (
-    <PDFViewer style={styles.viewer}>
-      <Document>
-        <Page size="A4" style={styles.page}>
-          <View style={styles.section}>
-            <View style={styles.viewAssinatura}>
-              <Image style={styles.imageClinica} src={clinicaSet.foto} />
-            </View>
+  const Laudo = () => {
+    return (
+      
+      <PDFViewer style={styles.viewer} showToolbar={true} >
+        <Document
+          title={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
+          author={`Dr.${medico.nome}`}
+          
+        >
+          <Page size="A4" style={styles.page} >
+            <View style={styles.section}>
+              <View style={styles.viewAssinatura}>
+                <Image style={styles.imageClinica} src={clinicaSet.foto} />
+              </View>
 
-            <View style={styles.sectionColuna}>
-              <Text>{clinicaSet.nomeClinica}</Text>
-              <Text>{getPaciente()}</Text>
-              <Text>{getCurrentDate()}</Text>
-              <Text>{`Dr. ${medico.nome}`}</Text>
-            </View>
-          </View>
-          <View style={styles.line}></View>
-          <View>
-            <Text style={styles.laudo}>{laudoPrin}</Text>
-          </View>
-          <View style={styles.pageNumber}>
-            <View style={styles.pageNumber}>
-              <View style={styles.footer}>
-                <View style={styles.footerColuna}>
-                  <Image
-                    style={styles.imageAssinatura}
-                    src={medico.assinatura}
-                  />
-                  <span style={styles.borderFooter}></span>
-                  <View style={styles.viewdadosMedico}>
-                    <Text
-                      style={styles.textDadosMedico}
-                    >{`Dr. ${medico.nome}`}</Text>
-                    <Text
-                      style={styles.textDadosMedico}
-                    >{`CRM ${medico.crm}`}</Text>
-                  </View>
-                </View>
-                <Text style={styles.textSantaImagem}>
-                  Santa Imagem Diagnósticos por imagem
-                </Text>
+              <View style={styles.sectionColuna}>
+                <Text>{clinicaSet.nomeClinica}</Text>
+                <Text>{getPaciente()}</Text>
+                <Text>{getCurrentDate()}</Text>
+                <Text>{`Dr. ${medico.nome}`}</Text>
               </View>
             </View>
+            <View style={styles.line}></View>
+            <View>
+              <Text style={styles.laudo}>{laudoPrin}</Text>
+            </View>
+            <View style={styles.pageNumber}>
+              <View style={styles.pageNumber}>
+                <View style={styles.footer}>
+                  <View style={styles.footerColuna}>
+                    <Image
+                      style={styles.imageAssinatura}
+                      src={medico.assinatura}
+                    />
+                    <span style={styles.borderFooter}></span>
+                    <View style={styles.viewdadosMedico}>
+                      <Text
+                        style={styles.textDadosMedico}
+                      >{`Dr. ${medico.nome}`}</Text>
+                      <Text
+                        style={styles.textDadosMedico}
+                      >{`CRM ${medico.crm}`}</Text>
+                    </View>
+                  </View>
+                  <Text style={styles.textSantaImagem}>
+                    Santa Imagem Diagnósticos por imagem
+                  </Text>
+                </View>
+              </View>
 
-            <Text style={styles.textDiagnostico}>
-              "A impressão diagnóstica em exames de imagem não é absoluta,
-              devendo ser correlacionada com dados clínicos, laboratorias e
-              outros métodos de imagem complementares"
-            </Text>
-          </View>
-        </Page>
-      </Document>
-    </PDFViewer>
-  );
+              <Text style={styles.textDiagnostico}>
+                "A impressão diagnóstica em exames de imagem não é absoluta,
+                devendo ser correlacionada com dados clínicos, laboratorias e
+                outros métodos de imagem complementares"
+              </Text>
+            </View>
+          </Page>
+        </Document>
+      </PDFViewer>
+    );
+  };
+
+  return <Laudo />;
 }

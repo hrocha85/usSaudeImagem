@@ -6,7 +6,8 @@
       "uf": "sp",
       "assinatura": "assinatura",
       "foto": "null",
-      "clinica": [{}]
+      "clinica": [{}],
+      "laudos":[{}]
     }
   ]
 }

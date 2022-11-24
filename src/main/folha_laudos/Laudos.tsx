@@ -6,18 +6,28 @@ import {
   Grid,
   HStack,
   Image,
-  Text,
   Link,
-  Stack,
+  Text,
 } from "@chakra-ui/react";
-import { useContext, useRef, useState } from "react";
-import Pdf from "react-to-pdf";
+import {
+  Document,
+  Font,
+  Image as ImagePDF,
+  Page,
+  PDFDownloadLink,
+  StyleSheet,
+  Text as TextPDF,
+  View as ViewPDF,
+} from "@react-pdf/renderer";
+import { useContext, useEffect, useRef, useState } from "react";
 import { LaudosContext } from "../../context/LuadosContext";
-import "./Laudos.css";
 import Format_PDF from "./format_pdf";
+import "./Laudos.css";
+import LaudosJSON from "../../Data/Laudos.json";
 
 function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
+  const laudos = LaudosJSON.laudo;
 
   const getUserClinica = () => {
     if (localStorage.getItem("user") != null) {
@@ -48,10 +58,228 @@ function Exames() {
       timeStamp.getMonth() + 1
     }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
   };
+  const getCurrentDateLaudo = () => {
+    const timeStamp = new Date();
+
+    return `${timeStamp.getDate()}/${
+      timeStamp.getMonth() + 1
+    }/${timeStamp.getFullYear()}`;
+  };
 
   const { laudoPrin } = useContext(LaudosContext);
   const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
   const [medico, setMedico] = useState(getUserMedico());
+  const [urlB, setUrl] = useState<any>();
+
+  Font.register({
+    family: "Montserrat",
+
+    fonts: [
+      {
+        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jqw16aX9-p7K5ILg.ttf",
+      },
+    ],
+  });
+
+  Font.register({
+    family: "Montserrat2",
+
+    fonts: [
+      {
+        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jq5Z9aX9-p7K5ILg.ttf",
+      },
+    ],
+  });
+
+  Font.register({
+    family: "MontserratBold",
+
+    fonts: [
+      {
+        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf",
+      },
+    ],
+  });
+
+  const styles = StyleSheet.create({
+    page: {
+      backgroundColor: "white",
+      color: "black",
+    },
+    section: {
+      margin: 10,
+      padding: 10,
+      flexDirection: "row",
+      width: "100%",
+    },
+    viewer: {
+      width: window.innerWidth, //the pdf viewer will take up all of the width and height
+      height: window.innerHeight,
+    },
+    imageClinica: {
+      width: 150,
+      height: 150,
+      objectFit: "scale-down",
+      alignContent: "center",
+    },
+    imageAssinatura: {
+      width: 100,
+      height: 100,
+      alignContent: "center",
+      justifyContent: "center",
+      alignSelf: "center",
+    },
+    viewAssinatura: {
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    sectionColuna: {
+      flexDirection: "column",
+      alignItems: "center",
+      marginTop: 30,
+      marginLeft: 80,
+    },
+
+    line: {
+      border: 1,
+      marginLeft: 10,
+      marginRight: 10,
+    },
+    laudo: {
+      margin: 30,
+      alignItems: "center",
+      alignSelf: "center",
+      justifyContent: "center",
+      flex: "1",
+      fontSize: 14,
+    },
+    pageNumber: {
+      position: "absolute",
+      bottom: 1,
+    },
+    footer: {
+      flexDirection: "row",
+      marginBottom: 20,
+      width: "100%",
+    },
+    footerColuna: {
+      flexDirection: "column",
+      margin: 20,
+    },
+    borderFooter: {
+      border: 1,
+      width: "30vh",
+    },
+    viewdadosMedico: {
+      alignItems: "center",
+      margin: 20,
+    },
+    textDadosMedico: {
+      fontFamily: "MontserratBold",
+      fontSize: 16,
+      color: "black",
+    },
+    textSantaImagem: {
+      marginTop: "19vh",
+      marginLeft: 50,
+      fontSize: "11",
+      fontFamily: "Montserrat",
+    },
+    textDiagnostico: {
+      margin: 10,
+      fontSize: "10",
+      fontFamily: "Montserrat2",
+    },
+  });
+
+  const Laudo = () => {
+    return (
+      <Document
+        title={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
+        author={`Dr.${medico.nome}`}
+      >
+        <Page size="A4" style={styles.page}>
+          <ViewPDF style={styles.section}>
+            <ViewPDF style={styles.viewAssinatura}>
+              <ImagePDF style={styles.imageClinica} src={clinicaSet.foto} />
+            </ViewPDF>
+
+            <ViewPDF style={styles.sectionColuna}>
+              <TextPDF>{clinicaSet.nomeClinica}</TextPDF>
+              <TextPDF>{getPaciente()}</TextPDF>
+              <TextPDF>{getCurrentDate()}</TextPDF>
+              <TextPDF>{`Dr. ${medico.nome}`}</TextPDF>
+            </ViewPDF>
+          </ViewPDF>
+          <ViewPDF style={styles.line}></ViewPDF>
+          <ViewPDF>
+            <TextPDF style={styles.laudo}>{laudoPrin}</TextPDF>
+          </ViewPDF>
+          <ViewPDF style={styles.pageNumber}>
+            <ViewPDF style={styles.pageNumber}>
+              <ViewPDF style={styles.footer}>
+                <ViewPDF style={styles.footerColuna}>
+                  <ImagePDF
+                    style={styles.imageAssinatura}
+                    src={medico.assinatura}
+                  />
+                  <span style={styles.borderFooter}></span>
+                  <ViewPDF style={styles.viewdadosMedico}>
+                    <TextPDF
+                      style={styles.textDadosMedico}
+                    >{`Dr. ${medico.nome}`}</TextPDF>
+                    <TextPDF
+                      style={styles.textDadosMedico}
+                    >{`CRM ${medico.crm}`}</TextPDF>
+                  </ViewPDF>
+                </ViewPDF>
+                <TextPDF style={styles.textSantaImagem}>
+                  Santa Imagem Diagnósticos por imagem
+                </TextPDF>
+              </ViewPDF>
+            </ViewPDF>
+
+            <TextPDF style={styles.textDiagnostico}>
+              "A impressão diagnóstica em exames de imagem não é absoluta,
+              devendo ser correlacionada com dados clínicos, laboratorias e
+              outros métodos de imagem complementares"
+            </TextPDF>
+          </ViewPDF>
+        </Page>
+      </Document>
+    );
+  };
+
+  const update = (laudos) => {
+    var array = JSON.parse(localStorage.getItem("medicos")!);
+    array.map((medi) => {
+      if (medi.nome == getUserMedico().nome) {
+        medi.laudos = laudos;
+      }
+      localStorage.setItem("medicos", JSON.stringify(array));
+    });
+
+
+  };
+
+  const AddLaudoSalvo = (urlPDF) => {
+    const getCurrentDate = {
+      paciente: getPaciente(),
+      laudo: urlB,
+      data: getCurrentDateLaudo(),
+    };
+    laudos.map((e) => {
+      if (e.laudo == undefined || e.laudo == "") {
+        laudos.shift();
+      }
+    });
+    laudos.push(getCurrentDate);
+    update(laudos);
+  };
+
+  useEffect(() => {
+    AddLaudoSalvo(urlB);
+  }, [urlB]);
 
   return (
     <>
@@ -138,34 +366,53 @@ function Exames() {
             right={1}
             bottom={1}
             position="fixed"
-            w='32%'
-            marginEnd='5px'
+            w="32%"
+            marginEnd="5px"
+            onClick={() => <Format_PDF />}
           >
-            Gerar Laudo
+            Visualizar Laudo
           </Button>
         </Link>
+
+        <PDFDownloadLink
+          document={Laudo()}
+          fileName={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
+        >
+          {({ blob, url, loading, error }) =>
+            loading ? (
+              <Button
+                isDisabled={true}
+                colorScheme="blue"
+                right={1}
+                bottom={10}
+                position="fixed"
+                w="32%"
+                marginEnd="5px"
+                marginBottom="15px"
+              >
+                Carregando Laudo
+              </Button>
+            ) : (
+              <Button
+                colorScheme="blue"
+                right={1}
+                bottom={10}
+                position="fixed"
+                w="32%"
+                marginEnd="5px"
+                marginBottom="15px"
+                onClick={() => {
+                  setUrl(URL.createObjectURL(blob!));
+                }}
+              >
+                Download
+              </Button>
+            )
+          }
+        </PDFDownloadLink>
       </Box>
     </>
   );
 }
 
 export default Exames;
-/**
- * 
- * <Box>
-          <Link
-            display="block"
-            href={`#/Format_PDF`}
-            style={{ textDecoration: "none" }}
-          >
-            <Button colorScheme="blue" display="block" w="100%">
-              Entrar
-            </Button>
-          </Link>
-        </Box>
- * 
- * 
- * 
- * 
- * 
- */
