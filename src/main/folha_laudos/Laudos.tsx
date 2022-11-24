@@ -1,13 +1,16 @@
 import {
   Box,
-  Button,
   Center,
+  Circle,
   Divider,
   Grid,
   HStack,
+  Icon,
   Image,
   Link,
   Text,
+  Textarea,
+  Tooltip,
 } from "@chakra-ui/react";
 import {
   Document,
@@ -20,10 +23,14 @@ import {
   View as ViewPDF,
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
+import { BiLoaderAlt } from "react-icons/bi";
+import { BsEye } from "react-icons/bs";
+import { FiEdit } from "react-icons/fi";
+import { GoDesktopDownload } from "react-icons/go";
 import { LaudosContext } from "../../context/LuadosContext";
+import LaudosJSON from "../../Data/Laudos.json";
 import Format_PDF from "./format_pdf";
 import "./Laudos.css";
-import LaudosJSON from "../../Data/Laudos.json";
 
 function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -66,10 +73,11 @@ function Exames() {
     }/${timeStamp.getFullYear()}`;
   };
 
-  const { laudoPrin } = useContext(LaudosContext);
+  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
   const [medico, setMedico] = useState(getUserMedico());
   const [urlB, setUrl] = useState<any>();
+  const [edit, setEdit] = useState(false);
 
   Font.register({
     family: "Montserrat",
@@ -250,6 +258,8 @@ function Exames() {
     );
   };
 
+  var editTextLaudo: string[] = [];
+
   const update = (laudos) => {
     var array = JSON.parse(localStorage.getItem("medicos")!);
     array.map((medi) => {
@@ -258,8 +268,6 @@ function Exames() {
       }
       localStorage.setItem("medicos", JSON.stringify(array));
     });
-
-
   };
 
   const AddLaudoSalvo = (urlPDF) => {
@@ -315,7 +323,18 @@ function Exames() {
           />
         </Center>
         <Box overflow="auto" h="35%" margin="20px">
-          <Text>{laudoPrin}</Text>
+          {edit == false ? (
+            <Text>{laudoPrin}</Text>
+          ) : (
+            <Textarea
+              defaultValue={laudoPrin}
+              h='100%'
+              onChange={(e) => {
+                setLaudoPrin(() => [e.target.value]);
+                console.log(editTextLaudo);
+              }}
+            ></Textarea>
+          )}
         </Box>
         <Box position="absolute" bottom="5px" w="100%">
           <HStack w="100%" justify="space-between">
@@ -355,23 +374,44 @@ function Exames() {
           </Text>
         </Box>
       </Box>
-      <Box>
+      <HStack
+        alignItems="center"
+        align="center"
+        right="6.5%"
+        bottom={1}
+        position="fixed"
+        w="20%"
+        h="auto"
+        marginBottom='10px'
+        justify="space-around"
+      >
         <Link
           display="block"
           href={`#/Format_PDF`}
           style={{ textDecoration: "none" }}
         >
-          <Button
-            colorScheme="blue"
-            right={1}
-            bottom={1}
-            position="fixed"
-            w="32%"
-            marginEnd="5px"
-            onClick={() => <Format_PDF />}
+          <Tooltip
+            label="Visualizar Laudo"
+            fontSize="xl"
+            backgroundColor="white"
+            placement="top"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
           >
-            Visualizar Laudo
-          </Button>
+            <Circle size="50px" bg="gray.300">
+              <Icon
+                w={30}
+                h={30}
+                as={BsEye}
+                color="black"
+                size="30px"
+                onClick={() => {
+                  <Format_PDF />;
+                }}
+              />
+            </Circle>
+          </Tooltip>
         </Link>
 
         <PDFDownloadLink
@@ -380,37 +420,54 @@ function Exames() {
         >
           {({ blob, url, loading, error }) =>
             loading ? (
-              <Button
-                isDisabled={true}
-                colorScheme="blue"
-                right={1}
-                bottom={10}
-                position="fixed"
-                w="32%"
-                marginEnd="5px"
-                marginBottom="15px"
-              >
-                Carregando Laudo
-              </Button>
+              <Icon as={BiLoaderAlt} color="#4658fc" w={50} h={40} />
             ) : (
-              <Button
-                colorScheme="blue"
-                right={1}
-                bottom={10}
-                position="fixed"
-                w="32%"
-                marginEnd="5px"
-                marginBottom="15px"
-                onClick={() => {
-                  setUrl(URL.createObjectURL(blob!));
-                }}
+              <Tooltip
+                label="Baixar Laudo"
+                fontSize="xl"
+                backgroundColor="white"
+                placement="top"
+                hasArrow
+                arrowSize={15}
+                textColor="black"
               >
-                Download
-              </Button>
+                <Circle size="50px" bg="gray.300">
+                  <Icon
+                    as={GoDesktopDownload}
+                    w={30}
+                    h={30}
+                    color="black"
+                    onClick={() => {
+                      setUrl(URL.createObjectURL(blob!));
+                    }}
+                  />
+                </Circle>
+              </Tooltip>
             )
           }
         </PDFDownloadLink>
-      </Box>
+        <Tooltip
+          label="Editar Laudo"
+          fontSize="xl"
+          backgroundColor="white"
+          placement="top"
+          hasArrow
+          arrowSize={15}
+          textColor="black"
+        >
+          <Circle size="50px" bg="gray.300">
+            <Icon
+              w={30}
+              h={30}
+              as={FiEdit}
+              color="black"
+              onClick={() => {
+                setEdit(true);
+              }}
+            />
+          </Circle>
+        </Tooltip>
+      </HStack>
     </>
   );
 }
