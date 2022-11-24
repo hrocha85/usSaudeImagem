@@ -104,8 +104,8 @@ const ItemExamesHome = () => {
   return (
     <>
       {
-        exames.map((exames) => (
-          <FieldDefaultHome text={exames.nomeExame} textColor={"#1A202C"} id={exames.key.toString()} />
+        exames.map((exames,key) => (
+          <FieldDefaultHome key={key} text={exames.nomeExame} textColor={"#1A202C"} id={exames.key.toString()} />
         ))
       }
     </>
