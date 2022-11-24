@@ -3,7 +3,8 @@ import {
   Button,
   Center,
   Divider,
-  Flex, HStack,
+  Flex,
+  HStack,
   Icon,
   Image,
   Input,
@@ -34,7 +35,7 @@ import {
   Text,
   Tooltip,
   useDisclosure,
-  useOutsideClick
+  useOutsideClick,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
@@ -114,6 +115,14 @@ const Configuracoes = () => {
 
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
 
+  //TODO COLOCAR BORDA NOS CAMPOS TELEFONE E CEP NO ADD CLINICA
+
+  // TODO COLOCAR UM TEXTO NA ASSINATURA PARA DEMOSTRAR QUE ALI É A ASSINATURA
+
+  // TODO COLOCAR APENAS UM EDITAR NOS CAMPOS
+
+  
+
   useEffect(() => {
     setMedicos(getMedicos);
   }, [localStorage.getItem("medicos")!]);
@@ -126,7 +135,7 @@ const Configuracoes = () => {
       assinatura: padRef.current?.getTrimmedCanvas().toDataURL("image/png")!,
       foto: defaultUserImage,
       clinica: clinicas,
-      laudos:[{}]
+      laudos: [{}],
     };
     lista_medicos.push(obj);
 
@@ -358,7 +367,7 @@ const Configuracoes = () => {
             </PopoverContent>
           </Popover>
         </Flex>
-        <Box alignSelf="center" marginTop="200px" backgroundColor='transparent'>
+        <Box alignSelf="center" marginTop="200px" backgroundColor="transparent">
           <Flex
             h="100%"
             direction="row"
@@ -552,7 +561,7 @@ const Configuracoes = () => {
                   >
                     <SignatureCanvas
                       ref={padRef}
-                      backgroundColor='transparent'
+                      backgroundColor="transparent"
                       onBegin={() => setpropsBoxAssinatura(true)}
                       penColor="black"
                       canvasProps={{
