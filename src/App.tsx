@@ -6,18 +6,21 @@ import tema from './main/Theme/Tema';
 import { LaudosProvider } from './context/LuadosContext'
 import { NormalProvider } from './context/NormalContext';
 import { StringNormalProvider } from './context/StringNormalContext';
+import { DisableTributariaProvider } from './context/disableTributariasContext';
 
 function App() {
   return (
-    <StringNormalProvider>
-      <NormalProvider>
-        <LaudosProvider>
-          <ChakraProvider theme={tema}>
-            <Rotas />
-          </ChakraProvider>
-        </LaudosProvider>
-      </NormalProvider>
-    </StringNormalProvider>
+    <DisableTributariaProvider>
+      <StringNormalProvider>
+        <NormalProvider>
+          <LaudosProvider>
+            <ChakraProvider theme={tema}>
+              <Rotas />
+            </ChakraProvider>
+          </LaudosProvider>
+        </NormalProvider>
+      </StringNormalProvider>
+    </DisableTributariaProvider>
   );
 }
 

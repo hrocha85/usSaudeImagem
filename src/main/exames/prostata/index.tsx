@@ -24,7 +24,7 @@ function Prostata() {
                 PadLeft="20px"
                 fontsize="19px"
                 tamanho="180px"
-                titulo="Prostata"
+                titulo="Próstata"
             />
             <Exames></Exames>
             <Box ml="10px">

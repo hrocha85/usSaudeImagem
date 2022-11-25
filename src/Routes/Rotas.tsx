@@ -24,6 +24,7 @@ import RinseViasUrinarias from "../main/exames/RinsViasUrinarias";
 import Login from "../main/login/login";
 import Mamas from "../main/exames/mamas";
 import Prostata from "../main/exames/prostata";
+import DopplerVenosoMMII from "../main/exames/dopplerVenosoMMII";
 
 
 function Rotas() {
@@ -38,6 +39,7 @@ function Rotas() {
       <Route path="/Home/5" element={<AbdomemSuperior />} />
       <Route path="/Home/6" element={<Transvaginal />} />
       <Route path="/Home/7" element={<DopplerRenal />} />
+      <Route path="/Home/8" element={<DopplerVenosoMMII />} />
       <Route path="/Home/9" element={<Tireoide />} />
       <Route path="/Home/10" element={<DopplerCarotidas />} />
       <Route path="/Home/13" element={<Tireoide2 />} />
