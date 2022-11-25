@@ -43,6 +43,8 @@ function Login() {
       setClinSelecionada(JSON.parse(clinicaString));
   };
 
+ 
+
   useEffect(() => {
     parseMedicoSelecionado();
   }, [medicoString]);

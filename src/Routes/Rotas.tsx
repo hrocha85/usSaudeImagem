@@ -26,6 +26,8 @@ import Mamas from "../main/exames/mamas";
 import Prostata from "../main/exames/prostata";
 
 
+import Format_PDF from "../main/folha_laudos/format_pdf";
+
 function Rotas() {
   return (
     <Routes>
@@ -52,6 +54,7 @@ function Rotas() {
       <Route path="/Home/23" element={<Prostata />} />
       <Route path="/Home/12" element={<Doppler_Arterial_MMII />} />
       <Route path="/Home/Configuracoes" element={<Configuracoes />} />
+      <Route path="/Format_PDF" element={<Format_PDF />} />
     </Routes>
   );
 }
