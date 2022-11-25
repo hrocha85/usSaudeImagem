@@ -10,7 +10,7 @@ import {
   Link,
   Text,
   Textarea,
-  Tooltip,
+  Tooltip
 } from "@chakra-ui/react";
 import {
   Document,
@@ -20,7 +20,7 @@ import {
   PDFDownloadLink,
   StyleSheet,
   Text as TextPDF,
-  View as ViewPDF,
+  View as ViewPDF
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -65,6 +65,7 @@ function Exames() {
       timeStamp.getMonth() + 1
     }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
   };
+
   const getCurrentDateLaudo = () => {
     const timeStamp = new Date();
 
@@ -78,36 +79,6 @@ function Exames() {
   const [medico, setMedico] = useState(getUserMedico());
   const [urlB, setUrl] = useState<any>();
   const [edit, setEdit] = useState(false);
-
-  Font.register({
-    family: "Montserrat",
-
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jqw16aX9-p7K5ILg.ttf",
-      },
-    ],
-  });
-
-  Font.register({
-    family: "Montserrat2",
-
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jq5Z9aX9-p7K5ILg.ttf",
-      },
-    ],
-  });
-
-  Font.register({
-    family: "MontserratBold",
-
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf",
-      },
-    ],
-  });
 
   const styles = StyleSheet.create({
     page: {
@@ -200,6 +171,37 @@ function Exames() {
     },
   });
 
+  Font.register({
+    family: "Montserrat",
+
+    fonts: [
+      {
+        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jqw16aX9-p7K5ILg.ttf",
+      },
+    ],
+  });
+
+  Font.register({
+    family: "Montserrat2",
+
+    fonts: [
+      {
+        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jq5Z9aX9-p7K5ILg.ttf",
+      },
+    ],
+  });
+
+  Font.register({
+    family: "MontserratBold",
+
+    fonts: [
+      {
+        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf",
+      },
+    ],
+  });
+  
+
   const Laudo = () => {
     return (
       <Document
@@ -258,8 +260,6 @@ function Exames() {
     );
   };
 
-  var editTextLaudo: string[] = [];
-
   const update = (laudos) => {
     var array = JSON.parse(localStorage.getItem("medicos")!);
     array.map((medi) => {
@@ -270,7 +270,7 @@ function Exames() {
     });
   };
 
-  const AddLaudoSalvo = (urlPDF) => {
+  const AddLaudoSalvo = () => {
     const getCurrentDate = {
       paciente: getPaciente(),
       laudo: urlB,
@@ -286,7 +286,7 @@ function Exames() {
   };
 
   useEffect(() => {
-    AddLaudoSalvo(urlB);
+    AddLaudoSalvo();
   }, [urlB]);
 
   return (
@@ -322,16 +322,15 @@ function Exames() {
             marginTop="15px"
           />
         </Center>
-        <Box overflow="auto" h="35%" margin="20px">
+        <Box overflow="auto" h="50%" margin="20px">
           {edit == false ? (
             <Text>{laudoPrin}</Text>
           ) : (
             <Textarea
               defaultValue={laudoPrin}
-              h='100%'
+              h="100%"
               onChange={(e) => {
                 setLaudoPrin(() => [e.target.value]);
-                console.log(editTextLaudo);
               }}
             ></Textarea>
           )}
@@ -382,7 +381,7 @@ function Exames() {
         position="fixed"
         w="20%"
         h="auto"
-        marginBottom='10px'
+        marginBottom="10px"
         justify="space-around"
       >
         <Link
@@ -399,12 +398,12 @@ function Exames() {
             arrowSize={15}
             textColor="black"
           >
-            <Circle size="50px" bg="gray.300">
+            <Circle size="50px" bg="gray.200">
               <Icon
                 w={30}
                 h={30}
                 as={BsEye}
-                color="black"
+                color="twitter.600"
                 size="30px"
                 onClick={() => {
                   <Format_PDF />;
@@ -431,12 +430,12 @@ function Exames() {
                 arrowSize={15}
                 textColor="black"
               >
-                <Circle size="50px" bg="gray.300">
+                <Circle size="50px" bg="gray.200">
                   <Icon
                     as={GoDesktopDownload}
                     w={30}
                     h={30}
-                    color="black"
+                    color="twitter.600"
                     onClick={() => {
                       setUrl(URL.createObjectURL(blob!));
                     }}
@@ -455,12 +454,12 @@ function Exames() {
           arrowSize={15}
           textColor="black"
         >
-          <Circle size="50px" bg="gray.300">
+          <Circle size="50px" bg="gray.200">
             <Icon
               w={30}
               h={30}
               as={FiEdit}
-              color="black"
+              color="twitter.600"
               onClick={() => {
                 setEdit(true);
               }}
