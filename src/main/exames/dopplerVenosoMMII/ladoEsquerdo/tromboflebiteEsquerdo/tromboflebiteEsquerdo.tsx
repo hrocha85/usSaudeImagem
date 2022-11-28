@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TromboflebiteDireito() {
+function TromboflebiteEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
@@ -156,4 +156,4 @@ function TromboflebiteDireito() {
     </Box>
   );
 }
-export default TromboflebiteDireito;
+export default TromboflebiteEsquerdo;

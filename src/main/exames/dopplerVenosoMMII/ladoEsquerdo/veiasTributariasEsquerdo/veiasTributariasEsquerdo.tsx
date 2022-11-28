@@ -7,7 +7,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 import IndividualizarNodulos from "./individualizar_veiasTributarias";
 import { DisableTributariasContext } from "../../../../../context/disableTributariasContext";
 
-function VeiasTributariasDireito() {
+function VeiasTributariasEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
@@ -63,4 +63,4 @@ function VeiasTributariasDireito() {
     </Box >
   );
 }
-export default VeiasTributariasDireito;
+export default VeiasTributariasEsquerdo;

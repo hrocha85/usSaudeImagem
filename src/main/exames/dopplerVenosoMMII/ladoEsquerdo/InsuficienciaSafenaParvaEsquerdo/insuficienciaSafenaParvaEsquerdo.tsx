@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function InsuficienciaSafenaParvaDireito() {
+function InsuficienciaSafenaParvaEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
@@ -141,4 +141,4 @@ function InsuficienciaSafenaParvaDireito() {
     </Box >
   );
 }
-export default InsuficienciaSafenaParvaDireito;
+export default InsuficienciaSafenaParvaEsquerdo;

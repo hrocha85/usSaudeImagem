@@ -1,13 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
+import { Box } from "@chakra-ui/react";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
-import CirurgiaSafenaMagmaDireito from "./CirurgiasSafenaMagmaDireito";
-import CirurgiaSafenaParvaDireito from "./CirurgiasSafenaParvaDireito";
+import CirurgiaSafenaMagmaEsquerdo from "./CirurgiasSafenaMagmaEsquerdo";
+import CirurgiaSafenaParvaEsquerdo from "./CirurgiasSafenaParvaEsquerdo";
 
-function IndexCirurgias() {
+function IndexCirurgiasEsquerdo() {
     const altura = "100%";
     const largura = "95%";
 
@@ -28,11 +26,11 @@ function IndexCirurgias() {
             <Box
                 borderBottom='1px'
             >
-                <CirurgiaSafenaMagmaDireito />
+                <CirurgiaSafenaMagmaEsquerdo />
             </Box >
-            <CirurgiaSafenaParvaDireito />
+            <CirurgiaSafenaParvaEsquerdo />
 
         </Box >
     );
 }
-export default IndexCirurgias;
+export default IndexCirurgiasEsquerdo

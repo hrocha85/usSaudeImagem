@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TeleangiectasiasDireito() {
+function TeleangiectasiasEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
@@ -161,4 +161,4 @@ function TeleangiectasiasDireito() {
     </Box >
   );
 }
-export default TeleangiectasiasDireito;
+export default TeleangiectasiasEsquerdo;

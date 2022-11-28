@@ -28,7 +28,7 @@ function DopplerRenal() {
             backgroundSize="cover"
             backgroundRepeat="no-repeat"
         >
-            <BoxTitleBackground PadLeft="30px" fontsize='19px' tamanho="262px 67px" titulo="Doppler da Carotidas 2" />
+            <BoxTitleBackground PadLeft="30px" fontsize='19px' tamanho="222px 67px" titulo="Doppler Renal" />
 
             <Exames></Exames>
 

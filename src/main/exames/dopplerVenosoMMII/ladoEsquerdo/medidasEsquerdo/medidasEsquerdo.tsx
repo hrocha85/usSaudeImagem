@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function MedidasDireito() {
+function MedidasEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
@@ -195,4 +195,4 @@ function MedidasDireito() {
     </Box>
   );
 }
-export default MedidasDireito;
+export default MedidasEsquerdo;
