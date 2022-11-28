@@ -2,6 +2,7 @@ import { Box, HStack } from "@chakra-ui/react";
 import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
 import BGImage from "../../images/bg_img.png";
+import Sidebar from "../../menu/sideBar";
 import Extras from "./adicionais/extras";
 import Cirurgias from "./cirurgias/cirurgias";
 import Hidatide from "./hidatide/hidatide";
@@ -30,6 +31,7 @@ function Transvaginal() {
         tamanho="180px"
         titulo="Transvaginal"
       />
+      <Sidebar />
       <Exames></Exames>
 
       <Box ml="10px">

@@ -381,7 +381,7 @@ function Exames() {
         position="fixed"
         w="20%"
         h="auto"
-        marginBottom="10px"
+        marginBottom="5px"
         justify="space-around"
       >
         <Link
