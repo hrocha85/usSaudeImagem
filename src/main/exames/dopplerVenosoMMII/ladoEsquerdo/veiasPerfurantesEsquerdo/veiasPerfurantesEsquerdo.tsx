@@ -5,7 +5,7 @@ import { useState } from "react";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 import IndividualizarNodulos from "./individualizar_veias";
 
-function VeiasPerfurantesDireito() {
+function VeiasPerfurantesEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
@@ -48,4 +48,4 @@ function VeiasPerfurantesDireito() {
     </Box >
   );
 }
-export default VeiasPerfurantesDireito;
+export default VeiasPerfurantesEsquerdo;

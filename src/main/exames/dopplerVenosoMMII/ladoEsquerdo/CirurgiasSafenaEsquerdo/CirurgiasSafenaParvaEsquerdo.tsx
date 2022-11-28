@@ -4,7 +4,7 @@ import { Box, Checkbox, Select, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 
-function CirurgiaSafenaParvaDireito() {
+function CirurgiaSafenaParvaEsquerdo() {
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
 
@@ -85,7 +85,7 @@ function CirurgiaSafenaParvaDireito() {
   };
 
   const criaStringAusenciaTotal = () => {
-    var string = "Ausência total de cirurgias Safena Parva lado direito";
+    var string = "Ausência total de cirurgias Safena Parva lado Esquerdo";
     if (AusenciaTotalCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setAusenciaTotalCheckBox(false);
@@ -239,4 +239,4 @@ function CirurgiaSafenaParvaDireito() {
     // </Box >
   );
 }
-export default CirurgiaSafenaParvaDireito;
+export default CirurgiaSafenaParvaEsquerdo;

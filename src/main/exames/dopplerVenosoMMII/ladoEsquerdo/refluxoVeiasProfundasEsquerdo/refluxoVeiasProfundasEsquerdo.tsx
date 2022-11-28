@@ -1,11 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function RefluxoVeiasProfundas() {
+function RefluxoVeiasProfundasEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
@@ -248,4 +248,4 @@ function RefluxoVeiasProfundas() {
     </Box>
   );
 }
-export default RefluxoVeiasProfundas;
+export default RefluxoVeiasProfundasEsquerdo;

@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function VeiasReticularesDireito() {
+function VeiasReticularesEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
@@ -381,5 +381,5 @@ function VeiasReticularesDireito() {
     </Box >
   );
 }
-export default VeiasReticularesDireito;
+export default VeiasReticularesEsquerdo;
 
