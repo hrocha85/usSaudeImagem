@@ -12,49 +12,58 @@ import Miometrio from "./miometrio/miometrio";
 import Ovario_Direito from "./ovarios/ovario_direito";
 import Ovario_Esquerdo from "./ovarios/ovario_esquedo";
 import Utero from "./utero/utero";
+import { MenuContext } from "../../../context/MenuContext";
+import { useContext } from "react";
 
 function Transvaginal() {
+  let { menuOpen, setMenuOpen } = useContext(MenuContext);
+
   return (
-    <Box
-      w="100%"
-      h="100%"
-      verticalAlign="center"
-      alignSelf="center"
-      alignItems="center"
-      backgroundImage={BGImage}
-      backgroundSize="cover"
-      backgroundRepeat="no-repeat"
-      backdropFilter="auto"
-      backdropBlur="2px"
-    >
-      <Sidebar />
+    <>
+      <Box
+        w="100%"
+        h="100%"
+        verticalAlign="center"
+        alignSelf="center"
+        alignItems="center"
+        backgroundImage={BGImage}
+        backgroundSize="cover"
+        backgroundRepeat="no-repeat"
+      >
+        <Sidebar />
 
-      <BoxTitleBackground
-        PadLeft="20px"
-        fontsize="19px"
-        tamanho="180px"
-        titulo="Transvaginal"
-      />
-      <Exames></Exames>
+        <Box
+          filter={menuOpen == true ? "auto" : "none"}
+          blur={menuOpen == true ? "3px" : "none"}
+        >
+          <BoxTitleBackground
+            PadLeft="20px"
+            fontsize="19px"
+            tamanho="180px"
+            titulo="Transvaginal"
+          />
+          <Exames></Exames>
 
-      <Box ml="10px">
-        <Utero />
-        <HStack alignItems="baseline">
-          <Ovario_Esquerdo />
-          <Ovario_Direito />
-        </HStack>
-        <Miometrio />
-        <Cirurgias />
-        <HStack alignItems="baseline">
-          <Hidatide />
-          <Hidrossalpinge />
-        </HStack>
-        <HStack alignItems="baseline">
-          <Liquido_Livre />
-          <Extras />
-        </HStack>
+          <Box ml="10px">
+            <Utero />
+            <HStack alignItems="baseline">
+              <Ovario_Esquerdo />
+              <Ovario_Direito />
+            </HStack>
+            <Miometrio />
+            <Cirurgias />
+            <HStack alignItems="baseline">
+              <Hidatide />
+              <Hidrossalpinge />
+            </HStack>
+            <HStack alignItems="baseline">
+              <Liquido_Livre />
+              <Extras />
+            </HStack>
+          </Box>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
 

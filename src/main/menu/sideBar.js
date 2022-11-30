@@ -1,23 +1,14 @@
-import {
-  Box,
-  Center,
-  HStack,
-  Image,
-  useDisclosure,
-  ModalOverlay,
-  Button
-} from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Box, Center, color, HStack, Image, transition } from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { IconContext } from "react-icons/lib";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { MenuContext } from "../../context/MenuContext";
 import logo from "../splashScreen/logo.png";
 import { SidebarData } from "./sideBarData";
 import SubMenu from "./subMenu";
-import { MenuContext } from "../../context/MenuContext";
-
 
 const Nav = styled.div`
   height: 80px;
@@ -53,49 +44,57 @@ const SidebarWrap = styled.div`
 `;
 
 const Sidebar = () => {
-  
-  let { menuOpen, setMenuOpen } = useContext(MenuContext)
-
-
+  let { menuOpen, setMenuOpen } = useContext(MenuContext);
 
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
 
-  const OverlayOne = () => (
-    <ModalOverlay
-      bg="blackAlpha.300"
-      backdropFilter="blur(10px) hue-rotate(90deg)"
-    />
-  );
+  useEffect(() => {
+    setMenuOpen(sidebar);
+  }, [sidebar]);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isHovering, setHovering] = useState("");
 
-  const [overlay, setOverlay] = React.useState(<OverlayOne />);
+  function handleMouseEnter() {
+    setHovering(true);
+  }
+  function handleMouseLeave() {
+    setHovering(false);
+  }
 
   return (
     <>
       <Box
+        
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          position: "relative",
+          top: isHovering ? ("5px") :( "-70px"),
+          transition: "top ease 0.5s",
+          borderBottomColor: isHovering ? "#32bfea" : "transparent",
+          marginBottom: isHovering ? "20px" : "-20px"
+        }}
         w="100%"
         borderTop="2px"
         borderTopColor="#32bfea"
         borderBottom="2px"
-        borderBottomColor="#32bfea"
         margin="5px"
-        marginBottom="20px"
-        marginTop="10px"
+        filter="none"
+        blur="none"
       >
         <IconContext.Provider value={{ color: "black" }}>
           <Nav>
             <HStack>
               <Center>
-                <NavIcon to="#">                  
+                <NavIcon to="#">
                   <FaIcons.FaBars onClick={showSidebar} />
                 </NavIcon>
                 <Image
                   src={logo}
-                  w="197.66px"
-                  h="78.73px"
+                  w="180.66px"
+                  h="60.73px"
                   marginLeft="18px"
                   marginTop="10px"
                 />
