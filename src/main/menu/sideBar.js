@@ -1,14 +1,23 @@
+import {
+  Box,
+  Center,
+  HStack,
+  Image,
+  useDisclosure,
+  ModalOverlay,
+  Button
+} from "@chakra-ui/react";
 import React, { useState } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
+import { IoIosArrowBack } from "react-icons/io";
 import { IconContext } from "react-icons/lib";
-import SubMenu from "./subMenu";
-import { SidebarData } from "./sideBarData";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 import logo from "../splashScreen/logo.png";
-import { Center, HStack, Image } from "@chakra-ui/react";
-import { GrFormClose } from "react-icons/gr";
+import { SidebarData } from "./sideBarData";
+import SubMenu from "./subMenu";
+import { MenuContext } from "../../context/MenuContext";
+
 
 const Nav = styled.div`
   height: 80px;
@@ -44,32 +53,77 @@ const SidebarWrap = styled.div`
 `;
 
 const Sidebar = () => {
+  
+  let { menuOpen, setMenuOpen } = useContext(MenuContext)
+
+
+
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
 
+  const OverlayOne = () => (
+    <ModalOverlay
+      bg="blackAlpha.300"
+      backdropFilter="blur(10px) hue-rotate(90deg)"
+    />
+  );
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [overlay, setOverlay] = React.useState(<OverlayOne />);
+
   return (
     <>
-      <IconContext.Provider value={{ color: "black" }}>
-        <Nav>
-          <NavIcon to="#">
-            <FaIcons.FaBars onClick={showSidebar} />
-          </NavIcon>
-        </Nav>
-        <SidebarNav sidebar={sidebar}>
-          <SidebarWrap>
+      <Box
+        w="100%"
+        borderTop="2px"
+        borderTopColor="#32bfea"
+        borderBottom="2px"
+        borderBottomColor="#32bfea"
+        margin="5px"
+        marginBottom="20px"
+        marginTop="10px"
+      >
+        <IconContext.Provider value={{ color: "black" }}>
+          <Nav>
             <HStack>
-              <NavIcon to="#">
-                <GrFormClose onClick={showSidebar} />
-              </NavIcon>
-              <Image src={logo} />
+              <Center>
+                <NavIcon to="#">                  
+                  <FaIcons.FaBars onClick={showSidebar} />
+                </NavIcon>
+                <Image
+                  src={logo}
+                  w="197.66px"
+                  h="78.73px"
+                  marginLeft="18px"
+                  marginTop="10px"
+                />
+              </Center>
             </HStack>
-            {SidebarData.map((item, index) => {
-              return <SubMenu item={item} key={index} />;
-            })}
-          </SidebarWrap>
-        </SidebarNav>
-      </IconContext.Provider>
+          </Nav>
+          <SidebarNav sidebar={sidebar}>
+            <SidebarWrap>
+              <HStack>
+                <Image
+                  src={logo}
+                  w="180px"
+                  h="90px"
+                  marginLeft="30px"
+                  marginTop="10px"
+                />
+
+                <NavIcon to="#">
+                  <IoIosArrowBack onClick={showSidebar} />
+                </NavIcon>
+              </HStack>
+              {SidebarData.map((item, index) => {
+                return <SubMenu item={item} key={index} />;
+              })}
+            </SidebarWrap>
+          </SidebarNav>
+        </IconContext.Provider>
+      </Box>
     </>
   );
 };

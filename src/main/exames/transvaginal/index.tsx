@@ -24,14 +24,17 @@ function Transvaginal() {
       backgroundImage={BGImage}
       backgroundSize="cover"
       backgroundRepeat="no-repeat"
+      backdropFilter="auto"
+      backdropBlur="2px"
     >
+      <Sidebar />
+
       <BoxTitleBackground
         PadLeft="20px"
         fontsize="19px"
         tamanho="180px"
         titulo="Transvaginal"
       />
-      <Sidebar />
       <Exames></Exames>
 
       <Box ml="10px">
