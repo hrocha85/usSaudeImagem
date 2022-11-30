@@ -28,6 +28,7 @@ import DopplerVenosoMMII from "../main/exames/dopplerVenosoMMII";
 
 
 import Format_PDF from "../main/folha_laudos/format_pdf";
+import Articulacoes from "../main/exames/articulacoes";
 
 function Rotas() {
   return (
@@ -54,6 +55,7 @@ function Rotas() {
       <Route path="/Home/22" element={<Pelvico />} />
       <Route path="/Home/21" element={<DopplerTireoide2 />} />
       <Route path="/Home/23" element={<Prostata />} />
+      <Route path="/Home/24" element={<Articulacoes />} />
       <Route path="/Home/12" element={<Doppler_Arterial_MMII />} />
       <Route path="/Home/Configuracoes" element={<Configuracoes />} />
       <Route path="/Format_PDF" element={<Format_PDF />} />
