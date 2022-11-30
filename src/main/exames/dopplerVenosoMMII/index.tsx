@@ -60,13 +60,13 @@ function DopplerVenosoMMII() {
             textAlign="center" >
             <LadoDireito />
           </Box>
-          <Box        >
+
+          <Box>
             <Box
               w='450px'
               mb='15px'>
               <MedidasDireito />
             </Box>
-
 
             <Box
               w='450px'
@@ -74,21 +74,17 @@ function DopplerVenosoMMII() {
               <InsuficienciaSafenaMangnaDireito />
             </Box>
 
-
             <Box
               w='450px'
               mb='15px'>
               <InsuficienciaSafenaParvaDireito />
             </Box>
 
-
             <Box
               w='450px'
               mb='15px'>
               <VeiasPerfurantesDireito />
             </Box>
-
-
             <Box
               w='450px'
               mb='15px'>
@@ -101,29 +97,23 @@ function DopplerVenosoMMII() {
               <IndexCirurgias />
             </Box>
 
-
             <Box
               w='450px'
               mb='15px'>
               <RefluxoVeiasProfundas />
             </Box>
 
-
-
             <Box
               w='450px'
               mb='15px'>
               <TromboflebiteDireito />
             </Box>
 
-
-
             <Box
               w='450px'
               mb='15px'>
               <TromboflebiteDireito />
             </Box>
-
 
             <Box
               w='450px'
@@ -136,6 +126,7 @@ function DopplerVenosoMMII() {
               mb='15px'>
               <TeleangiectasiasDireito />
             </Box>
+
             <Box
               w='450px'
               mb='15px'>
@@ -148,18 +139,17 @@ function DopplerVenosoMMII() {
         // display='flex'
         // flexWrap='wrap'
         >
-
           <Box
             w='450px'
             textAlign="center" >
             <LadoEsquerdo />
           </Box>
+
           <Box
             w='450px'
             mb='15px'>
             <MedidasEsquerdo />
           </Box>
-
 
           <Box
             w='450px'
@@ -167,20 +157,17 @@ function DopplerVenosoMMII() {
             <InsuficienciaSafenaMangnaEsquerdo />
           </Box>
 
-
           <Box
             w='450px'
             mb='15px'>
             <InsuficienciaSafenaParvaEsquerdo />
           </Box>
 
-
           <Box
             w='450px'
             mb='15px'>
             <VeiasPerfurantesEsquerdo />
           </Box>
-
 
           <Box
             w='450px'
@@ -194,29 +181,23 @@ function DopplerVenosoMMII() {
             <IndexCirurgiasEsquerdo />
           </Box>
 
-
           <Box
             w='450px'
             mb='15px'>
             <RefluxoVeiasProfundasEsquerdo />
           </Box>
 
-
-
           <Box
             w='450px'
             mb='15px'>
             <TromboflebiteEsquerdo />
           </Box>
 
-
-
           <Box
             w='450px'
             mb='15px'>
             <TromboflebiteEsquerdo />
           </Box>
-
 
           <Box
             w='450px'
@@ -229,6 +210,7 @@ function DopplerVenosoMMII() {
             mb='15px'>
             <TeleangiectasiasEsquerdo />
           </Box>
+
           <Box
             w='450px'
             mb='15px'>
