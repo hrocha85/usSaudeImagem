@@ -24,11 +24,10 @@ import RinseViasUrinarias from "../main/exames/RinsViasUrinarias";
 import Login from "../main/login/login";
 import Mamas from "../main/exames/mamas";
 import Prostata from "../main/exames/prostata";
-import DopplerVenosoMMII from "../main/exames/dopplerVenosoMMII";
-
 
 import Format_PDF from "../main/folha_laudos/format_pdf";
 import Articulacoes from "../main/exames/articulacoes";
+import Sidebar from "../main/menu/sideBar";
 
 function Rotas() {
   return (

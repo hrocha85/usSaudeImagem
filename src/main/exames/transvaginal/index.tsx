@@ -1,7 +1,9 @@
 import { Box, HStack } from "@chakra-ui/react";
+import { useContext } from "react";
+import { MenuContext } from "../../../context/MenuContext";
+import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
 import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
-import BGImage from "../../images/bg_img.png";
 import Extras from "./adicionais/extras";
 import Cirurgias from "./cirurgias/cirurgias";
 import Hidatide from "./hidatide/hidatide";
@@ -13,43 +15,38 @@ import Ovario_Esquerdo from "./ovarios/ovario_esquedo";
 import Utero from "./utero/utero";
 
 function Transvaginal() {
-  return (
-    <Box
-      w="100%"
-      h="100%"
-      verticalAlign="center"
-      alignSelf="center"
-      alignItems="center"
-      backgroundImage={BGImage}
-      backgroundSize="cover"
-      backgroundRepeat="no-repeat"
-    >
-      <BoxTitleBackground
-        PadLeft="20px"
-        fontsize="19px"
-        tamanho="180px"
-        titulo="Transvaginal"
-      />
-      <Exames></Exames>
+  let { menuOpen, setMenuOpen } = useContext(MenuContext);
 
-      <Box ml="10px">
-        <Utero />
-        <HStack alignItems="baseline">
-          <Ovario_Esquerdo />
-          <Ovario_Direito />
-        </HStack>
-        <Miometrio />
-        <Cirurgias />
-        <HStack alignItems="baseline">
-          <Hidatide />
-          <Hidrossalpinge />
-        </HStack>
-        <HStack alignItems="baseline">
-          <Liquido_Livre />
-          <Extras />
-        </HStack>
-      </Box>
-    </Box>
+  return (
+    <>
+      <Box_Default_With_Sidebar>
+        <BoxTitleBackground
+          PadLeft="20px"
+          fontsize="19px"
+          tamanho="180px"
+          titulo="Transvaginal"
+        />
+        <Exames></Exames>
+
+        <Box ml="10px">
+          <Utero />
+          <HStack alignItems="baseline">
+            <Ovario_Esquerdo />
+            <Ovario_Direito />
+          </HStack>
+          <Miometrio />
+          <Cirurgias />
+          <HStack alignItems="baseline">
+            <Hidatide />
+            <Hidrossalpinge />
+          </HStack>
+          <HStack alignItems="baseline">
+            <Liquido_Livre />
+            <Extras />
+          </HStack>
+        </Box>
+      </Box_Default_With_Sidebar>
+    </>
   );
 }
 
