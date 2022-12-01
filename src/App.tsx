@@ -7,17 +7,17 @@ import { LaudosProvider } from "./context/LuadosContext";
 import { NormalProvider } from "./context/NormalContext";
 import { StringNormalProvider } from "./context/StringNormalContext";
 import { MenuProvider } from "./context/MenuContext";
-import { DisableTributariaProvider } from './context/disableTributariasContext';
-import { OmbroDireitoNormalProvider } from './context/OmbroDireitoNormalContext';
-import { OmbroEsquerdoNormalProvider } from './context/OmbroEsquerdoNormalContext';
+import { DisableTributariaProvider } from "./context/disableTributariasContext";
+import { OmbroDireitoNormalProvider } from "./context/OmbroDireitoNormalContext";
+import { OmbroEsquerdoNormalProvider } from "./context/OmbroEsquerdoNormalContext";
 
 function App() {
   return (
     <MenuProvider>
       <OmbroEsquerdoNormalProvider>
-      <OmbroDireitoNormalProvider>
-        <DisableTributariaProvider>
-          <StringNormalProvider>
+        <OmbroDireitoNormalProvider>
+          <DisableTributariaProvider>
+            <StringNormalProvider>
               <NormalProvider>
                 <LaudosProvider>
                   <ChakraProvider theme={tema}>
@@ -26,10 +26,10 @@ function App() {
                 </LaudosProvider>
               </NormalProvider>
             </StringNormalProvider>
+          </DisableTributariaProvider>
+        </OmbroDireitoNormalProvider>
+      </OmbroEsquerdoNormalProvider>
     </MenuProvider>
-        </DisableTributariaProvider>
-      </OmbroDireitoNormalProvider>
-    </OmbroEsquerdoNormalProvider>
   );
 }
 

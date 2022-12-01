@@ -28,6 +28,7 @@ import Prostata from "../main/exames/prostata";
 import Format_PDF from "../main/folha_laudos/format_pdf";
 import Articulacoes from "../main/exames/articulacoes";
 import Sidebar from "../main/menu/sideBar";
+import DopplerVenosoMMII from "../main/exames/dopplerVenosoMMII";
 
 function Rotas() {
   return (
