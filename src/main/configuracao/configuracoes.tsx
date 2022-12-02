@@ -53,6 +53,7 @@ import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import ImageHome from "../images/icon_home.png";
 import Medicos from "./medicos";
+import Box_Default_With_Sidebar from "../component/box_default_sidebar";
 
 export const lista_medicos = MedicosJSON.medicos;
 
@@ -120,8 +121,6 @@ const Configuracoes = () => {
   // TODO COLOCAR UM TEXTO NA ASSINATURA PARA DEMOSTRAR QUE ALI É A ASSINATURA
 
   // TODO COLOCAR APENAS UM EDITAR NOS CAMPOS
-
-  
 
   useEffect(() => {
     setMedicos(getMedicos);
@@ -326,20 +325,7 @@ const Configuracoes = () => {
   }, [updateTAGS == true]);
 
   return (
-    <Box
-      w="100%"
-      h="100vh"
-      backgroundImage={BG}
-      verticalAlign="center"
-      alignSelf="center"
-      alignItems="center"
-      backgroundPosition="fixed"
-      backgroundSize="cover"
-      backgroundClip="padding-box"
-      backgroundRepeat="no-repeat"
-      paddingBottom="10px"
-      paddingTop="5px"
-    >
+    <Box_Default_With_Sidebar>
       <Box>
         <Flex
           direction="row"
@@ -619,7 +605,7 @@ const Configuracoes = () => {
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Box_Default_With_Sidebar>
   );
 };
 

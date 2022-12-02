@@ -15,9 +15,11 @@ import { PunhoDireitoNormalProvider } from './context/PunhoDireitoNormalContext'
 import { PunhoEsquerdoNormalProvider } from './context/PunhoEsquerdoNormalContext';
 import { MaoEsquerdoNormalProvider } from './context/MaoEsquerdoNormalContext';
 import { MaoDireitoNormalProvider } from './context/MaoDireitoNormalContext';
+import { MenuProvider } from "./context/MenuContext";
 
 function App() {
   return (
+  <MenuProvider>
     <MaoDireitoNormalProvider>
       <MaoEsquerdoNormalProvider>
         <PunhoEsquerdoNormalProvider>
@@ -45,6 +47,7 @@ function App() {
         </PunhoEsquerdoNormalProvider>
       </MaoEsquerdoNormalProvider>
     </MaoDireitoNormalProvider>
+    </MenuProvider>
   );
 }
 
