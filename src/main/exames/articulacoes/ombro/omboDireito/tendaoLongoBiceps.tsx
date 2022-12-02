@@ -20,7 +20,7 @@ function TendaoLongoBicepsOmbroDireito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringTenossinovite = () => {
-    var string = "Ombro direito com Tenossinovite";
+    var string = "Ombro direito comw Tenossinovite";
     if (TenossinoviteCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setTenossinoviteCheckBox(false);
