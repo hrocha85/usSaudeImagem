@@ -34,6 +34,28 @@ import MaoNormalEsquerdo from "./mao/maoEsquerda/normal";
 import MaoNormalDireito from "./mao/maoDireita/normal";
 import MaoDireita from "./mao/maoDireita/MaoDireita";
 import MaoEsquerda from "./mao/maoEsquerda/MaoEsquerda";
+import BracoNormalDireito from "./braco/bracoDireito/normal";
+import BracoLadoDireito from "./braco/bracoDireito/ladoDireito";
+import BracoDireito from "./braco/bracoDireito/bracoDireito";
+import BracoEsquerdo from "./braco/bracoEsquerdo/bracoEsquerdo";
+import BracoNormalEsquerdo from "./braco/bracoEsquerdo/normal";
+import BracoLadoEsquerdo from "./braco/bracoEsquerdo/ladoEsquerdo";
+import AntebracoNormalDireito from "./antebraco/antebracoDireito/normal";
+import AntebracoLadoDireito from "./antebraco/antebracoDireito/ladoDireito";
+import AntebracoNormalEsquerdo from "./antebraco/antebracoEsquerdo/normal";
+import AntebracoLadoEsquerdo from "./antebraco/antebracoEsquerdo/ladoEsquerdo";
+import DedoNormalDireito from "./dedo/dedoDireito/normal";
+import DedoDireito from "./dedo/dedoDireito/dedoDireito";
+import DedoLadoDireito from "./dedo/dedoDireito/ladoDireito";
+import DedoNormalEsquerdo from "./dedo/dedoEsquerdo/normal";
+import DedoEsquerdo from "./dedo/dedoEsquerdo/dedoEsquerdo";
+import DedoLadoEsquerdo from "./dedo/dedoEsquerdo/ladoEsquerdo";
+import JoelhoDireito from "./joelho/joelhoDireito/joelhoDireito";
+import JoelhoLadoDireito from "./joelho/joelhoDireito/ladoDireito";
+import JoelhoNormalDireito from "./joelho/joelhoDireito/normal";
+import JoelhoEsquerdo from "./joelho/joelhoEsquerdo/joelhoEsquerdo";
+import JoelhoLadoEsquerdo from "./joelho/joelhoEsquerdo/ladoEsquerdo";
+import JoelhoNormalEsquerdo from "./joelho/joelhoEsquerdo/normal";
 
 function Articulacoes() {
 
@@ -146,6 +168,57 @@ function Articulacoes() {
                             textAlign="center" >
                             <MaoDireita />
                         </Box>
+                        <Box
+                            textAlign="center" >
+                            <BracoLadoDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <BracoNormalDireito />
+                        </Box>
+                        <Box
+                            w='450px'
+                            textAlign="center" >
+                            <BracoDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <AntebracoLadoDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <AntebracoNormalDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <DedoLadoDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <DedoNormalDireito />
+                        </Box>
+                        <Box
+                            w='450px'
+                            textAlign="center" >
+                            <DedoDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <JoelhoLadoDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <JoelhoNormalDireito />
+                        </Box>
+                        <Box
+                            w='450px'
+                            textAlign="center" >
+                            <JoelhoDireito />
+                        </Box>
                     </Box>
                 </Box>
                 <Box w='45%'
@@ -231,6 +304,57 @@ function Articulacoes() {
                             w='450px'
                             textAlign="center" >
                             <MaoEsquerda />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <BracoLadoEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <BracoNormalEsquerdo />
+                        </Box>
+                        <Box
+                            w='450px'
+                            textAlign="center" >
+                            <BracoEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <AntebracoLadoEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <AntebracoNormalEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <DedoLadoEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <DedoNormalEsquerdo />
+                        </Box>
+                        <Box
+                            w='450px'
+                            textAlign="center" >
+                            <DedoEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <JoelhoLadoEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <JoelhoNormalEsquerdo />
+                        </Box>
+                        <Box
+                            w='450px'
+                            textAlign="center" >
+                            <JoelhoEsquerdo />
                         </Box>
                     </Box>
                 </Box>

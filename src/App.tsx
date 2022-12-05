@@ -15,36 +15,42 @@ import { PunhoDireitoNormalProvider } from './context/PunhoDireitoNormalContext'
 import { PunhoEsquerdoNormalProvider } from './context/PunhoEsquerdoNormalContext';
 import { MaoEsquerdoNormalProvider } from './context/MaoEsquerdoNormalContext';
 import { MaoDireitoNormalProvider } from './context/MaoDireitoNormalContext';
+import { JoelhoDireitoNormalProvider } from './context/JoelhoDireitoNormalContext';
+import { JoelhoEsquerdoNormalProvider } from './context/JoelhoEsquerdoNormalContext';
 
 function App() {
   return (
-    <MaoDireitoNormalProvider>
-      <MaoEsquerdoNormalProvider>
-        <PunhoEsquerdoNormalProvider>
-          <PunhoDireitoNormalProvider>
-            <CotoveloEsquerdoNormalProvider>
-              <CotoveloDireitoNormalProvider>
-                <OmbroEsquerdoNormalProvider>
-                  <OmbroDireitoNormalProvider>
-                    <DisableTributariaProvider>
-                      <StringNormalProvider>
-                        <NormalProvider>
-                          <LaudosProvider>
-                            <ChakraProvider theme={tema}>
-                              <Rotas />
-                            </ChakraProvider>
-                          </LaudosProvider>
-                        </NormalProvider>
-                      </StringNormalProvider>
-                    </DisableTributariaProvider>
-                  </OmbroDireitoNormalProvider>
-                </OmbroEsquerdoNormalProvider>
-              </CotoveloDireitoNormalProvider>
-            </CotoveloEsquerdoNormalProvider>
-          </PunhoDireitoNormalProvider>
-        </PunhoEsquerdoNormalProvider>
-      </MaoEsquerdoNormalProvider>
-    </MaoDireitoNormalProvider>
+    <JoelhoEsquerdoNormalProvider>
+      <JoelhoDireitoNormalProvider>
+        <MaoDireitoNormalProvider>
+          <MaoEsquerdoNormalProvider>
+            <PunhoEsquerdoNormalProvider>
+              <PunhoDireitoNormalProvider>
+                <CotoveloEsquerdoNormalProvider>
+                  <CotoveloDireitoNormalProvider>
+                    <OmbroEsquerdoNormalProvider>
+                      <OmbroDireitoNormalProvider>
+                        <DisableTributariaProvider>
+                          <StringNormalProvider>
+                            <NormalProvider>
+                              <LaudosProvider>
+                                <ChakraProvider theme={tema}>
+                                  <Rotas />
+                                </ChakraProvider>
+                              </LaudosProvider>
+                            </NormalProvider>
+                          </StringNormalProvider>
+                        </DisableTributariaProvider>
+                      </OmbroDireitoNormalProvider>
+                    </OmbroEsquerdoNormalProvider>
+                  </CotoveloDireitoNormalProvider>
+                </CotoveloEsquerdoNormalProvider>
+              </PunhoDireitoNormalProvider>
+            </PunhoEsquerdoNormalProvider>
+          </MaoEsquerdoNormalProvider>
+        </MaoDireitoNormalProvider>
+      </JoelhoDireitoNormalProvider>
+    </JoelhoEsquerdoNormalProvider>
   );
 }
 
