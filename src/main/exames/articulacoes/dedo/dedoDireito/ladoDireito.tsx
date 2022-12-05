@@ -3,7 +3,7 @@
 import { Box } from "@chakra-ui/react";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function LadoEsquerdo() {
+function LadoDireito() {
   const altura = "100%";
   const largura = "95%";
 
@@ -19,8 +19,8 @@ function LadoEsquerdo() {
       padding="15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Punho Esquerdo" />
+      <TituloNomeExame titulo="Dedo mão direita" />
     </Box >
   );
 }
-export default LadoEsquerdo;
+export default LadoDireito;
