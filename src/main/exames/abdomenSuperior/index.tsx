@@ -1,56 +1,47 @@
 import { Box } from "@chakra-ui/react";
+import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
 import BoxTitleBackground from "../../component/box_title_background";
-import BGImage from "../../images/bg_img.png";
 import Exames from "../../folha_laudos/Laudos";
 import Normal from "./abdomenNormal/normal";
-import Figado from "./figado/figado";
-import Baco from "./baco/baco";
-import ViasBiliares from "./vias biliares/vias_biliares";
-import Pancreas from "./pancreas/pancreas";
-import LiquidoLivre from "./liquido_livre/liquido_livre";
 import Aorta from "./aorta/aorta";
+import Baco from "./baco/baco";
+import Figado from "./figado/figado";
+import LiquidoLivre from "./liquido_livre/liquido_livre";
+import Pancreas from "./pancreas/pancreas";
 import VesiculaBiliar from "./vesicula_biliar/vesicula_biliar";
+import ViasBiliares from "./vias biliares/vias_biliares";
 
 function AbdomemSuperior() {
+  return (
+    <Box_Default_With_Sidebar>
+      <BoxTitleBackground
+        PadLeft="30px"
+        fontsize="19px"
+        tamanho="240px 65px"
+        titulo="Abdômen Superior"
+      />
 
-    return (
+      <Exames></Exames>
 
-        <Box
-            w="100%"
-            h="100%"
-            verticalAlign="center"
-            alignSelf="center"
-            alignItems="center"
-            backgroundImage={BGImage}
-            backgroundSize="cover"
-            backgroundRepeat="no-repeat"
-        >
-            <BoxTitleBackground PadLeft="30px" fontsize='19px' tamanho="240px 65px" titulo="Abdômen Superior" />
+      <Box ml="10px">
+        <Normal></Normal>
 
-            <Exames></Exames>
+        <Figado></Figado>
 
-            <Box
-                ml='10px'
-            >
-                <Normal></Normal>
+        <Baco></Baco>
 
-                <Figado></Figado>
+        <ViasBiliares></ViasBiliares>
 
-                <Baco></Baco>
+        <Pancreas></Pancreas>
 
-                <ViasBiliares></ViasBiliares>
+        <LiquidoLivre></LiquidoLivre>
 
-                <Pancreas></Pancreas>
+        <Aorta></Aorta>
 
-                <LiquidoLivre></LiquidoLivre>
-
-                <Aorta></Aorta>
-
-                <VesiculaBiliar></VesiculaBiliar>
-
-            </Box >
-        </Box >
-    );
+        <VesiculaBiliar></VesiculaBiliar>
+      </Box>
+    </Box_Default_With_Sidebar>
+  );
 }
 
 export default AbdomemSuperior;
