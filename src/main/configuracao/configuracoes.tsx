@@ -26,7 +26,6 @@ import {
   PopoverBody,
   PopoverContent,
   PopoverTrigger,
-  Progress,
   Select,
   Stack,
   Tag,
@@ -35,7 +34,7 @@ import {
   Text,
   Tooltip,
   useDisclosure,
-  useOutsideClick,
+  useOutsideClick
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
@@ -44,16 +43,15 @@ import { FaRegFolderOpen } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import SignatureCanvas from "react-signature-canvas";
 import MedicosJSON from "../../Data/Medicos.json";
+import Box_Default_With_Sidebar from "../component/box_default_sidebar";
 import BoxTitleBackground from "../component/box_title_background";
 import RectangularCard from "../component/card_observations";
 import ItemObservation from "../component/item_obeservation";
 import MainCard from "../component/main_card";
-import BG from "../images/bg_img.png";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import ImageHome from "../images/icon_home.png";
 import Medicos from "./medicos";
-import Box_Default_With_Sidebar from "../component/box_default_sidebar";
 
 export const lista_medicos = MedicosJSON.medicos;
 
@@ -68,6 +66,7 @@ const Configuracoes = () => {
     } else medicos = [];
     return medicos;
   };
+
   const getUser = () => {
     if (localStorage.getItem("user") != null) {
       var user = JSON.parse(localStorage.getItem("user")!);
@@ -81,10 +80,6 @@ const Configuracoes = () => {
   let padRef = React.useRef<SignatureCanvas>(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const [enable, setEnable] = useState(true);
-
-  const [focus, setFocus] = useState("unstyled");
 
   const [nome, setNome] = useState("");
 
@@ -188,31 +183,59 @@ const Configuracoes = () => {
     );
   };
 
+  const getUserMedico = () => {
+    if (localStorage.getItem("user") != null) {
+      var medico = JSON.parse(localStorage.getItem("user")!);
+      return medico.medico;
+    } else return null;
+  };
+
   const Laudos = () => {
+    //TODO CASO O CAMINHO DO LAUDO NAO EXISTA MOSTRAR UM ERRO
     return (
-      <List spacing={2} size="15px">
-        <ListItem>
-          <ListIcon as={VscFilePdf} color="blue.400" />
-          LAUDO PACIÊNTE 1
-        </ListItem>
-        <ListItem>
-          <ListIcon as={VscFilePdf} color="blue.400" />
-          LAUDO PACIÊNTE 1
-        </ListItem>
-        <ListItem>
-          <ListIcon as={VscFilePdf} color="blue.400" />
-          LAUDO PACIÊNTE 1
-        </ListItem>
-        <ListItem>
-          <ListIcon as={VscFilePdf} color="blue.400" />
-          LAUDO PACIÊNTE 1
-        </ListItem>
-        <ListItem>
-          <ListIcon as={VscFilePdf} color="blue.400" />
-          LAUDO PACIÊNTE 1
-        </ListItem>
-      </List>
+      <>
+        {getUserMedico() != null
+          ? getMedicos().map((medi) => {
+              if (medi.nome == getUserMedico().nome) {
+                return medi.laudos.map((laudos, key) => {
+                  return (
+                    <Center>
+                      <List spacing={3} size="20px" key={key}>
+                        <ListItem
+                          padding="10px"
+                          onClick={() => {
+                            showSavedLaudo(laudos.laudo);
+                          }}
+                          cursor="pointer"
+                          _hover={{
+                            bg: "blue.100",
+                            fontWeight: "semibold",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          <ListIcon
+                            as={VscFilePdf}
+                            color="blue.600"
+                            h="25px"
+                            w="25px"
+                            fontSize="xxx-large"
+                          />
+                          {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
+                        </ListItem>
+                        <Divider orientation="horizontal" marginBottom="10px" />
+                      </List>
+                    </Center>
+                  );
+                });
+              }
+            })
+          : null}
+      </>
     );
+  };
+
+  const showSavedLaudo = (laudo) => {
+    return window.open(laudo);
   };
 
   const clearAssinatura = () => {
@@ -223,7 +246,6 @@ const Configuracoes = () => {
     setNome("");
     setCrm("");
     setDefaultUserImage(DefaultImageClinica);
-    setFocus("unstyled");
     setStateClickAddMedico(false);
     setImageAssinatura(true);
     setpropsBoxAssinatura(false);
@@ -330,7 +352,7 @@ const Configuracoes = () => {
         <Flex
           direction="row"
           justify="space-between"
-          margin="20px 80px 100px 20px"
+          margin="20px 200px 100px 20px"
           align="center"
         >
           <BoxTitleBackground
@@ -411,8 +433,6 @@ const Configuracoes = () => {
                 <Divider orientation="horizontal" marginTop="10px" />
                 <ModalCloseButton
                   onClick={() => {
-                    setFocus("unstyled");
-                    setEnable(true);
                     ResetDados();
                     setClinica([]);
                   }}
