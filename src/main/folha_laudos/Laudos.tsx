@@ -77,7 +77,7 @@ function Exames() {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
   const [medico, setMedico] = useState(getUserMedico());
-  const [urlB, setUrl] = useState<any>();
+  const [urlLaudo, setUrlLaudo] = useState<any>();
   const [edit, setEdit] = useState(false);
 
   const styles = StyleSheet.create({
@@ -200,7 +200,6 @@ function Exames() {
       },
     ],
   });
-  
 
   const Laudo = () => {
     return (
@@ -271,9 +270,9 @@ function Exames() {
   };
 
   const AddLaudoSalvo = () => {
-    const getCurrentDate = {
+    const getCurrentData = {
       paciente: getPaciente(),
-      laudo: urlB,
+      laudo: urlLaudo,
       data: getCurrentDateLaudo(),
     };
     laudos.map((e) => {
@@ -281,13 +280,21 @@ function Exames() {
         laudos.shift();
       }
     });
-    laudos.push(getCurrentDate);
+    laudos.push(getCurrentData);
     update(laudos);
   };
 
+  const convertBlob = (blob) => {
+    var file = new Blob([blob], { type: "application/pdf" });
+    var fileURL = URL.createObjectURL(file);
+    setUrlLaudo(fileURL);
+  };
+
   useEffect(() => {
-    AddLaudoSalvo();
-  }, [urlB]);
+    if (urlLaudo != null) {
+      AddLaudoSalvo();
+    }
+  }, [urlLaudo]);
 
   return (
     <>
@@ -437,7 +444,7 @@ function Exames() {
                     h={30}
                     color="twitter.600"
                     onClick={() => {
-                      setUrl(URL.createObjectURL(blob!));
+                      convertBlob(blob!);
                     }}
                   />
                 </Circle>
