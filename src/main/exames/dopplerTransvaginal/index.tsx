@@ -11,19 +11,11 @@ import Miometrio from "./miometrio/miometrio";
 import Ovario_Direito from "./ovarios/ovario_direito";
 import Ovario_Esquerdo from "./ovarios/ovario_esquedo";
 import Utero from "./utero/utero";
+import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
 
 function DopplerTransvaginal() {
   return (
-    <Box
-      w="100%"
-      h="100%"
-      verticalAlign="center"
-      alignSelf="center"
-      alignItems="center"
-      backgroundImage={BGImage}
-      backgroundSize="cover"
-      backgroundRepeat="no-repeat"
-    >
+    <Box_Default_With_Sidebar>
       <BoxTitleBackground
         PadLeft="20px"
         fontsize="16px"
@@ -36,55 +28,34 @@ function DopplerTransvaginal() {
         <Utero />
         <Miometrio />
 
-        <Box w='70%'
-          display='flex'
-          flexWrap='wrap'
-        >
-          <Box
-            w='450px'
-            mb='15px'>
+        <Box w="70%" display="flex" flexWrap="wrap">
+          <Box w="450px" mb="15px">
             <Ovario_Esquerdo />
           </Box>
-          <Box
-            w='450px'
-            mb='15px'>
+          <Box w="450px" mb="15px">
             <Ovario_Direito />
           </Box>
         </Box>
 
         <Cirurgias />
-        <Box w='70%'
-          display='flex'
-          flexWrap='wrap'
-        >
-          <Box
-            w='450px'
-            mb='15px'>
+        <Box w="70%" display="flex" flexWrap="wrap">
+          <Box w="450px" mb="15px">
             <Hidatide />
           </Box>
-          <Box
-            w='450px'
-            mb='15px'>
+          <Box w="450px" mb="15px">
             <Hidrossalpinge />
           </Box>
         </Box>
-        <Box w='70%'
-          display='flex'
-          flexWrap='wrap'
-        >
-          <Box
-            w='450px'
-            mb='15px'>
+        <Box w="70%" display="flex" flexWrap="wrap">
+          <Box w="450px" mb="15px">
             <Liquido_Livre />
           </Box>
-          <Box
-            w='450px'
-            mb='15px'>
+          <Box w="450px" mb="15px">
             <Extras />
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Box_Default_With_Sidebar>
   );
 }
 

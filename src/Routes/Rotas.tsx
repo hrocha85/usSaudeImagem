@@ -25,6 +25,10 @@ import Login from "../main/login/login";
 import Mamas from "../main/exames/mamas";
 import Prostata from "../main/exames/prostata";
 
+import Format_PDF from "../main/folha_laudos/format_pdf";
+import Articulacoes from "../main/exames/articulacoes";
+import Sidebar from "../main/menu/sideBar";
+import DopplerVenosoMMII from "../main/exames/dopplerVenosoMMII";
 
 function Rotas() {
   return (
@@ -38,6 +42,7 @@ function Rotas() {
       <Route path="/Home/5" element={<AbdomemSuperior />} />
       <Route path="/Home/6" element={<Transvaginal />} />
       <Route path="/Home/7" element={<DopplerRenal />} />
+      <Route path="/Home/8" element={<DopplerVenosoMMII />} />
       <Route path="/Home/9" element={<Tireoide />} />
       <Route path="/Home/10" element={<DopplerCarotidas />} />
       <Route path="/Home/13" element={<Tireoide2 />} />
@@ -50,8 +55,10 @@ function Rotas() {
       <Route path="/Home/22" element={<Pelvico />} />
       <Route path="/Home/21" element={<DopplerTireoide2 />} />
       <Route path="/Home/23" element={<Prostata />} />
+      <Route path="/Home/24" element={<Articulacoes />} />
       <Route path="/Home/12" element={<Doppler_Arterial_MMII />} />
       <Route path="/Home/Configuracoes" element={<Configuracoes />} />
+      <Route path="/Format_PDF" element={<Format_PDF />} />
     </Routes>
   );
 }

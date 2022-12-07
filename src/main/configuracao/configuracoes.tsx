@@ -3,7 +3,8 @@ import {
   Button,
   Center,
   Divider,
-  Flex, HStack,
+  Flex,
+  HStack,
   Icon,
   Image,
   Input,
@@ -25,7 +26,6 @@ import {
   PopoverBody,
   PopoverContent,
   PopoverTrigger,
-  Progress,
   Select,
   Stack,
   Tag,
@@ -43,11 +43,11 @@ import { FaRegFolderOpen } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import SignatureCanvas from "react-signature-canvas";
 import MedicosJSON from "../../Data/Medicos.json";
+import Box_Default_With_Sidebar from "../component/box_default_sidebar";
 import BoxTitleBackground from "../component/box_title_background";
 import RectangularCard from "../component/card_observations";
 import ItemObservation from "../component/item_obeservation";
 import MainCard from "../component/main_card";
-import BG from "../images/bg_img.png";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import ImageHome from "../images/icon_home.png";
@@ -66,6 +66,7 @@ const Configuracoes = () => {
     } else medicos = [];
     return medicos;
   };
+
   const getUser = () => {
     if (localStorage.getItem("user") != null) {
       var user = JSON.parse(localStorage.getItem("user")!);
@@ -79,10 +80,6 @@ const Configuracoes = () => {
   let padRef = React.useRef<SignatureCanvas>(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const [enable, setEnable] = useState(true);
-
-  const [focus, setFocus] = useState("unstyled");
 
   const [nome, setNome] = useState("");
 
@@ -114,6 +111,12 @@ const Configuracoes = () => {
 
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
 
+  //TODO COLOCAR BORDA NOS CAMPOS TELEFONE E CEP NO ADD CLINICA
+
+  // TODO COLOCAR UM TEXTO NA ASSINATURA PARA DEMOSTRAR QUE ALI É A ASSINATURA
+
+  // TODO COLOCAR APENAS UM EDITAR NOS CAMPOS
+
   useEffect(() => {
     setMedicos(getMedicos);
   }, [localStorage.getItem("medicos")!]);
@@ -126,6 +129,7 @@ const Configuracoes = () => {
       assinatura: padRef.current?.getTrimmedCanvas().toDataURL("image/png")!,
       foto: defaultUserImage,
       clinica: clinicas,
+      laudos: [{}],
     };
     lista_medicos.push(obj);
 
@@ -179,31 +183,59 @@ const Configuracoes = () => {
     );
   };
 
+  const getUserMedico = () => {
+    if (localStorage.getItem("user") != null) {
+      var medico = JSON.parse(localStorage.getItem("user")!);
+      return medico.medico;
+    } else return null;
+  };
+
   const Laudos = () => {
+    //TODO CASO O CAMINHO DO LAUDO NAO EXISTA MOSTRAR UM ERRO
     return (
-      <List spacing={2} size="15px">
-        <ListItem>
-          <ListIcon as={VscFilePdf} color="blue.400" />
-          LAUDO PACIÊNTE 1
-        </ListItem>
-        <ListItem>
-          <ListIcon as={VscFilePdf} color="blue.400" />
-          LAUDO PACIÊNTE 1
-        </ListItem>
-        <ListItem>
-          <ListIcon as={VscFilePdf} color="blue.400" />
-          LAUDO PACIÊNTE 1
-        </ListItem>
-        <ListItem>
-          <ListIcon as={VscFilePdf} color="blue.400" />
-          LAUDO PACIÊNTE 1
-        </ListItem>
-        <ListItem>
-          <ListIcon as={VscFilePdf} color="blue.400" />
-          LAUDO PACIÊNTE 1
-        </ListItem>
-      </List>
+      <>
+        {getUserMedico() != null
+          ? getMedicos().map((medi) => {
+              if (medi.nome == getUserMedico().nome) {
+                return medi.laudos.map((laudos, key) => {
+                  return (
+                    <Center>
+                      <List spacing={3} size="20px" key={key}>
+                        <ListItem
+                          padding="10px"
+                          onClick={() => {
+                            showSavedLaudo(laudos.laudo);
+                          }}
+                          cursor="pointer"
+                          _hover={{
+                            bg: "blue.100",
+                            fontWeight: "semibold",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          <ListIcon
+                            as={VscFilePdf}
+                            color="blue.600"
+                            h="25px"
+                            w="25px"
+                            fontSize="xxx-large"
+                          />
+                          {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
+                        </ListItem>
+                        <Divider orientation="horizontal" marginBottom="10px" />
+                      </List>
+                    </Center>
+                  );
+                });
+              }
+            })
+          : null}
+      </>
     );
+  };
+
+  const showSavedLaudo = (laudo) => {
+    return window.open(laudo);
   };
 
   const clearAssinatura = () => {
@@ -214,7 +246,6 @@ const Configuracoes = () => {
     setNome("");
     setCrm("");
     setDefaultUserImage(DefaultImageClinica);
-    setFocus("unstyled");
     setStateClickAddMedico(false);
     setImageAssinatura(true);
     setpropsBoxAssinatura(false);
@@ -316,25 +347,12 @@ const Configuracoes = () => {
   }, [updateTAGS == true]);
 
   return (
-    <Box
-      w="100%"
-      h="100vh"
-      backgroundImage={BG}
-      verticalAlign="center"
-      alignSelf="center"
-      alignItems="center"
-      backgroundPosition="fixed"
-      backgroundSize="cover"
-      backgroundClip="padding-box"
-      backgroundRepeat="no-repeat"
-      paddingBottom="10px"
-      paddingTop="5px"
-    >
+    <Box_Default_With_Sidebar>
       <Box>
         <Flex
           direction="row"
           justify="space-between"
-          margin="20px 80px 100px 20px"
+          margin="20px 200px 100px 20px"
           align="center"
         >
           <BoxTitleBackground
@@ -342,16 +360,6 @@ const Configuracoes = () => {
             fontsize="19px"
             tamanho="180px"
             titulo="Configurações"
-          />
-
-          <Progress
-            value={50}
-            size="sm"
-            w="259px"
-            minW="259px"
-            colorScheme="blue"
-            backgroundColor="#C8C8C8"
-            borderRadius="0.5rem"
           />
 
           <Popover>
@@ -367,7 +375,7 @@ const Configuracoes = () => {
             </PopoverContent>
           </Popover>
         </Flex>
-        <Box alignSelf="center" marginTop="200px">
+        <Box alignSelf="center" marginTop="200px" backgroundColor="transparent">
           <Flex
             h="100%"
             direction="row"
@@ -425,8 +433,6 @@ const Configuracoes = () => {
                 <Divider orientation="horizontal" marginTop="10px" />
                 <ModalCloseButton
                   onClick={() => {
-                    setFocus("unstyled");
-                    setEnable(true);
                     ResetDados();
                     setClinica([]);
                   }}
@@ -561,7 +567,7 @@ const Configuracoes = () => {
                   >
                     <SignatureCanvas
                       ref={padRef}
-                      backgroundColor='transparent'
+                      backgroundColor="transparent"
                       onBegin={() => setpropsBoxAssinatura(true)}
                       penColor="black"
                       canvasProps={{
@@ -619,7 +625,7 @@ const Configuracoes = () => {
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Box_Default_With_Sidebar>
   );
 };
 
