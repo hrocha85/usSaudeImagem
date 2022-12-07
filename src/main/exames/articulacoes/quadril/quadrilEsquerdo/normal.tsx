@@ -2,17 +2,17 @@
 
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, } from "react";
-import { DedoEsquerdoNormalContext } from "../../../../../context/DedoEsquerdoNormalContext";
+import { QuadrilEsquerdoNormalContext } from "../../../../../context/QuadrilEsquerdoNormalContext";
 
 
 export function NormalEsquerdo() {
     const altura = '100%'
-    const largura = '350px'
+    const largura = '250px'
 
-    let { setDedoEsquerdoLaudoNormal } = useContext(DedoEsquerdoNormalContext)
+    let { setQuadrilEsquerdoLaudoNormal } = useContext(QuadrilEsquerdoNormalContext)
 
     const verificaChecked = (value) => {
-        value.checked === true ? setDedoEsquerdoLaudoNormal(true) : setDedoEsquerdoLaudoNormal(false);
+        value.checked === true ? setQuadrilEsquerdoLaudoNormal(true) : setQuadrilEsquerdoLaudoNormal(false);
     }
 
     return (
@@ -31,7 +31,7 @@ export function NormalEsquerdo() {
                 <Checkbox
                     id="tudoNormal"
                     onChange={(e) => { verificaChecked(e.target) }}
-                >Dedos mão esquerda normal</Checkbox>
+                >Quadril Esquerdo normal</Checkbox>
             </Box>
         </Box >
     );
@@ -48,11 +48,11 @@ export default NormalEsquerdo;
 //     const altura = '100%'
 //     const largura = '250px'
 
-//     let { setDedoEsquerdoLaudoNormal } = useContext(NormalContext)
+//     let { setQuadrilEsquerdoLaudoNormal } = useContext(NormalContext)
 
 
 //     const verificaChecked = (value) => {
-//         value.checked === true ? setDedoEsquerdoLaudoNormal(true) : setDedoEsquerdoLaudoNormal(false);
+//         value.checked === true ? setQuadrilEsquerdoLaudoNormal(true) : setQuadrilEsquerdoLaudoNormal(false);
 //     }
 
 //     return (
@@ -71,7 +71,7 @@ export default NormalEsquerdo;
 //                 <Checkbox
 //                     id="tudoNormal"
 //                     onChange={(e) => { verificaChecked(e.target) }}
-//                 >Dedo Esquerdo normal</Checkbox>
+//                 >Quadril Esquerdo normal</Checkbox>
 //             </Box>
 //         </Box >
 //     );

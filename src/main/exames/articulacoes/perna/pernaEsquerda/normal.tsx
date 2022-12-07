@@ -2,17 +2,17 @@
 
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, } from "react";
-import { DedoEsquerdoNormalContext } from "../../../../../context/DedoEsquerdoNormalContext";
+import { PernaEsquerdoNormalContext } from "../../../../../context/PernaEsquerdoNormalContext";
 
 
 export function NormalEsquerdo() {
     const altura = '100%'
-    const largura = '350px'
+    const largura = '300px'
 
-    let { setDedoEsquerdoLaudoNormal } = useContext(DedoEsquerdoNormalContext)
+    let { setPernaEsquerdoLaudoNormal } = useContext(PernaEsquerdoNormalContext)
 
     const verificaChecked = (value) => {
-        value.checked === true ? setDedoEsquerdoLaudoNormal(true) : setDedoEsquerdoLaudoNormal(false);
+        value.checked === true ? setPernaEsquerdoLaudoNormal(true) : setPernaEsquerdoLaudoNormal(false);
     }
 
     return (
@@ -27,11 +27,11 @@ export function NormalEsquerdo() {
             padding='10px 15px 10px 15px'
             mt='2px'
             mb='5px'>
-            <Box w='100%' >
+            <Box w='300px' >
                 <Checkbox
                     id="tudoNormal"
                     onChange={(e) => { verificaChecked(e.target) }}
-                >Dedos mão esquerda normal</Checkbox>
+                >Perna esquerda normal</Checkbox>
             </Box>
         </Box >
     );
@@ -48,11 +48,11 @@ export default NormalEsquerdo;
 //     const altura = '100%'
 //     const largura = '250px'
 
-//     let { setDedoEsquerdoLaudoNormal } = useContext(NormalContext)
+//     let { setPernaEsquerdoLaudoNormal } = useContext(NormalContext)
 
 
 //     const verificaChecked = (value) => {
-//         value.checked === true ? setDedoEsquerdoLaudoNormal(true) : setDedoEsquerdoLaudoNormal(false);
+//         value.checked === true ? setPernaEsquerdoLaudoNormal(true) : setPernaEsquerdoLaudoNormal(false);
 //     }
 
 //     return (
@@ -71,7 +71,7 @@ export default NormalEsquerdo;
 //                 <Checkbox
 //                     id="tudoNormal"
 //                     onChange={(e) => { verificaChecked(e.target) }}
-//                 >Dedo Esquerdo normal</Checkbox>
+//                 >Perna Esquerdo normal</Checkbox>
 //             </Box>
 //         </Box >
 //     );

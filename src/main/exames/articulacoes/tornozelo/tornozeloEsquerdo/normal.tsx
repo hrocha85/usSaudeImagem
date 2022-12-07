@@ -2,17 +2,17 @@
 
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, } from "react";
-import { DedoEsquerdoNormalContext } from "../../../../../context/DedoEsquerdoNormalContext";
+import { TornozeloEsquerdoNormalContext } from "../../../../../context/TornozeloEsquerdoNormalContext";
 
 
 export function NormalEsquerdo() {
     const altura = '100%'
-    const largura = '350px'
+    const largura = '250px'
 
-    let { setDedoEsquerdoLaudoNormal } = useContext(DedoEsquerdoNormalContext)
+    let { setTornozeloEsquerdoLaudoNormal } = useContext(TornozeloEsquerdoNormalContext)
 
     const verificaChecked = (value) => {
-        value.checked === true ? setDedoEsquerdoLaudoNormal(true) : setDedoEsquerdoLaudoNormal(false);
+        value.checked === true ? setTornozeloEsquerdoLaudoNormal(true) : setTornozeloEsquerdoLaudoNormal(false);
     }
 
     return (
@@ -31,7 +31,7 @@ export function NormalEsquerdo() {
                 <Checkbox
                     id="tudoNormal"
                     onChange={(e) => { verificaChecked(e.target) }}
-                >Dedos mão esquerda normal</Checkbox>
+                >Tornozelo Esquerdo normal</Checkbox>
             </Box>
         </Box >
     );
@@ -48,11 +48,11 @@ export default NormalEsquerdo;
 //     const altura = '100%'
 //     const largura = '250px'
 
-//     let { setDedoEsquerdoLaudoNormal } = useContext(NormalContext)
+//     let { setTornozeloEsquerdoLaudoNormal } = useContext(NormalContext)
 
 
 //     const verificaChecked = (value) => {
-//         value.checked === true ? setDedoEsquerdoLaudoNormal(true) : setDedoEsquerdoLaudoNormal(false);
+//         value.checked === true ? setTornozeloEsquerdoLaudoNormal(true) : setTornozeloEsquerdoLaudoNormal(false);
 //     }
 
 //     return (
@@ -71,7 +71,7 @@ export default NormalEsquerdo;
 //                 <Checkbox
 //                     id="tudoNormal"
 //                     onChange={(e) => { verificaChecked(e.target) }}
-//                 >Dedo Esquerdo normal</Checkbox>
+//                 >Tornozelo Esquerdo normal</Checkbox>
 //             </Box>
 //         </Box >
 //     );
