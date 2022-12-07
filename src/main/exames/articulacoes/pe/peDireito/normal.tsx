@@ -2,17 +2,16 @@
 
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, } from "react";
-import { DedoEsquerdoNormalContext } from "../../../../../context/DedoEsquerdoNormalContext";
+import { PeDireitoNormalContext } from "../../../../../context/PeDireitoNormalContext";
 
-
-export function NormalEsquerdo() {
+export function NormalDireito() {
     const altura = '100%'
-    const largura = '350px'
+    const largura = '250px'
 
-    let { setDedoEsquerdoLaudoNormal } = useContext(DedoEsquerdoNormalContext)
+    let { setPeDireitoLaudoNormal } = useContext(PeDireitoNormalContext)
 
     const verificaChecked = (value) => {
-        value.checked === true ? setDedoEsquerdoLaudoNormal(true) : setDedoEsquerdoLaudoNormal(false);
+        value.checked === true ? setPeDireitoLaudoNormal(true) : setPeDireitoLaudoNormal(false);
     }
 
     return (
@@ -31,28 +30,28 @@ export function NormalEsquerdo() {
                 <Checkbox
                     id="tudoNormal"
                     onChange={(e) => { verificaChecked(e.target) }}
-                >Dedos mão esquerda normal</Checkbox>
+                >Pé direito normal</Checkbox>
             </Box>
         </Box >
     );
 }
-export default NormalEsquerdo;
+export default NormalDireito;
 
 
-// export default NormalEsquerdo;
+// export default NormalDireito;
 // import { Box, Checkbox } from "@chakra-ui/react";
 // import { useContext, } from "react";
 // import { NormalContext } from "../../../../../context/NormalContext";
 
-// export function NormalEsquerdo() {
+// export function NormalDireito() {
 //     const altura = '100%'
 //     const largura = '250px'
 
-//     let { setDedoEsquerdoLaudoNormal } = useContext(NormalContext)
+//     let { setPeDireitoLaudoNormal } = useContext(NormalContext)
 
 
 //     const verificaChecked = (value) => {
-//         value.checked === true ? setDedoEsquerdoLaudoNormal(true) : setDedoEsquerdoLaudoNormal(false);
+//         value.checked === true ? setPeDireitoLaudoNormal(true) : setPeDireitoLaudoNormal(false);
 //     }
 
 //     return (
@@ -71,10 +70,10 @@ export default NormalEsquerdo;
 //                 <Checkbox
 //                     id="tudoNormal"
 //                     onChange={(e) => { verificaChecked(e.target) }}
-//                 >Dedo Esquerdo normal</Checkbox>
+//                 >Pe direito normal</Checkbox>
 //             </Box>
 //         </Box >
 //     );
 // }
 
-// export default NormalEsquerdo;
+// export default NormalDireito;

@@ -2,17 +2,17 @@
 
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, } from "react";
-import { DedoEsquerdoNormalContext } from "../../../../../context/DedoEsquerdoNormalContext";
+import { TornozeloDireitoNormalContext } from "../../../../../context/TornozeloDireitoNormalContext";
 
 
-export function NormalEsquerdo() {
+export function NormalDireito() {
     const altura = '100%'
-    const largura = '350px'
+    const largura = '250px'
 
-    let { setDedoEsquerdoLaudoNormal } = useContext(DedoEsquerdoNormalContext)
+    let { setTornozeloDireitoLaudoNormal } = useContext(TornozeloDireitoNormalContext)
 
     const verificaChecked = (value) => {
-        value.checked === true ? setDedoEsquerdoLaudoNormal(true) : setDedoEsquerdoLaudoNormal(false);
+        value.checked === true ? setTornozeloDireitoLaudoNormal(true) : setTornozeloDireitoLaudoNormal(false);
     }
 
     return (
@@ -31,28 +31,28 @@ export function NormalEsquerdo() {
                 <Checkbox
                     id="tudoNormal"
                     onChange={(e) => { verificaChecked(e.target) }}
-                >Dedos mão esquerda normal</Checkbox>
+                >Tornozelo direito normal</Checkbox>
             </Box>
         </Box >
     );
 }
-export default NormalEsquerdo;
+export default NormalDireito;
 
 
-// export default NormalEsquerdo;
+// export default NormalDireito;
 // import { Box, Checkbox } from "@chakra-ui/react";
 // import { useContext, } from "react";
 // import { NormalContext } from "../../../../../context/NormalContext";
 
-// export function NormalEsquerdo() {
+// export function NormalDireito() {
 //     const altura = '100%'
 //     const largura = '250px'
 
-//     let { setDedoEsquerdoLaudoNormal } = useContext(NormalContext)
+//     let { setTornozeloDireitoLaudoNormal } = useContext(NormalContext)
 
 
 //     const verificaChecked = (value) => {
-//         value.checked === true ? setDedoEsquerdoLaudoNormal(true) : setDedoEsquerdoLaudoNormal(false);
+//         value.checked === true ? setTornozeloDireitoLaudoNormal(true) : setTornozeloDireitoLaudoNormal(false);
 //     }
 
 //     return (
@@ -71,10 +71,10 @@ export default NormalEsquerdo;
 //                 <Checkbox
 //                     id="tudoNormal"
 //                     onChange={(e) => { verificaChecked(e.target) }}
-//                 >Dedo Esquerdo normal</Checkbox>
+//                 >Tornozelo direito normal</Checkbox>
 //             </Box>
 //         </Box >
 //     );
 // }
 
-// export default NormalEsquerdo;
+// export default NormalDireito;

@@ -56,6 +56,46 @@ import JoelhoNormalDireito from "./joelho/joelhoDireito/normal";
 import JoelhoEsquerdo from "./joelho/joelhoEsquerdo/joelhoEsquerdo";
 import JoelhoLadoEsquerdo from "./joelho/joelhoEsquerdo/ladoEsquerdo";
 import JoelhoNormalEsquerdo from "./joelho/joelhoEsquerdo/normal";
+import TendaoQuadricepsDireito from "./joelho/joelhoDireito/tendaoQuadricepsDireito";
+import TendaoQuadricepsEsquerdo from "./joelho/joelhoEsquerdo/tendaoQuadricepsEsquerdo";
+import TendaoPatelarDireito from "./joelho/joelhoDireito/tendaoPatelarDireito";
+import TendaoPatelarEsquerdo from "./joelho/joelhoEsquerdo/tendaoPatelarEsquerdo";
+import TendaoPataGansoDireito from "./joelho/joelhoDireito/tendaoPataGansoDireito";
+import TendaoPataGansoEsquerdo from "./joelho/joelhoEsquerdo/tendaoPataGansoEsquerdo";
+import MeniscoMedialDireito from "./joelho/joelhoDireito/meniscoMedialDireito";
+import MeniscoMedialEsquerdo from "./joelho/joelhoEsquerdo/meniscoMedialEsquerdo";
+import TornozeloLadoDireito from "./tornozelo/tornozeloDireito/ladoDireito";
+import TornozeloNormalDireito from "./tornozelo/tornozeloDireito/normal";
+import FibularesDireito from "./tornozelo/tornozeloDireito/fibularesDireito";
+import TibialPosteriorDireito from "./tornozelo/tornozeloDireito/tibialPosteriorDireito";
+import TornozeloLadoEsquerdo from "./tornozelo/tornozeloEsquerdo/ladoEsquerdo";
+import TornozeloNormalEsquerdo from "./tornozelo/tornozeloEsquerdo/normal";
+import FibularesEsquerdo from "./tornozelo/tornozeloEsquerdo/fibularesEsquerdo";
+import TibialPosteriorEsquerdo from "./tornozelo/tornozeloEsquerdo/tibialPosteriorEsquerdo";
+import TibialAnteriorDireito from "./tornozelo/tornozeloDireito/tibialAnteriorDireito";
+import TibialAnteriorEsquerdo from "./tornozelo/tornozeloEsquerdo/tibialAnteriorEsquerdo";
+import TendaoAquilesDireito from "./tornozelo/tornozeloDireito/tendaoAquilesDireito";
+import TendaoAquilesEsquerdo from "./tornozelo/tornozeloEsquerdo/tendaoAquilesEsquerdo";
+import ExtraDireito from "./tornozelo/tornozeloDireito/extraDireito";
+import ExtraEsquerdo from "./tornozelo/tornozeloEsquerdo/extraEsquerdo";
+import QuadrilLadoDireito from "./quadril/quadrilDireito/ladoDireito";
+import QuadrilNormalDireito from "./quadril/quadrilDireito/normal";
+import QuadrilDireito from "./quadril/quadrilDireito/quadrilDireito";
+import QuadrilEsquerdo from "./quadril/quadrilEsquerdo/quadrilEsquerdo";
+import QuadrilLadoEsquerdo from "./quadril/quadrilEsquerdo/ladoEsquerdo";
+import QuadrilNormalEsquerdo from "./quadril/quadrilEsquerdo/normal";
+import CoxaLadoDireito from "./coxa/coxaDireita/ladoDireito";
+import CoxaNormalDireito from "./coxa/coxaDireita/normal";
+import CoxaLadoEsquerdo from "./coxa/coxaEsquerda/ladoEsquerdo";
+import CoxaNormalEsquerdo from "./coxa/coxaEsquerda/normal";
+import PernaLadoDireito from "./perna/pernaDireita/ladoDireito";
+import PernaNormalDireito from "./perna/pernaDireita/normal";
+import PernaLadoEsquerdo from "./perna/pernaEsquerda/ladoEsquerdo";
+import PernaNormalEsquerdo from "./perna/pernaEsquerda/normal";
+import PeTendaoAquilesDireito from "./pe/peDireito/tendaoAquilesDireito";
+import PeTendaoAquilesEsquerdo from "./pe/peEsquerdo/tendaoAquilesEsquerdo";
+import PeExtraDireito from "./pe/peDireito/extraDireito"
+import PeExtraEsquerdo from "./pe/peEsquerdo/extraEsquerdo"
 
 function Articulacoes() {
 
@@ -219,6 +259,102 @@ function Articulacoes() {
                             textAlign="center" >
                             <JoelhoDireito />
                         </Box>
+                        <Box
+                            w='450px'
+                            textAlign="center" >
+                            <TendaoQuadricepsDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoPatelarDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoPataGansoDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <MeniscoMedialDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <TornozeloLadoDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TornozeloNormalDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <FibularesDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TibialPosteriorDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TibialAnteriorDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoAquilesDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <ExtraDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <QuadrilLadoDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <QuadrilNormalDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <QuadrilDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <CoxaLadoDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <CoxaNormalDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <PernaLadoDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <PernaNormalDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <PeTendaoAquilesDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <PeExtraDireito />
+                        </Box>
                     </Box>
                 </Box>
                 <Box w='45%'
@@ -355,6 +491,102 @@ function Articulacoes() {
                             w='450px'
                             textAlign="center" >
                             <JoelhoEsquerdo />
+                        </Box>
+                        <Box
+                            w='450px'
+                            textAlign="center" >
+                            <TendaoQuadricepsEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoPatelarEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoPataGansoEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <MeniscoMedialEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <TornozeloLadoEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TornozeloNormalEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <FibularesEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TibialPosteriorEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TibialAnteriorEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoAquilesEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <ExtraEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <QuadrilLadoEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <QuadrilNormalEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <QuadrilEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <CoxaLadoEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <CoxaNormalEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <PernaLadoEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <PernaNormalEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <PeTendaoAquilesEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <PeExtraEsquerdo />
                         </Box>
                     </Box>
                 </Box>

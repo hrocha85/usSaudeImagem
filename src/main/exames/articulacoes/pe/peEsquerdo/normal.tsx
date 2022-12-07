@@ -2,17 +2,17 @@
 
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, } from "react";
-import { DedoEsquerdoNormalContext } from "../../../../../context/DedoEsquerdoNormalContext";
+import { PeEsquerdoNormalContext } from "../../../../../context/PeEsquerdoNormalContext";
 
 
 export function NormalEsquerdo() {
     const altura = '100%'
-    const largura = '350px'
+    const largura = '300px'
 
-    let { setDedoEsquerdoLaudoNormal } = useContext(DedoEsquerdoNormalContext)
+    let { setPeEsquerdoLaudoNormal } = useContext(PeEsquerdoNormalContext)
 
     const verificaChecked = (value) => {
-        value.checked === true ? setDedoEsquerdoLaudoNormal(true) : setDedoEsquerdoLaudoNormal(false);
+        value.checked === true ? setPeEsquerdoLaudoNormal(true) : setPeEsquerdoLaudoNormal(false);
     }
 
     return (
@@ -27,11 +27,11 @@ export function NormalEsquerdo() {
             padding='10px 15px 10px 15px'
             mt='2px'
             mb='5px'>
-            <Box w='100%' >
+            <Box w='300px' >
                 <Checkbox
                     id="tudoNormal"
                     onChange={(e) => { verificaChecked(e.target) }}
-                >Dedos mão esquerda normal</Checkbox>
+                >Pé esquerda normal</Checkbox>
             </Box>
         </Box >
     );
@@ -48,11 +48,11 @@ export default NormalEsquerdo;
 //     const altura = '100%'
 //     const largura = '250px'
 
-//     let { setDedoEsquerdoLaudoNormal } = useContext(NormalContext)
+//     let { setPeEsquerdoLaudoNormal } = useContext(NormalContext)
 
 
 //     const verificaChecked = (value) => {
-//         value.checked === true ? setDedoEsquerdoLaudoNormal(true) : setDedoEsquerdoLaudoNormal(false);
+//         value.checked === true ? setPeEsquerdoLaudoNormal(true) : setPeEsquerdoLaudoNormal(false);
 //     }
 
 //     return (
@@ -71,7 +71,7 @@ export default NormalEsquerdo;
 //                 <Checkbox
 //                     id="tudoNormal"
 //                     onChange={(e) => { verificaChecked(e.target) }}
-//                 >Dedo Esquerdo normal</Checkbox>
+//                 >Pe Esquerdo normal</Checkbox>
 //             </Box>
 //         </Box >
 //     );
