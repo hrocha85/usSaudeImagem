@@ -10,10 +10,12 @@ import {
   Wrap,
   WrapItem
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-
+import { useContext, useEffect, useState } from "react";
+import { EnableExamesContext } from "../../context/ExamesEnableContext";
 
 const CardListaMedicos = ({ altura }) => {
+  let { enableExames, setEnableExames } = useContext(EnableExamesContext);
+
   const toast = useToast();
   const id = "test-toast";
 
@@ -58,6 +60,7 @@ const CardListaMedicos = ({ altura }) => {
     setNomePaciente("");
     setIdadePaciente("");
     setSexoPaciente("");
+    setEnableExames(false);
     localStorage.removeItem("paciente");
   };
 
@@ -79,21 +82,15 @@ const CardListaMedicos = ({ altura }) => {
 
   return (
     <Center>
-      <Box
-        w="100%"
-        display="flex"
-        //alignItems='center'
-      >
+      <Box w="100%" display="flex">
         <Box
           display="flex"
-          //paddingBottom="16px"
           bg="#FAFAFA"
           w="597px"
           h="100%"
           color="white"
           borderRadius="10.85px"
           boxShadow="dark-lg"
-          //alignItems="center"
         >
           <Box color="blackAlpha.700" fontWeight="bold" w="100%">
             <Text textAlign="center" mt="10px" mb="10px">
@@ -145,6 +142,7 @@ const CardListaMedicos = ({ altura }) => {
                         position: "bottom",
                         isClosable: true,
                       });
+                      setEnableExames(true);
                     }}
                   >
                     Confirmar

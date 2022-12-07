@@ -1,4 +1,4 @@
-import { Box, Center, color, HStack, Image, transition } from "@chakra-ui/react";
+import { Box, Center, HStack, Image } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
@@ -66,15 +66,14 @@ const Sidebar = () => {
   return (
     <>
       <Box
-        
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={{
           position: "relative",
-          top: isHovering ? ("5px") :( "-70px"),
+          top: isHovering ? "5px" : "-70px",
           transition: "top ease 0.5s",
           borderBottomColor: isHovering ? "#32bfea" : "transparent",
-          marginBottom: isHovering ? "20px" : "-20px"
+          marginBottom: isHovering ? "20px" : "-20px",
         }}
         w="100%"
         borderTop="2px"
@@ -106,14 +105,14 @@ const Sidebar = () => {
               <HStack>
                 <Image
                   src={logo}
-                  w="180px"
+                  w="175px"
                   h="90px"
                   marginLeft="30px"
                   marginTop="10px"
                 />
 
                 <NavIcon to="#">
-                  <IoIosArrowBack onClick={showSidebar} />
+                  <IoIosArrowBack onClick={showSidebar} margin="20px" />
                 </NavIcon>
               </HStack>
               {SidebarData.map((item, index) => {
