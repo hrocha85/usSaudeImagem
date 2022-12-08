@@ -110,6 +110,8 @@ const Configuracoes = () => {
 
   const [imageAssinatura, setImageAssinatura] = useState(true);
 
+  const [assinaturaEmpty, setAssinaturaEmpty] = useState(true);
+
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
 
   //TODO COLOCAR BORDA NOS CAMPOS TELEFONE E CEP NO ADD CLINICA
@@ -137,6 +139,15 @@ const Configuracoes = () => {
     lista_medicos.map((e) => {
       if (e.nome == "NOME") {
         lista_medicos.shift();
+      }
+    });
+    lista_medicos.map((e) => {
+      if (padRef.current?.isEmpty()) {
+        e.assinatura = "";
+      } else {
+        e.assinatura = padRef.current
+          ?.getTrimmedCanvas()
+          .toDataURL("image/png")!;
       }
     });
     localStorage.setItem("medicos", JSON.stringify(lista_medicos));
@@ -615,12 +626,12 @@ const Configuracoes = () => {
       ) : null}
       {userLogged ? (
         <Link href={`#/Home/`}>
-            <Image
-              src={ImageHome}
-              marginTop="50px"
-              marginLeft="20px"
-              paddingBottom="50px"
-            />
+          <Image
+            src={ImageHome}
+            marginTop="50px"
+            marginLeft="20px"
+            paddingBottom="50px"
+          />
         </Link>
       ) : (
         <Link href={`#/Login`}>
