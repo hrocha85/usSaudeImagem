@@ -345,7 +345,7 @@ const Medicos = ({ medico, id }) => {
         />
         <Text
           color="#1A202C"
-          fontSize="16px"
+          fontSize="20px"
           align="center"
           //onClick={onOpen}
           //_hover={{ cursor: "pointer" }}
@@ -449,24 +449,28 @@ const Medicos = ({ medico, id }) => {
         <Box overflow="auto" maxH="240px">
           <RenderFieldDefault />
         </Box>
-        {assinatura != "" ? (
-          <Box
-            margin="10% 3% 3% 3%"
-            justifyContent="center"
-            boxShadow="xl"
-            h="100px"
-            backgroundColor={"#F7FAFC"}
-          >
-            <Image
-              w="100%"
-              h="100%"
-              src={assinatura}
-              alt="Assinatura Médico"
-              backgroundImage="none"
-              fit="scale-down"
-            />
-          </Box>
-        ) : null}
+        <Flex alignItems='flex-end'>
+          {assinatura != "" ? (
+            <Box
+              flexGrow={1}
+              margin="10% 3% 3% 3%"
+              justifyContent="center"
+              boxShadow="xl"
+              h="100px"
+              backgroundColor={"#F7FAFC"}
+              borderRadius="10px"
+            >
+              <Image
+                w="100%"
+                h="100%"
+                src={assinatura}
+                alt="Assinatura Médico"
+                backgroundImage="none"
+                fit="scale-down"
+              />
+            </Box>
+          ) : null}
+        </Flex>
 
         <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
           <ModalOverlay />

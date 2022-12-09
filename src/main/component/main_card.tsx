@@ -29,20 +29,22 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
   return (
     <Box
       bg="#FAFAFA"
-      w="218px"
-      h="60%"
+      w="358px"
+      h="600px"
       color="white"
       borderRadius="10.85px"
       boxShadow="md"
+      marginStart='20px'
       //minW="218px"
     >
       <Box margin="10px">
-        <Stack direction="row" spacing="100px">
+        <Stack direction="row" spacing="200px">
           <Text
             color="#1A202C"
-            fontSize="16px"
+            fontSize="20px"
             paddingStart="8px"
             alignSelf="center"
+            fontWeight='semibold'
           >
             {medicos ? medicos.nome : titulo}
           </Text>

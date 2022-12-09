@@ -110,7 +110,7 @@ const Configuracoes = () => {
 
   const [imageAssinatura, setImageAssinatura] = useState(true);
 
-  const [assinaturaEmpty, setAssinaturaEmpty] = useState(true);
+  const [laudosEmpty, setLaudosEmpty] = useState(true);
 
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
 
@@ -210,6 +210,7 @@ const Configuracoes = () => {
           ? getMedicos().map((medi) => {
               if (medi.nome == getUserMedico().nome) {
                 return medi.laudos.map((laudos, key) => {
+                  console.log("l",laudos)
                   return (
                     <Center>
                       <List spacing={3} size="20px" key={key}>
@@ -385,6 +386,7 @@ const Configuracoes = () => {
         />
 
         <Popover>
+          
           <PopoverTrigger>
             <Button
               borderRadius="xl"
@@ -392,6 +394,7 @@ const Configuracoes = () => {
               w="42"
               h="42"
               boxShadow="md"
+              fontSize='20px'
             >
               <Icon as={FaRegFolderOpen} margin="5px" />
               Laudos
@@ -404,7 +407,7 @@ const Configuracoes = () => {
           </PopoverContent>
         </Popover>
       </Stack>
-      <Stack direction="row" justify="space-evenly" flexWrap="wrap" gap="10px">
+      <Stack direction="row" flexWrap="wrap" gap="5px">
         <MainCard titulo="Clínicas" icon={true} clinica={null} medicos={null} />
 
         {medicos.map((medico, key) => {
@@ -419,6 +422,7 @@ const Configuracoes = () => {
           hasArrow
           arrowSize={15}
           textColor="black"
+          fontSize="20px"
         >
           <Button
             borderRadius="xl"

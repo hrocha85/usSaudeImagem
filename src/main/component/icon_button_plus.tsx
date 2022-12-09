@@ -27,6 +27,7 @@ import { BiCamera } from "react-icons/bi";
 import infoClinicas from "../../Data/Clinicas.json";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
+import { AiOutlineClear, AiOutlinePlusCircle } from "react-icons/ai";
 
 const button = React.createElement("img", { src: PlusButton });
 
@@ -82,7 +83,6 @@ const IconButtonPlus = (props) => {
     localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
     props.setAtualizar(!props.atualizar);
     onClose();
-    
   };
 
   const openFiles = () => {
@@ -126,7 +126,7 @@ const IconButtonPlus = (props) => {
 
   useEffect(() => {
     if (selectedFile) {
-      URL.revokeObjectURL(defaultUserImage)
+      URL.revokeObjectURL(defaultUserImage);
       const objectURL = URL.createObjectURL(selectedFile);
       setDefaultUserImage(objectURL);
     }
@@ -142,17 +142,19 @@ const IconButtonPlus = (props) => {
         hasArrow
         arrowSize={15}
         textColor="black"
+        fontSize="20px"
       >
-        <IconButton
-          aria-label="Botao Adicionar Clinica"
-          icon={button}
-          variant="link"
-          h="22"
-          w="22"
-          size="xs"
-          textColor="blue"
+        <Button
+          borderRadius="xl"
+          boxShadow="md"
+          textColor="#4CBFF0"
+          fontSize="19px"
+          fontWeight="semibold"
           onClick={onOpen}
-        />
+          variant="ghost"
+        >
+          <Icon as={AiOutlinePlusCircle} w="30px" h="30px" />
+        </Button>
       </Tooltip>
 
       <>
@@ -205,7 +207,6 @@ const IconButtonPlus = (props) => {
               <ModalBody>
                 <Center>
                   <Image
-                   
                     boxSize="150px"
                     srcSet={defaultUserImage}
                     alt="Image Clinica"
