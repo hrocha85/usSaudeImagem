@@ -43,16 +43,15 @@ import { FaRegFolderOpen } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import SignatureCanvas from "react-signature-canvas";
 import MedicosJSON from "../../Data/Medicos.json";
-import Box_Default_With_Sidebar from "../component/box_default_sidebar";
 import BoxTitleBackground from "../component/box_title_background";
 import RectangularCard from "../component/card_observations";
 import ItemObservation from "../component/item_obeservation";
 import MainCard from "../component/main_card";
+import BGImage from "../images/bg_img.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import ImageHome from "../images/icon_home.png";
-import Medicos from "./medicos";
-import BGImage from "../images/bg_img.png";
 import Sidebar from "../menu/sideBar";
+import Medicos from "./medicos";
 
 export const lista_medicos = MedicosJSON.medicos;
 
@@ -110,15 +109,7 @@ const Configuracoes = () => {
 
   const [imageAssinatura, setImageAssinatura] = useState(true);
 
-  const [laudosEmpty, setLaudosEmpty] = useState(true);
-
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
-
-  //TODO COLOCAR BORDA NOS CAMPOS TELEFONE E CEP NO ADD CLINICA
-
-  // TODO COLOCAR UM TEXTO NA ASSINATURA PARA DEMOSTRAR QUE ALI É A ASSINATURA
-
-  // TODO COLOCAR APENAS UM EDITAR NOS CAMPOS
 
   useEffect(() => {
     setMedicos(getMedicos);
@@ -202,47 +193,85 @@ const Configuracoes = () => {
     } else return null;
   };
 
+  const listaLaudosVazia = () => {
+    return (
+      <Center>
+        <List size="20px">
+          <ListItem fontSize="17px" textAlign="center" fontWeight="semibold">
+            Nenhum laudo encontrado
+          </ListItem>
+          <Divider orientation="horizontal" marginBottom="10px" />
+        </List>
+      </Center>
+    );
+  };
+
   const Laudos = () => {
-    //TODO CASO O CAMINHO DO LAUDO NAO EXISTA MOSTRAR UM ERRO
     return (
       <>
         {getUserMedico() != null
           ? getMedicos().map((medi) => {
               if (medi.nome == getUserMedico().nome) {
                 return medi.laudos.map((laudos, key) => {
-                  console.log("l",laudos)
-                  return (
-                    <Center>
-                      <List spacing={3} size="20px" key={key}>
-                        <ListItem
-                          padding="10px"
-                          onClick={() => {
-                            showSavedLaudo(laudos.laudo);
-                          }}
-                          cursor="pointer"
-                          _hover={{
-                            bg: "blue.100",
-                            fontWeight: "semibold",
-                            borderRadius: "10px",
-                          }}
-                        >
-                          <ListIcon
-                            as={VscFilePdf}
-                            color="blue.600"
-                            h="25px"
-                            w="25px"
-                            fontSize="xxx-large"
+                  if (
+                    laudos.laudo != null &&
+                    laudos.laudo != "" &&
+                    laudos != undefined
+                  ) {
+                    return (
+                      <Center>
+                        <List spacing={3} size="20px" key={key}>
+                          <ListItem
+                            padding="10px"
+                            onClick={() => {
+                              showSavedLaudo(laudos.laudo);
+                            }}
+                            cursor="pointer"
+                            _hover={{
+                              bg: "blue.100",
+                              fontWeight: "semibold",
+                              borderRadius: "10px",
+                            }}
+                          >
+                            <ListIcon
+                              as={VscFilePdf}
+                              color="blue.600"
+                              h="25px"
+                              w="25px"
+                              fontSize="xxx-large"
+                            />
+                            {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
+                          </ListItem>
+                          <Divider
+                            orientation="horizontal"
+                            marginBottom="10px"
                           />
-                          {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
-                        </ListItem>
-                        <Divider orientation="horizontal" marginBottom="10px" />
-                      </List>
-                    </Center>
-                  );
+                        </List>
+                      </Center>
+                    );
+                  } else {
+                    return (
+                      <Center>
+                        <List size="20px">
+                          <ListItem
+                            fontSize="17px"
+                            textAlign="center"
+                            fontWeight="semibold"
+                          >
+                            Nenhum laudo encontrado
+                          </ListItem>
+                          <Divider
+                            orientation="horizontal"
+                            marginBottom="10px"
+                          />
+                        </List>
+                      </Center>
+                    );
+                  }
                 });
               }
             })
-          : null}
+          : listaLaudosVazia()}
       </>
     );
   };
@@ -336,6 +365,7 @@ const Configuracoes = () => {
 
   useEffect(() => {
     setMedicos(getMedicos);
+    Laudos();
   }, [localStorage.getItem("medicos")]);
 
   useEffect(() => {
@@ -386,7 +416,6 @@ const Configuracoes = () => {
         />
 
         <Popover>
-          
           <PopoverTrigger>
             <Button
               borderRadius="xl"
@@ -394,7 +423,7 @@ const Configuracoes = () => {
               w="42"
               h="42"
               boxShadow="md"
-              fontSize='20px'
+              fontSize="20px"
             >
               <Icon as={FaRegFolderOpen} margin="5px" />
               Laudos
@@ -567,7 +596,15 @@ const Configuracoes = () => {
               </InputGroup>
             </Center>
           </ModalBody>
-
+          <Text
+            marginStart="25px"
+            marginTop="20px"
+            fontSize="19px"
+            fontWeight="semibold"
+            marginBottom="-20px"
+          >
+            Assinatura:
+          </Text>
           <ModalFooter>
             <Box
               w="100%"

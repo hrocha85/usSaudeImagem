@@ -202,6 +202,7 @@ const FieldDefaultIcon = ({
       </List>
     );
   };
+  
   const RemoveItem = () => {
     var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
     array.splice(id, 1);

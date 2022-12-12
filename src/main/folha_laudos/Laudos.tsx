@@ -10,7 +10,7 @@ import {
   Link,
   Text,
   Textarea,
-  Tooltip
+  Tooltip,
 } from "@chakra-ui/react";
 import {
   Document,
@@ -20,7 +20,7 @@ import {
   PDFDownloadLink,
   StyleSheet,
   Text as TextPDF,
-  View as ViewPDF
+  View as ViewPDF,
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";

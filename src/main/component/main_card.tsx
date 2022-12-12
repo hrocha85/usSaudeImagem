@@ -58,5 +58,3 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
 };
 
 export default MainCard;
-/**      h="383px"
- */

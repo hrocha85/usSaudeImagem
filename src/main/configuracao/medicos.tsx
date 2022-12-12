@@ -198,6 +198,7 @@ const Medicos = ({ medico, id }) => {
   const RemoveItem = () => {
     var array = JSON.parse(localStorage.getItem("medicos")!);
     array.splice(id, 1);
+    
     localStorage.setItem("medicos", JSON.stringify(array));
     window.location.reload();
   };
@@ -267,17 +268,6 @@ const Medicos = ({ medico, id }) => {
     );
   };
 
-  useEffect(() => {
-    setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));
-  }, [localStorage.getItem("minhasClinicas")!]);
-
-  useEffect(() => {
-    if (selectedFile) {
-      const objectURL = URL.createObjectURL(selectedFile);
-      setDefaultUserImage(objectURL);
-    }
-  }, [selectedFile]);
-
   const RenderFieldDefault = () => {
     return (
       <>
@@ -300,6 +290,17 @@ const Medicos = ({ medico, id }) => {
       </>
     );
   };
+
+  useEffect(() => {
+    setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));
+  }, [localStorage.getItem("minhasClinicas")!]);
+
+  useEffect(() => {
+    if (selectedFile) {
+      const objectURL = URL.createObjectURL(selectedFile);
+      setDefaultUserImage(objectURL);
+    }
+  }, [selectedFile]);
 
   useEffect(() => {
     RenderFieldDefault();
@@ -449,7 +450,7 @@ const Medicos = ({ medico, id }) => {
         <Box overflow="auto" maxH="240px">
           <RenderFieldDefault />
         </Box>
-        <Flex alignItems='flex-end'>
+        <Box>
           {assinatura != "" ? (
             <Box
               flexGrow={1}
@@ -470,7 +471,7 @@ const Medicos = ({ medico, id }) => {
               />
             </Box>
           ) : null}
-        </Flex>
+        </Box>
 
         <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
           <ModalOverlay />
