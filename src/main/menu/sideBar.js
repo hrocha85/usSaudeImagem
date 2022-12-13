@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Image } from "@chakra-ui/react";
+import { Box, Button, Center, HStack, Image } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
@@ -116,7 +116,9 @@ const Sidebar = () => {
                 </NavIcon>
               </HStack>
               {SidebarData.map((item, index) => {
-                return <SubMenu item={item} key={index} />;
+                return (
+                    <SubMenu item={item} key={index} />
+                );
               })}
             </SidebarWrap>
           </SidebarNav>
