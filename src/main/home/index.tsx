@@ -1,4 +1,5 @@
 import { Box, Center, Stack, Button, Image, Link } from "@chakra-ui/react";
+import { useEffect } from "react";
 import CardListaMedicos from "../component/card_paciente_home";
 import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
@@ -6,6 +7,10 @@ import BGImage from "../images/bg_img.png";
 import Configuracao from "../images/gear.webp";
 
 function Home() {
+
+  useEffect(() => {
+
+  }, [])
 
   return (
     <Box
@@ -18,7 +23,7 @@ function Home() {
       paddingBottom="10px"
       alignItems="center"
     >
-    
+
       <Box>
         <Button position="absolute" right="1" variant="ghost" >
           <Link
