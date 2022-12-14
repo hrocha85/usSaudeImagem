@@ -1,25 +1,25 @@
-import { Box, Stack, Text,Image } from "@chakra-ui/react";
+import { Box, Stack, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import Clinica from "../configuracao/clinicas";
-import Drs from "../configuracao/drs";
 import IconButtonPlus from "./icon_button_plus";
 
+const MainCard = ({ titulo, icon, clinica, medicos }) => {
+  const [atualizar, setAtualizar] = useState(true);
 
-const MainCard = ({ titulo, icon }) => {
+  useEffect(() => {}, [atualizar]);
+
   function ShowIcon(icon: boolean) {
     if (icon) {
-      return <IconButtonPlus />;
+      return (
+        <IconButtonPlus atualizar={atualizar} setAtualizar={setAtualizar} />
+      );
     }
   }
 
   function Cards(titulo) {
     switch (titulo) {
       case "Clínicas":
-        return (
-         <Clinica data={null}/>
-        );
-
-      case "Doutor(a)":
-        return <Drs />;
+        return <Clinica atualizar={atualizar} />;
 
       default:
         break;
@@ -27,34 +27,32 @@ const MainCard = ({ titulo, icon }) => {
   }
 
   return (
-    <Box 
+    <Box
       bg="#FAFAFA"
-      w="218px"
-      h="383px"
+      w="358px"
+      h="600px"
       color="white"
       borderRadius="10.85px"
       boxShadow="md"
+      marginStart='20px'
       //minW="218px"
     >
-      <Box margin="10px" >
-        <Stack direction="row" spacing="100px">
+      <Box margin="10px">
+        <Stack direction="row" spacing="200px">
           <Text
             color="#1A202C"
-            fontSize="16px"
+            fontSize="20px"
             paddingStart="8px"
             alignSelf="center"
+            fontWeight='semibold'
           >
-            {titulo}
+            {medicos ? medicos.nome : titulo}
           </Text>
           {ShowIcon(icon)}
         </Stack>
       </Box>
 
-      <Box>{Cards(titulo)}
-</Box>
-
-
-
+      <Box>{Cards(titulo)}</Box>
     </Box>
   );
 };

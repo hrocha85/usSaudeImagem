@@ -1,0 +1,10 @@
+.stylePDF {
+  @page {
+    size: 8.5in 9in;
+    margin-top: 4in;
+    position: fixed;
+
+  }
+  
+}
+

@@ -1,177 +1,68 @@
-import { Box, Checkbox, Stack, Text } from "@chakra-ui/react";
-import BGImage from "./background_image.jpg";
+import { Box } from "@chakra-ui/react";
+import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
+import BoxTitleBackground from "../../component/box_title_background";
+import Exames from "../../folha_laudos/Laudos";
+import Normal from "./abdomenNormal/normal";
+import Aorta from "./aorta/aorta";
+import Baco from "./baco/baco";
+import Bexiga from "./bexiga/bexiga";
+import Calculos from "./calculos/calculos";
+import Cisto from "./cisto/cisto";
+import Dilatacao from "./dilatacao/dilatacao";
+import Figado from "./figado/figado";
+import LiquidoLivre from "./liquido_livre/liquido_livre";
+import Nodulos from "./nodulos/nodulos";
+import Pancreas from "./pancreas/pancreas";
+import RimDireito from "./rim_direito/rim_direito";
+import RimEsquerdo from "./rim_esquerdo/rim_esquerdo";
+import VesiculaBiliar from "./vesicula_bliar/vesicula_biliar";
+import ViasBiliares from "./vias biliares/vias_biliares";
 
 function AbdomemTotal() {
-    return (
-        <Box
-            w="100%"
-            h="100%"
-            verticalAlign="center"
-            alignSelf="center"
-            alignItems="center"
-            backgroundImage={BGImage}
-            backgroundPosition="fixed"
-            backgroundSize="cover"
-            backgroundClip="padding-box"
-            backgroundRepeat="no-repeat"
-            paddingBottom="10px"
-        >
-            <Box
-                bg="#A0AEC0"
-                w="80%"
-                h="383px"
-                pr="5px"
-                color="white"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                borderRadius="10.85px"
-                boxShadow="md"
-            >
-                <Box margin="10px">
-                    <Stack direction="row" spacing="100px">
-                        <Text
-                            color="#1A202C"
-                            fontSize="16px"
-                            paddingStart="8px"
-                            alignSelf="center"
-                        >
-                            Figado</Text>
-                    </Stack>
-                </Box>
+  return (
+    <Box_Default_With_Sidebar>
+      <BoxTitleBackground
+        PadLeft="20px"
+        fontsize="19px"
+        tamanho="180px"
+        titulo="Abdômen Total"
+      />
 
-                <Checkbox >Normal</Checkbox>
-                <Checkbox >Hepatite Aguda</Checkbox>
-                <Checkbox >Hepatopatia Crônica</Checkbox>
-                <Checkbox >Dimensões</Checkbox>
-                <Checkbox >Esteatose</Checkbox>
-            </Box>
-            <Box
-                bg="#A0AEC0"
-                w="80%"
-                h="383px"
-                pr="5px"
-                color="white"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                borderRadius="10.85px"
-                boxShadow="md"
-            >
-                <Box margin="10px">
-                    <Stack direction="row" spacing="100px">
-                        <Text
-                            color="#1A202C"
-                            fontSize="16px"
-                            paddingStart="8px"
-                            alignSelf="center"
-                        >
-                            Baço</Text>
-                    </Stack>
-                </Box>
+      <Exames></Exames>
 
-                <Box>'aqui'</Box>
-            </Box>
-            <Box
-                bg="#A0AEC0"
-                w="80%"
-                h="383px"
-                pr="5px"
-                color="white"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                borderRadius="10.85px"
-                boxShadow="md"
-            >
-                <Box margin="10px">
-                    <Stack direction="row" spacing="100px">
-                        <Text
-                            color="#1A202C"
-                            fontSize="16px"
-                            paddingStart="8px"
-                            alignSelf="center"
-                        >
-                            Vias biliares</Text>
-                    </Stack>
-                </Box>
+      <Box ml="10px">
+        <Normal></Normal>
 
-                <Box>'aqui'</Box>
-            </Box>
-            <Box
-                bg="#A0AEC0"
-                w="80%"
-                h="383px"
-                pr="5px"
-                color="white"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                borderRadius="10.85px"
-                boxShadow="md"
-            >
-                <Box margin="10px">
-                    <Stack direction="row" spacing="100px">
-                        <Text
-                            color="#1A202C"
-                            fontSize="16px"
-                            paddingStart="8px"
-                            alignSelf="center"
-                        >
-                            Pãncreas</Text>
-                    </Stack>
-                </Box>
+        <Figado />
 
-                <Box>{'aqui'}</Box>
-            </Box>
-            <Box
-                bg="#A0AEC0"
-                w="80%"
-                h="383px"
-                pr="5px"
-                color="white"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                borderRadius="10.85px"
-                boxShadow="md"
-            >
-                <Box margin="10px">
-                    <Stack direction="row" spacing="100px">
-                        <Text
-                            color="#1A202C"
-                            fontSize="16px"
-                            paddingStart="8px"
-                            alignSelf="center"
-                        >
-                            Líquido Livre</Text>
-                    </Stack>
-                </Box>
+        <Baco />
 
-                <Box>{'aqui'}</Box>
-            </Box>
-            <Box
-                bg="#A0AEC0"
-                w="80%"
-                h="383px"
-                pr="5px"
-                color="white"
-                bgPosition="center"
-                bgRepeat="no-repeat"
-                borderRadius="10.85px"
-                boxShadow="md"
-            >
-                <Box margin="10px">
-                    <Stack direction="row" spacing="100px">
-                        <Text
-                            color="#1A202C"
-                            fontSize="16px"
-                            paddingStart="8px"
-                            alignSelf="center"
-                        >
-                            Aorta</Text>
-                    </Stack>
-                </Box>
+        <ViasBiliares />
 
-                <Box>{'aqui'}</Box>
-            </Box>
-        </Box>
-    );
+        <Pancreas />
+
+        <LiquidoLivre />
+
+        <Aorta />
+
+        <VesiculaBiliar />
+
+        <RimDireito />
+
+        <RimEsquerdo />
+
+        <Calculos />
+
+        <Dilatacao />
+
+        <Nodulos />
+
+        <Cisto />
+
+        <Bexiga />
+      </Box>
+    </Box_Default_With_Sidebar>
+  );
 }
 
 export default AbdomemTotal;
