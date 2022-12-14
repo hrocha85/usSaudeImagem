@@ -1,7 +1,19 @@
-import React, { useState } from "react";
+import {
+  Button,
+  HStack,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure
+} from "@chakra-ui/react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { HStack, Image } from "@chakra-ui/react";
 
 const SidebarLink = styled(Link)`
   display: flex;
@@ -35,7 +47,6 @@ const DropdownLink = styled(Link)`
   text-decoration: none;
   color: #f5f5f5;
   font-size: 18px;
-
   &:hover {
     background: #632ce4;
     cursor: pointer;
@@ -47,21 +58,37 @@ const SubMenu = ({ item }) => {
 
   const showSubnav = () => setSubnav(!subnav);
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const Logout = () => {
+    window.location.href = "/Login";
+    localStorage.removeItem("user");
+  };
+
   return (
     <>
-      <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>
-        <HStack>
-          {item.icon}
-          <SidebarLabel>{item.title}</SidebarLabel>
-        </HStack>
-        <div>
-          {item.subNav && subnav
-            ? item.iconOpened
-            : item.subNav
-            ? item.iconClosed
-            : null}
-        </div>
-      </SidebarLink>
+      <Button
+        styled={SidebarLink}
+        onClick={item.title == "Sair" ? onOpen : null}
+        variant="unstyled"
+        textColor="black"
+        w="100%"
+        marginTop="20px"
+      >
+        <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>
+          <HStack>
+            {item.icon}
+            <SidebarLabel>{item.title}</SidebarLabel>
+          </HStack>
+          <div>
+            {item.subNav && subnav
+              ? item.iconOpened
+              : item.subNav
+              ? item.iconClosed
+              : null}
+          </div>
+        </SidebarLink>
+      </Button>
       {subnav &&
         item.subNav.map((item, index) => {
           return (
@@ -71,6 +98,25 @@ const SubMenu = ({ item }) => {
             </DropdownLink>
           );
         })}
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Deseja sair ? </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text fontSize="20px">Deseja realmente sair ?</Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose} fontSize="20px">
+              Cancelar
+            </Button>
+            <Button variant="ghost" fontSize="20px" onClick={() => Logout()}>
+              Sair
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

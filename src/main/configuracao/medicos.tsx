@@ -40,9 +40,10 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { IconContext } from "react-icons";
 import { AiOutlineClear } from "react-icons/ai";
+import { AiOutlineEdit } from "react-icons/ai";
 import { BiCamera } from "react-icons/bi";
-import { BsThreeDotsVertical, BsTrash } from "react-icons/bs";
-import { HiOutlineUser } from "react-icons/hi";
+import { BsTrash } from "react-icons/bs";
+import { FaRegEdit, FaRegFolderOpen } from "react-icons/fa";
 import SignatureCanvas from "react-signature-canvas";
 import FieldDefaultIcon from "../component/field_default_icon";
 import { lista_medicos } from "./configuracoes";
@@ -116,7 +117,6 @@ const Medicos = ({ medico, id }) => {
   );
 
   const [ClinicasMedico, setClinicaMedico] = useState<any[]>(medico.clinica);
-  
 
   const openFiles = () => {
     inputFile.current?.click();
@@ -177,9 +177,19 @@ const Medicos = ({ medico, id }) => {
   const POPExcluirMedico = () => {
     return (
       <List>
-        <ListItem textColor="black">
-          <ListIcon as={BsTrash} />
+        <ListItem textColor="black" fontSize="xl">
+          <ListIcon as={BsTrash} w={6} h={6} />
           Excluir Médico
+        </ListItem>
+      </List>
+    );
+  };
+  const POPEditarMedico = () => {
+    return (
+      <List>
+        <ListItem textColor="black" fontSize="xl">
+          <ListIcon as={AiOutlineEdit} w={7} h={7} />
+          Editar Médico
         </ListItem>
       </List>
     );
@@ -188,6 +198,7 @@ const Medicos = ({ medico, id }) => {
   const RemoveItem = () => {
     var array = JSON.parse(localStorage.getItem("medicos")!);
     array.splice(id, 1);
+    
     localStorage.setItem("medicos", JSON.stringify(array));
     window.location.reload();
   };
@@ -221,7 +232,7 @@ const Medicos = ({ medico, id }) => {
       <Center margin="25px">
         <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
           {ClinicasMedico.map((clinica, key) => {
-            var parseClinica = JSON.parse(clinica)
+            var parseClinica = JSON.parse(clinica);
             return (
               <Tooltip
                 key={key}
@@ -257,30 +268,17 @@ const Medicos = ({ medico, id }) => {
     );
   };
 
-  useEffect(() => {
-    setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));
-  }, [localStorage.getItem("minhasClinicas")!]);
-
-  useEffect(() => {
-    if (selectedFile) {
-      const objectURL = URL.createObjectURL(selectedFile);
-      setDefaultUserImage(objectURL);
-    }
-  }, [selectedFile]);
-
- 
-
   const RenderFieldDefault = () => {
     return (
       <>
         {ClinicasMedico.map((clinica, key) => {
-            var parseClinica = JSON.parse(clinica)
-            return (
+          var parseClinica = JSON.parse(clinica);
+          return (
             <FieldDefaultIcon
               key={key}
               text={parseClinica.nomeClinica}
               textColor="#4A5568"
-              icon={HiOutlineUser}
+              icon={FaRegFolderOpen}
               clinica={medicos}
               clinicas={null}
               onClickModal={false}
@@ -292,6 +290,17 @@ const Medicos = ({ medico, id }) => {
       </>
     );
   };
+
+  useEffect(() => {
+    setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));
+  }, [localStorage.getItem("minhasClinicas")!]);
+
+  useEffect(() => {
+    if (selectedFile) {
+      const objectURL = URL.createObjectURL(selectedFile);
+      setDefaultUserImage(objectURL);
+    }
+  }, [selectedFile]);
 
   useEffect(() => {
     RenderFieldDefault();
@@ -316,20 +325,37 @@ const Medicos = ({ medico, id }) => {
   return (
     <Box
       bg="#FAFAFA"
-      w="218px"
-      h="100%"
+      w="358px"
+      h="600px"
       color="white"
       borderRadius="10.85px"
-      boxShadow="md"
+      boxShadow="2xl"
+      dropShadow="dark-lg"
+      display="inline-block"
     >
-      <Stack margin="10px" direction="row" justifyContent="space-between">
+      <HStack margin="10px" direction="row" spacing={4} justify="space-between">
+        <Image
+          borderRadius="full"
+          boxSize="80px"
+          src={defaultUserImage}
+          alt="Foto médico"
+          justifySelf="flex-start"
+          marginEnd="10px"
+          marginTop="5px"
+          marginStart="10px"
+        />
         <Text
           color="#1A202C"
-          fontSize="16px"
-          paddingStart="8px"
+          fontSize="20px"
           align="center"
-          onClick={onOpen}
-          _hover={{ cursor: "pointer" }}
+          //onClick={onOpen}
+          //_hover={{ cursor: "pointer" }}
+          fontWeight="semibold"
+          overflowWrap="break-word"
+          display="inline-block"
+          whiteSpace="nowrap"
+          overflow="hidden"
+          textOverflow="ellipsis"
         >
           {nomeMedico}
         </Text>
@@ -341,24 +367,27 @@ const Medicos = ({ medico, id }) => {
           hasArrow
           arrowSize={15}
           textColor="black"
+          fontSize="xl"
         >
-          <Flex justify="end">
+          <Box>
             <Popover>
               <PopoverTrigger>
                 <Button
+                  display="flex"
+                  justifySelf="flex-end"
                   onClick={() => setcloseTooltip(true)}
                   size="auto"
                   backgroundColor="transparent"
                   variant="ghost"
                   _hover={{ bg: "transparent" }}
                 >
-                  <IconContext.Provider value={{ color: "#4A5568" }}>
+                  <IconContext.Provider value={{ color: "#0dc7e2" }}>
                     <Icon
                       onMouseOver={() => setcloseTooltip(false)}
                       margin="5px"
-                      as={BsThreeDotsVertical}
-                      w={5}
-                      h={4}
+                      as={FaRegEdit}
+                      w={8}
+                      h={6}
                       marginStart="15px"
                     />
                   </IconContext.Provider>
@@ -367,22 +396,83 @@ const Medicos = ({ medico, id }) => {
               <PopoverContent borderRadius="20px" w="auto">
                 <PopoverArrow />
                 <Button
+                  onClick={() => onOpen()}
+                  size="auto"
+                  fontWeight="normal"
+                  backgroundColor="transparent"
+                  variant="ghost"
+                  cursor="pointer"
+                  _hover={{
+                    bg: "blue.100",
+                    fontWeight: "semibold",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <PopoverBody>{POPEditarMedico()}</PopoverBody>
+                </Button>
+                <Divider orientation="horizontal" margin="5px" />
+
+                <Button
                   onClick={() => onOpenLongModal()}
                   size="auto"
                   fontWeight="normal"
                   backgroundColor="transparent"
                   variant="ghost"
-                  _hover={{ bg: "transparent" }}
+                  cursor="pointer"
+                  _hover={{
+                    bg: "blue.100",
+                    fontWeight: "semibold",
+                    borderRadius: "10px",
+                  }}
                 >
                   <PopoverBody>{POPExcluirMedico()}</PopoverBody>
                 </Button>
               </PopoverContent>
             </Popover>
-          </Flex>
+          </Box>
         </Tooltip>
-      </Stack>
+      </HStack>
+      <Center>
+        <Box marginTop="5%" marginBottom="5%">
+          <Center>
+            <Stack align="center">
+              <Text textColor="black" fontSize="23px">
+                CRM/UF
+              </Text>
+              <Text textColor="black" fontSize="19px" fontWeight="semibold">
+                {crm}
+              </Text>
+            </Stack>
+          </Center>
+        </Box>
+      </Center>
       <Box onClick={onOpen}>
-        <RenderFieldDefault />
+        <Box overflow="auto" maxH="240px">
+          <RenderFieldDefault />
+        </Box>
+        <Box>
+          {assinatura != "" ? (
+            <Box
+              flexGrow={1}
+              margin="10% 3% 3% 3%"
+              justifyContent="center"
+              boxShadow="xl"
+              h="100px"
+              backgroundColor={"#F7FAFC"}
+              borderRadius="10px"
+            >
+              <Image
+                w="100%"
+                h="100%"
+                src={assinatura}
+                alt="Assinatura Médico"
+                backgroundImage="none"
+                fit="scale-down"
+              />
+            </Box>
+          ) : null}
+        </Box>
+
         <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
           <ModalOverlay />
           <ModalContent>

@@ -15,10 +15,11 @@ const RectangularCard = ({ titulo, altura, item }) => {
       >
         <Text
           color="black"
-          fontSize="16px"
-          paddingStart="8px"
+          fontSize="20px"
+          paddingStart="20px"
           paddingTop="16px"
           marginBottom="16px"
+          fontWeight='semibold'
         >
           {titulo}
         </Text>

@@ -276,9 +276,9 @@ const ItemObservation = () => {
             }}
           >
             <Text
-              textColor={"black"}
+              textColor="black"
               textStyle="solid"
-              fontSize="12px"
+              fontSize="17px"
               fontWeight="medium"
               verticalAlign="center"
               paddingTop="4.5"
