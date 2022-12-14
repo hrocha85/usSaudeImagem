@@ -99,7 +99,6 @@ function TendaoAquilesEsquerdo() {
 
   useEffect(() => {
     PeEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-    console.log(disableTudo)
   }, [PeEsquerdoLaudoNormal])
 
   return (

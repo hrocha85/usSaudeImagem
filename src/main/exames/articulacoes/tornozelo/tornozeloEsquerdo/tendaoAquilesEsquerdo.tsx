@@ -99,7 +99,6 @@ function TendaoAquilesEsquerdo() {
 
   useEffect(() => {
     TornozeloEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-    console.log(disableTudo)
   }, [TornozeloEsquerdoLaudoNormal])
 
   return (

@@ -99,7 +99,7 @@ function TendaoAquilesDireito() {
 
   useEffect(() => {
     PeDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-    console.log(disableTudo)
+
   }, [PeDireitoLaudoNormal])
 
   return (

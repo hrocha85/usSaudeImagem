@@ -5,10 +5,37 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import LaudoPrincipal from "../../../../../class/LaudoPrincipal";
+import LaudoMaster from "../../../../../class/LaudoMaster";
+import Laudo from "../../../../../class/Laudo";
+
 
 function SupraespinhalOmbroDireito() {
   const altura = "100%";
   const largura = "95%";
+
+  const laudoMaster = new LaudoMaster()
+  // const id = 24
+  // const nomeExame = 'Articulações'
+  // const titulo = 'Supraespinhal'
+  // //var informacoes: Array<string> = []
+  // const informacoes = ['teste', ['teste2']]
+  // const laudoPrincipal1 = new LaudoPrincipal(id, nomeExame, titulo, informacoes)
+  const teste: any = []
+
+  teste.push(new Laudo('supra', ['medula']))
+
+  laudoMaster.cadastrarLaudo(new LaudoPrincipal(12, 'articulaçoes'), teste)
+  // laudoPrincipal.cadastrarLaudo(new LaudoPrincipal(13, 'testiculo', 'figado', ['teste 1', 'teste 2 espinhal']))
+  // laudoPrincipal.cadastrarLaudo(new LaudoPrincipal(14, 'abdomen total', 'rim', ['teste 3', 'teste 4 espinhal']))
+  // laudoPrincipal.cadastrarLaudo(new LaudoPrincipal(15, 'doppler hepatico', 'braço', ['teste 5', 'teste 6 espinhal']))
+
+  useEffect(() => {
+    for (let laudoPrincipal of laudoMaster.laudosPrincipais) {
+      (console.log(laudoPrincipal))
+    }
+  })
+
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   let { OmbroDireitoLaudoNormal } = useContext(OmbroDireitoNormalContext)
