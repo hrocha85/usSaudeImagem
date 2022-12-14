@@ -125,7 +125,6 @@ function JoelhoDireito() {
 
   useEffect(() => {
     JoelhoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-    console.log(disableTudo)
   }, [JoelhoDireitoLaudoNormal])
 
   return (

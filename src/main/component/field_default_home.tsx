@@ -1,10 +1,27 @@
 import { Box, Button, GridItem, Image, Link, Tooltip } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
-import { useContext } from "react";
+import { useEffect, useState } from "react";
+import LaudoPrincipal from "../../class/LaudoPrincipal";
+import Laudo from "../../class/Laudo";
+import reghd_2 from '../images/reghd_2.png'
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
-import reghd_2 from "../images/reghd_2.png";
 
 const FieldDefaultHome = ({ text, textColor, id }) => {
+  // let laudos = new LaudoPrincipal(id, text)
+  // const clicando = (id, nome) => {
+  //   new LaudoPrincipal(id, nome)
+  //   console.log(`${id} e o texto ${nome}`)
+  //   console.log(laudos)
+  // }
+
+
+  // let laudo: any[]
+  // const clicando = (nome) => {
+  //   laudo.push(new Laudo(nome))
+  //   console.log(`${id} e o texto ${nome}`)
+  //   console.log(laudo)
+  // }
+
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
 
   return (
@@ -21,6 +38,18 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
           position="absolute"
           h="100px"
           width="220px"
+
+          z-index='-1'
+          src={reghd_2} alt='' />
+        <Link
+          href={`#/Home/${id}`}
+          fontWeight="bold"
+          fontSize="14px"
+          position='relative'
+          pl='80px'
+          // pt='30px'
+          z-index='1'
+        //onClick={(e) => clicando(id, text)}
           z-index="-1"
           src={reghd_2}
           alt=""

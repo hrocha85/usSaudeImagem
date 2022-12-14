@@ -27,7 +27,7 @@ function Home() {
       alignItems="center"
     >
       <Button position="absolute" right="1" variant="ghost">
-        <Link href={`#/Home/Configuracoes`}>
+        <Link href={"#/Home/Configuracoes"}>
           <Image
             srcSet={Configuracao}
             alt="Second Icon Plus"
