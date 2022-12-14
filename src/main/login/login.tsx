@@ -1,7 +1,6 @@
 import { Box, Button, Center, Link, Select, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import BGImage from "../images/bg_img.png";
-import UserJSON from "../../Data/User.json";
 
 function Login() {
   const [medicoString, setmedicoString] = useState<any>();
@@ -42,8 +41,6 @@ function Login() {
     if (clinicaString != undefined)
       setClinSelecionada(JSON.parse(clinicaString));
   };
-
- 
 
   useEffect(() => {
     parseMedicoSelecionado();

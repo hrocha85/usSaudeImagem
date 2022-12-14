@@ -1,9 +1,10 @@
-import { GridItem, Link, Image, Text, Box, Button } from "@chakra-ui/react";
+import { Box, Button, GridItem, Image, Link, Tooltip } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
 import { useEffect, useState } from "react";
 import LaudoPrincipal from "../../class/LaudoPrincipal";
 import Laudo from "../../class/Laudo";
 import reghd_2 from '../images/reghd_2.png'
+import { EnableExamesContext } from "../../context/ExamesEnableContext";
 
 const FieldDefaultHome = ({ text, textColor, id }) => {
   // let laudos = new LaudoPrincipal(id, text)
@@ -21,27 +22,23 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
   //   console.log(laudo)
   // }
 
-
+  let { enableExames, setEnableExames } = useContext(EnableExamesContext);
 
   return (
-    <GridItem
-      w="200px"
-      h="70px"
-      display="flex"
-      flexWrap='wrap'
-    >
+    <GridItem w="200px" h="70px" display="flex" flexWrap="wrap">
       <Box
         display="flex"
         flexWrap="wrap"
-        h='100%'
-        w='100%'
-        margin='5px'
-        alignItems='center'
+        h="100%"
+        w="100%"
+        margin="5px"
+        alignItems="center"
       >
         <Image
-          position='absolute'
+          position="absolute"
           h="100px"
           width="220px"
+
           z-index='-1'
           src={reghd_2} alt='' />
         <Link
@@ -53,19 +50,49 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
           // pt='30px'
           z-index='1'
         //onClick={(e) => clicando(id, text)}
+          z-index="-1"
+          src={reghd_2}
+          alt=""
+        />
+
+        <Tooltip
+          isDisabled={enableExames}
+          label="Insira os dados do paciente"
+          backgroundColor="white"
+          placement="top"
+          hasArrow
+          arrowSize={15}
+          textColor="black"
+          fontSize="20px"
+          margin="20px"
+          textAlign="center"
         >
-          <Text
-            textAlign='center'
-            w='110px'
-            h='100%'
+          <Link
+            href={`#/Home/${id}`}
+            fontWeight="bold"
+            position="relative"
+            pl="80px"
+            z-index="1"
           >
-            {text}
-          </Text>
-        </Link>
+            <Button
+              isDisabled={!enableExames}
+              fontSize="13.9px"
+              variant="link"
+              textAlign="center"
+              textColor="black"
+              w="110px"
+              h="100%"
+              style={{
+                whiteSpace: "normal",
+                wordWrap: "break-word",
+              }}
+            >
+              {text}
+            </Button>
+          </Link>
+        </Tooltip>
       </Box>
-    </GridItem >
-
-
+    </GridItem>
   );
 };
 
