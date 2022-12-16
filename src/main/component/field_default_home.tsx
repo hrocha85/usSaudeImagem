@@ -1,9 +1,9 @@
 import { Box, Button, GridItem, Image, Link, Tooltip } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import LaudoPrincipal from "../../class/LaudoPrincipal";
 import Laudo from "../../class/Laudo";
-import reghd_2 from '../images/reghd_2.png'
+import reghd_2 from "../images/reghd_2.png";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
 
 const FieldDefaultHome = ({ text, textColor, id }) => {
@@ -13,7 +13,6 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
   //   console.log(`${id} e o texto ${nome}`)
   //   console.log(laudos)
   // }
-
 
   // let laudo: any[]
   // const clicando = (nome) => {
@@ -38,21 +37,19 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
           position="absolute"
           h="100px"
           width="220px"
-
-          z-index='-1'
-          src={reghd_2} alt='' />
+          z-index="-1"
+          src={reghd_2}
+          alt=""
+        />
         <Link
           href={`#/Home/${id}`}
           fontWeight="bold"
           fontSize="14px"
-          position='relative'
-          pl='80px'
+          position="relative"
+          pl="80px"
           // pt='30px'
-          z-index='1'
-        //onClick={(e) => clicando(id, text)}
-          z-index="-1"
-          src={reghd_2}
-          alt=""
+          z-index="1"
+          //onClick={(e) => clicando(id, text)}
         />
 
         <Tooltip
