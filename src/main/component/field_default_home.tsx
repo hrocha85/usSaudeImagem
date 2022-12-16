@@ -28,12 +28,11 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
   const AddTituloLaudo = () => {
     const obj = {
       titulo_exame: text,
-      exame: [""],
-      frases: [""],
+      subExame: [{ subExameNome: "Nome SubExame", frases: ["Frases do subExame"] }],
     };
     format_laudo.push(obj);
     format_laudo.map((e) => {
-      if (e.titulo_exame.length == 1) {
+      if (e.titulo_exame == "") {
         format_laudo.shift();
       }
     });

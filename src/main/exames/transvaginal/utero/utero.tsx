@@ -11,7 +11,27 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
+
+
+const updateSubExameLocalStorage = () => {
+  var array = JSON.parse(localStorage.getItem("format_laudo")!);
+  array.map((e) => {
+    if (e.titulo_exame == "Transvaginal") {
+      e.subExame.map((i) => {
+       i.subExameNome = "Útero"
+     })
+    }
+  })
+
+  localStorage.setItem("format_laudo", JSON.stringify(array));
+ 
+}
+
 function Utero() {
+  useEffect(() => {
+    updateSubExameLocalStorage()
+  },[])
+
   const altura = "100%";
   const largura = "66%";
 

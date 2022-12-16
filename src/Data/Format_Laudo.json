@@ -1,10 +1,11 @@
 {
-    "format_laudo": [
-      {
-        "titulo_exame": [""],
-        "exame": [""],
-        "frases":[""]
-      }
-    ]
-  }
-  
+  "format_laudo": [
+    {
+      "titulo_exame": "",
+      "subExame": [{
+        "subExameNome":"",
+        "frases": [""]
+      }]
+    }
+  ]
+}

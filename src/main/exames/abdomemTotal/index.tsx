@@ -30,7 +30,7 @@ function AbdomemTotal() {
 
       <Exames></Exames>
 
-      <Box ml="10px">
+      <Box ml="10px" >
         <Normal></Normal>
 
         <Figado />
