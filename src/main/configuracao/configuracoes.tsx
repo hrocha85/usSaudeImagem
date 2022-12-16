@@ -56,6 +56,7 @@ import Medicos from "./medicos";
 export const lista_medicos = MedicosJSON.medicos;
 
 const Configuracoes = () => {
+  
   const getMedicos = () => {
     var medicos;
     var item;
