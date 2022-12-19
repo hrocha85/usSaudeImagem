@@ -8,6 +8,7 @@ import {
   Icon,
   Image,
   Link,
+  Stack,
   Text,
   Textarea,
   Tooltip,
@@ -79,6 +80,9 @@ function Exames() {
   const [medico, setMedico] = useState(getUserMedico());
   const [urlLaudo, setUrlLaudo] = useState<any>();
   const [edit, setEdit] = useState(false);
+  const [titulo_exame, setTitulo_Exame] = useState("TÍTULO EXAME");
+  const [subExame, setSubExame] = useState("SUB EXAME");
+  const [frasesExame, setFrasesExame] = useState([]);
 
   const styles = StyleSheet.create({
     page: {
@@ -167,6 +171,12 @@ function Exames() {
     textDiagnostico: {
       margin: 10,
       fontSize: "10",
+      fontFamily: "Montserrat2",
+    },
+    textTituloExame: {
+      fontWeigh: "bold",
+      textAlign: "center",
+      fontSize: "20",
       fontFamily: "Montserrat2",
     },
   });
@@ -290,11 +300,29 @@ function Exames() {
     setUrlLaudo(fileURL);
   };
 
+  const getFormatLaudo = () => {
+    var parse: any = null;
+    if (localStorage.getItem("format_laudo") != null) {
+      parse = JSON.parse(localStorage.getItem("format_laudo")!);
+      parse.map((e) => {
+        setTitulo_Exame(e.titulo_exame);
+        e.subExame.map((i) => {
+          setSubExame(i.subExameNome);
+          setFrasesExame(i.frases);
+        });
+      });
+    }
+  };
+
   useEffect(() => {
     if (urlLaudo != null) {
       AddLaudoSalvo();
     }
   }, [urlLaudo]);
+
+  useEffect(() => {
+    getFormatLaudo();
+  }, [localStorage.getItem("format_laudo")]);
 
   return (
     <>
@@ -331,7 +359,28 @@ function Exames() {
         </Center>
         <Box overflow="auto" h="50%" margin="20px">
           {edit == false ? (
-            <Text>{laudoPrin}</Text>
+            <>
+              <Text
+                fontSize="19px"
+                fontWeight="semibold"
+                textAlign="center"
+                textDecor="underline"
+                style={{ textTransform: "uppercase" }}
+              >
+                {titulo_exame}
+              </Text>
+              <HStack justify="space-evenly" marginTop="10px">
+                <Text
+                  textDecor="underline"
+                  textAlign="start"
+                  paddingEnd="5px"
+                  display="inline-block"
+                >
+                  {subExame}:
+                </Text>
+                <Text>{frasesExame}</Text>
+              </HStack>
+            </>
           ) : (
             <Textarea
               defaultValue={laudoPrin}

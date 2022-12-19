@@ -2,16 +2,17 @@ import {
   Document,
   Font,
   Image,
-  Page, PDFViewer,
+  Page,
+  PDFViewer,
   StyleSheet,
   Text,
-  View
+  View,
 } from "@react-pdf/renderer";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../context/LuadosContext";
 
 export default function Format_PDF() {
-  
+
   const getUserClinica = () => {
     if (localStorage.getItem("user") != null) {
       var clinica = JSON.parse(localStorage.getItem("user")!);
@@ -42,9 +43,13 @@ export default function Format_PDF() {
     return medico.medico;
   };
 
+ 
+
   const { laudoPrin } = useContext(LaudosContext);
   const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
   const [medico, setMedico] = useState(getUserMedico());
+
+
 
   Font.register({
     family: "Montserrat",
@@ -165,9 +170,16 @@ export default function Format_PDF() {
       fontSize: "10",
       fontFamily: "Montserrat2",
     },
+    textTituloExame: {
+      fontWeigh: "semibold",
+      textAlign: "center",
+      fontSize: "13",
+      fontFamily: "Montserrat2",
+    },
   });
 
   const Laudo = () => {
+    
     return (
       <PDFViewer style={styles.viewer} showToolbar={true}>
         <Document
