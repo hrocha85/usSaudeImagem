@@ -307,8 +307,10 @@ function Exames() {
       parse.map((e) => {
         setTitulo_Exame(e.titulo_exame);
         e.subExame.map((i) => {
-          setSubExame(i.subExameNome);
-          setFrasesExame(i.frases);
+          if (i.subExame == "Útero") {
+            setSubExame(i.subExameNome);
+            setFrasesExame(i.frases);
+          }
         });
       });
     }
