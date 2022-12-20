@@ -24,14 +24,14 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     removeMultiplosNodulos();
 
     if (tamanhoNoduloInput != "" && nodulosSelect != "" && localizado != "") {
-      var string = `Nódulo ${numNodulo} mede ${tamanhoNoduloInput} mm ${nodulosSelect} localizado ${localizado} `;
+      var string = `Nódulo de mioma ${numNodulo} ${nodulosSelect}, localizado na ${localizado} e medindo ${tamanhoNoduloInput}.`;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosNodulos = () => {
     laudoPrin.map((e) => {
-      if (e.includes(`Nódulo ${numNodulo}`)) {
+      if (e.includes(`Nódulo de mioma ${numNodulo}`)) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {

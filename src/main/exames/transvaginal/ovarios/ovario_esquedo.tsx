@@ -46,7 +46,7 @@ function Ovario_Esquerdo() {
 
   //Funcoes medidas ovario - Inicio
   const criaStringMedidasOvario = () => {
-    if (medidaOvario1 != "" && medidaOvario2 != "" && medidaOvario3 != "") {
+    if (medidaOvario1 !== "" && medidaOvario2 !== "" && medidaOvario3 !== "") {
       var string = `Ovário Esquerdo mede ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
@@ -110,7 +110,7 @@ function Ovario_Esquerdo() {
   //Funcoes Cisto - Inicio
   const criaStringCisto = (medida, cisto) => {
     removeCisto();
-    if (medida != "") {
+    if (medida !== "") {
       var string = `Cisto no ovário esquerdo com ${medida}mm ${cisto} `;
       setLaudoPrin((arr) => [...arr, string]);
     }

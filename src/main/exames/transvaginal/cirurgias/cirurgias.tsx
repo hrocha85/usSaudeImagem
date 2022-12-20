@@ -23,7 +23,7 @@ function Cirurgias() {
     useState(true);
 
   const criaStringHisterectomiaTotal = () => {
-    var string = "Histerectomia Total ";
+    var string = "Histerectomia Total.";
     if (histerectmoiaTotalCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       sethisterectomiaTotalCheckBox(false);
@@ -41,11 +41,11 @@ function Cirurgias() {
     removeMedidaHisterectomiaSubtotal();
 
     if (
-      medidaHisterectomia1 != "" &&
-      medidaHisterectomia2 != "" &&
-      medidaHisterectomia3 != ""
+      medidaHisterectomia1 !== "" &&
+      medidaHisterectomia2 !== "" &&
+      medidaHisterectomia3 !== ""
     ) {
-      var string = `Histerectomia subtotal, colo mede ${medidaHisterectomia1} x ${medidaHisterectomia2} x ${medidaHisterectomia3} mm `;
+      var string = `Presença do colo uterino medindo ${medidaHisterectomia1} x ${medidaHisterectomia2} x ${medidaHisterectomia3} mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -53,7 +53,7 @@ function Cirurgias() {
   const removeMedidaHisterectomiaSubtotal = () => {
     // console.log("valor remove = ", value);
     laudoPrin.map((e) => {
-      if (e.includes("Histerectomia subtotal")) {
+      if (e.includes("Presença do colo uterino medindo")) {
         var index = laudoPrin.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
