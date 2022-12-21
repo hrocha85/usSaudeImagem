@@ -16,6 +16,9 @@ function Ovario_Direito() {
   const largura = "33%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesOvarioDireito, setFrasesOvarioDireito] = useState<any>([]);
+
+  const subExameOvario = "Ovário Direito";
 
   //States medidas ovario - Inicio
   const [medidaOvario1, setmedidaOvario1] = useState("");
@@ -48,18 +51,18 @@ function Ovario_Direito() {
   const criaStringMedidasOvario = () => {
     if (medidaOvario1 != "" && medidaOvario2 != "" && medidaOvario3 != "") {
       var string = `Ovário Direito mede ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOvarioDireito((arr) => [...arr, string]);
     }
   };
 
   const removeMedidasOvario = () => {
-    laudoPrin.map((e) => {
+    frasesOvarioDireito.map((e) => {
       if (e.includes("Ovário Direito")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesOvarioDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOvarioDireito.splice(index, 1);
+          setFrasesOvarioDireito((arr) => [...arr]);
         }
       }
     });
@@ -69,17 +72,17 @@ function Ovario_Direito() {
   //Funcoes Padrao Folicular - Inicio
   const criaStringPadraoFolicular = () => {
     var string = "Ovário direito com padrão folicular ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesOvarioDireito((arr) => [...arr, string]);
   };
 
   const removePadraoFolicular = () => {
-    laudoPrin.map((e) => {
+    frasesOvarioDireito.map((e) => {
       if (e.includes("folicular")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesOvarioDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOvarioDireito.splice(index, 1);
+          setFrasesOvarioDireito((arr) => [...arr]);
         }
       }
     });
@@ -89,18 +92,18 @@ function Ovario_Direito() {
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringPadraoMicropolicistico = () => {
     var string = "Ovário direito com padrão micropolicístico ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesOvarioDireito((arr) => [...arr, string]);
     return string;
   };
 
   const removePadraoMicropolicistico = () => {
-    laudoPrin.map((e) => {
+    frasesOvarioDireito.map((e) => {
       if (e.includes("micropolicístico")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesOvarioDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOvarioDireito.splice(index, 1);
+          setFrasesOvarioDireito((arr) => [...arr]);
         }
       }
     });
@@ -112,18 +115,18 @@ function Ovario_Direito() {
     removeCisto();
     if (medida != "") {
       var string = `Cisto no ovário direito com ${medida}mm ${cisto} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOvarioDireito((arr) => [...arr, string]);
     }
   };
 
   const removeCisto = () => {
-    laudoPrin.map((e) => {
+    frasesOvarioDireito.map((e) => {
       if (e.includes("Cisto")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesOvarioDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOvarioDireito.splice(index, 1);
+          setFrasesOvarioDireito((arr) => [...arr]);
         }
       }
     });
@@ -134,7 +137,7 @@ function Ovario_Direito() {
   const criaStringNaoVisibilizado = () => {
     var string = "Ovário direito não visibilizado ";
     if (naoVisibilizadoCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOvarioDireito((arr) => [...arr, string]);
       setnaoVisibilizadoCheckBox(false);
     } else {
       removeItemString(string);
@@ -142,11 +145,11 @@ function Ovario_Direito() {
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesOvarioDireito.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesOvarioDireito.splice(index, 1);
+      setFrasesOvarioDireito((arr) => [...arr]);
     }
   };
 
