@@ -54,7 +54,7 @@ function Ovario_Direito() {
 
   const removeMedidasOvario = () => {
     laudoPrin.map((e) => {
-      if (e.includes("Ovário Direito")) {
+      if (e.includes("Ovário Direito mede")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
@@ -88,14 +88,14 @@ function Ovario_Direito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringPadraoMicropolicistico = () => {
-    var string = "Ovário direito com padrão micropolicístico ";
+    var string = "Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe em seu interior múltiplas imagens císticas, distribuídas predominantemente na periferia, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.";
     setLaudoPrin((arr) => [...arr, string]);
     return string;
   };
 
   const removePadraoMicropolicistico = () => {
     laudoPrin.map((e) => {
-      if (e.includes("micropolicístico")) {
+      if (e.includes("Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe em seu interior múltiplas imagens císticas, distribuídas predominantemente na periferia, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
@@ -111,14 +111,14 @@ function Ovario_Direito() {
   const criaStringCisto = (medida, cisto) => {
     removeCisto();
     if (medida != "") {
-      var string = `Cisto no ovário direito com ${medida}mm ${cisto} `;
+      var string = `${cisto}, medindo ${medida} mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
 
   const removeCisto = () => {
     laudoPrin.map((e) => {
-      if (e.includes("Cisto")) {
+      if (e.includes("medindo")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
@@ -284,13 +284,13 @@ function Ovario_Direito() {
                   setCistoSelect(e.target.value);
                 }}
               >
-                <option value="Cisto simples">Cisto Simples</option>
-                <option value="Cisto septação fina">Cisto septação fina</option>
-                <option value="Multiloculado">Multiloculado</option>
-                <option value="Hemorrágico">Hemorrágico</option>
-                <option value="Endometrioma">Endometrioma</option>
-                <option value="Corpo lúteo">Corpo lúteo</option>
-                <option value="Cisto dermóide">Cisto dermóide</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior">Cisto Simples</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior e septação fina">Cisto septação fina</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, multiloculada, de limites precisos e contornos regulares, com reforço acústico posterior">Multiloculado</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística, de paredes espessas e irregulares, conteúdo anecóide, com septos espessos e moderados debris de permeio">Hemorrágico</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima apresenta imagem arredondada, anecóica de limites precisos e contornos regulares, com finos debrís em seu interior">Endometrioma</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística, de paredes espessas e regulares, conteúdo anecóide, sem septos ou debris">Corpo lúteo</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima apresenta imagem nodular hiperecogênica de limites precisos e contornos definidos, apresentando reforço acústico posterior, com área cística em seu interior">Cisto dermóide</option>
               </Select>
             </HStack>
           </Stack>
