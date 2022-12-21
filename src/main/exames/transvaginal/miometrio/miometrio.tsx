@@ -22,10 +22,10 @@ function Miometrio() {
   const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
   const [posicaoNodulosSelect, setPosicaoNodulosSelect] = useState("");
   const [localizacaoNodulosSelect, setlocalizacaoNodulosSelect] = useState("");
-  
+
   const [multiplosNodulosCheckBox, setmultiplosNodulosCheckBox] =
     useState(false);
-  
+
   const [miometrioSemNodulosCheckBox, setmiometrioSemNodulosCheckBox] =
     useState(true);
 
@@ -40,15 +40,15 @@ function Miometrio() {
   ) => {
     removeMultiplosNodulos();
 
-    if (tamanhoNoduloInput != "" && nodulosSelect != "" && localizado != "") {
-      var string = `Múltiplos nódulos de mioma, o maior mede ${tamanhoNoduloInput}mm ${nodulosSelect} localizado ${localizado} `;
+    if (tamanhoNoduloInput !== "" && nodulosSelect !== "" && localizado !== "") {
+      var string = `O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma, o maior ${nodulosSelect}, localizado na parede ${localizado} e medindo ${tamanhoNoduloInput} mm.`;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosNodulos = () => {
     laudoPrin.map((e) => {
-      if (e.includes("mioma")) {
+      if (e.includes("O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma,")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
@@ -60,7 +60,7 @@ function Miometrio() {
   };
 
   const criaStringMiometrioSemNodulos = () => {
-    var string = "Miométrio heterogêneo sem nódulos ";
+    var string = "O miométrio apresenta estratificação normal e ecotextura habitual.";
     if (miometrioSemNodulosCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setmiometrioSemNodulosCheckBox(false);

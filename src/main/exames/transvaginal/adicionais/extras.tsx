@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
@@ -16,7 +18,7 @@ function Extras() {
     removeStringVarizes();
 
     if (varizesCheckBox) {
-      var string = "Varizes pélvicas ";
+      var string = "Nota-se em regiões para-uterinas presença de várias imagens anecóicas, tubulares, tortuosas, de limites precisos e contornos regulares.";
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -24,14 +26,14 @@ function Extras() {
     removeStringUteroBi();
 
     if (uteroBiCheckBox) {
-      var string = "Útero bicorno ";
+      var string = "Achados ecográficos sugestivos de malformação mulleriana (útero septado ou bicorno).";
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
 
   const removeStringVarizes = () => {
     laudoPrin.map((e) => {
-      if (e.includes("Varizes")) {
+      if (e.includes("Nota-se em regiões para-uterinas presença de várias imagens anecóicas, tubulares, tortuosas, de limites precisos e contornos regulares.")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
@@ -43,7 +45,7 @@ function Extras() {
   };
   const removeStringUteroBi = () => {
     laudoPrin.map((e) => {
-      if (e.includes("Útero")) {
+      if (e.includes("Achados ecográficos sugestivos de malformação mulleriana (útero septado ou bicorno).")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {

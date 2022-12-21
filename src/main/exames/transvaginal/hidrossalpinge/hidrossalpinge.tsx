@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
@@ -16,15 +18,15 @@ function Hidrossalpinge() {
   const criaStringHidrossalpinge = () => {
     removeStringHidrossalpinge();
 
-    if (HidrossalpingeCheckBox && posicaoHidrossalpingeSelect != "") {
-      var string = `Hidrossalpinge ${posicaoHidrossalpingeSelect}`;
+    if (HidrossalpingeCheckBox && posicaoHidrossalpingeSelect !== "") {
+      var string = `Nota-se em região anexial ${posicaoHidrossalpingeSelect} imagem anecóica, tubular, tortuosa, de limites precisos e contornos regulares.`;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
 
   const removeStringHidrossalpinge = () => {
     laudoPrin.map((e) => {
-      if (e.includes("Hidrossalpinge")) {
+      if (e.includes("Nota-se em região anexial")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
@@ -83,7 +85,7 @@ function Hidrossalpinge() {
                   </option>
                   <option value="direita">Direita</option>
                   <option value="esquerda">Esquerda</option>
-                  <option value="bilateral">Bilateral</option>
+                  <option value="bilateralmente">Bilateral</option>
                 </Select>
               </HStack>
             </Box>
