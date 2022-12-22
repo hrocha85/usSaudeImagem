@@ -8,7 +8,6 @@ import {
   Icon,
   Image,
   Link,
-  Stack,
   Text,
   Textarea,
   Tooltip,
@@ -81,11 +80,18 @@ function Exames() {
   const [urlLaudo, setUrlLaudo] = useState<any>();
   const [edit, setEdit] = useState(false);
   const [titulo_exame, setTitulo_Exame] = useState("TÍTULO EXAME");
-  const [subExame, setSubExame] = useState("SUB EXAME");
   const [frasesExame, setFrasesExame] = useState([]);
-  const [subexames, setSubExames] = useState([]);
+  const [arrayLocal, setArrayLocal] = useState(
+    JSON.parse(localStorage.getItem("format_laudo")!)
+  );
 
   const styles = StyleSheet.create({
+    inline: {
+      display: "flex",
+      flexDirection: "row",
+      paddingBottom: 30,
+      paddingRight: 90,
+    },
     page: {
       backgroundColor: "white",
       color: "black",
@@ -178,7 +184,25 @@ function Exames() {
       fontWeigh: "bold",
       textAlign: "center",
       fontSize: "20",
-      fontFamily: "Montserrat2",
+      fontFamily: "MontserratBold",
+      marginBottom: "50px",
+    },
+    textNomeSubExame: {
+      fontWeigh: "bold",
+      textAlign: "center",
+      fontSize: "17",
+      fontFamily: "MontserratBold",
+      textDecoration: "underline",
+      marginTop: 10,
+    },
+    frasesSubExame: {
+      textAlign: "justify",
+      fontSize: "15",
+      fontFamily: "MontserratRegular",
+      marginLeft: "40px",
+    },
+    laudo_viewer: {
+      margin: 20,
     },
   });
 
@@ -212,7 +236,34 @@ function Exames() {
     ],
   });
 
+  Font.register({
+    family: "MontserratRegular",
+
+    fonts: [
+      {
+        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf",
+      },
+    ],
+  });
+
   const Laudo = () => {
+    const renderFrases = () => {
+      var arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
+
+      return arrayLocal.map((Exames) => {
+        return Exames.subExames.map((sub) => {
+          return sub.subExameNome != null && sub.subExameNome != "" ? (
+            <ViewPDF style={styles.inline}>
+              <TextPDF style={styles.textNomeSubExame}>
+                {sub.subExameNome}:
+              </TextPDF>
+              <TextPDF style={styles.frasesSubExame}>{sub.frases}</TextPDF>
+            </ViewPDF>
+          ) : null;
+        });
+      });
+    };
+
     return (
       <Document
         title={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
@@ -232,8 +283,11 @@ function Exames() {
             </ViewPDF>
           </ViewPDF>
           <ViewPDF style={styles.line}></ViewPDF>
-          <ViewPDF>
-            <TextPDF style={styles.laudo}>{laudoPrin}</TextPDF>
+          <ViewPDF style={styles.laudo_viewer}>
+            <TextPDF style={styles.textTituloExame}>
+              {titulo_exame.toUpperCase()}
+            </TextPDF>
+            <ViewPDF>{renderFrases()}</ViewPDF>
           </ViewPDF>
           <ViewPDF style={styles.pageNumber}>
             <ViewPDF style={styles.pageNumber}>
@@ -302,11 +356,11 @@ function Exames() {
   };
 
   const getFormatLaudo = () => {
-    var array = JSON.parse(localStorage.getItem("format_laudo")!);
-    
-
-
-
+    setArrayLocal(JSON.parse(localStorage.getItem("format_laudo")!));
+    arrayLocal.map((Exames) => {
+      setTitulo_Exame(Exames.titulo_exame);
+    });
+    return arrayLocal;
   };
 
   useEffect(() => {
@@ -315,7 +369,18 @@ function Exames() {
     }
   }, [urlLaudo]);
 
- 
+  window.addEventListener("storage", () => {
+    getFormatLaudo();
+  });
+
+  /*useEffect(() => {
+    console.log(Math.round(JSON.stringify(localStorage).length / 1024));
+  }, []);*/
+
+  //TODO A CADA CHECKBOX SELECIONADO FAZER UM PARAGRAFO NO LAUDO
+
+
+
 
   return (
     <>
@@ -354,17 +419,33 @@ function Exames() {
           {edit == false ? (
             <>
               <Text
+                textDecoration="underline"
+                fontWeight="bold"
                 fontSize="19px"
-                fontWeight="semibold"
                 textAlign="center"
-                textDecor="underline"
-                style={{ textTransform: "uppercase" }}
+                textTransform="uppercase"
               >
                 {titulo_exame}
               </Text>
-              <HStack justify="space-evenly" marginTop="10px">
-                {subExame != "" && subExame != null ? <></> : null}
-              </HStack>
+              {arrayLocal.map((Exames) => {
+                return Exames.subExames.map((sub) => {
+                  return sub.subExameNome != null && sub.subExameNome != "" ? (
+                    <HStack
+                      justifyContent="space-between"
+                      marginBottom="30px"
+                      marginTop="20px"
+                    >
+                      <HStack justify="space-between">
+                        <Text textDecoration="underline" fontWeight="semibold">
+                          {sub.subExameNome}:
+                        </Text>
+                        <Text align="center">{sub.frases}</Text>
+                      </HStack>
+                    </HStack>
+                  ) : null;
+                });
+              })}
+              <HStack justify="space-evenly" marginTop="10px"></HStack>
             </>
           ) : (
             <Textarea
@@ -428,6 +509,7 @@ function Exames() {
         <Link
           display="block"
           href={`#/Format_PDF`}
+          target="_blank"
           style={{ textDecoration: "none" }}
         >
           <Tooltip
@@ -447,7 +529,7 @@ function Exames() {
                 color="twitter.600"
                 size="30px"
                 onClick={() => {
-                  <Format_PDF />;
+                  //<Format_PDF />;
                 }}
               />
             </Circle>

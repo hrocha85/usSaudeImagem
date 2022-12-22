@@ -14,40 +14,49 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 function Utero() {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [frasesUtero, setFrasesUtero] = useState<any>([]);
+  const [count, setcont] = useState(0);
 
   const subExameUtero = "Útero";
 
-  const Format_Laudo_Storage = (updateFrases, frasesVazio) => {
+  const Format_Laudo_Storage = (frasesVazio) => {
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
 
-    if (updateFrases && frasesVazio) {
-      array.map((e) => {
-        if (e.titulo_exame == "Transvaginal") {
-          e.subExames.map((i) => {
-            i.subExameNome = "";
-            i.frases = frasesUtero;
+    array.map((Exames) => {
+      if (Exames.titulo_exame == "Transvaginal") {
+        if (frasesVazio) {
+          Exames.subExames.map((subExame) => {
+            if (subExame.subExameNome == subExameUtero) {
+              subExame.frases = null;
+              subExame.subExameNome = null;
+            }
           });
+          setcont(0);
+        } else {
+          if (count == 0) {
+            Exames.subExames.push({
+              subExameNome: subExameUtero,
+            });
+            setcont(1);
+          }
         }
-      });
-    } else {
-      array.map((e) => {
-        if (e.titulo_exame == "Transvaginal") {
-          e.subExames.map((i) => {
-            i.frases = frasesUtero;
-            i.subExameNome = subExameUtero;
-          });
-        }
-      });
-    }
-
+        Exames.subExames.map((subExame, indexS) => {
+          if (subExame.subExameNome == subExameUtero) {
+            Exames.subExames[indexS].frases = frasesUtero;
+            setcont(count + 1);
+          }
+        });
+      }
+    });
     localStorage.setItem("format_laudo", JSON.stringify(array));
+    window.localStorage.setItem("isThisInLocalStorage", JSON.stringify(count));
+    window.dispatchEvent(new Event("storage"));
   };
 
   useEffect(() => {
     if (Object.keys(frasesUtero).length == 0) {
-      Format_Laudo_Storage(true, true);
+      Format_Laudo_Storage(true);
     } else {
-      Format_Laudo_Storage(true, false);
+      Format_Laudo_Storage(false);
     }
   }, [frasesUtero]);
 

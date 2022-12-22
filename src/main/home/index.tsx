@@ -7,6 +7,7 @@ import {
   Link,
   Stack
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import CardListaMedicos from "../component/card_paciente_home";
 import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
@@ -14,6 +15,11 @@ import BGImage from "../images/bg_img.png";
 import Configuracao from "../images/gear.webp";
 
 function Home() {
+  useEffect(() => {
+    localStorage.removeItem("format_laudo");
+    localStorage.removeItem("isThisInLocalStorage");
+  }, []);
+
   return (
     <Box
       w="100%"

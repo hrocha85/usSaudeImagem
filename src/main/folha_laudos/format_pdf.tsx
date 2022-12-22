@@ -12,6 +12,7 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../context/LuadosContext";
 
 export default function Format_PDF() {
+  const [titulo_exame, setTitulo_Exame] = useState("TÍTULO EXAME");
 
   const getUserClinica = () => {
     if (localStorage.getItem("user") != null) {
@@ -43,13 +44,30 @@ export default function Format_PDF() {
     return medico.medico;
   };
 
+  const renderFrases = () => {
+    var arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
+
+    arrayLocal.map((e) => {
+      setTitulo_Exame(e.titulo_exame);
+    });
+
+    return arrayLocal.map((Exames) => {
+      return Exames.subExames.map((sub) => {
+        return sub.subExameNome != null && sub.subExameNome != "" ? (
+          <View style={styles.inline}>
+            <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
+            <Text style={styles.frasesSubExame}>{sub.frases}</Text>
+          </View>
+        ) : null;
+      });
+    });
+  };
+
  
 
   const { laudoPrin } = useContext(LaudosContext);
   const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
   const [medico, setMedico] = useState(getUserMedico());
-
-
 
   Font.register({
     family: "Montserrat",
@@ -81,7 +99,23 @@ export default function Format_PDF() {
     ],
   });
 
+  Font.register({
+    family: "MontserratRegular",
+
+    fonts: [
+      {
+        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf",
+      },
+    ],
+  });
+
   const styles = StyleSheet.create({
+    inline: {
+      display: "flex",
+      flexDirection: "row",
+      paddingBottom: 30,
+      paddingRight: 90,
+    },
     page: {
       backgroundColor: "white",
       color: "black",
@@ -171,15 +205,32 @@ export default function Format_PDF() {
       fontFamily: "Montserrat2",
     },
     textTituloExame: {
-      fontWeigh: "semibold",
+      fontWeigh: "bold",
       textAlign: "center",
-      fontSize: "13",
-      fontFamily: "Montserrat2",
+      fontSize: "20",
+      fontFamily: "MontserratBold",
+      marginBottom: "50px",
+    },
+    textNomeSubExame: {
+      fontWeigh: "bold",
+      textAlign: "center",
+      fontSize: "17",
+      fontFamily: "MontserratBold",
+      textDecoration: "underline",
+      marginTop: 10,
+    },
+    frasesSubExame: {
+      textAlign: "justify",
+      fontSize: "15",
+      fontFamily: "MontserratRegular",
+      marginLeft: "40px",
+    },
+    laudo_viewer: {
+      margin: 20,
     },
   });
 
   const Laudo = () => {
-    
     return (
       <PDFViewer style={styles.viewer} showToolbar={true}>
         <Document
@@ -200,8 +251,11 @@ export default function Format_PDF() {
               </View>
             </View>
             <View style={styles.line}></View>
-            <View>
-              <Text style={styles.laudo}>{laudoPrin}</Text>
+            <View style={styles.laudo_viewer}>
+              <Text style={styles.textTituloExame}>
+                {titulo_exame.toUpperCase()}
+              </Text>
+              <View>{renderFrases()}</View>
             </View>
             <View style={styles.pageNumber}>
               <View style={styles.pageNumber}>
