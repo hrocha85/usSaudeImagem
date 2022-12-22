@@ -83,6 +83,7 @@ function Exames() {
   const [titulo_exame, setTitulo_Exame] = useState("TÍTULO EXAME");
   const [subExame, setSubExame] = useState("SUB EXAME");
   const [frasesExame, setFrasesExame] = useState([]);
+  const [subexames, setSubExames] = useState([]);
 
   const styles = StyleSheet.create({
     page: {
@@ -301,19 +302,11 @@ function Exames() {
   };
 
   const getFormatLaudo = () => {
-    var parse: any = null;
-    if (localStorage.getItem("format_laudo") != null) {
-      parse = JSON.parse(localStorage.getItem("format_laudo")!);
-      parse.map((e) => {
-        setTitulo_Exame(e.titulo_exame);
-        e.subExame.map((i) => {
-          if (i.subExame == "Útero") {
-            setSubExame(i.subExameNome);
-            setFrasesExame(i.frases);
-          }
-        });
-      });
-    }
+    var array = JSON.parse(localStorage.getItem("format_laudo")!);
+    
+
+
+
   };
 
   useEffect(() => {
@@ -322,9 +315,7 @@ function Exames() {
     }
   }, [urlLaudo]);
 
-  useEffect(() => {
-    getFormatLaudo();
-  }, [localStorage.getItem("format_laudo")]);
+ 
 
   return (
     <>
@@ -372,20 +363,12 @@ function Exames() {
                 {titulo_exame}
               </Text>
               <HStack justify="space-evenly" marginTop="10px">
-                <Text
-                  textDecor="underline"
-                  textAlign="start"
-                  paddingEnd="5px"
-                  display="inline-block"
-                >
-                  {subExame}:
-                </Text>
-                <Text>{frasesExame}</Text>
+                {subExame != "" && subExame != null ? <></> : null}
               </HStack>
             </>
           ) : (
             <Textarea
-              defaultValue={laudoPrin}
+              defaultValue={frasesExame}
               h="100%"
               onChange={(e) => {
                 setLaudoPrin(() => [e.target.value]);
