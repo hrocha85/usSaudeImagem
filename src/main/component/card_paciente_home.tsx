@@ -10,7 +10,7 @@ import {
   Wrap,
   WrapItem
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import {  useContext, useEffect, useState } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
 
 const CardListaMedicos = ({ altura }) => {

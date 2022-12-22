@@ -16,6 +16,9 @@ function Ovario_Direito() {
   const largura = "33%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesOvarioDireito, setFrasesOvarioDireito] = useState<any>([]);
+
+  const subExameOvario = "Ovário Direito";
 
   //States medidas ovario - Inicio
   const [medidaOvario1, setmedidaOvario1] = useState("");
@@ -48,18 +51,18 @@ function Ovario_Direito() {
   const criaStringMedidasOvario = () => {
     if (medidaOvario1 != "" && medidaOvario2 != "" && medidaOvario3 != "") {
       var string = `Ovário Direito mede ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOvarioDireito((arr) => [...arr, string]);
     }
   };
 
   const removeMedidasOvario = () => {
     laudoPrin.map((e) => {
-      if (e.includes("Ovário Direito")) {
+      if (e.includes("Ovário Direito mede")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOvarioDireito.splice(index, 1);
+          setFrasesOvarioDireito((arr) => [...arr]);
         }
       }
     });
@@ -69,17 +72,17 @@ function Ovario_Direito() {
   //Funcoes Padrao Folicular - Inicio
   const criaStringPadraoFolicular = () => {
     var string = "Ovário direito com padrão folicular ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesOvarioDireito((arr) => [...arr, string]);
   };
 
   const removePadraoFolicular = () => {
-    laudoPrin.map((e) => {
+    frasesOvarioDireito.map((e) => {
       if (e.includes("folicular")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesOvarioDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOvarioDireito.splice(index, 1);
+          setFrasesOvarioDireito((arr) => [...arr]);
         }
       }
     });
@@ -88,19 +91,19 @@ function Ovario_Direito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringPadraoMicropolicistico = () => {
-    var string = "Ovário direito com padrão micropolicístico ";
+    var string = "Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe em seu interior múltiplas imagens císticas, distribuídas predominantemente na periferia, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.";
     setLaudoPrin((arr) => [...arr, string]);
     return string;
   };
 
   const removePadraoMicropolicistico = () => {
     laudoPrin.map((e) => {
-      if (e.includes("micropolicístico")) {
+      if (e.includes("Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe em seu interior múltiplas imagens císticas, distribuídas predominantemente na periferia, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOvarioDireito.splice(index, 1);
+          setFrasesOvarioDireito((arr) => [...arr]);
         }
       }
     });
@@ -111,19 +114,19 @@ function Ovario_Direito() {
   const criaStringCisto = (medida, cisto) => {
     removeCisto();
     if (medida != "") {
-      var string = `Cisto no ovário direito com ${medida}mm ${cisto} `;
+      var string = `${cisto}, medindo ${medida} mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
 
   const removeCisto = () => {
     laudoPrin.map((e) => {
-      if (e.includes("Cisto")) {
+      if (e.includes("medindo")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOvarioDireito.splice(index, 1);
+          setFrasesOvarioDireito((arr) => [...arr]);
         }
       }
     });
@@ -134,7 +137,7 @@ function Ovario_Direito() {
   const criaStringNaoVisibilizado = () => {
     var string = "Ovário direito não visibilizado ";
     if (naoVisibilizadoCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOvarioDireito((arr) => [...arr, string]);
       setnaoVisibilizadoCheckBox(false);
     } else {
       removeItemString(string);
@@ -142,11 +145,11 @@ function Ovario_Direito() {
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesOvarioDireito.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesOvarioDireito.splice(index, 1);
+      setFrasesOvarioDireito((arr) => [...arr]);
     }
   };
 
@@ -284,13 +287,13 @@ function Ovario_Direito() {
                   setCistoSelect(e.target.value);
                 }}
               >
-                <option value="Cisto simples">Cisto Simples</option>
-                <option value="Cisto septação fina">Cisto septação fina</option>
-                <option value="Multiloculado">Multiloculado</option>
-                <option value="Hemorrágico">Hemorrágico</option>
-                <option value="Endometrioma">Endometrioma</option>
-                <option value="Corpo lúteo">Corpo lúteo</option>
-                <option value="Cisto dermóide">Cisto dermóide</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior">Cisto Simples</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior e septação fina">Cisto septação fina</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, multiloculada, de limites precisos e contornos regulares, com reforço acústico posterior">Multiloculado</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística, de paredes espessas e irregulares, conteúdo anecóide, com septos espessos e moderados debris de permeio">Hemorrágico</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima apresenta imagem arredondada, anecóica de limites precisos e contornos regulares, com finos debrís em seu interior">Endometrioma</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística, de paredes espessas e regulares, conteúdo anecóide, sem septos ou debris">Corpo lúteo</option>
+                <option value="Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima apresenta imagem nodular hiperecogênica de limites precisos e contornos definidos, apresentando reforço acústico posterior, com área cística em seu interior">Cisto dermóide</option>
               </Select>
             </HStack>
           </Stack>

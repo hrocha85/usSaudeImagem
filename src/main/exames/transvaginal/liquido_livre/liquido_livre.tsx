@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
@@ -15,15 +17,15 @@ function Liquido_Livre() {
   const criaStringLiquidoLivre = () => {
     removeStringLiquidoLivre();
 
-    if (LiquidoCheckBox && posicaoLiquidoSelect != "") {
-      var string = `Líquido livre ${posicaoLiquidoSelect}`;
+    if (LiquidoCheckBox && posicaoLiquidoSelect !== "") {
+      var string = `Presença de ${posicaoLiquidoSelect} quantidade de líquido livre no fundo de saco posterior.`;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
 
   const removeStringLiquidoLivre = () => {
     laudoPrin.map((e) => {
-      if (e.includes("Líquido")) {
+      if (e.includes("Presença de ")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {

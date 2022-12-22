@@ -5,7 +5,7 @@ import LaudoPrincipal from "../../class/LaudoPrincipal";
 import Laudo from "../../class/Laudo";
 import reghd_2 from "../images/reghd_2.png";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
-
+import FormatLaudo from "../../Data/Format_Laudo.json";
 const FieldDefaultHome = ({ text, textColor, id }) => {
   // let laudos = new LaudoPrincipal(id, text)
   // const clicando = (id, nome) => {
@@ -23,8 +23,32 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
 
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
 
+  const format_laudo = FormatLaudo.format_laudo;
+
+  const AddTituloLaudo = () => {
+    const obj = {
+      titulo_exame: text,
+      subExames: [
+        { subExameNome: "Nome SubExame", frases: ["Frases do subExame"] },
+      ],
+    };
+    format_laudo.push(obj);
+    format_laudo.map((e) => {
+      if (e.titulo_exame == "") {
+        format_laudo.shift();
+      }
+    });
+
+    localStorage.setItem("format_laudo", JSON.stringify(format_laudo));
+  };
   return (
-    <GridItem w="200px" h="70px" display="flex" flexWrap="wrap">
+    <GridItem
+      w="200px"
+      h="70px"
+      display="flex"
+      flexWrap="wrap"
+      onClick={() => AddTituloLaudo()}
+    >
       <Box
         display="flex"
         flexWrap="wrap"

@@ -32,7 +32,7 @@ function SupraespinhalOmbroDireito() {
 
   useEffect(() => {
     for (let laudoPrincipal of laudoMaster.laudosPrincipais) {
-      (console.log(laudoPrincipal))
+      (console.log('laudoPrincipal',laudoPrincipal))
     }
   })
 

@@ -3,6 +3,7 @@ exports.__esModule = true;
 var react_1 = require("@chakra-ui/react");
 var react_2 = require("react");
 require("./styles.css");
+
 var SplashScreen = function () {
     return (<react_1.Flex minWidth='max-content' alignItems='center' gap='2'>
         <react_1.Box p='2'>

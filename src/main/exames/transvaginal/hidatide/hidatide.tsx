@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
@@ -22,10 +23,10 @@ function Hidatide() {
 
     if (
       hidatideCheckBox &&
-      posicaoHidatideSelect != "" &&
-      tamanhoHidatideInput != ""
+      posicaoHidatideSelect !== "" &&
+      tamanhoHidatideInput !== ""
     ) {
-      var string = `Hidátide lado ${posicaoHidatideSelect} mede ${tamanhoHidatideInput} mm `;
+      var string = `Nota-se imagem em região anexial ${posicaoHidatideSelect} anecóica, arredondada, de limites precisos e contornos regulares, medindo ${tamanhoHidatideInput} mm. `;
 
       setLaudoPrin((arr) => [...arr, string]);
     }
@@ -33,7 +34,7 @@ function Hidatide() {
 
   const removeStringHidatide = () => {
     laudoPrin.map((e) => {
-      if (e.includes("Hidátide")) {
+      if (e.includes("Nota-se imagem em região anexial ")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
