@@ -52,12 +52,10 @@ import DefaultImageClinica from "../images/clinica_default.png";
 import ImageHome from "../images/icon_home.png";
 import Sidebar from "../menu/sideBar";
 import Medicos from "./medicos";
-import Alert from '@mui/material/Alert';
 
 export const lista_medicos = MedicosJSON.medicos;
 
 const Configuracoes = () => {
-
   const getMedicos = () => {
     var medicos;
     var item;
@@ -127,11 +125,11 @@ const Configuracoes = () => {
       clinica: clinicas,
       laudos: [{}],
     };
-    console.log('bem aqui esta', obj)
-    if (obj.nome === '' || obj.crm === '') {
+    console.log("bem aqui esta", obj);
+    /* if (obj.nome === '' || obj.crm === '') {
       return (<Alert severity="info">This is an info alert — check it out!</Alert>)
-    }
-    console.log('bem', obj)
+    }*/
+    console.log("bem", obj);
     lista_medicos.push(obj);
 
     lista_medicos.map((e) => {
@@ -219,66 +217,66 @@ const Configuracoes = () => {
       <>
         {getUserMedico() != null
           ? getMedicos().map((medi) => {
-            if (medi.nome == getUserMedico().nome) {
-              return medi.laudos.map((laudos, key) => {
-                if (
-                  laudos.laudo != null &&
-                  laudos.laudo != "" &&
-                  laudos != undefined
-                ) {
-                  return (
-                    <Center>
-                      <List spacing={3} size="20px" key={key}>
-                        <ListItem
-                          padding="10px"
-                          onClick={() => {
-                            showSavedLaudo(laudos.laudo);
-                          }}
-                          cursor="pointer"
-                          _hover={{
-                            bg: "blue.100",
-                            fontWeight: "semibold",
-                            borderRadius: "10px",
-                          }}
-                        >
-                          <ListIcon
-                            as={VscFilePdf}
-                            color="blue.600"
-                            h="25px"
-                            w="25px"
-                            fontSize="xxx-large"
+              if (medi.nome == getUserMedico().nome) {
+                return medi.laudos.map((laudos, key) => {
+                  if (
+                    laudos.laudo != null &&
+                    laudos.laudo != "" &&
+                    laudos != undefined
+                  ) {
+                    return (
+                      <Center>
+                        <List spacing={3} size="20px" key={key}>
+                          <ListItem
+                            padding="10px"
+                            onClick={() => {
+                              showSavedLaudo(laudos.laudo);
+                            }}
+                            cursor="pointer"
+                            _hover={{
+                              bg: "blue.100",
+                              fontWeight: "semibold",
+                              borderRadius: "10px",
+                            }}
+                          >
+                            <ListIcon
+                              as={VscFilePdf}
+                              color="blue.600"
+                              h="25px"
+                              w="25px"
+                              fontSize="xxx-large"
+                            />
+                            {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
+                          </ListItem>
+                          <Divider
+                            orientation="horizontal"
+                            marginBottom="10px"
                           />
-                          {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
-                        </ListItem>
-                        <Divider
-                          orientation="horizontal"
-                          marginBottom="10px"
-                        />
-                      </List>
-                    </Center>
-                  );
-                } else {
-                  return (
-                    <Center>
-                      <List size="20px">
-                        <ListItem
-                          fontSize="17px"
-                          textAlign="center"
-                          fontWeight="semibold"
-                        >
-                          Nenhum laudo encontrado
-                        </ListItem>
-                        <Divider
-                          orientation="horizontal"
-                          marginBottom="10px"
-                        />
-                      </List>
-                    </Center>
-                  );
-                }
-              });
-            }
-          })
+                        </List>
+                      </Center>
+                    );
+                  } else {
+                    return (
+                      <Center>
+                        <List size="20px">
+                          <ListItem
+                            fontSize="17px"
+                            textAlign="center"
+                            fontWeight="semibold"
+                          >
+                            Nenhum laudo encontrado
+                          </ListItem>
+                          <Divider
+                            orientation="horizontal"
+                            marginBottom="10px"
+                          />
+                        </List>
+                      </Center>
+                    );
+                  }
+                });
+              }
+            })
           : listaLaudosVazia()}
       </>
     );
@@ -330,27 +328,21 @@ const Configuracoes = () => {
     return (
       <>
         {listaClinicas.map((e, key) => {
-          console.log(listaClinicas)
+          console.log(listaClinicas);
           if (listaClinicas.length > 0) {
             return (
               <option key={key} value={JSON.stringify(e)}>
                 {e.nomeClinica}
               </option>
-            )
+            );
           } else {
-            console.log('esta caindo aqui')
-            return (
-              <text>
-                Nenhuma clinica cadastrada
-              </text>
-            )
+            console.log("esta caindo aqui");
+            return <text>Nenhuma clinica cadastrada</text>;
           }
         })}
-
       </>
-    )
-  }
-
+    );
+  };
 
   const TAGS = () => {
     return (
@@ -614,15 +606,14 @@ const Configuracoes = () => {
                     setClinica((prevClin) => [...prevClin, e.target.value]);
                   }}
                 >
-                  {
-                    listaClinicas.map((e, key) => {
-                      console.log(listaClinicas)
-                      return (
-                        <option key={key} value={JSON.stringify(e)}>
-                          {e.nomeClinica}
-                        </option>
-                      );
-                    })}
+                  {listaClinicas.map((e, key) => {
+                    console.log(listaClinicas);
+                    return (
+                      <option key={key} value={JSON.stringify(e)}>
+                        {e.nomeClinica}
+                      </option>
+                    );
+                  })}
                   {/* <option>
                     {exibeClinicas()}
                   </option> */}
@@ -707,39 +698,35 @@ const Configuracoes = () => {
         </ModalContent>
       </Modal>
 
-      {
-        userLogged ? (
-          <Stack direction="row" justify="center">
-            <RectangularCard
-              titulo="Observações"
-              altura="282px"
-              item={<ItemObservation />}
-            />
-          </Stack>
-        ) : null
-      }
-      {
-        userLogged ? (
-          <Link href={`#/Home/`}>
-            <Image
-              src={ImageHome}
-              marginTop="50px"
-              marginLeft="20px"
-              paddingBottom="50px"
-            />
-          </Link>
-        ) : (
-          <Link href={`#/Login`}>
-            <Image
-              src={ImageHome}
-              marginTop="50px"
-              marginLeft="20px"
-              paddingBottom="50px"
-            />
-          </Link>
-        )
-      }
-    </Box >
+      {userLogged ? (
+        <Stack direction="row" justify="center">
+          <RectangularCard
+            titulo="Observações"
+            altura="282px"
+            item={<ItemObservation />}
+          />
+        </Stack>
+      ) : null}
+      {userLogged ? (
+        <Link href={`#/Home/`}>
+          <Image
+            src={ImageHome}
+            marginTop="50px"
+            marginLeft="20px"
+            paddingBottom="50px"
+          />
+        </Link>
+      ) : (
+        <Link href={`#/Login`}>
+          <Image
+            src={ImageHome}
+            marginTop="50px"
+            marginLeft="20px"
+            paddingBottom="50px"
+          />
+        </Link>
+      )}
+    </Box>
   );
 };
 
