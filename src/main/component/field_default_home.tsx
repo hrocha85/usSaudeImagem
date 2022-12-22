@@ -23,14 +23,13 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
 
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
 
+  
   const format_laudo = FormatLaudo.format_laudo;
 
   const AddTituloLaudo = () => {
     const obj = {
       titulo_exame: text,
-      subExames: [
-        { subExameNome: "Nome SubExame", frases: ["Frases do subExame"] },
-      ],
+      subExames: [{ subExameNome: "", frases: [] }],
     };
     format_laudo.push(obj);
     format_laudo.map((e) => {
