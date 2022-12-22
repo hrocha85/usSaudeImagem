@@ -2,7 +2,7 @@
   "format_laudo": [
     {
       "titulo_exame": "",
-      "subExame": [{
+      "subExames": [{
         "subExameNome":"",
         "frases": [""]
       }]
