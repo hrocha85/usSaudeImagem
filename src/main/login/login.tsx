@@ -42,6 +42,18 @@ function Login() {
       setClinSelecionada(JSON.parse(clinicaString));
   };
 
+  const verificaMedico = () => {
+    if (lista_medico.length > 0) {
+      return (
+        <text>Adicionar médico</text>
+      )
+    } else {
+      return (
+        <text>Cadastre um médico para continuar</text>
+      )
+    }
+  }
+
   useEffect(() => {
     parseMedicoSelecionado();
   }, [medicoString]);
@@ -85,7 +97,7 @@ function Login() {
           <Center>
             <Stack>
               <Select
-                w="200px"
+                w="100%"
                 borderColor="black"
                 textAlign="center"
                 onChange={(event) => setmedicoString(event.currentTarget.value)}
@@ -147,7 +159,7 @@ function Login() {
                 style={{ textDecoration: "none" }}
               >
                 <Button colorScheme="blue" display="block" w="100%">
-                  Adicionar Médico
+                  {verificaMedico()}
                 </Button>
               </Link>
             </Stack>
