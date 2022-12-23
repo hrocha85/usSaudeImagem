@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Ovario_Direito() {
@@ -18,51 +19,9 @@ function Ovario_Direito() {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [frasesOvarioDireito, setFrasesOvarioDireito] = useState<any>([]);
 
-  const [count, setcont] = useState(0);
-
   const subExameOvario = "Ovário Direito";
 
-  const Format_Laudo_Storage = (frasesVazio) => {
-    var array = JSON.parse(localStorage.getItem("format_laudo")!);
-
-    array.map((Exames) => {
-      if (Exames.titulo_exame == "Transvaginal") {
-        if (frasesVazio) {
-          Exames.subExames.map((subExame) => {
-            if (subExame.subExameNome == subExameOvario) {
-              subExame.frases = null;
-              subExame.subExameNome = null;
-            }
-          });
-          setcont(0);
-        } else {
-          if (count == 0) {
-            Exames.subExames.push({
-              subExameNome: subExameOvario,
-            });
-            setcont(1);
-          }
-        }
-        Exames.subExames.map((subExame, indexS) => {
-          if (subExame.subExameNome == subExameOvario) {
-            Exames.subExames[indexS].frases = frasesOvarioDireito;
-            setcont(count + 1);
-          }
-        });
-      }
-    });
-    localStorage.setItem("format_laudo", JSON.stringify(array));
-    window.localStorage.setItem("isThisInLocalStorage", JSON.stringify(count));
-    window.dispatchEvent(new Event("storage"));
-  };
-
-  useEffect(() => {
-    if (Object.keys(frasesOvarioDireito).length == 0) {
-      Format_Laudo_Storage(true);
-    } else {
-      Format_Laudo_Storage(false);
-    }
-  }, [frasesOvarioDireito]);
+  
 
   //States medidas ovario - Inicio
   const [medidaOvario1, setmedidaOvario1] = useState("");
