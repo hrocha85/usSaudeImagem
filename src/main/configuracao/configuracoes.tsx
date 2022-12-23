@@ -395,6 +395,23 @@ const Configuracoes = () => {
     setUpdateTAGS(false);
   }, [updateTAGS == true]);
 
+
+  const handleCRM = (event) => {
+    let input = event.target
+    input.value = CrmMask(input.value)
+  }
+
+  const CrmMask = (value) => {
+    if (!value) return ""
+    value = value.replace(/\D/g, '')
+    value = value.replace(/(\d{2})(\d)/, '$1.$2')
+    value = value.replace(/(\d{3})(\d)/, '$1.$2')
+    value = value.replace(/(\d{3})(\d)/, '$1/$2')
+    value = value.replace(/(\d{4})(\d)/, '$1-$2')
+    value = value.replace(/(-\d{2})\d+?$/, '$1')
+    return value
+  }
+
   return (
     <Box
       w="100%"
@@ -598,7 +615,10 @@ const Configuracoes = () => {
                   fontSize="18px"
                   textAlign={"center"}
                   maxLength={9}
-                  onChange={(event) => setCrm(event.target.value)}
+                  onChange={(event) => {
+                    handleCRM(event)
+                    setCrm(event.target.value)
+                  }}
                 />
               </InputGroup>
             </Center>
@@ -673,11 +693,6 @@ const Configuracoes = () => {
                 });
               }
             }}
-          // onClick={() => {
-          //   AddMedico();
-          //   ResetDados();
-          //   onClose();
-          // }}
           >
             Salvar
           </Button>
