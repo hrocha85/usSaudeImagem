@@ -8,6 +8,7 @@ import {
   Icon,
   Image,
   Link,
+  Stack,
   Text,
   Textarea,
   Tooltip,
@@ -29,7 +30,6 @@ import { FiEdit } from "react-icons/fi";
 import { GoDesktopDownload } from "react-icons/go";
 import { LaudosContext } from "../../context/LuadosContext";
 import LaudosJSON from "../../Data/Laudos.json";
-import Format_PDF from "./format_pdf";
 import "./Laudos.css";
 
 function Exames() {
@@ -246,6 +246,8 @@ function Exames() {
     ],
   });
 
+//TODO AJUSTAR NO VISUALIZAR LAUDO PARA FAZER OS PARAGRAFOS NAS FRASES. NO PREVIEW JA ESTA PRONTO
+
   const Laudo = () => {
     const renderFrases = () => {
       var arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
@@ -377,11 +379,6 @@ function Exames() {
     console.log(Math.round(JSON.stringify(localStorage).length / 1024));
   }, []);*/
 
-  //TODO A CADA CHECKBOX SELECIONADO FAZER UM PARAGRAFO NO LAUDO
-
-
-
-
   return (
     <>
       <Box className="zoom" boxShadow="xl" ref={ref}>
@@ -436,10 +433,28 @@ function Exames() {
                       marginTop="20px"
                     >
                       <HStack justify="space-between">
-                        <Text textDecoration="underline" fontWeight="semibold">
+                        <Text
+                          textDecoration="underline"
+                          fontWeight="semibold"
+                          whiteSpace="nowrap"
+                        >
                           {sub.subExameNome}:
                         </Text>
-                        <Text align="center">{sub.frases}</Text>
+                        <Box w="100%">
+                          {sub.frases.map((frase) => {
+                            return (
+                              <Stack>
+                                <Text
+                                  w="100%"
+                                  textAlign="start"
+                                  marginStart="10px"
+                                >
+                                  {frase}
+                                </Text>
+                              </Stack>
+                            );
+                          })}
+                        </Box>
                       </HStack>
                     </HStack>
                   ) : null;
