@@ -20,7 +20,7 @@ import {
   Textarea,
   Tooltip,
   useDisclosure,
-  useOutsideClick,
+  useOutsideClick, useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { BiCamera } from "react-icons/bi";
@@ -34,6 +34,8 @@ const button = React.createElement("img", { src: PlusButton });
 export const minhasClinicas = infoClinicas.clinicas;
 
 const IconButtonPlus = (props) => {
+
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [nome, setClinica] = useState("");
@@ -65,6 +67,7 @@ const IconButtonPlus = (props) => {
   const refNomeClinica = useRef<HTMLInputElement | null>(null);
 
   const AddClinica = () => {
+
     const obj = {
       nomeClinica: nome,
       enderecoRuaNumero: endereco,
@@ -250,7 +253,7 @@ const IconButtonPlus = (props) => {
                             borderStartRadius={"md"}
                             borderEndRadius={"md"}
                             maxLength={13}
-                            onClick={() => {}}
+                            onClick={() => { }}
                           />
                         ) : (
                           <Input
@@ -286,7 +289,7 @@ const IconButtonPlus = (props) => {
                             borderStartRadius={"md"}
                             borderEndRadius={"md"}
                             maxLength={9}
-                            onClick={() => {}}
+                            onClick={() => { }}
                           />
                         ) : (
                           <Input
@@ -321,8 +324,24 @@ const IconButtonPlus = (props) => {
               marginStart="23px"
               marginBottom="10px"
               onClick={() => {
-                AddClinica();
-                ResetDados();
+                if (nome !== "" && telefone !== "") {
+                  AddClinica();
+                  ResetDados();
+                  toast({
+                    duration: 3000,
+                    title: `Clínica cadastrado com sucesso!`,
+                    position: "bottom",
+                    isClosable: true,
+                  });
+                } else {
+                  toast({
+                    duration: 3000,
+                    title: `Preencha Nome e Telefone para cadastrar.`,
+                    status: 'error',
+                    position: "bottom",
+                    isClosable: true,
+                  });
+                }
               }}
             >
               Salvar

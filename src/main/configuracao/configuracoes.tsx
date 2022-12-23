@@ -33,6 +33,7 @@ import {
   TagLabel,
   Text,
   Tooltip,
+  useToast,
   useDisclosure,
   useOutsideClick,
 } from "@chakra-ui/react";
@@ -55,7 +56,11 @@ import Medicos from "./medicos";
 
 export const lista_medicos = MedicosJSON.medicos;
 
+
+
 const Configuracoes = () => {
+
+  const toast = useToast();
   const getMedicos = () => {
     var medicos;
     var item;
@@ -125,11 +130,7 @@ const Configuracoes = () => {
       clinica: clinicas,
       laudos: [{}],
     };
-    console.log("bem aqui esta", obj);
-    /* if (obj.nome === '' || obj.crm === '') {
-      return (<Alert severity="info">This is an info alert — check it out!</Alert>)
-    }*/
-    console.log("bem", obj);
+
     lista_medicos.push(obj);
 
     lista_medicos.map((e) => {
@@ -217,66 +218,66 @@ const Configuracoes = () => {
       <>
         {getUserMedico() != null
           ? getMedicos().map((medi) => {
-              if (medi.nome == getUserMedico().nome) {
-                return medi.laudos.map((laudos, key) => {
-                  if (
-                    laudos.laudo != null &&
-                    laudos.laudo != "" &&
-                    laudos != undefined
-                  ) {
-                    return (
-                      <Center>
-                        <List spacing={3} size="20px" key={key}>
-                          <ListItem
-                            padding="10px"
-                            onClick={() => {
-                              showSavedLaudo(laudos.laudo);
-                            }}
-                            cursor="pointer"
-                            _hover={{
-                              bg: "blue.100",
-                              fontWeight: "semibold",
-                              borderRadius: "10px",
-                            }}
-                          >
-                            <ListIcon
-                              as={VscFilePdf}
-                              color="blue.600"
-                              h="25px"
-                              w="25px"
-                              fontSize="xxx-large"
-                            />
-                            {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
-                          </ListItem>
-                          <Divider
-                            orientation="horizontal"
-                            marginBottom="10px"
+            if (medi.nome == getUserMedico().nome) {
+              return medi.laudos.map((laudos, key) => {
+                if (
+                  laudos.laudo != null &&
+                  laudos.laudo != "" &&
+                  laudos != undefined
+                ) {
+                  return (
+                    <Center>
+                      <List spacing={3} size="20px" key={key}>
+                        <ListItem
+                          padding="10px"
+                          onClick={() => {
+                            showSavedLaudo(laudos.laudo);
+                          }}
+                          cursor="pointer"
+                          _hover={{
+                            bg: "blue.100",
+                            fontWeight: "semibold",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          <ListIcon
+                            as={VscFilePdf}
+                            color="blue.600"
+                            h="25px"
+                            w="25px"
+                            fontSize="xxx-large"
                           />
-                        </List>
-                      </Center>
-                    );
-                  } else {
-                    return (
-                      <Center>
-                        <List size="20px">
-                          <ListItem
-                            fontSize="17px"
-                            textAlign="center"
-                            fontWeight="semibold"
-                          >
-                            Nenhum laudo encontrado
-                          </ListItem>
-                          <Divider
-                            orientation="horizontal"
-                            marginBottom="10px"
-                          />
-                        </List>
-                      </Center>
-                    );
-                  }
-                });
-              }
-            })
+                          {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
+                        </ListItem>
+                        <Divider
+                          orientation="horizontal"
+                          marginBottom="10px"
+                        />
+                      </List>
+                    </Center>
+                  );
+                } else {
+                  return (
+                    <Center>
+                      <List size="20px">
+                        <ListItem
+                          fontSize="17px"
+                          textAlign="center"
+                          fontWeight="semibold"
+                        >
+                          Nenhum laudo encontrado
+                        </ListItem>
+                        <Divider
+                          orientation="horizontal"
+                          marginBottom="10px"
+                        />
+                      </List>
+                    </Center>
+                  );
+                }
+              });
+            }
+          })
           : listaLaudosVazia()}
       </>
     );
@@ -309,39 +310,6 @@ const Configuracoes = () => {
     event.preventDefault();
     var file = event.target.files[0];
     setSelectedFile(file);
-  };
-
-  const listaClinicaVazia = () => {
-    return (
-      <Center>
-        <List size="20px">
-          <ListItem fontSize="17px" textAlign="center" fontWeight="semibold">
-            Nenhuma clinica cadastrada
-          </ListItem>
-          <Divider orientation="horizontal" marginBottom="10px" />
-        </List>
-      </Center>
-    );
-  };
-
-  const exibeClinicas = () => {
-    return (
-      <>
-        {listaClinicas.map((e, key) => {
-          console.log(listaClinicas);
-          if (listaClinicas.length > 0) {
-            return (
-              <option key={key} value={JSON.stringify(e)}>
-                {e.nomeClinica}
-              </option>
-            );
-          } else {
-            console.log("esta caindo aqui");
-            return <text>Nenhuma clinica cadastrada</text>;
-          }
-        })}
-      </>
-    );
   };
 
   const TAGS = () => {
@@ -598,7 +566,7 @@ const Configuracoes = () => {
                   Clínicas:
                 </Text>
                 <Select
-                  placeholder="Clínicas Cadastradas"
+                  placeholder={listaClinicas.length > 0 ? 'Clínicas Cadastradas' : 'Nenhuma Clínica Cadastrada'}
                   variant="filled"
                   textAlign="center"
                   onChange={(e) => {
@@ -614,9 +582,6 @@ const Configuracoes = () => {
                       </option>
                     );
                   })}
-                  {/* <option>
-                    {exibeClinicas()}
-                  </option> */}
                 </Select>
               </HStack>
             </Center>
@@ -688,45 +653,70 @@ const Configuracoes = () => {
             backgroundColor="#0e63fe"
             margin="10px"
             onClick={() => {
-              AddMedico();
-              ResetDados();
-              onClose();
+              if (nome !== "" && crm !== "") {
+                AddMedico();
+                ResetDados();
+                onClose();
+                toast({
+                  duration: 3000,
+                  title: `Médico cadastrado com sucesso!`,
+                  position: "bottom",
+                  isClosable: true,
+                });
+              } else {
+                toast({
+                  duration: 3000,
+                  title: `Preencha Nome e CRM para cadastrar.`,
+                  status: 'error',
+                  position: "bottom",
+                  isClosable: true,
+                });
+              }
             }}
+          // onClick={() => {
+          //   AddMedico();
+          //   ResetDados();
+          //   onClose();
+          // }}
           >
             Salvar
           </Button>
         </ModalContent>
       </Modal>
 
-      {userLogged ? (
-        <Stack direction="row" justify="center">
-          <RectangularCard
-            titulo="Observações"
-            altura="282px"
-            item={<ItemObservation />}
-          />
-        </Stack>
-      ) : null}
-      {userLogged ? (
-        <Link href={`#/Home/`}>
-          <Image
-            src={ImageHome}
-            marginTop="50px"
-            marginLeft="20px"
-            paddingBottom="50px"
-          />
-        </Link>
-      ) : (
-        <Link href={`#/Login`}>
-          <Image
-            src={ImageHome}
-            marginTop="50px"
-            marginLeft="20px"
-            paddingBottom="50px"
-          />
-        </Link>
-      )}
-    </Box>
+      {
+        userLogged ? (
+          <Stack direction="row" justify="center">
+            <RectangularCard
+              titulo="Observações"
+              altura="282px"
+              item={<ItemObservation />}
+            />
+          </Stack>
+        ) : null
+      }
+      {
+        userLogged ? (
+          <Link href={`#/Home/`}>
+            <Image
+              src={ImageHome}
+              marginTop="50px"
+              marginLeft="20px"
+              paddingBottom="50px"
+            />
+          </Link>
+        ) : (
+          <Link href={`#/Login`}>
+            <Image
+              src={ImageHome}
+              marginTop="50px"
+              marginLeft="20px"
+              paddingBottom="50px"
+            />
+          </Link>
+        )
+      }
+    </Box >
   );
 };
 

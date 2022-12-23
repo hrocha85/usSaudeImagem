@@ -198,7 +198,7 @@ const Medicos = ({ medico, id }) => {
   const RemoveItem = () => {
     var array = JSON.parse(localStorage.getItem("medicos")!);
     array.splice(id, 1);
-    
+
     localStorage.setItem("medicos", JSON.stringify(array));
     window.location.reload();
   };
@@ -568,7 +568,7 @@ const Medicos = ({ medico, id }) => {
                         Clínicas:
                       </Text>
                       <Select
-                        placeholder="Clínicas Cadastradas"
+                        placeholder={listaClinicas.length > 0 ? 'Clínicas Cadastradas' : 'Nenhuma Clínica Cadastrada'}
                         width="220px"
                         variant="filled"
                         isDisabled={enableSelectedClinica}
