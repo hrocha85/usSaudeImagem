@@ -202,13 +202,27 @@ const FieldDefaultIcon = ({
       </List>
     );
   };
-  
+
   const RemoveItem = () => {
     var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
     array.splice(id, 1);
     localStorage.setItem("minhasClinicas", JSON.stringify(array));
     window.location.reload();
   };
+
+
+  const handlePhone = (event) => {
+    let input = event.target
+    input.value = phoneMask(input.value)
+  }
+
+  const phoneMask = (value) => {
+    if (!value) return ""
+    value = value.replace(/\D/g, '')
+    value = value.replace(/(\d{2})(\d)/, "($1) $2")
+    value = value.replace(/(\d)(\d{4})$/, "$1-$2")
+    return value
+  }
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -278,7 +292,7 @@ const FieldDefaultIcon = ({
                 _placeholder={{ fontWeight: "bold", color: "black" }}
                 fontWeight="bold"
                 variant={"filled"}
-                onClick={() => {}}
+                onClick={() => { }}
                 onChange={(e) => {
                   setNomeClinica(e.target.value);
                   setUpdateNome(e.target.value);
@@ -299,7 +313,7 @@ const FieldDefaultIcon = ({
                 textColor={"black"}
                 _placeholder={{ fontWeight: "bold", color: "black" }}
                 variant={"unstyled"}
-                onClick={() => {}}
+                onClick={() => { }}
                 isDisabled={disableNome}
               ></Input>
             )}
@@ -368,10 +382,11 @@ const FieldDefaultIcon = ({
                         variant={focusEdit}
                         borderStartRadius={"md"}
                         borderEndRadius={"md"}
-                        maxLength={13}
+                        maxLength={15}
                         fontWeight={"bold"}
                         textColor={"black"}
                         onChange={(e) => {
+                          handlePhone(e);
                           setUpdateTelefone(e.target.value);
                           setTelefone(e.target.value);
                         }}
