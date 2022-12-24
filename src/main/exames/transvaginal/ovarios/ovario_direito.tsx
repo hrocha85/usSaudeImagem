@@ -5,7 +5,7 @@ import {
   Input,
   Select,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
@@ -21,7 +21,23 @@ function Ovario_Direito() {
 
   const subExameOvario = "Ovário Direito";
 
-  
+  useEffect(() => {
+    if (Object.keys(frasesOvarioDireito).length == 0) {
+      new Format_Laudo(
+        false,
+        subExameOvario,
+        true,
+        frasesOvarioDireito
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        true,
+        subExameOvario,
+        false,
+        frasesOvarioDireito
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesOvarioDireito]);
 
   //States medidas ovario - Inicio
   const [medidaOvario1, setmedidaOvario1] = useState("");

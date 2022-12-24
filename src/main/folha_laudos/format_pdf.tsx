@@ -6,9 +6,9 @@ import {
   PDFViewer,
   StyleSheet,
   Text,
-  View,
+  View
 } from "@react-pdf/renderer";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { LaudosContext } from "../../context/LuadosContext";
 
 export default function Format_PDF() {
@@ -62,8 +62,6 @@ export default function Format_PDF() {
       });
     });
   };
-
- 
 
   const { laudoPrin } = useContext(LaudosContext);
   const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
@@ -127,8 +125,8 @@ export default function Format_PDF() {
       width: "100%",
     },
     viewer: {
-      width: window.innerWidth, //the pdf viewer will take up all of the width and height
-      height: window.innerHeight,
+      width: window.screen.availWidth, //the pdf viewer will take up all of the width and height
+      height: window.screen.availHeight,
     },
     imageClinica: {
       width: 150,

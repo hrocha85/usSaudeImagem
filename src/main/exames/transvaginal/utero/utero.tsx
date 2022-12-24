@@ -5,7 +5,7 @@ import {
   Input,
   Select,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
@@ -15,21 +15,22 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 function Utero() {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [frasesUtero, setFrasesUtero] = useState<any>([]);
-  const [count, setcont] = useState(0);
 
   const subExameUtero = "Útero";
 
   useEffect(() => {
     if (Object.keys(frasesUtero).length == 0) {
       new Format_Laudo(
-        true,
+        false,
         subExameUtero,
+        true,
         frasesUtero
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
-        false,
+        true,
         subExameUtero,
+        false,
         frasesUtero
       ).Format_Laudo_Create_Storage();
     }

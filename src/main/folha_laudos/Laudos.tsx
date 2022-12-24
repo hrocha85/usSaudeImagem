@@ -11,7 +11,7 @@ import {
   Stack,
   Text,
   Textarea,
-  Tooltip,
+  Tooltip
 } from "@chakra-ui/react";
 import {
   Document,
@@ -21,7 +21,7 @@ import {
   PDFDownloadLink,
   StyleSheet,
   Text as TextPDF,
-  View as ViewPDF,
+  View as ViewPDF
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -35,6 +35,19 @@ import "./Laudos.css";
 function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
   const laudos = LaudosJSON.laudo;
+
+  var largura = window.innerWidth - (10 / 100) * window.innerWidth;
+  var altura = window.innerHeight - (10 / 100) * window.innerHeight;
+
+  console.log(altura);
+  console.log(largura);
+
+  const params = [
+    `width=${window.innerWidth - (10 / 100) * window.innerWidth},height=${
+      window.innerHeight - (10 / 100) * window.innerHeight
+    }`,
+    "resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes,titlebar=yes",
+  ].join(",");
 
   const getUserClinica = () => {
     if (localStorage.getItem("user") != null) {
@@ -246,7 +259,7 @@ function Exames() {
     ],
   });
 
-//TODO AJUSTAR NO VISUALIZAR LAUDO PARA FAZER OS PARAGRAFOS NAS FRASES. NO PREVIEW JA ESTA PRONTO
+  //TODO AJUSTAR NO VISUALIZAR LAUDO PARA FAZER OS PARAGRAFOS NAS FRASES. NO PREVIEW JA ESTA PRONTO
 
   const Laudo = () => {
     const renderFrases = () => {
@@ -523,9 +536,10 @@ function Exames() {
       >
         <Link
           display="block"
-          href={`#/Format_PDF`}
-          target="_blank"
+          //href={`#/Format_PDF`}
+          //target="_blank"
           style={{ textDecoration: "none" }}
+          onClick={() => window.open(`#/Format_PDF`, "_blank")}
         >
           <Tooltip
             label="Visualizar Laudo"
