@@ -3,6 +3,7 @@
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidrossalpinge() {
@@ -10,6 +11,28 @@ function Hidrossalpinge() {
   const largura = "33%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+  const [frasesHidrossalpinge, setFrasesHidrossalpinge] = useState<any>([]);
+
+  const subExameUtero = "Hidrossalpinge";
+
+  useEffect(() => {
+    if (Object.keys(frasesHidrossalpinge).length == 0) {
+      new Format_Laudo(
+        false,
+        subExameUtero,
+        true,
+        frasesHidrossalpinge
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        true,
+        subExameUtero,
+        false,
+        frasesHidrossalpinge
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesHidrossalpinge]);
 
   const [posicaoHidrossalpingeSelect, setPosicaoHidrossalpingeSelect] =
     useState("");
@@ -20,18 +43,18 @@ function Hidrossalpinge() {
 
     if (HidrossalpingeCheckBox && posicaoHidrossalpingeSelect !== "") {
       var string = `Nota-se em região anexial ${posicaoHidrossalpingeSelect} imagem anecóica, tubular, tortuosa, de limites precisos e contornos regulares.`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesHidrossalpinge((arr) => [...arr, string]);
     }
   };
 
   const removeStringHidrossalpinge = () => {
-    laudoPrin.map((e) => {
+    frasesHidrossalpinge.map((e) => {
       if (e.includes("Nota-se em região anexial")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesHidrossalpinge.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesHidrossalpinge.splice(index, 1);
+          setFrasesHidrossalpinge((arr) => [...arr]);
         }
       }
     });

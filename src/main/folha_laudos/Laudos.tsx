@@ -36,19 +36,6 @@ function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
   const laudos = LaudosJSON.laudo;
 
-  var largura = window.innerWidth - (10 / 100) * window.innerWidth;
-  var altura = window.innerHeight - (10 / 100) * window.innerHeight;
-
-  console.log(altura);
-  console.log(largura);
-
-  const params = [
-    `width=${window.innerWidth - (10 / 100) * window.innerWidth},height=${
-      window.innerHeight - (10 / 100) * window.innerHeight
-    }`,
-    "resizable=yes,scrollbars=yes,toolbar=yes,menubar=yes,location=yes,titlebar=yes",
-  ].join(",");
-
   const getUserClinica = () => {
     if (localStorage.getItem("user") != null) {
       var clinica = JSON.parse(localStorage.getItem("user")!);

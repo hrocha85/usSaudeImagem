@@ -3,6 +3,7 @@
 import { Box, Checkbox, HStack, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Extras() {
@@ -11,6 +12,28 @@ function Extras() {
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
 
+  const [frasesAdicionais, setFrasesAdicionais] = useState<any>([]);
+
+  const subExameUtero = "Adicionais";
+
+  useEffect(() => {
+    if (Object.keys(frasesAdicionais).length == 0) {
+      new Format_Laudo(
+        false,
+        subExameUtero,
+        true,
+        frasesAdicionais
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        true,
+        subExameUtero,
+        false,
+        frasesAdicionais
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesAdicionais]);
+
   const [uteroBiCheckBox, setUteroBiCheckBox] = useState(false);
   const [varizesCheckBox, setVarizesCheckBox] = useState(false);
 
@@ -18,39 +41,49 @@ function Extras() {
     removeStringVarizes();
 
     if (varizesCheckBox) {
-      var string = "Nota-se em regiões para-uterinas presença de várias imagens anecóicas, tubulares, tortuosas, de limites precisos e contornos regulares.";
-      setLaudoPrin((arr) => [...arr, string]);
+      var string =
+        "Nota-se em regiões para-uterinas presença de várias imagens anecóicas, tubulares, tortuosas, de limites precisos e contornos regulares.";
+      setFrasesAdicionais((arr) => [...arr, string]);
     }
   };
   const criaStringUteroBi = () => {
     removeStringUteroBi();
 
     if (uteroBiCheckBox) {
-      var string = "Achados ecográficos sugestivos de malformação mulleriana (útero septado ou bicorno).";
-      setLaudoPrin((arr) => [...arr, string]);
+      var string =
+        "Achados ecográficos sugestivos de malformação mulleriana (útero septado ou bicorno).";
+      setFrasesAdicionais((arr) => [...arr, string]);
     }
   };
 
   const removeStringVarizes = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Nota-se em regiões para-uterinas presença de várias imagens anecóicas, tubulares, tortuosas, de limites precisos e contornos regulares.")) {
-        var index = laudoPrin.indexOf(e);
+    frasesAdicionais.map((e) => {
+      if (
+        e.includes(
+          "Nota-se em regiões para-uterinas presença de várias imagens anecóicas, tubulares, tortuosas, de limites precisos e contornos regulares."
+        )
+      ) {
+        var index = frasesAdicionais.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesAdicionais.splice(index, 1);
+          setFrasesAdicionais((arr) => [...arr]);
         }
       }
     });
   };
   const removeStringUteroBi = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Achados ecográficos sugestivos de malformação mulleriana (útero septado ou bicorno).")) {
-        var index = laudoPrin.indexOf(e);
+    frasesAdicionais.map((e) => {
+      if (
+        e.includes(
+          "Achados ecográficos sugestivos de malformação mulleriana (útero septado ou bicorno)."
+        )
+      ) {
+        var index = frasesAdicionais.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesAdicionais.splice(index, 1);
+          setFrasesAdicionais((arr) => [...arr]);
         }
       }
     });
