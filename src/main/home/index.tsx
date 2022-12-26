@@ -23,7 +23,7 @@ function Home() {
   return (
     <Box
       w="100%"
-      h="100vh"
+      h="100vh  "
       backgroundImage={BGImage}
       backgroundSize="cover"
       backgroundClip="padding-box"
@@ -43,7 +43,7 @@ function Home() {
         </Link>
       </Button>
       <Center>
-        <Stack alignItems="center" mt="30px" mb="60px">
+        <Stack alignItems="center" mt="5px" mb="5px">
           <CardListaMedicos altura="300px" />
         </Stack>
       </Center>

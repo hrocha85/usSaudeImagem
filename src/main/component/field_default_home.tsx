@@ -7,23 +7,10 @@ import reghd_2 from "../images/reghd_2.png";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
 import FormatLaudo from "../../Data/Format_Laudo.json";
 const FieldDefaultHome = ({ text, textColor, id }) => {
-  // let laudos = new LaudoPrincipal(id, text)
-  // const clicando = (id, nome) => {
-  //   new LaudoPrincipal(id, nome)
-  //   console.log(`${id} e o texto ${nome}`)
-  //   console.log(laudos)
-  // }
-
-  // let laudo: any[]
-  // const clicando = (nome) => {
-  //   laudo.push(new Laudo(nome))
-  //   console.log(`${id} e o texto ${nome}`)
-  //   console.log(laudo)
-  // }
 
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
 
-  
+
   const format_laudo = FormatLaudo.format_laudo;
 
   const AddTituloLaudo = () => {
@@ -72,7 +59,7 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
           pl="80px"
           // pt='30px'
           z-index="1"
-          //onClick={(e) => clicando(id, text)}
+        //onClick={(e) => clicando(id, text)}
         />
 
         <Tooltip
@@ -90,7 +77,7 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
           <Link
             href={`#/Home/${id}`}
             fontWeight="bold"
-            position="relative"
+            position="absolute"
             pl="80px"
             z-index="1"
           >
