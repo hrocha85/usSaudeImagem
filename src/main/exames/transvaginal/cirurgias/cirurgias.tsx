@@ -1,6 +1,7 @@
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Cirurgias() {
@@ -8,6 +9,28 @@ function Cirurgias() {
   const largura = "66%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesCirurgia, setFrasesCirurgias] = useState<any>([]);
+
+  const subExameUtero = "Cirurgia";
+
+  useEffect(() => {
+    if (Object.keys(frasesCirurgia).length == 0) {
+      new Format_Laudo(
+        false,
+        subExameUtero,
+        true,
+        frasesCirurgia
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        true,
+        subExameUtero,
+        false,
+        frasesCirurgia
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesCirurgia]);
+
 
   const [medidaHisterectomia1, setmedidaHisterectomia1] = useState("");
   const [medidaHisterectomia2, setmedidaHisterectomia2] = useState("");
@@ -25,7 +48,7 @@ function Cirurgias() {
   const criaStringHisterectomiaTotal = () => {
     var string = "Histerectomia Total.";
     if (histerectmoiaTotalCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCirurgias((arr) => [...arr, string]);
       sethisterectomiaTotalCheckBox(false);
       setisCheckedHisterectomiaSubTotal(false);
       removeMedidaHisterectomiaSubtotal();
@@ -46,30 +69,30 @@ function Cirurgias() {
       medidaHisterectomia3 !== ""
     ) {
       var string = `Presença do colo uterino medindo ${medidaHisterectomia1} x ${medidaHisterectomia2} x ${medidaHisterectomia3} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCirurgias((arr) => [...arr, string]);
     }
   };
 
   const removeMedidaHisterectomiaSubtotal = () => {
     // console.log("valor remove = ", value);
-    laudoPrin.map((e) => {
+    frasesCirurgia.map((e) => {
       if (e.includes("Presença do colo uterino medindo")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCirurgia.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCirurgia.splice(index, 1);
+          setFrasesCirurgias((arr) => [...arr]);
         }
       }
     });
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesCirurgia.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesCirurgia.splice(index, 1);
+      setFrasesCirurgias((arr) => [...arr]);
     }
   };
 

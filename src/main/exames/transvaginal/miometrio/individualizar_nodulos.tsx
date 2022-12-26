@@ -1,7 +1,7 @@
-import { Button, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
+import { Checkbox, HStack, Input, Select } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { isLineBreak } from "typescript";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarNodulos({ numNodulo, disable }) {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
@@ -11,6 +11,28 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
   const [localizacaoNodulosSelect, setlocalizacaoNodulosSelect] = useState("");
   const [multiplosNodulosCheckBox, setmultiplosNodulosCheckBox] =
     useState(false);
+
+  const [frasesMiometrio, setFrasesMiometrio] = useState<any>([]);
+
+  const subExameUtero = `Miométrio. Nódulo ${numNodulo}`;
+
+  useEffect(() => {
+    if (Object.keys(frasesMiometrio).length == 0) {
+      new Format_Laudo(
+        false,
+        subExameUtero,
+        true,
+        frasesMiometrio
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        true,
+        subExameUtero,
+        false,
+        frasesMiometrio
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesMiometrio]);
 
   const handleChangeNoduloInput = (event) => {
     settamanhoNoduloInput(event.target.value);
@@ -25,18 +47,18 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
 
     if (tamanhoNoduloInput != "" && nodulosSelect != "" && localizado != "") {
       var string = `Nódulo de mioma ${numNodulo} ${nodulosSelect}, localizado na ${localizado} e medindo ${tamanhoNoduloInput}.`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMiometrio((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosNodulos = () => {
-    laudoPrin.map((e) => {
+    frasesMiometrio.map((e) => {
       if (e.includes(`Nódulo de mioma ${numNodulo}`)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesMiometrio.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMiometrio.splice(index, 1);
+          setFrasesMiometrio((arr) => [...arr]);
         }
       }
     });

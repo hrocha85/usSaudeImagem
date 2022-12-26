@@ -8,9 +8,9 @@ import {
   Text,
   useToast,
   Wrap,
-  WrapItem
+  WrapItem,
 } from "@chakra-ui/react";
-import {  useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
 
 const CardListaMedicos = ({ altura }) => {
@@ -35,6 +35,15 @@ const CardListaMedicos = ({ altura }) => {
     return medicos;
   };
   var lista_medico = getMedicos();
+
+  const getPaciente = () => {
+    var paciente = JSON.parse(localStorage.getItem("paciente")!);
+    if (paciente != null) {
+      setNomePaciente(paciente.nome);
+      setIdadePaciente(paciente.idadePaciente);
+      setSexoPaciente(paciente.sexo);
+    }
+  };
 
   const handleNomePacienteInput = (event) => {
     setNomePaciente(event.target.value);
@@ -71,6 +80,10 @@ const CardListaMedicos = ({ altura }) => {
       setisDisable(true);
     }
   };
+
+  useEffect(() => {
+    getPaciente();
+  }, []);
 
   useEffect(() => {
     lista_medico = getMedicos();

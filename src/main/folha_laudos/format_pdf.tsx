@@ -8,7 +8,8 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
+import { textSpanEnd } from "typescript";
 import { LaudosContext } from "../../context/LuadosContext";
 
 export default function Format_PDF() {
@@ -63,8 +64,6 @@ export default function Format_PDF() {
     });
   };
 
- 
-
   const { laudoPrin } = useContext(LaudosContext);
   const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
   const [medico, setMedico] = useState(getUserMedico());
@@ -114,7 +113,8 @@ export default function Format_PDF() {
       display: "flex",
       flexDirection: "row",
       paddingBottom: 30,
-      paddingRight: 90,
+      marginTop: "20px",
+      marginBottom: "20px",
     },
     page: {
       backgroundColor: "white",
@@ -127,8 +127,8 @@ export default function Format_PDF() {
       width: "100%",
     },
     viewer: {
-      width: window.innerWidth, //the pdf viewer will take up all of the width and height
-      height: window.innerHeight,
+      width: window.screen.availWidth, //the pdf viewer will take up all of the width and height
+      height: window.screen.availHeight,
     },
     imageClinica: {
       width: 150,
@@ -217,18 +217,22 @@ export default function Format_PDF() {
       fontSize: "17",
       fontFamily: "MontserratBold",
       textDecoration: "underline",
-      marginTop: 10,
+      marginRight: "20px",
     },
     frasesSubExame: {
       textAlign: "justify",
       fontSize: "15",
       fontFamily: "MontserratRegular",
-      marginLeft: "40px",
+      flex: 1,
+      marginBottom:"30px"
     },
     laudo_viewer: {
       margin: 20,
+      marginBottom: "35%",
     },
   });
+
+  //TODO FAZER A FOLHA DE LAUDO CRESCER CONFORME O LAUDO FOR CRESCENDO
 
   const Laudo = () => {
     return (

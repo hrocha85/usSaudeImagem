@@ -2,6 +2,7 @@
 import { Box, Checkbox, HStack, Input, Select, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidatide() {
@@ -9,6 +10,28 @@ function Hidatide() {
   const largura = "33%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+  const [frasesHidatide, setFrasesHidatide] = useState<any>([]);
+
+  const subExameUtero = "Hidátide";
+
+  useEffect(() => {
+    if (Object.keys(frasesHidatide).length == 0) {
+      new Format_Laudo(
+        false,
+        subExameUtero,
+        true,
+        frasesHidatide
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        true,
+        subExameUtero,
+        false,
+        frasesHidatide
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesHidatide]);
 
   const [tamanhoHidatideInput, settamanhoHidatideInput] = useState("");
   const [posicaoHidatideSelect, setPosicaoHidatideSelect] = useState("");
@@ -28,18 +51,18 @@ function Hidatide() {
     ) {
       var string = `Nota-se imagem em região anexial ${posicaoHidatideSelect} anecóica, arredondada, de limites precisos e contornos regulares, medindo ${tamanhoHidatideInput} mm. `;
 
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesHidatide((arr) => [...arr, string]);
     }
   };
 
   const removeStringHidatide = () => {
-    laudoPrin.map((e) => {
+    frasesHidatide.map((e) => {
       if (e.includes("Nota-se imagem em região anexial ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesHidatide.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesHidatide.splice(index, 1);
+          setFrasesHidatide((arr) => [...arr]);
         }
       }
     });

@@ -3,6 +3,7 @@
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Liquido_Livre() {
@@ -10,6 +11,28 @@ function Liquido_Livre() {
   const largura = "33%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+  const [frasesLiquidoLivre, setFrasesLiquidoLivre] = useState<any>([]);
+
+  const subExameUtero = "Líquido Livre";
+
+  useEffect(() => {
+    if (Object.keys(frasesLiquidoLivre).length == 0) {
+      new Format_Laudo(
+        false,
+        subExameUtero,
+        true,
+        frasesLiquidoLivre
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        true,
+        subExameUtero,
+        false,
+        frasesLiquidoLivre
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesLiquidoLivre]);
 
   const [posicaoLiquidoSelect, setPosicaoLiquidoSelect] = useState("");
   const [LiquidoCheckBox, setLiquidoCheckBox] = useState(false);
@@ -19,18 +42,18 @@ function Liquido_Livre() {
 
     if (LiquidoCheckBox && posicaoLiquidoSelect !== "") {
       var string = `Presença de ${posicaoLiquidoSelect} quantidade de líquido livre no fundo de saco posterior.`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesLiquidoLivre((arr) => [...arr, string]);
     }
   };
 
   const removeStringLiquidoLivre = () => {
-    laudoPrin.map((e) => {
+    frasesLiquidoLivre.map((e) => {
       if (e.includes("Presença de ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesLiquidoLivre.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesLiquidoLivre.splice(index, 1);
+          setFrasesLiquidoLivre((arr) => [...arr]);
         }
       }
     });

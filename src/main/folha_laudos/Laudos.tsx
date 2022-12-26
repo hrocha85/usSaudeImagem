@@ -2,8 +2,7 @@ import {
   Box,
   Center,
   Circle,
-  Divider,
-  Grid,
+  Divider, Grid,
   HStack,
   Icon,
   Image,
@@ -11,7 +10,7 @@ import {
   Stack,
   Text,
   Textarea,
-  Tooltip,
+  Tooltip
 } from "@chakra-ui/react";
 import {
   Document,
@@ -21,7 +20,7 @@ import {
   PDFDownloadLink,
   StyleSheet,
   Text as TextPDF,
-  View as ViewPDF,
+  View as ViewPDF
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -90,7 +89,8 @@ function Exames() {
       display: "flex",
       flexDirection: "row",
       paddingBottom: 30,
-      paddingRight: 90,
+      marginTop: "20px",
+      marginBottom: "20px",
     },
     page: {
       backgroundColor: "white",
@@ -103,8 +103,8 @@ function Exames() {
       width: "100%",
     },
     viewer: {
-      width: window.innerWidth, //the pdf viewer will take up all of the width and height
-      height: window.innerHeight,
+      width: window.screen.availWidth,
+      height: window.screen.availHeight,
     },
     imageClinica: {
       width: 150,
@@ -193,16 +193,18 @@ function Exames() {
       fontSize: "17",
       fontFamily: "MontserratBold",
       textDecoration: "underline",
-      marginTop: 10,
+      marginRight: "20px",
     },
     frasesSubExame: {
       textAlign: "justify",
       fontSize: "15",
       fontFamily: "MontserratRegular",
-      marginLeft: "40px",
+      flex: 1,
+      marginBottom: "30px",
     },
     laudo_viewer: {
       margin: 20,
+      marginBottom: "35%",
     },
   });
 
@@ -245,8 +247,6 @@ function Exames() {
       },
     ],
   });
-
-//TODO AJUSTAR NO VISUALIZAR LAUDO PARA FAZER OS PARAGRAFOS NAS FRASES. NO PREVIEW JA ESTA PRONTO
 
   const Laudo = () => {
     const renderFrases = () => {
@@ -381,7 +381,7 @@ function Exames() {
 
   return (
     <>
-      <Box className="zoom" boxShadow="xl" ref={ref}>
+      <Box className="zoom" boxShadow="xl" ref={ref} marginBottom="400px">
         <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
           <Box margin="5px" display="flex" marginStart="15px">
             <Image
@@ -412,7 +412,7 @@ function Exames() {
             marginTop="15px"
           />
         </Center>
-        <Box overflow="auto" h="50%" margin="20px">
+        <Box margin="20px">
           {edit == false ? (
             <>
               <Text
@@ -472,7 +472,7 @@ function Exames() {
             ></Textarea>
           )}
         </Box>
-        <Box position="absolute" bottom="5px" w="100%">
+        <Box position="absolute" w="100%">
           <HStack w="100%" justify="space-between">
             <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
               <Image
@@ -510,22 +510,20 @@ function Exames() {
           </Text>
         </Box>
       </Box>
+
       <HStack
-        alignItems="center"
-        align="center"
         right="6.5%"
         bottom={1}
-        position="fixed"
+        position="absolute"
         w="20%"
-        h="auto"
-        marginBottom="10px"
         justify="space-around"
+        marginBottom={2}
       >
         <Link
-          display="block"
-          href={`#/Format_PDF`}
-          target="_blank"
+          //href={`#/Format_PDF`}
+          //target="_blank"
           style={{ textDecoration: "none" }}
+          onClick={() => window.open(`#/Format_PDF`, "_blank")}
         >
           <Tooltip
             label="Visualizar Laudo"
@@ -599,7 +597,7 @@ function Exames() {
               as={FiEdit}
               color="twitter.600"
               onClick={() => {
-                setEdit(true);
+                //setEdit(true);
               }}
             />
           </Circle>
