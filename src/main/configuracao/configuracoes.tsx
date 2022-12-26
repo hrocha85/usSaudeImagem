@@ -403,12 +403,8 @@ const Configuracoes = () => {
 
   const CrmMask = (value) => {
     if (!value) return ""
-    value = value.replace(/\D/g, '')
-    value = value.replace(/(\d{2})(\d)/, '$1.$2')
-    value = value.replace(/(\d{3})(\d)/, '$1.$2')
-    value = value.replace(/(\d{3})(\d)/, '$1/$2')
-    value = value.replace(/(\d{4})(\d)/, '$1-$2')
-    value = value.replace(/(-\d{2})\d+?$/, '$1')
+    value = value.replace(/(\d{8})(\d)/, '$1-$2')
+    value = value.replace(/(-\d{1})(\d)/, '$1/$2')
     return value
   }
 
@@ -614,7 +610,7 @@ const Configuracoes = () => {
                   placeholder="00000000-0/BR"
                   fontSize="18px"
                   textAlign={"center"}
-                  maxLength={9}
+                  maxLength={13}
                   onChange={(event) => {
                     handleCRM(event)
                     setCrm(event.target.value)
