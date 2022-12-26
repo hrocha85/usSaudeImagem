@@ -232,6 +232,8 @@ export default function Format_PDF() {
     },
   });
 
+  //TODO FAZER A FOLHA DE LAUDO CRESCER CONFORME O LAUDO FOR CRESCENDO
+
   const Laudo = () => {
     return (
       <PDFViewer style={styles.viewer} showToolbar={true}>

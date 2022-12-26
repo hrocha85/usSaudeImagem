@@ -2,8 +2,7 @@ import {
   Box,
   Center,
   Circle,
-  Divider,
-  Grid,
+  Divider, Grid,
   HStack,
   Icon,
   Image,
@@ -11,7 +10,7 @@ import {
   Stack,
   Text,
   Textarea,
-  Tooltip,
+  Tooltip
 } from "@chakra-ui/react";
 import {
   Document,
@@ -21,7 +20,7 @@ import {
   PDFDownloadLink,
   StyleSheet,
   Text as TextPDF,
-  View as ViewPDF,
+  View as ViewPDF
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -84,7 +83,7 @@ function Exames() {
   const [arrayLocal, setArrayLocal] = useState(
     JSON.parse(localStorage.getItem("format_laudo")!)
   );
-  
+
   const styles = StyleSheet.create({
     inline: {
       display: "flex",
@@ -382,7 +381,7 @@ function Exames() {
 
   return (
     <>
-      <Box className="zoom" boxShadow="xl" ref={ref}>
+      <Box className="zoom" boxShadow="xl" ref={ref} marginBottom="400px">
         <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
           <Box margin="5px" display="flex" marginStart="15px">
             <Image
@@ -413,7 +412,7 @@ function Exames() {
             marginTop="15px"
           />
         </Center>
-        <Box overflow="auto" h="45%" margin="20px">
+        <Box margin="20px">
           {edit == false ? (
             <>
               <Text
@@ -473,7 +472,7 @@ function Exames() {
             ></Textarea>
           )}
         </Box>
-        <Box position="absolute" bottom="1px" w="100%">
+        <Box position="absolute" w="100%">
           <HStack w="100%" justify="space-between">
             <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
               <Image
@@ -511,16 +510,14 @@ function Exames() {
           </Text>
         </Box>
       </Box>
+
       <HStack
-        alignItems="center"
-        align="center"
         right="6.5%"
         bottom={1}
-        position="fixed"
+        position="absolute"
         w="20%"
-        h="auto"
-        marginBottom="1px"
         justify="space-around"
+        marginBottom={2}
       >
         <Link
           //href={`#/Format_PDF`}
@@ -600,7 +597,7 @@ function Exames() {
               as={FiEdit}
               color="twitter.600"
               onClick={() => {
-                setEdit(true);
+                //setEdit(true);
               }}
             />
           </Circle>
