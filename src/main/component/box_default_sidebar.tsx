@@ -18,6 +18,7 @@ export default function Box_Default_With_Sidebar({ children }) {
         backgroundImage={BGImage}
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
+        paddingBottom='50px'
       >
         <Sidebar />
         <Box

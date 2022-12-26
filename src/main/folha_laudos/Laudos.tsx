@@ -84,6 +84,7 @@ function Exames() {
   const [arrayLocal, setArrayLocal] = useState(
     JSON.parse(localStorage.getItem("format_laudo")!)
   );
+  
   const styles = StyleSheet.create({
     inline: {
       display: "flex",
@@ -103,7 +104,7 @@ function Exames() {
       width: "100%",
     },
     viewer: {
-      width: window.screen.availWidth, //the pdf viewer will take up all of the width and height
+      width: window.screen.availWidth,
       height: window.screen.availHeight,
     },
     imageClinica: {
@@ -247,8 +248,6 @@ function Exames() {
       },
     ],
   });
-
-  //TODO AJUSTAR NO VISUALIZAR LAUDO PARA FAZER OS PARAGRAFOS NAS FRASES. NO PREVIEW JA ESTA PRONTO
 
   const Laudo = () => {
     const renderFrases = () => {
@@ -414,7 +413,7 @@ function Exames() {
             marginTop="15px"
           />
         </Center>
-        <Box overflow="auto" h="50%" margin="20px">
+        <Box overflow="auto" h="45%" margin="20px">
           {edit == false ? (
             <>
               <Text
@@ -474,7 +473,7 @@ function Exames() {
             ></Textarea>
           )}
         </Box>
-        <Box position="absolute" bottom="5px" w="100%">
+        <Box position="absolute" bottom="1px" w="100%">
           <HStack w="100%" justify="space-between">
             <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
               <Image
@@ -520,7 +519,7 @@ function Exames() {
         position="fixed"
         w="20%"
         h="auto"
-        marginBottom="10px"
+        marginBottom="1px"
         justify="space-around"
       >
         <Link
