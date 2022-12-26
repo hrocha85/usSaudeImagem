@@ -11,7 +11,7 @@ import {
   Stack,
   Text,
   Textarea,
-  Tooltip
+  Tooltip,
 } from "@chakra-ui/react";
 import {
   Document,
@@ -21,7 +21,7 @@ import {
   PDFDownloadLink,
   StyleSheet,
   Text as TextPDF,
-  View as ViewPDF
+  View as ViewPDF,
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -84,13 +84,13 @@ function Exames() {
   const [arrayLocal, setArrayLocal] = useState(
     JSON.parse(localStorage.getItem("format_laudo")!)
   );
-
   const styles = StyleSheet.create({
     inline: {
       display: "flex",
       flexDirection: "row",
       paddingBottom: 30,
-      paddingRight: 90,
+      marginTop: "20px",
+      marginBottom: "20px",
     },
     page: {
       backgroundColor: "white",
@@ -103,8 +103,8 @@ function Exames() {
       width: "100%",
     },
     viewer: {
-      width: window.innerWidth, //the pdf viewer will take up all of the width and height
-      height: window.innerHeight,
+      width: window.screen.availWidth, //the pdf viewer will take up all of the width and height
+      height: window.screen.availHeight,
     },
     imageClinica: {
       width: 150,
@@ -193,16 +193,18 @@ function Exames() {
       fontSize: "17",
       fontFamily: "MontserratBold",
       textDecoration: "underline",
-      marginTop: 10,
+      marginRight: "20px",
     },
     frasesSubExame: {
       textAlign: "justify",
       fontSize: "15",
       fontFamily: "MontserratRegular",
-      marginLeft: "40px",
+      flex: 1,
+      marginBottom: "30px",
     },
     laudo_viewer: {
       margin: 20,
+      marginBottom: "35%",
     },
   });
 
@@ -522,7 +524,6 @@ function Exames() {
         justify="space-around"
       >
         <Link
-          display="block"
           //href={`#/Format_PDF`}
           //target="_blank"
           style={{ textDecoration: "none" }}

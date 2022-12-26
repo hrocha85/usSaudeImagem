@@ -11,7 +11,7 @@ function Cirurgias() {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [frasesCirurgia, setFrasesCirurgias] = useState<any>([]);
 
-  const subExameUtero = "Cirugia";
+  const subExameUtero = "Cirurgia";
 
   useEffect(() => {
     if (Object.keys(frasesCirurgia).length == 0) {

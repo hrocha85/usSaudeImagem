@@ -6,9 +6,10 @@ import {
   PDFViewer,
   StyleSheet,
   Text,
-  View
+  View,
 } from "@react-pdf/renderer";
 import { useContext, useState } from "react";
+import { textSpanEnd } from "typescript";
 import { LaudosContext } from "../../context/LuadosContext";
 
 export default function Format_PDF() {
@@ -112,7 +113,8 @@ export default function Format_PDF() {
       display: "flex",
       flexDirection: "row",
       paddingBottom: 30,
-      paddingRight: 90,
+      marginTop: "20px",
+      marginBottom: "20px",
     },
     page: {
       backgroundColor: "white",
@@ -215,16 +217,18 @@ export default function Format_PDF() {
       fontSize: "17",
       fontFamily: "MontserratBold",
       textDecoration: "underline",
-      marginTop: 10,
+      marginRight: "20px",
     },
     frasesSubExame: {
       textAlign: "justify",
       fontSize: "15",
       fontFamily: "MontserratRegular",
-      marginLeft: "40px",
+      flex: 1,
+      marginBottom:"30px"
     },
     laudo_viewer: {
       margin: 20,
+      marginBottom: "35%",
     },
   });
 
