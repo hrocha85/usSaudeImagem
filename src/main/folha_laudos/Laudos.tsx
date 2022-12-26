@@ -2,7 +2,8 @@ import {
   Box,
   Center,
   Circle,
-  Divider, Grid,
+  Divider,
+  Grid,
   HStack,
   Icon,
   Image,
@@ -10,7 +11,7 @@ import {
   Stack,
   Text,
   Textarea,
-  Tooltip
+  Tooltip,
 } from "@chakra-ui/react";
 import {
   Document,
@@ -20,7 +21,7 @@ import {
   PDFDownloadLink,
   StyleSheet,
   Text as TextPDF,
-  View as ViewPDF
+  View as ViewPDF,
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -103,7 +104,7 @@ function Exames() {
       width: "100%",
     },
     viewer: {
-      width: window.screen.availWidth,
+      width: window.screen.availWidth, //the pdf viewer will take up all of the width and height
       height: window.screen.availHeight,
     },
     imageClinica: {
@@ -199,12 +200,17 @@ function Exames() {
       textAlign: "justify",
       fontSize: "15",
       fontFamily: "MontserratRegular",
-      flex: 1,
-      marginBottom: "30px",
+      marginBottom: "10px",
     },
     laudo_viewer: {
       margin: 20,
       marginBottom: "35%",
+    },
+    view_frases: {
+      marginBottom: "30px",
+      marginLeft: "10px",
+      marginRight: "30px",
+      flex: 1,
     },
   });
 
@@ -259,7 +265,13 @@ function Exames() {
               <TextPDF style={styles.textNomeSubExame}>
                 {sub.subExameNome}:
               </TextPDF>
-              <TextPDF style={styles.frasesSubExame}>{sub.frases}</TextPDF>
+              <ViewPDF style={styles.view_frases}>
+                {sub.frases.map((frase) => {
+                  return (
+                    <TextPDF style={styles.frasesSubExame}>{frase}</TextPDF>
+                  );
+                })}
+              </ViewPDF>
             </ViewPDF>
           ) : null;
         });
