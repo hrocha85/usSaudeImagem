@@ -57,7 +57,11 @@ export default function Format_PDF() {
         return sub.subExameNome != null && sub.subExameNome != "" ? (
           <View style={styles.inline}>
             <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
-            <Text style={styles.frasesSubExame}>{sub.frases}</Text>
+            <View style={styles.view_frases}>
+              {sub.frases.map((frase) => {
+                return <Text style={styles.frasesSubExame}>{frase}</Text>;
+              })}
+            </View>
           </View>
         ) : null;
       });
@@ -218,17 +222,22 @@ export default function Format_PDF() {
       fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
+      marginTop: "10px",
     },
     frasesSubExame: {
       textAlign: "justify",
       fontSize: "15",
       fontFamily: "MontserratRegular",
-      flex: 1,
-      marginBottom:"30px"
     },
     laudo_viewer: {
       margin: 20,
       marginBottom: "35%",
+    },
+    view_frases: {
+      marginBottom: "30px",
+      marginLeft: "10px",
+      marginRight: "30px",
+      flex: 1,
     },
   });
 
