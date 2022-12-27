@@ -200,12 +200,6 @@ function Ovario_Esquerdo() {
   }, [padraoFolicularCheckBox]);
 
   useEffect(() => {
-    if (padraoFolicularCheckBox && padraoMicropolicisticoCheckBox) {
-      removePadraoMicropolicistico();
-    }
-  }, [padraoFolicularCheckBox, padraoMicropolicisticoCheckBox]);
-
-  useEffect(() => {
     if (cistoCheckBox) {
       setdisableCistoInput(false);
     } else {
