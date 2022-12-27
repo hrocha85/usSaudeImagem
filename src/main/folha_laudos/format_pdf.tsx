@@ -58,7 +58,6 @@ export default function Format_PDF() {
           <View style={styles.inline}>
             <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
             <View style={styles.view_frases}>
-             
               {typeof sub.frases != "string" ? (
                 sub.frases.map((frase) => {
                   return <Text style={styles.frasesSubExame}>{frase}</Text>;
@@ -227,12 +226,12 @@ export default function Format_PDF() {
       fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
-      marginTop: "10px",
     },
     frasesSubExame: {
       textAlign: "justify",
       fontSize: "15",
       fontFamily: "MontserratRegular",
+      lineHeight: 1.5,
     },
     laudo_viewer: {
       margin: 20,
@@ -245,8 +244,6 @@ export default function Format_PDF() {
       flex: 1,
     },
   });
-
-  //TODO FAZER A FOLHA DE LAUDO CRESCER CONFORME O LAUDO FOR CRESCENDO
 
   const Laudo = () => {
     return (
