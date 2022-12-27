@@ -1,6 +1,6 @@
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   ButtonGroup,
   Center,
   Circle,
@@ -35,12 +35,10 @@ import { BiLoaderAlt } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { GoDesktopDownload } from "react-icons/go";
+import { blob } from "stream/consumers";
 import { LaudosContext } from "../../context/LuadosContext";
 import LaudosJSON from "../../Data/Laudos.json";
 import "./Laudos.css";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
-import React from "react";
-import { BiCamera } from "react-icons/bi";
 
 function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -51,9 +49,11 @@ function Exames() {
   };
 
   const updateLaudo = (event, IndexExame, Index_Sub_Exame) => {
-    arrayLocal.map((Exames) => {
+    var array = JSON.parse(localStorage.getItem("format_laudo")!);
+
+    array.map((Exames) => {
       Exames.subExames[Index_Sub_Exame].frases = event;
-      localStorage.setItem("format_laudo", JSON.stringify(arrayLocal));
+      localStorage.setItem("format_laudo", JSON.stringify(array));
     });
   };
 
@@ -159,6 +159,8 @@ function Exames() {
   const [arrayLocal, setArrayLocal] = useState(
     JSON.parse(localStorage.getItem("format_laudo")!)
   );
+  const [editComplete, setEditComplete] = useState(false);
+  const [blobDOC, setBlobDOC] = useState<Blob>();
 
   const styles = StyleSheet.create({
     inline: {
@@ -443,9 +445,16 @@ function Exames() {
   };
 
   const convertBlob = (blob) => {
-    var file = new Blob([blob], { type: "application/pdf" });
-    var fileURL = URL.createObjectURL(file);
-    setUrlLaudo(fileURL);
+    if (editComplete) {
+      var file = new Blob([blob], { type: "application/pdf" });
+      var fileURL = URL.createObjectURL(file);
+      setUrlLaudo(fileURL);
+      setEditComplete(false);
+    } else {
+      setTimeout(() => {
+        setEditComplete(true);
+      }, 3000);
+    }
   };
 
   const getFormatLaudo = () => {
@@ -465,6 +474,10 @@ function Exames() {
   window.addEventListener("storage", () => {
     getFormatLaudo();
   });
+
+  useEffect(() => {
+    convertBlob(blobDOC);
+  }, [editComplete]);
 
   /*useEffect(() => {
     console.log(Math.round(JSON.stringify(localStorage).length / 1024));
@@ -706,6 +719,7 @@ function Exames() {
                     color="twitter.600"
                     onClick={() => {
                       convertBlob(blob!);
+                      setBlobDOC(blob!);
                     }}
                   />
                 </Circle>
