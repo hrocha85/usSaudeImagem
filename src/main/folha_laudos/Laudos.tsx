@@ -1,17 +1,24 @@
 import {
   Box,
+  Button,
+  ButtonGroup,
   Center,
   Circle,
   Divider,
+  Editable,
+  EditableInput,
+  EditablePreview,
   Grid,
   HStack,
   Icon,
+  IconButton,
   Image,
+  Input,
   Link,
   Stack,
   Text,
-  Textarea,
   Tooltip,
+  useEditableControls,
 } from "@chakra-ui/react";
 import {
   Document,
@@ -31,10 +38,24 @@ import { GoDesktopDownload } from "react-icons/go";
 import { LaudosContext } from "../../context/LuadosContext";
 import LaudosJSON from "../../Data/Laudos.json";
 import "./Laudos.css";
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import React from "react";
+import { BiCamera } from "react-icons/bi";
 
 function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
   const laudos = LaudosJSON.laudo;
+
+  const handleEditLaudoInput = (event, IndexExame, Index_Sub_Exame) => {
+    updateLaudo(event, IndexExame, Index_Sub_Exame);
+  };
+
+  const updateLaudo = (event, IndexExame, Index_Sub_Exame) => {
+    arrayLocal.map((Exames) => {
+      Exames.subExames[Index_Sub_Exame].frases = event;
+      localStorage.setItem("format_laudo", JSON.stringify(arrayLocal));
+    });
+  };
 
   const getUserClinica = () => {
     if (localStorage.getItem("user") != null) {
@@ -72,6 +93,60 @@ function Exames() {
     return `${timeStamp.getDate()}/${
       timeStamp.getMonth() + 1
     }/${timeStamp.getFullYear()}`;
+  };
+
+  function EditableControls() {
+    const {
+      isEditing,
+      getSubmitButtonProps,
+      getCancelButtonProps,
+      getEditButtonProps,
+    } = useEditableControls();
+
+    return isEditing ? (
+      <ButtonGroup justifyContent="end" size="sm" w="full" spacing={2} mt={2}>
+        <IconButton
+          aria-label="Check"
+          icon={<CheckIcon />}
+          {...getSubmitButtonProps()}
+        />
+
+        <IconButton
+          aria-label="Close"
+          icon={<CloseIcon boxSize={3} />}
+          {...getCancelButtonProps()}
+        />
+      </ButtonGroup>
+    ) : null;
+  }
+
+  const EditarLaudo = (defaultValue, IndexExame, Index_Sub_Exame) => {
+    return (
+      <Editable
+        defaultValue={defaultValue}
+        isPreviewFocusable={true}
+        selectAllOnFocus={false}
+        onChange={(e) => {
+          handleEditLaudoInput(e, IndexExame, Index_Sub_Exame);
+        }}
+      >
+        <Tooltip
+          label="Clique para editar"
+          backgroundColor="white"
+          placement="top"
+          hasArrow
+          arrowSize={15}
+          textColor="black"
+          fontSize="20px"
+          margin="20px"
+          textAlign="center"
+        >
+          <EditablePreview py={2} px={4} backgroundColor="gray.300" />
+        </Tooltip>
+        <Input py={2} px={4} as={EditableInput} />
+        <EditableControls />
+      </Editable>
+    );
   };
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
@@ -266,11 +341,15 @@ function Exames() {
                 {sub.subExameNome}:
               </TextPDF>
               <ViewPDF style={styles.view_frases}>
-                {sub.frases.map((frase) => {
-                  return (
-                    <TextPDF style={styles.frasesSubExame}>{frase}</TextPDF>
-                  );
-                })}
+                {typeof sub.frases != "string" ? (
+                  sub.frases.map((frase) => {
+                    return (
+                      <TextPDF style={styles.frasesSubExame}>{frase}</TextPDF>
+                    );
+                  })
+                ) : (
+                  <TextPDF style={styles.frasesSubExame}>{sub.frases}</TextPDF>
+                )}
               </ViewPDF>
             </ViewPDF>
           ) : null;
@@ -453,19 +532,25 @@ function Exames() {
                           {sub.subExameNome}:
                         </Text>
                         <Box w="100%">
-                          {sub.frases.map((frase) => {
-                            return (
-                              <Stack>
-                                <Text
-                                  w="100%"
-                                  textAlign="start"
-                                  marginStart="10px"
-                                >
-                                  {frase}
-                                </Text>
-                              </Stack>
-                            );
-                          })}
+                          {typeof sub.frases != "string" ? (
+                            sub.frases.map((frase) => {
+                              return (
+                                <Stack>
+                                  <Text
+                                    w="100%"
+                                    textAlign="start"
+                                    marginStart="10px"
+                                  >
+                                    {frase}
+                                  </Text>
+                                </Stack>
+                              );
+                            })
+                          ) : (
+                            <Text w="100%" textAlign="start" marginStart="10px">
+                              {sub.frases}
+                            </Text>
+                          )}
                         </Box>
                       </HStack>
                     </HStack>
@@ -475,13 +560,47 @@ function Exames() {
               <HStack justify="space-evenly" marginTop="10px"></HStack>
             </>
           ) : (
-            <Textarea
-              defaultValue={frasesExame}
-              h="100%"
-              onChange={(e) => {
-                setLaudoPrin(() => [e.target.value]);
-              }}
-            ></Textarea>
+            <>
+              <Text
+                textDecoration="underline"
+                fontWeight="bold"
+                fontSize="19px"
+                textAlign="center"
+                textTransform="uppercase"
+              >
+                {titulo_exame}
+              </Text>
+              {arrayLocal.map((Exames, IndexExame) => {
+                return Exames.subExames.map((sub_exame, Index_Sub_Exame) => {
+                  return sub_exame.subExameNome != null &&
+                    sub_exame.subExameNome != "" ? (
+                    <HStack
+                      justifyContent="space-between"
+                      marginBottom="30px"
+                      marginTop="20px"
+                    >
+                      <HStack justify="space-between">
+                        <Text
+                          textDecoration="underline"
+                          fontWeight="semibold"
+                          whiteSpace="nowrap"
+                        >
+                          {sub_exame.subExameNome}:
+                        </Text>
+                        <Box w="100%">
+                          {EditarLaudo(
+                            sub_exame.frases,
+                            IndexExame,
+                            Index_Sub_Exame
+                          )}
+                        </Box>
+                      </HStack>
+                    </HStack>
+                  ) : null;
+                });
+              })}
+              <HStack justify="space-evenly" marginTop="10px"></HStack>
+            </>
           )}
         </Box>
         <Box position="absolute" w="100%">
@@ -525,7 +644,8 @@ function Exames() {
 
       <HStack
         right="6.5%"
-        bottom={1}
+        //bottom={1}
+        top={1}
         position="absolute"
         w="20%"
         justify="space-around"
@@ -609,7 +729,7 @@ function Exames() {
               as={FiEdit}
               color="twitter.600"
               onClick={() => {
-                //setEdit(true);
+                setEdit(true);
               }}
             />
           </Circle>
