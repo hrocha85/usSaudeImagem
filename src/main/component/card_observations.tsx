@@ -19,7 +19,7 @@ const RectangularCard = ({ titulo, altura, item }) => {
           paddingStart="20px"
           paddingTop="16px"
           marginBottom="16px"
-          fontWeight='semibold'
+          fontWeight="semibold"
         >
           {titulo}
         </Text>

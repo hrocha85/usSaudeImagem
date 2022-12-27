@@ -56,10 +56,7 @@ import Medicos from "./medicos";
 
 export const lista_medicos = MedicosJSON.medicos;
 
-
-
 const Configuracoes = () => {
-
   const toast = useToast();
   const getMedicos = () => {
     var medicos;
@@ -218,66 +215,66 @@ const Configuracoes = () => {
       <>
         {getUserMedico() != null
           ? getMedicos().map((medi) => {
-            if (medi.nome == getUserMedico().nome) {
-              return medi.laudos.map((laudos, key) => {
-                if (
-                  laudos.laudo != null &&
-                  laudos.laudo != "" &&
-                  laudos != undefined
-                ) {
-                  return (
-                    <Center>
-                      <List spacing={3} size="20px" key={key}>
-                        <ListItem
-                          padding="10px"
-                          onClick={() => {
-                            showSavedLaudo(laudos.laudo);
-                          }}
-                          cursor="pointer"
-                          _hover={{
-                            bg: "blue.100",
-                            fontWeight: "semibold",
-                            borderRadius: "10px",
-                          }}
-                        >
-                          <ListIcon
-                            as={VscFilePdf}
-                            color="blue.600"
-                            h="25px"
-                            w="25px"
-                            fontSize="xxx-large"
+              if (medi.nome == getUserMedico().nome) {
+                return medi.laudos.map((laudos, key) => {
+                  if (
+                    laudos.laudo != null &&
+                    laudos.laudo != "" &&
+                    laudos != undefined
+                  ) {
+                    return (
+                      <Center>
+                        <List spacing={3} size="20px" key={key}>
+                          <ListItem
+                            padding="10px"
+                            onClick={() => {
+                              showSavedLaudo(laudos.laudo);
+                            }}
+                            cursor="pointer"
+                            _hover={{
+                              bg: "blue.100",
+                              fontWeight: "semibold",
+                              borderRadius: "10px",
+                            }}
+                          >
+                            <ListIcon
+                              as={VscFilePdf}
+                              color="blue.600"
+                              h="25px"
+                              w="25px"
+                              fontSize="xxx-large"
+                            />
+                            {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
+                          </ListItem>
+                          <Divider
+                            orientation="horizontal"
+                            marginBottom="10px"
                           />
-                          {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
-                        </ListItem>
-                        <Divider
-                          orientation="horizontal"
-                          marginBottom="10px"
-                        />
-                      </List>
-                    </Center>
-                  );
-                } else {
-                  return (
-                    <Center>
-                      <List size="20px">
-                        <ListItem
-                          fontSize="17px"
-                          textAlign="center"
-                          fontWeight="semibold"
-                        >
-                          Nenhum laudo encontrado
-                        </ListItem>
-                        <Divider
-                          orientation="horizontal"
-                          marginBottom="10px"
-                        />
-                      </List>
-                    </Center>
-                  );
-                }
-              });
-            }
-          })
+                        </List>
+                      </Center>
+                    );
+                  } else {
+                    return (
+                      <Center>
+                        <List size="20px">
+                          <ListItem
+                            fontSize="17px"
+                            textAlign="center"
+                            fontWeight="semibold"
+                          >
+                            Nenhum laudo encontrado
+                          </ListItem>
+                          <Divider
+                            orientation="horizontal"
+                            marginBottom="10px"
+                          />
+                        </List>
+                      </Center>
+                    );
+                  }
+                });
+              }
+            })
           : listaLaudosVazia()}
       </>
     );
@@ -395,22 +392,21 @@ const Configuracoes = () => {
     setUpdateTAGS(false);
   }, [updateTAGS == true]);
 
-
   const handleCRM = (event) => {
-    let input = event.target
-    input.value = CrmMask(input.value)
-  }
+    let input = event.target;
+    input.value = CrmMask(input.value);
+  };
 
   const CrmMask = (value) => {
-    if (!value) return ""
-    value = value.replace(/(\d{8})(\d)/, '$1-$2')
-    value = value.replace(/(-\d{1})(\d)/, '$1/$2')
-    return value
-  }
+    if (!value) return "";
+    value = value.replace(/(\d{8})(\d)/, "$1-$2");
+    value = value.replace(/(-\d{1})(\d)/, "$1/$2");
+    return value;
+  };
 
   return (
     <Box
-      w="100%"
+      w="100vh auto"
       h="100% auto"
       minH="100vh"
       backgroundImage={BGImage}
@@ -419,13 +415,14 @@ const Configuracoes = () => {
       backgroundRepeat="no-repeat"
       paddingBottom="10px"
       alignItems="center"
+      overflowX='hidden'
     >
       <Sidebar />
       <Stack
         direction="row"
         justify="space-between"
         align="center"
-        padding="20px"
+        margin="20px"
       >
         <BoxTitleBackground
           PadLeft="20px"
@@ -579,7 +576,11 @@ const Configuracoes = () => {
                   Clínicas:
                 </Text>
                 <Select
-                  placeholder={listaClinicas.length > 0 ? 'Clínicas Cadastradas' : 'Nenhuma Clínica Cadastrada'}
+                  placeholder={
+                    listaClinicas.length > 0
+                      ? "Clínicas Cadastradas"
+                      : "Nenhuma Clínica Cadastrada"
+                  }
                   variant="filled"
                   textAlign="center"
                   onChange={(e) => {
@@ -612,8 +613,8 @@ const Configuracoes = () => {
                   textAlign={"center"}
                   maxLength={13}
                   onChange={(event) => {
-                    handleCRM(event)
-                    setCrm(event.target.value)
+                    handleCRM(event);
+                    setCrm(event.target.value);
                   }}
                 />
               </InputGroup>
@@ -683,7 +684,7 @@ const Configuracoes = () => {
                 toast({
                   duration: 3000,
                   title: `Preencha Nome e CRM para cadastrar.`,
-                  status: 'error',
+                  status: "error",
                   position: "bottom",
                   isClosable: true,
                 });
@@ -695,39 +696,35 @@ const Configuracoes = () => {
         </ModalContent>
       </Modal>
 
-      {
-        userLogged ? (
-          <Stack direction="row" justify="center">
-            <RectangularCard
-              titulo="Observações"
-              altura="282px"
-              item={<ItemObservation />}
-            />
-          </Stack>
-        ) : null
-      }
-      {
-        userLogged ? (
-          <Link href={`#/Home/`}>
-            <Image
-              src={ImageHome}
-              marginTop="50px"
-              marginLeft="20px"
-              paddingBottom="50px"
-            />
-          </Link>
-        ) : (
-          <Link href={`#/Login`}>
-            <Image
-              src={ImageHome}
-              marginTop="50px"
-              marginLeft="20px"
-              paddingBottom="50px"
-            />
-          </Link>
-        )
-      }
-    </Box >
+      {userLogged ? (
+        <Stack direction="row" justify="center">
+          <RectangularCard
+            titulo="Observações"
+            altura="282px"
+            item={<ItemObservation />}
+          />
+        </Stack>
+      ) : null}
+      {userLogged ? (
+        <Link href={`#/Home/`}>
+          <Image
+            src={ImageHome}
+            marginTop="50px"
+            marginLeft="20px"
+            paddingBottom="50px"
+          />
+        </Link>
+      ) : (
+        <Link href={`#/Login`}>
+          <Image
+            src={ImageHome}
+            marginTop="50px"
+            marginLeft="20px"
+            paddingBottom="50px"
+          />
+        </Link>
+      )}
+    </Box>
   );
 };
 

@@ -644,11 +644,11 @@ function Exames() {
 
       <HStack
         right="6.5%"
-        bottom={1}
+        top={1}
         position="absolute"
         w="20%"
         justify="space-around"
-        marginBottom={2}
+        marginTop="5%"
       >
         <Link
           //href={`#/Format_PDF`}
