@@ -17,14 +17,14 @@ function Hidrocele() {
     removeStringHidroceleLivre();
 
     if (HidroceleCheckBox && posicaoHidroceleSelect !== "") {
-      var string = `Hidrocele no local: ${posicaoHidroceleSelect}`;
+      var string = `Hidrocele : ${posicaoHidroceleSelect}`;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
 
   const removeStringHidroceleLivre = () => {
     laudoPrin.map((e) => {
-      if (e.includes("Hidrocele no local")) {
+      if (e.includes("Hidrocele :")) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
@@ -84,10 +84,10 @@ function Hidrocele() {
                   <option value="" disabled selected>
                     Posição
                   </option>
-                  <option value="ausente">ausente</option>
-                  <option value="testículo direito">testículo direito</option>
-                  <option value="testículo esquerdo">testículo esquerdo</option>
-                  <option value="bilateral">bilateral</option>
+                  <option value="Líquido em quantidade fisiológica na bolsa testicular.">ausente</option>
+                  <option value="Acúmulo de líquido na hemibolsa testicular direita, em quantidade">testículo direito</option>
+                  <option value="Acúmulo de líquido na hemibolsa testicular esquerda, em quantidade">testículo esquerdo</option>
+                  <option value="Nota-se acúmulo de líquido na bolsa testicular bilateralmente, em quantidade">bilateral</option>
                 </Select>
               </HStack>
             </Box>
