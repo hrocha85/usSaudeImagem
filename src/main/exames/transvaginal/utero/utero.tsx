@@ -263,7 +263,7 @@ function Utero() {
   const criaStringCistoNaboth = (medida) => {
     removeCistoNaboth();
     if (medida != "") {
-      var string = `Cisto de Naboth com ${medida}mm `;
+      var string = `Cisto de Naboth com ${medida} mm `;
       setFrasesUtero((arr) => [...arr, string]);
     }
   };

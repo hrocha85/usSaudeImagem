@@ -138,7 +138,7 @@ function Ovario_Esquerdo() {
   //Funcoes Cisto - Inicio
   const criaStringCisto = (medida, cisto) => {
     removeCisto();
-    if (medida !== "") {
+    if (medida !== "" && cisto !== "") {
       var string = `${cisto}, medindo ${medida} mm `;
       setfrasesOvarioEsquerdo((arr) => [...arr, string]);
     }
@@ -198,12 +198,6 @@ function Ovario_Esquerdo() {
       removePadraoFolicular();
     }
   }, [padraoFolicularCheckBox]);
-
-  useEffect(() => {
-    if (padraoFolicularCheckBox && padraoMicropolicisticoCheckBox) {
-      removePadraoMicropolicistico();
-    }
-  }, [padraoFolicularCheckBox, padraoMicropolicisticoCheckBox]);
 
   useEffect(() => {
     if (cistoCheckBox) {
@@ -318,6 +312,9 @@ function Ovario_Esquerdo() {
                   setCistoSelect(e.target.value);
                 }}
               >
+                <option value="" disabled selected>
+                  Selecione
+                </option>
                 <option value="Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior">
                   Cisto Simples
                 </option>
