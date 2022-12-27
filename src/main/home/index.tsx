@@ -58,3 +58,11 @@ function Home() {
 }
 
 export default Home;
+
+//TODO mudar o logo e o nome - reactapp para santa imagem laudos
+
+//TODO alterar tamanho cards em configuracoes para nao ter scroll
+
+//TODO verificar o bottom do visualizar laudo
+
+// TODO CONFIRMAR SE O EDIT ESTÁ MUDANDO NO VISULZIAR
