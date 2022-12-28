@@ -399,22 +399,21 @@ const Configuracoes = () => {
     setUpdateTAGS(false);
   }, [updateTAGS == true]);
 
-
   const handleCRM = (event) => {
-    let input = event.target
-    input.value = CrmMask(input.value)
-  }
+    let input = event.target;
+    input.value = CrmMask(input.value);
+  };
 
   const CrmMask = (value) => {
-    if (!value) return ""
-    value = value.replace(/(\d{8})(\d)/, '$1-$2')
-    value = value.replace(/(-\d{1})(\d)/, '$1/$2')
-    return value
-  }
+    if (!value) return "";
+    value = value.replace(/(\d{8})(\d)/, "$1-$2");
+    value = value.replace(/(-\d{1})(\d)/, "$1/$2");
+    return value;
+  };
 
   return (
     <Box
-      w="100%"
+      w="100vh auto"
       h="100% auto"
       minH="100vh"
       backgroundImage={BGImage}
@@ -423,13 +422,14 @@ const Configuracoes = () => {
       backgroundRepeat="no-repeat"
       paddingBottom="10px"
       alignItems="center"
+      overflowX='hidden'
     >
       <Sidebar />
       <Stack
         direction="row"
         justify="space-between"
         align="center"
-        padding="20px"
+        margin="20px"
       >
         <BoxTitleBackground
           PadLeft="20px"
@@ -583,7 +583,11 @@ const Configuracoes = () => {
                   Clínicas:
                 </Text>
                 <Select
-                  placeholder={listaClinicas.length > 0 ? 'Clínicas Cadastradas' : 'Nenhuma Clínica Cadastrada'}
+                  placeholder={
+                    listaClinicas.length > 0
+                      ? "Clínicas Cadastradas"
+                      : "Nenhuma Clínica Cadastrada"
+                  }
                   variant="filled"
                   textAlign="center"
                   onChange={(e) => {
@@ -617,8 +621,8 @@ const Configuracoes = () => {
                   textAlign={"center"}
                   maxLength={13}
                   onChange={(event) => {
-                    handleCRM(event)
-                    setCrm(event.target.value)
+                    handleCRM(event);
+                    setCrm(event.target.value);
                   }}
                 />
               </InputGroup>
@@ -689,7 +693,7 @@ const Configuracoes = () => {
                 toast({
                   duration: 3000,
                   title: `Preencha Nome e CRM para cadastrar.`,
-                  status: 'error',
+                  status: "error",
                   position: "bottom",
                   isClosable: true,
                 });
@@ -701,39 +705,35 @@ const Configuracoes = () => {
         </ModalContent>
       </Modal>
 
-      {
-        userLogged ? (
-          <Stack direction="row" justify="center">
-            <RectangularCard
-              titulo="Observações"
-              altura="282px"
-              item={<ItemObservation />}
-            />
-          </Stack>
-        ) : null
-      }
-      {
-        userLogged ? (
-          <Link href={`#/Home/`}>
-            <Image
-              src={ImageHome}
-              marginTop="50px"
-              marginLeft="20px"
-              paddingBottom="50px"
-            />
-          </Link>
-        ) : (
-          <Link href={`#/Login`}>
-            <Image
-              src={ImageHome}
-              marginTop="50px"
-              marginLeft="20px"
-              paddingBottom="50px"
-            />
-          </Link>
-        )
-      }
-    </Box >
+      {userLogged ? (
+        <Stack direction="row" justify="center">
+          <RectangularCard
+            titulo="Observações"
+            altura="282px"
+            item={<ItemObservation />}
+          />
+        </Stack>
+      ) : null}
+      {userLogged ? (
+        <Link href={`#/Home/`}>
+          <Image
+            src={ImageHome}
+            marginTop="50px"
+            marginLeft="20px"
+            paddingBottom="50px"
+          />
+        </Link>
+      ) : (
+        <Link href={`#/Login`}>
+          <Image
+            src={ImageHome}
+            marginTop="50px"
+            marginLeft="20px"
+            paddingBottom="50px"
+          />
+        </Link>
+      )}
+    </Box>
   );
 };
 
