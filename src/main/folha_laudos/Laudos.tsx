@@ -1,6 +1,6 @@
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   ButtonGroup,
   Center,
   Circle,
@@ -18,7 +18,7 @@ import {
   Stack,
   Text,
   Tooltip,
-  useEditableControls,
+  useEditableControls
 } from "@chakra-ui/react";
 import {
   Document,
@@ -28,7 +28,7 @@ import {
   PDFDownloadLink,
   StyleSheet,
   Text as TextPDF,
-  View as ViewPDF,
+  View as ViewPDF
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -38,127 +38,10 @@ import { GoDesktopDownload } from "react-icons/go";
 import { LaudosContext } from "../../context/LuadosContext";
 import LaudosJSON from "../../Data/Laudos.json";
 import "./Laudos.css";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
-import React from "react";
-import { BiCamera } from "react-icons/bi";
 
 function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
   const laudos = LaudosJSON.laudo;
-
-  const handleEditLaudoInput = (event, IndexExame, Index_Sub_Exame) => {
-    updateLaudo(event, IndexExame, Index_Sub_Exame);
-  };
-
-  const updateLaudo = (event, IndexExame, Index_Sub_Exame) => {
-    arrayLocal.map((Exames) => {
-      Exames.subExames[Index_Sub_Exame].frases = event;
-      localStorage.setItem("format_laudo", JSON.stringify(arrayLocal));
-    });
-  };
-
-  const getUserClinica = () => {
-    if (localStorage.getItem("user") != null) {
-      var clinica = JSON.parse(localStorage.getItem("user")!);
-    }
-    return clinica.clinica;
-  };
-
-  const getUserMedico = () => {
-    if (localStorage.getItem("user") != null) {
-      var medico = JSON.parse(localStorage.getItem("user")!);
-    }
-    return medico.medico;
-  };
-
-  const getPaciente = () => {
-    if (localStorage.getItem("paciente") != null) {
-      return JSON.parse(localStorage.getItem("paciente")!).nome;
-    } else {
-      return "Nome paciente";
-    }
-  };
-
-  const getCurrentDate = () => {
-    const timeStamp = new Date();
-
-    return `${timeStamp.getDate()}/${
-      timeStamp.getMonth() + 1
-    }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
-  };
-
-  const getCurrentDateLaudo = () => {
-    const timeStamp = new Date();
-
-    return `${timeStamp.getDate()}/${
-      timeStamp.getMonth() + 1
-    }/${timeStamp.getFullYear()}`;
-  };
-
-  function EditableControls() {
-    const {
-      isEditing,
-      getSubmitButtonProps,
-      getCancelButtonProps,
-      getEditButtonProps,
-    } = useEditableControls();
-
-    return isEditing ? (
-      <ButtonGroup justifyContent="end" size="sm" w="full" spacing={2} mt={2}>
-        <IconButton
-          aria-label="Check"
-          icon={<CheckIcon />}
-          {...getSubmitButtonProps()}
-        />
-
-        <IconButton
-          aria-label="Close"
-          icon={<CloseIcon boxSize={3} />}
-          {...getCancelButtonProps()}
-        />
-      </ButtonGroup>
-    ) : null;
-  }
-
-  const EditarLaudo = (defaultValue, IndexExame, Index_Sub_Exame) => {
-    return (
-      <Editable
-        defaultValue={defaultValue}
-        isPreviewFocusable={true}
-        selectAllOnFocus={false}
-        onChange={(e) => {
-          handleEditLaudoInput(e, IndexExame, Index_Sub_Exame);
-        }}
-      >
-        <Tooltip
-          label="Clique para editar"
-          backgroundColor="white"
-          placement="top"
-          hasArrow
-          arrowSize={15}
-          textColor="black"
-          fontSize="20px"
-          margin="20px"
-          textAlign="center"
-        >
-          <EditablePreview py={2} px={4} backgroundColor="gray.300" />
-        </Tooltip>
-        <Input py={2} px={4} as={EditableInput} />
-        <EditableControls />
-      </Editable>
-    );
-  };
-
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
-  const [medico, setMedico] = useState(getUserMedico());
-  const [urlLaudo, setUrlLaudo] = useState<any>();
-  const [edit, setEdit] = useState(false);
-  const [titulo_exame, setTitulo_Exame] = useState("TÍTULO EXAME");
-  const [frasesExame, setFrasesExame] = useState([]);
-  const [arrayLocal, setArrayLocal] = useState(
-    JSON.parse(localStorage.getItem("format_laudo")!)
-  );
 
   const styles = StyleSheet.create({
     inline: {
@@ -331,24 +214,28 @@ function Exames() {
 
   const Laudo = () => {
     const renderFrases = () => {
-      var arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
+      var array = JSON.parse(localStorage.getItem("format_laudo")!);
 
-      return arrayLocal.map((Exames) => {
+      return array.map((Exames, key) => {
         return Exames.subExames.map((sub) => {
           return sub.subExameNome != null && sub.subExameNome != "" ? (
-            <ViewPDF style={styles.inline}>
-              <TextPDF style={styles.textNomeSubExame}>
+            <ViewPDF style={styles.inline} key={key}>
+              <TextPDF style={styles.textNomeSubExame} orphans={3}>
                 {sub.subExameNome}:
               </TextPDF>
               <ViewPDF style={styles.view_frases}>
                 {typeof sub.frases != "string" ? (
                   sub.frases.map((frase) => {
                     return (
-                      <TextPDF style={styles.frasesSubExame}>{frase}</TextPDF>
+                      <TextPDF style={styles.frasesSubExame} orphans={3}>
+                        {frase}
+                      </TextPDF>
                     );
                   })
                 ) : (
-                  <TextPDF style={styles.frasesSubExame}>{sub.frases}</TextPDF>
+                  <TextPDF style={styles.frasesSubExame} orphans={3}>
+                    {sub.frases}
+                  </TextPDF>
                 )}
               </ViewPDF>
             </ViewPDF>
@@ -417,6 +304,55 @@ function Exames() {
     );
   };
 
+  const getUserClinica = () => {
+    if (localStorage.getItem("user") != null) {
+      var clinica = JSON.parse(localStorage.getItem("user")!);
+    }
+    return clinica.clinica;
+  };
+
+  const getUserMedico = () => {
+    if (localStorage.getItem("user") != null) {
+      var medico = JSON.parse(localStorage.getItem("user")!);
+    }
+    return medico.medico;
+  };
+
+  const getPaciente = () => {
+    if (localStorage.getItem("paciente") != null) {
+      return JSON.parse(localStorage.getItem("paciente")!).nome;
+    } else {
+      return "Nome paciente";
+    }
+  };
+
+  const getCurrentDate = () => {
+    const timeStamp = new Date();
+
+    return `${timeStamp.getDate()}/${
+      timeStamp.getMonth() + 1
+    }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
+  };
+
+  const getCurrentDateLaudo = () => {
+    const timeStamp = new Date();
+
+    return `${timeStamp.getDate()}/${
+      timeStamp.getMonth() + 1
+    }/${timeStamp.getFullYear()}`;
+  };
+
+  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
+  const [medico, setMedico] = useState(getUserMedico());
+  const [urlLaudo, setUrlLaudo] = useState<any>();
+  const [edit, setEdit] = useState(false);
+  const [titulo_exame, setTitulo_Exame] = useState("TÍTULO EXAME");
+  const [arrayLocal, setArrayLocal] = useState<any>(
+    JSON.parse(localStorage.getItem("format_laudo")!)
+  );
+  const [laudo, setLaudo] = useState<any>(Laudo());
+
   const update = (laudos) => {
     var array = JSON.parse(localStorage.getItem("medicos")!);
     array.map((medi) => {
@@ -456,6 +392,74 @@ function Exames() {
     return arrayLocal;
   };
 
+  const EditarLaudo = (defaultValue, IndexExame, Index_Sub_Exame) => {
+    return (
+      <Editable
+        defaultValue={defaultValue}
+        isPreviewFocusable={true}
+        selectAllOnFocus={false}
+        onChange={(e) => {
+          handleEditLaudoInput(e, IndexExame, Index_Sub_Exame);
+        }}
+      >
+        <Tooltip
+          label="Clique para editar"
+          backgroundColor="white"
+          placement="top"
+          hasArrow
+          arrowSize={15}
+          textColor="black"
+          fontSize="20px"
+          margin="20px"
+          textAlign="center"
+        >
+          <EditablePreview py={2} px={4} backgroundColor="gray.300" />
+        </Tooltip>
+        <Input py={2} px={4} as={EditableInput} />
+        <EditableControls />
+      </Editable>
+    );
+  };
+
+  function EditableControls() {
+    const {
+      isEditing,
+      getSubmitButtonProps,
+      getCancelButtonProps,
+      getEditButtonProps,
+    } = useEditableControls();
+
+    return isEditing ? (
+      <ButtonGroup justifyContent="end" size="sm" w="full" spacing={2} mt={2}>
+        <IconButton
+          aria-label="Check"
+          icon={<CheckIcon />}
+          {...getSubmitButtonProps()}
+        />
+
+        <IconButton
+          aria-label="Close"
+          icon={<CloseIcon boxSize={3} />}
+          {...getCancelButtonProps()}
+        />
+      </ButtonGroup>
+    ) : null;
+  }
+
+  const handleEditLaudoInput = async (event, IndexExame, Index_Sub_Exame) => {
+    updateLaudo(event, IndexExame, Index_Sub_Exame);
+  };
+
+  const updateLaudo = (event, IndexExame, Index_Sub_Exame) => {
+    var array = JSON.parse(localStorage.getItem("format_laudo")!);
+
+    array.map((Exames) => {
+      Exames.subExames[Index_Sub_Exame].frases = event;
+      localStorage.setItem("format_laudo", JSON.stringify(array));
+    });
+    setLaudo(Laudo());
+  };
+
   useEffect(() => {
     if (urlLaudo != null) {
       AddLaudoSalvo();
@@ -465,6 +469,10 @@ function Exames() {
   window.addEventListener("storage", () => {
     getFormatLaudo();
   });
+
+  useEffect(() => {
+    setLaudo(Laudo());
+  }, [localStorage.getItem("format_laudo")!]);
 
   /*useEffect(() => {
     console.log(Math.round(JSON.stringify(localStorage).length / 1024));
@@ -644,11 +652,11 @@ function Exames() {
 
       <HStack
         right="6.5%"
-        bottom={1}
+        top={1}
         position="absolute"
         w="20%"
         justify="space-around"
-        marginBottom={2}
+        marginTop="5%"
       >
         <Link
           //href={`#/Format_PDF`}
@@ -681,7 +689,7 @@ function Exames() {
         </Link>
 
         <PDFDownloadLink
-          document={Laudo()}
+          document={laudo != null ? laudo : Laudo()}
           fileName={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
         >
           {({ blob, url, loading, error }) =>
