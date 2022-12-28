@@ -6,7 +6,7 @@ import IconButtonPlus from "./icon_button_plus";
 const MainCard = ({ titulo, icon, clinica, medicos }) => {
   const [atualizar, setAtualizar] = useState(true);
 
-  useEffect(() => {}, [atualizar]);
+  useEffect(() => { }, [atualizar]);
 
   function ShowIcon(icon: boolean) {
     if (icon) {
@@ -30,12 +30,13 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
     <Box
       bg="#FAFAFA"
       w="358px"
-      h="600px"
+      h="60vh"
       color="white"
       borderRadius="10.85px"
       boxShadow="md"
       marginStart='20px'
-      //minW="218px"
+      overflow='auto'
+    //minW="218px"
     >
       <Box margin="10px">
         <Stack direction="row" spacing="200px">

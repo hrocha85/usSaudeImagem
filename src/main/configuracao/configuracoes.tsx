@@ -429,7 +429,7 @@ const Configuracoes = () => {
         direction="row"
         justify="space-between"
         align="center"
-        padding="20px"
+        padding="0px 20px 20px 20px"
       >
         <BoxTitleBackground
           PadLeft="20px"
