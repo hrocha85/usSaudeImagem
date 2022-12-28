@@ -31,7 +31,14 @@ import { AiOutlineClear, AiOutlinePlusCircle } from "react-icons/ai";
 
 const button = React.createElement("img", { src: PlusButton });
 
-export const minhasClinicas = infoClinicas.clinicas;
+var dados;
+export let minhasClinicas = infoClinicas.clinicas;
+
+if (localStorage.getItem("minhasClinicas") != null) {
+  dados = localStorage.getItem("minhasClinicas");
+
+  minhasClinicas = JSON.parse(dados);
+} else minhasClinicas = [];
 
 const IconButtonPlus = (props) => {
 

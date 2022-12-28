@@ -1,13 +1,17 @@
 {
   "medicos": [
     {
-      "nome": "NOME",
-      "crm": "7777",
-      "uf": "sp",
-      "assinatura": "assinatura",
-      "foto": "null",
-      "clinica": [{}],
-      "laudos":[{}]
+      "nome": "",
+      "crm": "",
+      "uf": "",
+      "assinatura": "",
+      "foto": "",
+      "clinica": [
+        {}
+      ],
+      "laudos": [
+        {}
+      ]
     }
   ]
 }
