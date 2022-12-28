@@ -54,12 +54,15 @@ import ImageHome from "../images/icon_home.png";
 import Sidebar from "../menu/sideBar";
 import Medicos from "./medicos";
 
-export const lista_medicos = MedicosJSON.medicos;
+var dados;
+export let lista_medicos = MedicosJSON.medicos;
+if (localStorage.getItem("medicos") != null) {
+  dados = localStorage.getItem("medicos");
 
-
+  lista_medicos = JSON.parse(dados);
+} else lista_medicos = [];
 
 const Configuracoes = () => {
-
   const toast = useToast();
   const getMedicos = () => {
     var medicos;
@@ -118,6 +121,7 @@ const Configuracoes = () => {
 
   useEffect(() => {
     setMedicos(getMedicos);
+    console.log(lista_medicos)
   }, [localStorage.getItem("medicos")!]);
 
   const AddMedico = () => {
@@ -130,7 +134,7 @@ const Configuracoes = () => {
       clinica: clinicas,
       laudos: [{}],
     };
-
+    console.log(lista_medicos)
     lista_medicos.push(obj);
 
     lista_medicos.map((e) => {
@@ -583,12 +587,13 @@ const Configuracoes = () => {
                   variant="filled"
                   textAlign="center"
                   onChange={(e) => {
-                    TAGS();
                     setClinica((prevClin) => [...prevClin, e.target.value]);
+                    TAGS();
                   }}
                 >
                   {listaClinicas.map((e, key) => {
-                    console.log(listaClinicas);
+                    // console.log(listaClinicas);
+                    console.log(lista_medicos);
                     return (
                       <option key={key} value={JSON.stringify(e)}>
                         {e.nomeClinica}
@@ -669,6 +674,7 @@ const Configuracoes = () => {
             backgroundColor="#0e63fe"
             margin="10px"
             onClick={() => {
+              console.log(lista_medicos)
               if (nome !== "" && crm !== "") {
                 AddMedico();
                 ResetDados();
@@ -731,4 +737,4 @@ const Configuracoes = () => {
   );
 };
 
-export default Configuracoes;
+export default Configuracoes; 

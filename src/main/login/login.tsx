@@ -1,4 +1,4 @@
-import { Box, Button, Center, Link, Select, Stack } from "@chakra-ui/react";
+import { Box, Button, Center, Link, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import BGImage from "../images/bg_img.png";
 
@@ -42,18 +42,6 @@ function Login() {
       setClinSelecionada(JSON.parse(clinicaString));
   };
 
-  const verificaMedico = () => {
-    if (lista_medico.length > 0) {
-      return (
-        <text>Adicionar médico</text>
-      )
-    } else {
-      return (
-        <text>Cadastre um médico para continuar</text>
-      )
-    }
-  }
-
   useEffect(() => {
     parseMedicoSelecionado();
   }, [medicoString]);
@@ -71,6 +59,105 @@ function Login() {
     if (clinicaSelecionada != null && medicoSelecionado != null)
       setisDisabledEntrar(false);
   }, [clinicaSelecionada, medicoSelecionado]);
+
+
+  const verificaMedico = () => {
+    if (lista_medico.length > 0) {
+      return (
+        <Center>
+          <Stack>
+            <Select
+              w="100%"
+              borderColor="black"
+              textAlign="center"
+              onChange={(event) => setmedicoString(event.currentTarget.value)}
+            >
+              <option value="" disabled selected>
+                Médicos
+              </option>
+
+              {lista_medico.map((medico, key) => {
+                return (
+                  <option value={JSON.stringify(medico)} key={key}>
+                    {medico.nome}
+                  </option>
+                );
+              })}
+            </Select>
+            {medicoSelecionado != null || undefined ? (
+              <Select
+                w="200px"
+                borderColor="black"
+                textAlign="center"
+                onChange={(e) => setclinicaString(e.currentTarget.value)}
+              >
+                <option value="" disabled selected>
+                  Clínicas
+                </option>
+                {clinicasMedSelect.map((clinica, key) => {
+                  var parseClinica = JSON.parse(clinica);
+                  return (
+                    <option value={JSON.stringify(clinica)} key={key}>
+                      {parseClinica.nomeClinica}
+                    </option>
+                  );
+                })}
+              </Select>
+            ) : null}
+
+            <Link
+              display="block"
+              href={`#/Home`}
+              style={{ textDecoration: "none" }}
+            >
+              <Button
+                colorScheme="blue"
+                display="block"
+                w="100%"
+                isDisabled={isDisabledEntrar}
+                onClick={() => {
+                  loginUser();
+                }}
+              >
+                Entrar
+              </Button>
+            </Link>
+
+            <Link
+              display="block"
+              href={`#/Home/Configuracoes`}
+              style={{ textDecoration: "none" }}
+            >
+              <Button colorScheme="blue" display="block" w="100%">
+                Adiconar médico
+              </Button>
+            </Link>
+          </Stack>
+        </Center>
+      )
+    } else {
+      return (
+        <Center>
+          <Stack>
+            <Text fontWeight="bold">
+              Adicione um médico para prosseguir.
+            </Text>
+
+            <Link
+              display="block"
+              href={`#/Home/Configuracoes`}
+              style={{ textDecoration: "none" }}
+            >
+              <Button colorScheme="blue" display="block" w="100%">
+                Adicionar médico
+              </Button>
+            </Link>
+          </Stack>
+        </Center>
+      )
+    }
+  }
+
 
   return (
     <Box
@@ -94,76 +181,7 @@ function Login() {
           boxShadow="md"
           padding="30px"
         >
-          <Center>
-            <Stack>
-              <Select
-                w="100%"
-                borderColor="black"
-                textAlign="center"
-                onChange={(event) => setmedicoString(event.currentTarget.value)}
-              >
-                <option value="" disabled selected>
-                  Médicos
-                </option>
-
-                {lista_medico.map((medico, key) => {
-                  return (
-                    <option value={JSON.stringify(medico)} key={key}>
-                      {medico.nome}
-                    </option>
-                  );
-                })}
-              </Select>
-              {medicoSelecionado != null || undefined ? (
-                <Select
-                  w="200px"
-                  borderColor="black"
-                  textAlign="center"
-                  onChange={(e) => setclinicaString(e.currentTarget.value)}
-                >
-                  <option value="" disabled selected>
-                    Clínicas
-                  </option>
-                  {clinicasMedSelect.map((clinica, key) => {
-                    var parseClinica = JSON.parse(clinica);
-                    return (
-                      <option value={JSON.stringify(clinica)} key={key}>
-                        {parseClinica.nomeClinica}
-                      </option>
-                    );
-                  })}
-                </Select>
-              ) : null}
-
-              <Link
-                display="block"
-                href={`#/Home`}
-                style={{ textDecoration: "none" }}
-              >
-                <Button
-                  colorScheme="blue"
-                  display="block"
-                  w="100%"
-                  isDisabled={isDisabledEntrar}
-                  onClick={() => {
-                    loginUser();
-                  }}
-                >
-                  Entrar
-                </Button>
-              </Link>
-
-              <Link
-                display="block"
-                href={`#/Home/Configuracoes`}
-                style={{ textDecoration: "none" }}
-              >
-                <Button colorScheme="blue" display="block" w="100%">
-                  {verificaMedico()}
-                </Button>
-              </Link>
-            </Stack>
-          </Center>
+          {verificaMedico()}
         </Box>
       </Center>
     </Box>
