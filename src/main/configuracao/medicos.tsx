@@ -326,7 +326,7 @@ const Medicos = ({ medico, id }) => {
     <Box
       bg="#FAFAFA"
       w="358px"
-      h="500px"
+      h="100%"
       color="white"
       borderRadius="10.85px"
       boxShadow="2xl"

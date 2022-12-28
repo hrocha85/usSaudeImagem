@@ -3,6 +3,18 @@ import { BsFolder2Open } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
 
 export const SidebarData = [
+
+  // const getUser = () => {
+  //   if (localStorage.getItem("user") != null) {
+  //     var user = JSON.parse(localStorage.getItem("user")!);
+  //   }
+
+  //   if (user != null) return user.isLogged;
+  // };
+
+  // const [userLogged, setuserLogged] = useState(getUser());
+
+
   {
     title: "Home",
     path: "/Home/",

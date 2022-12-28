@@ -66,20 +66,11 @@ const Sidebar = () => {
   return (
     <>
       <Box
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         style={{
           position: "relative",
-          top: isHovering ? "5px" : "-70px",
-          transition: "top ease 0.5s",
-          borderBottomColor: isHovering ? "#32bfea" : "transparent",
-          marginBottom: isHovering ? "20px" : "-20px",
+
         }}
         w="100%"
-        borderTop="2px"
-        borderTopColor="#32bfea"
-        borderBottom="2px"
-        margin="5px"
         filter="none"
         blur="none"
       >
@@ -117,7 +108,7 @@ const Sidebar = () => {
               </HStack>
               {SidebarData.map((item, index) => {
                 return (
-                    <SubMenu item={item} key={index} />
+                  <SubMenu item={item} key={index} />
                 );
               })}
             </SidebarWrap>
