@@ -18,7 +18,7 @@ import {
   Stack,
   Text,
   Tooltip,
-  useEditableControls,
+  useEditableControls
 } from "@chakra-ui/react";
 import {
   Document,
@@ -28,14 +28,13 @@ import {
   PDFDownloadLink,
   StyleSheet,
   Text as TextPDF,
-  View as ViewPDF,
+  View as ViewPDF
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { GoDesktopDownload } from "react-icons/go";
-import { blob } from "stream/consumers";
 import { LaudosContext } from "../../context/LuadosContext";
 import LaudosJSON from "../../Data/Laudos.json";
 import "./Laudos.css";
@@ -44,11 +43,11 @@ function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
   const laudos = LaudosJSON.laudo;
 
-  const handleEditLaudoInput = (event, IndexExame, Index_Sub_Exame) => {
+  const handleEditLaudoInput = async (event, IndexExame, Index_Sub_Exame) => {
     updateLaudo(event, IndexExame, Index_Sub_Exame);
   };
 
-  const updateLaudo = (event, IndexExame, Index_Sub_Exame) => {
+  const updateLaudo = async (event, IndexExame, Index_Sub_Exame) => {
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
 
     array.map((Exames) => {
@@ -120,47 +119,15 @@ function Exames() {
     ) : null;
   }
 
-  const EditarLaudo = (defaultValue, IndexExame, Index_Sub_Exame) => {
-    return (
-      <Editable
-        defaultValue={defaultValue}
-        isPreviewFocusable={true}
-        selectAllOnFocus={false}
-        onChange={(e) => {
-          handleEditLaudoInput(e, IndexExame, Index_Sub_Exame);
-        }}
-      >
-        <Tooltip
-          label="Clique para editar"
-          backgroundColor="white"
-          placement="top"
-          hasArrow
-          arrowSize={15}
-          textColor="black"
-          fontSize="20px"
-          margin="20px"
-          textAlign="center"
-        >
-          <EditablePreview py={2} px={4} backgroundColor="gray.300" />
-        </Tooltip>
-        <Input py={2} px={4} as={EditableInput} />
-        <EditableControls />
-      </Editable>
-    );
-  };
-
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
   const [medico, setMedico] = useState(getUserMedico());
   const [urlLaudo, setUrlLaudo] = useState<any>();
   const [edit, setEdit] = useState(false);
   const [titulo_exame, setTitulo_Exame] = useState("TÍTULO EXAME");
-  const [frasesExame, setFrasesExame] = useState([]);
-  const [arrayLocal, setArrayLocal] = useState(
+  const [arrayLocal, setArrayLocal] = useState<any>(
     JSON.parse(localStorage.getItem("format_laudo")!)
   );
-  const [editComplete, setEditComplete] = useState(false);
-  const [blobDOC, setBlobDOC] = useState<Blob>();
 
   const styles = StyleSheet.create({
     inline: {
@@ -333,24 +300,28 @@ function Exames() {
 
   const Laudo = () => {
     const renderFrases = () => {
-      var arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
+      var array = JSON.parse(localStorage.getItem("format_laudo")!);
 
-      return arrayLocal.map((Exames) => {
+      return array.map((Exames,key) => {
         return Exames.subExames.map((sub) => {
           return sub.subExameNome != null && sub.subExameNome != "" ? (
-            <ViewPDF style={styles.inline}>
-              <TextPDF style={styles.textNomeSubExame}>
+            <ViewPDF style={styles.inline} key={key}>
+              <TextPDF style={styles.textNomeSubExame} orphans={3}>
                 {sub.subExameNome}:
               </TextPDF>
               <ViewPDF style={styles.view_frases}>
                 {typeof sub.frases != "string" ? (
                   sub.frases.map((frase) => {
                     return (
-                      <TextPDF style={styles.frasesSubExame}>{frase}</TextPDF>
+                      <TextPDF style={styles.frasesSubExame} orphans={3}>
+                        {frase}
+                      </TextPDF>
                     );
                   })
                 ) : (
-                  <TextPDF style={styles.frasesSubExame}>{sub.frases}</TextPDF>
+                  <TextPDF style={styles.frasesSubExame} orphans={3}>
+                    {sub.frases}
+                  </TextPDF>
                 )}
               </ViewPDF>
             </ViewPDF>
@@ -445,16 +416,9 @@ function Exames() {
   };
 
   const convertBlob = (blob) => {
-    if (editComplete) {
-      var file = new Blob([blob], { type: "application/pdf" });
-      var fileURL = URL.createObjectURL(file);
-      setUrlLaudo(fileURL);
-      setEditComplete(false);
-    } else {
-      setTimeout(() => {
-        setEditComplete(true);
-      }, 3000);
-    }
+    var file = new Blob([blob], { type: "application/pdf" });
+    var fileURL = URL.createObjectURL(file);
+    setUrlLaudo(fileURL);
   };
 
   const getFormatLaudo = () => {
@@ -463,6 +427,35 @@ function Exames() {
       setTitulo_Exame(Exames.titulo_exame);
     });
     return arrayLocal;
+  };
+
+  const EditarLaudo = (defaultValue, IndexExame, Index_Sub_Exame) => {
+    return (
+      <Editable
+        defaultValue={defaultValue}
+        isPreviewFocusable={true}
+        selectAllOnFocus={false}
+        onChange={(e) => {
+          handleEditLaudoInput(e, IndexExame, Index_Sub_Exame);
+        }}
+      >
+        <Tooltip
+          label="Clique para editar"
+          backgroundColor="white"
+          placement="top"
+          hasArrow
+          arrowSize={15}
+          textColor="black"
+          fontSize="20px"
+          margin="20px"
+          textAlign="center"
+        >
+          <EditablePreview py={2} px={4} backgroundColor="gray.300" />
+        </Tooltip>
+        <Input py={2} px={4} as={EditableInput} />
+        <EditableControls />
+      </Editable>
+    );
   };
 
   useEffect(() => {
@@ -474,10 +467,6 @@ function Exames() {
   window.addEventListener("storage", () => {
     getFormatLaudo();
   });
-
-  useEffect(() => {
-    convertBlob(blobDOC);
-  }, [editComplete]);
 
   /*useEffect(() => {
     console.log(Math.round(JSON.stringify(localStorage).length / 1024));
@@ -718,7 +707,6 @@ function Exames() {
                     color="twitter.600"
                     onClick={() => {
                       convertBlob(blob!);
-                      setBlobDOC(blob!);
                     }}
                   />
                 </Circle>
