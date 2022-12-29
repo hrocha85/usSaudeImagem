@@ -2,13 +2,13 @@ import { Box, Flex, Grid, Text } from "@chakra-ui/react";
 
 const RectangularCard = ({ titulo, altura, item }) => {
   return (
-    <Flex w="100%" h="auto">
+    <Flex w="100%" h="100%">
       <Box
-        paddingBottom="16px"
+
         bg="#FAFAFA"
         w="100%"
         h="100%"
-        m="20px"
+        m="20px 20px 0px 20px "
         color="white"
         borderRadius="10.85px"
         boxShadow="dark-lg"
