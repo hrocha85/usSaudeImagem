@@ -120,7 +120,6 @@ const Configuracoes = () => {
 
   useEffect(() => {
     setMedicos(getMedicos);
-    console.log(lista_medicos)
   }, [localStorage.getItem("medicos")!]);
 
   const AddMedico = () => {
@@ -133,7 +132,6 @@ const Configuracoes = () => {
       clinica: clinicas,
       laudos: [{}],
     };
-    console.log(lista_medicos)
     lista_medicos.push(obj);
 
     lista_medicos.map((e) => {
@@ -410,6 +408,20 @@ const Configuracoes = () => {
     return value;
   };
 
+  const authParaLogar = () => {
+    if (!userLogged && lista_medicos.length > 0 && clinicas.length > 0) {
+      console.log('caiu aqui')
+      const loginCriado = toast({
+        duration: 3000,
+        title: `Retorne para Página inicial para logar.`,
+        status: "success",
+        position: "bottom",
+        isClosable: true,
+      });
+      return (loginCriado)
+    }
+  }
+
   return (
     <Box
       w="100vh auto"
@@ -674,11 +686,11 @@ const Configuracoes = () => {
             backgroundColor="#0e63fe"
             margin="10px"
             onClick={() => {
-              console.log(lista_medicos)
               if (nome !== "" && crm !== "") {
                 AddMedico();
                 ResetDados();
                 onClose();
+                authParaLogar()
                 toast({
                   duration: 3000,
                   title: `Médico cadastrado com sucesso!`,
