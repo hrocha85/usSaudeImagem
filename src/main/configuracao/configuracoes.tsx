@@ -50,7 +50,6 @@ import ItemObservation from "../component/item_obeservation";
 import MainCard from "../component/main_card";
 import BGImage from "../images/bg_img.png";
 import DefaultImageClinica from "../images/clinica_default.png";
-import ImageHome from "../images/icon_home.png";
 import Sidebar from "../menu/sideBar";
 import Medicos from "./medicos";
 
@@ -420,9 +419,8 @@ const Configuracoes = () => {
       backgroundSize="cover"
       backgroundClip="padding-box"
       backgroundRepeat="no-repeat"
-      paddingBottom="10px"
+      // paddingBottom="10px"
       alignItems="center"
-      overflowX='hidden'
     >
       <Sidebar />
       <Stack
@@ -596,8 +594,6 @@ const Configuracoes = () => {
                   }}
                 >
                   {listaClinicas.map((e, key) => {
-                    // console.log(listaClinicas);
-                    console.log(lista_medicos);
                     return (
                       <option key={key} value={JSON.stringify(e)}>
                         {e.nomeClinica}
@@ -642,8 +638,8 @@ const Configuracoes = () => {
               w="100%"
               h="100%"
               backgroundColor={"#F7FAFC"}
-              borderColor={propsBoxAssinatura == true ? "#3183cf" : "white"}
-              borderWidth={propsBoxAssinatura == true ? "2px" : "0px"}
+              borderColor={propsBoxAssinatura === true ? "#3183cf" : "white"}
+              borderWidth={propsBoxAssinatura === true ? "2px" : "0px"}
               boxShadow="md"
               borderRadius={"md"}
               onClick={() => setpropsBoxAssinatura(true)}
@@ -714,25 +710,6 @@ const Configuracoes = () => {
           />
         </Stack>
       ) : null}
-      {userLogged ? (
-        <Link href={`#/Home/`}>
-          <Image
-            src={ImageHome}
-            marginTop="50px"
-            marginLeft="20px"
-            paddingBottom="50px"
-          />
-        </Link>
-      ) : (
-        <Link href={`#/Login`}>
-          <Image
-            src={ImageHome}
-            marginTop="50px"
-            marginLeft="20px"
-            paddingBottom="50px"
-          />
-        </Link>
-      )}
     </Box>
   );
 };

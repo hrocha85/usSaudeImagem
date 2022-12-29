@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { MenuContext } from "../../context/MenuContext";
 import logo from "../splashScreen/logo.png";
-import { SidebarData } from "./sideBarData";
+import { SidebarDataNaoLogado } from "./sideBarDataNaoLogado";
+import { SidebarDataLogado } from "./sideBarDataLogado";
 import SubMenu from "./subMenu";
 
 const Nav = styled.div`
@@ -44,24 +45,35 @@ const SidebarWrap = styled.div`
 `;
 
 const Sidebar = () => {
+
+
   let { menuOpen, setMenuOpen } = useContext(MenuContext);
 
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
 
+  const getUser = () => {
+    if (localStorage.getItem("user") != null) {
+      var user = JSON.parse(localStorage.getItem("user")!);
+    }
+
+    if (user != null) return user.isLogged;
+  };
+
+  const [userLogged, setuserLogged] = useState(getUser());
   useEffect(() => {
     setMenuOpen(sidebar);
   }, [sidebar]);
 
   const [isHovering, setHovering] = useState("");
 
-  function handleMouseEnter() {
-    setHovering(true);
-  }
-  function handleMouseLeave() {
-    setHovering(false);
-  }
+  // function handleMouseEnter() {
+  //   setHovering(true);
+  // }
+  // function handleMouseLeave() {
+  //   setHovering(false);
+  // }
 
   return (
     <>
@@ -103,14 +115,24 @@ const Sidebar = () => {
                 />
 
                 <NavIcon to="#">
-                  <IoIosArrowBack onClick={showSidebar} margin="20px" />
+                  <IoIosArrowBack onClick={showSidebar} />
                 </NavIcon>
               </HStack>
-              {SidebarData.map((item, index) => {
-                return (
-                  <SubMenu item={item} key={index} />
-                );
-              })}
+
+              {userLogged ? (
+                SidebarDataLogado.map((item, index) => {
+                  return (
+                    <SubMenu item={item} key={index} />
+                  );
+                })
+              ) : (
+                SidebarDataNaoLogado.map((item, index) => {
+                  return (
+                    <SubMenu item={item} key={index} />
+                  );
+                })
+              )}
+
             </SidebarWrap>
           </SidebarNav>
         </IconContext.Provider>
