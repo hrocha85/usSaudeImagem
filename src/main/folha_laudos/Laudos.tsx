@@ -219,7 +219,7 @@ function Exames() {
       return array.map((Exames, key) => {
         return Exames.subExames.map((sub) => {
           return sub.subExameNome != null && sub.subExameNome != "" ? (
-            <ViewPDF style={styles.inline} key={key}>
+            <ViewPDF style={styles.inline}>
               <TextPDF style={styles.textNomeSubExame} orphans={3}>
                 {sub.subExameNome}:
               </TextPDF>
@@ -656,7 +656,7 @@ function Exames() {
         position="absolute"
         w="20%"
         justify="space-around"
-        marginTop="5%"
+        marginTop="2%"
       >
         <Link
           //href={`#/Format_PDF`}
