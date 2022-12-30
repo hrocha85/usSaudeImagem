@@ -46,7 +46,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     removeMultiplosNodulos();
 
     if (tamanhoNoduloInput != "" && nodulosSelect != "" && localizado != "") {
-      var string = `Nódulo de mioma ${numNodulo} ${nodulosSelect}, localizado na ${localizado} e medindo ${tamanhoNoduloInput} mm.`;
+      var string = `Nódulo de mioma ${numNodulo}: ${nodulosSelect} localizado na parede ${localizado} e medindo ${tamanhoNoduloInput} mm.`;
       setFrasesMiometrio((arr) => [...arr, string]);
     }
   };
