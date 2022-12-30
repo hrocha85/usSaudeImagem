@@ -322,6 +322,18 @@ const Medicos = ({ medico, id }) => {
     },
   });
 
+  const handleCRM = (event) => {
+    let input = event.target;
+    input.value = CrmMask(input.value);
+  };
+
+  const CrmMask = (value) => {
+    if (!value) return "";
+    value = value.replace(/(\d{8})(\d)/, "$1-$2");
+    value = value.replace(/(-\d{1})(\B)/, "$1/$2");
+    return value;
+  };
+
   return (
     <Box
       bg="#FAFAFA"
@@ -614,12 +626,13 @@ const Medicos = ({ medico, id }) => {
                               borderStartRadius={"md"}
                               borderEndRadius={"md"}
                               marginStart="5px"
-                              maxLength={9}
+                              maxLength={13}
                               ref={refCRM}
                               defaultValue={crm}
                               fontSize="18px"
                               textAlign={"center"}
                               onChange={(e) => {
+                                handleCRM(e);
                                 setUpdateCRM(e.target.value);
                               }}
                             />

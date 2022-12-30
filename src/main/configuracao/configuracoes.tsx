@@ -139,15 +139,15 @@ const Configuracoes = () => {
         lista_medicos.shift();
       }
     });
-    lista_medicos.map((e) => {
-      if (padRef.current?.isEmpty()) {
-        e.assinatura = "";
-      } else {
-        e.assinatura = padRef.current
-          ?.getTrimmedCanvas()
-          .toDataURL("image/png")!;
-      }
-    });
+    // lista_medicos.map((e) => {
+    //   if (padRef.current?.isEmpty()) {
+    //     e.assinatura = "";
+    //   } else {
+    //     e.assinatura = padRef.current
+    //       ?.getTrimmedCanvas()
+    //       .toDataURL("image/png")!;
+    //   }
+    // });
 
     localStorage.setItem("medicos", JSON.stringify(lista_medicos));
     setMedicos(lista_medicos);
@@ -404,7 +404,7 @@ const Configuracoes = () => {
   const CrmMask = (value) => {
     if (!value) return "";
     value = value.replace(/(\d{8})(\d)/, "$1-$2");
-    value = value.replace(/(-\d{1})(\d)/, "$1/$2");
+    value = value.replace(/(-\d{1})(\B)/, "$1/$2");
     return value;
   };
 
