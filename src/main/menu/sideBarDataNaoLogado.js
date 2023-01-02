@@ -20,7 +20,7 @@ export const SidebarDataNaoLogado = [
   },
   {
     title: "Sair",
-    path: "",
+    path: "/",
     icon: <AiOutlinePoweroff />,
   },
 ];
