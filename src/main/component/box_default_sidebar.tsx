@@ -201,22 +201,33 @@ export default function Box_Default_With_Sidebar() {
         paddingBottom="50px"
       >
         <Sidebar />
-        <Tabs>
+        <Tabs size="lg" variant="soft-rounded">
           <Stack direction="row" maxW="65%" overflowX="auto">
-            <TabList>
+            <TabList marginStart="20px" >
               {tabExames.map((e, key) => {
                 if (e.nomeExame != undefined) {
                   return (
                     <Stack direction="row" key={key}>
-                      <Tab key={key}>
-                        <BoxTitleBackground
-                          PadLeft="20px"
-                          fontsize="19px"
-                          tamanho="180px"
-                          titulo={e.nomeExame}
-                        />
+                      <Tab
+                        key={key}
+                        textColor="black"
+                        _selected={{ color: "white", bg: "blue.500" }}
+                      >
+                        {e.nomeExame}
+                        <Tooltip
+                          label={`Fechar ${e.nomeExame}`}
+                          backgroundColor="white"
+                          placement="top"
+                          hasArrow
+                          arrowSize={15}
+                          textColor="black"
+                          fontSize="20px"
+                          margin="20px"
+                          textAlign="center"
+                        >
+                          <CloseButton onClick={() => removeTabExame(e)} />
+                        </Tooltip>
                       </Tab>
-                      <CloseButton onClick={() => removeTabExame(e)} />
                     </Stack>
                   );
                 }
