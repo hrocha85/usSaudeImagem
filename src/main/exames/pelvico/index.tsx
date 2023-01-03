@@ -14,7 +14,7 @@ import Utero from "./utero/utero";
 
 function Pelvico() {
   return (
-    <Box_Default_With_Sidebar>
+    <>
       <BoxTitleBackground
         PadLeft="20px"
         fontsize="19px"
@@ -40,7 +40,7 @@ function Pelvico() {
           <Extras />
         </HStack>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

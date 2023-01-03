@@ -17,7 +17,7 @@ import LadoEsquerdo from "./esquerdo/ladoEsquerdo";
 
 function DopplerCarotidas2() {
   return (
-    <Box_Default_With_Sidebar>
+    <>
       <BoxTitleBackground
         PadLeft="30px"
         fontsize="19px"
@@ -73,7 +73,7 @@ function DopplerCarotidas2() {
           <BulboCarotideoEsquerdo />
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

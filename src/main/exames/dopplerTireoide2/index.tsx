@@ -12,7 +12,7 @@ import Nodulos from "./nodulos/nodulos";
 
 function DopplerTireoide2() {
   return (
-    <Box_Default_With_Sidebar>
+    <>
       <BoxTitleBackground
         PadLeft="30px"
         fontsize="19px"
@@ -37,7 +37,7 @@ function DopplerTireoide2() {
 
         <Nodulos></Nodulos>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

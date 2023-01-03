@@ -16,7 +16,7 @@ import Virococele from "./varicocele/varicocele";
 
 function Testiculo() {
   return (
-    <Box_Default_With_Sidebar>
+    <>
       <BoxTitleBackground
         PadLeft="40px"
         fontsize="19px"
@@ -60,7 +60,7 @@ function Testiculo() {
           <Virococele />
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

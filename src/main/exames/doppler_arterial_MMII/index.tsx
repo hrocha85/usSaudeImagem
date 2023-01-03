@@ -1,5 +1,4 @@
 import { Box, Center, HStack, VStack } from "@chakra-ui/react";
-import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
 import styles from "./Doppler.module.css";
 import Femoral_Comum_Direita from "./femoral_comum/femoral_comum_direita";
@@ -25,14 +24,7 @@ import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
 
 function Doppler_Arterial_MMII() {
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="23px"
-        fontsize="16px"
-        tamanho="260px"
-        titulo="Doppler Arterial de MMII "
-      />
-
+    <>
       <Exames></Exames>
 
       <Box ml="10px">
@@ -65,7 +57,7 @@ function Doppler_Arterial_MMII() {
           </VStack>
         </HStack>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

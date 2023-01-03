@@ -15,7 +15,7 @@ import Observacoes from "./observacoes/observacoes";
 
 function Mamas() {
   return (
-    <Box_Default_With_Sidebar>
+    <>
       <BoxTitleBackground
         PadLeft="24px"
         fontsize="19px"
@@ -62,7 +62,7 @@ function Mamas() {
           </Box>
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

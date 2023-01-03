@@ -1,17 +1,16 @@
 import { Box, Button, GridItem, Image, Link, Tooltip } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
-import { useContext, useEffect, useState } from "react";
-import LaudoPrincipal from "../../class/LaudoPrincipal";
-import Laudo from "../../class/Laudo";
-import reghd_2 from "../images/reghd_2.png";
+import { useContext } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
 import FormatLaudo from "../../Data/Format_Laudo.json";
-const FieldDefaultHome = ({ text, textColor, id }) => {
+import ExameID from "../../Data/ExameID.json";
+import reghd_2 from "../images/reghd_2.png";
 
+const FieldDefaultHome = ({ text, textColor, id }) => {
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
 
-
   const format_laudo = FormatLaudo.format_laudo;
+  let exameID = ExameID.exameID;
 
   const AddTituloLaudo = () => {
     const obj = {
@@ -27,6 +26,12 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
 
     localStorage.setItem("format_laudo", JSON.stringify(format_laudo));
   };
+  const AddExameID = () => {
+    exameID = id;
+
+    localStorage.setItem("exameID", JSON.stringify(exameID));
+  };
+
   return (
     <GridItem
       w="200px"
@@ -52,14 +57,14 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
           alt=""
         />
         <Link
-          href={`#/Home/${id}`}
+          href={`#/Exames/`}
           fontWeight="bold"
           fontSize="14px"
           position="relative"
           pl="80px"
           // pt='30px'
           z-index="1"
-        //onClick={(e) => clicando(id, text)}
+          //onClick={(e) => clicando(id, text)}
         />
 
         <Tooltip
@@ -75,7 +80,7 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
           textAlign="center"
         >
           <Link
-            href={`#/Home/${id}`}
+            href={`#/Exames/`}
             fontWeight="bold"
             position="absolute"
             pl="80px"
@@ -93,6 +98,7 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
                 whiteSpace: "normal",
                 wordWrap: "break-word",
               }}
+              onClick={() => AddExameID()}
             >
               {text}
             </Button>

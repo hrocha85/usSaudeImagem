@@ -12,7 +12,7 @@ import Normal from "./TireoideNormal/normal";
 
 function Tireoide() {
   return (
-    <Box_Default_With_Sidebar>
+    <>
       <BoxTitleBackground
         PadLeft="30px"
         fontsize="19px"
@@ -37,7 +37,7 @@ function Tireoide() {
 
         <Nodulos></Nodulos>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

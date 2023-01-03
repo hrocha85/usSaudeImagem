@@ -10,6 +10,7 @@ export class Clear_Local_Storage {
         });
         localStorage.removeItem("format_laudo");
         localStorage.removeItem("isThisInLocalStorage");
+        localStorage.removeItem("exameID");
       });
     }
   }

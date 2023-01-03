@@ -656,7 +656,7 @@ function Exames() {
         position="absolute"
         w="20%"
         justify="space-around"
-        marginTop="2%"
+        marginTop="1%"
       >
         <Link
           //href={`#/Format_PDF`}

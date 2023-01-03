@@ -15,7 +15,7 @@ import { default as Direita, default as Esquerda } from "../partesMoles/regiaoIn
 
 function PartesMoles() {
   return (
-    <Box_Default_With_Sidebar>
+    <>
       <BoxTitleBackground
         PadLeft="20px"
         fontsize="19px"
@@ -61,7 +61,7 @@ function PartesMoles() {
           </Box>
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

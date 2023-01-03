@@ -8,7 +8,7 @@ import CalculoVolume from "./calculoVolume/calculoVolume";
 import Extra from "./extra/extra";
 function Prostata() {
   return (
-    <Box_Default_With_Sidebar>
+    <>
       <BoxTitleBackground
         PadLeft="20px"
         fontsize="19px"
@@ -23,7 +23,7 @@ function Prostata() {
 
         <Extra></Extra>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

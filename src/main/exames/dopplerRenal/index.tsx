@@ -14,7 +14,7 @@ import LadoEsquerdo from "./esquerdo/ladoEsquerdo";
 
 function DopplerRenal() {
   return (
-    <Box_Default_With_Sidebar>
+    <>
       <BoxTitleBackground
         PadLeft="30px"
         fontsize="19px"
@@ -64,7 +64,7 @@ function DopplerRenal() {
           </Box>
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

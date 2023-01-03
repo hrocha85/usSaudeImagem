@@ -15,13 +15,7 @@ import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
 
 function DopplerTransvaginal() {
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="20px"
-        fontsize="16px"
-        tamanho="200px"
-        titulo="Doppler Transvaginal"
-      />
+    <>
       <Exames></Exames>
 
       <Box ml="10px">
@@ -55,7 +49,7 @@ function DopplerTransvaginal() {
           </Box>
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

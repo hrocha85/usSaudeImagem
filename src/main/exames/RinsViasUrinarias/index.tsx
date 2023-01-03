@@ -11,7 +11,7 @@ import RimDireito from "./rim_direito/rim_direito";
 import RimEsquerdo from "./rim_esquerdo/rim_esquerdo";
 function RinseViasUrinarias() {
   return (
-    <Box_Default_With_Sidebar>
+    <>
       <BoxTitleBackground
         PadLeft="24px"
         fontsize="19px"
@@ -36,7 +36,7 @@ function RinseViasUrinarias() {
           </Box>
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 
