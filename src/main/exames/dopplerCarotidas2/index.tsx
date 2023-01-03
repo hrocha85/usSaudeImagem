@@ -1,6 +1,4 @@
 import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
 import BulboCarotideoDireito from "./direito/bulboCarotideo";
 import CarotidaComumDireita from "./direito/carotidaComum";
@@ -18,13 +16,6 @@ import LadoEsquerdo from "./esquerdo/ladoEsquerdo";
 function DopplerCarotidas2() {
   return (
     <>
-      <BoxTitleBackground
-        PadLeft="30px"
-        fontsize="19px"
-        tamanho="262px 67px"
-        titulo="Doppler da Carotidas 2"
-      />
-
       <Exames></Exames>
 
       <Box ml="10px">

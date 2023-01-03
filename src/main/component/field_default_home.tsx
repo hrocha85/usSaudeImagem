@@ -2,15 +2,15 @@ import { Box, Button, GridItem, Image, Link, Tooltip } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
 import { useContext } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
+import { TabExamesContext } from "../../context/TabExameContext";
 import FormatLaudo from "../../Data/Format_Laudo.json";
-import ExameID from "../../Data/ExameID.json";
 import reghd_2 from "../images/reghd_2.png";
 
 const FieldDefaultHome = ({ text, textColor, id }) => {
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
+  const { tabExames, setTabExames } = useContext(TabExamesContext);
 
   const format_laudo = FormatLaudo.format_laudo;
-  let exameID = ExameID.exameID;
 
   const AddTituloLaudo = () => {
     const obj = {
@@ -27,9 +27,134 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
     localStorage.setItem("format_laudo", JSON.stringify(format_laudo));
   };
   const AddExameID = () => {
-    exameID = id;
+    const exames = [
+      {
+        key: 1,
+        nomeExame: "Abdomen total",
+        link: `#/Home/${1}`,
+      },
+      {
+        key: 2,
+        nomeExame: "Doppler Transvaginal",
+        link: `#/Home/${2}`,
+      },
+      {
+        key: 3,
+        nomeExame: "Mamas",
+        link: `#/Home/${3}`,
+      },
+      {
+        key: 4,
+        nomeExame: "Doppler Artrial do MMSS",
+        link: `#/Home/${4}`,
+      },
+      {
+        key: 5,
+        nomeExame: "Abdomen Superior",
+        link: `#/Home/${5}`,
+      },
+      {
+        key: 6,
+        nomeExame: "Transvaginal",
+        link: `#/Home/${6}`,
+      },
+      {
+        key: 7,
+        nomeExame: "Doppler Renal",
+        link: `#/Home/${7}`,
+      },
+      {
+        key: 8,
+        nomeExame: "Doppler Venoso de MMII",
+        link: `#/Home/${8}`,
+      },
+      {
+        key: 9,
+        nomeExame: "Tireóide",
+        link: `#/Home/${9}`,
+      },
+      {
+        key: 10,
+        nomeExame: "Doppler das Carótidas",
+        link: `#/Home/${10}`,
+      },
+      {
+        key: 11,
+        nomeExame: "Doppler Hepático",
+        link: `#/Home/${11}`,
+      },
+      {
+        key: 12,
+        nomeExame: "Doppler Arterial de MMII",
+        link: `#/Home/${12}`,
+      },
+      {
+        key: 13,
+        nomeExame: "Tireóide 2",
+        link: `#/Home/${13}`,
+      },
+      {
+        key: 14,
+        nomeExame: "Doppler das Carótidas 2",
+        link: `#/Home/${14}`,
+      },
+      {
+        key: 15,
+        nomeExame: "Rins e Vias Urinárias",
+        link: `#/Home/${15}`,
+      },
+      {
+        key: 16,
+        nomeExame: "Dopper Venoso de MMSS",
+        link: `#/Home/${16}`,
+      },
+      {
+        key: 17,
+        nomeExame: "Doppler da Tireóide",
+        link: `#/Home/${17}`,
+      },
+      {
+        key: 18,
+        nomeExame: "Partes Moles",
+        link: `#/Home/${18}`,
+      },
+      {
+        key: 19,
+        nomeExame: "Testículo",
+        link: `#/Home/${19}`,
+      },
+      {
+        key: 20,
+        nomeExame: "Doppler de Bolsa Testicular",
+        link: `#/Home/${20}`,
+      },
+      {
+        key: 21,
+        nomeExame: "Doppler da Tireóide 2",
+        link: `#/Home/${21}`,
+      },
+      {
+        key: 22,
+        nomeExame: "Pélvico",
+        link: `#/Home/${22}`,
+      },
+      {
+        key: 23,
+        nomeExame: "Próstata",
+        link: `#/Home/${23}`,
+      },
+      {
+        key: 24,
+        nomeExame: "Articulações",
+        link: `#/Home/${24}`,
+      },
+    ];
 
-    localStorage.setItem("exameID", JSON.stringify(exameID));
+    exames.map((e) => {
+      if (e.key == id) {
+        setTabExames((tabExames) => [...tabExames, e]);
+      }
+    });
   };
 
   return (

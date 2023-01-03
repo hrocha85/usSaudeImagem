@@ -20,8 +20,6 @@ import Tibial_Anterior_Esquerda from "./tibial_anterior/tibial_anterior_esquerda
 import Tibial_Posterior_Direita from "./tibial_posterior/tibial_posterior_direita";
 import Tibial_Posterior_Esquerda from "./tibial_posterior/tibial_posterior_esquerda";
 
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-
 function Doppler_Arterial_MMII() {
   return (
     <>

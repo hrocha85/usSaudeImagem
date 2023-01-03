@@ -1,7 +1,6 @@
 import { AddIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   CloseButton,
   Grid,
   GridItem,
@@ -10,7 +9,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   Stack,
@@ -23,8 +21,7 @@ import {
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
-import { MenuContext } from "../../context/MenuContext";
+import { useContext } from "react";
 import { TabExamesContext } from "../../context/TabExameContext";
 import AbdomemTotal from "../exames/abdomemTotal/";
 import AbdomemSuperior from "../exames/abdomenSuperior";
@@ -52,11 +49,8 @@ import Sidebar from "../menu/sideBar";
 import BoxTitleBackground from "./box_title_background";
 
 export default function Box_Default_With_Sidebar() {
-  let { menuOpen, setMenuOpen } = useContext(MenuContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { tabExames, setTabExames } = useContext(TabExamesContext);
-  let exameID = JSON.parse(localStorage.getItem("exameID")!);
-
 
   const exames = [
     {
@@ -181,15 +175,6 @@ export default function Box_Default_With_Sidebar() {
     },
   ];
 
-  const addExameIDTable = () => {
-    console.log('wasdf')
-    exames.map((e) => {
-      if (e.key == exameID) {
-        setTabExames((tabExames) => [...tabExames, e]);
-      }
-    });
-  };
-
   const removeTabExame = (e) => {
     tabExames.map((i) => {
       if (i.key == e.key) {
@@ -201,11 +186,6 @@ export default function Box_Default_With_Sidebar() {
       }
     });
   };
-
-  useEffect(() => {
-    addExameIDTable();
-  }, []);
-
 
   return (
     <>
@@ -222,27 +202,25 @@ export default function Box_Default_With_Sidebar() {
       >
         <Sidebar />
         <Tabs>
-          <Stack direction="row">
+          <Stack direction="row" maxW="65%" overflowX="auto">
             <TabList>
-              {tabExames != undefined &&
-              tabExames != null &&
-              Object.keys(tabExames).length > 1
-                ? tabExames.map((e, key) => {
-                    return (
-                      <Stack direction="row" key={key}>
-                        <Tab key={key}>
-                          <BoxTitleBackground
-                            PadLeft="20px"
-                            fontsize="19px"
-                            tamanho="180px"
-                            titulo={e.nomeExame}
-                          />
-                        </Tab>
-                        <CloseButton onClick={() => removeTabExame(e)} />
-                      </Stack>
-                    );
-                  })
-                : null}
+              {tabExames.map((e, key) => {
+                if (e.nomeExame != undefined) {
+                  return (
+                    <Stack direction="row" key={key}>
+                      <Tab key={key}>
+                        <BoxTitleBackground
+                          PadLeft="20px"
+                          fontsize="19px"
+                          tamanho="180px"
+                          titulo={e.nomeExame}
+                        />
+                      </Tab>
+                      <CloseButton onClick={() => removeTabExame(e)} />
+                    </Stack>
+                  );
+                }
+              })}
             </TabList>
             <Tooltip
               label="Adicionar Exame"
@@ -265,10 +243,9 @@ export default function Box_Default_With_Sidebar() {
               />
             </Tooltip>
           </Stack>
-
-          {tabExames != undefined && tabExames != null ? (
-            <TabPanels>
-              {tabExames.map((e, key) => {
+          <TabPanels>
+            {tabExames.map((e, key) => {
+              if (e.key > 0) {
                 return (
                   <TabPanel key={key}>
                     {
@@ -299,36 +276,11 @@ export default function Box_Default_With_Sidebar() {
                     }
                   </TabPanel>
                 );
-              })}
-            </TabPanels>
-          ) : null}
+              }
+            })}
+          </TabPanels>
+          )
         </Tabs>
-        {exameID != 0
-          ? {
-              1: <AbdomemTotal />,
-              2: <DopplerTransvaginal />,
-              3: <Mamas />,
-              4: <Doppler_Arterial_MMII />,
-              5: <AbdomemSuperior />,
-              6: <Transvaginal />,
-              7: <DopplerRenal />,
-              8: <DopplerVenosoMMII />,
-              9: <Tireoide />,
-              10: <DopplerCarotidas />,
-              12: <Doppler_Arterial_MMII />,
-              13: <Tireoide2 />,
-              14: <DopplerCarotidas2 />,
-              15: <RinseViasUrinarias />,
-              17: <DopplerTireoide />,
-              18: <PartesMoles />,
-              19: <Testiculo />,
-              20: <DopplerBolsaTesticular />,
-              21: <DopplerTireoide2 />,
-              22: <Pelvico />,
-              23: <Prostata />,
-              24: <Articulacoes />,
-            }[exameID]
-          : null}
 
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
@@ -336,7 +288,11 @@ export default function Box_Default_With_Sidebar() {
             <ModalHeader margin="5px"></ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Grid templateColumns="repeat(5, 1fr)" gap={2}>
+              <Grid
+                templateColumns="repeat(5, 1fr)"
+                gap={2}
+                marginBottom="20px"
+              >
                 {exames.map((exame, key) => (
                   <GridItem
                     key={key}
@@ -347,9 +303,10 @@ export default function Box_Default_With_Sidebar() {
                     borderStartWidth="4px"
                     borderStartColor="#47AFFC"
                     _hover={{ borderColor: "#47AEFC" }}
-                    onClick={() =>
-                      setTabExames((tabExames) => [...tabExames, exame])
-                    }
+                    onClick={() => {
+                      setTabExames((tabExames) => [...tabExames, exame]);
+                      onClose();
+                    }}
                   >
                     <Text
                       textColor="black"
@@ -366,12 +323,6 @@ export default function Box_Default_With_Sidebar() {
                 ))}
               </Grid>
             </ModalBody>
-            <ModalFooter>
-              <Button mr={3} onClick={onClose}>
-                Cancelar
-              </Button>
-              <Button colorScheme="blue">Salvar</Button>
-            </ModalFooter>
           </ModalContent>
         </Modal>
       </Box>
@@ -379,3 +330,33 @@ export default function Box_Default_With_Sidebar() {
   );
 }
 //TODO fazer com que quando clicar no exame lá no home, adicionar no tabExames
+/**
+ * 
+ * {tabExames.map((e, key) => {
+          return {
+            1: <AbdomemTotal />,
+            2: <DopplerTransvaginal />,
+            3: <Mamas />,
+            4: <Doppler_Arterial_MMII />,
+            5: <AbdomemSuperior />,
+            6: <Transvaginal />,
+            7: <DopplerRenal />,
+            8: <DopplerVenosoMMII />,
+            9: <Tireoide />,
+            10: <DopplerCarotidas />,
+            12: <Doppler_Arterial_MMII />,
+            13: <Tireoide2 />,
+            14: <DopplerCarotidas2 />,
+            15: <RinseViasUrinarias />,
+            17: <DopplerTireoide />,
+            18: <PartesMoles />,
+            19: <Testiculo />,
+            20: <DopplerBolsaTesticular />,
+            21: <DopplerTireoide2 />,
+            22: <Pelvico />,
+            23: <Prostata />,
+            24: <Articulacoes />,
+          }[e.key];
+        })}
+ * 
+ */

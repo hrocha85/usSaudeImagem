@@ -1,5 +1,4 @@
 import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
 import Exames from "../../folha_laudos/Laudos";
 import CistoEpididimarios from "./cistosEpididimarios/cistoEpididimarios";
 import CistosTesticulares from "./cistosTesticulares/cistoTesticulares";

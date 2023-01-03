@@ -1,6 +1,4 @@
 import { Box, HStack } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
 import Extras from "./adicionais/extras";
 import Cirurgias from "./cirurgias/cirurgias";
@@ -15,12 +13,6 @@ import Utero from "./utero/utero";
 function Pelvico() {
   return (
     <>
-      <BoxTitleBackground
-        PadLeft="20px"
-        fontsize="19px"
-        tamanho="180px"
-        titulo="Pélvico"
-      />
       <Exames></Exames>
 
       <Box ml="10px">

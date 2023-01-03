@@ -13,13 +13,6 @@ import Nodulos from "./nodulos/nodulos";
 function DopplerTireoide2() {
   return (
     <>
-      <BoxTitleBackground
-        PadLeft="30px"
-        fontsize="19px"
-        tamanho="252px 67px"
-        titulo="Doppler da Tireoide 2"
-      />
-
       <Exames></Exames>
 
       <Box ml="10px">

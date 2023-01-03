@@ -1,7 +1,5 @@
-import { Box, HStack } from "@chakra-ui/react";
-import BoxTitleBackground from "../../component/box_title_background";
+import { Box } from "@chakra-ui/react";
 import Exames from "../../folha_laudos/Laudos";
-import BGImage from "../../images/bg_img.png";
 import Extras from "./adicionais/extras";
 import Cirurgias from "./cirurgias/cirurgias";
 import Hidatide from "./hidatide/hidatide";
@@ -11,7 +9,6 @@ import Miometrio from "./miometrio/miometrio";
 import Ovario_Direito from "./ovarios/ovario_direito";
 import Ovario_Esquerdo from "./ovarios/ovario_esquedo";
 import Utero from "./utero/utero";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
 
 function DopplerTransvaginal() {
   return (
