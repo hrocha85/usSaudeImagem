@@ -480,9 +480,9 @@ function Exames() {
 
   return (
     <>
-      <Box className="zoom" boxShadow="xl" ref={ref} marginBottom="400px">
+      <Box className="zoom" boxShadow="xl" ref={ref}>
         <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
-          <Box margin="5px" display="flex" marginStart="15px">
+          <Box>
             <Image
               src={clinicaSet.foto}
               alt="Imagem Clínica"

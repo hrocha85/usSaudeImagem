@@ -46,7 +46,6 @@ import Tireoide2 from "../exames/tireoide2";
 import Transvaginal from "../exames/transvaginal";
 import BGImage from "../images/bg_img.png";
 import Sidebar from "../menu/sideBar";
-import BoxTitleBackground from "./box_title_background";
 
 export default function Box_Default_With_Sidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -203,7 +202,7 @@ export default function Box_Default_With_Sidebar() {
         <Sidebar />
         <Tabs size="lg" variant="soft-rounded">
           <Stack direction="row" maxW="65%" overflowX="auto">
-            <TabList marginStart="20px" >
+            <TabList marginStart="20px">
               {tabExames.map((e, key) => {
                 if (e.nomeExame != undefined) {
                   return (

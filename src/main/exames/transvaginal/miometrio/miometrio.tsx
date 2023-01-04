@@ -5,7 +5,7 @@ import {
   Input,
   Select,
   Stack,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
@@ -20,20 +20,21 @@ function Miometrio() {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [frasesMiometrio, setFrasesMiometrio] = useState<any>([]);
 
-  const subExameUtero = "Miométrio";
+  const subExame = "Miométrio";
+  const titulo_exame = "Transvaginal";
 
   useEffect(() => {
     if (Object.keys(frasesMiometrio).length == 0) {
       new Format_Laudo(
-        false,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         true,
         frasesMiometrio
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
-        true,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         false,
         frasesMiometrio
       ).Format_Laudo_Create_Storage();

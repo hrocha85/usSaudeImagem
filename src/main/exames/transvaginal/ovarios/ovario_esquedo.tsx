@@ -20,20 +20,21 @@ function Ovario_Esquerdo() {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [frasesOvarioEsquerdo, setfrasesOvarioEsquerdo] = useState<any>([]);
 
-  const subExameOvario = "Ovário Esquerdo";
+  const subExame = "Ovário Esquerdo";
+  const titulo_exame = "Transvaginal";
 
   useEffect(() => {
     if (Object.keys(frasesOvarioEsquerdo).length == 0) {
       new Format_Laudo(
-        false,
-        subExameOvario,
+        titulo_exame,
+        subExame,
         true,
         frasesOvarioEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
-        true,
-        subExameOvario,
+        titulo_exame,
+        subExame,
         false,
         frasesOvarioEsquerdo
       ).Format_Laudo_Create_Storage();

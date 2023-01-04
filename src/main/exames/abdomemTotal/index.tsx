@@ -21,7 +21,7 @@ function AbdomemTotal() {
     <>
       <Exames></Exames>
 
-      <Box ml="10px">
+      <Box>
         <Normal></Normal>
 
         <Figado />
