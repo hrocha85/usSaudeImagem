@@ -19,7 +19,7 @@ function LadoEsquerdo() {
       padding="15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Pé Esquerdo" />
+      <TituloNomeExame titulo="Coxa Esquerda" />
     </Box >
   );
 }

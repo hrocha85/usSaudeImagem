@@ -96,6 +96,10 @@ import PeTendaoAquilesDireito from "./pe/peDireito/tendaoAquilesDireito";
 import PeTendaoAquilesEsquerdo from "./pe/peEsquerdo/tendaoAquilesEsquerdo";
 import PeExtraDireito from "./pe/peDireito/extraDireito"
 import PeExtraEsquerdo from "./pe/peEsquerdo/extraEsquerdo"
+import PeLadoDireito from './pe/peDireito/ladoDireito'
+import PeNormalDireito from './pe/peDireito/normal'
+import PeNormalEsquerdo from './pe/peEsquerdo/normal'
+import PeLadoEsquerdo from './pe/peEsquerdo/ladoEsquerdo'
 
 function Articulacoes() {
 
@@ -346,6 +350,15 @@ function Articulacoes() {
                             <PernaNormalDireito />
                         </Box>
                         <Box
+                            textAlign="center" >
+                            <PeLadoDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <PeNormalDireito />
+                        </Box>
+                        <Box
                             mt='10px'
                             textAlign="center" >
                             <PeTendaoAquilesDireito />
@@ -577,6 +590,15 @@ function Articulacoes() {
                             mt='10px'
                             textAlign="center" >
                             <PernaNormalEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <PeLadoEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <PeNormalEsquerdo />
                         </Box>
                         <Box
                             mt='10px'
