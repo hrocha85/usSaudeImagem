@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import Exames from "../../folha_laudos/Laudos";
 import BulboCarotideoDireito from "./direito/bulboCarotideo";
 import CarotidaComumDireita from "./direito/carotidaComum";
@@ -22,22 +22,24 @@ function DopplerCarotidas2() {
         <Box textAlign="center">
           <LadoDireito />
         </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <CarotidaComumDireita />
+        <Stack direction="row">
+          <Box w="70%" display="flex" flexWrap="wrap">
+            <Box w="450px" mb="15px">
+              <CarotidaComumDireita />
+            </Box>
+            <Box w="450px" mb="15px">
+              <CarotidaInternaDireita />
+            </Box>
           </Box>
-          <Box w="450px" mb="15px">
-            <CarotidaInternaDireita />
+          <Box w="70%" display="flex" flexWrap="wrap">
+            <Box w="450px" mb="15px">
+              <CarotidaExternaDireita />
+            </Box>
+            <Box w="450px" mb="15px">
+              <CarotidaVertebralDireita />
+            </Box>
           </Box>
-        </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <CarotidaExternaDireita />
-          </Box>
-          <Box w="450px" mb="15px">
-            <CarotidaVertebralDireita />
-          </Box>
-        </Box>
+        </Stack>
         <Box textAlign="center">
           <BulboCarotideoDireito />
         </Box>
