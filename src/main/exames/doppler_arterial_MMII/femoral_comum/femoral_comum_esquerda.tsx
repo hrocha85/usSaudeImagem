@@ -1,22 +1,13 @@
-import {
-  Box,
-  Checkbox,
-  Flex,
-  HStack,
-  Input,
-  Select,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Box, Checkbox, Flex, HStack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Femoral_Comum_Esquerda() {
   const altura = "100%";
   const largura = "100%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesFemoralEsquerda, setFrasesFemoralEsquerda] = useState<any>([]);
 
   const [FluxoAusenteCheckBox, setFluxoAusenteCheckBox] = useState(false);
   const [PosEstenoticoCheckBox, setPosEstenoticoCheckBox] = useState(false);
@@ -24,17 +15,17 @@ function Femoral_Comum_Esquerda() {
 
   const criaStringFluxoAusente = () => {
     var string = "Fluxo ausente femoral esquerda ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFemoralEsquerda((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
-    laudoPrin.map((e) => {
+    frasesFemoralEsquerda.map((e) => {
       if (e.includes("Fluxo ausente femoral esquerda ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFemoralEsquerda.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFemoralEsquerda.splice(index, 1);
+          setFrasesFemoralEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -42,17 +33,17 @@ function Femoral_Comum_Esquerda() {
 
   const criaStringPosEstenotico = () => {
     var string = "Pós estenótico femoral esquerda ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFemoralEsquerda((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
-    laudoPrin.map((e) => {
+    frasesFemoralEsquerda.map((e) => {
       if (e.includes("Pós estenótico femoral esquerda ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFemoralEsquerda.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFemoralEsquerda.splice(index, 1);
+          setFrasesFemoralEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -60,17 +51,17 @@ function Femoral_Comum_Esquerda() {
 
   const criaStringEstenose = () => {
     var string = "Estenose femoral esquerda acima de 50% ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFemoralEsquerda((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
-    laudoPrin.map((e) => {
+    frasesFemoralEsquerda.map((e) => {
       if (e.includes("Estenose femoral esquerda acima de 50% ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFemoralEsquerda.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFemoralEsquerda.splice(index, 1);
+          setFrasesFemoralEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -99,6 +90,27 @@ function Femoral_Comum_Esquerda() {
       removeEstenose();
     }
   }, [EstenoseCheckBox]);
+
+  const subExame = "Femoral Comum Esquerda";
+  const titulo_exame = "Doppler Arterial de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesFemoralEsquerda).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesFemoralEsquerda
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesFemoralEsquerda
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesFemoralEsquerda]);
 
   return (
     <Box

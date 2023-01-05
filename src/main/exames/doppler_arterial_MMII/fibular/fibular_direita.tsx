@@ -1,13 +1,13 @@
 import { Box, Checkbox, Flex, HStack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Fibular_Direita() {
   const altura = "100%";
   const largura = "100%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesFibularDireita, setFrasesFibularDireita] = useState<any>([]);
 
   const [FluxoAusenteCheckBox, setFluxoAusenteCheckBox] = useState(false);
   const [PosEstenoticoCheckBox, setPosEstenoticoCheckBox] = useState(false);
@@ -15,17 +15,17 @@ function Fibular_Direita() {
 
   const criaStringFluxoAusente = () => {
     var string = "Fibular direita fluxo ausente ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFibularDireita((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
-    laudoPrin.map((e) => {
+    frasesFibularDireita.map((e) => {
       if (e.includes("Fibular direita fluxo ausente ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFibularDireita.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFibularDireita.splice(index, 1);
+          setFrasesFibularDireita((arr) => [...arr]);
         }
       }
     });
@@ -33,17 +33,17 @@ function Fibular_Direita() {
 
   const criaStringPosEstenotico = () => {
     var string = "Pós estenótico fibular direita ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFibularDireita((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
-    laudoPrin.map((e) => {
+    frasesFibularDireita.map((e) => {
       if (e.includes("Pós estenótico fibular direita ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFibularDireita.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFibularDireita.splice(index, 1);
+          setFrasesFibularDireita((arr) => [...arr]);
         }
       }
     });
@@ -51,17 +51,17 @@ function Fibular_Direita() {
 
   const criaStringEstenose = () => {
     var string = "Estenose fibular direita acima de 50% ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFibularDireita((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
-    laudoPrin.map((e) => {
+    frasesFibularDireita.map((e) => {
       if (e.includes("Estenose fibular direita acima de 50% ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFibularDireita.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFibularDireita.splice(index, 1);
+          setFrasesFibularDireita((arr) => [...arr]);
         }
       }
     });
@@ -90,6 +90,27 @@ function Fibular_Direita() {
       removeEstenose();
     }
   }, [EstenoseCheckBox]);
+
+  const subExame = "Fibular Direita";
+  const titulo_exame = "Doppler Arterial de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesFibularDireita).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesFibularDireita
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesFibularDireita
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesFibularDireita]);
 
   return (
     <Box

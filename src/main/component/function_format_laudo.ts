@@ -22,6 +22,7 @@ export class Format_Laudo {
 
     array.map((Exames) => {
       if (Exames.titulo_exame == this.titulo_exame) {
+
         if (this.frases_is_empty) {
           Exames.subExames.map((subExame) => {
             if (subExame.subExameNome == this.sub_exame_nome) {

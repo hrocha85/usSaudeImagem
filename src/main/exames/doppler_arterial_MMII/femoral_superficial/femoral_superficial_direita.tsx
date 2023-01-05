@@ -1,13 +1,14 @@
 import { Box, Checkbox, Flex, HStack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Femoral_Superficial_Direita() {
   const altura = "100%";
   const largura = "100%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesFemoralSuperficialDireita, setFrasesFemoralSuperficialDireita] =
+    useState<any>([]);
 
   const [FluxoAusenteCheckBox, setFluxoAusenteCheckBox] = useState(false);
   const [PosEstenoticoCheckBox, setPosEstenoticoCheckBox] = useState(false);
@@ -15,17 +16,17 @@ function Femoral_Superficial_Direita() {
 
   const criaStringFluxoAusente = () => {
     var string = "Fluxo ausente femoral superficial direita ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFemoralSuperficialDireita((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
-    laudoPrin.map((e) => {
+    frasesFemoralSuperficialDireita.map((e) => {
       if (e.includes("Fluxo ausente femoral superficial direita ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFemoralSuperficialDireita.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFemoralSuperficialDireita.splice(index, 1);
+          setFrasesFemoralSuperficialDireita((arr) => [...arr]);
         }
       }
     });
@@ -33,17 +34,17 @@ function Femoral_Superficial_Direita() {
 
   const criaStringPosEstenotico = () => {
     var string = "Pós estenótico femoral superficial direita ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFemoralSuperficialDireita((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
-    laudoPrin.map((e) => {
+    frasesFemoralSuperficialDireita.map((e) => {
       if (e.includes("Pós estenótico femoral superficial direita ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFemoralSuperficialDireita.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFemoralSuperficialDireita.splice(index, 1);
+          setFrasesFemoralSuperficialDireita((arr) => [...arr]);
         }
       }
     });
@@ -51,17 +52,17 @@ function Femoral_Superficial_Direita() {
 
   const criaStringEstenose = () => {
     var string = "Estenose femoral superficial direita acima de 50% ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFemoralSuperficialDireita((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
-    laudoPrin.map((e) => {
+    frasesFemoralSuperficialDireita.map((e) => {
       if (e.includes("Estenose femoral superficial direita acima de 50% ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFemoralSuperficialDireita.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFemoralSuperficialDireita.splice(index, 1);
+          setFrasesFemoralSuperficialDireita((arr) => [...arr]);
         }
       }
     });
@@ -90,6 +91,27 @@ function Femoral_Superficial_Direita() {
       removeEstenose();
     }
   }, [EstenoseCheckBox]);
+
+  const subExame = "Femoral Superficial Direita";
+  const titulo_exame = "Doppler Arterial de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesFemoralSuperficialDireita).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesFemoralSuperficialDireita
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesFemoralSuperficialDireita
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesFemoralSuperficialDireita]);
 
   return (
     <Box

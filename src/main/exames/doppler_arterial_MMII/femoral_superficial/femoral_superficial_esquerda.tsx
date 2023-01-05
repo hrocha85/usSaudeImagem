@@ -1,18 +1,16 @@
-import {
-  Box,
-  Checkbox,
-  Flex,
-  HStack
-} from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Box, Checkbox, Flex, HStack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Femoral_Superficial_Esquerda() {
   const altura = "100%";
   const largura = "100%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [
+    frasesFemoralSuperficialEsquerda,
+    setFrasesFemoralSuperficialEsquerda,
+  ] = useState<any>([]);
 
   const [FluxoAusenteCheckBox, setFluxoAusenteCheckBox] = useState(false);
   const [PosEstenoticoCheckBox, setPosEstenoticoCheckBox] = useState(false);
@@ -20,17 +18,17 @@ function Femoral_Superficial_Esquerda() {
 
   const criaStringFluxoAusente = () => {
     var string = "Fluxo ausente femoral superficial esquerda ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFemoralSuperficialEsquerda((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
-    laudoPrin.map((e) => {
+    frasesFemoralSuperficialEsquerda.map((e) => {
       if (e.includes("Fluxo ausente femoral superficial esquerda ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFemoralSuperficialEsquerda.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFemoralSuperficialEsquerda.splice(index, 1);
+          setFrasesFemoralSuperficialEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -38,17 +36,17 @@ function Femoral_Superficial_Esquerda() {
 
   const criaStringPosEstenotico = () => {
     var string = "Pós estenótico femoral superficial esquerda ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFemoralSuperficialEsquerda((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
-    laudoPrin.map((e) => {
+    frasesFemoralSuperficialEsquerda.map((e) => {
       if (e.includes("Pós estenótico femoral superficial esquerda ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFemoralSuperficialEsquerda.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFemoralSuperficialEsquerda.splice(index, 1);
+          setFrasesFemoralSuperficialEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -56,17 +54,17 @@ function Femoral_Superficial_Esquerda() {
 
   const criaStringEstenose = () => {
     var string = "Estenose femoral superficial esquerda acima de 50% ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFemoralSuperficialEsquerda((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
-    laudoPrin.map((e) => {
+    frasesFemoralSuperficialEsquerda.map((e) => {
       if (e.includes("Estenose femoral superficial esquerda acima de 50% ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFemoralSuperficialEsquerda.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFemoralSuperficialEsquerda.splice(index, 1);
+          setFrasesFemoralSuperficialEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -95,6 +93,27 @@ function Femoral_Superficial_Esquerda() {
       removeEstenose();
     }
   }, [EstenoseCheckBox]);
+
+  const subExame = "Femoral Superficial Esquerda";
+  const titulo_exame = "Doppler Arterial de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesFemoralSuperficialEsquerda).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesFemoralSuperficialEsquerda
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesFemoralSuperficialEsquerda
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesFemoralSuperficialEsquerda]);
 
   return (
     <Box

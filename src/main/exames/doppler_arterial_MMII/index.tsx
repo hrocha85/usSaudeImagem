@@ -27,7 +27,7 @@ function Doppler_Arterial_MMII() {
 
       <Box ml="10px">
         <HStack>
-          <VStack w="32.5%">
+          <VStack w="43%">
             <Lado lado={"Esquerdo"} />
 
             <Femoral_Comum_Esquerda />
@@ -42,7 +42,7 @@ function Doppler_Arterial_MMII() {
           <Center>
             <span className={styles.vl}></span>
           </Center>
-          <VStack w="33%">
+          <VStack w="43%">
             <Lado lado={"Direito"} />
             <Femoral_Comum_Direita />
             <Femoral_Superficial_Direita />
