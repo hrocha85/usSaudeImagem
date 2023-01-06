@@ -19,7 +19,7 @@ import {
   Tabs,
   Text,
   Tooltip,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { TabExamesContext } from "../../context/TabExameContext";

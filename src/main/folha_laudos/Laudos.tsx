@@ -18,7 +18,7 @@ import {
   Stack,
   Text,
   Tooltip,
-  useEditableControls,
+  useEditableControls
 } from "@chakra-ui/react";
 import {
   Document,
@@ -28,7 +28,7 @@ import {
   PDFDownloadLink,
   StyleSheet,
   Text as TextPDF,
-  View as ViewPDF,
+  View as ViewPDF
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -482,15 +482,21 @@ function Exames() {
     <>
       <Box
         w="32%"
-        minH="30%"
-        maxH="75%"
+        h='40%'
+        maxH="50%"
         float="right"
         position="sticky"
         top={0}
         transition="0.2"
       >
-        <Center>
-          <HStack w="20%" justify="space-around">
+        <Center paddingBottom='30px' >
+          <Stack
+            w="20%"
+            justify="space-around"
+            direction="row"
+            h="70px"
+            alignItems="center"
+          >
             <Link
               //href={`#/Format_PDF`}
               //target="_blank"
@@ -520,39 +526,40 @@ function Exames() {
                 </Circle>
               </Tooltip>
             </Link>
-
-            <PDFDownloadLink
-              document={laudo != null ? laudo : Laudo()}
-              fileName={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
-            >
-              {({ blob, url, loading, error }) =>
-                loading ? (
-                  <Icon as={BiLoaderAlt} color="#4658fc" w={50} h={40} />
-                ) : (
-                  <Tooltip
-                    label="Baixar Laudo"
-                    fontSize="xl"
-                    backgroundColor="white"
-                    placement="top"
-                    hasArrow
-                    arrowSize={15}
-                    textColor="black"
-                  >
-                    <Circle size="50px" bg="gray.200">
-                      <Icon
-                        as={GoDesktopDownload}
-                        w={30}
-                        h={30}
-                        color="twitter.600"
-                        onClick={() => {
-                          convertBlob(blob!);
-                        }}
-                      />
-                    </Circle>
-                  </Tooltip>
-                )
-              }
-            </PDFDownloadLink>
+            <Box>
+              <PDFDownloadLink
+                document={laudo != null ? laudo : Laudo()}
+                fileName={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
+              >
+                {({ blob, url, loading, error }) =>
+                  loading ? (
+                    <Icon as={BiLoaderAlt} color="#4658fc" w={50} h={40} />
+                  ) : (
+                    <Tooltip
+                      label="Baixar Laudo"
+                      fontSize="xl"
+                      backgroundColor="white"
+                      placement="top"
+                      hasArrow
+                      arrowSize={15}
+                      textColor="black"
+                    >
+                      <Circle size="50px" bg="gray.200">
+                        <Icon
+                          as={GoDesktopDownload}
+                          w={30}
+                          h={30}
+                          color="twitter.600"
+                          onClick={() => {
+                            convertBlob(blob!);
+                          }}
+                        />
+                      </Circle>
+                    </Tooltip>
+                  )
+                }
+              </PDFDownloadLink>
+            </Box>
             <Tooltip
               label="Editar Laudo"
               fontSize="xl"
@@ -574,7 +581,7 @@ function Exames() {
                 />
               </Circle>
             </Tooltip>
-          </HStack>
+          </Stack>
         </Center>
 
         <Box className="zoom" boxShadow="xl" ref={ref}>
