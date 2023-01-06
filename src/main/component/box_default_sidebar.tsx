@@ -21,7 +21,7 @@ import {
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { TabExamesContext } from "../../context/TabExameContext";
 import AbdomemTotal from "../exames/abdomemTotal/";
 import AbdomemSuperior from "../exames/abdomenSuperior";
@@ -50,6 +50,16 @@ import Sidebar from "../menu/sideBar";
 export default function Box_Default_With_Sidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { tabExames, setTabExames } = useContext(TabExamesContext);
+
+  const [tabIndex, setTabIndex] = useState(0);
+
+  const handleSliderChange = (event) => {
+    setTabIndex(event - 2);
+  };
+
+  const handleTabsChange = (index) => {
+    setTabIndex(index);
+  };
 
   const exames = [
     {
@@ -185,7 +195,6 @@ export default function Box_Default_With_Sidebar() {
       }
     });
   };
-
   return (
     <>
       <Box
@@ -200,7 +209,12 @@ export default function Box_Default_With_Sidebar() {
         paddingBottom="50px"
       >
         <Sidebar />
-        <Tabs size="lg" variant="soft-rounded">
+        <Tabs
+          size="lg"
+          variant="soft-rounded"
+          index={tabIndex}
+          onChange={handleTabsChange}
+        >
           <Stack direction="row" maxW="65%" overflowX="auto">
             <TabList marginStart="20px">
               {tabExames.map((e, key) => {
@@ -208,6 +222,7 @@ export default function Box_Default_With_Sidebar() {
                   return (
                     <Stack direction="row" key={key}>
                       <Tab
+                        whiteSpace="nowrap"
                         key={key}
                         textColor="black"
                         _selected={{ color: "white", bg: "blue.500" }}
@@ -224,7 +239,12 @@ export default function Box_Default_With_Sidebar() {
                           margin="20px"
                           textAlign="center"
                         >
-                          <CloseButton onClick={() => removeTabExame(e)} />
+                          <CloseButton
+                            onClick={() => {
+                              removeTabExame(e);
+                              handleSliderChange(key);
+                            }}
+                          />
                         </Tooltip>
                       </Tab>
                     </Stack>
@@ -339,34 +359,3 @@ export default function Box_Default_With_Sidebar() {
     </>
   );
 }
-//TODO fazer com que quando clicar no exame lá no home, adicionar no tabExames
-/**
- * 
- * {tabExames.map((e, key) => {
-          return {
-            1: <AbdomemTotal />,
-            2: <DopplerTransvaginal />,
-            3: <Mamas />,
-            4: <Doppler_Arterial_MMII />,
-            5: <AbdomemSuperior />,
-            6: <Transvaginal />,
-            7: <DopplerRenal />,
-            8: <DopplerVenosoMMII />,
-            9: <Tireoide />,
-            10: <DopplerCarotidas />,
-            12: <Doppler_Arterial_MMII />,
-            13: <Tireoide2 />,
-            14: <DopplerCarotidas2 />,
-            15: <RinseViasUrinarias />,
-            17: <DopplerTireoide />,
-            18: <PartesMoles />,
-            19: <Testiculo />,
-            20: <DopplerBolsaTesticular />,
-            21: <DopplerTireoide2 />,
-            22: <Pelvico />,
-            23: <Prostata />,
-            24: <Articulacoes />,
-          }[e.key];
-        })}
- * 
- */
