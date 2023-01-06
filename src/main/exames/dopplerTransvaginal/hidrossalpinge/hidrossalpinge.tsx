@@ -1,13 +1,13 @@
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidrossalpinge() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesHidro, setFrasesHidro] = useState<any>([]);
 
   const [posicaoHidrossalpingeSelect, setPosicaoHidrossalpingeSelect] =
     useState("");
@@ -19,18 +19,18 @@ function Hidrossalpinge() {
 
     if (HidrossalpingeCheckBox && posicaoHidrossalpingeSelect != "") {
       var string = `Hidrossalpinge ${posicaoHidrossalpingeSelect}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesHidro((arr) => [...arr, string]);
     }
   };
 
   const removeStringHidrossalpinge = () => {
-    laudoPrin.map((e) => {
+    frasesHidro.map((e) => {
       if (e.includes("Hidrossalpinge")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesHidro.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesHidro.splice(index, 1);
+          setFrasesHidro((arr) => [...arr]);
         }
       }
     });
@@ -38,14 +38,35 @@ function Hidrossalpinge() {
 
   useEffect(() => {
     if (HidrossalpingeCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringHidrossalpinge();
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeStringHidrossalpinge();
       setPosicaoHidrossalpingeSelect("");
     }
   }, [HidrossalpingeCheckBox, posicaoHidrossalpingeSelect]);
+
+  const subExame = "Hidrossalpinge";
+  const titulo_exame = "Doppler Transvaginal";
+
+  useEffect(() => {
+    if (Object.keys(frasesHidro).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesHidro
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesHidro
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesHidro]);
 
   return (
     <Box
