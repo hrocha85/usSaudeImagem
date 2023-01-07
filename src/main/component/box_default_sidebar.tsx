@@ -1,6 +1,7 @@
 import { AddIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Button,
   CloseButton,
   Grid,
   GridItem,
@@ -9,6 +10,7 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay,
   Stack,
@@ -48,13 +50,22 @@ import BGImage from "../images/bg_img.png";
 import Sidebar from "../menu/sideBar";
 
 export default function Box_Default_With_Sidebar() {
+  const {
+    isOpen: isOpenRemoveExameModal,
+    onOpen: onOpenRemoveExameModal,
+    onClose: onCloseRemoveExameModal,
+  } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { tabExames, setTabExames } = useContext(TabExamesContext);
 
   const [tabIndex, setTabIndex] = useState(0);
 
   const handleSliderChange = (event) => {
-    setTabIndex(event - 2);
+    if (event == 1 && Object.keys(tabExames).length >= 2) {
+      setTabIndex(0);
+    } else {
+      setTabIndex(event - 2);
+    }
   };
 
   const handleTabsChange = (index) => {
@@ -183,18 +194,27 @@ export default function Box_Default_With_Sidebar() {
       link: `#/Home/${24}`,
     },
   ];
+  const SairExames = () => {
+    window.location.href = "/Home#/Home";
+    setTabExames([{}]);
+  };
 
   const removeTabExame = (e) => {
-    tabExames.map((i) => {
-      if (i.key == e.key) {
-        var index = tabExames.indexOf(i);
-        if (index > -1) {
-          tabExames.splice(index, 1);
-          setTabExames((arr) => [...arr]);
+    if (Object.keys(tabExames).length == 2) {
+      onOpenRemoveExameModal();
+    } else {
+      tabExames.map((i) => {
+        if (i.key == e.key) {
+          var index = tabExames.indexOf(i);
+          if (index > -1) {
+            tabExames.splice(index, 1);
+            setTabExames((arr) => [...arr]);
+          }
         }
-      }
-    });
+      });
+    }
   };
+
   return (
     <>
       <Box
@@ -312,6 +332,7 @@ export default function Box_Default_With_Sidebar() {
           )
         </Tabs>
 
+        {/** Modal Add Exame */}
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent minWidth="50%">
@@ -353,6 +374,39 @@ export default function Box_Default_With_Sidebar() {
                 ))}
               </Grid>
             </ModalBody>
+          </ModalContent>
+        </Modal>
+
+        {/*Modal Sair Exame */}
+        <Modal
+          isOpen={isOpenRemoveExameModal}
+          onClose={onCloseRemoveExameModal}
+        >
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Deseja sair de Exames? </ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Text fontSize="20px">Deseja realmente sair ?</Text>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button
+                colorScheme="blue"
+                mr={3}
+                onClick={onCloseRemoveExameModal}
+                fontSize="20px"
+              >
+                Cancelar
+              </Button>
+              <Button
+                variant="ghost"
+                fontSize="20px"
+                onClick={() => SairExames()}
+              >
+                Sair
+              </Button>
+            </ModalFooter>
           </ModalContent>
         </Modal>
       </Box>

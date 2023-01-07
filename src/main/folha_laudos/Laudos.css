@@ -8,10 +8,11 @@
   overflow: auto;
   padding-bottom: 10%;
   float: right;
+ 
 }
 
 
-.zoom:hover {
+/*.zoom:hover {
   transform: scale(1.2);
   transition: 0.2s;
   float: right;
@@ -20,4 +21,4 @@
   overflow: auto;
   padding-bottom: 40%;
   z-index: 1;
-}
+}*/
