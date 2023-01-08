@@ -1,18 +1,17 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
+import { Box, Checkbox, Select, Stack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function TeleangiectasiasEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesTele, setFrasesTele] = useState<any>([]);
 
-  const [DisableSelect, setDisableSelect] =
-    useState(true);
+  const [DisableSelect, setDisableSelect] = useState(true);
 
   const [NaFaceSelect, setNaFaceSelect] = useState("");
   const [NaFaceSelect2, setNaFaceSelect2] = useState("");
@@ -23,13 +22,13 @@ function TeleangiectasiasEsquerdo() {
   const [DifusasCheckBox, setDifusasCheckBox] = useState(true);
 
   const removeNaFace = () => {
-    laudoPrin.map((e) => {
+    frasesTele.map((e) => {
       if (e.includes("Presença de Teleangiectasias na Face")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesTele.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesTele.splice(index, 1);
+          setFrasesTele((arr) => [...arr]);
         }
       }
     });
@@ -38,9 +37,9 @@ function TeleangiectasiasEsquerdo() {
   const criaStringNaFace = (NaFaceSelect, NaFaceSelect2) => {
     removeNaFace();
     var string;
-    if (NaFaceSelect !== "" && NaFaceSelect2 !== "") {
+    if (NaFaceSelect != "" && NaFaceSelect2 != "") {
       string = `Presença de Teleangiectasias na Face ${NaFaceSelect} ${NaFaceSelect2} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesTele((arr) => [...arr, string]);
     } else {
       removeNaFace();
     }
@@ -49,44 +48,58 @@ function TeleangiectasiasEsquerdo() {
   const criaStringDifusas = () => {
     var string = "Teleangiectasias Difusas ";
     if (DifusasCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesTele((arr) => [...arr, string]);
       setDifusasCheckBox(false);
-      setDisableNaFaceCheckBox(true)
+      setDisableNaFaceCheckBox(true);
     } else {
-      setDisableNaFaceCheckBox(false)
+      setDisableNaFaceCheckBox(false);
       removeItemString(string);
     }
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesTele.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesTele.splice(index, 1);
+      setFrasesTele((arr) => [...arr]);
     }
   };
 
   useEffect(() => {
     if (NaFaceCheckBox) {
-      criaStringNaFace(
-        NaFaceSelect,
-        NaFaceSelect2
-      );
-      setDisableDifusasCheckBox(true)
-      setDisableSelect(false)
+      criaStringNaFace(NaFaceSelect, NaFaceSelect2);
+      setDisableDifusasCheckBox(true);
+      setDisableSelect(false);
     } else {
-      setDisableDifusasCheckBox(false)
-      setDisableSelect(true)
+      setDisableDifusasCheckBox(false);
+      setDisableSelect(true);
       removeNaFace();
       setNaFaceSelect("");
       setNaFaceSelect2("");
     }
-  }, [
-    NaFaceCheckBox,
-    NaFaceSelect,
-    NaFaceSelect2
-  ]);
+  }, [NaFaceCheckBox, NaFaceSelect, NaFaceSelect2]);
+
+  const subExame = "Teleangiectasias Esquerda";
+  const titulo_exame = "Doppler Venoso de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesTele).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesTele
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesTele
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesTele]);
 
   return (
     <Box
@@ -112,15 +125,11 @@ function TeleangiectasiasEsquerdo() {
           Difusas
         </Checkbox>
       </Stack>
-      <Box
-        display='flex'
-        flexWrap='wrap'>
+      <Box display="flex" flexWrap="wrap">
         <Checkbox
           whiteSpace="nowrap"
           isDisabled={DisableNaFaceCheckBox}
-          onChange={() =>
-            setNaFaceCheckBox(!NaFaceCheckBox)
-          }
+          onChange={() => setNaFaceCheckBox(!NaFaceCheckBox)}
         >
           Na Face
         </Checkbox>
@@ -156,9 +165,8 @@ function TeleangiectasiasEsquerdo() {
           <option value="do joelho">do joelho</option>
           <option value="do tornozelo">do tornozelo</option>
         </Select>
-
       </Box>
-    </Box >
+    </Box>
   );
 }
 export default TeleangiectasiasEsquerdo;

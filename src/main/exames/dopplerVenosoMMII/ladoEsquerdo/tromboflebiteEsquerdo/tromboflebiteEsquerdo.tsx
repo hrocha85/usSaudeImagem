@@ -1,40 +1,44 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
+import { Box, Checkbox, HStack, Select } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function TromboflebiteEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesTrombo, setFrasesTrombo] = useState<any>([]);
 
-  const [posicaoTromboflebiteMagmaSelect, setPosicaoTromboflebiteMagmaSelect] = useState("");
-  const [TromboflebiteMagmaCheckBox, setTromboflebiteMagmaCheckBox] = useState(false);
+  const [posicaoTromboflebiteMagmaSelect, setPosicaoTromboflebiteMagmaSelect] =
+    useState("");
+  const [TromboflebiteMagmaCheckBox, setTromboflebiteMagmaCheckBox] =
+    useState(false);
   const [DisableSelectMagma, setDisableSelectMagma] = useState(true);
 
-  const [posicaoTromboflebiteParvaSelect, setPosicaoTromboflebiteParvaSelect] = useState("");
-  const [TromboflebiteParvaCheckBox, setTromboflebiteParvaCheckBox] = useState(false);
+  const [posicaoTromboflebiteParvaSelect, setPosicaoTromboflebiteParvaSelect] =
+    useState("");
+  const [TromboflebiteParvaCheckBox, setTromboflebiteParvaCheckBox] =
+    useState(false);
   const [DisableSelectParva, setDisableSelectParva] = useState(true);
 
   const criaStringTromboflebiteMagma = () => {
     removeStringTromboflebiteMagma();
     if (posicaoTromboflebiteMagmaSelect !== "") {
       var string = `Tromboflebite Magma ${posicaoTromboflebiteMagmaSelect}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesTrombo((arr) => [...arr, string]);
     }
   };
 
   const removeStringTromboflebiteMagma = () => {
-    laudoPrin.map((e) => {
+    frasesTrombo.map((e) => {
       if (e.includes("Tromboflebite Magma")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesTrombo.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesTrombo.splice(index, 1);
+          setFrasesTrombo((arr) => [...arr]);
         }
       }
     });
@@ -42,10 +46,10 @@ function TromboflebiteEsquerdo() {
 
   useEffect(() => {
     if (TromboflebiteMagmaCheckBox) {
-      setDisableSelectMagma(false)
+      setDisableSelectMagma(false);
       criaStringTromboflebiteMagma();
     } else {
-      setDisableSelectMagma(true)
+      setDisableSelectMagma(true);
       removeStringTromboflebiteMagma();
       setPosicaoTromboflebiteMagmaSelect("");
     }
@@ -55,18 +59,18 @@ function TromboflebiteEsquerdo() {
     removeStringTromboflebiteParva();
     if (posicaoTromboflebiteParvaSelect !== "") {
       var string = `Tromboflebite Parva ${posicaoTromboflebiteParvaSelect}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesTrombo((arr) => [...arr, string]);
     }
   };
 
   const removeStringTromboflebiteParva = () => {
-    laudoPrin.map((e) => {
+    frasesTrombo.map((e) => {
       if (e.includes("Tromboflebite Parva")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesTrombo.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesTrombo.splice(index, 1);
+          setFrasesTrombo((arr) => [...arr]);
         }
       }
     });
@@ -74,14 +78,35 @@ function TromboflebiteEsquerdo() {
 
   useEffect(() => {
     if (TromboflebiteParvaCheckBox) {
-      setDisableSelectParva(false)
+      setDisableSelectParva(false);
       criaStringTromboflebiteParva();
     } else {
-      setDisableSelectParva(true)
+      setDisableSelectParva(true);
       removeStringTromboflebiteParva();
       setPosicaoTromboflebiteParvaSelect("");
     }
   }, [TromboflebiteParvaCheckBox, posicaoTromboflebiteParvaSelect]);
+
+  const subExame = "Tromboflebite Esquerda";
+  const titulo_exame = "Doppler Venoso de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesTrombo).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesTrombo
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesTrombo
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesTrombo]);
 
   return (
     <Box
@@ -97,8 +122,7 @@ function TromboflebiteEsquerdo() {
     >
       <TituloNomeExame titulo="Tromboflebite" />
 
-      <Box gap="10px" display="flex" flexWrap="wrap" >
-
+      <Box gap="10px" display="flex" flexWrap="wrap">
         <HStack>
           <Checkbox
             whiteSpace="nowrap"

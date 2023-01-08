@@ -1,14 +1,16 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Text, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Select, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { DisableTributariasContext } from "../../../../../context/disableTributariasContext"
-
+import { DisableTributariasContext } from "../../../../../context/disableTributariasContext";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function IndividualizarVeias({ numVeia, disable }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  const { DisableTributaria, setDisableTributaria } = useContext(DisableTributariasContext)
+  const [frasesVeiasT, setFrasesVeiasT] = useState<any>([]);
+
+  const { DisableTributaria, setDisableTributaria } = useContext(
+    DisableTributariasContext
+  );
 
   const [localizacaoVeiasSelect, setlocalizacaoVeiasSelect] = useState("");
   const [MembroVeiasSelect, setMembroVeiasSelect] = useState("");
@@ -20,26 +22,26 @@ export default function IndividualizarVeias({ numVeia, disable }) {
     removeMultiplosVeias();
     var string;
     if (TremboflebiteCheckBox) {
-      if (MembroVeiasSelect !== '' && localizado !== "") {
+      if (MembroVeiasSelect !== "" && localizado !== "") {
         string = `Veia tributária ${numVeia} - na face ${localizado} ${MembroVeiasSelect}, com sinais de Tremboflebite `;
-        setLaudoPrin((arr) => [...arr, string]);
+        setFrasesVeiasT((arr) => [...arr, string]);
       }
     } else {
-      if (MembroVeiasSelect !== '' && localizado !== "") {
+      if (MembroVeiasSelect !== "" && localizado !== "") {
         string = `Veia tributária ${numVeia} - na face ${localizado} ${MembroVeiasSelect} `;
-        setLaudoPrin((arr) => [...arr, string]);
+        setFrasesVeiasT((arr) => [...arr, string]);
       }
     }
   };
 
   const removeMultiplosVeias = () => {
-    laudoPrin.map((e) => {
+    frasesVeiasT.map((e) => {
       if (e.includes(`Veia tributária ${numVeia}`)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesVeiasT.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesVeiasT.splice(index, 1);
+          setFrasesVeiasT((arr) => [...arr]);
         }
       }
     });
@@ -47,15 +49,12 @@ export default function IndividualizarVeias({ numVeia, disable }) {
 
   useEffect(() => {
     if (multiplosVeiasCheckBox) {
-      setDisableSelect(false)
-      setDisableTributaria(true)
-      criaStringMultiplosVeias(
-        localizacaoVeiasSelect,
-        MembroVeiasSelect
-      );
+      setDisableSelect(false);
+      setDisableTributaria(true);
+      criaStringMultiplosVeias(localizacaoVeiasSelect, MembroVeiasSelect);
     } else {
-      setDisableSelect(true)
-      setDisableTributaria(false)
+      setDisableSelect(true);
+      setDisableTributaria(false);
       removeMultiplosVeias();
       setlocalizacaoVeiasSelect("");
       setMembroVeiasSelect("");
@@ -64,15 +63,33 @@ export default function IndividualizarVeias({ numVeia, disable }) {
     multiplosVeiasCheckBox,
     localizacaoVeiasSelect,
     MembroVeiasSelect,
-    TremboflebiteCheckBox
+    TremboflebiteCheckBox,
   ]);
 
-  return (
-    <Box
-      display='flex'
-      flexWrap="wrap">
-      <HStack>
+  const subExame = "Veias Tributárias Esquerda";
+  const titulo_exame = "Doppler Venoso de MMII";
 
+  useEffect(() => {
+    if (Object.keys(frasesVeiasT).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesVeiasT
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesVeiasT
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesVeiasT]);
+
+  return (
+    <Box display="flex" flexWrap="wrap">
+      <HStack>
         <Checkbox
           whiteSpace="nowrap"
           isDisabled={disable}
@@ -80,9 +97,7 @@ export default function IndividualizarVeias({ numVeia, disable }) {
         >
           Tributária {numVeia}
         </Checkbox>
-        <Text>
-          na face
-        </Text>
+        <Text>na face</Text>
         <Select
           w="120px"
           isDisabled={DisableSelect}
@@ -100,10 +115,7 @@ export default function IndividualizarVeias({ numVeia, disable }) {
           <option value="lateral">lateral</option>
         </Select>
       </HStack>
-      <HStack
-        mt='5px'
-      >
-
+      <HStack mt="5px">
         <Select
           w="120px"
           isDisabled={DisableSelect}
@@ -126,7 +138,7 @@ export default function IndividualizarVeias({ numVeia, disable }) {
         >
           Tremboflebite
         </Checkbox>
-      </HStack >
+      </HStack>
     </Box>
   );
 }

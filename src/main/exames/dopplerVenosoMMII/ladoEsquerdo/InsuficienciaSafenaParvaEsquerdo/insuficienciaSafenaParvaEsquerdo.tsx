@@ -1,46 +1,46 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
+import { Box, Checkbox, Select, Stack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function InsuficienciaSafenaParvaEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesInsulSafenaParva, setFrasesInsulSafenaParva] = useState<any>([]);
 
-  const [DisableSelect, setDisableSelect] =
-    useState(true);
+  const [DisableSelect, setDisableSelect] = useState(true);
 
   const [ParcialSelect, setParcialSelect] = useState("");
   const [ParcialCheckBox, setParcialCheckBox] = useState(false);
   const [DisableParcialCheckBox, setDisableParcialCheckBox] = useState(false);
 
-  const [DisableEmTodoTrajetoCheckBox, setDisableEmTodoTrajetoCheckBox] = useState(false);
+  const [DisableEmTodoTrajetoCheckBox, setDisableEmTodoTrajetoCheckBox] =
+    useState(false);
   const [emTodoTrajetoCheckBox, setEmTodoTrajetoCheckBox] = useState(true);
 
   const removeParcial = () => {
-    laudoPrin.map((e) => {
+    frasesInsulSafenaParva.map((e) => {
       if (e.includes("Parcial")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesInsulSafenaParva.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesInsulSafenaParva.splice(index, 1);
+          setFrasesInsulSafenaParva((arr) => [...arr]);
         }
       }
     });
   };
 
-  const criaStringParcial = (ParcialSelect,) => {
+  const criaStringParcial = (ParcialSelect) => {
     removeParcial();
     var string;
 
     if (ParcialSelect !== "") {
       string = `Parcial ${ParcialSelect} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesInsulSafenaParva((arr) => [...arr, string]);
     } else {
       removeParcial();
     }
@@ -49,41 +49,57 @@ function InsuficienciaSafenaParvaEsquerdo() {
   const criaStringEmTodoTrajeto = () => {
     var string = "Em todo o trajeto ";
     if (emTodoTrajetoCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesInsulSafenaParva((arr) => [...arr, string]);
       setEmTodoTrajetoCheckBox(false);
-      setDisableParcialCheckBox(true)
+      setDisableParcialCheckBox(true);
     } else {
-      setDisableParcialCheckBox(false)
+      setDisableParcialCheckBox(false);
       removeItemString(string);
     }
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesInsulSafenaParva.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesInsulSafenaParva.splice(index, 1);
+      setFrasesInsulSafenaParva((arr) => [...arr]);
     }
   };
 
   useEffect(() => {
     if (ParcialCheckBox) {
-      criaStringParcial(
-        ParcialSelect
-      );
-      setDisableEmTodoTrajetoCheckBox(true)
-      setDisableSelect(false)
+      criaStringParcial(ParcialSelect);
+      setDisableEmTodoTrajetoCheckBox(true);
+      setDisableSelect(false);
     } else {
-      setDisableEmTodoTrajetoCheckBox(false)
-      setDisableSelect(true)
+      setDisableEmTodoTrajetoCheckBox(false);
+      setDisableSelect(true);
       removeParcial();
       setParcialSelect("");
     }
-  }, [
-    ParcialCheckBox,
-    ParcialSelect,
-  ]);
+  }, [ParcialCheckBox, ParcialSelect]);
+
+  const subExame = "Insuficiência Safena Parva Esquerda";
+  const titulo_exame = "Doppler Venoso de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesInsulSafenaParva).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesInsulSafenaParva
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesInsulSafenaParva
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesInsulSafenaParva]);
 
   return (
     <Box
@@ -112,13 +128,11 @@ function InsuficienciaSafenaParvaEsquerdo() {
       <Checkbox
         whiteSpace="nowrap"
         isDisabled={DisableParcialCheckBox}
-        onChange={() =>
-          setParcialCheckBox(!ParcialCheckBox)
-        }
+        onChange={() => setParcialCheckBox(!ParcialCheckBox)}
       >
         Parcial
       </Checkbox>
-      <Box       >
+      <Box>
         <Select
           w="200px"
           isDisabled={DisableSelect}
@@ -130,15 +144,24 @@ function InsuficienciaSafenaParvaEsquerdo() {
           <option value="" disabled selected>
             Posição
           </option>
-          <option value="no terço superior da perna">no terço superior da perna</option>
-          <option value="no terço médio da perna">no terço médio da perna</option>
-          <option value="no terço inferior da perna">no terço inferior da perna</option>
-          <option value="nos terços superior e médio da perna">nos terços superior e médio da perna</option>
-          <option value="nos terços médio e inferior da perna">nos terços médio e inferior da perna</option>
+          <option value="no terço superior da perna">
+            no terço superior da perna
+          </option>
+          <option value="no terço médio da perna">
+            no terço médio da perna
+          </option>
+          <option value="no terço inferior da perna">
+            no terço inferior da perna
+          </option>
+          <option value="nos terços superior e médio da perna">
+            nos terços superior e médio da perna
+          </option>
+          <option value="nos terços médio e inferior da perna">
+            nos terços médio e inferior da perna
+          </option>
         </Select>
-
       </Box>
-    </Box >
+    </Box>
   );
 }
 export default InsuficienciaSafenaParvaEsquerdo;
