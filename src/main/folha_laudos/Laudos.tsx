@@ -482,14 +482,14 @@ function Exames() {
     <>
       <Box
         w="32%"
-        h='40%'
+        h="40%"
         maxH="50%"
         float="right"
         position="sticky"
         top={0}
         transition="0.2"
       >
-        <Center paddingBottom='30px' >
+        <Center paddingBottom="30px">
           <Stack
             w="20%"
             justify="space-around"
