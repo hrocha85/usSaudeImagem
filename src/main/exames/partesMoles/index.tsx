@@ -61,3 +61,4 @@ function PartesMoles() {
 }
 
 export default PartesMoles;
+//FIXME Problemas no com o lado direito e esquerdo na Regiao Iguinal

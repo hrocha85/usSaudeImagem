@@ -76,6 +76,7 @@ function Abscesso() {
     valueInputTamanhoAbscessoPresente,
     valueInputTamanho2AbscessoPresente,
   ]);
+//  const [frasesAbcesso, setFrasesAbcesso] = useState<any>([]);
 
   const subExame = "Abcesso";
   const titulo_exame = "Mamas";
