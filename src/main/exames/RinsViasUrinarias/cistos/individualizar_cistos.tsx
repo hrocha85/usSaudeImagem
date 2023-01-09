@@ -1,18 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Button, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { isLineBreak } from "typescript";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Checkbox, HStack, Input, Select } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarCistos({ numCisto }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesIndCisto, setFrasesIndCisto] = useState<any>([]);
 
   const [tamanhoCistoInput, settamanhoCistoInput] = useState("");
   const [posicaoCistosSelect, setPosicaoCistosSelect] = useState("");
   const [localizacaoCistosSelect, setlocalizacaoCistosSelect] = useState("");
-  const [multiplosCistosCheckBox, setmultiplosCistosCheckBox] =
-    useState(false);
+  const [multiplosCistosCheckBox, setmultiplosCistosCheckBox] = useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
   const criaStringMultiplosCistos = (
@@ -24,18 +22,18 @@ export default function IndividualizarCistos({ numCisto }) {
 
     if (tamanhoCistoInput !== "" && CistosSelect !== "" && localizado !== "") {
       var string = `Cisto ${numCisto} mede ${tamanhoCistoInput} mm ${CistosSelect} localizado ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesIndCisto((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCistos = () => {
-    laudoPrin.map((e) => {
+    frasesIndCisto.map((e) => {
       if (e.includes(`Cisto ${numCisto}`)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesIndCisto.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesIndCisto.splice(index, 1);
+          setFrasesIndCisto((arr) => [...arr]);
         }
       }
     });
@@ -43,14 +41,14 @@ export default function IndividualizarCistos({ numCisto }) {
 
   useEffect(() => {
     if (multiplosCistosCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringMultiplosCistos(
         tamanhoCistoInput,
         posicaoCistosSelect,
         localizacaoCistosSelect
       );
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeMultiplosCistos();
       settamanhoCistoInput("");
       setPosicaoCistosSelect("");
@@ -62,6 +60,27 @@ export default function IndividualizarCistos({ numCisto }) {
     tamanhoCistoInput,
     localizacaoCistosSelect,
   ]);
+
+  const subExame = "Individualizar Cistos";
+  const titulo_exame = "Rins e Vias Urinárias";
+
+  useEffect(() => {
+    if (Object.keys(frasesIndCisto).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesIndCisto
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesIndCisto
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesIndCisto]);
 
   return (
     <HStack>
@@ -79,7 +98,9 @@ export default function IndividualizarCistos({ numCisto }) {
         padding="5px"
         maxLength={2}
         textAlign="center"
-        onChange={(e) => { settamanhoCistoInput(e.target.value) }}
+        onChange={(e) => {
+          settamanhoCistoInput(e.target.value);
+        }}
         placeholder={"mm"}
       />
       <Select

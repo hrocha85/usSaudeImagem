@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Button, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { isLineBreak } from "typescript";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Checkbox, HStack, Input, Select } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarCalculos({ numCalculo }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesIndCalc, setFrasesIndCalc] = useState<any>([]);
 
   const [tamanhoCalculoInput, settamanhoCalculoInput] = useState("");
   const [posicaoCalculosSelect, setPosicaoCalculosSelect] = useState("");
-  const [localizacaoCalculosSelect, setlocalizacaoCalculosSelect] = useState("");
+  const [localizacaoCalculosSelect, setlocalizacaoCalculosSelect] =
+    useState("");
   const [multiplosCalculosCheckBox, setmultiplosCalculosCheckBox] =
     useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
@@ -22,20 +22,24 @@ export default function IndividualizarCalculos({ numCalculo }) {
   ) => {
     removeMultiplosCalculos();
 
-    if (tamanhoCalculoInput !== "" && CalculosSelect !== "" && localizado !== "") {
+    if (
+      tamanhoCalculoInput !== "" &&
+      CalculosSelect !== "" &&
+      localizado !== ""
+    ) {
       var string = `Nódulo ${numCalculo} mede ${tamanhoCalculoInput} mm ${CalculosSelect} localizado ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesIndCalc((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCalculos = () => {
-    laudoPrin.map((e) => {
+    frasesIndCalc.map((e) => {
       if (e.includes(`Nódulo ${numCalculo}`)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesIndCalc.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesIndCalc.splice(index, 1);
+          setFrasesIndCalc((arr) => [...arr]);
         }
       }
     });
@@ -43,14 +47,14 @@ export default function IndividualizarCalculos({ numCalculo }) {
 
   useEffect(() => {
     if (multiplosCalculosCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringMultiplosCalculos(
         tamanhoCalculoInput,
         posicaoCalculosSelect,
         localizacaoCalculosSelect
       );
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeMultiplosCalculos();
       settamanhoCalculoInput("");
       setPosicaoCalculosSelect("");
@@ -63,10 +67,33 @@ export default function IndividualizarCalculos({ numCalculo }) {
     localizacaoCalculosSelect,
   ]);
 
+  const subExame = "Individualizar Cálculo";
+  const titulo_exame = "Rins e Vias Urinárias";
+
+  useEffect(() => {
+    if (Object.keys(frasesIndCalc).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesIndCalc
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesIndCalc
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesIndCalc]);
+
   return (
     <HStack>
       <Checkbox
-        onChange={() => setmultiplosCalculosCheckBox(!multiplosCalculosCheckBox)}
+        onChange={() =>
+          setmultiplosCalculosCheckBox(!multiplosCalculosCheckBox)
+        }
       >
         Cálculo {numCalculo}
       </Checkbox>
@@ -79,7 +106,9 @@ export default function IndividualizarCalculos({ numCalculo }) {
         padding="5px"
         maxLength={2}
         textAlign="center"
-        onChange={(e) => { settamanhoCalculoInput(e.target.value) }}
+        onChange={(e) => {
+          settamanhoCalculoInput(e.target.value);
+        }}
         placeholder={"mm"}
       />
       <Select
