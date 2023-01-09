@@ -1,35 +1,39 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Text, HStack, Input, Select } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarCistos({ numCisto, disable }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesCistos, setFrasesCistos] = useState<any>([]);
 
   const [tamanhoCistoInput, settamanhoCistoInput] = useState("");
   const [posicaoCistosSelect, setPosicaoCistosSelect] = useState("");
   const [conteudoCistosSelect, setConteudoCistosSelect] = useState("");
   const [localizacaoCistosSelect, setlocalizacaoCistosSelect] = useState("");
-  const [multiplosCistosCheckBox, setmultiplosCistosCheckBox] =
-    useState(false);
+  const [multiplosCistosCheckBox, setmultiplosCistosCheckBox] = useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
-  const criaStringMultiplosCistos = (conteudoCistoSelect, tamanhoCistoInput, CistosSelect, localizado) => {
+  const criaStringMultiplosCistos = (
+    conteudoCistoSelect,
+    tamanhoCistoInput,
+    CistosSelect,
+    localizado
+  ) => {
     removeMultiplosCistos();
     if (tamanhoCistoInput !== "" && CistosSelect !== "" && localizado !== "") {
       var string = `Cisto Epididimários ${numCisto}: mede ${tamanhoCistoInput} mm, conteúdo ${conteudoCistoSelect}, localizado no ${CistosSelect}, do  ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCistos((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCistos = () => {
-    laudoPrin.map((e) => {
+    frasesCistos.map((e) => {
       if (e.includes(`Cisto Epididimários ${numCisto}`)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCistos.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCistos.splice(index, 1);
+          setFrasesCistos((arr) => [...arr]);
         }
       }
     });
@@ -37,15 +41,15 @@ export default function IndividualizarCistos({ numCisto, disable }) {
 
   useEffect(() => {
     if (multiplosCistosCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringMultiplosCistos(
         conteudoCistosSelect,
         tamanhoCistoInput,
         posicaoCistosSelect,
-        localizacaoCistosSelect,
+        localizacaoCistosSelect
       );
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeMultiplosCistos();
       settamanhoCistoInput("");
       setPosicaoCistosSelect("");
@@ -56,14 +60,31 @@ export default function IndividualizarCistos({ numCisto, disable }) {
     conteudoCistosSelect,
     posicaoCistosSelect,
     tamanhoCistoInput,
-    localizacaoCistosSelect
+    localizacaoCistosSelect,
   ]);
 
+  const subExame = "Cistos Epididimários";
+  const titulo_exame = "Testículo";
+
+  useEffect(() => {
+    if (Object.keys(frasesCistos).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesCistos
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesCistos
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesCistos]);
   return (
-    <Box
-      gap='15px'
-      display='flex'
-      flexWrap="wrap">
+    <Box gap="15px" display="flex" flexWrap="wrap">
       <Checkbox
         whiteSpace="nowrap"
         isDisabled={disable}
@@ -89,7 +110,7 @@ export default function IndividualizarCistos({ numCisto, disable }) {
         </Select>
       </HStack>
       <HStack>
-        <Text fontSize='13px'>Mede</Text>
+        <Text fontSize="13px">Mede</Text>
         <Input
           isDisabled={DisableSelect}
           value={tamanhoCistoInput}
@@ -101,10 +122,10 @@ export default function IndividualizarCistos({ numCisto, disable }) {
           onChange={(e) => settamanhoCistoInput(e.target.value)}
           placeholder={"mm"}
         />
-        <Text fontSize='13px'>mm</Text>
+        <Text fontSize="13px">mm</Text>
       </HStack>
       <HStack>
-        <Text fontSize='13px'>Local</Text>
+        <Text fontSize="13px">Local</Text>
         <Select
           w="auto"
           isDisabled={DisableSelect}
@@ -119,11 +140,10 @@ export default function IndividualizarCistos({ numCisto, disable }) {
           <option value="na cabeça epididimária">na cabeça epididimária</option>
           <option value="no corpo epididimário">terço</option>
           <option value="na cauda epididimária">na cauda epididimária</option>
-
         </Select>
       </HStack>
       <HStack>
-        <Text fontSize='13px'>Do</Text>
+        <Text fontSize="13px">Do</Text>
         <Select
           w="auto"
           isDisabled={DisableSelect}
@@ -140,6 +160,5 @@ export default function IndividualizarCistos({ numCisto, disable }) {
         </Select>
       </HStack>
     </Box>
-
   );
 }
