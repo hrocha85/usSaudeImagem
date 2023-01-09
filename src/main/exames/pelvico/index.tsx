@@ -37,3 +37,4 @@ function Pelvico() {
 }
 
 export default Pelvico;
+//TODO pelvico é igual ao transvaginal ??

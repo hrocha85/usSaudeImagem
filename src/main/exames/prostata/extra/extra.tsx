@@ -1,56 +1,78 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Box, Checkbox } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 
 function Utero() {
   const altura = "100%";
   const largura = "40%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesExtras, setFrasesExtras] = useState<any>([]);
 
-  const [ContornosIrregularesCheckBox, setContornosIrregularesCheckBox] = useState(true);
-  const [ProstataEcotexturaCheckBox, setProstataEcotexturaCheckBox] = useState(true);
+  const [ContornosIrregularesCheckBox, setContornosIrregularesCheckBox] =
+    useState(true);
+  const [ProstataEcotexturaCheckBox, setProstataEcotexturaCheckBox] =
+    useState(true);
   const [BexigaEsforcoCheckBox, setBexigaEsforcoCheckBox] = useState(true);
 
   //Funcoes DIU Posicionado - Inicio
   const criaStringContornosIrregulares = () => {
     var string = "Contornos prostáticos irregulares";
     if (ContornosIrregularesCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesExtras((arr) => [...arr, string]);
     } else {
-      removeItemString(string)
+      removeItemString(string);
     }
   };
 
   const criaStringProstataEcotextura = () => {
     var string = "Próstata com ecotextura heterogênea";
     if (ProstataEcotexturaCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesExtras((arr) => [...arr, string]);
     } else {
-      removeItemString(string)
+      removeItemString(string);
     }
   };
 
   const criaStringBexigaEsforco = () => {
     var string = "Bexiga com esforço";
     if (BexigaEsforcoCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesExtras((arr) => [...arr, string]);
     } else {
-      removeItemString(string)
+      removeItemString(string);
     }
   };
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = laudoPrin.indexOf(value);
+    var index = frasesExtras.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesExtras.splice(index, 1);
+      setFrasesExtras((arr) => [...arr]);
     }
   };
 
+  const subExame = "Extras";
+  const titulo_exame = "Próstata";
+
+  useEffect(() => {
+    if (Object.keys(frasesExtras).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesExtras
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesExtras
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesExtras]);
 
   return (
     <Box
@@ -64,12 +86,12 @@ function Utero() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <Box gap="30px" >
+      <Box gap="30px">
         <Box>
           <Checkbox
             onChange={() => {
-              criaStringContornosIrregulares()
-              setContornosIrregularesCheckBox(!ContornosIrregularesCheckBox)
+              criaStringContornosIrregulares();
+              setContornosIrregularesCheckBox(!ContornosIrregularesCheckBox);
             }}
           >
             Contornos Prostáticos irregulares
@@ -78,8 +100,8 @@ function Utero() {
         <Box>
           <Checkbox
             onChange={() => {
-              criaStringProstataEcotextura()
-              setProstataEcotexturaCheckBox(!ProstataEcotexturaCheckBox)
+              criaStringProstataEcotextura();
+              setProstataEcotexturaCheckBox(!ProstataEcotexturaCheckBox);
             }}
           >
             Próstata com ecotextura heterogênea
@@ -88,8 +110,8 @@ function Utero() {
         <Box>
           <Checkbox
             onChange={() => {
-              criaStringBexigaEsforco()
-              setBexigaEsforcoCheckBox(!BexigaEsforcoCheckBox)
+              criaStringBexigaEsforco();
+              setBexigaEsforcoCheckBox(!BexigaEsforcoCheckBox);
             }}
           >
             Bexiga de esforço
