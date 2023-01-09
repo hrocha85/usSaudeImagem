@@ -1,8 +1,8 @@
 import { Box, Checkbox, Input, Select } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import TituloNomeExame from "../../../component/titulo_nome_exame";
-import { LaudosContext } from "../../../../context/LuadosContext";
 import { NormalContext } from "../../../../context/NormalContext";
+import { Format_Laudo } from "../../../component/function_format_laudo";
+import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Figado() {
   const altura = "100%";
@@ -124,7 +124,8 @@ function Figado() {
     "#InputMultiplosNodulos"
   ) as HTMLInputElement;
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesFigado, setFrasesFigado] = useState<any>([]);
+
   const { laudoNormal } = useContext(NormalContext);
 
   const [selectCalcificacao, setSelectCalcificacao] = useState("");
@@ -246,15 +247,15 @@ function Figado() {
 
   const criarString = (value, valueId?, valueInput?) => {
     //arr => [...arr] captura os dados que já estavam e os mantem no array
-    setLaudoPrin((arr) => [...arr, value]);
+    setFrasesFigado((arr) => [...arr, value]);
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesFigado.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesFigado.splice(index, 1);
+      setFrasesFigado((arr) => [...arr]);
     }
   };
 
@@ -292,15 +293,15 @@ function Figado() {
       " com " +
       dadoInputCalcificacao +
       "mm ";
-    setLaudoPrin((arr) => [...arr, valorInput]);
+    setFrasesFigado((arr) => [...arr, valorInput]);
     setInputCalcificacao(valorInput);
   };
 
   const removeStringCalcificacao = () => {
-    const index = laudoPrin.indexOf(inputCalcificacao);
+    const index = frasesFigado.indexOf(inputCalcificacao);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesFigado.splice(index, 1);
+      setFrasesFigado((arr) => [...arr]);
     }
   };
 
@@ -308,14 +309,14 @@ function Figado() {
     let dadoInputCisto01 = value.value;
     const valorInput =
       "Cisto 01 no " + selectCisto01 + " com " + dadoInputCisto01 + "mm ";
-    setLaudoPrin((arr) => [...arr, valorInput]);
+    setFrasesFigado((arr) => [...arr, valorInput]);
     setInputCisto01(valorInput);
   };
   const removeStringCisto01 = () => {
-    const index = laudoPrin.indexOf(inputCisto01);
+    const index = frasesFigado.indexOf(inputCisto01);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesFigado.splice(index, 1);
+      setFrasesFigado((arr) => [...arr]);
     }
   };
 
@@ -323,14 +324,14 @@ function Figado() {
     let dadoInputCisto02 = value.value;
     const valorInput =
       "Cisto 02 no " + selectCisto02 + " com " + dadoInputCisto02 + "mm ";
-    setLaudoPrin((arr) => [...arr, valorInput]);
+    setFrasesFigado((arr) => [...arr, valorInput]);
     setInputCisto02(valorInput);
   };
   const removeStringCisto02 = () => {
-    const index = laudoPrin.indexOf(inputCisto02);
+    const index = frasesFigado.indexOf(inputCisto02);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesFigado.splice(index, 1);
+      setFrasesFigado((arr) => [...arr]);
     }
   };
 
@@ -338,14 +339,14 @@ function Figado() {
     let dadoInputCisto03 = value.value;
     const valorInput =
       "Cisto 03 no " + selectCisto03 + " com " + dadoInputCisto03 + "mm ";
-    setLaudoPrin((arr) => [...arr, valorInput]);
+    setFrasesFigado((arr) => [...arr, valorInput]);
     setInputCisto03(valorInput);
   };
   const removeStringCisto03 = () => {
-    const index = laudoPrin.indexOf(inputCisto03);
+    const index = frasesFigado.indexOf(inputCisto03);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesFigado.splice(index, 1);
+      setFrasesFigado((arr) => [...arr]);
     }
   };
 
@@ -357,14 +358,14 @@ function Figado() {
       " com " +
       dadoInputMultiplosCistos +
       "mm ";
-    setLaudoPrin((arr) => [...arr, valorInput]);
+    setFrasesFigado((arr) => [...arr, valorInput]);
     setInputMultiplosCistos(valorInput);
   };
   const removeStringMultiplosCistos = () => {
-    const index = laudoPrin.indexOf(inputMultiplosCistos);
+    const index = frasesFigado.indexOf(inputMultiplosCistos);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesFigado.splice(index, 1);
+      setFrasesFigado((arr) => [...arr]);
     }
   };
 
@@ -378,15 +379,15 @@ function Figado() {
       "mm com contornos " +
       select2Nodulo01 +
       dadoSelect3Nodulo01;
-    setLaudoPrin((arr) => [...arr, frase01]);
+    setFrasesFigado((arr) => [...arr, frase01]);
     setFraseNodulo01(frase01);
   };
 
   const removeStringNodulo01 = () => {
-    const index = laudoPrin.indexOf(fraseNodulo01);
+    const index = frasesFigado.indexOf(fraseNodulo01);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesFigado.splice(index, 1);
+      setFrasesFigado((arr) => [...arr]);
     }
   };
 
@@ -400,15 +401,15 @@ function Figado() {
       "mm com contornos " +
       select2Nodulo02 +
       dadoSelect3Nodulo02;
-    setLaudoPrin((arr) => [...arr, frase02]);
+    setFrasesFigado((arr) => [...arr, frase02]);
     setFraseNodulo02(frase02);
   };
 
   const removeStringNodulo02 = () => {
-    const index = laudoPrin.indexOf(fraseNodulo02);
+    const index = frasesFigado.indexOf(fraseNodulo02);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesFigado.splice(index, 1);
+      setFrasesFigado((arr) => [...arr]);
     }
   };
 
@@ -422,15 +423,15 @@ function Figado() {
       "mm com contornos " +
       select2Nodulo03 +
       dadoSelect3Nodulo03;
-    setLaudoPrin((arr) => [...arr, frase03]);
+    setFrasesFigado((arr) => [...arr, frase03]);
     setFraseNodulo03(frase03);
   };
 
   const removeStringNodulo03 = () => {
-    const index = laudoPrin.indexOf(fraseNodulo03);
+    const index = frasesFigado.indexOf(fraseNodulo03);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesFigado.splice(index, 1);
+      setFrasesFigado((arr) => [...arr]);
     }
   };
   const criaValorMultiplosNodulos = (value) => {
@@ -443,27 +444,27 @@ function Figado() {
       "mm com contornos " +
       select2MultiplosNodulos +
       dadoSelect3MultiplosNodulos;
-    setLaudoPrin((arr) => [...arr, frase03]);
+    setFrasesFigado((arr) => [...arr, frase03]);
     setFraseMultiplosNodulos(frase03);
   };
 
   const removeStringMultiplosNodulos = () => {
-    const index = laudoPrin.indexOf(fraseMultiplosNodulos);
+    const index = frasesFigado.indexOf(fraseMultiplosNodulos);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesFigado.splice(index, 1);
+      setFrasesFigado((arr) => [...arr]);
     }
   };
 
   const removeNormal = () => {
-    setLaudoPrin((arr) => []);
+    setFrasesFigado((arr) => []);
   };
 
   useEffect(() => {
     if (laudoNormal === true) {
       setDefaultValueNormal({ defaultValueNormal: true });
       criarString("Figado está normal ");
-      console.log(laudoPrin);
+      console.log(frasesFigado);
       setCheckValueHepatiteAguda({
         HepatiteAguda: true,
       });
@@ -1111,6 +1112,27 @@ function Figado() {
         break;
     }
   };
+
+  const subExame = "Fígado";
+  const titulo_exame = "Abdomen total";
+
+  useEffect(() => {
+    if (Object.keys(frasesFigado).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesFigado
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesFigado
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesFigado]);
 
   return (
     <Box

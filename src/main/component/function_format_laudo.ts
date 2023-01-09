@@ -1,18 +1,17 @@
 
 export class Format_Laudo {
-  init: boolean;
+  titulo_exame: string;
   sub_exame_nome: string;
   frases_is_empty: boolean;
   frases_sub_exame: Array<string>;
 
   constructor(
-    init: boolean,
-
+    titulo_exame: string,
     sub_exame_nome: string,
     frases_is_empty: boolean,
     frases_sub_exame: Array<string>
   ) {
-    this.init = init;
+    this.titulo_exame = titulo_exame;
     this.sub_exame_nome = sub_exame_nome;
     this.frases_is_empty = frases_is_empty;
     this.frases_sub_exame = frases_sub_exame;
@@ -22,7 +21,8 @@ export class Format_Laudo {
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
 
     array.map((Exames) => {
-      if (Exames.titulo_exame == "Transvaginal") {
+      if (Exames.titulo_exame == this.titulo_exame) {
+
         if (this.frases_is_empty) {
           Exames.subExames.map((subExame) => {
             if (subExame.subExameNome == this.sub_exame_nome) {

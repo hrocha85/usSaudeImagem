@@ -1,23 +1,24 @@
 .zoom {
-  position: absolute;
-  /* deixando o elemento na posição desejada */
-  right: 10px;
-  top: 150px;
-  /* apenas para aparência */
+  position: relative;
   background-color: white;
   border: 1px solid rgb(136, 135, 135);
-  width: 32%;
-  min-height: 30%;
+  width: 100%;
+  min-height: 100%;
   transition: 0.2s;
   overflow: auto;
   padding-bottom: 10%;
-  max-height: 87%;
+  float: right;
+ 
 }
 
-.zoom:hover {
+
+/*.zoom:hover {
   transform: scale(1.2);
-  margin: 80px;
-  overflow: scroll;
-  padding-bottom: 15%;
+  transition: 0.2s;
+  float: right;
+
+  margin: 50px;
+  overflow: auto;
+  padding-bottom: 40%;
   z-index: 1;
-}
+}*/

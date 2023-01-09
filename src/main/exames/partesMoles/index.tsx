@@ -1,7 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
 import CistoAnecoico from "../partesMoles/cistoAnecoico/cistoAnecoico";
 import CistoSebaceo from "../partesMoles/cistoSebaceo/cistoSebaceo";
@@ -11,17 +9,14 @@ import HerniaSupraUmbilical from "../partesMoles/paredeAbdominal/herniaSupra-Umb
 import HerniaUmbilical from "../partesMoles/paredeAbdominal/herniaUmbilical";
 import ParedeAbdominalNormal from "../partesMoles/paredeAbdominal/normal";
 import Partes_Moles from "../partesMoles/partes_moles/partesMoles";
-import { default as Direita, default as Esquerda } from "../partesMoles/regiaoInguinal/direita";
+import {
+  default as Direita,
+  default as Esquerda
+} from "../partesMoles/regiaoInguinal/direita";
 
 function PartesMoles() {
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="20px"
-        fontsize="19px"
-        tamanho="180px"
-        titulo="Partes Moles"
-      />
+    <>
       <Exames></Exames>
       <Box ml="10px">
         <Partes_Moles></Partes_Moles>
@@ -61,8 +56,9 @@ function PartesMoles() {
           </Box>
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 
 export default PartesMoles;
+//FIXME Problemas no com o lado direito e esquerdo na Regiao Iguinal

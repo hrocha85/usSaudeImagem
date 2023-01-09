@@ -1,13 +1,13 @@
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Varicocele() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesVaricocele, setFrasesVaricocele] = useState<any>([]);
 
   const [posicaoVaricoceleSelect, setPosicaoVaricoceleSelect] = useState("");
   const [VaricoceleCheckBox, setVaricoceleCheckBox] = useState(false);
@@ -18,18 +18,18 @@ function Varicocele() {
 
     if (VaricoceleCheckBox && posicaoVaricoceleSelect !== "") {
       var string = `Varicocele no local: ${posicaoVaricoceleSelect}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesVaricocele((arr) => [...arr, string]);
     }
   };
 
   const removeStringVaricoceleLivre = () => {
-    laudoPrin.map((e) => {
+    frasesVaricocele.map((e) => {
       if (e.includes("Varicocele no local")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesVaricocele.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesVaricocele.splice(index, 1);
+          setFrasesVaricocele((arr) => [...arr]);
         }
       }
     });
@@ -37,14 +37,35 @@ function Varicocele() {
 
   useEffect(() => {
     if (VaricoceleCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringVaricoceleLivre();
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeStringVaricoceleLivre();
       setPosicaoVaricoceleSelect("");
     }
   }, [VaricoceleCheckBox, posicaoVaricoceleSelect]);
+
+  const subExame = "Varicocele";
+  const titulo_exame = "Doppler de Bolsa Testicular";
+
+  useEffect(() => {
+    if (Object.keys(frasesVaricocele).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesVaricocele
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesVaricocele
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesVaricocele]);
 
   return (
     <Box

@@ -1,13 +1,13 @@
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Liquido_Livre() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesLL, setFrasesLL] = useState<any>([]);
 
   const [posicaoLiquidoSelect, setPosicaoLiquidoSelect] = useState("");
   const [LiquidoCheckBox, setLiquidoCheckBox] = useState(false);
@@ -18,18 +18,18 @@ function Liquido_Livre() {
 
     if (LiquidoCheckBox && posicaoLiquidoSelect != "") {
       var string = `Líquido livre ${posicaoLiquidoSelect}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesLL((arr) => [...arr, string]);
     }
   };
 
   const removeStringLiquidoLivre = () => {
-    laudoPrin.map((e) => {
+    frasesLL.map((e) => {
       if (e.includes("Líquido")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesLL.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesLL.splice(index, 1);
+          setFrasesLL((arr) => [...arr]);
         }
       }
     });
@@ -37,15 +37,35 @@ function Liquido_Livre() {
 
   useEffect(() => {
     if (LiquidoCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringLiquidoLivre();
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeStringLiquidoLivre();
       setPosicaoLiquidoSelect("");
     }
   }, [LiquidoCheckBox, posicaoLiquidoSelect]);
 
+  const subExame = "Líquido Livre";
+  const titulo_exame = "Doppler Transvaginal";
+
+  useEffect(() => {
+    if (Object.keys(frasesLL).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesLL
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesLL
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesLL]);
   return (
     <Box
       bg="#FAFAFA"

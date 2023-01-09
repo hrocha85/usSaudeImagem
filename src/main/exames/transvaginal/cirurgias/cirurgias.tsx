@@ -11,20 +11,21 @@ function Cirurgias() {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [frasesCirurgia, setFrasesCirurgias] = useState<any>([]);
 
-  const subExameUtero = "Cirurgia";
+  const subExame = "Cirurgia";
+  const titulo_exame = "Transvaginal"
 
   useEffect(() => {
     if (Object.keys(frasesCirurgia).length == 0) {
       new Format_Laudo(
-        false,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         true,
         frasesCirurgia
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
-        true,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         false,
         frasesCirurgia
       ).Format_Laudo_Create_Storage();

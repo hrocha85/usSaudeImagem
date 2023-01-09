@@ -1,15 +1,16 @@
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Microlitiase() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesMicrolitiase, setFrasesMicrolitiase] = useState<any>([]);
 
-  const [posicaoMicrolitiaseSelect, setPosicaoMicrolitiaseSelect] = useState("");
+  const [posicaoMicrolitiaseSelect, setPosicaoMicrolitiaseSelect] =
+    useState("");
   const [MicrolitiaseCheckBox, setMicrolitiaseCheckBox] = useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
@@ -18,18 +19,18 @@ function Microlitiase() {
 
     if (MicrolitiaseCheckBox && posicaoMicrolitiaseSelect !== "") {
       var string = `Microlitíase no local: ${posicaoMicrolitiaseSelect}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMicrolitiase((arr) => [...arr, string]);
     }
   };
 
   const removeStringMicrolitiaseLivre = () => {
-    laudoPrin.map((e) => {
+    frasesMicrolitiase.map((e) => {
       if (e.includes("Microlitíase no local")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesMicrolitiase.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMicrolitiase.splice(index, 1);
+          setFrasesMicrolitiase((arr) => [...arr]);
         }
       }
     });
@@ -37,14 +38,35 @@ function Microlitiase() {
 
   useEffect(() => {
     if (MicrolitiaseCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringMicrolitiaseLivre();
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeStringMicrolitiaseLivre();
       setPosicaoMicrolitiaseSelect("");
     }
   }, [MicrolitiaseCheckBox, posicaoMicrolitiaseSelect]);
+
+  const subExame = "Microlitíase";
+  const titulo_exame = "Testículo";
+
+  useEffect(() => {
+    if (Object.keys(frasesMicrolitiase).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesMicrolitiase
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesMicrolitiase
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesMicrolitiase]);
 
   return (
     <Box

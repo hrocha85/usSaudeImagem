@@ -1,6 +1,4 @@
-import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
+import { Box, Stack } from "@chakra-ui/react";
 import Exames from "../../folha_laudos/Laudos";
 import BulboCarotideoDireito from "./direito/bulboCarotideo";
 import CarotidaComumDireita from "./direito/carotidaComum";
@@ -17,36 +15,31 @@ import LadoEsquerdo from "./esquerdo/ladoEsquerdo";
 
 function DopplerCarotidas2() {
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="30px"
-        fontsize="19px"
-        tamanho="262px 67px"
-        titulo="Doppler da Carotidas 2"
-      />
-
+    <>
       <Exames></Exames>
 
       <Box ml="10px">
         <Box textAlign="center">
           <LadoDireito />
         </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <CarotidaComumDireita />
+        <Stack direction="row">
+          <Box w="70%" display="flex" flexWrap="wrap">
+            <Box w="450px" mb="15px">
+              <CarotidaComumDireita />
+            </Box>
+            <Box w="450px" mb="15px">
+              <CarotidaInternaDireita />
+            </Box>
           </Box>
-          <Box w="450px" mb="15px">
-            <CarotidaInternaDireita />
+          <Box w="70%" display="flex" flexWrap="wrap">
+            <Box w="450px" mb="15px">
+              <CarotidaExternaDireita />
+            </Box>
+            <Box w="450px" mb="15px">
+              <CarotidaVertebralDireita />
+            </Box>
           </Box>
-        </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <CarotidaExternaDireita />
-          </Box>
-          <Box w="450px" mb="15px">
-            <CarotidaVertebralDireita />
-          </Box>
-        </Box>
+        </Stack>
         <Box textAlign="center">
           <BulboCarotideoDireito />
         </Box>
@@ -73,7 +66,7 @@ function DopplerCarotidas2() {
           <BulboCarotideoEsquerdo />
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

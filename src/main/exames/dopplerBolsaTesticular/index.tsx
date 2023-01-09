@@ -1,6 +1,4 @@
 import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
 import CistoEpididimarios from "./cistosEpididimarios/cistoEpididimarios";
 import CistosTesticulares from "./cistosTesticulares/cistoTesticulares";
@@ -16,13 +14,7 @@ import Virococele from "./varicocele/varicocele";
 
 function DopplerBolsaTesticular() {
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="40px"
-        fontsize="19px"
-        tamanho="350px 70px"
-        titulo="Doppler da Bolsa Testicular"
-      />
+    <>
       <Exames></Exames>
 
       <Box ml="10px">
@@ -60,7 +52,7 @@ function DopplerBolsaTesticular() {
           <Virococele />
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

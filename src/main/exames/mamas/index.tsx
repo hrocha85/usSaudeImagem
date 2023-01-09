@@ -1,6 +1,4 @@
 import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
 import Abscesso from "./abscesso/abscesso";
 import Axilas from "./axilas/axilas";
@@ -15,14 +13,7 @@ import Observacoes from "./observacoes/observacoes";
 
 function Mamas() {
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="24px"
-        fontsize="19px"
-        tamanho="150px 64px"
-        titulo="Mamas"
-      />
-
+    <>
       <Exames></Exames>
 
       <Box ml="10px">
@@ -62,7 +53,7 @@ function Mamas() {
           </Box>
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

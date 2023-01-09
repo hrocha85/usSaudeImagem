@@ -14,20 +14,21 @@ function Hidrossalpinge() {
 
   const [frasesHidrossalpinge, setFrasesHidrossalpinge] = useState<any>([]);
 
-  const subExameUtero = "Hidrossalpinge";
+  const subExame = "Hidrossalpinge";
+  const titulo_exame = "Transvaginal"
 
   useEffect(() => {
     if (Object.keys(frasesHidrossalpinge).length == 0) {
       new Format_Laudo(
-        false,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         true,
         frasesHidrossalpinge
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
-        true,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         false,
         frasesHidrossalpinge
       ).Format_Laudo_Create_Storage();

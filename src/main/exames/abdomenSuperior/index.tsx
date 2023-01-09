@@ -1,6 +1,4 @@
 import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
 import Normal from "./abdomenNormal/normal";
 import Aorta from "./aorta/aorta";
@@ -13,14 +11,7 @@ import ViasBiliares from "./vias biliares/vias_biliares";
 
 function AbdomemSuperior() {
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="30px"
-        fontsize="19px"
-        tamanho="240px 65px"
-        titulo="Abdômen Superior"
-      />
-
+    <>
       <Exames></Exames>
 
       <Box ml="10px">
@@ -40,7 +31,7 @@ function AbdomemSuperior() {
 
         <VesiculaBiliar></VesiculaBiliar>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

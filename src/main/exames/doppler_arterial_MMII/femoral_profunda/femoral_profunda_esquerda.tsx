@@ -1,13 +1,14 @@
 import { Box, Checkbox, Flex, HStack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Femoral_Profunda_Esquerda() {
   const altura = "100%";
   const largura = "100%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesFemoralProfundaEsquerda, setFrasesFemoralProfundaEsquerda] =
+    useState<any>([]);
 
   const [FluxoAusenteCheckBox, setFluxoAusenteCheckBox] = useState(false);
   const [PosEstenoticoCheckBox, setPosEstenoticoCheckBox] = useState(false);
@@ -15,17 +16,17 @@ function Femoral_Profunda_Esquerda() {
 
   const criaStringFluxoAusente = () => {
     var string = "Fluxo ausente femoral profunda esquerda ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFemoralProfundaEsquerda((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
-    laudoPrin.map((e) => {
+    frasesFemoralProfundaEsquerda.map((e) => {
       if (e.includes("Fluxo ausente femoral profunda esquerda ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFemoralProfundaEsquerda.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFemoralProfundaEsquerda.splice(index, 1);
+          setFrasesFemoralProfundaEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -33,17 +34,17 @@ function Femoral_Profunda_Esquerda() {
 
   const criaStringPosEstenotico = () => {
     var string = "Pós estenótico femoral profunda esquerda ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFemoralProfundaEsquerda((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
-    laudoPrin.map((e) => {
+    frasesFemoralProfundaEsquerda.map((e) => {
       if (e.includes("Pós estenótico femoral profunda esquerda ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFemoralProfundaEsquerda.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFemoralProfundaEsquerda.splice(index, 1);
+          setFrasesFemoralProfundaEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -51,17 +52,17 @@ function Femoral_Profunda_Esquerda() {
 
   const criaStringEstenose = () => {
     var string = "Estenose femoral profunda esquerda acima de 50% ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesFemoralProfundaEsquerda((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
-    laudoPrin.map((e) => {
+    frasesFemoralProfundaEsquerda.map((e) => {
       if (e.includes("Estenose femoral profunda esquerda acima de 50% ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesFemoralProfundaEsquerda.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesFemoralProfundaEsquerda.splice(index, 1);
+          setFrasesFemoralProfundaEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -90,6 +91,27 @@ function Femoral_Profunda_Esquerda() {
       removeEstenose();
     }
   }, [EstenoseCheckBox]);
+
+  const subExame = "Femoral Profunda Esquerda";
+  const titulo_exame = "Doppler Arterial de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesFemoralProfundaEsquerda).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesFemoralProfundaEsquerda
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesFemoralProfundaEsquerda
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesFemoralProfundaEsquerda]);
 
   return (
     <Box

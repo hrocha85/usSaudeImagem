@@ -1,9 +1,9 @@
-import { Box, Text, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarNodulos({ numNodulo, disable }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesNodulos, setFrasesNodulos] = useState<any>([]);
 
   const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
   const [posicaoNodulosSelect, setPosicaoNodulosSelect] = useState("");
@@ -17,26 +17,40 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     settamanhoNoduloInput(event.target.value);
   };
 
-  const criaStringMultiplosNodulos = (tamanhoNoduloInput, nodulosSelect, localizado, DopplerNodulosSelect) => {
+  const criaStringMultiplosNodulos = (
+    tamanhoNoduloInput,
+    nodulosSelect,
+    localizado,
+    DopplerNodulosSelect
+  ) => {
     removeMultiplosNodulos();
     var string;
-    if (DopplerNodulosSelect !== '' && tamanhoNoduloInput !== "" && nodulosSelect !== "" && localizado !== "") {
+    if (
+      DopplerNodulosSelect !== "" &&
+      tamanhoNoduloInput !== "" &&
+      nodulosSelect !== "" &&
+      localizado !== ""
+    ) {
       string = `Nódulo ${numNodulo} mede ${tamanhoNoduloInput} mm ${nodulosSelect} localizado ${localizado}, doppler ${DopplerNodulosSelect} `;
-      setLaudoPrin((arr) => [...arr, string]);
-    } else if (tamanhoNoduloInput !== "" && nodulosSelect !== "" && localizado !== "") {
+      setFrasesNodulos((arr) => [...arr, string]);
+    } else if (
+      tamanhoNoduloInput !== "" &&
+      nodulosSelect !== "" &&
+      localizado !== ""
+    ) {
       string = `Nódulo ${numNodulo} mede ${tamanhoNoduloInput} mm ${nodulosSelect} localizado ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesNodulos((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosNodulos = () => {
-    laudoPrin.map((e) => {
+    frasesNodulos.map((e) => {
       if (e.includes(`Nódulo ${numNodulo}`)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesNodulos.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesNodulos.splice(index, 1);
+          setFrasesNodulos((arr) => [...arr]);
         }
       }
     });
@@ -44,7 +58,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
 
   useEffect(() => {
     if (multiplosNodulosCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringMultiplosNodulos(
         tamanhoNoduloInput,
         posicaoNodulosSelect,
@@ -52,7 +66,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
         DopplerNodulosSelect
       );
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeMultiplosNodulos();
       settamanhoNoduloInput("");
       setPosicaoNodulosSelect("");
@@ -64,18 +78,37 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     posicaoNodulosSelect,
     tamanhoNoduloInput,
     localizacaoNodulosSelect,
-    DopplerNodulosSelect
+    DopplerNodulosSelect,
   ]);
+  const subExame = "Nódulos";
+  const titulo_exame = "Doppler Transvaginal";
 
+  useEffect(() => {
+    if (Object.keys(frasesNodulos).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesNodulos
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesNodulos
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesNodulos]);
   return (
-    <Box
-      display='flex'
-      flexWrap="wrap">
+    <Box display="flex" flexWrap="wrap">
       <HStack>
         <Checkbox
           whiteSpace="nowrap"
           isDisabled={disable}
-          onChange={() => setmultiplosNodulosCheckBox(!multiplosNodulosCheckBox)}
+          onChange={() =>
+            setmultiplosNodulosCheckBox(!multiplosNodulosCheckBox)
+          }
         >
           Nódulo {numNodulo}
         </Checkbox>
@@ -126,12 +159,8 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
           <option value="cervical">Cervical</option>
         </Select>
       </HStack>
-      <HStack
-        mt='5px'
-        color='red'>
-        <Text>
-          Nódulo com vascularização
-        </Text>
+      <HStack mt="5px" color="red">
+        <Text>Nódulo com vascularização</Text>
 
         <Select
           w="auto"
@@ -149,7 +178,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
           <option value="central">central</option>
           <option value="central e periférica">central e periférica</option>
         </Select>
-      </HStack >
+      </HStack>
     </Box>
   );
 }

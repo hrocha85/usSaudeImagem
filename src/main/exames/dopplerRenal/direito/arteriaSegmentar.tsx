@@ -1,18 +1,19 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Box, Checkbox, HStack, Input, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function ArteriaSegmentarDireita() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesArteriaS, setFrasesArteriaS] = useState<any>([]);
 
   const [PVSSegmentarInput, setPVSSegmentarInput] = useState("");
-  const [disablePVSSegmentarInput, setdisablePVSSegmentarInput] = useState(true);
+  const [disablePVSSegmentarInput, setdisablePVSSegmentarInput] =
+    useState(true);
   const [PVSSegmentarCheckBox, setPVSSegmentarCheckBox] = useState(false);
 
   const [AceleracaoInput, setAceleracaoInput] = useState("");
@@ -24,18 +25,18 @@ function ArteriaSegmentarDireita() {
     removePVSSegmentar();
     if (medida !== "") {
       var string = `PVS Segmentar medindo ${medida} mm`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesArteriaS((arr) => [...arr, string]);
     }
   };
 
   const removePVSSegmentar = () => {
-    laudoPrin.map((e) => {
+    frasesArteriaS.map((e) => {
       if (e.includes("PVS Segmentar")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesArteriaS.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesArteriaS.splice(index, 1);
+          setFrasesArteriaS((arr) => [...arr]);
         }
       }
     });
@@ -60,18 +61,18 @@ function ArteriaSegmentarDireita() {
     removeAceleracao();
     if (AceleracaoInput !== "") {
       var string = `Aceleração ${AceleracaoInput} cm/s²`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesArteriaS((arr) => [...arr, string]);
     }
   };
 
   const removeAceleracao = () => {
-    laudoPrin.map((e) => {
+    frasesArteriaS.map((e) => {
       if (e.includes("Aceleração ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesArteriaS.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesArteriaS.splice(index, 1);
+          setFrasesArteriaS((arr) => [...arr]);
         }
       }
     });
@@ -91,8 +92,26 @@ function ArteriaSegmentarDireita() {
     criaStringAceleracao(AceleracaoInput);
   }, [AceleracaoInput]);
 
+  const subExame = "Arteria Segmentar Direita";
+  const titulo_exame = "Doppler Renal";
 
-
+  useEffect(() => {
+    if (Object.keys(frasesArteriaS).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesArteriaS
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesArteriaS
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesArteriaS]);
 
   return (
     <Box
@@ -110,9 +129,7 @@ function ArteriaSegmentarDireita() {
       <Checkbox onChange={() => setPVSSegmentarCheckBox(!PVSSegmentarCheckBox)}>
         PVS da artéria segmentar dir.
       </Checkbox>
-      <HStack
-        gap='5px'
-        mb='5px'>
+      <HStack gap="5px" mb="5px">
         <Input
           isDisabled={disablePVSSegmentarInput}
           value={PVSSegmentarInput}
@@ -121,13 +138,13 @@ function ArteriaSegmentarDireita() {
           padding="5px"
           maxLength={2}
           textAlign="center"
-          onChange={(e) => { setPVSSegmentarInput(e.target.value) }}
+          onChange={(e) => {
+            setPVSSegmentarInput(e.target.value);
+          }}
         />
         <Text>cm/s</Text>
       </HStack>
-      <HStack
-        gap='5px'
-        mb='5px'>
+      <HStack gap="5px" mb="5px">
         <Checkbox onChange={() => setAceleracaoCheckBox(!AceleracaoCheckBox)}>
           Aceleração
         </Checkbox>
@@ -139,11 +156,13 @@ function ArteriaSegmentarDireita() {
           padding="5px"
           maxLength={2}
           textAlign="center"
-          onChange={(e) => { setAceleracaoInput(e.target.value) }}
+          onChange={(e) => {
+            setAceleracaoInput(e.target.value);
+          }}
         />
         <Text>cm/s²</Text>
       </HStack>
-    </Box >
+    </Box>
   );
 }
 export default ArteriaSegmentarDireita;

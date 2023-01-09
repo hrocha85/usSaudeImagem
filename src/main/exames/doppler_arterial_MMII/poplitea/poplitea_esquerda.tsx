@@ -1,13 +1,13 @@
 import { Box, Checkbox, Flex, HStack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Poplitea_Esquerda() {
   const altura = "100%";
   const largura = "100%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesPopliteaEsquerda, setFrasesPopliteaEsquerda] = useState<any>([]);
 
   const [FluxoAusenteCheckBox, setFluxoAusenteCheckBox] = useState(false);
   const [PosEstenoticoCheckBox, setPosEstenoticoCheckBox] = useState(false);
@@ -15,17 +15,17 @@ function Poplitea_Esquerda() {
 
   const criaStringFluxoAusente = () => {
     var string = "Poplítea esquerda fluxo ausente ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesPopliteaEsquerda((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
-    laudoPrin.map((e) => {
+    frasesPopliteaEsquerda.map((e) => {
       if (e.includes("Poplítea esquerda fluxo ausente ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesPopliteaEsquerda.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesPopliteaEsquerda.splice(index, 1);
+          setFrasesPopliteaEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -33,17 +33,17 @@ function Poplitea_Esquerda() {
 
   const criaStringPosEstenotico = () => {
     var string = "Pós estenótico poplítea esquerda ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesPopliteaEsquerda((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
-    laudoPrin.map((e) => {
+    frasesPopliteaEsquerda.map((e) => {
       if (e.includes("Pós estenótico poplítea esquerda ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesPopliteaEsquerda.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesPopliteaEsquerda.splice(index, 1);
+          setFrasesPopliteaEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -51,17 +51,17 @@ function Poplitea_Esquerda() {
 
   const criaStringEstenose = () => {
     var string = "Estenose poplítea esquerda acima de 50% ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesPopliteaEsquerda((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
-    laudoPrin.map((e) => {
+    frasesPopliteaEsquerda.map((e) => {
       if (e.includes("Estenose poplítea esquerda acima de 50% ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesPopliteaEsquerda.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesPopliteaEsquerda.splice(index, 1);
+          setFrasesPopliteaEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -90,6 +90,27 @@ function Poplitea_Esquerda() {
       removeEstenose();
     }
   }, [EstenoseCheckBox]);
+
+  const subExame = "Poplítea Esquerda";
+  const titulo_exame = "Doppler Arterial de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesPopliteaEsquerda).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesPopliteaEsquerda
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesPopliteaEsquerda
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesPopliteaEsquerda]);
 
   return (
     <Box

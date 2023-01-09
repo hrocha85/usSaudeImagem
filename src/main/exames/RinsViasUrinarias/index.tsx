@@ -1,6 +1,4 @@
 import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
 import Bexiga from "./bexiga/bexiga";
 import Calculo from "./calculos/calculos";
@@ -11,14 +9,7 @@ import RimDireito from "./rim_direito/rim_direito";
 import RimEsquerdo from "./rim_esquerdo/rim_esquerdo";
 function RinseViasUrinarias() {
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="24px"
-        fontsize="19px"
-        tamanho="250px 64px"
-        titulo="Rins e vias Urinárias"
-      />
-
+    <>
       <Exames></Exames>
 
       <Box ml="10px">
@@ -36,7 +27,7 @@ function RinseViasUrinarias() {
           </Box>
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Box, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import IndividualizarCalculos from "./individualizar_calculos";
 
@@ -10,51 +10,60 @@ function Calculo() {
   const altura = "100%";
   const largura = "66%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesCalc, setFrasesCalc] = useState<any>([]);
+
   var numberArray = [1, 2, 3, 4];
 
-  const [tamanhoNoduloDireitoInput, settamanhoNoduloDireitoInput] = useState("");
-  const [posicaoCalculosDireitoSelect, setPosicaoCalculosDireitoSelect] = useState("");
+  const [tamanhoNoduloDireitoInput, settamanhoNoduloDireitoInput] =
+    useState("");
+  const [posicaoCalculosDireitoSelect, setPosicaoCalculosDireitoSelect] =
+    useState("");
 
-  const [multiplosCalculosRimDireitoCheckBox, setmultiplosCalculosRimDireitoCheckBox] =
-    useState(false);
+  const [
+    multiplosCalculosRimDireitoCheckBox,
+    setmultiplosCalculosRimDireitoCheckBox,
+  ] = useState(false);
 
-  const [DisableSelectDireito, setDisableSelectDireito] =
-    useState(true);
+  const [DisableSelectDireito, setDisableSelectDireito] = useState(true);
 
-  const [tamanhoNoduloEsquerdoInput, settamanhoNoduloEsquerdoInput] = useState("");
-  const [posicaoCalculosEsquerdoSelect, setPosicaoCalculosEsquerdoSelect] = useState("");
+  const [tamanhoNoduloEsquerdoInput, settamanhoNoduloEsquerdoInput] =
+    useState("");
+  const [posicaoCalculosEsquerdoSelect, setPosicaoCalculosEsquerdoSelect] =
+    useState("");
 
-  const [multiplosCalculosRimEsquerdoCheckBox, setmultiplosCalculosRimEsquerdoCheckBox] =
-    useState(false);
+  const [
+    multiplosCalculosRimEsquerdoCheckBox,
+    setmultiplosCalculosRimEsquerdoCheckBox,
+  ] = useState(false);
 
-  const [DisableSelectEsquerdo, setDisableSelectEsquerdo] =
-    useState(true);
+  const [DisableSelectEsquerdo, setDisableSelectEsquerdo] = useState(true);
 
-  const [UreterCheckBox, setUreterCheckBox] =
-    useState(false);
+  const [UreterCheckBox, setUreterCheckBox] = useState(false);
   const [DisableUreterSelect, setDisableUreterSelect] = useState(true);
   const [UreterSelect, setUreterSelect] = useState("");
   const [posicaoUreterSelect, setPosicaoUreterSelect] = useState("");
   const [tamanhoUreterInput, setTamanhoUreterInput] = useState("");
 
-  const criaStringMultiplosCalculosRimDireito = (tamanhoNoduloDireitoInput, localizado) => {
+  const criaStringMultiplosCalculosRimDireito = (
+    tamanhoNoduloDireitoInput,
+    localizado
+  ) => {
     removeMultiplosCalculosRimDireito();
 
     if (tamanhoNoduloDireitoInput !== "" && localizado !== "") {
       var string = `Múltiplos calculos no rim direito, o maior mede ${tamanhoNoduloDireitoInput}mm  localizado ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCalc((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCalculosRimDireito = () => {
-    laudoPrin.map((e) => {
+    frasesCalc.map((e) => {
       if (e.includes("Múltiplos calculos no rim direito")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCalc.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCalc.splice(index, 1);
+          setFrasesCalc((arr) => [...arr]);
         }
       }
     });
@@ -62,13 +71,13 @@ function Calculo() {
 
   useEffect(() => {
     if (multiplosCalculosRimDireitoCheckBox) {
-      setDisableSelectDireito(false)
+      setDisableSelectDireito(false);
       criaStringMultiplosCalculosRimDireito(
         tamanhoNoduloDireitoInput,
-        posicaoCalculosDireitoSelect,
+        posicaoCalculosDireitoSelect
       );
     } else {
-      setDisableSelectDireito(true)
+      setDisableSelectDireito(true);
       removeMultiplosCalculosRimDireito();
       settamanhoNoduloDireitoInput("");
       setPosicaoCalculosDireitoSelect("");
@@ -78,23 +87,26 @@ function Calculo() {
     posicaoCalculosDireitoSelect,
     tamanhoNoduloDireitoInput,
   ]);
-  const criaStringMultiplosCalculosRimEsquerdo = (tamanhoNoduloEsquerdoInput, localizado) => {
+  const criaStringMultiplosCalculosRimEsquerdo = (
+    tamanhoNoduloEsquerdoInput,
+    localizado
+  ) => {
     removeMultiplosCalculosRimEsquerdo();
 
     if (tamanhoNoduloEsquerdoInput !== "" && localizado !== "") {
       var string = `Múltiplos calculos no rim Esquerdo, o maior mede ${tamanhoNoduloEsquerdoInput}mm  localizado ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCalc((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCalculosRimEsquerdo = () => {
-    laudoPrin.map((e) => {
+    frasesCalc.map((e) => {
       if (e.includes("Múltiplos calculos no rim Esquerdo")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCalc.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCalc.splice(index, 1);
+          setFrasesCalc((arr) => [...arr]);
         }
       }
     });
@@ -102,13 +114,13 @@ function Calculo() {
 
   useEffect(() => {
     if (multiplosCalculosRimEsquerdoCheckBox) {
-      setDisableSelectEsquerdo(false)
+      setDisableSelectEsquerdo(false);
       criaStringMultiplosCalculosRimEsquerdo(
         tamanhoNoduloEsquerdoInput,
-        posicaoCalculosEsquerdoSelect,
+        posicaoCalculosEsquerdoSelect
       );
     } else {
-      setDisableSelectEsquerdo(true)
+      setDisableSelectEsquerdo(true);
       removeMultiplosCalculosRimEsquerdo();
       settamanhoNoduloEsquerdoInput("");
       setPosicaoCalculosEsquerdoSelect("");
@@ -119,22 +131,30 @@ function Calculo() {
     tamanhoNoduloEsquerdoInput,
   ]);
 
-  const criaStringCalculoUretal = (UreterSelect, posicaoUreterSelect, tamanhoUreterInput) => {
+  const criaStringCalculoUretal = (
+    UreterSelect,
+    posicaoUreterSelect,
+    tamanhoUreterInput
+  ) => {
     removeCalculoUretal();
-    if (UreterSelect !== "" && posicaoUreterSelect !== "" && tamanhoUreterInput !== "") {
+    if (
+      UreterSelect !== "" &&
+      posicaoUreterSelect !== "" &&
+      tamanhoUreterInput !== ""
+    ) {
       var string = `Cálculo uretal medindo ${tamanhoUreterInput} mm  localizado ${posicaoUreterSelect}, do ureter ${UreterSelect}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCalc((arr) => [...arr, string]);
     }
   };
 
   const removeCalculoUretal = () => {
-    laudoPrin.map((e) => {
+    frasesCalc.map((e) => {
       if (e.includes("Cálculo uretal medindo")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCalc.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCalc.splice(index, 1);
+          setFrasesCalc((arr) => [...arr]);
         }
       }
     });
@@ -142,26 +162,41 @@ function Calculo() {
 
   useEffect(() => {
     if (UreterCheckBox) {
-      setDisableUreterSelect(false)
+      setDisableUreterSelect(false);
       criaStringCalculoUretal(
         UreterSelect,
         posicaoUreterSelect,
         tamanhoUreterInput
       );
     } else {
-      setDisableUreterSelect(true)
+      setDisableUreterSelect(true);
       removeCalculoUretal();
       setUreterSelect("");
       setPosicaoUreterSelect("");
       setTamanhoUreterInput("");
-
     }
-  }, [
-    UreterCheckBox,
-    UreterSelect,
-    posicaoUreterSelect,
-    tamanhoUreterInput
-  ]);
+  }, [UreterCheckBox, UreterSelect, posicaoUreterSelect, tamanhoUreterInput]);
+
+  const subExame = "Cálculos";
+  const titulo_exame = "Rins e Vias Urinárias";
+
+  useEffect(() => {
+    if (Object.keys(frasesCalc).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesCalc
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesCalc
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesCalc]);
 
   return (
     <Box
@@ -179,14 +214,12 @@ function Calculo() {
 
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <Stack>
-
-          <Box
-            gap='5px'
-            display='flex'
-            flexWrap='wrap'>
+          <Box gap="5px" display="flex" flexWrap="wrap">
             <Checkbox
               onChange={() =>
-                setmultiplosCalculosRimDireitoCheckBox(!multiplosCalculosRimDireitoCheckBox)
+                setmultiplosCalculosRimDireitoCheckBox(
+                  !multiplosCalculosRimDireitoCheckBox
+                )
               }
             >
               Múltiplos calculos no Rim Direito, o maior mede
@@ -219,11 +252,14 @@ function Calculo() {
               <option value="Submucoso">Submucoso</option>
             </Select>
           </Box>
-          <Box
-            gap='5px'
-            display='flex'
-            flexWrap='wrap'>
-            <Checkbox onChange={() => setmultiplosCalculosRimEsquerdoCheckBox(!multiplosCalculosRimEsquerdoCheckBox)}>
+          <Box gap="5px" display="flex" flexWrap="wrap">
+            <Checkbox
+              onChange={() =>
+                setmultiplosCalculosRimEsquerdoCheckBox(
+                  !multiplosCalculosRimEsquerdoCheckBox
+                )
+              }
+            >
               Múltiplos calculos no Rim Esquerdo, o maior mede
             </Checkbox>
 
@@ -254,10 +290,7 @@ function Calculo() {
               <option value="Submucoso">Submucoso</option>
             </Select>
           </Box>
-          <Box
-            gap='5px'
-            display='flex'
-            flexWrap='wrap'>
+          <Box gap="5px" display="flex" flexWrap="wrap">
             <Checkbox onChange={() => setUreterCheckBox(!UreterCheckBox)}>
               Cálculo Uretal mede
             </Checkbox>
@@ -312,12 +345,7 @@ function Calculo() {
           <Stack>
             <>
               {numberArray.map((num, key) => {
-                return (
-                  <IndividualizarCalculos
-                    key={key}
-                    numCalculo={num}
-                  />
-                );
+                return <IndividualizarCalculos key={key} numCalculo={num} />;
               })}
             </>
           </Stack>

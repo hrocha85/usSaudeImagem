@@ -1,5 +1,4 @@
 import { Box, Center, HStack, VStack } from "@chakra-ui/react";
-import BoxTitleBackground from "../../component/box_title_background";
 import Exames from "../../folha_laudos/Laudos";
 import styles from "./Doppler.module.css";
 import Femoral_Comum_Direita from "./femoral_comum/femoral_comum_direita";
@@ -21,23 +20,14 @@ import Tibial_Anterior_Esquerda from "./tibial_anterior/tibial_anterior_esquerda
 import Tibial_Posterior_Direita from "./tibial_posterior/tibial_posterior_direita";
 import Tibial_Posterior_Esquerda from "./tibial_posterior/tibial_posterior_esquerda";
 
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-
 function Doppler_Arterial_MMII() {
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="23px"
-        fontsize="16px"
-        tamanho="260px"
-        titulo="Doppler Arterial de MMII "
-      />
-
+    <>
       <Exames></Exames>
 
       <Box ml="10px">
         <HStack>
-          <VStack w="32.5%">
+          <VStack w="43%">
             <Lado lado={"Esquerdo"} />
 
             <Femoral_Comum_Esquerda />
@@ -52,7 +42,7 @@ function Doppler_Arterial_MMII() {
           <Center>
             <span className={styles.vl}></span>
           </Center>
-          <VStack w="33%">
+          <VStack w="43%">
             <Lado lado={"Direito"} />
             <Femoral_Comum_Direita />
             <Femoral_Superficial_Direita />
@@ -65,7 +55,7 @@ function Doppler_Arterial_MMII() {
           </VStack>
         </HStack>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

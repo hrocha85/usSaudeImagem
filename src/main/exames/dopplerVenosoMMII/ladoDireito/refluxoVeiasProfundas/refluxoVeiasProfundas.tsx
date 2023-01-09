@@ -1,20 +1,21 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
+import { Box, Checkbox } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function RefluxoVeiasProfundas() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesReflluxoVD, setFrasesRefluxoVD] = useState<any>([]);
 
   const [arrayCheckbox, setArrayCheckbox] = useState<any>([]);
 
   const [FemoralComumCheckbox, setFemoralComumCheckbox] = useState(false);
-  const [FemoralSuperficialCheckbox, setFemoralSuperficialCheckbox] = useState(false);
+  const [FemoralSuperficialCheckbox, setFemoralSuperficialCheckbox] =
+    useState(false);
   const [FemoralProfundaCheckbox, setFemoralProfundaCheckbox] = useState(false);
 
   const [TibialAnteriorCheckbox, setTibialAnteriorCheckbox] = useState(false);
@@ -85,23 +86,21 @@ function RefluxoVeiasProfundas() {
 
   const criaString = () => {
     var string = `Insuficiência das veias ${arrayCheckbox}`;
-    console.log(arrayCheckbox)
+    console.log(arrayCheckbox);
     //   removeString()
     //if (arrayCheckbox.length >= 0) {
     //removeString()
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesRefluxoVD((arr) => [...arr, string]);
     // } else {
     //  removeString()
     //}
   };
 
-
   const adicionaItemArray = (value) => {
-
-    setArrayCheckbox((arr) => [...arr, value])
-    criaString()
+    setArrayCheckbox((arr) => [...arr, value]);
+    criaString();
     //setFemoralComumCheckbox(false)
-    console.log(arrayCheckbox)
+    console.log(arrayCheckbox);
 
     // setArrayCheckbox((arr) => [...arr, value]);
     // if (arrayCheckbox.length >= 0) {
@@ -115,34 +114,31 @@ function RefluxoVeiasProfundas() {
 
   useEffect(() => {
     if (FemoralComumCheckbox) {
-      console.log('femoral checked')
-      setArrayCheckbox((arr) => [...arr, 'Femoral Comum'])
-      criaString()
+      console.log("femoral checked");
+      setArrayCheckbox((arr) => [...arr, "Femoral Comum"]);
+      criaString();
       //adicionaItemArray('Femoral Comum')
     } else {
-      console.log('femoral nao checked')
+      console.log("femoral nao checked");
       //removeString('Femoral Comum')
     }
-
-  }, [FemoralComumCheckbox])
+  }, [FemoralComumCheckbox]);
 
   useEffect(() => {
     if (FemoralSuperficialCheckbox) {
-      console.log('femoral superficial checked')
+      console.log("femoral superficial checked");
 
-      setArrayCheckbox((arr) => [...arr, 'Femoral Superficial'])
-      criaString()
+      setArrayCheckbox((arr) => [...arr, "Femoral Superficial"]);
+      criaString();
       //adicionaItemArray('Femoral Comum')
     } else {
-      console.log('femoral nao checked')
+      console.log("femoral nao checked");
       //removeString('Femoral Comum')
     }
-
-  }, [FemoralSuperficialCheckbox])
-
+  }, [FemoralSuperficialCheckbox]);
 
   const removeString = (value) => {
-    console.log('removendo')
+    console.log("removendo");
     arrayCheckbox.map((e) => {
       if (e.includes(value)) {
         var index = arrayCheckbox.indexOf(e);
@@ -155,17 +151,35 @@ function RefluxoVeiasProfundas() {
     });
   };
 
-
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = laudoPrin.indexOf(value);
+    var index = frasesReflluxoVD.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesReflluxoVD.splice(index, 1);
+      setFrasesRefluxoVD((arr) => [...arr]);
     }
   };
+  const subExame = "Refluxo Veias Profundas Direito";
+  const titulo_exame = "Doppler Venoso de MMII";
 
+  useEffect(() => {
+    if (Object.keys(frasesReflluxoVD).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesReflluxoVD
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesReflluxoVD
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesReflluxoVD]);
   return (
     <Box
       bg="#FAFAFA"
@@ -180,15 +194,14 @@ function RefluxoVeiasProfundas() {
     >
       <TituloNomeExame titulo="Refluxo Veias Profundas" />
 
-      <Box gap="30px" >
+      <Box gap="30px">
         <Box>
           <Checkbox
-            value='Femoral comum'
+            value="Femoral comum"
             onChange={(e) => {
               // adicionaItemArray(e.target.value)
               //criaStringFemoralComum()
-              setFemoralComumCheckbox(!FemoralComumCheckbox)
-
+              setFemoralComumCheckbox(!FemoralComumCheckbox);
             }}
           >
             Femoral Comum
@@ -196,9 +209,9 @@ function RefluxoVeiasProfundas() {
         </Box>
         <Box>
           <Checkbox
-            value='Femoral Superficial'
+            value="Femoral Superficial"
             onChange={(e) => {
-              setFemoralSuperficialCheckbox(!FemoralSuperficialCheckbox)
+              setFemoralSuperficialCheckbox(!FemoralSuperficialCheckbox);
             }}
           >
             Femoral Superficial
@@ -206,10 +219,10 @@ function RefluxoVeiasProfundas() {
         </Box>
         <Box>
           <Checkbox
-            value='Femoral Profunda'
+            value="Femoral Profunda"
             onChange={(e) => {
               // criaStringFemoralProfunda()
-              setFemoralProfundaCheckbox(!FemoralProfundaCheckbox)
+              setFemoralProfundaCheckbox(!FemoralProfundaCheckbox);
             }}
           >
             Femoral Profunda
@@ -217,11 +230,10 @@ function RefluxoVeiasProfundas() {
         </Box>
         <Box>
           <Checkbox
-            value='Tibial Anterior'
+            value="Tibial Anterior"
             onChange={(e) => {
-
               //criaStringTibialAnterior()
-              setTibialAnteriorCheckbox(!TibialAnteriorCheckbox)
+              setTibialAnteriorCheckbox(!TibialAnteriorCheckbox);
             }}
           >
             Tibial Anterior
@@ -231,7 +243,7 @@ function RefluxoVeiasProfundas() {
           <Checkbox
             onChange={() => {
               //criaStringTibialPosterior()
-              setTibialPosteriorCheckbox(!TibialPosteriorCheckbox)
+              setTibialPosteriorCheckbox(!TibialPosteriorCheckbox);
             }}
           >
             Tibial Posterir
@@ -241,7 +253,7 @@ function RefluxoVeiasProfundas() {
           <Checkbox
             onChange={() => {
               //criaStringFibular()
-              setFibularCheckbox(!FibularCheckbox)
+              setFibularCheckbox(!FibularCheckbox);
             }}
           >
             Fibular
@@ -251,7 +263,7 @@ function RefluxoVeiasProfundas() {
           <Checkbox
             onChange={() => {
               //criaStringPoplitea()
-              setPopliteaCheckbox(!PopliteaCheckbox)
+              setPopliteaCheckbox(!PopliteaCheckbox);
             }}
           >
             Poplítea
