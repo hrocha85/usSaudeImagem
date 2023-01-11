@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Exames from "../../folha_laudos/Laudos";
+ 
 import Cirurgias from "./cirurgias/cirurgias";
 import Cisto from "./cisto/cisto";
 import Normal from "./dopplerTireoideNormal/normal";
@@ -11,7 +11,7 @@ import Nodulos from "./nodulos/nodulos";
 function DopplerTireoide() {
   return (
     <>
-      <Exames></Exames>
+      
 
       <Box ml="10px">
         <Normal></Normal>

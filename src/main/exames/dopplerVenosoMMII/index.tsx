@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Exames from "../../folha_laudos/Laudos";
+ 
 import LadoDireito from "../dopplerRenal/direito/ladoDireito";
 import LadoEsquerdo from "../dopplerRenal/esquerdo/ladoEsquerdo";
 import IndexCirurgias from "./ladoDireito/CirurgiasSafenaDireito/indexCirurgia";
@@ -28,7 +28,7 @@ import VeiasTributariasEsquerdo from "./ladoEsquerdo/veiasTributariasEsquerdo/ve
 function DopplerVenosoMMII() {
   return (
     <>
-      <Exames></Exames>
+      
 
       <Box display="flex" flexWrap="wrap" w="66%" ml="10px">
         <Box>

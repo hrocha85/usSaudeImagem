@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Box } from "@chakra-ui/react";
-import Exames from "../../folha_laudos/Laudos";
+ 
 import CistoAnecoico from "../partesMoles/cistoAnecoico/cistoAnecoico";
 import CistoSebaceo from "../partesMoles/cistoSebaceo/cistoSebaceo";
 import Colecao from "../partesMoles/paredeAbdominal/colecao";
@@ -17,7 +17,7 @@ import {
 function PartesMoles() {
   return (
     <>
-      <Exames></Exames>
+      
       <Box ml="10px">
         <Partes_Moles></Partes_Moles>
 

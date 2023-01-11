@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Exames from "../../folha_laudos/Laudos";
+ 
 import Extras from "./adicionais/extras";
 import Cirurgias from "./cirurgias/cirurgias";
 import Hidatide from "./hidatide/hidatide";
@@ -13,7 +13,7 @@ import Utero from "./utero/utero";
 function DopplerTransvaginal() {
   return (
     <>
-      <Exames></Exames>
+      
 
       <Box ml="10px">
         <Utero />

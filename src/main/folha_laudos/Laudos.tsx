@@ -18,7 +18,7 @@ import {
   Stack,
   Text,
   Tooltip,
-  useEditableControls
+  useEditableControls,
 } from "@chakra-ui/react";
 import {
   Document,
@@ -28,7 +28,7 @@ import {
   PDFDownloadLink,
   StyleSheet,
   Text as TextPDF,
-  View as ViewPDF
+  View as ViewPDF,
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -42,6 +42,7 @@ import "./Laudos.css";
 function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
   const laudos = LaudosJSON.laudo;
+  var arrayT = [1, 2, 3];
 
   const styles = StyleSheet.create({
     inline: {
@@ -216,10 +217,10 @@ function Exames() {
     const renderFrases = () => {
       var array = JSON.parse(localStorage.getItem("format_laudo")!);
 
-      return array.map((Exames, key) => {
-        return Exames.subExames.map((sub) => {
+      return array.map((Exames) => {
+        return Exames.subExames.map((sub,key) => {
           return sub.subExameNome != null && sub.subExameNome != "" ? (
-            <ViewPDF style={styles.inline}>
+            <ViewPDF style={styles.inline} key={key}>
               <TextPDF style={styles.textNomeSubExame} orphans={3}>
                 {sub.subExameNome}:
               </TextPDF>
@@ -472,6 +473,7 @@ function Exames() {
 
   useEffect(() => {
     setLaudo(Laudo());
+    getFormatLaudo();
   }, [localStorage.getItem("format_laudo")!]);
 
   /*useEffect(() => {
@@ -616,25 +618,26 @@ function Exames() {
             />
           </Center>
           <Box margin="20px">
-            {edit == false ? (
-              <>
-                <Text
-                  textDecoration="underline"
-                  fontWeight="bold"
-                  fontSize="19px"
-                  textAlign="center"
-                  textTransform="uppercase"
-                >
-                  {titulo_exame}
-                </Text>
-                {arrayLocal.map((Exames) => {
-                  return Exames.subExames.map((sub) => {
-                    return sub.subExameNome != null &&
-                      sub.subExameNome != "" ? (
+            {arrayLocal.map((exame, key) => {
+              return edit == false ? (
+                <Box key={key}>
+                  <Text
+                    textDecoration="underline"
+                    fontWeight="bold"
+                    fontSize="19px"
+                    textAlign="center"
+                    textTransform="uppercase"
+                  >
+                    {exame.titulo_exame}
+                  </Text>
+                  {exame.subExames.map((Exames,key) => {
+                    return Exames.subExameNome != null &&
+                      Exames.subExameNome != "" ? (
                       <HStack
                         justifyContent="space-between"
                         marginBottom="30px"
-                        marginTop="20px"
+                          marginTop="20px"
+                          key={key}
                       >
                         <HStack justify="space-between">
                           <Text
@@ -642,13 +645,13 @@ function Exames() {
                             fontWeight="semibold"
                             whiteSpace="nowrap"
                           >
-                            {sub.subExameNome}:
+                            {Exames.subExameNome}:
                           </Text>
                           <Box w="100%">
-                            {typeof sub.frases != "string" ? (
-                              sub.frases.map((frase) => {
+                            {typeof Exames.frases != "string" ? (
+                              Exames.frases.map((frase,key) => {
                                 return (
-                                  <Stack>
+                                  <Stack key={key}>
                                     <Text
                                       w="100%"
                                       textAlign="start"
@@ -665,60 +668,63 @@ function Exames() {
                                 textAlign="start"
                                 marginStart="10px"
                               >
-                                {sub.frases}
+                                {Exames.frases}
                               </Text>
                             )}
                           </Box>
                         </HStack>
                       </HStack>
                     ) : null;
-                  });
-                })}
-                <HStack justify="space-evenly" marginTop="10px"></HStack>
-              </>
-            ) : (
-              <>
-                <Text
-                  textDecoration="underline"
-                  fontWeight="bold"
-                  fontSize="19px"
-                  textAlign="center"
-                  textTransform="uppercase"
-                >
-                  {titulo_exame}
-                </Text>
-                {arrayLocal.map((Exames, IndexExame) => {
-                  return Exames.subExames.map((sub_exame, Index_Sub_Exame) => {
-                    return sub_exame.subExameNome != null &&
-                      sub_exame.subExameNome != "" ? (
-                      <HStack
-                        justifyContent="space-between"
-                        marginBottom="30px"
-                        marginTop="20px"
-                      >
-                        <HStack justify="space-between">
-                          <Text
-                            textDecoration="underline"
-                            fontWeight="semibold"
-                            whiteSpace="nowrap"
+                  })}
+                  <HStack justify="space-evenly" marginTop="10px"></HStack>
+                </Box>
+              ) : (
+                <Box key={key}>
+                  <Text
+                    textDecoration="underline"
+                    fontWeight="bold"
+                    fontSize="19px"
+                    textAlign="center"
+                    textTransform="uppercase"
+                  >
+                    {titulo_exame}
+                  </Text>
+                  {arrayLocal.map((Exames, IndexExame,key) => {
+                    return Exames.subExames.map(
+                      (sub_exame, Index_Sub_Exame) => {
+                        return sub_exame.subExameNome != null &&
+                          sub_exame.subExameNome != "" ? (
+                          <HStack
+                            justifyContent="space-between"
+                            marginBottom="30px"
+                              marginTop="20px"
+                              key={key}
                           >
-                            {sub_exame.subExameNome}:
-                          </Text>
-                          <Box w="100%">
-                            {EditarLaudo(
-                              sub_exame.frases,
-                              IndexExame,
-                              Index_Sub_Exame
-                            )}
-                          </Box>
-                        </HStack>
-                      </HStack>
-                    ) : null;
-                  });
-                })}
-                <HStack justify="space-evenly" marginTop="10px"></HStack>
-              </>
-            )}
+                            <HStack justify="space-between">
+                              <Text
+                                textDecoration="underline"
+                                fontWeight="semibold"
+                                whiteSpace="nowrap"
+                              >
+                                {sub_exame.subExameNome}:
+                              </Text>
+                              <Box w="100%">
+                                {EditarLaudo(
+                                  sub_exame.frases,
+                                  IndexExame,
+                                  Index_Sub_Exame
+                                )}
+                              </Box>
+                            </HStack>
+                          </HStack>
+                        ) : null;
+                      }
+                    );
+                  })}
+                  <HStack justify="space-evenly" marginTop="10px"></HStack>
+                </Box>
+              );
+            })}
           </Box>
           <Box position="absolute" w="100%">
             <HStack w="100%" justify="space-between">

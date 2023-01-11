@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   CloseButton,
+  Flex,
   Grid,
   GridItem,
   IconButton,
@@ -21,7 +22,7 @@ import {
   Tabs,
   Text,
   Tooltip,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { TabExamesContext } from "../../context/TabExameContext";
@@ -46,6 +47,7 @@ import Testiculo from "../exames/testiculo";
 import Tireoide from "../exames/tireoide";
 import Tireoide2 from "../exames/tireoide2";
 import Transvaginal from "../exames/transvaginal";
+import Exames from "../folha_laudos/Laudos";
 import BGImage from "../images/bg_img.png";
 import Sidebar from "../menu/sideBar";
 
@@ -57,21 +59,7 @@ export default function Box_Default_With_Sidebar() {
   } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { tabExames, setTabExames } = useContext(TabExamesContext);
-
   const [tabIndex, setTabIndex] = useState(0);
-
-  const handleSliderChange = (event) => {
-    if (event == 1 && Object.keys(tabExames).length >= 2) {
-      setTabIndex(0);
-    } else {
-      setTabIndex(event - 2);
-    }
-  };
-
-  const handleTabsChange = (index) => {
-    setTabIndex(index);
-  };
-
   const exames = [
     {
       key: 1,
@@ -194,6 +182,19 @@ export default function Box_Default_With_Sidebar() {
       link: `#/Home/${24}`,
     },
   ];
+
+  const handleSliderChange = (event) => {
+    if (event == 1 && Object.keys(tabExames).length >= 2) {
+      setTabIndex(0);
+    } else {
+      setTabIndex(event - 2);
+    }
+  };
+
+  const handleTabsChange = (index) => {
+    setTabIndex(index);
+  };
+
   const SairExames = () => {
     window.location.href = "/Home#/Home";
     setTabExames([{}]);
@@ -203,6 +204,17 @@ export default function Box_Default_With_Sidebar() {
     if (Object.keys(tabExames).length == 2) {
       onOpenRemoveExameModal();
     } else {
+      var array = JSON.parse(localStorage.getItem("format_laudo")!);
+      array.map((i, key) => {
+        if (i.titulo_exame == e.nomeExame) {
+          var index = array.indexOf(i);
+          if (index > -1) {
+            array.splice(index, 1);
+            localStorage.setItem("format_laudo", JSON.stringify(array));
+          }
+        }
+      });
+
       tabExames.map((i) => {
         if (i.key == e.key) {
           var index = tabExames.indexOf(i);
@@ -213,6 +225,18 @@ export default function Box_Default_With_Sidebar() {
         }
       });
     }
+  };
+
+  const AddNewExame = (exame) => {
+    var array = JSON.parse(localStorage.getItem("format_laudo")!);
+
+    const obj = {
+      titulo_exame: exame,
+      subExames: [{ subExameNome: "", frases: [] }],
+    };
+    array.push(obj);
+
+    localStorage.setItem("format_laudo", JSON.stringify(array));
   };
 
   return (
@@ -229,70 +253,72 @@ export default function Box_Default_With_Sidebar() {
         paddingBottom="50px"
       >
         <Sidebar />
+        <Exames></Exames>
         <Tabs
           size="lg"
           variant="soft-rounded"
           index={tabIndex}
           onChange={handleTabsChange}
         >
-          <Stack direction="row" maxW="65%" overflowX="auto">
-            <TabList marginStart="20px">
-              {tabExames.map((e, key) => {
-                if (e.nomeExame != undefined) {
-                  return (
-                    <Stack direction="row" key={key}>
-                      <Tab
-                        whiteSpace="nowrap"
-                        key={key}
-                        textColor="black"
-                        _selected={{ color: "white", bg: "blue.500" }}
-                      >
-                        {e.nomeExame}
-                        <Tooltip
-                          label={`Fechar ${e.nomeExame}`}
-                          backgroundColor="white"
-                          placement="top"
-                          hasArrow
-                          arrowSize={15}
+            <Flex direction="row" flexWrap="wrap" gap="5px" width='65%'>
+              <TabList marginStart="20px">
+                {tabExames.map((e, key) => {
+                  if (e.nomeExame != undefined) {
+                    return (
+                      <Stack direction="row" key={key}>
+                        <Tab
+                          whiteSpace="nowrap"
+                          key={key}
                           textColor="black"
-                          fontSize="20px"
-                          margin="20px"
-                          textAlign="center"
+                          _selected={{ color: "white", bg: "blue.500" }}
                         >
-                          <CloseButton
-                            onClick={() => {
-                              removeTabExame(e);
-                              handleSliderChange(key);
-                            }}
-                          />
-                        </Tooltip>
-                      </Tab>
-                    </Stack>
-                  );
-                }
-              })}
-            </TabList>
-            <Tooltip
-              label="Adicionar Exame"
-              backgroundColor="white"
-              placement="top"
-              hasArrow
-              arrowSize={15}
-              textColor="black"
-              fontSize="20px"
-              margin="20px"
-              textAlign="center"
-            >
-              <IconButton
-                size="sm"
-                aria-label="Check"
-                icon={<AddIcon />}
-                onClick={() => {
-                  onOpen();
-                }}
-              />
-            </Tooltip>
-          </Stack>
+                          {e.nomeExame}
+                          <Tooltip
+                            label={`Fechar ${e.nomeExame}`}
+                            backgroundColor="white"
+                            placement="top"
+                            hasArrow
+                            arrowSize={15}
+                            textColor="black"
+                            fontSize="20px"
+                            margin="20px"
+                            textAlign="center"
+                          >
+                            <CloseButton
+                              onClick={() => {
+                                removeTabExame(e);
+                                handleSliderChange(key);
+                              }}
+                            />
+                          </Tooltip>
+                        </Tab>
+                      </Stack>
+                    );
+                  }
+                })}
+              </TabList>
+
+              <Tooltip
+                label="Adicionar Exame"
+                backgroundColor="white"
+                placement="top"
+                hasArrow
+                arrowSize={15}
+                textColor="black"
+                fontSize="20px"
+                margin="20px"
+                textAlign="center"
+              >
+                <IconButton
+                  size="sm"
+                  aria-label="Check"
+                  icon={<AddIcon />}
+                  onClick={() => {
+                    onOpen();
+                  }}
+                />
+              </Tooltip>
+            </Flex>
           <TabPanels>
             {tabExames.map((e, key) => {
               if (e.key > 0) {
@@ -357,6 +383,7 @@ export default function Box_Default_With_Sidebar() {
                     onClick={() => {
                       setTabExames((tabExames) => [...tabExames, exame]);
                       onClose();
+                      AddNewExame(exame.nomeExame);
                     }}
                   >
                     <Text

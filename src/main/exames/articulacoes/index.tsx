@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Exames from "../../folha_laudos/Laudos";
+ 
 import AntebracoLadoDireito from "./antebraco/antebracoDireito/ladoDireito";
 import AntebracoNormalDireito from "./antebraco/antebracoDireito/normal";
 import AntebracoLadoEsquerdo from "./antebraco/antebracoEsquerdo/ladoEsquerdo";
@@ -98,7 +98,7 @@ import TibialPosteriorEsquerdo from "./tornozelo/tornozeloEsquerdo/tibialPosteri
 function Articulacoes() {
   return (
     <>
-      <Exames></Exames>
+      
 
       <Box display="flex" flexWrap="wrap" w="66%" ml="10px">
         <Box>

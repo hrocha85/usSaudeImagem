@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Exames from "../../folha_laudos/Laudos";
+ 
 import Abscesso from "./abscesso/abscesso";
 import Axilas from "./axilas/axilas";
 import Birads from "./birads/birads";
@@ -14,7 +14,7 @@ import Observacoes from "./observacoes/observacoes";
 function Mamas() {
   return (
     <>
-      <Exames></Exames>
+      
 
       <Box ml="10px">
         <Nodulo />

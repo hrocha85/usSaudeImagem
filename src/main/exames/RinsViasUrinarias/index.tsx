@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Exames from "../../folha_laudos/Laudos";
+ 
 import Bexiga from "./bexiga/bexiga";
 import Calculo from "./calculos/calculos";
 import Cisto from "./cistos/cistos";
@@ -10,7 +10,7 @@ import RimEsquerdo from "./rim_esquerdo/rim_esquerdo";
 function RinseViasUrinarias() {
   return (
     <>
-      <Exames></Exames>
+      
 
       <Box ml="10px">
         <RimDireito />

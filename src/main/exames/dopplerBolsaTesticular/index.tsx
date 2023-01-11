@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Exames from "../../folha_laudos/Laudos";
+ 
 import CistoEpididimarios from "./cistosEpididimarios/cistoEpididimarios";
 import CistosTesticulares from "./cistosTesticulares/cistoTesticulares";
 import Hematoma from "./hematoma/hematoma";
@@ -15,7 +15,7 @@ import Virococele from "./varicocele/varicocele";
 function DopplerBolsaTesticular() {
   return (
     <>
-      <Exames></Exames>
+      
 
       <Box ml="10px">
         <Utero />

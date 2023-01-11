@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Exames from "../../folha_laudos/Laudos";
+ 
 import Aorta from "./aorta";
 import ArteriaInterlobarDireita from "./direito/arteriaInterlobar";
 import ArteriaRenalDireita from "./direito/arteriaRenal";
@@ -13,7 +13,7 @@ import LadoEsquerdo from "./esquerdo/ladoEsquerdo";
 function DopplerRenal() {
   return (
     <>
-      <Exames></Exames>
+      
 
       <Box ml="10px">
         <Box textAlign="center">

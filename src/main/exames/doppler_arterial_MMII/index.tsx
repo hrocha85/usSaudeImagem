@@ -1,5 +1,5 @@
 import { Box, Center, HStack, VStack } from "@chakra-ui/react";
-import Exames from "../../folha_laudos/Laudos";
+ 
 import styles from "./Doppler.module.css";
 import Femoral_Comum_Direita from "./femoral_comum/femoral_comum_direita";
 import Femoral_Comum_Esquerda from "./femoral_comum/femoral_comum_esquerda";
@@ -23,7 +23,7 @@ import Tibial_Posterior_Esquerda from "./tibial_posterior/tibial_posterior_esque
 function Doppler_Arterial_MMII() {
   return (
     <>
-      <Exames></Exames>
+      
 
       <Box ml="10px">
         <HStack>

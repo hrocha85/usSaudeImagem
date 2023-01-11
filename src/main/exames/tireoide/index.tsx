@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Exames from "../../folha_laudos/Laudos";
+ 
 import Cirurgias from "./cirurgias/cirurgias";
 import Cisto from "./cisto/cisto";
 import EcotexturaParenquima from "./EcotexturaParenquima/EcotexturaParenquima";
@@ -11,7 +11,7 @@ import Normal from "./TireoideNormal/normal";
 function Tireoide() {
   return (
     <>
-      <Exames></Exames>
+      
 
       <Box ml="10px">
         <Normal></Normal>
