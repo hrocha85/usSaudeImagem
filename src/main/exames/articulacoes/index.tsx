@@ -50,19 +50,20 @@ import DedoLadoDireito from "./dedo/dedoDireito/ladoDireito";
 import DedoNormalEsquerdo from "./dedo/dedoEsquerdo/normal";
 import DedoEsquerdo from "./dedo/dedoEsquerdo/dedoEsquerdo";
 import DedoLadoEsquerdo from "./dedo/dedoEsquerdo/ladoEsquerdo";
-import JoelhoDireito from "./joelho/joelhoDireito/joelhoDireito";
+import JoelhoDerrameArticularDireito from "./joelho/joelhoDireito/JoelhoDerrameArticularDireito";
 import JoelhoLadoDireito from "./joelho/joelhoDireito/ladoDireito";
 import JoelhoNormalDireito from "./joelho/joelhoDireito/normal";
-import JoelhoEsquerdo from "./joelho/joelhoEsquerdo/joelhoEsquerdo";
+import JoelhoDerrameArticularEsquerdo from "./joelho/joelhoEsquerdo/JoelhoDerrameArticularEsquerdo";
 import JoelhoLadoEsquerdo from "./joelho/joelhoEsquerdo/ladoEsquerdo";
 import JoelhoNormalEsquerdo from "./joelho/joelhoEsquerdo/normal";
-import TendaoQuadricepsDireito from "./joelho/joelhoDireito/tendaoQuadricepsDireito";
-import TendaoQuadricepsEsquerdo from "./joelho/joelhoEsquerdo/tendaoQuadricepsEsquerdo";
+import LigColTibialMedialDireito from "./joelho/joelhoDireito/LigamentoColateralTibialMedialDireito";
+import LigColTibialMedialEsquerdo from "./joelho/joelhoEsquerdo/LigamentoColateralTibialMedialEsquerdo";
 import TendaoPatelarDireito from "./joelho/joelhoDireito/tendaoPatelarDireito";
 import TendaoPatelarEsquerdo from "./joelho/joelhoEsquerdo/tendaoPatelarEsquerdo";
 import TendaoPataGansoDireito from "./joelho/joelhoDireito/tendaoPataGansoDireito";
 import TendaoPataGansoEsquerdo from "./joelho/joelhoEsquerdo/tendaoPataGansoEsquerdo";
-import MeniscoMedialDireito from "./joelho/joelhoDireito/meniscoMedialDireito";
+import MeniscosDireito from "./joelho/joelhoDireito/meniscosDireito";
+import MeniscosEsquerdo from "./joelho/joelhoEsquerdo/meniscosEsquerdo";
 import MeniscoMedialEsquerdo from "./joelho/joelhoEsquerdo/meniscoMedialEsquerdo";
 import TornozeloLadoDireito from "./tornozelo/tornozeloDireito/ladoDireito";
 import TornozeloNormalDireito from "./tornozelo/tornozeloDireito/normal";
@@ -100,6 +101,30 @@ import PeLadoDireito from './pe/peDireito/ladoDireito'
 import PeNormalDireito from './pe/peDireito/normal'
 import PeNormalEsquerdo from './pe/peEsquerdo/normal'
 import PeLadoEsquerdo from './pe/peEsquerdo/ladoEsquerdo'
+import TenComumExtensoresAntebracoDireito from "./cotovelo/cotoveloDireito/TenComumExtensoresAntebracoDireito";
+import TenComumFlexoresAntebracoDireito from "./cotovelo/cotoveloDireito/TenComumFlexosoresAntebracoDireito";
+import TenComumFlexoresAntebracoEsquerdo from "./cotovelo/cotoveloEsquerdo/TenComumFlexosoresAntebracoEsquerdo";
+import TenComumExtensoresAntebracoEsquerdo from "./cotovelo/cotoveloEsquerdo/TenComumExtensoresAntebracoEsquerdo";
+import TendaoBicepsBraquialDireito from "./cotovelo/cotoveloDireito/TendaoBicepsBraquialDireito";
+import TendaoBicepsBraquialEsquerdo from "./cotovelo/cotoveloEsquerdo/TendaoBicepsBraquialEsquerdo";
+import TendaoTricepsBraquialDireito from "./cotovelo/cotoveloDireito/TendaoTricepsBraquialDireito";
+import TendaoTricepsBraquialEsquerdo from "./cotovelo/cotoveloEsquerdo/TendaoTricepsBraquialEsquerdo";
+import LiquidoPeritendineoDireito from "./cotovelo/cotoveloDireito/LiquidoPeritendineoDireito";
+import BolsaOlecreaneanaDireito from "./cotovelo/cotoveloDireito/BolsaOlecraneanaDireito";
+import LiquidoPeritendineoEsquerdo from "./cotovelo/cotoveloEsquerdo/LiquidoPeritendineoEsquerdo";
+import BolsaOlecreaneanaEsquerdo from "./cotovelo/cotoveloEsquerdo/BolsaOlecraneanaEsquerdo";
+import DerrameArticularDireito from "./cotovelo/cotoveloDireito/DerrameArticularDireito";
+import DerrameArticularEsquerdo from "./cotovelo/cotoveloEsquerdo/DerrameArticularEsquerdo";
+import NervoUlnarDireito from "./cotovelo/cotoveloDireito/NervoUlnarDireito";
+import NervoUlnarEsquerdo from "./cotovelo/cotoveloEsquerdo/NervoUlnarEsquerdo";
+import LigColFibularLateralDireito from "./joelho/joelhoDireito/LigamentoColateralFibularLateralDireito";
+import LigColFibularLateralEsquerdo from "./joelho/joelhoEsquerdo/LigamentoColateralFibularLateralEsquerdo";
+import TendaoQuadricepsFemoralDireito from "./joelho/joelhoDireito/TendaoQuadricepsFemoralDireito";
+import TendaoQuadricepsFemoralEsquerdo from "./joelho/joelhoEsquerdo/TendaoQuadricepsFemoralEsquerdo";
+import TendaoBicepsFemoralDireito from "./joelho/joelhoDireito/TendaoBicepsFemoralDireito";
+import TendaoBicepsFemoralEsquerdo from "./joelho/joelhoEsquerdo/TendaoBicepsFemoralEsquerdo";
+import CistosDireito from "./joelho/joelhoDireito/CistosDireito";
+import CistosEsquerdo from "./joelho/joelhoEsquerdo/CistosEsquerdo";
 
 function Articulacoes() {
 
@@ -128,7 +153,7 @@ function Articulacoes() {
                 w='66%'
                 ml="10px">
 
-                <Box>
+                <Box w='45%'>
                     <Box
 
                         textAlign="center" >
@@ -140,31 +165,31 @@ function Articulacoes() {
                         <OmbroNormalDireito />
                     </Box>
 
-                    <Box>
+                    <Box >
                         <Box
-                            w='450px'
+                            // w='450px'
                             mb='15px'>
                             <  SupraEspinhalOmbroDireito />
                         </Box>
 
                         <Box
-                            w='450px'
+                            // w='450px'
                             mb='15px'>
                             <InfraEspinhalOmbroDireito />
                         </Box>
 
                         <Box
-                            w='450px'
+                            // w='450px'
                             mb='15px'>
                             <SubescapularOmbroDireito />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             mb='15px'>
                             <TendaoLongoBicepsOmbroDireito />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             mb='15px'>
                             <ExtraOmbroDireito />
                         </Box>
@@ -180,9 +205,50 @@ function Articulacoes() {
                             <CotoveloNormalDireito />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
+                            textAlign="center" >
+                            <TenComumExtensoresAntebracoDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <TenComumFlexoresAntebracoDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <TendaoBicepsBraquialDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
                             textAlign="center" >
                             <CotoveloDireito />
+                        </Box>
+
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <TendaoTricepsBraquialDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <LiquidoPeritendineoDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <BolsaOlecreaneanaDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <NervoUlnarDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <DerrameArticularDireito />
                         </Box>
                         <Box
                             textAlign="center" >
@@ -194,7 +260,7 @@ function Articulacoes() {
                             <PunhoNormalDireito />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             textAlign="center" >
                             <PunhoDireito />
                         </Box>
@@ -208,7 +274,7 @@ function Articulacoes() {
                             <MaoNormalDireito />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             textAlign="center" >
                             <MaoDireita />
                         </Box>
@@ -222,7 +288,7 @@ function Articulacoes() {
                             <BracoNormalDireito />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             textAlign="center" >
                             <BracoDireito />
                         </Box>
@@ -245,7 +311,7 @@ function Articulacoes() {
                             <DedoNormalDireito />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             textAlign="center" >
                             <DedoDireito />
                         </Box>
@@ -259,19 +325,19 @@ function Articulacoes() {
                             <JoelhoNormalDireito />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             textAlign="center" >
-                            <JoelhoDireito />
+                            <JoelhoDerrameArticularDireito />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             textAlign="center" >
-                            <TendaoQuadricepsDireito />
+                            <LigColTibialMedialDireito />
                         </Box>
                         <Box
-                            mt='10px'
+                            // w='450px'
                             textAlign="center" >
-                            <TendaoPatelarDireito />
+                            <LigColFibularLateralDireito />
                         </Box>
                         <Box
                             mt='10px'
@@ -281,7 +347,27 @@ function Articulacoes() {
                         <Box
                             mt='10px'
                             textAlign="center" >
-                            <MeniscoMedialDireito />
+                            <TendaoQuadricepsFemoralDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoBicepsFemoralDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoPatelarDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <MeniscosDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <CistosDireito />
                         </Box>
                         <Box
                             textAlign="center" >
@@ -375,7 +461,7 @@ function Articulacoes() {
                 // flexWrap='wrap'
                 >
                     <Box
-                        w='450px'
+                        // w='450px'
                         textAlign="center" >
                         <OmbroLadoEsquerdo />
                     </Box>
@@ -386,34 +472,35 @@ function Articulacoes() {
                         <OmbroNormalEsquerdo />
                     </Box>
                     <Box
-                        w='450px'
+                        // w='450px'
                         mb='15px'>
                         <  SupraEspinhalOmbroEsquerdo />
                     </Box>
 
                     <Box
-                        w='450px'
+                        // w='450px'
                         mb='15px'>
                         <InfraEspinhalOmbroEsquerdo />
                     </Box>
 
                     <Box
-                        w='450px'
+                        // w='450px'
                         mb='15px'>
                         <SubescapularOmbroEsquerdo />
                     </Box>
                     <Box
-                        w='450px'
+                        // w='450px'
                         mb='15px'>
                         <TendaoLongoBicepsOmbroEsquerdo />
                     </Box>
+
                     <Box
-                        w='450px'
+                        // w='450px'
                         mb='15px'>
                         <ExtraOmbroEsquerdo />
                     </Box>
                     <Box
-                        w='450px'
+                        // w='450px'
                         textAlign="center" >
                         <CotoveloLadoEsquerdo />
                     </Box>
@@ -423,9 +510,49 @@ function Articulacoes() {
                         <CotoveloNormalEsquerdo />
                     </Box>
                     <Box
-                        w='450px'
+                        // w='450px'
                         textAlign="center" >
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <TenComumExtensoresAntebracoEsquerdo />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <TenComumFlexoresAntebracoEsquerdo />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <TendaoBicepsBraquialEsquerdo />
+                        </Box>
                         <CotoveloEsquerdo />
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <TendaoTricepsBraquialEsquerdo />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <LiquidoPeritendineoEsquerdo />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <BolsaOlecreaneanaEsquerdo />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <NervoUlnarEsquerdo />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <DerrameArticularEsquerdo />
+                        </Box>
                         <Box
                             textAlign="center" >
                             <PunhoLadoEsquerdo />
@@ -436,7 +563,7 @@ function Articulacoes() {
                             <PunhoNormalEsquerdo />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             textAlign="center" >
                             <PunhoEsquerdo />
                         </Box>
@@ -450,7 +577,7 @@ function Articulacoes() {
                             <MaoNormalEsquerdo />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             textAlign="center" >
                             <MaoEsquerda />
                         </Box>
@@ -464,7 +591,7 @@ function Articulacoes() {
                             <BracoNormalEsquerdo />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             textAlign="center" >
                             <BracoEsquerdo />
                         </Box>
@@ -487,7 +614,7 @@ function Articulacoes() {
                             <DedoNormalEsquerdo />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             textAlign="center" >
                             <DedoEsquerdo />
                         </Box>
@@ -501,19 +628,19 @@ function Articulacoes() {
                             <JoelhoNormalEsquerdo />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             textAlign="center" >
-                            <JoelhoEsquerdo />
+                            <JoelhoDerrameArticularEsquerdo />
                         </Box>
                         <Box
-                            w='450px'
+                            // w='450px'
                             textAlign="center" >
-                            <TendaoQuadricepsEsquerdo />
+                            <LigColTibialMedialEsquerdo />
                         </Box>
                         <Box
-                            mt='10px'
+                            // w='450px'
                             textAlign="center" >
-                            <TendaoPatelarEsquerdo />
+                            <LigColFibularLateralEsquerdo />
                         </Box>
                         <Box
                             mt='10px'
@@ -523,7 +650,28 @@ function Articulacoes() {
                         <Box
                             mt='10px'
                             textAlign="center" >
-                            <MeniscoMedialEsquerdo />
+                            <TendaoQuadricepsFemoralEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoBicepsFemoralEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoPatelarEsquerdo />
+                        </Box>
+
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <MeniscosEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <CistosEsquerdo />
                         </Box>
                         <Box
                             textAlign="center" >
