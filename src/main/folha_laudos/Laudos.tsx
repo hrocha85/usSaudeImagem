@@ -48,9 +48,8 @@ function Exames() {
     inline: {
       display: "flex",
       flexDirection: "row",
-      paddingBottom: 30,
-      marginTop: "20px",
-      marginBottom: "20px",
+      paddingTop: "10%",
+      marginLeft: 20,
     },
     page: {
       backgroundColor: "white",
@@ -63,7 +62,7 @@ function Exames() {
       width: "100%",
     },
     viewer: {
-      width: window.screen.availWidth, //the pdf viewer will take up all of the width and height
+      width: window.screen.availWidth,
       height: window.screen.availHeight,
     },
     imageClinica: {
@@ -145,7 +144,6 @@ function Exames() {
       textAlign: "center",
       fontSize: "20",
       fontFamily: "MontserratBold",
-      marginBottom: "50px",
     },
     textNomeSubExame: {
       fontWeigh: "bold",
@@ -159,14 +157,13 @@ function Exames() {
       textAlign: "justify",
       fontSize: "15",
       fontFamily: "MontserratRegular",
-      marginBottom: "10px",
+      lineHeight: 1.5,
     },
     laudo_viewer: {
-      margin: 20,
-      marginBottom: "35%",
+      margin: 10,
+      marginBottom: "30%",
     },
     view_frases: {
-      marginBottom: "30px",
       marginLeft: "10px",
       marginRight: "30px",
       flex: 1,
@@ -218,9 +215,9 @@ function Exames() {
       var array = JSON.parse(localStorage.getItem("format_laudo")!);
 
       return array.map((Exames) => {
-        return Exames.subExames.map((sub,key) => {
+        return Exames.subExames.map((sub, key) => {
           return sub.subExameNome != null && sub.subExameNome != "" ? (
-            <ViewPDF style={styles.inline} key={key}>
+            <ViewPDF style={styles.inline} key={key} wrap={false}>
               <TextPDF style={styles.textNomeSubExame} orphans={3}>
                 {sub.subExameNome}:
               </TextPDF>
@@ -264,12 +261,15 @@ function Exames() {
             </ViewPDF>
           </ViewPDF>
           <ViewPDF style={styles.line}></ViewPDF>
-          <ViewPDF style={styles.laudo_viewer}>
-            <TextPDF style={styles.textTituloExame}>
-              {titulo_exame.toUpperCase()}
-            </TextPDF>
-            <ViewPDF>{renderFrases()}</ViewPDF>
-          </ViewPDF>
+          {arrayLocal.map((exame, key) => {
+            return <ViewPDF style={styles.laudo_viewer} key={key}>
+              <TextPDF style={styles.textTituloExame} key={key}>
+                {exame.titulo_exame.toUpperCase()}
+              </TextPDF>
+              <ViewPDF key={key}>{renderFrases()}</ViewPDF>
+            </ViewPDF>;
+          })}
+
           <ViewPDF style={styles.pageNumber}>
             <ViewPDF style={styles.pageNumber}>
               <ViewPDF style={styles.footer}>
@@ -630,14 +630,14 @@ function Exames() {
                   >
                     {exame.titulo_exame}
                   </Text>
-                  {exame.subExames.map((Exames,key) => {
+                  {exame.subExames.map((Exames, key) => {
                     return Exames.subExameNome != null &&
                       Exames.subExameNome != "" ? (
                       <HStack
                         justifyContent="space-between"
                         marginBottom="30px"
-                          marginTop="20px"
-                          key={key}
+                        marginTop="20px"
+                        key={key}
                       >
                         <HStack justify="space-between">
                           <Text
@@ -649,7 +649,7 @@ function Exames() {
                           </Text>
                           <Box w="100%">
                             {typeof Exames.frases != "string" ? (
-                              Exames.frases.map((frase,key) => {
+                              Exames.frases.map((frase, key) => {
                                 return (
                                   <Stack key={key}>
                                     <Text
@@ -689,7 +689,7 @@ function Exames() {
                   >
                     {titulo_exame}
                   </Text>
-                  {arrayLocal.map((Exames, IndexExame,key) => {
+                  {arrayLocal.map((Exames, IndexExame, key) => {
                     return Exames.subExames.map(
                       (sub_exame, Index_Sub_Exame) => {
                         return sub_exame.subExameNome != null &&
@@ -697,8 +697,8 @@ function Exames() {
                           <HStack
                             justifyContent="space-between"
                             marginBottom="30px"
-                              marginTop="20px"
-                              key={key}
+                            marginTop="20px"
+                            key={key}
                           >
                             <HStack justify="space-between">
                               <Text

@@ -22,7 +22,7 @@ import {
   Tabs,
   Text,
   Tooltip,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { TabExamesContext } from "../../context/TabExameContext";
@@ -60,6 +60,9 @@ export default function Box_Default_With_Sidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { tabExames, setTabExames } = useContext(TabExamesContext);
   const [tabIndex, setTabIndex] = useState(0);
+  const [currentExame, setCurrentExame] = useState<any>();
+  const [currentHandleSlider, setCurrentHandleSlider] = useState<any>();
+
   const exames = [
     {
       key: 1,
@@ -200,13 +203,13 @@ export default function Box_Default_With_Sidebar() {
     setTabExames([{}]);
   };
 
-  const removeTabExame = (e) => {
+  const removeTabExame = () => {
     if (Object.keys(tabExames).length == 2) {
-      onOpenRemoveExameModal();
+      SairExames();
     } else {
       var array = JSON.parse(localStorage.getItem("format_laudo")!);
       array.map((i, key) => {
-        if (i.titulo_exame == e.nomeExame) {
+        if (i.titulo_exame == currentExame!.nomeExame) {
           var index = array.indexOf(i);
           if (index > -1) {
             array.splice(index, 1);
@@ -216,7 +219,7 @@ export default function Box_Default_With_Sidebar() {
       });
 
       tabExames.map((i) => {
-        if (i.key == e.key) {
+        if (i.key == currentExame!.key) {
           var index = tabExames.indexOf(i);
           if (index > -1) {
             tabExames.splice(index, 1);
@@ -224,6 +227,8 @@ export default function Box_Default_With_Sidebar() {
           }
         }
       });
+      handleSliderChange(currentHandleSlider);
+      onCloseRemoveExameModal();
     }
   };
 
@@ -260,44 +265,43 @@ export default function Box_Default_With_Sidebar() {
           index={tabIndex}
           onChange={handleTabsChange}
         >
-            <Flex direction="row" flexWrap="wrap" gap="5px" width='65%'>
-              <TabList marginStart="20px">
-                {tabExames.map((e, key) => {
-                  if (e.nomeExame != undefined) {
-                    return (
-                      <Stack direction="row" key={key}>
-                        <Tab
-                          whiteSpace="nowrap"
-                          key={key}
+          <TabList marginStart="20px">
+            <Flex direction="row" flexWrap="wrap" gap="5px" maxW="65%">
+              {tabExames.map((e, key) => {
+                if (e.nomeExame != undefined) {
+                  return (
+                    <Stack direction="row" key={key}>
+                      <Tab
+                        whiteSpace="nowrap"
+                        key={key}
+                        textColor="black"
+                        _selected={{ color: "white", bg: "blue.500" }}
+                      >
+                        {e.nomeExame}
+                        <Tooltip
+                          label={`Fechar ${e.nomeExame}`}
+                          backgroundColor="white"
+                          placement="top"
+                          hasArrow
+                          arrowSize={15}
                           textColor="black"
-                          _selected={{ color: "white", bg: "blue.500" }}
+                          fontSize="20px"
+                          margin="20px"
+                          textAlign="center"
                         >
-                          {e.nomeExame}
-                          <Tooltip
-                            label={`Fechar ${e.nomeExame}`}
-                            backgroundColor="white"
-                            placement="top"
-                            hasArrow
-                            arrowSize={15}
-                            textColor="black"
-                            fontSize="20px"
-                            margin="20px"
-                            textAlign="center"
-                          >
-                            <CloseButton
-                              onClick={() => {
-                                removeTabExame(e);
-                                handleSliderChange(key);
-                              }}
-                            />
-                          </Tooltip>
-                        </Tab>
-                      </Stack>
-                    );
-                  }
-                })}
-              </TabList>
-
+                          <CloseButton
+                            onClick={() => {
+                              setCurrentExame(e);
+                              setCurrentHandleSlider(key);
+                              onOpenRemoveExameModal();
+                            }}
+                          />
+                        </Tooltip>
+                      </Tab>
+                    </Stack>
+                  );
+                }
+              })}
               <Tooltip
                 label="Adicionar Exame"
                 backgroundColor="white"
@@ -308,6 +312,7 @@ export default function Box_Default_With_Sidebar() {
                 fontSize="20px"
                 margin="20px"
                 textAlign="center"
+                alignContent="flex-end"
               >
                 <IconButton
                   size="sm"
@@ -319,6 +324,7 @@ export default function Box_Default_With_Sidebar() {
                 />
               </Tooltip>
             </Flex>
+          </TabList>
           <TabPanels>
             {tabExames.map((e, key) => {
               if (e.key > 0) {
@@ -411,10 +417,18 @@ export default function Box_Default_With_Sidebar() {
         >
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Deseja sair de Exames? </ModalHeader>
+            <ModalHeader>
+              {Object.keys(tabExames).length == 2
+                ? "Sair de exames ?"
+                : "Deseja fechar o exame ?"}
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Text fontSize="20px">Deseja realmente sair ?</Text>
+              <Text fontSize="20px">
+                {Object.keys(tabExames).length == 2
+                  ? "Deseja realmente sair ?"
+                  : "Fechar exame ?"}
+              </Text>
             </ModalBody>
 
             <ModalFooter>
@@ -429,9 +443,9 @@ export default function Box_Default_With_Sidebar() {
               <Button
                 variant="ghost"
                 fontSize="20px"
-                onClick={() => SairExames()}
+                onClick={() => removeTabExame()}
               >
-                Sair
+                {Object.keys(tabExames).length == 2 ? "Sair" : "Fechar"}
               </Button>
             </ModalFooter>
           </ModalContent>
