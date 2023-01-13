@@ -211,34 +211,33 @@ function Exames() {
   });
 
   const Laudo = () => {
-    const renderFrases = () => {
+    const renderFrases = (exame) => {
       var array = JSON.parse(localStorage.getItem("format_laudo")!);
+      console.log("exame", exame);
 
-      return array.map((Exames) => {
-        return Exames.subExames.map((sub, key) => {
-          return sub.subExameNome != null && sub.subExameNome != "" ? (
-            <ViewPDF style={styles.inline} key={key} wrap={false}>
-              <TextPDF style={styles.textNomeSubExame} orphans={3}>
-                {sub.subExameNome}:
-              </TextPDF>
-              <ViewPDF style={styles.view_frases}>
-                {typeof sub.frases != "string" ? (
-                  sub.frases.map((frase) => {
-                    return (
-                      <TextPDF style={styles.frasesSubExame} orphans={3}>
-                        {frase}
-                      </TextPDF>
-                    );
-                  })
-                ) : (
-                  <TextPDF style={styles.frasesSubExame} orphans={3}>
-                    {sub.frases}
-                  </TextPDF>
-                )}
-              </ViewPDF>
+      return exame.subExames.map((sub, key) => {
+        return sub.subExameNome != null && sub.subExameNome != "" ? (
+          <ViewPDF style={styles.inline} key={key} wrap={false}>
+            <TextPDF style={styles.textNomeSubExame} orphans={3}>
+              {sub.subExameNome}:
+            </TextPDF>
+            <ViewPDF style={styles.view_frases}>
+              {typeof sub.frases != "string" ? (
+                sub.frases.map((frase) => {
+                  return (
+                    <TextPDF style={styles.frasesSubExame} orphans={3}>
+                      {frase}
+                    </TextPDF>
+                  );
+                })
+              ) : (
+                <TextPDF style={styles.frasesSubExame} orphans={3}>
+                  {sub.frases}
+                </TextPDF>
+              )}
             </ViewPDF>
-          ) : null;
-        });
+          </ViewPDF>
+        ) : null;
       });
     };
 
@@ -262,12 +261,14 @@ function Exames() {
           </ViewPDF>
           <ViewPDF style={styles.line}></ViewPDF>
           {arrayLocal.map((exame, key) => {
-            return <ViewPDF style={styles.laudo_viewer} key={key}>
-              <TextPDF style={styles.textTituloExame} key={key}>
-                {exame.titulo_exame.toUpperCase()}
-              </TextPDF>
-              <ViewPDF key={key}>{renderFrases()}</ViewPDF>
-            </ViewPDF>;
+            return (
+              <ViewPDF style={styles.laudo_viewer} key={key}>
+                <TextPDF style={styles.textTituloExame}>
+                  {exame.titulo_exame.toUpperCase()}
+                </TextPDF>
+                <ViewPDF>{renderFrases(exame)}</ViewPDF>
+              </ViewPDF>
+            );
           })}
 
           <ViewPDF style={styles.pageNumber}>
@@ -630,14 +631,14 @@ function Exames() {
                   >
                     {exame.titulo_exame}
                   </Text>
-                  {exame.subExames.map((Exames, key) => {
-                    return Exames.subExameNome != null &&
-                      Exames.subExameNome != "" ? (
+                  {exame.subExames.map((sub_exame, keys) => {
+                    return sub_exame.subExameNome != null &&
+                      sub_exame.subExameNome != "" ? (
                       <HStack
                         justifyContent="space-between"
                         marginBottom="30px"
                         marginTop="20px"
-                        key={key}
+                        key={keys}
                       >
                         <HStack justify="space-between">
                           <Text
@@ -645,11 +646,11 @@ function Exames() {
                             fontWeight="semibold"
                             whiteSpace="nowrap"
                           >
-                            {Exames.subExameNome}:
+                            {sub_exame.subExameNome}:
                           </Text>
                           <Box w="100%">
-                            {typeof Exames.frases != "string" ? (
-                              Exames.frases.map((frase, key) => {
+                            {typeof sub_exame.frases != "string" ? (
+                              sub_exame.frases.map((frase, key) => {
                                 return (
                                   <Stack key={key}>
                                     <Text
@@ -668,7 +669,7 @@ function Exames() {
                                 textAlign="start"
                                 marginStart="10px"
                               >
-                                {Exames.frases}
+                                {exame.frases}
                               </Text>
                             )}
                           </Box>
@@ -676,6 +677,7 @@ function Exames() {
                       </HStack>
                     ) : null;
                   })}
+
                   <HStack justify="space-evenly" marginTop="10px"></HStack>
                 </Box>
               ) : (

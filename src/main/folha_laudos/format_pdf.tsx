@@ -6,7 +6,7 @@ import {
   PDFViewer,
   StyleSheet,
   Text,
-  View
+  View,
 } from "@react-pdf/renderer";
 import { useContext, useState } from "react";
 import { LaudosContext } from "../../context/LuadosContext";
@@ -44,30 +44,28 @@ export default function Format_PDF() {
     return medico.medico;
   };
 
-  const renderFrases = () => {
+  const renderFrases = (exame) => {
     var arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
 
     arrayLocal.map((e) => {
       setTitulo_Exame(e.titulo_exame);
     });
 
-    return arrayLocal.map((Exames) => {
-      return Exames.subExames.map((sub) => {
-        return sub.subExameNome != null && sub.subExameNome != "" ? (
-          <View style={styles.inline} wrap={false}>
-            <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
-            <View style={styles.view_frases}>
-              {typeof sub.frases != "string" ? (
-                sub.frases.map((frase) => {
-                  return <Text style={styles.frasesSubExame}>{frase}</Text>;
-                })
-              ) : (
-                <Text style={styles.frasesSubExame}>{sub.frases}</Text>
-              )}
-            </View>
+    return exame.subExames.map((sub) => {
+      return sub.subExameNome != null && sub.subExameNome != "" ? (
+        <View style={styles.inline} wrap={false}>
+          <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
+          <View style={styles.view_frases}>
+            {typeof sub.frases != "string" ? (
+              sub.frases.map((frase) => {
+                return <Text style={styles.frasesSubExame}>{frase}</Text>;
+              })
+            ) : (
+              <Text style={styles.frasesSubExame}>{sub.frases}</Text>
+            )}
           </View>
-        ) : null;
-      });
+        </View>
+      ) : null;
     });
   };
 
@@ -265,11 +263,11 @@ export default function Format_PDF() {
             {JSON.parse(localStorage.getItem("format_laudo")!).map(
               (exame, key) => {
                 return (
-                  <View style={styles.laudo_viewer}>
+                  <View style={styles.laudo_viewer} key={key}>
                     <Text style={styles.textTituloExame}>
                       {exame.titulo_exame.toUpperCase()}
                     </Text>
-                    <View>{renderFrases()}</View>
+                    <View>{renderFrases(exame)}</View>
                   </View>
                 );
               }
