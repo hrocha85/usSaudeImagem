@@ -64,7 +64,6 @@ import TendaoPataGansoDireito from "./joelho/joelhoDireito/tendaoPataGansoDireit
 import TendaoPataGansoEsquerdo from "./joelho/joelhoEsquerdo/tendaoPataGansoEsquerdo";
 import MeniscosDireito from "./joelho/joelhoDireito/meniscosDireito";
 import MeniscosEsquerdo from "./joelho/joelhoEsquerdo/meniscosEsquerdo";
-import MeniscoMedialEsquerdo from "./joelho/joelhoEsquerdo/meniscoMedialEsquerdo";
 import TornozeloLadoDireito from "./tornozelo/tornozeloDireito/ladoDireito";
 import TornozeloNormalDireito from "./tornozelo/tornozeloDireito/normal";
 import FibularesDireito from "./tornozelo/tornozeloDireito/fibularesDireito";
@@ -125,6 +124,13 @@ import TendaoBicepsFemoralDireito from "./joelho/joelhoDireito/TendaoBicepsFemor
 import TendaoBicepsFemoralEsquerdo from "./joelho/joelhoEsquerdo/TendaoBicepsFemoralEsquerdo";
 import CistosDireito from "./joelho/joelhoDireito/CistosDireito";
 import CistosEsquerdo from "./joelho/joelhoEsquerdo/CistosEsquerdo";
+import RoturaFlexoresDireito from "./mao/maoDireita/RoturaFlexoresDireito/RoturaFlexores";
+import RoturaFlexoresEsquerdo from "./mao/maoEsquerda/RoturaFlexoresEsquerdo/RoturaFlexores";
+import TenossinoviteFlexoresDireita from "./mao/maoDireita/TenossinoviteFlexoresDireito/TenossinoviteFlexores";
+import TenossinoviteFlexoresEsquerda from "./mao/maoEsquerda/TenossinoviteFlexoresEsquerdo/TenossinoviteFlexores";
+import LiquidoPeritendineoHexoresDireita from "./mao/maoDireita/LiquidoPeritendineoHexoresDireito/LiquidoPeritendineoHexores";
+import LiquidoPeritendineoHexoresEsquerda from "./mao/maoEsquerda/LiquidoPeritendineoHexoresEsquerdo/LiquidoPeritendineoHexores";
+import PoliasDireita from "./mao/maoDireita/PoliasDireito/Polias";
 
 function Articulacoes() {
 
@@ -272,6 +278,22 @@ function Articulacoes() {
                             mt='10px'
                             textAlign="center" >
                             <MaoNormalDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <RoturaFlexoresDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <TenossinoviteFlexoresDireita />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <LiquidoPeritendineoHexoresDireita />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <PoliasDireita />
                         </Box>
                         <Box
                             // w='450px'
@@ -575,6 +597,18 @@ function Articulacoes() {
                             mt='10px'
                             textAlign="center" >
                             <MaoNormalEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <RoturaFlexoresEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <TenossinoviteFlexoresEsquerda />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <LiquidoPeritendineoHexoresEsquerda />
                         </Box>
                         <Box
                             // w='450px'
