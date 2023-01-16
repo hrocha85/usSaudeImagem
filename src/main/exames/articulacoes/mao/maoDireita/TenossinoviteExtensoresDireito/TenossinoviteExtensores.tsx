@@ -2,9 +2,9 @@
 /* eslint-disable array-callback-return */
 import { Box, Stack } from "@chakra-ui/react";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
-import IndividualizarTenossinoviteFlexores from "./individualizarTenossinoviteFlexores";
+import IndividualizarTenossinoviteExtensores from "./individualizarTenossinoviteExtensores";
 
-function TenossinoviteFlexores() {
+function TenossinoviteExtensores() {
   const altura = "100%";
   const largura = "95%";
 
@@ -22,12 +22,12 @@ function TenossinoviteFlexores() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Tenosssinovite dos Flexores" />
+      <TituloNomeExame titulo="Tenosssinovite dos Extensores" />
       <Stack>
         <>
           {numberArray.map((num, key) => {
             return (
-              <IndividualizarTenossinoviteFlexores
+              <IndividualizarTenossinoviteExtensores
                 key={key}
                 numCalculo={num}
               />
@@ -38,4 +38,4 @@ function TenossinoviteFlexores() {
     </Box>
   );
 }
-export default TenossinoviteFlexores;
+export default TenossinoviteExtensores;

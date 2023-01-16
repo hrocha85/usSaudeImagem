@@ -124,10 +124,10 @@ import TendaoBicepsFemoralDireito from "./joelho/joelhoDireito/TendaoBicepsFemor
 import TendaoBicepsFemoralEsquerdo from "./joelho/joelhoEsquerdo/TendaoBicepsFemoralEsquerdo";
 import CistosDireito from "./joelho/joelhoDireito/CistosDireito";
 import CistosEsquerdo from "./joelho/joelhoEsquerdo/CistosEsquerdo";
-import RoturaFlexoresDireito from "./mao/maoDireita/RoturaFlexoresDireito/RoturaFlexores";
-import RoturaFlexoresEsquerdo from "./mao/maoEsquerda/RoturaFlexoresEsquerdo/RoturaFlexores";
-import TenossinoviteFlexoresDireita from "./mao/maoDireita/TenossinoviteFlexoresDireito/TenossinoviteFlexores";
-import TenossinoviteFlexoresEsquerda from "./mao/maoEsquerda/TenossinoviteFlexoresEsquerdo/TenossinoviteFlexores";
+import RoturaExtensoresDireito from "./mao/maoDireita/RoturaExtensoresDireito/RoturaExtensores";
+import RoturaExtensoresEsquerdo from "./mao/maoEsquerda/RoturaExtensoresEsquerdo/RoturaExtensores";
+import TenossinoviteExtensoresDireita from "./mao/maoDireita/TenossinoviteExtensoresDireito/TenossinoviteExtensores";
+import TenossinoviteExtensoresEsquerda from "./mao/maoEsquerda/TenossinoviteExtensoresEsquerdo/TenossinoviteExtensores";
 import LiquidoPeritendineoHexoresDireita from "./mao/maoDireita/LiquidoPeritendineoHexoresDireito/LiquidoPeritendineoHexores";
 import LiquidoPeritendineoHexoresEsquerda from "./mao/maoEsquerda/LiquidoPeritendineoHexoresEsquerdo/LiquidoPeritendineoHexores";
 import PoliasDireita from "./mao/maoDireita/PoliasDireito/Polias";
@@ -281,11 +281,11 @@ function Articulacoes() {
                         </Box>
                         <Box
                             textAlign="center" >
-                            <RoturaFlexoresDireito />
+                            <RoturaExtensoresDireito />
                         </Box>
                         <Box
                             textAlign="center" >
-                            <TenossinoviteFlexoresDireita />
+                            <TenossinoviteExtensoresDireita />
                         </Box>
                         <Box
                             textAlign="center" >
@@ -600,11 +600,11 @@ function Articulacoes() {
                         </Box>
                         <Box
                             textAlign="center" >
-                            <RoturaFlexoresEsquerdo />
+                            <RoturaExtensoresEsquerdo />
                         </Box>
                         <Box
                             textAlign="center" >
-                            <TenossinoviteFlexoresEsquerda />
+                            <TenossinoviteExtensoresEsquerda />
                         </Box>
                         <Box
                             textAlign="center" >

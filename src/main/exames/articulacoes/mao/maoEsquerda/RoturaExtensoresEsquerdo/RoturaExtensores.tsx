@@ -2,9 +2,9 @@
 /* eslint-disable array-callback-return */
 import { Box, Stack } from "@chakra-ui/react";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
-import IndividualizarRoturaFlexores from "./individualizarRoturaFlexores";
+import IndividualizarRoturaExtensores from "./individualizarRoturaExtensores";
 
-function RoturaFlexores() {
+function RoturaExtensores() {
   const altura = "100%";
   const largura = "95%";
 
@@ -22,12 +22,12 @@ function RoturaFlexores() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Rotura dos Flexores" />
+      <TituloNomeExame titulo="Rotura dos Extensores" />
       <Stack>
         <>
           {numberArray.map((num, key) => {
             return (
-              <IndividualizarRoturaFlexores
+              <IndividualizarRoturaExtensores
                 key={key}
                 numCalculo={num}
               />
@@ -38,4 +38,4 @@ function RoturaFlexores() {
     </Box>
   );
 }
-export default RoturaFlexores;
+export default RoturaExtensores;
