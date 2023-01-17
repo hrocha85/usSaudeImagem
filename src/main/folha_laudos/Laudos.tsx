@@ -453,6 +453,7 @@ function Exames() {
   };
 
   const updateLaudo = (event, IndexExame, Index_Sub_Exame) => {
+    console.log("index", Index_Sub_Exame);
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
 
     array.map((Exames) => {
@@ -619,7 +620,7 @@ function Exames() {
             />
           </Center>
           <Box margin="20px">
-            {arrayLocal.map((exame, key) => {
+            {arrayLocal.map((exame, key, IndexExame) => {
               return edit == false ? (
                 <Box key={key}>
                   <Text
@@ -689,40 +690,38 @@ function Exames() {
                     textAlign="center"
                     textTransform="uppercase"
                   >
-                    {titulo_exame}
+                    {exame.titulo_exame}
                   </Text>
-                  {arrayLocal.map((Exames, IndexExame, key) => {
-                    return Exames.subExames.map(
-                      (sub_exame, Index_Sub_Exame) => {
-                        return sub_exame.subExameNome != null &&
-                          sub_exame.subExameNome != "" ? (
-                          <HStack
-                            justifyContent="space-between"
-                            marginBottom="30px"
-                            marginTop="20px"
-                            key={key}
+
+                  {exame.subExames.map((sub_exame, keys, Index_Sub_Exame) => {
+                    return sub_exame.subExameNome != null &&
+                      sub_exame.subExameNome != "" ? (
+                      <HStack
+                        justifyContent="space-between"
+                        marginBottom="30px"
+                        marginTop="20px"
+                        key={keys}
+                      >
+                        <HStack justify="space-between">
+                          <Text
+                            textDecoration="underline"
+                            fontWeight="semibold"
+                            whiteSpace="nowrap"
                           >
-                            <HStack justify="space-between">
-                              <Text
-                                textDecoration="underline"
-                                fontWeight="semibold"
-                                whiteSpace="nowrap"
-                              >
-                                {sub_exame.subExameNome}:
-                              </Text>
-                              <Box w="100%">
-                                {EditarLaudo(
-                                  sub_exame.frases,
-                                  IndexExame,
-                                  Index_Sub_Exame
-                                )}
-                              </Box>
-                            </HStack>
-                          </HStack>
-                        ) : null;
-                      }
-                    );
+                            {sub_exame.subExameNome}:
+                          </Text>
+                          <Box w="100%">
+                            {EditarLaudo(
+                              sub_exame.frases,
+                              IndexExame,
+                              Index_Sub_Exame
+                            )}
+                          </Box>
+                        </HStack>
+                      </HStack>
+                    ) : null;
                   })}
+
                   <HStack justify="space-evenly" marginTop="10px"></HStack>
                 </Box>
               );
