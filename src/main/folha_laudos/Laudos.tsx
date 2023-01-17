@@ -453,10 +453,11 @@ function Exames() {
   };
 
   const updateLaudo = (event, IndexExame, Index_Sub_Exame) => {
-    console.log("index", Index_Sub_Exame);
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
 
     array.map((Exames) => {
+      console.log('teste',Exames.subExames[Index_Sub_Exame])
+
       Exames.subExames[Index_Sub_Exame].frases = event;
       localStorage.setItem("format_laudo", JSON.stringify(array));
     });
@@ -693,7 +694,7 @@ function Exames() {
                     {exame.titulo_exame}
                   </Text>
 
-                  {exame.subExames.map((sub_exame, keys, Index_Sub_Exame) => {
+                  {exame.subExames.map((sub_exame, keys) => {
                     return sub_exame.subExameNome != null &&
                       sub_exame.subExameNome != "" ? (
                       <HStack
@@ -714,7 +715,7 @@ function Exames() {
                             {EditarLaudo(
                               sub_exame.frases,
                               IndexExame,
-                              Index_Sub_Exame
+                              keys
                             )}
                           </Box>
                         </HStack>
