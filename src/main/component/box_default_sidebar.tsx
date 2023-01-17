@@ -22,7 +22,7 @@ import {
   Tabs,
   Text,
   Tooltip,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { TabExamesContext } from "../../context/TabExameContext";
@@ -198,26 +198,10 @@ export default function Box_Default_With_Sidebar() {
     setTabIndex(index);
   };
 
-  const SairExames = () => {
-    window.location.href = "/Home#/Home";
-    setTabExames([{}]);
-  };
-
-  const removeTabExame = () => {
+  const RemoveTabExame = () => {
     if (Object.keys(tabExames).length == 2) {
       SairExames();
     } else {
-      var array = JSON.parse(localStorage.getItem("format_laudo")!);
-      array.map((i, key) => {
-        if (i.titulo_exame == currentExame!.nomeExame) {
-          var index = array.indexOf(i);
-          if (index > -1) {
-            array.splice(index, 1);
-            localStorage.setItem("format_laudo", JSON.stringify(array));
-          }
-        }
-      });
-
       tabExames.map((i) => {
         if (i.key == currentExame!.key) {
           var index = tabExames.indexOf(i);
@@ -227,9 +211,24 @@ export default function Box_Default_With_Sidebar() {
           }
         }
       });
+
+      var array = JSON.parse(localStorage.getItem("format_laudo")!);
+      array.map((i, key) => {
+        if (i.titulo_exame == currentExame!.nomeExame) {
+          array.splice(key, 1);
+        }
+      });
+
       handleSliderChange(currentHandleSlider);
+      localStorage.setItem("format_laudo", JSON.stringify(array));
+
       onCloseRemoveExameModal();
     }
+  };
+
+  const SairExames = () => {
+    window.location.href = "/Home#/Home";
+    setTabExames([{}]);
   };
 
   const AddNewExame = (exame) => {
@@ -443,7 +442,7 @@ export default function Box_Default_With_Sidebar() {
               <Button
                 variant="ghost"
                 fontSize="20px"
-                onClick={() => removeTabExame()}
+                onClick={() => RemoveTabExame()}
               >
                 {Object.keys(tabExames).length == 2 ? "Sair" : "Fechar"}
               </Button>
