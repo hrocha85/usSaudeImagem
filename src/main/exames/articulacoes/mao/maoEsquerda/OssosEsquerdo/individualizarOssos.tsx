@@ -5,15 +5,13 @@ import { useContext, useEffect, useState } from "react";
 import { isLineBreak } from "typescript";
 import { LaudosContext } from "../../../../../../context/LuadosContext";
 
-export default function IndividualizarPolias({ numCalculo, desabilita }) {
+export default function IndividualizarOssos({ numCalculo, desabilita }) {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
 
   const [multiplosDedosCheckbox, setmultiplosDedosCheckbox] = useState(false);
-  const [A1, setA1] = useState(false);
-  const [A2, setA2] = useState(false);
-  const [A3, setA3] = useState(false);
-  const [A4, setA4] = useState(false);
-  const [A5, setA5] = useState(false);
+  const [FalangeProximal, setFalangeProximal] = useState(false);
+  const [FalangeMedia, setFalangeMedia] = useState(false);
+  const [FalangeDistal, setFalangeDistal] = useState(false);
   const [DisableCheckbox, setDisableCheckbox] = useState(true);
   const [frase, setFrase] = useState<any>([])
 
@@ -21,7 +19,7 @@ export default function IndividualizarPolias({ numCalculo, desabilita }) {
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
     if (multiplosDedosCheckbox) {
-      setFrase((arr) => [...arr, `Dedo ${numCalculo} com descontinuidade das polias: `]);
+      setFrase((arr) => [...arr, `Dedo ${numCalculo} com descontinuidade das Ossos: `]);
       setLaudoPrin((arr) => [...arr, frase]);
     } else {
       removeMultiplosCalculos();
@@ -41,7 +39,7 @@ export default function IndividualizarPolias({ numCalculo, desabilita }) {
 
   const removeMultiplosCalculos = () => {
     laudoPrin.map((e) => {
-      if (e.includes(`Dedo ${numCalculo} com descontinuidade das polias: `)) {
+      if (e.includes(`Dedo ${numCalculo} com descontinuidade das Ossos: `)) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
@@ -64,71 +62,44 @@ export default function IndividualizarPolias({ numCalculo, desabilita }) {
     multiplosDedosCheckbox,
   ]);
 
-  const criaFraseA1 = () => {
-    if (A1) {
+  const criaFraseFalangeProximal = () => {
+    if (FalangeProximal) {
       removeMultiplosCalculos()
-      setFrase((arr) => [...arr, 'A1'])
+      setFrase((arr) => [...arr, 'FalangeProximal'])
       setLaudoPrin((arr) => [...arr, frase])
     } else {
-      removeItemString('A1')
+      removeItemString('FalangeProximal')
     }
   }
   useEffect(() => {
-    criaFraseA1()
-  }, [A1])
+    criaFraseFalangeProximal()
+  }, [FalangeProximal])
 
-  const criaFraseA2 = () => {
-    if (A2) {
-      setFrase((arr) => [...arr, 'A2'])
+  const criaFraseFalangeMedia = () => {
+    if (FalangeMedia) {
+      setFrase((arr) => [...arr, 'FalangeMedia'])
       removeMultiplosCalculos()
       setLaudoPrin((arr) => [...arr, frase])
     } else {
-      removeItemString('A2')
+      removeItemString('FalangeMedia')
     }
   }
   useEffect(() => {
-    criaFraseA2()
-  }, [A2])
+    criaFraseFalangeMedia()
+  }, [FalangeMedia])
 
-  const criaFraseA3 = () => {
-    if (A3) {
-      setFrase((arr) => [...arr, 'A3'])
+  const criaFraseFalangeDistal = () => {
+    if (FalangeDistal) {
+      setFrase((arr) => [...arr, 'FalangeDistal'])
       removeMultiplosCalculos()
       setLaudoPrin((arr) => [...arr, frase])
     } else {
-      removeItemString('A3')
+      removeItemString('FalangeDistal')
     }
   }
   useEffect(() => {
-    criaFraseA3()
-  }, [A3])
-
-  const criaFraseA4 = () => {
-    if (A4) {
-      setFrase((arr) => [...arr, 'A4'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemString('A4')
-    }
-  }
-  useEffect(() => {
-    criaFraseA4()
-  }, [A4])
-
-  const criaFraseA5 = () => {
-    if (A5) {
-      setFrase((arr) => [...arr, 'A5'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemString('A5')
-    }
-  }
-  useEffect(() => {
-    criaFraseA5()
-  }, [A5])
-
+    criaFraseFalangeDistal()
+  }, [FalangeDistal])
 
   return (
     <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
@@ -139,35 +110,22 @@ export default function IndividualizarPolias({ numCalculo, desabilita }) {
       </Checkbox>
       <Checkbox
         isDisabled={DisableCheckbox}
-        onChange={() => setA1(!A1)}
+        onChange={() => setFalangeProximal(!FalangeProximal)}
       >
-        A1
+        FalangeProximal
       </Checkbox>
       <Checkbox
         isDisabled={DisableCheckbox}
-        onChange={() => setA2(!A2)}
+        onChange={() => setFalangeMedia(!FalangeMedia)}
       >
-        A2
+        FalangeMedia
       </Checkbox>
       <Checkbox
         isDisabled={DisableCheckbox}
-        onChange={() => setA3(!A3)}
+        onChange={() => setFalangeDistal(!FalangeDistal)}
       >
-        A3
+        FalangeDistal
       </Checkbox>
-      <Checkbox
-        isDisabled={DisableCheckbox}
-        onChange={() => setA4(!A4)}
-      >
-        A4
-      </Checkbox>
-      <Checkbox
-        isDisabled={DisableCheckbox}
-        onChange={() => setA5(!A5)}
-      >
-        A5
-      </Checkbox>
-
     </Box>
   );
 }

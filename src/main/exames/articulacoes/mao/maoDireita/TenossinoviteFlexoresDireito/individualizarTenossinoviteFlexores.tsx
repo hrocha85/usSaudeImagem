@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { isLineBreak } from "typescript";
 import { LaudosContext } from "../../../../../../context/LuadosContext";
 
-export default function IndividualizarRoturaExtensores({ numCalculo }) {
+export default function IndividualizarRoturaFlexores({ numCalculo }) {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
 
   const [multiplosCalculosCheckbox, setmultiplosCalculosCheckbox] = useState(false);

@@ -131,6 +131,24 @@ import TenossinoviteExtensoresEsquerda from "./mao/maoEsquerda/TenossinoviteExte
 import LiquidoPeritendineoHexoresDireita from "./mao/maoDireita/LiquidoPeritendineoHexoresDireito/LiquidoPeritendineoHexores";
 import LiquidoPeritendineoHexoresEsquerda from "./mao/maoEsquerda/LiquidoPeritendineoHexoresEsquerdo/LiquidoPeritendineoHexores";
 import PoliasDireita from "./mao/maoDireita/PoliasDireito/Polias";
+import FibromatosePalmarDireito from "./mao/maoDireita/FibromatosePalmarSuperficialDireito/FibromatosePalmar";
+import FibromatosePalmarEsquerdo from "./mao/maoEsquerda/FibromatosePalmarSuperficialEsquerdo/FibromatosePalmar";
+import RoturaFlexoresDireito from "./mao/maoDireita/RoturaFlexoresDireito/RoturaFlexores";
+import RoturaFlexoresEsquerdo from "./mao/maoEsquerda/RoturaFlexoresEsquerdo/RoturaFlexores";
+import TenossinoviteFlexoresDireito from "./mao/maoDireita/TenossinoviteFlexoresDireito/TenossinoviteFlexores";
+import TenossinoviteFlexoresEsquerdo from "./mao/maoEsquerda/TenossinoviteFlexoresEsquerdo/TenossinoviteFlexores";
+import MaoCistosDireito from "./mao/maoDireita/CistosDireito";
+import MaoCistosEsquerdo from "./mao/maoEsquerda/CistosEsquerdo";
+import OssosDireita from "./mao/maoDireita/OssosDireito/Ossos";
+import OssosEsquerda from "./mao/maoEsquerda/OssosEsquerdo/Ossos";
+import MaoDerrameArticularDireita from "./mao/maoDireita/DerrameArticularDireito/DerrameArticular";
+import MaoDerrameArticularEsquerdo from "./mao/maoEsquerda/DerrameArticularEsquerdo/DerrameArticular";
+import ColecaoDireito from "./mao/maoDireita/colecaoDireito";
+import ColecaoEsquerdo from "./mao/maoEsquerda/colecaoEsquerdo";
+import AlteracaoPosCirurgiaDireito from "./mao/maoDireita/AlteracaoPosDireito";
+import AlteracaoPosCirurgiaEsquerdo from "./mao/maoEsquerda/AlteracaoPosEsquerda";
+import CorpoEstranhoDireito from "./mao/maoDireita/CorpoEstranhoDireito";
+import CorpoEstranhoEsquerdo from "./mao/maoEsquerda/CorpoEstranhoEsquerdo";
 
 function Articulacoes() {
 
@@ -279,13 +297,14 @@ function Articulacoes() {
                             textAlign="center" >
                             <MaoNormalDireito />
                         </Box>
+
                         <Box
                             textAlign="center" >
-                            <RoturaExtensoresDireito />
+                            <RoturaFlexoresDireito />
                         </Box>
                         <Box
                             textAlign="center" >
-                            <TenossinoviteExtensoresDireita />
+                            <TenossinoviteFlexoresDireito />
                         </Box>
                         <Box
                             textAlign="center" >
@@ -296,9 +315,40 @@ function Articulacoes() {
                             <PoliasDireita />
                         </Box>
                         <Box
-                            // w='450px'
                             textAlign="center" >
-                            <MaoDireita />
+                            <FibromatosePalmarDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <RoturaExtensoresDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <TenossinoviteExtensoresDireita />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <MaoCistosDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <OssosDireita />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <MaoDerrameArticularDireita />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <AlteracaoPosCirurgiaDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <ColecaoDireito />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <CorpoEstranhoDireito />
                         </Box>
                         <Box
                             textAlign="center" >
@@ -598,6 +648,27 @@ function Articulacoes() {
                             textAlign="center" >
                             <MaoNormalEsquerdo />
                         </Box>
+
+                        <Box
+                            textAlign="center" >
+                            <RoturaFlexoresEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <TenossinoviteFlexoresEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <LiquidoPeritendineoHexoresEsquerda />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <PoliasDireita />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <FibromatosePalmarEsquerdo />
+                        </Box>
                         <Box
                             textAlign="center" >
                             <RoturaExtensoresEsquerdo />
@@ -608,12 +679,28 @@ function Articulacoes() {
                         </Box>
                         <Box
                             textAlign="center" >
-                            <LiquidoPeritendineoHexoresEsquerda />
+                            <MaoCistosEsquerdo />
                         </Box>
                         <Box
-                            // w='450px'
                             textAlign="center" >
-                            <MaoEsquerda />
+                            <OssosEsquerda />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <MaoDerrameArticularEsquerdo />
+                        </Box>
+
+                        <Box
+                            textAlign="center" >
+                            <AlteracaoPosCirurgiaEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <ColecaoEsquerdo />
+                        </Box>
+                        <Box
+                            textAlign="center" >
+                            <CorpoEstranhoEsquerdo />
                         </Box>
                         <Box
                             textAlign="center" >

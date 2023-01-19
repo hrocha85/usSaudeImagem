@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Checkbox, Stack } from "@chakra-ui/react";
+import { Box, Checkbox, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../../context/LuadosContext";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
-import IndividualizarPolias from "./individualizarPolias"
+import IndividualizarOssos from "./individualizarOssos"
 
-function Polias() {
+function OssosEsquerda() {
 
   const altura = "100%";
   const largura = "95%";
@@ -18,12 +18,14 @@ function Polias() {
   const [disableDescontinuidade, setdisableDescontinuidade] = useState(false);
   const [disableApectNormal, setdisableApectNormal] = useState(false);
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  const [A1, setA1] = useState(false);
-  const [A2, setA2] = useState(false);
-  const [AV, setAV] = useState(false);
-  const [AO, setAO] = useState(false);
+  const [FalangeProximal, setFalangeProximal] = useState(false);
+  const [FalangeDistal, setFalangeDistal] = useState(false);
+  const [Dedo1, setDedo1] = useState(false);
+  const [Dedo2, setDedo2] = useState(false);
+  const [Dedo3, setDedo3] = useState(false);
+  const [Dedo4, setDedo4] = useState(false);
+  const [Dedo5, setDedo5] = useState(false);
   const [frase, setFrase] = useState<any>([])
-
 
   var numberArray = [1, 2, 3, 4];
 
@@ -54,13 +56,12 @@ function Polias() {
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
     if (PrimeiroDedo) {
-      setFrase((arr) => [...arr, `Dedo 1 com descontinuidade das polias: `]);
+      setFrase((arr) => [...arr, `Dedo 1 com descontinuidade das Ossos: `]);
       setLaudoPrin((arr) => [...arr, frase]);
     } else {
       removeMultiplosCalculos();
     }
   };
-
 
   const removeItemStringFrase = (value) => {
     var index = frase.indexOf(value);
@@ -74,7 +75,7 @@ function Polias() {
 
   const removeMultiplosCalculos = () => {
     laudoPrin.map((e) => {
-      if (e.includes(`Dedo 1 com descontinuidade das polias: `)) {
+      if (e.includes(`Dedo 1 com descontinuidade das Ossos: `)) {
         var index = laudoPrin.indexOf(e);
 
         if (index > -1) {
@@ -97,58 +98,73 @@ function Polias() {
     PrimeiroDedo,
   ]);
 
-  const criaFraseA1 = () => {
-    if (A1) {
+  const criaFraseFalangeProximal = () => {
+    if (FalangeProximal) {
       removeMultiplosCalculos()
-      setFrase((arr) => [...arr, 'A1'])
+      setFrase((arr) => [...arr, 'FalangeProximal'])
       setLaudoPrin((arr) => [...arr, frase])
     } else {
-      removeItemStringFrase('A1')
+      removeItemStringFrase('FalangeProximal')
     }
   }
   useEffect(() => {
-    criaFraseA1()
-  }, [A1])
+    criaFraseFalangeProximal()
+  }, [FalangeProximal])
 
-  const criaFraseA2 = () => {
-    if (A2) {
-      setFrase((arr) => [...arr, 'A2'])
+  const criaFraseFalangeDistal = () => {
+    if (FalangeDistal) {
+      setFrase((arr) => [...arr, 'FalangeDistal'])
       removeMultiplosCalculos()
       setLaudoPrin((arr) => [...arr, frase])
     } else {
-      removeItemStringFrase('A2')
+      removeItemStringFrase('FalangeDistal')
     }
   }
   useEffect(() => {
-    criaFraseA2()
-  }, [A2])
+    criaFraseFalangeDistal()
+  }, [FalangeDistal])
 
-  const criaFraseAV = () => {
-    if (AV) {
-      setFrase((arr) => [...arr, 'AV'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
+  const criaStringMetacarpoDedo1 = () => {
+    var string = 'Metacarpo do dedo 1'
+    if (Dedo1) {
+      setLaudoPrin((arr) => [...arr, string])
     } else {
-      removeItemStringFrase('AV')
+      removeItemString(string)
     }
   }
-  useEffect(() => {
-    criaFraseAV()
-  }, [AV])
 
-  const criaFraseAO = () => {
-    if (AO) {
-      setFrase((arr) => [...arr, 'AO'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
+  const criaStringMetacarpoDedo2 = () => {
+    var string = 'Metacarpo do dedo 2'
+    if (Dedo2) {
+      setLaudoPrin((arr) => [...arr, string])
     } else {
-      removeItemStringFrase('AO')
+      removeItemString(string)
     }
   }
-  useEffect(() => {
-    criaFraseAO()
-  }, [AO])
-
+  const criaStringMetacarpoDedo3 = () => {
+    var string = 'Metacarpo do dedo 3'
+    if (Dedo3) {
+      setLaudoPrin((arr) => [...arr, string])
+    } else {
+      removeItemString(string)
+    }
+  }
+  const criaStringMetacarpoDedo4 = () => {
+    var string = 'Metacarpo do dedo 4'
+    if (Dedo4) {
+      setLaudoPrin((arr) => [...arr, string])
+    } else {
+      removeItemString(string)
+    }
+  }
+  const criaStringMetacarpoDedo5 = () => {
+    var string = 'Metacarpo do dedo 5'
+    if (Dedo5) {
+      setLaudoPrin((arr) => [...arr, string])
+    } else {
+      removeItemString(string)
+    }
+  }
 
   return (
     <Box
@@ -162,7 +178,7 @@ function Polias() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Polias TESTAR" />
+      <TituloNomeExame titulo="Ossos TESTAR" />
       <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
         <Checkbox
           isDisabled={disableApectNormal}
@@ -175,7 +191,7 @@ function Polias() {
           isDisabled={disableDescontinuidade}
           onChange={() => setDisableCheckbox(!DisableCheckbox)}
         >
-          Descontinuidade das seguintes polias
+          Descontinuidade das seguintes Ossos
         </Checkbox>
       </Box>
       <Stack>
@@ -188,33 +204,21 @@ function Polias() {
           </Checkbox>
           <Checkbox
             isDisabled={DisablePrimeiroDedo}
-            onChange={() => setA1(!A1)}
+            onChange={() => setFalangeProximal(!FalangeProximal)}
           >
-            A1
+            Falange Proximal
           </Checkbox>
           <Checkbox
             isDisabled={DisablePrimeiroDedo}
-            onChange={() => setA2(!A2)}
+            onChange={() => setFalangeDistal(!FalangeDistal)}
           >
-            A2
-          </Checkbox>
-          <Checkbox
-            isDisabled={DisablePrimeiroDedo}
-            onChange={() => setAV(!AV)}
-          >
-            AV
-          </Checkbox>
-          <Checkbox
-            isDisabled={DisablePrimeiroDedo}
-            onChange={() => setAO(!AO)}
-          >
-            AO
+            Falange Distal
           </Checkbox>
         </Box>
         <>
           {numberArray.map((num, key) => {
             return (
-              <IndividualizarPolias
+              <IndividualizarOssos
                 key={key}
                 numCalculo={num}
                 desabilita={DisableCheckbox}
@@ -222,8 +226,56 @@ function Polias() {
             );
           })}
         </>
-      </Stack>
-    </Box>
+        <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
+          <Text>Metacarpo (epifise distal):</Text>
+          <Checkbox
+            isDisabled={DisableCheckbox}
+            onChange={() => {
+              setDedo1(!Dedo1)
+              criaStringMetacarpoDedo1()
+            }}
+          >
+            I
+          </Checkbox>
+          <Checkbox
+            isDisabled={DisableCheckbox}
+            onChange={() => {
+              criaStringMetacarpoDedo2()
+              setDedo2(!Dedo2)
+            }}
+          >
+            II
+          </Checkbox>
+          <Checkbox
+            isDisabled={DisableCheckbox}
+            onChange={() => {
+              criaStringMetacarpoDedo3()
+              setDedo3(!Dedo3)
+            }}
+          >
+            III
+          </Checkbox>
+          <Checkbox
+            isDisabled={DisableCheckbox}
+            onChange={() => {
+              criaStringMetacarpoDedo4()
+              setDedo4(!Dedo4)
+            }}
+          >
+            IV
+          </Checkbox>
+          <Checkbox
+            isDisabled={DisableCheckbox}
+            onChange={() => {
+              criaStringMetacarpoDedo5()
+              setDedo5(!Dedo5)
+            }}
+          >
+            V
+          </Checkbox>
+        </Box>
+      </Stack >
+    </Box >
   );
 }
-export default Polias;
+export default OssosEsquerda;
