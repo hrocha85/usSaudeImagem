@@ -2,14 +2,12 @@ import { Box, Text } from "@chakra-ui/react";
 import BoxTitleBackground from "../../component/box_title_background";
 import BGImage from "../../images/bg_img.png";
 import Exames from "../../folha_laudos/Laudos";
-import SupraEspinhalOmbroDireito from "./ombro/omboDireito/supraEspinhal";
 import OmbroLadoDireito from "./ombro/omboDireito/ladoDireito";
 import CotoveloLadoDireito from "./cotovelo/cotoveloDireito/ladoDireito";
 import OmbroLadoEsquerdo from "./ombro/ombroEsquerdo/ladoEsquerdo";
 import CotoveloLadoEsquerdo from "./cotovelo/cotoveloEsquerdo/ladoEsquerdo";
-import SupraEspinhalOmbroEsquerdo from "./ombro/ombroEsquerdo/supraEspinhal";
-import InfraEspinhalOmbroDireito from "./ombro/omboDireito/infraEspinhal";
-import InfraEspinhalOmbroEsquerdo from "./ombro/ombroEsquerdo/infraEspinhal"
+import TendaoInfraespinhalOmbroDireito from "./ombro/omboDireito/TendaoInfraespinhal";
+import TendaoInfraespinhalOmbroEsquerdo from "./ombro/ombroEsquerdo/TendaoInfraespinhal"
 import SubescapularOmbroDireito from "./ombro/omboDireito/subescapular";
 import SubescapularOmbroEsquerdo from "./ombro/ombroEsquerdo/subescapular";
 import TendaoLongoBicepsOmbroDireito from "./ombro/omboDireito/tendaoLongoBiceps";
@@ -32,8 +30,6 @@ import MaoLadoDireito from "./mao/maoDireita/ladoDireito";
 import MaoLadoEsquerdo from "./mao/maoEsquerda/ladoEsquerdo";
 import MaoNormalEsquerdo from "./mao/maoEsquerda/normal";
 import MaoNormalDireito from "./mao/maoDireita/normal";
-import MaoDireita from "./mao/maoDireita/MaoDireita";
-import MaoEsquerda from "./mao/maoEsquerda/MaoEsquerda";
 import BracoNormalDireito from "./braco/bracoDireito/normal";
 import BracoLadoDireito from "./braco/bracoDireito/ladoDireito";
 import BracoDireito from "./braco/bracoDireito/bracoDireito";
@@ -149,6 +145,15 @@ import AlteracaoPosCirurgiaDireito from "./mao/maoDireita/AlteracaoPosDireito";
 import AlteracaoPosCirurgiaEsquerdo from "./mao/maoEsquerda/AlteracaoPosEsquerda";
 import CorpoEstranhoDireito from "./mao/maoDireita/CorpoEstranhoDireito";
 import CorpoEstranhoEsquerdo from "./mao/maoEsquerda/CorpoEstranhoEsquerdo";
+import OmbroTendaoSupraespinhalDireito from "./ombro/omboDireito/TendaoSupraespinhal";
+import OmbroTendaoSupraespinhalEsquerdo from "./ombro/ombroEsquerdo/TendaoSupraespinhal";
+import VentreSupraespinhalDireito from "./ombro/omboDireito/VentreSupraespinhal";
+import VentreSupraespinhalEsquerdo from "./ombro/ombroEsquerdo/VentreSupraespinhal";
+import VentreInfraespinhalEsquerdo from "./ombro/ombroEsquerdo/VentreInfraespinhal";
+import VentreInfraespinhalDireito from "./ombro/omboDireito/VentreInfraespinhal";
+import TendaoSubescapularOmbroEsquerdo from "./ombro/ombroEsquerdo/TendaoSubescapular";
+import TendaoSubescapularOmbroDireito from "./ombro/omboDireito/TendaoSubescapular";
+import TendaoCabeçaLongaBicepsDireito from "./ombro/omboDireito/TendaoCabeçaLongaBiceps";
 
 function Articulacoes() {
 
@@ -193,15 +198,36 @@ function Articulacoes() {
                         <Box
                             // w='450px'
                             mb='15px'>
-                            <  SupraEspinhalOmbroDireito />
+                            <  OmbroTendaoSupraespinhalDireito />
                         </Box>
 
                         <Box
                             // w='450px'
                             mb='15px'>
-                            <InfraEspinhalOmbroDireito />
+                            <  VentreSupraespinhalDireito />
                         </Box>
 
+
+                        <Box
+                            // w='450px'
+                            mb='15px'>
+                            <TendaoInfraespinhalOmbroDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            mb='15px'>
+                            <VentreInfraespinhalDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            mb='15px'>
+                            <TendaoSubescapularOmbroDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            mb='15px'>
+                            <TendaoCabeçaLongaBicepsDireito />
+                        </Box>
                         <Box
                             // w='450px'
                             mb='15px'>
@@ -546,15 +572,29 @@ function Articulacoes() {
                     <Box
                         // w='450px'
                         mb='15px'>
-                        <  SupraEspinhalOmbroEsquerdo />
+                        <  OmbroTendaoSupraespinhalEsquerdo />
+                    </Box>
+                    <Box
+                        // w='450px'
+                        mb='15px'>
+                        <  VentreSupraespinhalEsquerdo />
                     </Box>
 
                     <Box
                         // w='450px'
                         mb='15px'>
-                        <InfraEspinhalOmbroEsquerdo />
+                        <TendaoInfraespinhalOmbroEsquerdo />
                     </Box>
-
+                    <Box
+                        // w='450px'
+                        mb='15px'>
+                        <VentreInfraespinhalEsquerdo />
+                    </Box>
+                    <Box
+                        // w='450px'
+                        mb='15px'>
+                        <TendaoSubescapularOmbroEsquerdo />
+                    </Box>
                     <Box
                         // w='450px'
                         mb='15px'>
