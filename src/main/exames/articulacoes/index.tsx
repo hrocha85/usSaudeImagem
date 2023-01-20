@@ -174,7 +174,6 @@ function Articulacoes() {
                 tamanho="200px 70px"
                 titulo="Articulações"
             />
-            <Exames></Exames>
 
             <Box
                 display='flex'
