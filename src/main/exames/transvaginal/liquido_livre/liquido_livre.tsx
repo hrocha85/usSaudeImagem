@@ -14,20 +14,21 @@ function Liquido_Livre() {
 
   const [frasesLiquidoLivre, setFrasesLiquidoLivre] = useState<any>([]);
 
-  const subExameUtero = "Líquido Livre";
+  const subExame = "Líquido Livre";
+  const titulo_exame = "Transvaginal"
 
   useEffect(() => {
     if (Object.keys(frasesLiquidoLivre).length == 0) {
       new Format_Laudo(
-        false,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         true,
         frasesLiquidoLivre
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
-        true,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         false,
         frasesLiquidoLivre
       ).Format_Laudo_Create_Storage();

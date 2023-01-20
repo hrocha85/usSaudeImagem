@@ -7,17 +7,17 @@ import {
   Input,
   Select,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Utero() {
   const altura = "100%";
   const largura = "66%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesUtero, setFrasesUtero] = useState<any>([]);
 
   //States Medidas Utero - Inicio
   const [medidaUtero1, setmedidaUtero1] = useState("");
@@ -85,12 +85,12 @@ function Utero() {
     switch (value) {
       case "Anteversoflexão":
         removeItemString(criaStringPosicaoUtero("Retroversoflexão"));
-        setLaudoPrin((arr) => [...arr, criaStringPosicaoUtero(value)]);
+        setFrasesUtero((arr) => [...arr, criaStringPosicaoUtero(value)]);
         break;
 
       case "Retroversoflexão": {
         removeItemString(criaStringPosicaoUtero("Anteversoflexão"));
-        setLaudoPrin((arr) => [...arr, criaStringPosicaoUtero(value)]);
+        setFrasesUtero((arr) => [...arr, criaStringPosicaoUtero(value)]);
         break;
       }
     }
@@ -101,18 +101,18 @@ function Utero() {
   const criaStringMedidasUtero = () => {
     if (medidaUtero1 !== "" && medidaUtero2 !== "" && medidaUtero3 !== "") {
       var string = `Útero com ${medidaUtero1} x ${medidaUtero2} x ${medidaUtero3} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesUtero((arr) => [...arr, string]);
     }
   };
   const removeMedidas = () => {
     // console.log("valor remove = ", value);
-    laudoPrin.map((e) => {
+    frasesUtero.map((e) => {
       if (e.includes("Útero com")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesUtero.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesUtero.splice(index, 1);
+          setFrasesUtero((arr) => [...arr]);
         }
       }
     });
@@ -124,19 +124,19 @@ function Utero() {
     if (endometrio !== null && endometrio !== "") {
       var string = `Endométrio com ${endometrio} mm `;
       removeEndometrio();
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesUtero((arr) => [...arr, string]);
     }
     setEndometrio(null);
   };
   const removeEndometrio = () => {
     // console.log("valor remove = ", value);
-    laudoPrin.map((e) => {
+    frasesUtero.map((e) => {
       if (e.includes("Endométrio")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesUtero.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesUtero.splice(index, 1);
+          setFrasesUtero((arr) => [...arr]);
         }
       }
     });
@@ -147,7 +147,7 @@ function Utero() {
   const criaStringEndometrioCheckBox = () => {
     var string = "Endométrio heterogêneo e espessado ";
     if (endometrioCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesUtero((arr) => [...arr, string]);
       setEndometrioCheckBox(false);
     } else {
       removeItemString(string);
@@ -159,17 +159,17 @@ function Utero() {
     removePolipoEndometrial();
     if (medidaPolipo1 !== "" && medidaPolipo2 !== "") {
       var string = `Pólipo mede ${medida1} x ${medida2} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesUtero((arr) => [...arr, string]);
     }
   };
   const removePolipoEndometrial = () => {
-    laudoPrin.map((e) => {
+    frasesUtero.map((e) => {
       if (e.includes("Pólipo")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesUtero.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesUtero.splice(index, 1);
+          setFrasesUtero((arr) => [...arr]);
         }
       }
     });
@@ -179,17 +179,17 @@ function Utero() {
   //Funcoes DIU Posicionado - Inicio
   const criaStringDIUBemPosicionado = () => {
     var string = "DIU bem posicionado ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesUtero((arr) => [...arr, string]);
   };
 
   const removeDIUPosicionado = () => {
-    laudoPrin.map((e) => {
+    frasesUtero.map((e) => {
       if (e.includes("DIU bem posicionado")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesUtero.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesUtero.splice(index, 1);
+          setFrasesUtero((arr) => [...arr]);
         }
       }
     });
@@ -201,17 +201,17 @@ function Utero() {
     removeDIUDistancia();
     if (distancia !== "") {
       var string = `DIU distando ${distancia} mm do fundo da cavidade uterina `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesUtero((arr) => [...arr, string]);
     }
   };
   const removeDIUDistancia = () => {
-    laudoPrin.map((e) => {
+    frasesUtero.map((e) => {
       if (e.includes("DIU distando")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesUtero.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesUtero.splice(index, 1);
+          setFrasesUtero((arr) => [...arr]);
         }
       }
     });
@@ -221,18 +221,18 @@ function Utero() {
   //Funcoes Liquido Endometrial - Incio
   const criaStringLiquidoEndometrial = () => {
     var string = "Líquido na cavidade endometrial ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesUtero((arr) => [...arr, string]);
     return string;
   };
   const removeLiquidoEndometrial = () => {
     // console.log("valor remove = ", value);
-    laudoPrin.map((e) => {
+    frasesUtero.map((e) => {
       if (e.includes("Líquido")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesUtero.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesUtero.splice(index, 1);
+          setFrasesUtero((arr) => [...arr]);
         }
       }
     });
@@ -244,17 +244,17 @@ function Utero() {
     removeCistoNaboth();
     if (medida !== "") {
       var string = `Cisto de Naboth com ${medida}mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesUtero((arr) => [...arr, string]);
     }
   };
   const removeCistoNaboth = () => {
-    laudoPrin.map((e) => {
+    frasesUtero.map((e) => {
       if (e.includes("Naboth")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesUtero.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesUtero.splice(index, 1);
+          setFrasesUtero((arr) => [...arr]);
         }
       }
     });
@@ -264,11 +264,11 @@ function Utero() {
   //Remove string generico
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = laudoPrin.indexOf(value);
+    var index = frasesUtero.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesUtero.splice(index, 1);
+      setFrasesUtero((arr) => [...arr]);
     }
   };
 
@@ -360,6 +360,27 @@ function Utero() {
     criaStringCistoNaboth(cistoNabothInput);
   }, [cistoNabothInput]);
 
+  const subExame = "Útero";
+  const titulo_exame = "Doppler Transvaginal";
+
+  useEffect(() => {
+    if (Object.keys(frasesUtero).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesUtero
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesUtero
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesUtero]);
+
   return (
     <Box
       bg="#FAFAFA"
@@ -372,7 +393,6 @@ function Utero() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-
       <TituloNomeExame titulo="Útero" />
 
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
@@ -517,7 +537,6 @@ function Utero() {
               Cisto de Naboth
             </Checkbox>
             <Input
-
               isDisabled={disableCistoNabothInput}
               value={cistoNabothInput}
               w="35px"

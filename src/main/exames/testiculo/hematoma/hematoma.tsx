@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Checkbox, Text, HStack, Input, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hematoma() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesHematoma, setFrasesHematoma] = useState<any>([]);
 
   const [tamanhoHematomaInput, settamanhoHematomaInput] = useState("");
   const [tamanho2HematomaInput, settamanho2HematomaInput] = useState("");
@@ -26,18 +26,18 @@ function Hematoma() {
       tamanho2HematomaInput !== ""
     ) {
       var string = `Hematoma lado ${posicaoHematomaSelect} medindo ${tamanhoHematomaInput}x${tamanho2HematomaInput} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesHematoma((arr) => [...arr, string]);
     }
   };
 
   const removeStringHematoma = () => {
-    laudoPrin.map((e) => {
+    frasesHematoma.map((e) => {
       if (e.includes("Hematoma")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesHematoma.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesHematoma.splice(index, 1);
+          setFrasesHematoma((arr) => [...arr]);
         }
       }
     });
@@ -45,16 +45,42 @@ function Hematoma() {
 
   useEffect(() => {
     if (HematomaCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringHematoma();
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeStringHematoma();
       setPosicaoHematomaSelect("");
       settamanhoHematomaInput("");
       settamanho2HematomaInput("");
     }
-  }, [HematomaCheckBox, tamanhoHematomaInput, posicaoHematomaSelect, tamanho2HematomaInput]);
+  }, [
+    HematomaCheckBox,
+    tamanhoHematomaInput,
+    posicaoHematomaSelect,
+    tamanho2HematomaInput,
+  ]);
+
+const subExame = "Hematoma";
+  const titulo_exame = "Testículo";
+
+  useEffect(() => {
+    if (Object.keys(frasesHematoma).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesHematoma
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesHematoma
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesHematoma]);
 
   return (
     <Box

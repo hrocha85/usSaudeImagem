@@ -1,7 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
-import Exames from "../../folha_laudos/Laudos";
+ 
 import CistoEpididimarios from "./cistosEpididimarios/cistoEpididimarios";
 import CistosTesticulares from "./cistosTesticulares/cistoTesticulares";
 import Hematoma from "./hematoma/hematoma";
@@ -16,14 +14,8 @@ import Virococele from "./varicocele/varicocele";
 
 function Testiculo() {
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="40px"
-        fontsize="19px"
-        tamanho="180px"
-        titulo="Testículo"
-      />
-      <Exames></Exames>
+    <>
+      
 
       <Box ml="10px">
         <Utero />
@@ -60,7 +52,7 @@ function Testiculo() {
           <Virococele />
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

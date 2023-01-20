@@ -7,17 +7,17 @@ import {
   Select,
   Stack,
   Text,
-  Textarea,
+  Textarea
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 export default function Observacoes_Direita() {
   const altura = "100%";
   const largura = "100%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesObsDireita, setFrasesObsDireita] = useState<any>([]);
 
   const [CistoBakerCheckBox, setCistoBakerCheckBox] = useState(false);
 
@@ -42,17 +42,17 @@ export default function Observacoes_Direita() {
 
   const criaStringCistoBaker = () => {
     var string = `Cisto Baker lado direito `;
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesObsDireita((arr) => [...arr, string]);
   };
 
   const removeCistoBaker = () => {
-    laudoPrin.map((e) => {
+    frasesObsDireita.map((e) => {
       if (e.includes("Baker")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesObsDireita.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesObsDireita.splice(index, 1);
+          setFrasesObsDireita((arr) => [...arr]);
         }
       }
     });
@@ -63,18 +63,18 @@ export default function Observacoes_Direita() {
 
     if (TipoEdemaSelect != "" && LocalEdemaSelect != "") {
       var stringEdema = `Edema ${TipoEdemaSelect} na ${LocalEdemaSelect} direita `;
-      setLaudoPrin((arr) => [...arr, stringEdema]);
+      setFrasesObsDireita((arr) => [...arr, stringEdema]);
     }
   };
 
   const removeEdema = () => {
-    laudoPrin.some((e) => {
+    frasesObsDireita.some((e) => {
       if (e.includes("Edema") && e.includes("direita")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesObsDireita.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesObsDireita.splice(index, 1);
+          setFrasesObsDireita((arr) => [...arr]);
         }
       }
     });
@@ -85,18 +85,18 @@ export default function Observacoes_Direita() {
 
     if (TipoLinfedemaSelect != "" && LocalLinfedemaSelect != "") {
       var stringLinfedema = `Linfedema ${TipoLinfedemaSelect} na ${LocalLinfedemaSelect} direita `;
-      setLaudoPrin((arr) => [...arr, stringLinfedema]);
+      setFrasesObsDireita((arr) => [...arr, stringLinfedema]);
     }
   };
 
   const removeLinfedema = () => {
-    laudoPrin.some((e) => {
+    frasesObsDireita.some((e) => {
       if (e.includes("Linfedema") && e.includes("direita")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesObsDireita.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesObsDireita.splice(index, 1);
+          setFrasesObsDireita((arr) => [...arr]);
         }
       }
     });
@@ -108,18 +108,18 @@ export default function Observacoes_Direita() {
     if (SegmentoSelect != "") {
       var stringSegmento = `Segmento não avaliado devido à presença de curativo oclusivo no ${SegmentoSelect} direita `;
 
-      setLaudoPrin((arr) => [...arr, stringSegmento]);
+      setFrasesObsDireita((arr) => [...arr, stringSegmento]);
     }
   };
 
   const removeSegmento = () => {
-    laudoPrin.some((e) => {
+    frasesObsDireita.some((e) => {
       if (e.includes("Segmento") && e.includes("direita")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesObsDireita.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesObsDireita.splice(index, 1);
+          setFrasesObsDireita((arr) => [...arr]);
         }
       }
     });
@@ -128,19 +128,19 @@ export default function Observacoes_Direita() {
   const criaStringOutrasObservacoes = () => {
     removeOutrasObservacoes();
     if (OutrasObservacoesInput != "") {
-      setLaudoPrin((arr) => [...arr, OutrasObservacoesInput]);
+      setFrasesObsDireita((arr) => [...arr, OutrasObservacoesInput]);
     }
   };
 
   const removeOutrasObservacoes = () => {
-    laudoPrin.map((e) => {
+    frasesObsDireita.map((e) => {
       if (OutrasObservacoesInput != "") {
         if (e.includes(OutrasObservacoesInput)) {
-          var index = laudoPrin.indexOf(e);
+          var index = frasesObsDireita.indexOf(e);
 
           if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
+            frasesObsDireita.splice(index, 1);
+            setFrasesObsDireita((arr) => [...arr]);
             setOutrasObservacoesInput("");
           }
         }
@@ -190,6 +190,27 @@ export default function Observacoes_Direita() {
       removeOutrasObservacoes();
     }
   }, [OutrasObservacoesCheckBox]);
+
+  const subExame = "Observações Lado Direito";
+  const titulo_exame = "Doppler Arterial de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesObsDireita).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesObsDireita
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesObsDireita
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesObsDireita]);
 
   return (
     <Box

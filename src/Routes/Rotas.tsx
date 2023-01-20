@@ -28,6 +28,7 @@ import Login from "../main/login/login";
 import Articulacoes from "../main/exames/articulacoes";
 import DopplerVenosoMMII from "../main/exames/dopplerVenosoMMII";
 import Format_PDF from "../main/folha_laudos/format_pdf";
+import Box_Default_With_Sidebar from "../main/component/box_default_sidebar";
 
 function Rotas() {
   return (
@@ -58,6 +59,10 @@ function Rotas() {
       <Route path="/Home/12" element={<Doppler_Arterial_MMII />} />
       <Route path="/Home/Configuracoes" element={<Configuracoes />} />
       <Route path="/Format_PDF" element={<Format_PDF />} />
+      <Route
+        path="/Exames"
+        element={<Box_Default_With_Sidebar />}
+      />
     </Routes>
   );
 }

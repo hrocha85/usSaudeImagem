@@ -7,10 +7,10 @@ import {
   Input,
   Select,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import IndividualizarNodulos from "./individualizar_nodulos";
 
@@ -18,22 +18,20 @@ function Miometrio() {
   const altura = "100%";
   const largura = "66%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesMiometrio, setFrasesMiometrio] = useState<any>([]);
+
   var numberArray = [1, 2, 3, 4, 5];
 
-
-  const [DisableSelect, setDisableSelect] =
-    useState(true);
+  const [DisableSelect, setDisableSelect] = useState(true);
 
   const [disableInputsDoppler, setDisableInputsDoppler] = useState(true);
-  const [dopplerMedidasCheckBox, setdopplerMedidasCheckBox] =
-    useState(false);
+  const [dopplerMedidasCheckBox, setdopplerMedidasCheckBox] = useState(false);
 
-  const [MedidaDireitaIR, setMedidaDireitaIR] = useState("")
-  const [MedidaDireitaIP, setMedidaDireitaIP] = useState("")
+  const [MedidaDireitaIR, setMedidaDireitaIR] = useState("");
+  const [MedidaDireitaIP, setMedidaDireitaIP] = useState("");
 
-  const [MedidaEsquerdaIR, setMedidaEsquerdaIR] = useState("")
-  const [MedidaEsquerdaIP, setMedidaEsquerdaIP] = useState("")
+  const [MedidaEsquerdaIR, setMedidaEsquerdaIR] = useState("");
+  const [MedidaEsquerdaIP, setMedidaEsquerdaIP] = useState("");
 
   const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
   const [posicaoNodulosSelect, setPosicaoNodulosSelect] = useState("");
@@ -42,74 +40,96 @@ function Miometrio() {
   const [multiplosNodulosCheckBox, setmultiplosNodulosCheckBox] =
     useState(false);
 
-  const [VascularizacaoNormalCheckBox, setVascularizacaoNormalCheckBox] = useState(false);
-  const [DisableVascularizacaoNormalCheckBox, setDisableVascularizacaoNormalCheckBox] = useState(false);
+  const [VascularizacaoNormalCheckBox, setVascularizacaoNormalCheckBox] =
+    useState(false);
+  const [
+    DisableVascularizacaoNormalCheckBox,
+    setDisableVascularizacaoNormalCheckBox,
+  ] = useState(false);
 
   const [DopplerNodulosSelect, setDopplerNodulosSelect] = useState("");
 
-  const [VascularizacaoAumentadaCheckBox, setVascularizacaoAumentadaCheckBox] = useState(false);
-  const [DisableVascularizacaoAumentadaCheckBox, setDisableVascularizacaoAumentadaCheckBox] = useState(false);
+  const [VascularizacaoAumentadaCheckBox, setVascularizacaoAumentadaCheckBox] =
+    useState(false);
+  const [
+    DisableVascularizacaoAumentadaCheckBox,
+    setDisableVascularizacaoAumentadaCheckBox,
+  ] = useState(false);
 
-  const [miometrioSemNodulosCheckBox, setmiometrioSemNodulosCheckBox] = useState(true);
+  const [miometrioSemNodulosCheckBox, setmiometrioSemNodulosCheckBox] =
+    useState(true);
 
   const handleChangeNoduloInput = (event) => {
     settamanhoNoduloInput(event.target.value);
   };
 
-  const criaStringMultiplosNodulos = (tamanhoNoduloInput, nodulosSelect, localizado, DopplerNodulosSelect) => {
+  const criaStringMultiplosNodulos = (
+    tamanhoNoduloInput,
+    nodulosSelect,
+    localizado,
+    DopplerNodulosSelect
+  ) => {
     removeMultiplosNodulos();
     var string;
-    if (DopplerNodulosSelect !== '' && tamanhoNoduloInput !== "" && nodulosSelect !== "" && localizado !== "") {
+    if (
+      DopplerNodulosSelect !== "" &&
+      tamanhoNoduloInput !== "" &&
+      nodulosSelect !== "" &&
+      localizado !== ""
+    ) {
       string = `Múltiplos nódulos de mioma, o maior mede ${tamanhoNoduloInput}mm ${nodulosSelect} localizado ${localizado}, doppler ${DopplerNodulosSelect} `;
-      setLaudoPrin((arr) => [...arr, string]);
-    } else if (tamanhoNoduloInput !== "" && nodulosSelect !== "" && localizado !== "") {
+      setFrasesMiometrio((arr) => [...arr, string]);
+    } else if (
+      tamanhoNoduloInput !== "" &&
+      nodulosSelect !== "" &&
+      localizado !== ""
+    ) {
       string = `Múltiplos nódulos de mioma, o maior mede ${tamanhoNoduloInput}mm ${nodulosSelect} localizado ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMiometrio((arr) => [...arr, string]);
     }
   };
 
   useEffect(() => {
     var string = "Miométrio com vascularização normal";
     if (VascularizacaoNormalCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setDisableVascularizacaoAumentadaCheckBox(true)
+      setFrasesMiometrio((arr) => [...arr, string]);
+      setDisableVascularizacaoAumentadaCheckBox(true);
     } else {
-      setDisableVascularizacaoAumentadaCheckBox(false)
+      setDisableVascularizacaoAumentadaCheckBox(false);
       setVascularizacaoNormalCheckBox(false);
       removeItemString(string);
     }
-  }, [VascularizacaoNormalCheckBox])
+  }, [VascularizacaoNormalCheckBox]);
 
   useEffect(() => {
     var string = "Miométrio com vascularização Aumentada";
     if (VascularizacaoAumentadaCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setDisableVascularizacaoNormalCheckBox(true)
+      setFrasesMiometrio((arr) => [...arr, string]);
+      setDisableVascularizacaoNormalCheckBox(true);
     } else {
-      setDisableVascularizacaoNormalCheckBox(false)
+      setDisableVascularizacaoNormalCheckBox(false);
       setVascularizacaoAumentadaCheckBox(false);
       removeItemString(string);
     }
-  }, [VascularizacaoAumentadaCheckBox])
+  }, [VascularizacaoAumentadaCheckBox]);
 
   const removeMultiplosNodulos = () => {
-    laudoPrin.map((e) => {
+    frasesMiometrio.map((e) => {
       if (e.includes("mioma")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesMiometrio.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMiometrio.splice(index, 1);
+          setFrasesMiometrio((arr) => [...arr]);
         }
       }
     });
   };
 
-
   const criaStringMiometrioSemNodulos = () => {
     var string = "Miométrio heterogêneo sem nódulos ";
     if (miometrioSemNodulosCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMiometrio((arr) => [...arr, string]);
       setmiometrioSemNodulosCheckBox(false);
     } else {
       removeItemString(string);
@@ -117,133 +137,141 @@ function Miometrio() {
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesMiometrio.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesMiometrio.splice(index, 1);
+      setFrasesMiometrio((arr) => [...arr]);
     }
   };
 
   const criaStringArteriaDireitaIR = (medida) => {
-    removeStringArteriaDireitaIR()
+    removeStringArteriaDireitaIR();
     if (MedidaDireitaIR !== "") {
       var string = `Índice de resistência da artéria uterina 
       direita: ${medida} (normal entre 0,6 e 0,9)`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMiometrio((arr) => [...arr, string]);
     }
   };
   const removeStringArteriaDireitaIR = () => {
-    laudoPrin.map((e) => {
-      if (e.includes(`Índice de resistência da artéria uterina 
-      direita`)) {
-        var index = laudoPrin.indexOf(e);
+    frasesMiometrio.map((e) => {
+      if (
+        e.includes(`Índice de resistência da artéria uterina 
+      direita`)
+      ) {
+        var index = frasesMiometrio.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMiometrio.splice(index, 1);
+          setFrasesMiometrio((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringArteriaDireitaIR(MedidaDireitaIR)
-  }, [MedidaDireitaIR])
+    criaStringArteriaDireitaIR(MedidaDireitaIR);
+  }, [MedidaDireitaIR]);
 
   const criaStringArteriaDireitaIP = (medida) => {
-    removeStringArteriaDireitaIP()
+    removeStringArteriaDireitaIP();
     if (MedidaDireitaIP !== "") {
       var string = `Índice de pulsatilidade da artéria uterina 
       direita: ${medida} (normal entre 1,5 e 3,0)`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMiometrio((arr) => [...arr, string]);
     }
   };
   const removeStringArteriaDireitaIP = () => {
-    laudoPrin.map((e) => {
-      if (e.includes(`Índice de pulsatilidade da artéria uterina 
-      direita`)) {
-        var index = laudoPrin.indexOf(e);
+    frasesMiometrio.map((e) => {
+      if (
+        e.includes(`Índice de pulsatilidade da artéria uterina 
+      direita`)
+      ) {
+        var index = frasesMiometrio.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMiometrio.splice(index, 1);
+          setFrasesMiometrio((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringArteriaDireitaIP(MedidaDireitaIP)
-  }, [MedidaDireitaIP])
+    criaStringArteriaDireitaIP(MedidaDireitaIP);
+  }, [MedidaDireitaIP]);
 
   const criaStringArteriaEsquerdaIR = (medida) => {
-    removeStringArteriaEsquerdaIR()
+    removeStringArteriaEsquerdaIR();
     if (MedidaEsquerdaIR !== "") {
       var string = `Índice de resistência da artéria uterina 
       Esquerda: ${medida} (normal entre 0,6 e 0,9)`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMiometrio((arr) => [...arr, string]);
     }
   };
   const removeStringArteriaEsquerdaIR = () => {
-    laudoPrin.map((e) => {
-      if (e.includes(`Índice de resistência da artéria uterina 
-      Esquerda`)) {
-        var index = laudoPrin.indexOf(e);
+    frasesMiometrio.map((e) => {
+      if (
+        e.includes(`Índice de resistência da artéria uterina 
+      Esquerda`)
+      ) {
+        var index = frasesMiometrio.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMiometrio.splice(index, 1);
+          setFrasesMiometrio((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringArteriaEsquerdaIR(MedidaEsquerdaIR)
-  }, [MedidaEsquerdaIR])
+    criaStringArteriaEsquerdaIR(MedidaEsquerdaIR);
+  }, [MedidaEsquerdaIR]);
 
   const criaStringArteriaEsquerdaIP = (medida) => {
-    removeStringArteriaEsquerdaIP()
+    removeStringArteriaEsquerdaIP();
     if (MedidaEsquerdaIP !== "") {
       var string = `Índice de pulsatilidade da artéria uterina 
       Esquerda: ${medida} (normal entre 1,5 e 3,0)`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMiometrio((arr) => [...arr, string]);
     }
   };
   const removeStringArteriaEsquerdaIP = () => {
-    laudoPrin.map((e) => {
-      if (e.includes(`Índice de pulsatilidade da artéria uterina 
-      Esquerda`)) {
-        var index = laudoPrin.indexOf(e);
+    frasesMiometrio.map((e) => {
+      if (
+        e.includes(`Índice de pulsatilidade da artéria uterina 
+      Esquerda`)
+      ) {
+        var index = frasesMiometrio.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMiometrio.splice(index, 1);
+          setFrasesMiometrio((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringArteriaEsquerdaIP(MedidaEsquerdaIP)
-  }, [MedidaEsquerdaIP])
+    criaStringArteriaEsquerdaIP(MedidaEsquerdaIP);
+  }, [MedidaEsquerdaIP]);
 
   useEffect(() => {
     if (dopplerMedidasCheckBox) {
-      setDisableInputsDoppler(false)
+      setDisableInputsDoppler(false);
     } else {
-      setMedidaDireitaIR('')
-      setMedidaDireitaIP('')
-      setMedidaEsquerdaIR('')
-      setMedidaEsquerdaIP('')
-      removeStringArteriaDireitaIR()
-      removeStringArteriaDireitaIP()
-      removeStringArteriaEsquerdaIR()
-      removeStringArteriaEsquerdaIP()
-      setDisableInputsDoppler(true)
+      setMedidaDireitaIR("");
+      setMedidaDireitaIP("");
+      setMedidaEsquerdaIR("");
+      setMedidaEsquerdaIP("");
+      removeStringArteriaDireitaIR();
+      removeStringArteriaDireitaIP();
+      removeStringArteriaEsquerdaIR();
+      removeStringArteriaEsquerdaIP();
+      setDisableInputsDoppler(true);
     }
-  }, [dopplerMedidasCheckBox])
+  }, [dopplerMedidasCheckBox]);
 
   useEffect(() => {
     if (multiplosNodulosCheckBox) {
@@ -253,22 +281,43 @@ function Miometrio() {
         localizacaoNodulosSelect,
         DopplerNodulosSelect
       );
-      setDisableSelect(false)
+      setDisableSelect(false);
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeMultiplosNodulos();
       settamanhoNoduloInput("");
       setPosicaoNodulosSelect("");
       setlocalizacaoNodulosSelect("");
-      setDopplerNodulosSelect("")
+      setDopplerNodulosSelect("");
     }
   }, [
     multiplosNodulosCheckBox,
     posicaoNodulosSelect,
     tamanhoNoduloInput,
     localizacaoNodulosSelect,
-    DopplerNodulosSelect
+    DopplerNodulosSelect,
   ]);
+
+  const subExame = "Miométrio";
+  const titulo_exame = "Doppler Transvaginal";
+
+  useEffect(() => {
+    if (Object.keys(frasesMiometrio).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesMiometrio
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesMiometrio
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesMiometrio]);
 
   return (
     <Box
@@ -295,11 +344,7 @@ function Miometrio() {
             >
               Miométrio heterogêneo sem nódulos
             </Checkbox>
-            <Box
-              gap='10px'
-              display='flex'
-              flexWrap="wrap"
-            >
+            <Box gap="10px" display="flex" flexWrap="wrap">
               <Checkbox
                 whiteSpace="nowrap"
                 isDisabled={!miometrioSemNodulosCheckBox}
@@ -354,15 +399,9 @@ function Miometrio() {
                 <option value="lateral esquerda">Lateral esquerda</option>
                 <option value="cervical">Cervical</option>
               </Select>
-
             </Box>
-            <HStack
-              mt='5px'
-              ml='25px'
-              color='red'>
-              <Text>
-                Nódulo com vascularização
-              </Text>
+            <HStack mt="5px" ml="25px" color="red">
+              <Text>Nódulo com vascularização</Text>
 
               <Select
                 w="auto"
@@ -378,17 +417,17 @@ function Miometrio() {
                 <option value="ausente">ausente</option>
                 <option value="periférica">periférica</option>
                 <option value="central">central</option>
-                <option value="central e periférica">central e periférica</option>
+                <option value="central e periférica">
+                  central e periférica
+                </option>
               </Select>
-            </HStack >
+            </HStack>
           </Box>
           <Text fontWeight="semibold" fontSize="16px">
             Individualizar Nódulos
           </Text>
 
-          <Stack
-            borderBottom='1px'
-            w='100%'>
+          <Stack borderBottom="1px" w="100%">
             <>
               {numberArray.map((num, key) => {
                 return (
@@ -402,38 +441,23 @@ function Miometrio() {
             </>
           </Stack>
 
-          <Box
-            mt='20px'
-            gap='25px'
-            color="red"
-          >
-            <Text
-              w='100%'
-              fontWeight="semibold" fontSize="16px">
+          <Box mt="20px" gap="25px" color="red">
+            <Text w="100%" fontWeight="semibold" fontSize="16px">
               Doppler
             </Text>
-            <Box
-              borderBottom='1px'
-              gap='25px'
-              display='flex'
-              flexWrap='wrap'>
+            <Box borderBottom="1px" gap="25px" display="flex" flexWrap="wrap">
               <Checkbox
-                onChange={() => setdopplerMedidasCheckBox(!dopplerMedidasCheckBox)}>
+                onChange={() =>
+                  setdopplerMedidasCheckBox(!dopplerMedidasCheckBox)
+                }
+              >
                 Citar medidas
               </Checkbox>
-              <Box               >
-                <Box
-                  mb='5px'
-                  alignItems='center'
-                  display='flex'
-                  gap='25px'
-                >
-                  <Text mr='22px'>Artéria uterina direita</Text>
-                  <Box
-                    alignItems='center'
-                    display='flex'
-                  >
-                    <Text mr='10px'>IR</Text>
+              <Box>
+                <Box mb="5px" alignItems="center" display="flex" gap="25px">
+                  <Text mr="22px">Artéria uterina direita</Text>
+                  <Box alignItems="center" display="flex">
+                    <Text mr="10px">IR</Text>
                     <Input
                       isDisabled={disableInputsDoppler}
                       w="60px"
@@ -442,15 +466,14 @@ function Miometrio() {
                       value={MedidaDireitaIR}
                       maxLength={2}
                       textAlign="center"
-                      onChange={(e) => { setMedidaDireitaIR(e.target.value) }}
+                      onChange={(e) => {
+                        setMedidaDireitaIR(e.target.value);
+                      }}
                       placeholder={"mm"}
                     />
                   </Box>
-                  <Box
-                    alignItems='center'
-                    display='flex'
-                  >
-                    <Text mr='10px'>IP</Text>
+                  <Box alignItems="center" display="flex">
+                    <Text mr="10px">IP</Text>
                     <Input
                       isDisabled={disableInputsDoppler}
                       w="60px"
@@ -459,23 +482,17 @@ function Miometrio() {
                       value={MedidaDireitaIP}
                       maxLength={2}
                       textAlign="center"
-                      onChange={(e) => { setMedidaDireitaIP(e.target.value) }}
+                      onChange={(e) => {
+                        setMedidaDireitaIP(e.target.value);
+                      }}
                       placeholder={"mm"}
                     />
                   </Box>
                 </Box>
-                <Box
-                  alignItems='center'
-                  display='flex'
-                  gap='25px'
-                  mb='10px'
-                >
+                <Box alignItems="center" display="flex" gap="25px" mb="10px">
                   <Text>Artéria uterina esquerda</Text>
-                  <Box
-                    alignItems='center'
-                    display='flex'
-                  >
-                    <Text mr='10px'>IR</Text>
+                  <Box alignItems="center" display="flex">
+                    <Text mr="10px">IR</Text>
                     <Input
                       isDisabled={disableInputsDoppler}
                       w="60px"
@@ -484,15 +501,14 @@ function Miometrio() {
                       maxLength={2}
                       value={MedidaEsquerdaIR}
                       textAlign="center"
-                      onChange={(e) => { setMedidaEsquerdaIR(e.target.value) }}
+                      onChange={(e) => {
+                        setMedidaEsquerdaIR(e.target.value);
+                      }}
                       placeholder={"mm"}
                     />
                   </Box>
-                  <Box
-                    alignItems='center'
-                    display='flex'
-                  >
-                    <Text mr='10px'>IP</Text>
+                  <Box alignItems="center" display="flex">
+                    <Text mr="10px">IP</Text>
                     <Input
                       isDisabled={disableInputsDoppler}
                       w="60px"
@@ -501,33 +517,40 @@ function Miometrio() {
                       value={MedidaEsquerdaIP}
                       maxLength={2}
                       textAlign="center"
-                      onChange={(e) => { setMedidaEsquerdaIP(e.target.value) }}
+                      onChange={(e) => {
+                        setMedidaEsquerdaIP(e.target.value);
+                      }}
                       placeholder={"mm"}
                     />
                   </Box>
                 </Box>
               </Box>
-
             </Box>
             <Stack>
               <Checkbox
-                mt='10px'
+                mt="10px"
                 isDisabled={DisableVascularizacaoNormalCheckBox}
-                onChange={() => setVascularizacaoNormalCheckBox(!VascularizacaoNormalCheckBox)}
+                onChange={() =>
+                  setVascularizacaoNormalCheckBox(!VascularizacaoNormalCheckBox)
+                }
               >
                 Miométrio com vascularização normal
               </Checkbox>
               <Checkbox
                 isDisabled={DisableVascularizacaoAumentadaCheckBox}
-                onChange={() => setVascularizacaoAumentadaCheckBox(!VascularizacaoAumentadaCheckBox)}
+                onChange={() =>
+                  setVascularizacaoAumentadaCheckBox(
+                    !VascularizacaoAumentadaCheckBox
+                  )
+                }
               >
                 Miométrio com vascularização aumentada
               </Checkbox>
             </Stack>
           </Box>
-        </Stack >
-      </Box >
-    </Box >
+        </Stack>
+      </Box>
+    </Box>
   );
 }
 export default Miometrio;

@@ -1,13 +1,13 @@
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Torcao() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesTorcao, setFrasesTorcao] = useState<any>([]);
 
   const [posicaoTorcaoSelect, setPosicaoTorcaoSelect] = useState("");
   const [TorcaoCheckBox, setTorcaoCheckBox] = useState(false);
@@ -18,18 +18,18 @@ function Torcao() {
 
     if (TorcaoCheckBox && posicaoTorcaoSelect !== "") {
       var string = `Torção no local: ${posicaoTorcaoSelect}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesTorcao((arr) => [...arr, string]);
     }
   };
 
   const removeStringTorcaoLivre = () => {
-    laudoPrin.map((e) => {
+    frasesTorcao.map((e) => {
       if (e.includes("Torção no local")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesTorcao.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesTorcao.splice(index, 1);
+          setFrasesTorcao((arr) => [...arr]);
         }
       }
     });
@@ -37,14 +37,35 @@ function Torcao() {
 
   useEffect(() => {
     if (TorcaoCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringTorcaoLivre();
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeStringTorcaoLivre();
       setPosicaoTorcaoSelect("");
     }
   }, [TorcaoCheckBox, posicaoTorcaoSelect]);
+
+  const subExame = "Torção";
+  const titulo_exame = "Testículo";
+
+  useEffect(() => {
+    if (Object.keys(frasesTorcao).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesTorcao
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesTorcao
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesTorcao]);
 
   return (
     <Box

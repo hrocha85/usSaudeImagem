@@ -1,30 +1,35 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import {
+  Box,
+  Checkbox,
+  HStack,
+  Input,
+  Select,
+  Stack,
+  Text
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function CarotidaInternaEsquerda() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesCarotidaInterna, setFrasesCarotidaInterna] = useState<any>([]);
 
-  const [MedidasCheckBox, setMedidasCheckBox] =
-    useState(false);
+  const [MedidasCheckBox, setMedidasCheckBox] = useState(false);
   const [disableInputsMedidas, setDisableInputsMedidas] = useState(true);
 
-
-  const [MedidaEsquerdaVPS, setMedidaEsquerdaVPS] = useState("")
-  const [MedidaEsquerdaVDF, setMedidaEsquerdaVDF] = useState("")
-  const [MedidaEsquerdaEMI, setMedidaEsquerdaEMI] = useState("")
+  const [MedidaEsquerdaVPS, setMedidaEsquerdaVPS] = useState("");
+  const [MedidaEsquerdaVDF, setMedidaEsquerdaVDF] = useState("");
+  const [MedidaEsquerdaEMI, setMedidaEsquerdaEMI] = useState("");
   //States Placa - input,checkbox e select - Inicio
   const [PlacaInput, setPlacaInput] = useState("");
   const [disablePlacaInput, setdisablePlacaInput] = useState(true);
   const [PlacaCheckBox, setPlacaCheckBox] = useState(false);
   const [PlacaSelect, setPlacaSelect] = useState("");
-
 
   //States Placa - input,checkbox e select - Fim
 
@@ -36,8 +41,6 @@ function CarotidaInternaEsquerda() {
   //State Nao Visibilizado
   const [OclusaoCheckBox, setOclusaoCheckBox] = useState(true);
 
-
-
   //Funcoes Padrao Micropolicistico - Fim
 
   //Funcoes Placa - Inicio
@@ -45,18 +48,18 @@ function CarotidaInternaEsquerda() {
     removePlaca();
     if (medida !== "") {
       var string = `Carótida Interna Esquerda com placa ${Placa} medindo ${medida} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCarotidaInterna((arr) => [...arr, string]);
     }
   };
 
   const removePlaca = () => {
-    laudoPrin.map((e) => {
+    frasesCarotidaInterna.map((e) => {
       if (e.includes("Carótida Interna Esquerda")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCarotidaInterna.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCarotidaInterna.splice(index, 1);
+          setFrasesCarotidaInterna((arr) => [...arr]);
         }
       }
     });
@@ -67,19 +70,18 @@ function CarotidaInternaEsquerda() {
   const criaStringSubOclusao = () => {
     var string = "Carótida Interna Esquerda com SubOclusão";
     if (SubOclusaoCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCarotidaInterna((arr) => [...arr, string]);
       setSubOclusaoCheckBox(false);
     } else {
       removeItemString(string);
     }
   };
 
-
   //Função Nao Visibilizado
   const criaStringOclusao = () => {
     var string = "Carótida Interna Esquerda com oclusão";
     if (OclusaoCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCarotidaInterna((arr) => [...arr, string]);
       setOclusaoCheckBox(false);
     } else {
       removeItemString(string);
@@ -87,18 +89,18 @@ function CarotidaInternaEsquerda() {
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesCarotidaInterna.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesCarotidaInterna.splice(index, 1);
+      setFrasesCarotidaInterna((arr) => [...arr]);
     }
   };
 
   const criaStringAcotovelamento = () => {
     var string = "Carótida Interna Esquerda com Acotovelamento";
     if (AcotovelamentoCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCarotidaInterna((arr) => [...arr, string]);
       setAcotovelamentoCheckBox(false);
     } else {
       removeItemString(string);
@@ -106,77 +108,76 @@ function CarotidaInternaEsquerda() {
   };
 
   const criaStringMedidaEsquerdaVPS = (medida) => {
-    removeStringMedidaEsquerdaVPS()
+    removeStringMedidaEsquerdaVPS();
     if (MedidaEsquerdaVPS !== "") {
       var string = `Carótida Interna Esquerda medindo: VPS(ACCD)  ${medida} cm/s `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCarotidaInterna((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaEsquerdaVPS = () => {
-    laudoPrin.map((e) => {
+    frasesCarotidaInterna.map((e) => {
       if (e.includes(`Carótida Interna Esquerda medindo: VPS(ACCD) `)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCarotidaInterna.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCarotidaInterna.splice(index, 1);
+          setFrasesCarotidaInterna((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringMedidaEsquerdaVPS(MedidaEsquerdaVPS)
-  }, [MedidaEsquerdaVPS])
+    criaStringMedidaEsquerdaVPS(MedidaEsquerdaVPS);
+  }, [MedidaEsquerdaVPS]);
 
   const criaStringMedidaEsquerdaEMI = (medida) => {
-    removeStringMedidaEsquerdaEMI()
+    removeStringMedidaEsquerdaEMI();
     if (MedidaEsquerdaEMI !== "") {
       var string = `Carótida Interna Esquerda medindo: EMI(ACCD)  ${medida} cm/s `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCarotidaInterna((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaEsquerdaEMI = () => {
-    laudoPrin.map((e) => {
+    frasesCarotidaInterna.map((e) => {
       if (e.includes(`Carótida Interna Esquerda medindo: EMI(ACCD) `)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCarotidaInterna.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCarotidaInterna.splice(index, 1);
+          setFrasesCarotidaInterna((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringMedidaEsquerdaEMI(MedidaEsquerdaEMI)
-  }, [MedidaEsquerdaEMI])
+    criaStringMedidaEsquerdaEMI(MedidaEsquerdaEMI);
+  }, [MedidaEsquerdaEMI]);
 
   const criaStringMedidaEsquerdaVDF = (medida) => {
-    removeStringMedidaEsquerdaVDF()
+    removeStringMedidaEsquerdaVDF();
     if (MedidaEsquerdaVDF !== "") {
       var string = `Carótida Interna Esquerda medindo: VDF(ACCD) ${medida} cm/s `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCarotidaInterna((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaEsquerdaVDF = () => {
-    laudoPrin.map((e) => {
+    frasesCarotidaInterna.map((e) => {
       if (e.includes(`Carótida Interna Esquerda medindo: VDF(ACCD) `)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCarotidaInterna.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCarotidaInterna.splice(index, 1);
+          setFrasesCarotidaInterna((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringMedidaEsquerdaVDF(MedidaEsquerdaVDF)
-  }, [MedidaEsquerdaVDF])
-
+    criaStringMedidaEsquerdaVDF(MedidaEsquerdaVDF);
+  }, [MedidaEsquerdaVDF]);
 
   useEffect(() => {
     if (PlacaCheckBox) {
@@ -194,18 +195,38 @@ function CarotidaInternaEsquerda() {
 
   useEffect(() => {
     if (MedidasCheckBox) {
-      setDisableInputsMedidas(false)
+      setDisableInputsMedidas(false);
     } else {
-      setMedidaEsquerdaVPS('')
-      setMedidaEsquerdaVDF('')
-      setMedidaEsquerdaEMI('')
-      removeStringMedidaEsquerdaVPS()
-      removeStringMedidaEsquerdaVDF()
-      removeStringMedidaEsquerdaEMI()
-      setDisableInputsMedidas(true)
+      setMedidaEsquerdaVPS("");
+      setMedidaEsquerdaVDF("");
+      setMedidaEsquerdaEMI("");
+      removeStringMedidaEsquerdaVPS();
+      removeStringMedidaEsquerdaVDF();
+      removeStringMedidaEsquerdaEMI();
+      setDisableInputsMedidas(true);
     }
-  }, [MedidasCheckBox])
+  }, [MedidasCheckBox]);
 
+  const subExame = "Carótida Interna Esquerda";
+  const titulo_exame = "Doppler das Carótidas";
+
+  useEffect(() => {
+    if (Object.keys(frasesCarotidaInterna).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesCarotidaInterna
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesCarotidaInterna
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesCarotidaInterna]);
 
   return (
     <Box
@@ -222,25 +243,17 @@ function CarotidaInternaEsquerda() {
       <TituloNomeExame titulo="Carótida Interna ESQ." />
 
       <Box display="flex" flexWrap="wrap">
-        <Box
-          display='flex'
-          flexWrap='wrap'>
+        <Box display="flex" flexWrap="wrap">
           <Checkbox
-            mr='20px'
-            onChange={() => setMedidasCheckBox(!MedidasCheckBox)}>
+            mr="20px"
+            onChange={() => setMedidasCheckBox(!MedidasCheckBox)}
+          >
             Citar medidas
           </Checkbox>
 
-          <Box
-            mb='5px'
-            alignItems='center'
-          >
-            <Box
-              alignItems='center'
-              display='flex'
-              mb='5px'
-            >
-              <Text mr='10px'>VPS</Text>
+          <Box mb="5px" alignItems="center">
+            <Box alignItems="center" display="flex" mb="5px">
+              <Text mr="10px">VPS</Text>
               <Input
                 isDisabled={disableInputsMedidas}
                 w="60px"
@@ -249,16 +262,15 @@ function CarotidaInternaEsquerda() {
                 value={MedidaEsquerdaVPS}
                 maxLength={2}
                 textAlign="center"
-                onChange={(e) => { setMedidaEsquerdaVPS(e.target.value) }}
+                onChange={(e) => {
+                  setMedidaEsquerdaVPS(e.target.value);
+                }}
                 placeholder={"00"}
               />
-              <Text mr='10px'>cm/s</Text>
+              <Text mr="10px">cm/s</Text>
             </Box>
-            <Box
-              alignItems='center'
-              display='flex'
-            >
-              <Text mr='10px'>VDF</Text>
+            <Box alignItems="center" display="flex">
+              <Text mr="10px">VDF</Text>
               <Input
                 isDisabled={disableInputsMedidas}
                 w="60px"
@@ -267,10 +279,12 @@ function CarotidaInternaEsquerda() {
                 value={MedidaEsquerdaVDF}
                 maxLength={2}
                 textAlign="center"
-                onChange={(e) => { setMedidaEsquerdaVDF(e.target.value) }}
+                onChange={(e) => {
+                  setMedidaEsquerdaVDF(e.target.value);
+                }}
                 placeholder={"00"}
               />
-              <Text mr='10px'>cm/s</Text>
+              <Text mr="10px">cm/s</Text>
             </Box>
           </Box>
         </Box>
@@ -281,7 +295,7 @@ function CarotidaInternaEsquerda() {
               Placa
             </Checkbox>
             <Select
-              w='170px'
+              w="170px"
               isDisabled={disablePlacaInput}
               onChange={(e) => {
                 setPlacaSelect(e.target.value);
@@ -298,7 +312,9 @@ function CarotidaInternaEsquerda() {
               padding="5px"
               maxLength={2}
               textAlign="center"
-              onChange={(e) => { setPlacaInput(e.target.value) }}
+              onChange={(e) => {
+                setPlacaInput(e.target.value);
+              }}
             />
             <Text>mm</Text>
           </HStack>
@@ -329,7 +345,7 @@ function CarotidaInternaEsquerda() {
           </Checkbox>
         </Stack>
       </Box>
-    </Box >
+    </Box>
   );
 }
 export default CarotidaInternaEsquerda;

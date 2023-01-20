@@ -1,13 +1,13 @@
 import { Box, Checkbox, HStack, Input, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidatide() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesHidatide, setFrasesHidate] = useState<any>([]);
 
   const [tamanhoHidatideInput, settamanhoHidatideInput] = useState("");
   const [posicaoHidatideSelect, setPosicaoHidatideSelect] = useState("");
@@ -28,18 +28,18 @@ function Hidatide() {
     ) {
       var string = `Hidátide lado ${posicaoHidatideSelect} mede ${tamanhoHidatideInput} mm `;
 
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesHidate((arr) => [...arr, string]);
     }
   };
 
   const removeStringHidatide = () => {
-    laudoPrin.map((e) => {
+    frasesHidatide.map((e) => {
       if (e.includes("Hidátide")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesHidatide.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesHidatide.splice(index, 1);
+          setFrasesHidate((arr) => [...arr]);
         }
       }
     });
@@ -47,15 +47,36 @@ function Hidatide() {
 
   useEffect(() => {
     if (hidatideCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringHidatide();
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeStringHidatide();
       setPosicaoHidatideSelect("");
       settamanhoHidatideInput("");
     }
   }, [hidatideCheckBox, tamanhoHidatideInput, posicaoHidatideSelect]);
+
+  const subExame = "Hidátide";
+  const titulo_exame = "Doppler Transvaginal";
+
+  useEffect(() => {
+    if (Object.keys(frasesHidatide).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesHidatide
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesHidatide
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesHidatide]);
 
   return (
     <Box

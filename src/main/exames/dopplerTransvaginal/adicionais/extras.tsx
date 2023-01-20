@@ -1,13 +1,13 @@
 import { Box, Checkbox, HStack, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Extras() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesExtras, setFrasesExtras] = useState<any>([]);
 
   const [uteroBiCheckBox, setUteroBiCheckBox] = useState(false);
   const [varizesCheckBox, setVarizesCheckBox] = useState(false);
@@ -17,7 +17,7 @@ function Extras() {
 
     if (varizesCheckBox) {
       var string = "Varizes pélvicas ";
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesExtras((arr) => [...arr, string]);
     }
   };
   const criaStringUteroBi = () => {
@@ -25,30 +25,30 @@ function Extras() {
 
     if (uteroBiCheckBox) {
       var string = "Útero bicorno ";
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesExtras((arr) => [...arr, string]);
     }
   };
 
   const removeStringVarizes = () => {
-    laudoPrin.map((e) => {
+    frasesExtras.map((e) => {
       if (e.includes("Varizes")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesExtras.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesExtras.splice(index, 1);
+          setFrasesExtras((arr) => [...arr]);
         }
       }
     });
   };
   const removeStringUteroBi = () => {
-    laudoPrin.map((e) => {
+    frasesExtras.map((e) => {
       if (e.includes("Útero")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesExtras.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesExtras.splice(index, 1);
+          setFrasesExtras((arr) => [...arr]);
         }
       }
     });
@@ -69,6 +69,27 @@ function Extras() {
       removeStringVarizes();
     }
   }, [varizesCheckBox]);
+
+  const subExame = "Extras";
+  const titulo_exame = "Doppler Transvaginal";
+
+  useEffect(() => {
+    if (Object.keys(frasesExtras).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesExtras
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesExtras
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesExtras]);
 
   return (
     <Box

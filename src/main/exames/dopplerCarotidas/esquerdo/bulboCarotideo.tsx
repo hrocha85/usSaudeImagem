@@ -1,43 +1,41 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Box, Checkbox, Input, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function BulboCarotideoEsquerdo() {
   const altura = "100%";
   const largura = "66%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesBulbo, setFrasesBulbo] = useState<any>([]);
 
   const [PlacaInput, setPlacaInput] = useState("");
   const [disablePlacaInput, setdisablePlacaInput] = useState(true);
   const [PlacaCheckBox, setPlacaCheckBox] = useState(false);
-
 
   //Funcoes Placa - Inicio
   const criaStringPlaca = (medida) => {
     removePlaca();
     if (medida !== "") {
       var string = `Bulbo carotídeo esquerda medindo ${medida} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesBulbo((arr) => [...arr, string]);
     }
   };
 
   const removePlaca = () => {
-    laudoPrin.map((e) => {
+    frasesBulbo.map((e) => {
       if (e.includes("Bulbo carotídeo esquerda")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesBulbo.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesBulbo.splice(index, 1);
+          setFrasesBulbo((arr) => [...arr]);
         }
       }
     });
   };
-
 
   useEffect(() => {
     if (PlacaCheckBox) {
@@ -53,6 +51,26 @@ function BulboCarotideoEsquerdo() {
     criaStringPlaca(PlacaInput);
   }, [PlacaInput]);
 
+  const subExame = "Bulbo Carotídeo Esquerdo";
+  const titulo_exame = "Doppler das Carótidas";
+
+  useEffect(() => {
+    if (Object.keys(frasesBulbo).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesBulbo
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesBulbo
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesBulbo]);
 
   return (
     <Box
@@ -68,7 +86,12 @@ function BulboCarotideoEsquerdo() {
       alignItems="center"
     >
       <TituloNomeExame titulo="Bulbo carotídeo ESQ." />
-      <Box justifyContent="center" alignItems="center" display="flex" flexWrap="wrap" >
+      <Box
+        justifyContent="center"
+        alignItems="center"
+        display="flex"
+        flexWrap="wrap"
+      >
         <Checkbox onChange={() => setPlacaCheckBox(!PlacaCheckBox)}>
           Placa
         </Checkbox>
@@ -80,12 +103,13 @@ function BulboCarotideoEsquerdo() {
           padding="5px"
           maxLength={2}
           textAlign="center"
-          onChange={(e) => { setPlacaInput(e.target.value) }}
+          onChange={(e) => {
+            setPlacaInput(e.target.value);
+          }}
         />
         <Text>mm</Text>
       </Box>
-
-    </Box >
+    </Box>
   );
 }
 export default BulboCarotideoEsquerdo;

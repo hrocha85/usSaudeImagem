@@ -14,20 +14,21 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
 
   const [frasesMiometrio, setFrasesMiometrio] = useState<any>([]);
 
-  const subExameUtero = `Miométrio. Nódulo ${numNodulo}`;
+  const subExame = `Miométrio. Nódulo ${numNodulo}`;
+  const titulo_exame = "Transvaginal"
 
   useEffect(() => {
     if (Object.keys(frasesMiometrio).length == 0) {
       new Format_Laudo(
-        false,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         true,
         frasesMiometrio
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
-        true,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         false,
         frasesMiometrio
       ).Format_Laudo_Create_Storage();

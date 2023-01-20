@@ -14,20 +14,21 @@ function Extras() {
 
   const [frasesAdicionais, setFrasesAdicionais] = useState<any>([]);
 
-  const subExameUtero = "Adicionais";
+  const subExame = "Adicionais";
+  const titulo_exame = "Transvaginal"
 
   useEffect(() => {
     if (Object.keys(frasesAdicionais).length == 0) {
       new Format_Laudo(
-        false,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         true,
         frasesAdicionais
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
-        true,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         false,
         frasesAdicionais
       ).Format_Laudo_Create_Storage();

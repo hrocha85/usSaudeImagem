@@ -13,20 +13,21 @@ function Hidatide() {
 
   const [frasesHidatide, setFrasesHidatide] = useState<any>([]);
 
-  const subExameUtero = "Hidátide";
+  const subExame = "Hidátide";
+  const titulo_exame = "Transvaginal"
 
   useEffect(() => {
     if (Object.keys(frasesHidatide).length == 0) {
       new Format_Laudo(
-        false,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         true,
         frasesHidatide
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
-        true,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         false,
         frasesHidatide
       ).Format_Laudo_Create_Storage();

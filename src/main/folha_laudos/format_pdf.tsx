@@ -9,7 +9,6 @@ import {
   View,
 } from "@react-pdf/renderer";
 import { useContext, useState } from "react";
-import { textSpanEnd } from "typescript";
 import { LaudosContext } from "../../context/LuadosContext";
 
 export default function Format_PDF() {
@@ -45,30 +44,28 @@ export default function Format_PDF() {
     return medico.medico;
   };
 
-  const renderFrases = () => {
+  const renderFrases = (exame) => {
     var arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
 
     arrayLocal.map((e) => {
       setTitulo_Exame(e.titulo_exame);
     });
 
-    return arrayLocal.map((Exames) => {
-      return Exames.subExames.map((sub) => {
-        return sub.subExameNome != null && sub.subExameNome != "" ? (
-          <View style={styles.inline}>
-            <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
-            <View style={styles.view_frases}>
-              {typeof sub.frases != "string" ? (
-                sub.frases.map((frase) => {
-                  return <Text style={styles.frasesSubExame}>{frase}</Text>;
-                })
-              ) : (
-                <Text style={styles.frasesSubExame}>{sub.frases}</Text>
-              )}
-            </View>
+    return exame.subExames.map((sub) => {
+      return sub.subExameNome != null && sub.subExameNome != "" ? (
+        <View style={styles.inline} wrap={false}>
+          <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
+          <View style={styles.view_frases}>
+            {typeof sub.frases != "string" ? (
+              sub.frases.map((frase) => {
+                return <Text style={styles.frasesSubExame}>{frase}</Text>;
+              })
+            ) : (
+              <Text style={styles.frasesSubExame}>{sub.frases}</Text>
+            )}
           </View>
-        ) : null;
-      });
+        </View>
+      ) : null;
     });
   };
 
@@ -120,9 +117,8 @@ export default function Format_PDF() {
     inline: {
       display: "flex",
       flexDirection: "row",
-      paddingBottom: 30,
-      marginTop: "20px",
-      marginBottom: "20px",
+      paddingTop: "10%",
+      marginLeft: 20,
     },
     page: {
       backgroundColor: "white",
@@ -135,7 +131,7 @@ export default function Format_PDF() {
       width: "100%",
     },
     viewer: {
-      width: window.screen.availWidth, //the pdf viewer will take up all of the width and height
+      width: window.screen.availWidth,
       height: window.screen.availHeight,
     },
     imageClinica: {
@@ -217,7 +213,6 @@ export default function Format_PDF() {
       textAlign: "center",
       fontSize: "20",
       fontFamily: "MontserratBold",
-      marginBottom: "50px",
     },
     textNomeSubExame: {
       fontWeigh: "bold",
@@ -234,11 +229,10 @@ export default function Format_PDF() {
       lineHeight: 1.5,
     },
     laudo_viewer: {
-      margin: 20,
-      marginBottom: "35%",
+      margin: 10,
+      marginBottom: "30%",
     },
     view_frases: {
-      marginBottom: "30px",
       marginLeft: "10px",
       marginRight: "30px",
       flex: 1,
@@ -252,7 +246,7 @@ export default function Format_PDF() {
           title={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
           author={`Dr.${medico.nome}`}
         >
-          <Page size="A4" style={styles.page}>
+          <Page size="A4" style={styles.page} wrap={true}>
             <View style={styles.section}>
               <View style={styles.viewAssinatura}>
                 <Image style={styles.imageClinica} src={clinicaSet.foto} />
@@ -266,12 +260,19 @@ export default function Format_PDF() {
               </View>
             </View>
             <View style={styles.line}></View>
-            <View style={styles.laudo_viewer}>
-              <Text style={styles.textTituloExame}>
-                {titulo_exame.toUpperCase()}
-              </Text>
-              <View>{renderFrases()}</View>
-            </View>
+            {JSON.parse(localStorage.getItem("format_laudo")!).map(
+              (exame, key) => {
+                return (
+                  <View style={styles.laudo_viewer} key={key}>
+                    <Text style={styles.textTituloExame}>
+                      {exame.titulo_exame.toUpperCase()}
+                    </Text>
+                    <View>{renderFrases(exame)}</View>
+                  </View>
+                );
+              }
+            )}
+
             <View style={styles.pageNumber}>
               <View style={styles.pageNumber}>
                 <View style={styles.footer}>

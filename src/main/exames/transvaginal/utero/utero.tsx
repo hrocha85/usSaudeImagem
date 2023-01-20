@@ -16,20 +16,21 @@ function Utero() {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [frasesUtero, setFrasesUtero] = useState<any>([]);
 
-  const subExameUtero = "Útero";
+  const subExame = "Útero";
+  const titulo_exame = "Transvaginal";
 
   useEffect(() => {
     if (Object.keys(frasesUtero).length == 0) {
       new Format_Laudo(
-        false,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         true,
         frasesUtero
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
-        true,
-        subExameUtero,
+        titulo_exame,
+        subExame,
         false,
         frasesUtero
       ).Format_Laudo_Create_Storage();

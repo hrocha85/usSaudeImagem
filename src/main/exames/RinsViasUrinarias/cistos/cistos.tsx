@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Box, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import IndividualizarCistos from "./individualizar_cistos";
 
@@ -10,50 +10,59 @@ function Cisto() {
   const altura = "100%";
   const largura = "66%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesCistos, setFrasesCistos] = useState<any>([]);
+
   var numberArray = [1, 2, 3, 4];
 
-  const [tamanhoNoduloDireitoInput, settamanhoNoduloDireitoInput] = useState("");
-  const [posicaoCistosDireitoSelect, setPosicaoCistosDireitoSelect] = useState("");
+  const [tamanhoNoduloDireitoInput, settamanhoNoduloDireitoInput] =
+    useState("");
+  const [posicaoCistosDireitoSelect, setPosicaoCistosDireitoSelect] =
+    useState("");
 
-  const [multiplosCistosRimDireitoCheckBox, setmultiplosCistosRimDireitoCheckBox] =
-    useState(false);
+  const [
+    multiplosCistosRimDireitoCheckBox,
+    setmultiplosCistosRimDireitoCheckBox,
+  ] = useState(false);
 
-  const [DisableSelectDireito, setDisableSelectDireito] =
+  const [DisableSelectDireito, setDisableSelectDireito] = useState(true);
+
+  const [tamanhoNoduloEsquerdoInput, settamanhoNoduloEsquerdoInput] =
+    useState("");
+  const [posicaoCistosEsquerdoSelect, setPosicaoCistosEsquerdoSelect] =
+    useState("");
+
+  const [
+    multiplosCistosRimEsquerdoCheckBox,
+    setmultiplosCistosRimEsquerdoCheckBox,
+  ] = useState(false);
+
+  const [DisableSelectEsquerdo, setDisableSelectEsquerdo] = useState(true);
+
+  const [RimPolicisticoCheckBox, setRimPolicisticoCheckBox] = useState(false);
+  const [DisableRimPolicisticoSelect, setDisableRimPolicisticoSelect] =
     useState(true);
-
-  const [tamanhoNoduloEsquerdoInput, settamanhoNoduloEsquerdoInput] = useState("");
-  const [posicaoCistosEsquerdoSelect, setPosicaoCistosEsquerdoSelect] = useState("");
-
-  const [multiplosCistosRimEsquerdoCheckBox, setmultiplosCistosRimEsquerdoCheckBox] =
-    useState(false);
-
-  const [DisableSelectEsquerdo, setDisableSelectEsquerdo] =
-    useState(true);
-
-  const [RimPolicisticoCheckBox, setRimPolicisticoCheckBox] =
-    useState(false);
-  const [DisableRimPolicisticoSelect, setDisableRimPolicisticoSelect] = useState(true);
   const [RimPolicisticoSelect, setRimPolicisticoSelect] = useState("");
 
-
-  const criaStringMultiplosCistosRimDireito = (tamanhoNoduloDireitoInput, localizado) => {
+  const criaStringMultiplosCistosRimDireito = (
+    tamanhoNoduloDireitoInput,
+    localizado
+  ) => {
     removeMultiplosCistosRimDireito();
 
     if (tamanhoNoduloDireitoInput !== "" && localizado !== "") {
       var string = `Múltiplos Cistos no rim direito, o maior mede ${tamanhoNoduloDireitoInput}mm  localizado ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCistos((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCistosRimDireito = () => {
-    laudoPrin.map((e) => {
+    frasesCistos.map((e) => {
       if (e.includes("Múltiplos Cistos no rim direito")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCistos.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCistos.splice(index, 1);
+          setFrasesCistos((arr) => [...arr]);
         }
       }
     });
@@ -61,13 +70,13 @@ function Cisto() {
 
   useEffect(() => {
     if (multiplosCistosRimDireitoCheckBox) {
-      setDisableSelectDireito(false)
+      setDisableSelectDireito(false);
       criaStringMultiplosCistosRimDireito(
         tamanhoNoduloDireitoInput,
-        posicaoCistosDireitoSelect,
+        posicaoCistosDireitoSelect
       );
     } else {
-      setDisableSelectDireito(true)
+      setDisableSelectDireito(true);
       removeMultiplosCistosRimDireito();
       settamanhoNoduloDireitoInput("");
       setPosicaoCistosDireitoSelect("");
@@ -77,23 +86,26 @@ function Cisto() {
     posicaoCistosDireitoSelect,
     tamanhoNoduloDireitoInput,
   ]);
-  const criaStringMultiplosCistosRimEsquerdo = (tamanhoNoduloEsquerdoInput, localizado) => {
+  const criaStringMultiplosCistosRimEsquerdo = (
+    tamanhoNoduloEsquerdoInput,
+    localizado
+  ) => {
     removeMultiplosCistosRimEsquerdo();
 
     if (tamanhoNoduloEsquerdoInput !== "" && localizado !== "") {
       var string = `Múltiplos Cistos no rim Esquerdo, o maior mede ${tamanhoNoduloEsquerdoInput}mm  localizado ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCistos((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCistosRimEsquerdo = () => {
-    laudoPrin.map((e) => {
+    frasesCistos.map((e) => {
       if (e.includes("Múltiplos Cistos no rim Esquerdo")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCistos.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCistos.splice(index, 1);
+          setFrasesCistos((arr) => [...arr]);
         }
       }
     });
@@ -101,13 +113,13 @@ function Cisto() {
 
   useEffect(() => {
     if (multiplosCistosRimEsquerdoCheckBox) {
-      setDisableSelectEsquerdo(false)
+      setDisableSelectEsquerdo(false);
       criaStringMultiplosCistosRimEsquerdo(
         tamanhoNoduloEsquerdoInput,
-        posicaoCistosEsquerdoSelect,
+        posicaoCistosEsquerdoSelect
       );
     } else {
-      setDisableSelectEsquerdo(true)
+      setDisableSelectEsquerdo(true);
       removeMultiplosCistosRimEsquerdo();
       settamanhoNoduloEsquerdoInput("");
       setPosicaoCistosEsquerdoSelect("");
@@ -122,18 +134,18 @@ function Cisto() {
     removeRimPolicistico();
     if (RimPolicisticoSelect !== "") {
       var string = `${RimPolicisticoSelect} policístico`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCistos((arr) => [...arr, string]);
     }
   };
 
   const removeRimPolicistico = () => {
-    laudoPrin.map((e) => {
+    frasesCistos.map((e) => {
       if (e.includes("policístico")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCistos.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCistos.splice(index, 1);
+          setFrasesCistos((arr) => [...arr]);
         }
       }
     });
@@ -141,19 +153,35 @@ function Cisto() {
 
   useEffect(() => {
     if (RimPolicisticoCheckBox) {
-      setDisableRimPolicisticoSelect(false)
-      criaStringRimPolicistico(
-        RimPolicisticoSelect
-      );
+      setDisableRimPolicisticoSelect(false);
+      criaStringRimPolicistico(RimPolicisticoSelect);
     } else {
-      setDisableRimPolicisticoSelect(true)
+      setDisableRimPolicisticoSelect(true);
       removeRimPolicistico();
-      setRimPolicisticoSelect("")
+      setRimPolicisticoSelect("");
     }
-  }, [
-    RimPolicisticoCheckBox,
-    RimPolicisticoSelect
-  ]);
+  }, [RimPolicisticoCheckBox, RimPolicisticoSelect]);
+
+  const subExame = "Cistos";
+  const titulo_exame = "Rins e Vias Urinárias";
+
+  useEffect(() => {
+    if (Object.keys(frasesCistos).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesCistos
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesCistos
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesCistos]);
 
   return (
     <Box
@@ -171,14 +199,12 @@ function Cisto() {
 
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <Stack>
-
-          <Box
-            gap='5px'
-            display='flex'
-            flexWrap='wrap'>
+          <Box gap="5px" display="flex" flexWrap="wrap">
             <Checkbox
               onChange={() =>
-                setmultiplosCistosRimDireitoCheckBox(!multiplosCistosRimDireitoCheckBox)
+                setmultiplosCistosRimDireitoCheckBox(
+                  !multiplosCistosRimDireitoCheckBox
+                )
               }
             >
               Múltiplos Cistos no Rim Direito, o maior mede
@@ -211,11 +237,14 @@ function Cisto() {
               <option value="Submucoso">Submucoso</option>
             </Select>
           </Box>
-          <Box
-            gap='5px'
-            display='flex'
-            flexWrap='wrap'>
-            <Checkbox onChange={() => setmultiplosCistosRimEsquerdoCheckBox(!multiplosCistosRimEsquerdoCheckBox)}>
+          <Box gap="5px" display="flex" flexWrap="wrap">
+            <Checkbox
+              onChange={() =>
+                setmultiplosCistosRimEsquerdoCheckBox(
+                  !multiplosCistosRimEsquerdoCheckBox
+                )
+              }
+            >
               Múltiplos Cistos no Rim Esquerdo, o maior mede
             </Checkbox>
 
@@ -246,11 +275,12 @@ function Cisto() {
               <option value="Submucoso">Submucoso</option>
             </Select>
           </Box>
-          <Box
-            gap='5px'
-            display='flex'
-            flexWrap='wrap'>
-            <Checkbox onChange={() => setRimPolicisticoCheckBox(!RimPolicisticoCheckBox)}>
+          <Box gap="5px" display="flex" flexWrap="wrap">
+            <Checkbox
+              onChange={() =>
+                setRimPolicisticoCheckBox(!RimPolicisticoCheckBox)
+              }
+            >
               Rim Policístico
             </Checkbox>
 
@@ -277,12 +307,7 @@ function Cisto() {
           <Stack>
             <>
               {numberArray.map((num, key) => {
-                return (
-                  <IndividualizarCistos
-                    key={key}
-                    numCisto={num}
-                  />
-                );
+                return <IndividualizarCistos key={key} numCisto={num} />;
               })}
             </>
           </Stack>

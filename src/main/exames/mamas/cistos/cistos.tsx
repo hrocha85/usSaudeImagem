@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Checkbox, Input, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Box, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import IndividualizarCistos from "./individualizar_cistos";
 
@@ -10,48 +10,65 @@ function Cisto() {
   const altura = "100%";
   const largura = "66%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesCistos, setFrasesCistos] = useState<any>([]);
+
   var numberArray = [1, 2, 3, 4];
 
-  const [multiplosCistosMamaDireitoCheckBox, setmultiplosCistosMamaDireitoCheckBox] =
-    useState(false);
+  const [
+    multiplosCistosMamaDireitoCheckBox,
+    setmultiplosCistosMamaDireitoCheckBox,
+  ] = useState(false);
 
-  const [DisableSelectDireito, setDisableSelectDireito] =
-    useState(true);
+  const [DisableSelectDireito, setDisableSelectDireito] = useState(true);
 
+  const [
+    multiplosCistosMamaEsquerdoCheckBox,
+    setmultiplosCistosMamaEsquerdoCheckBox,
+  ] = useState(false);
 
-  const [multiplosCistosMamaEsquerdoCheckBox, setmultiplosCistosMamaEsquerdoCheckBox] =
-    useState(false);
+  const [DisableSelectEsquerdo, setDisableSelectEsquerdo] = useState(true);
 
-  const [DisableSelectEsquerdo, setDisableSelectEsquerdo] =
-    useState(true);
+  const [tamanhoCistoMamaDireitoInput, settamanhoCistoMamaDireitoInput] =
+    useState("");
+  const [posicaoCistosMamaDireitoSelect, setPosicaoCistosMamaDireitoSelect] =
+    useState("");
+  const [ConteudoCistosMamaDireitoSelect, setConteudoCistosMamaDireitoSelect] =
+    useState("");
 
+  const [tamanhoCistoMamaEsquerdoInput, setTamanhoCistoMamaEsquerdoInput] =
+    useState("");
+  const [posicaoCistosMamaEsquerdoSelect, setPosicaoCistosMamaEsquerdoSelect] =
+    useState("");
+  const [
+    ConteudoCistosMamaEsquerdoSelect,
+    setConteudoCistosMamaEsquerdoSelect,
+  ] = useState("");
 
-  const [tamanhoCistoMamaDireitoInput, settamanhoCistoMamaDireitoInput] = useState("");
-  const [posicaoCistosMamaDireitoSelect, setPosicaoCistosMamaDireitoSelect] = useState("");
-  const [ConteudoCistosMamaDireitoSelect, setConteudoCistosMamaDireitoSelect] = useState("");
-
-  const [tamanhoCistoMamaEsquerdoInput, setTamanhoCistoMamaEsquerdoInput] = useState("");
-  const [posicaoCistosMamaEsquerdoSelect, setPosicaoCistosMamaEsquerdoSelect] = useState("");
-  const [ConteudoCistosMamaEsquerdoSelect, setConteudoCistosMamaEsquerdoSelect] = useState("");
-
-  const criaStringMultiplosCistosMamaDireito = (tamanhoNoduloDireitoInput, localizado, ConteudoCistosMamaDireitoSelect) => {
+  const criaStringMultiplosCistosMamaDireito = (
+    tamanhoNoduloDireitoInput,
+    localizado,
+    ConteudoCistosMamaDireitoSelect
+  ) => {
     removeMultiplosCistosMamaDireito();
 
-    if (tamanhoNoduloDireitoInput !== "" && localizado !== "" && ConteudoCistosMamaDireitoSelect !== "") {
+    if (
+      tamanhoNoduloDireitoInput !== "" &&
+      localizado !== "" &&
+      ConteudoCistosMamaDireitoSelect !== ""
+    ) {
       var string = `Múltiplos Cistos no Mama direito, o maior conteúdo ${ConteudoCistosMamaDireitoSelect} ${localizado}n medindo ${tamanhoNoduloDireitoInput} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCistos((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCistosMamaDireito = () => {
-    laudoPrin.map((e) => {
+    frasesCistos.map((e) => {
       if (e.includes("Múltiplos Cistos no Mama direito")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCistos.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCistos.splice(index, 1);
+          setFrasesCistos((arr) => [...arr]);
         }
       }
     });
@@ -59,42 +76,50 @@ function Cisto() {
 
   useEffect(() => {
     if (multiplosCistosMamaDireitoCheckBox) {
-      setDisableSelectDireito(false)
+      setDisableSelectDireito(false);
       criaStringMultiplosCistosMamaDireito(
         tamanhoCistoMamaDireitoInput,
         posicaoCistosMamaDireitoSelect,
         ConteudoCistosMamaDireitoSelect
       );
     } else {
-      setDisableSelectDireito(true)
+      setDisableSelectDireito(true);
       removeMultiplosCistosMamaDireito();
       settamanhoCistoMamaDireitoInput("");
       setPosicaoCistosMamaDireitoSelect("");
-      setConteudoCistosMamaDireitoSelect("")
+      setConteudoCistosMamaDireitoSelect("");
     }
   }, [
     multiplosCistosMamaDireitoCheckBox,
     tamanhoCistoMamaDireitoInput,
     posicaoCistosMamaDireitoSelect,
-    ConteudoCistosMamaDireitoSelect
+    ConteudoCistosMamaDireitoSelect,
   ]);
-  const criaStringMultiplosCistosMamaEsquerdo = (tamanhoNoduloEsquerdoInput, localizado, ConteudoCistosMamaEsquerdoSelect) => {
+  const criaStringMultiplosCistosMamaEsquerdo = (
+    tamanhoNoduloEsquerdoInput,
+    localizado,
+    ConteudoCistosMamaEsquerdoSelect
+  ) => {
     removeMultiplosCistosMamaEsquerdo();
 
-    if (tamanhoNoduloEsquerdoInput !== "" && localizado !== "" && ConteudoCistosMamaEsquerdoSelect !== "") {
+    if (
+      tamanhoNoduloEsquerdoInput !== "" &&
+      localizado !== "" &&
+      ConteudoCistosMamaEsquerdoSelect !== ""
+    ) {
       var string = `Múltiplos Cistos no Mama esquerdo, o maior conteúdo ${ConteudoCistosMamaEsquerdoSelect} ${localizado}n medindo ${tamanhoNoduloEsquerdoInput} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCistos((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCistosMamaEsquerdo = () => {
-    laudoPrin.map((e) => {
+    frasesCistos.map((e) => {
       if (e.includes("Múltiplos Cistos no Mama Esquerdo")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCistos.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCistos.splice(index, 1);
+          setFrasesCistos((arr) => [...arr]);
         }
       }
     });
@@ -102,14 +127,14 @@ function Cisto() {
 
   useEffect(() => {
     if (multiplosCistosMamaEsquerdoCheckBox) {
-      setDisableSelectEsquerdo(false)
+      setDisableSelectEsquerdo(false);
       criaStringMultiplosCistosMamaEsquerdo(
         tamanhoCistoMamaEsquerdoInput,
         posicaoCistosMamaEsquerdoSelect,
         ConteudoCistosMamaEsquerdoSelect
       );
     } else {
-      setDisableSelectEsquerdo(true)
+      setDisableSelectEsquerdo(true);
       removeMultiplosCistosMamaEsquerdo();
       setTamanhoCistoMamaEsquerdoInput("");
       setPosicaoCistosMamaEsquerdoSelect("");
@@ -119,8 +144,29 @@ function Cisto() {
     multiplosCistosMamaEsquerdoCheckBox,
     tamanhoCistoMamaEsquerdoInput,
     posicaoCistosMamaEsquerdoSelect,
-    ConteudoCistosMamaEsquerdoSelect
+    ConteudoCistosMamaEsquerdoSelect,
   ]);
+
+  const subExame = "Cistos";
+  const titulo_exame = "Mamas";
+
+  useEffect(() => {
+    if (Object.keys(frasesCistos).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesCistos
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesCistos
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesCistos]);
 
   return (
     <Box
@@ -138,19 +184,16 @@ function Cisto() {
 
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <Stack>
-
           <Checkbox
             onChange={() =>
-              setmultiplosCistosMamaDireitoCheckBox(!multiplosCistosMamaDireitoCheckBox)
+              setmultiplosCistosMamaDireitoCheckBox(
+                !multiplosCistosMamaDireitoCheckBox
+              )
             }
           >
             Múltiplos Cistos no Mama Direito, o maior mede
           </Checkbox>
-          <Box
-            gap='5px'
-            display='flex'
-            flexWrap='wrap'>
-
+          <Box gap="5px" display="flex" flexWrap="wrap">
             <Select
               w="auto"
               isDisabled={DisableSelectDireito}
@@ -175,7 +218,9 @@ function Cisto() {
               padding="5px"
               maxLength={2}
               textAlign="center"
-              onChange={(e) => { settamanhoCistoMamaDireitoInput(e.target.value) }}
+              onChange={(e) => {
+                settamanhoCistoMamaDireitoInput(e.target.value);
+              }}
               placeholder={"mm"}
             />
             <Select
@@ -201,17 +246,21 @@ function Cisto() {
               <option value="às 10 horas">às 10 horas</option>
               <option value="às 11 horas">às 11 horas</option>
               <option value="às 12 horas">às 12 horas</option>
-              <option value="na região retropapilar">na região retropapilar</option>
+              <option value="na região retropapilar">
+                na região retropapilar
+              </option>
             </Select>
           </Box>
-          <Checkbox onChange={() => setmultiplosCistosMamaEsquerdoCheckBox(!multiplosCistosMamaEsquerdoCheckBox)}>
+          <Checkbox
+            onChange={() =>
+              setmultiplosCistosMamaEsquerdoCheckBox(
+                !multiplosCistosMamaEsquerdoCheckBox
+              )
+            }
+          >
             Múltiplos Cistos no Mama Esquerdo, o maior mede
           </Checkbox>
-          <Box
-            gap='5px'
-            display='flex'
-            flexWrap='wrap'>
-
+          <Box gap="5px" display="flex" flexWrap="wrap">
             <Select
               w="auto"
               isDisabled={DisableSelectEsquerdo}
@@ -236,7 +285,9 @@ function Cisto() {
               padding="5px"
               maxLength={2}
               textAlign="center"
-              onChange={(e) => { setTamanhoCistoMamaEsquerdoInput(e.target.value) }}
+              onChange={(e) => {
+                setTamanhoCistoMamaEsquerdoInput(e.target.value);
+              }}
               placeholder={"mm"}
             />
             <Select
@@ -262,10 +313,11 @@ function Cisto() {
               <option value="às 10 horas">às 10 horas</option>
               <option value="às 11 horas">às 11 horas</option>
               <option value="às 12 horas">às 12 horas</option>
-              <option value="na região retropapilar">na região retropapilar</option>
+              <option value="na região retropapilar">
+                na região retropapilar
+              </option>
             </Select>
           </Box>
-
 
           <Box borderBottom="1px"></Box>
           <Text fontWeight="semibold" fontSize="16px">
@@ -274,12 +326,7 @@ function Cisto() {
           <Stack>
             <>
               {numberArray.map((num, key) => {
-                return (
-                  <IndividualizarCistos
-                    key={key}
-                    numCisto={num}
-                  />
-                );
+                return <IndividualizarCistos key={key} numCisto={num} />;
               })}
             </>
           </Stack>

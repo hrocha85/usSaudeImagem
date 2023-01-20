@@ -1,13 +1,13 @@
 import { Box, Checkbox, Flex, HStack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Tibial_Posterior_Esquerda() {
   const altura = "100%";
   const largura = "100%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesTibialPEsquerda, setFrasesTibialPEsquerda] = useState<any>([]);
 
   const [FluxoAusenteCheckBox, setFluxoAusenteCheckBox] = useState(false);
   const [PosEstenoticoCheckBox, setPosEstenoticoCheckBox] = useState(false);
@@ -15,17 +15,17 @@ function Tibial_Posterior_Esquerda() {
 
   const criaStringFluxoAusente = () => {
     var string = "Tibial posterior esquerda fluxo ausente ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesTibialPEsquerda((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
-    laudoPrin.map((e) => {
+    frasesTibialPEsquerda.map((e) => {
       if (e.includes("Tibial posterior esquerda fluxo ausente ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesTibialPEsquerda.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesTibialPEsquerda.splice(index, 1);
+          setFrasesTibialPEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -33,17 +33,17 @@ function Tibial_Posterior_Esquerda() {
 
   const criaStringPosEstenotico = () => {
     var string = "Pós estenótico tibial posterior esquerda ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesTibialPEsquerda((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
-    laudoPrin.map((e) => {
+    frasesTibialPEsquerda.map((e) => {
       if (e.includes("Pós estenótico tibial posterior esquerda ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesTibialPEsquerda.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesTibialPEsquerda.splice(index, 1);
+          setFrasesTibialPEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -51,17 +51,17 @@ function Tibial_Posterior_Esquerda() {
 
   const criaStringEstenose = () => {
     var string = "Estenose tibial posterior esquerda acima de 50% ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesTibialPEsquerda((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
-    laudoPrin.map((e) => {
+    frasesTibialPEsquerda.map((e) => {
       if (e.includes("Estenose tibial posterior esquerda acima de 50% ")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesTibialPEsquerda.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesTibialPEsquerda.splice(index, 1);
+          setFrasesTibialPEsquerda((arr) => [...arr]);
         }
       }
     });
@@ -90,6 +90,27 @@ function Tibial_Posterior_Esquerda() {
       removeEstenose();
     }
   }, [EstenoseCheckBox]);
+
+  const subExame = "Tibial Posterior Esquerda";
+  const titulo_exame = "Doppler Arterial de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesTibialPEsquerda).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesTibialPEsquerda
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesTibialPEsquerda
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesTibialPEsquerda]);
 
   return (
     <Box

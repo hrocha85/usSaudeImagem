@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Stack, } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import { useState } from "react";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 import IndividualizarNodulos from "./individualizar_veias";
@@ -11,10 +11,10 @@ function VeiasPerfurantesDireito() {
 
   var numberArray = [1, 2, 3, 4];
 
-
-  const [VeiasPerfurantesSemNodulosCheckBox, setVeiasPerfurantesSemNodulosCheckBox] = useState(true);
-
-
+  const [
+    VeiasPerfurantesSemNodulosCheckBox,
+    setVeiasPerfurantesSemNodulosCheckBox,
+  ] = useState(true);
 
   return (
     <Box
@@ -43,9 +43,9 @@ function VeiasPerfurantesDireito() {
               );
             })}
           </>
-        </Stack >
-      </Box >
-    </Box >
+        </Stack>
+      </Box>
+    </Box>
   );
 }
 export default VeiasPerfurantesDireito;

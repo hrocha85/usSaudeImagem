@@ -5,25 +5,23 @@ import {
   Input,
   Select,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Ovario_Direito() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesOVD, setFrasesOVD] = useState<any>([]);
 
-  const [dopplerMedidasCheckBox, setdopplerMedidasCheckBox] =
-    useState(false);
+  const [dopplerMedidasCheckBox, setdopplerMedidasCheckBox] = useState(false);
   const [disableInputsDoppler, setDisableInputsDoppler] = useState(true);
 
-
-  const [MedidaDireitaIR, setMedidaDireitaIR] = useState("")
-  const [MedidaDireitaIP, setMedidaDireitaIP] = useState("")
+  const [MedidaDireitaIR, setMedidaDireitaIR] = useState("");
+  const [MedidaDireitaIP, setMedidaDireitaIP] = useState("");
 
   //States medidas ovario - Inicio
   const [medidaOvario1, setmedidaOvario1] = useState("");
@@ -56,18 +54,18 @@ function Ovario_Direito() {
   const criaStringMedidasOvario = () => {
     if (medidaOvario1 != "" && medidaOvario2 != "" && medidaOvario3 != "") {
       var string = `Ovário Direito mede ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOVD((arr) => [...arr, string]);
     }
   };
 
   const removeMedidasOvario = () => {
-    laudoPrin.map((e) => {
+    frasesOVD.map((e) => {
       if (e.includes("Ovário Direito")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesOVD.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOVD.splice(index, 1);
+          setFrasesOVD((arr) => [...arr]);
         }
       }
     });
@@ -77,17 +75,17 @@ function Ovario_Direito() {
   //Funcoes Padrao Folicular - Inicio
   const criaStringPadraoFolicular = () => {
     var string = "Ovário direito com padrão folicular ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesOVD((arr) => [...arr, string]);
   };
 
   const removePadraoFolicular = () => {
-    laudoPrin.map((e) => {
+    frasesOVD.map((e) => {
       if (e.includes("folicular")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesOVD.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOVD.splice(index, 1);
+          setFrasesOVD((arr) => [...arr]);
         }
       }
     });
@@ -97,18 +95,18 @@ function Ovario_Direito() {
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringPadraoMicropolicistico = () => {
     var string = "Ovário direito com padrão micropolicístico ";
-    setLaudoPrin((arr) => [...arr, string]);
+    setFrasesOVD((arr) => [...arr, string]);
     return string;
   };
 
   const removePadraoMicropolicistico = () => {
-    laudoPrin.map((e) => {
+    frasesOVD.map((e) => {
       if (e.includes("micropolicístico")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesOVD.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOVD.splice(index, 1);
+          setFrasesOVD((arr) => [...arr]);
         }
       }
     });
@@ -120,18 +118,18 @@ function Ovario_Direito() {
     removeCisto();
     if (medida != "") {
       var string = `Cisto no ovário direito com ${medida}mm ${cisto} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOVD((arr) => [...arr, string]);
     }
   };
 
   const removeCisto = () => {
-    laudoPrin.map((e) => {
+    frasesOVD.map((e) => {
       if (e.includes("Cisto")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesOVD.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOVD.splice(index, 1);
+          setFrasesOVD((arr) => [...arr]);
         }
       }
     });
@@ -142,7 +140,7 @@ function Ovario_Direito() {
   const criaStringNaoVisibilizado = () => {
     var string = "Ovário direito não visibilizado ";
     if (naoVisibilizadoCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOVD((arr) => [...arr, string]);
       setnaoVisibilizadoCheckBox(false);
     } else {
       removeItemString(string);
@@ -150,66 +148,69 @@ function Ovario_Direito() {
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesOVD.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesOVD.splice(index, 1);
+      setFrasesOVD((arr) => [...arr]);
     }
   };
 
-
   const criaStringArteriaDireitaIR = (medida) => {
-    removeStringArteriaDireitaIR()
+    removeStringArteriaDireitaIR();
     if (MedidaDireitaIR !== "") {
       var string = `Índice de resistência da artéria uterina 
       direita: ${medida} (normal entre 0,6 e 0,9)`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOVD((arr) => [...arr, string]);
     }
   };
   const removeStringArteriaDireitaIR = () => {
-    laudoPrin.map((e) => {
-      if (e.includes(`Índice de resistência da artéria uterina 
-      direita`)) {
-        var index = laudoPrin.indexOf(e);
+    frasesOVD.map((e) => {
+      if (
+        e.includes(`Índice de resistência da artéria uterina 
+      direita`)
+      ) {
+        var index = frasesOVD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOVD.splice(index, 1);
+          setFrasesOVD((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringArteriaDireitaIR(MedidaDireitaIR)
-  }, [MedidaDireitaIR])
+    criaStringArteriaDireitaIR(MedidaDireitaIR);
+  }, [MedidaDireitaIR]);
 
   const criaStringArteriaDireitaIP = (medida) => {
-    removeStringArteriaDireitaIP()
+    removeStringArteriaDireitaIP();
     if (MedidaDireitaIP !== "") {
       var string = `Índice de pulsatilidade da artéria uterina 
       direita: ${medida} (normal entre 1,5 e 3,0)`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOVD((arr) => [...arr, string]);
     }
   };
   const removeStringArteriaDireitaIP = () => {
-    laudoPrin.map((e) => {
-      if (e.includes(`Índice de pulsatilidade da artéria uterina 
-      direita`)) {
-        var index = laudoPrin.indexOf(e);
+    frasesOVD.map((e) => {
+      if (
+        e.includes(`Índice de pulsatilidade da artéria uterina 
+      direita`)
+      ) {
+        var index = frasesOVD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOVD.splice(index, 1);
+          setFrasesOVD((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringArteriaDireitaIP(MedidaDireitaIP)
-  }, [MedidaDireitaIP])
+    criaStringArteriaDireitaIP(MedidaDireitaIP);
+  }, [MedidaDireitaIP]);
 
   useEffect(() => {
     removeMedidasOvario();
@@ -248,16 +249,36 @@ function Ovario_Direito() {
 
   useEffect(() => {
     if (dopplerMedidasCheckBox) {
-      setDisableInputsDoppler(false)
+      setDisableInputsDoppler(false);
     } else {
-      setMedidaDireitaIR('')
-      setMedidaDireitaIP('')
-      removeStringArteriaDireitaIR()
-      removeStringArteriaDireitaIP()
-      setDisableInputsDoppler(true)
+      setMedidaDireitaIR("");
+      setMedidaDireitaIP("");
+      removeStringArteriaDireitaIR();
+      removeStringArteriaDireitaIP();
+      setDisableInputsDoppler(true);
     }
-  }, [dopplerMedidasCheckBox])
+  }, [dopplerMedidasCheckBox]);
 
+  const subExame = "Ovário Direito";
+  const titulo_exame = "Doppler Transvaginal";
+
+  useEffect(() => {
+    if (Object.keys(frasesOVD).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesOVD
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesOVD
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesOVD]);
 
   return (
     <Box
@@ -274,8 +295,7 @@ function Ovario_Direito() {
       <TituloNomeExame titulo="Ovário Direito" />
 
       <Box display="flex" flexWrap="wrap" mt="20px">
-        <Stack
-          borderBottom='1px'>
+        <Stack borderBottom="1px">
           <Box w="200px">
             <Text>Medidas:</Text>
             <HStack marginTop="5px">
@@ -370,35 +390,23 @@ function Ovario_Direito() {
             </HStack>
           </Stack>
         </Stack>
-        <Box
-          mt='5px'
-          color="red"
-        >
-          <Text
-            w='100%'
-            fontWeight="semibold" fontSize="16px">
+        <Box mt="5px" color="red">
+          <Text w="100%" fontWeight="semibold" fontSize="16px">
             Doppler
           </Text>
-          <Box
-            display='flex'
-            flexWrap='wrap'>
+          <Box display="flex" flexWrap="wrap">
             <Checkbox
-              onChange={() => setdopplerMedidasCheckBox(!dopplerMedidasCheckBox)}>
+              onChange={() =>
+                setdopplerMedidasCheckBox(!dopplerMedidasCheckBox)
+              }
+            >
               Citar medidas
             </Checkbox>
             <Box>
-              <Box
-                mb='5px'
-                alignItems='center'
-                display='flex'
-                gap='25px'
-              >
-                <Text mr='22px'>Artéria uterina direita</Text>
-                <Box
-                  alignItems='center'
-                  display='flex'
-                >
-                  <Text mr='10px'>IR</Text>
+              <Box mb="5px" alignItems="center" display="flex" gap="25px">
+                <Text mr="22px">Artéria uterina direita</Text>
+                <Box alignItems="center" display="flex">
+                  <Text mr="10px">IR</Text>
                   <Input
                     isDisabled={disableInputsDoppler}
                     w="60px"
@@ -407,15 +415,14 @@ function Ovario_Direito() {
                     value={MedidaDireitaIR}
                     maxLength={2}
                     textAlign="center"
-                    onChange={(e) => { setMedidaDireitaIR(e.target.value) }}
+                    onChange={(e) => {
+                      setMedidaDireitaIR(e.target.value);
+                    }}
                     placeholder={"mm"}
                   />
                 </Box>
-                <Box
-                  alignItems='center'
-                  display='flex'
-                >
-                  <Text mr='10px'>IP</Text>
+                <Box alignItems="center" display="flex">
+                  <Text mr="10px">IP</Text>
                   <Input
                     isDisabled={disableInputsDoppler}
                     w="60px"
@@ -424,14 +431,15 @@ function Ovario_Direito() {
                     value={MedidaDireitaIP}
                     maxLength={2}
                     textAlign="center"
-                    onChange={(e) => { setMedidaDireitaIP(e.target.value) }}
+                    onChange={(e) => {
+                      setMedidaDireitaIP(e.target.value);
+                    }}
                     placeholder={"mm"}
                   />
                 </Box>
               </Box>
             </Box>
           </Box>
-
         </Box>
       </Box>
     </Box>
