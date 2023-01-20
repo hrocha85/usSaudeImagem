@@ -6,7 +6,7 @@ import { LaudosContext } from "../../../../../context/LuadosContext";
 import { JoelhoEsquerdoNormalContext } from "../../../../../context/JoelhoEsquerdoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoPataGansoEsquerdo() {
+function LigColFibularLateralEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
@@ -14,50 +14,50 @@ function TendaoPataGansoEsquerdo() {
   let { JoelhoEsquerdoLaudoNormal } = useContext(JoelhoEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
   const [disableAspectoNormal, setdisableAspectoNormal] = useState(false)
-  const [disableLiquidoBolsaSinovial, setdisableLiquidoBolsaSinovial] = useState(false)
-  const [disableLTendinopatia, setdisableLTendinopatia] = useState(false)
+  const [disableLesaoEspessamento, setdisableLesaoEspessamento] = useState(false)
+  const [disableLesaoAfilamento, setdisableLesaoAfilamento] = useState(false)
 
   const [AspectoNormalCheckbox, setAspectoNormalCheckbox] = useState(true);
-  const [LTendinopatiaCheckbox, setLTendinopatiaCheckbox] = useState(true);
-  const [LiquidoBolsaSinovialCheckbox, setLiquidoBolsaSinovialCheckbox] = useState(true);
+  const [LesaoAfilamentoCheckbox, setLesaoAfilamentoCheckbox] = useState(true);
+  const [LesaoEspessamentoCheckbox, setLesaoEspessamentoCheckbox] = useState(true);
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAspectoNormal = () => {
     var string = "TendaoQuadriceps Esquerdo com AspectoNormal";
     if (AspectoNormalCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
-      setdisableLiquidoBolsaSinovial(true)
-      setdisableLTendinopatia(true)
+      setdisableLesaoEspessamento(true)
+      setdisableLesaoAfilamento(true)
       setAspectoNormalCheckbox(false);
     } else {
-      setdisableLTendinopatia(false)
-      setdisableLiquidoBolsaSinovial(false)
+      setdisableLesaoAfilamento(false)
+      setdisableLesaoEspessamento(false)
       removeItemString(string);
     }
   };
-  const criaStringLTendinopatia = () => {
-    var string = "TendaoQuadriceps Esquerdo com LTendinopatia";
-    if (LTendinopatiaCheckbox) {
+  const criaStringLesaoAfilamento = () => {
+    var string = "TendaoQuadriceps Esquerdo com LesaoAfilamento";
+    if (LesaoAfilamentoCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
-      setdisableLiquidoBolsaSinovial(true)
+      setdisableLesaoEspessamento(true)
       setdisableAspectoNormal(true)
-      setLTendinopatiaCheckbox(false);
+      setLesaoAfilamentoCheckbox(false);
     } else {
       setdisableAspectoNormal(false)
-      setdisableLiquidoBolsaSinovial(false)
+      setdisableLesaoEspessamento(false)
       removeItemString(string);
     }
   };
-  const criaStringLiquidoBolsaSinovial = () => {
-    var string = "TendaoQuadriceps Esquerdo com LiquidoBolsaSinovial";
-    if (LTendinopatiaCheckbox) {
+  const criaStringLesaoEspessamento = () => {
+    var string = "TendaoQuadriceps Esquerdo com LesaoEspessamento";
+    if (LesaoAfilamentoCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
-      setdisableLTendinopatia(true)
+      setdisableLesaoAfilamento(true)
       setdisableAspectoNormal(true)
-      setLTendinopatiaCheckbox(false);
+      setLesaoAfilamentoCheckbox(false);
     } else {
       setdisableAspectoNormal(false)
-      setdisableLTendinopatia(false)
+      setdisableLesaoAfilamento(false)
       removeItemString(string);
     }
   };
@@ -88,15 +88,14 @@ function TendaoPataGansoEsquerdo() {
       padding="15px"
       mt="15px"
     >
-
-      <TituloNomeExame titulo='Tendão da "pata de ganso"' />
-      <TituloNomeExame titulo='(sartório. grácil. semitendinoso)' />
+      <TituloNomeExame titulo="Ligamento colateral fibular / lateral esquerdo" />
 
       <Box display="flex" flexWrap="wrap">
 
       </Box>
 
       <Stack>
+
         <Checkbox
           isDisabled={disableTudo || disableAspectoNormal}
           onChange={() => {
@@ -108,21 +107,21 @@ function TendaoPataGansoEsquerdo() {
         </Checkbox>
 
         <Checkbox
-          isDisabled={disableTudo || disableLTendinopatia}
+          isDisabled={disableTudo || disableLesaoAfilamento}
           onChange={() => {
-            setLTendinopatiaCheckbox(!LTendinopatiaCheckbox);
-            criaStringLTendinopatia();
+            setLesaoAfilamentoCheckbox(!LesaoAfilamentoCheckbox);
+            criaStringLesaoAfilamento();
           }}
-        >Tendinopatia ('Tendinite/Tendinopatia da pata de ganso')
+        >Lesão com afilamento (lesão parcial)
         </Checkbox>
 
         <Checkbox
-          isDisabled={disableTudo || disableLiquidoBolsaSinovial}
+          isDisabled={disableTudo || disableLesaoEspessamento}
           onChange={() => {
-            setLiquidoBolsaSinovialCheckbox(!LiquidoBolsaSinovialCheckbox);
-            criaStringLiquidoBolsaSinovial();
+            setLesaoEspessamentoCheckbox(!LesaoEspessamentoCheckbox);
+            criaStringLesaoEspessamento();
           }}
-        >Liquido na bolsa sinovial ('Bursite da pata de ganso')
+        >Lesão com espessamento (lesão parcial/estiramento)
         </Checkbox>
 
       </Stack>
@@ -130,4 +129,4 @@ function TendaoPataGansoEsquerdo() {
 
   );
 }
-export default TendaoPataGansoEsquerdo;
+export default LigColFibularLateralEsquerdo;

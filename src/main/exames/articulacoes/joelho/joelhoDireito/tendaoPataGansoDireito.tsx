@@ -13,26 +13,51 @@ function TendaoPataGansoDireito() {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   let { JoelhoDireitoLaudoNormal } = useContext(JoelhoDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
+  const [disableAspectoNormal, setdisableAspectoNormal] = useState(false)
+  const [disableLiquidoBolsaSinovial, setdisableLiquidoBolsaSinovial] = useState(false)
+  const [disableLTendinopatia, setdisableLTendinopatia] = useState(false)
 
-  const [TendiniteCheckbox, setTendiniteCheckbox] = useState(true);
-  const [TendinoseCheckbox, setTendinoseCheckbox] = useState(true);
+  const [AspectoNormalCheckbox, setAspectoNormalCheckbox] = useState(true);
+  const [LTendinopatiaCheckbox, setLTendinopatiaCheckbox] = useState(true);
+  const [LiquidoBolsaSinovialCheckbox, setLiquidoBolsaSinovialCheckbox] = useState(true);
 
   //Funcoes Padrao Micropolicistico - Inicio
-  const criaStringTendinite = () => {
-    var string = "Tendao da pata de ganso direito com Tendinite";
-    if (TendiniteCheckbox) {
+  const criaStringAspectoNormal = () => {
+    var string = "TendaoQuadriceps direito com AspectoNormal";
+    if (AspectoNormalCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
-      setTendiniteCheckbox(false);
+      setdisableLiquidoBolsaSinovial(true)
+      setdisableLTendinopatia(true)
+      setAspectoNormalCheckbox(false);
     } else {
+      setdisableLTendinopatia(false)
+      setdisableLiquidoBolsaSinovial(false)
       removeItemString(string);
     }
   };
-  const criaStringTendinose = () => {
-    var string = "Tendao da pata de ganso direito com Tendinose";
-    if (TendinoseCheckbox) {
+  const criaStringLTendinopatia = () => {
+    var string = "TendaoQuadriceps direito com LTendinopatia";
+    if (LTendinopatiaCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
-      setTendinoseCheckbox(false);
+      setdisableLiquidoBolsaSinovial(true)
+      setdisableAspectoNormal(true)
+      setLTendinopatiaCheckbox(false);
     } else {
+      setdisableAspectoNormal(false)
+      setdisableLiquidoBolsaSinovial(false)
+      removeItemString(string);
+    }
+  };
+  const criaStringLiquidoBolsaSinovial = () => {
+    var string = "TendaoQuadriceps direito com LiquidoBolsaSinovial";
+    if (LTendinopatiaCheckbox) {
+      setLaudoPrin((arr) => [...arr, string]);
+      setdisableLTendinopatia(true)
+      setdisableAspectoNormal(true)
+      setLTendinopatiaCheckbox(false);
+    } else {
+      setdisableAspectoNormal(false)
+      setdisableLTendinopatia(false)
       removeItemString(string);
     }
   };
@@ -63,31 +88,41 @@ function TendaoPataGansoDireito() {
       padding="15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Tendão da pata de ganso" />
+
+      <TituloNomeExame titulo='Tendão da "pata de ganso"' />
+      <TituloNomeExame titulo='(sartório. grácil. semitendinoso)' />
 
       <Box display="flex" flexWrap="wrap">
 
       </Box>
 
       <Stack>
-
         <Checkbox
-          isDisabled={disableTudo}
+          isDisabled={disableTudo || disableAspectoNormal}
           onChange={() => {
-            setTendiniteCheckbox(true);
-            criaStringTendinite();
+            setAspectoNormalCheckbox(!AspectoNormalCheckbox);
+            criaStringAspectoNormal();
           }}
         >
-          Tendinite
+          Aspecto Normal
         </Checkbox>
 
         <Checkbox
-          isDisabled={disableTudo}
+          isDisabled={disableTudo || disableLTendinopatia}
           onChange={() => {
-            setTendinoseCheckbox(true);
-            criaStringTendinose();
+            setLTendinopatiaCheckbox(!LTendinopatiaCheckbox);
+            criaStringLTendinopatia();
           }}
-        >Tendinose
+        >Tendinopatia ('Tendinite/Tendinopatia da pata de ganso')
+        </Checkbox>
+
+        <Checkbox
+          isDisabled={disableTudo || disableLiquidoBolsaSinovial}
+          onChange={() => {
+            setLiquidoBolsaSinovialCheckbox(!LiquidoBolsaSinovialCheckbox);
+            criaStringLiquidoBolsaSinovial();
+          }}
+        >Liquido na bolsa sinovial ('Bursite da pata de ganso')
         </Checkbox>
 
       </Stack>
