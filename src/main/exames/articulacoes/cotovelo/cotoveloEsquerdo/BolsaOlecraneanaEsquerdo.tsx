@@ -5,16 +5,38 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 function BolsaOlecreaneanaEsquerdo() {
     const altura = "100%";
     const largura = "95%";
 
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
     let { CotoveloEsquerdoLaudoNormal } = useContext(CotoveloEsquerdoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
 
 
+    const [fraseBolsaOlecreaneanaEsquerdo, setFraseBolsaOlecreaneanaEsquerdo] = useState<any>([]);
+
+    const subExame = 'Tendão biceps braquial Esquerdo'
+    const titulo_exame = 'Articulações'
+
+    useEffect(() => {
+        if (Object.keys(fraseBolsaOlecreaneanaEsquerdo).length === 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                fraseBolsaOlecreaneanaEsquerdo
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                fraseBolsaOlecreaneanaEsquerdo
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [fraseBolsaOlecreaneanaEsquerdo]);
 
     const [disableSemLiquido, setdisableSemLiquido] = useState(false);
     const [disableComLiquidoEspessado, setdisableComLiquidoEspessado] = useState(false);
@@ -27,28 +49,34 @@ function BolsaOlecreaneanaEsquerdo() {
     const criaStringSemLiquido = () => {
         var string = "FALTA";
         if (SemLiquidoCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setSemLiquidoCheckbox(false);
+            setFraseBolsaOlecreaneanaEsquerdo((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
+
+    useEffect(() => {
+        criaStringSemLiquido()
+    }, [SemLiquidoCheckbox])
 
     const criaStringComLiquidoEspessado = () => {
         var string = "FALTA";
         if (ComLiquidoEspessadoCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setComLiquidoEspessadoCheckbox(false);
+            setFraseBolsaOlecreaneanaEsquerdo((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
 
+    useEffect(() => {
+        criaStringComLiquidoEspessado()
+    }, [ComLiquidoEspessadoCheckbox])
+
     const removeItemString = (value) => {
-        var index = laudoPrin.indexOf(value);
+        var index = fraseBolsaOlecreaneanaEsquerdo.indexOf(value);
         if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
+            fraseBolsaOlecreaneanaEsquerdo.splice(index, 1);
+            setFraseBolsaOlecreaneanaEsquerdo((arr) => [...arr]);
         }
     };
 
@@ -88,7 +116,7 @@ function BolsaOlecreaneanaEsquerdo() {
             padding="15px"
             mt="15px"
         >
-            <TituloNomeExame titulo="Bolsa olecraneana esquerdo" />
+            <TituloNomeExame titulo="Bolsa olecraneana Esquerdo" />
 
             <Box display="flex" flexWrap="wrap">
 
@@ -99,7 +127,6 @@ function BolsaOlecreaneanaEsquerdo() {
                     isDisabled={disableTudo || disableSemLiquido}
                     onChange={() => {
                         setSemLiquidoCheckbox(!SemLiquidoCheckbox);
-                        criaStringSemLiquido();
                     }}
                 >
                     Sem líquido
@@ -108,7 +135,6 @@ function BolsaOlecreaneanaEsquerdo() {
                     isDisabled={disableTudo || disableComLiquidoEspessado}
                     onChange={() => {
                         setComLiquidoEspessadoCheckbox(!ComLiquidoEspessadoCheckbox);
-                        criaStringComLiquidoEspessado();
                     }}
                 >
                     Com líquido e espessamento parietal

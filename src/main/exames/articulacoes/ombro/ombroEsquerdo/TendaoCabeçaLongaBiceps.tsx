@@ -2,40 +2,42 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { LaudosContext } from "../../../../../context/LuadosContext";
+import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext"
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function OmbroTendaoSupraespinhalDireito() {
+function TendaoCabeçaLongaBicepsEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
+  let { OmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext)
+  const [disableTudo, setDisableTudo] = useState(false)
 
-  let { OmbroDireitoLaudoNormal } = useContext(OmbroDireitoNormalContext)
-  const [frasesOmbroTendaoSupraespinhalDireito, setFrasesOmbroTendaoSupraespinhalDireito] = useState<any>([]);
+  const [fraseTendaoCabecaLongaBicepsEsquerdo, setFraseTendaoCabecaLongaBicepsEsquerdo] = useState<any>([]);
 
-  const subExame = 'Tendão do Supraespinhal'
+  const subExame = 'Tendão da cabeça longa do Bíceps Esquerdo'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
-    if (Object.keys(frasesOmbroTendaoSupraespinhalDireito).length === 0) {
+    if (Object.keys(fraseTendaoCabecaLongaBicepsEsquerdo).length === 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesOmbroTendaoSupraespinhalDireito
+        fraseTendaoCabecaLongaBicepsEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesOmbroTendaoSupraespinhalDireito
+        fraseTendaoCabecaLongaBicepsEsquerdo
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesOmbroTendaoSupraespinhalDireito]);
+  }, [fraseTendaoCabecaLongaBicepsEsquerdo]);
 
-  const [disableTudo, setDisableTudo] = useState(false)
+
 
   const [RoturaParcialInput, setRoturaParcialInput] = useState("");
   const [RoturaParcialInput2, setRoturaParcialInput2] = useState("");
@@ -47,18 +49,17 @@ function OmbroTendaoSupraespinhalDireito() {
   const [disableRoturaParcial, setdisableRoturaParcial] = useState(false);
   const [disableTendinopatiaSemRotura, setdisableTendinopatiaSemRotura] = useState(false);
   const [disableRoturaCompleta, setdisableRoturaCompleta] = useState(false);
+  const [disableRoturaLongitudinal, setdisableRoturaLongitudinal] = useState(false);
 
   const [AspectoNormalCheckbox, setAspectoNormalCheckbox] = useState(false);
   const [RoturaParcialCheckbox, setRoturaParcialCheckbox] = useState(false);
   const [PequenasCalcificacoesCheckbox, setPequenasCalcificacoesCheckbox] = useState(false);
+  const [RoturaLongitudinalCheckbox, setRoturaLongitudinalCheckbox] = useState(false);
 
   const [TendinopatiaSemRoturaCheckbox, setTendinopatiaSemRoturaCheckbox] = useState(false);
-  const [SelectTendinopatiaSemRotura, setSelectTendinopatiaSemRotura] = useState("");
-  const [SelectDisableTendinopatiaSemRotura, setSelectDisableTendinopatiaSemRotura] = useState(true);
   const [MedindoDisableTendinopatiaSemRotura, setMedindoDisableTendinopatiaSemRotura] = useState(true);
-  const [InputMedindoDisableTendinopatiaSemRotura, setInputMedindoDisableTendinopatiaSemRotura] = useState(true);
-  const [InputMedindoTendinopatiaSemRotura, setInputMedindoTendinopatiaSemRotura] = useState('');
-  const [TendinopatiaSemRoturaCheckboxMedida, setTendinopatiaSemRoturaCheckboxMedida] = useState(false);
+  const [LiquidoPeritendineoCheckbox, setLiquidoPeritendineoCheckbox] = useState(false);
+  const [EspessamentoSinovialCheckbox, setEspessamentoSinovialCheckbox] = useState(false);
 
   const [RoturaCompletaCheckbox, setRoturaCompletaCheckbox] = useState(false);
   const [DisableInputRoturaCompleta, setDisableInputRoturaCompleta] = useState(true);
@@ -68,49 +69,49 @@ function OmbroTendaoSupraespinhalDireito() {
   const [DisableInputRetracaoRoturaCompleta, setDisableInputRetracaoRoturaCompleta] = useState(true);
   const [InputRetracaoRoturaCompleta, setInputRetracaoRoturaCompleta] = useState('');
 
+  const [LuxacaoCheckbox, setLuxacaoCheckbox] = useState(false);
+  const [DisableLuxacaoCheckbox, setDisableLuxacaoCheckbox] = useState(false);
+  const [disableSelectLuxacao, setdisableSelectLuxacao] = useState(true);
+  const [SelectLuxacao, setSelectLuxacao] = useState("");
 
   const criaStringRoturaParcial = (medida1, medida2, medida3, selectRoturaParcial) => {
     removeRoturaParcial();
-    if (RoturaParcialCheckbox) {
-      if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectRoturaParcial !== '') {
-        var string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectRoturaParcial}`;
-        setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
-      }
-    } else {
-      removeRoturaParcial();
-
+    if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectRoturaParcial !== '') {
+      var string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectRoturaParcial}`;
+      setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
     }
   };
 
   const removeRoturaParcial = () => {
-    frasesOmbroTendaoSupraespinhalDireito.map((e) => {
-      if (e.includes("Frase ")) {
-        var index = frasesOmbroTendaoSupraespinhalDireito.indexOf(e);
+    fraseTendaoCabecaLongaBicepsEsquerdo.map((e) => {
+      if (e.includes("Espessado, com alteração ecotextural,")) {
+        var index = fraseTendaoCabecaLongaBicepsEsquerdo.indexOf(e);
+
         if (index > -1) {
-          frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);
-          setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+          fraseTendaoCabecaLongaBicepsEsquerdo.splice(index, 1);
+          setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr]);
         }
       }
     });
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "FALTA essa";
+    var string = "FALTA";
     if (AspectoNormalCheckbox) {
-      setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
+      setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
     } else {
       removeItemString(string);
     }
   };
-
   useEffect(() => {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
 
+
   const criaStringPequenasCalcificacoes = () => {
     var string = "FALTA";
     if (PequenasCalcificacoesCheckbox) {
-      setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
+      setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
     } else {
       removeItemString(string);
     }
@@ -120,61 +121,32 @@ function OmbroTendaoSupraespinhalDireito() {
     criaStringPequenasCalcificacoes()
   }, [PequenasCalcificacoesCheckbox])
 
-  const criaStringTendinopatiaSemRotura = (select, medida) => {
-    var string = 'Tendinopatia sem rotura'
+  const criaStringTendinopatiaSemRotura = () => {
     removeFraseTendinopatiaSemRotura()
-    console.log(medida)
+    var string = 'Tendinopatia sem rotura'
     if (TendinopatiaSemRoturaCheckbox) {
-      if (select !== '' && medida !== '') {
-        string = `${string} ${select} medindo ${medida} mm`;
-        setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
-      } else {
-        string = `${string} ${select}`;
-        setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
+
+      if (LiquidoPeritendineoCheckbox) {
+        string = `${string} Líquido peritendio`;
       }
-    } else {
-      removeFraseTendinopatiaSemRotura()
-      //removeItemString(string)
+      if (EspessamentoSinovialCheckbox) {
+        string = `${string} espessamento sinovial`;
+      }
+      setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
     }
   };
-
   useEffect(() => {
-    criaStringTendinopatiaSemRotura(SelectTendinopatiaSemRotura, InputMedindoTendinopatiaSemRotura)
-  }, [SelectTendinopatiaSemRotura, InputMedindoTendinopatiaSemRotura, TendinopatiaSemRoturaCheckbox])
-
-  useEffect(() => {
-    if (TendinopatiaSemRoturaCheckbox) {
-      setSelectDisableTendinopatiaSemRotura(false)
-      setMedindoDisableTendinopatiaSemRotura(false)
-      setdisableRoturaParcial(true)
-      setdisableAspectoNormal(true)
-      setdisableRoturaCompleta(true)
-    } else {
-      setSelectDisableTendinopatiaSemRotura(true)
-      setMedindoDisableTendinopatiaSemRotura(true)
-      setdisableRoturaParcial(false)
-      setdisableAspectoNormal(false)
-      setdisableRoturaCompleta(false)
-    }
-  }, [TendinopatiaSemRoturaCheckbox])
-
-  useEffect(() => {
-    if (TendinopatiaSemRoturaCheckboxMedida) {
-      setInputMedindoDisableTendinopatiaSemRotura(false)
-    } else {
-      setInputMedindoDisableTendinopatiaSemRotura(true)
-      setInputMedindoTendinopatiaSemRotura('')
-    }
-  }, [TendinopatiaSemRoturaCheckboxMedida])
+    criaStringTendinopatiaSemRotura()
+  }, [TendinopatiaSemRoturaCheckbox, LiquidoPeritendineoCheckbox, EspessamentoSinovialCheckbox])
 
   const removeFraseTendinopatiaSemRotura = () => {
-    frasesOmbroTendaoSupraespinhalDireito.map((e) => {
-      if (e.includes("Tendinopatia sem rotura")) {
-        var index = frasesOmbroTendaoSupraespinhalDireito.indexOf(e);
+    fraseTendaoCabecaLongaBicepsEsquerdo.map((e) => {
+      if (e.includes("Tendinopatia")) {
+        var index = fraseTendaoCabecaLongaBicepsEsquerdo.indexOf(e);
 
         if (index > -1) {
-          frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);
-          setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+          fraseTendaoCabecaLongaBicepsEsquerdo.splice(index, 1);
+          setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -185,20 +157,25 @@ function OmbroTendaoSupraespinhalDireito() {
     var string;
     if (dados !== '' && medidaRetracao !== '') {
       string = `Rotura completa medindo ${dados} com retração de ${medidaRetracao} mm`;
-      setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
+      setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
     } else if (dados !== '') {
       string = `Rotura completa medindo ${dados}`;
-      setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
+      setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
     }
   }
+
+  useEffect(() => {
+    criaStringRoturaCompleta(InputMedindoRoturaCompleta, InputRetracaoRoturaCompleta)
+  }, [InputMedindoRoturaCompleta, InputRetracaoRoturaCompleta])
+
   const removeFraseRoturaCompleta = () => {
-    frasesOmbroTendaoSupraespinhalDireito.map((e) => {
+    fraseTendaoCabecaLongaBicepsEsquerdo.map((e) => {
       if (e.includes("Rotura completa medindo")) {
-        var index = frasesOmbroTendaoSupraespinhalDireito.indexOf(e);
+        var index = fraseTendaoCabecaLongaBicepsEsquerdo.indexOf(e);
 
         if (index > -1) {
-          frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);
-          setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+          fraseTendaoCabecaLongaBicepsEsquerdo.splice(index, 1);
+          setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -210,9 +187,11 @@ function OmbroTendaoSupraespinhalDireito() {
       setdisableAspectoNormal(true)
       setdisableRoturaParcial(true)
       setdisableTendinopatiaSemRotura(true)
+      setdisableRoturaLongitudinal(true)
     } else {
       setDisableInputRetracaoRoturaCompleta(true)
       setInputMedindoRoturaCompleta('')
+      setdisableRoturaLongitudinal(false)
       setdisableAspectoNormal(false)
       setdisableRoturaParcial(false)
       setdisableTendinopatiaSemRotura(false)
@@ -221,16 +200,61 @@ function OmbroTendaoSupraespinhalDireito() {
     }
   }, [RoturaCompletaCheckbox])
 
-  useEffect(() => {
-    criaStringRoturaCompleta(InputMedindoRoturaCompleta, InputRetracaoRoturaCompleta)
-  }, [InputMedindoRoturaCompleta, InputRetracaoRoturaCompleta])
 
+  const criaStringRoturaLongitudinal = () => {
+    var string = "FALTA";
+    if (RoturaLongitudinalCheckbox) {
+      setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
+    } else {
+      removeItemString(string);
+    }
+  };
+  useEffect(() => {
+    criaStringRoturaLongitudinal()
+  }, [RoturaLongitudinalCheckbox])
+
+  const criaStringLuxacao = (select) => {
+    var string;
+    removeFraseLuxacao();
+    if (LuxacaoCheckbox) {
+      if (select !== '') {
+        string = `Luxação ${select}`
+        setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
+      }
+    } else {
+      removeFraseLuxacao();
+    }
+  }
+  const removeFraseLuxacao = () => {
+    fraseTendaoCabecaLongaBicepsEsquerdo.map((e) => {
+      if (e.includes("Luxação")) {
+        var index = fraseTendaoCabecaLongaBicepsEsquerdo.indexOf(e);
+
+        if (index > -1) {
+          fraseTendaoCabecaLongaBicepsEsquerdo.splice(index, 1);
+          setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (LuxacaoCheckbox) {
+      setdisableSelectLuxacao(false)
+    } else {
+      setdisableSelectLuxacao(true)
+    }
+  })
+
+  useEffect(() => {
+    criaStringLuxacao(SelectLuxacao)
+  }, [SelectLuxacao, LuxacaoCheckbox])
 
   const removeItemString = (value) => {
-    var index = frasesOmbroTendaoSupraespinhalDireito.indexOf(value);
+    var index = fraseTendaoCabecaLongaBicepsEsquerdo.indexOf(value);
     if (index > -1) {
-      frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);
-      setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+      fraseTendaoCabecaLongaBicepsEsquerdo.splice(index, 1);
+      setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr]);
     }
   };
 
@@ -238,13 +262,52 @@ function OmbroTendaoSupraespinhalDireito() {
     if (AspectoNormalCheckbox) {
       setdisableTendinopatiaSemRotura(true)
       setdisableRoturaParcial(true)
+      setdisableRoturaLongitudinal(true)
       setdisableRoturaCompleta(true)
+      setDisableLuxacaoCheckbox(true)
     } else {
       setdisableTendinopatiaSemRotura(false)
+      setdisableRoturaLongitudinal(false)
+      setdisableRoturaParcial(false)
+      setdisableRoturaCompleta(false)
+      setDisableLuxacaoCheckbox(false)
+    }
+  }, [AspectoNormalCheckbox])
+  useEffect(() => {
+    if (LuxacaoCheckbox) {
+      setdisableTendinopatiaSemRotura(true)
+      setdisableRoturaParcial(true)
+      setdisableRoturaLongitudinal(true)
+      setdisableRoturaCompleta(true)
+      setdisableAspectoNormal(true)
+    } else {
+      setdisableAspectoNormal(false)
+      setdisableTendinopatiaSemRotura(false)
+      setdisableRoturaLongitudinal(false)
       setdisableRoturaParcial(false)
       setdisableRoturaCompleta(false)
     }
-  }, [AspectoNormalCheckbox])
+  }, [LuxacaoCheckbox])
+
+  useEffect(() => {
+    if (TendinopatiaSemRoturaCheckbox) {
+      setMedindoDisableTendinopatiaSemRotura(false)
+      setdisableRoturaLongitudinal(true)
+      setdisableRoturaParcial(true)
+      setdisableAspectoNormal(true)
+      setdisableRoturaCompleta(true)
+      setDisableLuxacaoCheckbox(true)
+    } else {
+      removeFraseTendinopatiaSemRotura()
+      setMedindoDisableTendinopatiaSemRotura(true)
+      setDisableLuxacaoCheckbox(false)
+      setdisableRoturaParcial(false)
+      setdisableRoturaLongitudinal(false)
+      setdisableAspectoNormal(false)
+      setdisableRoturaCompleta(false)
+    }
+  }, [TendinopatiaSemRoturaCheckbox])
+
 
 
   useEffect(() => {
@@ -252,13 +315,17 @@ function OmbroTendaoSupraespinhalDireito() {
       setdisableRoturaParcialInput(false);
       setdisableAspectoNormal(true)
       setdisableTendinopatiaSemRotura(true)
+      setdisableRoturaLongitudinal(true)
       setdisableRoturaCompleta(true)
+      setDisableLuxacaoCheckbox(true)
     } else {
       removeRoturaParcial();
       setdisableRoturaParcialInput(true);
       setdisableRoturaCompleta(false)
+      setdisableRoturaLongitudinal(false)
       setdisableAspectoNormal(false)
       setdisableTendinopatiaSemRotura(false)
+      setDisableLuxacaoCheckbox(false)
       setRoturaParcialInput("");
       setRoturaParcialInput2("");
       setRoturaParcialInput3("");
@@ -279,9 +346,9 @@ function OmbroTendaoSupraespinhalDireito() {
   }, [RoturaCompletaRetracaoCheckbox])
 
   useEffect(() => {
-    OmbroDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+    OmbroEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
 
-  }, [OmbroDireitoLaudoNormal])
+  }, [OmbroEsquerdoLaudoNormal])
 
   return (
     <Box
@@ -295,7 +362,7 @@ function OmbroTendaoSupraespinhalDireito() {
       padding="15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Tendão do Supraespinhal" />
+      <TituloNomeExame titulo="Tendão da cabeça longa do Bíceps" />
 
       <Box display="flex" flexWrap="wrap">
 
@@ -314,7 +381,6 @@ function OmbroTendaoSupraespinhalDireito() {
           isDisabled={disableTudo || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
-            // criaStringAspectoNormal();
           }}
         >
           Aspecto Normal
@@ -328,35 +394,25 @@ function OmbroTendaoSupraespinhalDireito() {
           >
             Tendinopatia sem rotura
           </Checkbox>
-          <Select
-            w='150px'
-            isDisabled={SelectDisableTendinopatiaSemRotura}
-            onChange={(e) => {
-              setSelectTendinopatiaSemRotura(e.target.value);
-            }}
-          >
-            <option value="Select 1">corno anterior</option>
-            <option value="Select 2">corno posterior</option>
-          </Select>
+
           <Checkbox
             isDisabled={MedindoDisableTendinopatiaSemRotura}
             onChange={() => {
-              setTendinopatiaSemRoturaCheckboxMedida(!TendinopatiaSemRoturaCheckboxMedida);
+              setLiquidoPeritendineoCheckbox(!LiquidoPeritendineoCheckbox);
             }}
           >
-            Medindo
+            Liquido peritendineo
           </Checkbox>
-          <Input
-            isDisabled={InputMedindoDisableTendinopatiaSemRotura}
-            value={InputMedindoTendinopatiaSemRotura}
-            w="45px"
-            h="30px"
-            padding="5px"
-            maxLength={2}
-            textAlign="center"
-            onChange={(e) => { setInputMedindoTendinopatiaSemRotura(e.target.value) }}
-          />
-          <Text alignSelf='center'>mm</Text>
+
+          <Checkbox
+            isDisabled={MedindoDisableTendinopatiaSemRotura}
+            onChange={() => {
+              setEspessamentoSinovialCheckbox(!EspessamentoSinovialCheckbox);
+            }}
+          >
+            Espessamento Sinovial
+          </Checkbox>
+
         </Box >
 
         <Box display='flex' flexWrap='wrap' gap='5px'>
@@ -458,9 +514,39 @@ function OmbroTendaoSupraespinhalDireito() {
             onChange={(e) => { setInputRetracaoRoturaCompleta(e.target.value) }}
           />
         </Box>
+        <Checkbox
+          isDisabled={disableTudo || disableRoturaLongitudinal}
+          onChange={() => {
+            setRoturaLongitudinalCheckbox(!RoturaLongitudinalCheckbox);
+          }}
+        >
+          Rotura Longitudinal
+        </Checkbox>
+        <Box display='flex' flexWrap='wrap' gap='5px'>
+          <Checkbox
+            isDisabled={disableTudo || DisableLuxacaoCheckbox}
+            onChange={() => {
+              setLuxacaoCheckbox(!LuxacaoCheckbox);
+            }}
+          >
+            Luxação
+          </Checkbox>
+          <Select
+            w='150px'
+            isDisabled={disableSelectLuxacao}
+            value={SelectLuxacao}
+            onChange={(e) => {
+              setSelectLuxacao(e.target.value);
+            }}
+          >
+            <option value="Tendinopatia sem rotura 1">corno anterior</option>
+            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+          </Select>
+        </Box>
+
       </Stack >
     </Box >
 
   );
 }
-export default OmbroTendaoSupraespinhalDireito;
+export default TendaoCabeçaLongaBicepsEsquerdo;

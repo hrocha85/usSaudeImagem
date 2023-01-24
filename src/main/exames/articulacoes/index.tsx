@@ -10,8 +10,8 @@ import TendaoInfraespinhalOmbroDireito from "./ombro/omboDireito/TendaoInfraespi
 import TendaoInfraespinhalOmbroEsquerdo from "./ombro/ombroEsquerdo/TendaoInfraespinhal"
 import SubescapularOmbroDireito from "./ombro/omboDireito/subescapular";
 import SubescapularOmbroEsquerdo from "./ombro/ombroEsquerdo/subescapular";
-import TendaoLongoBicepsOmbroDireito from "./ombro/omboDireito/tendaoLongoBiceps";
-import TendaoLongoBicepsOmbroEsquerdo from "./ombro/ombroEsquerdo/tendaoLongoBiceps";
+
+
 import ExtraOmbroDireito from "./ombro/omboDireito/extra";
 import ExtraOmbroEsquerdo from "./ombro/ombroEsquerdo/extra";
 import OmbroNormalDireito from "./ombro/omboDireito/normal";
@@ -154,27 +154,16 @@ import VentreInfraespinhalDireito from "./ombro/omboDireito/VentreInfraespinhal"
 import TendaoSubescapularOmbroEsquerdo from "./ombro/ombroEsquerdo/TendaoSubescapular";
 import TendaoSubescapularOmbroDireito from "./ombro/omboDireito/TendaoSubescapular";
 import TendaoCabeçaLongaBicepsDireito from "./ombro/omboDireito/TendaoCabeçaLongaBiceps";
+import TendaoCabeçaLongaBicepsEsquerdo from "./ombro/ombroEsquerdo/TendaoCabeçaLongaBiceps";
+import BolsaSubacromial_SubdeltoideaDireito from "./ombro/omboDireito/BolsaSubacromial";
+import BolsaSubacromial_SubdeltoideaEsquerdo from "./ombro/ombroEsquerdo/BolsaSubacromial";
+import ArticulacaoAcromioclavicularDireito from "./ombro/omboDireito/ArticulacaoAcromioclavicular";
+import ArticulacaoAcromioclavicularEsquerdo from "./ombro/ombroEsquerdo/ArticulacaoAcromioclavicular";
 
 function Articulacoes() {
 
     return (
-        <Box
-            w="100%"
-            h="100%"
-            verticalAlign="center"
-            alignSelf="center"
-            alignItems="center"
-            backgroundImage={BGImage}
-            backgroundSize="cover"
-            backgroundRepeat="no-repeat"
-        >
-            <BoxTitleBackground
-                PadLeft="20px"
-                fontsize="19px"
-                tamanho="200px 70px"
-                titulo="Articulações"
-            />
-
+        <>
             <Box
                 display='flex'
                 flexWrap='wrap'
@@ -230,17 +219,12 @@ function Articulacoes() {
                         <Box
                             // w='450px'
                             mb='15px'>
-                            <SubescapularOmbroDireito />
+                            <BolsaSubacromial_SubdeltoideaDireito />
                         </Box>
                         <Box
                             // w='450px'
                             mb='15px'>
-                            <TendaoLongoBicepsOmbroDireito />
-                        </Box>
-                        <Box
-                            // w='450px'
-                            mb='15px'>
-                            <ExtraOmbroDireito />
+                            <ArticulacaoAcromioclavicularDireito />
                         </Box>
                         <Box
 
@@ -271,12 +255,6 @@ function Articulacoes() {
                         <Box
                             // w='450px'
                             textAlign="center" >
-                            <CotoveloDireito />
-                        </Box>
-
-                        <Box
-                            // w='450px'
-                            textAlign="center" >
                             <TendaoTricepsBraquialDireito />
                         </Box>
                         <Box
@@ -287,13 +265,14 @@ function Articulacoes() {
                         <Box
                             // w='450px'
                             textAlign="center" >
-                            <BolsaOlecreaneanaDireito />
+                            <NervoUlnarDireito />
                         </Box>
                         <Box
                             // w='450px'
                             textAlign="center" >
-                            <NervoUlnarDireito />
+                            <BolsaOlecreaneanaDireito />
                         </Box>
+
                         <Box
                             // w='450px'
                             textAlign="center" >
@@ -578,7 +557,6 @@ function Articulacoes() {
                         mb='15px'>
                         <  VentreSupraespinhalEsquerdo />
                     </Box>
-
                     <Box
                         // w='450px'
                         mb='15px'>
@@ -594,22 +572,23 @@ function Articulacoes() {
                         mb='15px'>
                         <TendaoSubescapularOmbroEsquerdo />
                     </Box>
-                    <Box
-                        // w='450px'
-                        mb='15px'>
-                        <SubescapularOmbroEsquerdo />
-                    </Box>
-                    <Box
-                        // w='450px'
-                        mb='15px'>
-                        <TendaoLongoBicepsOmbroEsquerdo />
-                    </Box>
 
                     <Box
                         // w='450px'
                         mb='15px'>
-                        <ExtraOmbroEsquerdo />
+                        <TendaoCabeçaLongaBicepsEsquerdo />
                     </Box>
+                    <Box
+                        // w='450px'
+                        mb='15px'>
+                        <BolsaSubacromial_SubdeltoideaEsquerdo />
+                    </Box>
+                    <Box
+                        // w='450px'
+                        mb='15px'>
+                        <ArticulacaoAcromioclavicularEsquerdo />
+                    </Box>
+
                     <Box
                         // w='450px'
                         textAlign="center" >
@@ -638,7 +617,7 @@ function Articulacoes() {
                             textAlign="center" >
                             <TendaoBicepsBraquialEsquerdo />
                         </Box>
-                        <CotoveloEsquerdo />
+
                         <Box
                             // w='450px'
                             textAlign="center" >
@@ -652,13 +631,14 @@ function Articulacoes() {
                         <Box
                             // w='450px'
                             textAlign="center" >
-                            <BolsaOlecreaneanaEsquerdo />
+                            <NervoUlnarEsquerdo />
                         </Box>
                         <Box
                             // w='450px'
                             textAlign="center" >
-                            <NervoUlnarEsquerdo />
+                            <BolsaOlecreaneanaEsquerdo />
                         </Box>
+
                         <Box
                             // w='450px'
                             textAlign="center" >
@@ -921,7 +901,7 @@ function Articulacoes() {
                     </Box>
                 </Box>
             </Box>
-        </Box>
+        </>
     );
 }
 

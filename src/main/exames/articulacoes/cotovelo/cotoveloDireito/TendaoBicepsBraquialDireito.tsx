@@ -5,14 +5,37 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 function TendaoBicepsBraquialDireito() {
     const altura = "100%";
     const largura = "95%";
 
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
     let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
+
+    const [fraseTendaoBicepsBraquialDireito, setFraseTendaoBicepsBraquialDireito] = useState<any>([]);
+
+    const subExame = 'Tendão biceps braquial direito'
+    const titulo_exame = 'Articulações'
+
+    useEffect(() => {
+        if (Object.keys(fraseTendaoBicepsBraquialDireito).length === 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                fraseTendaoBicepsBraquialDireito
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                fraseTendaoBicepsBraquialDireito
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [fraseTendaoBicepsBraquialDireito]);
 
     const [RoturaParcialInput, setRoturaParcialInput] = useState("");
     const [RoturaParcialInput2, setRoturaParcialInput2] = useState("");
@@ -46,18 +69,18 @@ function TendaoBicepsBraquialDireito() {
         removeRoturaParcial();
         if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
             var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
-            setLaudoPrin((arr) => [...arr, string]);
+            setFraseTendaoBicepsBraquialDireito((arr) => [...arr, string]);
         }
     };
 
     const removeRoturaParcial = () => {
-        laudoPrin.map((e) => {
+        fraseTendaoBicepsBraquialDireito.map((e) => {
             if (e.includes("Espessado, com alteração ecotextural,")) {
-                var index = laudoPrin.indexOf(e);
+                var index = fraseTendaoBicepsBraquialDireito.indexOf(e);
 
                 if (index > -1) {
-                    laudoPrin.splice(index, 1);
-                    setLaudoPrin((arr) => [...arr]);
+                    fraseTendaoBicepsBraquialDireito.splice(index, 1);
+                    setFraseTendaoBicepsBraquialDireito((arr) => [...arr]);
                 }
             }
         });
@@ -66,21 +89,26 @@ function TendaoBicepsBraquialDireito() {
     const criaStringAspectoNormal = () => {
         var string = "FALTA";
         if (AspectoNormalCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setAspectoNormalCheckbox(false);
+            setFraseTendaoBicepsBraquialDireito((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
+    useEffect(() => {
+        criaStringAspectoNormal()
+    }, [AspectoNormalCheckbox])
+
     const criaStringPequenasCalcificacoes = () => {
         var string = "FALTA";
         if (PequenasCalcificacoesCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setAspectoNormalCheckbox(false);
+            setFraseTendaoBicepsBraquialDireito((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
+    useEffect(() => {
+        criaStringPequenasCalcificacoes()
+    }, [PequenasCalcificacoesCheckbox])
 
     const criaStringTendinopatiaSemRotura = (dados, medida) => {
         removeFraseTendinopatiaSemRotura()
@@ -88,25 +116,23 @@ function TendaoBicepsBraquialDireito() {
         if (dados !== '') {
             if (TendinopatiaSemRoturaCheckboxMedida && medida !== '') {
                 string = `Tendinopatia sem rotura ${dados} medindo ${medida} mm`;
-                setLaudoPrin((arr) => [...arr, string]);
+                setFraseTendaoBicepsBraquialDireito((arr) => [...arr, string]);
             } else {
                 string = `Tendinopatia sem rotura ${dados}`;
-                setLaudoPrin((arr) => [...arr, string]);
+                setFraseTendaoBicepsBraquialDireito((arr) => [...arr, string]);
 
             }
-            console.log(string)
-            // setTendinopatiaSemRoturaCheckbox(false);
         }
     };
 
     const removeFraseTendinopatiaSemRotura = () => {
-        laudoPrin.map((e) => {
+        fraseTendaoBicepsBraquialDireito.map((e) => {
             if (e.includes("Tendinopatia sem rotura")) {
-                var index = laudoPrin.indexOf(e);
+                var index = fraseTendaoBicepsBraquialDireito.indexOf(e);
 
                 if (index > -1) {
-                    laudoPrin.splice(index, 1);
-                    setLaudoPrin((arr) => [...arr]);
+                    fraseTendaoBicepsBraquialDireito.splice(index, 1);
+                    setFraseTendaoBicepsBraquialDireito((arr) => [...arr]);
                 }
             }
         });
@@ -117,22 +143,20 @@ function TendaoBicepsBraquialDireito() {
         var string;
         if (dados !== '' && RoturaCompletaComCotoCheckbox) {
             string = `Rotura completa medindo ${dados} com Relacação Coto`;
-            setLaudoPrin((arr) => [...arr, string]);
+            setFraseTendaoBicepsBraquialDireito((arr) => [...arr, string]);
         } else if (dados !== '') {
             string = `Rotura completa medindo ${dados}`;
-            setLaudoPrin((arr) => [...arr, string]);
+            setFraseTendaoBicepsBraquialDireito((arr) => [...arr, string]);
         }
-        console.log(string)
-        // setTendinopatiaSemRoturaCheckbox(false);
     }
     const removeFraseRoturaCompleta = () => {
-        laudoPrin.map((e) => {
+        fraseTendaoBicepsBraquialDireito.map((e) => {
             if (e.includes("Rotura completa medindo")) {
-                var index = laudoPrin.indexOf(e);
+                var index = fraseTendaoBicepsBraquialDireito.indexOf(e);
 
                 if (index > -1) {
-                    laudoPrin.splice(index, 1);
-                    setLaudoPrin((arr) => [...arr]);
+                    fraseTendaoBicepsBraquialDireito.splice(index, 1);
+                    setFraseTendaoBicepsBraquialDireito((arr) => [...arr]);
                 }
             }
         });
@@ -159,10 +183,10 @@ function TendaoBicepsBraquialDireito() {
 
 
     const removeItemString = (value) => {
-        var index = laudoPrin.indexOf(value);
+        var index = fraseTendaoBicepsBraquialDireito.indexOf(value);
         if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
+            fraseTendaoBicepsBraquialDireito.splice(index, 1);
+            setFraseTendaoBicepsBraquialDireito((arr) => [...arr]);
         }
     };
 
@@ -213,8 +237,6 @@ function TendaoBicepsBraquialDireito() {
             setdisableRoturaParcialInput(true);
             setdisableRoturaCompleta(false)
             setdisableAspectoNormal(false)
-            console.log(disableAspectoNormal)
-
             setdisableTendinopatiaSemRotura(false)
             setRoturaParcialInput("");
             setRoturaParcialInput2("");
@@ -255,8 +277,8 @@ function TendaoBicepsBraquialDireito() {
                 <Checkbox
                     isDisabled={disableTudo}
                     onChange={() => {
-                        setPequenasCalcificacoesCheckbox(true);
-                        criaStringPequenasCalcificacoes();
+                        setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
+
                     }}
                 >
                     Pequenas calcificações junto à inserção
@@ -265,7 +287,6 @@ function TendaoBicepsBraquialDireito() {
                     isDisabled={disableTudo || disableAspectoNormal}
                     onChange={() => {
                         setAspectoNormalCheckbox(!AspectoNormalCheckbox);
-                        criaStringAspectoNormal();
                     }}
                 >
                     Aspecto Normal

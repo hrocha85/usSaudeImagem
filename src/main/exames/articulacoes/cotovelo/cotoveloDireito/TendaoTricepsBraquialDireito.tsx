@@ -5,14 +5,38 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 function TendaoTricepsBraquialDireito() {
     const altura = "100%";
     const largura = "95%";
 
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
     let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
+
+
+    const [fraseTendaoTricepsBraquialDireito, setFraseTendaoTricepsBraquialDireito] = useState<any>([]);
+
+    const subExame = 'Tendão tríceps braquial Direito'
+    const titulo_exame = 'Articulações'
+
+    useEffect(() => {
+        if (Object.keys(fraseTendaoTricepsBraquialDireito).length === 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                fraseTendaoTricepsBraquialDireito
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                fraseTendaoTricepsBraquialDireito
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [fraseTendaoTricepsBraquialDireito]);
 
     const [RoturaParcialInput, setRoturaParcialInput] = useState("");
     const [RoturaParcialInput2, setRoturaParcialInput2] = useState("");
@@ -34,18 +58,18 @@ function TendaoTricepsBraquialDireito() {
         removeRoturaParcial();
         if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
             var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
-            setLaudoPrin((arr) => [...arr, string]);
+            setFraseTendaoTricepsBraquialDireito((arr) => [...arr, string]);
         }
     };
 
     const removeRoturaParcial = () => {
-        laudoPrin.map((e) => {
+        fraseTendaoTricepsBraquialDireito.map((e) => {
             if (e.includes("Espessado, com alteração ecotextural,")) {
-                var index = laudoPrin.indexOf(e);
+                var index = fraseTendaoTricepsBraquialDireito.indexOf(e);
 
                 if (index > -1) {
-                    laudoPrin.splice(index, 1);
-                    setLaudoPrin((arr) => [...arr]);
+                    fraseTendaoTricepsBraquialDireito.splice(index, 1);
+                    setFraseTendaoTricepsBraquialDireito((arr) => [...arr]);
                 }
             }
         });
@@ -54,21 +78,25 @@ function TendaoTricepsBraquialDireito() {
     const criaStringAspectoNormal = () => {
         var string = "FALTA";
         if (AspectoNormalCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setAspectoNormalCheckbox(false);
+            setFraseTendaoTricepsBraquialDireito((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
+
+    useEffect(() => {
+        criaStringAspectoNormal()
+    }, [AspectoNormalCheckbox])
+
     const criaStringEntesofito = (medida) => {
-        var string = `FALTA ${medida}`;
+        removeStringEntesofito();
+        var string;
         if (medida !== '') {
-            setLaudoPrin((arr) => [...arr, string]);
-            setAspectoNormalCheckbox(false);
-        } else {
-            removeItemString(string);
+            string = `FALTA ${medida}`
+            setFraseTendaoTricepsBraquialDireito((arr) => [...arr, string]);
         }
     };
+
     useEffect(() => {
         if (EntesofitoCheckbox) {
             setdisableEntesofitoInput(false)
@@ -76,27 +104,45 @@ function TendaoTricepsBraquialDireito() {
             setEntesofitoInput("")
             setdisableEntesofitoInput(true)
         }
-    }, [EntesofitoCheckbox])
+    }, [EntesofitoCheckbox, EntesofitoCheckbox])
 
     useEffect(() => {
         criaStringEntesofito(EntesofitoInput)
     }, [EntesofitoInput])
 
+
+    const removeStringEntesofito = () => {
+        fraseTendaoTricepsBraquialDireito.map((e) => {
+            if (e.includes("FALTA")) {
+                var index = fraseTendaoTricepsBraquialDireito.indexOf(e);
+
+                if (index > -1) {
+                    fraseTendaoTricepsBraquialDireito.splice(index, 1);
+                    setFraseTendaoTricepsBraquialDireito((arr) => [...arr]);
+                }
+            }
+        });
+    };
+
+
     const criaStringTendinopatiaSemRotura = () => {
         var string = "FALTA";
         if (TendinopatiaSemRoturaCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setTendinopatiaSemRoturaCheckbox(false);
+            setFraseTendaoTricepsBraquialDireito((arr) => [...arr, string]);
+
         } else {
             removeItemString(string);
         }
     };
+    useEffect(() => {
+        criaStringTendinopatiaSemRotura()
+    }, [TendinopatiaSemRoturaCheckbox])
 
     const removeItemString = (value) => {
-        var index = laudoPrin.indexOf(value);
+        var index = fraseTendaoTricepsBraquialDireito.indexOf(value);
         if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
+            fraseTendaoTricepsBraquialDireito.splice(index, 1);
+            setFraseTendaoTricepsBraquialDireito((arr) => [...arr]);
         }
     };
 
@@ -189,7 +235,6 @@ function TendaoTricepsBraquialDireito() {
                     isDisabled={disableTudo || disableAspectoNormal}
                     onChange={() => {
                         setAspectoNormalCheckbox(!AspectoNormalCheckbox);
-                        criaStringAspectoNormal();
                     }}
                 >
                     Aspecto Normal
@@ -198,7 +243,6 @@ function TendaoTricepsBraquialDireito() {
                     isDisabled={disableTudo || disableTendinopatiaSemRotura}
                     onChange={() => {
                         setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
-                        criaStringTendinopatiaSemRotura();
                     }}
                 >
                     Tendinopatia sem rotura

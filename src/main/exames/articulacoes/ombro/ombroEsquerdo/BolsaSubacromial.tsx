@@ -3,15 +3,15 @@
 import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
-import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext"
+import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext"
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function BolsaSubacromial_SubdeltoideaDireito() {
+function BolsaSubacromial_SubdeltoideaEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
-  let { OmbroDireitoLaudoNormal } = useContext(OmbroDireitoNormalContext)
+  let { OmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
 
@@ -127,9 +127,9 @@ function BolsaSubacromial_SubdeltoideaDireito() {
 
 
   useEffect(() => {
-    OmbroDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+    OmbroEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
 
-  }, [OmbroDireitoLaudoNormal])
+  }, [OmbroEsquerdoLaudoNormal])
 
   return (
     <Box
@@ -197,4 +197,4 @@ function BolsaSubacromial_SubdeltoideaDireito() {
 
   );
 }
-export default BolsaSubacromial_SubdeltoideaDireito;
+export default BolsaSubacromial_SubdeltoideaEsquerdo;

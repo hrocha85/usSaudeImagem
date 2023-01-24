@@ -7,7 +7,7 @@ import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNo
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function BolsaSubacromial_SubdeltoideaDireito() {
+function ArticulacaoAcromioclavicularDireito() {
   const altura = "100%";
   const largura = "95%";
 
@@ -40,34 +40,35 @@ function BolsaSubacromial_SubdeltoideaDireito() {
   }, [fraseBolsaSubacromialSubdeltoidea]);
 
 
-  const [disableLiquidoSelect, setdisableLiquidoSelect] = useState(true);
-  const [SelectLiquido, setSelectLiquido] = useState("");
+  const [disableNormal, setdisableNormal] = useState(false);
+  const [disableOsteofitos, setdisableOsteofitos] = useState(false);
 
-  const [disableSemLiquido, setdisableSemLiquido] = useState(false);
-  const [disableLiquido, setdisableLiquido] = useState(false);
-
-  const [SemLiquidoCheckbox, setSemLiquidoCheckbox] = useState(false);
-  const [LiquidoCheckbox, setLiquidoCheckbox] = useState(false);
+  const [NormalCheckbox, setNormalCheckbox] = useState(false);
+  const [OsteofitosCheckbox, setOsteofitosCheckbox] = useState(false);
 
 
-  const [DisableEspessamentoSinovia, setDisableEspessamentoSinovia] = useState(true);
-  const [EspessamentoSinoviaCheckbox, setEspessamentoSinoviaCheckbox] = useState(false);
+  const [DisableEspessamentoCapsulosinovial, setDisableEspessamentoCapsulosinovial] = useState(true);
+  const [EspessamentoCapsulosinovialCheckbox, setEspessamentoCapsulosinovialCheckbox] = useState(false);
 
-  const criaStringLiquido = (selectLiquido) => {
-    removeLiquido();
-    var string;
-    if (selectLiquido !== '' && EspessamentoSinoviaCheckbox) {
-      string = `Frase , ${selectLiquido} com espessamento sinovial`;
-      setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
-    } else if (selectLiquido !== '') {
-      string = `Frase , ${selectLiquido} `;
+  const criaStringOsteofitos = () => {
+    removeOsteofitos();
+    var string = 'AQUI '
+    if (OsteofitosCheckbox) {
+      if (EspessamentoCapsulosinovialCheckbox) {
+        string = `${string} com espessamento Capsulosinovial`;
+      }
       setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
     }
-  };
+  }
 
-  const removeLiquido = () => {
+  useEffect(() => {
+    criaStringOsteofitos();
+  }, [OsteofitosCheckbox, EspessamentoCapsulosinovialCheckbox]);
+
+
+  const removeOsteofitos = () => {
     fraseBolsaSubacromialSubdeltoidea.map((e) => {
-      if (e.includes("Frase ,")) {
+      if (e.includes("AQUI ")) {
         var index = fraseBolsaSubacromialSubdeltoidea.indexOf(e);
 
         if (index > -1) {
@@ -78,9 +79,9 @@ function BolsaSubacromial_SubdeltoideaDireito() {
     });
   };
 
-  const criaStringSemLiquido = () => {
+  const criaStringNormal = () => {
     var string = "FALTA";
-    if (SemLiquidoCheckbox) {
+    if (NormalCheckbox) {
       setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
     } else {
       removeItemString(string);
@@ -88,8 +89,8 @@ function BolsaSubacromial_SubdeltoideaDireito() {
   };
 
   useEffect(() => {
-    criaStringSemLiquido()
-  }, [SemLiquidoCheckbox])
+    criaStringNormal()
+  }, [NormalCheckbox])
 
   const removeItemString = (value) => {
     var index = fraseBolsaSubacromialSubdeltoidea.indexOf(value);
@@ -100,30 +101,24 @@ function BolsaSubacromial_SubdeltoideaDireito() {
   };
 
   useEffect(() => {
-    if (SemLiquidoCheckbox) {
-      setdisableLiquido(true)
+    if (NormalCheckbox) {
+      setdisableOsteofitos(true)
     } else {
-      setdisableLiquido(false)
+      setdisableOsteofitos(false)
     }
-  }, [SemLiquidoCheckbox])
+  }, [NormalCheckbox])
 
 
   useEffect(() => {
-    if (LiquidoCheckbox) {
-      setdisableLiquidoSelect(false);
-      setDisableEspessamentoSinovia(false)
-      setdisableSemLiquido(true)
+    if (OsteofitosCheckbox) {
+      setDisableEspessamentoCapsulosinovial(false)
+      setdisableNormal(true)
     } else {
-      removeLiquido();
-      setDisableEspessamentoSinovia(true)
-      setdisableLiquidoSelect(true);
-      setdisableSemLiquido(false)
+      removeOsteofitos();
+      setDisableEspessamentoCapsulosinovial(true)
+      setdisableNormal(false)
     }
-  }, [LiquidoCheckbox]);
-
-  useEffect(() => {
-    criaStringLiquido(SelectLiquido);
-  }, [SelectLiquido, EspessamentoSinoviaCheckbox]);
+  }, [OsteofitosCheckbox]);
 
 
   useEffect(() => {
@@ -143,7 +138,7 @@ function BolsaSubacromial_SubdeltoideaDireito() {
       padding="15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Bolsa Subacromial-subdeltoidea" />
+      <TituloNomeExame titulo="Articulação Acromioclavicular" />
 
       <Box display="flex" flexWrap="wrap">
 
@@ -152,43 +147,30 @@ function BolsaSubacromial_SubdeltoideaDireito() {
       <Stack>
 
         <Checkbox
-          isDisabled={disableTudo || disableSemLiquido}
+          isDisabled={disableTudo || disableNormal}
           onChange={() => {
-            setSemLiquidoCheckbox(!SemLiquidoCheckbox);
+            setNormalCheckbox(!NormalCheckbox);
           }}
         >
-          Sem líquido
+          Normal
         </Checkbox>
 
         <Box display='flex' flexWrap='wrap' gap='10px'>
           <Checkbox
-            isDisabled={disableTudo || disableLiquido}
+            isDisabled={disableTudo || disableOsteofitos}
             onChange={() => {
-              setLiquidoCheckbox(!LiquidoCheckbox);
+              setOsteofitosCheckbox(!OsteofitosCheckbox);
             }}
           >
-            Liquido
+            Osteofitos marginais
           </Checkbox>
-          <Text alignSelf='center'>quantidade:</Text>
-          <Select
-            w='150px'
-            isDisabled={disableLiquidoSelect}
-            value={SelectLiquido}
-            onChange={(e) => {
-              setSelectLiquido(e.target.value);
-            }}
-          >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
-          </Select>
-
           <Checkbox
-            isDisabled={DisableEspessamentoSinovia}
+            isDisabled={DisableEspessamentoCapsulosinovial}
             onChange={() => {
-              setEspessamentoSinoviaCheckbox(!EspessamentoSinoviaCheckbox);
+              setEspessamentoCapsulosinovialCheckbox(!EspessamentoCapsulosinovialCheckbox);
             }}
           >
-            com espessamento de sinóvia
+            com espessamento de capsuloCapsulosinoviall
           </Checkbox>
         </Box>
 
@@ -197,4 +179,4 @@ function BolsaSubacromial_SubdeltoideaDireito() {
 
   );
 }
-export default BolsaSubacromial_SubdeltoideaDireito;
+export default ArticulacaoAcromioclavicularDireito;
