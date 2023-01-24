@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Box } from "@chakra-ui/react";
- 
+
 import CistoAnecoico from "../partesMoles/cistoAnecoico/cistoAnecoico";
 import CistoSebaceo from "../partesMoles/cistoSebaceo/cistoSebaceo";
 import Colecao from "../partesMoles/paredeAbdominal/colecao";
@@ -11,15 +11,16 @@ import ParedeAbdominalNormal from "../partesMoles/paredeAbdominal/normal";
 import Partes_Moles from "../partesMoles/partes_moles/partesMoles";
 import {
   default as Direita,
-  default as Esquerda
+  default as Esquerda,
 } from "../partesMoles/regiaoInguinal/direita";
+import Torax from "./torax/torax";
 
 function PartesMoles() {
   return (
     <>
-      
       <Box ml="10px">
         <Partes_Moles></Partes_Moles>
+        <Torax />
 
         <Box w="70%" display="flex" flexWrap="wrap">
           <Box mb="15px">

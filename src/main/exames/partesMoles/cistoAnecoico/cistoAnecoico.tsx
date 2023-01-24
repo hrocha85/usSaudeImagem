@@ -59,8 +59,8 @@ function CistoAnecoico() {
 
   const criaStringLocalCistoAnecoico = (local) => {
     removeLocalCistoAnecoico();
-    if (local !== "") {
-      let string = `Cisto sebáceo local ${local} `;
+    if (local !== "" && local != null) {
+      let string = `Cisto Anecóico localizado ${local} `;
       setFrasesCistoAne((arr) => [...arr, string]);
     }
   };
@@ -98,7 +98,7 @@ function CistoAnecoico() {
 
   const removeLocalCistoAnecoico = () => {
     frasesCistoAne.map((e) => {
-      if (e.includes("Cisto local")) {
+      if (e.includes("Cisto Anecóico ")) {
         let index = frasesCistoAne.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
@@ -204,10 +204,9 @@ function CistoAnecoico() {
               w="30%"
               isDisabled={disableInputLocalCistoAnecoico}
               h="30px"
-              value={inputLocalCistoAnecoico}
               padding="5px"
               textAlign="center"
-              onChange={(e) => {
+              onBlur={(e) => {
                 setInputLocalCistoAnecoico(e.target.value);
               }}
             />
