@@ -270,9 +270,11 @@ function Diastase_Musculo_Reto() {
             <TableContainer marginTop="20px">
               <Table variant="simple">
                 <TableCaption whiteSpace="pre-wrap" fontSize="17px">
-                  Fonte: Rath, A., Attali, P., Dumas, J. et al. The abdominal
-                  linea alba: an anatomo-radiologic and biomechanical study.
-                  Surg Radiol Anat 18, 281-288 (1996).
+                  <Text as="i">
+                    Fonte: Rath, A., Attali, P., Dumas, J. et al. The abdominal
+                    linea alba: an anatomo-radiologic and biomechanical study.
+                    Surg Radiol Anat 18, 281-288 (1996).
+                  </Text>
                 </TableCaption>
                 <Thead>
                   <Tr backgroundColor="#FFFF8F">
