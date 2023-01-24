@@ -17,7 +17,7 @@ function ParedeAbdominalNormal() {
   const verificaChecked = (value) => {
     if (value.checked === true) {
       setLaudoNormal(true);
-      setFrasesNormal((arr) => [...arr, "Parede Abdominal normal"]);
+      setFrasesNormal((arr) => [...arr, "Parede abdominal íntegra."]);
     } else {
       removeItemString();
       setLaudoNormal(false);
@@ -25,7 +25,7 @@ function ParedeAbdominalNormal() {
   };
   const removeItemString = () => {
     // console.log("valor remove = ", value);
-    var index = frasesNormal.indexOf("Parede Abdominal normal");
+    var index = frasesNormal.indexOf("Parede abdominal íntegra.");
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesNormal.splice(index, 1);

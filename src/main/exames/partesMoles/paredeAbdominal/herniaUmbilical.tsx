@@ -7,32 +7,48 @@ import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function HerniaUmbilical() {
-  const altura = "100%";
-  const largura = "95%";
+  const altura = "70%";
+  const largura = "98%";
 
   const { laudoNormal } = useContext(NormalContext);
   const [frasesHerniaUmb, setFrasesHerniaUmb] = useState<any>([]);
 
-  const [checkedHerniaUmbilicalCheckBox, setCheckedHerniaUmbilicalCheckBox] =
-    useState(false);
-  const [checkedAnelHerniacoCheckBox, setCheckedAnelHerniacoCheckBox] =
-    useState(false);
   const [checkedSacoHerniacoCheckBox, setCheckedSacoHerniacoCheckBox] =
     useState(false);
 
-  const [HerniaUmbilicalCheckbox, setCheckboxHerniaUmbilical] = useState(false);
   const [disableHerniaUmbilical, setDisableHerniaUmbilical] = useState(false);
+  const [disableInputs, setDisableInputs] = useState(true);
 
   const [disableCheckboxHerniaco, setDisableCheckboxHerniaco] = useState(true);
-  const [AnelHerniacoCheckbox, setAnelHerniacoCheckbox] = useState(false);
-  const [disableCistoInput1, setDisableCistoInput1] = useState(true);
-  const [medida1AnelHerniaco, setMedida1AnelHerniaco] = useState("");
-  const [medida2AnelHerniaco, setMedida2AnelHerniaco] = useState("");
+  const [medidaColo, setMedidaColo] = useState("");
 
   const [SacoHerniacoCheckbox, setSacoHerniacoCheckbox] = useState(false);
-  const [disableCistoInput2, setDisableCistoInput2] = useState(true);
   const [medida1SacoHerniaco, setMedida1SacoHerniaco] = useState("");
   const [medida2SacoHerniaco, setMedida2SacoHerniaco] = useState("");
+
+  const criaStringHerniaUmbilical = (
+    medida1SacoHerniaco,
+    medida2SacoHerniaco
+  ) => {
+    removeHerniaUmbilical();
+    if (medida1SacoHerniaco !== "" && medida2SacoHerniaco !== "") {
+      let string = `Na cicatriz umbilical observa-se um saco herniário contendo tecido adiposo, com variação de volume às manobras compressivas e respiratórias, medindo ${medida1SacoHerniaco} x ${medida2SacoHerniaco} cm, com colo de ${medidaColo} cm.`;
+      setFrasesHerniaUmb((arr) => [...arr, string]);
+    }
+  };
+
+  const removeHerniaUmbilical = () => {
+    frasesHerniaUmb.map((e) => {
+      if (e.includes("Na cicatriz umbilical ")) {
+        let index = frasesHerniaUmb.indexOf(e);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+        if (index > -1) {
+          frasesHerniaUmb.splice(index, 1);
+          setFrasesHerniaUmb((arr) => [...arr]);
+        }
+      }
+    });
+  };
 
   useEffect(() => {
     laudoNormal
@@ -41,98 +57,28 @@ function HerniaUmbilical() {
   });
 
   useEffect(() => {
-    if (HerniaUmbilicalCheckbox) {
-      setDisableCheckboxHerniaco(false);
-
-      setCheckedHerniaUmbilicalCheckBox(true);
-    } else {
-      setDisableCheckboxHerniaco(true);
-      setDisableCistoInput1(true);
-      setDisableCistoInput2(true);
-      setCheckedHerniaUmbilicalCheckBox(false);
-      setCheckedAnelHerniacoCheckBox(false);
-      setCheckedSacoHerniacoCheckBox(false);
-      removeAnelHerniaco();
-      removeSacoHerniaco();
-      setMedida1AnelHerniaco("");
-      setMedida2AnelHerniaco("");
-      setMedida1SacoHerniaco("");
-      setMedida2SacoHerniaco("");
-    }
-  }, [HerniaUmbilicalCheckbox]);
-
-  useEffect(() => {
-    if (AnelHerniacoCheckbox) {
-      setDisableCistoInput1(false);
-      setCheckedAnelHerniacoCheckBox(true);
-    } else {
-      setDisableCistoInput1(true);
-      setCheckedAnelHerniacoCheckBox(false);
-      removeAnelHerniaco();
-      setMedida1AnelHerniaco("");
-      setMedida2AnelHerniaco("");
-    }
-  }, [AnelHerniacoCheckbox]);
+    laudoNormal
+      ? setDisableCheckboxHerniaco(true)
+      : setDisableCheckboxHerniaco(false);
+  });
 
   useEffect(() => {
     if (SacoHerniacoCheckbox) {
-      setDisableCistoInput2(false);
+      setDisableInputs(false);
       setCheckedSacoHerniacoCheckBox(true);
     } else {
       setCheckedSacoHerniacoCheckBox(false);
-      setDisableCistoInput2(true);
-      removeSacoHerniaco();
+      setDisableInputs(true);
+      removeHerniaUmbilical();
       setMedida1SacoHerniaco("");
       setMedida2SacoHerniaco("");
+      setMedidaColo("");
     }
   }, [SacoHerniacoCheckbox]);
 
-  const criaStringAnelHerniaco = (medida1AnelHerniaco, medida2AnelHerniaco) => {
-    removeAnelHerniaco();
-    if (medida1AnelHerniaco !== "" && medida2AnelHerniaco !== "") {
-      let string = `Anel herniáco mede ${medida1AnelHerniaco}x${medida2AnelHerniaco}mm`;
-      setFrasesHerniaUmb((arr) => [...arr, string]);
-    }
-  };
-  const criaStringSacoHerniaco = (medida1SacoHerniaco, medida2SacoHerniaco) => {
-    removeSacoHerniaco();
-    if (medida1SacoHerniaco !== "" && medida2SacoHerniaco !== "") {
-      let string = `Saco herniáco mede ${medida1SacoHerniaco}x${medida2SacoHerniaco}mm`;
-      setFrasesHerniaUmb((arr) => [...arr, string]);
-    }
-  };
-
-  const removeAnelHerniaco = () => {
-    frasesHerniaUmb.map((e) => {
-      if (e.includes("Anel herniáco")) {
-        let index = frasesHerniaUmb.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-        if (index > -1) {
-          frasesHerniaUmb.splice(index, 1);
-          setFrasesHerniaUmb((arr) => [...arr]);
-        }
-      }
-    });
-  };
-  const removeSacoHerniaco = () => {
-    frasesHerniaUmb.map((e) => {
-      if (e.includes("Saco herniáco")) {
-        let index = frasesHerniaUmb.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-        if (index > -1) {
-          frasesHerniaUmb.splice(index, 1);
-          setFrasesHerniaUmb((arr) => [...arr]);
-        }
-      }
-    });
-  };
-
   useEffect(() => {
-    criaStringAnelHerniaco(medida1AnelHerniaco, medida2AnelHerniaco);
-  }, [medida1AnelHerniaco, medida2AnelHerniaco]);
-  useEffect(() => {
-    criaStringSacoHerniaco(medida1SacoHerniaco, medida2SacoHerniaco);
-  }, [medida1SacoHerniaco, medida2SacoHerniaco]);
+    criaStringHerniaUmbilical(medida1SacoHerniaco, medida2SacoHerniaco);
+  }, [medidaColo, medida1SacoHerniaco, medida2SacoHerniaco]);
 
   const subExame = "Parede Abdominal - Hérnia Umbilical";
   const titulo_exame = "Partes Moles";
@@ -174,63 +120,14 @@ function HerniaUmbilical() {
         <Stack>
           <HStack>
             <Checkbox
-              isDisabled={disableHerniaUmbilical}
-              isChecked={checkedHerniaUmbilicalCheckBox}
-              onChange={(e) =>
-                setCheckboxHerniaUmbilical(!HerniaUmbilicalCheckbox)
-              }
-              mr="30px"
-            >
-              Hérnia umbilical
-            </Checkbox>
-          </HStack>
-
-          <HStack>
-            <Checkbox
-              isChecked={checkedAnelHerniacoCheckBox}
               isDisabled={disableCheckboxHerniaco}
-              onChange={(e) => setAnelHerniacoCheckbox(!AnelHerniacoCheckbox)}
-            >
-              Anel herniáco
-            </Checkbox>
-            <Input
-              isDisabled={disableCistoInput1}
-              w="35px"
-              h="30px"
-              value={medida1AnelHerniaco}
-              padding="5px"
-              maxLength={2}
-              textAlign="center"
-              onChange={(e) => {
-                setMedida1AnelHerniaco(e.target.value);
-              }}
-            />
-            <Text>x</Text>
-            <Input
-              isDisabled={disableCistoInput1}
-              w="35px"
-              h="30px"
-              value={medida2AnelHerniaco}
-              padding="5px"
-              maxLength={2}
-              textAlign="center"
-              onChange={(e) => {
-                setMedida2AnelHerniaco(e.target.value);
-              }}
-            />
-            <Text>mm</Text>
-          </HStack>
-
-          <HStack>
-            <Checkbox
               isChecked={checkedSacoHerniacoCheckBox}
-              isDisabled={disableCheckboxHerniaco}
               onChange={(e) => setSacoHerniacoCheckbox(!SacoHerniacoCheckbox)}
             >
               Saco herniáco
             </Checkbox>
             <Input
-              isDisabled={disableCistoInput2}
+              isDisabled={disableInputs}
               w="35px"
               h="30px"
               value={medida1SacoHerniaco}
@@ -243,7 +140,7 @@ function HerniaUmbilical() {
             />
             <Text>x</Text>
             <Input
-              isDisabled={disableCistoInput2}
+              isDisabled={disableInputs}
               w="35px"
               h="30px"
               value={medida2SacoHerniaco}
@@ -254,6 +151,22 @@ function HerniaUmbilical() {
                 setMedida2SacoHerniaco(e.target.value);
               }}
             />
+            <Text>mm</Text>
+            <Text>Colo:</Text>
+
+            <Input
+              isDisabled={disableInputs}
+              value={medidaColo}
+              w="35px"
+              h="30px"
+              padding="5px"
+              maxLength={2}
+              textAlign="center"
+              onChange={(e) => {
+                setMedidaColo(e.target.value);
+              }}
+            />
+
             <Text>mm</Text>
           </HStack>
         </Stack>
