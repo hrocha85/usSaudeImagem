@@ -11,8 +11,10 @@ import ParedeAbdominalNormal from "../partesMoles/paredeAbdominal/normal";
 import Partes_Moles from "../partesMoles/partes_moles/partesMoles";
 import {
   default as Direita,
-  default as Esquerda,
+  default as Esquerda
 } from "../partesMoles/regiaoInguinal/direita";
+import Diastase_Musculo_Reto from "./paredeAbdominal/diastase_musculo_reto";
+import Hernia_Epigastrica from "./paredeAbdominal/hernia_epigastrica";
 import Achados_Normais from "./torax/achados_normais";
 import Torax from "./torax/torax";
 
@@ -40,11 +42,17 @@ function PartesMoles() {
           <Box w="400px" mb="15px">
             <HerniaUmbilical></HerniaUmbilical>
           </Box>
+          <Box w="500px" mb="15px">
+            <Hernia_Epigastrica />
+          </Box>
           <Box w="400px" mb="15px">
             <HerniaSupraUmbilical></HerniaSupraUmbilical>
           </Box>
           <Box w="400px" mb="15px">
             <HerniaIncisional></HerniaIncisional>
+          </Box>
+          <Box w="500px" mb="15px" marginEnd="10px">
+            <Diastase_Musculo_Reto />
           </Box>
           <Box w="400px" mb="15px">
             <Colecao></Colecao>
