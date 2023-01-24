@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoFlexoresTenossinoviteDireito() {
+function TendaoFlexoresTenossinoviteEsquerdo() {
     const altura = "100%";
     const largura = "95%";
 
     const [value, setValue] = useState("1");
     const [frasesTorax, setFrasesTorax] = useState<any>([]);
 
-    const subExame = "Tendões flexores com tenossinovite Direito";
+    const subExame = "Tendões flexores com tenossinovite Esquerdo";
     const titulo_exame = "Articulações";
 
     useEffect(() => {
@@ -72,4 +72,4 @@ function TendaoFlexoresTenossinoviteDireito() {
     );
 }
 
-export default TendaoFlexoresTenossinoviteDireito;
+export default TendaoFlexoresTenossinoviteEsquerdo;

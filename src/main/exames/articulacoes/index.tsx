@@ -160,6 +160,7 @@ import BolsaSubacromial_SubdeltoideaEsquerdo from "./ombro/ombroEsquerdo/BolsaSu
 import ArticulacaoAcromioclavicularDireito from "./ombro/omboDireito/ArticulacaoAcromioclavicular";
 import ArticulacaoAcromioclavicularEsquerdo from "./ombro/ombroEsquerdo/ArticulacaoAcromioclavicular";
 import TendaoFlexoresTenossinoviteDireito from "./punho/punhoDireito/TendaoFlexoresTenossinovite";
+import TendaoFlexoresTenossinoviteEsquerdo from "./punho/punhoEsquerdo/TendaoFlexoresTenossinovite";
 
 function Articulacoes() {
 
@@ -658,6 +659,11 @@ function Articulacoes() {
                             mt='10px'
                             textAlign="center" >
                             <PunhoNormalEsquerdo />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <TendaoFlexoresTenossinoviteEsquerdo />
                         </Box>
                         <Box
                             // w='450px'

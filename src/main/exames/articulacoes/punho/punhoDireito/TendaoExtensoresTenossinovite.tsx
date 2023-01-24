@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoFlexoresTenossinoviteDireito() {
+function TendaoExtensoresTenossinoviteDireito() {
     const altura = "100%";
     const largura = "95%";
 
     const [value, setValue] = useState("1");
     const [frasesTorax, setFrasesTorax] = useState<any>([]);
 
-    const subExame = "Tendões flexores com tenossinovite Direito";
+    const subExame = "Tendões Extensores com tenossinovite Direito";
     const titulo_exame = "Articulações";
 
     useEffect(() => {
@@ -52,18 +52,20 @@ function TendaoFlexoresTenossinoviteDireito() {
             padding="15px"
             mt="15px"
         >
-            <TituloNomeExame titulo="Tendão flexores com tenossinovite" />
+            <TituloNomeExame titulo="Tendão Extensores com tenossinovite" />
 
             <Stack marginBottom='10px'>
                 <Box >
                     <RadioGroup onChange={setValue} value={value} padding="10px">
                         <Stack direction="column">
                             <Radio value="1">Não citar</Radio>
-                            <Radio value="Flexor longo do polegar">Flexor longo do polegar</Radio>
-                            <Radio value="Flexor radial do carpo">Flexor radial do carpo</Radio>
-                            <Radio value="Flexores superficiais dos dedos">Flexores superficiais dos dedos</Radio>
-                            <Radio value="Flexores profundos dos dedos">Flexores profundos dos dedos</Radio>
-                            <Radio value="Flexor palmar longo">Flexor palmar longo</Radio>
+                            <Radio value="I = Abdoturo longo do polegar + extensor curto do polegar">I = Abdoturo longo do polegar + extensor curto do polegar</Radio>
+                            <Radio value="II = Extensor longo radial do carpo + extensor curto radial do carpo">Flexor</Radio>
+                            <Radio value="III = Extensor longo do polegar">III = Extensor longo do polegar</Radio>
+                            <Radio value="IV = Extensor comum dos dedos e extensor do indicador">IV = Extensor comum dos dedos e extensor do indicador</Radio>
+                            <Radio value="V = extensor do V dedo">V = extensor do V dedo</Radio>
+                            <Radio value="VI = extensor ulnar ">VI = extenros ulnar </Radio>
+
                         </Stack>
                     </RadioGroup>
                 </Box>
@@ -72,4 +74,4 @@ function TendaoFlexoresTenossinoviteDireito() {
     );
 }
 
-export default TendaoFlexoresTenossinoviteDireito;
+export default TendaoExtensoresTenossinoviteDireito;
