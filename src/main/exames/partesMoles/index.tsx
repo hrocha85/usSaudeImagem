@@ -13,13 +13,15 @@ import {
   default as Direita,
   default as Esquerda,
 } from "../partesMoles/regiaoInguinal/direita";
+import Achados_Normais from "./torax/achados_normais";
 import Torax from "./torax/torax";
 
 function PartesMoles() {
   return (
     <>
       <Box ml="10px">
-        <Partes_Moles></Partes_Moles>
+        <Achados_Normais />
+        <Partes_Moles />
         <Torax />
 
         <Box w="70%" display="flex" flexWrap="wrap">
