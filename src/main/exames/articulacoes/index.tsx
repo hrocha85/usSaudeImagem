@@ -11,9 +11,6 @@ import TendaoInfraespinhalOmbroEsquerdo from "./ombro/ombroEsquerdo/TendaoInfrae
 import SubescapularOmbroDireito from "./ombro/omboDireito/subescapular";
 import SubescapularOmbroEsquerdo from "./ombro/ombroEsquerdo/subescapular";
 
-
-import ExtraOmbroDireito from "./ombro/omboDireito/extra";
-import ExtraOmbroEsquerdo from "./ombro/ombroEsquerdo/extra";
 import OmbroNormalDireito from "./ombro/omboDireito/normal";
 import OmbroNormalEsquerdo from "./ombro/ombroEsquerdo/normal";
 import CotoveloNormalDireito from "./cotovelo/cotoveloDireito/normal";
@@ -163,8 +160,12 @@ import TendaoFlexoresTenossinoviteDireito from "./punho/punhoDireito/TendaoFlexo
 import TendaoFlexoresTenossinoviteEsquerdo from "./punho/punhoEsquerdo/TendaoFlexoresTenossinovite";
 import TendaoExtensoresTenossinoviteDireito from "./punho/punhoDireito/TendaoExtensoresTenossinovite";
 import TendaoExtensoresTenossinoviteEsquerdo from "./punho/punhoEsquerdo/TendaoExtensoresTenossinovite";
-import PunhoNervoUlnarDireito from "./punho/punhoDireito/NervoMediano";
-import PunhoNervoUlnarEsquerdo from "./punho/punhoEsquerdo/NervoMediano";
+import PunhoNervoMedianoDireito from "./punho/punhoDireito/NervoMediano";
+import PunhoNervoMedianoEsquerdo from "./punho/punhoEsquerdo/NervoMedianoEsquerdo";
+import RetinaculoFlexoresDireito from "./punho/punhoDireito/RetinaculoFlexores";
+import RetinaculoFlexoresEsquerdo from "./punho/punhoEsquerdo/RetinaculoFlexores";
+import PunhoCistosDireito from "./punho/punhoDireito/PunhoCistos";
+import PunhoCistosEsquerdo from "./punho/punhoEsquerdo/PunhoCistos";
 
 function Articulacoes() {
 
@@ -271,7 +272,7 @@ function Articulacoes() {
                         <Box
                             // w='450px'
                             textAlign="center" >
-                            <PunhoNervoUlnarDireito />
+                            <NervoUlnarDireito />
                         </Box>
                         <Box
                             // w='450px'
@@ -306,7 +307,17 @@ function Articulacoes() {
                         <Box
                             // w='450px'
                             textAlign="center" >
-                            <PunhoNervoUlnarDireito />
+                            <PunhoNervoMedianoDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <RetinaculoFlexoresDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <PunhoCistosDireito />
                         </Box>
                         <Box
                             // w='450px'
@@ -687,8 +698,17 @@ function Articulacoes() {
                         <Box
                             // w='450px'
                             textAlign="center" >
-                            <PunhoNervoUlnarEsquerdo />
-                            <PunhoNervoUlnarEsquerdo />
+                            <PunhoNervoMedianoEsquerdo />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <RetinaculoFlexoresEsquerdo />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <PunhoCistosEsquerdo />
                         </Box>
                         <Box
                             // w='450px'

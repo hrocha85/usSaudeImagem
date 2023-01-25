@@ -191,7 +191,7 @@ function NervoMedianoEsquerdo() {
             padding="15px"
             mt="15px"
         >
-            <TituloNomeExame titulo="Nervo Ulnar Esquerdo" />
+            <TituloNomeExame titulo="Nervo Mediano Esquerdo" />
 
             <Box display="flex" flexWrap="wrap">
 
