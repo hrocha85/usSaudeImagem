@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import {
-    Box,
-    Checkbox,
-    HStack,
-    Input,
-    Select,
-    Stack,
-    Text
+  Box,
+  Checkbox,
+  HStack,
+  Input,
+  Select,
+  Stack,
+  Text
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { NormalContext } from "../../../../context/NormalContext";
@@ -51,7 +51,15 @@ function Colecao() {
     MedidaDistanciaPele
   ) => {
     removeLocalColecao();
-    if (local !== "") {
+    if (
+      local !== "" &&
+      colecao !== "" &&
+      plano !== "" &&
+      medida1 !== "" &&
+      medida2 !== "" &&
+      medida3 !== "" &&
+      MedidaDistanciaPele !== ""
+    ) {
       let string = `Nota-se na alteração palpável da região, ${local}, coleção ${colecao}, no plano ${plano},
       medindo ${medida1} x ${medida2} x ${medida3} mm, distando ${MedidaDistanciaPele} mm da pele`;
       setFrasesColecao((arr) => [...arr, string]);
@@ -82,6 +90,7 @@ function Colecao() {
     setMedida1Colecao("");
     setMedida2Colecao("");
     setMedida3Colecao("");
+    setMedidaDistanciaPele("");
   }, [LocalColecaoCheckbox]);
 
   useEffect(() => {
@@ -173,7 +182,7 @@ function Colecao() {
               }}
             >
               <option value="" disabled selected>
-                {" "}
+                Coleção
               </option>
               <option value="anecóica">anecóica</option>
               <option value="cística-espessa">cística-espessa</option>

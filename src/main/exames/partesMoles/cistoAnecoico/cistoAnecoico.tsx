@@ -7,7 +7,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function CistoAnecoico() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "85%";
 
   const [frasesCistoAne, setFrasesCistoAne] = useState<any>([]);
 
@@ -208,6 +208,11 @@ function CistoAnecoico() {
               textAlign="center"
               onBlur={(e) => {
                 setInputLocalCistoAnecoico(e.target.value);
+              }}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  setInputLocalCistoAnecoico(event.currentTarget.value);
+                }
               }}
             />
           </HStack>

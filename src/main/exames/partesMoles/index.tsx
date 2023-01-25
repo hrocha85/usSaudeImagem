@@ -40,25 +40,26 @@ function PartesMoles() {
           <Box w="100%" mb="15px">
             <ParedeAbdominalNormal />
           </Box>
+          <Box w="500px" mb="15px" marginEnd="10px">
+              <Hernia_Epigastrica />
+            </Box>
             <Box w="400px" mb="15px">
               <HerniaUmbilical />
             </Box>
-            <Box w="500px" mb="15px" marginEnd="10px">
-              <Hernia_Epigastrica />
-            </Box>
-
+            
+            <Box w="400px" mb="15px">
+            <HerniaIncisional />
+          </Box>
           <Box w="400px" mb="15px">
             <HerniaSupraUmbilical />
           </Box>
           <Box w="400px" mb="15px">
-            <HerniaIncisional />
+            <Colecao />
           </Box>
           <Box w="500px" mb="15px" marginEnd="10px">
             <Diastase_Musculo_Reto />
           </Box>
-          <Box w="400px" mb="15px">
-            <Colecao />
-          </Box>
+          
         </Box>
         <Box w="70%" display="flex" flexWrap="wrap">
           <Box w="400px" mb="15px">

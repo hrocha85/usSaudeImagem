@@ -7,7 +7,7 @@ import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function HerniaSupraUmbilical() {
-  const altura = 'auto';
+  const altura = "auto";
   const largura = "95%";
 
   const { laudoNormal } = useContext(NormalContext);
@@ -62,6 +62,7 @@ function HerniaSupraUmbilical() {
       setMedida2AnelHerniaco("");
       setMedida1SacoHerniaco("");
       setMedida2SacoHerniaco("");
+      setMedida3Distancia("");
     }
   }, [HerniaUmbilicalCheckbox]);
 
@@ -97,7 +98,11 @@ function HerniaSupraUmbilical() {
     medida3Distancia
   ) => {
     removeAnelHerniaco();
-    if (medida1AnelHerniaco !== "" && medida2AnelHerniaco !== "") {
+    if (
+      medida1AnelHerniaco !== "" &&
+      medida2AnelHerniaco !== "" &&
+      medida3Distancia != ""
+    ) {
       let string = `Anel herniáco mede ${medida1AnelHerniaco}x${medida2AnelHerniaco}mm, 
             Distando ${medida3Distancia} mm da cicatriz umbilical`;
       setFrasesHerniaSup((arr) => [...arr, string]);
@@ -109,7 +114,11 @@ function HerniaSupraUmbilical() {
     medida3Distancia
   ) => {
     removeSacoHerniaco();
-    if (medida1SacoHerniaco !== "" && medida2SacoHerniaco !== "") {
+    if (
+      medida1SacoHerniaco !== "" &&
+      medida2SacoHerniaco !== "" &&
+      medida3Distancia != ""
+    ) {
       let string = `Saco herniáco mede ${medida1SacoHerniaco}x${medida2SacoHerniaco}mm, 
             Distando ${medida3Distancia} mm da cicatriz umbilical`;
       setFrasesHerniaSup((arr) => [...arr, string]);
@@ -148,6 +157,7 @@ function HerniaSupraUmbilical() {
       medida3Distancia
     );
   }, [medida1AnelHerniaco, medida2AnelHerniaco, medida3Distancia]);
+
   useEffect(() => {
     criaStringSacoHerniaco(
       medida1SacoHerniaco,

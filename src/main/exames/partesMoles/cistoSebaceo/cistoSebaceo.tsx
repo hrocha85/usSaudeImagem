@@ -7,7 +7,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function CistoSebaceo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "85%";
 
   const [frasesCistoSeb, setFrasesCistoSeb] = useState<any>([]);
 
@@ -212,6 +212,11 @@ function CistoSebaceo() {
               textAlign="center"
               onBlur={(e) => {
                 setInputLocalCistoSebaceo(e.target.value);
+              }}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  setInputLocalCistoSebaceo(event.currentTarget.value);
+                }
               }}
             />
           </HStack>

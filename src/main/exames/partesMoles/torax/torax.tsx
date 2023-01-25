@@ -9,7 +9,7 @@ import Parenquima_Pulmonar_Esquedo from "./esquerdo/parenquima_pulmonar_esquedo"
 
 export default function Torax() {
   const altura = "100%";
-  const largura = "50%";
+  const largura = "66%";
   return (
     <Box
       bg="#FAFAFA"
@@ -25,7 +25,7 @@ export default function Torax() {
       <TituloNomeExame titulo="Tórax" />
 
       <Box gap="15px" display="flex" flexWrap="wrap" flexDirection="column">
-        <Stack direction="row">
+        <Stack direction="row" justify='space-between'>
           <Box>
             <Text fontWeight="semibold" fontSize="lg">
               Hemitórax Esquerdo
