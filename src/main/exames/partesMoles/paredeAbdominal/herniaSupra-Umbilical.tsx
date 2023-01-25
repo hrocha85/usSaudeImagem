@@ -7,7 +7,7 @@ import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function HerniaSupraUmbilical() {
-  const altura = "100%";
+  const altura = 'auto';
   const largura = "95%";
 
   const { laudoNormal } = useContext(NormalContext);

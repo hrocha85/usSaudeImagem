@@ -151,7 +151,7 @@ function Diastase_Musculo_Reto() {
     }
   }, [selectNivel, medidaAfastamento]);
 
-  const subExame = "P";
+  const subExame = "Parede Abdominal - Diástase do Músculo Reto Abdominal";
   const titulo_exame = "Partes Moles";
 
   useEffect(() => {

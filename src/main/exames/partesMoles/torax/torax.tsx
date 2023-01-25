@@ -9,7 +9,7 @@ import Parenquima_Pulmonar_Esquedo from "./esquerdo/parenquima_pulmonar_esquedo"
 
 export default function Torax() {
   const altura = "100%";
-  const largura = "66%";
+  const largura = "50%";
   return (
     <Box
       bg="#FAFAFA"

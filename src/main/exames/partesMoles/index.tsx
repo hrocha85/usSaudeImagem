@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
-import { Box } from "@chakra-ui/react";
+import { Box, Center } from "@chakra-ui/react";
 
 import CistoAnecoico from "../partesMoles/cistoAnecoico/cistoAnecoico";
 import CistoSebaceo from "../partesMoles/cistoSebaceo/cistoSebaceo";
@@ -11,7 +11,7 @@ import ParedeAbdominalNormal from "../partesMoles/paredeAbdominal/normal";
 import Partes_Moles from "../partesMoles/partes_moles/partesMoles";
 import {
   default as Direita,
-  default as Esquerda
+  default as Esquerda,
 } from "../partesMoles/regiaoInguinal/direita";
 import Diastase_Musculo_Reto from "./paredeAbdominal/diastase_musculo_reto";
 import Hernia_Epigastrica from "./paredeAbdominal/hernia_epigastrica";
@@ -22,6 +22,7 @@ function PartesMoles() {
   return (
     <>
       <Box ml="10px">
+        
         <Achados_Normais />
         <Partes_Moles />
         <Torax />
@@ -37,33 +38,34 @@ function PartesMoles() {
 
         <Box w="70%" display="flex" flexWrap="wrap">
           <Box w="100%" mb="15px">
-            <ParedeAbdominalNormal></ParedeAbdominalNormal>
+            <ParedeAbdominalNormal />
+          </Box>
+            <Box w="400px" mb="15px">
+              <HerniaUmbilical />
+            </Box>
+            <Box w="500px" mb="15px" marginEnd="10px">
+              <Hernia_Epigastrica />
+            </Box>
+
+          <Box w="400px" mb="15px">
+            <HerniaSupraUmbilical />
           </Box>
           <Box w="400px" mb="15px">
-            <HerniaUmbilical></HerniaUmbilical>
-          </Box>
-          <Box w="500px" mb="15px">
-            <Hernia_Epigastrica />
-          </Box>
-          <Box w="400px" mb="15px">
-            <HerniaSupraUmbilical></HerniaSupraUmbilical>
-          </Box>
-          <Box w="400px" mb="15px">
-            <HerniaIncisional></HerniaIncisional>
+            <HerniaIncisional />
           </Box>
           <Box w="500px" mb="15px" marginEnd="10px">
             <Diastase_Musculo_Reto />
           </Box>
           <Box w="400px" mb="15px">
-            <Colecao></Colecao>
+            <Colecao />
           </Box>
         </Box>
         <Box w="70%" display="flex" flexWrap="wrap">
           <Box w="400px" mb="15px">
-            <Direita></Direita>
+            <Direita />
           </Box>
           <Box w="400px" mb="15px">
-            <Esquerda></Esquerda>
+            <Esquerda />
           </Box>
         </Box>
       </Box>
