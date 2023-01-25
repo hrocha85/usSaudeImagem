@@ -258,12 +258,13 @@ function Diastase_Musculo_Reto() {
             whiteSpace="nowrap"
             textColor="#394BEEB4"
             marginTop="10px"
+            textAlign="center"
           >
             REFERÊNCIA SUGERIDA PARA DIÁSTASE DO MÚSCULO RETO ABDOMINAL
           </ModalHeader>
           <ModalCloseButton marginTop="10px" />
           <ModalBody>
-            <Text fontSize="20px">
+            <Text fontSize="20px" textAlign="center">
               Distância em mm entre as bordas mediais do reto abdominal para
               definir diástase
             </Text>
@@ -279,25 +280,30 @@ function Diastase_Musculo_Reto() {
                 <Thead>
                   <Tr backgroundColor="#FFFF8F">
                     <Th fontSize="19px">Idade do Paciênte</Th>
-                    <Th fontSize="19px"> {"<"} 45 Anos</Th>
-                    <Th fontSize="19px">{">"} 45 Anos</Th>
+                    <Th fontSize="19px" textAlign="center">
+                      {" "}
+                      {"<"} 45 Anos
+                    </Th>
+                    <Th fontSize="19px" textAlign="center">
+                      {">"} 45 Anos
+                    </Th>
                   </Tr>
                 </Thead>
                 <Tbody fontSize="18px">
                   <Tr backgroundColor="#F5F5DC">
                     <Td>Região Supra Umbilical</Td>
-                    <Td>{">"} 10mm</Td>
-                    <Td>{">"} 15mm</Td>
+                    <Td textAlign="center">{">"} 10mm</Td>
+                    <Td textAlign="center">{">"} 15mm</Td>
                   </Tr>
                   <Tr backgroundColor="#F5F5DC">
                     <Td>Região Umbilical</Td>
-                    <Td>{">"} 27mm</Td>
-                    <Td>{">"} 27mm</Td>
+                    <Td textAlign="center">{">"} 27mm</Td>
+                    <Td textAlign="center">{">"} 27mm</Td>
                   </Tr>
                   <Tr backgroundColor="#F5F5DC">
                     <Td>Região Infra Umbilical</Td>
-                    <Td>{">"} 9mm</Td>
-                    <Td>{">"} 14mm</Td>
+                    <Td textAlign="center">{">"} 9mm</Td>
+                    <Td textAlign="center">{">"} 14mm</Td>
                   </Tr>
                 </Tbody>
               </Table>
