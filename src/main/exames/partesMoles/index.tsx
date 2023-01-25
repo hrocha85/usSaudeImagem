@@ -15,6 +15,7 @@ import {
 } from "../partesMoles/regiaoInguinal/direita";
 import Diastase_Musculo_Reto from "./paredeAbdominal/diastase_musculo_reto";
 import Hernia_Epigastrica from "./paredeAbdominal/hernia_epigastrica";
+import Nodulos from "./partes_moles/nodulos";
 import Achados_Normais from "./torax/achados_normais";
 import Torax from "./torax/torax";
 
@@ -22,7 +23,8 @@ function PartesMoles() {
   return (
     <>
       <Achados_Normais />
-      <Partes_Moles />
+      {/*<Partes_Moles />*/}
+      <Nodulos/>
       <Torax />
       <Grid templateColumns="repeat(2, 1fr)" gap={4} maxW="66%">
         <CistoSebaceo />

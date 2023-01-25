@@ -291,19 +291,31 @@ function Diastase_Musculo_Reto() {
                 </Thead>
                 <Tbody fontSize="18px">
                   <Tr backgroundColor="#F5F5DC">
-                    <Td>Região Supra Umbilical</Td>
-                    <Td textAlign="center">{">"} 10mm</Td>
-                    <Td textAlign="center">{">"} 15mm</Td>
+                    <Td fontWeight="semibold">Região Supra Umbilical</Td>
+                    <Td textAlign="center" fontWeight="semibold">
+                      {">"} 10mm
+                    </Td>
+                    <Td textAlign="center" fontWeight="semibold">
+                      {">"} 15mm
+                    </Td>
                   </Tr>
                   <Tr backgroundColor="#F5F5DC">
-                    <Td>Região Umbilical</Td>
-                    <Td textAlign="center">{">"} 27mm</Td>
-                    <Td textAlign="center">{">"} 27mm</Td>
+                    <Td fontWeight="semibold">Região Umbilical</Td>
+                    <Td textAlign="center" fontWeight="semibold">
+                      {">"} 27mm
+                    </Td>
+                    <Td textAlign="center" fontWeight="semibold">
+                      {">"} 27mm
+                    </Td>
                   </Tr>
                   <Tr backgroundColor="#F5F5DC">
-                    <Td>Região Infra Umbilical</Td>
-                    <Td textAlign="center">{">"} 9mm</Td>
-                    <Td textAlign="center">{">"} 14mm</Td>
+                    <Td fontWeight="semibold">Região Infra Umbilical</Td>
+                    <Td textAlign="center" fontWeight="semibold">
+                      {">"} 9mm
+                    </Td>
+                    <Td textAlign="center" fontWeight="semibold">
+                      {">"} 14mm
+                    </Td>
                   </Tr>
                 </Tbody>
               </Table>
