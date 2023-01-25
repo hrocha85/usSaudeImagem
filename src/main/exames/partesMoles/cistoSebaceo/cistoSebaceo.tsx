@@ -7,7 +7,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function CistoSebaceo() {
   const altura = "100%";
-  const largura = "85%";
+  const largura = "auto";
 
   const [frasesCistoSeb, setFrasesCistoSeb] = useState<any>([]);
 

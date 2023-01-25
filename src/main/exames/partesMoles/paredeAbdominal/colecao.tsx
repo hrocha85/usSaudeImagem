@@ -15,7 +15,7 @@ import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Colecao() {
-  const altura = "100%";
+  const altura = "auto";
   const largura = "95%";
 
   const [frasesColecao, setFrasesColecao] = useState<any>([]);

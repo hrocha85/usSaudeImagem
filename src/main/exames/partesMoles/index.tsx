@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
-import { Box, Center } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 
 import CistoAnecoico from "../partesMoles/cistoAnecoico/cistoAnecoico";
 import CistoSebaceo from "../partesMoles/cistoSebaceo/cistoSebaceo";
@@ -21,55 +21,22 @@ import Torax from "./torax/torax";
 function PartesMoles() {
   return (
     <>
-      <Box ml="10px">
-        
-        <Achados_Normais />
-        <Partes_Moles />
-        <Torax />
-
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box mb="15px">
-            <CistoSebaceo></CistoSebaceo>
-          </Box>
-          <Box mb="15px">
-            <CistoAnecoico></CistoAnecoico>
-          </Box>
-        </Box>
-
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="100%" mb="15px">
-            <ParedeAbdominalNormal />
-          </Box>
-          <Box w="500px" mb="15px" marginEnd="10px">
-              <Hernia_Epigastrica />
-            </Box>
-            <Box w="400px" mb="15px">
-              <HerniaUmbilical />
-            </Box>
-            
-            <Box w="400px" mb="15px">
-            <HerniaIncisional />
-          </Box>
-          <Box w="400px" mb="15px">
-            <HerniaSupraUmbilical />
-          </Box>
-          <Box w="400px" mb="15px">
-            <Colecao />
-          </Box>
-          <Box w="500px" mb="15px" marginEnd="10px">
-            <Diastase_Musculo_Reto />
-          </Box>
-          
-        </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="400px" mb="15px">
-            <Direita />
-          </Box>
-          <Box w="400px" mb="15px">
-            <Esquerda />
-          </Box>
-        </Box>
-      </Box>
+      <Achados_Normais />
+      <Partes_Moles />
+      <Torax />
+      <Grid templateColumns="repeat(2, 1fr)" gap={4} maxW="66%">
+        <CistoSebaceo />
+        <CistoAnecoico />
+        <ParedeAbdominalNormal />
+        <Hernia_Epigastrica />
+        <HerniaUmbilical />
+        <HerniaIncisional />
+        <HerniaSupraUmbilical />
+        <Colecao />
+        <Diastase_Musculo_Reto />
+        <Direita />
+        <Esquerda />
+      </Grid>
     </>
   );
 }
