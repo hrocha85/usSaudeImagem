@@ -4,9 +4,32 @@ import { Box, Button, Center, Checkbox, HStack, Input, Select } from "@chakra-ui
 import { useContext, useEffect, useState } from "react";
 import { isLineBreak } from "typescript";
 import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
 export default function IndividualizarPolias({ numCalculo, desabilita }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+  const [FrasePoliasDireito, setFrasePoliasDireito] = useState<any>([]);
+
+  const subExame = `Polias ${numCalculo + 1} Direito`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(FrasePoliasDireito).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        FrasePoliasDireito
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        FrasePoliasDireito
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [FrasePoliasDireito]);
 
   const [multiplosDedosCheckbox, setmultiplosDedosCheckbox] = useState(false);
   const [A1, setA1] = useState(false);
@@ -15,38 +38,42 @@ export default function IndividualizarPolias({ numCalculo, desabilita }) {
   const [A4, setA4] = useState(false);
   const [A5, setA5] = useState(false);
   const [DisableCheckbox, setDisableCheckbox] = useState(true);
-  const [frase, setFrase] = useState<any>([])
 
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
+    var string = `Dedo ${numCalculo + 1} com descontinuidade das polias:`
     if (multiplosDedosCheckbox) {
-      setFrase((arr) => [...arr, `Dedo ${numCalculo} com descontinuidade das polias: `]);
-      setLaudoPrin((arr) => [...arr, frase]);
+      if (A1) {
+        string = `${string} A1`
+      }
+      if (A2) {
+        string = `${string} A2`
+      }
+      if (A3) {
+        string = `${string} A3`
+      }
+      if (A4) {
+        string = `${string} A4`
+      }
+      if (A5) {
+        string = `${string} A5`
+      }
+      setFrasePoliasDireito((arr) => [...arr, string]);
     } else {
       removeMultiplosCalculos();
     }
   };
 
 
-  const removeItemString = (value) => {
-    var index = frase.indexOf(value);
-    if (index > -1) {
-      frase.splice(index, 1);
-      setFrase((arr) => [...arr]);
-      setLaudoPrin((arr) => [...arr, frase]);
-    }
-
-  };
-
   const removeMultiplosCalculos = () => {
-    laudoPrin.map((e) => {
-      if (e.includes(`Dedo ${numCalculo} com descontinuidade das polias: `)) {
-        var index = laudoPrin.indexOf(e);
+    FrasePoliasDireito.map((e) => {
+      if (e.includes(`Dedo ${numCalculo + 1} com descontinuidade das polias: `)) {
+        var index = FrasePoliasDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          FrasePoliasDireito.splice(index, 1);
+          setFrasePoliasDireito((arr) => [...arr]);
         }
       }
     });
@@ -60,74 +87,7 @@ export default function IndividualizarPolias({ numCalculo, desabilita }) {
       setDisableCheckbox(true)
       removeMultiplosCalculos();
     }
-  }, [
-    multiplosDedosCheckbox,
-  ]);
-
-  const criaFraseA1 = () => {
-    if (A1) {
-      removeMultiplosCalculos()
-      setFrase((arr) => [...arr, 'A1'])
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemString('A1')
-    }
-  }
-  useEffect(() => {
-    criaFraseA1()
-  }, [A1])
-
-  const criaFraseA2 = () => {
-    if (A2) {
-      setFrase((arr) => [...arr, 'A2'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemString('A2')
-    }
-  }
-  useEffect(() => {
-    criaFraseA2()
-  }, [A2])
-
-  const criaFraseA3 = () => {
-    if (A3) {
-      setFrase((arr) => [...arr, 'A3'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemString('A3')
-    }
-  }
-  useEffect(() => {
-    criaFraseA3()
-  }, [A3])
-
-  const criaFraseA4 = () => {
-    if (A4) {
-      setFrase((arr) => [...arr, 'A4'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemString('A4')
-    }
-  }
-  useEffect(() => {
-    criaFraseA4()
-  }, [A4])
-
-  const criaFraseA5 = () => {
-    if (A5) {
-      setFrase((arr) => [...arr, 'A5'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemString('A5')
-    }
-  }
-  useEffect(() => {
-    criaFraseA5()
-  }, [A5])
+  }, [multiplosDedosCheckbox, A1, A2, A3, A4, A5]);
 
 
   return (

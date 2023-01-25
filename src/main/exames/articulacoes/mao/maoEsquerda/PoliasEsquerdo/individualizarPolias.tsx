@@ -2,68 +2,76 @@
 /* eslint-disable array-callback-return */
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
-export default function IndividualizarOssos({ numCalculo, desabilita }) {
-  const [OssosMaoDireita, setOssosMaoDireita] = useState<any>([]);
+export default function IndividualizarPolias({ numCalculo, desabilita }) {
 
-  const subExame = `${numCalculo + 1} - Ossos mão direita`
+  const [FrasePoliasEsquerdo, setFrasePoliasEsquerdo] = useState<any>([]);
+
+  const subExame = `Polias ${numCalculo + 1} Esquerdo`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
-    if (Object.keys(OssosMaoDireita).length === 0) {
+    if (Object.keys(FrasePoliasEsquerdo).length === 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        OssosMaoDireita
+        FrasePoliasEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        OssosMaoDireita
+        FrasePoliasEsquerdo
       ).Format_Laudo_Create_Storage();
     }
-  }, [OssosMaoDireita]);
-
-
+  }, [FrasePoliasEsquerdo]);
 
   const [multiplosDedosCheckbox, setmultiplosDedosCheckbox] = useState(false);
-  const [FalangeProximal, setFalangeProximal] = useState(false);
-  const [FalangeMedia, setFalangeMedia] = useState(false);
-  const [FalangeDistal, setFalangeDistal] = useState(false);
+  const [A1, setA1] = useState(false);
+  const [A2, setA2] = useState(false);
+  const [A3, setA3] = useState(false);
+  const [A4, setA4] = useState(false);
+  const [A5, setA5] = useState(false);
   const [DisableCheckbox, setDisableCheckbox] = useState(true);
+
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
-    var string = `Dedo ${numCalculo + 1} com descontinuidade das Ossos: `
+    var string = `Dedo ${numCalculo + 1} com descontinuidade das polias:`
     if (multiplosDedosCheckbox) {
-      if (FalangeProximal) {
-        string = `${string} falange Proximal`
+      if (A1) {
+        string = `${string} A1`
       }
-      if (FalangeDistal) {
-        string = `${string} falange Distal`
+      if (A2) {
+        string = `${string} A2`
       }
-      if (FalangeMedia) {
-        string = `${string} falange Media`
+      if (A3) {
+        string = `${string} A3`
       }
-      setOssosMaoDireita((arr) => [...arr, string]);
+      if (A4) {
+        string = `${string} A4`
+      }
+      if (A5) {
+        string = `${string} A5`
+      }
+      setFrasePoliasEsquerdo((arr) => [...arr, string]);
     } else {
       removeMultiplosCalculos();
     }
   };
 
+
   const removeMultiplosCalculos = () => {
-    OssosMaoDireita.map((e) => {
-      if (e.includes(`Dedo ${numCalculo + 1} com descontinuidade das Ossos: `)) {
-        var index = OssosMaoDireita.indexOf(e);
+    FrasePoliasEsquerdo.map((e) => {
+      if (e.includes(`Dedo ${numCalculo + 1} com descontinuidade das polias: `)) {
+        var index = FrasePoliasEsquerdo.indexOf(e);
 
         if (index > -1) {
-          OssosMaoDireita.splice(index, 1);
-          setOssosMaoDireita((arr) => [...arr]);
+          FrasePoliasEsquerdo.splice(index, 1);
+          setFrasePoliasEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -77,7 +85,8 @@ export default function IndividualizarOssos({ numCalculo, desabilita }) {
       setDisableCheckbox(true)
       removeMultiplosCalculos();
     }
-  }, [multiplosDedosCheckbox, FalangeMedia, FalangeProximal, FalangeDistal]);
+  }, [multiplosDedosCheckbox, A1, A2, A3, A4, A5]);
+
 
   return (
     <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
@@ -88,22 +97,35 @@ export default function IndividualizarOssos({ numCalculo, desabilita }) {
       </Checkbox>
       <Checkbox
         isDisabled={DisableCheckbox}
-        onChange={() => setFalangeProximal(!FalangeProximal)}
+        onChange={() => setA1(!A1)}
       >
-        FalangeProximal
+        A1
       </Checkbox>
       <Checkbox
         isDisabled={DisableCheckbox}
-        onChange={() => setFalangeMedia(!FalangeMedia)}
+        onChange={() => setA2(!A2)}
       >
-        FalangeMedia
+        A2
       </Checkbox>
       <Checkbox
         isDisabled={DisableCheckbox}
-        onChange={() => setFalangeDistal(!FalangeDistal)}
+        onChange={() => setA3(!A3)}
       >
-        FalangeDistal
+        A3
       </Checkbox>
+      <Checkbox
+        isDisabled={DisableCheckbox}
+        onChange={() => setA4(!A4)}
+      >
+        A4
+      </Checkbox>
+      <Checkbox
+        isDisabled={DisableCheckbox}
+        onChange={() => setA5(!A5)}
+      >
+        A5
+      </Checkbox>
+
     </Box>
   );
 }

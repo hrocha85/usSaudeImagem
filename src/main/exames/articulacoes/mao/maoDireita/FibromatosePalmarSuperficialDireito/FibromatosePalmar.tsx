@@ -4,15 +4,38 @@ import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/r
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../../context/LuadosContext";
 import { MaoDireitoNormalContext } from "../../../../../../context/MaoDireitoNormalContext"
+import { Format_Laudo } from "../../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
 
 function FibromatosePalmarDireito() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   let { MaoDireitoLaudoNormal } = useContext(MaoDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
+
+  const [fraseFibrosePalmarSuperficial, setFraseFibrosePalmarSuperficial] = useState<any>([]);
+
+  const subExame = `Fibrose palmar superficial (contratura de dupuytren) direito`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(fraseFibrosePalmarSuperficial).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        fraseFibrosePalmarSuperficial
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        fraseFibrosePalmarSuperficial
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [fraseFibrosePalmarSuperficial]);
 
   //States TenossinoviteExtensores - input,checkbox e select - Inicio
 
@@ -29,18 +52,18 @@ function FibromatosePalmarDireito() {
     console.log(Nodulo)
     if (medida1 !== "" && medida2 !== "" && medida3 !== "" && Nodulo !== "") {
       var string = `Nódulo palmar aos tendões flexores do ${Nodulo} com intervalo de ${medida1}x${medida2}x${medida3} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFraseFibrosePalmarSuperficial((arr) => [...arr, string]);
     }
   };
 
   const removeNodulo = () => {
-    laudoPrin.map((e) => {
+    fraseFibrosePalmarSuperficial.map((e) => {
       if (e.includes("Nódulo palmar aos tendões flexores do")) {
-        var index = laudoPrin.indexOf(e);
+        var index = fraseFibrosePalmarSuperficial.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          fraseFibrosePalmarSuperficial.splice(index, 1);
+          setFraseFibrosePalmarSuperficial((arr) => [...arr]);
         }
       }
     });

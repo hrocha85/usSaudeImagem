@@ -3,9 +3,32 @@
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
 export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+  const [fraseLiquidoPerintendineoHexoresEsquerdo, setFraseLiquidoPerintendineoHexoresEsquerdo] = useState<any>([]);
+
+  const subExame = `Líquido peritendineo nos hexores ${numCalculo} Esquerdo`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(fraseLiquidoPerintendineoHexoresEsquerdo).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        fraseLiquidoPerintendineoHexoresEsquerdo
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        fraseLiquidoPerintendineoHexoresEsquerdo
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [fraseLiquidoPerintendineoHexoresEsquerdo]);
 
   const [multiplosCalculosCheckbox, setmultiplosCalculosCheckbox] = useState(false);
 
@@ -14,18 +37,18 @@ export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo }
     var string;
     if (multiplosCalculosCheckbox) {
       string = `Dedo ${numCalculo} com liquido peritendineo nos hexores`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFraseLiquidoPerintendineoHexoresEsquerdo((arr) => [...arr, string]);
     }
   }
 
   const removeMultiplosCalculos = () => {
-    laudoPrin.map((e) => {
+    fraseLiquidoPerintendineoHexoresEsquerdo.map((e) => {
       if (e.includes(`Dedo ${numCalculo}`)) {
-        var index = laudoPrin.indexOf(e);
+        var index = fraseLiquidoPerintendineoHexoresEsquerdo.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          fraseLiquidoPerintendineoHexoresEsquerdo.splice(index, 1);
+          setFraseLiquidoPerintendineoHexoresEsquerdo((arr) => [...arr]);
         }
       }
     });

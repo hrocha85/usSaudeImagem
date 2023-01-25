@@ -124,6 +124,7 @@ import TenossinoviteExtensoresEsquerda from "./mao/maoEsquerda/TenossinoviteExte
 import LiquidoPeritendineoHexoresDireita from "./mao/maoDireita/LiquidoPeritendineoHexoresDireito/LiquidoPeritendineoHexores";
 import LiquidoPeritendineoHexoresEsquerda from "./mao/maoEsquerda/LiquidoPeritendineoHexoresEsquerdo/LiquidoPeritendineoHexores";
 import PoliasDireita from "./mao/maoDireita/PoliasDireito/Polias";
+import PoliasEsquerdo from "./mao/maoEsquerda/PoliasEsquerdo/Polias";
 import FibromatosePalmarDireito from "./mao/maoDireita/FibromatosePalmarSuperficialDireito/FibromatosePalmar";
 import FibromatosePalmarEsquerdo from "./mao/maoEsquerda/FibromatosePalmarSuperficialEsquerdo/FibromatosePalmar";
 import RoturaFlexoresDireito from "./mao/maoDireita/RoturaFlexoresDireito/RoturaFlexores";
@@ -739,7 +740,7 @@ function Articulacoes() {
                         </Box>
                         <Box
                             textAlign="center" >
-                            <PoliasDireita />
+                            <PoliasEsquerdo />
                         </Box>
                         <Box
                             textAlign="center" >

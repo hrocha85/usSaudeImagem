@@ -12,28 +12,28 @@ function Polias() {
   const largura = "95%";
 
 
-  const [FrasePoliasDireito, setFrasePoliasDireito] = useState<any>([]);
+  const [FrasePoliasEsquerdo, setFrasePoliasEsquerdo] = useState<any>([]);
 
-  const subExame = `Polias Direito`
+  const subExame = `Polias Esquerdo`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
-    if (Object.keys(FrasePoliasDireito).length === 0) {
+    if (Object.keys(FrasePoliasEsquerdo).length === 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        FrasePoliasDireito
+        FrasePoliasEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        FrasePoliasDireito
+        FrasePoliasEsquerdo
       ).Format_Laudo_Create_Storage();
     }
-  }, [FrasePoliasDireito]);
+  }, [FrasePoliasEsquerdo]);
 
   const [DisablePrimeiroDedo, setDisablePrimeiroDedo] = useState(true);
   const [DisableCheckbox, setDisableCheckbox] = useState(true);
@@ -50,10 +50,10 @@ function Polias() {
   var numberArray = [1, 2, 3, 4];
 
   const removeItemString = (value) => {
-    var index = FrasePoliasDireito.indexOf(value);
+    var index = FrasePoliasEsquerdo.indexOf(value);
     if (index > -1) {
-      FrasePoliasDireito.splice(index, 1);
-      setFrasePoliasDireito((arr) => [...arr]);
+      FrasePoliasEsquerdo.splice(index, 1);
+      setFrasePoliasEsquerdo((arr) => [...arr]);
     }
   };
 
@@ -66,7 +66,7 @@ function Polias() {
   useEffect(() => {
     var string = "Aspecto normal"
     AspectoNormal ? setdisableDescontinuidade(true) : setdisableDescontinuidade(false)
-    AspectoNormal ? setFrasePoliasDireito((arr) => [...arr, string]) : removeItemString(string)
+    AspectoNormal ? setFrasePoliasEsquerdo((arr) => [...arr, string]) : removeItemString(string)
 
   }, [AspectoNormal])
 
@@ -86,7 +86,7 @@ function Polias() {
       if (AO) {
         string = `${string} AO`
       }
-      setFrasePoliasDireito((arr) => [...arr, string]);
+      setFrasePoliasEsquerdo((arr) => [...arr, string]);
     } else {
       removeMultiplosCalculos()
     }
@@ -103,13 +103,13 @@ function Polias() {
   }, [PrimeiroDedo, A1, A2, AV, AO]);
 
   const removeMultiplosCalculos = () => {
-    FrasePoliasDireito.map((e) => {
+    FrasePoliasEsquerdo.map((e) => {
       if (e.includes(`Dedo 1 com descontinuidade das polias: `)) {
-        var index = FrasePoliasDireito.indexOf(e);
+        var index = FrasePoliasEsquerdo.indexOf(e);
 
         if (index > -1) {
-          FrasePoliasDireito.splice(index, 1);
-          setFrasePoliasDireito((arr) => [...arr]);
+          FrasePoliasEsquerdo.splice(index, 1);
+          setFrasePoliasEsquerdo((arr) => [...arr]);
         }
       }
     });

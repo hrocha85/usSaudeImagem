@@ -3,15 +3,39 @@
 import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext"
+import { MaoDireitoNormalContext } from "../../../../../context/MaoDireitoNormalContext"
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function MaoCistosDireito() {
     const altura = "100%";
     const largura = "90%";
 
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-    let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
+    const [CistosDireito, setCistosDireito] = useState<any>([]);
+
+    const subExame = `Cisto direito`
+    const titulo_exame = 'Articulações'
+
+    useEffect(() => {
+        if (Object.keys(CistosDireito).length === 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                CistosDireito
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                CistosDireito
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [CistosDireito]);
+
+
+    let { MaoDireitoLaudoNormal } = useContext(MaoDireitoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
 
     const [Cistos1Input, setCistos1Input] = useState("");
@@ -34,22 +58,27 @@ function MaoCistosDireito() {
 
     const [Cistos2Checkbox, setCistos2Checkbox] = useState(false);
 
-    const removeItemString = (value) => {
-        var index = laudoPrin.indexOf(value);
-        if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
+    const criaStringCistos1 = (medida1, medida2, medida3) => {
+        var string = 'Cisto1 e medindo'
+        var StringFinal;
+        removeFraseCisto1()
+        if (medida1 !== "" && medida2 !== "" && medida3 !== "" && Cistos1Select1 !== '' && Cistos1Select2 !== '') {
+            StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${Cistos1Select1} ${Cistos1Select2}`;
+            setCistosDireito((arr) => [...arr, StringFinal]);
         }
     };
 
-    const criaStringCistos1 = (medida1, medida2, medida3) => {
-        var string = 'Cisto e  medindo'
-        var StringFinal;
-        removeItemString(string)
-        if (medida1 !== "" && medida2 !== "" && medida3 !== "" && Cistos1Select1 !== '' && Cistos1Select2 !== '') {
-            StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${Cistos1Select1} ${Cistos1Select2}`;
-            setLaudoPrin((arr) => [...arr, StringFinal]);
-        }
+    const removeFraseCisto1 = () => {
+        CistosDireito.map((e) => {
+            if (e.includes(`Cisto1 e medindo`)) {
+                var index = CistosDireito.indexOf(e);
+
+                if (index > -1) {
+                    CistosDireito.splice(index, 1);
+                    setCistosDireito((arr) => [...arr]);
+                }
+            }
+        });
     };
 
     useEffect(() => {
@@ -67,13 +96,25 @@ function MaoCistosDireito() {
     }, [Cistos1Checkbox, Cistos1Input, Cistos1Input2, Cistos1Input3, Cistos1Select1, Cistos1Select2]);
 
     const criaStringCistos2 = (medida1, medida2, medida3) => {
-        var string = 'Cisto e  medindo'
+        var string = 'Cisto2 e medindo'
         var StringFinal;
-        removeItemString(string)
+        removeFraseCisto2()
         if (medida1 !== "" && medida2 !== "" && medida3 !== "" && Cistos2Select1 !== '' && Cistos2Select2 !== '') {
             StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${Cistos2Select1} ${Cistos2Select2}`;
-            setLaudoPrin((arr) => [...arr, StringFinal]);
+            setCistosDireito((arr) => [...arr, StringFinal]);
         }
+    };
+    const removeFraseCisto2 = () => {
+        CistosDireito.map((e) => {
+            if (e.includes(`Cisto2 e medindo`)) {
+                var index = CistosDireito.indexOf(e);
+
+                if (index > -1) {
+                    CistosDireito.splice(index, 1);
+                    setCistosDireito((arr) => [...arr]);
+                }
+            }
+        });
     };
 
     useEffect(() => {
@@ -91,9 +132,9 @@ function MaoCistosDireito() {
     }, [Cistos2Checkbox, Cistos2Input, Cistos2Input2, Cistos2Input3, Cistos2Select1, Cistos2Select2]);
 
     useEffect(() => {
-        CotoveloDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+        MaoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
 
-    }, [CotoveloDireitoLaudoNormal])
+    }, [MaoDireitoLaudoNormal])
 
     return (
         <Box

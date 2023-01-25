@@ -4,9 +4,32 @@ import { Box, Button, Center, Checkbox, HStack, Input, Select } from "@chakra-ui
 import { useContext, useEffect, useState } from "react";
 import { isLineBreak } from "typescript";
 import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
-export default function IndividualizarRoturaExtensores({ numCalculo }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+export default function IndividualizarRoturaFlexores({ numCalculo }) {
+
+  const [TenossinoviteExtensoresDireito, setTenossinoviteExtensoresDireito] = useState<any>([]);
+
+  const subExame = `Rotura Extensores ${numCalculo} Direito`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(TenossinoviteExtensoresDireito).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        TenossinoviteExtensoresDireito
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        TenossinoviteExtensoresDireito
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [TenossinoviteExtensoresDireito]);
 
   const [multiplosCalculosCheckbox, setmultiplosCalculosCheckbox] = useState(false);
   const [EspessamentoSinovialCheckbox, setEspessamentoSinovialCheckbox] = useState(false);
@@ -17,24 +40,24 @@ export default function IndividualizarRoturaExtensores({ numCalculo }) {
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
     var string;
-    if (EspessamentoSinovialCheckbox) {
-      string = `Dedo ${numCalculo} com espessamento sinovial`;
-      setLaudoPrin((arr) => [...arr, string]);
-    } else if (EspessamentoSinovialCheckbox && EspassamentoTendineoCheckbox) {
+    if (EspessamentoSinovialCheckbox && EspassamentoTendineoCheckbox) {
       string = `Dedo ${numCalculo} com espessamento sinovial e tendineo`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setTenossinoviteExtensoresDireito((arr) => [...arr, string]);
+    } else if (EspessamentoSinovialCheckbox) {
+      string = `Dedo ${numCalculo} com espessamento sinovial`;
+      setTenossinoviteExtensoresDireito((arr) => [...arr, string]);
 
     }
   };
 
   const removeMultiplosCalculos = () => {
-    laudoPrin.map((e) => {
+    TenossinoviteExtensoresDireito.map((e) => {
       if (e.includes(`Dedo ${numCalculo}`)) {
-        var index = laudoPrin.indexOf(e);
+        var index = TenossinoviteExtensoresDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          TenossinoviteExtensoresDireito.splice(index, 1);
+          setTenossinoviteExtensoresDireito((arr) => [...arr]);
         }
       }
     });
