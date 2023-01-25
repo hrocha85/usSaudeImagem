@@ -3,39 +3,39 @@
 import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
-import { PunhoDireitoNormalContext } from "../../../../../context/PunhoDireitoNormalContext"
+import { PunhoEsquerdoNormalContext } from "../../../../../context/PunhoEsquerdoNormalContext"
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoExtensoresTenossinoviteDireito() {
+function TendaoExtensoresTenossinoviteEsquerdo() {
     const altura = "100%";
     const largura = "95%";
 
-    let { PunhoDireitoLaudoNormal } = useContext(PunhoDireitoNormalContext)
+    let { PunhoEsquerdoLaudoNormal } = useContext(PunhoEsquerdoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
 
-    const [fraseTendaoExtensoresTenossinoviteDireito, setFraseTendaoExtensoresTenossinoviteDireito] = useState<any>([]);
+    const [fraseTendaoExtensoresTenossinoviteEsquerdo, setFraseTendaoExtensoresTenossinoviteEsquerdo] = useState<any>([]);
 
-    const subExame = "Tendões Extensores com tenossinovite Direito";
+    const subExame = "Tendões Extensores com tenossinovite Esquerdo";
     const titulo_exame = "Articulações";
 
     useEffect(() => {
-        if (Object.keys(fraseTendaoExtensoresTenossinoviteDireito).length === 0) {
+        if (Object.keys(fraseTendaoExtensoresTenossinoviteEsquerdo).length === 0) {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 true,
-                fraseTendaoExtensoresTenossinoviteDireito
+                fraseTendaoExtensoresTenossinoviteEsquerdo
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                fraseTendaoExtensoresTenossinoviteDireito
+                fraseTendaoExtensoresTenossinoviteEsquerdo
             ).Format_Laudo_Create_Storage();
         }
-    }, [fraseTendaoExtensoresTenossinoviteDireito]);
+    }, [fraseTendaoExtensoresTenossinoviteEsquerdo]);
 
 
     const [ICheckbox, setICheckbox] = useState(false);
@@ -47,8 +47,8 @@ function TendaoExtensoresTenossinoviteDireito() {
 
     //Funcoes Padrao Micropolicistico - Inicio
     const criaStringI = () => {
-        var string = "Punho direito com I";
-        ICheckbox ? setFraseTendaoExtensoresTenossinoviteDireito((arr) => [...arr, string]) : removeItemString(string);
+        var string = "Punho Esquerdo com I";
+        ICheckbox ? setFraseTendaoExtensoresTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -56,8 +56,8 @@ function TendaoExtensoresTenossinoviteDireito() {
     }, [ICheckbox])
 
     const criaStringII = () => {
-        var string = "Punho direito com I";
-        IICheckbox ? setFraseTendaoExtensoresTenossinoviteDireito((arr) => [...arr, string]) : removeItemString(string);
+        var string = "Punho Esquerdo com I";
+        IICheckbox ? setFraseTendaoExtensoresTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -65,8 +65,8 @@ function TendaoExtensoresTenossinoviteDireito() {
     }, [IICheckbox])
 
     const criaStringIII = () => {
-        var string = "Punho direito com I";
-        IIICheckbox ? setFraseTendaoExtensoresTenossinoviteDireito((arr) => [...arr, string]) : removeItemString(string);
+        var string = "Punho Esquerdo com I";
+        IIICheckbox ? setFraseTendaoExtensoresTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -74,8 +74,8 @@ function TendaoExtensoresTenossinoviteDireito() {
     }, [IIICheckbox])
 
     const criaStringIV = () => {
-        var string = "Punho direito com I";
-        IVCheckbox ? setFraseTendaoExtensoresTenossinoviteDireito((arr) => [...arr, string]) : removeItemString(string);
+        var string = "Punho Esquerdo com I";
+        IVCheckbox ? setFraseTendaoExtensoresTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -83,8 +83,8 @@ function TendaoExtensoresTenossinoviteDireito() {
     }, [IVCheckbox])
 
     const criaStringV = () => {
-        var string = "Punho direito com I";
-        VCheckbox ? setFraseTendaoExtensoresTenossinoviteDireito((arr) => [...arr, string]) : removeItemString(string);
+        var string = "Punho Esquerdo com I";
+        VCheckbox ? setFraseTendaoExtensoresTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -92,8 +92,8 @@ function TendaoExtensoresTenossinoviteDireito() {
     }, [VCheckbox])
 
     const criaStringVI = () => {
-        var string = "Punho direito com I";
-        VICheckbox ? setFraseTendaoExtensoresTenossinoviteDireito((arr) => [...arr, string]) : removeItemString(string);
+        var string = "Punho Esquerdo com I";
+        VICheckbox ? setFraseTendaoExtensoresTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -101,19 +101,19 @@ function TendaoExtensoresTenossinoviteDireito() {
     }, [VICheckbox])
 
     const removeItemString = (value) => {
-        var index = fraseTendaoExtensoresTenossinoviteDireito.indexOf(value);
+        var index = fraseTendaoExtensoresTenossinoviteEsquerdo.indexOf(value);
 
         if (index > -1) {
-            fraseTendaoExtensoresTenossinoviteDireito.splice(index, 1);
-            setFraseTendaoExtensoresTenossinoviteDireito((arr) => [...arr]);
+            fraseTendaoExtensoresTenossinoviteEsquerdo.splice(index, 1);
+            setFraseTendaoExtensoresTenossinoviteEsquerdo((arr) => [...arr]);
         }
     };
 
 
     useEffect(() => {
-        PunhoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+        PunhoEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
 
-    }, [PunhoDireitoLaudoNormal])
+    }, [PunhoEsquerdoLaudoNormal])
 
     return (
         <Box
@@ -186,7 +186,7 @@ function TendaoExtensoresTenossinoviteDireito() {
 
     );
 }
-export default TendaoExtensoresTenossinoviteDireito;
+export default TendaoExtensoresTenossinoviteEsquerdo;
 
 
 {/* <Radio value="I = Abdoturo longo do polegar + extensor curto do polegar">I = Abdoturo longo do polegar + extensor curto do polegar</Radio>
@@ -195,8 +195,8 @@ export default TendaoExtensoresTenossinoviteDireito;
 <Radio value="IV = Extensor comum dos dedos e extensor do indicador">IV = Extensor comum dos dedos e extensor do indicador</Radio>
 <Radio value="V = extensor do V dedo">V = extensor do V dedo</Radio>
 <Radio value="VI = extensor ulnar ">VI = extenros ulnar </Radio> 
-TendaoExtensoresTenossinoviteDireito
+TendaoExtensoresTenossinoviteEsquerdo
 
-    const subExame = "Tendões Extensores com tenossinovite Direito";
+    const subExame = "Tendões Extensores com tenossinovite Esquerdo";
     const titulo_exame = "Articulações";
 */}

@@ -161,6 +161,10 @@ import ArticulacaoAcromioclavicularDireito from "./ombro/omboDireito/Articulacao
 import ArticulacaoAcromioclavicularEsquerdo from "./ombro/ombroEsquerdo/ArticulacaoAcromioclavicular";
 import TendaoFlexoresTenossinoviteDireito from "./punho/punhoDireito/TendaoFlexoresTenossinovite";
 import TendaoFlexoresTenossinoviteEsquerdo from "./punho/punhoEsquerdo/TendaoFlexoresTenossinovite";
+import TendaoExtensoresTenossinoviteDireito from "./punho/punhoDireito/TendaoExtensoresTenossinovite";
+import TendaoExtensoresTenossinoviteEsquerdo from "./punho/punhoEsquerdo/TendaoExtensoresTenossinovite";
+import PunhoNervoUlnarDireito from "./punho/punhoDireito/NervoMediano";
+import PunhoNervoUlnarEsquerdo from "./punho/punhoEsquerdo/NervoMediano";
 
 function Articulacoes() {
 
@@ -267,7 +271,7 @@ function Articulacoes() {
                         <Box
                             // w='450px'
                             textAlign="center" >
-                            <NervoUlnarDireito />
+                            <PunhoNervoUlnarDireito />
                         </Box>
                         <Box
                             // w='450px'
@@ -293,6 +297,16 @@ function Articulacoes() {
                             // w='450px'
                             textAlign="center" >
                             <TendaoFlexoresTenossinoviteDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <TendaoExtensoresTenossinoviteDireito />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <PunhoNervoUlnarDireito />
                         </Box>
                         <Box
                             // w='450px'
@@ -664,6 +678,17 @@ function Articulacoes() {
                             // w='450px'
                             textAlign="center" >
                             <TendaoFlexoresTenossinoviteEsquerdo />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <TendaoExtensoresTenossinoviteEsquerdo />
+                        </Box>
+                        <Box
+                            // w='450px'
+                            textAlign="center" >
+                            <PunhoNervoUlnarEsquerdo />
+                            <PunhoNervoUlnarEsquerdo />
                         </Box>
                         <Box
                             // w='450px'
