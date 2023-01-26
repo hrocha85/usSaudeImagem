@@ -105,7 +105,7 @@ export default function IndividualizarNodulos({
       </Checkbox>
 
       <Input
-        isDisabled={disable}
+        isDisabled={!multiplosNodulosCheckBox}
         value={medida1NoduloInput}
         w="60px"
         h="77x"
@@ -118,7 +118,7 @@ export default function IndividualizarNodulos({
       <Text>x</Text>
 
       <Input
-        isDisabled={disable}
+        isDisabled={!multiplosNodulosCheckBox}
         value={medida2NoduloInput}
         w="60px"
         h="77x"
@@ -131,7 +131,7 @@ export default function IndividualizarNodulos({
       <Text>x</Text>
 
       <Input
-        isDisabled={disable}
+        isDisabled={!multiplosNodulosCheckBox}
         value={medida3NoduloInput}
         w="60px"
         h="77x"

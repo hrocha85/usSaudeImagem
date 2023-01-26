@@ -152,6 +152,7 @@ function Exames() {
       fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
+      maxWidth: "35%",
     },
     frasesSubExame: {
       textAlign: "justify",
@@ -646,7 +647,7 @@ function Exames() {
                             textDecoration="underline"
                             fontWeight="semibold"
                             whiteSpace={
-                              sub_exame.subExameNome.length < 23
+                              sub_exame.subExameNome.length <= 24
                                 ? "nowrap"
                                 : "normal"
                             }

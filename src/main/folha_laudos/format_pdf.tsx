@@ -51,9 +51,9 @@ export default function Format_PDF() {
       setTitulo_Exame(e.titulo_exame);
     });
 
-    return exame.subExames.map((sub) => {
+    return exame.subExames.map((sub, key) => {
       return sub.subExameNome != null && sub.subExameNome != "" ? (
-        <View style={styles.inline} wrap={false}>
+        <View style={styles.inline} wrap={false} key={key}>
           <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
           <View style={styles.view_frases}>
             {typeof sub.frases != "string" ? (
@@ -221,6 +221,7 @@ export default function Format_PDF() {
       fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
+      maxWidth: "35%",
     },
     frasesSubExame: {
       textAlign: "justify",
