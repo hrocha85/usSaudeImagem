@@ -1,16 +1,37 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext"
+import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function CistosEsquerdo() {
     const altura = "100%";
     const largura = "90%";
 
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+    const [CistosEsquerdo, setCistosEsquerdo] = useState<any>([]);
+
+    const subExame = `Cistos joelho Esquerdo`
+    const titulo_exame = 'Articulações'
+
+    useEffect(() => {
+        if (Object.keys(CistosEsquerdo).length === 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                CistosEsquerdo
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                CistosEsquerdo
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [CistosEsquerdo]);
     let { CotoveloEsquerdoLaudoNormal } = useContext(CotoveloEsquerdoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
 
@@ -39,10 +60,10 @@ function CistosEsquerdo() {
 
 
     const removeItemString = (value) => {
-        var index = laudoPrin.indexOf(value);
+        var index = CistosEsquerdo.indexOf(value);
         if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
+            CistosEsquerdo.splice(index, 1);
+            setCistosEsquerdo((arr) => [...arr]);
         }
     };
 
@@ -50,13 +71,25 @@ function CistosEsquerdo() {
     const criaStringCistosBaker = (medida1, medida2, medida3) => {
         var string = 'Cisto e Baker medindo'
         var StringFinal;
-        removeItemString(string)
+        removeCistoBaker()
         if (medida1 !== "" && medida2 !== "" && medida3 !== "" && CistosBakerSelect1 !== '' && CistosBakerSelect2 !== '' && CistosBakerSelect3 !== '') {
             StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${CistosBakerSelect1} ${CistosBakerSelect2} ${CistosBakerSelect3}`;
-            setLaudoPrin((arr) => [...arr, StringFinal]);
+            setCistosEsquerdo((arr) => [...arr, StringFinal]);
         }
     };
 
+    const removeCistoBaker = () => {
+        CistosEsquerdo.map((e) => {
+            if (e.includes("Cisto e Baker medindo")) {
+                var index = CistosEsquerdo.indexOf(e);
+
+                if (index > -1) {
+                    CistosEsquerdo.splice(index, 1);
+                    setCistosEsquerdo((arr) => [...arr]);
+                }
+            }
+        });
+    };
 
 
     useEffect(() => {
@@ -77,13 +110,24 @@ function CistosEsquerdo() {
     const criaStringCistosParameniscal = (medida1, medida2, medida3) => {
         var string = 'Cisto e Parameniscal medindo'
         var StringFinal;
-        removeItemString(string)
+        removeCistoParameniscal()
         if (medida1 !== "" && medida2 !== "" && medida3 !== "" && CistosParameniscalSelect1 !== '' && CistosParameniscalSelect2 !== '' && CistosParameniscalSelect3 !== '') {
             StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${CistosParameniscalSelect1} ${CistosParameniscalSelect2} ${CistosParameniscalSelect3}`;
-            setLaudoPrin((arr) => [...arr, StringFinal]);
+            setCistosEsquerdo((arr) => [...arr, StringFinal]);
         }
     };
+    const removeCistoParameniscal = () => {
+        CistosEsquerdo.map((e) => {
+            if (e.includes("Cisto e Parameniscal medindo")) {
+                var index = CistosEsquerdo.indexOf(e);
 
+                if (index > -1) {
+                    CistosEsquerdo.splice(index, 1);
+                    setCistosEsquerdo((arr) => [...arr]);
+                }
+            }
+        });
+    };
 
 
     useEffect(() => {

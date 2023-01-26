@@ -1,16 +1,39 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { MaoDireitoNormalContext } from "../../../../../context/MaoDireitoNormalContext"
+import { MaoDireitoNormalContext } from "../../../../../context/MaoDireitoNormalContext";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function AlteracaoPosCirurgiaDireito() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+  const [AlteracaoPosCirurgiaDireito, setAlteracaoPosCirurgiaDireito] = useState<any>([]);
+
+  const subExame = `Alteração pós cirúrgia na mão direita`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(AlteracaoPosCirurgiaDireito).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        AlteracaoPosCirurgiaDireito
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        AlteracaoPosCirurgiaDireito
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [AlteracaoPosCirurgiaDireito]);
+
   let { MaoDireitoLaudoNormal } = useContext(MaoDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
@@ -18,47 +41,49 @@ function AlteracaoPosCirurgiaDireito() {
   const [ArtefatoCirurgicoTransfixandoCheckbox, setArtefatoCirurgicoTransfixandoCheckbox] = useState(false);
   const [ArtefatoCirurgicoTransfixandoSelect, setArtefatoCirurgicoTransfixandoSelect] = useState("");
 
-  const [ArtefatoCirurgicoCheckbox, setArtefatoCirurgicoCheckbox] = useState(true);
+  const [ArtefatoCirurgicoCheckbox, setArtefatoCirurgicoCheckbox] = useState(false);
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringArtefatoCirurgico = () => {
     var string = "FALTA";
     if (ArtefatoCirurgicoCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setArtefatoCirurgicoCheckbox(false);
+      setAlteracaoPosCirurgiaDireito((arr) => [...arr, string]);
     } else {
       removeItemString(string);
     }
   };
+  useEffect(() => {
+    criaStringArtefatoCirurgico()
+  }, [ArtefatoCirurgicoCheckbox])
 
   const criaStringArtefatoCirurgicoTransfixando = (ArtefatoCirurgicoTransfixando) => {
     removeArtefatoCirurgicoTransfixando();
     var string;
     if (ArtefatoCirurgicoTransfixando !== "") {
       string = `FALTA ${ArtefatoCirurgicoTransfixando}. `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setAlteracaoPosCirurgiaDireito((arr) => [...arr, string]);
     }
   };
 
   const removeArtefatoCirurgicoTransfixando = () => {
-    laudoPrin.map((e) => {
+    AlteracaoPosCirurgiaDireito.map((e) => {
       if (e.includes("FALTA")) {
-        var index = laudoPrin.indexOf(e);
+        var index = AlteracaoPosCirurgiaDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          AlteracaoPosCirurgiaDireito.splice(index, 1);
+          setAlteracaoPosCirurgiaDireito((arr) => [...arr]);
         }
       }
     });
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = AlteracaoPosCirurgiaDireito.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      AlteracaoPosCirurgiaDireito.splice(index, 1);
+      setAlteracaoPosCirurgiaDireito((arr) => [...arr]);
     }
   };
 
@@ -104,8 +129,7 @@ function AlteracaoPosCirurgiaDireito() {
         <Checkbox
           isDisabled={disableTudo}
           onChange={() => {
-            setArtefatoCirurgicoCheckbox(true);
-            criaStringArtefatoCirurgico();
+            setArtefatoCirurgicoCheckbox(!ArtefatoCirurgicoCheckbox);
           }}
         >
           Artefato cirúrgico (fixação) no metacarpo

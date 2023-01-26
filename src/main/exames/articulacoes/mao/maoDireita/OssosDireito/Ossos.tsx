@@ -139,12 +139,9 @@ function OssosDireita() {
     Dedo4 ? setOssosMaoDireita((arr) => [...arr, string]) : removeItemString(string)
   }, [Dedo4])
 
-  const criaStringMetacarpoDedo5 = () => {
+  useEffect(() => {
     var string = 'Metacarpo do dedo 5'
     Dedo5 ? setOssosMaoDireita((arr) => [...arr, string]) : removeItemString(string)
-  }
-  useEffect(() => {
-    criaStringMetacarpoDedo5()
   }, [Dedo5])
 
   return (

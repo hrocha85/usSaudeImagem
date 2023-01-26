@@ -4,13 +4,38 @@ import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/r
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { MaoDireitoNormalContext } from "../../../../../context/MaoDireitoNormalContext"
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function CorpoEstranhoDireito() {
     const altura = "100%";
     const largura = "90%";
 
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+    const [CorpoEstranhoMaoDireita, setCorpoEstranhoMaoDireita] = useState<any>([]);
+
+    const subExame = `Corpo estranho mão direita`
+    const titulo_exame = 'Articulações'
+
+    useEffect(() => {
+        if (Object.keys(CorpoEstranhoMaoDireita).length === 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                CorpoEstranhoMaoDireita
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                CorpoEstranhoMaoDireita
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [CorpoEstranhoMaoDireita]);
+
+
     let { MaoDireitoLaudoNormal } = useContext(MaoDireitoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
 
@@ -23,24 +48,29 @@ function CorpoEstranhoDireito() {
 
     const [CorpoCheckbox, setCorpoCheckbox] = useState(false);
 
-    const removeItemString = (value) => {
-        var index = laudoPrin.indexOf(value);
-        if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
-        }
+    const removeFraseCorpoEstranho = () => {
+        CorpoEstranhoMaoDireita.map((e) => {
+            if (e.includes("FALTA")) {
+                var index = CorpoEstranhoMaoDireita.indexOf(e);
+
+                if (index > -1) {
+                    CorpoEstranhoMaoDireita.splice(index, 1);
+                    setCorpoEstranhoMaoDireita((arr) => [...arr]);
+                }
+            }
+        });
     };
 
     const criaStringCorpo = (medida1) => {
-        var string = 'Cisto e  medindo'
+        var string = 'FALTA'
         var StringFinal;
-        removeItemString(string)
+        removeFraseCorpoEstranho()
         if (CorpoCheckbox) {
             if (medida1 !== "" && CorpoSelect1 !== '' && CorpoSelect2 !== '' && CorpoSelect3 !== '') {
                 StringFinal = `${string} ${medida1} mm, ${CorpoSelect1} ${CorpoSelect2} ${CorpoSelect3}`;
-                setLaudoPrin((arr) => [...arr, StringFinal]);
+                setCorpoEstranhoMaoDireita((arr) => [...arr, StringFinal]);
             } else {
-                removeItemString(string)
+                removeFraseCorpoEstranho()
             }
         }
     };

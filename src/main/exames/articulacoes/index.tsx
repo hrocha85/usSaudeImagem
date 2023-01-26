@@ -167,6 +167,16 @@ import RetinaculoFlexoresDireito from "./punho/punhoDireito/RetinaculoFlexores";
 import RetinaculoFlexoresEsquerdo from "./punho/punhoEsquerdo/RetinaculoFlexores";
 import PunhoCistosDireito from "./punho/punhoDireito/PunhoCistos";
 import PunhoCistosEsquerdo from "./punho/punhoEsquerdo/PunhoCistos";
+import QuadrilDerrameArticularDireito from "./quadril/quadrilDireito/QuadrilDerrameArticularDireito";
+import TendaoGluteoMedioDireito from "./quadril/quadrilDireito/TendaoGluteoMedio";
+import TendaoGluteoMinimoDireito from "./quadril/quadrilDireito/TendaoGluteoMinimo";
+import QuadrilBolsasDireito from "./quadril/quadrilDireito/QuadrilBolsasDireito";
+import FasciaLataDireito from "./quadril/quadrilDireito/FasciaLata";
+import QuadrilDerrameArticularEsquerdo from "./quadril/quadrilEsquerdo/QuadrilDerrameArticularEsquerdo";
+import TendaoGluteoMedioEsquerdo from "./quadril/quadrilEsquerdo/TendaoGluteoMedio";
+import TendaoGluteoMinimoEsquerdo from "./quadril/quadrilEsquerdo/TendaoGluteoMinimo";
+import QuadrilBolsasEsquerdo from "./quadril/quadrilEsquerdo/QuadrilBolsasEsquerdo";
+import FasciaLataEsquerdo from "./quadril/quadrilEsquerdo/FasciaLata";
 
 function Articulacoes() {
 
@@ -520,6 +530,31 @@ function Articulacoes() {
                             mt='10px'
                             textAlign="center" >
                             <QuadrilNormalDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <QuadrilDerrameArticularDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoGluteoMedioDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoGluteoMinimoDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <QuadrilBolsasDireito />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <FasciaLataDireito />
                         </Box>
                         <Box
                             mt='10px'
@@ -913,6 +948,31 @@ function Articulacoes() {
                             mt='10px'
                             textAlign="center" >
                             <QuadrilNormalEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <QuadrilDerrameArticularEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoGluteoMedioEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <TendaoGluteoMinimoEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <QuadrilBolsasEsquerdo />
+                        </Box>
+                        <Box
+                            mt='10px'
+                            textAlign="center" >
+                            <FasciaLataEsquerdo />
                         </Box>
                         <Box
                             mt='10px'

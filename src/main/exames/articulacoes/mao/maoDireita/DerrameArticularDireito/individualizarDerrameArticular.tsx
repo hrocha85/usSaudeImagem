@@ -1,48 +1,66 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { Box, Checkbox } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
 export default function IndividualizarDerrameArticular({ numCalculo, desabilita }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+  const [FraseDerrameArticularDireito, setFraseDerrameArticularDireito] = useState<any>([]);
+
+  const subExame = `${numCalculo}: Derrame Articular`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(FraseDerrameArticularDireito).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        FraseDerrameArticularDireito
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        FraseDerrameArticularDireito
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [FraseDerrameArticularDireito]);
+
 
   const [multiplosDedosCheckbox, setmultiplosDedosCheckbox] = useState(false);
   const [Proximal, setProximal] = useState(false);
   const [Distal, setDistal] = useState(false);
   const [DisableCheckbox, setDisableCheckbox] = useState(true);
-  const [frase, setFrase] = useState<any>([])
-
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
+    var string = `Dedo ${numCalculo} com descontinuidade das DerrameArticular: `
     if (multiplosDedosCheckbox) {
-      setFrase((arr) => [...arr, `Dedo ${numCalculo} com descontinuidade das DerrameArticular: `]);
-      setLaudoPrin((arr) => [...arr, frase]);
+      if (Proximal) {
+        string = `${string} Proximal`
+      }
+      if (Distal) {
+        string = `${string} Distal`
+      }
+      setFraseDerrameArticularDireito((arr) => [...arr, string]);
     } else {
       removeMultiplosCalculos();
     }
   };
 
 
-  const removeItemString = (value) => {
-    var index = frase.indexOf(value);
-    if (index > -1) {
-      frase.splice(index, 1);
-      setFrase((arr) => [...arr]);
-      setLaudoPrin((arr) => [...arr, frase]);
-    }
-
-  };
 
   const removeMultiplosCalculos = () => {
-    laudoPrin.map((e) => {
+    FraseDerrameArticularDireito.map((e) => {
       if (e.includes(`Dedo ${numCalculo} com descontinuidade das DerrameArticular: `)) {
-        var index = laudoPrin.indexOf(e);
+        var index = FraseDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          FraseDerrameArticularDireito.splice(index, 1);
+          setFraseDerrameArticularDireito((arr) => [...arr]);
         }
       }
     });
@@ -57,34 +75,8 @@ export default function IndividualizarDerrameArticular({ numCalculo, desabilita 
       removeMultiplosCalculos();
     }
   }, [
-    multiplosDedosCheckbox,
+    multiplosDedosCheckbox, Distal, Proximal
   ]);
-
-  const criaFraseProximal = () => {
-    if (Proximal) {
-      removeMultiplosCalculos()
-      setFrase((arr) => [...arr, 'Proximal'])
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemString('Proximal')
-    }
-  }
-  useEffect(() => {
-    criaFraseProximal()
-  }, [Proximal])
-
-  const criaFraseDistal = () => {
-    if (Distal) {
-      setFrase((arr) => [...arr, 'Distal'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemString('Distal')
-    }
-  }
-  useEffect(() => {
-    criaFraseDistal()
-  }, [Distal])
 
   return (
     <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">

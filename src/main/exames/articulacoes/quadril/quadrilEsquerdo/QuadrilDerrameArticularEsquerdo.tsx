@@ -2,38 +2,38 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { JoelhoEsquerdoNormalContext } from "../../../../../context/JoelhoEsquerdoNormalContext";
+import { QuadrilEsquerdoNormalContext } from "../../../../../context/QuadrilEsquerdoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function JoelhoDerrameArticularEsquerdo() {
+function QuadrilDerrameArticularEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
-  const [JoelhoDerrameArticularEsquerdo, setJoelhoDerrameArticularEsquerdo] = useState<any>([]);
+  const [QuadrilDerrameArticularEsquerdo, setQuadrilDerrameArticularEsquerdo] = useState<any>([]);
 
-  const subExame = `Derrame articular no joelho Esquerdo`
+  const subExame = `Derrame articular no Quadril Esquerdo`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
-    if (Object.keys(JoelhoDerrameArticularEsquerdo).length === 0) {
+    if (Object.keys(QuadrilDerrameArticularEsquerdo).length === 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        JoelhoDerrameArticularEsquerdo
+        QuadrilDerrameArticularEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        JoelhoDerrameArticularEsquerdo
+        QuadrilDerrameArticularEsquerdo
       ).Format_Laudo_Create_Storage();
     }
-  }, [JoelhoDerrameArticularEsquerdo]);
+  }, [QuadrilDerrameArticularEsquerdo]);
 
-  let { JoelhoEsquerdoLaudoNormal } = useContext(JoelhoEsquerdoNormalContext)
+  let { QuadrilEsquerdoLaudoNormal } = useContext(QuadrilEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
   const [disablePresente, setDisablePresente] = useState(false)
   const [disableAusente, setDisableAusente] = useState(false)
@@ -50,7 +50,7 @@ function JoelhoDerrameArticularEsquerdo() {
   const criaStringAusente = () => {
     var string = "FALTA";
     if (AusenteCheckbox) {
-      setJoelhoDerrameArticularEsquerdo((arr) => [...arr, string]);
+      setQuadrilDerrameArticularEsquerdo((arr) => [...arr, string]);
       setDisablePresente(true)
       setAusenteCheckbox(false);
     } else {
@@ -64,33 +64,33 @@ function JoelhoDerrameArticularEsquerdo() {
     var string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
       string = `FALTA ${Presente} com espassamento sinovial. `;
-      setJoelhoDerrameArticularEsquerdo((arr) => [...arr, string]);
+      setQuadrilDerrameArticularEsquerdo((arr) => [...arr, string]);
     } else if (Presente !== "") {
       string = `FALTA ${Presente} `;
-      setJoelhoDerrameArticularEsquerdo((arr) => [...arr, string]);
+      setQuadrilDerrameArticularEsquerdo((arr) => [...arr, string]);
 
     }
   };
 
   const removePresente = () => {
-    JoelhoDerrameArticularEsquerdo.map((e) => {
+    QuadrilDerrameArticularEsquerdo.map((e) => {
       if (e.includes("FALTA")) {
-        var index = JoelhoDerrameArticularEsquerdo.indexOf(e);
+        var index = QuadrilDerrameArticularEsquerdo.indexOf(e);
 
         if (index > -1) {
-          JoelhoDerrameArticularEsquerdo.splice(index, 1);
-          setJoelhoDerrameArticularEsquerdo((arr) => [...arr]);
+          QuadrilDerrameArticularEsquerdo.splice(index, 1);
+          setQuadrilDerrameArticularEsquerdo((arr) => [...arr]);
         }
       }
     });
   };
 
   const removeItemString = (value) => {
-    var index = JoelhoDerrameArticularEsquerdo.indexOf(value);
+    var index = QuadrilDerrameArticularEsquerdo.indexOf(value);
 
     if (index > -1) {
-      JoelhoDerrameArticularEsquerdo.splice(index, 1);
-      setJoelhoDerrameArticularEsquerdo((arr) => [...arr]);
+      QuadrilDerrameArticularEsquerdo.splice(index, 1);
+      setQuadrilDerrameArticularEsquerdo((arr) => [...arr]);
     }
   };
 
@@ -112,8 +112,8 @@ function JoelhoDerrameArticularEsquerdo() {
 
 
   useEffect(() => {
-    JoelhoEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-  }, [JoelhoEsquerdoLaudoNormal])
+    QuadrilEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+  }, [QuadrilEsquerdoLaudoNormal])
 
   return (
     <Box
@@ -172,4 +172,4 @@ function JoelhoDerrameArticularEsquerdo() {
 
   );
 }
-export default JoelhoDerrameArticularEsquerdo;
+export default QuadrilDerrameArticularEsquerdo;
