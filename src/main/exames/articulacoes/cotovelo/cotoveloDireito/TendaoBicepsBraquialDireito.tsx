@@ -75,7 +75,7 @@ function TendaoBicepsBraquialDireito() {
 
     const removeRoturaParcial = () => {
         fraseTendaoBicepsBraquialDireito.map((e) => {
-            if (e.includes("Espessado, com alteração ecotextural,")) {
+            if (e.includes("Espessado, com alteração ecotextural, observando-se sinais de rotura parcial")) {
                 var index = fraseTendaoBicepsBraquialDireito.indexOf(e);
 
                 if (index > -1) {
@@ -87,12 +87,8 @@ function TendaoBicepsBraquialDireito() {
     };
 
     const criaStringAspectoNormal = () => {
-        var string = "FALTA";
-        if (AspectoNormalCheckbox) {
-            setFraseTendaoBicepsBraquialDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "com ecotextura e espessura preservadas e contornos normais.";
+        AspectoNormalCheckbox ? setFraseTendaoBicepsBraquialDireito((arr) => [...arr, string]) : removeItemString(string);
     };
     useEffect(() => {
         criaStringAspectoNormal()
@@ -142,16 +138,16 @@ function TendaoBicepsBraquialDireito() {
         removeFraseRoturaCompleta()
         var string;
         if (dados !== '' && RoturaCompletaComCotoCheckbox) {
-            string = `Rotura completa medindo ${dados} com Relacação Coto`;
+            string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo com Relacação Coto`;
             setFraseTendaoBicepsBraquialDireito((arr) => [...arr, string]);
         } else if (dados !== '') {
-            string = `Rotura completa medindo ${dados}`;
+            string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo`;
             setFraseTendaoBicepsBraquialDireito((arr) => [...arr, string]);
         }
     }
     const removeFraseRoturaCompleta = () => {
         fraseTendaoBicepsBraquialDireito.map((e) => {
-            if (e.includes("Rotura completa medindo")) {
+            if (e.includes("Hipoecogênico, heterogêneo, observando-se sinais de rotura completa")) {
                 var index = fraseTendaoBicepsBraquialDireito.indexOf(e);
 
                 if (index > -1) {

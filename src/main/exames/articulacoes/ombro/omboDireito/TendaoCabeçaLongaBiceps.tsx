@@ -96,12 +96,8 @@ function TendaoCabeçaLongaBicepsDireito() {
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "FALTA";
-    if (AspectoNormalCheckbox) {
-      setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    AspectoNormalCheckbox ? setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]) : removeItemString(string);
   };
   useEffect(() => {
     criaStringAspectoNormal()
@@ -202,12 +198,9 @@ function TendaoCabeçaLongaBicepsDireito() {
 
 
   const criaStringRoturaLongitudinal = () => {
-    var string = "FALTA";
-    if (RoturaLongitudinalCheckbox) {
-      setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, apresentando imagem linear hipoecogênica longitudinal.";
+    RoturaLongitudinalCheckbox ? setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]) : removeItemString(string);
+
   };
   useEffect(() => {
     criaStringRoturaLongitudinal()
@@ -307,6 +300,25 @@ function TendaoCabeçaLongaBicepsDireito() {
       setdisableRoturaCompleta(false)
     }
   }, [TendinopatiaSemRoturaCheckbox])
+
+  useEffect(() => {
+    if (RoturaLongitudinalCheckbox) {
+      setMedindoDisableTendinopatiaSemRotura(false)
+      setdisableTendinopatiaSemRotura(true)
+      setdisableRoturaParcial(true)
+      setdisableAspectoNormal(true)
+      setdisableRoturaCompleta(true)
+      setDisableLuxacaoCheckbox(true)
+    } else {
+      removeFraseTendinopatiaSemRotura()
+      setMedindoDisableTendinopatiaSemRotura(true)
+      setDisableLuxacaoCheckbox(false)
+      setdisableRoturaParcial(false)
+      setdisableTendinopatiaSemRotura(false)
+      setdisableAspectoNormal(false)
+      setdisableRoturaCompleta(false)
+    }
+  }, [RoturaLongitudinalCheckbox])
 
 
 

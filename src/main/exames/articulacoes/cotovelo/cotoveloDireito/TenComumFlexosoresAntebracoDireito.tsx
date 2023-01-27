@@ -61,7 +61,7 @@ function TenComumFlexoresAntebracoDireito() {
 
     const removeRoturaParcial = () => {
         fraseTenComumFlexoresAntebracoDireito.map((e) => {
-            if (e.includes("Espessado, com alteração ecotextural,")) {
+            if (e.includes("Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo")) {
                 var index = fraseTenComumFlexoresAntebracoDireito.indexOf(e);
                 if (index > -1) {
                     fraseTenComumFlexoresAntebracoDireito.splice(index, 1);
@@ -72,12 +72,8 @@ function TenComumFlexoresAntebracoDireito() {
     };
 
     const criaStringAspectoNormal = () => {
-        var string = "FALTA";
-        if (AspectoNormalCheckbox) {
-            setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "com ecotextura e espessura preservadas e contornos normais.";
+        AspectoNormalCheckbox ? setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]) : removeItemString(string);
     };
     useEffect(() => {
         criaStringAspectoNormal()
@@ -97,12 +93,8 @@ function TenComumFlexoresAntebracoDireito() {
     }, [PequenasCalcificacoesCheckbox])
 
     const criaStringTendinopatiaSemRotura = () => {
-        var string = "FALTA";
-        if (TendinopatiaSemRoturaCheckbox) {
-            setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "espessado, com alteração ecotextural, mas sem evidências de rotura.";
+        TendinopatiaSemRoturaCheckbox ? setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {

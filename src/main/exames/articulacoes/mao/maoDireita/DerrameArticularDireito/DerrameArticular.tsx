@@ -66,11 +66,9 @@ function MaoDerrameArticularDireita() {
   })
 
   useEffect(() => {
-    var string = "Aspecto normal"
+    var string = "Ausência de derrame articular."
     AusenciaDerrame ? setdisableDerrameArticularLocais(true) : setdisableDerrameArticularLocais(false)
     AusenciaDerrame ? setFraseDerrameArticularDireito((arr) => [...arr, string]) : removeItemString(string)
-
-    //criaStringAspectNormal()
   }, [AusenciaDerrame])
 
 
@@ -149,7 +147,7 @@ function MaoDerrameArticularDireita() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Derrame Articular TESTAR" />
+      <TituloNomeExame titulo="Derrame Articular" />
       <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
         <Checkbox
           isDisabled={disableAspectNormal}

@@ -45,13 +45,10 @@ function AlteracaoPosCirurgiaDireito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringArtefatoCirurgico = () => {
-    var string = "FALTA";
-    if (ArtefatoCirurgicoCheckbox) {
-      setAlteracaoPosCirurgiaDireito((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "Imagem linear hiperecogênica no metacarpo compatível com artefato cirúrgico (fixação), sem alterações significativas das estruturas adjacentes.";
+    ArtefatoCirurgicoCheckbox ? setAlteracaoPosCirurgiaDireito((arr) => [...arr, string]) : removeItemString(string);
   };
+
   useEffect(() => {
     criaStringArtefatoCirurgico()
   }, [ArtefatoCirurgicoCheckbox])
@@ -60,14 +57,14 @@ function AlteracaoPosCirurgiaDireito() {
     removeArtefatoCirurgicoTransfixando();
     var string;
     if (ArtefatoCirurgicoTransfixando !== "") {
-      string = `FALTA ${ArtefatoCirurgicoTransfixando}. `;
+      string = `Imagem linear hiperecogênica no metacarpo compatível com artefato cirúrgico (fixação), transfixando o tendão extensor do ${ArtefatoCirurgicoTransfixando} dedo.`;
       setAlteracaoPosCirurgiaDireito((arr) => [...arr, string]);
     }
   };
 
   const removeArtefatoCirurgicoTransfixando = () => {
     AlteracaoPosCirurgiaDireito.map((e) => {
-      if (e.includes("FALTA")) {
+      if (e.includes("Imagem linear hiperecogênica no metacarpo compatível com artefato cirúrgico (fixação), transfixando o tendão extensor do ")) {
         var index = AlteracaoPosCirurgiaDireito.indexOf(e);
 
         if (index > -1) {

@@ -64,7 +64,7 @@ function TendaoTricepsBraquialDireito() {
 
     const removeRoturaParcial = () => {
         fraseTendaoTricepsBraquialDireito.map((e) => {
-            if (e.includes("Espessado, com alteração ecotextural,")) {
+            if (e.includes("Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo")) {
                 var index = fraseTendaoTricepsBraquialDireito.indexOf(e);
 
                 if (index > -1) {
@@ -76,12 +76,9 @@ function TendaoTricepsBraquialDireito() {
     };
 
     const criaStringAspectoNormal = () => {
-        var string = "FALTA";
-        if (AspectoNormalCheckbox) {
-            setFraseTendaoTricepsBraquialDireito((arr) => [...arr, string]);
-        } else {
+        var string = "com ecotextura e espessura preservadas e contornos normais.";
+        AspectoNormalCheckbox ? setFraseTendaoTricepsBraquialDireito((arr) => [...arr, string]) :
             removeItemString(string);
-        }
     };
 
     useEffect(() => {
@@ -124,15 +121,9 @@ function TendaoTricepsBraquialDireito() {
         });
     };
 
-
     const criaStringTendinopatiaSemRotura = () => {
-        var string = "FALTA";
-        if (TendinopatiaSemRoturaCheckbox) {
-            setFraseTendaoTricepsBraquialDireito((arr) => [...arr, string]);
-
-        } else {
-            removeItemString(string);
-        }
+        var string = "espessado, com alteração ecotextural, mas sem evidências de rotura.";
+        TendinopatiaSemRoturaCheckbox ? setFraseTendaoTricepsBraquialDireito((arr) => [...arr, string]) : removeItemString(string);
     };
     useEffect(() => {
         criaStringTendinopatiaSemRotura()

@@ -170,7 +170,7 @@ function ArticulacaoAcromioclavicularDireito() {
               setEspessamentoCapsulosinovialCheckbox(!EspessamentoCapsulosinovialCheckbox);
             }}
           >
-            com espessamento de capsuloCapsulosinoviall
+            com espessamento de Capsulosinovial
           </Checkbox>
         </Box>
 

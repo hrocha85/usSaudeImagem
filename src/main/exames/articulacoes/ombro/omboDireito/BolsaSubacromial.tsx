@@ -79,12 +79,8 @@ function BolsaSubacromial_SubdeltoideaDireito() {
   };
 
   const criaStringSemLiquido = () => {
-    var string = "FALTA";
-    if (SemLiquidoCheckbox) {
-      setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "Ausência de líquido na bolsa subacromial-subdeltoidea.";
+    SemLiquidoCheckbox ? setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]) : removeItemString(string);
   };
 
   useEffect(() => {

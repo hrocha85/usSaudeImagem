@@ -47,12 +47,8 @@ function VentreInfraespinhalDireito() {
 
 
     const criaStringNormal = () => {
-        var string = "FALTA";
-        if (NormalCheckbox) {
-            setFraseVentreInfraespinhalDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
+        NormalCheckbox ? setFraseVentreInfraespinhalDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -61,12 +57,9 @@ function VentreInfraespinhalDireito() {
 
     const criaStringSubstituicaoAdiposa = () => {
         var string = "FALTA";
-        if (SubstituicaoAdiposaCheckbox) {
-            setFraseVentreInfraespinhalDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        SubstituicaoAdiposaCheckbox ? setFraseVentreInfraespinhalDireito((arr) => [...arr, string]) : removeItemString(string);
     };
+
     useEffect(() => {
         criaStringSubstituicaoAdiposa()
     }, [SubstituicaoAdiposaCheckbox])

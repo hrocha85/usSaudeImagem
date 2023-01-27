@@ -95,13 +95,10 @@ function TendaoSubescapularOmbroDireito() {
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "FALTA";
-    if (AspectoNormalCheckbox) {
-      setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
-  };
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    AspectoNormalCheckbox ? setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]) : removeItemString(string);
+  }
+
   useEffect(() => {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
@@ -151,16 +148,16 @@ function TendaoSubescapularOmbroDireito() {
     removeFraseRoturaCompleta()
     var string;
     if (dados !== '' && medidaRetracao !== '') {
-      string = `Rotura completa medindo ${dados} com retração de ${medidaRetracao} mm`;
+      string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo com ${medidaRetracao} mm de retração`;
       setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]);
     } else if (dados !== '') {
-      string = `Rotura completa medindo ${dados}`;
+      string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo`;
       setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]);
     }
   }
   const removeFraseRoturaCompleta = () => {
     fraseTendaoSubescapuçarDireito.map((e) => {
-      if (e.includes("Rotura completa medindo")) {
+      if (e.includes("Hipoecogênico, heterogêneo, observando-se sinais de rotura completa")) {
         var index = fraseTendaoSubescapuçarDireito.indexOf(e);
 
         if (index > -1) {
@@ -446,6 +443,7 @@ function TendaoSubescapularOmbroDireito() {
             textAlign="center"
             onChange={(e) => { setInputRetracaoRoturaCompleta(e.target.value) }}
           />
+          <Text alignSelf='center'>mm</Text>
         </Box>
       </Stack >
     </Box >

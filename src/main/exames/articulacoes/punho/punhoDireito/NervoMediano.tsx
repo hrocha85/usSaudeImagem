@@ -54,12 +54,8 @@ function NervoMedianoDireito() {
 
 
     const criaStringEspessuraNormal = () => {
-        var string = "FALTA";
-        if (EspessuraNormalCheckbox) {
-            setFraseNervoMedianoDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Nervo mediano de espessura, contornos e ecotextura normais.";
+        EspessuraNormalCheckbox ? setFraseNervoMedianoDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -137,12 +133,8 @@ function NervoMedianoDireito() {
     }, [AreaSeccionalInput])
 
     const criaStringEspessuraAumentada = () => {
-        var string = "FALTA";
-        if (EspessuraAumentadaCheckbox) {
-            setFraseNervoMedianoDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Nervo mediano espessado e heterogêneo.";
+        EspessuraAumentadaCheckbox ? setFraseNervoMedianoDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {

@@ -95,12 +95,9 @@ function OmbroTendaoSupraespinhalDireito() {
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "FALTA essa";
-    if (AspectoNormalCheckbox) {
-      setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    AspectoNormalCheckbox ? setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]) : removeItemString(string);
+
   };
 
   useEffect(() => {
@@ -109,11 +106,8 @@ function OmbroTendaoSupraespinhalDireito() {
 
   const criaStringPequenasCalcificacoes = () => {
     var string = "FALTA";
-    if (PequenasCalcificacoesCheckbox) {
-      setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    PequenasCalcificacoesCheckbox ? setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]) : removeItemString(string);
+
   };
 
   useEffect(() => {
@@ -123,7 +117,6 @@ function OmbroTendaoSupraespinhalDireito() {
   const criaStringTendinopatiaSemRotura = (select, medida) => {
     var string = 'Tendinopatia sem rotura'
     removeFraseTendinopatiaSemRotura()
-    console.log(medida)
     if (TendinopatiaSemRoturaCheckbox) {
       if (select !== '' && medida !== '') {
         string = `${string} ${select} medindo ${medida} mm`;
@@ -134,7 +127,6 @@ function OmbroTendaoSupraespinhalDireito() {
       }
     } else {
       removeFraseTendinopatiaSemRotura()
-      //removeItemString(string)
     }
   };
 
@@ -184,18 +176,17 @@ function OmbroTendaoSupraespinhalDireito() {
     removeFraseRoturaCompleta()
     var string;
     if (dados !== '' && medidaRetracao !== '') {
-      string = `Rotura completa medindo ${dados} com retração de ${medidaRetracao} mm`;
+      string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo com retração de ${medidaRetracao} mm`;
       setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
     } else if (dados !== '') {
-      string = `Rotura completa medindo ${dados}`;
+      string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo`;
       setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
     }
   }
   const removeFraseRoturaCompleta = () => {
     frasesOmbroTendaoSupraespinhalDireito.map((e) => {
-      if (e.includes("Rotura completa medindo")) {
+      if (e.includes("Hipoecogênico, heterogêneo, observando-se sinais de rotura completa")) {
         var index = frasesOmbroTendaoSupraespinhalDireito.indexOf(e);
-
         if (index > -1) {
           frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);
           setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
@@ -314,7 +305,6 @@ function OmbroTendaoSupraespinhalDireito() {
           isDisabled={disableTudo || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
-            // criaStringAspectoNormal();
           }}
         >
           Aspecto Normal
@@ -457,6 +447,7 @@ function OmbroTendaoSupraespinhalDireito() {
             textAlign="center"
             onChange={(e) => { setInputRetracaoRoturaCompleta(e.target.value) }}
           />
+          <Text alignSelf='center'>mm</Text>
         </Box>
       </Stack >
     </Box >

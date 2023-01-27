@@ -45,11 +45,7 @@ function DerrameArticularDireito() {
 
     const criaStringAusente = () => {
         var string = "FALTA";
-        if (AusenteCheckbox) {
-            setFraseDerrameArticularDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        AusenteCheckbox ? setFraseDerrameArticularDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -57,12 +53,8 @@ function DerrameArticularDireito() {
     }, [AusenteCheckbox])
 
     const criaStringPresente = () => {
-        var string = "FALTA";
-        if (PresenteCheckbox) {
-            setFraseDerrameArticularDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Presença de líquido intra-articular.";
+        PresenteCheckbox ? setFraseDerrameArticularDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {

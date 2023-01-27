@@ -69,7 +69,6 @@ function PunhoCistosDireito() {
       }
     } else {
       removeFaceDorsal();
-
     }
   };
 
@@ -89,7 +88,6 @@ function PunhoCistosDireito() {
     if (FaceDorsalCheckbox) {
       setdisableFaceDorsalInput(false);
     } else {
-      removeFaceDorsal();
       setdisableFaceDorsalInput(true);
       setSelectFaceDorsal("")
       setFaceDorsalInput("");
@@ -109,10 +107,10 @@ function PunhoCistosDireito() {
     var string;
     if (FaceVolarCheckbox) {
       if (medida1 !== "" && medida2 !== "" && medida3 !== "" && ComunicandoVolar) {
-        string = `Frase ${medida1} x ${medida2} x ${medida3} mm, comunicando-se com a articulação radiocárpica`;
+        string = `Cisto de contornos regulares com finas septações em seu interior, localizado na face volar do punho, situado adjacente à artéria radial, próximo ao escafoide, medindo ${medida1} x ${medida2} x ${medida3} mm, comunicando-se com a articulação radiocárpica.`;
         setFrasesPunhoCistosDireito((arr) => [...arr, string]);
       } else if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
-        string = `Frase ${medida1} x ${medida2} x ${medida3} mm`;
+        string = `Cisto de contornos regulares com finas septações em seu interior, localizado na face volar do punho, situado adjacente à artéria radial, próximo ao escafoide, medindo ${medida1} x ${medida2} x ${medida3} mm`;
         setFrasesPunhoCistosDireito((arr) => [...arr, string]);
       }
     } else {
@@ -123,7 +121,7 @@ function PunhoCistosDireito() {
 
   const removeFaceVolar = () => {
     frasesPunhoCistosDireito.map((e) => {
-      if (e.includes("Frase ")) {
+      if (e.includes("Cisto de contornos regulares com finas septações em seu interior, localizado na face volar do punho, situado adjacente à artéria radial, próximo ao escafoide, medindo ")) {
         var index = frasesPunhoCistosDireito.indexOf(e);
         if (index > -1) {
           frasesPunhoCistosDireito.splice(index, 1);
@@ -137,7 +135,6 @@ function PunhoCistosDireito() {
     if (FaceVolarCheckbox) {
       setdisableFaceVolarInput(false);
     } else {
-      removeFaceVolar();
       setdisableFaceVolarInput(true);
       setFaceVolarInput("");
       setFaceVolarInput2("");
