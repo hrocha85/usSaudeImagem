@@ -157,9 +157,10 @@ function JoelhoDerrameArticularDireito() {
               setPresenteSelect(e.target.value);
             }}
           >
-            <option value="leve">leve</option>
-            <option value="leve">leve</option>
-            <option value="acentuada">acentuada</option>
+            <option value="Não graduar">Não graduar</option>
+            <option value="pequeno">pequeno</option>
+            <option value="moderado">moderado</option>
+            <option value="volumoso">volumoso</option>
           </Select>
           <Checkbox
             isDisabled={disablePresenteInput}

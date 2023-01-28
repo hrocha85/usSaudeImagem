@@ -176,6 +176,10 @@ function MaoCistosDireito() {
                     >
                         <option value='' disabled selected>Select</option>
                         <option value="I">I</option>
+                        <option value="II">II</option>
+                        <option value="III">III</option>
+                        <option value="IV">IV</option>
+                        <option value="V">V</option>
                     </Select>
                     <Select
                         w='150px'
@@ -187,6 +191,14 @@ function MaoCistosDireito() {
                     >
                         <option value='' disabled selected>Select</option>
                         <option value="Da falange distal">Da falange distal</option>
+                        <option value="Da falange média">Da falange média</option>
+                        <option value="Da falange proximal">Da falange proximal</option>
+                        <option value="do metacarpo">do metacarpo</option>
+                        <option value="da polia A1">da polia A1</option>
+                        <option value="da polia A2">da polia A2</option>
+                        <option value="da polia A3">da polia A3</option>
+                        <option value="da polia A4">da polia A4</option>
+                        <option value="da polia A5">da polia A5</option>
                     </Select>
                     <HStack>
                         <Input
@@ -248,6 +260,10 @@ function MaoCistosDireito() {
                     >
                         <option value='' disabled selected>Select</option>
                         <option value="I">I</option>
+                        <option value="II">II</option>
+                        <option value="III">III</option>
+                        <option value="IV">IV</option>
+                        <option value="V">V</option>
                     </Select>
                     <Select
                         w='150px'
@@ -259,6 +275,14 @@ function MaoCistosDireito() {
                     >
                         <option value='' disabled selected>Select</option>
                         <option value="Da falange distal">Da falange distal</option>
+                        <option value="Da falange média">Da falange média</option>
+                        <option value="Da falange proximal">Da falange proximal</option>
+                        <option value="do metacarpo">do metacarpo</option>
+                        <option value="da polia A1">da polia A1</option>
+                        <option value="da polia A2">da polia A2</option>
+                        <option value="da polia A3">da polia A3</option>
+                        <option value="da polia A4">da polia A4</option>
+                        <option value="da polia A5">da polia A5</option>
                     </Select>
                     <HStack>
                         <Input

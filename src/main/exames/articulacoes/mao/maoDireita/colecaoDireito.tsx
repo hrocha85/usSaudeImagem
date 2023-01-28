@@ -43,6 +43,7 @@ function ColecaoDireito() {
   const [disableAlteracaoInput, setdisableAlteracaoInput] = useState(true);
 
   const [AlteracaoSelect1, setAlteracaoSelect1] = useState("");
+  const [AlteracaoSelect, setAlteracaoSelect] = useState("");
 
   const [AlteracaoCheckbox, setAlteracaoCheckbox] = useState(false);
 
@@ -63,8 +64,8 @@ function ColecaoDireito() {
     var string = 'FALTA'
     var StringFinal;
     removeColecaoMao()
-    if (medida1 !== "" && medida2 !== "" && medida3 !== "" && AlteracaoSelect1 !== '') {
-      StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${AlteracaoSelect1} `;
+    if (medida1 !== "" && medida2 !== "" && medida3 !== "" && AlteracaoSelect1 !== '' && AlteracaoSelect !== '') {
+      StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${AlteracaoSelect1} ${AlteracaoSelect}`;
       setColecaoMaoDireito((arr) => [...arr, StringFinal]);
     }
   };
@@ -80,9 +81,10 @@ function ColecaoDireito() {
       setAlteracaoInput("");
       setAlteracaoInput2("");
       setAlteracaoInput3("");
-      setAlteracaoSelect1("")
+      setAlteracaoSelect("");
+      setAlteracaoSelect1("");
     }
-  }, [AlteracaoCheckbox, AlteracaoInput, AlteracaoInput2, AlteracaoInput3, AlteracaoSelect1]);
+  }, [AlteracaoCheckbox, AlteracaoInput, AlteracaoInput2, AlteracaoInput3, AlteracaoSelect1, AlteracaoSelect]);
 
   useEffect(() => {
     MaoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
@@ -118,6 +120,18 @@ function ColecaoDireito() {
           >
             Coleção
           </Checkbox>
+          <Select
+            w='150px'
+            isDisabled={disableAlteracaoInput}
+            value={AlteracaoSelect1}
+            onChange={(e) => {
+              setAlteracaoSelect(e.target.value);
+            }}
+          >
+            <option value='' disabled selected>Select</option>
+            <option value="anecogênica">anecogênica</option>
+            <option value="hipocogênica (líquido espesso)">hipocogênica (líquido espesso)</option>
+          </Select>
           <Text alignSelf='center'>na face</Text>
           <Select
             w='150px'
@@ -128,8 +142,8 @@ function ColecaoDireito() {
             }}
           >
             <option value='' disabled selected>Select</option>
-            <option value="corno anterior">corno anterior</option>
-            <option value="corno posterior">corno posterior</option>
+            <option value="dorsal">dorsal</option>
+            <option value="ventral">ventral</option>
           </Select>
           <Text alignSelf='center'>da mão</Text>
           <Text alignSelf='center'>medindo</Text>

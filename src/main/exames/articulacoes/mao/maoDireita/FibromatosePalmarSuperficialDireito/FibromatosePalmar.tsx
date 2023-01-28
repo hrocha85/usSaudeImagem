@@ -1,9 +1,8 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../../context/LuadosContext";
-import { MaoDireitoNormalContext } from "../../../../../../context/MaoDireitoNormalContext"
+import { MaoDireitoNormalContext } from "../../../../../../context/MaoDireitoNormalContext";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
 
@@ -120,10 +119,13 @@ function FibromatosePalmarDireito() {
             setNoduloSelect(e.target.value);
           }}
         >
-          <option value="" disabled selected>            Selecione          </option>
-          <option value="entre o 3° e 4° túneis dorsais">entre o 3° e 4° túneis dorsais</option>
-          <option value="entre o 1° e 2° túneis dorsais">entre o 1° e 2° túneis dorsais</option>
-          <option value="na face flexora">na face flexora</option>
+          <option value="" disabled selected>Selecione</option>
+          <option value="3° dedo">3° dedo</option>
+          <option value="4º dedo">4º dedo</option>
+          <option value="5º dedo">5º dedo</option>
+          <option value="3º e 4º dedos">3º e 4º dedos</option>
+          <option value="4º e 5º dedos">4º e 5º dedos</option>
+          <option value="3º ao 5º dedos">3º ao 5º dedos</option>
         </Select>
         <HStack>
           <Input

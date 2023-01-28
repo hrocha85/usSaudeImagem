@@ -308,8 +308,8 @@ function TendaoBicepsBraquialDireito() {
                                 setSelectTendinopatiaSemRotura(e.target.value);
                             }}
                         >
-                            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-                            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+                            <option value="">não citar calcificações</option>
+                            <option value="calcificações intrassubstanciais">corno posterior</option>
                         </Select>
                     </WrapItem>
                     <Center>

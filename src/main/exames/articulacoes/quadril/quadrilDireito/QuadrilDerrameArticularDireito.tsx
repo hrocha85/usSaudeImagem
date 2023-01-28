@@ -157,9 +157,9 @@ function QuadrilDerrameArticularDireito() {
               setPresenteSelect(e.target.value);
             }}
           >
-            <option value="leve">leve</option>
-            <option value="leve">leve</option>
-            <option value="acentuada">acentuada</option>
+            <option value="discreto">Discreto</option>
+            <option value="moderado">Moderado</option>
+            <option value="volumoso">Volumoso</option>
           </Select>
           <Checkbox
             isDisabled={disablePresenteInput}

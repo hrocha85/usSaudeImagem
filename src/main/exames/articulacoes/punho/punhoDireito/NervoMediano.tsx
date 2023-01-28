@@ -245,8 +245,9 @@ function NervoMedianoDireito() {
                             setSelectNervoMedianoBifido(e.target.value);
                         }}
                     >
-                        <option value="Tendinopatia sem rotura 1">corno anterior</option>
-                        <option value="Tendinopatia sem rotura 2">corno posterior</option>
+                        <option value="Não citar interposição de artéria mediana persistente">Não citar interposição de artéria mediana persistente</option>
+                        <option value="sem interposição da artéria mediana persistente">Sem interposição da artéria mediana persistente</option>
+                        <option value="com interposição da artéria mediana persistente">Com interposição da artéria mediana persistente</option>
                     </Select>
                 </Box>
             </Stack >

@@ -64,7 +64,7 @@ function Polias() {
   })
 
   useEffect(() => {
-    var string = "Aspecto normal"
+    var string = "Polias dos tendões flexores dos dedos sem anormalidades identificáveis."
     AspectoNormal ? setdisableDescontinuidade(true) : setdisableDescontinuidade(false)
     AspectoNormal ? setFrasePoliasDireito((arr) => [...arr, string]) : removeItemString(string)
 

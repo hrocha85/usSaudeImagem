@@ -225,8 +225,8 @@ function CistosDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="paredes final">paredes</option>
+                        <option value="paredes espessadas">paredes espessadas</option>
                     </Select>
                     <Select
                         w='150px'
@@ -237,8 +237,8 @@ function CistosDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="conteúdo anecogênico">conteúdo anecogênico</option>
+                        <option value="contúdo líquidodo com debris">contúdo líquidodo com debris</option>
                     </Select>
                     <Select
                         w='150px'
@@ -249,8 +249,8 @@ function CistosDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="contornos regulares">contornos regulares</option>
+                        <option value="contornos lobulados">contornos lobulados</option>
                     </Select>
                 </Box>
 
@@ -309,8 +309,8 @@ function CistosDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="paredes finas">paredes finas</option>
+                        <option value="paredes espessadas">paredes espessadas</option>
                     </Select>
                     <Select
                         w='150px'
@@ -333,8 +333,8 @@ function CistosDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="menisco lateral">menisco lateral</option>
+                        <option value="menisco medial">menisco medial</option>
                     </Select>
                 </Box>
             </Stack >

@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, HStack, Input, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, Center, Checkbox, HStack, Input, Select, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -56,6 +56,7 @@ function TendaoPatelarDireito() {
 
   const [PresencaEntesofitoCheckbox, setPresencaEntesofitoCheckbox] = useState(false);
   const [InputMedindoPresencaEntesofito, setInputMedindoPresencaEntesofito] = useState('');
+  const [EntesofitoSelect, setEntesofitoSelect] = useState('');
 
 
   const criaStringLesaoParcial = (medida1, medida2, medida3) => {
@@ -109,11 +110,11 @@ function TendaoPatelarDireito() {
   const criaStringPresencaEntesofito = (dados) => {
     removeFrasePresencaEntesofito()
     var string;
-    if (PresencaEntesofitoCheckbox && dados !== '') {
-      string = `Presença de entesófito medindo ${dados}`;
+    if (PresencaEntesofitoCheckbox && dados !== '' && EntesofitoSelect !== '') {
+      string = `Presença de entesófito ${EntesofitoSelect} medindo ${dados} `;
 
       setTendaoPatelarDireito((arr) => [...arr, string]);
-    } else if (PresencaEntesofitoCheckbox) {
+    } else if (PresencaEntesofitoCheckbox && EntesofitoSelect !== '') {
       string = `Presença de entesófito`;
       setTendaoPatelarDireito((arr) => [...arr, string]);
     }
@@ -310,36 +311,41 @@ function TendaoPatelarDireito() {
           Aspecto pós cirúrgico
         </Checkbox>
 
-        <Wrap spacing='10px'>
-          <Center>
-            <WrapItem>
-              <Checkbox
-                isDisabled={disableTudo}
-                onChange={() => {
-                  setPresencaEntesofitoCheckbox(!PresencaEntesofitoCheckbox);
-                }}
-              >
-                Presença de entesófito
-              </Checkbox>
-            </WrapItem>
-          </Center>
-          <WrapItem>
-            <Center>
-              <Text>medindo </Text>
-              <Input
-                isDisabled={DisableInputPresencaEntesofito}
-                value={InputMedindoPresencaEntesofito}
-                w="45px"
-                h="30px"
-                padding="5px"
-                maxLength={2}
-                textAlign="center"
-                onChange={(e) => { setInputMedindoPresencaEntesofito(e.target.value) }}
-              />
-              <Text> mm</Text>
-            </Center>
-          </WrapItem>
-        </Wrap>
+        <Box display='flex' flexWrap='wrap' gap='10px'>
+
+          <Checkbox
+            isDisabled={disableTudo}
+            onChange={() => {
+              setPresencaEntesofitoCheckbox(!PresencaEntesofitoCheckbox);
+            }}
+          >
+            Presença de entesófito
+          </Checkbox>
+          <Select
+            w='100px'
+            isDisabled={DisableInputPresencaEntesofito}
+            onChange={(e) => {
+              setEntesofitoSelect(e.target.value);
+            }}
+          >
+            <option value="">Não citar tipo</option>
+            <option value="proximal">proximal</option>
+            <option value="distal">distal</option>
+          </Select>
+          <Text alignSelf='center'>medindo </Text>
+          <Input
+            isDisabled={DisableInputPresencaEntesofito}
+            value={InputMedindoPresencaEntesofito}
+            w="45px"
+            h="30px"
+            padding="5px"
+            maxLength={2}
+            textAlign="center"
+            onChange={(e) => { setInputMedindoPresencaEntesofito(e.target.value) }}
+          />
+          <Text> mm</Text>
+
+        </Box>
 
       </Stack >
     </Box >

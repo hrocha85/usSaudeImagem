@@ -36,7 +36,7 @@ export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo }
     removeMultiplosCalculos();
     var string;
     if (multiplosCalculosCheckbox) {
-      string = `Dedo ${numCalculo} com liquido peritendineo nos hexores`;
+      string = `Dedo ${numCalculo} com presença de líquido adjacente aos tendões `;
       setFraseLiquidoPerintendineoHexoresDireito((arr) => [...arr, string]);
     }
   }

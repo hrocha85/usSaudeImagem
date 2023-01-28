@@ -133,7 +133,8 @@ function CorpoEstranhoDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="I">I</option>
+                        <option value="no subcutâneo">no subcutâneo</option>
+                        <option value="na pele">na pele</option>
                     </Select>
                     <Text alignSelf='center'>na face</Text>
                     <Select
@@ -145,7 +146,8 @@ function CorpoEstranhoDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="Da falange distal">Da falange distal</option>
+                        <option value="dorsal">dorsal</option>
+                        <option value="ventral">ventral</option>
                     </Select>
                     <Select
                         w='150px'
@@ -156,9 +158,13 @@ function CorpoEstranhoDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="Da falange distal">Da falange distal</option>
+                        <option value="da mão">da mão</option>
+                        <option value="do I dedo">do I dedo</option>
+                        <option value="do II dedo">do II dedo</option>
+                        <option value="do III dedo">do III dedo</option>
+                        <option value="do IV dedo">do IV dedo</option>
+                        <option value="do V dedo">do V dedo</option>
                     </Select>
-                    <Text alignSelf='center'>da mão</Text>
                     <Text alignSelf='center'>medindo</Text>
                     <HStack>
                         <Input

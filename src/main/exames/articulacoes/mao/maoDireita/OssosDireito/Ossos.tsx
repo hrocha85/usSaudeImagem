@@ -66,7 +66,7 @@ function OssosDireita() {
   })
 
   useEffect(() => {
-    var string = "Aspecto normal"
+    var string = "Superfícies ósseas regulares."
     AspectoNormal ? setdisableDescontinuidade(true) : setdisableDescontinuidade(false)
     AspectoNormal ? setOssosMaoDireita((arr) => [...arr, string]) : removeItemString(string)
 

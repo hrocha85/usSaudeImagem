@@ -319,8 +319,8 @@ function TendaoInfraespinhalOmbroDireito() {
               setSelectTendinopatiaSemRotura(e.target.value);
             }}
           >
-            <option value="select 1">corno anterior</option>
-            <option value="select 2">corno posterior</option>
+            <option value="">não citar calcificações</option>
+            <option value="Calcificações intrassubstancial">Calcificações intrassubstancial</option>
           </Select>
           <Checkbox
             isDisabled={MedindoDisableTendinopatiaSemRotura}
@@ -395,8 +395,11 @@ function TendaoInfraespinhalOmbroDireito() {
               setSelectRoturaParcial(e.target.value);
             }}
           >
-            <option value="se 1">corno anterior</option>
-            <option value="se 2">corno posterior</option>
+            <option value="Não citar tipo">Não citar tipo</option>
+            <option value="intrassubstancial">intrassubstancial</option>
+            <option value="superficial">superficial</option>
+            <option value="profunda">profunda</option>
+
           </Select>
         </Box>
 

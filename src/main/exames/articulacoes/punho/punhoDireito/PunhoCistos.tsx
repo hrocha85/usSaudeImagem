@@ -225,8 +225,8 @@ function PunhoCistosDireito() {
             }}
           >
             <option selected disabled value="">Select</option>
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+            <option value="III e IV">III e IV</option>
+            <option value="IV e V">IV e V</option>
           </Select>
           <Text alignSelf='center'>compartimentos sinovais</Text>
           <Checkbox

@@ -174,8 +174,10 @@ function BolsaSubacromial_SubdeltoideaDireito() {
               setSelectLiquido(e.target.value);
             }}
           >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+            <option value="não citar volume">Não citar volume</option>
+            <option value="pequena">pequena</option>
+            <option value="moderada">moderada</option>
+            <option value="acentuada">acentuada</option>
           </Select>
 
           <Checkbox

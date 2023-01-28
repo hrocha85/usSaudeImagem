@@ -551,8 +551,8 @@ function TendaoCabeçaLongaBicepsDireito() {
               setSelectLuxacao(e.target.value);
             }}
           >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+            <option value="medial">medial</option>
+            <option value="lateral">lateral</option>
           </Select>
         </Box>
 

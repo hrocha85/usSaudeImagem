@@ -392,8 +392,12 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
               <option value="corno posterior">corno posterior</option>
+              <option value="corpo">corpo</option>
+              <option value="corno anterior">corno anterior</option>
+              <option value="corpo e corno posterior">corpo e corno posterior</option>
+              <option value="corpo e corno anterior">corpo e corno anterior</option>
+              <option value="corno anterior, corpo e corno posterior">corno anterior, corpo e corno posterior</option>
             </Select>
           </Box>
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
@@ -411,8 +415,12 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
               <option value="corno posterior">corno posterior</option>
+              <option value="corpo">corpo</option>
+              <option value="corno anterior">corno anterior</option>
+              <option value="corpo e corno posterior">corpo e corno posterior</option>
+              <option value="corpo e corno anterior">corpo e corno anterior</option>
+              <option value="corno anterior, corpo e corno posterior">corno anterior, corpo e corno posterior</option>
             </Select>
           </Box>
         </Box>
@@ -444,8 +452,12 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
               <option value="corno posterior">corno posterior</option>
+              <option value="corpo">corpo</option>
+              <option value="corno anterior">corno anterior</option>
+              <option value="corpo e corno posterior">corpo e corno posterior</option>
+              <option value="corpo e corno anterior">corpo e corno anterior</option>
+              <option value="corno anterior, corpo e corno posterior">corno anterior, corpo e corno posterior</option>
             </Select>
             <Center>
               <Text>
@@ -479,8 +491,12 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
               <option value="corno posterior">corno posterior</option>
+              <option value="corpo">corpo</option>
+              <option value="corno anterior">corno anterior</option>
+              <option value="corpo e corno posterior">corpo e corno posterior</option>
+              <option value="corpo e corno anterior">corpo e corno anterior</option>
+              <option value="corno anterior, corpo e corno posterior">corno anterior, corpo e corno posterior</option>
             </Select>
             <Center>
               <Text>
@@ -528,8 +544,10 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
-              <option value="corno posterior">corno posterior</option>
+              <option value="longitudinal">longitudinal</option>
+              <option value="oblíqua">oblíqua</option>
+              <option value="radial">radial</option>
+              <option value="horizontal">horizontal</option>
             </Select>
             <Select
               w='150px'
@@ -540,8 +558,12 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
               <option value="corno posterior">corno posterior</option>
+              <option value="corpo">corpo</option>
+              <option value="corno anterior">corno anterior</option>
+              <option value="corpo e corno posterior">corpo e corno posterior</option>
+              <option value="corpo e corno anterior">corpo e corno anterior</option>
+              <option value="corno anterior, corpo e corno posterior">corno anterior, corpo e corno posterior</option>
             </Select>
             <Checkbox
               isDisabled={disableAtingindoSuperficieArtLateral}
@@ -565,8 +587,10 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
-              <option value="corno posterior">corno posterior</option>
+              <option value="longitudinal">longitudinal</option>
+              <option value="oblíqua">oblíqua</option>
+              <option value="radial">radial</option>
+              <option value="horizontal">horizontal</option>
             </Select>
             <Select
               w='150px'
@@ -577,8 +601,12 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
               <option value="corno posterior">corno posterior</option>
+              <option value="corpo">corpo</option>
+              <option value="corno anterior">corno anterior</option>
+              <option value="corpo e corno posterior">corpo e corno posterior</option>
+              <option value="corpo e corno anterior">corpo e corno anterior</option>
+              <option value="corno anterior, corpo e corno posterior">corno anterior, corpo e corno posterior</option>
             </Select>
             <Checkbox
               isDisabled={disableAtingindoSuperficieArtMedial}
