@@ -7,11 +7,14 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function CistoSebaceo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "auto";
 
   const [frasesCistoSeb, setFrasesCistoSeb] = useState<any>([]);
 
-  const [inputLocalCistoSebaceo, setInputLocalCistoSebaceo] = useState("");
+  const [inputLocalCistoSebaceo, setInputLocalCistoSebaceo] = useState<
+    string | null
+  >(null);
+
   const [LocalCistoSebaceoCheckbox, setCheckboxLocalCistoSebaceo] =
     useState(false);
   const [disableInputLocalCistoSebaceo, setDisableInputLocalCistoSebaceo] =
@@ -59,8 +62,8 @@ function CistoSebaceo() {
 
   const criaStringLocalCistoSebaceo = (local) => {
     removeLocalCistoSebaceo();
-    if (local !== "") {
-      let string = `Cisto sebáceo local ${local} `;
+    if (local !== "" && local !== null) {
+      let string = `Presença de imagem cística superficial de conteúdo hipoecogênico, com contornos regulares,sugestiva de cisto sebáceo localizado ${local} `;
       setFrasesCistoSeb((arr) => [...arr, string]);
     }
   };
@@ -98,7 +101,7 @@ function CistoSebaceo() {
 
   const removeLocalCistoSebaceo = () => {
     frasesCistoSeb.map((e) => {
-      if (e.includes("Cisto local")) {
+      if (e.includes("Presença de imagem cística ")) {
         let index = frasesCistoSeb.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
@@ -157,7 +160,6 @@ function CistoSebaceo() {
   const titulo_exame = "Partes Moles";
   //  const [frasesCistoSeb, setFrasesCistoSeb] = useState<any>([]);
 
-
   useEffect(() => {
     if (Object.keys(frasesCistoSeb).length == 0) {
       new Format_Laudo(
@@ -206,11 +208,15 @@ function CistoSebaceo() {
               w="30%"
               isDisabled={disableInputLocalCistoSebaceo}
               h="30px"
-              value={inputLocalCistoSebaceo}
               padding="5px"
               textAlign="center"
-              onChange={(e) => {
+              onBlur={(e) => {
                 setInputLocalCistoSebaceo(e.target.value);
+              }}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  setInputLocalCistoSebaceo(event.currentTarget.value);
+                }
               }}
             />
           </HStack>

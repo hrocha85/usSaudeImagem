@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import {
-    Box,
-    Checkbox,
-    HStack,
-    Input,
-    Select,
-    Stack,
-    Text
+  Box,
+  Center,
+  Checkbox,
+  HStack,
+  Input,
+  Select,
+  Stack,
+  Text,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { NormalContext } from "../../../../context/NormalContext";
@@ -15,7 +16,7 @@ import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Colecao() {
-  const altura = "100%";
+  const altura = "auto";
   const largura = "95%";
 
   const [frasesColecao, setFrasesColecao] = useState<any>([]);
@@ -41,26 +42,22 @@ function Colecao() {
     laudoNormal ? setDisableColecao(true) : setDisableColecao(false);
   });
 
-  const criaStringLocalColecao = (
-    local,
-    colecao,
-    plano,
-    medida1,
-    medida2,
-    medida3,
-    MedidaDistanciaPele
-  ) => {
+  const criaStringLocalColecao = () => {
     removeLocalColecao();
-    if (local !== "") {
-      let string = `Nota-se na alteração palpável da região, ${local}, coleção ${colecao}, no plano ${plano},
-      medindo ${medida1} x ${medida2} x ${medida3} mm, distando ${MedidaDistanciaPele} mm da pele`;
+    if (
+      planoColecaoSelect !== "" &&
+      medida1Colecao !== "" &&
+      medida2Colecao !== "" &&
+      medida3Colecao !== ""
+    ) {
+      let string = `Presença de coleção bem delimitada medindo ${medida1Colecao} x ${medida2Colecao} x ${medida3Colecao} cm (volume estimado em %4 ml), contendo ${planoColecaoSelect}.`;
       setFrasesColecao((arr) => [...arr, string]);
     }
   };
 
   const removeLocalColecao = () => {
     frasesColecao.map((e) => {
-      if (e.includes("Nota-se na alteração palpável ")) {
+      if (e.includes("Presença de coleção bem delimitada medindo ")) {
         let index = frasesColecao.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
@@ -82,27 +79,12 @@ function Colecao() {
     setMedida1Colecao("");
     setMedida2Colecao("");
     setMedida3Colecao("");
+    setMedidaDistanciaPele("");
   }, [LocalColecaoCheckbox]);
 
   useEffect(() => {
-    criaStringLocalColecao(
-      inputLocalColecao,
-      ecogenicidadeColecaoSelect,
-      planoColecaoSelect,
-      medida1Colecao,
-      medida2Colecao,
-      medida3Colecao,
-      MedidaDistanciaPele
-    );
-  }, [
-    inputLocalColecao,
-    ecogenicidadeColecaoSelect,
-    planoColecaoSelect,
-    medida1Colecao,
-    medida2Colecao,
-    medida3Colecao,
-    MedidaDistanciaPele,
-  ]);
+    criaStringLocalColecao();
+  }, [planoColecaoSelect, medida1Colecao, medida2Colecao, medida3Colecao]);
 
   const subExame = "Parede Abdominal - Coleção";
   const titulo_exame = "Partes Moles";
@@ -140,7 +122,7 @@ function Colecao() {
       <Text>Parede Abdominal</Text>
       <TituloNomeExame titulo="Coleção" />
 
-      <Box gap="15px" display="flex" flexWrap="wrap">
+      <Box display="flex" flexWrap="wrap">
         <Stack w="100%">
           <HStack>
             <Checkbox
@@ -150,57 +132,8 @@ function Colecao() {
             >
               Coleção
             </Checkbox>
-            <Text>Local</Text>
-            <Input
-              w="200px"
-              isDisabled={disableInputLocalColecao}
-              h="30px"
-              value={inputLocalColecao}
-              padding="5px"
-              textAlign="center"
-              onChange={(e) => {
-                setInputLocalColecao(e.target.value);
-              }}
-            />
-          </HStack>
-          <Box display="flex" flexWrap="wrap" gap="10px">
-            <Select
-              isDisabled={disableInputLocalColecao}
-              w="200px"
-              value={ecogenicidadeColecaoSelect}
-              onChange={(e) => {
-                setEcogenicidadeColecaoSelect(e.target.value);
-              }}
-            >
-              <option value="" disabled selected>
-                {" "}
-              </option>
-              <option value="anecóica">anecóica</option>
-              <option value="cística-espessa">cística-espessa</option>
-              <option value="densa">densa</option>
-              <option value="heterogênea com traves">
-                heterogênea com traves
-              </option>
-            </Select>
-            <Select
-              isDisabled={disableInputLocalColecao}
-              w="200px"
-              value={planoColecaoSelect}
-              onChange={(e) => {
-                setPlanoColecaoSelect(e.target.value);
-              }}
-            >
-              <option value="" disabled selected>
-                no plano
-              </option>
-              <option value="subcutâneo">Subcutâneo</option>
-              <option value="cutâneo">Cutâneo</option>
-              <option value="muscular">Muscular</option>
-              <option value="aponeurótico">Aponeurótico</option>
-            </Select>
-
-            <Box display="flex">
-              <Text>Medindo</Text>
+            <HStack>
+              <Text>medindo</Text>
               <Input
                 isDisabled={disableInputLocalColecao}
                 w="35px"
@@ -240,24 +173,29 @@ function Colecao() {
                 }}
               />
               <Text>mm</Text>
-            </Box>
-          </Box>
-          <Box display="flex" flexWrap="wrap" gap="10px">
-            <Text>Distando</Text>
-            <Input
+            </HStack>
+          </HStack>
+          <Center>
+            <Select
               isDisabled={disableInputLocalColecao}
-              w="35px"
-              h="30px"
-              value={MedidaDistanciaPele}
-              padding="5px"
-              maxLength={2}
-              textAlign="center"
+              value={planoColecaoSelect}
               onChange={(e) => {
-                setMedidaDistanciaPele(e.target.value);
+                setPlanoColecaoSelect(e.target.value);
               }}
-            />
-            <Text>mm da pele</Text>
-          </Box>
+            >
+              <option value="" disabled selected>
+                Coleção
+              </option>
+              <option value="líquido anecogênico com finos debris">
+                líquido anecogênico com finos debris
+              </option>
+              <option value="líquido anecogênico">líquido anecogênico</option>
+              <option value="líquido hipoecogênico">
+                líquido hipoecogênico
+              </option>
+              <option value="material heterogêneo">material heterogêneo</option>
+            </Select>
+          </Center>
         </Stack>
       </Box>
     </Box>

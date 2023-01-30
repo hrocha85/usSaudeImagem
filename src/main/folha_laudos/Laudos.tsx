@@ -152,6 +152,7 @@ function Exames() {
       fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
+      maxWidth: "35%",
     },
     frasesSubExame: {
       textAlign: "justify",
@@ -213,7 +214,6 @@ function Exames() {
   const Laudo = () => {
     const renderFrases = (exame) => {
       var array = JSON.parse(localStorage.getItem("format_laudo")!);
-      console.log("exame", exame);
 
       return exame.subExames.map((sub, key) => {
         return sub.subExameNome != null && sub.subExameNome != "" ? (
@@ -456,7 +456,7 @@ function Exames() {
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
 
     array.map((Exames) => {
-      console.log('teste',Exames.subExames[Index_Sub_Exame])
+      console.log("teste", Exames.subExames[Index_Sub_Exame]);
 
       Exames.subExames[Index_Sub_Exame].frases = event;
       localStorage.setItem("format_laudo", JSON.stringify(array));
@@ -646,7 +646,11 @@ function Exames() {
                           <Text
                             textDecoration="underline"
                             fontWeight="semibold"
-                            whiteSpace="nowrap"
+                            whiteSpace={
+                              sub_exame.subExameNome.length <= 24
+                                ? "nowrap"
+                                : "normal"
+                            }
                           >
                             {sub_exame.subExameNome}:
                           </Text>
@@ -712,11 +716,7 @@ function Exames() {
                             {sub_exame.subExameNome}:
                           </Text>
                           <Box w="100%">
-                            {EditarLaudo(
-                              sub_exame.frases,
-                              IndexExame,
-                              keys
-                            )}
+                            {EditarLaudo(sub_exame.frases, IndexExame, keys)}
                           </Box>
                         </HStack>
                       </HStack>

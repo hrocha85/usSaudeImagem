@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
-import { Box } from "@chakra-ui/react";
- 
+import { Grid } from "@chakra-ui/react";
+
 import CistoAnecoico from "../partesMoles/cistoAnecoico/cistoAnecoico";
 import CistoSebaceo from "../partesMoles/cistoSebaceo/cistoSebaceo";
 import Colecao from "../partesMoles/paredeAbdominal/colecao";
@@ -11,51 +11,34 @@ import ParedeAbdominalNormal from "../partesMoles/paredeAbdominal/normal";
 import Partes_Moles from "../partesMoles/partes_moles/partesMoles";
 import {
   default as Direita,
-  default as Esquerda
+  default as Esquerda,
 } from "../partesMoles/regiaoInguinal/direita";
+import Diastase_Musculo_Reto from "./paredeAbdominal/diastase_musculo_reto";
+import Hernia_Epigastrica from "./paredeAbdominal/hernia_epigastrica";
+import Nodulos from "./partes_moles/nodulos";
+import Achados_Normais from "./torax/achados_normais";
+import Torax from "./torax/torax";
 
 function PartesMoles() {
   return (
     <>
-      
-      <Box ml="10px">
-        <Partes_Moles></Partes_Moles>
-
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box mb="15px">
-            <CistoSebaceo></CistoSebaceo>
-          </Box>
-          <Box mb="15px">
-            <CistoAnecoico></CistoAnecoico>
-          </Box>
-        </Box>
-
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="100%" mb="15px">
-            <ParedeAbdominalNormal></ParedeAbdominalNormal>
-          </Box>
-          <Box w="400px" mb="15px">
-            <HerniaUmbilical></HerniaUmbilical>
-          </Box>
-          <Box w="400px" mb="15px">
-            <HerniaSupraUmbilical></HerniaSupraUmbilical>
-          </Box>
-          <Box w="400px" mb="15px">
-            <HerniaIncisional></HerniaIncisional>
-          </Box>
-          <Box w="400px" mb="15px">
-            <Colecao></Colecao>
-          </Box>
-        </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="400px" mb="15px">
-            <Direita></Direita>
-          </Box>
-          <Box w="400px" mb="15px">
-            <Esquerda></Esquerda>
-          </Box>
-        </Box>
-      </Box>
+      <Achados_Normais />
+      {/*<Partes_Moles />*/}
+      <Nodulos/>
+      <Torax />
+      <Grid templateColumns="repeat(2, 1fr)" gap={4} maxW="66%">
+        <CistoSebaceo />
+        <CistoAnecoico />
+        <ParedeAbdominalNormal />
+        <Hernia_Epigastrica />
+        <HerniaUmbilical />
+        <HerniaIncisional />
+        <HerniaSupraUmbilical />
+        <Colecao />
+        <Diastase_Musculo_Reto />
+        <Direita />
+        <Esquerda />
+      </Grid>
     </>
   );
 }
