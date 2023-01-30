@@ -12,6 +12,7 @@ import Derrame_Articular_Esquerdo from "./esquerdo/derrame_articular_esquerdo";
 import Lado_Esquerdo_Torn from "./esquerdo/lado_esquerdo_box";
 import Tendao_Extensor_Dedos_Esquerdo from "./esquerdo/tendao_extendor_dedos_esquerdo";
 import Tendao_Extensor_Halux_Esquerdo from "./esquerdo/tendao_extensor_halux_esquerdo";
+import Tendao_Fibular_Curto_Esquerdo from "./esquerdo/tendao_fibular_curto_esquerdo";
 import Tendao_Flexor_Dedos_Esquerdo from "./esquerdo/tendao_flexor_dedos_esquerdo";
 import Tendao_Flexor_Halux_Esquerdo from "./esquerdo/tendao_flexor_halux_esquerdo";
 import Tendao_Tibial_Anterior_Esquerdo from "./esquerdo/tendao_tibial_anterior_esquerdo";
@@ -49,6 +50,7 @@ export default function Tornozelos() {
             <Tendao_Tibial_Posterior_Esquerdo />
             <Tendao_Flexor_Halux_Esquerdo />
             <Tendao_Flexor_Dedos_Esquerdo />
+            <Tendao_Fibular_Curto_Esquerdo/>
           </Box>
           <Box>
             <Box w="100%">
