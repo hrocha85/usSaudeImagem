@@ -1,18 +1,40 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../../context/LuadosContext";
-import { MaoDireitoNormalContext } from "../../../../../../context/MaoDireitoNormalContext"
+import { MaoDireitoNormalContext } from "../../../../../../context/MaoDireitoNormalContext";
+import { Format_Laudo } from "../../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
 
 function FibromatosePalmarDireito() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   let { MaoDireitoLaudoNormal } = useContext(MaoDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
+
+  const [fraseFibrosePalmarSuperficial, setFraseFibrosePalmarSuperficial] = useState<any>([]);
+
+  const subExame = `Fibrose palmar superficial (contratura de dupuytren) direito`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(fraseFibrosePalmarSuperficial).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        fraseFibrosePalmarSuperficial
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        fraseFibrosePalmarSuperficial
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [fraseFibrosePalmarSuperficial]);
 
   //States TenossinoviteExtensores - input,checkbox e select - Inicio
 
@@ -23,24 +45,25 @@ function FibromatosePalmarDireito() {
   const [NoduloCheckbox, setNoduloCheckbox] = useState(false);
   const [NoduloSelect, setNoduloSelect] = useState("");
 
-  const criaStringNodulo = (medida1, medida2, medida3, Nodulo) => {
+  const criaStringNodulo = (medida1mm, medida2mm, medida3mm, Nodulo) => {
     removeNodulo();
-    console.log(medida1, medida2, medida3)
-    console.log(Nodulo)
-    if (medida1 !== "" && medida2 !== "" && medida3 !== "" && Nodulo !== "") {
-      var string = `Nódulo palmar aos tendões flexores do ${Nodulo} com intervalo de ${medida1}x${medida2}x${medida3} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+    var medida1 = medida1mm / 10
+    var medida2 = medida2mm / 10
+    var medida3 = medida3mm / 10
+    if (medida1 !== 0 && medida2 !== 0 && medida3 !== 0 && Nodulo !== "") {
+      var string = `Presença de nódulo hipoecogênico na região palmar em localização superficial aos tendões flexores do ${Nodulo}, medindo ${medida1} x ${medida2} x ${medida3} cm `;
+      setFraseFibrosePalmarSuperficial((arr) => [...arr, string]);
     }
   };
 
   const removeNodulo = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Nódulo palmar aos tendões flexores do")) {
-        var index = laudoPrin.indexOf(e);
+    fraseFibrosePalmarSuperficial.map((e) => {
+      if (e.includes("Presença de nódulo hipoecogênico na região palmar em localização superficial aos tendões flexores do ")) {
+        var index = fraseFibrosePalmarSuperficial.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          fraseFibrosePalmarSuperficial.splice(index, 1);
+          setFraseFibrosePalmarSuperficial((arr) => [...arr]);
         }
       }
     });
@@ -90,17 +113,20 @@ function FibromatosePalmarDireito() {
           Nódulo palmar superficial aos tendões flexores do
         </Checkbox>
         <Select
-          w='170px'
+          w='150px'
           isDisabled={disableNoduloInput}
           value={NoduloSelect}
           onChange={(e) => {
             setNoduloSelect(e.target.value);
           }}
         >
-          <option value="" disabled selected>            Selecione          </option>
-          <option value="entre o 3° e 4° túneis dorsais">entre o 3° e 4° túneis dorsais</option>
-          <option value="entre o 1° e 2° túneis dorsais">entre o 1° e 2° túneis dorsais</option>
-          <option value="na face flexora">na face flexora</option>
+          <option value="" disabled selected>Selecione</option>
+          <option value="3° dedo">3° dedo</option>
+          <option value="4º dedo">4º dedo</option>
+          <option value="5º dedo">5º dedo</option>
+          <option value="3º e 4º dedos">3º e 4º dedos</option>
+          <option value="4º e 5º dedos">4º e 5º dedos</option>
+          <option value="3º ao 5º dedos">3º ao 5º dedos</option>
         </Select>
         <HStack>
           <Input

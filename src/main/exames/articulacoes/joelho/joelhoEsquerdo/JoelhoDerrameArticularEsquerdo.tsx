@@ -1,16 +1,38 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { JoelhoEsquerdoNormalContext } from "../../../../../context/JoelhoEsquerdoNormalContext"
+import { JoelhoEsquerdoNormalContext } from "../../../../../context/JoelhoEsquerdoNormalContext";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function JoelhoDerrameArticularEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [JoelhoDerrameArticularEsquerdo, setJoelhoDerrameArticularEsquerdo] = useState<any>([]);
+
+  const subExame = `Derrame articular no joelho Esquerdo`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(JoelhoDerrameArticularEsquerdo).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        JoelhoDerrameArticularEsquerdo
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        JoelhoDerrameArticularEsquerdo
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [JoelhoDerrameArticularEsquerdo]);
+
   let { JoelhoEsquerdoLaudoNormal } = useContext(JoelhoEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
   const [disablePresente, setDisablePresente] = useState(false)
@@ -21,14 +43,14 @@ function JoelhoDerrameArticularEsquerdo() {
   const [PresenteSelect, setPresenteSelect] = useState("");
 
   const [AusenteCheckbox, setAusenteCheckbox] = useState(true);
-  const [EspessamentoSinovialCheckbox, setEspessamentoSinovialCheckbox] = useState(true);
+  const [EspessamentoSinovialCheckbox, setEspessamentoSinovialCheckbox] = useState(false);
 
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAusente = () => {
     var string = "FALTA";
     if (AusenteCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setJoelhoDerrameArticularEsquerdo((arr) => [...arr, string]);
       setDisablePresente(true)
       setAusenteCheckbox(false);
     } else {
@@ -42,33 +64,33 @@ function JoelhoDerrameArticularEsquerdo() {
     var string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
       string = `FALTA ${Presente} com espassamento sinovial. `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setJoelhoDerrameArticularEsquerdo((arr) => [...arr, string]);
     } else if (Presente !== "") {
       string = `FALTA ${Presente} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setJoelhoDerrameArticularEsquerdo((arr) => [...arr, string]);
 
     }
   };
 
   const removePresente = () => {
-    laudoPrin.map((e) => {
+    JoelhoDerrameArticularEsquerdo.map((e) => {
       if (e.includes("FALTA")) {
-        var index = laudoPrin.indexOf(e);
+        var index = JoelhoDerrameArticularEsquerdo.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          JoelhoDerrameArticularEsquerdo.splice(index, 1);
+          setJoelhoDerrameArticularEsquerdo((arr) => [...arr]);
         }
       }
     });
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = JoelhoDerrameArticularEsquerdo.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      JoelhoDerrameArticularEsquerdo.splice(index, 1);
+      setJoelhoDerrameArticularEsquerdo((arr) => [...arr]);
     }
   };
 
@@ -105,7 +127,7 @@ function JoelhoDerrameArticularEsquerdo() {
       padding="15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Derrame Articular esquerdo" />
+      <TituloNomeExame titulo="Derrame Articular Esquerdo" />
 
       <Box display="flex" flexWrap="wrap">
 

@@ -1,16 +1,37 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext"
+import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function CistosDireito() {
     const altura = "100%";
     const largura = "90%";
 
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+    const [CistosDireito, setCistosDireito] = useState<any>([]);
+
+    const subExame = `Cistos joelho Direito`
+    const titulo_exame = 'Articulações'
+
+    useEffect(() => {
+        if (Object.keys(CistosDireito).length === 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                CistosDireito
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                CistosDireito
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [CistosDireito]);
     let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
 
@@ -39,10 +60,10 @@ function CistosDireito() {
 
 
     const removeItemString = (value) => {
-        var index = laudoPrin.indexOf(value);
+        var index = CistosDireito.indexOf(value);
         if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
+            CistosDireito.splice(index, 1);
+            setCistosDireito((arr) => [...arr]);
         }
     };
 
@@ -50,13 +71,25 @@ function CistosDireito() {
     const criaStringCistosBaker = (medida1, medida2, medida3) => {
         var string = 'Cisto e Baker medindo'
         var StringFinal;
-        removeItemString(string)
+        removeCistoBaker()
         if (medida1 !== "" && medida2 !== "" && medida3 !== "" && CistosBakerSelect1 !== '' && CistosBakerSelect2 !== '' && CistosBakerSelect3 !== '') {
             StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${CistosBakerSelect1} ${CistosBakerSelect2} ${CistosBakerSelect3}`;
-            setLaudoPrin((arr) => [...arr, StringFinal]);
+            setCistosDireito((arr) => [...arr, StringFinal]);
         }
     };
 
+    const removeCistoBaker = () => {
+        CistosDireito.map((e) => {
+            if (e.includes("Cisto e Baker medindo")) {
+                var index = CistosDireito.indexOf(e);
+
+                if (index > -1) {
+                    CistosDireito.splice(index, 1);
+                    setCistosDireito((arr) => [...arr]);
+                }
+            }
+        });
+    };
 
 
     useEffect(() => {
@@ -77,13 +110,24 @@ function CistosDireito() {
     const criaStringCistosParameniscal = (medida1, medida2, medida3) => {
         var string = 'Cisto e Parameniscal medindo'
         var StringFinal;
-        removeItemString(string)
+        removeCistoParameniscal()
         if (medida1 !== "" && medida2 !== "" && medida3 !== "" && CistosParameniscalSelect1 !== '' && CistosParameniscalSelect2 !== '' && CistosParameniscalSelect3 !== '') {
             StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${CistosParameniscalSelect1} ${CistosParameniscalSelect2} ${CistosParameniscalSelect3}`;
-            setLaudoPrin((arr) => [...arr, StringFinal]);
+            setCistosDireito((arr) => [...arr, StringFinal]);
         }
     };
+    const removeCistoParameniscal = () => {
+        CistosDireito.map((e) => {
+            if (e.includes("Cisto e Parameniscal medindo")) {
+                var index = CistosDireito.indexOf(e);
 
+                if (index > -1) {
+                    CistosDireito.splice(index, 1);
+                    setCistosDireito((arr) => [...arr]);
+                }
+            }
+        });
+    };
 
 
     useEffect(() => {
@@ -181,8 +225,8 @@ function CistosDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="paredes final">paredes</option>
+                        <option value="paredes espessadas">paredes espessadas</option>
                     </Select>
                     <Select
                         w='150px'
@@ -193,8 +237,8 @@ function CistosDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="conteúdo anecogênico">conteúdo anecogênico</option>
+                        <option value="contúdo líquidodo com debris">contúdo líquidodo com debris</option>
                     </Select>
                     <Select
                         w='150px'
@@ -205,8 +249,8 @@ function CistosDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="contornos regulares">contornos regulares</option>
+                        <option value="contornos lobulados">contornos lobulados</option>
                     </Select>
                 </Box>
 
@@ -265,8 +309,8 @@ function CistosDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="paredes finas">paredes finas</option>
+                        <option value="paredes espessadas">paredes espessadas</option>
                     </Select>
                     <Select
                         w='150px'
@@ -289,8 +333,8 @@ function CistosDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="menisco lateral">menisco lateral</option>
+                        <option value="menisco medial">menisco medial</option>
                     </Select>
                 </Box>
             </Stack >

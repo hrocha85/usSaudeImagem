@@ -5,16 +5,38 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 function LiquidoPeritendineoDireito() {
     const altura = "100%";
     const largura = "95%";
 
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
     let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
 
 
+    const [fraseLiquidoPeritendineoDireito, setFraseLiquidoPeritendineoDireito] = useState<any>([]);
+
+    const subExame = 'Líquido Perintendineo direito'
+    const titulo_exame = 'Articulações'
+
+    useEffect(() => {
+        if (Object.keys(fraseLiquidoPeritendineoDireito).length === 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                fraseLiquidoPeritendineoDireito
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                fraseLiquidoPeritendineoDireito
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [fraseLiquidoPeritendineoDireito]);
 
     const [disableAusente, setdisableAusente] = useState(false);
     const [disablePresente, setdisablePresente] = useState(false);
@@ -27,28 +49,34 @@ function LiquidoPeritendineoDireito() {
     const criaStringAusente = () => {
         var string = "FALTA";
         if (AusenteCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setAusenteCheckbox(false);
+            setFraseLiquidoPeritendineoDireito((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
+
+    useEffect(() => {
+        criaStringAusente()
+    }, [AusenteCheckbox])
 
     const criaStringPresente = () => {
         var string = "FALTA";
         if (PresenteCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setPresenteCheckbox(false);
+            setFraseLiquidoPeritendineoDireito((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
 
+    useEffect(() => {
+        criaStringPresente()
+    }, [PresenteCheckbox])
+
     const removeItemString = (value) => {
-        var index = laudoPrin.indexOf(value);
+        var index = fraseLiquidoPeritendineoDireito.indexOf(value);
         if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
+            fraseLiquidoPeritendineoDireito.splice(index, 1);
+            setFraseLiquidoPeritendineoDireito((arr) => [...arr]);
         }
     };
 
@@ -99,7 +127,6 @@ function LiquidoPeritendineoDireito() {
                     isDisabled={disableTudo || disableAusente}
                     onChange={() => {
                         setAusenteCheckbox(!AusenteCheckbox);
-                        criaStringAusente();
                     }}
                 >
                     Ausente
@@ -108,7 +135,6 @@ function LiquidoPeritendineoDireito() {
                     isDisabled={disableTudo || disablePresente}
                     onChange={() => {
                         setPresenteCheckbox(!PresenteCheckbox);
-                        criaStringPresente();
                     }}
                 >
                     Presente

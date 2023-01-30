@@ -4,236 +4,123 @@ import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, 
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext"
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function BolsaSubacromial_Subdeltoidea() {
+function BolsaSubacromial_SubdeltoideaDireito() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   let { OmbroDireitoLaudoNormal } = useContext(OmbroDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
-  const [RoturaParcialInput, setRoturaParcialInput] = useState("");
-  const [RoturaParcialInput2, setRoturaParcialInput2] = useState("");
-  const [RoturaParcialInput3, setRoturaParcialInput3] = useState("");
-  const [disableRoturaParcialInput, setdisableRoturaParcialInput] = useState(true);
-  const [SelectRoturaParcial, setSelectRoturaParcial] = useState("");
-
-  const [disableAspectoNormal, setdisableAspectoNormal] = useState(false);
-  const [disableRoturaParcial, setdisableRoturaParcial] = useState(false);
-  const [disableTendinopatiaSemRotura, setdisableTendinopatiaSemRotura] = useState(false);
-  const [disableRoturaCompleta, setdisableRoturaCompleta] = useState(false);
-
-  const [AspectoNormalCheckbox, setAspectoNormalCheckbox] = useState(false);
-  const [RoturaParcialCheckbox, setRoturaParcialCheckbox] = useState(false);
-  const [PequenasCalcificacoesCheckbox, setPequenasCalcificacoesCheckbox] = useState(false);
-
-  const [TendinopatiaSemRoturaCheckbox, setTendinopatiaSemRoturaCheckbox] = useState(false);
-  const [SelectTendinopatiaSemRotura, setSelectTendinopatiaSemRotura] = useState("");
-  const [SelectDisableTendinopatiaSemRotura, setSelectDisableTendinopatiaSemRotura] = useState(true);
-  const [MedindoDisableTendinopatiaSemRotura, setMedindoDisableTendinopatiaSemRotura] = useState(true);
-  const [InputMedindoDisableTendinopatiaSemRotura, setInputMedindoDisableTendinopatiaSemRotura] = useState(true);
-  const [InputMedindoTendinopatiaSemRotura, setInputMedindoTendinopatiaSemRotura] = useState('');
-  const [TendinopatiaSemRoturaCheckboxMedida, setTendinopatiaSemRoturaCheckboxMedida] = useState(false);
-
-  const [RoturaCompletaCheckbox, setRoturaCompletaCheckbox] = useState(false);
-  const [DisableInputRoturaCompleta, setDisableInputRoturaCompleta] = useState(true);
-  const [InputMedindoRoturaCompleta, setInputMedindoRoturaCompleta] = useState('');
-  const [RoturaCompletaRetracaoCheckbox, setRoturaCompletaRetracaoCheckbox] = useState(false);
-
-  const [DisableInputRetracaoRoturaCompleta, setDisableInputRetracaoRoturaCompleta] = useState(true);
-  const [InputRetracaoRoturaCompleta, setInputRetracaoRoturaCompleta] = useState('');
 
 
-  const criaStringRoturaParcial = (medida1, medida2, medida3, selectRoturaParcial) => {
-    removeRoturaParcial();
-    if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectRoturaParcial !== '') {
-      var string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectRoturaParcial}`;
-      setLaudoPrin((arr) => [...arr, string]);
-    }
-  };
+  const [fraseBolsaSubacromialSubdeltoidea, setFraseBolsaSubacromialSubdeltoidea] = useState<any>([]);
 
-  const removeRoturaParcial = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Espessado, com alteração ecotextural,")) {
-        var index = laudoPrin.indexOf(e);
+  const subExame = 'Bolsa Subacromial-subdeltoidea'
+  const titulo_exame = 'Articulações'
 
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
-        }
-      }
-    });
-  };
-
-  const criaStringAspectoNormal = () => {
-    var string = "FALTA";
-    if (AspectoNormalCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setAspectoNormalCheckbox(false);
+  useEffect(() => {
+    if (Object.keys(fraseBolsaSubacromialSubdeltoidea).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        fraseBolsaSubacromialSubdeltoidea
+      ).Format_Laudo_Create_Storage();
     } else {
-      removeItemString(string);
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        fraseBolsaSubacromialSubdeltoidea
+      ).Format_Laudo_Create_Storage();
     }
-  };
-  const criaStringPequenasCalcificacoes = () => {
-    var string = "FALTA";
-    if (PequenasCalcificacoesCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setAspectoNormalCheckbox(false);
-    } else {
-      removeItemString(string);
-    }
-  };
+  }, [fraseBolsaSubacromialSubdeltoidea]);
 
-  const criaStringTendinopatiaSemRotura = (dados, medida) => {
-    removeFraseTendinopatiaSemRotura()
+
+  const [disableLiquidoSelect, setdisableLiquidoSelect] = useState(true);
+  const [SelectLiquido, setSelectLiquido] = useState("");
+
+  const [disableSemLiquido, setdisableSemLiquido] = useState(false);
+  const [disableLiquido, setdisableLiquido] = useState(false);
+
+  const [SemLiquidoCheckbox, setSemLiquidoCheckbox] = useState(false);
+  const [LiquidoCheckbox, setLiquidoCheckbox] = useState(false);
+
+
+  const [DisableEspessamentoSinovia, setDisableEspessamentoSinovia] = useState(true);
+  const [EspessamentoSinoviaCheckbox, setEspessamentoSinoviaCheckbox] = useState(false);
+
+  const criaStringLiquido = (selectLiquido) => {
+    removeLiquido();
     var string;
-    if (dados !== '') {
-      if (TendinopatiaSemRoturaCheckboxMedida && medida !== '') {
-        string = `Tendinopatia sem rotura ${dados} medindo ${medida} mm`;
-        setLaudoPrin((arr) => [...arr, string]);
-      } else {
-        string = `Tendinopatia sem rotura ${dados}`;
-        setLaudoPrin((arr) => [...arr, string]);
-
-      }
+    if (selectLiquido !== '' && EspessamentoSinoviaCheckbox) {
+      string = `Frase , ${selectLiquido} com espessamento sinovial`;
+      setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
+    } else if (selectLiquido !== '') {
+      string = `Frase , ${selectLiquido} `;
+      setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
     }
   };
 
-  const removeFraseTendinopatiaSemRotura = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Tendinopatia sem rotura")) {
-        var index = laudoPrin.indexOf(e);
+  const removeLiquido = () => {
+    fraseBolsaSubacromialSubdeltoidea.map((e) => {
+      if (e.includes("Frase ,")) {
+        var index = fraseBolsaSubacromialSubdeltoidea.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          fraseBolsaSubacromialSubdeltoidea.splice(index, 1);
+          setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr]);
         }
       }
     });
   };
 
-  const criaStringRoturaCompleta = (dados, medidaRetracao) => {
-    removeFraseRoturaCompleta()
-    var string;
-    if (dados !== '' && medidaRetracao !== '') {
-      string = `Rotura completa medindo ${dados} com retração de ${medidaRetracao} mm`;
-      setLaudoPrin((arr) => [...arr, string]);
-    } else if (dados !== '') {
-      string = `Rotura completa medindo ${dados}`;
-      setLaudoPrin((arr) => [...arr, string]);
-    }
-  }
-  const removeFraseRoturaCompleta = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Rotura completa medindo")) {
-        var index = laudoPrin.indexOf(e);
-
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
-        }
-      }
-    });
+  const criaStringSemLiquido = () => {
+    var string = "Ausência de líquido na bolsa subacromial-subdeltoidea.";
+    SemLiquidoCheckbox ? setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]) : removeItemString(string);
   };
 
   useEffect(() => {
-    if (RoturaCompletaCheckbox) {
-      setDisableInputRoturaCompleta(false)
-      setdisableAspectoNormal(true)
-      setdisableRoturaParcial(true)
-      setdisableTendinopatiaSemRotura(true)
-    } else {
-      setDisableInputRetracaoRoturaCompleta(true)
-      setInputMedindoRoturaCompleta('')
-      setdisableAspectoNormal(false)
-      setdisableRoturaParcial(false)
-      setdisableTendinopatiaSemRotura(false)
-      setDisableInputRoturaCompleta(true)
-      setInputRetracaoRoturaCompleta('')
-    }
-  }, [RoturaCompletaCheckbox])
-
-  useEffect(() => {
-    criaStringRoturaCompleta(InputMedindoRoturaCompleta, InputRetracaoRoturaCompleta)
-  }, [InputMedindoRoturaCompleta, InputRetracaoRoturaCompleta])
-
+    criaStringSemLiquido()
+  }, [SemLiquidoCheckbox])
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = fraseBolsaSubacromialSubdeltoidea.indexOf(value);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      fraseBolsaSubacromialSubdeltoidea.splice(index, 1);
+      setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr]);
     }
   };
 
   useEffect(() => {
-    if (AspectoNormalCheckbox) {
-      setdisableTendinopatiaSemRotura(true)
-      setdisableRoturaParcial(true)
-      setdisableRoturaCompleta(true)
+    if (SemLiquidoCheckbox) {
+      setdisableLiquido(true)
     } else {
-      setdisableTendinopatiaSemRotura(false)
-      setdisableRoturaParcial(false)
-      setdisableRoturaCompleta(false)
+      setdisableLiquido(false)
     }
-  }, [AspectoNormalCheckbox])
+  }, [SemLiquidoCheckbox])
+
 
   useEffect(() => {
-    if (TendinopatiaSemRoturaCheckbox) {
-      setSelectDisableTendinopatiaSemRotura(false)
-      setMedindoDisableTendinopatiaSemRotura(false)
-      setInputMedindoDisableTendinopatiaSemRotura(false)
-      setdisableRoturaParcial(true)
-      setdisableAspectoNormal(true)
-      setdisableRoturaCompleta(true)
+    if (LiquidoCheckbox) {
+      setdisableLiquidoSelect(false);
+      setDisableEspessamentoSinovia(false)
+      setdisableSemLiquido(true)
     } else {
-      setInputMedindoDisableTendinopatiaSemRotura(true)
-      removeFraseTendinopatiaSemRotura()
-      setInputMedindoTendinopatiaSemRotura('')
-      setSelectDisableTendinopatiaSemRotura(true)
-      setMedindoDisableTendinopatiaSemRotura(true)
-      setdisableRoturaParcial(false)
-      setdisableAspectoNormal(false)
-      setdisableRoturaCompleta(false)
+      removeLiquido();
+      setDisableEspessamentoSinovia(true)
+      setdisableLiquidoSelect(true);
+      setdisableSemLiquido(false)
     }
-  }, [TendinopatiaSemRoturaCheckbox])
+  }, [LiquidoCheckbox]);
 
   useEffect(() => {
-    criaStringTendinopatiaSemRotura(SelectTendinopatiaSemRotura, InputMedindoTendinopatiaSemRotura)
-  }, [SelectTendinopatiaSemRotura, InputMedindoTendinopatiaSemRotura])
+    criaStringLiquido(SelectLiquido);
+  }, [SelectLiquido, EspessamentoSinoviaCheckbox]);
 
-  useEffect(() => {
-    if (RoturaParcialCheckbox) {
-      setdisableRoturaParcialInput(false);
-      setdisableAspectoNormal(true)
-      setdisableTendinopatiaSemRotura(true)
-      setdisableRoturaCompleta(true)
-    } else {
-      removeRoturaParcial();
-      setdisableRoturaParcialInput(true);
-      setdisableRoturaCompleta(false)
-      setdisableAspectoNormal(false)
-      setdisableTendinopatiaSemRotura(false)
-      setRoturaParcialInput("");
-      setRoturaParcialInput2("");
-      setRoturaParcialInput3("");
-    }
-  }, [RoturaParcialCheckbox]);
-
-  useEffect(() => {
-    criaStringRoturaParcial(RoturaParcialInput, RoturaParcialInput2, RoturaParcialInput3, SelectRoturaParcial);
-  }, [RoturaParcialInput, RoturaParcialInput2, RoturaParcialInput3, SelectRoturaParcial]);
-
-  useEffect(() => {
-    if (RoturaCompletaRetracaoCheckbox) {
-      setDisableInputRetracaoRoturaCompleta(false)
-    } else {
-      setDisableInputRetracaoRoturaCompleta(true)
-      setInputRetracaoRoturaCompleta('')
-    }
-  }, [RoturaCompletaRetracaoCheckbox])
 
   useEffect(() => {
     OmbroDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
@@ -252,173 +139,60 @@ function BolsaSubacromial_Subdeltoidea() {
       padding="15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Tendão da cabeça longa do Bíceps" />
+      <TituloNomeExame titulo="Bolsa Subacromial-subdeltoidea" />
 
       <Box display="flex" flexWrap="wrap">
 
       </Box>
 
       <Stack>
+
         <Checkbox
-          isDisabled={disableTudo}
+          isDisabled={disableTudo || disableSemLiquido}
           onChange={() => {
-            setPequenasCalcificacoesCheckbox(true);
-            criaStringPequenasCalcificacoes();
+            setSemLiquidoCheckbox(!SemLiquidoCheckbox);
           }}
         >
-          Pequenas calcificações junto à inserção
+          Sem líquido
         </Checkbox>
-        <Checkbox
-          isDisabled={disableTudo || disableAspectoNormal}
-          onChange={() => {
-            setAspectoNormalCheckbox(!AspectoNormalCheckbox);
-            criaStringAspectoNormal();
-          }}
-        >
-          Aspecto Normal
-        </Checkbox>
-        <Box display='flex' flexWrap='wrap' gap='5px'>
+
+        <Box display='flex' flexWrap='wrap' gap='10px'>
           <Checkbox
-            isDisabled={disableTudo || disableTendinopatiaSemRotura}
+            isDisabled={disableTudo || disableLiquido}
             onChange={() => {
-              setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
+              setLiquidoCheckbox(!LiquidoCheckbox);
             }}
           >
-            Tendinopatia sem rotura
+            Liquido
           </Checkbox>
+          <Text alignSelf='center'>quantidade:</Text>
           <Select
             w='150px'
-            isDisabled={SelectDisableTendinopatiaSemRotura}
+            isDisabled={disableLiquidoSelect}
+            value={SelectLiquido}
             onChange={(e) => {
-              setSelectTendinopatiaSemRotura(e.target.value);
+              setSelectLiquido(e.target.value);
             }}
           >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+            <option value="não citar volume">Não citar volume</option>
+            <option value="pequena">pequena</option>
+            <option value="moderada">moderada</option>
+            <option value="acentuada">acentuada</option>
           </Select>
-          <Checkbox
-            isDisabled={MedindoDisableTendinopatiaSemRotura}
-            onChange={() => {
-              setTendinopatiaSemRoturaCheckboxMedida(!TendinopatiaSemRoturaCheckboxMedida);
-            }}
-          >
-            Medindo
-          </Checkbox>
-          <Input
-            isDisabled={InputMedindoDisableTendinopatiaSemRotura}
-            value={InputMedindoTendinopatiaSemRotura}
-            w="45px"
-            h="30px"
-            padding="5px"
-            maxLength={2}
-            textAlign="center"
-            onChange={(e) => { setInputMedindoTendinopatiaSemRotura(e.target.value) }}
-          />
-          <Text alignSelf='center'>mm</Text>
-        </Box >
 
-        <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo || disableRoturaParcial}
+            isDisabled={DisableEspessamentoSinovia}
             onChange={() => {
-              setRoturaParcialCheckbox(!RoturaParcialCheckbox);
+              setEspessamentoSinoviaCheckbox(!EspessamentoSinoviaCheckbox);
             }}
           >
-            Rotura parcial medindo
+            com espessamento de sinóvia
           </Checkbox>
-          <HStack ml='15px'>
-            <Input
-              isDisabled={disableRoturaParcialInput}
-              value={RoturaParcialInput}
-              w="45px"
-              h="30px"
-              padding="5px"
-              maxLength={2}
-              textAlign="center"
-              onChange={(e) => { setRoturaParcialInput(e.target.value) }}
-            />
-            <Text>x</Text>
-            <Input
-              isDisabled={disableRoturaParcialInput}
-              value={RoturaParcialInput2}
-              w="45px"
-              h="30px"
-              padding="5px"
-              maxLength={2}
-              textAlign="center"
-              onChange={(e) => { setRoturaParcialInput2(e.target.value) }}
-            />
-            <Text>x</Text>
-            <Input
-              isDisabled={disableRoturaParcialInput}
-              value={RoturaParcialInput3}
-              w="45px"
-              h="30px"
-              padding="5px"
-              maxLength={2}
-              textAlign="center"
-              onChange={(e) => { setRoturaParcialInput3(e.target.value) }}
-            />
-            <Text>mm</Text>
-          </HStack>
-          <Select
-            w='150px'
-            isDisabled={disableRoturaParcialInput}
-            value={SelectRoturaParcial}
-            onChange={(e) => {
-              setSelectRoturaParcial(e.target.value);
-            }}
-          >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
-          </Select>
         </Box>
 
-        <Box display='flex' flexWrap='wrap' gap='5px'>
-
-          <Checkbox
-            isDisabled={disableTudo || disableRoturaCompleta}
-            onChange={() => {
-              setRoturaCompletaCheckbox(!RoturaCompletaCheckbox);
-            }}
-          >
-            Rotura completa com
-          </Checkbox>
-
-          <Input
-            isDisabled={DisableInputRoturaCompleta}
-            value={InputMedindoRoturaCompleta}
-            w="45px"
-            h="30px"
-            padding="5px"
-            maxLength={2}
-            textAlign="center"
-            onChange={(e) => { setInputMedindoRoturaCompleta(e.target.value) }}
-          />
-          <Text alignSelf='center'>mm</Text>
-          <Text alignSelf='center'> de intervalo</Text>
-          <Checkbox
-            isDisabled={DisableInputRoturaCompleta}
-            onChange={() => {
-              setRoturaCompletaRetracaoCheckbox(!RoturaCompletaRetracaoCheckbox);
-            }}
-          >
-            Com retração de
-          </Checkbox>
-          <Input
-            isDisabled={DisableInputRetracaoRoturaCompleta}
-            value={InputRetracaoRoturaCompleta}
-            w="45px"
-            h="30px"
-            padding="5px"
-            maxLength={2}
-            textAlign="center"
-            onChange={(e) => { setInputRetracaoRoturaCompleta(e.target.value) }}
-          />
-        </Box>
       </Stack >
     </Box >
 
   );
 }
-export default BolsaSubacromial_Subdeltoidea;
+export default BolsaSubacromial_SubdeltoideaDireito;

@@ -1,16 +1,38 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { JoelhoDireitoNormalContext } from "../../../../../context/JoelhoDireitoNormalContext"
+import { JoelhoDireitoNormalContext } from "../../../../../context/JoelhoDireitoNormalContext";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function JoelhoDerrameArticularDireito() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [JoelhoDerrameArticularDireito, setJoelhoDerrameArticularDireito] = useState<any>([]);
+
+  const subExame = `Derrame articular no joelho direito`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(JoelhoDerrameArticularDireito).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        JoelhoDerrameArticularDireito
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        JoelhoDerrameArticularDireito
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [JoelhoDerrameArticularDireito]);
+
   let { JoelhoDireitoLaudoNormal } = useContext(JoelhoDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
   const [disablePresente, setDisablePresente] = useState(false)
@@ -21,14 +43,14 @@ function JoelhoDerrameArticularDireito() {
   const [PresenteSelect, setPresenteSelect] = useState("");
 
   const [AusenteCheckbox, setAusenteCheckbox] = useState(true);
-  const [EspessamentoSinovialCheckbox, setEspessamentoSinovialCheckbox] = useState(true);
+  const [EspessamentoSinovialCheckbox, setEspessamentoSinovialCheckbox] = useState(false);
 
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAusente = () => {
     var string = "FALTA";
     if (AusenteCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setJoelhoDerrameArticularDireito((arr) => [...arr, string]);
       setDisablePresente(true)
       setAusenteCheckbox(false);
     } else {
@@ -42,33 +64,33 @@ function JoelhoDerrameArticularDireito() {
     var string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
       string = `FALTA ${Presente} com espassamento sinovial. `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setJoelhoDerrameArticularDireito((arr) => [...arr, string]);
     } else if (Presente !== "") {
       string = `FALTA ${Presente} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setJoelhoDerrameArticularDireito((arr) => [...arr, string]);
 
     }
   };
 
   const removePresente = () => {
-    laudoPrin.map((e) => {
+    JoelhoDerrameArticularDireito.map((e) => {
       if (e.includes("FALTA")) {
-        var index = laudoPrin.indexOf(e);
+        var index = JoelhoDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          JoelhoDerrameArticularDireito.splice(index, 1);
+          setJoelhoDerrameArticularDireito((arr) => [...arr]);
         }
       }
     });
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = JoelhoDerrameArticularDireito.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      JoelhoDerrameArticularDireito.splice(index, 1);
+      setJoelhoDerrameArticularDireito((arr) => [...arr]);
     }
   };
 
@@ -135,9 +157,10 @@ function JoelhoDerrameArticularDireito() {
               setPresenteSelect(e.target.value);
             }}
           >
-            <option value="leve">leve</option>
-            <option value="leve">leve</option>
-            <option value="acentuada">acentuada</option>
+            <option value="Não graduar">Não graduar</option>
+            <option value="pequeno">pequeno</option>
+            <option value="moderado">moderado</option>
+            <option value="volumoso">volumoso</option>
           </Select>
           <Checkbox
             isDisabled={disablePresenteInput}

@@ -5,69 +5,102 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { JoelhoDireitoNormalContext } from "../../../../../context/JoelhoDireitoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 function TendaoPataGansoDireito() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+  const [TendaoPataGansoDireito, setTendaoPataGansoDireito] = useState<any>([]);
+
+  const subExame = `Tendão "pata de ganso" joelho Direito`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(TendaoPataGansoDireito).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        TendaoPataGansoDireito
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        TendaoPataGansoDireito
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [TendaoPataGansoDireito]);
+
+
   let { JoelhoDireitoLaudoNormal } = useContext(JoelhoDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
   const [disableAspectoNormal, setdisableAspectoNormal] = useState(false)
   const [disableLiquidoBolsaSinovial, setdisableLiquidoBolsaSinovial] = useState(false)
-  const [disableLTendinopatia, setdisableLTendinopatia] = useState(false)
+  const [disableTendinopatia, setdisableTendinopatia] = useState(false)
 
-  const [AspectoNormalCheckbox, setAspectoNormalCheckbox] = useState(true);
-  const [LTendinopatiaCheckbox, setLTendinopatiaCheckbox] = useState(true);
-  const [LiquidoBolsaSinovialCheckbox, setLiquidoBolsaSinovialCheckbox] = useState(true);
+  const [AspectoNormalCheckbox, setAspectoNormalCheckbox] = useState(false);
+  const [TendinopatiaCheckbox, setTendinopatiaCheckbox] = useState(false);
+  const [LiquidoBolsaSinovialCheckbox, setLiquidoBolsaSinovialCheckbox] = useState(false);
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAspectoNormal = () => {
     var string = "TendaoQuadriceps direito com AspectoNormal";
     if (AspectoNormalCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setTendaoPataGansoDireito((arr) => [...arr, string]);
       setdisableLiquidoBolsaSinovial(true)
-      setdisableLTendinopatia(true)
-      setAspectoNormalCheckbox(false);
+      setdisableTendinopatia(true)
     } else {
-      setdisableLTendinopatia(false)
+      setdisableTendinopatia(false)
       setdisableLiquidoBolsaSinovial(false)
       removeItemString(string);
     }
   };
+  useEffect(() => {
+    criaStringAspectoNormal()
+  }, [AspectoNormalCheckbox])
   const criaStringLTendinopatia = () => {
     var string = "TendaoQuadriceps direito com LTendinopatia";
-    if (LTendinopatiaCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
+    if (TendinopatiaCheckbox) {
+      setTendaoPataGansoDireito((arr) => [...arr, string]);
       setdisableLiquidoBolsaSinovial(true)
       setdisableAspectoNormal(true)
-      setLTendinopatiaCheckbox(false);
+
     } else {
       setdisableAspectoNormal(false)
       setdisableLiquidoBolsaSinovial(false)
       removeItemString(string);
     }
   };
+  useEffect(() => {
+    criaStringLTendinopatia()
+  }, [TendinopatiaCheckbox])
   const criaStringLiquidoBolsaSinovial = () => {
     var string = "TendaoQuadriceps direito com LiquidoBolsaSinovial";
-    if (LTendinopatiaCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setdisableLTendinopatia(true)
+    if (LiquidoBolsaSinovialCheckbox) {
+      setTendaoPataGansoDireito((arr) => [...arr, string]);
+      setdisableTendinopatia(true)
       setdisableAspectoNormal(true)
-      setLTendinopatiaCheckbox(false);
+
     } else {
       setdisableAspectoNormal(false)
-      setdisableLTendinopatia(false)
+      setdisableTendinopatia(false)
       removeItemString(string);
     }
   };
+  useEffect(() => {
+    criaStringLiquidoBolsaSinovial()
+  }, [LiquidoBolsaSinovialCheckbox])
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = TendaoPataGansoDireito.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      TendaoPataGansoDireito.splice(index, 1);
+      setTendaoPataGansoDireito((arr) => [...arr]);
     }
   };
 
@@ -101,17 +134,15 @@ function TendaoPataGansoDireito() {
           isDisabled={disableTudo || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
-            criaStringAspectoNormal();
           }}
         >
           Aspecto Normal
         </Checkbox>
 
         <Checkbox
-          isDisabled={disableTudo || disableLTendinopatia}
+          isDisabled={disableTudo || disableTendinopatia}
           onChange={() => {
-            setLTendinopatiaCheckbox(!LTendinopatiaCheckbox);
-            criaStringLTendinopatia();
+            setTendinopatiaCheckbox(!TendinopatiaCheckbox);
           }}
         >Tendinopatia ('Tendinite/Tendinopatia da pata de ganso')
         </Checkbox>
@@ -120,7 +151,6 @@ function TendaoPataGansoDireito() {
           isDisabled={disableTudo || disableLiquidoBolsaSinovial}
           onChange={() => {
             setLiquidoBolsaSinovialCheckbox(!LiquidoBolsaSinovialCheckbox);
-            criaStringLiquidoBolsaSinovial();
           }}
         >Liquido na bolsa sinovial ('Bursite da pata de ganso')
         </Checkbox>

@@ -4,34 +4,56 @@ import { Box, Button, Center, Checkbox, HStack, Input, Select } from "@chakra-ui
 import { useContext, useEffect, useState } from "react";
 import { isLineBreak } from "typescript";
 import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
 export default function IndividualizarRoturaExtensores({ numCalculo }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+  const [FraseRoturaExtensoresDireito, setFraseRoturaExtensoresDireito] = useState<any>([]);
+
+  const subExame = `Rotura Extensores ${numCalculo} Direito`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(FraseRoturaExtensoresDireito).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        FraseRoturaExtensoresDireito
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        FraseRoturaExtensoresDireito
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [FraseRoturaExtensoresDireito]);
+
 
   const [tamanhoCalculoInput, settamanhoCalculoInput] = useState("");
   const [multiplosCalculosCheckBox, setmultiplosCalculosCheckBox] =
     useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
-  const criaStringMultiplosCalculos = (
-    tamanhoCalculoInput,
-  ) => {
+  const criaStringMultiplosCalculos = (tamanhoCalculoInput) => {
     removeMultiplosCalculos();
-
     if (tamanhoCalculoInput !== "") {
-      var string = `Dedo ${numCalculo} com descontinuidade das fibras de ${tamanhoCalculoInput} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      var medida = tamanhoCalculoInput / 10
+      var string = `Descontinuidade completa das fibras do tendão extensor do ${numCalculo} dedo com intervalor de ${medida} cm `;
+      setFraseRoturaExtensoresDireito((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCalculos = () => {
-    laudoPrin.map((e) => {
-      if (e.includes(`Dedo ${numCalculo}`)) {
-        var index = laudoPrin.indexOf(e);
+    FraseRoturaExtensoresDireito.map((e) => {
+      if (e.includes(`Descontinuidade completa das fibras do tendão extensor do ${numCalculo}`)) {
+        var index = FraseRoturaExtensoresDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          FraseRoturaExtensoresDireito.splice(index, 1);
+          setFraseRoturaExtensoresDireito((arr) => [...arr]);
         }
       }
     });

@@ -5,14 +5,37 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 function NervoUlnarDireito() {
     const altura = "100%";
     const largura = "95%";
 
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
     let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
+
+    const [fraseNervoUlnarDireito, setFraseNervoUlnarDireito] = useState<any>([]);
+
+    const subExame = 'Nervo ulnar direito'
+    const titulo_exame = 'Articulações'
+
+    useEffect(() => {
+        if (Object.keys(fraseNervoUlnarDireito).length === 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                fraseNervoUlnarDireito
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                fraseNervoUlnarDireito
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [fraseNervoUlnarDireito]);
 
     const [AreaSeccionalInput, setAreaSeccionalInput] = useState("");
 
@@ -29,39 +52,65 @@ function NervoUlnarDireito() {
     const criaStringEspessuraNormal = () => {
         var string = "FALTA";
         if (EspessuraNormalCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setEspessuraNormalCheckbox(false);
+            setFraseNervoUlnarDireito((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
+
+    useEffect(() => {
+        criaStringEspessuraNormal()
+    }, [EspessuraNormalCheckbox])
+
     const criaStringSofreSubluxacao = () => {
         var string = "FALTA";
         if (SofreSubluxacaoCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setSofreSubluxacaoCheckbox(false);
+            setFraseNervoUlnarDireito((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
+
+    useEffect(() => {
+        criaStringSofreSubluxacao()
+    }, [SofreSubluxacaoCheckbox])
+
     const criaStringSofreLuxacao = () => {
         var string = "FALTA";
         if (SofreLuxacaoCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setSofreSubluxacaoCheckbox(false);
+            setFraseNervoUlnarDireito((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
+
+    useEffect(() => {
+        criaStringSofreLuxacao()
+    }, [SofreLuxacaoCheckbox])
+
     const criaStringAreaSeccional = (medida) => {
-        var string = `FALTA ${medida}`;
+        removeFraseAreaSeccional();
+        var string;
         if (medida !== '') {
-            setLaudoPrin((arr) => [...arr, string]);
-            setEspessuraNormalCheckbox(false);
+            string = `frase ${medida} mm`
+            setFraseNervoUlnarDireito((arr) => [...arr, string]);
         } else {
-            removeItemString(string);
+            removeFraseAreaSeccional();
         }
     };
+
+    const removeFraseAreaSeccional = () => {
+        fraseNervoUlnarDireito.map((e) => {
+            if (e.includes("frase ")) {
+                var index = fraseNervoUlnarDireito.indexOf(e);
+                if (index > -1) {
+                    fraseNervoUlnarDireito.splice(index, 1);
+                    setFraseNervoUlnarDireito((arr) => [...arr]);
+                }
+            }
+        });
+    };
+
     useEffect(() => {
         if (AreaSeccionalCheckbox) {
             setdisableAreaSeccionalInput(false)
@@ -78,18 +127,21 @@ function NervoUlnarDireito() {
     const criaStringEspessuraAumentada = () => {
         var string = "FALTA";
         if (EspessuraAumentadaCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setEspessuraAumentadaCheckbox(false);
+            setFraseNervoUlnarDireito((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
 
+    useEffect(() => {
+        criaStringEspessuraAumentada()
+    }, [EspessuraAumentadaCheckbox])
+
     const removeItemString = (value) => {
-        var index = laudoPrin.indexOf(value);
+        var index = fraseNervoUlnarDireito.indexOf(value);
         if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
+            fraseNervoUlnarDireito.splice(index, 1);
+            setFraseNervoUlnarDireito((arr) => [...arr]);
         }
     };
 
@@ -159,7 +211,6 @@ function NervoUlnarDireito() {
                     isDisabled={disableTudo || disableEspessuraNormal}
                     onChange={() => {
                         setEspessuraNormalCheckbox(!EspessuraNormalCheckbox);
-                        criaStringEspessuraNormal();
                     }}
                 >
                     Espessura normal
@@ -168,7 +219,6 @@ function NervoUlnarDireito() {
                     isDisabled={disableTudo || disableEspessuraAumentada}
                     onChange={() => {
                         setEspessuraAumentadaCheckbox(!EspessuraAumentadaCheckbox);
-                        criaStringEspessuraAumentada();
                     }}
                 >
                     Espessura aumentada
@@ -177,7 +227,6 @@ function NervoUlnarDireito() {
                     isDisabled={disableTudo}
                     onChange={() => {
                         setSofreSubluxacaoCheckbox(!SofreSubluxacaoCheckbox);
-                        criaStringSofreSubluxacao()
                     }}
                 >
                     Sofre subluxação durante manobra de flexão do cotovelo
@@ -186,7 +235,6 @@ function NervoUlnarDireito() {
                     isDisabled={disableTudo}
                     onChange={() => {
                         setSofreLuxacaoCheckbox(!SofreLuxacaoCheckbox);
-                        criaStringSofreLuxacao()
                     }}
                 >
                     Sofre luxação durante manobra de flexão do cotovelo

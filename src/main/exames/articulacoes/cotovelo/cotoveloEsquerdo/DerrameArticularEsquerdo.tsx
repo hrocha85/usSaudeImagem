@@ -5,16 +5,37 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 function DerrameArticularEsquerdo() {
     const altura = "100%";
     const largura = "95%";
 
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
     let { CotoveloEsquerdoLaudoNormal } = useContext(CotoveloEsquerdoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
 
+    const [fraseDerrameArticularEsquerdo, setFraseDerrameArticularEsquerdo] = useState<any>([]);
 
+    const subExame = 'Derrame articular Esquerdo'
+    const titulo_exame = 'Articulações'
+
+    useEffect(() => {
+        if (Object.keys(fraseDerrameArticularEsquerdo).length === 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                fraseDerrameArticularEsquerdo
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                fraseDerrameArticularEsquerdo
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [fraseDerrameArticularEsquerdo]);
 
     const [disableAusente, setdisableAusente] = useState(false);
     const [disablePresente, setdisablePresente] = useState(false);
@@ -27,28 +48,34 @@ function DerrameArticularEsquerdo() {
     const criaStringAusente = () => {
         var string = "FALTA";
         if (AusenteCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setAusenteCheckbox(false);
+            setFraseDerrameArticularEsquerdo((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
+
+    useEffect(() => {
+        criaStringAusente()
+    }, [AusenteCheckbox])
 
     const criaStringPresente = () => {
         var string = "FALTA";
         if (PresenteCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setPresenteCheckbox(false);
+            setFraseDerrameArticularEsquerdo((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
 
+    useEffect(() => {
+        criaStringPresente()
+    }, [PresenteCheckbox])
+
     const removeItemString = (value) => {
-        var index = laudoPrin.indexOf(value);
+        var index = fraseDerrameArticularEsquerdo.indexOf(value);
         if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
+            fraseDerrameArticularEsquerdo.splice(index, 1);
+            setFraseDerrameArticularEsquerdo((arr) => [...arr]);
         }
     };
 
@@ -88,7 +115,7 @@ function DerrameArticularEsquerdo() {
             padding="15px"
             mt="15px"
         >
-            <TituloNomeExame titulo="Derrame articular esquerdo" />
+            <TituloNomeExame titulo="Derrame articular Esquerdo" />
 
             <Box display="flex" flexWrap="wrap">
 
@@ -99,7 +126,6 @@ function DerrameArticularEsquerdo() {
                     isDisabled={disableTudo || disableAusente}
                     onChange={() => {
                         setAusenteCheckbox(!AusenteCheckbox);
-                        criaStringAusente();
                     }}
                 >
                     Ausente
@@ -108,7 +134,6 @@ function DerrameArticularEsquerdo() {
                     isDisabled={disableTudo || disablePresente}
                     onChange={() => {
                         setPresenteCheckbox(!PresenteCheckbox);
-                        criaStringPresente();
                     }}
                 >
                     Presente

@@ -2,18 +2,39 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Stack, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
 import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
+
 
 function VentreSupraespinhalEsquerdo() {
     const altura = "100%";
     const largura = "95%";
 
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
     let { OmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
+    const [fraseVentreSupraespinhalEsquerdo, setFraseVentreSupraespinhalEsquerdo] = useState<any>([]);
 
+    const subExame = 'Ventre Supraespinhal Esquerdo'
+    const titulo_exame = 'Articulações'
+
+    useEffect(() => {
+        if (Object.keys(fraseVentreSupraespinhalEsquerdo).length === 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                fraseVentreSupraespinhalEsquerdo
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                fraseVentreSupraespinhalEsquerdo
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [fraseVentreSupraespinhalEsquerdo]);
 
 
     const [disableNormal, setdisableNormal] = useState(false);
@@ -24,31 +45,38 @@ function VentreSupraespinhalEsquerdo() {
 
 
 
+
     const criaStringNormal = () => {
         var string = "FALTA";
         if (NormalCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setNormalCheckbox(false);
+            setFraseVentreSupraespinhalEsquerdo((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
+
+    useEffect(() => {
+        criaStringNormal()
+    }, [NormalCheckbox])
 
     const criaStringSubstituicaoAdiposa = () => {
         var string = "FALTA";
         if (SubstituicaoAdiposaCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setSubstituicaoAdiposaCheckbox(false);
+            setFraseVentreSupraespinhalEsquerdo((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
+    useEffect(() => {
+        criaStringSubstituicaoAdiposa()
+    }, [SubstituicaoAdiposaCheckbox])
+
 
     const removeItemString = (value) => {
-        var index = laudoPrin.indexOf(value);
+        var index = fraseVentreSupraespinhalEsquerdo.indexOf(value);
         if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
+            fraseVentreSupraespinhalEsquerdo.splice(index, 1);
+            setFraseVentreSupraespinhalEsquerdo((arr) => [...arr]);
         }
     };
 
@@ -88,7 +116,6 @@ function VentreSupraespinhalEsquerdo() {
                     isDisabled={disableTudo || disableNormal}
                     onChange={() => {
                         setNormalCheckbox(!NormalCheckbox);
-                        criaStringNormal();
                     }}
                 >
                     Normal
@@ -97,7 +124,6 @@ function VentreSupraespinhalEsquerdo() {
                     isDisabled={disableTudo || disableSubstituicaoAdiposa}
                     onChange={() => {
                         setSubstituicaoAdiposaCheckbox(!SubstituicaoAdiposaCheckbox);
-                        criaStringSubstituicaoAdiposa();
                     }}
                 >
                     Substituição Adiposa
