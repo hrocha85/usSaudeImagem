@@ -45,19 +45,20 @@ function FibromatosePalmarDireito() {
   const [NoduloCheckbox, setNoduloCheckbox] = useState(false);
   const [NoduloSelect, setNoduloSelect] = useState("");
 
-  const criaStringNodulo = (medida1, medida2, medida3, Nodulo) => {
+  const criaStringNodulo = (medida1mm, medida2mm, medida3mm, Nodulo) => {
     removeNodulo();
-    console.log(medida1, medida2, medida3)
-    console.log(Nodulo)
-    if (medida1 !== "" && medida2 !== "" && medida3 !== "" && Nodulo !== "") {
-      var string = `Nódulo palmar aos tendões flexores do ${Nodulo} com intervalo de ${medida1}x${medida2}x${medida3} mm `;
+    var medida1 = medida1mm / 10
+    var medida2 = medida2mm / 10
+    var medida3 = medida3mm / 10
+    if (medida1 !== 0 && medida2 !== 0 && medida3 !== 0 && Nodulo !== "") {
+      var string = `Presença de nódulo hipoecogênico na região palmar em localização superficial aos tendões flexores do ${Nodulo}, medindo ${medida1} x ${medida2} x ${medida3} cm `;
       setFraseFibrosePalmarSuperficial((arr) => [...arr, string]);
     }
   };
 
   const removeNodulo = () => {
     fraseFibrosePalmarSuperficial.map((e) => {
-      if (e.includes("Nódulo palmar aos tendões flexores do")) {
+      if (e.includes("Presença de nódulo hipoecogênico na região palmar em localização superficial aos tendões flexores do ")) {
         var index = fraseFibrosePalmarSuperficial.indexOf(e);
 
         if (index > -1) {
@@ -112,7 +113,7 @@ function FibromatosePalmarDireito() {
           Nódulo palmar superficial aos tendões flexores do
         </Checkbox>
         <Select
-          w='170px'
+          w='150px'
           isDisabled={disableNoduloInput}
           value={NoduloSelect}
           onChange={(e) => {

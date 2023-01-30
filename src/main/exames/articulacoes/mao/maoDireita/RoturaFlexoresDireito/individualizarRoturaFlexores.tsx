@@ -40,14 +40,15 @@ export default function IndividualizarRoturaExtensores({ numCalculo }) {
     removeMultiplosCalculos();
 
     if (tamanhoCalculoInput !== "") {
-      var string = `Dedo ${numCalculo} com descontinuidade das fibras de ${tamanhoCalculoInput} mm `;
+      var medida = tamanhoCalculoInput / 10
+      var string = `Descontinuidade completa das fibras do tendão flexores do ${numCalculo} dedo com intervalo de ${medida} cm.`;
       setFraseRoturaFlexoresDireito((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCalculos = () => {
     fraseRoturaFlexoresDireito.map((e) => {
-      if (e.includes(`Dedo ${numCalculo}`)) {
+      if (e.includes(`Descontinuidade completa das fibras do tendão flexores do ${numCalculo}`)) {
         var index = fraseRoturaFlexoresDireito.indexOf(e);
 
         if (index > -1) {

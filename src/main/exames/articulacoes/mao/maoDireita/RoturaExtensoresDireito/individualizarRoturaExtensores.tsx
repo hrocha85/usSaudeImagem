@@ -37,20 +37,18 @@ export default function IndividualizarRoturaExtensores({ numCalculo }) {
     useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
-  const criaStringMultiplosCalculos = (
-    tamanhoCalculoInput,
-  ) => {
+  const criaStringMultiplosCalculos = (tamanhoCalculoInput) => {
     removeMultiplosCalculos();
-
     if (tamanhoCalculoInput !== "") {
-      var string = `Dedo ${numCalculo} com descontinuidade das fibras de ${tamanhoCalculoInput} mm `;
+      var medida = tamanhoCalculoInput / 10
+      var string = `Descontinuidade completa das fibras do tendão extensor do ${numCalculo} dedo com intervalor de ${medida} cm `;
       setFraseRoturaExtensoresDireito((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCalculos = () => {
     FraseRoturaExtensoresDireito.map((e) => {
-      if (e.includes(`Dedo ${numCalculo}`)) {
+      if (e.includes(`Descontinuidade completa das fibras do tendão extensor do ${numCalculo}`)) {
         var index = FraseRoturaExtensoresDireito.indexOf(e);
 
         if (index > -1) {

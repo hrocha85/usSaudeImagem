@@ -74,19 +74,22 @@ function Polias() {
     removeMultiplosCalculos()
     var string = 'Dedo 1 com descontinuidade das polias: '
     if (PrimeiroDedo) {
-      if (A1) {
-        string = `${string} A1`
+      if (A1 || A2 || AV || AO) {
+        if (A1) {
+          string = `${string} A1`
+        }
+        if (A2) {
+          string = `${string} A2`
+        }
+        if (AV) {
+          string = `${string} AV`
+        }
+        if (AO) {
+          string = `${string} AO`
+        }
+        string = `${string}, com afastamento dos tendões flexores da cortical óssea na manobra de flexão e descontinuidade das polias:`
+        setFrasePoliasDireito((arr) => [...arr, string]);
       }
-      if (A2) {
-        string = `${string} A2`
-      }
-      if (AV) {
-        string = `${string} AV`
-      }
-      if (AO) {
-        string = `${string} AO`
-      }
-      setFrasePoliasDireito((arr) => [...arr, string]);
     } else {
       removeMultiplosCalculos()
     }
@@ -128,7 +131,7 @@ function Polias() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Polias TESTAR" />
+      <TituloNomeExame titulo="Polias" />
       <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
         <Checkbox
           isDisabled={disableApectNormal}

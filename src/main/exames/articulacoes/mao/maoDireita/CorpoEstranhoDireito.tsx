@@ -50,7 +50,7 @@ function CorpoEstranhoDireito() {
 
     const removeFraseCorpoEstranho = () => {
         CorpoEstranhoMaoDireita.map((e) => {
-            if (e.includes("FALTA")) {
+            if (e.includes("Imagem linear hiperecogênica situada")) {
                 var index = CorpoEstranhoMaoDireita.indexOf(e);
 
                 if (index > -1) {
@@ -62,12 +62,12 @@ function CorpoEstranhoDireito() {
     };
 
     const criaStringCorpo = (medida1) => {
-        var string = 'FALTA'
+        var string = 'Imagem linear hiperecogênica situada'
         var StringFinal;
         removeFraseCorpoEstranho()
         if (CorpoCheckbox) {
             if (medida1 !== "" && CorpoSelect1 !== '' && CorpoSelect2 !== '' && CorpoSelect3 !== '') {
-                StringFinal = `${string} ${medida1} mm, ${CorpoSelect1} ${CorpoSelect2} ${CorpoSelect3}`;
+                StringFinal = `${string}  ${CorpoSelect1} na face ${CorpoSelect2} ${CorpoSelect3}, medindo ${medida1} mm.`;
                 setCorpoEstranhoMaoDireita((arr) => [...arr, StringFinal]);
             } else {
                 removeFraseCorpoEstranho()

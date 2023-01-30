@@ -74,7 +74,7 @@ function MaoDerrameArticularDireita() {
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
-    var string = `Dedo 1 com Derrame Articular: `
+    var string = `Dedo 1 com presença de derrame articular: `
     if (PrimeiroDedo) {
       if (Proximal) {
         string = `${string} proximal`
@@ -87,7 +87,7 @@ function MaoDerrameArticularDireita() {
 
   const removeMultiplosCalculos = () => {
     FraseDerrameArticularDireito.map((e) => {
-      if (e.includes(`Dedo 1 com Derrame Articular: `)) {
+      if (e.includes(`Dedo 1 com presença de derrame articular: `)) {
         var index = FraseDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {

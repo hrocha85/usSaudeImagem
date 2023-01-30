@@ -50,7 +50,7 @@ function ColecaoDireito() {
 
   const removeColecaoMao = () => {
     ColecaoMaoDireito.map((e) => {
-      if (e.includes("FALTA")) {
+      if (e.includes('Presença de coleção')) {
         var index = ColecaoMaoDireito.indexOf(e);
 
         if (index > -1) {
@@ -61,11 +61,12 @@ function ColecaoDireito() {
     });
   };
   const criaStringAlteracao = (medida1, medida2, medida3) => {
-    var string = 'FALTA'
+    var string = 'Presença de coleção'
     var StringFinal;
+    var calcVolume = (medida1 * medida2 * medida3) / 10
     removeColecaoMao()
     if (medida1 !== "" && medida2 !== "" && medida3 !== "" && AlteracaoSelect1 !== '' && AlteracaoSelect !== '') {
-      StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${AlteracaoSelect1} ${AlteracaoSelect}`;
+      StringFinal = `${string} ${AlteracaoSelect} na face ${AlteracaoSelect1},medindo ${medida1} x ${medida2} x ${medida3} mm (volume = ${calcVolume} ml)`;
       setColecaoMaoDireito((arr) => [...arr, StringFinal]);
     }
   };
@@ -123,7 +124,7 @@ function ColecaoDireito() {
           <Select
             w='150px'
             isDisabled={disableAlteracaoInput}
-            value={AlteracaoSelect1}
+            value={AlteracaoSelect}
             onChange={(e) => {
               setAlteracaoSelect(e.target.value);
             }}

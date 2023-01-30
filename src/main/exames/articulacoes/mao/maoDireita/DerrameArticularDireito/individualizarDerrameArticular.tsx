@@ -37,7 +37,7 @@ export default function IndividualizarDerrameArticular({ numCalculo, desabilita 
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
-    var string = `Dedo ${numCalculo} com descontinuidade das DerrameArticular: `
+    var string = `Dedo ${numCalculo + 1} com presença de derrame articular: `
     if (multiplosDedosCheckbox) {
       if (Proximal) {
         string = `${string} Proximal`
@@ -55,7 +55,7 @@ export default function IndividualizarDerrameArticular({ numCalculo, desabilita 
 
   const removeMultiplosCalculos = () => {
     FraseDerrameArticularDireito.map((e) => {
-      if (e.includes(`Dedo ${numCalculo} com descontinuidade das DerrameArticular: `)) {
+      if (e.includes(`Dedo ${numCalculo + 1} com presença de derrame articular: `)) {
         var index = FraseDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {
