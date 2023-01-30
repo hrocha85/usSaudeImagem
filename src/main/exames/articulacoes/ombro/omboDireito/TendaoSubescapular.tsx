@@ -4,15 +4,38 @@ import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, 
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext"
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function TendaoSubescapularOmbroDireito() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   let { OmbroDireitoLaudoNormal } = useContext(OmbroDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
+
+  const [fraseTendaoSubescapuçarDireito, setFraseTendaoSubescapuçarDireito] = useState<any>([]);
+
+  const subExame = 'Tendão Subescapular Direito'
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(fraseTendaoSubescapuçarDireito).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        fraseTendaoSubescapuçarDireito
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        fraseTendaoSubescapuçarDireito
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [fraseTendaoSubescapuçarDireito]);
 
   const [RoturaParcialInput, setRoturaParcialInput] = useState("");
   const [RoturaParcialInput2, setRoturaParcialInput2] = useState("");
@@ -48,43 +71,50 @@ function TendaoSubescapularOmbroDireito() {
 
   const criaStringRoturaParcial = (medida1, medida2, medida3, selectRoturaParcial) => {
     removeRoturaParcial();
-    if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectRoturaParcial !== '') {
-      var string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectRoturaParcial}`;
-      setLaudoPrin((arr) => [...arr, string]);
+    if (RoturaParcialCheckbox) {
+      if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectRoturaParcial !== '') {
+        var string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectRoturaParcial}`;
+        setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]);
+      }
+    } else {
+      removeRoturaParcial();
     }
   };
 
   const removeRoturaParcial = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Espessado, com alteração ecotextural,")) {
-        var index = laudoPrin.indexOf(e);
+    fraseTendaoSubescapuçarDireito.map((e) => {
+      if (e.includes("Frase")) {
+        var index = fraseTendaoSubescapuçarDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          fraseTendaoSubescapuçarDireito.splice(index, 1);
+          setFraseTendaoSubescapuçarDireito((arr) => [...arr]);
         }
       }
     });
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "FALTA";
-    if (AspectoNormalCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setAspectoNormalCheckbox(false);
-    } else {
-      removeItemString(string);
-    }
-  };
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    AspectoNormalCheckbox ? setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]) : removeItemString(string);
+  }
+
+  useEffect(() => {
+    criaStringAspectoNormal()
+  }, [AspectoNormalCheckbox])
+
   const criaStringPequenasCalcificacoes = () => {
     var string = "FALTA";
     if (PequenasCalcificacoesCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setAspectoNormalCheckbox(false);
+      setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]);
     } else {
       removeItemString(string);
     }
   };
+
+  useEffect(() => {
+    criaStringPequenasCalcificacoes()
+  }, [PequenasCalcificacoesCheckbox])
 
   const criaStringTendinopatiaSemRotura = (dados, medida) => {
     removeFraseTendinopatiaSemRotura()
@@ -92,23 +122,23 @@ function TendaoSubescapularOmbroDireito() {
     if (dados !== '') {
       if (TendinopatiaSemRoturaCheckboxMedida && medida !== '') {
         string = `Tendinopatia sem rotura ${dados} medindo ${medida} mm`;
-        setLaudoPrin((arr) => [...arr, string]);
+        setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]);
       } else {
         string = `Tendinopatia sem rotura ${dados}`;
-        setLaudoPrin((arr) => [...arr, string]);
+        setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]);
 
       }
     }
   };
 
   const removeFraseTendinopatiaSemRotura = () => {
-    laudoPrin.map((e) => {
+    fraseTendaoSubescapuçarDireito.map((e) => {
       if (e.includes("Tendinopatia sem rotura")) {
-        var index = laudoPrin.indexOf(e);
+        var index = fraseTendaoSubescapuçarDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          fraseTendaoSubescapuçarDireito.splice(index, 1);
+          setFraseTendaoSubescapuçarDireito((arr) => [...arr]);
         }
       }
     });
@@ -118,21 +148,21 @@ function TendaoSubescapularOmbroDireito() {
     removeFraseRoturaCompleta()
     var string;
     if (dados !== '' && medidaRetracao !== '') {
-      string = `Rotura completa medindo ${dados} com retração de ${medidaRetracao} mm`;
-      setLaudoPrin((arr) => [...arr, string]);
+      string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo com ${medidaRetracao} mm de retração`;
+      setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]);
     } else if (dados !== '') {
-      string = `Rotura completa medindo ${dados}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo`;
+      setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]);
     }
   }
   const removeFraseRoturaCompleta = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Rotura completa medindo")) {
-        var index = laudoPrin.indexOf(e);
+    fraseTendaoSubescapuçarDireito.map((e) => {
+      if (e.includes("Hipoecogênico, heterogêneo, observando-se sinais de rotura completa")) {
+        var index = fraseTendaoSubescapuçarDireito.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          fraseTendaoSubescapuçarDireito.splice(index, 1);
+          setFraseTendaoSubescapuçarDireito((arr) => [...arr]);
         }
       }
     });
@@ -161,10 +191,10 @@ function TendaoSubescapularOmbroDireito() {
 
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = fraseTendaoSubescapuçarDireito.indexOf(value);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      fraseTendaoSubescapuçarDireito.splice(index, 1);
+      setFraseTendaoSubescapuçarDireito((arr) => [...arr]);
     }
   };
 
@@ -262,8 +292,7 @@ function TendaoSubescapularOmbroDireito() {
         <Checkbox
           isDisabled={disableTudo}
           onChange={() => {
-            setPequenasCalcificacoesCheckbox(true);
-            criaStringPequenasCalcificacoes();
+            setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
           }}
         >
           Pequenas calcificações junto à inserção
@@ -272,7 +301,6 @@ function TendaoSubescapularOmbroDireito() {
           isDisabled={disableTudo || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
-            criaStringAspectoNormal();
           }}
         >
           Aspecto Normal
@@ -293,8 +321,8 @@ function TendaoSubescapularOmbroDireito() {
               setSelectTendinopatiaSemRotura(e.target.value);
             }}
           >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+            <option value="">não citar calcificações</option>
+            <option value="Calcificações intrassubstancial">Calcificações intrassubstancial</option>
           </Select>
           <Checkbox
             isDisabled={MedindoDisableTendinopatiaSemRotura}
@@ -369,8 +397,11 @@ function TendaoSubescapularOmbroDireito() {
               setSelectRoturaParcial(e.target.value);
             }}
           >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+            <option value="Não citar tipo">Não citar tipo</option>
+            <option value="intrassubstancial">intrassubstancial</option>
+            <option value="superficial">superficial</option>
+            <option value="profunda">profunda</option>
+
           </Select>
         </Box>
 
@@ -415,6 +446,7 @@ function TendaoSubescapularOmbroDireito() {
             textAlign="center"
             onChange={(e) => { setInputRetracaoRoturaCompleta(e.target.value) }}
           />
+          <Text alignSelf='center'>mm</Text>
         </Box>
       </Stack >
     </Box >

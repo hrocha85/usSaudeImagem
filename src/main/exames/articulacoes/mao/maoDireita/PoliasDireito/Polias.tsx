@@ -1,15 +1,39 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
-import IndividualizarPolias from "./individualizarPolias"
+import IndividualizarPolias from "./individualizarPolias";
 
 function Polias() {
 
   const altura = "100%";
   const largura = "95%";
+
+
+  const [FrasePoliasDireito, setFrasePoliasDireito] = useState<any>([]);
+
+  const subExame = `Polias Direito`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(FrasePoliasDireito).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        FrasePoliasDireito
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        FrasePoliasDireito
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [FrasePoliasDireito]);
 
   const [DisablePrimeiroDedo, setDisablePrimeiroDedo] = useState(true);
   const [DisableCheckbox, setDisableCheckbox] = useState(true);
@@ -17,22 +41,19 @@ function Polias() {
   const [PrimeiroDedo, setPrimeiroDedo] = useState(false);
   const [disableDescontinuidade, setdisableDescontinuidade] = useState(false);
   const [disableApectNormal, setdisableApectNormal] = useState(false);
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
   const [A1, setA1] = useState(false);
   const [A2, setA2] = useState(false);
   const [AV, setAV] = useState(false);
   const [AO, setAO] = useState(false);
-  const [frase, setFrase] = useState<any>([])
-
 
   var numberArray = [1, 2, 3, 4];
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
-
+    var index = FrasePoliasDireito.indexOf(value);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      FrasePoliasDireito.splice(index, 1);
+      setFrasePoliasDireito((arr) => [...arr]);
     }
   };
 
@@ -43,46 +64,35 @@ function Polias() {
   })
 
   useEffect(() => {
-    var string = "Aspecto normal"
+    var string = "Polias dos tendões flexores dos dedos sem anormalidades identificáveis."
     AspectoNormal ? setdisableDescontinuidade(true) : setdisableDescontinuidade(false)
-    AspectoNormal ? setLaudoPrin((arr) => [...arr, string]) : removeItemString(string)
+    AspectoNormal ? setFrasePoliasDireito((arr) => [...arr, string]) : removeItemString(string)
 
-    //criaStringAspectNormal()
   }, [AspectoNormal])
 
-
   const criaStringMultiplosCalculos = () => {
-    removeMultiplosCalculos();
+    removeMultiplosCalculos()
+    var string = 'Dedo 1 com descontinuidade das polias: '
     if (PrimeiroDedo) {
-      setFrase((arr) => [...arr, `Dedo 1 com descontinuidade das polias: `]);
-      setLaudoPrin((arr) => [...arr, frase]);
-    } else {
-      removeMultiplosCalculos();
-    }
-  };
-
-
-  const removeItemStringFrase = (value) => {
-    var index = frase.indexOf(value);
-    if (index > -1) {
-      frase.splice(index, 1);
-      setFrase((arr) => [...arr]);
-      setLaudoPrin((arr) => [...arr, frase]);
-    }
-
-  };
-
-  const removeMultiplosCalculos = () => {
-    laudoPrin.map((e) => {
-      if (e.includes(`Dedo 1 com descontinuidade das polias: `)) {
-        var index = laudoPrin.indexOf(e);
-
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+      if (A1 || A2 || AV || AO) {
+        if (A1) {
+          string = `${string} A1`
         }
+        if (A2) {
+          string = `${string} A2`
+        }
+        if (AV) {
+          string = `${string} AV`
+        }
+        if (AO) {
+          string = `${string} AO`
+        }
+        string = `${string}, com afastamento dos tendões flexores da cortical óssea na manobra de flexão e descontinuidade das polias:`
+        setFrasePoliasDireito((arr) => [...arr, string]);
       }
-    });
+    } else {
+      removeMultiplosCalculos()
+    }
   };
 
   useEffect(() => {
@@ -93,61 +103,20 @@ function Polias() {
       setDisablePrimeiroDedo(true)
       removeMultiplosCalculos();
     }
-  }, [
-    PrimeiroDedo,
-  ]);
+  }, [PrimeiroDedo, A1, A2, AV, AO]);
 
-  const criaFraseA1 = () => {
-    if (A1) {
-      removeMultiplosCalculos()
-      setFrase((arr) => [...arr, 'A1'])
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemStringFrase('A1')
-    }
-  }
-  useEffect(() => {
-    criaFraseA1()
-  }, [A1])
+  const removeMultiplosCalculos = () => {
+    FrasePoliasDireito.map((e) => {
+      if (e.includes(`Dedo 1 com descontinuidade das polias: `)) {
+        var index = FrasePoliasDireito.indexOf(e);
 
-  const criaFraseA2 = () => {
-    if (A2) {
-      setFrase((arr) => [...arr, 'A2'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemStringFrase('A2')
-    }
-  }
-  useEffect(() => {
-    criaFraseA2()
-  }, [A2])
-
-  const criaFraseAV = () => {
-    if (AV) {
-      setFrase((arr) => [...arr, 'AV'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemStringFrase('AV')
-    }
-  }
-  useEffect(() => {
-    criaFraseAV()
-  }, [AV])
-
-  const criaFraseAO = () => {
-    if (AO) {
-      setFrase((arr) => [...arr, 'AO'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemStringFrase('AO')
-    }
-  }
-  useEffect(() => {
-    criaFraseAO()
-  }, [AO])
+        if (index > -1) {
+          FrasePoliasDireito.splice(index, 1);
+          setFrasePoliasDireito((arr) => [...arr]);
+        }
+      }
+    });
+  };
 
 
   return (
@@ -162,7 +131,7 @@ function Polias() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Polias TESTAR" />
+      <TituloNomeExame titulo="Polias" />
       <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
         <Checkbox
           isDisabled={disableApectNormal}

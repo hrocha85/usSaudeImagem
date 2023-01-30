@@ -1,50 +1,69 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Button, Center, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { isLineBreak } from "typescript";
-import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { Box, Checkbox } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+
+import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
 export default function IndividualizarOssos({ numCalculo, desabilita }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [OssosMaoDireita, setOssosMaoDireita] = useState<any>([]);
+
+  const subExame = `${numCalculo + 1} - Ossos mão direita`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(OssosMaoDireita).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        OssosMaoDireita
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        OssosMaoDireita
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [OssosMaoDireita]);
+
+
 
   const [multiplosDedosCheckbox, setmultiplosDedosCheckbox] = useState(false);
   const [FalangeProximal, setFalangeProximal] = useState(false);
   const [FalangeMedia, setFalangeMedia] = useState(false);
   const [FalangeDistal, setFalangeDistal] = useState(false);
   const [DisableCheckbox, setDisableCheckbox] = useState(true);
-  const [frase, setFrase] = useState<any>([])
-
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
+    var string = `Dedo ${numCalculo + 1} com descontinuidade das Ossos: `
     if (multiplosDedosCheckbox) {
-      setFrase((arr) => [...arr, `Dedo ${numCalculo} com descontinuidade das Ossos: `]);
-      setLaudoPrin((arr) => [...arr, frase]);
+      if (FalangeProximal) {
+        string = `${string} falange Proximal`
+      }
+      if (FalangeDistal) {
+        string = `${string} falange Distal`
+      }
+      if (FalangeMedia) {
+        string = `${string} falange Media`
+      }
+      setOssosMaoDireita((arr) => [...arr, string]);
     } else {
       removeMultiplosCalculos();
     }
   };
 
-
-  const removeItemString = (value) => {
-    var index = frase.indexOf(value);
-    if (index > -1) {
-      frase.splice(index, 1);
-      setFrase((arr) => [...arr]);
-      setLaudoPrin((arr) => [...arr, frase]);
-    }
-
-  };
-
   const removeMultiplosCalculos = () => {
-    laudoPrin.map((e) => {
-      if (e.includes(`Dedo ${numCalculo} com descontinuidade das Ossos: `)) {
-        var index = laudoPrin.indexOf(e);
+    OssosMaoDireita.map((e) => {
+      if (e.includes(`Dedo ${numCalculo + 1} com descontinuidade das Ossos: `)) {
+        var index = OssosMaoDireita.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          OssosMaoDireita.splice(index, 1);
+          setOssosMaoDireita((arr) => [...arr]);
         }
       }
     });
@@ -58,48 +77,7 @@ export default function IndividualizarOssos({ numCalculo, desabilita }) {
       setDisableCheckbox(true)
       removeMultiplosCalculos();
     }
-  }, [
-    multiplosDedosCheckbox,
-  ]);
-
-  const criaFraseFalangeProximal = () => {
-    if (FalangeProximal) {
-      removeMultiplosCalculos()
-      setFrase((arr) => [...arr, 'FalangeProximal'])
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemString('FalangeProximal')
-    }
-  }
-  useEffect(() => {
-    criaFraseFalangeProximal()
-  }, [FalangeProximal])
-
-  const criaFraseFalangeMedia = () => {
-    if (FalangeMedia) {
-      setFrase((arr) => [...arr, 'FalangeMedia'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemString('FalangeMedia')
-    }
-  }
-  useEffect(() => {
-    criaFraseFalangeMedia()
-  }, [FalangeMedia])
-
-  const criaFraseFalangeDistal = () => {
-    if (FalangeDistal) {
-      setFrase((arr) => [...arr, 'FalangeDistal'])
-      removeMultiplosCalculos()
-      setLaudoPrin((arr) => [...arr, frase])
-    } else {
-      removeItemString('FalangeDistal')
-    }
-  }
-  useEffect(() => {
-    criaFraseFalangeDistal()
-  }, [FalangeDistal])
+  }, [multiplosDedosCheckbox, FalangeMedia, FalangeProximal, FalangeDistal]);
 
   return (
     <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">

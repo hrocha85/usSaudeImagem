@@ -1,16 +1,38 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Center, Checkbox, Input, Select, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { JoelhoDireitoNormalContext } from "../../../../../context/JoelhoDireitoNormalContext"
+import { JoelhoDireitoNormalContext } from "../../../../../context/JoelhoDireitoNormalContext";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function MeniscosDireito() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [MeniscosDireito, setMeniscosDireito] = useState<any>([]);
+
+  const subExame = `Meniscos joelho Direito`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(MeniscosDireito).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        MeniscosDireito
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        MeniscosDireito
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [MeniscosDireito]);
+
   let { JoelhoDireitoLaudoNormal } = useContext(JoelhoDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
@@ -51,45 +73,48 @@ function MeniscosDireito() {
   const [LesaoMedialSelect1, setLesaoMedialSelect1] = useState("");
   const [LesaoMedialSelect2, setLesaoMedialSelect2] = useState("");
 
-  // const [disableRoturaInput, setdisableRoturaInput] = useState(true);
-  // const [RoturaCheckbox, setRoturaCheckbox] = useState(false);
-  // const [RoturaSelect, setRoturaSelect] = useState("");
-  // const [CistoInput, setCistoInput] = useState("");
-  // const [CistoInput2, setCistoInput2] = useState("");
-  // const [disableCistoInput, setdisableCistoInput] = useState(true);
-  // const [CistoCheckbox, setCistoCheckbox] = useState(false);
-
-  //Funcoes Protrusao - Inicio
 
   const criaStringSemAnomalidades = () => {
     var string = `Sem anomalidades detectáveis pelo método (normais) `;
-    if (!SemAnomalidadesCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-    } else {
-      removeItemString(string)
-    }
+    SemAnomalidadesCheckbox ? setMeniscosDireito((arr) => [...arr, string]) : removeItemString(string)
+
   }
+
+  useEffect(() => {
+    criaStringSemAnomalidades()
+  }, [SemAnomalidadesCheckbox])
 
   const criaStringAlteracaoDegenerativaLateral = (Select) => {
     var string = 'Alteração Degenerativa do menisco lateral'
-    removeItemString(string)
+    removeAlteracaoDegenerativaLateral()
     if (AlteracaoDegenerativaLateral) {
       if (Select !== "") {
         var StringFinal = `${string} ${Select}. `;
-        setLaudoPrin((arr) => [...arr, StringFinal]);
+        setMeniscosDireito((arr) => [...arr, StringFinal]);
       }
     } else {
-      removeItemString(string)
+      removeAlteracaoDegenerativaLateral()
     }
   };
 
+  const removeAlteracaoDegenerativaLateral = () => {
+    MeniscosDireito.map((e) => {
+      if (e.includes("Alteração Degenerativa do menisco lateral")) {
+        var index = MeniscosDireito.indexOf(e);
+
+        if (index > -1) {
+          MeniscosDireito.splice(index, 1);
+          setMeniscosDireito((arr) => [...arr]);
+        }
+      }
+    });
+  };
 
   useEffect(() => {
     criaStringAlteracaoDegenerativaLateral(AlteracaoDegenerativaLateralSelect);
     if (AlteracaoDegenerativaLateral) {
       setdisableAlteracaoDegenerativaLateralSelect(false);
     } else {
-      //removeStringAlteracaoDegenerativaLateral();
       setAlteracaoDegenerativaLateralSelect('')
       setdisableAlteracaoDegenerativaLateralSelect(true);
     }
@@ -98,16 +123,30 @@ function MeniscosDireito() {
 
   const criaStringAlteracaoDegenerativaMedial = (Select) => {
     var string = 'Alteração Degenerativa do menisco Medial'
-    removeItemString(string)
+    removeAlteracaoDegenerativaMedial()
     if (AlteracaoDegenerativaMedial) {
       if (Select !== "") {
         var StringFinal = `${string} ${Select}. `;
-        setLaudoPrin((arr) => [...arr, StringFinal]);
+        setMeniscosDireito((arr) => [...arr, StringFinal]);
       }
     } else {
-      removeItemString(string)
+      removeAlteracaoDegenerativaMedial()
     }
   };
+
+  const removeAlteracaoDegenerativaMedial = () => {
+    MeniscosDireito.map((e) => {
+      if (e.includes("Alteração Degenerativa do menisco Medial")) {
+        var index = MeniscosDireito.indexOf(e);
+
+        if (index > -1) {
+          MeniscosDireito.splice(index, 1);
+          setMeniscosDireito((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
 
   useEffect(() => {
     criaStringAlteracaoDegenerativaMedial(AlteracaoDegenerativaMedialSelect);
@@ -115,28 +154,39 @@ function MeniscosDireito() {
       setdisableAlteracaoDegenerativaMedialSelect(false);
     } else {
       setAlteracaoDegenerativaMedialSelect('')
-      //removeStringAlteracaoDegenerativaMedial();
       setdisableAlteracaoDegenerativaMedialSelect(true);
-
     }
-  }, [AlteracaoDegenerativaMedial, AlteracaoDegenerativaLateralSelect]);
+  }, [AlteracaoDegenerativaMedial, AlteracaoDegenerativaMedialSelect]);
 
 
   const criaStringExtrusaoMedial = (Select) => {
     var string = 'Extrusao do menisco Medial'
     var StringFinal;
-    removeItemString(string)
+    removeExtrusaoMedial()
     if (ExtrusaoMedial) {
       if (Select !== "" && UltrapassandoMargemMedialInput !== '') {
         StringFinal = `${string} ${Select} ultrapassando margem medial em ${UltrapassandoMargemMedialInput}. `;
-        setLaudoPrin((arr) => [...arr, StringFinal]);
+        setMeniscosDireito((arr) => [...arr, StringFinal]);
       } else if (Select !== "") {
         StringFinal = `${string} ${Select}. `;
-        setLaudoPrin((arr) => [...arr, StringFinal]);
+        setMeniscosDireito((arr) => [...arr, StringFinal]);
       }
     } else {
-      removeItemString(string)
+      removeExtrusaoMedial()
     }
+  };
+
+  const removeExtrusaoMedial = () => {
+    MeniscosDireito.map((e) => {
+      if (e.includes("Extrusao do menisco Medial")) {
+        var index = MeniscosDireito.indexOf(e);
+
+        if (index > -1) {
+          MeniscosDireito.splice(index, 1);
+          setMeniscosDireito((arr) => [...arr]);
+        }
+      }
+    });
   };
 
   useEffect(() => {
@@ -153,18 +203,31 @@ function MeniscosDireito() {
   const criaStringExtrusaoLateral = (Select) => {
     var string = 'Extrusao do menisco Lateral'
     var StringFinal;
-    removeItemString(string)
+    removeExtrusaoLateral()
     if (ExtrusaoLateral) {
       if (Select !== "" && UltrapassandoMargemLateralInput !== '') {
         StringFinal = `${string} ${Select} ultrapassando margem Lateral em ${UltrapassandoMargemLateralInput}. `;
-        setLaudoPrin((arr) => [...arr, StringFinal]);
+        setMeniscosDireito((arr) => [...arr, StringFinal]);
       } else if (Select !== "") {
         StringFinal = `${string} ${Select}. `;
-        setLaudoPrin((arr) => [...arr, StringFinal]);
+        setMeniscosDireito((arr) => [...arr, StringFinal]);
       }
     } else {
-      removeItemString(string)
+      removeExtrusaoLateral()
     }
+  };
+
+  const removeExtrusaoLateral = () => {
+    MeniscosDireito.map((e) => {
+      if (e.includes("Extrusao do menisco Lateral")) {
+        var index = MeniscosDireito.indexOf(e);
+
+        if (index > -1) {
+          MeniscosDireito.splice(index, 1);
+          setMeniscosDireito((arr) => [...arr]);
+        }
+      }
+    });
   };
 
   useEffect(() => {
@@ -181,19 +244,30 @@ function MeniscosDireito() {
   const criaStringLesaoLateral = (Select1, Select2) => {
     var string = 'Lesao do menisco Lateral'
     var StringFinal;
-    removeItemString(string)
+    removeLesaoLateral()
     if (LesaoLateral) {
       if (Select1 !== "" && Select2 && AtingindoSuperficieArtLateral) {
         StringFinal = `${string} ${Select1} no ${Select2} Atingindo a superficie articular. `;
-        setLaudoPrin((arr) => [...arr, StringFinal]);
+        setMeniscosDireito((arr) => [...arr, StringFinal]);
       } else if (Select1 !== "" && Select2 !== "") {
         StringFinal = `${string} ${Select1} no ${Select2}. `;
-        setLaudoPrin((arr) => [...arr, StringFinal]);
+        setMeniscosDireito((arr) => [...arr, StringFinal]);
       }
     } else {
-      removeItemString(string)
+      removeLesaoLateral()
     }
-    console.log(StringFinal)
+  };
+  const removeLesaoLateral = () => {
+    MeniscosDireito.map((e) => {
+      if (e.includes('Lesao do menisco Lateral')) {
+        var index = MeniscosDireito.indexOf(e);
+
+        if (index > -1) {
+          MeniscosDireito.splice(index, 1);
+          setMeniscosDireito((arr) => [...arr]);
+        }
+      }
+    });
   };
 
   useEffect(() => {
@@ -213,20 +287,33 @@ function MeniscosDireito() {
   const criaStringLesaoMedial = (Select1, Select2) => {
     var string = 'Lesao do menisco Medial'
     var StringFinal;
-    removeItemString(string)
+    removeLesaoMedial()
     if (LesaoMedial) {
       if (Select1 !== "" && Select2 && AtingindoSuperficieArtMedial) {
         StringFinal = `${string} ${Select1} no ${Select2} Atingindo a superficie articular. `;
-        setLaudoPrin((arr) => [...arr, StringFinal]);
+        setMeniscosDireito((arr) => [...arr, StringFinal]);
       } else if (Select1 !== "" && Select2 !== "") {
         StringFinal = `${string} ${Select1} no ${Select2}. `;
-        setLaudoPrin((arr) => [...arr, StringFinal]);
+        setMeniscosDireito((arr) => [...arr, StringFinal]);
       }
     } else {
-      removeItemString(string)
+      removeLesaoMedial()
     }
-    console.log(StringFinal)
   };
+
+  const removeLesaoMedial = () => {
+    MeniscosDireito.map((e) => {
+      if (e.includes('Lesao do menisco Medial')) {
+        var index = MeniscosDireito.indexOf(e);
+
+        if (index > -1) {
+          MeniscosDireito.splice(index, 1);
+          setMeniscosDireito((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
 
   useEffect(() => {
     criaStringLesaoMedial(LesaoMedialSelect1, LesaoMedialSelect2);
@@ -242,93 +329,13 @@ function MeniscosDireito() {
   }, [LesaoMedial, LesaoMedialSelect1, LesaoMedialSelect2, AtingindoSuperficieArtMedial])
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = MeniscosDireito.indexOf(value);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      MeniscosDireito.splice(index, 1);
+      setMeniscosDireito((arr) => [...arr]);
     }
   };
 
-
-
-
-  // const removeStringAlteracaoDegenerativaLateral = () => {
-  //   laudoPrin.map((e) => {
-  //     if (e.includes("Menisco medial direito com Protrusao ")) {
-  //       var index = laudoPrin.indexOf(e);
-
-  //       if (index > -1) {
-  //         laudoPrin.splice(index, 1);
-  //         setLaudoPrin((arr) => [...arr]);
-  //       }
-  //     }
-  //   });
-  // };
-  // const removeStringAlteracaoDegenerativaMedial = () => {
-  //   laudoPrin.map((e) => {
-  //     if (e.includes("Menisco medial direito com Protrusao ")) {
-  //       var index = laudoPrin.indexOf(e);
-
-  //       if (index > -1) {
-  //         laudoPrin.splice(index, 1);
-  //         setLaudoPrin((arr) => [...arr]);
-  //       }
-  //     }
-  //   });
-  // };
-  // const criaStringRotura = (Rotura) => {
-  //   removeRotura();
-  //   if (Rotura !== "") {
-  //     var string = `Menisco medial direito com Rotura  ${Rotura}. `;
-  //     setLaudoPrin((arr) => [...arr, string]);
-  //   }
-  // };
-
-  // const removeRotura = () => {
-  //   laudoPrin.map((e) => {
-  //     if (e.includes("Menisco medial direito com Rotura ")) {
-  //       var index = laudoPrin.indexOf(e);
-  //       if (index > -1) {
-  //         laudoPrin.splice(index, 1);
-  //         setLaudoPrin((arr) => [...arr]);
-  //       }
-  //     }
-  //   });
-  // };
-
-
-
-  // useEffect(() => {
-  //   criaStringAlteracaoDegenerativaMedial(AlteracaoDegenerativaMedialSelect);
-  // }, [AlteracaoDegenerativaMedialSelect]);
-
-  // useEffect(() => {
-  //   if (RoturaCheckbox) {
-  //     setdisableRoturaInput(false);
-  //   } else {
-  //     removeRotura();
-  //     setdisableRoturaInput(true);
-  //   }
-  // }, [RoturaCheckbox]);
-  // useEffect(() => {
-  //   if (CistoCheckbox) {
-  //     setdisableCistoInput(false);
-  //   } else {
-  //     removeCisto();
-  //     setdisableCistoInput(true);
-  //     setCistoInput("");
-  //     setCistoInput2("");
-  //   }
-  // }, [CistoCheckbox]);
-
-
-  // useEffect(() => {
-  //   criaStringRotura(RoturaSelect);
-  // }, [RoturaSelect]);
-
-  // useEffect(() => {
-  //   criaStringCisto(CistoInput, CistoInput2);
-  // }, [CistoInput, CistoInput2]);
 
   useEffect(() => {
     JoelhoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
@@ -354,7 +361,6 @@ function MeniscosDireito() {
         isDisabled={disableTudo}
         onChange={() => {
           setSemAnomalidadesCheckbox(!SemAnomalidadesCheckbox)
-          criaStringSemAnomalidades()
         }}>
         Sem anomalidades detectáveis pelo método (normais)
       </Checkbox>
@@ -380,13 +386,18 @@ function MeniscosDireito() {
             <Select
               w='150px'
               isDisabled={disableAlteracaoDegenerativaLateralSelect}
+              value={AlteracaoDegenerativaLateralSelect}
               onChange={(e) => {
                 setAlteracaoDegenerativaLateralSelect(e.target.value);
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
               <option value="corno posterior">corno posterior</option>
+              <option value="corpo">corpo</option>
+              <option value="corno anterior">corno anterior</option>
+              <option value="corpo e corno posterior">corpo e corno posterior</option>
+              <option value="corpo e corno anterior">corpo e corno anterior</option>
+              <option value="corno anterior, corpo e corno posterior">corno anterior, corpo e corno posterior</option>
             </Select>
           </Box>
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
@@ -398,13 +409,18 @@ function MeniscosDireito() {
             <Select
               w='150px'
               isDisabled={disableAlteracaoDegenerativaMedialSelect}
+              value={AlteracaoDegenerativaMedialSelect}
               onChange={(e) => {
                 setAlteracaoDegenerativaMedialSelect(e.target.value);
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
               <option value="corno posterior">corno posterior</option>
+              <option value="corpo">corpo</option>
+              <option value="corno anterior">corno anterior</option>
+              <option value="corpo e corno posterior">corpo e corno posterior</option>
+              <option value="corpo e corno anterior">corpo e corno anterior</option>
+              <option value="corno anterior, corpo e corno posterior">corno anterior, corpo e corno posterior</option>
             </Select>
           </Box>
         </Box>
@@ -436,8 +452,12 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
               <option value="corno posterior">corno posterior</option>
+              <option value="corpo">corpo</option>
+              <option value="corno anterior">corno anterior</option>
+              <option value="corpo e corno posterior">corpo e corno posterior</option>
+              <option value="corpo e corno anterior">corpo e corno anterior</option>
+              <option value="corno anterior, corpo e corno posterior">corno anterior, corpo e corno posterior</option>
             </Select>
             <Center>
               <Text>
@@ -471,8 +491,12 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
               <option value="corno posterior">corno posterior</option>
+              <option value="corpo">corpo</option>
+              <option value="corno anterior">corno anterior</option>
+              <option value="corpo e corno posterior">corpo e corno posterior</option>
+              <option value="corpo e corno anterior">corpo e corno anterior</option>
+              <option value="corno anterior, corpo e corno posterior">corno anterior, corpo e corno posterior</option>
             </Select>
             <Center>
               <Text>
@@ -520,8 +544,10 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
-              <option value="corno posterior">corno posterior</option>
+              <option value="longitudinal">longitudinal</option>
+              <option value="oblíqua">oblíqua</option>
+              <option value="radial">radial</option>
+              <option value="horizontal">horizontal</option>
             </Select>
             <Select
               w='150px'
@@ -532,8 +558,12 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
               <option value="corno posterior">corno posterior</option>
+              <option value="corpo">corpo</option>
+              <option value="corno anterior">corno anterior</option>
+              <option value="corpo e corno posterior">corpo e corno posterior</option>
+              <option value="corpo e corno anterior">corpo e corno anterior</option>
+              <option value="corno anterior, corpo e corno posterior">corno anterior, corpo e corno posterior</option>
             </Select>
             <Checkbox
               isDisabled={disableAtingindoSuperficieArtLateral}
@@ -557,8 +587,10 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
-              <option value="corno posterior">corno posterior</option>
+              <option value="longitudinal">longitudinal</option>
+              <option value="oblíqua">oblíqua</option>
+              <option value="radial">radial</option>
+              <option value="horizontal">horizontal</option>
             </Select>
             <Select
               w='150px'
@@ -569,8 +601,12 @@ function MeniscosDireito() {
               }}
             >
               <option value='' disabled selected>Select</option>
-              <option value="corno anterior">corno anterior</option>
               <option value="corno posterior">corno posterior</option>
+              <option value="corpo">corpo</option>
+              <option value="corno anterior">corno anterior</option>
+              <option value="corpo e corno posterior">corpo e corno posterior</option>
+              <option value="corpo e corno anterior">corpo e corno anterior</option>
+              <option value="corno anterior, corpo e corno posterior">corno anterior, corpo e corno posterior</option>
             </Select>
             <Checkbox
               isDisabled={disableAtingindoSuperficieArtMedial}

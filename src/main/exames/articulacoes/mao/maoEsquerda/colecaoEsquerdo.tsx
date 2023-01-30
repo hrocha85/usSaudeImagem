@@ -1,16 +1,39 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { MaoEsquerdoNormalContext } from "../../../../../context/MaoEsquerdoNormalContext"
+import { MaoEsquerdoNormalContext } from "../../../../../context/MaoEsquerdoNormalContext";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function ColecaoEsquerdo() {
   const altura = "100%";
   const largura = "90%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [ColecaoMaoEsquerdo, setColecaoMaoEsquerdo] = useState<any>([]);
+
+  const subExame = `Coleção mão direita`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(ColecaoMaoEsquerdo).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        ColecaoMaoEsquerdo
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        ColecaoMaoEsquerdo
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [ColecaoMaoEsquerdo]);
+
+
   let { MaoEsquerdoLaudoNormal } = useContext(MaoEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
@@ -24,23 +47,25 @@ function ColecaoEsquerdo() {
   const [AlteracaoCheckbox, setAlteracaoCheckbox] = useState(false);
 
 
+  const removeColecaoMao = () => {
+    ColecaoMaoEsquerdo.map((e) => {
+      if (e.includes("FALTA")) {
+        var index = ColecaoMaoEsquerdo.indexOf(e);
 
-  const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
-    if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
-    }
+        if (index > -1) {
+          ColecaoMaoEsquerdo.splice(index, 1);
+          setColecaoMaoEsquerdo((arr) => [...arr]);
+        }
+      }
+    });
   };
-
-
   const criaStringAlteracao = (medida1, medida2, medida3) => {
-    var string = 'Alteração pós cirúrgicas'
+    var string = 'FALTA'
     var StringFinal;
-    removeItemString(string)
+    removeColecaoMao()
     if (medida1 !== "" && medida2 !== "" && medida3 !== "" && AlteracaoSelect1 !== '') {
       StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${AlteracaoSelect1} `;
-      setLaudoPrin((arr) => [...arr, StringFinal]);
+      setColecaoMaoEsquerdo((arr) => [...arr, StringFinal]);
     }
   };
 

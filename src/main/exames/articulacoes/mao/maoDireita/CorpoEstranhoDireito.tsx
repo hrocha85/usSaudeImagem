@@ -4,13 +4,38 @@ import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/r
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { MaoDireitoNormalContext } from "../../../../../context/MaoDireitoNormalContext"
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function CorpoEstranhoDireito() {
     const altura = "100%";
     const largura = "90%";
 
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+    const [CorpoEstranhoMaoDireita, setCorpoEstranhoMaoDireita] = useState<any>([]);
+
+    const subExame = `Corpo estranho mão direita`
+    const titulo_exame = 'Articulações'
+
+    useEffect(() => {
+        if (Object.keys(CorpoEstranhoMaoDireita).length === 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                CorpoEstranhoMaoDireita
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                CorpoEstranhoMaoDireita
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [CorpoEstranhoMaoDireita]);
+
+
     let { MaoDireitoLaudoNormal } = useContext(MaoDireitoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
 
@@ -23,24 +48,29 @@ function CorpoEstranhoDireito() {
 
     const [CorpoCheckbox, setCorpoCheckbox] = useState(false);
 
-    const removeItemString = (value) => {
-        var index = laudoPrin.indexOf(value);
-        if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
-        }
+    const removeFraseCorpoEstranho = () => {
+        CorpoEstranhoMaoDireita.map((e) => {
+            if (e.includes("Imagem linear hiperecogênica situada")) {
+                var index = CorpoEstranhoMaoDireita.indexOf(e);
+
+                if (index > -1) {
+                    CorpoEstranhoMaoDireita.splice(index, 1);
+                    setCorpoEstranhoMaoDireita((arr) => [...arr]);
+                }
+            }
+        });
     };
 
     const criaStringCorpo = (medida1) => {
-        var string = 'Cisto e  medindo'
+        var string = 'Imagem linear hiperecogênica situada'
         var StringFinal;
-        removeItemString(string)
+        removeFraseCorpoEstranho()
         if (CorpoCheckbox) {
             if (medida1 !== "" && CorpoSelect1 !== '' && CorpoSelect2 !== '' && CorpoSelect3 !== '') {
-                StringFinal = `${string} ${medida1} mm, ${CorpoSelect1} ${CorpoSelect2} ${CorpoSelect3}`;
-                setLaudoPrin((arr) => [...arr, StringFinal]);
+                StringFinal = `${string}  ${CorpoSelect1} na face ${CorpoSelect2} ${CorpoSelect3}, medindo ${medida1} mm.`;
+                setCorpoEstranhoMaoDireita((arr) => [...arr, StringFinal]);
             } else {
-                removeItemString(string)
+                removeFraseCorpoEstranho()
             }
         }
     };
@@ -103,7 +133,8 @@ function CorpoEstranhoDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="I">I</option>
+                        <option value="no subcutâneo">no subcutâneo</option>
+                        <option value="na pele">na pele</option>
                     </Select>
                     <Text alignSelf='center'>na face</Text>
                     <Select
@@ -115,7 +146,8 @@ function CorpoEstranhoDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="Da falange distal">Da falange distal</option>
+                        <option value="dorsal">dorsal</option>
+                        <option value="ventral">ventral</option>
                     </Select>
                     <Select
                         w='150px'
@@ -126,9 +158,13 @@ function CorpoEstranhoDireito() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="Da falange distal">Da falange distal</option>
+                        <option value="da mão">da mão</option>
+                        <option value="do I dedo">do I dedo</option>
+                        <option value="do II dedo">do II dedo</option>
+                        <option value="do III dedo">do III dedo</option>
+                        <option value="do IV dedo">do IV dedo</option>
+                        <option value="do V dedo">do V dedo</option>
                     </Select>
-                    <Text alignSelf='center'>da mão</Text>
                     <Text alignSelf='center'>medindo</Text>
                     <HStack>
                         <Input

@@ -2,16 +2,39 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
 import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 function OmbroTendaoSupraespinhalEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
   let { OmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext)
+  const [frasesOmbroTendaoSupraespinhalEsquerdo, setFrasesOmbroTendaoSupraespinhalEsquerdo] = useState<any>([]);
+
+  const subExame = 'Tendão do Supraespinhal'
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(frasesOmbroTendaoSupraespinhalEsquerdo).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesOmbroTendaoSupraespinhalEsquerdo
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesOmbroTendaoSupraespinhalEsquerdo
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesOmbroTendaoSupraespinhalEsquerdo]);
+
   const [disableTudo, setDisableTudo] = useState(false)
 
   const [RoturaParcialInput, setRoturaParcialInput] = useState("");
@@ -48,67 +71,110 @@ function OmbroTendaoSupraespinhalEsquerdo() {
 
   const criaStringRoturaParcial = (medida1, medida2, medida3, selectRoturaParcial) => {
     removeRoturaParcial();
-    if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectRoturaParcial !== '') {
-      var string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectRoturaParcial}`;
-      setLaudoPrin((arr) => [...arr, string]);
+    if (RoturaParcialCheckbox) {
+      if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectRoturaParcial !== '') {
+        var string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectRoturaParcial}`;
+        setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
+      }
+    } else {
+      removeRoturaParcial();
+
     }
   };
 
   const removeRoturaParcial = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Espessado, com alteração ecotextural,")) {
-        var index = laudoPrin.indexOf(e);
-
+    frasesOmbroTendaoSupraespinhalEsquerdo.map((e) => {
+      if (e.includes("Frase ")) {
+        var index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
+          setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr]);
         }
       }
     });
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "FALTA";
+    var string = "FALTA essa";
     if (AspectoNormalCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setAspectoNormalCheckbox(false);
+      setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
     } else {
       removeItemString(string);
     }
   };
+
+  useEffect(() => {
+    criaStringAspectoNormal()
+  }, [AspectoNormalCheckbox])
+
   const criaStringPequenasCalcificacoes = () => {
     var string = "FALTA";
     if (PequenasCalcificacoesCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setAspectoNormalCheckbox(false);
+      setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
     } else {
       removeItemString(string);
     }
   };
 
-  const criaStringTendinopatiaSemRotura = (dados, medida) => {
-    removeFraseTendinopatiaSemRotura()
-    var string;
-    if (dados !== '') {
-      if (TendinopatiaSemRoturaCheckboxMedida && medida !== '') {
-        string = `Tendinopatia sem rotura ${dados} medindo ${medida} mm`;
-        setLaudoPrin((arr) => [...arr, string]);
-      } else {
-        string = `Tendinopatia sem rotura ${dados}`;
-        setLaudoPrin((arr) => [...arr, string]);
+  useEffect(() => {
+    criaStringPequenasCalcificacoes()
+  }, [PequenasCalcificacoesCheckbox])
 
+  const criaStringTendinopatiaSemRotura = (select, medida) => {
+    var string = 'Tendinopatia sem rotura'
+    removeFraseTendinopatiaSemRotura()
+    console.log(medida)
+    if (TendinopatiaSemRoturaCheckbox) {
+      if (select !== '' && medida !== '') {
+        string = `${string} ${select} medindo ${medida} mm`;
+        setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
+      } else {
+        string = `${string} ${select}`;
+        setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
       }
+    } else {
+      removeFraseTendinopatiaSemRotura()
+      //removeItemString(string)
     }
   };
 
+  useEffect(() => {
+    criaStringTendinopatiaSemRotura(SelectTendinopatiaSemRotura, InputMedindoTendinopatiaSemRotura)
+  }, [SelectTendinopatiaSemRotura, InputMedindoTendinopatiaSemRotura, TendinopatiaSemRoturaCheckbox])
+
+  useEffect(() => {
+    if (TendinopatiaSemRoturaCheckbox) {
+      setSelectDisableTendinopatiaSemRotura(false)
+      setMedindoDisableTendinopatiaSemRotura(false)
+      setdisableRoturaParcial(true)
+      setdisableAspectoNormal(true)
+      setdisableRoturaCompleta(true)
+    } else {
+      setSelectDisableTendinopatiaSemRotura(true)
+      setMedindoDisableTendinopatiaSemRotura(true)
+      setdisableRoturaParcial(false)
+      setdisableAspectoNormal(false)
+      setdisableRoturaCompleta(false)
+    }
+  }, [TendinopatiaSemRoturaCheckbox])
+
+  useEffect(() => {
+    if (TendinopatiaSemRoturaCheckboxMedida) {
+      setInputMedindoDisableTendinopatiaSemRotura(false)
+    } else {
+      setInputMedindoDisableTendinopatiaSemRotura(true)
+      setInputMedindoTendinopatiaSemRotura('')
+    }
+  }, [TendinopatiaSemRoturaCheckboxMedida])
+
   const removeFraseTendinopatiaSemRotura = () => {
-    laudoPrin.map((e) => {
+    frasesOmbroTendaoSupraespinhalEsquerdo.map((e) => {
       if (e.includes("Tendinopatia sem rotura")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
+          setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -119,20 +185,20 @@ function OmbroTendaoSupraespinhalEsquerdo() {
     var string;
     if (dados !== '' && medidaRetracao !== '') {
       string = `Rotura completa medindo ${dados} com retração de ${medidaRetracao} mm`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
     } else if (dados !== '') {
       string = `Rotura completa medindo ${dados}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
     }
   }
   const removeFraseRoturaCompleta = () => {
-    laudoPrin.map((e) => {
+    frasesOmbroTendaoSupraespinhalEsquerdo.map((e) => {
       if (e.includes("Rotura completa medindo")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
+          setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -161,10 +227,10 @@ function OmbroTendaoSupraespinhalEsquerdo() {
 
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(value);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
+      setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr]);
     }
   };
 
@@ -180,29 +246,6 @@ function OmbroTendaoSupraespinhalEsquerdo() {
     }
   }, [AspectoNormalCheckbox])
 
-  useEffect(() => {
-    if (TendinopatiaSemRoturaCheckbox) {
-      setSelectDisableTendinopatiaSemRotura(false)
-      setMedindoDisableTendinopatiaSemRotura(false)
-      setInputMedindoDisableTendinopatiaSemRotura(false)
-      setdisableRoturaParcial(true)
-      setdisableAspectoNormal(true)
-      setdisableRoturaCompleta(true)
-    } else {
-      setInputMedindoDisableTendinopatiaSemRotura(true)
-      removeFraseTendinopatiaSemRotura()
-      setInputMedindoTendinopatiaSemRotura('')
-      setSelectDisableTendinopatiaSemRotura(true)
-      setMedindoDisableTendinopatiaSemRotura(true)
-      setdisableRoturaParcial(false)
-      setdisableAspectoNormal(false)
-      setdisableRoturaCompleta(false)
-    }
-  }, [TendinopatiaSemRoturaCheckbox])
-
-  useEffect(() => {
-    criaStringTendinopatiaSemRotura(SelectTendinopatiaSemRotura, InputMedindoTendinopatiaSemRotura)
-  }, [SelectTendinopatiaSemRotura, InputMedindoTendinopatiaSemRotura])
 
   useEffect(() => {
     if (RoturaParcialCheckbox) {
@@ -252,7 +295,7 @@ function OmbroTendaoSupraespinhalEsquerdo() {
       padding="15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Tendão do bíceps braquial Esquerdo " />
+      <TituloNomeExame titulo="Tendão do Supraespinhal" />
 
       <Box display="flex" flexWrap="wrap">
 
@@ -262,8 +305,7 @@ function OmbroTendaoSupraespinhalEsquerdo() {
         <Checkbox
           isDisabled={disableTudo}
           onChange={() => {
-            setPequenasCalcificacoesCheckbox(true);
-            criaStringPequenasCalcificacoes();
+            setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
           }}
         >
           Pequenas calcificações junto à inserção
@@ -272,7 +314,7 @@ function OmbroTendaoSupraespinhalEsquerdo() {
           isDisabled={disableTudo || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
-            criaStringAspectoNormal();
+            // criaStringAspectoNormal();
           }}
         >
           Aspecto Normal
@@ -293,8 +335,8 @@ function OmbroTendaoSupraespinhalEsquerdo() {
               setSelectTendinopatiaSemRotura(e.target.value);
             }}
           >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+            <option value="Select 1">corno anterior</option>
+            <option value="Select 2">corno posterior</option>
           </Select>
           <Checkbox
             isDisabled={MedindoDisableTendinopatiaSemRotura}

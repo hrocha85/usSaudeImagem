@@ -1,60 +1,88 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
+import { JoelhoEsquerdoNormalContext } from "../../../../../context/JoelhoEsquerdoNormalContext";
 import { LaudosContext } from "../../../../../context/LuadosContext";
-import { JoelhoEsquerdoNormalContext } from "../../../../../context/JoelhoEsquerdoNormalContext"
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function LigColTibialMedialEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [LigamentoTibialMedial, setLigamentoTibialMedial] = useState<any>([]);
+
+  const subExame = `Derrame articular no joelho Esquerdo`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(LigamentoTibialMedial).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        LigamentoTibialMedial
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        LigamentoTibialMedial
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [LigamentoTibialMedial]);
+
   let { JoelhoEsquerdoLaudoNormal } = useContext(JoelhoEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
   const [disableAspectoNormal, setdisableAspectoNormal] = useState(false)
   const [disableLesaoEspessamento, setdisableLesaoEspessamento] = useState(false)
   const [disableLesaoAfilamento, setdisableLesaoAfilamento] = useState(false)
 
-  const [AspectoNormalCheckbox, setAspectoNormalCheckbox] = useState(true);
-  const [LesaoAfilamentoCheckbox, setLesaoAfilamentoCheckbox] = useState(true);
-  const [LesaoEspessamentoCheckbox, setLesaoEspessamentoCheckbox] = useState(true);
+  const [AspectoNormalCheckbox, setAspectoNormalCheckbox] = useState(false);
+  const [LesaoAfilamentoCheckbox, setLesaoAfilamentoCheckbox] = useState(false);
+  const [LesaoEspessamentoCheckbox, setLesaoEspessamentoCheckbox] = useState(false);
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAspectoNormal = () => {
     var string = "TendaoQuadriceps Esquerdo com AspectoNormal";
     if (AspectoNormalCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setLigamentoTibialMedial((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)
       setdisableLesaoAfilamento(true)
-      setAspectoNormalCheckbox(false);
     } else {
       setdisableLesaoAfilamento(false)
       setdisableLesaoEspessamento(false)
       removeItemString(string);
     }
   };
+  useEffect(() => {
+    criaStringAspectoNormal()
+  }, [AspectoNormalCheckbox])
   const criaStringLesaoAfilamento = () => {
     var string = "TendaoQuadriceps Esquerdo com LesaoAfilamento";
     if (LesaoAfilamentoCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setLigamentoTibialMedial((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)
       setdisableAspectoNormal(true)
-      setLesaoAfilamentoCheckbox(false);
     } else {
       setdisableAspectoNormal(false)
       setdisableLesaoEspessamento(false)
       removeItemString(string);
     }
   };
+
+  useEffect(() => {
+    criaStringLesaoAfilamento()
+  }, [LesaoAfilamentoCheckbox])
+
   const criaStringLesaoEspessamento = () => {
     var string = "TendaoQuadriceps Esquerdo com LesaoEspessamento";
-    if (LesaoAfilamentoCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
+    if (LesaoEspessamentoCheckbox) {
+      setLigamentoTibialMedial((arr) => [...arr, string]);
       setdisableLesaoAfilamento(true)
       setdisableAspectoNormal(true)
-      setLesaoAfilamentoCheckbox(false);
     } else {
       setdisableAspectoNormal(false)
       setdisableLesaoAfilamento(false)
@@ -62,12 +90,16 @@ function LigColTibialMedialEsquerdo() {
     }
   };
 
+  useEffect(() => {
+    criaStringLesaoEspessamento()
+  }, [LesaoEspessamentoCheckbox])
+
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = LigamentoTibialMedial.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      LigamentoTibialMedial.splice(index, 1);
+      setLigamentoTibialMedial((arr) => [...arr]);
     }
   };
 
@@ -88,14 +120,7 @@ function LigColTibialMedialEsquerdo() {
       padding="15px"
       mt="15px"
     >
-      <Text
-        color="#1A202C"
-        fontSize="19px"
-        fontWeight="bold"
-
-      >
-        Ligamento colateral tibial / medial esquerdo
-      </Text>
+      <TituloNomeExame titulo="Ligamento colateral tibial/medial Esquerdo" />
 
       <Box display="flex" flexWrap="wrap">
 
@@ -107,7 +132,6 @@ function LigColTibialMedialEsquerdo() {
           isDisabled={disableTudo || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
-            criaStringAspectoNormal();
           }}
         >
           Aspecto Normal
@@ -117,7 +141,6 @@ function LigColTibialMedialEsquerdo() {
           isDisabled={disableTudo || disableLesaoAfilamento}
           onChange={() => {
             setLesaoAfilamentoCheckbox(!LesaoAfilamentoCheckbox);
-            criaStringLesaoAfilamento();
           }}
         >Lesão com afilamento (lesão parcial)
         </Checkbox>
@@ -126,7 +149,6 @@ function LigColTibialMedialEsquerdo() {
           isDisabled={disableTudo || disableLesaoEspessamento}
           onChange={() => {
             setLesaoEspessamentoCheckbox(!LesaoEspessamentoCheckbox);
-            criaStringLesaoEspessamento();
           }}
         >Lesão com espessamento (lesão parcial/estiramento)
         </Checkbox>

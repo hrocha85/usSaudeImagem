@@ -5,14 +5,37 @@ import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 function TenComumFlexoresAntebracoDireito() {
     const altura = "100%";
     const largura = "95%";
 
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
     let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)
+
+    const [fraseTenComumFlexoresAntebracoDireito, setFraseTenComumFlexoresAntebracoDireito] = useState<any>([]);
+
+    const subExame = 'Tendão comum Flexores antebraço '
+    const titulo_exame = 'Articulações'
+
+    useEffect(() => {
+        if (Object.keys(fraseTenComumFlexoresAntebracoDireito).length === 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                fraseTenComumFlexoresAntebracoDireito
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                fraseTenComumFlexoresAntebracoDireito
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [fraseTenComumFlexoresAntebracoDireito]);
 
     const [RoturaParcialInput, setRoturaParcialInput] = useState("");
     const [RoturaParcialInput2, setRoturaParcialInput2] = useState("");
@@ -32,57 +55,57 @@ function TenComumFlexoresAntebracoDireito() {
         removeRoturaParcial();
         if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
             var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
-            setLaudoPrin((arr) => [...arr, string]);
+            setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]);
         }
     };
 
     const removeRoturaParcial = () => {
-        laudoPrin.map((e) => {
-            if (e.includes("Espessado, com alteração ecotextural,")) {
-                var index = laudoPrin.indexOf(e);
-
+        fraseTenComumFlexoresAntebracoDireito.map((e) => {
+            if (e.includes("Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo")) {
+                var index = fraseTenComumFlexoresAntebracoDireito.indexOf(e);
                 if (index > -1) {
-                    laudoPrin.splice(index, 1);
-                    setLaudoPrin((arr) => [...arr]);
+                    fraseTenComumFlexoresAntebracoDireito.splice(index, 1);
+                    setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr]);
                 }
             }
         });
     };
 
     const criaStringAspectoNormal = () => {
-        var string = "FALTA";
-        if (AspectoNormalCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setAspectoNormalCheckbox(false);
-        } else {
-            removeItemString(string);
-        }
+        var string = "com ecotextura e espessura preservadas e contornos normais.";
+        AspectoNormalCheckbox ? setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]) : removeItemString(string);
     };
+    useEffect(() => {
+        criaStringAspectoNormal()
+    }, [AspectoNormalCheckbox])
+
     const criaStringPequenasCalcificacoes = () => {
         var string = "FALTA";
         if (PequenasCalcificacoesCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setAspectoNormalCheckbox(false);
+            setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]);
         } else {
             removeItemString(string);
         }
     };
+
+    useEffect(() => {
+        criaStringPequenasCalcificacoes()
+    }, [PequenasCalcificacoesCheckbox])
 
     const criaStringTendinopatiaSemRotura = () => {
-        var string = "FALTA";
-        if (TendinopatiaSemRoturaCheckbox) {
-            setLaudoPrin((arr) => [...arr, string]);
-            setTendinopatiaSemRoturaCheckbox(false);
-        } else {
-            removeItemString(string);
-        }
+        var string = "espessado, com alteração ecotextural, mas sem evidências de rotura.";
+        TendinopatiaSemRoturaCheckbox ? setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
+    useEffect(() => {
+        criaStringTendinopatiaSemRotura()
+    }, [TendinopatiaSemRoturaCheckbox])
+
     const removeItemString = (value) => {
-        var index = laudoPrin.indexOf(value);
+        var index = fraseTenComumFlexoresAntebracoDireito.indexOf(value);
         if (index > -1) {
-            laudoPrin.splice(index, 1);
-            setLaudoPrin((arr) => [...arr]);
+            fraseTenComumFlexoresAntebracoDireito.splice(index, 1);
+            setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr]);
         }
     };
 
@@ -153,8 +176,7 @@ function TenComumFlexoresAntebracoDireito() {
                 <Checkbox
                     isDisabled={disableTudo}
                     onChange={() => {
-                        setPequenasCalcificacoesCheckbox(true);
-                        criaStringPequenasCalcificacoes();
+                        setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
                     }}
                 >
                     Pequenas calcificações junto à inserção
@@ -163,7 +185,6 @@ function TenComumFlexoresAntebracoDireito() {
                     isDisabled={disableTudo || disableAspectoNormal}
                     onChange={() => {
                         setAspectoNormalCheckbox(!AspectoNormalCheckbox);
-                        criaStringAspectoNormal();
                     }}
                 >
                     Aspecto Normal
@@ -172,7 +193,7 @@ function TenComumFlexoresAntebracoDireito() {
                     isDisabled={disableTudo || disableTendinopatiaSemRotura}
                     onChange={() => {
                         setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
-                        criaStringTendinopatiaSemRotura();
+
                     }}
                 >
                     Tendinopatia sem rotura (i.e. 'epicondilite medial')
@@ -223,65 +244,6 @@ function TenComumFlexoresAntebracoDireito() {
                         <Text>mm</Text>
                     </HStack>
                 </HStack>
-
-                {/* <Checkbox
-                    isDisabled={disableTudo}
-                    onChange={() => {
-                        setAspectoNormalCheckbox(true);
-                        criaStringAspectoNormal();
-                    }}
-                >
-                    Aspecto Normal
-                </Checkbox>
-                <Checkbox
-                    isDisabled={disableTudo}
-                    onChange={() => {
-                        setTendinopatiaSemRoturaCheckbox(true);
-                        criaStringTendinopatiaSemRotura();
-                    }}
-                >
-                    Tendinopatia sem rotura (i. e 'epicondilite lateral')
-                </Checkbox>
-                <HStack>
-                    <Checkbox
-                        isDisabled={disableTudo}
-                        onChange={() => setRoturaParcialCheckbox(!RoturaParcialCheckbox)}>
-                        Rotura parcial medindo
-                    </Checkbox>
-                    <Input
-                        isDisabled={disableRoturaParcialInput}
-                        value={RoturaParcialInput}
-                        w="45px"
-                        h="30px"
-                        padding="5px"
-                        maxLength={2}
-                        textAlign="center"
-                        onChange={(e) => { setRoturaParcialInput(e.target.value) }}
-                    />
-                    <Text>x</Text>
-                    <Input
-                        isDisabled={disableRoturaParcialInput}
-                        value={RoturaParcialInput2}
-                        w="45px"
-                        h="30px"
-                        padding="5px"
-                        maxLength={2}
-                        textAlign="center"
-                        onChange={(e) => { setRoturaParcialInput2(e.target.value) }}
-                    />
-                    <Text>x</Text>
-                    <Input
-                        isDisabled={disableRoturaParcialInput}
-                        value={RoturaParcialInput3}
-                        w="45px"
-                        h="30px"
-                        padding="5px"
-                        maxLength={2}
-                        textAlign="center"
-                        onChange={(e) => { setRoturaParcialInput3(e.target.value) }}
-                    />
-                    <Text>mm</Text>
-                </HStack> */}
             </Stack >
         </Box >
 

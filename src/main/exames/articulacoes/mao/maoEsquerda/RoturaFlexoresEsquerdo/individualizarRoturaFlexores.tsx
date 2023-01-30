@@ -4,34 +4,55 @@ import { Box, Button, Center, Checkbox, HStack, Input, Select } from "@chakra-ui
 import { useContext, useEffect, useState } from "react";
 import { isLineBreak } from "typescript";
 import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
 export default function IndividualizarRoturaExtensores({ numCalculo }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+  const [fraseRoturaFlexoresEsquerdo, setFraseRoturaFlexoresEsquerdo] = useState<any>([]);
+
+  const subExame = `Rotura dos flexores ${numCalculo} Esquerdo`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(fraseRoturaFlexoresEsquerdo).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        fraseRoturaFlexoresEsquerdo
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        fraseRoturaFlexoresEsquerdo
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [fraseRoturaFlexoresEsquerdo]);
 
   const [tamanhoCalculoInput, settamanhoCalculoInput] = useState("");
   const [multiplosCalculosCheckBox, setmultiplosCalculosCheckBox] =
     useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
-  const criaStringMultiplosCalculos = (
-    tamanhoCalculoInput,
-  ) => {
+  const criaStringMultiplosCalculos = (tamanhoCalculoInput,) => {
     removeMultiplosCalculos();
 
     if (tamanhoCalculoInput !== "") {
       var string = `Dedo ${numCalculo} com descontinuidade das fibras de ${tamanhoCalculoInput} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFraseRoturaFlexoresEsquerdo((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCalculos = () => {
-    laudoPrin.map((e) => {
+    fraseRoturaFlexoresEsquerdo.map((e) => {
       if (e.includes(`Dedo ${numCalculo}`)) {
-        var index = laudoPrin.indexOf(e);
+        var index = fraseRoturaFlexoresEsquerdo.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          fraseRoturaFlexoresEsquerdo.splice(index, 1);
+          setFraseRoturaFlexoresEsquerdo((arr) => [...arr]);
         }
       }
     });

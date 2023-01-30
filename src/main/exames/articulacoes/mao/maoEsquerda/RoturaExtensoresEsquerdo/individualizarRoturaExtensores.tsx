@@ -4,9 +4,33 @@ import { Box, Button, Center, Checkbox, HStack, Input, Select } from "@chakra-ui
 import { useContext, useEffect, useState } from "react";
 import { isLineBreak } from "typescript";
 import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
 export default function IndividualizarRoturaExtensores({ numCalculo }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+
+  const [FraseRoturaExtensoresEsquerdo, setFraseRoturaExtensoresEsquerdo] = useState<any>([]);
+
+  const subExame = `Rotura Extensores ${numCalculo} Esquerdo`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(FraseRoturaExtensoresEsquerdo).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        FraseRoturaExtensoresEsquerdo
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        FraseRoturaExtensoresEsquerdo
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [FraseRoturaExtensoresEsquerdo]);
+
 
   const [tamanhoCalculoInput, settamanhoCalculoInput] = useState("");
   const [multiplosCalculosCheckBox, setmultiplosCalculosCheckBox] =
@@ -20,18 +44,18 @@ export default function IndividualizarRoturaExtensores({ numCalculo }) {
 
     if (tamanhoCalculoInput !== "") {
       var string = `Dedo ${numCalculo} com descontinuidade das fibras de ${tamanhoCalculoInput} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFraseRoturaExtensoresEsquerdo((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCalculos = () => {
-    laudoPrin.map((e) => {
+    FraseRoturaExtensoresEsquerdo.map((e) => {
       if (e.includes(`Dedo ${numCalculo}`)) {
-        var index = laudoPrin.indexOf(e);
+        var index = FraseRoturaExtensoresEsquerdo.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          FraseRoturaExtensoresEsquerdo.splice(index, 1);
+          setFraseRoturaExtensoresEsquerdo((arr) => [...arr]);
         }
       }
     });

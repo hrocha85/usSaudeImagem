@@ -1,16 +1,39 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Center, Checkbox, HStack, Input, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext"
+import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function TendaoPatelarEsquerdo() {
   const altura = "100%";
   const largura = "90%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [TendaoPatelarEsquerdo, setTendaoPatelarEsquerdo] = useState<any>([]);
+
+  const subExame = `Tendão patelar joelho Esquerdo`
+  const titulo_exame = 'Articulações'
+
+  useEffect(() => {
+    if (Object.keys(TendaoPatelarEsquerdo).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        TendaoPatelarEsquerdo
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        TendaoPatelarEsquerdo
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [TendaoPatelarEsquerdo]);
+
+
   let { CotoveloEsquerdoLaudoNormal } = useContext(CotoveloEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
@@ -39,18 +62,18 @@ function TendaoPatelarEsquerdo() {
     removeLesaoParcial();
     if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
       var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setTendaoPatelarEsquerdo((arr) => [...arr, string]);
     }
   };
 
   const removeLesaoParcial = () => {
-    laudoPrin.map((e) => {
+    TendaoPatelarEsquerdo.map((e) => {
       if (e.includes("Espessado, com alteração ecotextural,")) {
-        var index = laudoPrin.indexOf(e);
+        var index = TendaoPatelarEsquerdo.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          TendaoPatelarEsquerdo.splice(index, 1);
+          setTendaoPatelarEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -58,48 +81,30 @@ function TendaoPatelarEsquerdo() {
 
   const criaStringAspectoNormal = () => {
     var string = "FALTA";
-    if (AspectoNormalCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setAspectoNormalCheckbox(false);
-    } else {
-      removeItemString(string);
-    }
+    AspectoNormalCheckbox ? setTendaoPatelarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
   };
+
+  useEffect(() => {
+    criaStringAspectoNormal()
+  }, [AspectoNormalCheckbox])
+
   const criaStringAspectoPosCirurgico = () => {
     var string = "FALTA";
-    if (AspectoPosCirurgicoCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setAspectoPosCirurgicoCheckbox(false);
-    } else {
-      removeItemString(string);
-    }
+    AspectoPosCirurgicoCheckbox ? setTendaoPatelarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
   };
 
-
+  useEffect(() => {
+    criaStringAspectoPosCirurgico()
+  }, [AspectoPosCirurgicoCheckbox])
 
   const criaStringTendinopatiaSemRotura = () => {
-    removeFraseTendinopatiaSemRotura()
-    var string;
-    if (TendinopatiaSemRoturaCheckbox) {
-      string = `Tendinopatia sem rotura`;
-      setLaudoPrin((arr) => [...arr, string]);
-    }
-    // setTendinopatiaSemRoturaCheckbox(false);
+    var string = "FALTA";
+    TendinopatiaSemRoturaCheckbox ? setTendaoPatelarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
 
   };
-
-  const removeFraseTendinopatiaSemRotura = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Tendinopatia sem rotura")) {
-        var index = laudoPrin.indexOf(e);
-
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
-        }
-      }
-    });
-  };
+  useEffect(() => {
+    criaStringTendinopatiaSemRotura()
+  }, [TendinopatiaSemRoturaCheckbox])
 
   const criaStringPresencaEntesofito = (dados) => {
     removeFrasePresencaEntesofito()
@@ -107,22 +112,22 @@ function TendaoPatelarEsquerdo() {
     if (PresencaEntesofitoCheckbox && dados !== '') {
       string = `Presença de entesófito medindo ${dados}`;
 
-      setLaudoPrin((arr) => [...arr, string]);
+      setTendaoPatelarEsquerdo((arr) => [...arr, string]);
     } else if (PresencaEntesofitoCheckbox) {
       string = `Presença de entesófito`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setTendaoPatelarEsquerdo((arr) => [...arr, string]);
     }
     console.log(string)
     // setTendinopatiaSemRoturaCheckbox(false);
   }
   const removeFrasePresencaEntesofito = () => {
-    laudoPrin.map((e) => {
+    TendaoPatelarEsquerdo.map((e) => {
       if (e.includes("Presença de entesófito")) {
-        var index = laudoPrin.indexOf(e);
+        var index = TendaoPatelarEsquerdo.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          TendaoPatelarEsquerdo.splice(index, 1);
+          setTendaoPatelarEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -133,6 +138,7 @@ function TendaoPatelarEsquerdo() {
       criaStringPresencaEntesofito(InputMedindoPresencaEntesofito)
       setDisableInputPresencaEntesofito(false)
     } else {
+      removeFrasePresencaEntesofito()
       setDisableInputPresencaEntesofito(true)
       setInputMedindoPresencaEntesofito('')
     }
@@ -140,10 +146,10 @@ function TendaoPatelarEsquerdo() {
 
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = TendaoPatelarEsquerdo.indexOf(value);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      TendaoPatelarEsquerdo.splice(index, 1);
+      setTendaoPatelarEsquerdo((arr) => [...arr]);
     }
   };
 
@@ -165,7 +171,6 @@ function TendaoPatelarEsquerdo() {
       setdisableAspectoNormal(true)
       setdisableAspectoPosCirurgico(true)
     } else {
-      removeFraseTendinopatiaSemRotura()
       setdisableLesaoParcial(false)
       setdisableAspectoNormal(false)
       setdisableAspectoPosCirurgico(false)
@@ -237,7 +242,6 @@ function TendaoPatelarEsquerdo() {
           isDisabled={disableTudo || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
-            criaStringAspectoNormal();
           }}
         >
           Aspecto Normal
@@ -246,7 +250,6 @@ function TendaoPatelarEsquerdo() {
           isDisabled={disableTudo || disableTendinopatiaSemRotura}
           onChange={() => {
             setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
-            criaStringTendinopatiaSemRotura();
           }}
         >
           Tendinopatia sem rotura
@@ -302,7 +305,6 @@ function TendaoPatelarEsquerdo() {
           isDisabled={disableTudo || disableAspectoPosCirurgico}
           onChange={() => {
             setAspectoPosCirurgicoCheckbox(!AspectoPosCirurgicoCheckbox);
-            criaStringAspectoPosCirurgico();
           }}
         >
           Aspecto pós cirúrgico
