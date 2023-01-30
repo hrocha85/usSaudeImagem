@@ -4,15 +4,19 @@ import Derrame_Articular_Direito from "./direito/derrame_articular_direito";
 import Lado_Direito_Torn from "./direito/lado_direito_box";
 import Tendao_Extensor_Dedos_Direito from "./direito/tendao_extendor_dedos_direito";
 import Tendao_Extensor_Halux_Direito from "./direito/tendao_extensor_halux_direito";
+import Tendao_Fibular_Curto_Direito from "./direito/tendao_fibular_curto_direito";
+import Tendao_Fibular_Longo_Direito from "./direito/tendao_fibular_longo_direito";
 import Tendao_Flexor_Dedos_Direito from "./direito/tendao_flexor_dedos_direito";
 import Tendao_Flexor_Halux_Direito from "./direito/tendao_flexor_halux_direito";
 import Tendao_Tibial_Anterior_Direito from "./direito/tendao_tibial_anterior_direito";
 import Tendao_Tibial_Posterior_Direito from "./direito/tendao_tibial_posterior_direito";
 import Derrame_Articular_Esquerdo from "./esquerdo/derrame_articular_esquerdo";
 import Lado_Esquerdo_Torn from "./esquerdo/lado_esquerdo_box";
+import Tendao_Calcaneo_Esquerdo from "./esquerdo/tendao_calcaneo_esquerdo";
 import Tendao_Extensor_Dedos_Esquerdo from "./esquerdo/tendao_extendor_dedos_esquerdo";
 import Tendao_Extensor_Halux_Esquerdo from "./esquerdo/tendao_extensor_halux_esquerdo";
 import Tendao_Fibular_Curto_Esquerdo from "./esquerdo/tendao_fibular_curto_esquerdo";
+import Tendao_Fibular_Longo_Esquerdo from "./esquerdo/tendao_fibular_longo_esquerdo";
 import Tendao_Flexor_Dedos_Esquerdo from "./esquerdo/tendao_flexor_dedos_esquerdo";
 import Tendao_Flexor_Halux_Esquerdo from "./esquerdo/tendao_flexor_halux_esquerdo";
 import Tendao_Tibial_Anterior_Esquerdo from "./esquerdo/tendao_tibial_anterior_esquerdo";
@@ -50,7 +54,9 @@ export default function Tornozelos() {
             <Tendao_Tibial_Posterior_Esquerdo />
             <Tendao_Flexor_Halux_Esquerdo />
             <Tendao_Flexor_Dedos_Esquerdo />
-            <Tendao_Fibular_Curto_Esquerdo/>
+            <Tendao_Fibular_Curto_Esquerdo />
+            <Tendao_Fibular_Longo_Esquerdo />
+            <Tendao_Calcaneo_Esquerdo />
           </Box>
           <Box>
             <Box w="100%">
@@ -65,6 +71,8 @@ export default function Tornozelos() {
             <Tendao_Tibial_Posterior_Direito />
             <Tendao_Flexor_Halux_Direito />
             <Tendao_Flexor_Dedos_Direito />
+            <Tendao_Fibular_Curto_Direito />
+            <Tendao_Fibular_Longo_Direito />
           </Box>
         </Stack>
       </Box>

@@ -22,12 +22,17 @@ export default function Tendao_Fibular_Curto_Esquerdo() {
   const [enableSelects, setEnableSelects] = useState<boolean>(false);
 
   const [disableCheckBox, setdisableCheckBox] = useState(false);
-  const [disableCheckBoxLongitudinal, setdisableCheckBoxLongitudinal] = useState(false);
+  const [disableCheckBoxLongitudinal, setdisableCheckBoxLongitudinal] =
+    useState(false);
 
   const [disableInputs, setdisableInputs] = useState(true);
 
   const [valueCheckBox, setValueCheckBox] = useState(false);
-  const [valueCheckBoxLongitudinal, setValueCheckBoxLongitudinal] = useState(false);
+  const [valueCheckBoxLongitudinal, setValueCheckBoxLongitudinal] =
+    useState(false);
+  const [valueCheckBoxLiquido, setValueCheckBoxLiquido] = useState(false);
+  const [valueCheckBoxInsinuacao, setValueCheckBoxInsinuacao] = useState(false);
+
   const [medida1Lesao, setMedida1Lesao] = useState("");
   const [medida2Lesao, setMedida2Lesao] = useState("");
   const [medida3Lesao, setMedida3Lesao] = useState("");
@@ -66,6 +71,7 @@ export default function Tendao_Fibular_Curto_Esquerdo() {
           setEnableSelects(false);
           setdisableCheckBox(false);
           setdisableInputs(true);
+          setdisableCheckBoxLongitudinal(false);
           setMedida1Lesao("");
           setMedida2Lesao("");
           setMedida3Lesao("");
@@ -76,6 +82,7 @@ export default function Tendao_Fibular_Curto_Esquerdo() {
           setFrasesTornozelo([]);
           setdisableCheckBox(true);
           setdisableInputs(true);
+          setdisableCheckBoxLongitudinal(false);
           setMedida1Lesao("");
           setMedida2Lesao("");
           setMedida3Lesao("");
@@ -97,6 +104,7 @@ export default function Tendao_Fibular_Curto_Esquerdo() {
           setFrasesTornozelo([]);
           setEnableSelects(true);
           setdisableInputs(true);
+          setdisableCheckBoxLongitudinal(false);
           setMedida1Lesao("");
           setMedida2Lesao("");
           setMedida3Lesao("");
@@ -108,18 +116,41 @@ export default function Tendao_Fibular_Curto_Esquerdo() {
           }
         }
         break;
-      case "Lesão parcial medindo": {
+      case "Lesão parcial medindo":
+        {
+          setFrasesTornozelo([]);
+          setdisableInputs(false);
+          setdisableCheckBoxLongitudinal(false);
+          if (medida1Lesao != "" && medida2Lesao != "" && medida3Lesao != "") {
+            setFrasesTornozelo((arr) => [
+              ...arr,
+              `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(
+                medida1Lesao
+              ).Convert_Medida()}x${new Convert_Medida(
+                medida2Lesao
+              ).Convert_Medida()}x${new Convert_Medida(
+                medida3Lesao
+              ).Convert_Medida()} cm`,
+            ]);
+          }
+        }
+        break;
+      case "Lesão Longitudinal": {
         setFrasesTornozelo([]);
-        setdisableInputs(false);
-        if (medida1Lesao != "" && medida2Lesao != "" && medida3Lesao != "") {
+        setdisableCheckBoxLongitudinal(true);
+        setFrasesTornozelo((arr) => [...arr, `${value} `]);
+        if (valueCheckBoxLongitudinal) {
+          setFrasesTornozelo((arr) => [...arr, `assumindo aspecto em "C" `]);
+        }
+        if (valueCheckBoxInsinuacao) {
           setFrasesTornozelo((arr) => [
             ...arr,
-            `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(medida1Lesao).Convert_Medida()}x${new Convert_Medida(medida2Lesao).Convert_Medida()}x${new Convert_Medida(medida3Lesao).Convert_Medida()} cm`,
+            `com insinuação do fibular longo p/ seu interior `,
           ]);
         }
-      } break
-      case "Lesão Longitudinal": {
-        
+        if (valueCheckBoxLiquido) {
+          setFrasesTornozelo((arr) => [...arr, ` com líquido peritendíneo `]);
+        }
       }
     }
   }, [
@@ -129,6 +160,9 @@ export default function Tendao_Fibular_Curto_Esquerdo() {
     medida1Lesao,
     medida2Lesao,
     medida3Lesao,
+    valueCheckBoxInsinuacao,
+    valueCheckBoxLiquido,
+    valueCheckBoxLongitudinal,
   ]);
 
   useEffect(() => {
@@ -239,9 +273,29 @@ export default function Tendao_Fibular_Curto_Esquerdo() {
               <Checkbox
                 whiteSpace="nowrap"
                 isDisabled={!disableCheckBoxLongitudinal}
-                onChange={() => setValueCheckBoxLongitudinal(!valueCheckBoxLongitudinal)}
+                onChange={() =>
+                  setValueCheckBoxLongitudinal(!valueCheckBoxLongitudinal)
+                }
               >
                 assumindo aspecto em "C"
+              </Checkbox>
+            </HStack>
+            <HStack>
+              <Checkbox
+                whiteSpace="pre-wrap"
+                isDisabled={!disableCheckBoxLongitudinal}
+                onChange={() =>
+                  setValueCheckBoxInsinuacao(!valueCheckBoxInsinuacao)
+                }
+              >
+                com insinuacao do fibular longo p/ seu interior
+              </Checkbox>
+              <Checkbox
+                whiteSpace="nowrap"
+                isDisabled={!disableCheckBoxLongitudinal}
+                onChange={() => setValueCheckBoxLiquido(!valueCheckBoxLiquido)}
+              >
+                com líquido peritendíneo
               </Checkbox>
             </HStack>
           </Stack>

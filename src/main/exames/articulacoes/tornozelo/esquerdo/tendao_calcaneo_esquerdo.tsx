@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Tendao_Extensor_Dedos_Direito() {
+export default function Tendao_Calcaneo_Esquerdo() {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
 
@@ -30,7 +30,10 @@ export default function Tendao_Extensor_Dedos_Direito() {
   const [medida2Lesao, setMedida2Lesao] = useState("");
   const [medida3Lesao, setMedida3Lesao] = useState("");
 
-  const subExame = "Tendão Extensor Longo dos Dedos Direito";
+  const [medidaInsercao, setMedidaInsercao] = useState("");
+  const [medidaIntervalo, setMedidaIntervalo] = useState("");
+
+  const subExame = "Tendão Calcâneo Esquerdo";
   const titulo_exame = "Articulações";
 
   const removeSelectString = () => {
@@ -121,6 +124,12 @@ export default function Tendao_Extensor_Dedos_Direito() {
             ).Convert_Medida()} cm`,
           ]);
         }
+      } break
+      case "Lesão completa": {
+        setFrasesTornozelo([]);
+        setdisableInputs(false);
+        
+
       }
     }
   }, [
@@ -130,6 +139,8 @@ export default function Tendao_Extensor_Dedos_Direito() {
     medida1Lesao,
     medida2Lesao,
     medida3Lesao,
+    medidaInsercao,
+    medidaIntervalo
   ]);
 
   useEffect(() => {
@@ -159,7 +170,7 @@ export default function Tendao_Extensor_Dedos_Direito() {
         marginTop="5px"
       >
         <Text fontWeight="semibold" padding="10px">
-          Tendão Extensor Longo dos Dedos{" "}
+          Tendão Calcâneo{" "}
         </Text>
         <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
@@ -236,6 +247,37 @@ export default function Tendao_Extensor_Dedos_Direito() {
               </HStack>
             </HStack>
           </Stack>
+          <HStack>
+            <Radio value="Lesão completa">Lesão completa a </Radio>
+            <HStack>
+              <Input
+                isDisabled={disableInputs}
+                w="35px"
+                h="30px"
+                value={medidaInsercao}
+                padding="5px"
+                maxLength={2}
+                textAlign="center"
+                onChange={(e) => {
+                  setMedidaInsercao(e.target.value);
+                }}
+              />
+              <Text>mm da inserção</Text>
+              <Input
+                isDisabled={disableInputs}
+                w="35px"
+                h="30px"
+                value={medidaIntervalo}
+                padding="5px"
+                maxLength={2}
+                textAlign="center"
+                onChange={(e) => {
+                  setMedidaIntervalo(e.target.value);
+                }}
+              />
+              <Text>mm de intervalo</Text>
+            </HStack>
+          </HStack>
         </RadioGroup>
       </Box>
     </Stack>

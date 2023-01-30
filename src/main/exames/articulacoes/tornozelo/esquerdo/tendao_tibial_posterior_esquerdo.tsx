@@ -10,6 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Tendao_Tibial_Posterior_Esquerdo() {
@@ -127,12 +128,24 @@ export default function Tendao_Tibial_Posterior_Esquerdo() {
         ) {
           setFrasesTornozelo((arr) => [
             ...arr,
-            `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${medida1Lesao}x${medida2Lesao}x${medida3Lesao} mm. Com presença de osso navicular acessório de ${valueSelectOsso}`,
+            `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(
+              medida1Lesao
+            ).Convert_Medida()}x${new Convert_Medida(
+              medida2Lesao
+            ).Convert_Medida()}x${new Convert_Medida(
+              medida3Lesao
+            ).Convert_Medida()} cm. Com presença de osso navicular acessório de ${valueSelectOsso}`,
           ]);
         } else {
           setFrasesTornozelo((arr) => [
             ...arr,
-            `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${medida1Lesao}x${medida2Lesao}x${medida3Lesao} mm.`,
+            `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(
+              medida1Lesao
+            ).Convert_Medida()}x${new Convert_Medida(
+              medida2Lesao
+            ).Convert_Medida()}x${new Convert_Medida(
+              medida3Lesao
+            ).Convert_Medida()} cm.`,
           ]);
         }
       }

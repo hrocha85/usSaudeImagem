@@ -589,7 +589,7 @@ function Exames() {
           </Stack>
         </Center>
 
-        <Box className="zoom" boxShadow="xl" ref={ref}>
+        <Box className="zoom" boxShadow="xl" ref={ref}  height='80vh' marginBottom='30vh'>
           <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
             <Box>
               <Image

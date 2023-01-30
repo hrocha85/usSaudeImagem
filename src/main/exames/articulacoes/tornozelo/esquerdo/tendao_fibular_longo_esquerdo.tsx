@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Tendao_Extensor_Dedos_Direito() {
+export default function Tendao_Fibular_Longo_Esquerdo() {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
 
@@ -30,7 +30,7 @@ export default function Tendao_Extensor_Dedos_Direito() {
   const [medida2Lesao, setMedida2Lesao] = useState("");
   const [medida3Lesao, setMedida3Lesao] = useState("");
 
-  const subExame = "Tendão Extensor Longo dos Dedos Direito";
+  const subExame = "Tendão Fibular Longo Esquerdo";
   const titulo_exame = "Articulações";
 
   const removeSelectString = () => {
@@ -159,7 +159,7 @@ export default function Tendao_Extensor_Dedos_Direito() {
         marginTop="5px"
       >
         <Text fontWeight="semibold" padding="10px">
-          Tendão Extensor Longo dos Dedos{" "}
+          Tendão Fibular Longo{" "}
         </Text>
         <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">

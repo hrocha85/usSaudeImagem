@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Tendao_Extensor_Dedos_Direito() {
+export default function Tendao_Fibular_Curto_Direito() {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
 
@@ -22,15 +22,22 @@ export default function Tendao_Extensor_Dedos_Direito() {
   const [enableSelects, setEnableSelects] = useState<boolean>(false);
 
   const [disableCheckBox, setdisableCheckBox] = useState(false);
+  const [disableCheckBoxLongitudinal, setdisableCheckBoxLongitudinal] =
+    useState(false);
 
   const [disableInputs, setdisableInputs] = useState(true);
 
   const [valueCheckBox, setValueCheckBox] = useState(false);
+  const [valueCheckBoxLongitudinal, setValueCheckBoxLongitudinal] =
+    useState(false);
+  const [valueCheckBoxLiquido, setValueCheckBoxLiquido] = useState(false);
+  const [valueCheckBoxInsinuacao, setValueCheckBoxInsinuacao] = useState(false);
+
   const [medida1Lesao, setMedida1Lesao] = useState("");
   const [medida2Lesao, setMedida2Lesao] = useState("");
   const [medida3Lesao, setMedida3Lesao] = useState("");
 
-  const subExame = "Tendão Extensor Longo dos Dedos Direito";
+  const subExame = "Tendão Fibular Curto Direito";
   const titulo_exame = "Articulações";
 
   const removeSelectString = () => {
@@ -64,6 +71,7 @@ export default function Tendao_Extensor_Dedos_Direito() {
           setEnableSelects(false);
           setdisableCheckBox(false);
           setdisableInputs(true);
+          setdisableCheckBoxLongitudinal(false);
           setMedida1Lesao("");
           setMedida2Lesao("");
           setMedida3Lesao("");
@@ -74,6 +82,7 @@ export default function Tendao_Extensor_Dedos_Direito() {
           setFrasesTornozelo([]);
           setdisableCheckBox(true);
           setdisableInputs(true);
+          setdisableCheckBoxLongitudinal(false);
           setMedida1Lesao("");
           setMedida2Lesao("");
           setMedida3Lesao("");
@@ -95,6 +104,7 @@ export default function Tendao_Extensor_Dedos_Direito() {
           setFrasesTornozelo([]);
           setEnableSelects(true);
           setdisableInputs(true);
+          setdisableCheckBoxLongitudinal(false);
           setMedida1Lesao("");
           setMedida2Lesao("");
           setMedida3Lesao("");
@@ -106,20 +116,40 @@ export default function Tendao_Extensor_Dedos_Direito() {
           }
         }
         break;
-      case "Lesão parcial medindo": {
+      case "Lesão parcial medindo":
+        {
+          setFrasesTornozelo([]);
+          setdisableInputs(false);
+          setdisableCheckBoxLongitudinal(false);
+          if (medida1Lesao != "" && medida2Lesao != "" && medida3Lesao != "") {
+            setFrasesTornozelo((arr) => [
+              ...arr,
+              `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(
+                medida1Lesao
+              ).Convert_Medida()}x${new Convert_Medida(
+                medida2Lesao
+              ).Convert_Medida()}x${new Convert_Medida(
+                medida3Lesao
+              ).Convert_Medida()} cm`,
+            ]);
+          }
+        }
+        break;
+      case "Lesão Longitudinal": {
         setFrasesTornozelo([]);
-        setdisableInputs(false);
-        if (medida1Lesao != "" && medida2Lesao != "" && medida3Lesao != "") {
+        setdisableCheckBoxLongitudinal(true);
+        setFrasesTornozelo((arr) => [...arr, `${value} `]);
+        if (valueCheckBoxLongitudinal) {
+          setFrasesTornozelo((arr) => [...arr, `assumindo aspecto em "C" `]);
+        }
+        if (valueCheckBoxInsinuacao) {
           setFrasesTornozelo((arr) => [
             ...arr,
-            `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(
-              medida1Lesao
-            ).Convert_Medida()}x${new Convert_Medida(
-              medida2Lesao
-            ).Convert_Medida()}x${new Convert_Medida(
-              medida3Lesao
-            ).Convert_Medida()} cm`,
+            `com insinuação do fibular longo p/seu interior `,
           ]);
+        }
+        if (valueCheckBoxLiquido) {
+          setFrasesTornozelo((arr) => [...arr, ` com líquido peritendíneo `]);
         }
       }
     }
@@ -130,6 +160,9 @@ export default function Tendao_Extensor_Dedos_Direito() {
     medida1Lesao,
     medida2Lesao,
     medida3Lesao,
+    valueCheckBoxInsinuacao,
+    valueCheckBoxLiquido,
+    valueCheckBoxLongitudinal,
   ]);
 
   useEffect(() => {
@@ -159,7 +192,7 @@ export default function Tendao_Extensor_Dedos_Direito() {
         marginTop="5px"
       >
         <Text fontWeight="semibold" padding="10px">
-          Tendão Extensor Longo dos Dedos{" "}
+          Tendão Fibular Curto{" "}
         </Text>
         <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
@@ -234,6 +267,36 @@ export default function Tendao_Extensor_Dedos_Direito() {
                 />
                 <Text>mm</Text>
               </HStack>
+            </HStack>
+            <HStack>
+              <Radio value="Lesão Longitudinal">Lesão Longitudinal</Radio>
+              <Checkbox
+                whiteSpace="nowrap"
+                isDisabled={!disableCheckBoxLongitudinal}
+                onChange={() =>
+                  setValueCheckBoxLongitudinal(!valueCheckBoxLongitudinal)
+                }
+              >
+                assumindo aspecto em "C"
+              </Checkbox>
+            </HStack>
+            <HStack>
+              <Checkbox
+                isDisabled={!disableCheckBoxLongitudinal}
+                whiteSpace="nowrap"
+                onChange={() =>
+                  setValueCheckBoxInsinuacao(!valueCheckBoxInsinuacao)
+                }
+              >
+                com insinuação do fibular longo p/ seu interio{" "}
+              </Checkbox>
+              <Checkbox
+                whiteSpace="nowrap"
+                isDisabled={!disableCheckBoxLongitudinal}
+                onChange={() => setValueCheckBoxLiquido(!valueCheckBoxLiquido)}
+              >
+                com líquido peritendíneo
+              </Checkbox>
             </HStack>
           </Stack>
         </RadioGroup>
