@@ -317,11 +317,11 @@ function Articulacoes() {
                             textAlign="center" >
                             <PunhoCistosDireito />
                         </Box>
-                        <Box
+                        {/* <Box
                             // w='450px'
                             textAlign="center" >
                             <PunhoDireito />
-                        </Box>
+                        </Box> */}
                         <Box
                             textAlign="center" >
                             <MaoLadoDireito />
@@ -509,11 +509,11 @@ function Articulacoes() {
                             textAlign="center" >
                             <FasciaLataDireito />
                         </Box>
-                        <Box
+                        {/* <Box
                             mt='10px'
                             textAlign="center" >
                             <QuadrilDireito />
-                        </Box>
+                        </Box> */}
                         <Box
                             textAlign="center" >
                             <CoxaLadoDireito />
