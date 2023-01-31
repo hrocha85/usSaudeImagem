@@ -126,7 +126,6 @@ const Configuracoes = () => {
     const obj = {
       nome: nome,
       crm: crm,
-      uf: "sp",
       assinatura: padRef.current?.getTrimmedCanvas().toDataURL("image/png")!,
       foto: defaultUserImage,
       clinica: clinicas,

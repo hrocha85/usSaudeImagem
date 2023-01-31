@@ -20,7 +20,8 @@ import {
   Textarea,
   Tooltip,
   useDisclosure,
-  useOutsideClick, useToast,
+  useOutsideClick,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { BiCamera } from "react-icons/bi";
@@ -41,7 +42,6 @@ if (localStorage.getItem("minhasClinicas") != null) {
 } else minhasClinicas = [];
 
 const IconButtonPlus = (props) => {
-
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -74,12 +74,9 @@ const IconButtonPlus = (props) => {
   const refNomeClinica = useRef<HTMLInputElement | null>(null);
 
   const AddClinica = () => {
-
     const obj = {
       nomeClinica: nome,
-      enderecoRuaNumero: endereco,
-      cidade: "santos",
-      uf: "sp",
+      endereco: endereco,
       cep: cep,
       foto: defaultUserImage,
       teleFone: telefone,
@@ -103,6 +100,7 @@ const IconButtonPlus = (props) => {
     event.stopPropagation();
     event.preventDefault();
     var file = event.target.files[0];
+
     setSelectedFile(file);
   };
 
@@ -136,37 +134,37 @@ const IconButtonPlus = (props) => {
 
   useEffect(() => {
     if (selectedFile) {
-      URL.revokeObjectURL(defaultUserImage);
       const objectURL = URL.createObjectURL(selectedFile);
       setDefaultUserImage(objectURL);
+      
     }
   }, [selectedFile]);
 
-
   const handlePhone = (event) => {
-    let input = event.target
-    input.value = phoneMask(input.value)
-  }
+    let input = event.target;
+    input.value = phoneMask(input.value);
+  };
 
   const phoneMask = (value) => {
-    if (!value) return ""
-    value = value.replace(/\D/g, '')
-    value = value.replace(/(\d{2})(\d)/, "($1) $2")
-    value = value.replace(/(\d)(\d{4})$/, "$1-$2")
-    return value
-  }
+    if (!value) return "";
+    value = value.replace(/\D/g, "");
+    value = value.replace(/(\d{2})(\d)/, "($1) $2");
+    value = value.replace(/(\d)(\d{4})$/, "$1-$2");
+    return value;
+  };
+
   const handleCep = (event) => {
-    let input = event.target
-    input.value = cepMask(input.value)
-  }
+    let input = event.target;
+    input.value = cepMask(input.value);
+  };
 
   const cepMask = (value) => {
-    if (!value) return ""
-    value = value.replace(/\D/g, '')
-    value = value.replace(/(\d{5})(\d)/, '$1-$2')
-    value = value.replace(/(-\d{3})\d+?$/, '$1')
-    return value
-  }
+    if (!value) return "";
+    value = value.replace(/\D/g, "");
+    value = value.replace(/(\d{5})(\d)/, "$1-$2");
+    value = value.replace(/(-\d{3})\d+?$/, "$1");
+    return value;
+  };
 
   return (
     <>
@@ -283,13 +281,13 @@ const IconButtonPlus = (props) => {
                             textAlign={"center"}
                             onChange={(e) => {
                               handlePhone(e);
-                              setTelefone(e.target.value)
+                              setTelefone(e.target.value);
                             }}
                             variant="filled"
                             borderStartRadius={"md"}
                             borderEndRadius={"md"}
                             maxLength={15}
-                            onClick={() => { }}
+                            onClick={() => {}}
                           />
                         ) : (
                           <Input
@@ -298,7 +296,7 @@ const IconButtonPlus = (props) => {
                             textAlign={"center"}
                             onChange={(e) => {
                               handlePhone(e);
-                              setTelefone(e.target.value)
+                              setTelefone(e.target.value);
                             }}
                             variant={"unstyled"}
                             onClick={() => {
@@ -324,14 +322,14 @@ const IconButtonPlus = (props) => {
                             placeholder="13000-000"
                             textAlign={"center"}
                             onChange={(e) => {
-                              handleCep(e)
-                              setCep(e.target.value)
+                              handleCep(e);
+                              setCep(e.target.value);
                             }}
                             variant="filled"
                             borderStartRadius={"md"}
                             borderEndRadius={"md"}
                             maxLength={9}
-                            onClick={() => { }}
+                            onClick={() => {}}
                           />
                         ) : (
                           <Input
@@ -339,8 +337,8 @@ const IconButtonPlus = (props) => {
                             placeholder="13000-000"
                             textAlign={"center"}
                             onChange={(e) => {
-                              handleCep(e)
-                              setCep(e.target.value)
+                              handleCep(e);
+                              setCep(e.target.value);
                             }}
                             variant={"unstyled"}
                             onClick={() => {
@@ -382,7 +380,7 @@ const IconButtonPlus = (props) => {
                   toast({
                     duration: 3000,
                     title: `Preencha Nome e Telefone para cadastrar.`,
-                    status: 'error',
+                    status: "error",
                     position: "bottom",
                     isClosable: true,
                   });

@@ -3,15 +3,10 @@
     {
       "nome": "",
       "crm": "",
-      "uf": "",
       "assinatura": "",
       "foto": "",
-      "clinica": [
-        {}
-      ],
-      "laudos": [
-        {}
-      ]
+      "clinica": [{}],
+      "laudos": [{}]
     }
   ]
 }

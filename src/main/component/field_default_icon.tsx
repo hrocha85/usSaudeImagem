@@ -73,7 +73,7 @@ const FieldDefaultIcon = ({
 
   const [updateEndereco, setUpdateEndereco] = useState<string | null>(null);
 
-  const [endereco, setEndereco] = useState(clinica.enderecoRuaNumero);
+  const [endereco, setEndereco] = useState(clinica.endereco);
 
   const [cep, setCep] = useState(clinica.cep);
 
@@ -155,9 +155,9 @@ const FieldDefaultIcon = ({
     if (enderecoUpdate != null) {
       var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
       var item = array[id];
-      minhasClinicas[id].enderecoRuaNumero = enderecoUpdate;
+      minhasClinicas[id].endereco = enderecoUpdate;
 
-      item.enderecoRuaNumero = enderecoUpdate;
+      item.endereco = enderecoUpdate;
       localStorage.setItem("minhasClinicas", JSON.stringify(array));
       setEndereco(enderecoUpdate);
       setUpdateEndereco(null);
@@ -223,6 +223,7 @@ const FieldDefaultIcon = ({
     value = value.replace(/(\d)(\d{4})$/, "$1-$2")
     return value
   }
+  
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
