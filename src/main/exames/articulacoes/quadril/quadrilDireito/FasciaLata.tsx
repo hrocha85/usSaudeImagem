@@ -62,7 +62,7 @@ function FasciaLataDireito() {
                 <Stack direction="column">
                     <Radio value="1">Não citar</Radio>
                     <Radio value="Aspecto Normal">Aspecto Normal</Radio>
-                    <Radio value="Tendinopatia">Tendinopatia</Radio>
+                    <Radio value="Observa-se espessamento da fáscia lata.">Tendinopatia</Radio>
                 </Stack>
             </RadioGroup>
         </Box>

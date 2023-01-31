@@ -4,6 +4,7 @@ import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, 
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
 import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext"
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -69,11 +70,14 @@ function TendaoSubescapularOmbroDireito() {
   const [InputRetracaoRoturaCompleta, setInputRetracaoRoturaCompleta] = useState('');
 
 
-  const criaStringRoturaParcial = (medida1, medida2, medida3, selectRoturaParcial) => {
+  const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm, selectRoturaParcial) => {
     removeRoturaParcial();
+    const medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+    const medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+    const medida3 = new Convert_Medida(medida3cm).Convert_Medida()
     if (RoturaParcialCheckbox) {
-      if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectRoturaParcial !== '') {
-        var string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectRoturaParcial}`;
+      if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectRoturaParcial !== '') {
+        var string = `${selectRoturaParcial} espessado, com alteração ecotextural, observando-se sinais de rotura parcial ${medida1} x ${medida2} x ${medida3} cm`;
         setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]);
       }
     } else {
@@ -83,9 +87,8 @@ function TendaoSubescapularOmbroDireito() {
 
   const removeRoturaParcial = () => {
     fraseTendaoSubescapuçarDireito.map((e) => {
-      if (e.includes("Frase")) {
+      if (e.includes("espessado, com alteração ecotextural, observando-se sinais de rotura parcial ")) {
         var index = fraseTendaoSubescapuçarDireito.indexOf(e);
-
         if (index > -1) {
           fraseTendaoSubescapuçarDireito.splice(index, 1);
           setFraseTendaoSubescapuçarDireito((arr) => [...arr]);
@@ -93,6 +96,7 @@ function TendaoSubescapularOmbroDireito() {
       }
     });
   };
+
 
   const criaStringAspectoNormal = () => {
     var string = "com ecotextura e espessura preservadas e contornos normais.";

@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { PunhoDireitoNormalContext } from "../../../../../context/PunhoDireitoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 
 function PunhoCistosDireito() {
   const altura = "100%";
@@ -56,15 +57,19 @@ function PunhoCistosDireito() {
 
 
 
-  const criaStringFaceDorsal = (medida1, medida2, medida3, selectFaceDorsal) => {
+  const criaStringFaceDorsal = (medida1cm, medida2cm, medida3cm, selectFaceDorsal) => {
     removeFaceDorsal();
+    var medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+    var medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+    var medida3 = new Convert_Medida(medida3cm).Convert_Medida()
+
     var string;
     if (FaceDorsalCheckbox) {
-      if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectFaceDorsal !== '' && ComunicandoDorsal) {
-        string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectFaceDorsal}, comunicando-se com a articulação radiocárpica`;
+      if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectFaceDorsal !== '' && ComunicandoDorsal) {
+        string = `Cisto de contornos regulares com finas septações em seu interior, localizado na face dorsal do punho, entre o ${selectFaceDorsal} compartimentos sinoviais dos extensores,medindo ${medida1} x ${medida2} x ${medida3} cm, comunicando-se com a articulação radiocárpica`;
         setFrasesPunhoCistosDireito((arr) => [...arr, string]);
-      } else if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectFaceDorsal !== '') {
-        string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectFaceDorsal}`;
+      } else if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectFaceDorsal !== '') {
+        string = `Cisto de contornos regulares com finas septações em seu interior, localizado na face dorsal do punho, entre o ${selectFaceDorsal} compartimentos sinoviais dos extensores,medindo ${medida1} x ${medida2} x ${medida3} cm.`;
         setFrasesPunhoCistosDireito((arr) => [...arr, string]);
       }
     } else {
@@ -74,7 +79,7 @@ function PunhoCistosDireito() {
 
   const removeFaceDorsal = () => {
     frasesPunhoCistosDireito.map((e) => {
-      if (e.includes("Frase ")) {
+      if (e.includes("Cisto de contornos regulares com finas septações em seu interior, localizado na face dorsal do punho, entre o ")) {
         var index = frasesPunhoCistosDireito.indexOf(e);
         if (index > -1) {
           frasesPunhoCistosDireito.splice(index, 1);
@@ -102,14 +107,18 @@ function PunhoCistosDireito() {
 
 
 
-  const criaStringFaceVolar = (medida1, medida2, medida3) => {
+  const criaStringFaceVolar = (medida1cm, medida2cm, medida3cm) => {
     removeFaceVolar();
+    var medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+    var medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+    var medida3 = new Convert_Medida(medida3cm).Convert_Medida()
+
     var string;
     if (FaceVolarCheckbox) {
-      if (medida1 !== "" && medida2 !== "" && medida3 !== "" && ComunicandoVolar) {
+      if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && ComunicandoVolar) {
         string = `Cisto de contornos regulares com finas septações em seu interior, localizado na face volar do punho, situado adjacente à artéria radial, próximo ao escafoide, medindo ${medida1} x ${medida2} x ${medida3} mm, comunicando-se com a articulação radiocárpica.`;
         setFrasesPunhoCistosDireito((arr) => [...arr, string]);
-      } else if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
+      } else if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "") {
         string = `Cisto de contornos regulares com finas septações em seu interior, localizado na face volar do punho, situado adjacente à artéria radial, próximo ao escafoide, medindo ${medida1} x ${medida2} x ${medida3} mm`;
         setFrasesPunhoCistosDireito((arr) => [...arr, string]);
       }

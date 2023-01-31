@@ -80,8 +80,8 @@ function TendaoGluteoMedioDireito() {
             <RadioGroup onChange={setValue} value={value} padding="10px">
                 <Stack direction="column">
                     <Radio value="1">Não citar</Radio>
-                    <Radio value="Aspecto Normal">Aspecto Normal</Radio>
-                    <Radio value="Tendinopatia">Tendinopatia</Radio>
+                    <Radio value="de espessura e contornos preservados e ecotextura característica.">Aspecto Normal</Radio>
+                    <Radio value="com espessura aumentada e ecogenicidade diminuída.">Tendinopatia</Radio>
                 </Stack>
             </RadioGroup>
 

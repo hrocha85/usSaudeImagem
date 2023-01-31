@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 
 function OmbroTendaoSupraespinhalDireito() {
   const altura = "100%";
@@ -69,22 +70,24 @@ function OmbroTendaoSupraespinhalDireito() {
   const [InputRetracaoRoturaCompleta, setInputRetracaoRoturaCompleta] = useState('');
 
 
-  const criaStringRoturaParcial = (medida1, medida2, medida3, selectRoturaParcial) => {
+  const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm, selectRoturaParcial) => {
     removeRoturaParcial();
+    const medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+    const medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+    const medida3 = new Convert_Medida(medida3cm).Convert_Medida()
     if (RoturaParcialCheckbox) {
-      if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectRoturaParcial !== '') {
-        var string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectRoturaParcial}`;
+      if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectRoturaParcial !== '') {
+        var string = `${selectRoturaParcial} espessado, com alteração ecotextural, observando-se sinais de rotura parcial ${medida1} x ${medida2} x ${medida3} cm`;
         setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
       }
     } else {
       removeRoturaParcial();
-
     }
   };
 
   const removeRoturaParcial = () => {
     frasesOmbroTendaoSupraespinhalDireito.map((e) => {
-      if (e.includes("Frase ")) {
+      if (e.includes("espessado, com alteração ecotextural, observando-se sinais de rotura parcial ")) {
         var index = frasesOmbroTendaoSupraespinhalDireito.indexOf(e);
         if (index > -1) {
           frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);

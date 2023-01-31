@@ -61,7 +61,7 @@ function LigColFibularLateralDireito() {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
   const criaStringLesaoAfilamento = () => {
-    var string = "TendaoQuadriceps direito com LesaoAfilamento";
+    var string = "Ligamento colateral afilado e com alteração ecotextural, com aspecto sugestivo de lesão parcial.";
     if (LesaoAfilamentoCheckbox) {
       setLigamentoFibularLateral((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)
@@ -78,7 +78,7 @@ function LigColFibularLateralDireito() {
   }, [LesaoAfilamentoCheckbox])
 
   const criaStringLesaoEspessamento = () => {
-    var string = "TendaoQuadriceps direito com LesaoEspessamento";
+    var string = "Ligamento colateral espessado e com alteração ecotextural, com aspecto compatível com lesão parcial/estiramento.";
     if (LesaoEspessamentoCheckbox) {
       setLigamentoFibularLateral((arr) => [...arr, string]);
       setdisableLesaoAfilamento(true)

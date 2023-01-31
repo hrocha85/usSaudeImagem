@@ -48,7 +48,7 @@ function QuadrilDerrameArticularDireito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAusente = () => {
-    var string = "FALTA";
+    var string = "Ausência de derrame articular.";
     if (AusenteCheckbox) {
       setQuadrilDerrameArticularDireito((arr) => [...arr, string]);
       setDisablePresente(true)
@@ -63,10 +63,10 @@ function QuadrilDerrameArticularDireito() {
     removePresente();
     var string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
-      string = `FALTA ${Presente} com espassamento sinovial. `;
+      string = `Presença de derrame articula ${Presente} com espassamento sinovial. `;
       setQuadrilDerrameArticularDireito((arr) => [...arr, string]);
     } else if (Presente !== "") {
-      string = `FALTA ${Presente} `;
+      string = `Presença de derrame articula ${Presente} `;
       setQuadrilDerrameArticularDireito((arr) => [...arr, string]);
 
     }
@@ -74,7 +74,7 @@ function QuadrilDerrameArticularDireito() {
 
   const removePresente = () => {
     QuadrilDerrameArticularDireito.map((e) => {
-      if (e.includes("FALTA")) {
+      if (e.includes("Presença de derrame articula")) {
         var index = QuadrilDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {

@@ -4,6 +4,7 @@ import { Box, Button, Center, Checkbox, HStack, Input, Select } from "@chakra-ui
 import { useContext, useEffect, useState } from "react";
 import { isLineBreak } from "typescript";
 import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { Convert_Medida } from "../../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
 export default function IndividualizarRoturaExtensores({ numCalculo }) {
@@ -40,7 +41,7 @@ export default function IndividualizarRoturaExtensores({ numCalculo }) {
   const criaStringMultiplosCalculos = (tamanhoCalculoInput) => {
     removeMultiplosCalculos();
     if (tamanhoCalculoInput !== "") {
-      var medida = tamanhoCalculoInput / 10
+      const medida = new Convert_Medida(tamanhoCalculoInput).Convert_Medida()
       var string = `Descontinuidade completa das fibras do tendão extensor do ${numCalculo} dedo com intervalor de ${medida} cm `;
       setFraseRoturaExtensoresDireito((arr) => [...arr, string]);
     }

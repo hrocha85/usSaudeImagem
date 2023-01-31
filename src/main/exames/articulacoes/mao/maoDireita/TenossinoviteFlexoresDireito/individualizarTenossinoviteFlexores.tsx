@@ -39,10 +39,10 @@ export default function IndividualizarTenossinoviteFlexores({ numCalculo }) {
     removeMultiplosCalculos();
     var string;
     if (EspessamentoSinovialCheckbox && EspassamentoTendineoCheckbox) {
-      string = `Dedo ${numCalculo} com espessamento sinovial e tendineo`;
+      string = `Dedo ${numCalculo} com espessamento dos tendões e da bainha sinovial.`;
       setFraseTenossinoviteFlexoresDireito((arr) => [...arr, string]);
     } else if (EspessamentoSinovialCheckbox) {
-      string = `Dedo ${numCalculo} com espessamento sinovial`;
+      string = `Dedo ${numCalculo} com espessamento da bainha sinovial.`;
       setFraseTenossinoviteFlexoresDireito((arr) => [...arr, string]);
     }
   };

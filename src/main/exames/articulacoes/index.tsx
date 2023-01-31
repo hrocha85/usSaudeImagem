@@ -57,20 +57,7 @@ import TendaoPataGansoDireito from "./joelho/joelhoDireito/tendaoPataGansoDireit
 import TendaoPataGansoEsquerdo from "./joelho/joelhoEsquerdo/tendaoPataGansoEsquerdo";
 import MeniscosDireito from "./joelho/joelhoDireito/meniscosDireito";
 import MeniscosEsquerdo from "./joelho/joelhoEsquerdo/meniscosEsquerdo";
-import TornozeloLadoDireito from "./tornozelo/tornozeloDireito/ladoDireito";
-import TornozeloNormalDireito from "./tornozelo/tornozeloDireito/normal";
-import FibularesDireito from "./tornozelo/tornozeloDireito/fibularesDireito";
-import TibialPosteriorDireito from "./tornozelo/tornozeloDireito/tibialPosteriorDireito";
-import TornozeloLadoEsquerdo from "./tornozelo/tornozeloEsquerdo/ladoEsquerdo";
-import TornozeloNormalEsquerdo from "./tornozelo/tornozeloEsquerdo/normal";
-import FibularesEsquerdo from "./tornozelo/tornozeloEsquerdo/fibularesEsquerdo";
-import TibialPosteriorEsquerdo from "./tornozelo/tornozeloEsquerdo/tibialPosteriorEsquerdo";
-import TibialAnteriorDireito from "./tornozelo/tornozeloDireito/tibialAnteriorDireito";
-import TibialAnteriorEsquerdo from "./tornozelo/tornozeloEsquerdo/tibialAnteriorEsquerdo";
-import TendaoAquilesDireito from "./tornozelo/tornozeloDireito/tendaoAquilesDireito";
-import TendaoAquilesEsquerdo from "./tornozelo/tornozeloEsquerdo/tendaoAquilesEsquerdo";
-import ExtraDireito from "./tornozelo/tornozeloDireito/extraDireito";
-import ExtraEsquerdo from "./tornozelo/tornozeloEsquerdo/extraEsquerdo";
+
 import QuadrilLadoDireito from "./quadril/quadrilDireito/ladoDireito";
 import QuadrilNormalDireito from "./quadril/quadrilDireito/normal";
 import QuadrilDireito from "./quadril/quadrilDireito/quadrilDireito";
@@ -490,40 +477,6 @@ function Articulacoes() {
                         </Box>
                         <Box
                             textAlign="center" >
-                            <TornozeloLadoDireito />
-                        </Box>
-                        <Box
-                            mt='10px'
-                            textAlign="center" >
-                            <TornozeloNormalDireito />
-                        </Box>
-                        <Box
-                            mt='10px'
-                            textAlign="center" >
-                            <FibularesDireito />
-                        </Box>
-                        <Box
-                            mt='10px'
-                            textAlign="center" >
-                            <TibialPosteriorDireito />
-                        </Box>
-                        <Box
-                            mt='10px'
-                            textAlign="center" >
-                            <TibialAnteriorDireito />
-                        </Box>
-                        <Box
-                            mt='10px'
-                            textAlign="center" >
-                            <TendaoAquilesDireito />
-                        </Box>
-                        <Box
-                            mt='10px'
-                            textAlign="center" >
-                            <ExtraDireito />
-                        </Box>
-                        <Box
-                            textAlign="center" >
                             <QuadrilLadoDireito />
                         </Box>
                         <Box
@@ -906,40 +859,7 @@ function Articulacoes() {
                             textAlign="center" >
                             <CistosEsquerdo />
                         </Box>
-                        <Box
-                            textAlign="center" >
-                            <TornozeloLadoEsquerdo />
-                        </Box>
-                        <Box
-                            mt='10px'
-                            textAlign="center" >
-                            <TornozeloNormalEsquerdo />
-                        </Box>
-                        <Box
-                            mt='10px'
-                            textAlign="center" >
-                            <FibularesEsquerdo />
-                        </Box>
-                        <Box
-                            mt='10px'
-                            textAlign="center" >
-                            <TibialPosteriorEsquerdo />
-                        </Box>
-                        <Box
-                            mt='10px'
-                            textAlign="center" >
-                            <TibialAnteriorEsquerdo />
-                        </Box>
-                        <Box
-                            mt='10px'
-                            textAlign="center" >
-                            <TendaoAquilesEsquerdo />
-                        </Box>
-                        <Box
-                            mt='10px'
-                            textAlign="center" >
-                            <ExtraEsquerdo />
-                        </Box>
+
                         <Box
                             textAlign="center" >
                             <QuadrilLadoEsquerdo />
