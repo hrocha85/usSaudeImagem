@@ -26,6 +26,16 @@ export default function Derrame_Pleural_Esquerdo() {
         }
       }
     });
+    frasesTorax.map((e) => {
+      if (e.includes("Ausência de derrame ")) {
+        var index = frasesTorax.indexOf(e);
+
+        if (index > -1) {
+          frasesTorax.splice(index, 1);
+          setFrasesTorax((arr) => [...arr]);
+        }
+      }
+    });
   };
   const removeSelectStringMobilidade = () => {
     frasesTorax.map((e) => {
