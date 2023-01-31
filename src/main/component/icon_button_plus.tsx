@@ -96,12 +96,18 @@ const IconButtonPlus = (props) => {
     inputFile.current?.click();
   };
 
-  const onChangeFile = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    var file = event.target.files[0];
+  const onChangeFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files![0];
+    const reader = new FileReader();
 
-    setSelectedFile(file);
+    reader.onload = (event) => {
+      const result = event.target?.result;
+      if (typeof result === "string") {
+        setDefaultUserImage(result);
+      }
+    };
+
+    reader.readAsDataURL(file);
   };
 
   const ResetDados = () => {
@@ -132,13 +138,7 @@ const IconButtonPlus = (props) => {
     },
   });
 
-  useEffect(() => {
-    if (selectedFile) {
-      const objectURL = URL.createObjectURL(selectedFile);
-      setDefaultUserImage(objectURL);
-      
-    }
-  }, [selectedFile]);
+ 
 
   const handlePhone = (event) => {
     let input = event.target;

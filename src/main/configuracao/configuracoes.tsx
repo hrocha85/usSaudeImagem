@@ -305,11 +305,18 @@ const Configuracoes = () => {
     inputFile.current?.click();
   };
 
-  const onChangeFile = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    var file = event.target.files[0];
-    setSelectedFile(file);
+  const onChangeFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files![0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const result = event.target?.result;
+      if (typeof result === "string") {
+        setDefaultUserImage(result);
+      }
+    };
+
+    reader.readAsDataURL(file);
   };
 
   const TAGS = () => {
@@ -351,13 +358,6 @@ const Configuracoes = () => {
       </Center>
     );
   };
-
-  useEffect(() => {
-    if (selectedFile) {
-      const objectURL = URL.createObjectURL(selectedFile);
-      setDefaultUserImage(objectURL);
-    }
-  }, [selectedFile]);
 
   useEffect(() => {
     var item;
