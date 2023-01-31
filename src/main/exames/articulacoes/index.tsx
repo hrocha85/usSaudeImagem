@@ -185,7 +185,6 @@ function Articulacoes() {
         titulo="Articulações"
       />
 
-    return (
         <>
             <Box
                 display='flex'
