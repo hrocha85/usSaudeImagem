@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Tendao_Calcaneo_Esquerdo() {
+export default function Tendao_Calcaneo_Direito() {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
 
@@ -37,7 +37,7 @@ export default function Tendao_Calcaneo_Esquerdo() {
 
   const [medidaEntesofito, setMedidaEntesofito] = useState("");
 
-  const subExame = "Tendão Calcâneo Esquerdo";
+  const subExame = "Tendão Calcâneo Direito";
   const titulo_exame = "Articulações";
 
   const removeSelectString = () => {
