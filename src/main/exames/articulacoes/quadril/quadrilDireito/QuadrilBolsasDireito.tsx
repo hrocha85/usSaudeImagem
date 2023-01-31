@@ -15,7 +15,7 @@ function QuadrilBolsasDireito() {
 
     const [QuadrilBolsasDireito, setQuadrilBolsasDireito] = useState<any>([]);
 
-    const subExame = 'Bolsas direito'
+    const subExame = 'Quadril bolsas direito'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -38,56 +38,91 @@ function QuadrilBolsasDireito() {
 
 
     const [SemLiuqidoCheckbox, setSemLiuqidoCheckbox] = useState(false);
+
     const [LiquidoBolsaTrocantericaCheckbox, setLiquidoBolsaTrocantericaCheckbox] = useState(false);
     const [LiquidoBolsaSubgluteaMediaCheckbox, setLiquidoBolsaSubgluteaMediaCheckbox] = useState(false);
     const [LiquidoBolsaSubgluteaMinimaCheckbox, setLiquidoBolsaSubgluteaMinimaCheckbox] = useState(false);
     const [LiquidoBolsaIlipsoasCheckbox, setLiquidoBolsaIlipsoasCheckbox] = useState(false);
 
-    //Funcoes Padrao Micropolicistico - Inicio
-    const criaStringSemLiuqido = () => {
-        var string = "Punho direito com SemLiuqido";
-        SemLiuqidoCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
-    };
 
     useEffect(() => {
-        criaStringSemLiuqido()
+        var string = "Ausência de líquido nas bolsas trocantérica, subglútea média, subglútea mínima e do iliopsoas.";
+        SemLiuqidoCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
     }, [SemLiuqidoCheckbox])
 
     const criaStringLiquidoBolsaTrocanterica = () => {
-        var string = "Punho direito com SemLiuqido";
-        LiquidoBolsaTrocantericaCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
+        var string = "Presença de líquido de aspecto anecoico na bolsa: ";
+        removeLiquido()
+        if (LiquidoBolsaTrocantericaCheckbox || LiquidoBolsaSubgluteaMediaCheckbox || LiquidoBolsaSubgluteaMinimaCheckbox || LiquidoBolsaIlipsoasCheckbox) {
+            if (LiquidoBolsaTrocantericaCheckbox) {
+                string = `${string} trocantéria`
+            }
+            if (LiquidoBolsaSubgluteaMediaCheckbox) {
+                string = `${string} subglútea média`
+            }
+            if (LiquidoBolsaSubgluteaMinimaCheckbox) {
+                string = `${string} subglútea mínima`
+            }
+            if (LiquidoBolsaIlipsoasCheckbox) {
+                string = `${string} iliopsoas`
+            }
+            setQuadrilBolsasDireito((arr) => [...arr, string])
+        }
     };
 
     useEffect(() => {
         criaStringLiquidoBolsaTrocanterica()
-    }, [LiquidoBolsaTrocantericaCheckbox])
+    }, [LiquidoBolsaTrocantericaCheckbox, LiquidoBolsaSubgluteaMediaCheckbox, LiquidoBolsaSubgluteaMinimaCheckbox, LiquidoBolsaIlipsoasCheckbox])
 
-    const criaStringLiquidoBolsaSubgluteaMedia = () => {
-        var string = "Punho direito com SemLiuqido";
-        LiquidoBolsaSubgluteaMediaCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
+
+    const removeLiquido = () => {
+        QuadrilBolsasDireito.map((e) => {
+            if (e.includes("Presença de líquido de aspecto anecoico na bolsa:")) {
+                var index = QuadrilBolsasDireito.indexOf(e);
+
+                if (index > -1) {
+                    QuadrilBolsasDireito.splice(index, 1);
+                    setQuadrilBolsasDireito((arr) => [...arr]);
+                }
+            }
+        });
     };
 
-    useEffect(() => {
-        criaStringLiquidoBolsaSubgluteaMedia()
-    }, [LiquidoBolsaSubgluteaMediaCheckbox])
+    // const criaStringLiquidoBolsaTrocanterica = () => {
+    //     var string = "Punho direito com SemLiuqido";
+    //     LiquidoBolsaTrocantericaCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
+    // };
 
-    const criaStringFlexoresProfundos = () => {
-        var string = "Punho direito com SemLiuqido";
-        LiquidoBolsaSubgluteaMinimaCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
-    };
+    //     useEffect(() => {
+    //         criaStringLiquidoBolsaTrocanterica()
+    //     }, [LiquidoBolsaTrocantericaCheckbox])
 
-    useEffect(() => {
-        criaStringFlexoresProfundos()
-    }, [LiquidoBolsaSubgluteaMinimaCheckbox])
+    // const criaStringLiquidoBolsaSubgluteaMedia = () => {
+    //     var string = "Punho direito com SemLiuqido";
+    //     LiquidoBolsaSubgluteaMediaCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
+    // };
 
-    const criaStringLiquidoBolsaIlipsoas = () => {
-        var string = "Punho direito com SemLiuqido";
-        LiquidoBolsaIlipsoasCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
-    };
+    // useEffect(() => {
+    //     criaStringLiquidoBolsaSubgluteaMedia()
+    // }, [LiquidoBolsaSubgluteaMediaCheckbox])
 
-    useEffect(() => {
-        criaStringLiquidoBolsaIlipsoas()
-    }, [LiquidoBolsaIlipsoasCheckbox])
+    // const criaStringFlexoresProfundos = () => {
+    //     var string = "Punho direito com SemLiuqido";
+    //     LiquidoBolsaSubgluteaMinimaCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
+    // };
+
+    // useEffect(() => {
+    //     criaStringFlexoresProfundos()
+    // }, [LiquidoBolsaSubgluteaMinimaCheckbox])
+
+    // const criaStringLiquidoBolsaIlipsoas = () => {
+    //     var string = "Punho direito com SemLiuqido";
+    //     LiquidoBolsaIlipsoasCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
+    // };
+
+    // useEffect(() => {
+    //     criaStringLiquidoBolsaIlipsoas()
+    // }, [LiquidoBolsaIlipsoasCheckbox])
 
     const removeItemString = (value) => {
         var index = QuadrilBolsasDireito.indexOf(value);

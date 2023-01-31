@@ -76,7 +76,7 @@ function OssosDireita() {
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
-    var string = `Dedo 1 com descontinuidade das Ossos: `
+    var string = `Dedo 1 FALTA: `
     if (PrimeiroDedo) {
       if (FalangeProximal) {
         string = `${string} falange Proximal`
@@ -93,7 +93,7 @@ function OssosDireita() {
 
   const removeMultiplosCalculos = () => {
     OssosMaoDireita.map((e) => {
-      if (e.includes(`Dedo 1 com descontinuidade das Ossos: `)) {
+      if (e.includes(`Dedo 1 FALTA: `)) {
         var index = OssosMaoDireita.indexOf(e);
 
         if (index > -1) {

@@ -6,6 +6,7 @@ import { LaudosContext } from "../../../../../context/LuadosContext";
 import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 
 function TenComumExtensoresAntebracoDireito() {
     const altura = "100%";
@@ -54,10 +55,14 @@ function TenComumExtensoresAntebracoDireito() {
     const [RoturaParcialCheckbox, setRoturaParcialCheckbox] = useState(false);
     const [PequenasCalcificacoesCheckbox, setPequenasCalcificacoesCheckbox] = useState(false);
 
-    const criaStringRoturaParcial = (medida1, medida2, medida3) => {
+    const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm) => {
         removeRoturaParcial();
-        if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
-            var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
+        var medida1 = new Convert_Medida(medida1cm).Convert_Medida();
+        var medida2 = new Convert_Medida(medida2cm).Convert_Medida();
+        var medida3 = new Convert_Medida(medida3cm).Convert_Medida();
+
+        if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "") {
+            var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} cm`;
             setFraseTenComumExtensoresAntebracoDireito((arr) => [...arr, string]);
         }
     };

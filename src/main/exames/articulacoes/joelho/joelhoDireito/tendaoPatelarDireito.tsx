@@ -81,7 +81,7 @@ function TendaoPatelarDireito() {
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "FALTA";
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox ? setTendaoPatelarDireito((arr) => [...arr, string]) : removeItemString(string);
   };
 
@@ -90,7 +90,7 @@ function TendaoPatelarDireito() {
   }, [AspectoNormalCheckbox])
 
   const criaStringAspectoPosCirurgico = () => {
-    var string = "FALTA";
+    var string = "Tendão patelar espessado e com alteração ecotextural (aspecto pós cirúrgico).";
     AspectoPosCirurgicoCheckbox ? setTendaoPatelarDireito((arr) => [...arr, string]) : removeItemString(string);
   };
 
@@ -99,7 +99,7 @@ function TendaoPatelarDireito() {
   }, [AspectoPosCirurgicoCheckbox])
 
   const criaStringTendinopatiaSemRotura = () => {
-    var string = "FALTA";
+    var string = "espessado, com alteração ecotextural, sem evidências de rotura.";
     TendinopatiaSemRoturaCheckbox ? setTendaoPatelarDireito((arr) => [...arr, string]) : removeItemString(string);
 
   };

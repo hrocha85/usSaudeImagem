@@ -13,7 +13,7 @@ function LigColTibialMedialDireito() {
 
   const [LigamentoTibialMedial, setLigamentoTibialMedial] = useState<any>([]);
 
-  const subExame = `Derrame articular no joelho direito`
+  const subExame = `Ligamento colateral tibial/medial joelho direito`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -61,7 +61,7 @@ function LigColTibialMedialDireito() {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
   const criaStringLesaoAfilamento = () => {
-    var string = "TendaoQuadriceps direito com LesaoAfilamento";
+    var string = "Ligamento colateral afilado e com alteração ecotextural, com aspecto sugestivo de lesão parcial.";
     if (LesaoAfilamentoCheckbox) {
       setLigamentoTibialMedial((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)
@@ -78,7 +78,7 @@ function LigColTibialMedialDireito() {
   }, [LesaoAfilamentoCheckbox])
 
   const criaStringLesaoEspessamento = () => {
-    var string = "TendaoQuadriceps direito com LesaoEspessamento";
+    var string = "Ligamento colateral espessado e com alteração ecotextural, com aspecto compatível com lesão parcial/estiramento.";
     if (LesaoEspessamentoCheckbox) {
       setLigamentoTibialMedial((arr) => [...arr, string]);
       setdisableLesaoAfilamento(true)

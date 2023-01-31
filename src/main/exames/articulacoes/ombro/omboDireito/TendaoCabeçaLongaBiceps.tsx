@@ -211,7 +211,7 @@ function TendaoCabeçaLongaBicepsDireito() {
     removeFraseLuxacao();
     if (LuxacaoCheckbox) {
       if (select !== '') {
-        string = `Luxação ${select}`
+        string = `Tendão da cabeça longa do bíceps não caracterizado no sulco bicipital, apresentando-se luxado ${select}`
         setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]);
       }
     } else {
@@ -220,7 +220,7 @@ function TendaoCabeçaLongaBicepsDireito() {
   }
   const removeFraseLuxacao = () => {
     fraseTendaoCabecaLongaBicepsDireito.map((e) => {
-      if (e.includes("Luxação")) {
+      if (e.includes("Tendão da cabeça longa do bíceps não caracterizado no sulco bicipital, apresentando-se luxado")) {
         var index = fraseTendaoCabecaLongaBicepsDireito.indexOf(e);
 
         if (index > -1) {

@@ -18,7 +18,7 @@ function ArticulacaoAcromioclavicularDireito() {
 
   const [fraseBolsaSubacromialSubdeltoidea, setFraseBolsaSubacromialSubdeltoidea] = useState<any>([]);
 
-  const subExame = 'Bolsa Subacromial-subdeltoidea'
+  const subExame = 'Articulação acromioclavicular ombro direito'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -52,7 +52,7 @@ function ArticulacaoAcromioclavicularDireito() {
 
   const criaStringOsteofitos = () => {
     removeOsteofitos();
-    var string = 'AQUI '
+    var string = 'Presença de osteófitos marginais na articulação acromioclavicular '
     if (OsteofitosCheckbox) {
       if (EspessamentoCapsulosinovialCheckbox) {
         string = `${string} com espessamento Capsulosinovial`;
@@ -68,7 +68,7 @@ function ArticulacaoAcromioclavicularDireito() {
 
   const removeOsteofitos = () => {
     fraseBolsaSubacromialSubdeltoidea.map((e) => {
-      if (e.includes("AQUI ")) {
+      if (e.includes("Presença de osteófitos marginais na articulação acromioclavicular")) {
         var index = fraseBolsaSubacromialSubdeltoidea.indexOf(e);
 
         if (index > -1) {
@@ -80,12 +80,9 @@ function ArticulacaoAcromioclavicularDireito() {
   };
 
   const criaStringNormal = () => {
-    var string = "FALTA";
-    if (NormalCheckbox) {
-      setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "Articulação acromioclavicular de aspecto preservado.";
+    NormalCheckbox ? setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]) : removeItemString(string);
+
   };
 
   useEffect(() => {

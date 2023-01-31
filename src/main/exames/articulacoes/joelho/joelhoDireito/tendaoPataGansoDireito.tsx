@@ -48,7 +48,7 @@ function TendaoPataGansoDireito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAspectoNormal = () => {
-    var string = "TendaoQuadriceps direito com AspectoNormal";
+    var string = 'Inserção distal dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso) com aspecto conservado.';
     if (AspectoNormalCheckbox) {
       setTendaoPataGansoDireito((arr) => [...arr, string]);
       setdisableLiquidoBolsaSinovial(true)
@@ -63,7 +63,7 @@ function TendaoPataGansoDireito() {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
   const criaStringLTendinopatia = () => {
-    var string = "TendaoQuadriceps direito com LTendinopatia";
+    var string = 'Espessamento e alteração ecotextural dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso) adjacente à sua inserção distal, compatível com tendinopatia.';
     if (TendinopatiaCheckbox) {
       setTendaoPataGansoDireito((arr) => [...arr, string]);
       setdisableLiquidoBolsaSinovial(true)
@@ -79,7 +79,7 @@ function TendaoPataGansoDireito() {
     criaStringLTendinopatia()
   }, [TendinopatiaCheckbox])
   const criaStringLiquidoBolsaSinovial = () => {
-    var string = "TendaoQuadriceps direito com LiquidoBolsaSinovial";
+    var string = 'Presença de líquido na topografia da bolsa sinovial dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso), compatível com bursite';
     if (LiquidoBolsaSinovialCheckbox) {
       setTendaoPataGansoDireito((arr) => [...arr, string]);
       setdisableTendinopatia(true)

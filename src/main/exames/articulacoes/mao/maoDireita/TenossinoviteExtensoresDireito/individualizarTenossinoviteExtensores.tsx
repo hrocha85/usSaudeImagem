@@ -6,11 +6,11 @@ import { isLineBreak } from "typescript";
 import { LaudosContext } from "../../../../../../context/LuadosContext";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
-export default function IndividualizarRoturaFlexores({ numCalculo }) {
+export default function IndividualizarTenossinoviteExtensores({ numCalculo }) {
 
   const [TenossinoviteExtensoresDireito, setTenossinoviteExtensoresDireito] = useState<any>([]);
 
-  const subExame = `Rotura Extensores ${numCalculo} Direito`
+  const subExame = `Tenossinovite Extensores ${numCalculo} Direito`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -41,10 +41,10 @@ export default function IndividualizarRoturaFlexores({ numCalculo }) {
     removeMultiplosCalculos();
     var string;
     if (EspessamentoSinovialCheckbox && EspassamentoTendineoCheckbox) {
-      string = `Dedo ${numCalculo} com espessamento sinovial e tendineo`;
+      string = `Dedo ${numCalculo} com espessamento dos tendões e da bainha sinovial.`;
       setTenossinoviteExtensoresDireito((arr) => [...arr, string]);
     } else if (EspessamentoSinovialCheckbox) {
-      string = `Dedo ${numCalculo} com espessamento sinovial`;
+      string = `Dedo ${numCalculo} com espessamento da bainha sinovial.`;
       setTenossinoviteExtensoresDireito((arr) => [...arr, string]);
 
     }
