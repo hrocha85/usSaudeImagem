@@ -4,7 +4,7 @@ const RectangularCard = ({ titulo, altura, item }) => {
   return (
     <Flex w="100%" h="100%">
       <Box
-
+        paddingBottom="30px"
         bg="#FAFAFA"
         w="100%"
         h="100%"
@@ -12,6 +12,7 @@ const RectangularCard = ({ titulo, altura, item }) => {
         color="white"
         borderRadius="10.85px"
         boxShadow="dark-lg"
+        marginBottom="40px"
       >
         <Text
           color="black"
