@@ -39,8 +39,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { IconContext } from "react-icons";
-import { AiOutlineClear } from "react-icons/ai";
-import { AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineClear, AiOutlineEdit } from "react-icons/ai";
 import { BiCamera } from "react-icons/bi";
 import { BsTrash } from "react-icons/bs";
 import { FaRegEdit, FaRegFolderOpen } from "react-icons/fa";
@@ -98,13 +97,15 @@ const Medicos = ({ medico, id }) => {
 
   const [AssinaturaUpdate, setAssinaturaUpdate] = useState(false);
 
+  const [FotoUpdate, setFotoUpdate] = useState(false);
+
   const [assinatura, setAssinatura] = useState(medico.assinatura);
 
   const refNomeMedico = useRef<HTMLInputElement | null>(null);
 
   const refCRM = useRef<HTMLInputElement | null>(null);
 
-  const [selectedFile, setSelectedFile] = useState();
+  const [selectedFile, setSelectedFile] = useState<any>();
 
   const [defaultUserImage, setDefaultUserImage] = useState(medico.foto);
 
@@ -122,11 +123,19 @@ const Medicos = ({ medico, id }) => {
     inputFile.current?.click();
   };
 
-  const onChangeFile = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    var file = event.target.files[0];
-    setSelectedFile(file);
+  const onChangeFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files![0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const result = event.target?.result;
+      if (typeof result === "string") {
+        setDefaultUserImage(result);
+        setFotoUpdate(true);
+      }
+    };
+
+    reader.readAsDataURL(file);
   };
 
   const UpdateLocalStorage = (nomeUpdate, CRMupdate, clinicaUpdate) => {
@@ -172,6 +181,14 @@ const Medicos = ({ medico, id }) => {
       setAssinatura(padRef.current?.getCanvas().toDataURL("image/png")!);
       setAssinaturaUpdate(false);
     }
+    if (FotoUpdate) {
+      var array = JSON.parse(localStorage.getItem("medicos")!);
+      var item = array[id];
+      lista_medicos[id].foto = defaultUserImage;
+      item.foto = defaultUserImage;
+      localStorage.setItem("medicos", JSON.stringify(array));
+      setFotoUpdate(false);
+    }
   };
 
   const POPExcluirMedico = () => {
@@ -184,6 +201,7 @@ const Medicos = ({ medico, id }) => {
       </List>
     );
   };
+
   const POPEditarMedico = () => {
     return (
       <List>
@@ -296,13 +314,6 @@ const Medicos = ({ medico, id }) => {
   }, [localStorage.getItem("minhasClinicas")!]);
 
   useEffect(() => {
-    if (selectedFile) {
-      const objectURL = URL.createObjectURL(selectedFile);
-      setDefaultUserImage(objectURL);
-    }
-  }, [selectedFile]);
-
-  useEffect(() => {
     RenderFieldDefault();
   }, [ClinicasMedico]);
 
@@ -315,6 +326,7 @@ const Medicos = ({ medico, id }) => {
     ref: refNomeMedico,
     handler: () => setInputNomeMedico(false),
   });
+
   useOutsideClick({
     ref: refCRM,
     handler: () => {
@@ -580,7 +592,11 @@ const Medicos = ({ medico, id }) => {
                         Clínicas:
                       </Text>
                       <Select
-                        placeholder={listaClinicas.length > 0 ? 'Clínicas Cadastradas' : 'Nenhuma Clínica Cadastrada'}
+                        placeholder={
+                          listaClinicas.length > 0
+                            ? "Clínicas Cadastradas"
+                            : "Nenhuma Clínica Cadastrada"
+                        }
                         width="220px"
                         variant="filled"
                         isDisabled={enableSelectedClinica}

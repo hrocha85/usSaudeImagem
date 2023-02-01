@@ -73,6 +73,8 @@ const FieldDefaultIcon = ({
 
   const [updateEndereco, setUpdateEndereco] = useState<string | null>(null);
 
+  const [FotoUpdate, setFotoUpdate] = useState(false);
+
   const [endereco, setEndereco] = useState(clinica.endereco);
 
   const [cep, setCep] = useState(clinica.cep);
@@ -101,11 +103,19 @@ const FieldDefaultIcon = ({
     inputFile.current?.click();
   };
 
-  const onChangeFile = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    var file = event.target.files[0];
-    setSelectedFile(file);
+  const onChangeFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files![0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const result = event.target?.result;
+      if (typeof result === "string") {
+        setDefaultUserImage(result);
+        setFotoUpdate(true);
+      }
+    };
+
+    reader.readAsDataURL(file);
   };
 
   const ResetStates = () => {
@@ -162,6 +172,14 @@ const FieldDefaultIcon = ({
       setEndereco(enderecoUpdate);
       setUpdateEndereco(null);
     }
+    if (FotoUpdate) {
+      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      var item = array[id];
+      minhasClinicas[id].foto = defaultUserImage;
+      item.foto = defaultUserImage;
+      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      setFotoUpdate(false);
+    }
   };
 
   useEffect(() => {
@@ -210,20 +228,19 @@ const FieldDefaultIcon = ({
     window.location.reload();
   };
 
-
   const handlePhone = (event) => {
-    let input = event.target
-    input.value = phoneMask(input.value)
-  }
+    let input = event.target;
+    input.value = phoneMask(input.value);
+  };
 
   const phoneMask = (value) => {
-    if (!value) return ""
-    value = value.replace(/\D/g, '')
-    value = value.replace(/(\d{2})(\d)/, "($1) $2")
-    value = value.replace(/(\d)(\d{4})$/, "$1-$2")
-    return value
-  }
-  
+    if (!value) return "";
+    value = value.replace(/\D/g, "");
+    value = value.replace(/(\d{2})(\d)/, "($1) $2");
+    value = value.replace(/(\d)(\d{4})$/, "$1-$2");
+    return value;
+  };
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -293,7 +310,7 @@ const FieldDefaultIcon = ({
                 _placeholder={{ fontWeight: "bold", color: "black" }}
                 fontWeight="bold"
                 variant={"filled"}
-                onClick={() => { }}
+                onClick={() => {}}
                 onChange={(e) => {
                   setNomeClinica(e.target.value);
                   setUpdateNome(e.target.value);
@@ -314,7 +331,7 @@ const FieldDefaultIcon = ({
                 textColor={"black"}
                 _placeholder={{ fontWeight: "bold", color: "black" }}
                 variant={"unstyled"}
-                onClick={() => { }}
+                onClick={() => {}}
                 isDisabled={disableNome}
               ></Input>
             )}

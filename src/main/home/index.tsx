@@ -62,13 +62,12 @@ function Home() {
     return (
       <Box
         w="100%"
-        h="100vh  "
+        h="100vh"
         backgroundImage={BGImage}
         backgroundSize="cover"
         backgroundClip="padding-box"
         backgroundRepeat="no-repeat"
-        paddingBottom="10px"
-        paddingTop="5%"
+        paddingTop="2%"
         alignItems="center"
       >
         <Button position="absolute" right="1" variant="ghost">
@@ -81,63 +80,62 @@ function Home() {
             />
           </Link>
         </Button>
-        <Box>
-          <Center>
-            <Stack alignItems="center" mt="5px" mb="5px">
-              <CardListaMedicos altura="300px" />
-            </Stack>
-          </Center>
 
-          <Center marginTop="3%">
-            <Grid>
-              <LayoutExame item={<ItemExamesHome />} />
-            </Grid>
-          </Center>
-          <Center marginTop="3%">
-            <HStack
-              borderWidth="2px"
-              padding="20px"
-              borderRadius="md"
-              borderColor="grey"
-              boxShadow="xl"
-            >
-              <Text fontWeight="semibold" fontSize="xl">
-                Médico:
-              </Text>
-              <Text fontSize="xl">{medico.nome}</Text>
-              <Text fontWeight="semibold" fontSize="xl">
-                CRM:
-              </Text>
-              <Text fontSize="xl">{medico.crm}</Text>
-              <Text fontWeight="semibold" fontSize="xl">
-                Clínica:
-              </Text>
-              <Text fontSize="xl">{clinica.nomeClinica}</Text>
-            </HStack>
-          </Center>
-          <Center marginTop="25px">
-            <Tooltip
-              label="Voltar para Login"
-              backgroundColor="white"
-              placement="bottom"
-              hasArrow
-              arrowSize={15}
-              textColor="black"
+        <Center>
+          <Stack alignItems="center" mt="5px" mb="5px">
+            <CardListaMedicos altura="300px" />
+          </Stack>
+        </Center>
+
+        <Center marginTop="3%">
+          <Grid>
+            <LayoutExame item={<ItemExamesHome />} />
+          </Grid>
+        </Center>
+        <Center marginTop="3%">
+          <HStack
+            borderWidth="2px"
+            padding="20px"
+            borderRadius="md"
+            borderColor="grey"
+            boxShadow="xl"
+          >
+            <Text fontWeight="semibold" fontSize="xl">
+              Médico:
+            </Text>
+            <Text fontSize="xl">{medico.nome}</Text>
+            <Text fontWeight="semibold" fontSize="xl">
+              CRM:
+            </Text>
+            <Text fontSize="xl">{medico.crm}</Text>
+            <Text fontWeight="semibold" fontSize="xl">
+              Clínica:
+            </Text>
+            <Text fontSize="xl">{clinica.nomeClinica}</Text>
+          </HStack>
+        </Center>
+        <Center marginTop="20px" marginBottom="3%">
+          <Tooltip
+            label="Voltar para Login"
+            backgroundColor="white"
+            placement="bottom"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+            fontSize="20px"
+            margin="20px"
+            textAlign="center"
+          >
+            <Button
+              variant="solid"
               fontSize="20px"
-              margin="20px"
-              textAlign="center"
+              onClick={() => Logout()}
+              colorScheme="blue"
             >
-              <Button
-                variant="solid"
-                fontSize="20px"
-                onClick={() => Logout()}
-                colorScheme="blue"
-              >
-                Sair
-              </Button>
-            </Tooltip>
-          </Center>
-        </Box>
+              Sair
+            </Button>
+          </Tooltip>
+        </Center>
       </Box>
     );
   }

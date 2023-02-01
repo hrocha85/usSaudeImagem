@@ -589,7 +589,13 @@ function Exames() {
           </Stack>
         </Center>
 
-        <Box className="zoom" boxShadow="xl" ref={ref}  height='80vh' marginBottom='30vh'>
+        <Box
+          className="zoom"
+          boxShadow="xl"
+          ref={ref}
+          height="80vh"
+          marginBottom="30vh"
+        >
           <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
             <Box>
               <Image
@@ -597,6 +603,8 @@ function Exames() {
                 alt="Imagem Clínica"
                 boxSize="130px"
                 objectFit="scale-down"
+                borderRadius="full"
+                padding="5px"
               />
             </Box>
 
@@ -772,3 +780,5 @@ function Exames() {
 }
 
 export default Exames;
+
+//TODO quando a foto da clinica é alterada nao muda na clinica do user, verificar
