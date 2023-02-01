@@ -2,6 +2,7 @@ import { AddIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
+  Center,
   CloseButton,
   Flex,
   Grid,
@@ -14,6 +15,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Spinner,
   Stack,
   Tab,
   TabList,
@@ -24,7 +26,7 @@ import {
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TabExamesContext } from "../../context/TabExameContext";
 import AbdomemTotal from "../exames/abdomemTotal/";
 import AbdomemSuperior from "../exames/abdomenSuperior";
@@ -62,6 +64,7 @@ export default function Box_Default_With_Sidebar() {
   const [tabIndex, setTabIndex] = useState(0);
   const [currentExame, setCurrentExame] = useState<any>();
   const [currentHandleSlider, setCurrentHandleSlider] = useState<any>();
+  const [isMounted, setIsMounted] = useState(false);
 
   const exames = [
     {
@@ -243,213 +246,243 @@ export default function Box_Default_With_Sidebar() {
     localStorage.setItem("format_laudo", JSON.stringify(array));
   };
 
-  return (
-    <>
-      <Box
-        w="100%"
-        h="100%"
-        verticalAlign="center"
-        alignSelf="center"
-        alignItems="center"
-        backgroundImage={BGImage}
-        backgroundSize="cover"
-        backgroundRepeat="no-repeat"
-        paddingBottom="50px"
-      >
-        <Sidebar />
-        <Exames></Exames>
-        <Tabs
-          size="lg"
-          variant="soft-rounded"
-          index={tabIndex}
-          onChange={handleTabsChange}
+  useEffect(() => {
+    setIsMounted(true);
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
+
+  if (!isMounted) {
+    return (
+      <Center>
+        <Box marginTop="20%">
+          <Stack>
+            <Text textAlign="center" fontSize="xx-large">
+              CARREGANDO EXAME
+            </Text>
+            <Center>
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+              />
+            </Center>
+          </Stack>
+        </Box>
+      </Center>
+    );
+  } else {
+    return (
+      <>
+        <Box
+          w="100%"
+          h="100%"
+          verticalAlign="center"
+          alignSelf="center"
+          alignItems="center"
+          backgroundImage={BGImage}
+          backgroundSize="cover"
+          backgroundRepeat="no-repeat"
+          paddingBottom="50px"
         >
-          <TabList marginStart="20px">
-            <Flex direction="row" flexWrap="wrap" gap="5px" maxW="65%">
-              {tabExames.map((e, key) => {
-                if (e.nomeExame != undefined) {
-                  return (
-                    <Stack direction="row" key={key}>
-                      <Tab
-                        whiteSpace="nowrap"
-                        key={key}
-                        textColor="black"
-                        _selected={{ color: "white", bg: "blue.500" }}
-                      >
-                        {e.nomeExame}
-                        <Tooltip
-                          label={`Fechar ${e.nomeExame}`}
-                          backgroundColor="white"
-                          placement="top"
-                          hasArrow
-                          arrowSize={15}
+          <Sidebar />
+          <Exames></Exames>
+          <Tabs
+            size="lg"
+            variant="soft-rounded"
+            index={tabIndex}
+            onChange={handleTabsChange}
+          >
+            <TabList marginStart="20px">
+              <Flex direction="row" flexWrap="wrap" gap="5px" maxW="65%">
+                {tabExames.map((e, key) => {
+                  if (e.nomeExame != undefined) {
+                    return (
+                      <Stack direction="row" key={key}>
+                        <Tab
+                          whiteSpace="nowrap"
+                          key={key}
                           textColor="black"
-                          fontSize="20px"
-                          margin="20px"
-                          textAlign="center"
+                          _selected={{ color: "white", bg: "blue.500" }}
                         >
-                          <CloseButton
-                            onClick={() => {
-                              setCurrentExame(e);
-                              setCurrentHandleSlider(key);
-                              onOpenRemoveExameModal();
-                            }}
-                          />
-                        </Tooltip>
-                      </Tab>
-                    </Stack>
+                          {e.nomeExame}
+                          <Tooltip
+                            label={`Fechar ${e.nomeExame}`}
+                            backgroundColor="white"
+                            placement="top"
+                            hasArrow
+                            arrowSize={15}
+                            textColor="black"
+                            fontSize="20px"
+                            margin="20px"
+                            textAlign="center"
+                          >
+                            <CloseButton
+                              onClick={() => {
+                                setCurrentExame(e);
+                                setCurrentHandleSlider(key);
+                                onOpenRemoveExameModal();
+                              }}
+                            />
+                          </Tooltip>
+                        </Tab>
+                      </Stack>
+                    );
+                  }
+                })}
+                <Tooltip
+                  label="Adicionar Exame"
+                  backgroundColor="white"
+                  placement="top"
+                  hasArrow
+                  arrowSize={15}
+                  textColor="black"
+                  fontSize="20px"
+                  margin="20px"
+                  textAlign="center"
+                  alignContent="flex-end"
+                >
+                  <IconButton
+                    size="sm"
+                    aria-label="Check"
+                    icon={<AddIcon />}
+                    onClick={() => {
+                      onOpen();
+                    }}
+                  />
+                </Tooltip>
+              </Flex>
+            </TabList>
+            <TabPanels>
+              {tabExames.map((e, key) => {
+                if (e.key > 0) {
+                  return (
+                    <TabPanel key={key}>
+                      {
+                        {
+                          1: <AbdomemTotal />,
+                          2: <DopplerTransvaginal />,
+                          3: <Mamas />,
+                          4: <Doppler_Arterial_MMII />,
+                          5: <AbdomemSuperior />,
+                          6: <Transvaginal />,
+                          7: <DopplerRenal />,
+                          8: <DopplerVenosoMMII />,
+                          9: <Tireoide />,
+                          10: <DopplerCarotidas />,
+                          12: <Doppler_Arterial_MMII />,
+                          13: <Tireoide2 />,
+                          14: <DopplerCarotidas2 />,
+                          15: <RinseViasUrinarias />,
+                          17: <DopplerTireoide />,
+                          18: <PartesMoles />,
+                          19: <Testiculo />,
+                          20: <DopplerBolsaTesticular />,
+                          21: <DopplerTireoide2 />,
+                          22: <Pelvico />,
+                          23: <Prostata />,
+                          24: <Articulacoes />,
+                        }[e.key]
+                      }
+                    </TabPanel>
                   );
                 }
               })}
-              <Tooltip
-                label="Adicionar Exame"
-                backgroundColor="white"
-                placement="top"
-                hasArrow
-                arrowSize={15}
-                textColor="black"
-                fontSize="20px"
-                margin="20px"
-                textAlign="center"
-                alignContent="flex-end"
-              >
-                <IconButton
-                  size="sm"
-                  aria-label="Check"
-                  icon={<AddIcon />}
-                  onClick={() => {
-                    onOpen();
-                  }}
-                />
-              </Tooltip>
-            </Flex>
-          </TabList>
-          <TabPanels>
-            {tabExames.map((e, key) => {
-              if (e.key > 0) {
-                return (
-                  <TabPanel key={key}>
-                    {
-                      {
-                        1: <AbdomemTotal />,
-                        2: <DopplerTransvaginal />,
-                        3: <Mamas />,
-                        4: <Doppler_Arterial_MMII />,
-                        5: <AbdomemSuperior />,
-                        6: <Transvaginal />,
-                        7: <DopplerRenal />,
-                        8: <DopplerVenosoMMII />,
-                        9: <Tireoide />,
-                        10: <DopplerCarotidas />,
-                        12: <Doppler_Arterial_MMII />,
-                        13: <Tireoide2 />,
-                        14: <DopplerCarotidas2 />,
-                        15: <RinseViasUrinarias />,
-                        17: <DopplerTireoide />,
-                        18: <PartesMoles />,
-                        19: <Testiculo />,
-                        20: <DopplerBolsaTesticular />,
-                        21: <DopplerTireoide2 />,
-                        22: <Pelvico />,
-                        23: <Prostata />,
-                        24: <Articulacoes />,
-                      }[e.key]
-                    }
-                  </TabPanel>
-                );
-              }
-            })}
-          </TabPanels>
-          )
-        </Tabs>
+            </TabPanels>
+            )
+          </Tabs>
 
-        {/** Modal Add Exame */}
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent minWidth="50%">
-            <ModalHeader margin="5px"></ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <Grid
-                templateColumns="repeat(5, 1fr)"
-                gap={2}
-                marginBottom="20px"
-              >
-                {exames.map((exame, key) => (
-                  <GridItem
-                    key={key}
-                    borderRadius="4px"
-                    bg="#FEFFFE"
-                    borderStyle="solid"
-                    borderWidth="2px"
-                    borderStartWidth="4px"
-                    borderStartColor="#47AFFC"
-                    _hover={{ borderColor: "#47AEFC" }}
-                    onClick={() => {
-                      setTabExames((tabExames) => [...tabExames, exame]);
-                      onClose();
-                      AddNewExame(exame.nomeExame);
-                    }}
-                  >
-                    <Text
-                      textColor="black"
-                      textStyle="solid"
-                      fontSize="17px"
-                      fontWeight="medium"
-                      verticalAlign="center"
-                      paddingTop="4.5"
-                      paddingStart="12px"
+          {/** Modal Add Exame */}
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent minWidth="50%">
+              <ModalHeader margin="5px"></ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <Grid
+                  templateColumns="repeat(5, 1fr)"
+                  gap={2}
+                  marginBottom="20px"
+                >
+                  {exames.map((exame, key) => (
+                    <GridItem
+                      key={key}
+                      borderRadius="4px"
+                      bg="#FEFFFE"
+                      borderStyle="solid"
+                      borderWidth="2px"
+                      borderStartWidth="4px"
+                      borderStartColor="#47AFFC"
+                      _hover={{ borderColor: "#47AEFC" }}
+                      onClick={() => {
+                        setTabExames((tabExames) => [...tabExames, exame]);
+                        onClose();
+                        AddNewExame(exame.nomeExame);
+                      }}
                     >
-                      {exame.nomeExame}
-                    </Text>
-                  </GridItem>
-                ))}
-              </Grid>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
+                      <Text
+                        textColor="black"
+                        textStyle="solid"
+                        fontSize="17px"
+                        fontWeight="medium"
+                        verticalAlign="center"
+                        paddingTop="4.5"
+                        paddingStart="12px"
+                      >
+                        {exame.nomeExame}
+                      </Text>
+                    </GridItem>
+                  ))}
+                </Grid>
+              </ModalBody>
+            </ModalContent>
+          </Modal>
 
-        {/*Modal Sair Exame */}
-        <Modal
-          isOpen={isOpenRemoveExameModal}
-          onClose={onCloseRemoveExameModal}
-        >
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>
-              {Object.keys(tabExames).length == 2
-                ? "Sair de exames ?"
-                : "Deseja fechar o exame ?"}
-            </ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <Text fontSize="20px">
+          {/*Modal Sair Exame */}
+          <Modal
+            isOpen={isOpenRemoveExameModal}
+            onClose={onCloseRemoveExameModal}
+          >
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>
                 {Object.keys(tabExames).length == 2
-                  ? "Deseja realmente sair ?"
-                  : "Fechar exame ?"}
-              </Text>
-            </ModalBody>
+                  ? "Sair de exames ?"
+                  : "Deseja fechar o exame ?"}
+              </ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <Text fontSize="20px">
+                  {Object.keys(tabExames).length == 2
+                    ? "Deseja realmente sair ?"
+                    : "Fechar exame ?"}
+                </Text>
+              </ModalBody>
 
-            <ModalFooter>
-              <Button
-                colorScheme="blue"
-                mr={3}
-                onClick={onCloseRemoveExameModal}
-                fontSize="20px"
-              >
-                Cancelar
-              </Button>
-              <Button
-                variant="ghost"
-                fontSize="20px"
-                onClick={() => RemoveTabExame()}
-              >
-                {Object.keys(tabExames).length == 2 ? "Sair" : "Fechar"}
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </Box>
-    </>
-  );
+              <ModalFooter>
+                <Button
+                  colorScheme="blue"
+                  mr={3}
+                  onClick={onCloseRemoveExameModal}
+                  fontSize="20px"
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  variant="ghost"
+                  fontSize="20px"
+                  onClick={() => RemoveTabExame()}
+                >
+                  {Object.keys(tabExames).length == 2 ? "Sair" : "Fechar"}
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </Box>
+      </>
+    );
+  }
 }
