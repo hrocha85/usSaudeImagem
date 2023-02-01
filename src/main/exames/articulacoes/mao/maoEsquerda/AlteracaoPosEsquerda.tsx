@@ -13,7 +13,7 @@ function AlteracaoPosCirurgiaEsquerdo() {
 
   const [AlteracaoPosCirurgiaEsquerdo, setAlteracaoPosCirurgiaEsquerdo] = useState<any>([]);
 
-  const subExame = `Alteração pós cirúrgia na mão direita`
+  const subExame = `Alteração pós cirúrgia na mão esquerda`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -45,13 +45,10 @@ function AlteracaoPosCirurgiaEsquerdo() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringArtefatoCirurgico = () => {
-    var string = "FALTA";
-    if (ArtefatoCirurgicoCheckbox) {
-      setAlteracaoPosCirurgiaEsquerdo((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "Imagem linear hiperecogênica no metacarpo compatível com artefato cirúrgico (fixação), sem alterações significativas das estruturas adjacentes.";
+    ArtefatoCirurgicoCheckbox ? setAlteracaoPosCirurgiaEsquerdo((arr) => [...arr, string]) : removeItemString(string);
   };
+
   useEffect(() => {
     criaStringArtefatoCirurgico()
   }, [ArtefatoCirurgicoCheckbox])
@@ -60,14 +57,14 @@ function AlteracaoPosCirurgiaEsquerdo() {
     removeArtefatoCirurgicoTransfixando();
     var string;
     if (ArtefatoCirurgicoTransfixando !== "") {
-      string = `FALTA ${ArtefatoCirurgicoTransfixando}. `;
+      string = `Imagem linear hiperecogênica no metacarpo compatível com artefato cirúrgico (fixação), transfixando o tendão extensor do ${ArtefatoCirurgicoTransfixando} dedo.`;
       setAlteracaoPosCirurgiaEsquerdo((arr) => [...arr, string]);
     }
   };
 
   const removeArtefatoCirurgicoTransfixando = () => {
     AlteracaoPosCirurgiaEsquerdo.map((e) => {
-      if (e.includes("FALTA")) {
+      if (e.includes("Imagem linear hiperecogênica no metacarpo compatível com artefato cirúrgico (fixação), transfixando o tendão extensor do ")) {
         var index = AlteracaoPosCirurgiaEsquerdo.indexOf(e);
 
         if (index > -1) {
@@ -149,9 +146,12 @@ function AlteracaoPosCirurgiaEsquerdo() {
               setArtefatoCirurgicoTransfixandoSelect(e.target.value);
             }}
           >
-            <option value="leve">leve</option>
-            <option value="leve">leve</option>
-            <option value="acentuada">acentuada</option>
+            <option value='' disabled selected>Select</option>
+            <option value="I">I</option>
+            <option value="II">II</option>
+            <option value="III">III</option>
+            <option value="IV">IV</option>
+            <option value="V">V</option>
           </Select>
           <Text alignSelf='center'>dedo</Text>
         </Box>

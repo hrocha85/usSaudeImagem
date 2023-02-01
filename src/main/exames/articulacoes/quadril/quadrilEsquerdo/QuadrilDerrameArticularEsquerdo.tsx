@@ -48,7 +48,7 @@ function QuadrilDerrameArticularEsquerdo() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAusente = () => {
-    var string = "FALTA";
+    var string = "Ausência de derrame articular.";
     if (AusenteCheckbox) {
       setQuadrilDerrameArticularEsquerdo((arr) => [...arr, string]);
       setDisablePresente(true)
@@ -63,10 +63,10 @@ function QuadrilDerrameArticularEsquerdo() {
     removePresente();
     var string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
-      string = `FALTA ${Presente} com espassamento sinovial. `;
+      string = `Presença de derrame articular ${Presente}, associado a espessamento sinovial. `;
       setQuadrilDerrameArticularEsquerdo((arr) => [...arr, string]);
     } else if (Presente !== "") {
-      string = `FALTA ${Presente} `;
+      string = `Presença de derrame articular ${Presente}.`;
       setQuadrilDerrameArticularEsquerdo((arr) => [...arr, string]);
 
     }
@@ -74,7 +74,7 @@ function QuadrilDerrameArticularEsquerdo() {
 
   const removePresente = () => {
     QuadrilDerrameArticularEsquerdo.map((e) => {
-      if (e.includes("FALTA")) {
+      if (e.includes("Presença de derrame articular")) {
         var index = QuadrilDerrameArticularEsquerdo.indexOf(e);
 
         if (index > -1) {
@@ -157,9 +157,9 @@ function QuadrilDerrameArticularEsquerdo() {
               setPresenteSelect(e.target.value);
             }}
           >
-            <option value="leve">leve</option>
-            <option value="leve">leve</option>
-            <option value="acentuada">acentuada</option>
+            <option value="discreto">Discreto</option>
+            <option value="moderado">Moderado</option>
+            <option value="volumoso">Volumoso</option>
           </Select>
           <Checkbox
             isDisabled={disablePresenteInput}

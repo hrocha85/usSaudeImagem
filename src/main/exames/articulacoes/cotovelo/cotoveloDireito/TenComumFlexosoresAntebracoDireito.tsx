@@ -1,12 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
-import { Format_Laudo } from "../../../../component/function_format_laudo";
+import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function TenComumFlexoresAntebracoDireito() {
     const altura = "100%";
@@ -17,7 +16,7 @@ function TenComumFlexoresAntebracoDireito() {
 
     const [fraseTenComumFlexoresAntebracoDireito, setFraseTenComumFlexoresAntebracoDireito] = useState<any>([]);
 
-    const subExame = 'Tendão comum Flexores antebraço '
+    const subExame = 'Tendão comum Flexores antebraço direito'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -84,12 +83,8 @@ function TenComumFlexoresAntebracoDireito() {
     }, [AspectoNormalCheckbox])
 
     const criaStringPequenasCalcificacoes = () => {
-        var string = "FALTA";
-        if (PequenasCalcificacoesCheckbox) {
-            setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Pequenas calcificações junto à inserção do tendão comum dos flexores.";
+        PequenasCalcificacoesCheckbox ? setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {

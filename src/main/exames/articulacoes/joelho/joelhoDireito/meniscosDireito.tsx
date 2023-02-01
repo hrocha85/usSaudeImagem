@@ -75,9 +75,8 @@ function MeniscosDireito() {
 
 
   const criaStringSemAnomalidades = () => {
-    var string = `Meniscos medial e lateral sem anormalidades detectáveis pelo método. `;
+    var string = `Meniscos medial e lateral sem anormalidades detectáveis pelo método.`;
     SemAnomalidadesCheckbox ? setMeniscosDireito((arr) => [...arr, string]) : removeItemString(string)
-
   }
 
   useEffect(() => {
@@ -85,11 +84,11 @@ function MeniscosDireito() {
   }, [SemAnomalidadesCheckbox])
 
   const criaStringAlteracaoDegenerativaLateral = (Select) => {
-    var string = 'Alteração Degenerativa do menisco lateral do'
+    var string = 'Alteração Degenerativa '
     removeAlteracaoDegenerativaLateral()
     if (AlteracaoDegenerativaLateral) {
       if (Select !== "") {
-        var StringFinal = `${string} ${Select} caracterizada por hipoecogenicidade e heterogeneidade.. `;
+        var StringFinal = `${string} ${Select} do menisco lateral caracterizada por hipoecogenicidade e heterogeneidade.`;
         setMeniscosDireito((arr) => [...arr, StringFinal]);
       }
     } else {
@@ -99,7 +98,7 @@ function MeniscosDireito() {
 
   const removeAlteracaoDegenerativaLateral = () => {
     MeniscosDireito.map((e) => {
-      if (e.includes("Alteração Degenerativa do menisco lateral")) {
+      if (e.includes("do menisco lateral caracterizada por hipoecogenicidade e heterogeneidade.")) {
         var index = MeniscosDireito.indexOf(e);
 
         if (index > -1) {
@@ -122,11 +121,11 @@ function MeniscosDireito() {
 
 
   const criaStringAlteracaoDegenerativaMedial = (Select) => {
-    var string = 'Alteração Degenerativa do menisco Medial'
+    var string = 'Alteração Degenerativa'
     removeAlteracaoDegenerativaMedial()
     if (AlteracaoDegenerativaMedial) {
       if (Select !== "") {
-        var StringFinal = `${string} ${Select}. `;
+        var StringFinal = `${string} ${Select} do menisco medial caracterizada por hipoecogenicidade e heterogeneidade.`;
         setMeniscosDireito((arr) => [...arr, StringFinal]);
       }
     } else {
@@ -136,7 +135,7 @@ function MeniscosDireito() {
 
   const removeAlteracaoDegenerativaMedial = () => {
     MeniscosDireito.map((e) => {
-      if (e.includes("Alteração Degenerativa do menisco Medial")) {
+      if (e.includes("do menisco medial caracterizada por hipoecogenicidade e heterogeneidade.")) {
         var index = MeniscosDireito.indexOf(e);
 
         if (index > -1) {
@@ -146,7 +145,6 @@ function MeniscosDireito() {
       }
     });
   };
-
 
   useEffect(() => {
     criaStringAlteracaoDegenerativaMedial(AlteracaoDegenerativaMedialSelect);

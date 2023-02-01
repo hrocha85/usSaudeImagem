@@ -4,7 +4,7 @@ import { Box, Checkbox, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
-import IndividualizarOssos from "./individualizarOssos"
+import IndividualizarOssos from "./individualizarOssos";
 
 function OssosEsquerda() {
   const altura = "100%";
@@ -66,7 +66,7 @@ function OssosEsquerda() {
   })
 
   useEffect(() => {
-    var string = "Aspecto normal"
+    var string = "Superfícies ósseas regulares."
     AspectoNormal ? setdisableDescontinuidade(true) : setdisableDescontinuidade(false)
     AspectoNormal ? setOssosMaoEsquerda((arr) => [...arr, string]) : removeItemString(string)
 
@@ -76,13 +76,15 @@ function OssosEsquerda() {
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
-    var string = `Dedo 1 com descontinuidade das Ossos: `
+    var string = `Dedo I com osteófitos marginais na falange`
     if (PrimeiroDedo) {
-      if (FalangeProximal) {
-        string = `${string} falange Proximal`
+      if (FalangeProximal && !FalangeDistal) {
+        string = `${string} proximal.`
       }
-      if (FalangeDistal) {
-        string = `${string} falange Distal`
+      if (FalangeDistal && !FalangeProximal) {
+        string = `${string} distal.`
+      } else if (FalangeProximal && FalangeDistal) {
+        string = `${string} proximal e distal.`
       }
       setOssosMaoEsquerda((arr) => [...arr, string]);
     } else {
@@ -93,7 +95,7 @@ function OssosEsquerda() {
 
   const removeMultiplosCalculos = () => {
     OssosMaoEsquerda.map((e) => {
-      if (e.includes(`Dedo 1 com descontinuidade das Ossos: `)) {
+      if (e.includes(`Dedo I com osteófitos marginais na falange`)) {
         var index = OssosMaoEsquerda.indexOf(e);
 
         if (index > -1) {
@@ -119,30 +121,50 @@ function OssosEsquerda() {
   ]);
 
 
-  useEffect(() => {
-    var string = 'Metacarpo do dedo 1'
-    Dedo1 ? setOssosMaoEsquerda((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo1])
+  const criaStringMetacarpo = () => {
+    removeMetacarpo();
+    var string = `Osteófitos marginais nas epífises distais:`
+    if (!DisableCheckbox) {
+      if (Dedo1 || Dedo2 || Dedo3 || Dedo4 || Dedo5) {
+        if (Dedo1) {
+          string = `${string} I `
+        }
+        if (Dedo2) {
+          string = `${string} II `
+        }
+        if (Dedo3) {
+          string = `${string} III `
+        }
+        if (Dedo4) {
+          string = `${string} IV `
+        }
+        if (Dedo5) {
+          string = `${string} V `
+        }
+        string = `${string} metacarpos.`
+        setOssosMaoEsquerda((arr) => [...arr, string]);
+      }
+    } else {
+      removeMetacarpo()
+    }
+  };
 
   useEffect(() => {
-    var string = 'Metacarpo do dedo 2'
-    Dedo2 ? setOssosMaoEsquerda((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo2])
+    criaStringMetacarpo()
+  }, [DisableCheckbox, Dedo1, Dedo2, Dedo3, Dedo4, Dedo5])
 
-  useEffect(() => {
-    var string = 'Metacarpo do dedo 3'
-    Dedo3 ? setOssosMaoEsquerda((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo3])
+  const removeMetacarpo = () => {
+    OssosMaoEsquerda.map((e) => {
+      if (e.includes(`Osteófitos marginais nas epífises distais:`)) {
+        var index = OssosMaoEsquerda.indexOf(e);
 
-  useEffect(() => {
-    var string = 'Metacarpo do dedo 4'
-    Dedo4 ? setOssosMaoEsquerda((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo4])
-
-  useEffect(() => {
-    var string = 'Metacarpo do dedo 5'
-    Dedo5 ? setOssosMaoEsquerda((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo5])
+        if (index > -1) {
+          OssosMaoEsquerda.splice(index, 1);
+          setOssosMaoEsquerda((arr) => [...arr]);
+        }
+      }
+    });
+  };
 
   return (
     <Box
@@ -156,7 +178,7 @@ function OssosEsquerda() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Ossos TESTAR" />
+      <TituloNomeExame titulo="Ossos" />
       <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
         <Checkbox
           isDisabled={disableApectNormal}

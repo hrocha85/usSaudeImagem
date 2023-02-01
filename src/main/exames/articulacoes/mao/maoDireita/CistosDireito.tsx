@@ -1,9 +1,8 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { MaoDireitoNormalContext } from "../../../../../context/MaoDireitoNormalContext"
+import { MaoDireitoNormalContext } from "../../../../../context/MaoDireitoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -13,7 +12,7 @@ function MaoCistosDireito() {
 
     const [CistosDireito, setCistosDireito] = useState<any>([]);
 
-    const subExame = `Cisto direito`
+    const subExame = `Cisto mão direita`
     const titulo_exame = 'Articulações'
 
     useEffect(() => {

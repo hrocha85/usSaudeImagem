@@ -1,40 +1,41 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext"
+import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoInfraespinhalOmbroDireito() {
+function TendaoInfraespinhalOmbroEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
-  let { OmbroDireitoLaudoNormal } = useContext(OmbroDireitoNormalContext)
+  let { OmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
-  const [fraseTendaoInfraespinhalDireito, setFraseTendaoInfraespinhalDireito] = useState<any>([]);
+  const [fraseTendaoInfraespinhalEsquerdo, setFraseTendaoInfraespinhalEsquerdo] = useState<any>([]);
 
-  const subExame = 'Tendão Infraespinhal Direito'
+  const subExame = 'Tendão Infraespinhal Esquerdo'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
-    if (Object.keys(fraseTendaoInfraespinhalDireito).length === 0) {
+    if (Object.keys(fraseTendaoInfraespinhalEsquerdo).length === 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        fraseTendaoInfraespinhalDireito
+        fraseTendaoInfraespinhalEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        fraseTendaoInfraespinhalDireito
+        fraseTendaoInfraespinhalEsquerdo
       ).Format_Laudo_Create_Storage();
     }
-  }, [fraseTendaoInfraespinhalDireito]);
+  }, [fraseTendaoInfraespinhalEsquerdo]);
 
   const [RoturaParcialInput, setRoturaParcialInput] = useState("");
   const [RoturaParcialInput2, setRoturaParcialInput2] = useState("");
@@ -67,48 +68,46 @@ function TendaoInfraespinhalOmbroDireito() {
   const [DisableInputRetracaoRoturaCompleta, setDisableInputRetracaoRoturaCompleta] = useState(true);
   const [InputRetracaoRoturaCompleta, setInputRetracaoRoturaCompleta] = useState('');
 
-
-  const criaStringRoturaParcial = (medida1, medida2, medida3, selectRoturaParcial) => {
+  const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm, selectRoturaParcial) => {
     removeRoturaParcial();
+    const medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+    const medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+    const medida3 = new Convert_Medida(medida3cm).Convert_Medida()
     if (RoturaParcialCheckbox) {
-      if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectRoturaParcial !== '') {
-        var string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectRoturaParcial}`;
-        setFraseTendaoInfraespinhalDireito((arr) => [...arr, string]);
+      if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectRoturaParcial !== '') {
+        var string = `${selectRoturaParcial} espessado, com alteração ecotextural, observando-se sinais de rotura parcial ${medida1} x ${medida2} x ${medida3} cm`;
+        setFraseTendaoInfraespinhalEsquerdo((arr) => [...arr, string]);
       }
     } else {
-      removeRoturaParcial()
+      removeRoturaParcial();
     }
   };
 
   const removeRoturaParcial = () => {
-    fraseTendaoInfraespinhalDireito.map((e) => {
-      if (e.includes("Frase")) {
-        var index = fraseTendaoInfraespinhalDireito.indexOf(e);
-
+    fraseTendaoInfraespinhalEsquerdo.map((e) => {
+      if (e.includes("espessado, com alteração ecotextural, observando-se sinais de rotura parcial ")) {
+        var index = fraseTendaoInfraespinhalEsquerdo.indexOf(e);
         if (index > -1) {
-          fraseTendaoInfraespinhalDireito.splice(index, 1);
-          setFraseTendaoInfraespinhalDireito((arr) => [...arr]);
+          fraseTendaoInfraespinhalEsquerdo.splice(index, 1);
+          setFraseTendaoInfraespinhalEsquerdo((arr) => [...arr]);
         }
       }
     });
   };
 
+
   const criaStringAspectoNormal = () => {
-    var string = "FALTA";
-    if (AspectoNormalCheckbox) {
-      setFraseTendaoInfraespinhalDireito((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    AspectoNormalCheckbox ? setFraseTendaoInfraespinhalEsquerdo((arr) => [...arr, string]) : removeItemString(string);
   };
   useEffect(() => {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
 
   const criaStringPequenasCalcificacoes = () => {
-    var string = "FALTA";
+    var string = "Há pequenas calcificações junto à inserção do infraespinhal.";
     if (PequenasCalcificacoesCheckbox) {
-      setFraseTendaoInfraespinhalDireito((arr) => [...arr, string]);
+      setFraseTendaoInfraespinhalEsquerdo((arr) => [...arr, string]);
     } else {
       removeItemString(string);
     }
@@ -118,29 +117,32 @@ function TendaoInfraespinhalOmbroDireito() {
     criaStringPequenasCalcificacoes()
   }, [PequenasCalcificacoesCheckbox])
 
-  const criaStringTendinopatiaSemRotura = (dados, medida) => {
+  const criaStringTendinopatiaSemRotura = (select, medidacm) => {
+    var string = 'Tendão do infraespinhal espessado, com alteração ecotextural, sem evidências de rotura. Presença de '
     removeFraseTendinopatiaSemRotura()
-    var string;
-    if (dados !== '') {
-      if (TendinopatiaSemRoturaCheckboxMedida && medida !== '') {
-        string = `Tendinopatia sem rotura ${dados} medindo ${medida} mm`;
-        setFraseTendaoInfraespinhalDireito((arr) => [...arr, string]);
-      } else {
-        string = `Tendinopatia sem rotura ${dados}`;
-        setFraseTendaoInfraespinhalDireito((arr) => [...arr, string]);
 
+    var medida = new Convert_Medida(medidacm).Convert_Medida()
+
+    if (TendinopatiaSemRoturaCheckbox) {
+      if (select !== '' && medidacm !== '') {
+        string = `${string} ${select} medindo ${medida} cm`;
+        setFraseTendaoInfraespinhalEsquerdo((arr) => [...arr, string]);
+      } else {
+        string = `${string} ${select}`;
+        setFraseTendaoInfraespinhalEsquerdo((arr) => [...arr, string]);
       }
+    } else {
+      removeFraseTendinopatiaSemRotura()
     }
   };
-
   const removeFraseTendinopatiaSemRotura = () => {
-    fraseTendaoInfraespinhalDireito.map((e) => {
-      if (e.includes("Tendinopatia sem rotura")) {
-        var index = fraseTendaoInfraespinhalDireito.indexOf(e);
+    fraseTendaoInfraespinhalEsquerdo.map((e) => {
+      if (e.includes("Tendão do infraespinhal espessado, com alteração ecotextural, sem evidências de rotura. Presença de")) {
+        var index = fraseTendaoInfraespinhalEsquerdo.indexOf(e);
 
         if (index > -1) {
-          fraseTendaoInfraespinhalDireito.splice(index, 1);
-          setFraseTendaoInfraespinhalDireito((arr) => [...arr]);
+          fraseTendaoInfraespinhalEsquerdo.splice(index, 1);
+          setFraseTendaoInfraespinhalEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -150,21 +152,21 @@ function TendaoInfraespinhalOmbroDireito() {
     removeFraseRoturaCompleta()
     var string;
     if (dados !== '' && medidaRetracao !== '') {
-      string = `Rotura completa medindo ${dados} com retração de ${medidaRetracao} mm`;
-      setFraseTendaoInfraespinhalDireito((arr) => [...arr, string]);
+      string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo com ${medidaRetracao} mm de retração`;
+      setFraseTendaoInfraespinhalEsquerdo((arr) => [...arr, string]);
     } else if (dados !== '') {
-      string = `Rotura completa medindo ${dados}`;
-      setFraseTendaoInfraespinhalDireito((arr) => [...arr, string]);
+      string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo`;
+      setFraseTendaoInfraespinhalEsquerdo((arr) => [...arr, string]);
     }
   }
   const removeFraseRoturaCompleta = () => {
-    fraseTendaoInfraespinhalDireito.map((e) => {
-      if (e.includes("Rotura completa medindo")) {
-        var index = fraseTendaoInfraespinhalDireito.indexOf(e);
+    fraseTendaoInfraespinhalEsquerdo.map((e) => {
+      if (e.includes("Hipoecogênico, heterogêneo, observando-se sinais de rotura completa")) {
+        var index = fraseTendaoInfraespinhalEsquerdo.indexOf(e);
 
         if (index > -1) {
-          fraseTendaoInfraespinhalDireito.splice(index, 1);
-          setFraseTendaoInfraespinhalDireito((arr) => [...arr]);
+          fraseTendaoInfraespinhalEsquerdo.splice(index, 1);
+          setFraseTendaoInfraespinhalEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -193,10 +195,10 @@ function TendaoInfraespinhalOmbroDireito() {
 
 
   const removeItemString = (value) => {
-    var index = fraseTendaoInfraespinhalDireito.indexOf(value);
+    var index = fraseTendaoInfraespinhalEsquerdo.indexOf(value);
     if (index > -1) {
-      fraseTendaoInfraespinhalDireito.splice(index, 1);
-      setFraseTendaoInfraespinhalDireito((arr) => [...arr]);
+      fraseTendaoInfraespinhalEsquerdo.splice(index, 1);
+      setFraseTendaoInfraespinhalEsquerdo((arr) => [...arr]);
     }
   };
 
@@ -268,9 +270,9 @@ function TendaoInfraespinhalOmbroDireito() {
   }, [RoturaCompletaRetracaoCheckbox])
 
   useEffect(() => {
-    OmbroDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+    OmbroEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
 
-  }, [OmbroDireitoLaudoNormal])
+  }, [OmbroEsquerdoLaudoNormal])
 
   return (
     <Box
@@ -323,8 +325,8 @@ function TendaoInfraespinhalOmbroDireito() {
               setSelectTendinopatiaSemRotura(e.target.value);
             }}
           >
-            <option value="select 1">corno anterior</option>
-            <option value="select 2">corno posterior</option>
+            <option value="">não citar calcificações</option>
+            <option value="Calcificações intrassubstancial">Calcificações intrassubstancial</option>
           </Select>
           <Checkbox
             isDisabled={MedindoDisableTendinopatiaSemRotura}
@@ -399,8 +401,11 @@ function TendaoInfraespinhalOmbroDireito() {
               setSelectRoturaParcial(e.target.value);
             }}
           >
-            <option value="se 1">corno anterior</option>
-            <option value="se 2">corno posterior</option>
+            <option value="Não citar tipo">Não citar tipo</option>
+            <option value="intrassubstancial">intrassubstancial</option>
+            <option value="superficial">superficial</option>
+            <option value="profunda">profunda</option>
+
           </Select>
         </Box>
 
@@ -445,10 +450,11 @@ function TendaoInfraespinhalOmbroDireito() {
             textAlign="center"
             onChange={(e) => { setInputRetracaoRoturaCompleta(e.target.value) }}
           />
+          <Text alignSelf='center'>mm</Text>
         </Box>
       </Stack >
     </Box >
 
   );
 }
-export default TendaoInfraespinhalOmbroDireito;
+export default TendaoInfraespinhalOmbroEsquerdo;

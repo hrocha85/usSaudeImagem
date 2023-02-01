@@ -1,9 +1,8 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Checkbox, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext"
+import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -18,7 +17,7 @@ function BolsaSubacromial_SubdeltoideaEsquerdo() {
 
   const [fraseBolsaSubacromialSubdeltoidea, setFraseBolsaSubacromialSubdeltoidea] = useState<any>([]);
 
-  const subExame = 'Bolsa Subacromial-subdeltoidea'
+  const subExame = 'Bolsa Subacromial-subdeltoidea Esquerdo'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -57,17 +56,17 @@ function BolsaSubacromial_SubdeltoideaEsquerdo() {
     removeLiquido();
     var string;
     if (selectLiquido !== '' && EspessamentoSinoviaCheckbox) {
-      string = `Frase , ${selectLiquido} com espessamento sinovial`;
+      string = `Presença de líquido em pequena quantidade na bolsa ${selectLiquido}, com espessamento sinovial associado.`;
       setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
     } else if (selectLiquido !== '') {
-      string = `Frase , ${selectLiquido} `;
+      string = `Presença de líquido em pequena quantidade na bolsa ${selectLiquido} `;
       setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
     }
   };
 
   const removeLiquido = () => {
     fraseBolsaSubacromialSubdeltoidea.map((e) => {
-      if (e.includes("Frase ,")) {
+      if (e.includes("Presença de líquido em pequena quantidade na bolsa")) {
         var index = fraseBolsaSubacromialSubdeltoidea.indexOf(e);
 
         if (index > -1) {
@@ -79,12 +78,8 @@ function BolsaSubacromial_SubdeltoideaEsquerdo() {
   };
 
   const criaStringSemLiquido = () => {
-    var string = "FALTA";
-    if (SemLiquidoCheckbox) {
-      setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "Ausência de líquido na bolsa subacromial-subdeltoidea.";
+    SemLiquidoCheckbox ? setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]) : removeItemString(string);
   };
 
   useEffect(() => {
@@ -178,8 +173,10 @@ function BolsaSubacromial_SubdeltoideaEsquerdo() {
               setSelectLiquido(e.target.value);
             }}
           >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+            <option value="não citar volume">Não citar volume</option>
+            <option value="pequena">pequena</option>
+            <option value="moderada">moderada</option>
+            <option value="acentuada">acentuada</option>
           </Select>
 
           <Checkbox

@@ -3,6 +3,7 @@
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -107,18 +108,21 @@ function CistosEsquerdo() {
         }
     }, [CistosBakerCheckbox, CistosBakerInput, CistosBakerInput2, CistosBakerInput3, CistosBakerSelect1, CistosBakerSelect2, CistosBakerSelect3]);
 
-    const criaStringCistosParameniscal = (medida1, medida2, medida3) => {
-        var string = 'Cisto e Parameniscal medindo'
+    const criaStringCistosParameniscal = (medida1cm, medida2cm, medida3cm) => {
+        var string = 'Presença de cisto parameniscal com '
         var StringFinal;
+        var medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+        var medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+        var medida3 = new Convert_Medida(medida3cm).Convert_Medida()
         removeCistoParameniscal()
-        if (medida1 !== "" && medida2 !== "" && medida3 !== "" && CistosParameniscalSelect1 !== '' && CistosParameniscalSelect2 !== '' && CistosParameniscalSelect3 !== '') {
-            StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${CistosParameniscalSelect1} ${CistosParameniscalSelect2} ${CistosParameniscalSelect3}`;
+        if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && CistosParameniscalSelect1 !== '' && CistosParameniscalSelect2 !== '' && CistosParameniscalSelect3 !== '') {
+            StringFinal = `${string} ${CistosParameniscalSelect1}, situado junto ao ${CistosParameniscalSelect2} do ${CistosParameniscalSelect3}, medindo ${medida1} x ${medida2} x ${medida3} cm`;
             setCistosEsquerdo((arr) => [...arr, StringFinal]);
         }
     };
     const removeCistoParameniscal = () => {
         CistosEsquerdo.map((e) => {
-            if (e.includes("Cisto e Parameniscal medindo")) {
+            if (e.includes('Presença de cisto parameniscal com ')) {
                 var index = CistosEsquerdo.indexOf(e);
 
                 if (index > -1) {
@@ -225,8 +229,8 @@ function CistosEsquerdo() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="paredes final">paredes</option>
+                        <option value="paredes espessadas">paredes espessadas</option>
                     </Select>
                     <Select
                         w='150px'
@@ -237,8 +241,8 @@ function CistosEsquerdo() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="conteúdo anecogênico">conteúdo anecogênico</option>
+                        <option value="contúdo líquidodo com debris">contúdo líquidodo com debris</option>
                     </Select>
                     <Select
                         w='150px'
@@ -249,8 +253,8 @@ function CistosEsquerdo() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="contornos regulares">contornos regulares</option>
+                        <option value="contornos lobulados">contornos lobulados</option>
                     </Select>
                 </Box>
 
@@ -309,8 +313,8 @@ function CistosEsquerdo() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="paredes finas">paredes finas</option>
+                        <option value="paredes espessadas">paredes espessadas</option>
                     </Select>
                     <Select
                         w='150px'
@@ -333,8 +337,8 @@ function CistosEsquerdo() {
                         }}
                     >
                         <option value='' disabled selected>Select</option>
-                        <option value="corno anterior">corno anterior</option>
-                        <option value="corno posterior">corno posterior</option>
+                        <option value="menisco lateral">menisco lateral</option>
+                        <option value="menisco medial">menisco medial</option>
                     </Select>
                 </Box>
             </Stack >

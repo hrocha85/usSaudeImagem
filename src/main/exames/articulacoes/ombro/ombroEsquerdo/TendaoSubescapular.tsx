@@ -1,9 +1,9 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext"
+import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -69,11 +69,14 @@ function TendaoSubescapularOmbroEsquerdo() {
   const [InputRetracaoRoturaCompleta, setInputRetracaoRoturaCompleta] = useState('');
 
 
-  const criaStringRoturaParcial = (medida1, medida2, medida3, selectRoturaParcial) => {
+  const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm, selectRoturaParcial) => {
     removeRoturaParcial();
+    const medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+    const medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+    const medida3 = new Convert_Medida(medida3cm).Convert_Medida()
     if (RoturaParcialCheckbox) {
-      if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectRoturaParcial !== '') {
-        var string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectRoturaParcial}`;
+      if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectRoturaParcial !== '') {
+        var string = `${selectRoturaParcial} espessado, com alteração ecotextural, observando-se sinais de rotura parcial ${medida1} x ${medida2} x ${medida3} cm`;
         setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]);
       }
     } else {
@@ -83,9 +86,8 @@ function TendaoSubescapularOmbroEsquerdo() {
 
   const removeRoturaParcial = () => {
     fraseTendaoSubescapuçarEsquerdo.map((e) => {
-      if (e.includes("Frase")) {
+      if (e.includes("espessado, com alteração ecotextural, observando-se sinais de rotura parcial ")) {
         var index = fraseTendaoSubescapuçarEsquerdo.indexOf(e);
-
         if (index > -1) {
           fraseTendaoSubescapuçarEsquerdo.splice(index, 1);
           setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr]);
@@ -95,19 +97,16 @@ function TendaoSubescapularOmbroEsquerdo() {
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "FALTA";
-    if (AspectoNormalCheckbox) {
-      setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
-  };
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    AspectoNormalCheckbox ? setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+  }
+
   useEffect(() => {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
 
   const criaStringPequenasCalcificacoes = () => {
-    var string = "FALTA";
+    var string = "Há pequenas calcificações junto à inserção do subescapular.";
     if (PequenasCalcificacoesCheckbox) {
       setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]);
     } else {
@@ -119,24 +118,28 @@ function TendaoSubescapularOmbroEsquerdo() {
     criaStringPequenasCalcificacoes()
   }, [PequenasCalcificacoesCheckbox])
 
-  const criaStringTendinopatiaSemRotura = (dados, medida) => {
+  const criaStringTendinopatiaSemRotura = (select, medidacm) => {
+    var string = 'Tendão do subescapular espessado, com alteração ecotextural, sem evidências de rotura. Presença de '
     removeFraseTendinopatiaSemRotura()
-    var string;
-    if (dados !== '') {
-      if (TendinopatiaSemRoturaCheckboxMedida && medida !== '') {
-        string = `Tendinopatia sem rotura ${dados} medindo ${medida} mm`;
+
+    var medida = new Convert_Medida(medidacm).Convert_Medida()
+
+    if (TendinopatiaSemRoturaCheckbox) {
+      if (select !== '' && medidacm !== '') {
+        string = `${string} ${select} medindo ${medida} cm`;
         setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]);
       } else {
-        string = `Tendinopatia sem rotura ${dados}`;
+        string = `${string} ${select}`;
         setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]);
-
       }
+    } else {
+      removeFraseTendinopatiaSemRotura()
     }
   };
 
   const removeFraseTendinopatiaSemRotura = () => {
     fraseTendaoSubescapuçarEsquerdo.map((e) => {
-      if (e.includes("Tendinopatia sem rotura")) {
+      if (e.includes("Tendão do subescapular espessado, com alteração ecotextural, sem evidências de rotura. Presença de")) {
         var index = fraseTendaoSubescapuçarEsquerdo.indexOf(e);
 
         if (index > -1) {
@@ -151,16 +154,16 @@ function TendaoSubescapularOmbroEsquerdo() {
     removeFraseRoturaCompleta()
     var string;
     if (dados !== '' && medidaRetracao !== '') {
-      string = `Rotura completa medindo ${dados} com retração de ${medidaRetracao} mm`;
+      string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo com ${medidaRetracao} mm de retração`;
       setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]);
     } else if (dados !== '') {
-      string = `Rotura completa medindo ${dados}`;
+      string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo`;
       setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]);
     }
   }
   const removeFraseRoturaCompleta = () => {
     fraseTendaoSubescapuçarEsquerdo.map((e) => {
-      if (e.includes("Rotura completa medindo")) {
+      if (e.includes("Hipoecogênico, heterogêneo, observando-se sinais de rotura completa")) {
         var index = fraseTendaoSubescapuçarEsquerdo.indexOf(e);
 
         if (index > -1) {
@@ -324,8 +327,8 @@ function TendaoSubescapularOmbroEsquerdo() {
               setSelectTendinopatiaSemRotura(e.target.value);
             }}
           >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+            <option value="">não citar calcificações</option>
+            <option value="Calcificações intrassubstancial">Calcificações intrassubstancial</option>
           </Select>
           <Checkbox
             isDisabled={MedindoDisableTendinopatiaSemRotura}
@@ -400,8 +403,11 @@ function TendaoSubescapularOmbroEsquerdo() {
               setSelectRoturaParcial(e.target.value);
             }}
           >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+            <option value="Não citar tipo">Não citar tipo</option>
+            <option value="intrassubstancial">intrassubstancial</option>
+            <option value="superficial">superficial</option>
+            <option value="profunda">profunda</option>
+
           </Select>
         </Box>
 
@@ -446,6 +452,7 @@ function TendaoSubescapularOmbroEsquerdo() {
             textAlign="center"
             onChange={(e) => { setInputRetracaoRoturaCompleta(e.target.value) }}
           />
+          <Text alignSelf='center'>mm</Text>
         </Box>
       </Stack >
     </Box >

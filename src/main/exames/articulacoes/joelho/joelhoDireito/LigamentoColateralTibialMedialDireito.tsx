@@ -3,7 +3,6 @@
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { JoelhoDireitoNormalContext } from "../../../../../context/JoelhoDireitoNormalContext";
-import { LaudosContext } from "../../../../../context/LuadosContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -46,7 +45,7 @@ function LigColTibialMedialDireito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAspectoNormal = () => {
-    var string = "TendaoQuadriceps direito com AspectoNormal";
+    var string = "Ligamento colateral tibial e ligamento colateral fibular com ecotextura e espessura preservadas e contornos normais.";
     if (AspectoNormalCheckbox) {
       setLigamentoTibialMedial((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)

@@ -1,11 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function TendaoTricepsBraquialEsquerdo() {
     const altura = "100%";
@@ -54,9 +54,12 @@ function TendaoTricepsBraquialEsquerdo() {
     const [RoturaParcialCheckbox, setRoturaParcialCheckbox] = useState(false);
     const [EntesofitoCheckbox, setEntesofitoCheckbox] = useState(false);
 
-    const criaStringRoturaParcial = (medida1, medida2, medida3) => {
+    const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm) => {
         removeRoturaParcial();
-        if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
+        var medida1 = new Convert_Medida(medida1cm).Convert_Medida();
+        var medida2 = new Convert_Medida(medida2cm).Convert_Medida();
+        var medida3 = new Convert_Medida(medida3cm).Convert_Medida();
+        if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "") {
             var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
             setFraseTendaoTricepsBraquialEsquerdo((arr) => [...arr, string]);
         }
@@ -64,7 +67,7 @@ function TendaoTricepsBraquialEsquerdo() {
 
     const removeRoturaParcial = () => {
         fraseTendaoTricepsBraquialEsquerdo.map((e) => {
-            if (e.includes("Espessado, com alteração ecotextural,")) {
+            if (e.includes("Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo")) {
                 var index = fraseTendaoTricepsBraquialEsquerdo.indexOf(e);
 
                 if (index > -1) {
@@ -76,23 +79,21 @@ function TendaoTricepsBraquialEsquerdo() {
     };
 
     const criaStringAspectoNormal = () => {
-        var string = "FALTA";
-        if (AspectoNormalCheckbox) {
-            setFraseTendaoTricepsBraquialEsquerdo((arr) => [...arr, string]);
-        } else {
+        var string = "com ecotextura e espessura preservadas e contornos normais.";
+        AspectoNormalCheckbox ? setFraseTendaoTricepsBraquialEsquerdo((arr) => [...arr, string]) :
             removeItemString(string);
-        }
     };
 
     useEffect(() => {
         criaStringAspectoNormal()
     }, [AspectoNormalCheckbox])
 
-    const criaStringEntesofito = (medida) => {
+    const criaStringEntesofito = (medidaCm) => {
         removeStringEntesofito();
+        var medida = new Convert_Medida(medidaCm).Convert_Medida()
         var string;
-        if (medida !== '') {
-            string = `FALTA ${medida}`
+        if (medidaCm !== '') {
+            string = `Presença de entesófito no tendão do tríceps braquial, medindo ${medida} cm.`
             setFraseTendaoTricepsBraquialEsquerdo((arr) => [...arr, string]);
         }
     };
@@ -113,7 +114,7 @@ function TendaoTricepsBraquialEsquerdo() {
 
     const removeStringEntesofito = () => {
         fraseTendaoTricepsBraquialEsquerdo.map((e) => {
-            if (e.includes("FALTA")) {
+            if (e.includes("Presença de entesófito no tendão do tríceps braquial, medindo")) {
                 var index = fraseTendaoTricepsBraquialEsquerdo.indexOf(e);
 
                 if (index > -1) {
@@ -124,15 +125,9 @@ function TendaoTricepsBraquialEsquerdo() {
         });
     };
 
-
     const criaStringTendinopatiaSemRotura = () => {
-        var string = "FALTA";
-        if (TendinopatiaSemRoturaCheckbox) {
-            setFraseTendaoTricepsBraquialEsquerdo((arr) => [...arr, string]);
-
-        } else {
-            removeItemString(string);
-        }
+        var string = "espessado, com alteração ecotextural, mas sem evidências de rotura.";
+        TendinopatiaSemRoturaCheckbox ? setFraseTendaoTricepsBraquialEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
     useEffect(() => {
         criaStringTendinopatiaSemRotura()

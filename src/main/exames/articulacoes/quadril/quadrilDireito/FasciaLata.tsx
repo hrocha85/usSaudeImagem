@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
+import { Box, Radio, RadioGroup, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
@@ -11,7 +11,7 @@ function FasciaLataDireito() {
     const [value, setValue] = useState("1");
     const [frasesQuadrilFasciaLataDireito, setFrasesQuadrilFasciaLataDireito] = useState<any>([]);
 
-    const subExame = "Fáscia lata Direito";
+    const subExame = "Fáscia lata direito";
     const titulo_exame = "Articulações";
 
     useEffect(() => {
@@ -61,7 +61,7 @@ function FasciaLataDireito() {
             <RadioGroup onChange={setValue} value={value} padding="10px">
                 <Stack direction="column">
                     <Radio value="1">Não citar</Radio>
-                    <Radio value="Aspecto Normal">Aspecto Normal</Radio>
+                    <Radio value="Fáscia lata com espessura preservada e ecotextura homogênea.">Aspecto Normal</Radio>
                     <Radio value="Observa-se espessamento da fáscia lata.">Tendinopatia</Radio>
                 </Stack>
             </RadioGroup>

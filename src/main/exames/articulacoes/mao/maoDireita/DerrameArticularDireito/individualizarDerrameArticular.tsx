@@ -8,7 +8,7 @@ export default function IndividualizarDerrameArticular({ numCalculo, desabilita 
 
   const [FraseDerrameArticularDireito, setFraseDerrameArticularDireito] = useState<any>([]);
 
-  const subExame = `${numCalculo}: Derrame Articular`
+  const subExame = `${numCalculo + 1}: Derrame Articular`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {

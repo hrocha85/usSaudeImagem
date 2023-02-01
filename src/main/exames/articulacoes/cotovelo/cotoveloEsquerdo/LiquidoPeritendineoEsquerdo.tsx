@@ -1,11 +1,10 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function LiquidoPeritendineoEsquerdo() {
     const altura = "100%";
@@ -47,12 +46,8 @@ function LiquidoPeritendineoEsquerdo() {
 
 
     const criaStringAusente = () => {
-        var string = "FALTA";
-        if (AusenteCheckbox) {
-            setFraseLiquidoPeritendineoEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Ausência de líquido peritendíneo.";
+        AusenteCheckbox ? setFraseLiquidoPeritendineoEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -60,12 +55,8 @@ function LiquidoPeritendineoEsquerdo() {
     }, [AusenteCheckbox])
 
     const criaStringPresente = () => {
-        var string = "FALTA";
-        if (PresenteCheckbox) {
-            setFraseLiquidoPeritendineoEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Presença de líquido peritendíneo.";
+        PresenteCheckbox ? setFraseLiquidoPeritendineoEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {

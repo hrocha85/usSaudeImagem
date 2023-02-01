@@ -12,7 +12,7 @@ function JoelhoDerrameArticularEsquerdo() {
 
   const [JoelhoDerrameArticularEsquerdo, setJoelhoDerrameArticularEsquerdo] = useState<any>([]);
 
-  const subExame = `Derrame articular no joelho Esquerdo`
+  const subExame = `Derrame articular no joelho esquerdo`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function JoelhoDerrameArticularEsquerdo() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAusente = () => {
-    var string = "FALTA";
+    var string = "Ausência de derrame articular.";
     if (AusenteCheckbox) {
       setJoelhoDerrameArticularEsquerdo((arr) => [...arr, string]);
       setDisablePresente(true)
@@ -63,10 +63,10 @@ function JoelhoDerrameArticularEsquerdo() {
     removePresente();
     var string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
-      string = `FALTA ${Presente} com espassamento sinovial. `;
+      string = `Preseça de ${Presente} derrame articular, associado a espessamento sinovial. `;
       setJoelhoDerrameArticularEsquerdo((arr) => [...arr, string]);
     } else if (Presente !== "") {
-      string = `FALTA ${Presente} `;
+      string = `Preseça de ${Presente} derrame articular.`;
       setJoelhoDerrameArticularEsquerdo((arr) => [...arr, string]);
 
     }
@@ -74,7 +74,7 @@ function JoelhoDerrameArticularEsquerdo() {
 
   const removePresente = () => {
     JoelhoDerrameArticularEsquerdo.map((e) => {
-      if (e.includes("FALTA")) {
+      if (e.includes("Preseça de")) {
         var index = JoelhoDerrameArticularEsquerdo.indexOf(e);
 
         if (index > -1) {
@@ -157,9 +157,10 @@ function JoelhoDerrameArticularEsquerdo() {
               setPresenteSelect(e.target.value);
             }}
           >
-            <option value="leve">leve</option>
-            <option value="leve">leve</option>
-            <option value="acentuada">acentuada</option>
+            <option value="">Não graduar</option>
+            <option value="pequeno">pequeno</option>
+            <option value="moderado">moderado</option>
+            <option value="volumoso">volumoso</option>
           </Select>
           <Checkbox
             isDisabled={disablePresenteInput}

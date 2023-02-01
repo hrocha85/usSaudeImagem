@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Radio, RadioGroup, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
@@ -44,7 +44,7 @@ function TendaoGluteoMedioDireito() {
 
 
     const criaStringPequenaCalcificacao = () => {
-        var string = `FALTA `;
+        var string = `Pequena calcificação junto à inserção do glúteo médio.`;
         PequenaCalcificacaoCheckbox ? setFrasesQuadrilTendaoGluteoMedioDireito((arr) => [...arr, string]) : removeItemString(string)
 
     }

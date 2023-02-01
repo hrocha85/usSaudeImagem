@@ -1,11 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Center, Checkbox, HStack, Input, Select, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function TendaoBicepsBraquialEsquerdo() {
     const altura = "100%";
@@ -16,7 +16,7 @@ function TendaoBicepsBraquialEsquerdo() {
 
     const [fraseTendaoBicepsBraquialEsquerdo, setFraseTendaoBicepsBraquialEsquerdo] = useState<any>([]);
 
-    const subExame = 'Tendão biceps braquial esquerdo'
+    const subExame = 'Tendão biceps braquial Esquerdo'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -65,9 +65,12 @@ function TendaoBicepsBraquialEsquerdo() {
     const [RoturaCompletaComCotoCheckbox, setRoturaCompletaComCotoCheckbox] = useState(false);
 
 
-    const criaStringRoturaParcial = (medida1, medida2, medida3) => {
+    const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm) => {
         removeRoturaParcial();
-        if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
+        var medida1 = new Convert_Medida(medida1cm).Convert_Medida();
+        var medida2 = new Convert_Medida(medida2cm).Convert_Medida();
+        var medida3 = new Convert_Medida(medida3cm).Convert_Medida();
+        if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "") {
             var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
             setFraseTendaoBicepsBraquialEsquerdo((arr) => [...arr, string]);
         }
@@ -75,7 +78,7 @@ function TendaoBicepsBraquialEsquerdo() {
 
     const removeRoturaParcial = () => {
         fraseTendaoBicepsBraquialEsquerdo.map((e) => {
-            if (e.includes("Espessado, com alteração ecotextural,")) {
+            if (e.includes("Espessado, com alteração ecotextural, observando-se sinais de rotura parcial")) {
                 var index = fraseTendaoBicepsBraquialEsquerdo.indexOf(e);
 
                 if (index > -1) {
@@ -87,12 +90,8 @@ function TendaoBicepsBraquialEsquerdo() {
     };
 
     const criaStringAspectoNormal = () => {
-        var string = "FALTA";
-        if (AspectoNormalCheckbox) {
-            setFraseTendaoBicepsBraquialEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "com ecotextura e espessura preservadas e contornos normais.";
+        AspectoNormalCheckbox ? setFraseTendaoBicepsBraquialEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
     useEffect(() => {
         criaStringAspectoNormal()
@@ -142,16 +141,16 @@ function TendaoBicepsBraquialEsquerdo() {
         removeFraseRoturaCompleta()
         var string;
         if (dados !== '' && RoturaCompletaComCotoCheckbox) {
-            string = `Rotura completa medindo ${dados} com Relacação Coto`;
+            string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo com Relacação Coto`;
             setFraseTendaoBicepsBraquialEsquerdo((arr) => [...arr, string]);
         } else if (dados !== '') {
-            string = `Rotura completa medindo ${dados}`;
+            string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo`;
             setFraseTendaoBicepsBraquialEsquerdo((arr) => [...arr, string]);
         }
     }
     const removeFraseRoturaCompleta = () => {
         fraseTendaoBicepsBraquialEsquerdo.map((e) => {
-            if (e.includes("Rotura completa medindo")) {
+            if (e.includes("Hipoecogênico, heterogêneo, observando-se sinais de rotura completa")) {
                 var index = fraseTendaoBicepsBraquialEsquerdo.indexOf(e);
 
                 if (index > -1) {
@@ -312,8 +311,8 @@ function TendaoBicepsBraquialEsquerdo() {
                                 setSelectTendinopatiaSemRotura(e.target.value);
                             }}
                         >
-                            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-                            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+                            <option value="">não citar calcificações</option>
+                            <option value="calcificações intrassubstanciais">corno posterior</option>
                         </Select>
                     </WrapItem>
                     <Center>

@@ -1,16 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Button, Center, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { isLineBreak } from "typescript";
-import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { Box, Checkbox } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
 export default function IndividualizarPolias({ numCalculo, desabilita }) {
 
   const [FrasePoliasDireito, setFrasePoliasDireito] = useState<any>([]);
 
-  const subExame = `Polias ${numCalculo + 1} Direito`
+  const subExame = `Polias ${numCalculo + 1} mão direita`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {

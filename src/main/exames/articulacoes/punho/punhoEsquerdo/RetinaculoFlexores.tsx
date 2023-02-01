@@ -1,4 +1,4 @@
-import { Box, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
+import { Box, Radio, RadioGroup, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
@@ -57,9 +57,9 @@ function RetinaculoFlexoresEsquerdo() {
             <RadioGroup onChange={setValue} value={value} padding="10px">
                 <Stack direction="column">
                     <Radio value="1">Não citar</Radio>
-                    <Radio value="Aspecto Normal">Aspecto Normal</Radio>
-                    <Radio value="Abaulado">Abaulado</Radio>
-                    <Radio value="Descontinuo (pós cirúrgico)">Descontinuo (pós cirúrgico)</Radio>
+                    <Radio value="Retináculo dos flexores de aspecto preservado.">Aspecto Normal</Radio>
+                    <Radio value="Nota-se abaulamento do retináculo dos flexores.">Abaulado</Radio>
+                    <Radio value="Nota-se descontinuidade do retináculo dos flexores (status pós cirúrgico).">Descontinuo (pós cirúrgico)</Radio>
                 </Stack>
             </RadioGroup>
         </Box>

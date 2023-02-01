@@ -3,7 +3,6 @@
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { JoelhoDireitoNormalContext } from "../../../../../context/JoelhoDireitoNormalContext";
-import { LaudosContext } from "../../../../../context/LuadosContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -13,7 +12,7 @@ function LigColFibularLateralDireito() {
 
   const [LigamentoFibularLateral, setLigamentoFibularLateral] = useState<any>([]);
 
-  const subExame = `Ligamento colateral fibular/lateral joelho Direito`
+  const subExame = `Ligamento colateral fibular/lateral joelho direito`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -46,7 +45,7 @@ function LigColFibularLateralDireito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAspectoNormal = () => {
-    var string = "TendaoQuadriceps direito com AspectoNormal";
+    var string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
     if (AspectoNormalCheckbox) {
       setLigamentoFibularLateral((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)
@@ -61,7 +60,7 @@ function LigColFibularLateralDireito() {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
   const criaStringLesaoAfilamento = () => {
-    var string = "Ligamento colateral afilado e com alteração ecotextural, com aspecto sugestivo de lesão parcial.";
+    var string = "Ligamento colateral fibular afilado e com alteração ecotextural, com aspecto sugestivo de lesão parcial.";
     if (LesaoAfilamentoCheckbox) {
       setLigamentoFibularLateral((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)
@@ -78,7 +77,7 @@ function LigColFibularLateralDireito() {
   }, [LesaoAfilamentoCheckbox])
 
   const criaStringLesaoEspessamento = () => {
-    var string = "Ligamento colateral espessado e com alteração ecotextural, com aspecto compatível com lesão parcial/estiramento.";
+    var string = "Ligamento colateral fibular espessado e com alteração ecotextural, com aspecto compatível com lesão parcial/estiramento.";
     if (LesaoEspessamentoCheckbox) {
       setLigamentoFibularLateral((arr) => [...arr, string]);
       setdisableLesaoAfilamento(true)

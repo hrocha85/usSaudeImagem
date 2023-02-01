@@ -14,7 +14,7 @@ function Polias() {
 
   const [FrasePoliasDireito, setFrasePoliasDireito] = useState<any>([]);
 
-  const subExame = `Polias Direito`
+  const subExame = `Polias mão direita`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {

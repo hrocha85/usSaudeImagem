@@ -63,10 +63,10 @@ function QuadrilDerrameArticularDireito() {
     removePresente();
     var string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
-      string = `Presença de derrame articula ${Presente} com espassamento sinovial. `;
+      string = `Presença de derrame articular ${Presente}, associado a espessamento sinovial. `;
       setQuadrilDerrameArticularDireito((arr) => [...arr, string]);
     } else if (Presente !== "") {
-      string = `Presença de derrame articula ${Presente} `;
+      string = `Presença de derrame articular ${Presente}.`;
       setQuadrilDerrameArticularDireito((arr) => [...arr, string]);
 
     }
@@ -74,7 +74,7 @@ function QuadrilDerrameArticularDireito() {
 
   const removePresente = () => {
     QuadrilDerrameArticularDireito.map((e) => {
-      if (e.includes("Presença de derrame articula")) {
+      if (e.includes("Presença de derrame articular")) {
         var index = QuadrilDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {

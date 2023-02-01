@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Button, Center, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { isLineBreak } from "typescript";
-import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { Box, Center, Checkbox, Input } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
@@ -11,7 +9,7 @@ export default function IndividualizarRoturaExtensores({ numCalculo }) {
 
   const [FraseRoturaExtensoresDireito, setFraseRoturaExtensoresDireito] = useState<any>([]);
 
-  const subExame = `Rotura Extensores ${numCalculo} Direito`
+  const subExame = `Rotura Extensores ${numCalculo} mão direita`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {

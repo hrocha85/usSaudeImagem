@@ -8,7 +8,7 @@ export default function IndividualizarPolias({ numCalculo, desabilita }) {
 
   const [FrasePoliasEsquerdo, setFrasePoliasEsquerdo] = useState<any>([]);
 
-  const subExame = `Polias ${numCalculo + 1} Esquerdo`
+  const subExame = `Polias ${numCalculo + 1} mão esquerda`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -42,22 +42,25 @@ export default function IndividualizarPolias({ numCalculo, desabilita }) {
     removeMultiplosCalculos();
     var string = `Dedo ${numCalculo + 1} com descontinuidade das polias:`
     if (multiplosDedosCheckbox) {
-      if (A1) {
-        string = `${string} A1`
+      if (A1 || A2 || A3 || A4 || A5) {
+        if (A1) {
+          string = `${string} A1`
+        }
+        if (A2) {
+          string = `${string} A2`
+        }
+        if (A3) {
+          string = `${string} A3`
+        }
+        if (A4) {
+          string = `${string} A4`
+        }
+        if (A5) {
+          string = `${string} A5`
+        }
+        string = `${string}, com afastamento dos tendões flexores da cortical óssea na manobra de flexão e descontinuidade das polias:`
+        setFrasePoliasEsquerdo((arr) => [...arr, string]);
       }
-      if (A2) {
-        string = `${string} A2`
-      }
-      if (A3) {
-        string = `${string} A3`
-      }
-      if (A4) {
-        string = `${string} A4`
-      }
-      if (A5) {
-        string = `${string} A5`
-      }
-      setFrasePoliasEsquerdo((arr) => [...arr, string]);
     } else {
       removeMultiplosCalculos();
     }

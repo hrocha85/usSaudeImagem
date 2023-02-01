@@ -48,7 +48,7 @@ function JoelhoDerrameArticularDireito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAusente = () => {
-    var string = "FALTA";
+    var string = "Ausência de derrame articular.";
     if (AusenteCheckbox) {
       setJoelhoDerrameArticularDireito((arr) => [...arr, string]);
       setDisablePresente(true)
@@ -63,10 +63,10 @@ function JoelhoDerrameArticularDireito() {
     removePresente();
     var string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
-      string = `FALTA ${Presente} com espassamento sinovial. `;
+      string = `Preseça de ${Presente} derrame articular, associado a espessamento sinovial. `;
       setJoelhoDerrameArticularDireito((arr) => [...arr, string]);
     } else if (Presente !== "") {
-      string = `FALTA ${Presente} `;
+      string = `Preseça de ${Presente} derrame articular.`;
       setJoelhoDerrameArticularDireito((arr) => [...arr, string]);
 
     }
@@ -74,7 +74,7 @@ function JoelhoDerrameArticularDireito() {
 
   const removePresente = () => {
     JoelhoDerrameArticularDireito.map((e) => {
-      if (e.includes("FALTA")) {
+      if (e.includes("Preseça de")) {
         var index = JoelhoDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {
@@ -157,7 +157,7 @@ function JoelhoDerrameArticularDireito() {
               setPresenteSelect(e.target.value);
             }}
           >
-            <option value="Não graduar">Não graduar</option>
+            <option value="">Não graduar</option>
             <option value="pequeno">pequeno</option>
             <option value="moderado">moderado</option>
             <option value="volumoso">volumoso</option>

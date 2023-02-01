@@ -1,11 +1,10 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function BolsaOlecreaneanaDireito() {
     const altura = "100%";
@@ -44,20 +43,6 @@ function BolsaOlecreaneanaDireito() {
     const [SemLiquidoCheckbox, setSemLiquidoCheckbox] = useState(false);
     const [ComLiquidoEspessadoCheckbox, setComLiquidoEspessadoCheckbox] = useState(false);
 
-
-
-    const criaStringSemLiquido = () => {
-        var string = "FALTA";
-        if (SemLiquidoCheckbox) {
-            setFraseBolsaOlecreaneanaDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
-    };
-
-    useEffect(() => {
-        criaStringSemLiquido()
-    }, [SemLiquidoCheckbox])
 
     const criaStringComLiquidoEspessado = () => {
         var string = "Pequena quantidade de líquido no interior da bolsa sinovial subcutânea do olécrano, associada a espessamento parietal.";

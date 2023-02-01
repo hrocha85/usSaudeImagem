@@ -1,10 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { PunhoEsquerdoNormalContext } from "../../../../../context/PunhoEsquerdoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { PunhoEsquerdoNormalContext } from "../../../../../context/PunhoEsquerdoNormalContext";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function PunhoCistosEsquerdo() {
   const altura = "100%";
@@ -56,26 +57,29 @@ function PunhoCistosEsquerdo() {
 
 
 
-  const criaStringFaceDorsal = (medida1, medida2, medida3, selectFaceDorsal) => {
+  const criaStringFaceDorsal = (medida1cm, medida2cm, medida3cm, selectFaceDorsal) => {
     removeFaceDorsal();
+    var medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+    var medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+    var medida3 = new Convert_Medida(medida3cm).Convert_Medida()
+
     var string;
     if (FaceDorsalCheckbox) {
-      if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectFaceDorsal !== '' && ComunicandoDorsal) {
-        string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectFaceDorsal}, comunicando-se com a articulação radiocárpica`;
+      if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectFaceDorsal !== '' && ComunicandoDorsal) {
+        string = `Cisto de contornos regulares com finas septações em seu interior, localizado na face dorsal do punho, entre o ${selectFaceDorsal} compartimentos sinoviais dos extensores,medindo ${medida1} x ${medida2} x ${medida3} cm, comunicando-se com a articulação radiocárpica`;
         setFrasesPunhoCistosEsquerdo((arr) => [...arr, string]);
-      } else if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectFaceDorsal !== '') {
-        string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectFaceDorsal}`;
+      } else if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectFaceDorsal !== '') {
+        string = `Cisto de contornos regulares com finas septações em seu interior, localizado na face dorsal do punho, entre o ${selectFaceDorsal} compartimentos sinoviais dos extensores,medindo ${medida1} x ${medida2} x ${medida3} cm.`;
         setFrasesPunhoCistosEsquerdo((arr) => [...arr, string]);
       }
     } else {
       removeFaceDorsal();
-
     }
   };
 
   const removeFaceDorsal = () => {
     frasesPunhoCistosEsquerdo.map((e) => {
-      if (e.includes("Frase ")) {
+      if (e.includes("Cisto de contornos regulares com finas septações em seu interior, localizado na face dorsal do punho, entre o ")) {
         var index = frasesPunhoCistosEsquerdo.indexOf(e);
         if (index > -1) {
           frasesPunhoCistosEsquerdo.splice(index, 1);
@@ -89,7 +93,6 @@ function PunhoCistosEsquerdo() {
     if (FaceDorsalCheckbox) {
       setdisableFaceDorsalInput(false);
     } else {
-      removeFaceDorsal();
       setdisableFaceDorsalInput(true);
       setSelectFaceDorsal("")
       setFaceDorsalInput("");
@@ -104,15 +107,19 @@ function PunhoCistosEsquerdo() {
 
 
 
-  const criaStringFaceVolar = (medida1, medida2, medida3) => {
+  const criaStringFaceVolar = (medida1cm, medida2cm, medida3cm) => {
     removeFaceVolar();
+    var medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+    var medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+    var medida3 = new Convert_Medida(medida3cm).Convert_Medida()
+
     var string;
     if (FaceVolarCheckbox) {
-      if (medida1 !== "" && medida2 !== "" && medida3 !== "" && ComunicandoVolar) {
-        string = `Frase ${medida1} x ${medida2} x ${medida3} mm, comunicando-se com a articulação radiocárpica`;
+      if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && ComunicandoVolar) {
+        string = `Cisto de contornos regulares com finas septações em seu interior, localizado na face volar do punho, situado adjacente à artéria radial, próximo ao escafoide, medindo ${medida1} x ${medida2} x ${medida3} mm, comunicando-se com a articulação radiocárpica.`;
         setFrasesPunhoCistosEsquerdo((arr) => [...arr, string]);
-      } else if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
-        string = `Frase ${medida1} x ${medida2} x ${medida3} mm`;
+      } else if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "") {
+        string = `Cisto de contornos regulares com finas septações em seu interior, localizado na face volar do punho, situado adjacente à artéria radial, próximo ao escafoide, medindo ${medida1} x ${medida2} x ${medida3} mm`;
         setFrasesPunhoCistosEsquerdo((arr) => [...arr, string]);
       }
     } else {
@@ -123,7 +130,7 @@ function PunhoCistosEsquerdo() {
 
   const removeFaceVolar = () => {
     frasesPunhoCistosEsquerdo.map((e) => {
-      if (e.includes("Frase ")) {
+      if (e.includes("Cisto de contornos regulares com finas septações em seu interior, localizado na face volar do punho, situado adjacente à artéria radial, próximo ao escafoide, medindo ")) {
         var index = frasesPunhoCistosEsquerdo.indexOf(e);
         if (index > -1) {
           frasesPunhoCistosEsquerdo.splice(index, 1);
@@ -137,7 +144,6 @@ function PunhoCistosEsquerdo() {
     if (FaceVolarCheckbox) {
       setdisableFaceVolarInput(false);
     } else {
-      removeFaceVolar();
       setdisableFaceVolarInput(true);
       setFaceVolarInput("");
       setFaceVolarInput2("");
@@ -228,8 +234,8 @@ function PunhoCistosEsquerdo() {
             }}
           >
             <option selected disabled value="">Select</option>
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+            <option value="III e IV">III e IV</option>
+            <option value="IV e V">IV e V</option>
           </Select>
           <Text alignSelf='center'>compartimentos sinovais</Text>
           <Checkbox

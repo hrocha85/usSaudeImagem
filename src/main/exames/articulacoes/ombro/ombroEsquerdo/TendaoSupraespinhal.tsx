@@ -1,10 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function OmbroTendaoSupraespinhalEsquerdo() {
   const altura = "100%";
@@ -14,7 +15,7 @@ function OmbroTendaoSupraespinhalEsquerdo() {
   let { OmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext)
   const [frasesOmbroTendaoSupraespinhalEsquerdo, setFrasesOmbroTendaoSupraespinhalEsquerdo] = useState<any>([]);
 
-  const subExame = 'Tendão do Supraespinhal'
+  const subExame = 'Tendão Supraespinhal Esquerdo'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -69,22 +70,24 @@ function OmbroTendaoSupraespinhalEsquerdo() {
   const [InputRetracaoRoturaCompleta, setInputRetracaoRoturaCompleta] = useState('');
 
 
-  const criaStringRoturaParcial = (medida1, medida2, medida3, selectRoturaParcial) => {
+  const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm, selectRoturaParcial) => {
     removeRoturaParcial();
+    const medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+    const medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+    const medida3 = new Convert_Medida(medida3cm).Convert_Medida()
     if (RoturaParcialCheckbox) {
-      if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectRoturaParcial !== '') {
-        var string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectRoturaParcial}`;
+      if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectRoturaParcial !== '') {
+        var string = `${selectRoturaParcial} espessado, com alteração ecotextural, observando-se sinais de rotura parcial ${medida1} x ${medida2} x ${medida3} cm`;
         setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
       }
     } else {
       removeRoturaParcial();
-
     }
   };
 
   const removeRoturaParcial = () => {
     frasesOmbroTendaoSupraespinhalEsquerdo.map((e) => {
-      if (e.includes("Frase ")) {
+      if (e.includes("espessado, com alteração ecotextural, observando-se sinais de rotura parcial ")) {
         var index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
         if (index > -1) {
           frasesOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
@@ -95,12 +98,9 @@ function OmbroTendaoSupraespinhalEsquerdo() {
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "FALTA essa";
-    if (AspectoNormalCheckbox) {
-      setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    AspectoNormalCheckbox ? setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+
   };
 
   useEffect(() => {
@@ -108,25 +108,24 @@ function OmbroTendaoSupraespinhalEsquerdo() {
   }, [AspectoNormalCheckbox])
 
   const criaStringPequenasCalcificacoes = () => {
-    var string = "FALTA";
-    if (PequenasCalcificacoesCheckbox) {
-      setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "Há pequenas calcificações junto à inserção do supraespinhal.";
+    PequenasCalcificacoesCheckbox ? setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+
   };
 
   useEffect(() => {
     criaStringPequenasCalcificacoes()
   }, [PequenasCalcificacoesCheckbox])
 
-  const criaStringTendinopatiaSemRotura = (select, medida) => {
-    var string = 'Tendinopatia sem rotura'
+  const criaStringTendinopatiaSemRotura = (select, medidacm) => {
+    var string = 'Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura. Presença de '
     removeFraseTendinopatiaSemRotura()
-    console.log(medida)
+
+    var medida = new Convert_Medida(medidacm).Convert_Medida()
+
     if (TendinopatiaSemRoturaCheckbox) {
-      if (select !== '' && medida !== '') {
-        string = `${string} ${select} medindo ${medida} mm`;
+      if (select !== '' && medidacm !== '') {
+        string = `${string} ${select} medindo ${medida} cm`;
         setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
       } else {
         string = `${string} ${select}`;
@@ -134,7 +133,6 @@ function OmbroTendaoSupraespinhalEsquerdo() {
       }
     } else {
       removeFraseTendinopatiaSemRotura()
-      //removeItemString(string)
     }
   };
 
@@ -169,7 +167,7 @@ function OmbroTendaoSupraespinhalEsquerdo() {
 
   const removeFraseTendinopatiaSemRotura = () => {
     frasesOmbroTendaoSupraespinhalEsquerdo.map((e) => {
-      if (e.includes("Tendinopatia sem rotura")) {
+      if (e.includes("Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura. Presença de ")) {
         var index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
 
         if (index > -1) {
@@ -184,18 +182,17 @@ function OmbroTendaoSupraespinhalEsquerdo() {
     removeFraseRoturaCompleta()
     var string;
     if (dados !== '' && medidaRetracao !== '') {
-      string = `Rotura completa medindo ${dados} com retração de ${medidaRetracao} mm`;
+      string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo com retração de ${medidaRetracao} mm`;
       setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
     } else if (dados !== '') {
-      string = `Rotura completa medindo ${dados}`;
+      string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo`;
       setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
     }
   }
   const removeFraseRoturaCompleta = () => {
     frasesOmbroTendaoSupraespinhalEsquerdo.map((e) => {
-      if (e.includes("Rotura completa medindo")) {
+      if (e.includes("Hipoecogênico, heterogêneo, observando-se sinais de rotura completa")) {
         var index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
-
         if (index > -1) {
           frasesOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
           setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr]);
@@ -314,7 +311,6 @@ function OmbroTendaoSupraespinhalEsquerdo() {
           isDisabled={disableTudo || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
-            // criaStringAspectoNormal();
           }}
         >
           Aspecto Normal
@@ -335,8 +331,8 @@ function OmbroTendaoSupraespinhalEsquerdo() {
               setSelectTendinopatiaSemRotura(e.target.value);
             }}
           >
-            <option value="Select 1">corno anterior</option>
-            <option value="Select 2">corno posterior</option>
+            <option value="">não citar calcificações</option>
+            <option value="Calcificações intrassubstancial">Calcificações intrassubstancial</option>
           </Select>
           <Checkbox
             isDisabled={MedindoDisableTendinopatiaSemRotura}
@@ -411,8 +407,10 @@ function OmbroTendaoSupraespinhalEsquerdo() {
               setSelectRoturaParcial(e.target.value);
             }}
           >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+            <option value="não citar tipo">não citar tipo</option>
+            <option value="intrassubstancial">intrassubstancial</option>
+            <option value="superficial">superficial</option>
+            <option value="profunda">profunda</option>
           </Select>
         </Box>
 
@@ -457,6 +455,7 @@ function OmbroTendaoSupraespinhalEsquerdo() {
             textAlign="center"
             onChange={(e) => { setInputRetracaoRoturaCompleta(e.target.value) }}
           />
+          <Text alignSelf='center'>mm</Text>
         </Box>
       </Stack >
     </Box >

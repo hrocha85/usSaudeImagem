@@ -1,11 +1,10 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function NervoUlnarEsquerdo() {
     const altura = "100%";
@@ -50,12 +49,8 @@ function NervoUlnarEsquerdo() {
     const [SofreLuxacaoCheckbox, setSofreLuxacaoCheckbox] = useState(false);
 
     const criaStringEspessuraNormal = () => {
-        var string = "FALTA";
-        if (EspessuraNormalCheckbox) {
-            setFraseNervoUlnarEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Nervo ulnar de espessura, contornos e ecotextura normais.";
+        EspessuraNormalCheckbox ? setFraseNervoUlnarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -63,12 +58,8 @@ function NervoUlnarEsquerdo() {
     }, [EspessuraNormalCheckbox])
 
     const criaStringSofreSubluxacao = () => {
-        var string = "FALTA";
-        if (SofreSubluxacaoCheckbox) {
-            setFraseNervoUlnarEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Observa-se subluxação do nervo ulnar durante a manobra de flexão do cotovelo.";
+        SofreSubluxacaoCheckbox ? setFraseNervoUlnarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -76,40 +67,17 @@ function NervoUlnarEsquerdo() {
     }, [SofreSubluxacaoCheckbox])
 
     const criaStringSofreLuxacao = () => {
-        var string = "FALTA";
-        if (SofreLuxacaoCheckbox) {
-            setFraseNervoUlnarEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Observa-se luxação do nervo ulnar durante a manobra de flexão do cotovelo.";
+        SofreLuxacaoCheckbox ? setFraseNervoUlnarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
         criaStringSofreLuxacao()
     }, [SofreLuxacaoCheckbox])
 
-    const criaStringAreaSeccional = (medida) => {
-        removeFraseAreaSeccional();
-        var string;
-        if (medida !== '') {
-            string = `frase ${medida} mm`
-            setFraseNervoUlnarEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeFraseAreaSeccional();
-        }
-    };
+        ;
 
-    const removeFraseAreaSeccional = () => {
-        fraseNervoUlnarEsquerdo.map((e) => {
-            if (e.includes("frase ")) {
-                var index = fraseNervoUlnarEsquerdo.indexOf(e);
-                if (index > -1) {
-                    fraseNervoUlnarEsquerdo.splice(index, 1);
-                    setFraseNervoUlnarEsquerdo((arr) => [...arr]);
-                }
-            }
-        });
-    };
+
 
     useEffect(() => {
         if (AreaSeccionalCheckbox) {
@@ -120,22 +88,33 @@ function NervoUlnarEsquerdo() {
         }
     }, [AreaSeccionalCheckbox])
 
-    useEffect(() => {
-        criaStringAreaSeccional(AreaSeccionalInput)
-    }, [AreaSeccionalInput])
 
     const criaStringEspessuraAumentada = () => {
-        var string = "FALTA";
-        if (EspessuraAumentadaCheckbox) {
-            setFraseNervoUlnarEsquerdo((arr) => [...arr, string]);
+        var string = "Nervo ulnar espessado e heterogêneo";
+        removeFraseAreaSeccional()
+        if (AreaSeccionalInput !== '') {
+            string = `${string}, com área seccional de ${AreaSeccionalInput} mm²`
         } else {
-            removeItemString(string);
+            string = `${string}.`
         }
+        EspessuraAumentadaCheckbox ? setFraseNervoUlnarEsquerdo((arr) => [...arr, string]) : removeFraseAreaSeccional()
     };
 
     useEffect(() => {
         criaStringEspessuraAumentada()
-    }, [EspessuraAumentadaCheckbox])
+    }, [EspessuraAumentadaCheckbox, AreaSeccionalInput])
+
+    const removeFraseAreaSeccional = () => {
+        fraseNervoUlnarEsquerdo.map((e) => {
+            if (e.includes("Nervo ulnar espessado e heterogêneo")) {
+                var index = fraseNervoUlnarEsquerdo.indexOf(e);
+                if (index > -1) {
+                    fraseNervoUlnarEsquerdo.splice(index, 1);
+                    setFraseNervoUlnarEsquerdo((arr) => [...arr]);
+                }
+            }
+        });
+    };
 
     const removeItemString = (value) => {
         var index = fraseNervoUlnarEsquerdo.indexOf(value);

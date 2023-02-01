@@ -1,11 +1,10 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { JoelhoDireitoNormalContext } from "../../../../../context/JoelhoDireitoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { JoelhoDireitoNormalContext } from "../../../../../context/JoelhoDireitoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function TendaoPataGansoDireito() {
   const altura = "100%";
@@ -14,7 +13,7 @@ function TendaoPataGansoDireito() {
 
   const [TendaoPataGansoDireito, setTendaoPataGansoDireito] = useState<any>([]);
 
-  const subExame = `Tendão "pata de ganso" joelho Direito`
+  const subExame = `Tendão "pata de ganso" joelho direito`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {

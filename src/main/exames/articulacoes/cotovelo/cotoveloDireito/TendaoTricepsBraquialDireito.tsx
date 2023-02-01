@@ -1,12 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
-import { Format_Laudo } from "../../../../component/function_format_laudo";
+import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function TendaoTricepsBraquialDireito() {
     const altura = "100%";
@@ -89,11 +88,12 @@ function TendaoTricepsBraquialDireito() {
         criaStringAspectoNormal()
     }, [AspectoNormalCheckbox])
 
-    const criaStringEntesofito = (medida) => {
+    const criaStringEntesofito = (medidaCm) => {
         removeStringEntesofito();
+        var medida = new Convert_Medida(medidaCm).Convert_Medida()
         var string;
-        if (medida !== '') {
-            string = `FALTA ${medida}`
+        if (medidaCm !== '') {
+            string = `Presença de entesófito no tendão do tríceps braquial, medindo ${medida} cm.`
             setFraseTendaoTricepsBraquialDireito((arr) => [...arr, string]);
         }
     };
@@ -114,7 +114,7 @@ function TendaoTricepsBraquialDireito() {
 
     const removeStringEntesofito = () => {
         fraseTendaoTricepsBraquialDireito.map((e) => {
-            if (e.includes("FALTA")) {
+            if (e.includes("Presença de entesófito no tendão do tríceps braquial, medindo")) {
                 var index = fraseTendaoTricepsBraquialDireito.indexOf(e);
 
                 if (index > -1) {

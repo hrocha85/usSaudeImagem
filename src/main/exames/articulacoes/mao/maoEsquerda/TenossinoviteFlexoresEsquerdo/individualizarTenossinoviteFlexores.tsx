@@ -8,7 +8,7 @@ export default function IndividualizarTenossinoviteFlexores({ numCalculo }) {
 
   const [fraseTenossinoviteFlexoresEsquerdo, setFraseTenossinoviteFlexoresEsquerdo] = useState<any>([]);
 
-  const subExame = `Tenossinovite dos flexores ${numCalculo} Esquerdo`
+  const subExame = `Tenossinovite dos flexores ${numCalculo} mão esquerda`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -39,10 +39,10 @@ export default function IndividualizarTenossinoviteFlexores({ numCalculo }) {
     removeMultiplosCalculos();
     var string;
     if (EspessamentoSinovialCheckbox && EspassamentoTendineoCheckbox) {
-      string = `Dedo ${numCalculo} com espessamento sinovial e tendineo`;
+      string = `Dedo ${numCalculo} com espessamento dos tendões e da bainha sinovial.`;
       setFraseTenossinoviteFlexoresEsquerdo((arr) => [...arr, string]);
     } else if (EspessamentoSinovialCheckbox) {
-      string = `Dedo ${numCalculo} com espessamento sinovial`;
+      string = `Dedo ${numCalculo} com espessamento da bainha sinovial.`;
       setFraseTenossinoviteFlexoresEsquerdo((arr) => [...arr, string]);
     }
   };

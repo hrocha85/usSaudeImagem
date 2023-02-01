@@ -1,8 +1,9 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, HStack, Input, Select, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -12,7 +13,7 @@ function TendaoPatelarDireito() {
 
   const [TendaoPatelarDireito, setTendaoPatelarDireito] = useState<any>([]);
 
-  const subExame = `Tendão patelar joelho Direito`
+  const subExame = `Tendão patelar joelho direito`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -107,18 +108,20 @@ function TendaoPatelarDireito() {
     criaStringTendinopatiaSemRotura()
   }, [TendinopatiaSemRoturaCheckbox])
 
-  const criaStringPresencaEntesofito = (dados) => {
+  const criaStringPresencaEntesofito = (dadoscm) => {
     removeFrasePresencaEntesofito()
+    var dados = new Convert_Medida(dadoscm).Convert_Medida()
     var string;
-    if (PresencaEntesofitoCheckbox && dados !== '' && EntesofitoSelect !== '') {
-      string = `Presença de entesófito ${EntesofitoSelect} medindo ${dados} `;
-
+    if (PresencaEntesofitoCheckbox && dadoscm !== '' && EntesofitoSelect !== '') {
+      string = `Presença de entesófito ${EntesofitoSelect} do tendão patelar medindo ${dados} cm.`;
       setTendaoPatelarDireito((arr) => [...arr, string]);
     } else if (PresencaEntesofitoCheckbox && EntesofitoSelect !== '') {
-      string = `Presença de entesófito`;
+      string = `Presença de entesófito ${EntesofitoSelect} do tendão patelar.`;
+      setTendaoPatelarDireito((arr) => [...arr, string]);
+    } else if (PresencaEntesofitoCheckbox && EntesofitoSelect === '') {
+      string = `Presença de entesófito no tendão patelar.`;
       setTendaoPatelarDireito((arr) => [...arr, string]);
     }
-    console.log(string)
     // setTendinopatiaSemRoturaCheckbox(false);
   }
   const removeFrasePresencaEntesofito = () => {
@@ -143,7 +146,7 @@ function TendaoPatelarDireito() {
       setDisableInputPresencaEntesofito(true)
       setInputMedindoPresencaEntesofito('')
     }
-  }, [PresencaEntesofitoCheckbox, InputMedindoPresencaEntesofito])
+  }, [PresencaEntesofitoCheckbox, EntesofitoSelect, InputMedindoPresencaEntesofito])
 
 
   const removeItemString = (value) => {
@@ -329,8 +332,8 @@ function TendaoPatelarDireito() {
             }}
           >
             <option value="">Não citar tipo</option>
-            <option value="proximal">proximal</option>
-            <option value="distal">distal</option>
+            <option value="na inserção proximal">proximal</option>
+            <option value="na inserção distal">distal</option>
           </Select>
           <Text alignSelf='center'>medindo </Text>
           <Input

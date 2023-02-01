@@ -1,16 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Button, Center, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { isLineBreak } from "typescript";
-import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { Box, Center, Checkbox, Input } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Convert_Medida } from "../../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
 export default function IndividualizarRoturaExtensores({ numCalculo }) {
 
   const [fraseRoturaFlexoresEsquerdo, setFraseRoturaFlexoresEsquerdo] = useState<any>([]);
 
-  const subExame = `Rotura dos flexores ${numCalculo} Esquerdo`
+  const subExame = `Rotura dos flexores ${numCalculo} mão esquerda`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -40,14 +39,15 @@ export default function IndividualizarRoturaExtensores({ numCalculo }) {
     removeMultiplosCalculos();
 
     if (tamanhoCalculoInput !== "") {
-      var string = `Dedo ${numCalculo} com descontinuidade das fibras de ${tamanhoCalculoInput} mm `;
+      const medida = new Convert_Medida(tamanhoCalculoInput).Convert_Medida()
+      var string = `Descontinuidade completa das fibras do tendão flexores do ${numCalculo} dedo com intervalo de ${medida} cm.`;
       setFraseRoturaFlexoresEsquerdo((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCalculos = () => {
     fraseRoturaFlexoresEsquerdo.map((e) => {
-      if (e.includes(`Dedo ${numCalculo}`)) {
+      if (e.includes(`Descontinuidade completa das fibras do tendão flexores do ${numCalculo}`)) {
         var index = fraseRoturaFlexoresEsquerdo.indexOf(e);
 
         if (index > -1) {

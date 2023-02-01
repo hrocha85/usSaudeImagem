@@ -12,7 +12,7 @@ function TendaoBicepsFemoralEsquerdo() {
 
     const [TendaoBicepsFemoralEsquerdo, setTendaoBicepsFemoralEsquerdo] = useState<any>([]);
 
-    const subExame = `Tendão bíceps femoral joelho Esquerdo`
+    const subExame = `Tendão bíceps femoral joelho esquerdo`
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -74,7 +74,7 @@ function TendaoBicepsFemoralEsquerdo() {
     };
 
     const criaStringAspectoNormal = () => {
-        var string = "FALTA";
+        var string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
         AspectoNormalCheckbox ? setTendaoBicepsFemoralEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
@@ -83,7 +83,7 @@ function TendaoBicepsFemoralEsquerdo() {
     }, [AspectoNormalCheckbox])
 
     const criaStringTendinopatiaSemRotura = () => {
-        var string = "FALTA";
+        var string = "Tendão do bíceps femoral espessado, com alteração ecotextural, sem evidências de rotura.";
         TendinopatiaSemRoturaCheckbox ? setTendaoBicepsFemoralEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
     useEffect(() => {
