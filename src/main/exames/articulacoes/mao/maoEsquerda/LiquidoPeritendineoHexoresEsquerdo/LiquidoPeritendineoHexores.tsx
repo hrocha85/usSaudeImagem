@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Stack } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
 import IndividualizarLiquidoPerintendineoHexores from "./individualizarLiquidoPerintendineoHexores";
 

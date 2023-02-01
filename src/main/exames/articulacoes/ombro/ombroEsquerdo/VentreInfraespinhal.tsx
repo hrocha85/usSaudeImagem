@@ -1,10 +1,10 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Stack, } from "@chakra-ui/react";
+import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 
 function VentreInfraespinhalEsquerdo() {
@@ -47,12 +47,8 @@ function VentreInfraespinhalEsquerdo() {
 
 
     const criaStringNormal = () => {
-        var string = "FALTA";
-        if (NormalCheckbox) {
-            setFraseVentreInfraespinhalEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
+        NormalCheckbox ? setFraseVentreInfraespinhalEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -60,13 +56,10 @@ function VentreInfraespinhalEsquerdo() {
     }, [NormalCheckbox])
 
     const criaStringSubstituicaoAdiposa = () => {
-        var string = "FALTA";
-        if (SubstituicaoAdiposaCheckbox) {
-            setFraseVentreInfraespinhalEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Há sinais de infiltração adiposa do ventre muscular do infraespinhal.";
+        SubstituicaoAdiposaCheckbox ? setFraseVentreInfraespinhalEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
+
     useEffect(() => {
         criaStringSubstituicaoAdiposa()
     }, [SubstituicaoAdiposaCheckbox])

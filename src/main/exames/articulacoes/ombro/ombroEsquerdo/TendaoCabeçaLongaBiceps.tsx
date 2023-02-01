@@ -1,9 +1,9 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext"
+import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -43,7 +43,6 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
   const [RoturaParcialInput2, setRoturaParcialInput2] = useState("");
   const [RoturaParcialInput3, setRoturaParcialInput3] = useState("");
   const [disableRoturaParcialInput, setdisableRoturaParcialInput] = useState(true);
-  const [SelectRoturaParcial, setSelectRoturaParcial] = useState("");
 
   const [disableAspectoNormal, setdisableAspectoNormal] = useState(false);
   const [disableRoturaParcial, setdisableRoturaParcial] = useState(false);
@@ -74,17 +73,21 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
   const [disableSelectLuxacao, setdisableSelectLuxacao] = useState(true);
   const [SelectLuxacao, setSelectLuxacao] = useState("");
 
-  const criaStringRoturaParcial = (medida1, medida2, medida3, selectRoturaParcial) => {
+  const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm) => {
     removeRoturaParcial();
-    if (medida1 !== "" && medida2 !== "" && medida3 !== "" && selectRoturaParcial !== '') {
-      var string = `Frase ${medida1} x ${medida2} x ${medida3} mm, ${selectRoturaParcial}`;
+    var medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+    var medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+    var medida3 = new Convert_Medida(medida3cm).Convert_Medida()
+
+    if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "") {
+      var string = `Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} cm`;
       setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
     }
   };
 
   const removeRoturaParcial = () => {
     fraseTendaoCabecaLongaBicepsEsquerdo.map((e) => {
-      if (e.includes("Espessado, com alteração ecotextural,")) {
+      if (e.includes("Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo")) {
         var index = fraseTendaoCabecaLongaBicepsEsquerdo.indexOf(e);
 
         if (index > -1) {
@@ -96,12 +99,8 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "FALTA";
-    if (AspectoNormalCheckbox) {
-      setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    AspectoNormalCheckbox ? setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]) : removeItemString(string);
   };
   useEffect(() => {
     criaStringAspectoNormal()
@@ -109,7 +108,7 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
 
 
   const criaStringPequenasCalcificacoes = () => {
-    var string = "FALTA";
+    var string = "Há pequenas calcificações junto à inserção do subescapular.";
     if (PequenasCalcificacoesCheckbox) {
       setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
     } else {
@@ -123,14 +122,16 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
 
   const criaStringTendinopatiaSemRotura = () => {
     removeFraseTendinopatiaSemRotura()
-    var string = 'Tendinopatia sem rotura'
+    var string = 'Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, sem evidências de rotura. '
     if (TendinopatiaSemRoturaCheckbox) {
 
       if (LiquidoPeritendineoCheckbox) {
-        string = `${string} Líquido peritendio`;
+        string = `${string} Presença de líquido na bainha.`;
+      } else {
+        string = `${string} Ausência de líquido na bainha.`;
       }
       if (EspessamentoSinovialCheckbox) {
-        string = `${string} espessamento sinovial`;
+        string = `${string} Espessamento da bainha sinovial. `;
       }
       setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
     }
@@ -141,7 +142,7 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
 
   const removeFraseTendinopatiaSemRotura = () => {
     fraseTendaoCabecaLongaBicepsEsquerdo.map((e) => {
-      if (e.includes("Tendinopatia")) {
+      if (e.includes("Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, sem evidências de rotura.")) {
         var index = fraseTendaoCabecaLongaBicepsEsquerdo.indexOf(e);
 
         if (index > -1) {
@@ -152,14 +153,16 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
     });
   };
 
-  const criaStringRoturaCompleta = (dados, medidaRetracao) => {
+  const criaStringRoturaCompleta = (dadosCm, medidaRetracaoCm) => {
     removeFraseRoturaCompleta()
     var string;
-    if (dados !== '' && medidaRetracao !== '') {
-      string = `Rotura completa medindo ${dados} com retração de ${medidaRetracao} mm`;
+    var dados = new Convert_Medida(dadosCm).Convert_Medida()
+    var medidaRetracao = new Convert_Medida(medidaRetracaoCm).Convert_Medida()
+    if (dadosCm !== '' && medidaRetracaoCm !== '') {
+      string = `Tendão da cabeça longa do bíceps hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} cm de intervalo e ${medidaRetracao} cm de retração. Ausência de líquido na bainha.`;
       setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
-    } else if (dados !== '') {
-      string = `Rotura completa medindo ${dados}`;
+    } else if (dadosCm !== '') {
+      string = `Tendão da cabeça longa do bíceps hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} cm. Ausência de líquido na bainha.`;
       setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
     }
   }
@@ -170,7 +173,7 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
 
   const removeFraseRoturaCompleta = () => {
     fraseTendaoCabecaLongaBicepsEsquerdo.map((e) => {
-      if (e.includes("Rotura completa medindo")) {
+      if (e.includes("Tendão da cabeça longa do bíceps hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ")) {
         var index = fraseTendaoCabecaLongaBicepsEsquerdo.indexOf(e);
 
         if (index > -1) {
@@ -188,7 +191,9 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
       setdisableRoturaParcial(true)
       setdisableTendinopatiaSemRotura(true)
       setdisableRoturaLongitudinal(true)
+      setDisableLuxacaoCheckbox(true)
     } else {
+      setDisableLuxacaoCheckbox(false)
       setDisableInputRetracaoRoturaCompleta(true)
       setInputMedindoRoturaCompleta('')
       setdisableRoturaLongitudinal(false)
@@ -202,12 +207,9 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
 
 
   const criaStringRoturaLongitudinal = () => {
-    var string = "FALTA";
-    if (RoturaLongitudinalCheckbox) {
-      setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, apresentando imagem linear hipoecogênica longitudinal.";
+    RoturaLongitudinalCheckbox ? setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+
   };
   useEffect(() => {
     criaStringRoturaLongitudinal()
@@ -218,7 +220,7 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
     removeFraseLuxacao();
     if (LuxacaoCheckbox) {
       if (select !== '') {
-        string = `Luxação ${select}`
+        string = `Tendão da cabeça longa do bíceps não caracterizado no sulco bicipital, apresentando-se luxado ${select}`
         setFraseTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr, string]);
       }
     } else {
@@ -227,7 +229,7 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
   }
   const removeFraseLuxacao = () => {
     fraseTendaoCabecaLongaBicepsEsquerdo.map((e) => {
-      if (e.includes("Luxação")) {
+      if (e.includes("Tendão da cabeça longa do bíceps não caracterizado no sulco bicipital, apresentando-se luxado")) {
         var index = fraseTendaoCabecaLongaBicepsEsquerdo.indexOf(e);
 
         if (index > -1) {
@@ -308,6 +310,25 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
     }
   }, [TendinopatiaSemRoturaCheckbox])
 
+  useEffect(() => {
+    if (RoturaLongitudinalCheckbox) {
+      setMedindoDisableTendinopatiaSemRotura(false)
+      setdisableTendinopatiaSemRotura(true)
+      setdisableRoturaParcial(true)
+      setdisableAspectoNormal(true)
+      setdisableRoturaCompleta(true)
+      setDisableLuxacaoCheckbox(true)
+    } else {
+      removeFraseTendinopatiaSemRotura()
+      setMedindoDisableTendinopatiaSemRotura(true)
+      setDisableLuxacaoCheckbox(false)
+      setdisableRoturaParcial(false)
+      setdisableTendinopatiaSemRotura(false)
+      setdisableAspectoNormal(false)
+      setdisableRoturaCompleta(false)
+    }
+  }, [RoturaLongitudinalCheckbox])
+
 
 
   useEffect(() => {
@@ -333,8 +354,8 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
   }, [RoturaParcialCheckbox]);
 
   useEffect(() => {
-    criaStringRoturaParcial(RoturaParcialInput, RoturaParcialInput2, RoturaParcialInput3, SelectRoturaParcial);
-  }, [RoturaParcialInput, RoturaParcialInput2, RoturaParcialInput3, SelectRoturaParcial]);
+    criaStringRoturaParcial(RoturaParcialInput, RoturaParcialInput2, RoturaParcialInput3);
+  }, [RoturaParcialInput, RoturaParcialInput2, RoturaParcialInput3]);
 
   useEffect(() => {
     if (RoturaCompletaRetracaoCheckbox) {
@@ -459,17 +480,6 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
             />
             <Text>mm</Text>
           </HStack>
-          <Select
-            w='150px'
-            isDisabled={disableRoturaParcialInput}
-            value={SelectRoturaParcial}
-            onChange={(e) => {
-              setSelectRoturaParcial(e.target.value);
-            }}
-          >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
-          </Select>
         </Box>
 
         <Box display='flex' flexWrap='wrap' gap='5px'>
@@ -539,8 +549,8 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
               setSelectLuxacao(e.target.value);
             }}
           >
-            <option value="Tendinopatia sem rotura 1">corno anterior</option>
-            <option value="Tendinopatia sem rotura 2">corno posterior</option>
+            <option value="medial">medial</option>
+            <option value="lateral">lateral</option>
           </Select>
         </Box>
 

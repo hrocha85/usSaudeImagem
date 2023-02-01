@@ -11,28 +11,28 @@ function MaoDerrameArticularEsquerda() {
   const altura = "100%";
   const largura = "95%";
 
-  const [FraseDerrameArticularEsquerdo, setFraseDerrameArticularEsquerdo] = useState<any>([]);
+  const [FraseDerrameArticularDireito, setFraseDerrameArticularDireito] = useState<any>([]);
 
-  const subExame = `Derrame articular Esquerdo`
+  const subExame = `Derrame articular mão Esquerda`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
-    if (Object.keys(FraseDerrameArticularEsquerdo).length === 0) {
+    if (Object.keys(FraseDerrameArticularDireito).length === 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        FraseDerrameArticularEsquerdo
+        FraseDerrameArticularDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        FraseDerrameArticularEsquerdo
+        FraseDerrameArticularDireito
       ).Format_Laudo_Create_Storage();
     }
-  }, [FraseDerrameArticularEsquerdo]);
+  }, [FraseDerrameArticularDireito]);
 
   const [DisablePrimeiroDedo, setDisablePrimeiroDedo] = useState(true);
   const [DisableCheckbox, setDisableCheckbox] = useState(true);
@@ -51,11 +51,11 @@ function MaoDerrameArticularEsquerda() {
   var numberArray = [1, 2, 3, 4];
 
   const removeItemString = (value) => {
-    var index = FraseDerrameArticularEsquerdo.indexOf(value);
+    var index = FraseDerrameArticularDireito.indexOf(value);
 
     if (index > -1) {
-      FraseDerrameArticularEsquerdo.splice(index, 1);
-      setFraseDerrameArticularEsquerdo((arr) => [...arr]);
+      FraseDerrameArticularDireito.splice(index, 1);
+      setFraseDerrameArticularDireito((arr) => [...arr]);
     }
   };
 
@@ -66,35 +66,33 @@ function MaoDerrameArticularEsquerda() {
   })
 
   useEffect(() => {
-    var string = "Aspecto normal"
+    var string = "Ausência de derrame articular."
     AusenciaDerrame ? setdisableDerrameArticularLocais(true) : setdisableDerrameArticularLocais(false)
-    AusenciaDerrame ? setFraseDerrameArticularEsquerdo((arr) => [...arr, string]) : removeItemString(string)
-
-    //criaStringAspectNormal()
+    AusenciaDerrame ? setFraseDerrameArticularDireito((arr) => [...arr, string]) : removeItemString(string)
   }, [AusenciaDerrame])
 
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
-    var string = `Dedo 1 com Derrame Articular: `
+    var string = `Dedo 1 com presença de derrame articular: `
     if (PrimeiroDedo) {
       if (Proximal) {
         string = `${string} proximal`
       }
-      setFraseDerrameArticularEsquerdo((arr) => [...arr, string]);
+      setFraseDerrameArticularDireito((arr) => [...arr, string]);
     } else {
       removeMultiplosCalculos();
     }
   };
 
   const removeMultiplosCalculos = () => {
-    FraseDerrameArticularEsquerdo.map((e) => {
-      if (e.includes(`Dedo 1 com Derrame Articular: `)) {
-        var index = FraseDerrameArticularEsquerdo.indexOf(e);
+    FraseDerrameArticularDireito.map((e) => {
+      if (e.includes(`Dedo 1 com presença de derrame articular: `)) {
+        var index = FraseDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {
-          FraseDerrameArticularEsquerdo.splice(index, 1);
-          setFraseDerrameArticularEsquerdo((arr) => [...arr]);
+          FraseDerrameArticularDireito.splice(index, 1);
+          setFraseDerrameArticularDireito((arr) => [...arr]);
         }
       }
     });
@@ -110,32 +108,48 @@ function MaoDerrameArticularEsquerda() {
     }
   }, [PrimeiroDedo, Proximal]);
 
+  const criaStringMetacarpo = () => {
+    removeMetacarpo();
+    var string = `Presença de derrame articular nas metacarpofalangeanas do`
+    if (!DisableCheckbox) {
+      if (Dedo1 || Dedo2 || Dedo3 || Dedo4 || Dedo5) {
+        if (Dedo1) {
+          string = `${string} I `
+        }
+        if (Dedo2) {
+          string = `${string} II `
+        }
+        if (Dedo3) {
+          string = `${string} III `
+        }
+        if (Dedo4) {
+          string = `${string} IV `
+        }
+        if (Dedo5) {
+          string = `${string} V `
+        }
+        string = `${string} dedos.`
+        setFraseDerrameArticularDireito((arr) => [...arr, string]);
+      }
+    } else {
+      removeMetacarpo()
+    }
+  };
+  const removeMetacarpo = () => {
+    FraseDerrameArticularDireito.map((e) => {
+      if (e.includes(`Presença de derrame articular nas metacarpofalangeanas do`)) {
+        var index = FraseDerrameArticularDireito.indexOf(e);
 
+        if (index > -1) {
+          FraseDerrameArticularDireito.splice(index, 1);
+          setFraseDerrameArticularDireito((arr) => [...arr]);
+        }
+      }
+    });
+  };
   useEffect(() => {
-    var string = 'Metacarpo do dedo 1'
-    Dedo1 ? setFraseDerrameArticularEsquerdo((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo1])
-
-  useEffect(() => {
-    var string = 'Metacarpo do dedo 2'
-    Dedo2 ? setFraseDerrameArticularEsquerdo((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo2])
-
-  useEffect(() => {
-    var string = 'Metacarpo do dedo 3'
-    Dedo3 ? setFraseDerrameArticularEsquerdo((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo3])
-
-  useEffect(() => {
-    var string = 'Metacarpo do dedo 4'
-    Dedo4 ? setFraseDerrameArticularEsquerdo((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo4])
-
-  useEffect(() => {
-    var string = 'Metacarpo do dedo 5'
-    Dedo5 ? setFraseDerrameArticularEsquerdo((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo5])
-
+    criaStringMetacarpo()
+  }, [DisableCheckbox, Dedo1, Dedo2, Dedo3, Dedo4, Dedo5])
 
   return (
     <Box
@@ -149,7 +163,7 @@ function MaoDerrameArticularEsquerda() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Derrame Articular TESTAR" />
+      <TituloNomeExame titulo="Derrame Articular" />
       <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
         <Checkbox
           isDisabled={disableAspectNormal}

@@ -1,11 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function TenComumFlexoresAntebracoEsquerdo() {
     const altura = "100%";
@@ -16,7 +16,7 @@ function TenComumFlexoresAntebracoEsquerdo() {
 
     const [fraseTenComumFlexoresAntebracoEsquerdo, setFraseTenComumFlexoresAntebracoEsquerdo] = useState<any>([]);
 
-    const subExame = 'Tendão comum Flexores antebraço '
+    const subExame = 'Tendão comum Flexores antebraço Esquerdo'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -51,9 +51,12 @@ function TenComumFlexoresAntebracoEsquerdo() {
     const [RoturaParcialCheckbox, setRoturaParcialCheckbox] = useState(false);
     const [PequenasCalcificacoesCheckbox, setPequenasCalcificacoesCheckbox] = useState(false);
 
-    const criaStringRoturaParcial = (medida1, medida2, medida3) => {
+    const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm) => {
         removeRoturaParcial();
-        if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
+        var medida1 = new Convert_Medida(medida1cm).Convert_Medida();
+        var medida2 = new Convert_Medida(medida2cm).Convert_Medida();
+        var medida3 = new Convert_Medida(medida3cm).Convert_Medida();
+        if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "") {
             var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
             setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string]);
         }
@@ -61,7 +64,7 @@ function TenComumFlexoresAntebracoEsquerdo() {
 
     const removeRoturaParcial = () => {
         fraseTenComumFlexoresAntebracoEsquerdo.map((e) => {
-            if (e.includes("Espessado, com alteração ecotextural,")) {
+            if (e.includes("Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo")) {
                 var index = fraseTenComumFlexoresAntebracoEsquerdo.indexOf(e);
                 if (index > -1) {
                     fraseTenComumFlexoresAntebracoEsquerdo.splice(index, 1);
@@ -72,24 +75,16 @@ function TenComumFlexoresAntebracoEsquerdo() {
     };
 
     const criaStringAspectoNormal = () => {
-        var string = "FALTA";
-        if (AspectoNormalCheckbox) {
-            setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "com ecotextura e espessura preservadas e contornos normais.";
+        AspectoNormalCheckbox ? setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
     useEffect(() => {
         criaStringAspectoNormal()
     }, [AspectoNormalCheckbox])
 
     const criaStringPequenasCalcificacoes = () => {
-        var string = "FALTA";
-        if (PequenasCalcificacoesCheckbox) {
-            setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Pequenas calcificações junto à inserção do tendão comum dos flexores.";
+        PequenasCalcificacoesCheckbox ? setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -97,12 +92,8 @@ function TenComumFlexoresAntebracoEsquerdo() {
     }, [PequenasCalcificacoesCheckbox])
 
     const criaStringTendinopatiaSemRotura = () => {
-        var string = "FALTA";
-        if (TendinopatiaSemRoturaCheckbox) {
-            setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "espessado, com alteração ecotextural, mas sem evidências de rotura.";
+        TendinopatiaSemRoturaCheckbox ? setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {

@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { Box, Checkbox } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
 export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo }) {
@@ -36,7 +35,7 @@ export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo }
     removeMultiplosCalculos();
     var string;
     if (multiplosCalculosCheckbox) {
-      string = `Dedo ${numCalculo} com liquido peritendineo nos hexores`;
+      string = `Dedo ${numCalculo} com presença de líquido adjacente aos tendões `;
       setFraseLiquidoPerintendineoHexoresEsquerdo((arr) => [...arr, string]);
     }
   }

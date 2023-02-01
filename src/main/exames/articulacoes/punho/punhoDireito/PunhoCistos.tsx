@@ -1,11 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { PunhoDireitoNormalContext } from "../../../../../context/PunhoDireitoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
-import { Format_Laudo } from "../../../../component/function_format_laudo";
+import { PunhoDireitoNormalContext } from "../../../../../context/PunhoDireitoNormalContext";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function PunhoCistosDireito() {
   const altura = "100%";

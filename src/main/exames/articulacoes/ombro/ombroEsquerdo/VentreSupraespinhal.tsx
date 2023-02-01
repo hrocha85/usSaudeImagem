@@ -1,10 +1,10 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Stack, } from "@chakra-ui/react";
+import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 
 function VentreSupraespinhalEsquerdo() {
@@ -43,16 +43,10 @@ function VentreSupraespinhalEsquerdo() {
     const [NormalCheckbox, setNormalCheckbox] = useState(false);
     const [SubstituicaoAdiposaCheckbox, setSubstituicaoAdiposaCheckbox] = useState(false);
 
-
-
-
     const criaStringNormal = () => {
-        var string = "FALTA";
-        if (NormalCheckbox) {
-            setFraseVentreSupraespinhalEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
+        NormalCheckbox ? setFraseVentreSupraespinhalEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+
     };
 
     useEffect(() => {
@@ -60,12 +54,8 @@ function VentreSupraespinhalEsquerdo() {
     }, [NormalCheckbox])
 
     const criaStringSubstituicaoAdiposa = () => {
-        var string = "FALTA";
-        if (SubstituicaoAdiposaCheckbox) {
-            setFraseVentreSupraespinhalEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Há sinais de infiltração adiposa do ventre muscular do supraespinhal.";
+        SubstituicaoAdiposaCheckbox ? setFraseVentreSupraespinhalEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
     useEffect(() => {
         criaStringSubstituicaoAdiposa()

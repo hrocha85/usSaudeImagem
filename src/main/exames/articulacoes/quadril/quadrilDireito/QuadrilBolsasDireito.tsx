@@ -15,7 +15,7 @@ function QuadrilBolsasDireito() {
 
     const [QuadrilBolsasDireito, setQuadrilBolsasDireito] = useState<any>([]);
 
-    const subExame = 'Quadril bolsas direito'
+    const subExame = 'Bolsas quadril direito'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {

@@ -3,7 +3,6 @@
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { JoelhoEsquerdoNormalContext } from "../../../../../context/JoelhoEsquerdoNormalContext";
-import { LaudosContext } from "../../../../../context/LuadosContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -13,7 +12,7 @@ function LigColTibialMedialEsquerdo() {
 
   const [LigamentoTibialMedial, setLigamentoTibialMedial] = useState<any>([]);
 
-  const subExame = `Derrame articular no joelho Esquerdo`
+  const subExame = `Ligamento colateral tibial/medial joelho esquerdo`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -46,7 +45,7 @@ function LigColTibialMedialEsquerdo() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAspectoNormal = () => {
-    var string = "TendaoQuadriceps Esquerdo com AspectoNormal";
+    var string = "Ligamento colateral tibial e ligamento colateral fibular com ecotextura e espessura preservadas e contornos normais.";
     if (AspectoNormalCheckbox) {
       setLigamentoTibialMedial((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)
@@ -61,7 +60,7 @@ function LigColTibialMedialEsquerdo() {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
   const criaStringLesaoAfilamento = () => {
-    var string = "TendaoQuadriceps Esquerdo com LesaoAfilamento";
+    var string = "Ligamento colateral afilado e com alteração ecotextural, com aspecto sugestivo de lesão parcial.";
     if (LesaoAfilamentoCheckbox) {
       setLigamentoTibialMedial((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)
@@ -78,7 +77,7 @@ function LigColTibialMedialEsquerdo() {
   }, [LesaoAfilamentoCheckbox])
 
   const criaStringLesaoEspessamento = () => {
-    var string = "TendaoQuadriceps Esquerdo com LesaoEspessamento";
+    var string = "Ligamento colateral espessado e com alteração ecotextural, com aspecto compatível com lesão parcial/estiramento.";
     if (LesaoEspessamentoCheckbox) {
       setLigamentoTibialMedial((arr) => [...arr, string]);
       setdisableLesaoAfilamento(true)

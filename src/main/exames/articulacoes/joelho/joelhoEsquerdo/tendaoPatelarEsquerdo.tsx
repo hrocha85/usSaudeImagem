@@ -1,8 +1,9 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, HStack, Input, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -12,7 +13,7 @@ function TendaoPatelarEsquerdo() {
 
   const [TendaoPatelarEsquerdo, setTendaoPatelarEsquerdo] = useState<any>([]);
 
-  const subExame = `Tendão patelar joelho Esquerdo`
+  const subExame = `Tendão patelar joelho esquerdo`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -56,6 +57,7 @@ function TendaoPatelarEsquerdo() {
 
   const [PresencaEntesofitoCheckbox, setPresencaEntesofitoCheckbox] = useState(false);
   const [InputMedindoPresencaEntesofito, setInputMedindoPresencaEntesofito] = useState('');
+  const [EntesofitoSelect, setEntesofitoSelect] = useState('');
 
 
   const criaStringLesaoParcial = (medida1, medida2, medida3) => {
@@ -80,7 +82,7 @@ function TendaoPatelarEsquerdo() {
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "FALTA";
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox ? setTendaoPatelarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
   };
 
@@ -89,7 +91,7 @@ function TendaoPatelarEsquerdo() {
   }, [AspectoNormalCheckbox])
 
   const criaStringAspectoPosCirurgico = () => {
-    var string = "FALTA";
+    var string = "Tendão patelar espessado e com alteração ecotextural (aspecto pós cirúrgico).";
     AspectoPosCirurgicoCheckbox ? setTendaoPatelarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
   };
 
@@ -98,7 +100,7 @@ function TendaoPatelarEsquerdo() {
   }, [AspectoPosCirurgicoCheckbox])
 
   const criaStringTendinopatiaSemRotura = () => {
-    var string = "FALTA";
+    var string = "espessado, com alteração ecotextural, sem evidências de rotura.";
     TendinopatiaSemRoturaCheckbox ? setTendaoPatelarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
 
   };
@@ -106,18 +108,20 @@ function TendaoPatelarEsquerdo() {
     criaStringTendinopatiaSemRotura()
   }, [TendinopatiaSemRoturaCheckbox])
 
-  const criaStringPresencaEntesofito = (dados) => {
+  const criaStringPresencaEntesofito = (dadoscm) => {
     removeFrasePresencaEntesofito()
+    var dados = new Convert_Medida(dadoscm).Convert_Medida()
     var string;
-    if (PresencaEntesofitoCheckbox && dados !== '') {
-      string = `Presença de entesófito medindo ${dados}`;
-
+    if (PresencaEntesofitoCheckbox && dadoscm !== '' && EntesofitoSelect !== '') {
+      string = `Presença de entesófito ${EntesofitoSelect} do tendão patelar medindo ${dados} cm.`;
       setTendaoPatelarEsquerdo((arr) => [...arr, string]);
-    } else if (PresencaEntesofitoCheckbox) {
-      string = `Presença de entesófito`;
+    } else if (PresencaEntesofitoCheckbox && EntesofitoSelect !== '') {
+      string = `Presença de entesófito ${EntesofitoSelect} do tendão patelar.`;
+      setTendaoPatelarEsquerdo((arr) => [...arr, string]);
+    } else if (PresencaEntesofitoCheckbox && EntesofitoSelect === '') {
+      string = `Presença de entesófito no tendão patelar.`;
       setTendaoPatelarEsquerdo((arr) => [...arr, string]);
     }
-    console.log(string)
     // setTendinopatiaSemRoturaCheckbox(false);
   }
   const removeFrasePresencaEntesofito = () => {
@@ -142,7 +146,7 @@ function TendaoPatelarEsquerdo() {
       setDisableInputPresencaEntesofito(true)
       setInputMedindoPresencaEntesofito('')
     }
-  }, [PresencaEntesofitoCheckbox, InputMedindoPresencaEntesofito])
+  }, [PresencaEntesofitoCheckbox, EntesofitoSelect, InputMedindoPresencaEntesofito])
 
 
   const removeItemString = (value) => {
@@ -310,36 +314,41 @@ function TendaoPatelarEsquerdo() {
           Aspecto pós cirúrgico
         </Checkbox>
 
-        <Wrap spacing='10px'>
-          <Center>
-            <WrapItem>
-              <Checkbox
-                isDisabled={disableTudo}
-                onChange={() => {
-                  setPresencaEntesofitoCheckbox(!PresencaEntesofitoCheckbox);
-                }}
-              >
-                Presença de entesófito
-              </Checkbox>
-            </WrapItem>
-          </Center>
-          <WrapItem>
-            <Center>
-              <Text>medindo </Text>
-              <Input
-                isDisabled={DisableInputPresencaEntesofito}
-                value={InputMedindoPresencaEntesofito}
-                w="45px"
-                h="30px"
-                padding="5px"
-                maxLength={2}
-                textAlign="center"
-                onChange={(e) => { setInputMedindoPresencaEntesofito(e.target.value) }}
-              />
-              <Text> mm</Text>
-            </Center>
-          </WrapItem>
-        </Wrap>
+        <Box display='flex' flexWrap='wrap' gap='10px'>
+
+          <Checkbox
+            isDisabled={disableTudo}
+            onChange={() => {
+              setPresencaEntesofitoCheckbox(!PresencaEntesofitoCheckbox);
+            }}
+          >
+            Presença de entesófito
+          </Checkbox>
+          <Select
+            w='100px'
+            isDisabled={DisableInputPresencaEntesofito}
+            onChange={(e) => {
+              setEntesofitoSelect(e.target.value);
+            }}
+          >
+            <option value="">Não citar tipo</option>
+            <option value="na inserção proximal">proximal</option>
+            <option value="na inserção distal">distal</option>
+          </Select>
+          <Text alignSelf='center'>medindo </Text>
+          <Input
+            isDisabled={DisableInputPresencaEntesofito}
+            value={InputMedindoPresencaEntesofito}
+            w="45px"
+            h="30px"
+            padding="5px"
+            maxLength={2}
+            textAlign="center"
+            onChange={(e) => { setInputMedindoPresencaEntesofito(e.target.value) }}
+          />
+          <Text> mm</Text>
+
+        </Box>
 
       </Stack >
     </Box >

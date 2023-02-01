@@ -1,16 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Button, Center, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { isLineBreak } from "typescript";
-import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { Box, Checkbox } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
-export default function IndividualizarRoturaFlexores({ numCalculo }) {
+export default function IndividualizarTenossinoviteExtensores({ numCalculo }) {
 
   const [TenossinoviteExtensoresEsquerdo, setTenossinoviteExtensoresEsquerdo] = useState<any>([]);
 
-  const subExame = `Rotura Extensores ${numCalculo} Esquerdo`
+  const subExame = `Tenossinovite Extensores ${numCalculo} mão esquerda`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -41,10 +39,10 @@ export default function IndividualizarRoturaFlexores({ numCalculo }) {
     removeMultiplosCalculos();
     var string;
     if (EspessamentoSinovialCheckbox && EspassamentoTendineoCheckbox) {
-      string = `Dedo ${numCalculo} com espessamento sinovial e tendineo`;
+      string = `Dedo ${numCalculo} com espessamento dos tendões e da bainha sinovial.`;
       setTenossinoviteExtensoresEsquerdo((arr) => [...arr, string]);
     } else if (EspessamentoSinovialCheckbox) {
-      string = `Dedo ${numCalculo} com espessamento sinovial`;
+      string = `Dedo ${numCalculo} com espessamento da bainha sinovial.`;
       setTenossinoviteExtensoresEsquerdo((arr) => [...arr, string]);
 
     }

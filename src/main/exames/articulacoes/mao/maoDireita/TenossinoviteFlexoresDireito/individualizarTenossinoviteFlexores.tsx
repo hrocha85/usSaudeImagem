@@ -8,7 +8,7 @@ export default function IndividualizarTenossinoviteFlexores({ numCalculo }) {
 
   const [fraseTenossinoviteFlexoresDireito, setFraseTenossinoviteFlexoresDireito] = useState<any>([]);
 
-  const subExame = `Tenossinovite dos flexores ${numCalculo} direito`
+  const subExame = `Tenossinovite dos flexores ${numCalculo} mão direita`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {

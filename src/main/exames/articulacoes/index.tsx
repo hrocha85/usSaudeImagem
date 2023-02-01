@@ -385,7 +385,7 @@ function Articulacoes() {
               textAlign="center" >
               <CorpoEstranhoDireito />
             </Box>
-            <Box
+            {/* <Box
               textAlign="center" >
               <BracoLadoDireito />
             </Box>
@@ -402,13 +402,14 @@ function Articulacoes() {
             <Box
               textAlign="center" >
               <AntebracoLadoDireito />
-            </Box>
+            </Box> 
             <Box
               mt='10px'
               textAlign="center" >
               <AntebracoNormalDireito />
             </Box>
-            <Box
+            */}
+            {/* <Box
               textAlign="center" >
               <DedoLadoDireito />
             </Box>
@@ -421,7 +422,7 @@ function Articulacoes() {
               // w='450px'
               textAlign="center" >
               <DedoDireito />
-            </Box>
+            </Box> */}
             <Box
               textAlign="center" >
               <JoelhoLadoDireito />
@@ -515,7 +516,7 @@ function Articulacoes() {
                             textAlign="center" >
                             <QuadrilDireito />
                         </Box> */}
-            <Box
+            {/* <Box
               textAlign="center" >
               <CoxaLadoDireito />
             </Box>
@@ -551,7 +552,7 @@ function Articulacoes() {
               mt='10px'
               textAlign="center" >
               <PeExtraDireito />
-            </Box>
+            </Box> */}
           </Box>
         </Box>
         <Box w='45%'
@@ -701,11 +702,6 @@ function Articulacoes() {
               <PunhoCistosEsquerdo />
             </Box>
             <Box
-              // w='450px'
-              textAlign="center" >
-              <PunhoEsquerdo />
-            </Box>
-            <Box
               textAlign="center" >
               <MaoLadoEsquerdo />
             </Box>
@@ -768,7 +764,7 @@ function Articulacoes() {
               textAlign="center" >
               <CorpoEstranhoEsquerdo />
             </Box>
-            <Box
+            {/* <Box
               textAlign="center" >
               <BracoLadoEsquerdo />
             </Box>
@@ -790,8 +786,8 @@ function Articulacoes() {
               mt='10px'
               textAlign="center" >
               <AntebracoNormalEsquerdo />
-            </Box>
-            <Box
+            </Box> */}
+            {/* <Box
               textAlign="center" >
               <DedoLadoEsquerdo />
             </Box>
@@ -804,7 +800,7 @@ function Articulacoes() {
               // w='450px'
               textAlign="center" >
               <DedoEsquerdo />
-            </Box>
+            </Box> */}
             <Box
               textAlign="center" >
               <JoelhoLadoEsquerdo />
@@ -895,11 +891,7 @@ function Articulacoes() {
               textAlign="center" >
               <FasciaLataEsquerdo />
             </Box>
-            <Box
-              mt='10px'
-              textAlign="center" >
-              <QuadrilEsquerdo />
-            </Box>
+            {/* 
             <Box
               textAlign="center" >
               <CoxaLadoEsquerdo />
@@ -936,7 +928,7 @@ function Articulacoes() {
               mt='10px'
               textAlign="center" >
               <PeExtraEsquerdo />
-            </Box>
+            </Box> */}
           </Box>
         </Box>
       </Box>

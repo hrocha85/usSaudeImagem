@@ -8,7 +8,7 @@ import { Format_Laudo } from "../../../../../component/function_format_laudo";
 export default function IndividualizarOssos({ numCalculo, desabilita }) {
   const [OssosMaoEsquerda, setOssosMaoEsquerda] = useState<any>([]);
 
-  const subExame = `${numCalculo + 1} - Ossos mão Esquerda`
+  const subExame = `${numCalculo + 1} - Ossos mão esquerda`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function IndividualizarOssos({ numCalculo, desabilita }) {
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
-    var string = `Dedo ${numCalculo + 1} com descontinuidade das Ossos: `
+    var string = `Dedo ${numCalculo + 1} FALTA: `
     if (multiplosDedosCheckbox) {
       if (FalangeProximal) {
         string = `${string} falange Proximal`
@@ -58,7 +58,7 @@ export default function IndividualizarOssos({ numCalculo, desabilita }) {
 
   const removeMultiplosCalculos = () => {
     OssosMaoEsquerda.map((e) => {
-      if (e.includes(`Dedo ${numCalculo + 1} com descontinuidade das Ossos: `)) {
+      if (e.includes(`Dedo ${numCalculo + 1} FALTA: `)) {
         var index = OssosMaoEsquerda.indexOf(e);
 
         if (index > -1) {
@@ -90,19 +90,19 @@ export default function IndividualizarOssos({ numCalculo, desabilita }) {
         isDisabled={DisableCheckbox}
         onChange={() => setFalangeProximal(!FalangeProximal)}
       >
-        FalangeProximal
+        Falange Proximal
       </Checkbox>
       <Checkbox
         isDisabled={DisableCheckbox}
         onChange={() => setFalangeMedia(!FalangeMedia)}
       >
-        FalangeMedia
+        Falange Media
       </Checkbox>
       <Checkbox
         isDisabled={DisableCheckbox}
         onChange={() => setFalangeDistal(!FalangeDistal)}
       >
-        FalangeDistal
+        Falange Distal
       </Checkbox>
     </Box>
   );

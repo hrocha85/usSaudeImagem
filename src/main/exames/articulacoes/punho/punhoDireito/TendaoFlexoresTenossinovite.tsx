@@ -1,9 +1,8 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { PunhoDireitoNormalContext } from "../../../../../context/PunhoDireitoNormalContext"
+import { PunhoDireitoNormalContext } from "../../../../../context/PunhoDireitoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -150,12 +149,3 @@ function TendaoFlexoresTenossinoviteDireito() {
     );
 }
 export default TendaoFlexoresTenossinoviteDireito;
-
-
-
-// <Radio value="1">Não citar</Radio>
-// <Radio value="Flexor longo do polegar">Flexor longo do polegar</Radio>
-// <Radio value="Flexor radial do carpo">Flexor radial do carpo</Radio>
-// <Radio value="Flexores superficiais dos dedos">Flexores superficiais dos dedos</Radio>
-// <Radio value="Flexores profundos dos dedos">Flexores profundos dos dedos</Radio>
-// <Radio value="Flexor palmar longo">Flexor palmar longo</Radio>

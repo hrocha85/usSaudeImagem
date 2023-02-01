@@ -14,7 +14,7 @@ function Polias() {
 
   const [FrasePoliasEsquerdo, setFrasePoliasEsquerdo] = useState<any>([]);
 
-  const subExame = `Polias Esquerdo`
+  const subExame = `Polias mão esquerda`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -64,7 +64,7 @@ function Polias() {
   })
 
   useEffect(() => {
-    var string = "Aspecto normal"
+    var string = "Polias dos tendões flexores dos dedos sem anormalidades identificáveis."
     AspectoNormal ? setdisableDescontinuidade(true) : setdisableDescontinuidade(false)
     AspectoNormal ? setFrasePoliasEsquerdo((arr) => [...arr, string]) : removeItemString(string)
 
@@ -74,19 +74,22 @@ function Polias() {
     removeMultiplosCalculos()
     var string = 'Dedo 1 com descontinuidade das polias: '
     if (PrimeiroDedo) {
-      if (A1) {
-        string = `${string} A1`
+      if (A1 || A2 || AV || AO) {
+        if (A1) {
+          string = `${string} A1`
+        }
+        if (A2) {
+          string = `${string} A2`
+        }
+        if (AV) {
+          string = `${string} AV`
+        }
+        if (AO) {
+          string = `${string} AO`
+        }
+        string = `${string}, com afastamento dos tendões flexores da cortical óssea na manobra de flexão e descontinuidade das polias:`
+        setFrasePoliasEsquerdo((arr) => [...arr, string]);
       }
-      if (A2) {
-        string = `${string} A2`
-      }
-      if (AV) {
-        string = `${string} AV`
-      }
-      if (AO) {
-        string = `${string} AO`
-      }
-      setFrasePoliasEsquerdo((arr) => [...arr, string]);
     } else {
       removeMultiplosCalculos()
     }
@@ -128,7 +131,7 @@ function Polias() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Polias TESTAR" />
+      <TituloNomeExame titulo="Polias" />
       <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
         <Checkbox
           isDisabled={disableApectNormal}

@@ -1,15 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { Box, Checkbox } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
 export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo }) {
 
   const [fraseLiquidoPerintendineoHexoresDireito, setFraseLiquidoPerintendineoHexoresDireito] = useState<any>([]);
 
-  const subExame = `Líquido peritendineo nos hexores ${numCalculo} Esquerdo`
+  const subExame = `Líquido peritendineo nos hexores ${numCalculo} Direito`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {

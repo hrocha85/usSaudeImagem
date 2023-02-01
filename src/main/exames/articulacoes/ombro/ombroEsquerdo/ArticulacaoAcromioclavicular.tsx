@@ -1,9 +1,8 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext"
+import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -18,7 +17,7 @@ function ArticulacaoAcromioclavicularEsquerdo() {
 
   const [fraseBolsaSubacromialSubdeltoidea, setFraseBolsaSubacromialSubdeltoidea] = useState<any>([]);
 
-  const subExame = 'Bolsa Subacromial-subdeltoidea'
+  const subExame = 'Articulação acromioclavicular ombro Esquerdo'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -52,7 +51,7 @@ function ArticulacaoAcromioclavicularEsquerdo() {
 
   const criaStringOsteofitos = () => {
     removeOsteofitos();
-    var string = 'AQUI '
+    var string = 'Presença de osteófitos marginais na articulação acromioclavicular '
     if (OsteofitosCheckbox) {
       if (EspessamentoCapsulosinovialCheckbox) {
         string = `${string} com espessamento Capsulosinovial`;
@@ -68,7 +67,7 @@ function ArticulacaoAcromioclavicularEsquerdo() {
 
   const removeOsteofitos = () => {
     fraseBolsaSubacromialSubdeltoidea.map((e) => {
-      if (e.includes("AQUI ")) {
+      if (e.includes("Presença de osteófitos marginais na articulação acromioclavicular")) {
         var index = fraseBolsaSubacromialSubdeltoidea.indexOf(e);
 
         if (index > -1) {
@@ -80,12 +79,9 @@ function ArticulacaoAcromioclavicularEsquerdo() {
   };
 
   const criaStringNormal = () => {
-    var string = "FALTA";
-    if (NormalCheckbox) {
-      setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "Articulação acromioclavicular de aspecto preservado.";
+    NormalCheckbox ? setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]) : removeItemString(string);
+
   };
 
   useEffect(() => {
@@ -170,7 +166,7 @@ function ArticulacaoAcromioclavicularEsquerdo() {
               setEspessamentoCapsulosinovialCheckbox(!EspessamentoCapsulosinovialCheckbox);
             }}
           >
-            com espessamento de capsuloCapsulosinoviall
+            com espessamento de Capsulosinovial
           </Checkbox>
         </Box>
 

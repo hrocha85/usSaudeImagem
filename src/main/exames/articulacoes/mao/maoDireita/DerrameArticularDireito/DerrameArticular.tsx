@@ -13,7 +13,7 @@ function MaoDerrameArticularDireita() {
 
   const [FraseDerrameArticularDireito, setFraseDerrameArticularDireito] = useState<any>([]);
 
-  const subExame = `Derrame articular Direito`
+  const subExame = `Derrame articular mão Direita`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {

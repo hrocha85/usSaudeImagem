@@ -3,7 +3,6 @@
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { JoelhoDireitoNormalContext } from "../../../../../context/JoelhoDireitoNormalContext";
-import { LaudosContext } from "../../../../../context/LuadosContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -13,7 +12,7 @@ function LigColFibularLateralDireito() {
 
   const [LigamentoFibularLateral, setLigamentoFibularLateral] = useState<any>([]);
 
-  const subExame = `Ligamento colateral fibular/lateral joelho Direito`
+  const subExame = `Ligamento colateral fibular/lateral joelho direito`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {

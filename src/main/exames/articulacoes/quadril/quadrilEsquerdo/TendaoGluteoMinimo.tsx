@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Radio, RadioGroup, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
@@ -44,7 +44,7 @@ function TendaoGluteoMinimoEsquerdo() {
 
 
     const criaStringPequenaCalcificacao = () => {
-        var string = `FALTA `;
+        var string = `Pequena calcificação junto à inserção do glúteo mínimo.`;
         PequenaCalcificacaoCheckbox ? setFrasesQuadrilTendaoGluteoMinimoEsquerdo((arr) => [...arr, string]) : removeItemString(string)
 
     }
@@ -75,13 +75,13 @@ function TendaoGluteoMinimoEsquerdo() {
             padding="15px"
             mt="15px"
         >
-            <TituloNomeExame titulo="Tendão do glúteo médio" />
+            <TituloNomeExame titulo="Tendão do glúteo mínimo" />
 
             <RadioGroup onChange={setValue} value={value} padding="10px">
                 <Stack direction="column">
                     <Radio value="1">Não citar</Radio>
-                    <Radio value="Aspecto Normal">Aspecto Normal</Radio>
-                    <Radio value="Tendinopatia">Tendinopatia</Radio>
+                    <Radio value="de espessura e contornos preservados e ecotextura característica.">Aspecto Normal</Radio>
+                    <Radio value="com espessura aumentada e ecogenicidade diminuída.">Tendinopatia</Radio>
                 </Stack>
             </RadioGroup>
 

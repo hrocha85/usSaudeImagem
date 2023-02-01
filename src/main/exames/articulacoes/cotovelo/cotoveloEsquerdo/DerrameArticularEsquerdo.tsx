@@ -1,11 +1,10 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function DerrameArticularEsquerdo() {
     const altura = "100%";
@@ -43,28 +42,9 @@ function DerrameArticularEsquerdo() {
     const [AusenteCheckbox, setAusenteCheckbox] = useState(false);
     const [PresenteCheckbox, setPresenteCheckbox] = useState(false);
 
-
-
-    const criaStringAusente = () => {
-        var string = "FALTA";
-        if (AusenteCheckbox) {
-            setFraseDerrameArticularEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
-    };
-
-    useEffect(() => {
-        criaStringAusente()
-    }, [AusenteCheckbox])
-
     const criaStringPresente = () => {
-        var string = "FALTA";
-        if (PresenteCheckbox) {
-            setFraseDerrameArticularEsquerdo((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Presença de líquido intra-articular.";
+        PresenteCheckbox ? setFraseDerrameArticularEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {

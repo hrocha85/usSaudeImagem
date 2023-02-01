@@ -1,10 +1,10 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Stack, } from "@chakra-ui/react";
+import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext"
-import TituloNomeExame from "../../../../component/titulo_nome_exame";
+import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
+import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 
 function VentreSupraespinhalDireito() {

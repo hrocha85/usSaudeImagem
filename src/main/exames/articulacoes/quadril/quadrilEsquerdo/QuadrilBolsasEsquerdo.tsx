@@ -15,7 +15,7 @@ function QuadrilBolsasEsquerdo() {
 
     const [QuadrilBolsasEsquerdo, setQuadrilBolsasEsquerdo] = useState<any>([]);
 
-    const subExame = 'Bolsas Esquerdo'
+    const subExame = 'Bolsas quadril esquerdo'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -38,56 +38,91 @@ function QuadrilBolsasEsquerdo() {
 
 
     const [SemLiuqidoCheckbox, setSemLiuqidoCheckbox] = useState(false);
+
     const [LiquidoBolsaTrocantericaCheckbox, setLiquidoBolsaTrocantericaCheckbox] = useState(false);
     const [LiquidoBolsaSubgluteaMediaCheckbox, setLiquidoBolsaSubgluteaMediaCheckbox] = useState(false);
     const [LiquidoBolsaSubgluteaMinimaCheckbox, setLiquidoBolsaSubgluteaMinimaCheckbox] = useState(false);
     const [LiquidoBolsaIlipsoasCheckbox, setLiquidoBolsaIlipsoasCheckbox] = useState(false);
 
-    //Funcoes Padrao Micropolicistico - Inicio
-    const criaStringSemLiuqido = () => {
-        var string = "Punho Esquerdo com SemLiuqido";
-        SemLiuqidoCheckbox ? setQuadrilBolsasEsquerdo((arr) => [...arr, string]) : removeItemString(string);
-    };
 
     useEffect(() => {
-        criaStringSemLiuqido()
+        var string = "Ausência de líquido nas bolsas trocantérica, subglútea média, subglútea mínima e do iliopsoas.";
+        SemLiuqidoCheckbox ? setQuadrilBolsasEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     }, [SemLiuqidoCheckbox])
 
     const criaStringLiquidoBolsaTrocanterica = () => {
-        var string = "Punho Esquerdo com SemLiuqido";
-        LiquidoBolsaTrocantericaCheckbox ? setQuadrilBolsasEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+        var string = "Presença de líquido de aspecto anecoico na bolsa: ";
+        removeLiquido()
+        if (LiquidoBolsaTrocantericaCheckbox || LiquidoBolsaSubgluteaMediaCheckbox || LiquidoBolsaSubgluteaMinimaCheckbox || LiquidoBolsaIlipsoasCheckbox) {
+            if (LiquidoBolsaTrocantericaCheckbox) {
+                string = `${string} trocantéria`
+            }
+            if (LiquidoBolsaSubgluteaMediaCheckbox) {
+                string = `${string} subglútea média`
+            }
+            if (LiquidoBolsaSubgluteaMinimaCheckbox) {
+                string = `${string} subglútea mínima`
+            }
+            if (LiquidoBolsaIlipsoasCheckbox) {
+                string = `${string} iliopsoas`
+            }
+            setQuadrilBolsasEsquerdo((arr) => [...arr, string])
+        }
     };
 
     useEffect(() => {
         criaStringLiquidoBolsaTrocanterica()
-    }, [LiquidoBolsaTrocantericaCheckbox])
+    }, [LiquidoBolsaTrocantericaCheckbox, LiquidoBolsaSubgluteaMediaCheckbox, LiquidoBolsaSubgluteaMinimaCheckbox, LiquidoBolsaIlipsoasCheckbox])
 
-    const criaStringLiquidoBolsaSubgluteaMedia = () => {
-        var string = "Punho Esquerdo com SemLiuqido";
-        LiquidoBolsaSubgluteaMediaCheckbox ? setQuadrilBolsasEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+
+    const removeLiquido = () => {
+        QuadrilBolsasEsquerdo.map((e) => {
+            if (e.includes("Presença de líquido de aspecto anecoico na bolsa:")) {
+                var index = QuadrilBolsasEsquerdo.indexOf(e);
+
+                if (index > -1) {
+                    QuadrilBolsasEsquerdo.splice(index, 1);
+                    setQuadrilBolsasEsquerdo((arr) => [...arr]);
+                }
+            }
+        });
     };
 
-    useEffect(() => {
-        criaStringLiquidoBolsaSubgluteaMedia()
-    }, [LiquidoBolsaSubgluteaMediaCheckbox])
+    // const criaStringLiquidoBolsaTrocanterica = () => {
+    //     var string = "Punho Esquerdo com SemLiuqido";
+    //     LiquidoBolsaTrocantericaCheckbox ? setQuadrilBolsasEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+    // };
 
-    const criaStringFlexoresProfundos = () => {
-        var string = "Punho Esquerdo com SemLiuqido";
-        LiquidoBolsaSubgluteaMinimaCheckbox ? setQuadrilBolsasEsquerdo((arr) => [...arr, string]) : removeItemString(string);
-    };
+    //     useEffect(() => {
+    //         criaStringLiquidoBolsaTrocanterica()
+    //     }, [LiquidoBolsaTrocantericaCheckbox])
 
-    useEffect(() => {
-        criaStringFlexoresProfundos()
-    }, [LiquidoBolsaSubgluteaMinimaCheckbox])
+    // const criaStringLiquidoBolsaSubgluteaMedia = () => {
+    //     var string = "Punho Esquerdo com SemLiuqido";
+    //     LiquidoBolsaSubgluteaMediaCheckbox ? setQuadrilBolsasEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+    // };
 
-    const criaStringLiquidoBolsaIlipsoas = () => {
-        var string = "Punho Esquerdo com SemLiuqido";
-        LiquidoBolsaIlipsoasCheckbox ? setQuadrilBolsasEsquerdo((arr) => [...arr, string]) : removeItemString(string);
-    };
+    // useEffect(() => {
+    //     criaStringLiquidoBolsaSubgluteaMedia()
+    // }, [LiquidoBolsaSubgluteaMediaCheckbox])
 
-    useEffect(() => {
-        criaStringLiquidoBolsaIlipsoas()
-    }, [LiquidoBolsaIlipsoasCheckbox])
+    // const criaStringFlexoresProfundos = () => {
+    //     var string = "Punho Esquerdo com SemLiuqido";
+    //     LiquidoBolsaSubgluteaMinimaCheckbox ? setQuadrilBolsasEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+    // };
+
+    // useEffect(() => {
+    //     criaStringFlexoresProfundos()
+    // }, [LiquidoBolsaSubgluteaMinimaCheckbox])
+
+    // const criaStringLiquidoBolsaIlipsoas = () => {
+    //     var string = "Punho Esquerdo com SemLiuqido";
+    //     LiquidoBolsaIlipsoasCheckbox ? setQuadrilBolsasEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+    // };
+
+    // useEffect(() => {
+    //     criaStringLiquidoBolsaIlipsoas()
+    // }, [LiquidoBolsaIlipsoasCheckbox])
 
     const removeItemString = (value) => {
         var index = QuadrilBolsasEsquerdo.indexOf(value);
@@ -168,12 +203,3 @@ function QuadrilBolsasEsquerdo() {
     );
 }
 export default QuadrilBolsasEsquerdo;
-
-
-
-// <Radio value="1">Não citar</Radio>
-// <Radio value="Flexor longo do polegar">Flexor longo do polegar</Radio>
-// <Radio value="Flexor radial do carpo">Flexor radial do carpo</Radio>
-// <Radio value="Flexores superficiais dos dedos">Flexores superficiais dos dedos</Radio>
-// <Radio value="Flexores profundos dos dedos">Flexores profundos dos dedos</Radio>
-// <Radio value="Flexor palmar longo">Flexor palmar longo</Radio>

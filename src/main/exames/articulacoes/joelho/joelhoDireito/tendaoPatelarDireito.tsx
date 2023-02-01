@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, HStack, Input, Select, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -13,7 +13,7 @@ function TendaoPatelarDireito() {
 
   const [TendaoPatelarDireito, setTendaoPatelarDireito] = useState<any>([]);
 
-  const subExame = `Tendão patelar joelho Direito`
+  const subExame = `Tendão patelar joelho direito`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {

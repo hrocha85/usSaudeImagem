@@ -12,7 +12,7 @@ function TendaoBicepsFemoralDireito() {
 
     const [TendaoBicepsFemoralDireito, setTendaoBicepsFemoralDireito] = useState<any>([]);
 
-    const subExame = `Tendão bíceps femoral joelho Direito`
+    const subExame = `Tendão bíceps femoral joelho direito`
     const titulo_exame = 'Articulações'
 
     useEffect(() => {

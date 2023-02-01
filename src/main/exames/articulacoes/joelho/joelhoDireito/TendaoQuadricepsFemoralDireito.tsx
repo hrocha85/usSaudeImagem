@@ -13,7 +13,7 @@ function TendaoQuadricepsFemoralDireito() {
 
     const [TendaoQuadricepsFemoralDireito, setTendaoQuadricepsFemoralDireito] = useState<any>([]);
 
-    const subExame = `Tendão quadríceps femoral joelho Direito`
+    const subExame = `Tendão quadríceps femoral joelho direito`
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
