@@ -61,7 +61,7 @@ function FasciaLataDireito() {
             <RadioGroup onChange={setValue} value={value} padding="10px">
                 <Stack direction="column">
                     <Radio value="1">Não citar</Radio>
-                    <Radio value="Aspecto Normal">Aspecto Normal</Radio>
+                    <Radio value="Fáscia lata com espessura preservada e ecotextura homogênea.">Aspecto Normal</Radio>
                     <Radio value="Observa-se espessamento da fáscia lata.">Tendinopatia</Radio>
                 </Stack>
             </RadioGroup>

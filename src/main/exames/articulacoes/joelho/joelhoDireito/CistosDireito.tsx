@@ -3,6 +3,7 @@
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -107,18 +108,21 @@ function CistosDireito() {
         }
     }, [CistosBakerCheckbox, CistosBakerInput, CistosBakerInput2, CistosBakerInput3, CistosBakerSelect1, CistosBakerSelect2, CistosBakerSelect3]);
 
-    const criaStringCistosParameniscal = (medida1, medida2, medida3) => {
-        var string = 'Cisto e Parameniscal medindo'
+    const criaStringCistosParameniscal = (medida1cm, medida2cm, medida3cm) => {
+        var string = 'Presença de cisto parameniscal com '
         var StringFinal;
+        var medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+        var medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+        var medida3 = new Convert_Medida(medida3cm).Convert_Medida()
         removeCistoParameniscal()
-        if (medida1 !== "" && medida2 !== "" && medida3 !== "" && CistosParameniscalSelect1 !== '' && CistosParameniscalSelect2 !== '' && CistosParameniscalSelect3 !== '') {
-            StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${CistosParameniscalSelect1} ${CistosParameniscalSelect2} ${CistosParameniscalSelect3}`;
+        if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && CistosParameniscalSelect1 !== '' && CistosParameniscalSelect2 !== '' && CistosParameniscalSelect3 !== '') {
+            StringFinal = `${string} ${CistosParameniscalSelect1}, situado junto ao ${CistosParameniscalSelect2} do ${CistosParameniscalSelect3}, medindo ${medida1} x ${medida2} x ${medida3} cm`;
             setCistosDireito((arr) => [...arr, StringFinal]);
         }
     };
     const removeCistoParameniscal = () => {
         CistosDireito.map((e) => {
-            if (e.includes("Cisto e Parameniscal medindo")) {
+            if (e.includes('Presença de cisto parameniscal com ')) {
                 var index = CistosDireito.indexOf(e);
 
                 if (index > -1) {

@@ -108,32 +108,48 @@ function MaoDerrameArticularDireita() {
     }
   }, [PrimeiroDedo, Proximal]);
 
+  const criaStringMetacarpo = () => {
+    removeMetacarpo();
+    var string = `Presença de derrame articular nas metacarpofalangeanas do`
+    if (!DisableCheckbox) {
+      if (Dedo1 || Dedo2 || Dedo3 || Dedo4 || Dedo5) {
+        if (Dedo1) {
+          string = `${string} I `
+        }
+        if (Dedo2) {
+          string = `${string} II `
+        }
+        if (Dedo3) {
+          string = `${string} III `
+        }
+        if (Dedo4) {
+          string = `${string} IV `
+        }
+        if (Dedo5) {
+          string = `${string} V `
+        }
+        string = `${string} dedos.`
+        setFraseDerrameArticularDireito((arr) => [...arr, string]);
+      }
+    } else {
+      removeMetacarpo()
+    }
+  };
+  const removeMetacarpo = () => {
+    FraseDerrameArticularDireito.map((e) => {
+      if (e.includes(`Presença de derrame articular nas metacarpofalangeanas do`)) {
+        var index = FraseDerrameArticularDireito.indexOf(e);
 
+        if (index > -1) {
+          FraseDerrameArticularDireito.splice(index, 1);
+          setFraseDerrameArticularDireito((arr) => [...arr]);
+        }
+      }
+    });
+  };
   useEffect(() => {
-    var string = 'Metacarpo do dedo 1'
-    Dedo1 ? setFraseDerrameArticularDireito((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo1])
-
-  useEffect(() => {
-    var string = 'Metacarpo do dedo 2'
-    Dedo2 ? setFraseDerrameArticularDireito((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo2])
-
-  useEffect(() => {
-    var string = 'Metacarpo do dedo 3'
-    Dedo3 ? setFraseDerrameArticularDireito((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo3])
-
-  useEffect(() => {
-    var string = 'Metacarpo do dedo 4'
-    Dedo4 ? setFraseDerrameArticularDireito((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo4])
-
-  useEffect(() => {
-    var string = 'Metacarpo do dedo 5'
-    Dedo5 ? setFraseDerrameArticularDireito((arr) => [...arr, string]) : removeItemString(string)
-  }, [Dedo5])
-
+    criaStringMetacarpo()
+  }, [DisableCheckbox, Dedo1, Dedo2, Dedo3, Dedo4, Dedo5])
 
   return (
     <Box

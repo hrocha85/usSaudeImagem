@@ -56,7 +56,7 @@ function VentreInfraespinhalDireito() {
     }, [NormalCheckbox])
 
     const criaStringSubstituicaoAdiposa = () => {
-        var string = "FALTA";
+        var string = "Há sinais de infiltração adiposa do ventre muscular do infraespinhal.";
         SubstituicaoAdiposaCheckbox ? setFraseVentreInfraespinhalDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 

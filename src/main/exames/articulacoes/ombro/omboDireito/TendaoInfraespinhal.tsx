@@ -105,7 +105,7 @@ function TendaoInfraespinhalOmbroDireito() {
   }, [AspectoNormalCheckbox])
 
   const criaStringPequenasCalcificacoes = () => {
-    var string = "FALTA";
+    var string = "Há pequenas calcificações junto à inserção do infraespinhal.";
     if (PequenasCalcificacoesCheckbox) {
       setFraseTendaoInfraespinhalDireito((arr) => [...arr, string]);
     } else {
@@ -117,24 +117,27 @@ function TendaoInfraespinhalOmbroDireito() {
     criaStringPequenasCalcificacoes()
   }, [PequenasCalcificacoesCheckbox])
 
-  const criaStringTendinopatiaSemRotura = (dados, medida) => {
+  const criaStringTendinopatiaSemRotura = (select, medidacm) => {
+    var string = 'Tendão do infraespinhal espessado, com alteração ecotextural, sem evidências de rotura. Presença de '
     removeFraseTendinopatiaSemRotura()
-    var string;
-    if (dados !== '') {
-      if (TendinopatiaSemRoturaCheckboxMedida && medida !== '') {
-        string = `Tendinopatia sem rotura ${dados} medindo ${medida} mm`;
+
+    var medida = new Convert_Medida(medidacm).Convert_Medida()
+
+    if (TendinopatiaSemRoturaCheckbox) {
+      if (select !== '' && medidacm !== '') {
+        string = `${string} ${select} medindo ${medida} cm`;
         setFraseTendaoInfraespinhalDireito((arr) => [...arr, string]);
       } else {
-        string = `Tendinopatia sem rotura ${dados}`;
+        string = `${string} ${select}`;
         setFraseTendaoInfraespinhalDireito((arr) => [...arr, string]);
-
       }
+    } else {
+      removeFraseTendinopatiaSemRotura()
     }
   };
-
   const removeFraseTendinopatiaSemRotura = () => {
     fraseTendaoInfraespinhalDireito.map((e) => {
-      if (e.includes("Tendinopatia sem rotura")) {
+      if (e.includes("Tendão do infraespinhal espessado, com alteração ecotextural, sem evidências de rotura. Presença de")) {
         var index = fraseTendaoInfraespinhalDireito.indexOf(e);
 
         if (index > -1) {

@@ -43,15 +43,6 @@ function DerrameArticularDireito() {
     const [AusenteCheckbox, setAusenteCheckbox] = useState(false);
     const [PresenteCheckbox, setPresenteCheckbox] = useState(false);
 
-    const criaStringAusente = () => {
-        var string = "FALTA";
-        AusenteCheckbox ? setFraseDerrameArticularDireito((arr) => [...arr, string]) : removeItemString(string);
-    };
-
-    useEffect(() => {
-        criaStringAusente()
-    }, [AusenteCheckbox])
-
     const criaStringPresente = () => {
         var string = "Presença de líquido intra-articular.";
         PresenteCheckbox ? setFraseDerrameArticularDireito((arr) => [...arr, string]) : removeItemString(string);

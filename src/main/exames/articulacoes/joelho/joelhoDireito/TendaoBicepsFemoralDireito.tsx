@@ -74,7 +74,7 @@ function TendaoBicepsFemoralDireito() {
     };
 
     const criaStringAspectoNormal = () => {
-        var string = "FALTA";
+        var string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
         AspectoNormalCheckbox ? setTendaoBicepsFemoralDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
@@ -83,7 +83,7 @@ function TendaoBicepsFemoralDireito() {
     }, [AspectoNormalCheckbox])
 
     const criaStringTendinopatiaSemRotura = () => {
-        var string = "FALTA";
+        var string = "Tendão do bíceps femoral espessado, com alteração ecotextural, sem evidências de rotura.";
         TendinopatiaSemRoturaCheckbox ? setTendaoBicepsFemoralDireito((arr) => [...arr, string]) : removeItemString(string);
     };
     useEffect(() => {

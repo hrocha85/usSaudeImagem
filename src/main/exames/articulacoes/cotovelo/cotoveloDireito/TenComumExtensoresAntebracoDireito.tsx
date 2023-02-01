@@ -90,12 +90,8 @@ function TenComumExtensoresAntebracoDireito() {
     }, [AspectoNormalCheckbox])
 
     const criaStringPequenasCalcificacoes = () => {
-        var string = "FALTA";
-        if (PequenasCalcificacoesCheckbox) {
-            setFraseTenComumExtensoresAntebracoDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Pequenas calcificações junto à inserção do tendão comum dos extensores.";
+        PequenasCalcificacoesCheckbox ? setFraseTenComumExtensoresAntebracoDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {

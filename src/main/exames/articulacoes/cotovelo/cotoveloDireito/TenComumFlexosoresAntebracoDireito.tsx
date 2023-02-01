@@ -84,12 +84,8 @@ function TenComumFlexoresAntebracoDireito() {
     }, [AspectoNormalCheckbox])
 
     const criaStringPequenasCalcificacoes = () => {
-        var string = "FALTA";
-        if (PequenasCalcificacoesCheckbox) {
-            setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Pequenas calcificações junto à inserção do tendão comum dos flexores.";
+        PequenasCalcificacoesCheckbox ? setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {

@@ -89,11 +89,12 @@ function TendaoTricepsBraquialDireito() {
         criaStringAspectoNormal()
     }, [AspectoNormalCheckbox])
 
-    const criaStringEntesofito = (medida) => {
+    const criaStringEntesofito = (medidaCm) => {
         removeStringEntesofito();
+        var medida = new Convert_Medida(medidaCm).Convert_Medida()
         var string;
-        if (medida !== '') {
-            string = `FALTA ${medida}`
+        if (medidaCm !== '') {
+            string = `Presença de entesófito no tendão do tríceps braquial, medindo ${medida} cm.`
             setFraseTendaoTricepsBraquialDireito((arr) => [...arr, string]);
         }
     };
@@ -114,7 +115,7 @@ function TendaoTricepsBraquialDireito() {
 
     const removeStringEntesofito = () => {
         fraseTendaoTricepsBraquialDireito.map((e) => {
-            if (e.includes("FALTA")) {
+            if (e.includes("Presença de entesófito no tendão do tríceps braquial, medindo")) {
                 var index = fraseTendaoTricepsBraquialDireito.indexOf(e);
 
                 if (index > -1) {

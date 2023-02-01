@@ -46,7 +46,7 @@ function LigColTibialMedialDireito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAspectoNormal = () => {
-    var string = "TendaoQuadriceps direito com AspectoNormal";
+    var string = "Ligamento colateral tibial e ligamento colateral fibular com ecotextura e espessura preservadas e contornos normais.";
     if (AspectoNormalCheckbox) {
       setLigamentoTibialMedial((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)

@@ -45,20 +45,6 @@ function BolsaOlecreaneanaDireito() {
     const [ComLiquidoEspessadoCheckbox, setComLiquidoEspessadoCheckbox] = useState(false);
 
 
-
-    const criaStringSemLiquido = () => {
-        var string = "FALTA";
-        if (SemLiquidoCheckbox) {
-            setFraseBolsaOlecreaneanaDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
-    };
-
-    useEffect(() => {
-        criaStringSemLiquido()
-    }, [SemLiquidoCheckbox])
-
     const criaStringComLiquidoEspessado = () => {
         var string = "Pequena quantidade de líquido no interior da bolsa sinovial subcutânea do olécrano, associada a espessamento parietal.";
         ComLiquidoEspessadoCheckbox ? setFraseBolsaOlecreaneanaDireito((arr) => [...arr, string]) : removeItemString(string);

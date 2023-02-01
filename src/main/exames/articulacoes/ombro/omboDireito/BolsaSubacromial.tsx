@@ -57,17 +57,17 @@ function BolsaSubacromial_SubdeltoideaDireito() {
     removeLiquido();
     var string;
     if (selectLiquido !== '' && EspessamentoSinoviaCheckbox) {
-      string = `Frase , ${selectLiquido} com espessamento sinovial`;
+      string = `Presença de líquido em pequena quantidade na bolsa ${selectLiquido}, com espessamento sinovial associado.`;
       setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
     } else if (selectLiquido !== '') {
-      string = `Frase , ${selectLiquido} `;
+      string = `Presença de líquido em pequena quantidade na bolsa ${selectLiquido} `;
       setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
     }
   };
 
   const removeLiquido = () => {
     fraseBolsaSubacromialSubdeltoidea.map((e) => {
-      if (e.includes("Frase ,")) {
+      if (e.includes("Presença de líquido em pequena quantidade na bolsa")) {
         var index = fraseBolsaSubacromialSubdeltoidea.indexOf(e);
 
         if (index > -1) {

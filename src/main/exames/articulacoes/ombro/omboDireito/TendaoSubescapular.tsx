@@ -1,9 +1,8 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Center, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Stack, Text, Wrap, WrapItem, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext"
+import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
@@ -97,7 +96,6 @@ function TendaoSubescapularOmbroDireito() {
     });
   };
 
-
   const criaStringAspectoNormal = () => {
     var string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox ? setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]) : removeItemString(string);
@@ -108,7 +106,7 @@ function TendaoSubescapularOmbroDireito() {
   }, [AspectoNormalCheckbox])
 
   const criaStringPequenasCalcificacoes = () => {
-    var string = "FALTA";
+    var string = "Há pequenas calcificações junto à inserção do subescapular.";
     if (PequenasCalcificacoesCheckbox) {
       setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]);
     } else {
@@ -120,24 +118,28 @@ function TendaoSubescapularOmbroDireito() {
     criaStringPequenasCalcificacoes()
   }, [PequenasCalcificacoesCheckbox])
 
-  const criaStringTendinopatiaSemRotura = (dados, medida) => {
+  const criaStringTendinopatiaSemRotura = (select, medidacm) => {
+    var string = 'Tendão do subescapular espessado, com alteração ecotextural, sem evidências de rotura. Presença de '
     removeFraseTendinopatiaSemRotura()
-    var string;
-    if (dados !== '') {
-      if (TendinopatiaSemRoturaCheckboxMedida && medida !== '') {
-        string = `Tendinopatia sem rotura ${dados} medindo ${medida} mm`;
+
+    var medida = new Convert_Medida(medidacm).Convert_Medida()
+
+    if (TendinopatiaSemRoturaCheckbox) {
+      if (select !== '' && medidacm !== '') {
+        string = `${string} ${select} medindo ${medida} cm`;
         setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]);
       } else {
-        string = `Tendinopatia sem rotura ${dados}`;
+        string = `${string} ${select}`;
         setFraseTendaoSubescapuçarDireito((arr) => [...arr, string]);
-
       }
+    } else {
+      removeFraseTendinopatiaSemRotura()
     }
   };
 
   const removeFraseTendinopatiaSemRotura = () => {
     fraseTendaoSubescapuçarDireito.map((e) => {
-      if (e.includes("Tendinopatia sem rotura")) {
+      if (e.includes("Tendão do subescapular espessado, com alteração ecotextural, sem evidências de rotura. Presença de")) {
         var index = fraseTendaoSubescapuçarDireito.indexOf(e);
 
         if (index > -1) {

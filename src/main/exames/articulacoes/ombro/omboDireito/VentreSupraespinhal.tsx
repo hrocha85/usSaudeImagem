@@ -43,9 +43,6 @@ function VentreSupraespinhalDireito() {
     const [NormalCheckbox, setNormalCheckbox] = useState(false);
     const [SubstituicaoAdiposaCheckbox, setSubstituicaoAdiposaCheckbox] = useState(false);
 
-
-
-
     const criaStringNormal = () => {
         var string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
         NormalCheckbox ? setFraseVentreSupraespinhalDireito((arr) => [...arr, string]) : removeItemString(string);
@@ -57,7 +54,7 @@ function VentreSupraespinhalDireito() {
     }, [NormalCheckbox])
 
     const criaStringSubstituicaoAdiposa = () => {
-        var string = "FALTA";
+        var string = "Há sinais de infiltração adiposa do ventre muscular do supraespinhal.";
         SubstituicaoAdiposaCheckbox ? setFraseVentreSupraespinhalDireito((arr) => [...arr, string]) : removeItemString(string);
     };
     useEffect(() => {

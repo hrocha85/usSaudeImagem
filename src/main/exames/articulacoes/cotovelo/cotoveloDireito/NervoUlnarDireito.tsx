@@ -50,12 +50,8 @@ function NervoUlnarDireito() {
     const [SofreLuxacaoCheckbox, setSofreLuxacaoCheckbox] = useState(false);
 
     const criaStringEspessuraNormal = () => {
-        var string = "FALTA";
-        if (EspessuraNormalCheckbox) {
-            setFraseNervoUlnarDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Nervo ulnar de espessura, contornos e ecotextura normais.";
+        EspessuraNormalCheckbox ? setFraseNervoUlnarDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -63,12 +59,8 @@ function NervoUlnarDireito() {
     }, [EspessuraNormalCheckbox])
 
     const criaStringSofreSubluxacao = () => {
-        var string = "FALTA";
-        if (SofreSubluxacaoCheckbox) {
-            setFraseNervoUlnarDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Observa-se subluxação do nervo ulnar durante a manobra de flexão do cotovelo.";
+        SofreSubluxacaoCheckbox ? setFraseNervoUlnarDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -76,40 +68,17 @@ function NervoUlnarDireito() {
     }, [SofreSubluxacaoCheckbox])
 
     const criaStringSofreLuxacao = () => {
-        var string = "FALTA";
-        if (SofreLuxacaoCheckbox) {
-            setFraseNervoUlnarDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Observa-se luxação do nervo ulnar durante a manobra de flexão do cotovelo.";
+        SofreLuxacaoCheckbox ? setFraseNervoUlnarDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
         criaStringSofreLuxacao()
     }, [SofreLuxacaoCheckbox])
 
-    const criaStringAreaSeccional = (medida) => {
-        removeFraseAreaSeccional();
-        var string;
-        if (medida !== '') {
-            string = `frase ${medida} mm`
-            setFraseNervoUlnarDireito((arr) => [...arr, string]);
-        } else {
-            removeFraseAreaSeccional();
-        }
-    };
+        ;
 
-    const removeFraseAreaSeccional = () => {
-        fraseNervoUlnarDireito.map((e) => {
-            if (e.includes("frase ")) {
-                var index = fraseNervoUlnarDireito.indexOf(e);
-                if (index > -1) {
-                    fraseNervoUlnarDireito.splice(index, 1);
-                    setFraseNervoUlnarDireito((arr) => [...arr]);
-                }
-            }
-        });
-    };
+
 
     useEffect(() => {
         if (AreaSeccionalCheckbox) {
@@ -120,22 +89,33 @@ function NervoUlnarDireito() {
         }
     }, [AreaSeccionalCheckbox])
 
-    useEffect(() => {
-        criaStringAreaSeccional(AreaSeccionalInput)
-    }, [AreaSeccionalInput])
 
     const criaStringEspessuraAumentada = () => {
-        var string = "FALTA";
-        if (EspessuraAumentadaCheckbox) {
-            setFraseNervoUlnarDireito((arr) => [...arr, string]);
+        var string = "Nervo ulnar espessado e heterogêneo";
+        removeFraseAreaSeccional()
+        if (AreaSeccionalInput !== '') {
+            string = `${string}, com área seccional de ${AreaSeccionalInput} mm²`
         } else {
-            removeItemString(string);
+            string = `${string}.`
         }
+        EspessuraAumentadaCheckbox ? setFraseNervoUlnarDireito((arr) => [...arr, string]) : removeFraseAreaSeccional()
     };
 
     useEffect(() => {
         criaStringEspessuraAumentada()
-    }, [EspessuraAumentadaCheckbox])
+    }, [EspessuraAumentadaCheckbox, AreaSeccionalInput])
+
+    const removeFraseAreaSeccional = () => {
+        fraseNervoUlnarDireito.map((e) => {
+            if (e.includes("Nervo ulnar espessado e heterogêneo")) {
+                var index = fraseNervoUlnarDireito.indexOf(e);
+                if (index > -1) {
+                    fraseNervoUlnarDireito.splice(index, 1);
+                    setFraseNervoUlnarDireito((arr) => [...arr]);
+                }
+            }
+        });
+    };
 
     const removeItemString = (value) => {
         var index = fraseNervoUlnarDireito.indexOf(value);

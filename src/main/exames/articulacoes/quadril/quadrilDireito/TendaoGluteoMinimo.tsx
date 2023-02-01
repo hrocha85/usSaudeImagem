@@ -44,7 +44,7 @@ function TendaoGluteoMinimoDireito() {
 
 
     const criaStringPequenaCalcificacao = () => {
-        var string = `FALTA `;
+        var string = `Pequena calcificação junto à inserção do glúteo mínimo.`;
         PequenaCalcificacaoCheckbox ? setFrasesQuadrilTendaoGluteoMinimoDireito((arr) => [...arr, string]) : removeItemString(string)
 
     }

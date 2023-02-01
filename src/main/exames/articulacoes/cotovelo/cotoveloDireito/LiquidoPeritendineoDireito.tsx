@@ -47,12 +47,8 @@ function LiquidoPeritendineoDireito() {
 
 
     const criaStringAusente = () => {
-        var string = "FALTA";
-        if (AusenteCheckbox) {
-            setFraseLiquidoPeritendineoDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Ausência de líquido peritendíneo.";
+        AusenteCheckbox ? setFraseLiquidoPeritendineoDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
@@ -60,12 +56,8 @@ function LiquidoPeritendineoDireito() {
     }, [AusenteCheckbox])
 
     const criaStringPresente = () => {
-        var string = "FALTA";
-        if (PresenteCheckbox) {
-            setFraseLiquidoPeritendineoDireito((arr) => [...arr, string]);
-        } else {
-            removeItemString(string);
-        }
+        var string = "Presença de líquido peritendíneo.";
+        PresenteCheckbox ? setFraseLiquidoPeritendineoDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
     useEffect(() => {
