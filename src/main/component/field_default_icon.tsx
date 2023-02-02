@@ -180,6 +180,8 @@ const FieldDefaultIcon = ({
       localStorage.setItem("minhasClinicas", JSON.stringify(array));
       setFotoUpdate(false);
     }
+    window.dispatchEvent(new Event("update_clinicas"));
+
   };
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function RefluxoVeiasProfundas() {
+function VeiasProfundasTromboEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
@@ -78,7 +78,7 @@ function RefluxoVeiasProfundas() {
       setFrasesRefluxoVD((arr) => [...arr]);
     }
   };
-  const subExame = "Refluxo Veias Profundas Direito";
+  const subExame = "Veias Profundas com trombo Esquerdo";
   const titulo_exame = "Doppler Venoso de MMII";
 
   useEffect(() => {
@@ -110,7 +110,7 @@ function RefluxoVeiasProfundas() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Refluxo Veias Profundas" />
+      <TituloNomeExame titulo="Veias Profundas com trombo" />
 
       <Box gap="30px">
         <Box>
@@ -184,4 +184,4 @@ function RefluxoVeiasProfundas() {
     </Box>
   );
 }
-export default RefluxoVeiasProfundas;
+export default VeiasProfundasTromboEsquerdo;

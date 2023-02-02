@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
- 
+
 import LadoDireito from "../dopplerRenal/direito/ladoDireito";
 import LadoEsquerdo from "../dopplerRenal/esquerdo/ladoEsquerdo";
 import IndexCirurgias from "./ladoDireito/CirurgiasSafenaDireito/indexCirurgia";
@@ -11,6 +11,7 @@ import RefluxoVeiasProfundas from "./ladoDireito/refluxoVeiasProfundas/refluxoVe
 import TeleangiectasiasDireito from "./ladoDireito/teleangiectasiasDireito/teleangiectasiasDireito";
 import TromboflebiteDireito from "./ladoDireito/tromboflebite/tromboflebite";
 import VeiasPerfurantesDireito from "./ladoDireito/veiasPerfurantesDireito/veiasPerfurantesDireito";
+import VeiasProfundasTromboDireito from "./ladoDireito/veiasProfundasTrombo/veiasProfundasTrombo";
 import VeiasReticularesDireito from "./ladoDireito/veiasReticularesDireito/veiasReticularesDireito";
 import VeiasTributariasDireito from "./ladoDireito/veiasTributariasDireito/veiasTributariasDireito";
 import IndexCirurgiasEsquerdo from "./ladoEsquerdo/CirurgiasSafenaEsquerdo/indexCirurgia";
@@ -22,69 +23,14 @@ import RefluxoVeiasProfundasEsquerdo from "./ladoEsquerdo/refluxoVeiasProfundasE
 import TeleangiectasiasEsquerdo from "./ladoEsquerdo/teleangiectasiasEsquerdo/teleangiectasiasEsquerdo";
 import TromboflebiteEsquerdo from "./ladoEsquerdo/tromboflebiteEsquerdo/tromboflebiteEsquerdo";
 import VeiasPerfurantesEsquerdo from "./ladoEsquerdo/veiasPerfurantesEsquerdo/veiasPerfurantesEsquerdo";
+import VeiasProfundasTromboEsquerdo from "./ladoEsquerdo/veiasProfundasTrombo/veiasProfundasTrombo";
 import VeiasReticularesEsquerdo from "./ladoEsquerdo/veiasReticularesEsquerdo/veiasReticularesEsquerdo";
 import VeiasTributariasEsquerdo from "./ladoEsquerdo/veiasTributariasEsquerdo/veiasTributariasEsquerdo";
 
 function DopplerVenosoMMII() {
   return (
     <>
-      
-
       <Box display="flex" flexWrap="wrap" w="66%" ml="10px">
-        <Box>
-          <Box w="450px" textAlign="center">
-            <LadoDireito />
-          </Box>
-
-          <Box>
-            <Box w="450px" mb="15px">
-              <MedidasDireito />
-            </Box>
-
-            <Box w="450px" mb="15px">
-              <InsuficienciaSafenaMangnaDireito />
-            </Box>
-
-            <Box w="450px" mb="15px">
-              <InsuficienciaSafenaParvaDireito />
-            </Box>
-
-            <Box w="450px" mb="15px">
-              <VeiasPerfurantesDireito />
-            </Box>
-            <Box w="450px" mb="15px">
-              <VeiasTributariasDireito />
-            </Box>
-
-            <Box w="450px" mb="15px">
-              <IndexCirurgias />
-            </Box>
-
-            <Box w="450px" mb="15px">
-              <RefluxoVeiasProfundas />
-            </Box>
-
-            <Box w="450px" mb="15px">
-              <TromboflebiteDireito />
-            </Box>
-
-            <Box w="450px" mb="15px">
-              <TromboflebiteDireito />
-            </Box>
-
-            <Box w="450px" mb="15px">
-              <VeiasReticularesDireito />
-            </Box>
-
-            <Box w="450px" mb="15px">
-              <TeleangiectasiasDireito />
-            </Box>
-
-            <Box w="450px" mb="15px">
-              <ObservacoesDireito />
-            </Box>
-          </Box>
-        </Box>
         <Box
           w="45%"
           // display='flex'
@@ -94,6 +40,12 @@ function DopplerVenosoMMII() {
             <LadoEsquerdo />
           </Box>
 
+          <Box w="450px" mb="15px">
+            <RefluxoVeiasProfundasEsquerdo />
+          </Box>
+          <Box w="450px" mb="15px">
+            <VeiasProfundasTromboEsquerdo />
+          </Box>
           <Box w="450px" mb="15px">
             <MedidasEsquerdo />
           </Box>
@@ -119,10 +71,6 @@ function DopplerVenosoMMII() {
           </Box>
 
           <Box w="450px" mb="15px">
-            <RefluxoVeiasProfundasEsquerdo />
-          </Box>
-
-          <Box w="450px" mb="15px">
             <TromboflebiteEsquerdo />
           </Box>
 
@@ -140,6 +88,64 @@ function DopplerVenosoMMII() {
 
           <Box w="450px" mb="15px">
             <ObservacoesEsquerdo />
+          </Box>
+        </Box>
+
+        <Box>
+          <Box w="450px" textAlign="center">
+            <LadoDireito />
+          </Box>
+
+          <Box w="450px" mb="15px">
+            <RefluxoVeiasProfundas />
+          </Box>
+          <Box w="450px" mb="15px">
+              <VeiasProfundasTromboDireito />
+            </Box>
+          <Box>
+            
+            <Box w="450px" mb="15px">
+              <MedidasDireito />
+            </Box>
+
+            <Box w="450px" mb="15px">
+              <InsuficienciaSafenaMangnaDireito />
+            </Box>
+
+            <Box w="450px" mb="15px">
+              <InsuficienciaSafenaParvaDireito />
+            </Box>
+
+            <Box w="450px" mb="15px">
+              <VeiasPerfurantesDireito />
+            </Box>
+            <Box w="450px" mb="15px">
+              <VeiasTributariasDireito />
+            </Box>
+
+            <Box w="450px" mb="15px">
+              <IndexCirurgias />
+            </Box>
+
+            <Box w="450px" mb="15px">
+              <TromboflebiteDireito />
+            </Box>
+
+            <Box w="450px" mb="15px">
+              <TromboflebiteDireito />
+            </Box>
+
+            <Box w="450px" mb="15px">
+              <VeiasReticularesDireito />
+            </Box>
+
+            <Box w="450px" mb="15px">
+              <TeleangiectasiasDireito />
+            </Box>
+
+            <Box w="450px" mb="15px">
+              <ObservacoesDireito />
+            </Box>
           </Box>
         </Box>
       </Box>
