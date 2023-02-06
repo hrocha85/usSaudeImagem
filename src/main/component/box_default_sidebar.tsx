@@ -44,6 +44,7 @@ import Mamas from "../exames/mamas";
 import PartesMoles from "../exames/partesMoles";
 import Pelvico from "../exames/pelvico";
 import Prostata from "../exames/prostata";
+import Regiao_Inguinal from "../exames/regiao_inguinal";
 import RinseViasUrinarias from "../exames/RinsViasUrinarias";
 import Testiculo from "../exames/testiculo";
 import Tireoide from "../exames/tireoide";
@@ -186,6 +187,11 @@ export default function Box_Default_With_Sidebar() {
       key: 24,
       nomeExame: "Articulações",
       link: `#/Home/${24}`,
+    },
+    {
+      key: 25,
+      nomeExame: "Reg. Inguinal",
+      link: `#/Home/${25}`,
     },
   ];
 
@@ -385,6 +391,7 @@ export default function Box_Default_With_Sidebar() {
                           22: <Pelvico />,
                           23: <Prostata />,
                           24: <Articulacoes />,
+                          25: <Regiao_Inguinal />,
                         }[e.key]
                       }
                     </TabPanel>
