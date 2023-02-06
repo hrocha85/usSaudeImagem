@@ -36,8 +36,8 @@ function PartesMoles() {
         <HerniaSupraUmbilical />
         <Colecao />
         <Diastase_Musculo_Reto />
-        <Direita />
-        <Esquerda />
+        {/* <Direita /> */}
+        {/*<Esquerda />*/}
       </Grid>
     </>
   );
