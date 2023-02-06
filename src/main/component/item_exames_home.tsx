@@ -98,13 +98,17 @@ const ItemExamesHome = () => {
     {
       key: 24,
       nomeExame: "Articulações",
-    }
+    },
+    {
+      key: 25,
+      nomeExame: "Reg. Inguinal",
+    },
   ]
 
   return (
     <>
       {
-        exames.map((exames,key) => (
+        exames.map((exames, key) => (
           <FieldDefaultHome key={key} text={exames.nomeExame} textColor={"#1A202C"} id={exames.key.toString()} />
         ))
       }

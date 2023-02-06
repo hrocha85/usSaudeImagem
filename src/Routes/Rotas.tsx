@@ -23,6 +23,8 @@ import Pelvico from "../main/exames/pelvico";
 import Prostata from "../main/exames/prostata";
 import RinseViasUrinarias from "../main/exames/RinsViasUrinarias";
 import Testiculo from "../main/exames/testiculo";
+import Regiao_Inguinal from "../main/exames/regiao_inguinal";
+
 import Login from "../main/login/login";
 
 import Articulacoes from "../main/exames/articulacoes";
@@ -45,6 +47,7 @@ function Rotas() {
       <Route path="/Home/8" element={<DopplerVenosoMMII />} />
       <Route path="/Home/9" element={<Tireoide />} />
       <Route path="/Home/10" element={<DopplerCarotidas />} />
+      <Route path="/Home/12" element={<Doppler_Arterial_MMII />} />
       <Route path="/Home/13" element={<Tireoide2 />} />
       <Route path="/Home/14" element={<DopplerCarotidas2 />} />
       <Route path="/Home/15" element={<RinseViasUrinarias />} />
@@ -56,7 +59,7 @@ function Rotas() {
       <Route path="/Home/21" element={<DopplerTireoide2 />} />
       <Route path="/Home/23" element={<Prostata />} />
       <Route path="/Home/24" element={<Articulacoes />} />
-      <Route path="/Home/12" element={<Doppler_Arterial_MMII />} />
+      <Route path="/Home/25" element={<Regiao_Inguinal />} />
       <Route path="/Home/Configuracoes" element={<Configuracoes />} />
       <Route path="/Format_PDF" element={<Format_PDF />} />
       <Route
