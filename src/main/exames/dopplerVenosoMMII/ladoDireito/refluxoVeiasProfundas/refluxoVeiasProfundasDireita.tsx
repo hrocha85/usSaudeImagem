@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function VeiasProfundasTromboEsquerdo() {
+function RefluxoVeiasProfundasDireita() {
   const altura = "100%";
   const largura = "95%";
 
-  const [frasesVeiasTrombo, setFrasesVeiasTrombo] = useState<any>([]);
+  const [frasesReflluxoVD, setFrasesRefluxoVD] = useState<any>([]);
 
   const [FemoralComumCheckbox, setFemoralComumCheckbox] = useState(false);
   const [FemoralSuperficialCheckbox, setFemoralSuperficialCheckbox] =
@@ -18,20 +18,18 @@ function VeiasProfundasTromboEsquerdo() {
   const [TibialPosteriorCheckbox, setTibialPosteriorCheckbox] = useState(false);
   const [FibularCheckbox, setFibularCheckbox] = useState(false);
   const [PopliteaCheckbox, setPopliteaCheckbox] = useState(false);
-  const [GastrocnemiasCheckbox, setGastrocnemiasCheckbox] = useState(false);
-  const [SolearesCheckbox, setSolearesCheckbox] = useState(false);
 
   const criaString = (string) => {
-    setFrasesVeiasTrombo((arr) => [...arr, string]);
+    setFrasesRefluxoVD((arr) => [...arr, string]);
   };
 
   const removeString = (string) => {
-    frasesVeiasTrombo.map((e) => {
+    frasesReflluxoVD.map((e) => {
       if (e == string) {
-        let index = frasesVeiasTrombo.indexOf(e);
+        let index = frasesReflluxoVD.indexOf(e);
         if (index > -1) {
-          frasesVeiasTrombo.splice(index, 1);
-          setFrasesVeiasTrombo((arr) => [...arr]);
+          frasesReflluxoVD.splice(index, 1);
+          setFrasesRefluxoVD((arr) => [...arr]);
         }
       }
     });
@@ -39,7 +37,8 @@ function VeiasProfundasTromboEsquerdo() {
 
   useEffect(() => {
     const string =
-      "Presença de material não compressível intraluminal visível na veia femoral comum à esquerda.";
+      "As veias profundas avaliadas conservam compressibilidade normal e apresentam fluxo de padrão monofásico ao estudo com Doppler, variável com a respiração.";
+
     if (FemoralComumCheckbox) {
       criaString(string);
     } else {
@@ -49,7 +48,7 @@ function VeiasProfundasTromboEsquerdo() {
 
   useEffect(() => {
     const string =
-      "Presença de material não compressível intraluminal visível na veia femoral superficial à esquerda.";
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo a veia femoral superficial à direita.";
 
     if (FemoralSuperficialCheckbox) {
       criaString(string);
@@ -60,7 +59,8 @@ function VeiasProfundasTromboEsquerdo() {
 
   useEffect(() => {
     const string =
-      "Presença de material não compressível intraluminal visível na veia femoral profunda à esquerda.";
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo a veia femoral profunda à direita.";
+
     if (FemoralProfundaCheckbox) {
       criaString(string);
     } else {
@@ -70,7 +70,7 @@ function VeiasProfundasTromboEsquerdo() {
 
   useEffect(() => {
     const string =
-      "Presença de material não compressível intraluminal visível nas veias tibiais anteriores à esquerda.";
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo as veias tibiais anteriores à direita.";
 
     if (TibialAnteriorCheckbox) {
       criaString(string);
@@ -81,7 +81,8 @@ function VeiasProfundasTromboEsquerdo() {
 
   useEffect(() => {
     const string =
-      "Presença de material não compressível intraluminal visível nas veias tibiais posteriores à esquerda.";
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo as veias tibiais posteriores à direita. Insuficiência valvular profunda à direita.";
+
     if (TibialPosteriorCheckbox) {
       criaString(string);
     } else {
@@ -91,7 +92,7 @@ function VeiasProfundasTromboEsquerdo() {
 
   useEffect(() => {
     const string =
-      "Presença de material não compressível intraluminal visível nas veias fibulares à esquerda.";
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo as veias fibulares à direita.";
 
     if (FibularCheckbox) {
       criaString(string);
@@ -102,7 +103,8 @@ function VeiasProfundasTromboEsquerdo() {
 
   useEffect(() => {
     const string =
-      "Presença de material não compressível intraluminal visível na veia poplítea à esquerda.";
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo a veia poplítea à direita.";
+
     if (PopliteaCheckbox) {
       criaString(string);
     } else {
@@ -110,46 +112,26 @@ function VeiasProfundasTromboEsquerdo() {
     }
   }, [PopliteaCheckbox]);
 
-  useEffect(() => {
-    const string =
-      "Presença de material não compressível intraluminal visível nas veias gastrocnêmias à esquerda.";
-    if (GastrocnemiasCheckbox) {
-      criaString(string);
-    } else {
-      removeString(string);
-    }
-  }, [GastrocnemiasCheckbox]);
-
-  useEffect(() => {
-    const string =
-      "Presença de material não compressível intraluminal visível nas veias soleares à esquerda.";
-    if (SolearesCheckbox) {
-      criaString(string);
-    } else {
-      removeString(string);
-    }
-  }, [SolearesCheckbox]);
-
-  const subExame = "Veias Profundas com Trombo Esquerdo";
+  const subExame = "Refluxo Veias Profundas Direito";
   const titulo_exame = "Doppler Venoso de MMII";
 
   useEffect(() => {
-    if (Object.keys(frasesVeiasTrombo).length == 0) {
+    if (Object.keys(frasesReflluxoVD).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesVeiasTrombo
+        frasesReflluxoVD
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesVeiasTrombo
+        frasesReflluxoVD
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesVeiasTrombo]);
+  }, [frasesReflluxoVD]);
 
   return (
     <Box
@@ -163,7 +145,7 @@ function VeiasProfundasTromboEsquerdo() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Veias Profundas com Trombo" />
+      <TituloNomeExame titulo="Refluxo Veias Profundas" />
 
       <Grid templateColumns="repeat(2, 1fr)" gap={3}>
         <Checkbox
@@ -225,22 +207,8 @@ function VeiasProfundasTromboEsquerdo() {
         >
           Poplítea
         </Checkbox>
-        <Checkbox
-          onChange={() => {
-            setGastrocnemiasCheckbox(!GastrocnemiasCheckbox);
-          }}
-        >
-          Gastrocnêmias
-        </Checkbox>
-        <Checkbox
-          onChange={() => {
-            setSolearesCheckbox(!SolearesCheckbox);
-          }}
-        >
-          Soleares
-        </Checkbox>
       </Grid>
     </Box>
   );
 }
-export default VeiasProfundasTromboEsquerdo;
+export default RefluxoVeiasProfundasDireita;

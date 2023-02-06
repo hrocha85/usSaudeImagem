@@ -1,8 +1,5 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
+import { Box, Checkbox, Grid } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -11,8 +8,6 @@ function RefluxoVeiasProfundasEsquerdo() {
   const largura = "95%";
 
   const [frasesReflluxoVE, setFrasesRefluxoVE] = useState<any>([]);
-
-  const [arrayCheckbox, setArrayCheckbox] = useState<any>([]);
 
   const [FemoralComumCheckbox, setFemoralComumCheckbox] = useState(false);
   const [FemoralSuperficialCheckbox, setFemoralSuperficialCheckbox] =
@@ -24,131 +19,98 @@ function RefluxoVeiasProfundasEsquerdo() {
   const [FibularCheckbox, setFibularCheckbox] = useState(false);
   const [PopliteaCheckbox, setPopliteaCheckbox] = useState(false);
 
-  //Funcoes DIU Posicionado - Inicio
-  // const criaStringFemoralComum = () => {
-  //   var string = "Contornos prostáticos irregulares";
-  //   if (FemoralComumCheckbox) {
-  //     setLaudoPrin((arr) => [...arr, string]);
-  //   } else {
-  //     removeItemString(string)
-  //   }
-  // };
-
-  // const criaStringFemoralSuperficial = () => {
-  //   var string = "Próstata com ecotextura heterogênea";
-  //   if (FemoralSuperficialCheckbox) {
-  //     setLaudoPrin((arr) => [...arr, string]);
-  //   } else {
-  //     removeItemString(string)
-  //   }
-  // };
-
-  // const criaStringFemoralProfunda = () => {
-  //   var string = "Bexiga com esforço";
-  //   if (FemoralProfundaCheckbox) {
-  //     setLaudoPrin((arr) => [...arr, string]);
-  //   } else {
-  //     removeItemString(string)
-  //   }
-  // };
-
-  // const criaStringTibialAnterior = () => {
-  //   var string = "Bexiga com esforço";
-  //   if (TibialAnteriorCheckbox) {
-  //     setLaudoPrin((arr) => [...arr, string]);
-  //   } else {
-  //     removeItemString(string)
-  //   }
-  // };
-  // const criaStringTibialPosterior = () => {
-  //   var string = "Bexiga com esforço";
-  //   if (TibialPosteriorCheckbox) {
-  //     setLaudoPrin((arr) => [...arr, string]);
-  //   } else {
-  //     removeItemString(string)
-  //   }
-  // };
-  // const criaStringFibular = () => {
-  //   var string = "Bexiga com esforço";
-  //   if (FibularCheckbox) {
-  //     setLaudoPrin((arr) => [...arr, string]);
-  //   } else {
-  //     removeItemString(string)
-  //   }
-  // };
-  // const criaStringPoplitea = () => {
-  //   var string = "Bexiga com esforço";
-  //   if (PopliteaCheckbox) {
-  //     setLaudoPrin((arr) => [...arr, string]);
-  //   } else {
-  //     removeItemString(string)
-  //   }
-  // };
-
-  const criaString = () => {
-    var string = `Insuficiência das veias ${arrayCheckbox}`;
-    console.log(arrayCheckbox);
-    //   removeString()
-    //if (arrayCheckbox.length >= 0) {
-    //removeString()
+  const criaString = (string) => {
     setFrasesRefluxoVE((arr) => [...arr, string]);
-    // } else {
-    //  removeString()
-    //}
   };
 
-  const adicionaItemArray = (value) => {
-    setArrayCheckbox((arr) => [...arr, value]);
-    criaString();
-    //setFemoralComumCheckbox(false)
-    console.log(arrayCheckbox);
-
-    // setArrayCheckbox((arr) => [...arr, value]);
-    // if (arrayCheckbox.length >= 0) {
-    //   setLaudoPrin((arr) => [...arr, arrayCheckbox]);
-
-    // } else {
-    //   //   removeString()
-    // }
-    // console.log(arrayCheckbox)
-  };
-
-  useEffect(() => {
-    if (FemoralComumCheckbox) {
-      console.log("femoral checked");
-      setArrayCheckbox(["Femoral Comum"]);
-      //setArrayCheckbox((arr) => [...arr, 'Femoral Comum'])
-      criaString();
-      //adicionaItemArray('Femoral Comum')
-    } else {
-      console.log("femoral nao checked");
-      //removeString('Femoral Comum')
-    }
-  }, [FemoralComumCheckbox]);
-
-  const removeString = (value) => {
-    console.log("removendo");
-    arrayCheckbox.map((e) => {
-      if (e.includes(value)) {
-        var index = arrayCheckbox.indexOf(e);
-
+  const removeString = (string) => {
+    frasesReflluxoVE.map((e) => {
+      if (e == string) {
+        let index = frasesReflluxoVE.indexOf(e);
         if (index > -1) {
-          arrayCheckbox.splice(index, 1);
-          setArrayCheckbox((arr) => [...arr]);
+          frasesReflluxoVE.splice(index, 1);
+          setFrasesRefluxoVE((arr) => [...arr]);
         }
       }
     });
   };
 
-  const removeItemString = (value) => {
-    // console.log("valor remove = ", value);
-    var index = frasesReflluxoVE.indexOf(value);
-    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-    if (index > -1) {
-      frasesReflluxoVE.splice(index, 1);
-      setFrasesRefluxoVE((arr) => [...arr]);
+  useEffect(() => {
+    const string =
+      "As veias profundas avaliadas conservam compressibilidade normal e apresentam fluxo de padrão monofásico ao estudo com Doppler, variável com a respiração.";
+
+    if (FemoralComumCheckbox) {
+      criaString(string);
+    } else {
+      removeString(string);
     }
-  };
+  }, [FemoralComumCheckbox]);
+
+  useEffect(() => {
+    const string =
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo a veia femoral superficial à esquerda.";
+
+    if (FemoralSuperficialCheckbox) {
+      criaString(string);
+    } else {
+      removeString(string);
+    }
+  }, [FemoralSuperficialCheckbox]);
+
+  useEffect(() => {
+    const string =
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo a veia femoral profunda à esquerda.";
+
+    if (FemoralProfundaCheckbox) {
+      criaString(string);
+    } else {
+      removeString(string);
+    }
+  }, [FemoralProfundaCheckbox]);
+
+  useEffect(() => {
+    const string =
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo as veias tibiais anteriores à esquerda.";
+
+    if (TibialAnteriorCheckbox) {
+      criaString(string);
+    } else {
+      removeString(string);
+    }
+  }, [TibialAnteriorCheckbox]);
+
+  useEffect(() => {
+    const string =
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo as veias tibiais posteriores à esquerda. Insuficiência valvular profunda à esquerda.";
+
+    if (TibialPosteriorCheckbox) {
+      criaString(string);
+    } else {
+      removeString(string);
+    }
+  }, [TibialPosteriorCheckbox]);
+
+  useEffect(() => {
+    const string =
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo as veias fibulares à esquerda.";
+
+    if (FibularCheckbox) {
+      criaString(string);
+    } else {
+      removeString(string);
+    }
+  }, [FibularCheckbox]);
+
+  useEffect(() => {
+    const string =
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo a veia poplítea à esquerda.";
+
+    if (PopliteaCheckbox) {
+      criaString(string);
+    } else {
+      removeString(string);
+    }
+  }, [PopliteaCheckbox]);
 
   const subExame = "Refluxo Veias Profundas Esquerdo";
   const titulo_exame = "Doppler Venoso de MMII";
@@ -185,82 +147,67 @@ function RefluxoVeiasProfundasEsquerdo() {
     >
       <TituloNomeExame titulo="Refluxo Veias Profundas" />
 
-      <Box gap="30px">
-        <Box>
-          <Checkbox
-            value="Femoral comum"
-            onChange={(e) => {
-              // adicionaItemArray(e.target.value)
-              //criaStringFemoralComum()
-              setFemoralComumCheckbox(!FemoralComumCheckbox);
-            }}
-          >
-            Femoral Comum
-          </Checkbox>
-        </Box>
-        <Box>
-          <Checkbox
-            value="Femoral Superficial"
-            onChange={(e) => {
-              setFemoralSuperficialCheckbox(!FemoralSuperficialCheckbox);
-            }}
-          >
-            Femoral Superficial
-          </Checkbox>
-        </Box>
-        <Box>
-          <Checkbox
-            value="Femoral Profunda"
-            onChange={(e) => {
-              // criaStringFemoralProfunda()
-              setFemoralProfundaCheckbox(!FemoralProfundaCheckbox);
-            }}
-          >
-            Femoral Profunda
-          </Checkbox>
-        </Box>
-        <Box>
-          <Checkbox
-            value="Tibial Anterior"
-            onChange={(e) => {
-              //criaStringTibialAnterior()
-              setTibialAnteriorCheckbox(!TibialAnteriorCheckbox);
-            }}
-          >
-            Tibial Anterior
-          </Checkbox>
-        </Box>
-        <Box>
-          <Checkbox
-            onChange={() => {
-              //criaStringTibialPosterior()
-              setTibialPosteriorCheckbox(!TibialPosteriorCheckbox);
-            }}
-          >
-            Tibial Posterir
-          </Checkbox>
-        </Box>
-        <Box>
-          <Checkbox
-            onChange={() => {
-              //criaStringFibular()
-              setFibularCheckbox(!FibularCheckbox);
-            }}
-          >
-            Fibular
-          </Checkbox>
-        </Box>
-        <Box>
-          <Checkbox
-            onChange={() => {
-              //criaStringPoplitea()
-              setPopliteaCheckbox(!PopliteaCheckbox);
-            }}
-          >
-            Poplítea
-          </Checkbox>
-        </Box>
-      </Box>
+      <Grid templateColumns="repeat(2, 1fr)" gap={3}>
+        <Checkbox
+          value="Femoral comum"
+          onChange={(e) => {
+            setFemoralComumCheckbox(!FemoralComumCheckbox);
+          }}
+        >
+          Femoral Comum
+        </Checkbox>
+
+        <Checkbox
+          value="Femoral Superficial"
+          onChange={(e) => {
+            setFemoralSuperficialCheckbox(!FemoralSuperficialCheckbox);
+          }}
+        >
+          Femoral Superficial
+        </Checkbox>
+
+        <Checkbox
+          value="Femoral Profunda"
+          onChange={(e) => {
+            setFemoralProfundaCheckbox(!FemoralProfundaCheckbox);
+          }}
+        >
+          Femoral Profunda
+        </Checkbox>
+
+        <Checkbox
+          value="Tibial Anterior"
+          onChange={(e) => {
+            setTibialAnteriorCheckbox(!TibialAnteriorCheckbox);
+          }}
+        >
+          Tibial Anterior
+        </Checkbox>
+
+        <Checkbox
+          onChange={() => {
+            setTibialPosteriorCheckbox(!TibialPosteriorCheckbox);
+          }}
+        >
+          Tibial Posterir
+        </Checkbox>
+
+        <Checkbox
+          onChange={() => {
+            setFibularCheckbox(!FibularCheckbox);
+          }}
+        >
+          Fibular
+        </Checkbox>
+
+        <Checkbox
+          onChange={() => {
+            setPopliteaCheckbox(!PopliteaCheckbox);
+          }}
+        >
+          Poplítea
+        </Checkbox>
+      </Grid>
     </Box>
   );
 }

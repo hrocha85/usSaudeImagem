@@ -7,7 +7,7 @@ import InsuficienciaSafenaMangnaDireito from "./ladoDireito/InsuficienciaSafenaM
 import InsuficienciaSafenaParvaDireito from "./ladoDireito/InsuficienciaSafenaParvaDireito/insuficienciaSafenaParvaDireito";
 import MedidasDireito from "./ladoDireito/medidasDireito/medidasDireito";
 import ObservacoesDireito from "./ladoDireito/observacoesDireito/observacoesDireito";
-import RefluxoVeiasProfundas from "./ladoDireito/refluxoVeiasProfundas/refluxoVeiasProfundas";
+import RefluxoVeiasProfundasDireita from "./ladoDireito/refluxoVeiasProfundas/refluxoVeiasProfundasDireita";
 import TeleangiectasiasDireito from "./ladoDireito/teleangiectasiasDireito/teleangiectasiasDireito";
 import TromboflebiteDireito from "./ladoDireito/tromboflebite/tromboflebite";
 import VeiasPerfurantesDireito from "./ladoDireito/veiasPerfurantesDireito/veiasPerfurantesDireito";
@@ -17,7 +17,7 @@ import VeiasTributariasDireito from "./ladoDireito/veiasTributariasDireito/veias
 import IndexCirurgiasEsquerdo from "./ladoEsquerdo/CirurgiasSafenaEsquerdo/indexCirurgia";
 import InsuficienciaSafenaMangnaEsquerdo from "./ladoEsquerdo/InsuficienciaSafenaMagnaEsquerdo/insuficienciaSafenaMagmaEsquerdo";
 import InsuficienciaSafenaParvaEsquerdo from "./ladoEsquerdo/InsuficienciaSafenaParvaEsquerdo/insuficienciaSafenaParvaEsquerdo";
-import MedidasEsquerdo from "./ladoEsquerdo/medidasEsquerdo/medidasEsquerdo";
+import Veias_Superficiais_Refluxo_Esquerdo from "./ladoEsquerdo/medidasEsquerdo/medidasEsquerdo";
 import ObservacoesEsquerdo from "./ladoEsquerdo/observacoesEsquerdo/observacoesEsquerdo";
 import RefluxoVeiasProfundasEsquerdo from "./ladoEsquerdo/refluxoVeiasProfundasEsquerdo/refluxoVeiasProfundasEsquerdo";
 import TeleangiectasiasEsquerdo from "./ladoEsquerdo/teleangiectasiasEsquerdo/teleangiectasiasEsquerdo";
@@ -47,7 +47,7 @@ function DopplerVenosoMMII() {
             <VeiasProfundasTromboEsquerdo />
           </Box>
           <Box w="450px" mb="15px">
-            <MedidasEsquerdo />
+            <Veias_Superficiais_Refluxo_Esquerdo />
           </Box>
 
           <Box w="450px" mb="15px">
@@ -97,13 +97,12 @@ function DopplerVenosoMMII() {
           </Box>
 
           <Box w="450px" mb="15px">
-            <RefluxoVeiasProfundas />
+            <RefluxoVeiasProfundasDireita />
           </Box>
           <Box w="450px" mb="15px">
-              <VeiasProfundasTromboDireito />
-            </Box>
+            <VeiasProfundasTromboDireito />
+          </Box>
           <Box>
-            
             <Box w="450px" mb="15px">
               <MedidasDireito />
             </Box>
