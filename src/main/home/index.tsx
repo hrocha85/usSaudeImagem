@@ -12,6 +12,7 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CardListaMedicos from "../component/card_paciente_home";
 import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
@@ -21,14 +22,15 @@ import Configuracao from "../images/gear.webp";
 
 function Home() {
   const [isMounted, setIsMounted] = useState(false);
+  const navigate = useNavigate();
 
   var user = JSON.parse(localStorage.getItem("user")!);
   var clinica = JSON.parse(user.clinica);
   var medico = user.medico;
 
-  const Logout = () => {
-    window.location.href = "/Login";
+  const LogoutButton = () => {
     localStorage.removeItem("user");
+    navigate("/Login");
   };
 
   useEffect(() => {
@@ -129,7 +131,7 @@ function Home() {
             <Button
               variant="solid"
               fontSize="20px"
-              onClick={() => Logout()}
+              onClick={() => LogoutButton()}
               colorScheme="blue"
             >
               Sair
