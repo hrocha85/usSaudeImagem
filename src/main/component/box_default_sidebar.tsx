@@ -25,6 +25,7 @@ import {
   Text,
   Tooltip,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { TabExamesContext } from "../../context/TabExameContext";
@@ -66,6 +67,7 @@ export default function Box_Default_With_Sidebar() {
   const [currentExame, setCurrentExame] = useState<any>();
   const [currentHandleSlider, setCurrentHandleSlider] = useState<any>();
   const [isMounted, setIsMounted] = useState(false);
+  const toast = useToast();
 
   const exames = [
     {
@@ -295,7 +297,7 @@ export default function Box_Default_With_Sidebar() {
           paddingBottom="50px"
         >
           <Sidebar />
-          <Exames></Exames>
+          <Exames />
           <Tabs
             size="lg"
             variant="soft-rounded"
@@ -425,11 +427,30 @@ export default function Box_Default_With_Sidebar() {
                       borderStartColor="#47AFFC"
                       _hover={{ borderColor: "#47AEFC" }}
                       onClick={() => {
-                        setTabExames((tabExames) => [...tabExames, exame]);
-                        onClose();
-                        AddNewExame(exame.nomeExame);
+                        setTabExames((tabExames) => {
+                          const found = tabExames.find(
+                            (obj) =>
+                              obj.nomeExame === exame.nomeExame &&
+                              obj.nomeExame === exame.nomeExame
+                          );
+                          if (!found) {
+                            AddNewExame(exame.nomeExame);
+                            onClose();
+                            return [...tabExames, exame];
+                          }
+                          toast({
+                            duration: 2000,
+                            title: `Exame já existe !`,
+                            position: "top",
+                            isClosable: true,
+                            status: "error",
+                          });
+                          return tabExames;
+                        });
                       }}
                     >
+                      {/**AddNewExame(exame.nomeExame);
+                            onClose(); */}
                       <Text
                         textColor="black"
                         textStyle="solid"
