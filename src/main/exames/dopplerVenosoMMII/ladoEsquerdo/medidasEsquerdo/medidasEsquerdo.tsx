@@ -17,7 +17,7 @@ function Veias_Superficiais_Refluxo_Esquerdo() {
 
   const removeString = (string) => {
     frasesMedidasE.map((e) => {
-      if (e == string) {
+      if (e.includes("Veia safena magna direita insuficiente desde")) {
         let index = frasesMedidasE.indexOf(e);
         if (index > -1) {
           frasesMedidasE.splice(index, 1);
@@ -155,10 +155,11 @@ function Veias_Superficiais_Refluxo_Esquerdo() {
     if (safenaMagna) {
       setdisableSafenaMagnaAusente(true);
       setDisablecheckBoxDesde_Primario(false);
-      criaString(string);
+      setDisablecheckBoxDesde_Secundario(false);
     } else {
-      setdisableSafenaMagnaAusente(false);
       setDisablecheckBoxDesde_Primario(true);
+      setDisablecheckBoxDesde_Secundario(true);
+      setdisableSafenaMagnaAusente(false);
       removeString(string);
       setFrasesMedidasE([]);
     }
@@ -180,10 +181,11 @@ function Veias_Superficiais_Refluxo_Esquerdo() {
   useEffect(() => {
     if (checkBoxDesde_Primario) {
       setDisableSelectBoxDesde_Primario(false);
-      setDisablecheckBoxDesde_Secundario(false);
       setDisablecheckBoxAte_Primario(false);
+      setDisablecheckBoxDesde_Secundario(true)
     } else {
       setDisableSelectBoxDesde_Primario(true);
+      setDisablecheckBoxDesde_Secundario(false)
       setDisablecheckBoxAte_Primario(true);
       setValueSelectBoxDesde_Primario("");
     }
@@ -194,6 +196,7 @@ function Veias_Superficiais_Refluxo_Esquerdo() {
       setDisableInputDesde(false);
       setDisableSelectBoxDesde_Secundario(false);
       setDisableSelectBoxDesde_Terciario(false);
+      setValueSelectBoxDesde_Primario("");
     } else {
       setDisableInputDesde(true);
       setInputDesde("");
@@ -230,8 +233,28 @@ function Veias_Superficiais_Refluxo_Esquerdo() {
   }, [checkBoxAte_Secundario]);
 
   useEffect(() => {
-    if (valueSelectDesde_Primario != "" && valueSelectAte_Primario) {
+    if (
+      valueSelectDesde_Primario != "" &&
+      valueSelectAte_Primario &&
+      !disableCheckBoxDesde_Secundario &&
+      !disableCheckBoxDesde_Primario
+    ) {
       const string = `Veia safena magna direita insuficiente desde ${valueSelectDesde_Primario} até ${valueSelectAte_Primario}.`;
+      removeString(string);
+      criaString(string);
+    }
+    if (
+      inputDesde != "" &&
+      inputAte != "" &&
+      valueSelectDesde_Primario != "" &&
+      valueSelectDesde_Secundario != "" &&
+      valueSelectDesde_Terciario != "" &&
+      valueSelectAte_Primario != "" &&
+      valueSelectAte_Secundario != "" &&
+      valueSelectAte_Terciario
+    ) {
+      const string = `Veia safena magna direita insuficiente desde ${inputDesde} cm ${valueSelectDesde_Secundario} da ${valueSelectDesde_Terciario} até ${inputAte}
+      cm ${valueSelectAte_Secundario} da ${valueSelectAte_Terciario}`;
       removeString(string);
       criaString(string);
     }
@@ -245,7 +268,6 @@ function Veias_Superficiais_Refluxo_Esquerdo() {
     valueSelectAte_Secundario,
     valueSelectAte_Terciario,
   ]);
-
   return (
     <Box
       bg="#FAFAFA"
