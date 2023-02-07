@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
- 
+
 import Normal from "./abdomenNormal/normal";
 import Aorta from "./aorta/aorta";
 import Baco from "./baco/baco";
@@ -19,12 +19,14 @@ import ViasBiliares from "./vias biliares/vias_biliares";
 function AbdomemTotal() {
   return (
     <>
-      
+
 
       <Box>
         <Normal></Normal>
 
         <Figado />
+
+        <VesiculaBiliar />
 
         <Baco />
 
@@ -36,7 +38,6 @@ function AbdomemTotal() {
 
         <Aorta />
 
-        <VesiculaBiliar />
 
         <RimDireito />
 
