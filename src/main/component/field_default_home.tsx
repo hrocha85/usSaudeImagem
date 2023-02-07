@@ -212,7 +212,7 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
             z-index="1"
           >
             <Button
-              isDisabled={!enableExames}
+              isDisabled={id == 25 || id == 16 ? true : !enableExames}
               fontSize="13.9px"
               variant="link"
               textAlign="center"
