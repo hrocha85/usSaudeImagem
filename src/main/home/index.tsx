@@ -64,7 +64,7 @@ function Home() {
     return (
       <Box
         w="100%"
-        h="100vh"
+        h="100%"
         backgroundImage={BGImage}
         backgroundSize="cover"
         backgroundClip="padding-box"
@@ -116,7 +116,7 @@ function Home() {
             <Text fontSize="xl">{clinica.nomeClinica}</Text>
           </HStack>
         </Center>
-        <Center marginTop="20px" marginBottom="3%">
+        <Center marginTop="20px" >
           <Tooltip
             label="Voltar para Login"
             backgroundColor="white"
