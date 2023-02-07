@@ -145,11 +145,11 @@ export default function Box_Default_With_Sidebar() {
       nomeExame: "Rins e Vias Urinárias",
       link: `#/Home/${15}`,
     },
-    {
+    /*{
       key: 16,
       nomeExame: "Dopper Venoso de MMSS",
       link: `#/Home/${16}`,
-    },
+    },*/
     {
       key: 17,
       nomeExame: "Doppler da Tireóide",
@@ -190,11 +190,11 @@ export default function Box_Default_With_Sidebar() {
       nomeExame: "Articulações",
       link: `#/Home/${24}`,
     },
-    {
+    /*{
       key: 25,
       nomeExame: "Reg. Inguinal",
       link: `#/Home/${25}`,
-    },
+    },*/
   ];
 
   const handleSliderChange = (event) => {
