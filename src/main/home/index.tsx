@@ -2,7 +2,7 @@ import {
   Box,
   Button,
   Center,
-  Grid,
+  Flex,
   HStack,
   Image,
   Link,
@@ -60,15 +60,17 @@ function Home() {
     );
   } else {
     return (
-      <Box
+      <Flex
+        flex="1"
+        h="100%"
         w="100%"
-        h="100vh"
+        minH="100vh"
+        flexDirection="column"
         backgroundImage={BGImage}
         backgroundSize="cover"
-        backgroundClip="padding-box"
         backgroundRepeat="no-repeat"
-        paddingTop="2%"
         alignItems="center"
+        backgroundClip="padding-box"
       >
         <Button position="absolute" right="1" variant="ghost">
           <Link href={"#/Home/Configuracoes"}>
@@ -82,17 +84,15 @@ function Home() {
         </Button>
 
         <Center>
-          <Stack alignItems="center" mt="5px" mb="5px">
+          <Stack alignItems="center" mt="1%" mb="5px">
             <CardListaMedicos altura="300px" />
           </Stack>
         </Center>
 
-        <Center marginTop="3%">
-          <Grid>
-            <LayoutExame item={<ItemExamesHome />} />
-          </Grid>
+        <Center marginTop="1%">
+          <LayoutExame item={<ItemExamesHome />} />
         </Center>
-        <Center marginTop="3%">
+        <Center marginTop="1%">
           <HStack
             borderWidth="2px"
             padding="20px"
@@ -114,7 +114,7 @@ function Home() {
             <Text fontSize="xl">{clinica.nomeClinica}</Text>
           </HStack>
         </Center>
-        <Center marginTop="20px" marginBottom="3%">
+        <Center marginTop="20px" paddingBottom="1%">
           <Tooltip
             label="Voltar para Login"
             backgroundColor="white"
@@ -136,7 +136,7 @@ function Home() {
             </Button>
           </Tooltip>
         </Center>
-      </Box>
+      </Flex>
     );
   }
 }
