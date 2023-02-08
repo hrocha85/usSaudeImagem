@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import CardListaMedicos from "../component/card_paciente_home";
+import Default_Backgound from "../component/default_backgound";
 import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
 import { Clear_Local_Storage } from "../component/remove_sub_exames_local_storage";
@@ -60,20 +61,7 @@ function Home() {
     );
   } else {
     return (
-      <Flex
-        flex="1"
-        h="100%"
-        w="100%"
-        minH="100vh"
-        minW="100vw"
-        flexDirection="column"
-        backgroundImage={BGImage}
-        backgroundSize="cover"
-        backgroundRepeat="no-repeat"
-        backgroundPosition="center"
-        alignItems="center"
-        backgroundClip="padding-box"
-      >
+      <Default_Backgound>
         <Button position="absolute" right="1" variant="ghost">
           <Link href={"#/Home/Configuracoes"}>
             <Image
@@ -86,7 +74,7 @@ function Home() {
         </Button>
 
         <Center>
-          <Stack alignItems="center" mt="1%" mb="5px">
+          <Stack alignItems="center" marginTop="3%">
             <CardListaMedicos altura="300px" />
           </Stack>
         </Center>
@@ -138,7 +126,7 @@ function Home() {
             </Button>
           </Tooltip>
         </Center>
-      </Flex>
+      </Default_Backgound>
     );
   }
 }
