@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
+import Box_Default_With_Sidebar from "../../component/screen_exames";
 import BoxTitleBackground from "../../component/box_title_background";
  
 import Cirurgias from "./cirurgias/cirurgias";

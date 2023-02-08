@@ -28,7 +28,7 @@ import Login from "../main/login/login";
 import Articulacoes from "../main/exames/articulacoes";
 import DopplerVenosoMMII from "../main/exames/dopplerVenosoMMII";
 import Format_PDF from "../main/folha_laudos/format_pdf";
-import Box_Default_With_Sidebar from "../main/component/box_default_sidebar";
+import Box_Default_With_Sidebar from "../main/component/screen_exames";
 
 function Rotas() {
   return (

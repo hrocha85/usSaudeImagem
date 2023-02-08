@@ -493,6 +493,7 @@ function Exames() {
         position="sticky"
         top={0}
         transition="0.2"
+        marginEnd='1%'
       >
         <Center paddingBottom="30px">
           <Stack

@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import BGImage from "../images/bg_img.png";
 
-export default function Default_Backgound(children) {
+export default function Default_Backgound({ children }) {
   return (
     <Flex
       flex="1"
@@ -18,9 +18,7 @@ export default function Default_Backgound(children) {
       backgroundClip="padding-box"
       overflowX="hidden"
     >
-          <>
-          {children}
-          </>
+      <>{children}</>
     </Flex>
   );
 }
