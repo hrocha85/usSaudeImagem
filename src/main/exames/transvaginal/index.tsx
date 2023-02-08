@@ -1,5 +1,5 @@
 import { Box, HStack } from "@chakra-ui/react";
- 
+
 import Extras from "./adicionais/extras";
 import Cirurgias from "./cirurgias/cirurgias";
 import Hidatide from "./hidatide/hidatide";
@@ -13,8 +13,6 @@ import Utero from "./utero/utero";
 function Transvaginal() {
   return (
     <>
-      
-
       <Box ml="10px">
         <Utero />
         <HStack alignItems="baseline">
@@ -22,7 +20,6 @@ function Transvaginal() {
           <Ovario_Direito />
         </HStack>
         <Miometrio />
-        <Cirurgias />
         <HStack alignItems="baseline">
           <Hidatide />
           <Hidrossalpinge />
@@ -31,6 +28,7 @@ function Transvaginal() {
           <Liquido_Livre />
           <Extras />
         </HStack>
+        <Cirurgias />
       </Box>
     </>
   );

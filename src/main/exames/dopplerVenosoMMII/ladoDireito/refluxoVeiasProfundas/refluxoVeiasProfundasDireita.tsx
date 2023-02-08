@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function RefluxoVeiasProfundasEsquerdo() {
+function RefluxoVeiasProfundasDireita() {
   const altura = "100%";
   const largura = "95%";
 
-  const [frasesReflluxoVE, setFrasesRefluxoVE] = useState<any>([]);
+  const [frasesReflluxoVD, setFrasesRefluxoVD] = useState<any>([]);
 
   const [FemoralComumCheckbox, setFemoralComumCheckbox] = useState(false);
   const [FemoralSuperficialCheckbox, setFemoralSuperficialCheckbox] =
@@ -20,16 +20,16 @@ function RefluxoVeiasProfundasEsquerdo() {
   const [PopliteaCheckbox, setPopliteaCheckbox] = useState(false);
 
   const criaString = (string) => {
-    setFrasesRefluxoVE((arr) => [...arr, string]);
+    setFrasesRefluxoVD((arr) => [...arr, string]);
   };
 
   const removeString = (string) => {
-    frasesReflluxoVE.map((e) => {
+    frasesReflluxoVD.map((e) => {
       if (e == string) {
-        let index = frasesReflluxoVE.indexOf(e);
+        let index = frasesReflluxoVD.indexOf(e);
         if (index > -1) {
-          frasesReflluxoVE.splice(index, 1);
-          setFrasesRefluxoVE((arr) => [...arr]);
+          frasesReflluxoVD.splice(index, 1);
+          setFrasesRefluxoVD((arr) => [...arr]);
         }
       }
     });
@@ -48,7 +48,7 @@ function RefluxoVeiasProfundasEsquerdo() {
 
   useEffect(() => {
     const string =
-      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo a veia femoral superficial à esquerda.";
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo a veia femoral superficial à direita.";
 
     if (FemoralSuperficialCheckbox) {
       criaString(string);
@@ -59,7 +59,7 @@ function RefluxoVeiasProfundasEsquerdo() {
 
   useEffect(() => {
     const string =
-      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo a veia femoral profunda à esquerda.";
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo a veia femoral profunda à direita.";
 
     if (FemoralProfundaCheckbox) {
       criaString(string);
@@ -70,7 +70,7 @@ function RefluxoVeiasProfundasEsquerdo() {
 
   useEffect(() => {
     const string =
-      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo as veias tibiais anteriores à esquerda.";
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo as veias tibiais anteriores à direita.";
 
     if (TibialAnteriorCheckbox) {
       criaString(string);
@@ -81,7 +81,7 @@ function RefluxoVeiasProfundasEsquerdo() {
 
   useEffect(() => {
     const string =
-      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo as veias tibiais posteriores à esquerda. Insuficiência valvular profunda à esquerda.";
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo as veias tibiais posteriores à direita. Insuficiência valvular profunda à direita.";
 
     if (TibialPosteriorCheckbox) {
       criaString(string);
@@ -92,7 +92,7 @@ function RefluxoVeiasProfundasEsquerdo() {
 
   useEffect(() => {
     const string =
-      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo as veias fibulares à esquerda.";
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo as veias fibulares à direita.";
 
     if (FibularCheckbox) {
       criaString(string);
@@ -103,7 +103,7 @@ function RefluxoVeiasProfundasEsquerdo() {
 
   useEffect(() => {
     const string =
-      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo a veia poplítea à esquerda.";
+      "As manobras compressivas e respiratórias demonstraram refluxo significativo acometendo a veia poplítea à direita.";
 
     if (PopliteaCheckbox) {
       criaString(string);
@@ -112,26 +112,26 @@ function RefluxoVeiasProfundasEsquerdo() {
     }
   }, [PopliteaCheckbox]);
 
-  const subExame = "Refluxo Veias Profundas Esquerdo";
+  const subExame = "Refluxo Veias Profundas Direito";
   const titulo_exame = "Doppler Venoso de MMII";
 
   useEffect(() => {
-    if (Object.keys(frasesReflluxoVE).length == 0) {
+    if (Object.keys(frasesReflluxoVD).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesReflluxoVE
+        frasesReflluxoVD
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesReflluxoVE
+        frasesReflluxoVD
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesReflluxoVE]);
+  }, [frasesReflluxoVD]);
 
   return (
     <Box
@@ -211,4 +211,4 @@ function RefluxoVeiasProfundasEsquerdo() {
     </Box>
   );
 }
-export default RefluxoVeiasProfundasEsquerdo;
+export default RefluxoVeiasProfundasDireita;

@@ -6,7 +6,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Cirurgias() {
   const altura = "100%";
-  const largura = "66%";
+  const largura = "520px";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [frasesCirurgia, setFrasesCirurgias] = useState<any>([]);

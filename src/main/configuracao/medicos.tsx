@@ -173,12 +173,14 @@ const Medicos = ({ medico, id }) => {
       var array = JSON.parse(localStorage.getItem("medicos")!);
       var item = array[id];
       lista_medicos[id].assinatura = padRef.current
-        ?.getCanvas()
+        ?.getTrimmedCanvas()
         .toDataURL("image/png")!;
 
-      item.assinatura = padRef.current?.getCanvas().toDataURL("image/png")!;
+      item.assinatura = padRef.current
+        ?.getTrimmedCanvas()
+        .toDataURL("image/png")!;
       localStorage.setItem("medicos", JSON.stringify(array));
-      setAssinatura(padRef.current?.getCanvas().toDataURL("image/png")!);
+      setAssinatura(padRef.current?.getTrimmedCanvas().toDataURL("image/png")!);
       setAssinaturaUpdate(false);
     }
     if (FotoUpdate) {
@@ -189,6 +191,8 @@ const Medicos = ({ medico, id }) => {
       localStorage.setItem("medicos", JSON.stringify(array));
       setFotoUpdate(false);
     }
+    window.dispatchEvent(new Event("update_medicos"));
+
   };
 
   const POPExcluirMedico = () => {
@@ -308,6 +312,9 @@ const Medicos = ({ medico, id }) => {
       </>
     );
   };
+
+  window.addEventListener("update_clinicas", () => {
+    setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));  });
 
   useEffect(() => {
     setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));

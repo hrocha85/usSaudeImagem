@@ -60,6 +60,10 @@ function Login() {
       setisDisabledEntrar(false);
   }, [clinicaSelecionada, medicoSelecionado]);
 
+  window.addEventListener("update_medicos", () => {
+    getMedicos();
+  });
+
 
   const verificaMedico = () => {
     if (lista_medico.length > 0) {

@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
- 
+
 import CistoEpididimarios from "./cistosEpididimarios/cistoEpididimarios";
 import CistosTesticulares from "./cistosTesticulares/cistoTesticulares";
 import Hematoma from "./hematoma/hematoma";
@@ -15,39 +15,32 @@ import Virococele from "./varicocele/varicocele";
 function Testiculo() {
   return (
     <>
-      
-
       <Box ml="10px">
         <Utero />
         <CistosTesticulares />
         <CistoEpididimarios />
         <NodulosTesticulares />
 
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <Microlitiase />
-          </Box>
-          <Box w="450px" mb="15px">
-            <Hidrocele />
-          </Box>
+        <Box w="450px" mb="15px">
+          <Microlitiase />
+        </Box>
+        <Box w="450px" mb="15px">
+          <Hidrocele />
+        </Box>
+        <Box w="450px" mb="15px">
+          <Hematoma />
+        </Box>
+        <Box w="450px" mb="15px">
+          <Orquite />
         </Box>
 
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <Hematoma />
-          </Box>
-          <Box w="450px" mb="15px">
-            <Orquite />
-          </Box>
+        <Box w="450px" mb="15px">
+          <Orquiepididimite />
         </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <Orquiepididimite />
-          </Box>
-          <Box w="450px" mb="15px">
-            <Torcao />
-          </Box>
+        <Box w="450px" mb="15px">
+          <Torcao />
         </Box>
+
         <Box w="450px">
           <Virococele />
         </Box>

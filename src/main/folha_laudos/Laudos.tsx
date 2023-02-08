@@ -493,6 +493,7 @@ function Exames() {
         position="sticky"
         top={0}
         transition="0.2"
+        marginEnd='1%'
       >
         <Center paddingBottom="30px">
           <Stack
@@ -605,6 +606,7 @@ function Exames() {
                 objectFit="scale-down"
                 borderRadius="full"
                 padding="5px"
+                marginStart='20px'
               />
             </Box>
 
@@ -781,4 +783,5 @@ function Exames() {
 
 export default Exames;
 
-//TODO quando a foto da clinica é alterada nao muda na clinica do user, verificar
+//FIXME quando a foto da clinica é alterada nao muda na clinica do user, verificar
+//FIXME quando a assinatura do medico é altera esta com a box no fundo, usar o trim

@@ -1,4 +1,4 @@
-import { Box, Stack } from "@chakra-ui/react";
+import { Box, Flex, Stack } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import Bolsa_Direito from "./direito/bolsa_direito";
 import Cisto_Direito from "./direito/cisto_direito";
@@ -49,12 +49,13 @@ export default function Tornozelos() {
       boxShadow="md"
       padding="15px 15px 20px 15px"
       mt="10px"
+      maxW="95%"
     >
       <TituloNomeExame titulo="Tornozelos/Pés" />
 
       <Box gap="15px" display="flex" flexWrap="wrap" flexDirection="column">
-        <Stack direction="row" justify="space-between">
-          <Box>
+        <Stack direction="row" justify="space-between" maxW="95%">
+          <Flex flexWrap='wrap' maxWidth='95%'>
             <Box w="100%">
               <Box textAlign="center" margin="10px">
                 <Lado_Esquerdo_Torn />
@@ -76,8 +77,8 @@ export default function Tornozelos() {
             <Gordura_Kager_Esquerdo />
             <Fascia_Plantar_Esquerdo />
             <Neuroma_Morton_Esquerdo />
-          </Box>
-          <Box>
+          </Flex>
+          <Flex flexWrap='wrap' maxWidth='95%'>
             <Box w="100%">
               <Box textAlign="center" margin="10px">
                 <Lado_Direito_Torn />
@@ -99,7 +100,7 @@ export default function Tornozelos() {
             <Gordura_Kager_Direito />
             <Fascia_Plantar_Direito />
             <Neuroma_Morton_Direito />
-          </Box>
+          </Flex>
         </Stack>
       </Box>
     </Box>

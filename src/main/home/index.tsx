@@ -2,7 +2,7 @@ import {
   Box,
   Button,
   Center,
-  Grid,
+  Flex,
   HStack,
   Image,
   Link,
@@ -14,6 +14,7 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardListaMedicos from "../component/card_paciente_home";
+import Default_Backgound from "../component/default_backgound";
 import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
 import { Clear_Local_Storage } from "../component/remove_sub_exames_local_storage";
@@ -62,16 +63,7 @@ function Home() {
     );
   } else {
     return (
-      <Box
-        w="100%"
-        h="100%"
-        backgroundImage={BGImage}
-        backgroundSize="cover"
-        backgroundClip="padding-box"
-        backgroundRepeat="no-repeat"
-        paddingTop="2%"
-        alignItems="center"
-      >
+      <Default_Backgound>
         <Button position="absolute" right="1" variant="ghost">
           <Link href={"#/Home/Configuracoes"}>
             <Image
@@ -84,17 +76,15 @@ function Home() {
         </Button>
 
         <Center>
-          <Stack alignItems="center" mt="5px" mb="5px">
+          <Stack alignItems="center" marginTop="3%">
             <CardListaMedicos altura="300px" />
           </Stack>
         </Center>
 
-        <Center marginTop="3%">
-          <Grid>
-            <LayoutExame item={<ItemExamesHome />} />
-          </Grid>
+        <Center marginTop="1%">
+          <LayoutExame item={<ItemExamesHome />} />
         </Center>
-        <Center marginTop="3%">
+        <Center marginTop="1%">
           <HStack
             borderWidth="2px"
             padding="20px"
@@ -116,7 +106,7 @@ function Home() {
             <Text fontSize="xl">{clinica.nomeClinica}</Text>
           </HStack>
         </Center>
-        <Center marginTop="20px" >
+        <Center marginTop="20px" paddingBottom="1%">
           <Tooltip
             label="Voltar para Login"
             backgroundColor="white"
@@ -138,7 +128,7 @@ function Home() {
             </Button>
           </Tooltip>
         </Center>
-      </Box>
+      </Default_Backgound>
     );
   }
 }

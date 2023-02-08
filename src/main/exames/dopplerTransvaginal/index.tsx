@@ -28,7 +28,6 @@ function DopplerTransvaginal() {
           </Box>
         </Box>
 
-        <Cirurgias />
         <Box w="70%" display="flex" flexWrap="wrap">
           <Box w="450px" mb="15px">
             <Hidatide />
@@ -44,6 +43,8 @@ function DopplerTransvaginal() {
           <Box w="450px" mb="15px">
             <Extras />
           </Box>
+          <Cirurgias />
+
         </Box>
       </Box>
     </>

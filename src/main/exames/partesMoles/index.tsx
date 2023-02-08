@@ -36,7 +36,7 @@ function PartesMoles() {
         <HerniaSupraUmbilical />
         <Colecao />
         <Diastase_Musculo_Reto />
-        {/* <Direita /> */}
+        {/*<Direita />*/}
         {/*<Esquerda />*/}
       </Grid>
     </>
@@ -44,4 +44,3 @@ function PartesMoles() {
 }
 
 export default PartesMoles;
-//FIXME Problemas no com o lado direito e esquerdo na Regiao Iguinal
