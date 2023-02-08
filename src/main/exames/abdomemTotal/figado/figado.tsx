@@ -174,16 +174,17 @@ function Figado() {
   }, [HepatopatiaCronicaCheckbox, HepatopatiaCronicaSelect])
 
   const criaStringCistoSimples = (select, input) => {
-    var string = 'Cisto de conteúdo '
+    var string = 'Cisto de conteúdo anecogênico, com paredes finas e contornos regulares '
     removeFraseCistoSimples()
+    var medida = new Convert_Medida(input).Convert_Medida()
     if (select !== '' && input !== '') {
-      string = `${string} ${select} ${input}  `;
+      string = `${string}, medindo ${medida} cm, localizado no ${select}. Veia porta e veias hepáticas sem alterações `;
       setFrasesFigado((arr) => [...arr, string]);
     }
   };
   const removeFraseCistoSimples = () => {
     frasesFigado.map((e) => {
-      if (e.includes("Cisto de conteúdo")) {
+      if (e.includes("Cisto de conteúdo anecogênico, com paredes finas e contornos regulares")) {
         var index = frasesFigado.indexOf(e);
 
         if (index > -1) {
@@ -207,16 +208,17 @@ function Figado() {
   }, [CistoSimplesCheckbox, CistoSimplesSelect, CistoSimplesInput])
 
   const criaStringVariosCistos = (select, input) => {
-    var string = 'Falta VariosCistos '
+    var string = 'Cistos de conteúdo anecogênico, com paredes finas e contornos regulares '
     removeFraseVariosCistos()
+    var medida = new Convert_Medida(input).Convert_Medida()
     if (select !== '' && input !== '') {
-      string = `${string} ${input} ${select} `;
+      string = `${string}, medindo até ${medida} cm, o maior localizado no ${select}. Veia porta e veias hepáticas sem alterações.`;
       setFrasesFigado((arr) => [...arr, string]);
     }
   };
   const removeFraseVariosCistos = () => {
     frasesFigado.map((e) => {
-      if (e.includes("Falta VariosCistos")) {
+      if (e.includes("Cistos de conteúdo anecogênico, com paredes finas e contornos regulares")) {
         var index = frasesFigado.indexOf(e);
 
         if (index > -1) {
@@ -240,16 +242,18 @@ function Figado() {
   }, [VariosCistosCheckbox, VariosCistosSelect, VariosCistosInput])
 
   const criaStringNodulo = (select1, select2, select3, input1, input2) => {
-    var string = 'Falta Nodulo '
+    var string = 'Nodulo'
+    var medida1 = new Convert_Medida(input1).Convert_Medida()
+    var medida2 = new Convert_Medida(input2).Convert_Medida()
     removeFraseNodulo()
     if (select1 !== '' && input1 !== '' && select2 !== '' && select3 !== '' && input2) {
-      string = `${string} ${input1} x ${input2} ${select1} ${select2} ${select3}`;
+      string = `${string} ${select1} de contornos ${select2}, medindo ${medida1} x ${medida2} cm, situado no ${select3}`;
       setFrasesFigado((arr) => [...arr, string]);
     }
   };
   const removeFraseNodulo = () => {
     frasesFigado.map((e) => {
-      if (e.includes("Falta Nodulo")) {
+      if (e.includes("Nodulo")) {
         var index = frasesFigado.indexOf(e);
 
         if (index > -1) {
@@ -276,17 +280,19 @@ function Figado() {
     }
   }, [NoduloCheckbox, NoduloSelect1, NoduloSelect2, NoduloSelect3, NoduloInput1, NoduloInput2])
 
-  const criaStringVariosNodulos = (select1, select2, select3, input1, input2) => {
-    var string = 'Falta VariosNodulos '
+  const criaStringVariosNodulos = (select1, select2, select3, select4, input1, input2) => {
+    var string = 'Presença de'
+    var medida1 = new Convert_Medida(input1).Convert_Medida()
+    var medida2 = new Convert_Medida(input2).Convert_Medida()
     removeFraseVariosNodulos()
-    if (select1 !== '' && input1 !== '' && select2 !== '' && select3 !== '' && input2) {
-      string = `${string} ${input1} x ${input2} ${select1} ${select2} ${select3}`;
+    if (select1 !== '' && input1 !== '' && select2 !== '' && select3 !== '' && select4 !== '' && input2) {
+      string = `${string} ${select1} ${select2} de contornos regulares medindo ${medida1} cm(${select3}) e ${medida2} cm (${select4}). Veia porta e veias hepáticas sem alterações.`;
       setFrasesFigado((arr) => [...arr, string]);
     }
   };
   const removeFraseVariosNodulos = () => {
     frasesFigado.map((e) => {
-      if (e.includes("Falta VariosNodulos")) {
+      if (e.includes("Presença de")) {
         var index = frasesFigado.indexOf(e);
 
         if (index > -1) {
@@ -299,18 +305,19 @@ function Figado() {
 
   useEffect(() => {
     if (VariosNodulosCheckbox) {
-      criaStringVariosNodulos(VariosNodulosSelect1, VariosNodulosSelect2, VariosNodulosSelect3, VariosNodulosInput1, VariosNodulosInput2)
+      criaStringVariosNodulos(VariosNodulosSelect1, VariosNodulosSelect2, VariosNodulosSelect3, VariosNodulosSelect4, VariosNodulosInput1, VariosNodulosInput2)
       setDisableVariosNodulosSelect1(false)
     } else {
       setDisableVariosNodulosSelect1(true)
       setVariosNodulosSelect1('')
       setVariosNodulosSelect2('')
       setVariosNodulosSelect3('')
+      setVariosNodulosSelect4('')
       setVariosNodulosInput1('')
       setVariosNodulosInput2('')
       removeFraseVariosNodulos()
     }
-  }, [VariosNodulosCheckbox, VariosNodulosSelect1, VariosNodulosSelect2, VariosNodulosSelect3, VariosNodulosInput1, VariosNodulosInput2])
+  }, [VariosNodulosCheckbox, VariosNodulosSelect1, VariosNodulosSelect2, VariosNodulosSelect3, VariosNodulosSelect4, VariosNodulosInput1, VariosNodulosInput2])
 
   const criaStringCalcificacaoGrosseira = (select, input) => {
     var string = 'Nota-se uma calcificação grosseira de '
@@ -346,20 +353,32 @@ function Figado() {
     }
   }, [CalcificacaoGrosseiraCheckbox, CalcificacaoGrosseiraSelect, CalcificacaoGrosseiraInput])
 
-  const criaStringDimensoes = (select, lDInput, LEInput, LCInput) => {
-    var string = 'Nota-se uma calcificação grosseira de '
-    var medidaLD = new Convert_Medida(lDInput).Convert_Medida()
-    var medidaLE = new Convert_Medida(LEInput).Convert_Medida()
-    var medidaLC = new Convert_Medida(LCInput).Convert_Medida()
+  const criaStringDimensoes = (select, LDMedida, LEMedida, LCMedida) => {
+    var string = 'Fígado com dimensões'
+    var medidaLD = new Convert_Medida(LDMedida).Convert_Medida()
+    var medidaLE = new Convert_Medida(LEMedida).Convert_Medida()
+    var medidaLC = new Convert_Medida(LCMedida).Convert_Medida()
     removeFraseDimensoes()
-    if (select !== '' && lDInput !== '') {
-      string = `${string} ${medidaLD} cm localizada no ${select}.`;
+    if (select !== '') {
+      string = `${string} ${select}, contornos regulares, bordas finas e ecotextura homogênea. Veia 
+      porta e veias hepáticas sem alterações`;
+
+      if (LDMedida !== '') {
+        string = `${string}. Eixo longitudinal do lobo direito mede ${medidaLD} cm,`;
+      }
+      if (LEMedida !== '') {
+        string = `${string}. Eixo longitudinal do lobo esquerdo mede ${medidaLE} cm,`;
+      }
+      if (LCMedida !== '') {
+        string = `${string}. Eixo longitudinal do lobo caudado mede ${medidaLC} cm,`;
+      }
+      string = `${string} veia porta e veias hepáticas sem alterações.`
       setFrasesFigado((arr) => [...arr, string]);
     }
   };
   const removeFraseDimensoes = () => {
     frasesFigado.map((e) => {
-      if (e.includes("Nota-se uma calcificação grosseira de")) {
+      if (e.includes("Fígado com dimensões")) {
         var index = frasesFigado.indexOf(e);
 
         if (index > -1) {
@@ -464,7 +483,7 @@ function Figado() {
               </option>
               <option value="aumento difuso da ecogenicidade que determina atenuação posterior do feixe acústico.">Grau não especificado</option>
               <option value="discreto aumento difuso da ecogenicidade.">Discreta</option>
-              <option value="aumento difuso da ecogenicidade que determina atenuação posterior do feixe acústico.">Moderada</option>
+              <option value="Sinais de esteatose hepática moderada (grau II).">Moderada</option>
               <option value="acentuada">Acentuada</option>
             </Select>
           </Box>

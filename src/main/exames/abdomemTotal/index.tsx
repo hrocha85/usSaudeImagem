@@ -28,11 +28,11 @@ function AbdomemTotal() {
 
         <VesiculaBiliar />
 
-        <Baco />
-
         <ViasBiliares />
 
         <Pancreas />
+
+        <Baco />
 
         <LiquidoLivre />
 
