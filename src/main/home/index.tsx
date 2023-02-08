@@ -65,10 +65,12 @@ function Home() {
         h="100%"
         w="100%"
         minH="100vh"
+        minW="100vw"
         flexDirection="column"
         backgroundImage={BGImage}
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
+        backgroundPosition="center"
         alignItems="center"
         backgroundClip="padding-box"
       >
