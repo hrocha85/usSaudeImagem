@@ -45,7 +45,6 @@ import Mamas from "../exames/mamas";
 import PartesMoles from "../exames/partesMoles";
 import Pelvico from "../exames/pelvico";
 import Prostata from "../exames/prostata";
-import Regiao_Inguinal from "../exames/regiao_inguinal";
 import RinseViasUrinarias from "../exames/RinsViasUrinarias";
 import Testiculo from "../exames/testiculo";
 import Tireoide from "../exames/tireoide";
@@ -54,6 +53,8 @@ import Transvaginal from "../exames/transvaginal";
 import Exames from "../folha_laudos/Laudos";
 import BGImage from "../images/bg_img.png";
 import Sidebar from "../menu/sideBar";
+import Conclusoes from "./conclusoes";
+import Field_Observacoes from "./field_observacoes";
 
 export default function Box_Default_With_Sidebar() {
   const {
@@ -256,6 +257,10 @@ export default function Box_Default_With_Sidebar() {
 
   useEffect(() => {
     setIsMounted(true);
+    tabExames.map((e) =>
+      e.nomeExame != undefined ? setCurrentExame(e) : null
+    );
+
     return () => {
       setIsMounted(false);
     };
@@ -313,6 +318,7 @@ export default function Box_Default_With_Sidebar() {
                         key={key}
                         textColor="black"
                         _selected={{ color: "white", bg: "blue.500" }}
+                        onClick={() => setCurrentExame(e)}
                       >
                         {e.nomeExame}
                         <Tooltip
@@ -366,7 +372,7 @@ export default function Box_Default_With_Sidebar() {
             {tabExames.map((e, key) => {
               if (e.key > 0) {
                 return (
-                  <TabPanel key={key} maxW="98%" >
+                  <TabPanel key={key} maxW="98%">
                     {
                       {
                         1: <AbdomemTotal />,
@@ -399,8 +405,14 @@ export default function Box_Default_With_Sidebar() {
             })}
           </TabPanels>
         </Tabs>
+        <Flex maxW="54%" paddingBottom="3%" h="auto" gap={2}>
+          <Field_Observacoes exame={currentExame} />
+
+          <Conclusoes />
+        </Flex>
 
         {/** Modal Add Exame */}
+
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent minWidth="50%">
