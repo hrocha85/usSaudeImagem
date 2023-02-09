@@ -1,6 +1,7 @@
 import {
   Box,
   Checkbox,
+  Flex,
   HStack,
   Input,
   Radio,
@@ -145,7 +146,7 @@ export default function Tendao_Fibular_Curto_Direito() {
         if (valueCheckBoxInsinuacao) {
           setFrasesTornozelo((arr) => [
             ...arr,
-            `com insinuação do fibular longo p/seu interior `,
+            `com insinuação do fibular longo p/ seu interior `,
           ]);
         }
         if (valueCheckBoxLiquido) {
@@ -190,24 +191,30 @@ export default function Tendao_Fibular_Curto_Direito() {
         borderColor="blue.100"
         borderRadius="lg"
         marginTop="5px"
+        bg="#FAFAFA"
       >
         <Text fontWeight="semibold" padding="10px">
           Tendão Fibular Curto{" "}
         </Text>
         <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
+            
             <Radio value="1">Não citar</Radio>
             <HStack>
+            <Flex flexWrap="wrap" gap={1}>
+
               <Radio value="Aspecto Normal">Aspecto Normal</Radio>
               <Checkbox
-                
                 isDisabled={!disableCheckBox}
                 onChange={() => setValueCheckBox(!valueCheckBox)}
               >
                 com líquido peritendíneo fisiológico
-              </Checkbox>
+                </Checkbox>
+                </Flex>
             </HStack>
             <HStack>
+            <Flex flexWrap="wrap" gap={1}>
+
               <Radio value="Tendinopatia sem rotura">
                 Tendinopatia sem rotura
               </Radio>
@@ -222,9 +229,12 @@ export default function Tendao_Fibular_Curto_Direito() {
                 <option value="sem líquido peritendíneo">
                   sem líquido peritendíneo
                 </option>
-              </Select>
+                </Select>
+                </Flex>
             </HStack>
             <HStack>
+            <Flex flexWrap="wrap" gap={1}>
+
               <Radio value="Lesão parcial medindo">Lesão parcial medindo</Radio>
               <HStack>
                 <Input
@@ -266,37 +276,42 @@ export default function Tendao_Fibular_Curto_Direito() {
                   }}
                 />
                 <Text>mm</Text>
-              </HStack>
+                </HStack>
+                </Flex>
             </HStack>
             <HStack>
+            <Flex flexWrap="wrap" gap={1}>
+
               <Radio value="Lesão Longitudinal">Lesão Longitudinal</Radio>
               <Checkbox
-                
                 isDisabled={!disableCheckBoxLongitudinal}
                 onChange={() =>
                   setValueCheckBoxLongitudinal(!valueCheckBoxLongitudinal)
                 }
               >
                 assumindo aspecto em "C"
-              </Checkbox>
+                </Checkbox>
+                </Flex>
             </HStack>
             <HStack>
+            <Flex flexWrap="wrap" gap={1}>
+
               <Checkbox
+                whiteSpace="pre-wrap"
                 isDisabled={!disableCheckBoxLongitudinal}
-                
                 onChange={() =>
                   setValueCheckBoxInsinuacao(!valueCheckBoxInsinuacao)
                 }
               >
-                com insinuação do fibular longo p/ seu interio{" "}
+                com insinuacao do fibular longo p/ seu interior
               </Checkbox>
               <Checkbox
-                
                 isDisabled={!disableCheckBoxLongitudinal}
                 onChange={() => setValueCheckBoxLiquido(!valueCheckBoxLiquido)}
               >
                 com líquido peritendíneo
-              </Checkbox>
+                </Checkbox>
+                </Flex>
             </HStack>
           </Stack>
         </RadioGroup>

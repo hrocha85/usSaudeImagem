@@ -17,6 +17,7 @@ export default function Default_Backgound({ children }) {
       alignItems="center"
       backgroundClip="padding-box"
       overflowX="hidden"
+      justifyContent="center"
     >
       <>{children}</>
     </Flex>

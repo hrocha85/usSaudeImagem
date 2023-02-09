@@ -1,12 +1,13 @@
 import {
   Box,
+  Flex,
   HStack,
   Input,
   Radio,
   RadioGroup,
   Select,
   Stack,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -119,6 +120,7 @@ export default function Cisto_Direito() {
         borderColor="blue.100"
         borderRadius="lg"
         marginTop="5px"
+        bg="#FAFAFA"
       >
         <Text fontWeight="semibold" padding="10px">
           Cisto
@@ -129,51 +131,53 @@ export default function Cisto_Direito() {
             <Radio value="Ausente">Ausente</Radio>
 
             <HStack>
-              <Radio value="Presente">Presente na</Radio>
-              <Select
-                w="auto"
-                placeholder="Selecione Opção"
-                isDisabled={!enableSelects}
-                onChange={(e) => setValueSelect1(e.target.value)}
-              >
-                <option value="face anterior do tornozelo">
-                  face anterior do tornozelo
-                </option>
-                <option value="face lateral do tornozelo">
-                  face lateral do tornozelo
-                </option>
-                <option value="face medial do tornozelo">
-                  face medial do tornozelo
-                </option>
-              </Select>
-              <HStack>
-                <Input
-                  isDisabled={disableInputs}
-                  w="35px"
-                  h="30px"
-                  value={medida1Cisto}
-                  padding="5px"
-                  maxLength={2}
-                  textAlign="center"
-                  onChange={(e) => {
-                    setMedida1Cisto(e.target.value);
-                  }}
-                />
-                <Text>x</Text>
-                <Input
-                  isDisabled={disableInputs}
-                  w="35px"
-                  h="30px"
-                  value={medida2Cisto}
-                  padding="5px"
-                  maxLength={2}
-                  textAlign="center"
-                  onChange={(e) => {
-                    setMedida2Cisto(e.target.value);
-                  }}
-                />
-                <Text>mm</Text>
-              </HStack>
+              <Flex flexWrap="wrap" gap={1}>
+                <Radio value="Presente">Presente na</Radio>
+                <Select
+                  w="auto"
+                  placeholder="Selecione Opção"
+                  isDisabled={!enableSelects}
+                  onChange={(e) => setValueSelect1(e.target.value)}
+                >
+                  <option value="face anterior do tornozelo">
+                    face anterior do tornozelo
+                  </option>
+                  <option value="face lateral do tornozelo">
+                    face lateral do tornozelo
+                  </option>
+                  <option value="face medial do tornozelo">
+                    face medial do tornozelo
+                  </option>
+                </Select>
+                <HStack>
+                  <Input
+                    isDisabled={disableInputs}
+                    w="35px"
+                    h="30px"
+                    value={medida1Cisto}
+                    padding="5px"
+                    maxLength={2}
+                    textAlign="center"
+                    onChange={(e) => {
+                      setMedida1Cisto(e.target.value);
+                    }}
+                  />
+                  <Text>x</Text>
+                  <Input
+                    isDisabled={disableInputs}
+                    w="35px"
+                    h="30px"
+                    value={medida2Cisto}
+                    padding="5px"
+                    maxLength={2}
+                    textAlign="center"
+                    onChange={(e) => {
+                      setMedida2Cisto(e.target.value);
+                    }}
+                  />
+                  <Text>mm</Text>
+                </HStack>
+              </Flex>
             </HStack>
           </Stack>
         </RadioGroup>

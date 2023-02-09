@@ -60,8 +60,8 @@ export default function Derrame_Articular_Direito() {
         setEnableSelects(false);
         setdisableCheckBox(false);
       } else {
-        setEnableSelects(false);
         setdisableCheckBox(false);
+        setEnableSelects(false);
         setFrasesTornozelo([]);
         setFrasesTornozelo((arr) => [...arr, value]);
       }
@@ -102,23 +102,13 @@ export default function Derrame_Articular_Direito() {
   }, [frasesTornozelo]);
 
   return (
-    <Box
-      bg="#FAFAFA"
-      w={largura}
-      h={altura}
-      bgPosition="center"
-      bgRepeat="no-repeat"
-      borderRadius="10.85px"
-      boxShadow="md"
-      padding="24px 15px 20px 15px"
-      mt="15px"
-    >
     <Stack>
       <Box
         borderWidth="2px"
         borderColor="blue.100"
         borderRadius="lg"
         marginTop="5px"
+        bg="#FAFAFA"
       >
         <Text fontWeight="semibold" padding="10px">
           Derrame articular
@@ -161,7 +151,6 @@ export default function Derrame_Articular_Direito() {
           </Stack>
         </RadioGroup>
       </Box>
-      </Stack>
-      </Box>
+    </Stack>
   );
 }

@@ -54,6 +54,8 @@ export default function Gordura_Kager_Direito() {
         borderColor="blue.100"
         borderRadius="lg"
         marginTop="5px"
+        bg="#FAFAFA"
+
       >
         <Text fontWeight="semibold" padding="10px">
           Gordura de Kager

@@ -1,6 +1,7 @@
 import {
   Box,
   Checkbox,
+  Flex,
   HStack,
   Input,
   Radio,
@@ -30,7 +31,8 @@ export default function Tendao_Extensor_Halux_Direito() {
   const [medida2Lesao, setMedida2Lesao] = useState("");
   const [medida3Lesao, setMedida3Lesao] = useState("");
 
-
+  const subExame = "Tendão Extensor Longo do Hálux Direito";
+  const titulo_exame = "Articulações";
 
   const removeSelectString = () => {
     frasesTornozelo.map((e) => {
@@ -131,9 +133,6 @@ export default function Tendao_Extensor_Halux_Direito() {
     medida3Lesao,
   ]);
 
-  const subExame = "Tendão Extensor Longo do Hálux Direito";
-  const titulo_exame = "Articulações";
-
   useEffect(() => {
     if (Object.keys(frasesTornozelo).length == 0) {
       new Format_Laudo(
@@ -159,83 +158,91 @@ export default function Tendao_Extensor_Halux_Direito() {
         borderColor="blue.100"
         borderRadius="lg"
         marginTop="5px"
+        bg="#FAFAFA"
       >
         <Text fontWeight="semibold" padding="10px">
-          Tendão Extensor Longo do Hálux 
+          Tendão Extensor Longo do Hálux
         </Text>
         <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <HStack>
-              <Radio value="Aspecto Normal">Aspecto Normal</Radio>
-              <Checkbox
-                
-                isDisabled={!disableCheckBox}
-                onChange={() => setValueCheckBox(!valueCheckBox)}
-              >
-                com líquido peritendíneo fisiológico
-              </Checkbox>
+              <Flex flexWrap="wrap" gap={1}>
+                <Radio value="Aspecto Normal">Aspecto Normal</Radio>
+                <Checkbox
+                  isDisabled={!disableCheckBox}
+                  onChange={() => setValueCheckBox(!valueCheckBox)}
+                >
+                  com líquido peritendíneo fisiológico
+                </Checkbox>
+              </Flex>
             </HStack>
             <HStack>
-              <Radio value="Tendinopatia sem rotura">
-                Tendinopatia sem rotura
-              </Radio>
-              <Select
-                placeholder="Selecione Opção"
-                isDisabled={!enableSelects}
-                onChange={(e) => setValueSelect1(e.target.value)}
-              >
-                <option value="com líquido peritendíneo">
-                  com líquido peritendíneo
-                </option>
-                <option value="sem líquido peritendíneo">
-                  sem líquido peritendíneo
-                </option>
-              </Select>
+              <Flex flexWrap="wrap" gap={1}>
+                <Radio value="Tendinopatia sem rotura">
+                  Tendinopatia sem rotura
+                </Radio>
+                <Select
+                  placeholder="Selecione Opção"
+                  isDisabled={!enableSelects}
+                  onChange={(e) => setValueSelect1(e.target.value)}
+                >
+                  <option value="com líquido peritendíneo">
+                    com líquido peritendíneo
+                  </option>
+                  <option value="sem líquido peritendíneo">
+                    sem líquido peritendíneo
+                  </option>
+                </Select>
+              </Flex>
             </HStack>
             <HStack>
-              <Radio value="Lesão parcial medindo">Lesão parcial medindo</Radio>
-              <HStack>
-                <Input
-                  isDisabled={disableInputs}
-                  w="35px"
-                  h="30px"
-                  value={medida1Lesao}
-                  padding="5px"
-                  maxLength={2}
-                  textAlign="center"
-                  onChange={(e) => {
-                    setMedida1Lesao(e.target.value);
-                  }}
-                />
-                <Text>x</Text>
-                <Input
-                  isDisabled={disableInputs}
-                  w="35px"
-                  h="30px"
-                  value={medida2Lesao}
-                  padding="5px"
-                  maxLength={2}
-                  textAlign="center"
-                  onChange={(e) => {
-                    setMedida2Lesao(e.target.value);
-                  }}
-                />
-                <Text>x</Text>
-                <Input
-                  isDisabled={disableInputs}
-                  w="35px"
-                  h="30px"
-                  value={medida3Lesao}
-                  padding="5px"
-                  maxLength={2}
-                  textAlign="center"
-                  onChange={(e) => {
-                    setMedida3Lesao(e.target.value);
-                  }}
-                />
-                <Text>mm</Text>
-              </HStack>
+              <Flex flexWrap="wrap" gap={1}>
+                <Radio value="Lesão parcial medindo">
+                  Lesão parcial medindo
+                </Radio>
+                <HStack>
+                  <Input
+                    isDisabled={disableInputs}
+                    w="35px"
+                    h="30px"
+                    value={medida1Lesao}
+                    padding="5px"
+                    maxLength={2}
+                    textAlign="center"
+                    onChange={(e) => {
+                      setMedida1Lesao(e.target.value);
+                    }}
+                  />
+                  <Text>x</Text>
+                  <Input
+                    isDisabled={disableInputs}
+                    w="35px"
+                    h="30px"
+                    value={medida2Lesao}
+                    padding="5px"
+                    maxLength={2}
+                    textAlign="center"
+                    onChange={(e) => {
+                      setMedida2Lesao(e.target.value);
+                    }}
+                  />
+                  <Text>x</Text>
+                  <Input
+                    isDisabled={disableInputs}
+                    w="35px"
+                    h="30px"
+                    value={medida3Lesao}
+                    padding="5px"
+                    maxLength={2}
+                    textAlign="center"
+                    onChange={(e) => {
+                      setMedida3Lesao(e.target.value);
+                    }}
+                  />
+                  <Text>mm</Text>
+                </HStack>
+              </Flex>
             </HStack>
           </Stack>
         </RadioGroup>

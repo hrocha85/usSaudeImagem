@@ -1,5 +1,6 @@
 import {
   Box,
+  Flex,
   HStack,
   Radio,
   RadioGroup,
@@ -160,12 +161,17 @@ export default function Estruturas_Ligamentares_Direito() {
         borderColor="blue.100"
         borderRadius="lg"
         marginTop="5px"
+        bg="#FAFAFA"
+
       >
         <Text fontWeight="semibold" padding="10px">
           Estruturas Ligamentares{" "}
         </Text>
         <RadioGroup onChange={setValue} value={value} padding="10px">
+
           <Stack direction="column">
+          <Flex flexWrap='wrap' gap={1}>
+
             <Radio value="1">Não citar</Radio>
             <HStack>
               <Radio value="Normais">Normais</Radio>
@@ -231,7 +237,8 @@ export default function Estruturas_Ligamentares_Direito() {
                   sem líquido periligamentar
                 </option>
               </Select>
-            </HStack>
+              </HStack>
+              </Flex>
           </Stack>
         </RadioGroup>
       </Box>
