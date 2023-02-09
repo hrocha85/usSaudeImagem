@@ -38,20 +38,29 @@ function Pancreas() {
   const [DisableCaudaInput, setDisableCaudaInput] = useState(true)
 
 
-  const criaStringCabeca = (dados) => {
-    var string = 'Cabeça FALTA'
-    removeFraseCabeca()
-    const medida = new Convert_Medida(dados).Convert_Medida()
-    if (dados != '') {
-      string = `${string} = ${medida} cm.`
+  const criaStringDimensoes = (dadosCabeca, dadosCorpo, dadosCauda) => {
+    var string = 'A espessura pancreática foi mensurada em '
+    removeFraseDimensoes()
+    const medida1 = new Convert_Medida(dadosCabeca).Convert_Medida()
+    const medida2 = new Convert_Medida(dadosCorpo).Convert_Medida()
+    const medida3 = new Convert_Medida(dadosCauda).Convert_Medida()
+    if (dadosCabeca != '' || dadosCorpo != '' || dadosCorpo != '') {
+      if (dadosCabeca != '') {
+        string = `${string} ${medida1} cm na cabeça `
+      }
+      if (dadosCorpo != '') {
+        string = `${string} ${medida2} cm no corpo `
+      }
+      if (dadosCauda != '') {
+        string = `${string} ${medida3} cm na cauda.`
+      }
       setFrasesPancreas((arr) => [...arr, string])
-
     }
   }
 
-  const removeFraseCabeca = () => {
+  const removeFraseDimensoes = () => {
     frasesPancreas.map((e) => {
-      if (e.includes("Cabeça FALTA")) {
+      if (e.includes("A espessura pancreática foi mensurada em ")) {
         var index = frasesPancreas.indexOf(e);
         if (index > -1) {
           frasesPancreas.splice(index, 1);
@@ -63,82 +72,35 @@ function Pancreas() {
 
   useEffect(() => {
     if (CabecaCheckbox) {
-      criaStringCabeca(CabecaInput)
+      criaStringDimensoes(CabecaInput, CorpoInput, CaudaInput)
       setDisableCabecaInput(false)
     } else {
-      removeFraseCabeca()
+      removeFraseDimensoes()
       setDisableCabecaInput(true)
       setCabecaInput('')
     }
-  }, [CabecaCheckbox, CabecaInput])
+  }, [CabecaCheckbox, CabecaInput, CorpoInput, CaudaInput])
 
-  const criaStringCorpo = (dados) => {
-    var string = 'Corpo FALTA'
-    removeFraseCorpo()
-    const medida = new Convert_Medida(dados).Convert_Medida()
-    if (dados != '') {
-      string = `${string} = ${medida} cm.`
-      setFrasesPancreas((arr) => [...arr, string])
-
-    }
-  }
-
-  const removeFraseCorpo = () => {
-    frasesPancreas.map((e) => {
-      if (e.includes("Corpo FALTA")) {
-        var index = frasesPancreas.indexOf(e);
-        if (index > -1) {
-          frasesPancreas.splice(index, 1);
-          setFrasesPancreas((arr) => [...arr]);
-        }
-      }
-    });
-  };
 
   useEffect(() => {
     if (CorpoCheckbox) {
-      criaStringCorpo(CorpoInput)
       setDisableCorpoInput(false)
     } else {
-      removeFraseCorpo()
+
       setDisableCorpoInput(true)
       setCorpoInput('')
     }
-  }, [CorpoCheckbox, CorpoInput])
-
-  const criaStringCauda = (dados) => {
-    var string = 'Cauda FALTA'
-    removeFraseCauda()
-    const medida = new Convert_Medida(dados).Convert_Medida()
-    if (dados != '') {
-      string = `${string} = ${medida} cm.`
-      setFrasesPancreas((arr) => [...arr, string])
-
-    }
-  }
-
-  const removeFraseCauda = () => {
-    frasesPancreas.map((e) => {
-      if (e.includes("Cauda FALTA")) {
-        var index = frasesPancreas.indexOf(e);
-        if (index > -1) {
-          frasesPancreas.splice(index, 1);
-          setFrasesPancreas((arr) => [...arr]);
-        }
-      }
-    });
-  };
+  }, [CorpoCheckbox])
 
   useEffect(() => {
     if (CaudaCheckbox) {
-      criaStringCauda(CaudaInput)
+
       setDisableCaudaInput(false)
     } else {
-      removeFraseCauda()
       setDisableCaudaInput(true)
       setCaudaInput('')
     }
-  }, [CaudaCheckbox, CaudaInput])
+  }, [CaudaCheckbox])
 
   const subExame = "Pâncreas";
   const titulo_exame = "Abdomen total";
@@ -185,7 +147,7 @@ function Pancreas() {
               <Radio value="Pâncreas de aspecto heterogêneo, com espessura aumentada e ecogenicidade reduzida do parênquima.">sinais de pancreatite aguda</Radio>
             </Stack>
           </RadioGroup>
-          <Box border='1px' padding='5px' h='100%'>
+          <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" padding='5px' h='100%'>
             <Text fontWeight="bold" textAlign='center'>Dimensões (espessura)</Text>
             <HStack>
               <Checkbox

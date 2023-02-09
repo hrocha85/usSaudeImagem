@@ -1,6 +1,9 @@
-import { Box, Checkbox, Input } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
+/* eslint-disable array-callback-return */
+/* eslint-disable eqeqeq */
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -8,322 +11,143 @@ function Bexiga() {
   const altura = "100%";
   const largura = "66%";
 
-  let esforco = document.querySelector("#esforco") as HTMLInputElement;
-  let vazia = document.querySelector("#vazia") as HTMLInputElement;
-  let OmitirBexiga = document.querySelector(
-    "#OmitirBexiga"
-  ) as HTMLInputElement;
-  let CalculoMede = document.querySelector("#CalculoMede") as HTMLInputElement;
-  let InputCalculoMede = document.querySelector(
-    "#InputCalculoMede"
-  ) as HTMLInputElement;
-  let DiverticuloMede = document.querySelector(
-    "#DiverticuloMede"
-  ) as HTMLInputElement;
-  let InputDiverticuloMede = document.querySelector(
-    "#InputDiverticuloMede"
-  ) as HTMLInputElement;
-  let UretroceleMede = document.querySelector(
-    "#UretroceleMede"
-  ) as HTMLInputElement;
-  let InputUretroceleMede = document.querySelector(
-    "#InputUretroceleMede"
-  ) as HTMLInputElement;
+  const [value, setValue] = useState("1");
+  const [FraseAorta, setFraseAorta] = useState<any>([]);
 
-  const { laudoNormal } = useContext(NormalContext);
-  const [frasesBexiga, setFrasesBexiga] = useState<any>([]);
+  const [valueSelect1, setValueSelect1] = useState("");
+  const [valueInput1, setValueInput1] = useState("");
+  const [valueInput2, setValueInput2] = useState("");
 
-  const [valueInputCalculoMede, setValueInputCalculoMede] = useState("");
-  const [valueInputDiverticuloMede, setValueInputDiverticuloMede] =
-    useState("");
-  const [valueInputUretroceleMede, setValueInputUretroceleMede] = useState("");
+  const [enableSelects, setEnableSelects] = useState<boolean>(false);
 
-  const [defaultValueNormal, setDefaultValueNormal] = useState({
-    defaultValueNormal: false,
-  });
+  const [valueInputCalculo, setValueInputCalculo] = useState("");
+  const [DisableInputCalculo, setDisableInputCalculo] = useState(true);
+  const [valueSelectCalculo, setValueSelectCalculo] = useState("");
 
-  const [checkValueNormal, setCheckvalueNormal] = useState({
-    normal: false,
-  });
+  const [SondaFoleyCheckbox, setSondaFoleyCheckbox] = useState(false)
 
-  const [checkValueEsforco, setCheckvalueEsforco] = useState({
-    esforco: false,
-  });
+  const removeSelectString = () => {
+    var index;
+    FraseAorta.map((e) => {
+      if (e.includes("Bexiga")) {
+        index = FraseAorta.indexOf(e);
+        if (index > -1) {
+          FraseAorta.splice(index, 1);
+          setFraseAorta((arr) => [...arr]);
+        }
+      }
+    });
+  };
 
-  const [checkValueVazia, setCheckvalueVazia] = useState({
-    vazia: false,
-  });
+  useEffect(() => {
+    if (value.includes("lesão vegetante")) {
+      setEnableSelects(true);
+      setValueInputCalculo('')
+      setValueSelectCalculo('')
+      setDisableInputCalculo(true)
+    } else if (value.includes("contendo cálculo medindo")) {
+      setDisableInputCalculo(false)
+      setValueInput1('')
+      setValueInput2('')
+      setValueSelect1('')
+      setEnableSelects(false);
 
-  const [checkValueCalculoMede, setCheckvalueoCalculoMede] = useState({
-    CalculoMede: false,
-    InputCalculoMede: true,
-  });
+    } else {
+      setDisableInputCalculo(true)
+      setValueInput1('')
+      setValueInput2('')
+      setValueSelect1('')
+      setValueInputCalculo('')
+      setValueSelectCalculo('')
+      setEnableSelects(false);
+      if (value != "1") {
+        setFraseAorta([]);
+        setFraseAorta((arr) => [...arr, value]);
+      } else {
+        setFraseAorta([]);
+      }
+    }
+  }, [value]);
 
-  const [checkValueOmitirBexiga, setCheckvalueoOmitirBexiga] = useState({
-    OmitirBexiga: false,
-  });
-  const [checkValueUretroceleMede, setCheckvalueoUretroceleMede] = useState({
-    UretroceleMede: false,
-    InputUretroceleMede: true,
-  });
-  const [checkValueDiverticuloMede, setCheckvalueoDiverticuloMede] = useState({
-    DiverticuloMede: false,
-    InputDiverticuloMede: true,
-  });
+  useEffect(() => {
+    removeSelectString()
+    var select;
+    var medida1 = new Convert_Medida(valueInput1).Convert_Medida()
+    var medida2 = new Convert_Medida(valueInput2).Convert_Medida()
+    if (valueInput1 != '' && valueInput2 != '' && valueSelect1 != '') {
+      select = `Bexiga com boa repleção, notando-se lesão polipoide de superfície irregular medindo 
+      ${medida1} x ${medida2} cm, fixa ${valueSelect1}.`;
+      setFraseAorta((arr) => [...arr, select]);
+    }
+  }, [valueSelect1, valueInput1, valueInput2]);
+
+  useEffect(() => {
+    removeSelectString()
+    var string;
+    if (valueInputCalculo != '' && valueSelectCalculo != '') {
+      var medida = new Convert_Medida(valueInputCalculo).Convert_Medida()
+      string = `Bexiga com boa repleção, com paredes ${valueSelectCalculo}, notando-se no lúmen vesical imagem 
+      hiperecogênica com sombra acústica posterior, móvel com as mudanças de decúbito, medindo ${medida} cm.`
+      setFraseAorta([]);
+      setFraseAorta((arr) => [...arr, string]);
+    }
+  }, [valueSelectCalculo, valueInputCalculo])
+
+
+  const criaStringSondaFoley = () => {
+    var string = 'Presença de sonda com balão visível no lúmen vesical.'
+    removeFraseSondaFoley()
+    if (SondaFoleyCheckbox) {
+      string = `${string}`
+      setFraseAorta((arr) => [...arr, string])
+    } else if (SondaFoleyCheckbox) {
+      string = `${string}.`
+      setFraseAorta((arr) => [...arr, string])
+    }
+  }
+
+  const removeFraseSondaFoley = () => {
+    FraseAorta.map((e) => {
+      if (e.includes("Presença de sonda com balão visível no lúmen vesical.")) {
+        var index = FraseAorta.indexOf(e);
+        if (index > -1) {
+          FraseAorta.splice(index, 1);
+          setFraseAorta((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (SondaFoleyCheckbox) {
+      criaStringSondaFoley()
+    } else {
+      removeFraseSondaFoley()
+    }
+  }, [SondaFoleyCheckbox])
+
+
 
   const subExame = "Bexiga";
   const titulo_exame = "Abdomen total";
 
   useEffect(() => {
-    if (Object.keys(frasesBexiga).length == 0) {
+    if (Object.keys(FraseAorta).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesBexiga
+        FraseAorta
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesBexiga
+        FraseAorta
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesBexiga]);
-
-  const criarString = (value, valueId?, valueInput?) => {
-    //console.log("Valor cria string = ", value);
-    //arr => [...arr] captura os dados que já estavam e os mantem no array
-    setFrasesBexiga((arr) => [...arr, value]);
-    //console.log("criaString = ", laudoPrin)
-  };
-
-  const removeItemString = (value) => {
-    // console.log("valor remove = ", value);
-    var index = frasesBexiga.indexOf(value);
-    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-    if (index > -1) {
-      frasesBexiga.splice(index, 1);
-      setFrasesBexiga((arr) => [...arr]);
-    }
-    // console.log('posicao', index)
-    // console.log("laudosPrin", laudoPrin)
-  };
-
-  const DeterminaCondicaoCheckNormal = () => {
-    if (
-      esforco.checked === true ||
-      vazia.checked === true ||
-      OmitirBexiga.checked === true ||
-      CalculoMede.checked === true ||
-      DiverticuloMede.checked === true ||
-      UretroceleMede.checked === true
-    ) {
-      setCheckvalueNormal({
-        normal: true,
-      });
-    } else {
-      setCheckvalueNormal({
-        normal: false,
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (laudoNormal === true) {
-      setDefaultValueNormal({ defaultValueNormal: true });
-      criarString("Aorta Normal ");
-      setCheckvalueEsforco({
-        esforco: true,
-      });
-      setCheckvalueVazia({
-        vazia: true,
-      });
-      setCheckvalueoOmitirBexiga({
-        OmitirBexiga: true,
-      });
-      setCheckvalueoCalculoMede({
-        CalculoMede: true,
-        InputCalculoMede: true,
-      });
-      setCheckvalueoUretroceleMede({
-        UretroceleMede: true,
-        InputUretroceleMede: true,
-      });
-      setCheckvalueoDiverticuloMede({
-        DiverticuloMede: true,
-        InputDiverticuloMede: true,
-      });
-    } else {
-      setDefaultValueNormal({ defaultValueNormal: false });
-      setCheckvalueEsforco({
-        esforco: false,
-      });
-      setCheckvalueVazia({
-        vazia: false,
-      });
-      setCheckvalueoOmitirBexiga({
-        OmitirBexiga: false,
-      });
-      setCheckvalueoCalculoMede({
-        CalculoMede: false,
-        InputCalculoMede: true,
-      });
-      setCheckvalueoUretroceleMede({
-        UretroceleMede: false,
-        InputUretroceleMede: true,
-      });
-      setCheckvalueoDiverticuloMede({
-        DiverticuloMede: false,
-        InputDiverticuloMede: true,
-      });
-    }
-  }, [laudoNormal]);
-
-  const verificaChecked = (value) => {
-    switch (value.id) {
-      case "normal":
-        if (value.checked === true) {
-          setDefaultValueNormal({ defaultValueNormal: true });
-          criarString(value.value);
-          setCheckvalueEsforco({
-            esforco: true,
-          });
-          setCheckvalueVazia({
-            vazia: true,
-          });
-          setCheckvalueoOmitirBexiga({
-            OmitirBexiga: true,
-          });
-          setCheckvalueoCalculoMede({
-            CalculoMede: true,
-            InputCalculoMede: true,
-          });
-          setCheckvalueoUretroceleMede({
-            UretroceleMede: true,
-            InputUretroceleMede: true,
-          });
-          setCheckvalueoDiverticuloMede({
-            DiverticuloMede: true,
-            InputDiverticuloMede: true,
-          });
-        } else {
-          setDefaultValueNormal({ defaultValueNormal: false });
-          removeItemString(value.value);
-          setCheckvalueEsforco({
-            esforco: false,
-          });
-          setCheckvalueVazia({
-            vazia: false,
-          });
-          setCheckvalueoOmitirBexiga({
-            OmitirBexiga: false,
-          });
-          setCheckvalueoCalculoMede({
-            CalculoMede: false,
-            InputCalculoMede: true,
-          });
-          setCheckvalueoUretroceleMede({
-            UretroceleMede: false,
-            InputUretroceleMede: true,
-          });
-          setCheckvalueoDiverticuloMede({
-            DiverticuloMede: false,
-            InputDiverticuloMede: true,
-          });
-        }
-
-        break;
-      case "esforco":
-        if (value.checked === true) {
-          criarString(value.value);
-        } else {
-          removeItemString(value.value);
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "vazia":
-        if (value.checked === true) {
-          criarString(value.value);
-        } else {
-          removeItemString(value.value);
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "OmitirBexiga":
-        if (value.checked === true) {
-          criarString(value.value);
-        } else {
-          removeItemString(value.value);
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "CalculoMede":
-        if (value.checked === true) {
-          setCheckvalueoCalculoMede({
-            CalculoMede: false,
-            InputCalculoMede: false,
-          });
-        } else {
-          setCheckvalueoCalculoMede({
-            CalculoMede: false,
-            InputCalculoMede: true,
-          });
-          InputCalculoMede.value = "";
-          removeItemString(valueInputCalculoMede);
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "InputCalculoMede":
-        const fraseCalculoMede = `Calculo mede ${value.value} mm`;
-        setValueInputCalculoMede(fraseCalculoMede);
-        criarString(fraseCalculoMede);
-        break;
-      case "DiverticuloMede":
-        if (value.checked === true) {
-          setCheckvalueoDiverticuloMede({
-            DiverticuloMede: false,
-            InputDiverticuloMede: false,
-          });
-        } else {
-          setCheckvalueoDiverticuloMede({
-            DiverticuloMede: false,
-            InputDiverticuloMede: true,
-          });
-          InputDiverticuloMede.value = "";
-          removeItemString(valueInputDiverticuloMede);
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "InputDiverticuloMede":
-        const fraseDiverticuloMede = `Diverticulo mede ${value.value} mm`;
-        setValueInputDiverticuloMede(fraseDiverticuloMede);
-        criarString(fraseDiverticuloMede);
-        break;
-      case "UretroceleMede":
-        if (value.checked === true) {
-          setCheckvalueoUretroceleMede({
-            UretroceleMede: false,
-            InputUretroceleMede: false,
-          });
-        } else {
-          setCheckvalueoUretroceleMede({
-            UretroceleMede: false,
-            InputUretroceleMede: true,
-          });
-          InputUretroceleMede.value = "";
-          removeItemString(valueInputUretroceleMede);
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "InputUretroceleMede":
-        const fraseUretroceleMede = `Uretrocele mede ${value.value} mm`;
-        setValueInputUretroceleMede(fraseUretroceleMede);
-        criarString(fraseUretroceleMede);
-        break;
-    }
-  };
+  }, [FraseAorta]);
 
   return (
     <Box
@@ -334,123 +158,98 @@ function Bexiga() {
       bgRepeat="no-repeat"
       borderRadius="10.85px"
       boxShadow="md"
-      padding="24px 15px 20px 15px"
+      padding="15px"
       mt="15px"
     >
-      <Box borderBottom="1px">
-        <TituloNomeExame titulo="Bexiga" />
+      <TituloNomeExame titulo="Bexiga" />
 
-        <Box mb="20px" gap="30px" display="flex" flexWrap="wrap" mt="20px">
-          <Checkbox
-            isChecked={defaultValueNormal.defaultValueNormal}
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="normal"
-            value="Bexiga normal"
-            disabled={checkValueNormal.normal}
-          >
-            Normal
-          </Checkbox>
-          <Checkbox
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="esforco"
-            value="de esforço"
-            disabled={checkValueEsforco.esforco}
-          >
-            De Esforço
-          </Checkbox>
-          <Checkbox
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="vazia"
-            value="Bexiga Vazia"
-            disabled={checkValueVazia.vazia}
-          >
-            Vazia
-          </Checkbox>
-          <Checkbox
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="OmitirBexiga"
-            value="Omitir Bexiga"
-            disabled={checkValueOmitirBexiga.OmitirBexiga}
-          >
-            Omitir Bexiga
-          </Checkbox>
-        </Box>
-      </Box>
-      {/* ------------------------------------------------------------------------------------------------------------ */}
-      <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
-        <Box w="200px">
-          <Checkbox
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="CalculoMede"
-            disabled={checkValueCalculoMede.CalculoMede}
-          >
-            Cálculo mede:
-          </Checkbox>
-          <Input
-            onBlur={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="InputCalculoMede"
-            disabled={checkValueCalculoMede.InputCalculoMede}
-            w="150px"
-            placeholder="mm"
-          />
-        </Box>
 
-        <Box w="200px">
-          <Checkbox
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="DiverticuloMede"
-            disabled={checkValueDiverticuloMede.DiverticuloMede}
-          >
-            Diverticulo mede:
-          </Checkbox>
-          <Input
-            onBlur={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="InputDiverticuloMede"
-            disabled={checkValueDiverticuloMede.InputDiverticuloMede}
-            w="150px"
-            placeholder="mm"
-          />
-        </Box>
+      <RadioGroup w='auto' onChange={setValue} value={value} padding="10px">
+        <Stack direction="column">
+          <Flex>
+            <Stack>
+              <Radio w='auto' value="1">Não citar Bexiga</Radio>
+              <Radio w='auto' value="Bexiga com boa repleção, paredes finas e regulares, conteúdo anecogênico.">
+                Normal
+              </Radio>
+              <Radio value="Bexiga com boa repleção, de conteúdo anecogênico, apresentando paredes difusamente espessadas e trabeculadas.">
+                difusamente trabeculada (de esforço)
+              </Radio>
+              <HStack>
+                <Radio value="contendo cálculo medindo">
+                  contendo cálculo medindo
+                </Radio>
 
-        <Box w="200px">
-          <Checkbox
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="UretroceleMede"
-            disabled={checkValueUretroceleMede.UretroceleMede}
-          >
-            Uretrocele mede:
-          </Checkbox>
-          <Input
-            onBlur={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="InputUretroceleMede"
-            disabled={checkValueUretroceleMede.InputUretroceleMede}
-            w="150px"
-            placeholder="mm"
-          />
-        </Box>
-      </Box>
-    </Box>
+                <Input
+                  value={valueInputCalculo}
+                  isDisabled={DisableInputCalculo}
+                  w='60px'
+                  placeholder="00"
+                  onChange={(e) => setValueInputCalculo(e.target.value)}
+                />
+                <Text alignSelf='mm'>mm com paredes</Text>
+                <Select w='150px'
+                  isDisabled={DisableInputCalculo}
+                  value={valueSelectCalculo}
+                  onChange={(e) => setValueSelectCalculo(e.target.value)}
+                >
+                  <option selected disabled value="">Selecione</option>
+                  <option value="de espessura normal">de espessura normal</option>
+                  <option value="difusamente trabeculadas">difusamente trabeculadas</option>
+                </Select>
+
+              </HStack>
+            </Stack>
+            <Spacer />
+            <Stack>
+              <Stack>
+                <Checkbox
+                  onChange={() => setSondaFoleyCheckbox(!SondaFoleyCheckbox)}>
+                  presença de sonda Foley
+                </Checkbox>
+
+              </Stack>
+            </Stack>
+          </Flex>
+          <Box w='auto'>
+            <HStack >
+              <Radio value="lesão vegetante">lesão vegetante medindo</Radio>
+              <Input w='60px'
+                value={valueInput1}
+                placeholder="00"
+                isDisabled={!enableSelects}
+                onChange={(e) => setValueInput1(e.target.value)}
+              />
+              <Text alignSelf='center'>x</Text>
+              <Input w='60px'
+                value={valueInput2}
+                placeholder="00"
+                isDisabled={!enableSelects}
+                onChange={(e) => setValueInput2(e.target.value)}
+              />
+              <Text alignSelf='center'>mm</Text>
+            </HStack>
+            <Box display='flex' flexWrap='wrap' ml='30px'>
+              <Text alignSelf='center'>situada</Text>
+              <Select w='150px'
+                isDisabled={!enableSelects}
+                value={valueSelect1}
+                onChange={(e) => setValueSelect1(e.target.value)}
+              >
+                <option selected disabled value="">Selecione</option>
+                <option value="fusifome">Fusifome</option>
+                <option value="sacular">Sacular</option>
+              </Select>
+            </Box >
+          </Box>
+          <Radio value="Bexiga com repleção insuficiente para análise.">
+            com repleção insuficiente
+          </Radio>
+        </Stack>
+      </RadioGroup>
+
+    </Box >
   );
 }
 
-export default Bexiga;
+export default Bexiga

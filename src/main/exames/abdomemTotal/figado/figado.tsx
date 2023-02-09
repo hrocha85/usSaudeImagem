@@ -511,7 +511,7 @@ function Figado() {
             </Select>
           </Box >
 
-          <Box border='1px'>
+          <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" p='5px'>
             <HStack>
               <Box>
                 <Checkbox

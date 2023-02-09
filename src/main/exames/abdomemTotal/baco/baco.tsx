@@ -1,6 +1,8 @@
-import { Box, Checkbox, Input, Select } from "@chakra-ui/react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { NormalContext } from "../../../../context/NormalContext";
+import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -8,84 +10,206 @@ function Baco() {
   const altura = "100%";
   const largura = "66%";
 
-  let aumentadoComEcotextura = document.querySelector(
-    "#aumentadoComEcotextura"
-  ) as HTMLInputElement;
-  let naoVisibilizado = document.querySelector(
-    "#naoVisibilizado"
-  ) as HTMLInputElement;
-  let bacoAcessorio = document.querySelector(
-    "#bacoAcessorio"
-  ) as HTMLInputElement;
-  let calcificacoes = document.querySelector(
-    "#calcificacoes"
-  ) as HTMLInputElement;
-  let cisto = document.querySelector("#cisto") as HTMLInputElement;
-
-  let SelectAumentadoComEcotextura = document.querySelector(
-    "#SelectAumentadoComEcotextura"
-  ) as HTMLInputElement;
-  let SelectNaoVisibilizado = document.querySelector(
-    "#SelectNaoVisibilizado"
-  ) as HTMLInputElement;
-  let Input1BacoAcessorio = document.querySelector(
-    "#Input1BacoAcessorio"
-  ) as HTMLInputElement;
-  let Input2BacoAcessorio = document.querySelector(
-    "#Input2BacoAcessorio"
-  ) as HTMLInputElement;
-  let InputCalcificacoes = document.querySelector(
-    "#InputCalcificacoes"
-  ) as HTMLInputElement;
-  let InputCisto = document.querySelector("#InputCisto") as HTMLInputElement;
 
   const { laudoNormal } = useContext(NormalContext);
   const [frasesBaco, setFrasesBaco] = useState<any>([]);
 
-  const [inputBacoAcessorio, setinputBacoAcessorio] = useState("");
-  const [inputBaco, setInputBaco] = useState("");
-  const [inputCalcificacoes, setInputCalcificacoes] = useState("");
-  const [inputCisto, setInputCisto] = useState("");
 
-  const [corBordaAumentadoEcotextura, setCorBordaAumentadoEcotextura] =
-    useState("#E0E0E0");
-  const [corBordaNaoVisibilizado, setCorBordaNaoVisibilizado] =
-    useState("#E0E0E0");
-  const [corBordaBacoAcessorio, setCorBordaBacoAcessorio] = useState("#E0E0E0");
-  const [corBordaCalcificacoes, setCorBordaCalcificacoes] = useState("#E0E0E0");
-  const [corBordaCisto, setCorBordaCisto] = useState("#E0E0E0");
+  const [valueSelect, setValueSelect] = useState("");
+  const [value, setValue] = useState("1");
+  const [enableSelectAumentado, setEnableSelectAumentado] = useState<boolean>(false);
 
-  const [defaultValueNormal, setDefaultValueNormal] = useState({
-    defaultValueNormal: false,
-  });
+  const [DimensoesCheckbox, setDimensoesCheckbox] = useState(false)
+  const [DimensoesInput1, setDimensoesInput1] = useState('')
+  const [DimensoesInput2, setDimensoesInput2] = useState('')
+  const [DisableDimensoesInput, setDisableDimensoesInput] = useState(true)
 
-  const [checkValueNormal, setCheckvalueNormal] = useState({
-    normal: false,
-  });
+  const [CitarIndiceCheckbox, setCitarIndiceCheckbox] = useState(false)
 
-  const [checkValueAumentadoEcotextura, setCheckvalueAumentadoEcotextura] =
-    useState({
-      aumentadoComEcotextura: false,
-      SelectAumentadoComEcotextura: true,
+  const [BacoAcessorioCheckbox, setBacoAcessorioCheckbox] = useState(false)
+  const [BacoAcessorioInput1, setBacoAcessorioInput1] = useState('')
+  const [BacoAcessorioInput2, setBacoAcessorioInput2] = useState('')
+  const [DisableBacoAcessorioInput, setDisableBacoAcessorioInput] = useState(true)
+
+  const [CalcificacaoCheckbox, setCalcificacaoCheckbox] = useState(false)
+  const [CalcificacaoInput, setCalcificacaoInput] = useState('')
+  const [DisableCalcificacaoInput, setDisableCalcificacaoInput] = useState(true)
+
+  const removeSelectString = () => {
+    var index;
+    frasesBaco.map((e) => {
+      if (e.includes("ecotextura")) {
+        index = frasesBaco.indexOf(e);
+
+        if (index > -1) {
+          frasesBaco.splice(index, 1);
+          setFrasesBaco((arr) => [...arr]);
+        }
+      } else if (e.includes('Baço com dimensões normais')) {
+        index = frasesBaco.indexOf(e);
+
+        if (index > -1) {
+          frasesBaco.splice(index, 1);
+          setFrasesBaco((arr) => [...arr]);
+        }
+      } else if (e.includes('Baço não caracterizado (esplenectomia)')) {
+        index = frasesBaco.indexOf(e);
+
+        if (index > -1) {
+          frasesBaco.splice(index, 1);
+          setFrasesBaco((arr) => [...arr]);
+        }
+      }
     });
+  };
 
-  const [checkValueNaoVisibilizado, setCheckvalueNaoVisibilizado] = useState({
-    naoVisibilizado: false,
-    SelectNaoVisibilizado: true,
-  });
+  useEffect(() => {
+    if (value == "enable") {
+      setEnableSelectAumentado(true);
+    } else {
+      if (value == "1") {
+        setFrasesBaco([]);
+        setEnableSelectAumentado(false);
+      } else {
+        setFrasesBaco([]);
+        setFrasesBaco((arr) => [...arr, value]);
+        setEnableSelectAumentado(false);
+      }
+    }
+  }, [value]);
 
-  const [checkValueBacoAcessorio, setCheckvalueBacoAcessorio] = useState({
-    bacoAcessorio: false,
-    InputBacoAcessorio: true,
-  });
-  const [checkValueCalcificacoes, setCheckvalueCalcificacoes] = useState({
-    calcificacoes: false,
-    InputCalcificacoes: true,
-  });
-  const [checkValueCisto, setCheckvalueCisto] = useState({
-    cisto: false,
-    InputCisto: true,
-  });
+  useEffect(() => {
+    if (valueSelect != "") {
+      removeSelectString();
+      var select = ` ${valueSelect}`;
+      setFrasesBaco((arr) => [...arr, select]);
+    }
+  }, [valueSelect]);
+
+  const criaStringBacoAcessorio = (dados1, dados2) => {
+    var string = 'Presença de baço acessório (variação anatômica) medindo'
+    removeFraseBacoAcessorio()
+    const medida1 = new Convert_Medida(dados1).Convert_Medida()
+    const medida2 = new Convert_Medida(dados2).Convert_Medida()
+    if (dados1 != '' && dados2 != '') {
+      string = `${string} ${medida1} ${medida2} cm.`
+      setFrasesBaco((arr) => [...arr, string])
+    }
+  }
+
+  const removeFraseBacoAcessorio = () => {
+    frasesBaco.map((e) => {
+      if (e.includes("Presença de baço acessório (variação anatômica) medindo")) {
+        var index = frasesBaco.indexOf(e);
+        if (index > -1) {
+          frasesBaco.splice(index, 1);
+          setFrasesBaco((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (BacoAcessorioCheckbox) {
+      criaStringBacoAcessorio(BacoAcessorioInput1, BacoAcessorioInput2)
+      setDisableBacoAcessorioInput(false)
+    } else {
+      setDisableBacoAcessorioInput(true)
+      removeFraseBacoAcessorio()
+      setBacoAcessorioInput1('')
+      setBacoAcessorioInput2('')
+    }
+
+  }, [BacoAcessorioCheckbox, BacoAcessorioInput1, BacoAcessorioInput2])
+
+  const criaStringCalcificacao = (dados1) => {
+    var string = 'Nota-se calcificação parenquimatosa medindo'
+    removeFraseCalcificacao()
+    const medida1 = new Convert_Medida(dados1).Convert_Medida()
+    if (dados1 != '') {
+      string = `${string} ${medida1} cm, de provável natureza sequelar.`
+      setFrasesBaco((arr) => [...arr, string])
+    }
+  }
+
+  const removeFraseCalcificacao = () => {
+    frasesBaco.map((e) => {
+      if (e.includes("Nota-se calcificação parenquimatosa medindo")) {
+        var index = frasesBaco.indexOf(e);
+        if (index > -1) {
+          frasesBaco.splice(index, 1);
+          setFrasesBaco((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (CalcificacaoCheckbox) {
+      criaStringCalcificacao(CalcificacaoInput)
+      setDisableCalcificacaoInput(false)
+    } else {
+      setDisableCalcificacaoInput(true)
+      removeFraseCalcificacao()
+      setCalcificacaoInput('')
+    }
+
+  }, [CalcificacaoCheckbox, CalcificacaoInput])
+
+  const removeItemString = (value) => {
+    // console.log("valor remove = ", value);
+    var index = frasesBaco.indexOf(value);
+    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+    if (index > -1) {
+      frasesBaco.splice(index, 1);
+      setFrasesBaco((arr) => [...arr]);
+    }
+    // console.log('posicao', index)
+    // console.log("laudosPrin", laudoPrin)
+  };
+
+
+  const criaStringDimensoes = (dados1, dados2) => {
+    var string = 'Mede'
+    removeFraseDimensoes()
+    const medida1 = new Convert_Medida(dados1).Convert_Medida()
+    const medida2 = new Convert_Medida(dados2).Convert_Medida()
+    if (dados1 != '' && dados2 != '' && CitarIndiceCheckbox) {
+      string = `${string} ${medida1} x ${medida2} cm em seu maior e menor eixo (índice esplênico uniplanar = ).`
+      setFrasesBaco((arr) => [...arr, string])
+
+    } else if (dados1 != '' && dados2 != '') {
+      string = `${string} ${medida1} x ${medida2} cm em seu maior e menor eixo.`
+      setFrasesBaco((arr) => [...arr, string])
+
+    }
+  }
+
+  const removeFraseDimensoes = () => {
+    frasesBaco.map((e) => {
+      if (e.includes("Mede")) {
+        var index = frasesBaco.indexOf(e);
+        if (index > -1) {
+          frasesBaco.splice(index, 1);
+          setFrasesBaco((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+
+  useEffect(() => {
+    if (DimensoesCheckbox) {
+      criaStringDimensoes(DimensoesInput1, DimensoesInput2)
+      setDisableDimensoesInput(false)
+    } else {
+      setDisableDimensoesInput(true)
+      removeFraseDimensoes()
+      setDimensoesInput1('')
+      setDimensoesInput2('')
+    }
+  }, [DimensoesCheckbox, DimensoesInput1, DimensoesInput2, CitarIndiceCheckbox])
+
   const subExame = "Baço";
   const titulo_exame = "Abdomen total";
 
@@ -106,366 +230,6 @@ function Baco() {
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesBaco]);
-
-  const criarString = (value, valueId?, valueInput?) => {
-    //console.log("Valor cria string = ", value);
-    //arr => [...arr] captura os dados que já estavam e os mantem no array
-    setFrasesBaco((arr) => [...arr, value]);
-    //console.log("criaString = ", laudoPrin)
-  };
-
-  const removeItemString = (value) => {
-    // console.log("valor remove = ", value);
-    var index = frasesBaco.indexOf(value);
-    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-    if (index > -1) {
-      frasesBaco.splice(index, 1);
-      setFrasesBaco((arr) => [...arr]);
-    }
-    // console.log('posicao', index)
-    // console.log("laudosPrin", laudoPrin)
-  };
-
-  //pega valor enviado pelo value, cria string e seta ela no laudo principal
-  //setInputBaço é usado para armezenar string para remover posteriormente
-  const criaValorInputBaco = (value) => {
-    let dadoInputBaco2 = value.value;
-    const valorInput =
-      "Baço acessório com " +
-      inputBacoAcessorio +
-      " x " +
-      dadoInputBaco2 +
-      "mm ";
-    setFrasesBaco((arr) => [...arr, valorInput]);
-    setInputBaco(valorInput);
-  };
-
-  //captura posição usando inputBaco, remove e seta laudo Principal novamente
-  const removeStringBaco = () => {
-    const index = frasesBaco.indexOf(inputBaco);
-    if (index > -1) {
-      frasesBaco.splice(index, 1);
-      setFrasesBaco((arr) => [...arr]);
-    }
-  };
-
-  const pegaValorInputCalcificacao = (value) => {
-    let dadoInputCalcificacao = value.value;
-    const valorInput = "Calcificações com " + dadoInputCalcificacao + "mm ";
-    setFrasesBaco((arr) => [...arr, valorInput]);
-    setInputCalcificacoes(valorInput);
-  };
-
-  const removeStringCalcificacoes = () => {
-    const index = frasesBaco.indexOf(inputCalcificacoes);
-    if (index > -1) {
-      frasesBaco.splice(index, 1);
-      setFrasesBaco((arr) => [...arr]);
-    }
-  };
-
-  const pegaValorInputCisto = (value) => {
-    let dadoInputCisto = value.value;
-    const valorInput = "Cisto com " + dadoInputCisto + "mm ";
-    setFrasesBaco((arr) => [...arr, valorInput]);
-    setInputCisto(valorInput);
-  };
-
-  const removeStringCisto = () => {
-    const index = frasesBaco.indexOf(inputCisto);
-    if (index > -1) {
-      frasesBaco.splice(index, 1);
-      setFrasesBaco((arr) => [...arr]);
-    }
-  };
-
-  //caso algum item esteja selecionado, normal fica bloqueado
-  const DeterminaCondicaoCheckNormal = () => {
-    if (
-      aumentadoComEcotextura.checked === true ||
-      naoVisibilizado.checked === true ||
-      bacoAcessorio.checked === true ||
-      calcificacoes.checked === true ||
-      cisto.checked === true
-    ) {
-      setCheckvalueNormal({
-        normal: true,
-      });
-    } else {
-      setCheckvalueNormal({
-        normal: false,
-      });
-    }
-  };
-
-  const TrocaCorBorda = (value) => {
-    value.id === "aumentadoComEcotextura" &&
-    aumentadoComEcotextura.checked === true
-      ? setCorBordaAumentadoEcotextura("#0000FF")
-      : setCorBordaAumentadoEcotextura("#E0E0E0");
-
-    value.id === "naoVisibilizado" && naoVisibilizado.checked === true
-      ? setCorBordaNaoVisibilizado("#0000FF")
-      : setCorBordaNaoVisibilizado("#E0E0E0");
-
-    value.id === "bacoAcessorio" && bacoAcessorio.checked === true
-      ? setCorBordaBacoAcessorio("#0000FF")
-      : setCorBordaBacoAcessorio("#E0E0E0");
-
-    value.id === "calcificacoes" && calcificacoes.checked === true
-      ? setCorBordaCalcificacoes("#0000FF")
-      : setCorBordaCalcificacoes("#E0E0E0");
-
-    value.id === "cisto" && cisto.checked === true
-      ? setCorBordaCisto("#0000FF")
-      : setCorBordaCisto("#E0E0E0");
-  };
-
-  useEffect(() => {
-    if (laudoNormal === true) {
-      setDefaultValueNormal({ defaultValueNormal: true });
-      criarString("paciente está normal ");
-      setCheckvalueAumentadoEcotextura({
-        aumentadoComEcotextura: true,
-        SelectAumentadoComEcotextura: true,
-      });
-      setCheckvalueNaoVisibilizado({
-        naoVisibilizado: true,
-        SelectNaoVisibilizado: true,
-      });
-      setCheckvalueBacoAcessorio({
-        bacoAcessorio: true,
-        InputBacoAcessorio: true,
-      });
-      setCheckvalueCalcificacoes({
-        calcificacoes: true,
-        InputCalcificacoes: true,
-      });
-      setCheckvalueCisto({
-        cisto: true,
-        InputCisto: true,
-      });
-    } else {
-      setDefaultValueNormal({ defaultValueNormal: false });
-      //   removeNormal()
-      setCheckvalueAumentadoEcotextura({
-        aumentadoComEcotextura: false,
-        SelectAumentadoComEcotextura: true,
-      });
-      setCheckvalueNaoVisibilizado({
-        naoVisibilizado: false,
-        SelectNaoVisibilizado: true,
-      });
-      setCheckvalueBacoAcessorio({
-        bacoAcessorio: false,
-        InputBacoAcessorio: true,
-      });
-      setCheckvalueCalcificacoes({
-        calcificacoes: false,
-        InputCalcificacoes: true,
-      });
-      setCheckvalueCisto({
-        cisto: false,
-        InputCisto: true,
-      });
-    }
-  }, [laudoNormal]);
-
-  const verificaChecked = (value) => {
-    switch (value.id) {
-      case "normal":
-        if (value.checked === true) {
-          setDefaultValueNormal({ defaultValueNormal: true });
-          criarString(value.value);
-          setCheckvalueAumentadoEcotextura({
-            aumentadoComEcotextura: true,
-            SelectAumentadoComEcotextura: true,
-          });
-          setCheckvalueNaoVisibilizado({
-            naoVisibilizado: true,
-            SelectNaoVisibilizado: true,
-          });
-          setCheckvalueBacoAcessorio({
-            bacoAcessorio: true,
-            InputBacoAcessorio: true,
-          });
-          setCheckvalueCalcificacoes({
-            calcificacoes: true,
-            InputCalcificacoes: true,
-          });
-          setCheckvalueCisto({
-            cisto: true,
-            InputCisto: true,
-          });
-        } else {
-          setDefaultValueNormal({ defaultValueNormal: false });
-          removeItemString(value.value);
-          setCheckvalueAumentadoEcotextura({
-            aumentadoComEcotextura: false,
-            SelectAumentadoComEcotextura: true,
-          });
-          setCheckvalueNaoVisibilizado({
-            naoVisibilizado: false,
-            SelectNaoVisibilizado: true,
-          });
-          setCheckvalueBacoAcessorio({
-            bacoAcessorio: false,
-            InputBacoAcessorio: true,
-          });
-          setCheckvalueCalcificacoes({
-            calcificacoes: false,
-            InputCalcificacoes: true,
-          });
-          setCheckvalueCisto({
-            cisto: false,
-            InputCisto: true,
-          });
-        }
-        break;
-      case "aumentadoComEcotextura":
-        if (value.checked === true) {
-          setCheckvalueAumentadoEcotextura({
-            aumentadoComEcotextura: false,
-            SelectAumentadoComEcotextura: false,
-          });
-          console.log(frasesBaco);
-          TrocaCorBorda(value);
-        } else {
-          setCheckvalueAumentadoEcotextura({
-            aumentadoComEcotextura: false,
-            SelectAumentadoComEcotextura: true,
-          });
-          console.log(frasesBaco);
-
-          TrocaCorBorda(value);
-
-          removeItemString("Aumentado com ecotextura heterogênea ");
-          removeItemString("Aumentado com ecotextura homogênea ");
-
-          SelectAumentadoComEcotextura.value = "";
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "SelectAumentadoComEcotextura":
-        if (value.value === "Aumentado com ecotextura homogênea ") {
-          removeItemString("Aumentado com ecotextura heterogênea ");
-          criarString(value.value);
-        } else {
-          removeItemString("Aumentado com ecotextura homogênea ");
-          criarString(value.value);
-        }
-        break;
-      case "naoVisibilizado":
-        if (value.checked === true) {
-          setCheckvalueNaoVisibilizado({
-            naoVisibilizado: false,
-            SelectNaoVisibilizado: false,
-          });
-          console.log(frasesBaco);
-          TrocaCorBorda(value);
-        } else {
-          setCheckvalueNaoVisibilizado({
-            naoVisibilizado: false,
-            SelectNaoVisibilizado: true,
-          });
-          console.log(frasesBaco);
-          TrocaCorBorda(value);
-
-          removeItemString("Não visibilizado com interposição gasosa ");
-          removeItemString("Não visibilizado com Ausênsia cirurgica ");
-          SelectNaoVisibilizado.value = "";
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "SelectNaoVisibilizado":
-        console.log(frasesBaco);
-        if (value.value === "Não visibilizado com interposição gasosa ") {
-          removeItemString("Não visibilizado com Ausênsia cirurgica ");
-          criarString(value.value);
-        } else {
-          removeItemString("Não visibilizado com interposição gasosa ");
-          criarString(value.value);
-        }
-
-        break;
-      case "bacoAcessorio":
-        if (value.checked === true) {
-          setCheckvalueBacoAcessorio({
-            bacoAcessorio: false,
-            InputBacoAcessorio: false,
-          });
-
-          TrocaCorBorda(value);
-        } else {
-          setCheckvalueBacoAcessorio({
-            bacoAcessorio: false,
-            InputBacoAcessorio: true,
-          });
-          TrocaCorBorda(value);
-          removeStringBaco();
-
-          Input1BacoAcessorio.value = "";
-          Input2BacoAcessorio.value = "";
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "Input1BacoAcessorio":
-        setinputBacoAcessorio(value.value);
-        break;
-      case "Input2BacoAcessorio":
-        criaValorInputBaco(value);
-        break;
-      case "calcificacoes":
-        if (value.checked === true) {
-          setCheckvalueCalcificacoes({
-            calcificacoes: false,
-            InputCalcificacoes: false,
-          });
-          TrocaCorBorda(value);
-        } else {
-          setCheckvalueCalcificacoes({
-            calcificacoes: false,
-            InputCalcificacoes: true,
-          });
-          TrocaCorBorda(value);
-          removeStringCalcificacoes();
-          InputCalcificacoes.value = "";
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "InputCalcificacoes":
-        pegaValorInputCalcificacao(value);
-        break;
-      case "cisto":
-        if (value.checked === true) {
-          setCheckvalueCisto({
-            cisto: false,
-            InputCisto: false,
-          });
-
-          TrocaCorBorda(value);
-        } else {
-          setCheckvalueCisto({
-            cisto: false,
-            InputCisto: true,
-          });
-          TrocaCorBorda(value);
-
-          removeStringCisto();
-          InputCisto.value = "";
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "InputCisto":
-        pegaValorInputCisto(value);
-        break;
-      default:
-        console.log("esta aqui", value.id);
-        console.log("nao achou o id");
-        break;
-    }
-  };
-
   return (
     <Box
       bg="#FAFAFA"
@@ -478,136 +242,121 @@ function Baco() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <Box borderBottom="1px">
-        <TituloNomeExame titulo="Baço" />
 
-        <Box mb="20px" gap="30px" display="flex" flexWrap="wrap" mt="20px">
-          <Box w="100px">
-            <Checkbox
-              isChecked={defaultValueNormal.defaultValueNormal}
-              disabled={checkValueNormal.normal}
-              id="normal"
-              value="paciente está normal "
-              onChange={(e) => {
-                verificaChecked(e.target);
-              }}
-            >
-              Normal
-            </Checkbox>
-          </Box>
+      <TituloNomeExame titulo="Baço" />
 
-          <Box w="220px">
-            <Checkbox
-              disabled={checkValueAumentadoEcotextura.aumentadoComEcotextura}
-              id="aumentadoComEcotextura"
-              onChange={(e) => {
-                verificaChecked(e.target);
-              }}
-            >
-              Aumentado com ecotextura
-            </Checkbox>
+      <Box mb="20px" gap="30px" display="flex" flexWrap="wrap" mt="20px">
+
+        <RadioGroup onChange={setValue} value={value} padding="10px">
+          <Stack direction="column">
+            <Radio value="1">Não citar</Radio>
+            <Radio value="Baço com dimensões normais, contornos regulares e ecotextura homogênea.">
+              Tamanho normal
+            </Radio>
+            <Radio value="enable">Aumentado</Radio>
             <Select
-              borderColor={corBordaAumentadoEcotextura}
-              disabled={
-                checkValueAumentadoEcotextura.SelectAumentadoComEcotextura
-              }
-              id="SelectAumentadoComEcotextura"
-              onChange={(e) => {
-                verificaChecked(e.target);
-              }}
+              placeholder="Selecione Opção"
+              isDisabled={!enableSelectAumentado}
+              onChange={(e) => setValueSelect(e.target.value)}
             >
-              <option value="" disabled selected>
-                Selecione
+              <option value="Baço com dimensões aumentadas, contornos regulares e ecotextura homogênea.">
+                ecotextura homogênea
               </option>
-              <option value="Aumentado com ecotextura homogênea ">
-                Homogênea
+              <option value="Baço com dimensões aumentadas, contornos regulares e ecotextura heterogênea.">
+                ecotextura heterogênea
               </option>
-              <option value="Aumentado com ecotextura heterogênea ">
-                Heterogênea
-              </option>
-            </Select>
-          </Box>
 
-          <Box w="150px">
-            <Checkbox
-              disabled={checkValueNaoVisibilizado.naoVisibilizado}
-              id="naoVisibilizado"
-              onChange={(e) => {
-                verificaChecked(e.target);
-              }}
-            >
-              Não visibilizado
-            </Checkbox>
-            <Select
-              disabled={checkValueNaoVisibilizado.SelectNaoVisibilizado}
-              borderColor={corBordaNaoVisibilizado}
-              id="SelectNaoVisibilizado"
-              onChange={(e) => {
-                verificaChecked(e.target);
-              }}
-            >
-              <option value="" disabled selected>
-                Selecione
-              </option>
-              <option value="Não visibilizado com Ausênsia cirurgica ">
-                ausência cirúrgica
-              </option>
-              <option value="Não visibilizado com interposição gasosa ">
-                interposição gasosa
-              </option>
             </Select>
-          </Box>
+            <Radio value="Baço não caracterizado (esplenectomia).">
+              Ausente
+            </Radio>
 
-          <Box w="140px">
+          </Stack>
+        </RadioGroup>
+        <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" padding='5px' h='100%' w='280px'>
+          <Text fontWeight="bold" textAlign='center'>Dimensões (espessura)</Text>
+          <HStack>
             <Checkbox
-              disabled={checkValueBacoAcessorio.bacoAcessorio}
-              id="bacoAcessorio"
               onChange={(e) => {
-                verificaChecked(e.target);
+                setDimensoesCheckbox(!DimensoesCheckbox);
               }}
             >
-              Baço Acessório
+
             </Checkbox>
             <Input
+              w='55px'
+              value={DimensoesInput1}
+              onChange={(e) => setDimensoesInput1(e.target.value)}
+              disabled={DisableDimensoesInput}
+              placeholder="00"
+            />
+            <Text alignItems='center'>x</Text>
+            <Input
+              w='55px'
+              value={DimensoesInput2}
+              onChange={(e) => setDimensoesInput2(e.target.value)}
+              disabled={DisableDimensoesInput}
+              placeholder="00"
+            />
+            <Text alignItems='center'>mm</Text>
+          </HStack>
+          <HStack>
+            <Checkbox
+              onChange={(e) => {
+                setCitarIndiceCheckbox(!CitarIndiceCheckbox);
+              }}
+            >
+              Citar o índice esplênico
+            </Checkbox>
+
+          </HStack>
+        </Box>
+        <Box display='flex' flexWrap='wrap' gap='10px'>
+          <Box w="200px">
+            <Checkbox
+
+              onChange={(e) => {
+                setBacoAcessorioCheckbox(!BacoAcessorioCheckbox);
+              }}
+            >
+              Presença de baço acessório medindo
+            </Checkbox>
+            <Input
+              isDisabled={DisableBacoAcessorioInput}
               w="50px"
-              disabled={checkValueBacoAcessorio.InputBacoAcessorio}
-              id="Input1BacoAcessorio"
-              borderColor={corBordaBacoAcessorio}
-              onBlur={(e) => {
-                verificaChecked(e.target);
+              value={BacoAcessorioInput1}
+              onChange={(e) => {
+                setBacoAcessorioInput1(e.target.value);
               }}
               placeholder="0"
             />
             x
             <Input
               w="50px"
-              disabled={checkValueBacoAcessorio.InputBacoAcessorio}
-              id="Input2BacoAcessorio"
-              borderColor={corBordaBacoAcessorio}
-              onBlur={(e) => {
-                verificaChecked(e.target);
+              isDisabled={DisableBacoAcessorioInput}
+              value={BacoAcessorioInput2}
+              onChange={(e) => {
+                setBacoAcessorioInput2(e.target.value);
               }}
               placeholder="0"
             />
             mm
           </Box>
 
-          <Box w="100px">
+          <Box w="200px">
             <Checkbox
-              disabled={checkValueCalcificacoes.calcificacoes}
-              id="calcificacoes"
               onChange={(e) => {
-                verificaChecked(e.target);
+                setCalcificacaoCheckbox(!CalcificacaoCheckbox);
               }}
             >
-              Calcificações
+              Calcificação esplênica medindo
             </Checkbox>
             <Input
-              disabled={checkValueCalcificacoes.InputCalcificacoes}
-              id="InputCalcificacoes"
-              borderColor={corBordaCalcificacoes}
-              onBlur={(e) => {
-                verificaChecked(e.target);
+              w='70px'
+              value={CalcificacaoInput}
+              isDisabled={DisableCalcificacaoInput}
+              onChange={(e) => {
+                setCalcificacaoInput(e.target.value);
               }}
               placeholder="mm"
             />
@@ -615,26 +364,6 @@ function Baco() {
         </Box>
       </Box>
 
-      <Box w="100px" mt="20px">
-        <Checkbox
-          disabled={checkValueCisto.cisto}
-          id="cisto"
-          onChange={(e) => {
-            verificaChecked(e.target);
-          }}
-        >
-          Cisto
-        </Checkbox>
-        <Input
-          disabled={checkValueCisto.InputCisto}
-          id="InputCisto"
-          borderColor={corBordaCisto}
-          onBlur={(e) => {
-            verificaChecked(e.target);
-          }}
-          placeholder="mm"
-        />
-      </Box>
     </Box>
   );
 }

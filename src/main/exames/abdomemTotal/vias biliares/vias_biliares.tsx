@@ -40,15 +40,15 @@ function ViasBiliares() {
   }, [DilatacaoCheckbox])
 
   const criaStringCitarCalibre = (dados, calculo) => {
-    var string = 'Citar FALTA'
+    var string = 'Colédoco ectasiado, com calibre de'
     removeFraseCitarCalibre()
     const medida = new Convert_Medida(dados).Convert_Medida()
     const medida2 = new Convert_Medida(calculo).Convert_Medida()
     if (dados != '' && calculo != '') {
-      string = `${string} = ${medida} ${medida2} cm.`
+      string = `${string} ${medida} cm. Em seu lúmen observa-se imagem calculosa medindo ${medida2} cm.`
       setFrasesVias((arr) => [...arr, string])
     } else if (dados != '') {
-      string = `${string} = ${medida} cm.`
+      string = `${string} ${medida} cm. Não é possível caracterizar fatores obstrutivos ou conteúdo anômalo em seu lúmen.`
       setFrasesVias((arr) => [...arr, string])
 
     }
@@ -56,7 +56,7 @@ function ViasBiliares() {
 
   const removeFraseCitarCalibre = () => {
     frasesVias.map((e) => {
-      if (e.includes("Citar FALTA")) {
+      if (e.includes("Colédoco ectasiado, com calibre de")) {
         var index = frasesVias.indexOf(e);
         if (index > -1) {
           frasesVias.splice(index, 1);
@@ -127,7 +127,7 @@ function ViasBiliares() {
         <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
-            <Radio value="Fina e Regular">Colédoco normal</Radio>
+            <Radio value="Não há dilatação das vias biliares intra ou extra-hepáticas">Colédoco normal</Radio>
             <Radio value="Espessada e Irregular">Colédoco ectasiado</Radio>
           </Stack>
         </RadioGroup>
