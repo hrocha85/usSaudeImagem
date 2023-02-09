@@ -366,7 +366,7 @@ export default function Box_Default_With_Sidebar() {
             {tabExames.map((e, key) => {
               if (e.key > 0) {
                 return (
-                  <TabPanel key={key} maxW="98%" >
+                  <TabPanel key={key} maxW="98%">
                     {
                       {
                         1: <AbdomemTotal />,
@@ -408,9 +408,17 @@ export default function Box_Default_With_Sidebar() {
             <ModalCloseButton />
             <ModalBody>
               <Grid
-                templateColumns="repeat(5, 1fr)"
-                gap={2}
+                templateColumns={[
+                  "repeat(1, 1fr)",
+                  "repeat(2, 1fr)",
+                  "repeat(3, 1fr)",
+                  "repeat(4, 1fr)",
+                  "repeat(5, 1fr)",
+                ]}
+                gap={4}
                 marginBottom="20px"
+                marginEnd='0.5%'
+
               >
                 {exames.map((exame, key) => (
                   <GridItem

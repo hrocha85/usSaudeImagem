@@ -593,8 +593,7 @@ function Exames() {
         className="zoom"
         boxShadow="xl"
         ref={ref}
-        height="80vh"
-        marginBottom="3vh"
+        height="75vh"
       >
         <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
           <Box>
