@@ -9,7 +9,7 @@ import IndividualizarDerrameArticular from "./individualizarDerrameArticular";
 function MaoDerrameArticularEsquerda() {
 
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   const [FraseDerrameArticularDireito, setFraseDerrameArticularDireito] = useState<any>([]);
 

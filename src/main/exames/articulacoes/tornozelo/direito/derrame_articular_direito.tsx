@@ -11,6 +11,9 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Derrame_Articular_Direito() {
+  const altura = "100%";
+  const largura = "100%";
+
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
 
@@ -99,6 +102,17 @@ export default function Derrame_Articular_Direito() {
   }, [frasesTornozelo]);
 
   return (
+    <Box
+      bg="#FAFAFA"
+      w={largura}
+      h={altura}
+      bgPosition="center"
+      bgRepeat="no-repeat"
+      borderRadius="10.85px"
+      boxShadow="md"
+      padding="24px 15px 20px 15px"
+      mt="15px"
+    >
     <Stack>
       <Box
         borderWidth="2px"
@@ -137,7 +151,7 @@ export default function Derrame_Articular_Direito() {
                 </Select>
               </Stack>
               <Checkbox
-                whiteSpace="nowrap"
+                
                 isDisabled={!disableCheckBox}
                 onChange={() => setValueCheckBox(!valueCheckBox)}
               >
@@ -147,6 +161,7 @@ export default function Derrame_Articular_Direito() {
           </Stack>
         </RadioGroup>
       </Box>
-    </Stack>
+      </Stack>
+      </Box>
   );
 }

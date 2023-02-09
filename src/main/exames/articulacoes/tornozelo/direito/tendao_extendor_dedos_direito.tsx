@@ -167,7 +167,7 @@ export default function Tendao_Extensor_Dedos_Direito() {
             <HStack>
               <Radio value="Aspecto Normal">Aspecto Normal</Radio>
               <Checkbox
-                whiteSpace="nowrap"
+                
                 isDisabled={!disableCheckBox}
                 onChange={() => setValueCheckBox(!valueCheckBox)}
               >

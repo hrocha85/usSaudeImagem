@@ -1,14 +1,13 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box } from "@chakra-ui/react";
+import { Box, Center, Flex } from "@chakra-ui/react";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function LadoDireito() {
   const altura = "100%";
-  const largura = "95%";
-
+  const largura = "100%";
   return (
-    <Box
+    <Flex
       bg="#FAFAFA"
       w={largura}
       h={altura}
@@ -16,11 +15,15 @@ function LadoDireito() {
       bgRepeat="no-repeat"
       borderRadius="10.85px"
       boxShadow="md"
-      padding="15px"
+      padding="24px 15px 20px 15px"
       mt="15px"
+      marginBottom='10px'
+      flexWrap='wrap'
     >
-      <TituloNomeExame titulo="Cotovelo Direito" />
-    </Box >
+      <Center>
+        <TituloNomeExame titulo='Cotovelo Direito' />
+      </Center>
+    </Flex>
   );
 }
 export default LadoDireito;

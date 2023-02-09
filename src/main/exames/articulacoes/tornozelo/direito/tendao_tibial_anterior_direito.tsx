@@ -161,7 +161,7 @@ export default function Tendao_Tibial_Anterior_Direito() {
             <HStack>
               <Radio value="Aspecto Normal">Aspecto Normal</Radio>
               <Checkbox
-                whiteSpace="nowrap"
+                
                 isDisabled={!disableCheckBox}
                 onChange={() => setValueCheckBox(!valueCheckBox)}
               >

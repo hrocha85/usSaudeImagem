@@ -288,11 +288,9 @@ export default function Box_Default_With_Sidebar() {
         w="100%"
         h="100%"
         minH="100vh"
-        minW="100vw"
         backgroundImage={BGImage}
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
-        backgroundPosition="center"
         alignItems="center"
         backgroundClip="padding-box"
       >
@@ -309,7 +307,7 @@ export default function Box_Default_With_Sidebar() {
               {tabExames.map((e, key) => {
                 if (e.nomeExame != undefined) {
                   return (
-                    <Stack direction="row" key={key} >
+                    <Stack direction="row" key={key}>
                       <Tab
                         whiteSpace="nowrap"
                         key={key}
@@ -368,7 +366,7 @@ export default function Box_Default_With_Sidebar() {
             {tabExames.map((e, key) => {
               if (e.key > 0) {
                 return (
-                  <TabPanel key={key} maxW='95%'>
+                  <TabPanel key={key} maxW="98%" >
                     {
                       {
                         1: <AbdomemTotal />,

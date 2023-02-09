@@ -1,4 +1,12 @@
-import { Box, Flex, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  Grid,
+  HStack,
+  Stack,
+  VStack,
+} from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import Bolsa_Direito from "./direito/bolsa_direito";
 import Cisto_Direito from "./direito/cisto_direito";
@@ -36,31 +44,58 @@ import Tendao_Tibial_Anterior_Esquerdo from "./esquerdo/tendao_tibial_anterior_e
 import Tendao_Tibial_Posterior_Esquerdo from "./esquerdo/tendao_tibial_posterior_esquerdo";
 
 export default function Tornozelos() {
-  const altura = "100%";
-  const largura = "auto";
   return (
-    <Box
-      bg="#FAFAFA"
-      w={largura}
-      h={altura}
-      bgPosition="center"
-      bgRepeat="no-repeat"
-      borderRadius="10.85px"
-      boxShadow="md"
-      padding="15px 15px 20px 15px"
-      mt="10px"
-      maxW="95%"
-    >
+    <Flex flexDirection="column" maxW="95%">
       <TituloNomeExame titulo="Tornozelos/Pés" />
+      <Flex gap={4}>
+        <Flex flexDir="column" w="50%">
+          <Lado_Esquerdo_Torn lado={"Esquerdo"} />
+          <Derrame_Articular_Esquerdo />
+          <Tendao_Tibial_Anterior_Esquerdo />
+          <Tendao_Extensor_Halux_Esquerdo />
+          <Tendao_Extensor_Dedos_Esquerdo />
+          <Tendao_Tibial_Posterior_Esquerdo />
+          <Tendao_Flexor_Halux_Esquerdo />
+          <Tendao_Flexor_Dedos_Esquerdo />
+          <Tendao_Fibular_Curto_Esquerdo />
+          <Tendao_Fibular_Longo_Esquerdo />
+          <Tendao_Calcaneo_Esquerdo />
+          <Estruturas_Ligamentares_Esquerdo />
+          <Cisto_Esquerdo />
+          <Bolsa_Esquerdo />
+          <Gordura_Kager_Esquerdo />
+          <Fascia_Plantar_Esquerdo />
+          <Neuroma_Morton_Esquerdo />
+        </Flex>
 
-      <Box gap="15px" display="flex" flexWrap="wrap" flexDirection="column">
-        <Stack direction="row" justify="space-between" maxW="95%">
-          <Flex flexWrap='wrap' maxWidth='95%'>
-            <Box w="100%">
-              <Box textAlign="center" margin="10px">
-                <Lado_Esquerdo_Torn />
-              </Box>
-            </Box>
+        <Flex flexDir="column" w="50%">
+          <Lado_Esquerdo_Torn lado={"Direito"} />
+          <Derrame_Articular_Esquerdo />
+          <Tendao_Tibial_Anterior_Esquerdo />
+          <Tendao_Extensor_Halux_Esquerdo />
+          <Tendao_Extensor_Dedos_Esquerdo />
+          <Tendao_Tibial_Posterior_Esquerdo />
+          <Tendao_Flexor_Halux_Esquerdo />
+          <Tendao_Flexor_Dedos_Esquerdo />
+          <Tendao_Fibular_Curto_Esquerdo />
+          <Tendao_Fibular_Longo_Esquerdo />
+          <Tendao_Calcaneo_Esquerdo />
+          <Estruturas_Ligamentares_Esquerdo />
+          <Cisto_Esquerdo />
+          <Bolsa_Esquerdo />
+          <Gordura_Kager_Esquerdo />
+          <Fascia_Plantar_Esquerdo />
+          <Neuroma_Morton_Esquerdo />
+        </Flex>
+      </Flex>
+    </Flex>
+  );
+}
+/**
+ * 
+ * 
+ *  <Flex flexWrap="wrap" maxWidth="95%">
+            
             <Derrame_Articular_Esquerdo />
             <Tendao_Tibial_Anterior_Esquerdo />
             <Tendao_Extensor_Halux_Esquerdo />
@@ -78,11 +113,14 @@ export default function Tornozelos() {
             <Fascia_Plantar_Esquerdo />
             <Neuroma_Morton_Esquerdo />
           </Flex>
-          <Flex flexWrap='wrap' maxWidth='95%'>
-            <Box w="100%">
-              <Box textAlign="center" margin="10px">
-                <Lado_Direito_Torn />
-              </Box>
+ * 
+ * 
+ * 
+ * 
+ * 
+ *  <Flex flexWrap="wrap" maxWidth="95%">
+            <Box w="47%">
+              <Lado_Esquerdo_Torn lado={"Direito"} />
             </Box>
             <Derrame_Articular_Direito />
             <Tendao_Tibial_Anterior_Direito />
@@ -101,8 +139,23 @@ export default function Tornozelos() {
             <Fascia_Plantar_Direito />
             <Neuroma_Morton_Direito />
           </Flex>
-        </Stack>
-      </Box>
-    </Box>
-  );
-}
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */

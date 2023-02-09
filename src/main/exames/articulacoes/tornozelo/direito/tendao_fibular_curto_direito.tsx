@@ -200,7 +200,7 @@ export default function Tendao_Fibular_Curto_Direito() {
             <HStack>
               <Radio value="Aspecto Normal">Aspecto Normal</Radio>
               <Checkbox
-                whiteSpace="nowrap"
+                
                 isDisabled={!disableCheckBox}
                 onChange={() => setValueCheckBox(!valueCheckBox)}
               >
@@ -271,7 +271,7 @@ export default function Tendao_Fibular_Curto_Direito() {
             <HStack>
               <Radio value="Lesão Longitudinal">Lesão Longitudinal</Radio>
               <Checkbox
-                whiteSpace="nowrap"
+                
                 isDisabled={!disableCheckBoxLongitudinal}
                 onChange={() =>
                   setValueCheckBoxLongitudinal(!valueCheckBoxLongitudinal)
@@ -283,7 +283,7 @@ export default function Tendao_Fibular_Curto_Direito() {
             <HStack>
               <Checkbox
                 isDisabled={!disableCheckBoxLongitudinal}
-                whiteSpace="nowrap"
+                
                 onChange={() =>
                   setValueCheckBoxInsinuacao(!valueCheckBoxInsinuacao)
                 }
@@ -291,7 +291,7 @@ export default function Tendao_Fibular_Curto_Direito() {
                 com insinuação do fibular longo p/ seu interio{" "}
               </Checkbox>
               <Checkbox
-                whiteSpace="nowrap"
+                
                 isDisabled={!disableCheckBoxLongitudinal}
                 onChange={() => setValueCheckBoxLiquido(!valueCheckBoxLiquido)}
               >

@@ -11,6 +11,9 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Derrame_Articular_Esquerdo() {
+  const altura = "100%";
+  const largura = "100%";
+
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
 
@@ -105,6 +108,7 @@ export default function Derrame_Articular_Esquerdo() {
         borderColor="blue.100"
         borderRadius="lg"
         marginTop="5px"
+        bg="#FAFAFA"
       >
         <Text fontWeight="semibold" padding="10px">
           Derrame articular
@@ -137,7 +141,7 @@ export default function Derrame_Articular_Esquerdo() {
                 </Select>
               </Stack>
               <Checkbox
-                whiteSpace="nowrap"
+                
                 isDisabled={!disableCheckBox}
                 onChange={() => setValueCheckBox(!valueCheckBox)}
               >

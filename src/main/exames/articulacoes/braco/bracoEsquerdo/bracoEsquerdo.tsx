@@ -8,7 +8,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function BracoEsquerdo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   const [frasesBracoEsquerdo, setFrasesBracoEsquerdo] = useState<any>([]);
 

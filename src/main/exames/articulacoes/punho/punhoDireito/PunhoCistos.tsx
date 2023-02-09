@@ -9,7 +9,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function PunhoCistosDireito() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
 
   let { PunhoDireitoLaudoNormal } = useContext(PunhoDireitoNormalContext)

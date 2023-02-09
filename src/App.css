@@ -5,6 +5,7 @@
 /* custom scrollbar */
 ::-webkit-scrollbar {
   width: 20px;
+  background-color: #c2e1f7;
 }
 
 ::-webkit-scrollbar-track {

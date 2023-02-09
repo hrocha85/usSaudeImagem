@@ -7,7 +7,7 @@ import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEs
 
 function CotoveloEsquerdo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   let { CotoveloEsquerdoLaudoNormal } = useContext(CotoveloEsquerdoNormalContext)

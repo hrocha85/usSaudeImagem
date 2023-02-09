@@ -229,7 +229,7 @@ export default function Tendao_Calcaneo_Direito() {
             <HStack>
               <Radio value="Aspecto Normal">Aspecto Normal</Radio>
               <Checkbox
-                whiteSpace="nowrap"
+                
                 isDisabled={!disableCheckBox}
                 onChange={() => setValueCheckBox(!valueCheckBox)}
               >
@@ -331,7 +331,7 @@ export default function Tendao_Calcaneo_Direito() {
           </HStack>
           <HStack>
             <Checkbox
-              whiteSpace="nowrap"
+              
               marginStart="20px"
               isDisabled={disableInputs}
               onChange={() => setEntesofitoCheckBox(!entesofitoCheckBox)}

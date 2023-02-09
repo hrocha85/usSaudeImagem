@@ -5,7 +5,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidrocele() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "87%";
 
   const [frasesHidrocelete, setFrasesHidrocelete] = useState<any>([]);
 

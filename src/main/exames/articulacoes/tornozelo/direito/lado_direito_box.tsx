@@ -5,7 +5,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function Lado_Direito_Torn() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   return (
     <Box

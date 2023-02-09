@@ -8,7 +8,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function MeniscosEsquerdo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   const [MeniscosEsquerdo, setMeniscosEsquerdo] = useState<any>([]);
 
