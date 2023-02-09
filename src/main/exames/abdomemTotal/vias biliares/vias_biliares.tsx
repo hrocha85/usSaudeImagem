@@ -1,6 +1,9 @@
-import { Box, Checkbox } from "@chakra-ui/react";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable eqeqeq */
+import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { NormalContext } from "../../../../context/NormalContext";
+import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -8,30 +11,72 @@ function ViasBiliares() {
   const altura = "100%";
   const largura = "66%";
 
-  let viasBiliaresDilatadas = document.querySelector(
-    "#ViasBiliaresDilatadas"
-  ) as HTMLInputElement;
 
   const { laudoNormal } = useContext(NormalContext);
   const [frasesVias, setFrasesVias] = useState<any>([]);
 
-  const [defaultValueNormal, setDefaultValueNormal] = useState({
-    defaultValueNormal: false,
-  });
-  const [checkValueNormal, setCheckvalueNormal] = useState({
-    normal: false,
-  });
-  const [checkValueColedocoEcstasiado, setCheckvalueColedocoEcstasiado] =
-    useState({
-      ColedocoEcstasiado: false,
-    });
+  const [value, setValue] = useState("1");
 
-  const criarString = (value, valueId?, valueInput?) => {
-    //console.log("Valor cria string = ", value);
-    //arr => [...arr] captura os dados que já estavam e os mantem no array
-    setFrasesVias((arr) => [...arr, value]);
-    //console.log("criaString = ", laudoPrin)
+  useEffect(() => {
+    if (value == "1") {
+      setFrasesVias([]);
+    } else {
+      setFrasesVias([]);
+      setFrasesVias((arr) => [...arr, value]);
+    }
+  }, [value]);
+
+
+  const [DilatacaoCheckbox, setDilatacaoCheckbox] = useState(false)
+  const [CitarCalibresCheckbox, setCitarCalibresCheckbox] = useState(false)
+  const [CitarCalibresInput1, setCitarCalibresInput1] = useState('')
+  const [CitarCalibresInput2, setCitarCalibresInput2] = useState('')
+  const [DisableCitarCalibresInput, setDisableCitarCalibresInput] = useState(true)
+
+
+  useEffect(() => {
+    var string = 'Observa-se dilatação de vias biliares intra-hepáticas.'
+    DilatacaoCheckbox ? setFrasesVias((arr) => [...arr, string]) : removeItemString(string)
+  }, [DilatacaoCheckbox])
+
+  const criaStringCitarCalibre = (dados, calculo) => {
+    var string = 'Colédoco ectasiado, com calibre de'
+    removeFraseCitarCalibre()
+    const medida = new Convert_Medida(dados).Convert_Medida()
+    const medida2 = new Convert_Medida(calculo).Convert_Medida()
+    if (dados != '' && calculo != '') {
+      string = `${string} ${medida} cm. Em seu lúmen observa-se imagem calculosa medindo ${medida2} cm.`
+      setFrasesVias((arr) => [...arr, string])
+    } else if (dados != '') {
+      string = `${string} ${medida} cm. Não é possível caracterizar fatores obstrutivos ou conteúdo anômalo em seu lúmen.`
+      setFrasesVias((arr) => [...arr, string])
+
+    }
+  }
+
+  const removeFraseCitarCalibre = () => {
+    frasesVias.map((e) => {
+      if (e.includes("Colédoco ectasiado, com calibre de")) {
+        var index = frasesVias.indexOf(e);
+        if (index > -1) {
+          frasesVias.splice(index, 1);
+          setFrasesVias((arr) => [...arr]);
+        }
+      }
+    });
   };
+
+  useEffect(() => {
+    if (CitarCalibresCheckbox) {
+      criaStringCitarCalibre(CitarCalibresInput1, CitarCalibresInput2)
+      setDisableCitarCalibresInput(false)
+    } else {
+      setDisableCitarCalibresInput(true)
+      removeFraseCitarCalibre()
+      setCitarCalibresInput1('')
+      setCitarCalibresInput2('')
+    }
+  }, [CitarCalibresCheckbox, CitarCalibresInput1, CitarCalibresInput2])
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
@@ -41,62 +86,6 @@ function ViasBiliares() {
       frasesVias.splice(index, 1);
       setFrasesVias((arr) => [...arr]);
     }
-  };
-
-  const verificaChecked = (value) => {
-    switch (value.id) {
-      case "ColedocoNormal":
-        if (value.checked === true) {
-          setDefaultValueNormal({ defaultValueNormal: true });
-          setFrasesVias((arr) => [...arr, value.value]);
-          setCheckvalueColedocoEcstasiado({
-            ColedocoEcstasiado: true,
-          });
-        } else {
-          setDefaultValueNormal({ defaultValueNormal: false });
-          removeItemString(value.value);
-          setCheckvalueColedocoEcstasiado({
-            ColedocoEcstasiado: false,
-          });
-        }
-        break;
-      case "ColedocoEcasiado":
-        if (value.checked === true) {
-          setFrasesVias((arr) => [...arr, value.value]);
-          setCheckvalueNormal({
-            normal: true,
-          });
-        } else {
-          removeItemString(value.value);
-          setCheckvalueNormal({
-            normal: false,
-          });
-        }
-        break;
-    }
-  };
-
-  useEffect(() => {
-    if (laudoNormal === true) {
-      criarString("Colédoco Normal ");
-      setDefaultValueNormal({ defaultValueNormal: true });
-      setCheckvalueColedocoEcstasiado({
-        ColedocoEcstasiado: true,
-      });
-    } else {
-      setDefaultValueNormal({ defaultValueNormal: false });
-      //removeNormal()
-      //removeItemString('Colédoco Normal ');
-      setCheckvalueColedocoEcstasiado({
-        ColedocoEcstasiado: false,
-      });
-    }
-  }, [laudoNormal]);
-
-  const setValueFraseViasBiliares = (value) => {
-    viasBiliaresDilatadas.checked === true
-      ? setFrasesVias((arr) => [...arr, value.value])
-      : removeItemString(value.value);
   };
 
   const subExame = "Vias Biliares";
@@ -134,39 +123,57 @@ function ViasBiliares() {
     >
       <TituloNomeExame titulo="Vias Biliares" />
 
-      <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
-        <Checkbox
-          isChecked={defaultValueNormal.defaultValueNormal}
-          disabled={checkValueNormal.normal}
-          value="Colédoco Normal "
-          id="ColedocoNormal"
-          onChange={(e) => {
-            verificaChecked(e.target);
-          }}
-        >
-          Colédoco Normal
-        </Checkbox>
-        <Checkbox
-          disabled={checkValueColedocoEcstasiado.ColedocoEcstasiado}
-          value="Colédoco Ectasiado "
-          id="ColedocoEcasiado"
-          onChange={(e) => {
-            verificaChecked(e.target);
-          }}
-        >
-          Colédoco Ectasiado
-        </Checkbox>
-        <Checkbox
-          value="Vias Biliares Intra-Hepáticas Dilatadas"
-          id="ViasBiliaresDilatadas"
-          onChange={(e) => {
-            setValueFraseViasBiliares(e.target);
-          }}
-        >
-          Vias Biliares Intra-Hepáticas Dilatadas
-        </Checkbox>
-      </Box>
-    </Box>
+      <Box gap="25px" display="flex" flexWrap="wrap">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
+          <Stack direction="column">
+            <Radio value="1">Não citar</Radio>
+            <Radio value="Não há dilatação das vias biliares intra ou extra-hepáticas">Colédoco normal</Radio>
+            <Radio value="Espessada e Irregular">Colédoco ectasiado</Radio>
+          </Stack>
+        </RadioGroup>
+        <Stack>
+          <Box>
+            <Checkbox
+
+              onChange={(e) => {
+                setDilatacaoCheckbox(!DilatacaoCheckbox);
+              }}
+            >
+              Dilatação de vias biliares intra-hepáticas
+            </Checkbox>
+          </Box>
+          <HStack >
+            <Box>
+              <Checkbox
+                onChange={(e) => {
+                  setCitarCalibresCheckbox(!CitarCalibresCheckbox);
+                }}
+              >
+                Citar calibres:
+              </Checkbox>
+            </Box>
+            <HStack>
+              <Input
+                w='50px'
+                value={CitarCalibresInput1}
+                onChange={(e) => setCitarCalibresInput1(e.target.value)}
+                disabled={DisableCitarCalibresInput}
+                placeholder="00"
+              />
+              <Text alignItems='center'>mm. Cálculo de </Text>
+              <Input
+                w='50px'
+                value={CitarCalibresInput2}
+                onChange={(e) => setCitarCalibresInput2(e.target.value)}
+                disabled={DisableCitarCalibresInput}
+                placeholder="00"
+              />
+              <Text alignItems='center'>mm</Text>
+            </HStack>
+          </HStack>
+        </Stack>
+      </Box >
+    </Box >
   );
 }
 

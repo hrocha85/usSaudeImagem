@@ -66,7 +66,7 @@ function VesiculaBiliar() {
   }, [NormalCheckbox])
 
   useEffect(() => {
-    var string = 'FALTA.'
+    var string = 'Sinais de colesterolose vesicular.'
     ColesteroloseCheckbox ? setFrasesVesicula((arr) => [...arr, string]) : removeItemString(string)
   }, [ColesteroloseCheckbox])
 
