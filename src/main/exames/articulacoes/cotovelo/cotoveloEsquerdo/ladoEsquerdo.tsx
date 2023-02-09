@@ -6,8 +6,9 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 function LadoEsquerdo() {
   const altura = "100%";
   const largura = "100%";
+
   return (
-    <Flex
+    <Box
       bg="#FAFAFA"
       w={largura}
       h={altura}
@@ -17,13 +18,11 @@ function LadoEsquerdo() {
       boxShadow="md"
       padding="24px 15px 20px 15px"
       mt="15px"
-      marginBottom='10px'
-      flexWrap='wrap'
     >
       <Center>
-        <TituloNomeExame titulo='Cotovelo Esquerdo' />
+        <TituloNomeExame titulo={'Esquerdo'} />
       </Center>
-    </Flex>
+    </Box>
   );
 }
 export default LadoEsquerdo;

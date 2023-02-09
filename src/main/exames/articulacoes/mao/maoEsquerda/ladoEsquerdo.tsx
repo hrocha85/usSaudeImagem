@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box } from "@chakra-ui/react";
+import { Box, Center } from "@chakra-ui/react";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function LadoEsquerdo() {
@@ -16,11 +16,13 @@ function LadoEsquerdo() {
       bgRepeat="no-repeat"
       borderRadius="10.85px"
       boxShadow="md"
-      padding="15px"
+      padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Mão Esquerda" />
-    </Box >
+      <Center>
+        <TituloNomeExame titulo={"Mão Esquerda"} />
+      </Center>
+    </Box>
   );
 }
 export default LadoEsquerdo;

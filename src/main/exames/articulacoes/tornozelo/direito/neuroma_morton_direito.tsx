@@ -1,5 +1,6 @@
 import {
   Box,
+  Flex,
   HStack,
   Input,
   Radio,
@@ -107,6 +108,7 @@ export default function Neuroma_Morton_Direito() {
         borderColor="blue.100"
         borderRadius="lg"
         marginTop="5px"
+        bg="#FAFAFA"
       >
         <Text fontWeight="semibold" padding="10px">
           Neuroma de Morton
@@ -116,59 +118,61 @@ export default function Neuroma_Morton_Direito() {
             <Radio value="1">Não citar</Radio>
             <Radio value="Ausente">Ausente</Radio>
             <HStack>
-              <Radio value="Presente">Presente no</Radio>
-              <Select
-                w="auto"
-                placeholder="Opção"
-                isDisabled={!enableMortonSelect}
-                onChange={(e) => setValueSelect1(e.target.value)}
-              >
-                <option value="I">I</option>
-                <option value="II">II</option>
-                <option value="III">III</option>
-                <option value="IV">IV</option>
-              </Select>
-              <Text>espaço intermetatarsal, com</Text>
-              <Input
-                isDisabled={MortonInput}
-                w="35px"
-                h="30px"
-                value={medida1Morton}
-                padding="5px"
-                maxLength={2}
-                textAlign="center"
-                onChange={(e) => {
-                  setMedida1Morton(e.target.value);
-                }}
-              />
-              <Text>x</Text>
-              <Input
-                isDisabled={MortonInput}
-                w="35px"
-                h="30px"
-                value={medida2Morton}
-                padding="5px"
-                maxLength={2}
-                textAlign="center"
-                onChange={(e) => {
-                  setMedida2Morton(e.target.value);
-                }}
-              />
-              <Text>x</Text>
-              <Input
-                isDisabled={MortonInput}
-                w="35px"
-                h="30px"
-                value={medida3Morton}
-                padding="5px"
-                maxLength={2}
-                textAlign="center"
-                onChange={(e) => {
-                  setMedida3Morton(e.target.value);
-                }}
-              />
+              <Flex flexWrap="wrap" gap={1}>
+                <Radio value="Presente">Presente no</Radio>
+                <Select
+                  w="auto"
+                  placeholder="Opção"
+                  isDisabled={!enableMortonSelect}
+                  onChange={(e) => setValueSelect1(e.target.value)}
+                >
+                  <option value="I">I</option>
+                  <option value="II">II</option>
+                  <option value="III">III</option>
+                  <option value="IV">IV</option>
+                </Select>
+                <Text>espaço intermetatarsal, com</Text>
+                <Input
+                  isDisabled={MortonInput}
+                  w="35px"
+                  h="30px"
+                  value={medida1Morton}
+                  padding="5px"
+                  maxLength={2}
+                  textAlign="center"
+                  onChange={(e) => {
+                    setMedida1Morton(e.target.value);
+                  }}
+                />
+                <Text>x</Text>
+                <Input
+                  isDisabled={MortonInput}
+                  w="35px"
+                  h="30px"
+                  value={medida2Morton}
+                  padding="5px"
+                  maxLength={2}
+                  textAlign="center"
+                  onChange={(e) => {
+                    setMedida2Morton(e.target.value);
+                  }}
+                />
+                <Text>x</Text>
+                <Input
+                  isDisabled={MortonInput}
+                  w="35px"
+                  h="30px"
+                  value={medida3Morton}
+                  padding="5px"
+                  maxLength={2}
+                  textAlign="center"
+                  onChange={(e) => {
+                    setMedida3Morton(e.target.value);
+                  }}
+                />
 
-              <Text>mm</Text>
+                <Text>mm</Text>
+              </Flex>
             </HStack>
           </Stack>
         </RadioGroup>

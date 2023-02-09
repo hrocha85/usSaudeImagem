@@ -121,34 +121,30 @@ import QuadrilBolsasEsquerdo from "./quadril/quadrilEsquerdo/QuadrilBolsasEsquer
 import QuadrilDerrameArticularEsquerdo from "./quadril/quadrilEsquerdo/QuadrilDerrameArticularEsquerdo";
 import TendaoGluteoMedioEsquerdo from "./quadril/quadrilEsquerdo/TendaoGluteoMedio";
 import TendaoGluteoMinimoEsquerdo from "./quadril/quadrilEsquerdo/TendaoGluteoMinimo";
+import Tornozelos from "./tornozelo/tornozelos";
 
 function Articulacoes() {
   return (
-    <Flex flex={1} flexWrap="wrap" ml="10px">
-      {/*<Tornozelos />*/}
-      <Flex gap={4} maxW="98%">
-        <Flex flexDir="column" w="100%">
-          <OmbroLadoDireito />
-
-          <OmbroNormalDireito />
-
-          <OmbroTendaoSupraespinhalDireito />
-
-          <VentreSupraespinhalDireito />
-
-          <TendaoInfraespinhalOmbroDireito />
-
-          <VentreInfraespinhalDireito />
-
-          <TendaoSubescapularOmbroDireito />
-
-          <TendaoCabeçaLongaBicepsDireito />
-
-          <BolsaSubacromial_SubdeltoideaDireito />
-
-          <ArticulacaoAcromioclavicularDireito />
-        </Flex>
-        <Flex flexDir="column" w="100%">
+    <Flex
+      flex={1}
+      gap={4}
+      h="100%"
+      w="65%"
+      maxW="65%"
+      alignItems="start"
+      justifyItems="center"
+      flexWrap="wrap"
+    >
+      <Tornozelos />
+      <Flex
+        gap={4}
+        alignItems="start"
+        justifyItems="center"
+        flexWrap="wrap"
+        w="98%"
+      >
+        {/*OMBRO ESQUERDO */}
+        <Flex flex={1} flexDirection="column">
           <OmbroLadoEsquerdo />
 
           <OmbroNormalEsquerdo />
@@ -169,31 +165,40 @@ function Articulacoes() {
 
           <ArticulacaoAcromioclavicularEsquerdo />
         </Flex>
+
+        {/*OMBRO DIREITO */}
+        <Flex flex={1} flexDirection="column">
+          <OmbroLadoDireito />
+
+          <OmbroNormalDireito />
+
+          <OmbroTendaoSupraespinhalDireito />
+
+          <VentreSupraespinhalDireito />
+
+          <TendaoInfraespinhalOmbroDireito />
+
+          <VentreInfraespinhalDireito />
+
+          <TendaoSubescapularOmbroDireito />
+
+          <TendaoCabeçaLongaBicepsDireito />
+
+          <BolsaSubacromial_SubdeltoideaDireito />
+
+          <ArticulacaoAcromioclavicularDireito />
+        </Flex>
       </Flex>
 
-      <Flex gap={4} maxW="98%">
-        <Flex flexDir="column" w="100%">
-          <CotoveloLadoDireito />
-
-          <CotoveloNormalDireito />
-
-          <TenComumExtensoresAntebracoDireito />
-
-          <TenComumFlexoresAntebracoDireito />
-
-          <TendaoBicepsBraquialDireito />
-
-          <TendaoTricepsBraquialDireito />
-
-          <LiquidoPeritendineoDireito />
-
-          <NervoUlnarDireito />
-
-          <BolsaOlecreaneanaDireito />
-
-          <DerrameArticularDireito />
-        </Flex>
-        <Flex flexDir="column" w="100%">
+      <Flex
+        gap={4}
+        alignItems="start"
+        justifyItems="center"
+        flexWrap="wrap"
+        w="98%"
+      >
+        {/*COTOVELO ESQUERDO */}
+        <Flex flex={1} flexDirection="column">
           <CotoveloLadoEsquerdo />
 
           <CotoveloNormalEsquerdo />
@@ -214,88 +219,248 @@ function Articulacoes() {
 
           <DerrameArticularEsquerdo />
         </Flex>
+
+        {/*COTOVELO DIREITO */}
+        <Flex flex={1} flexDirection="column">
+          <CotoveloLadoDireito />
+
+          <CotoveloNormalDireito />
+
+          <TenComumExtensoresAntebracoDireito />
+
+          <TenComumFlexoresAntebracoDireito />
+
+          <TendaoBicepsBraquialDireito />
+
+          <TendaoTricepsBraquialDireito />
+
+          <LiquidoPeritendineoDireito />
+
+          <NervoUlnarDireito />
+
+          <BolsaOlecreaneanaDireito />
+
+          <DerrameArticularDireito />
+        </Flex>
       </Flex>
 
+      <Flex
+        gap={4}
+        alignItems="start"
+        justifyItems="center"
+        flexWrap="wrap"
+        w="98%"
+      >
+        {/*PUNHO ESQUERDO */}
+        <Flex flex={1} flexDirection="column">
+          <PunhoLadoEsquerdo />
 
+          <PunhoNormalEsquerdo />
 
+          <TendaoFlexoresTenossinoviteEsquerdo />
 
+          <TendaoExtensoresTenossinoviteEsquerdo />
 
+          <PunhoNervoMedianoEsquerdo />
 
+          <RetinaculoFlexoresEsquerdo />
 
+          <PunhoCistosEsquerdo />
+        </Flex>
 
+        {/*PUNHO DIREITO */}
+        <Flex flex={1} flexDirection="column">
+          <PunhoLadoDireito />
 
+          <PunhoNormalDireito />
 
+          <TendaoFlexoresTenossinoviteDireito />
 
+          <TendaoExtensoresTenossinoviteDireito />
 
+          <PunhoNervoMedianoDireito />
 
+          <RetinaculoFlexoresDireito />
 
+          <PunhoCistosDireito />
+        </Flex>
+      </Flex>
 
+      <Flex
+        gap={4}
+        alignItems="start"
+        justifyItems="center"
+        flexWrap="wrap"
+        w="98%"
+      >
+        {/*MAO ESQUERDO */}
+        <Flex flex={1} flexDirection="column">
+          <MaoLadoEsquerdo />
 
+          <MaoNormalEsquerdo />
 
+          <RoturaFlexoresEsquerdo />
 
+          <TenossinoviteFlexoresEsquerdo />
 
+          <LiquidoPeritendineoHexoresEsquerda />
 
+          <PoliasEsquerdo />
 
+          <FibromatosePalmarEsquerdo />
 
+          <RoturaExtensoresEsquerdo />
 
+          <TenossinoviteExtensoresEsquerda />
 
+          <MaoCistosEsquerdo />
 
+          <OssosEsquerda />
 
+          <MaoDerrameArticularEsquerdo />
 
+          <AlteracaoPosCirurgiaEsquerdo />
 
+          <ColecaoEsquerdo />
 
-      
+          <CorpoEstranhoEsquerdo />
+        </Flex>
 
-      <PunhoLadoDireito />
+        {/*MAO DIREITO */}
+        <Flex flex={1} flexDirection="column">
+          <MaoLadoDireito />
 
-      <PunhoNormalDireito />
+          <MaoNormalDireito />
 
-      <TendaoFlexoresTenossinoviteDireito />
+          <RoturaFlexoresDireito />
 
-      <TendaoExtensoresTenossinoviteDireito />
+          <TenossinoviteFlexoresDireito />
 
-      <PunhoNervoMedianoDireito />
+          <LiquidoPeritendineoHexoresDireita />
 
-      <RetinaculoFlexoresDireito />
+          <PoliasDireita />
 
-      <PunhoCistosDireito />
+          <FibromatosePalmarDireito />
 
-      {/* <Box
-                            // w='450px'
-                            textAlign="center" >
-                            <PunhoDireito />
-                         */}
-      <MaoLadoDireito />
+          <RoturaExtensoresDireito />
 
-      <MaoNormalDireito />
+          <TenossinoviteExtensoresDireita />
 
-      <RoturaFlexoresDireito />
+          <MaoCistosDireito />
 
-      <TenossinoviteFlexoresDireito />
+          <OssosDireita />
 
-      <LiquidoPeritendineoHexoresDireita />
+          <MaoDerrameArticularDireita />
 
-      <PoliasDireita />
+          <AlteracaoPosCirurgiaDireito />
 
-      <FibromatosePalmarDireito />
+          <ColecaoDireito />
 
-      <RoturaExtensoresDireito />
+          <CorpoEstranhoDireito />
+        </Flex>
+      </Flex>
 
-      <TenossinoviteExtensoresDireita />
+      <Flex
+        gap={4}
+        alignItems="start"
+        justifyItems="center"
+        flexWrap="wrap"
+        w="98%"
+      >
+        {/*JOELHO ESQUERDO */}
+        <Flex flex={1} flexDirection="column">
+          <JoelhoLadoEsquerdo />
 
-      <MaoCistosDireito />
+          <JoelhoNormalEsquerdo />
 
-      <OssosDireita />
+          <JoelhoDerrameArticularEsquerdo />
 
-      <MaoDerrameArticularDireita />
+          <LigColTibialMedialEsquerdo />
 
-      <AlteracaoPosCirurgiaDireito />
+          <LigColFibularLateralEsquerdo />
 
-      <ColecaoDireito />
+          <TendaoPataGansoEsquerdo />
 
-      <CorpoEstranhoDireito />
+          <TendaoQuadricepsFemoralEsquerdo />
 
-      {/* <Box
+          <TendaoBicepsFemoralEsquerdo />
+
+          <TendaoPatelarEsquerdo />
+
+          <MeniscosEsquerdo />
+
+          <CistosEsquerdo />
+        </Flex>
+
+        {/*JOELHO DIREITO */}
+        <Flex flex={1} flexDirection="column">
+          <JoelhoLadoDireito />
+
+          <JoelhoNormalDireito />
+
+          <JoelhoDerrameArticularDireito />
+
+          <LigColTibialMedialDireito />
+
+          <LigColFibularLateralDireito />
+
+          <TendaoPataGansoDireito />
+
+          <TendaoQuadricepsFemoralDireito />
+
+          <TendaoBicepsFemoralDireito />
+
+          <TendaoPatelarDireito />
+
+          <MeniscosDireito />
+
+          <CistosDireito />
+        </Flex>
+      </Flex>
+
+      <Flex
+        gap={4}
+        alignItems="start"
+        justifyItems="center"
+        flexWrap="wrap"
+        w="98%"
+      >
+        {/*QUADRIL ESQUERDO */}
+        <Flex flex={1} flexDirection="column">
+          <QuadrilLadoEsquerdo />
+
+          <QuadrilNormalEsquerdo />
+
+          <QuadrilDerrameArticularEsquerdo />
+
+          <TendaoGluteoMedioEsquerdo />
+
+          <TendaoGluteoMinimoEsquerdo />
+
+          <QuadrilBolsasEsquerdo />
+
+          <FasciaLataEsquerdo />
+        </Flex>
+
+        {/*QUADRIL DIREITO */}
+        <Flex flex={1} flexDirection="column">
+          <QuadrilLadoDireito />
+
+          <QuadrilNormalDireito />
+
+          <QuadrilDerrameArticularDireito />
+
+          <TendaoGluteoMedioDireito />
+
+          <TendaoGluteoMinimoDireito />
+
+          <QuadrilBolsasDireito />
+
+          <FasciaLataDireito />
+        </Flex>
+      </Flex>
+
+      {/*<Box
               textAlign="center" >
               <BracoLadoDireito />
             
@@ -318,8 +483,8 @@ function Articulacoes() {
               textAlign="center" >
               <AntebracoNormalDireito />
             
-            */}
-      {/* <Box
+           
+     <Box
               textAlign="center" >
               <DedoLadoDireito />
             
@@ -331,50 +496,14 @@ function Articulacoes() {
             <Box
               // w='450px'
               textAlign="center" >
-              <DedoDireito />
-             */}
-      <JoelhoLadoDireito />
+            
 
-      <JoelhoNormalDireito />
-
-      <JoelhoDerrameArticularDireito />
-
-      <LigColTibialMedialDireito />
-
-      <LigColFibularLateralDireito />
-
-      <TendaoPataGansoDireito />
-
-      <TendaoQuadricepsFemoralDireito />
-
-      <TendaoBicepsFemoralDireito />
-
-      <TendaoPatelarDireito />
-
-      <MeniscosDireito />
-
-      <CistosDireito />
-
-      <QuadrilLadoDireito />
-
-      <QuadrilNormalDireito />
-
-      <QuadrilDerrameArticularDireito />
-
-      <TendaoGluteoMedioDireito />
-
-      <TendaoGluteoMinimoDireito />
-
-      <QuadrilBolsasDireito />
-
-      <FasciaLataDireito />
-
-      {/* <Box
+       <Box
                             mt='10px'
                             textAlign="center" >
                             <QuadrilDireito />
-                         */}
-      {/* <Box
+                         
+       <Box
               textAlign="center" >
               <CoxaLadoDireito />
             
@@ -410,53 +539,9 @@ function Articulacoes() {
               mt='10px'
               textAlign="center" >
               <PeExtraDireito />
-             */}
+             
 
-      <PunhoLadoEsquerdo />
-
-      <PunhoNormalEsquerdo />
-
-      <TendaoFlexoresTenossinoviteEsquerdo />
-
-      <TendaoExtensoresTenossinoviteEsquerdo />
-
-      <PunhoNervoMedianoEsquerdo />
-
-      <RetinaculoFlexoresEsquerdo />
-
-      <PunhoCistosEsquerdo />
-
-      <MaoLadoEsquerdo />
-
-      <MaoNormalEsquerdo />
-
-      <RoturaFlexoresEsquerdo />
-
-      <TenossinoviteFlexoresEsquerdo />
-
-      <LiquidoPeritendineoHexoresEsquerda />
-
-      <PoliasEsquerdo />
-
-      <FibromatosePalmarEsquerdo />
-
-      <RoturaExtensoresEsquerdo />
-
-      <TenossinoviteExtensoresEsquerda />
-
-      <MaoCistosEsquerdo />
-
-      <OssosEsquerda />
-
-      <MaoDerrameArticularEsquerdo />
-
-      <AlteracaoPosCirurgiaEsquerdo />
-
-      <ColecaoEsquerdo />
-
-      <CorpoEstranhoEsquerdo />
-
-      {/* <Box
+       <Box
               textAlign="center" >
               <BracoLadoEsquerdo />
             
@@ -478,8 +563,8 @@ function Articulacoes() {
               mt='10px'
               textAlign="center" >
               <AntebracoNormalEsquerdo />
-             */}
-      {/* <Box
+            
+      <Box
               textAlign="center" >
               <DedoLadoEsquerdo />
             
@@ -492,44 +577,9 @@ function Articulacoes() {
               // w='450px'
               textAlign="center" >
               <DedoEsquerdo />
-             */}
-      <JoelhoLadoEsquerdo />
+             
 
-      <JoelhoNormalEsquerdo />
-
-      <JoelhoDerrameArticularEsquerdo />
-
-      <LigColTibialMedialEsquerdo />
-
-      <LigColFibularLateralEsquerdo />
-
-      <TendaoPataGansoEsquerdo />
-
-      <TendaoQuadricepsFemoralEsquerdo />
-
-      <TendaoBicepsFemoralEsquerdo />
-
-      <TendaoPatelarEsquerdo />
-
-      <MeniscosEsquerdo />
-
-      <CistosEsquerdo />
-
-      <QuadrilLadoEsquerdo />
-
-      <QuadrilNormalEsquerdo />
-
-      <QuadrilDerrameArticularEsquerdo />
-
-      <TendaoGluteoMedioEsquerdo />
-
-      <TendaoGluteoMinimoEsquerdo />
-
-      <QuadrilBolsasEsquerdo />
-
-      <FasciaLataEsquerdo />
-
-      {/* 
+      
             <Box
               textAlign="center" >
               <CoxaLadoEsquerdo />
@@ -565,8 +615,7 @@ function Articulacoes() {
             <Box
               mt='10px'
               textAlign="center" >
-              <PeExtraEsquerdo />
-             */}
+    <PeExtraEsquerdo />*/}
     </Flex>
   );
 }
