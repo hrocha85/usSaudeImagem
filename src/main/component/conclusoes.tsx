@@ -72,7 +72,7 @@ export default function Conclusoes({ exame, clean }) {
   }, [clean]);
 
   return (
-    <Flex w="100%" h="327px" paddingStart="20px">
+    <Flex w="80%" h="327px" paddingStart="20px">
       <Box
         bg="#FAFAFA"
         w={largura}

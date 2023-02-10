@@ -423,11 +423,11 @@ export default function Box_Default_With_Sidebar() {
           w="62%"
           paddingBottom="3%"
         >
-          <Flex flex={1} flexDirection="column">
+          <Flex flex={1} flexDirection="column" w='45%'>
             <Field_Observacoes exame={currentExame} />
           </Flex>
 
-          <Flex flex={1} flexDirection="column">
+          <Flex flex={1} flexDirection="column" >
             {RenderConclusoes({ clean: cleanConclusoes, setCleanConclusoes })}
           </Flex>
         </Flex>
