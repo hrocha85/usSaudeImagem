@@ -88,7 +88,11 @@ export default function Field_Observacoes({ exame }) {
                   if (e.titulo_observacao == exame.nomeExame) {
                     output = e.observacao.map((i, key) => {
                       return (
-                        <HStack isInline={true} alignItems="center" justify='space-between'>
+                        <HStack
+                          isInline={true}
+                          alignItems="center"
+                          justify="space-between"
+                        >
                           <Tooltip
                             label="Abrir Observação"
                             backgroundColor="white"
@@ -102,7 +106,7 @@ export default function Field_Observacoes({ exame }) {
                           >
                             <Box
                               w="88%"
-                              maxW='88%'
+                              maxW="88%"
                               borderWidth="2px"
                               borderColor="#f0f2f6"
                               h="48px"
@@ -189,12 +193,15 @@ export default function Field_Observacoes({ exame }) {
         <ModalContent>
           <ModalHeader fontSize="x-large">Observação</ModalHeader>
           <ModalCloseButton size="lg" />
-          <ModalBody></ModalBody>
-          <Box padding="3%">
-            <Center>
-              <Text fontSize="x-large">{currentOBS}</Text>
-            </Center>
-          </Box>
+          <ModalBody maxW="98%">
+            <Box padding="3%">
+              <Center>
+                <Text fontSize="x-large" wordBreak="break-word">
+                  {currentOBS}
+                </Text>
+              </Center>
+            </Box>
+          </ModalBody>
 
           <ModalFooter>
             <Box width="100%">

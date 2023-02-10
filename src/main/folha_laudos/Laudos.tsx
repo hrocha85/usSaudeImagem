@@ -479,8 +479,6 @@ function Exames() {
     getFormatLaudo();
   }, [localStorage.getItem("format_laudo")!]);
 
- 
-
   return (
     <Box
       w="32%"
@@ -661,6 +659,7 @@ function Exames() {
                               return (
                                 <Stack key={key}>
                                   <Text
+                                    wordBreak="break-word"
                                     w="100%"
                                     textAlign="start"
                                     marginStart="10px"
