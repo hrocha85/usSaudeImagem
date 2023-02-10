@@ -479,9 +479,7 @@ function Exames() {
     getFormatLaudo();
   }, [localStorage.getItem("format_laudo")!]);
 
-  /*useEffect(() => {
-    console.log(Math.round(JSON.stringify(localStorage).length / 1024));
-  }, []);*/
+ 
 
   return (
     <Box
@@ -589,12 +587,7 @@ function Exames() {
         </Stack>
       </Center>
 
-      <Box
-        className="zoom"
-        boxShadow="xl"
-        ref={ref}
-        height="75vh"
-      >
+      <Box className="zoom" boxShadow="xl" ref={ref} height="75vh">
         <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
           <Box>
             <Image

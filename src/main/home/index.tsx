@@ -45,6 +45,12 @@ function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    var totalSize = JSON.stringify(localStorage).length;
+    var locals = totalSize / 1024 / 1024;
+    alert(`USO DO LOCALSTORAGE: ${locals.toFixed(2)} MB`);
+  }, []);
+
   if (!isMounted) {
     return (
       <Center>
