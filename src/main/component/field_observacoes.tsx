@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import PlusButton from "../images/button_plus.png";
 import { Format_Laudo } from "./function_format_laudo";
 import TituloNomeExame from "./titulo_nome_exame";
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import { GrSubtractCircle } from "react-icons/gr";
 
 export default function Field_Observacoes({ exame }) {
   const altura = "100%";
@@ -14,8 +16,18 @@ export default function Field_Observacoes({ exame }) {
 
   const [arrayObservacoes, setArrayObservacoes] = useState<any>([]);
 
+  const [remove_or_not, setRemove_or_not] = useState(false);
+
   const subExame = titulo;
   const titulo_exame = `${exame.nomeExame}`;
+
+  const checkObservacoes = (observao_local_storage) => {
+    if (Object.keys(arrayObservacoes).length >= 1) {
+      return arrayObservacoes.includes(observao_local_storage);
+    } else {
+      return false;
+    }
+  };
 
   useEffect(() => {
     if (Object.keys(arrayObservacoes).length === 0) {
@@ -51,14 +63,18 @@ export default function Field_Observacoes({ exame }) {
         <TituloNomeExame titulo={titulo} />
 
         <Box>
-          {observacoes != null || observacoes != undefined
+          {observacoes != null && observacoes != undefined
             ? observacoes.map((e) => {
                 let output;
                 if (e.titulo_observacao == exame.nomeExame) {
                   output = e.observacao.map((i, key) => {
                     return (
                       <Tooltip
-                        label="Inserir Observação"
+                        label={
+                          checkObservacoes(i)
+                            ? "Remover Observação"
+                            : "Adicionar Observação"
+                        }
                         backgroundColor="white"
                         placement="top"
                         hasArrow
@@ -69,17 +85,27 @@ export default function Field_Observacoes({ exame }) {
                         textAlign="center"
                       >
                         <Box
-                          key={key}
                           margin="10px"
                           marginTop="0px"
                           borderWidth="2px"
                           borderColor="#f0f2f6"
                           h="48px"
                           borderRadius="md"
-                          _hover={{ borderColor: "#47AEFC", cursor: "pointer" }}
-                          onClick={() =>
-                            setArrayObservacoes((arr) => [...arr, i])
-                          }
+                          _hover={{
+                            borderColor: "#47AEFC",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            if (checkObservacoes(i)) {
+                              const index = arrayObservacoes.indexOf(i);
+                              if (index > -1) {
+                                arrayObservacoes.splice(index, 1);
+                                setArrayObservacoes((arr) => [...arr]);
+                              }
+                            } else {
+                              setArrayObservacoes((arr) => [...arr, i]);
+                            }
+                          }}
                         >
                           <Flex justify="space-between">
                             <Text
@@ -93,20 +119,30 @@ export default function Field_Observacoes({ exame }) {
                             >
                               {i}
                             </Text>
-
                             <IconButton
                               justifyContent="flex-end"
-                              aria-label="Botao"
-                              icon={button_plus}
-                              variant="link"
-                              h="10"
-                              w="10"
-                              marginEnd="5px"
-                              size="xs"
-                              textColor="blue"
-                              onClick={() =>
-                                setArrayObservacoes((arr) => [...arr, i])
+                              aria-label="Add Item"
+                              icon={
+                                checkObservacoes(i) ? (
+                                  <GrSubtractCircle size={25} />
+                                ) : (
+                                  <AiOutlinePlusCircle size={25} />
+                                )
                               }
+                              variant="link"
+                              marginEnd="5px"
+                              textColor="blue"
+                              onClick={() => {
+                                if (checkObservacoes(i)) {
+                                  const index = arrayObservacoes.indexOf(i);
+                                  if (index > -1) {
+                                    arrayObservacoes.splice(index, 1);
+                                    setArrayObservacoes((arr) => [...arr]);
+                                  }
+                                } else {
+                                  setArrayObservacoes((arr) => [...arr, i]);
+                                }
+                              }}
                             />
                           </Flex>
                         </Box>
