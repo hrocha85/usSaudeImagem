@@ -132,17 +132,6 @@ export default function Field_Observacoes({ exame }) {
                               variant="link"
                               marginEnd="5px"
                               textColor="blue"
-                              onClick={() => {
-                                if (checkObservacoes(i)) {
-                                  const index = arrayObservacoes.indexOf(i);
-                                  if (index > -1) {
-                                    arrayObservacoes.splice(index, 1);
-                                    setArrayObservacoes((arr) => [...arr]);
-                                  }
-                                } else {
-                                  setArrayObservacoes((arr) => [...arr, i]);
-                                }
-                              }}
                             />
                           </Flex>
                         </Box>
