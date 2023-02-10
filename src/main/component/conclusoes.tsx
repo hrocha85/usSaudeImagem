@@ -13,7 +13,7 @@ export default function Conclusoes({ exame, clean }) {
     const inputValue = e.target.value;
     setValue(inputValue);
   };
-  const titulo = `Conclusões ${exame.nomeExame} `;
+  const titulo = `Conclusão ${exame.nomeExame} `;
 
   const [arrayConclusoes, setArrayConclusoes] = useState<any>([]);
   const [handleConclusoes, setHandleConclusoes] = useState<any>({ exames: [] });
@@ -83,7 +83,7 @@ export default function Conclusoes({ exame, clean }) {
         boxShadow="md"
         padding="24px 15px 20px 15px"
       >
-        <TituloNomeExame titulo="Conclusões" />
+        <TituloNomeExame titulo="Conclusão" />
 
         <Stack>
           <Textarea
