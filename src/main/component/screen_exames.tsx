@@ -68,6 +68,8 @@ export default function Box_Default_With_Sidebar() {
   const [currentExame, setCurrentExame] = useState<any>();
   const [currentHandleSlider, setCurrentHandleSlider] = useState<any>();
   const [isMounted, setIsMounted] = useState(false);
+  const [cleanConclusoes, setCleanConclusoes] = useState(false);
+
   const toast = useToast();
 
   const exames = [
@@ -208,6 +210,7 @@ export default function Box_Default_With_Sidebar() {
 
   const handleTabsChange = (index) => {
     setTabIndex(index);
+    setCleanConclusoes(true);
   };
 
   const RemoveTabExame = () => {
@@ -253,6 +256,10 @@ export default function Box_Default_With_Sidebar() {
     array.push(obj);
 
     localStorage.setItem("format_laudo", JSON.stringify(array));
+  };
+
+  const RenderConclusoes = ({ clean, setCleanConclusoes }) => {
+    return <Conclusoes exame={currentExame} clean={clean} />;
   };
 
   useEffect(() => {
@@ -306,6 +313,9 @@ export default function Box_Default_With_Sidebar() {
           variant="soft-rounded"
           index={tabIndex}
           onChange={handleTabsChange}
+          onClick={() => {
+            setCleanConclusoes(true);
+          }}
         >
           <TabList paddingStart="20px">
             <Flex direction="row" flexWrap="wrap" gap="5px" maxW="65%">
@@ -405,10 +415,21 @@ export default function Box_Default_With_Sidebar() {
             })}
           </TabPanels>
         </Tabs>
-        <Flex maxW="54%" paddingBottom="3%" h="auto" gap={2}>
-          <Field_Observacoes exame={currentExame} />
+        <Flex
+          gap={1}
+          alignItems="start"
+          justifyItems="center"
+          flexWrap="wrap"
+          w="62%"
+          paddingBottom="3%"
+        >
+          <Flex flex={1} flexDirection="column">
+            <Field_Observacoes exame={currentExame} />
+          </Flex>
 
-          <Conclusoes />
+          <Flex flex={1} flexDirection="column">
+            {RenderConclusoes({ clean: cleanConclusoes, setCleanConclusoes })}
+          </Flex>
         </Flex>
 
         {/** Modal Add Exame */}
@@ -429,8 +450,7 @@ export default function Box_Default_With_Sidebar() {
                 ]}
                 gap={4}
                 marginBottom="20px"
-                marginEnd='0.5%'
-
+                marginEnd="0.5%"
               >
                 {exames.map((exame, key) => (
                   <GridItem
