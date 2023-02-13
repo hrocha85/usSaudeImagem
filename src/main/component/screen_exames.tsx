@@ -424,6 +424,7 @@ export default function Box_Default_With_Sidebar() {
           paddingBottom="3%"
         >
           <Flex flex={1} flexDirection="column" w="45%">
+            
             <Field_Observacoes exame={currentExame} />
           </Flex>
 

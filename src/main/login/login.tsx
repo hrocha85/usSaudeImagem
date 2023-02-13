@@ -133,7 +133,7 @@ function Login() {
               style={{ textDecoration: "none" }}
             >
               <Button colorScheme="blue" display="block" w="100%">
-                Adiconar médico
+                Adicionar médico
               </Button>
             </Link>
           </Stack>
