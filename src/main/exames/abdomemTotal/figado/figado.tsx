@@ -74,7 +74,7 @@ function Figado() {
   const [DisableLCInput, setDisableLCInput] = useState(true)
 
   const subExame = "Fígado";
-  const titulo_exame = "Abdomen total";
+  const titulo_exame = "Abdômen total";
 
 
   const [frasesFigado, setFrasesFigado] = useState<any>([]);

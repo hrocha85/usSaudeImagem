@@ -10,7 +10,7 @@ export default function Nefropatia() {
     const [DisableSelectAfilamento, setDisableSelectAfilamento] = useState(true)
 
     const subExame = "Rins e ureteres. Nefropatia parenquimatosa crônica";
-    const titulo_exame = "Abdomen total";
+    const titulo_exame = "Abdômen total";
 
     const criaStringAfilamentoParenquimatoso = () => {
         let string = 'Rins tópicos,'
@@ -82,8 +82,8 @@ export default function Nefropatia() {
                 >
                     <option selected disabled value="">Selecione</option>
                     <option value="bilateral">bilateral</option>
-                    <option value="do rim direito">do rim direito</option>
-                    <option value="do rim esquerdo">do rim esquerdo</option>
+                    <option value="direito">do rim direito</option>
+                    <option value="esquerdo">do rim esquerdo</option>
                 </Select>
             </Flex>
         </Box>

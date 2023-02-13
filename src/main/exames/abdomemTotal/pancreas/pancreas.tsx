@@ -103,7 +103,7 @@ function Pancreas() {
   }, [CaudaCheckbox])
 
   const subExame = "Pâncreas";
-  const titulo_exame = "Abdomen total";
+  const titulo_exame = "Abdômen total";
 
   useEffect(() => {
     if (Object.keys(frasesPancreas).length == 0) {
@@ -144,7 +144,7 @@ function Pancreas() {
               <Radio value="Pâncreas de dimensões normais, contornos regulares e ecotextura homogênea. Não há dilatação do ducto pancreático.">Normal</Radio>
               <Radio value="Pâncreas parcialmente visibilizado devido à interposição de alças intestinais.">Parcialmente acessível</Radio>
               <Radio value="Pâncreas inacessível devido à interposição gasosa de alças intestinais.">Inacessível</Radio>
-              <Radio value="Pâncreas de aspecto heterogêneo, com espessura aumentada e ecogenicidade reduzida do parênquima.">sinais de pancreatite aguda</Radio>
+              <Radio value="Pâncreas de aspecto heterogêneo, com espessura aumentada e ecogenicidade reduzida do parênquima.">Sinais de pancreatite aguda</Radio>
             </Stack>
           </RadioGroup>
           <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" padding='5px' h='100%'>

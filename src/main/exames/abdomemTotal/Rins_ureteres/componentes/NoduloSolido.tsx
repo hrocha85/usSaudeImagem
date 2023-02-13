@@ -17,7 +17,7 @@ export default function NoduloSolido() {
     const [ValueInput2, setValueInput2] = useState('')
 
     const subExame = "Rins e ureteres. Nódulo sólido";
-    const titulo_exame = "Abdomen total";
+    const titulo_exame = "Abdômen total";
 
     const criaStringNodulo = () => {
         let string = 'Presença de um nódulo '
