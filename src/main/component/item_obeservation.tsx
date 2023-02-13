@@ -53,7 +53,7 @@ const ItemObservation = () => {
   const observacoes = [
     {
       id: 1,
-      titulo_observacao: "Abdômen Total",
+      titulo_observacao: "Abdômen total",
       observacao: [""],
     },
     {
@@ -69,7 +69,7 @@ const ItemObservation = () => {
     },
     {
       id: 5,
-      titulo_observacao: "Abdomen Superior",
+      titulo_observacao: "Abdômen Superior",
       observacao: [""],
     },
     {
@@ -480,7 +480,7 @@ const ItemObservation = () => {
                   Salvar
                 </Button>
               ) : null}
-              {/* <Button
+              <Button
                 marginBottom="2%"
                 fontSize="20px"
                 width="100%"
@@ -495,7 +495,7 @@ const ItemObservation = () => {
                 }}
               >
                 {clickEditOBS ? "Cancelar Edição" : "Apagar Observação"}
-              </Button> */}
+              </Button>
             </Box>
           </ModalFooter>
         </ModalContent>

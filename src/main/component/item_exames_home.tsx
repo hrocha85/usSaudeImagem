@@ -5,7 +5,7 @@ const ItemExamesHome = () => {
   const exames = [
     {
       key: 1,
-      nomeExame: "Abdomen total",
+      nomeExame: "Abdômen total",
     },
     {
       key: 2,
