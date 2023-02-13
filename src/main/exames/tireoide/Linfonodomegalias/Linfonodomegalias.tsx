@@ -1,37 +1,42 @@
-import { Box, Checkbox, Input, Select } from "@chakra-ui/react";
+/* eslint-disable eqeqeq */
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, Checkbox, HStack, Input, Select, Spacer, Stack, Wrap, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
-import Nodulo01 from "./Nodulos_Individualizados/Nodulo01";
+import Individualiza_Linfonodomegalias from "./Individualiza/individualiza_Linfonodomegalia";
+import Individualiza_MultiplosLinfonodos from "./Individualiza/individualiza_mutiplos";
 
-function Nodulos() {
+
+function Linfonodomegalias() {
   const altura = "100%";
   const largura = "66%";
 
 
-  const [frasesNodulos, setFrasesNodulos] = useState<any>([]);
+  const [FrasesLinfonodomegalias, setFrasesLinfonodomegalias] = useState<any>([]);
 
 
-  const subExame = "Nódulos";
+  const subExame = "Linfonodomegalias";
   const titulo_exame = "Tireóide";
 
   useEffect(() => {
-    if (Object.keys(frasesNodulos).length == 0) {
+    if (Object.keys(FrasesLinfonodomegalias).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesNodulos
+        FrasesLinfonodomegalias
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesNodulos
+        FrasesLinfonodomegalias
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesNodulos]);
+  }, [FrasesLinfonodomegalias]);
   return (
     <Box
       bg="#FAFAFA"
@@ -45,16 +50,15 @@ function Nodulos() {
       mt="20px"
     >
       <Box h="100%">
-        <TituloNomeExame titulo="Nódulos" />
+        <TituloNomeExame titulo="Linfonodomegalias" />
 
         <Box gap="25px" display="flex" flexWrap="wrap" mt="20px" mb="10px">
-
-          <Nodulo01 />
-
+          <Individualiza_Linfonodomegalias />
+          <Individualiza_MultiplosLinfonodos />
         </Box>
       </Box>
     </Box>
   );
 }
 
-export default Nodulos;
+export default Linfonodomegalias;

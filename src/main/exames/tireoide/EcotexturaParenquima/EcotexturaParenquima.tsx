@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { NormalContext } from "../../../../context/NormalContext";
@@ -8,99 +9,59 @@ function EcotexturaParenquima() {
   const altura = "100%";
   const largura = "66%";
 
-  const [frasesECO, setFrasesECO] = useState<any>([]);
+  const [FrasesECO, setFrasesECO] = useState<any>([]);
 
   const { laudoNormal } = useContext(NormalContext);
 
-  const [defaultValueNormal, setDefaultValueNormal] = useState({
-    defaultValueNormal: false,
-  });
-
-  const [checkValueNormal, setCheckvalueNormal] = useState({
-    normal: false,
-  });
-  const [checkValueHeterogenea, setCheckvalueHeterogenea] = useState({
-    Heterogenea: false,
-  });
+  const [NormalCheckbox, setNormalCheckbox] = useState(false)
+  const [InespecificaCheckbox, setInespecificaCheckbox] = useState(false)
+  const [TireoiditeCheckbox, setTireoiditeCheckbox] = useState(false)
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesECO.indexOf(value);
+    var index = FrasesECO.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
-      frasesECO.splice(index, 1);
+      FrasesECO.splice(index, 1);
       setFrasesECO((arr) => [...arr]);
     }
   };
 
-  const removeNormal = () => {
-    setFrasesECO((arr) => []);
-  };
+  useEffect(() => {
+    const string = 'ecotextura normal'
+    NormalCheckbox ? setFrasesECO((arr) => [...arr, string]) : removeItemString(string)
+  }, [NormalCheckbox])
 
   useEffect(() => {
-    if (laudoNormal === true) {
-      setDefaultValueNormal({ defaultValueNormal: true });
-      setFrasesECO((arr) => [...arr, "Tireoide Normal "]);
-      console.log(frasesECO);
-    } else {
-      setDefaultValueNormal({ defaultValueNormal: false });
-      removeNormal();
-    }
-  }, [laudoNormal]);
+    const string = 'Inespecifica'
+    InespecificaCheckbox ? setFrasesECO((arr) => [...arr, string]) : removeItemString(string)
+  }, [InespecificaCheckbox])
 
-  const verificaChecked = (value) => {
-    switch (value.id) {
-      case "Normal":
-        if (value.checked === true) {
-          setDefaultValueNormal({ defaultValueNormal: true });
-          setFrasesECO((arr) => [...arr, value.value]);
-          setCheckvalueHeterogenea({
-            Heterogenea: true,
-          });
-        } else {
-          setDefaultValueNormal({ defaultValueNormal: false });
-          removeItemString(value.value);
-          setCheckvalueHeterogenea({
-            Heterogenea: false,
-          });
-        }
-        break;
-      case "Heterogenea":
-        if (value.checked === true) {
-          setFrasesECO((arr) => [...arr, value.value]);
-          setCheckvalueNormal({
-            normal: true,
-          });
-        } else {
-          removeItemString(value.value);
-          setCheckvalueNormal({
-            normal: false,
-          });
-        }
-        break;
-    }
-  };
+  useEffect(() => {
+    const string = 'Tireoidite'
+    TireoiditeCheckbox ? setFrasesECO((arr) => [...arr, string]) : removeItemString(string)
+  }, [TireoiditeCheckbox])
 
   const subExame = "Ecotextura do Parênquima";
   const titulo_exame = "Tireóide";
 
   useEffect(() => {
-    if (Object.keys(frasesECO).length == 0) {
+    if (Object.keys(FrasesECO).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesECO
+        FrasesECO
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesECO
+        FrasesECO
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesECO]);
+  }, [FrasesECO]);
 
   return (
     <Box
@@ -117,26 +78,27 @@ function EcotexturaParenquima() {
       <TituloNomeExame titulo="Ecotextura do Parênquima" />
 
       <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
+
         <Checkbox
-          isChecked={defaultValueNormal.defaultValueNormal}
-          disabled={checkValueNormal.normal}
-          value="Normal "
-          id="Normal"
-          onChange={(e) => {
-            verificaChecked(e.target);
+          onChange={() => {
+            setNormalCheckbox(!NormalCheckbox)
           }}
         >
-          Normal
+          Parênquima com ecotextura normal
         </Checkbox>
         <Checkbox
-          disabled={checkValueHeterogenea.Heterogenea}
-          value="Heterogênea "
-          id="Heterogenea"
-          onChange={(e) => {
-            verificaChecked(e.target);
+          onChange={() => {
+            setInespecificaCheckbox(!InespecificaCheckbox)
           }}
         >
-          Heterogênea
+          Alteração textural difusa inespecifica
+        </Checkbox>
+        <Checkbox
+          onChange={() => {
+            setTireoiditeCheckbox(!TireoiditeCheckbox)
+          }}
+        >
+          Alteração textural tipo tireoidite
         </Checkbox>
       </Box>
     </Box>
