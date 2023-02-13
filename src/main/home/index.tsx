@@ -70,7 +70,7 @@ function Home() {
   } else {
     return (
       <Default_Backgound>
-        <Button position="absolute" right="1" variant="ghost">
+        <Button position="absolute" right="1" variant="ghost" top={0}>
           <Link href={"#/Home/Configuracoes"}>
             <Image
               srcSet={Configuracao}
