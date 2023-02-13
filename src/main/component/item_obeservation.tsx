@@ -169,34 +169,29 @@ const ItemObservation = () => {
   };
 
   const setListaObservacoes = () => {
+    let observacoes = JSON.parse(localStorage.getItem("observacoes")!) || [];
     const obs = {
       id: id!,
       titulo_observacao: titulo!,
       observacao: inputObservacoes,
     };
-    observacoesJSON.push(obs);
-    observacoesJSON.map((e) => {
-      if (e.titulo_observacao == "") {
-        observacoesJSON.shift();
-      }
-    });
-    localStorage.setItem("observacoes", JSON.stringify(observacoesJSON));
+    observacoes = observacoes.filter(e => e.titulo_observacao !== "");
+    observacoes.push(obs);
+    localStorage.setItem("observacoes", JSON.stringify(observacoes));
   };
 
-  const addNewObsercao = () => {
+const addNewObsercao = () => {
+    let observacoes = JSON.parse(localStorage.getItem("observacoes")!) || [];
     const obs = {
       id: id!,
       titulo_observacao: titulo!,
       observacao: inputObservacoes,
     };
-    observacoesJSON.map((e) => {
-      if (e.titulo_observacao == "") {
-        observacoesJSON.shift();
-      }
-    });
-    observacoesJSON.push(obs);
-    localStorage.setItem("observacoes", JSON.stringify(observacoesJSON));
+    observacoes = observacoes.filter(e => e.titulo_observacao !== "");
+    observacoes.push(obs);
+    localStorage.setItem("observacoes", JSON.stringify(observacoes));
   };
+
 
   const updateListaObservacoes = (id, value) => {
     var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
@@ -220,77 +215,24 @@ const ItemObservation = () => {
     setClickSave(false);
   };
 
-  const ItensObservacao = () => {
-    return (
-      <>
-        {localStorage.getItem("observacoes") != null
-          ? JSON.parse(localStorage.getItem("observacoes")!).map((e) => {
-            if (e.id == id) {
-              return e.observacao.map((item, key) => {
-                return (
-                  <HStack>
-                    <Box
-                      w="98%"
-                      key={key}
-                      margin="20px"
-                      marginBottom="10px"
-                      marginTop="0px"
-                      borderWidth="2px"
-                      borderColor="#f0f2f6"
-                      h="48px"
-                      borderRadius="md"
-                      onClick={() => {
-                        onOpenObs();
-                        setCurrentOBS(item);
-                        setclickEditOBS(false);
-                      }}
-                    >
-                      <Flex justify="space-between">
-                        <Text
-                          margin="10px"
-                          fontWeight="medium"
-                          textOverflow="ellipsis"
-                          overflow="hidden"
-                          whiteSpace="nowrap"
-                          maxW="320px"
-                        >
-                          {item}
-                        </Text>
-                      </Flex>
-                    </Box>
-                    <Box>
-                      <Tooltip
-                        label="Remover Observação"
-                        backgroundColor="white"
-                        placement="top"
-                        hasArrow
-                        arrowSize={15}
-                        textColor="black"
-                        fontSize="20px"
-                        margin="20px"
-                        textAlign="center"
-                      >
-                        <Flex justify="end">
-                          <IconButton
-                            justifyContent="flex-end"
-                            aria-label="Remove Item"
-                            icon={<GrSubtractCircle size={30} />}
-                            variant="link"
-                            marginEnd="5px"
-                            textColor="blue"
-                            onClick={() => Apagar_Observacao(item)}
-                          />
-                        </Flex>
-                      </Tooltip>
-                    </Box>
-                  </HStack>
-                );
-              });
-            }
-          })
-          : null}
-      </>
-    );
+  const changeOBS = () => {
+    var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
+    if (!observacoes) return;
+
+    observacoes.map((e) => {
+      if (e.id == id) {
+        e.observacao.map((i, index) => {
+          if (i == currentOBS) {
+            e.observacao.splice(index, 1, editOBS);
+          }
+        });
+      }
+    });
+
+    localStorage.setItem("observacoes", JSON.stringify(observacoes));
+    setObservacoesLista(observacoes);
+    onCloseObs();
+    setclickEditOBS(false);
   };
 
   const Render_Observacao_or_Text_Area = () => {
@@ -336,24 +278,77 @@ const ItemObservation = () => {
     setObservacoesLista(observacoes);
   };
 
-  const changeOBS = () => {
-    var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
-    if (!observacoes) return;
-
-    observacoes.map((e) => {
-      if (e.id == id) {
-        e.observacao.map((i, index) => {
-          if (i == currentOBS) {
-            e.observacao.splice(index, 1, editOBS);
-          }
-        });
-      }
-    });
-
-    localStorage.setItem("observacoes", JSON.stringify(observacoes));
-    setObservacoesLista(observacoes);
-    onCloseObs();
-    setclickEditOBS(false);
+  const ItensObservacao = () => {
+    return (
+      <>
+        {localStorage.getItem("observacoes") != null
+          ? JSON.parse(localStorage.getItem("observacoes")!).map((e) => {
+              if (e.id == id) {
+                return e.observacao.map((item, key) => {
+                  return (
+                    <HStack>
+                      <Box
+                        w="98%"
+                        key={key}
+                        margin="20px"
+                        marginBottom="10px"
+                        marginTop="0px"
+                        borderWidth="2px"
+                        borderColor="#f0f2f6"
+                        h="48px"
+                        borderRadius="md"
+                        onClick={() => {
+                          onOpenObs();
+                          setCurrentOBS(item);
+                          setclickEditOBS(false);
+                        }}
+                      >
+                        <Flex justify="space-between">
+                          <Text
+                            margin="10px"
+                            fontWeight="medium"
+                            textOverflow="ellipsis"
+                            overflow="hidden"
+                            whiteSpace="nowrap"
+                            maxW="320px"
+                          >
+                            {item}
+                          </Text>
+                        </Flex>
+                      </Box>
+                      <Box>
+                        <Tooltip
+                          label="Remover Observação"
+                          backgroundColor="white"
+                          placement="top"
+                          hasArrow
+                          arrowSize={15}
+                          textColor="black"
+                          fontSize="20px"
+                          margin="20px"
+                          textAlign="center"
+                        >
+                          <Flex justify="end">
+                            <IconButton
+                              justifyContent="flex-end"
+                              aria-label="Remove Item"
+                              icon={<GrSubtractCircle size={30} />}
+                              variant="link"
+                              marginEnd="5px"
+                              textColor="blue"
+                              onClick={() => Apagar_Observacao(item)}
+                            />
+                          </Flex>
+                        </Tooltip>
+                      </Box>
+                    </HStack>
+                  );
+                });
+              }
+            })
+          : null}
+      </>
+    );
   };
 
   useEffect(() => {
