@@ -486,10 +486,11 @@ const ItemObservation = () => {
                 width="100%"
                 colorScheme="red"
                 onClick={() => {
-                  {
-                    clickEditOBS
-                      ? onCloseObs()
-                      : (Apagar_Observacao(currentOBS), onCloseObs());
+                  if (clickEditOBS) {
+                    onCloseObs();
+                  } else {
+                    Apagar_Observacao(currentOBS);
+                    onCloseObs();
                   }
                 }}
               >
