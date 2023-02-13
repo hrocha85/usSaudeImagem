@@ -423,11 +423,11 @@ export default function Box_Default_With_Sidebar() {
           w="62%"
           paddingBottom="3%"
         >
-          <Flex flex={1} flexDirection="column" w='45%'>
+          <Flex flex={1} flexDirection="column" w="45%">
             <Field_Observacoes exame={currentExame} />
           </Flex>
 
-          <Flex flex={1} flexDirection="column" >
+          <Flex flex={1} flexDirection="column">
             {RenderConclusoes({ clean: cleanConclusoes, setCleanConclusoes })}
           </Flex>
         </Flex>
@@ -463,9 +463,26 @@ export default function Box_Default_With_Sidebar() {
                     borderStartColor="#47AFFC"
                     _hover={{ borderColor: "#47AEFC" }}
                     onClick={() => {
-                      setTabExames((tabExames) => [...tabExames, exame]);
-                      onClose();
-                      AddNewExame(exame.nomeExame);
+                      setTabExames((tabExames) => {
+                        const found = tabExames.find(
+                          (obj) =>
+                            obj.nomeExame === exame.nomeExame &&
+                            obj.nomeExame === exame.nomeExame
+                        );
+                        if (!found) {
+                          AddNewExame(exame.nomeExame);
+                          onClose();
+                          return [...tabExames, exame];
+                        }
+                        toast({
+                          duration: 2000,
+                          title: `Exame já existe !`,
+                          position: "top",
+                          isClosable: true,
+                          status: "error",
+                        });
+                        return tabExames;
+                      });
                     }}
                   >
                     <Text
