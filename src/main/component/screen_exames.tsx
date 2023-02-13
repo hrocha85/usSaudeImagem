@@ -75,7 +75,7 @@ export default function Box_Default_With_Sidebar() {
   const exames = [
     {
       key: 1,
-      nomeExame: "Abdomen total",
+      nomeExame: "Abdômen total",
       link: `#/Home/${1}`,
     },
     {
@@ -242,7 +242,7 @@ export default function Box_Default_With_Sidebar() {
   };
 
   const SairExames = () => {
-    window.location.href = "/Home#/Home";
+    window.location.href = "/#/Home";
     setTabExames([{}]);
   };
 
@@ -424,7 +424,7 @@ export default function Box_Default_With_Sidebar() {
           paddingBottom="3%"
         >
           <Flex flex={1} flexDirection="column" w="45%">
-            
+
             <Field_Observacoes exame={currentExame} />
           </Flex>
 

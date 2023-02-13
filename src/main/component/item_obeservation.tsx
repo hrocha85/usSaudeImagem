@@ -53,7 +53,7 @@ const ItemObservation = () => {
   const observacoes = [
     {
       id: 1,
-      titulo_observacao: "Abdomen Total",
+      titulo_observacao: "Abdômen Total",
       observacao: [""],
     },
     {
@@ -225,69 +225,69 @@ const ItemObservation = () => {
       <>
         {localStorage.getItem("observacoes") != null
           ? JSON.parse(localStorage.getItem("observacoes")!).map((e) => {
-              if (e.id == id) {
-                return e.observacao.map((item, key) => {
-                  return (
-                    <HStack>
-                      <Box
-                        w="98%"
-                        key={key}
-                        margin="20px"
-                        marginBottom="10px"
-                        marginTop="0px"
-                        borderWidth="2px"
-                        borderColor="#f0f2f6"
-                        h="48px"
-                        borderRadius="md"
-                        onClick={() => {
-                          onOpenObs();
-                          setCurrentOBS(item);
-                          setclickEditOBS(false);
-                        }}
-                      >
-                        <Flex justify="space-between">
-                          <Text
-                            margin="10px"
-                            fontWeight="medium"
-                            textOverflow="ellipsis"
-                            overflow="hidden"
-                            whiteSpace="nowrap"
-                            maxW="320px"
-                          >
-                            {item}
-                          </Text>
-                        </Flex>
-                      </Box>
-                      <Box>
-                        <Tooltip
-                          label="Remover Observação"
-                          backgroundColor="white"
-                          placement="top"
-                          hasArrow
-                          arrowSize={15}
-                          textColor="black"
-                          fontSize="20px"
-                          margin="20px"
-                          textAlign="center"
+            if (e.id == id) {
+              return e.observacao.map((item, key) => {
+                return (
+                  <HStack>
+                    <Box
+                      w="98%"
+                      key={key}
+                      margin="20px"
+                      marginBottom="10px"
+                      marginTop="0px"
+                      borderWidth="2px"
+                      borderColor="#f0f2f6"
+                      h="48px"
+                      borderRadius="md"
+                      onClick={() => {
+                        onOpenObs();
+                        setCurrentOBS(item);
+                        setclickEditOBS(false);
+                      }}
+                    >
+                      <Flex justify="space-between">
+                        <Text
+                          margin="10px"
+                          fontWeight="medium"
+                          textOverflow="ellipsis"
+                          overflow="hidden"
+                          whiteSpace="nowrap"
+                          maxW="320px"
                         >
-                          <Flex justify="end">
-                            <IconButton
-                              justifyContent="flex-end"
-                              aria-label="Remove Item"
-                              icon={<GrSubtractCircle size={30} />}
-                              variant="link"
-                              marginEnd="5px"
-                              textColor="blue"
-                              onClick={() => Apagar_Observacao(item)}
-                            />
-                          </Flex>
-                        </Tooltip>
-                      </Box>
-                    </HStack>
-                  );
-                });
-              }
-            })
+                          {item}
+                        </Text>
+                      </Flex>
+                    </Box>
+                    <Box>
+                      <Tooltip
+                        label="Remover Observação"
+                        backgroundColor="white"
+                        placement="top"
+                        hasArrow
+                        arrowSize={15}
+                        textColor="black"
+                        fontSize="20px"
+                        margin="20px"
+                        textAlign="center"
+                      >
+                        <Flex justify="end">
+                          <IconButton
+                            justifyContent="flex-end"
+                            aria-label="Remove Item"
+                            icon={<GrSubtractCircle size={30} />}
+                            variant="link"
+                            marginEnd="5px"
+                            textColor="blue"
+                            onClick={() => Apagar_Observacao(item)}
+                          />
+                        </Flex>
+                      </Tooltip>
+                    </Box>
+                  </HStack>
+                );
+              });
+            }
+          })
           : null}
       </>
     );
@@ -480,7 +480,7 @@ const ItemObservation = () => {
                   Salvar
                 </Button>
               ) : null}
-              <Button
+              {/* <Button
                 marginBottom="2%"
                 fontSize="20px"
                 width="100%"
@@ -494,7 +494,7 @@ const ItemObservation = () => {
                 }}
               >
                 {clickEditOBS ? "Cancelar Edição" : "Apagar Observação"}
-              </Button>
+              </Button> */}
             </Box>
           </ModalFooter>
         </ModalContent>
