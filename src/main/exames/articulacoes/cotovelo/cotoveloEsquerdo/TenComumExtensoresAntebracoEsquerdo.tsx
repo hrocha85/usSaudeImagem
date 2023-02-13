@@ -9,7 +9,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function TenComumExtensoresAntebracoEsquerdo() {
     const altura = "100%";
-    const largura = "95%";
+    const largura = "100%";
 
     let { CotoveloEsquerdoLaudoNormal } = useContext(CotoveloEsquerdoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)

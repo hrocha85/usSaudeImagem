@@ -8,7 +8,7 @@ import TituloNomeExame from "../../../../../component/titulo_nome_exame";
 
 function FibromatosePalmarEsquerdo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   let { MaoEsquerdoLaudoNormal } = useContext(MaoEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)

@@ -45,7 +45,6 @@ import Mamas from "../exames/mamas";
 import PartesMoles from "../exames/partesMoles";
 import Pelvico from "../exames/pelvico";
 import Prostata from "../exames/prostata";
-import Regiao_Inguinal from "../exames/regiao_inguinal";
 import RinseViasUrinarias from "../exames/RinsViasUrinarias";
 import Testiculo from "../exames/testiculo";
 import Tireoide from "../exames/tireoide";
@@ -54,6 +53,8 @@ import Transvaginal from "../exames/transvaginal";
 import Exames from "../folha_laudos/Laudos";
 import BGImage from "../images/bg_img.png";
 import Sidebar from "../menu/sideBar";
+import Conclusoes from "./conclusoes";
+import Field_Observacoes from "./field_observacoes";
 
 export default function Box_Default_With_Sidebar() {
   const {
@@ -67,6 +68,8 @@ export default function Box_Default_With_Sidebar() {
   const [currentExame, setCurrentExame] = useState<any>();
   const [currentHandleSlider, setCurrentHandleSlider] = useState<any>();
   const [isMounted, setIsMounted] = useState(false);
+  const [cleanConclusoes, setCleanConclusoes] = useState(false);
+
   const toast = useToast();
 
   const exames = [
@@ -207,6 +210,7 @@ export default function Box_Default_With_Sidebar() {
 
   const handleTabsChange = (index) => {
     setTabIndex(index);
+    setCleanConclusoes(true);
   };
 
   const RemoveTabExame = () => {
@@ -254,8 +258,16 @@ export default function Box_Default_With_Sidebar() {
     localStorage.setItem("format_laudo", JSON.stringify(array));
   };
 
+  const RenderConclusoes = ({ clean, setCleanConclusoes }) => {
+    return <Conclusoes exame={currentExame} clean={clean} />;
+  };
+
   useEffect(() => {
     setIsMounted(true);
+    tabExames.map((e) =>
+      e.nomeExame != undefined ? setCurrentExame(e) : null
+    );
+
     return () => {
       setIsMounted(false);
     };
@@ -288,11 +300,9 @@ export default function Box_Default_With_Sidebar() {
         w="100%"
         h="100%"
         minH="100vh"
-        minW="100vw"
         backgroundImage={BGImage}
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
-        backgroundPosition="center"
         alignItems="center"
         backgroundClip="padding-box"
       >
@@ -303,18 +313,22 @@ export default function Box_Default_With_Sidebar() {
           variant="soft-rounded"
           index={tabIndex}
           onChange={handleTabsChange}
+          onClick={() => {
+            setCleanConclusoes(true);
+          }}
         >
           <TabList paddingStart="20px">
             <Flex direction="row" flexWrap="wrap" gap="5px" maxW="65%">
               {tabExames.map((e, key) => {
                 if (e.nomeExame != undefined) {
                   return (
-                    <Stack direction="row" key={key} >
+                    <Stack direction="row" key={key}>
                       <Tab
                         whiteSpace="nowrap"
                         key={key}
                         textColor="black"
                         _selected={{ color: "white", bg: "blue.500" }}
+                        onClick={() => setCurrentExame(e)}
                       >
                         {e.nomeExame}
                         <Tooltip
@@ -368,7 +382,7 @@ export default function Box_Default_With_Sidebar() {
             {tabExames.map((e, key) => {
               if (e.key > 0) {
                 return (
-                  <TabPanel key={key} maxW='95%'>
+                  <TabPanel key={key} maxW="98%">
                     {
                       {
                         1: <AbdomemTotal />,
@@ -401,8 +415,25 @@ export default function Box_Default_With_Sidebar() {
             })}
           </TabPanels>
         </Tabs>
+        <Flex
+          gap={1}
+          alignItems="start"
+          justifyItems="center"
+          flexWrap="wrap"
+          w="62%"
+          paddingBottom="3%"
+        >
+          <Flex flex={1} flexDirection="column" w="45%">
+            <Field_Observacoes exame={currentExame} />
+          </Flex>
+
+          <Flex flex={1} flexDirection="column">
+            {RenderConclusoes({ clean: cleanConclusoes, setCleanConclusoes })}
+          </Flex>
+        </Flex>
 
         {/** Modal Add Exame */}
+
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent minWidth="50%">
@@ -410,9 +441,16 @@ export default function Box_Default_With_Sidebar() {
             <ModalCloseButton />
             <ModalBody>
               <Grid
-                templateColumns="repeat(5, 1fr)"
-                gap={2}
+                templateColumns={[
+                  "repeat(1, 1fr)",
+                  "repeat(2, 1fr)",
+                  "repeat(3, 1fr)",
+                  "repeat(4, 1fr)",
+                  "repeat(5, 1fr)",
+                ]}
+                gap={4}
                 marginBottom="20px"
+                marginEnd="0.5%"
               >
                 {exames.map((exame, key) => (
                   <GridItem
@@ -425,9 +463,26 @@ export default function Box_Default_With_Sidebar() {
                     borderStartColor="#47AFFC"
                     _hover={{ borderColor: "#47AEFC" }}
                     onClick={() => {
-                      setTabExames((tabExames) => [...tabExames, exame]);
-                      onClose();
-                      AddNewExame(exame.nomeExame);
+                      setTabExames((tabExames) => {
+                        const found = tabExames.find(
+                          (obj) =>
+                            obj.nomeExame === exame.nomeExame &&
+                            obj.nomeExame === exame.nomeExame
+                        );
+                        if (!found) {
+                          AddNewExame(exame.nomeExame);
+                          onClose();
+                          return [...tabExames, exame];
+                        }
+                        toast({
+                          duration: 2000,
+                          title: `Exame já existe !`,
+                          position: "top",
+                          isClosable: true,
+                          status: "error",
+                        });
+                        return tabExames;
+                      });
                     }}
                   >
                     <Text

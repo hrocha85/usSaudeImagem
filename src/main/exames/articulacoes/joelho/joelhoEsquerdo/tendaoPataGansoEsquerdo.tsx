@@ -8,7 +8,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function TendaoPataGansoEsquerdo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
 
   const [TendaoPataGansoEsquerdo, setTendaoPataGansoEsquerdo] = useState<any>([]);

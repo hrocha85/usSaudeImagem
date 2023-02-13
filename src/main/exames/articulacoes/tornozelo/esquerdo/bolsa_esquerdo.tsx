@@ -64,6 +64,8 @@ export default function Bolsa_Esquerdo() {
         borderColor="blue.100"
         borderRadius="lg"
         marginTop="5px"
+        bg="#FAFAFA"
+
       >
         <Text fontWeight="semibold" padding="10px">
           Bolsas

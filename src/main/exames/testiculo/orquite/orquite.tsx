@@ -5,7 +5,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Orquite() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "87%";
 
   const [frasesOrquite, setFrasesOrquite] = useState<any>([]);
 

@@ -6,7 +6,7 @@ import IndividualizarRoturaFlexores from "./individualizarRoturaFlexores";
 
 function RoturaFlexoresEsquerdo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   var numberArray = [1, 2, 3, 4, 5];
 

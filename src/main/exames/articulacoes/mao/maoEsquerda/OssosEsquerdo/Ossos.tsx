@@ -8,7 +8,7 @@ import IndividualizarOssos from "./individualizarOssos";
 
 function OssosEsquerda() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   const [OssosMaoEsquerda, setOssosMaoEsquerda] = useState<any>([]);
 

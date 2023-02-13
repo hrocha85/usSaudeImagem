@@ -3,6 +3,7 @@ import {
   Button,
   Flex,
   GridItem,
+  HStack,
   IconButton,
   Modal,
   ModalBody,
@@ -13,15 +14,21 @@ import {
   ModalOverlay,
   Text,
   Textarea,
+  Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { GrSubtractCircle } from "react-icons/gr";
 import Observacoes from "../../Data/Observacoes.json";
-import PlusButton from "../images/button_plus.png";
 
 const ItemObservation = () => {
-  const button_plus = React.createElement("img", { src: PlusButton });
   const refText = useRef<HTMLTextAreaElement | null>(null);
+
+  const {
+    isOpen: isOpenObs,
+    onOpen: onOpenObs,
+    onClose: onCloseObs,
+  } = useDisclosure();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [titulo, setTitulo] = useState<string | null>("");
@@ -29,6 +36,19 @@ const ItemObservation = () => {
   const [id, setId] = useState<number | null>();
   const [value, setValue] = useState("");
   const [clickSave, setClickSave] = useState(false);
+  const [currentOBS, setCurrentOBS] = useState<string>();
+
+  const [editOBS, setEditOBS] = useState<string>();
+
+  const [clickEditOBS, setclickEditOBS] = useState(false);
+
+  const [observacoesLista, setObservacoesLista] = useState(
+    JSON.parse(localStorage.getItem("observacoes")!) || []
+  );
+
+  const observacoesLocalStorage = JSON.parse(
+    localStorage.getItem("observacoes")!
+  );
 
   const observacoes = [
     {
@@ -140,7 +160,7 @@ const ItemObservation = () => {
       if (!arrayObservacoes.includes(titulo!)) {
         addNewObsercao();
       } else {
-        updateListaObservacoes();
+        updateListaObservacoes(id, value);
       }
     } else {
       setListaObservacoes();
@@ -169,22 +189,27 @@ const ItemObservation = () => {
       titulo_observacao: titulo!,
       observacao: inputObservacoes,
     };
-    observacoesJSON.push(obs);
     observacoesJSON.map((e) => {
       if (e.titulo_observacao == "") {
         observacoesJSON.shift();
       }
     });
+    observacoesJSON.push(obs);
     localStorage.setItem("observacoes", JSON.stringify(observacoesJSON));
   };
 
-  const updateListaObservacoes = () => {
-    observacoesJSON.map((e) => {
+  const updateListaObservacoes = (id, value) => {
+    var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
+    if (!observacoes) return;
+
+    var obs = observacoes.map((e) => {
       if (e.id == id) {
         e.observacao.push(value);
-        localStorage.setItem("observacoes", JSON.stringify(observacoesJSON));
       }
+      return e;
     });
+
+    localStorage.setItem("observacoes", JSON.stringify(obs));
   };
 
   const ResetStates = () => {
@@ -198,50 +223,137 @@ const ItemObservation = () => {
   const ItensObservacao = () => {
     return (
       <>
-        {observacoesJSON.map((e) => {
-          if (e.id == id) {
-            return e.observacao.map((item, key) => {
-              return (
-                <Box
-                  key={key}
-                  margin="20px"
-                  marginBottom="10px"
-                  marginTop="0px"
-                  borderWidth="2px"
-                  borderColor="#f0f2f6"
-                  h="48px"
-                  borderRadius="md"
-                >
-                  <Flex justify="space-between">
-                    <Text
-                      margin="10px"
-                      fontWeight="medium"
-                      textOverflow="ellipsis"
-                      overflow="hidden"
-                      whiteSpace="nowrap"
-                      maxW="320px"
-                    >
-                      {item}
-                    </Text>
-                    <IconButton
-                      justifyContent="flex-end"
-                      aria-label="Botao"
-                      icon={button_plus}
-                      variant="link"
-                      h="5"
-                      w="5"
-                      marginEnd="5px"
-                      size="xs"
-                      textColor="blue"
-                    />
-                  </Flex>
-                </Box>
-              );
-            });
-          }
-        })}
+        {localStorage.getItem("observacoes") != null
+          ? JSON.parse(localStorage.getItem("observacoes")!).map((e) => {
+              if (e.id == id) {
+                return e.observacao.map((item, key) => {
+                  return (
+                    <HStack>
+                      <Box
+                        w="98%"
+                        key={key}
+                        margin="20px"
+                        marginBottom="10px"
+                        marginTop="0px"
+                        borderWidth="2px"
+                        borderColor="#f0f2f6"
+                        h="48px"
+                        borderRadius="md"
+                        onClick={() => {
+                          onOpenObs();
+                          setCurrentOBS(item);
+                          setclickEditOBS(false);
+                        }}
+                      >
+                        <Flex justify="space-between">
+                          <Text
+                            margin="10px"
+                            fontWeight="medium"
+                            textOverflow="ellipsis"
+                            overflow="hidden"
+                            whiteSpace="nowrap"
+                            maxW="320px"
+                          >
+                            {item}
+                          </Text>
+                        </Flex>
+                      </Box>
+                      <Box>
+                        <Tooltip
+                          label="Remover Observação"
+                          backgroundColor="white"
+                          placement="top"
+                          hasArrow
+                          arrowSize={15}
+                          textColor="black"
+                          fontSize="20px"
+                          margin="20px"
+                          textAlign="center"
+                        >
+                          <Flex justify="end">
+                            <IconButton
+                              justifyContent="flex-end"
+                              aria-label="Remove Item"
+                              icon={<GrSubtractCircle size={30} />}
+                              variant="link"
+                              marginEnd="5px"
+                              textColor="blue"
+                              onClick={() => Apagar_Observacao(item)}
+                            />
+                          </Flex>
+                        </Tooltip>
+                      </Box>
+                    </HStack>
+                  );
+                });
+              }
+            })
+          : null}
       </>
     );
+  };
+
+  const Render_Observacao_or_Text_Area = () => {
+    return (
+      <>
+        {!clickEditOBS ? (
+          <Text fontSize="x-large" wordBreak="break-word">
+            {currentOBS}
+          </Text>
+        ) : (
+          <Textarea
+            borderColor="black"
+            maxH="300px"
+            h="200px"
+            defaultValue={currentOBS}
+            onChange={(e) => setEditOBS(e.target.value)}
+          />
+        )}
+      </>
+    );
+  };
+
+  const Apagar_Observacao = (observacao) => {
+    var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
+    if (!observacoes) return;
+
+    observacoes.map((e) => {
+      if (e.id == id) {
+        e.observacao.map((i) => {
+          console.log(i);
+          if (i == observacao) {
+            var index = e.observacao.indexOf(i);
+
+            if (index !== -1) {
+              e.observacao.splice(index, 1);
+            }
+          }
+        });
+      }
+    });
+
+    localStorage.setItem("observacoes", JSON.stringify(observacoes));
+    setObservacoesLista(observacoes);
+  };
+
+  const changeOBS = () => {
+    var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
+    if (!observacoes) return;
+
+    observacoes.map((e) => {
+      if (e.id == id) {
+        e.observacao.map((i, index) => {
+          if (i == currentOBS) {
+            e.observacao.splice(index, 1, editOBS);
+          }
+        });
+      }
+    });
+
+    localStorage.setItem("observacoes", JSON.stringify(observacoes));
+    setObservacoesLista(observacoes);
+    onCloseObs();
+    setclickEditOBS(false);
   };
 
   useEffect(() => {
@@ -250,6 +362,10 @@ const ItemObservation = () => {
       ItensObservacao();
     }
   });
+
+  useEffect(() => {
+    setObservacoesLista(JSON.parse(localStorage.getItem("observacoes")!) || []);
+  }, []);
 
   return (
     <>
@@ -289,6 +405,7 @@ const ItemObservation = () => {
           </GridItem>
         </Flex>
       ))}
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent shadow="none">
@@ -320,7 +437,66 @@ const ItemObservation = () => {
               Salvar
             </Button>
           </ModalFooter>
-          <ItensObservacao />
+          {ItensObservacao()}
+        </ModalContent>
+      </Modal>
+
+      {/**Open observacao */}
+      <Modal isOpen={isOpenObs} onClose={onCloseObs} size="xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader fontSize="x-large">Observação</ModalHeader>
+          <ModalCloseButton size="lg" />
+          <ModalBody maxW="98%">
+            <Box padding="3%">{Render_Observacao_or_Text_Area()}</Box>
+          </ModalBody>
+
+          <ModalFooter>
+            <Box width="100%">
+              {clickEditOBS ? null : (
+                <Button
+                  marginBottom="2%"
+                  fontSize="20px"
+                  width="100%"
+                  backgroundColor="#7FFFD4"
+                  onClick={() => {
+                    setclickEditOBS(true);
+                  }}
+                >
+                  Editar Observação
+                </Button>
+              )}
+
+              {clickEditOBS ? (
+                <Button
+                  marginBottom="2%"
+                  fontSize="20px"
+                  width="100%"
+                  colorScheme="blue"
+                  onClick={() => {
+                    changeOBS();
+                  }}
+                >
+                  Salvar
+                </Button>
+              ) : null}
+              <Button
+                marginBottom="2%"
+                fontSize="20px"
+                width="100%"
+                colorScheme="red"
+                onClick={() => {
+                  {
+                    clickEditOBS
+                      ? onCloseObs()
+                      : (Apagar_Observacao(currentOBS), onCloseObs());
+                  }
+                }}
+              >
+                {clickEditOBS ? "Cancelar Edição" : "Apagar Observação"}
+              </Button>
+            </Box>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

@@ -9,7 +9,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function TendaoTricepsBraquialDireito() {
     const altura = "100%";
-    const largura = "95%";
+    const largura = "100%";
 
     let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
     const [disableTudo, setDisableTudo] = useState(false)

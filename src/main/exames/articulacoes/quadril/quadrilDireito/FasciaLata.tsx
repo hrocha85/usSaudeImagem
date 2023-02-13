@@ -6,7 +6,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function FasciaLataDireito() {
     const altura = "100%";
-    const largura = "95%";
+    const largura = "100%";
 
     const [value, setValue] = useState("1");
     const [frasesQuadrilFasciaLataDireito, setFrasesQuadrilFasciaLataDireito] = useState<any>([]);

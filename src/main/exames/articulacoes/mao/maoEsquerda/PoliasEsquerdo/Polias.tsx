@@ -9,7 +9,7 @@ import IndividualizarPolias from "./individualizarPolias";
 function Polias() {
 
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
 
   const [FrasePoliasEsquerdo, setFrasePoliasEsquerdo] = useState<any>([]);

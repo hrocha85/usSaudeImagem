@@ -148,7 +148,7 @@ function Exames() {
     textNomeSubExame: {
       fontWeigh: "bold",
       textAlign: "center",
-      fontSize: "17",
+      fontSize: "12",
       fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
@@ -156,7 +156,7 @@ function Exames() {
     },
     frasesSubExame: {
       textAlign: "justify",
-      fontSize: "15",
+      fontSize: "12",
       fontFamily: "MontserratRegular",
       lineHeight: 1.5,
     },
@@ -262,7 +262,11 @@ function Exames() {
           <ViewPDF style={styles.line}></ViewPDF>
           {arrayLocal.map((exame, key) => {
             return (
-              <ViewPDF style={styles.laudo_viewer} key={key}>
+              <ViewPDF
+                style={styles.laudo_viewer}
+                key={key}
+                break={key === 0 ? false : true}
+              >
                 <TextPDF style={styles.textTituloExame}>
                   {exame.titulo_exame.toUpperCase()}
                 </TextPDF>
@@ -479,95 +483,33 @@ function Exames() {
     getFormatLaudo();
   }, [localStorage.getItem("format_laudo")!]);
 
-  /*useEffect(() => {
-    console.log(Math.round(JSON.stringify(localStorage).length / 1024));
-  }, []);*/
-
   return (
-    <>
-      <Box
-        w="32%"
-        h="40%"
-        maxH="50%"
-        float="right"
-        position="sticky"
-        top={0}
-        transition="0.2"
-        marginEnd='1%'
-      >
-        <Center paddingBottom="30px">
-          <Stack
-            w="20%"
-            justify="space-around"
-            direction="row"
-            h="70px"
-            alignItems="center"
+    <Box
+      w="32%"
+      h="40%"
+      maxH="50%"
+      float="right"
+      position="sticky"
+      top={1}
+      transition="0.2"
+      marginEnd="1%"
+    >
+      <Center paddingBottom="30px">
+        <Stack
+          w="20%"
+          justify="space-around"
+          direction="row"
+          h="70px"
+          alignItems="center"
+        >
+          <Link
+            //href={`#/Format_PDF`}
+            //target="_blank"
+            style={{ textDecoration: "none" }}
+            onClick={() => window.open(`#/Format_PDF`, "_blank")}
           >
-            <Link
-              //href={`#/Format_PDF`}
-              //target="_blank"
-              style={{ textDecoration: "none" }}
-              onClick={() => window.open(`#/Format_PDF`, "_blank")}
-            >
-              <Tooltip
-                label="Visualizar Laudo"
-                fontSize="xl"
-                backgroundColor="white"
-                placement="top"
-                hasArrow
-                arrowSize={15}
-                textColor="black"
-              >
-                <Circle size="50px" bg="gray.200">
-                  <Icon
-                    w={30}
-                    h={30}
-                    as={BsEye}
-                    color="twitter.600"
-                    size="30px"
-                    onClick={() => {
-                      //<Format_PDF />;
-                    }}
-                  />
-                </Circle>
-              </Tooltip>
-            </Link>
-            <Box>
-              <PDFDownloadLink
-                document={laudo != null ? laudo : Laudo()}
-                fileName={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
-              >
-                {({ blob, url, loading, error }) =>
-                  loading ? (
-                    <Icon as={BiLoaderAlt} color="#4658fc" w={50} h={40} />
-                  ) : (
-                    <Tooltip
-                      label="Baixar Laudo"
-                      fontSize="xl"
-                      backgroundColor="white"
-                      placement="top"
-                      hasArrow
-                      arrowSize={15}
-                      textColor="black"
-                    >
-                      <Circle size="50px" bg="gray.200">
-                        <Icon
-                          as={GoDesktopDownload}
-                          w={30}
-                          h={30}
-                          color="twitter.600"
-                          onClick={() => {
-                            convertBlob(blob!);
-                          }}
-                        />
-                      </Circle>
-                    </Tooltip>
-                  )
-                }
-              </PDFDownloadLink>
-            </Box>
             <Tooltip
-              label="Editar Laudo"
+              label="Visualizar Laudo"
               fontSize="xl"
               backgroundColor="white"
               placement="top"
@@ -579,205 +521,252 @@ function Exames() {
                 <Icon
                   w={30}
                   h={30}
-                  as={FiEdit}
+                  as={BsEye}
                   color="twitter.600"
+                  size="30px"
                   onClick={() => {
-                    setEdit(true);
+                    //<Format_PDF />;
                   }}
                 />
               </Circle>
             </Tooltip>
-          </Stack>
-        </Center>
-
-        <Box
-          className="zoom"
-          boxShadow="xl"
-          ref={ref}
-          height="80vh"
-          marginBottom="30vh"
-        >
-          <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
-            <Box>
-              <Image
-                src={clinicaSet.foto}
-                alt="Imagem Clínica"
-                boxSize="130px"
-                objectFit="scale-down"
-                borderRadius="full"
-                padding="5px"
-                marginStart='20px'
-              />
-            </Box>
-
-            <Grid
-              templateColumns="repeat(1, 1fr)"
-              marginStart="50px"
-              justifyItems="center"
-              justifySelf="center"
+          </Link>
+          <Box>
+            <PDFDownloadLink
+              document={laudo != null ? laudo : Laudo()}
+              fileName={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
             >
-              <Text fontWeight="bold">{clinicaSet.nomeClinica}</Text>
-              <Text>{getPaciente()}</Text>
-              <Text>{getCurrentDate()}</Text>
-              <Text>{`Dr. ${medico.nome}`}</Text>
-            </Grid>
-          </Grid>
-          <Center>
-            <Divider
-              inlineSize="95%"
-              margin="5px"
-              borderColor="black"
-              marginTop="15px"
+              {({ blob, url, loading, error }) =>
+                loading ? (
+                  <Icon as={BiLoaderAlt} color="#4658fc" w={50} h={40} />
+                ) : (
+                  <Tooltip
+                    label="Baixar Laudo"
+                    fontSize="xl"
+                    backgroundColor="white"
+                    placement="top"
+                    hasArrow
+                    arrowSize={15}
+                    textColor="black"
+                  >
+                    <Circle size="50px" bg="gray.200">
+                      <Icon
+                        as={GoDesktopDownload}
+                        w={30}
+                        h={30}
+                        color="twitter.600"
+                        onClick={() => {
+                          convertBlob(blob!);
+                        }}
+                      />
+                    </Circle>
+                  </Tooltip>
+                )
+              }
+            </PDFDownloadLink>
+          </Box>
+          <Tooltip
+            label="Editar Laudo"
+            fontSize="xl"
+            backgroundColor="white"
+            placement="top"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+          >
+            <Circle size="50px" bg="gray.200">
+              <Icon
+                w={30}
+                h={30}
+                as={FiEdit}
+                color="twitter.600"
+                onClick={() => {
+                  setEdit(true);
+                }}
+              />
+            </Circle>
+          </Tooltip>
+        </Stack>
+      </Center>
+
+      <Box className="zoom" boxShadow="xl" ref={ref} height="75vh">
+        <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
+          <Box>
+            <Image
+              src={clinicaSet.foto}
+              alt="Imagem Clínica"
+              boxSize="130px"
+              objectFit="scale-down"
+              borderRadius="full"
+              padding="5px"
+              marginStart="20px"
             />
-          </Center>
-          <Box margin="20px">
-            {arrayLocal.map((exame, key, IndexExame) => {
-              return edit == false ? (
-                <Box key={key}>
-                  <Text
-                    textDecoration="underline"
-                    fontWeight="bold"
-                    fontSize="19px"
-                    textAlign="center"
-                    textTransform="uppercase"
-                  >
-                    {exame.titulo_exame}
-                  </Text>
-                  {exame.subExames.map((sub_exame, keys) => {
-                    return sub_exame.subExameNome != null &&
-                      sub_exame.subExameNome != "" ? (
-                      <HStack
-                        justifyContent="space-between"
-                        marginBottom="30px"
-                        marginTop="20px"
-                        key={keys}
-                      >
-                        <HStack justify="space-between">
-                          <Text
-                            textDecoration="underline"
-                            fontWeight="semibold"
-                            whiteSpace={
-                              sub_exame.subExameNome.length <= 24
-                                ? "nowrap"
-                                : "normal"
-                            }
-                          >
-                            {sub_exame.subExameNome}:
-                          </Text>
-                          <Box w="100%">
-                            {typeof sub_exame.frases != "string" ? (
-                              sub_exame.frases.map((frase, key) => {
-                                return (
-                                  <Stack key={key}>
-                                    <Text
-                                      w="100%"
-                                      textAlign="start"
-                                      marginStart="10px"
-                                    >
-                                      {frase}
-                                    </Text>
-                                  </Stack>
-                                );
-                              })
-                            ) : (
-                              <Text
-                                w="100%"
-                                textAlign="start"
-                                marginStart="10px"
-                              >
-                                {exame.frases}
-                              </Text>
-                            )}
-                          </Box>
-                        </HStack>
-                      </HStack>
-                    ) : null;
-                  })}
-
-                  <HStack justify="space-evenly" marginTop="10px"></HStack>
-                </Box>
-              ) : (
-                <Box key={key}>
-                  <Text
-                    textDecoration="underline"
-                    fontWeight="bold"
-                    fontSize="19px"
-                    textAlign="center"
-                    textTransform="uppercase"
-                  >
-                    {exame.titulo_exame}
-                  </Text>
-
-                  {exame.subExames.map((sub_exame, keys) => {
-                    return sub_exame.subExameNome != null &&
-                      sub_exame.subExameNome != "" ? (
-                      <HStack
-                        justifyContent="space-between"
-                        marginBottom="30px"
-                        marginTop="20px"
-                        key={keys}
-                      >
-                        <HStack justify="space-between">
-                          <Text
-                            textDecoration="underline"
-                            fontWeight="semibold"
-                            whiteSpace="nowrap"
-                          >
-                            {sub_exame.subExameNome}:
-                          </Text>
-                          <Box w="100%">
-                            {EditarLaudo(sub_exame.frases, IndexExame, keys)}
-                          </Box>
-                        </HStack>
-                      </HStack>
-                    ) : null;
-                  })}
-
-                  <HStack justify="space-evenly" marginTop="10px"></HStack>
-                </Box>
-              );
-            })}
           </Box>
-          <Box position="absolute" w="100%">
-            <HStack w="100%" justify="space-between">
-              <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
-                <Image
-                  src={medico.assinatura}
-                  alt="Assinatura Médico"
-                  boxSize="100px"
-                  backgroundImage="none"
-                />
-                <Divider
-                  inlineSize="30vh"
-                  margin="5px"
-                  marginTop="0px"
-                  borderColor="black"
-                />
 
-                <Text fontWeight="bold">{`Dr. ${medico.nome}`}</Text>
-                <Text fontWeight="bold">{`CRM ${medico.crm}`}</Text>
-              </Grid>
+          <Grid
+            templateColumns="repeat(1, 1fr)"
+            marginStart="50px"
+            justifyItems="center"
+            justifySelf="center"
+          >
+            <Text fontWeight="bold">{clinicaSet.nomeClinica}</Text>
+            <Text>{getPaciente()}</Text>
+            <Text>{getCurrentDate()}</Text>
+            <Text>{`Dr. ${medico.nome}`}</Text>
+          </Grid>
+        </Grid>
+        <Center>
+          <Divider
+            inlineSize="95%"
+            margin="5px"
+            borderColor="black"
+            marginTop="15px"
+          />
+        </Center>
+        <Box margin="20px">
+          {arrayLocal.map((exame, key, IndexExame) => {
+            return edit == false ? (
+              <Box key={key}>
+                <Text
+                  textDecoration="underline"
+                  fontWeight="bold"
+                  fontSize="19px"
+                  textAlign="center"
+                  textTransform="uppercase"
+                >
+                  {exame.titulo_exame}
+                </Text>
+                {exame.subExames.map((sub_exame, keys) => {
+                  return sub_exame.subExameNome != null &&
+                    sub_exame.subExameNome != "" ? (
+                    <HStack
+                      justifyContent="space-between"
+                      marginBottom="30px"
+                      marginTop="20px"
+                      key={keys}
+                    >
+                      <HStack justify="space-between">
+                        <Text
+                          textDecoration="underline"
+                          fontWeight="semibold"
+                          whiteSpace={
+                            sub_exame.subExameNome.length <= 24
+                              ? "nowrap"
+                              : "normal"
+                          }
+                        >
+                          {sub_exame.subExameNome}:
+                        </Text>
+                        <Box w="100%">
+                          {typeof sub_exame.frases != "string" ? (
+                            sub_exame.frases.map((frase, key) => {
+                              return (
+                                <Stack key={key}>
+                                  <Text
+                                    wordBreak="break-word"
+                                    w="100%"
+                                    textAlign="start"
+                                    marginStart="10px"
+                                  >
+                                    {frase}
+                                  </Text>
+                                </Stack>
+                              );
+                            })
+                          ) : (
+                            <Text w="100%" textAlign="start" marginStart="10px">
+                              {exame.frases}
+                            </Text>
+                          )}
+                        </Box>
+                      </HStack>
+                    </HStack>
+                  ) : null;
+                })}
 
-              <Text
-                fontSize="11px"
-                fontStyle="italic"
-                fontWeight="bold"
-                overflowWrap="break-word"
-                paddingTop="12%"
-                paddingEnd="10px"
-              >
-                Santa Imagem Diagnósticos por imagem
-              </Text>
-            </HStack>
-            <Text fontSize="10" overflowWrap="break-word" margin="10px">
-              "A impressão diagnóstica em exames de imagem não é absoluta,
-              devendo ser correlacionada com dados clínicos, laboratorias e
-              outros métodos de imagem complementares"
+                <HStack justify="space-evenly" marginTop="10px"></HStack>
+              </Box>
+            ) : (
+              <Box key={key}>
+                <Text
+                  textDecoration="underline"
+                  fontWeight="bold"
+                  fontSize="19px"
+                  textAlign="center"
+                  textTransform="uppercase"
+                >
+                  {exame.titulo_exame}
+                </Text>
+
+                {exame.subExames.map((sub_exame, keys) => {
+                  return sub_exame.subExameNome != null &&
+                    sub_exame.subExameNome != "" ? (
+                    <HStack
+                      justifyContent="space-between"
+                      marginBottom="30px"
+                      marginTop="20px"
+                      key={keys}
+                    >
+                      <HStack justify="space-between">
+                        <Text
+                          textDecoration="underline"
+                          fontWeight="semibold"
+                          whiteSpace="nowrap"
+                        >
+                          {sub_exame.subExameNome}:
+                        </Text>
+                        <Box w="100%">
+                          {EditarLaudo(sub_exame.frases, IndexExame, keys)}
+                        </Box>
+                      </HStack>
+                    </HStack>
+                  ) : null;
+                })}
+
+                <HStack justify="space-evenly" marginTop="10px"></HStack>
+              </Box>
+            );
+          })}
+        </Box>
+        <Box position="absolute" w="100%">
+          <HStack w="100%" justify="space-between">
+            <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
+              <Image
+                src={medico.assinatura}
+                alt="Assinatura Médico"
+                boxSize="100px"
+                backgroundImage="none"
+              />
+              <Divider
+                inlineSize="30vh"
+                margin="5px"
+                marginTop="0px"
+                borderColor="black"
+              />
+
+              <Text fontWeight="bold">{`Dr. ${medico.nome}`}</Text>
+              <Text fontWeight="bold">{`CRM ${medico.crm}`}</Text>
+            </Grid>
+
+            <Text
+              fontSize="11px"
+              fontStyle="italic"
+              fontWeight="bold"
+              overflowWrap="break-word"
+              paddingTop="12%"
+              paddingEnd="10px"
+            >
+              Santa Imagem Diagnósticos por imagem
             </Text>
-          </Box>
+          </HStack>
+          <Text fontSize="10" overflowWrap="break-word" margin="10px">
+            "A impressão diagnóstica em exames de imagem não é absoluta, devendo
+            ser correlacionada com dados clínicos, laboratorias e outros métodos
+            de imagem complementares"
+          </Text>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 }
 

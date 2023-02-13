@@ -45,6 +45,12 @@ function Home() {
     };
   }, []);
 
+/*  useEffect(() => {
+    var totalSize = JSON.stringify(localStorage).length;
+    var locals = totalSize / 1024 / 1024;
+    alert(`USO DO LOCALSTORAGE: ${locals.toFixed(2)} MB`);
+  }, []);*/
+
   if (!isMounted) {
     return (
       <Center>
@@ -64,7 +70,7 @@ function Home() {
   } else {
     return (
       <Default_Backgound>
-        <Button position="absolute" right="1" variant="ghost">
+        <Button position="absolute" right="1" variant="ghost" top={0}>
           <Link href={"#/Home/Configuracoes"}>
             <Image
               srcSet={Configuracao}

@@ -1,6 +1,7 @@
 import {
   Box,
   Checkbox,
+  Flex,
   HStack,
   Input,
   Radio,
@@ -186,6 +187,7 @@ export default function Tendao_Tibial_Posterior_Direito() {
         borderColor="blue.100"
         borderRadius="lg"
         marginTop="5px"
+        bg="#FAFAFA"
       >
         <Text fontWeight="semibold" padding="10px">
           Tendão Tibial Posterior
@@ -194,92 +196,100 @@ export default function Tendao_Tibial_Posterior_Direito() {
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <HStack>
-              <Radio value="Aspecto Normal">Aspecto Normal</Radio>
-              <Checkbox
-                whiteSpace="nowrap"
-                isDisabled={!disableCheckBox}
-                onChange={() => setValueCheckBox(!valueCheckBox)}
-              >
-                com líquido peritendíneo fisiológico
-              </Checkbox>
+              <Flex flexWrap="wrap" gap={1}>
+                <Radio value="Aspecto Normal">Aspecto Normal</Radio>
+                <Checkbox
+                  isDisabled={!disableCheckBox}
+                  onChange={() => setValueCheckBox(!valueCheckBox)}
+                >
+                  com líquido peritendíneo fisiológico
+                </Checkbox>
+              </Flex>
             </HStack>
             <HStack>
-              <Radio value="Tendinopatia sem rotura">
-                Tendinopatia sem rotura
-              </Radio>
-              <Select
-                placeholder="Selecione Opção"
-                isDisabled={!enableSelects}
-                onChange={(e) => setValueSelect1(e.target.value)}
-              >
-                <option value="com líquido peritendíneo">
-                  com líquido peritendíneo
-                </option>
-                <option value="sem líquido peritendíneo">
-                  sem líquido peritendíneo
-                </option>
-              </Select>
+              <Flex flexWrap="wrap" gap={1}>
+                <Radio value="Tendinopatia sem rotura">
+                  Tendinopatia sem rotura
+                </Radio>
+                <Select
+                  placeholder="Selecione Opção"
+                  isDisabled={!enableSelects}
+                  onChange={(e) => setValueSelect1(e.target.value)}
+                >
+                  <option value="com líquido peritendíneo">
+                    com líquido peritendíneo
+                  </option>
+                  <option value="sem líquido peritendíneo">
+                    sem líquido peritendíneo
+                  </option>
+                </Select>
+              </Flex>
             </HStack>
             <HStack>
-              <Radio value="Lesão parcial medindo">Lesão parcial medindo</Radio>
-              <HStack>
-                <Input
-                  isDisabled={disableInputs}
-                  w="35px"
-                  h="30px"
-                  value={medida1Lesao}
-                  padding="5px"
-                  maxLength={2}
-                  textAlign="center"
-                  onChange={(e) => {
-                    setMedida1Lesao(e.target.value);
-                  }}
-                />
-                <Text>x</Text>
-                <Input
-                  isDisabled={disableInputs}
-                  w="35px"
-                  h="30px"
-                  value={medida2Lesao}
-                  padding="5px"
-                  maxLength={2}
-                  textAlign="center"
-                  onChange={(e) => {
-                    setMedida2Lesao(e.target.value);
-                  }}
-                />
-                <Text>x</Text>
-                <Input
-                  isDisabled={disableInputs}
-                  w="35px"
-                  h="30px"
-                  value={medida3Lesao}
-                  padding="5px"
-                  maxLength={2}
-                  textAlign="center"
-                  onChange={(e) => {
-                    setMedida3Lesao(e.target.value);
-                  }}
-                />
-                <Text>mm</Text>
-              </HStack>
+              <Flex flexWrap="wrap" gap={1}>
+                <Radio value="Lesão parcial medindo">
+                  Lesão parcial medindo
+                </Radio>
+                <HStack>
+                  <Input
+                    isDisabled={disableInputs}
+                    w="35px"
+                    h="30px"
+                    value={medida1Lesao}
+                    padding="5px"
+                    maxLength={2}
+                    textAlign="center"
+                    onChange={(e) => {
+                      setMedida1Lesao(e.target.value);
+                    }}
+                  />
+                  <Text>x</Text>
+                  <Input
+                    isDisabled={disableInputs}
+                    w="35px"
+                    h="30px"
+                    value={medida2Lesao}
+                    padding="5px"
+                    maxLength={2}
+                    textAlign="center"
+                    onChange={(e) => {
+                      setMedida2Lesao(e.target.value);
+                    }}
+                  />
+                  <Text>x</Text>
+                  <Input
+                    isDisabled={disableInputs}
+                    w="35px"
+                    h="30px"
+                    value={medida3Lesao}
+                    padding="5px"
+                    maxLength={2}
+                    textAlign="center"
+                    onChange={(e) => {
+                      setMedida3Lesao(e.target.value);
+                    }}
+                  />
+                  <Text>mm</Text>
+                </HStack>
+              </Flex>
             </HStack>
             <HStack paddingStart="20px">
-              <Checkbox
-                whiteSpace="nowrap"
-                isDisabled={disableCheckBoxOsso}
-                onChange={() => setValueCheckBoxOsso(!valueCheckBoxOsso)}
-              >
-                presença de osso navicular acessório
-              </Checkbox>
-              <Select
-                placeholder="Tipo"
-                isDisabled={!valueCheckBoxOsso}
-                onChange={(e) => setValueSelectOsso(e.target.value)}
-              >
-                <option value="Tipo I">Tipo I</option>
-                <option value="Tipo II">Tipo II</option>
-              </Select>
+              <Flex flexWrap="wrap" gap={1}>
+                <Checkbox
+                  isDisabled={disableCheckBoxOsso}
+                  onChange={() => setValueCheckBoxOsso(!valueCheckBoxOsso)}
+                >
+                  presença de osso navicular acessório
+                </Checkbox>
+                <Select
+                  placeholder="Tipo"
+                  isDisabled={!valueCheckBoxOsso}
+                  onChange={(e) => setValueSelectOsso(e.target.value)}
+                >
+                  <option value="Tipo I">Tipo I</option>
+                  <option value="Tipo II">Tipo II</option>
+                </Select>
+              </Flex>
             </HStack>
           </Stack>
         </RadioGroup>

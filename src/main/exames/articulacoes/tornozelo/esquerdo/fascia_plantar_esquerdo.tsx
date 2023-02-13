@@ -1,12 +1,13 @@
 import {
   Box,
+  Flex,
   HStack,
   Input,
   Radio,
   RadioGroup,
   Select,
   Stack,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -142,6 +143,7 @@ export default function Fascia_Plantar_Esquerdo() {
         borderColor="blue.100"
         borderRadius="lg"
         marginTop="5px"
+        bg="#FAFAFA"
       >
         <Text fontWeight="semibold" padding="10px">
           Fáscia Plantar
@@ -152,75 +154,79 @@ export default function Fascia_Plantar_Esquerdo() {
             <Radio value="Normal">Normal</Radio>
 
             <HStack>
-              <Radio value="Fascilite">
-                Fascilíte: Espessamento e hipoecogenicidade focal medindo
-              </Radio>
-              <Input
-                isDisabled={fasciliteInput}
-                w="35px"
-                h="30px"
-                value={medidaFascilite}
-                padding="5px"
-                maxLength={2}
-                textAlign="center"
-                onChange={(e) => {
-                  setMedidaFascilite(e.target.value);
-                }}
-              />
-              <Text>mm</Text>
+              <Flex flexWrap="wrap" gap={1}>
+                <Radio value="Fascilite">
+                  Fascilíte: Espessamento e hipoecogenicidade focal medindo
+                </Radio>
+                <Input
+                  isDisabled={fasciliteInput}
+                  w="35px"
+                  h="30px"
+                  value={medidaFascilite}
+                  padding="5px"
+                  maxLength={2}
+                  textAlign="center"
+                  onChange={(e) => {
+                    setMedidaFascilite(e.target.value);
+                  }}
+                />
+                <Text>mm</Text>
+              </Flex>
             </HStack>
             <HStack>
-              <Radio value="Fibromatose">Fibromatose: nódulo no</Radio>
-              <Select
-                w="auto"
-                placeholder="Selecione Opção"
-                isDisabled={!enableFibromatoseSelect}
-                onChange={(e) => setValueSelect1(e.target.value)}
-              >
-                <option value="cavo plantar">cavo plantar</option>
-                <option value="antepé">antepé</option>
-              </Select>
-              <Text>com</Text>
-              <Input
-                isDisabled={fibromatoseInput}
-                w="35px"
-                h="30px"
-                value={medida1Fibro}
-                padding="5px"
-                maxLength={2}
-                textAlign="center"
-                onChange={(e) => {
-                  setMedida1Fibro(e.target.value);
-                }}
-              />
-              <Text>x</Text>
-              <Input
-                isDisabled={fibromatoseInput}
-                w="35px"
-                h="30px"
-                value={medida2Fibro}
-                padding="5px"
-                maxLength={2}
-                textAlign="center"
-                onChange={(e) => {
-                  setMedida2Fibro(e.target.value);
-                }}
-              />
-              <Text>x</Text>
-              <Input
-                isDisabled={fibromatoseInput}
-                w="35px"
-                h="30px"
-                value={medida3Fibro}
-                padding="5px"
-                maxLength={2}
-                textAlign="center"
-                onChange={(e) => {
-                  setMedida3Fibro(e.target.value);
-                }}
-              />
+              <Flex flexWrap="wrap" gap={1}>
+                <Radio value="Fibromatose">Fibromatose: nódulo no</Radio>
+                <Select
+                  w="auto"
+                  placeholder="Selecione Opção"
+                  isDisabled={!enableFibromatoseSelect}
+                  onChange={(e) => setValueSelect1(e.target.value)}
+                >
+                  <option value="cavo plantar">cavo plantar</option>
+                  <option value="antepé">antepé</option>
+                </Select>
+                <Text>com</Text>
+                <Input
+                  isDisabled={fibromatoseInput}
+                  w="35px"
+                  h="30px"
+                  value={medida1Fibro}
+                  padding="5px"
+                  maxLength={2}
+                  textAlign="center"
+                  onChange={(e) => {
+                    setMedida1Fibro(e.target.value);
+                  }}
+                />
+                <Text>x</Text>
+                <Input
+                  isDisabled={fibromatoseInput}
+                  w="35px"
+                  h="30px"
+                  value={medida2Fibro}
+                  padding="5px"
+                  maxLength={2}
+                  textAlign="center"
+                  onChange={(e) => {
+                    setMedida2Fibro(e.target.value);
+                  }}
+                />
+                <Text>x</Text>
+                <Input
+                  isDisabled={fibromatoseInput}
+                  w="35px"
+                  h="30px"
+                  value={medida3Fibro}
+                  padding="5px"
+                  maxLength={2}
+                  textAlign="center"
+                  onChange={(e) => {
+                    setMedida3Fibro(e.target.value);
+                  }}
+                />
 
-              <Text>mm</Text>
+                <Text>mm</Text>
+              </Flex>
             </HStack>
           </Stack>
         </RadioGroup>

@@ -5,7 +5,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Varicocele() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "90%";
 
   const [frasesVaricocele, setFrasesVaricocele] = useState<any>([]);
 
