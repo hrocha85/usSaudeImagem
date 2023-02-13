@@ -92,7 +92,7 @@ function Baco() {
     const medida1 = new Convert_Medida(dados1).Convert_Medida()
     const medida2 = new Convert_Medida(dados2).Convert_Medida()
     if (dados1 != '' && dados2 != '') {
-      string = `${string} ${medida1} ${medida2} cm.`
+      string = `${string} ${medida1} x ${medida2} cm.`
       setFrasesBaco((arr) => [...arr, string])
     }
   }
@@ -175,7 +175,7 @@ function Baco() {
     const medida1 = new Convert_Medida(dados1).Convert_Medida()
     const medida2 = new Convert_Medida(dados2).Convert_Medida()
     if (dados1 != '' && dados2 != '' && CitarIndiceCheckbox) {
-      string = `${string} ${medida1} x ${medida2} cm em seu maior e menor eixo (índice esplênico uniplanar = ).`
+      string = `${string} ${medida1} x ${medida2} cm em seu maior e menor eixo (índice esplênico uniplanar).`
       setFrasesBaco((arr) => [...arr, string])
 
     } else if (dados1 != '' && dados2 != '') {
@@ -211,7 +211,7 @@ function Baco() {
   }, [DimensoesCheckbox, DimensoesInput1, DimensoesInput2, CitarIndiceCheckbox])
 
   const subExame = "Baço";
-  const titulo_exame = "Abdomen total";
+  const titulo_exame = "Abdômen total";
 
   useEffect(() => {
     if (Object.keys(frasesBaco).length == 0) {

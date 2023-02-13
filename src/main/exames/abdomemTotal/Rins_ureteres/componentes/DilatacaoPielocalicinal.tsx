@@ -18,7 +18,7 @@ export default function DilatacaoPielocalicinal() {
     const [DisableSelectEsquerda, setDisableSelectEsquerda] = useState(true)
 
     const subExame = "Rins e ureteres. Dilatção Pielocalicinal";
-    const titulo_exame = "Abdomen total";
+    const titulo_exame = "Abdômen total";
 
     const criaStringAmbos = () => {
         let string = 'Presença'

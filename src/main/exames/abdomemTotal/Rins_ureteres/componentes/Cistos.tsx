@@ -39,7 +39,7 @@ export default function Cistos() {
     const [Select02Varios, setSelect02Varios] = useState('')
 
     const subExame = "Rins e ureteres. Cistos";
-    const titulo_exame = "Abdomen total";
+    const titulo_exame = "Abdômen total";
 
     const criaStringCisto01 = () => {
         let string = 'Cisto 01: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo'

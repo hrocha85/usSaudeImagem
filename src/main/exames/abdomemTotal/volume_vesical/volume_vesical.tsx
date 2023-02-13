@@ -119,7 +119,7 @@ function Volume_vesical() {
     };
 
     const subExame = "Volume vesical pré e pós miccional (Resíduo)";
-    const titulo_exame = "Abdomen total";
+    const titulo_exame = "Abdômen total";
 
     useEffect(() => {
         if (Object.keys(VolumeVesical).length == 0) {

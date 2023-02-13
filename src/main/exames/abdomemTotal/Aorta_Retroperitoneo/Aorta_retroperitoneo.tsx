@@ -154,8 +154,8 @@ function Aorta_Retroperitoneo() {
     }, [CitarVPSCheckbox])
 
 
-    const subExame = "Aorta retroperitôneo";
-    const titulo_exame = "Abdomen total";
+    const subExame = "Aorta / Retroperitôneo";
+    const titulo_exame = "Abdômen total";
 
     useEffect(() => {
         if (Object.keys(FraseAorta).length == 0) {
@@ -187,7 +187,7 @@ function Aorta_Retroperitoneo() {
             padding="15px"
             mt="15px"
         >
-            <TituloNomeExame titulo="Aorta / retroperitôneo" />
+            <TituloNomeExame titulo="Aorta / Retroperitôneo" />
 
 
             <RadioGroup w='auto' onChange={setValue} value={value} padding="10px">

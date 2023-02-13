@@ -29,7 +29,7 @@ export function Normal() {
                 <Checkbox
                     id="tudoNormal"
                     onChange={(e) => { verificaChecked(e.target) }}
-                >Abdomen normal</Checkbox>
+                >Abdômen normal</Checkbox>
             </Box>
         </Box >
     );
