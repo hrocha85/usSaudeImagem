@@ -15,7 +15,7 @@ export default function CalculoUreteral() {
     const [ValueInput1, setValueInput1] = useState('')
 
     const subExame = "Rins e ureteres. Cálculo";
-    const titulo_exame = "Abdomen total";
+    const titulo_exame = "Abdômen total";
 
     const criaStringCalculo = () => {
         let string = 'Cálculo de '

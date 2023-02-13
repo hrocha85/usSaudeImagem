@@ -129,7 +129,7 @@ function Bexiga() {
 
 
   const subExame = "Bexiga";
-  const titulo_exame = "Abdomen total";
+  const titulo_exame = "Abdômen total";
 
   useEffect(() => {
     if (Object.keys(FraseAorta).length == 0) {
@@ -173,11 +173,11 @@ function Bexiga() {
                 Normal
               </Radio>
               <Radio value="Bexiga com boa repleção, de conteúdo anecogênico, apresentando paredes difusamente espessadas e trabeculadas.">
-                difusamente trabeculada (de esforço)
+                Difusamente trabeculada (de esforço)
               </Radio>
               <HStack>
                 <Radio value="contendo cálculo medindo">
-                  contendo cálculo medindo
+                  Contendo cálculo medindo
                 </Radio>
 
                 <Input
@@ -205,7 +205,7 @@ function Bexiga() {
               <Stack>
                 <Checkbox
                   onChange={() => setSondaFoleyCheckbox(!SondaFoleyCheckbox)}>
-                  presença de sonda Foley
+                  Presença de sonda Foley
                 </Checkbox>
 
               </Stack>
@@ -213,7 +213,7 @@ function Bexiga() {
           </Flex>
           <Box w='auto'>
             <HStack >
-              <Radio value="lesão vegetante">lesão vegetante medindo</Radio>
+              <Radio value="lesão vegetante">Lesão vegetante medindo</Radio>
               <Input w='60px'
                 value={valueInput1}
                 placeholder="00"
@@ -243,7 +243,7 @@ function Bexiga() {
             </Box >
           </Box>
           <Radio value="Bexiga com repleção insuficiente para análise.">
-            com repleção insuficiente
+            Com repleção insuficiente
           </Radio>
         </Stack>
       </RadioGroup>

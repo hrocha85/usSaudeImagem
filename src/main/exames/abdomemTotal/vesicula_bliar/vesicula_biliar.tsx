@@ -284,7 +284,7 @@ function VesiculaBiliar() {
     const medida1 = new Convert_Medida(dados1).Convert_Medida()
     const medida2 = new Convert_Medida(dados2).Convert_Medida()
     if (dados1 != '' && dados2 != '') {
-      string = `${string} ${medida1}x${medida2} cm`
+      string = `${string} ${medida1} a ${medida2} cm`
       setFrasesVesicula((arr) => [...arr, string])
     }
   }
@@ -314,7 +314,7 @@ function VesiculaBiliar() {
   }, [MultiplosPoliposCheckbox, MultiplosPoliposInput1, MultiplosPoliposInput2])
 
   const subExame = "Vesícula Biliar";
-  const titulo_exame = "Abdomen total";
+  const titulo_exame = "Abdômen total";
 
   useEffect(() => {
     if (Object.keys(frasesVesicula).length == 0) {

@@ -49,7 +49,7 @@ function LiquidoLivre() {
   }, [LiquidoLivreCheckbox, Select1, Select2])
 
   const subExame = "Líquido Livre";
-  const titulo_exame = "Abdomen total";
+  const titulo_exame = "Abdômen total";
 
   useEffect(() => {
     if (Object.keys(frasesLiquidoLivre).length == 0) {
@@ -104,7 +104,7 @@ function LiquidoLivre() {
             <option value="" disabled selected>
               Local
             </option>
-            <option value="no abdome">no abdome</option>
+            <option value="no abdome">no abdômen</option>
             <option value="na pelve">na pelve</option>
             <option value="na fossa hepatorrenal">na fossa hepatorrenal</option>
             <option value="no flanco direito">no flanco direito</option>

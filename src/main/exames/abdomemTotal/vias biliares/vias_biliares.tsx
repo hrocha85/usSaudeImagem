@@ -89,7 +89,7 @@ function ViasBiliares() {
   };
 
   const subExame = "Vias Biliares";
-  const titulo_exame = "Abdomen total";
+  const titulo_exame = "Abdômen total";
 
   useEffect(() => {
     if (Object.keys(frasesVias).length == 0) {

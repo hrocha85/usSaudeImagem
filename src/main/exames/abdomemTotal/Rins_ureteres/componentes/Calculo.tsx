@@ -41,7 +41,7 @@ export default function Calculo() {
     const [MicrocalculosCheckbox, setMicrocalculosCheckbox] = useState(false)
 
     const subExame = "Rins e ureteres. Cálculo";
-    const titulo_exame = "Abdomen total";
+    const titulo_exame = "Abdômen total";
 
     const criaStringCalculo01 = () => {
         let string = 'Cálculo 01: Cálculo de'

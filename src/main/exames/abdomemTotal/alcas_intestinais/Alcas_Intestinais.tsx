@@ -14,7 +14,7 @@ function AlcasIntestinais() {
     const [CistosDireito, setCistosDireito] = useState<any>([]);
 
     const subExame = `Alças Intestinais`
-    const titulo_exame = "Abdomen total";
+    const titulo_exame = "Abdômen total";
 
     useEffect(() => {
         if (Object.keys(CistosDireito).length === 0) {

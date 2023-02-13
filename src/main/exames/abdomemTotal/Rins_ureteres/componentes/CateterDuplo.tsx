@@ -10,7 +10,7 @@ export default function Cateter() {
     const [DisableSelectCateter, setDisableSelectCateter] = useState(true)
 
     const subExame = 'Rins e ureteres. Cateter "Duplo J"';
-    const titulo_exame = "Abdomen total";
+    const titulo_exame = "Abdômen total";
     const criaStringPresente = () => {
         let string = 'Presença de cateter "duplo J"'
         removePresente()

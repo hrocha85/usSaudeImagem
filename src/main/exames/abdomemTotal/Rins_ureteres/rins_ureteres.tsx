@@ -17,7 +17,7 @@ function RinsUreteres() {
     const [FraseRinsUreteres, setFraseRinsUreteres] = useState<any>([]);
 
     const subExame = "Rins e ureteres";
-    const titulo_exame = "Abdomen total";
+    const titulo_exame = "Abdômen total";
 
     const [AspectoNormalCheckbox, setAspectoNormalCheckbox] = useState(false)
     const [AusenciaRimDirCheckbox, setAusenciaRimDirCheckbox] = useState(false)
