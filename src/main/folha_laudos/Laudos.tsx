@@ -148,7 +148,7 @@ function Exames() {
     textNomeSubExame: {
       fontWeigh: "bold",
       textAlign: "center",
-      fontSize: "17",
+      fontSize: "12",
       fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
@@ -156,7 +156,7 @@ function Exames() {
     },
     frasesSubExame: {
       textAlign: "justify",
-      fontSize: "15",
+      fontSize: "12",
       fontFamily: "MontserratRegular",
       lineHeight: 1.5,
     },
@@ -262,7 +262,11 @@ function Exames() {
           <ViewPDF style={styles.line}></ViewPDF>
           {arrayLocal.map((exame, key) => {
             return (
-              <ViewPDF style={styles.laudo_viewer} key={key}>
+              <ViewPDF
+                style={styles.laudo_viewer}
+                key={key}
+                break={key === 0 ? false : true}
+              >
                 <TextPDF style={styles.textTituloExame}>
                   {exame.titulo_exame.toUpperCase()}
                 </TextPDF>

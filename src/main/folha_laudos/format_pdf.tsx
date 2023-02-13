@@ -213,11 +213,12 @@ export default function Format_PDF() {
       textAlign: "center",
       fontSize: "20",
       fontFamily: "MontserratBold",
+      marginTop:"3%"
     },
     textNomeSubExame: {
       fontWeigh: "bold",
       textAlign: "center",
-      fontSize: "17",
+      fontSize: "12",
       fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
@@ -225,7 +226,7 @@ export default function Format_PDF() {
     },
     frasesSubExame: {
       textAlign: "justify",
-      fontSize: "15",
+      fontSize: "12",
       fontFamily: "MontserratRegular",
       lineHeight: 1.5,
     },
@@ -264,7 +265,11 @@ export default function Format_PDF() {
             {JSON.parse(localStorage.getItem("format_laudo")!).map(
               (exame, key) => {
                 return (
-                  <View style={styles.laudo_viewer} key={key}>
+                  <View
+                    style={styles.laudo_viewer}
+                    key={key}
+                    break={key === 0 ? false : true}
+                  >
                     <Text style={styles.textTituloExame}>
                       {exame.titulo_exame.toUpperCase()}
                     </Text>
