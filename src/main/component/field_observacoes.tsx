@@ -29,7 +29,10 @@ export default function Field_Observacoes({ exame }) {
   const largura = "100%";
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const titulo = `Observações ${exame.nomeExame} `;
+  let titulo = "Observações";
+  if (exame && exame.nomeExame) {
+    titulo = `Observações ${exame.nomeExame}`;
+  }
   const button_plus = React.createElement("img", { src: PlusButton });
   var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
 
