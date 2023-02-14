@@ -1,12 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Select, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { MaoEsquerdoNormalContext } from "../../../../../context/MaoEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function AlteracaoPosCirurgiaEsquerdo() {
+function AlteracaoPosCirurgiaEsquerdo({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
@@ -34,8 +33,6 @@ function AlteracaoPosCirurgiaEsquerdo() {
     }
   }, [AlteracaoPosCirurgiaEsquerdo]);
 
-  let { MaoEsquerdoLaudoNormal } = useContext(MaoEsquerdoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
 
   const [disableArtefatoCirurgicoTransfixandoInput, setdisableArtefatoCirurgicoTransfixandoInput] = useState(true);
   const [ArtefatoCirurgicoTransfixandoCheckbox, setArtefatoCirurgicoTransfixandoCheckbox] = useState(false);
@@ -98,11 +95,6 @@ function AlteracaoPosCirurgiaEsquerdo() {
     criaStringArtefatoCirurgicoTransfixando(ArtefatoCirurgicoTransfixandoSelect);
   }, [ArtefatoCirurgicoTransfixandoSelect]);
 
-
-  useEffect(() => {
-    MaoEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-  }, [MaoEsquerdoLaudoNormal])
-
   return (
     <Box
       bg="#FAFAFA"
@@ -124,7 +116,7 @@ function AlteracaoPosCirurgiaEsquerdo() {
       <Stack>
 
         <Checkbox
-          isDisabled={disableTudo}
+          isDisabled={Disable}
           onChange={() => {
             setArtefatoCirurgicoCheckbox(!ArtefatoCirurgicoCheckbox);
           }}
@@ -134,7 +126,7 @@ function AlteracaoPosCirurgiaEsquerdo() {
         <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
           <Checkbox
-            isDisabled={disableTudo}
+            isDisabled={Disable}
             onChange={() => setArtefatoCirurgicoTransfixandoCheckbox(!ArtefatoCirurgicoTransfixandoCheckbox)}>
             Artefato cirúrgico (fixação) no metacarpo. transfixando
           </Checkbox>

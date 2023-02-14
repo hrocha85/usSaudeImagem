@@ -1,12 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoBicepsFemoralEsquerdo() {
+function TendaoBicepsFemoralEsquerdo({ Disable }) {
     const altura = "100%";
     const largura = "90%";
 
@@ -32,9 +31,6 @@ function TendaoBicepsFemoralEsquerdo() {
             ).Format_Laudo_Create_Storage();
         }
     }, [TendaoBicepsFemoralEsquerdo]);
-
-    let { CotoveloEsquerdoLaudoNormal } = useContext(CotoveloEsquerdoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
 
     const [LesaoParcialInput, setLesaoParcialInput] = useState("");
     const [LesaoParcialInput2, setLesaoParcialInput2] = useState("");
@@ -145,12 +141,6 @@ function TendaoBicepsFemoralEsquerdo() {
     }, [LesaoParcialInput, LesaoParcialInput2, LesaoParcialInput3]);
 
 
-
-    useEffect(() => {
-        CotoveloEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [CotoveloEsquerdoLaudoNormal])
-
     return (
         <Box
             bg="#FAFAFA"
@@ -171,7 +161,7 @@ function TendaoBicepsFemoralEsquerdo() {
 
             <Stack>
                 <Checkbox
-                    isDisabled={disableTudo || disableAspectoNormal}
+                    isDisabled={Disable || disableAspectoNormal}
                     onChange={() => {
                         setAspectoNormalCheckbox(!AspectoNormalCheckbox);
                     }}
@@ -179,7 +169,7 @@ function TendaoBicepsFemoralEsquerdo() {
                     Aspecto Normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo || disableTendinopatiaSemRotura}
+                    isDisabled={Disable || disableTendinopatiaSemRotura}
                     onChange={() => {
                         setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
                     }}
@@ -189,7 +179,7 @@ function TendaoBicepsFemoralEsquerdo() {
 
                 <HStack>
                     <Checkbox
-                        isDisabled={disableTudo || disableLesaoParcial}
+                        isDisabled={Disable || disableLesaoParcial}
                         onChange={() => {
                             setLesaoParcialCheckbox(!LesaoParcialCheckbox);
                         }}

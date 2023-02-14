@@ -6,13 +6,9 @@ import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEs
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function LiquidoPeritendineoEsquerdo() {
+function LiquidoPeritendineoEsquerdo({ Disable }) {
     const altura = "100%";
     const largura = "100%";
-
-    let { CotoveloEsquerdoLaudoNormal } = useContext(CotoveloEsquerdoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
-
 
     const [fraseLiquidoPeritendineoEsquerdo, setFraseLiquidoPeritendineoEsquerdo] = useState<any>([]);
 
@@ -88,13 +84,6 @@ function LiquidoPeritendineoEsquerdo() {
         }
     }, [PresenteCheckbox])
 
-
-
-    useEffect(() => {
-        CotoveloEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [CotoveloEsquerdoLaudoNormal])
-
     return (
         <Box
             bg="#FAFAFA"
@@ -115,7 +104,7 @@ function LiquidoPeritendineoEsquerdo() {
 
             <Stack>
                 <Checkbox
-                    isDisabled={disableTudo || disableAusente}
+                    isDisabled={Disable || disableAusente}
                     onChange={() => {
                         setAusenteCheckbox(!AusenteCheckbox);
                     }}
@@ -123,7 +112,7 @@ function LiquidoPeritendineoEsquerdo() {
                     Ausente
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo || disablePresente}
+                    isDisabled={Disable || disablePresente}
                     onChange={() => {
                         setPresenteCheckbox(!PresenteCheckbox);
                     }}

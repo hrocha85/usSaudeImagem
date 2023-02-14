@@ -1,12 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Center, Checkbox, Input, Select, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { JoelhoEsquerdoNormalContext } from "../../../../../context/JoelhoEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function MeniscosEsquerdo() {
+function MeniscosEsquerdo({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
@@ -32,9 +31,6 @@ function MeniscosEsquerdo() {
       ).Format_Laudo_Create_Storage();
     }
   }, [MeniscosEsquerdo]);
-
-  let { JoelhoEsquerdoLaudoNormal } = useContext(JoelhoEsquerdoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
 
   //States Protrusao - input,checkbox e select - Inicio
   const [SemAnomalidadesCheckbox, setSemAnomalidadesCheckbox] = useState(false);
@@ -334,12 +330,6 @@ function MeniscosEsquerdo() {
     }
   };
 
-
-  useEffect(() => {
-    JoelhoEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [JoelhoEsquerdoLaudoNormal])
-
   return (
     <Box
       bg="#FAFAFA"
@@ -356,7 +346,7 @@ function MeniscosEsquerdo() {
 
 
       <Checkbox
-        isDisabled={disableTudo}
+        isDisabled={Disable}
         onChange={() => {
           setSemAnomalidadesCheckbox(!SemAnomalidadesCheckbox)
         }}>
@@ -377,7 +367,7 @@ function MeniscosEsquerdo() {
         <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
             <Checkbox
-              isDisabled={disableTudo}
+              isDisabled={Disable}
               onChange={() => setAlteracaoDegenerativaLateral(!AlteracaoDegenerativaLateral)}>
               do menisco lateral
             </Checkbox>
@@ -400,7 +390,7 @@ function MeniscosEsquerdo() {
           </Box>
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
             <Checkbox
-              isDisabled={disableTudo}
+              isDisabled={Disable}
               onChange={() => setAlteracaoDegenerativaMedial(!AlteracaoDegenerativaMedial)}>
               do menisco medial
             </Checkbox>
@@ -437,7 +427,7 @@ function MeniscosEsquerdo() {
         <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
             <Checkbox
-              isDisabled={disableTudo}
+              isDisabled={Disable}
               onChange={() => setExtrusaoLateral(!ExtrusaoLateral)}>
               do menisco lateral
             </Checkbox>
@@ -476,7 +466,7 @@ function MeniscosEsquerdo() {
           </Box>
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
             <Checkbox
-              isDisabled={disableTudo}
+              isDisabled={Disable}
               onChange={() => setExtrusaoMedial(!ExtrusaoMedial)}>
               do menisco medial
             </Checkbox>
@@ -529,7 +519,7 @@ function MeniscosEsquerdo() {
         <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
             <Checkbox
-              isDisabled={disableTudo}
+              isDisabled={Disable}
               onChange={() => setLesaoLateral(!LesaoLateral)}>
               do menisco lateral
             </Checkbox>
@@ -572,7 +562,7 @@ function MeniscosEsquerdo() {
 
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
             <Checkbox
-              isDisabled={disableTudo}
+              isDisabled={Disable}
               onChange={() => setLesaoMedial(!LesaoMedial)}>
               do menisco medial
             </Checkbox>

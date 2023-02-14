@@ -1,18 +1,14 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TenComumFlexoresAntebracoDireito() {
+function TenComumFlexoresAntebracoDireito({ Disable }) {
     const altura = "100%";
     const largura = "100%";
-
-    let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
 
     const [fraseTenComumFlexoresAntebracoDireito, setFraseTenComumFlexoresAntebracoDireito] = useState<any>([]);
 
@@ -148,11 +144,6 @@ function TenComumFlexoresAntebracoDireito() {
     }, [RoturaParcialInput, RoturaParcialInput2, RoturaParcialInput3]);
 
 
-    useEffect(() => {
-        CotoveloDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [CotoveloDireitoLaudoNormal])
-
     return (
         <Box
             bg="#FAFAFA"
@@ -173,7 +164,7 @@ function TenComumFlexoresAntebracoDireito() {
 
             <Stack>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
                     }}
@@ -181,7 +172,7 @@ function TenComumFlexoresAntebracoDireito() {
                     Pequenas calcificações junto à inserção
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo || disableAspectoNormal}
+                    isDisabled={Disable || disableAspectoNormal}
                     onChange={() => {
                         setAspectoNormalCheckbox(!AspectoNormalCheckbox);
                     }}
@@ -189,7 +180,7 @@ function TenComumFlexoresAntebracoDireito() {
                     Aspecto Normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo || disableTendinopatiaSemRotura}
+                    isDisabled={Disable || disableTendinopatiaSemRotura}
                     onChange={() => {
                         setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
 
@@ -199,7 +190,7 @@ function TenComumFlexoresAntebracoDireito() {
                 </Checkbox>
                 <HStack>
                     <Checkbox
-                        isDisabled={disableTudo || disableRoturaParcial}
+                        isDisabled={Disable || disableRoturaParcial}
                         onChange={() => {
                             setRoturaParcialCheckbox(!RoturaParcialCheckbox);
                         }}

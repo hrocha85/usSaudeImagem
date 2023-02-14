@@ -2,7 +2,7 @@ import { Box, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Bolsa_Esquerdo() {
+export default function Bolsa_Esquerdo({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
 
@@ -70,7 +70,7 @@ export default function Bolsa_Esquerdo() {
         <Text fontWeight="semibold" padding="10px">
           Bolsas
         </Text>
-        <RadioGroup onChange={setValue} value={value} padding="10px">
+        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Ausente">Ausência de Líquido</Radio>

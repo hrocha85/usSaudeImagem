@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function RetinaculoFlexoresDireito() {
+function RetinaculoFlexoresDireito({ Disable }) {
     const altura = "100%";
     const largura = "100%";
 
@@ -54,7 +54,7 @@ function RetinaculoFlexoresDireito() {
         >
             <TituloNomeExame titulo="Retináculo dos flexores" />
 
-            <RadioGroup onChange={setValue} value={value} padding="10px">
+            <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
                 <Stack direction="column">
                     <Radio value="1">Não citar</Radio>
                     <Radio value="Retináculo dos flexores de aspecto preservado.">Aspecto Normal</Radio>

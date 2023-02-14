@@ -1,17 +1,15 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { PunhoDireitoNormalContext } from "../../../../../context/PunhoDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function QuadrilBolsasDireito() {
+function QuadrilBolsasDireito({ Disable }) {
     const altura = "100%";
     const largura = "100%";
 
-    let { PunhoDireitoLaudoNormal } = useContext(PunhoDireitoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
+
 
     const [QuadrilBolsasDireito, setQuadrilBolsasDireito] = useState<any>([]);
 
@@ -88,41 +86,6 @@ function QuadrilBolsasDireito() {
         });
     };
 
-    // const criaStringLiquidoBolsaTrocanterica = () => {
-    //     var string = "Punho direito com SemLiuqido";
-    //     LiquidoBolsaTrocantericaCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
-    // };
-
-    //     useEffect(() => {
-    //         criaStringLiquidoBolsaTrocanterica()
-    //     }, [LiquidoBolsaTrocantericaCheckbox])
-
-    // const criaStringLiquidoBolsaSubgluteaMedia = () => {
-    //     var string = "Punho direito com SemLiuqido";
-    //     LiquidoBolsaSubgluteaMediaCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
-    // };
-
-    // useEffect(() => {
-    //     criaStringLiquidoBolsaSubgluteaMedia()
-    // }, [LiquidoBolsaSubgluteaMediaCheckbox])
-
-    // const criaStringFlexoresProfundos = () => {
-    //     var string = "Punho direito com SemLiuqido";
-    //     LiquidoBolsaSubgluteaMinimaCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
-    // };
-
-    // useEffect(() => {
-    //     criaStringFlexoresProfundos()
-    // }, [LiquidoBolsaSubgluteaMinimaCheckbox])
-
-    // const criaStringLiquidoBolsaIlipsoas = () => {
-    //     var string = "Punho direito com SemLiuqido";
-    //     LiquidoBolsaIlipsoasCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
-    // };
-
-    // useEffect(() => {
-    //     criaStringLiquidoBolsaIlipsoas()
-    // }, [LiquidoBolsaIlipsoasCheckbox])
 
     const removeItemString = (value) => {
         var index = QuadrilBolsasDireito.indexOf(value);
@@ -133,11 +96,6 @@ function QuadrilBolsasDireito() {
         }
     };
 
-
-    useEffect(() => {
-        PunhoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [PunhoDireitoLaudoNormal])
 
     return (
         <Box
@@ -157,7 +115,7 @@ function QuadrilBolsasDireito() {
 
 
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setSemLiuqidoCheckbox(!SemLiuqidoCheckbox);
                     }}
@@ -165,7 +123,7 @@ function QuadrilBolsasDireito() {
                     Sem líquido
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setLiquidoBolsaTrocantericaCheckbox(!LiquidoBolsaTrocantericaCheckbox);
                     }}
@@ -173,7 +131,7 @@ function QuadrilBolsasDireito() {
                     Líquido na bolsa trocantérica
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setLiquidoBolsaSubgluteaMediaCheckbox(!LiquidoBolsaSubgluteaMediaCheckbox);
                     }}
@@ -181,7 +139,7 @@ function QuadrilBolsasDireito() {
                     Líquido na bolsa subglútea média
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setLiquidoBolsaSubgluteaMinimaCheckbox(!LiquidoBolsaSubgluteaMinimaCheckbox);
                     }}
@@ -189,7 +147,7 @@ function QuadrilBolsasDireito() {
                     Líquido na bolsa subglútea mínima
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setLiquidoBolsaIlipsoasCheckbox(!LiquidoBolsaIlipsoasCheckbox);
                     }}

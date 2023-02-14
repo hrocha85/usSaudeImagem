@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Derrame_Articular_Direito() {
+export default function Derrame_Articular_Direito({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
@@ -113,7 +113,7 @@ export default function Derrame_Articular_Direito() {
         <Text fontWeight="semibold" padding="10px">
           Derrame articular
         </Text>
-        <RadioGroup onChange={setValue} value={value} padding="10px">
+        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Ausência de derrame articular detectável.">
@@ -141,7 +141,7 @@ export default function Derrame_Articular_Direito() {
                 </Select>
               </Stack>
               <Checkbox
-                
+
                 isDisabled={!disableCheckBox}
                 onChange={() => setValueCheckBox(!valueCheckBox)}
               >

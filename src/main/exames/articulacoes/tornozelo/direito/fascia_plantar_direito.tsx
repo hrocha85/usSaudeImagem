@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Fascia_Plantar_Direito() {
+export default function Fascia_Plantar_Direito({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
 
@@ -148,7 +148,7 @@ export default function Fascia_Plantar_Direito() {
         <Text fontWeight="semibold" padding="10px">
           Fáscia Plantar
         </Text>
-        <RadioGroup onChange={setValue} value={value} padding="10px">
+        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Normal">Normal</Radio>

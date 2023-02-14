@@ -1,17 +1,13 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function LiquidoPeritendineoDireito() {
+function LiquidoPeritendineoDireito(Disable) {
     const altura = "100%";
     const largura = "100%";
-
-    let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
 
 
     const [fraseLiquidoPeritendineoDireito, setFraseLiquidoPeritendineoDireito] = useState<any>([]);
@@ -88,13 +84,6 @@ function LiquidoPeritendineoDireito() {
         }
     }, [PresenteCheckbox])
 
-
-
-    useEffect(() => {
-        CotoveloDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [CotoveloDireitoLaudoNormal])
-
     return (
         <Box
             bg="#FAFAFA"
@@ -115,7 +104,7 @@ function LiquidoPeritendineoDireito() {
 
             <Stack>
                 <Checkbox
-                    isDisabled={disableTudo || disableAusente}
+                    isDisabled={Disable || disableAusente}
                     onChange={() => {
                         setAusenteCheckbox(!AusenteCheckbox);
                     }}
@@ -123,7 +112,7 @@ function LiquidoPeritendineoDireito() {
                     Ausente
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo || disablePresente}
+                    isDisabled={Disable || disablePresente}
                     onChange={() => {
                         setPresenteCheckbox(!PresenteCheckbox);
                     }}

@@ -1,18 +1,15 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { PunhoEsquerdoNormalContext } from "../../../../../context/PunhoEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function PunhoCistosEsquerdo() {
+function PunhoCistosEsquerdo({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
-
-  let { PunhoEsquerdoLaudoNormal } = useContext(PunhoEsquerdoNormalContext)
   const [frasesPunhoCistosEsquerdo, setFrasesPunhoCistosEsquerdo] = useState<any>([]);
 
   const subExame = 'Cistos Esquerdo'
@@ -35,8 +32,6 @@ function PunhoCistosEsquerdo() {
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesPunhoCistosEsquerdo]);
-
-  const [disableTudo, setDisableTudo] = useState(false)
 
   const [FaceDorsalInput, setFaceDorsalInput] = useState("");
   const [FaceDorsalInput2, setFaceDorsalInput2] = useState("");
@@ -155,11 +150,6 @@ function PunhoCistosEsquerdo() {
     criaStringFaceVolar(FaceVolarInput, FaceVolarInput2, FaceVolarInput3);
   }, [FaceVolarInput, FaceVolarInput2, FaceVolarInput3, ComunicandoVolar]);
 
-  useEffect(() => {
-    PunhoEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [PunhoEsquerdoLaudoNormal])
-
   return (
     <Box
       bg="#FAFAFA"
@@ -182,7 +172,7 @@ function PunhoCistosEsquerdo() {
 
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo}
+            isDisabled={Disable}
             onChange={() => {
               setFaceDorsalCheckbox(!FaceDorsalCheckbox);
             }}
@@ -249,7 +239,7 @@ function PunhoCistosEsquerdo() {
         </Box>
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo}
+            isDisabled={Disable}
             onChange={() => {
               setFaceVolarCheckbox(!FaceVolarCheckbox);
             }}

@@ -6,12 +6,9 @@ import { MaoEsquerdoNormalContext } from "../../../../../../context/MaoEsquerdoN
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
 
-function FibromatosePalmarEsquerdo() {
+function FibromatosePalmarEsquerdo({ Disable }) {
   const altura = "100%";
   const largura = "100%";
-
-  let { MaoEsquerdoLaudoNormal } = useContext(MaoEsquerdoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
 
   const [fraseFibrosePalmarSuperficial, setFraseFibrosePalmarSuperficial] = useState<any>([]);
 
@@ -87,11 +84,6 @@ function FibromatosePalmarEsquerdo() {
     criaStringNodulo(NoduloInput, NoduloInput2, NoduloInput3, NoduloSelect);
   }, [NoduloInput, NoduloInput2, NoduloInput3, NoduloSelect]);
 
-  useEffect(() => {
-    MaoEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [MaoEsquerdoLaudoNormal])
-
   return (
     <Box
       bg="#FAFAFA"
@@ -108,7 +100,7 @@ function FibromatosePalmarEsquerdo() {
 
       <Box display="flex" flexWrap="wrap" gap='5px'>
         <Checkbox
-          isDisabled={disableTudo}
+          isDisabled={Disable}
           onChange={() => setNoduloCheckbox(!NoduloCheckbox)}>
           Nódulo palmar superficial aos tendões flexores do
         </Checkbox>

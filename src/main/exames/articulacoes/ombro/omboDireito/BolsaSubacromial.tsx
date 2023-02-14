@@ -1,19 +1,13 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Select, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function BolsaSubacromial_SubdeltoideaDireito() {
+function BolsaSubacromial_SubdeltoideaDireito({ Disable }) {
   const altura = "100%";
   const largura = "100%";
-
-  let { OmbroDireitoLaudoNormal } = useContext(OmbroDireitoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
-
-
 
   const [fraseBolsaSubacromialSubdeltoidea, setFraseBolsaSubacromialSubdeltoidea] = useState<any>([]);
 
@@ -121,10 +115,6 @@ function BolsaSubacromial_SubdeltoideaDireito() {
   }, [SelectLiquido, EspessamentoSinoviaCheckbox]);
 
 
-  useEffect(() => {
-    OmbroDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [OmbroDireitoLaudoNormal])
 
   return (
     <Box
@@ -147,7 +137,7 @@ function BolsaSubacromial_SubdeltoideaDireito() {
       <Stack>
 
         <Checkbox
-          isDisabled={disableTudo || disableSemLiquido}
+          isDisabled={Disable || disableSemLiquido}
           onChange={() => {
             setSemLiquidoCheckbox(!SemLiquidoCheckbox);
           }}
@@ -157,7 +147,7 @@ function BolsaSubacromial_SubdeltoideaDireito() {
 
         <Box display='flex' flexWrap='wrap' gap='10px'>
           <Checkbox
-            isDisabled={disableTudo || disableLiquido}
+            isDisabled={Disable || disableLiquido}
             onChange={() => {
               setLiquidoCheckbox(!LiquidoCheckbox);
             }}

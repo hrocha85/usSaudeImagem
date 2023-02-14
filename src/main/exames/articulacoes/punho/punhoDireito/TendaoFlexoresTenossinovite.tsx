@@ -1,17 +1,14 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { PunhoDireitoNormalContext } from "../../../../../context/PunhoDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoFlexoresTenossinoviteDireito() {
+function TendaoFlexoresTenossinoviteDireito({ Disable }) {
     const altura = "100%";
     const largura = "100%";
 
-    let { PunhoDireitoLaudoNormal } = useContext(PunhoDireitoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
 
     const [fraseTendaoFlexoreTenossinoviteDireito, setFraseTendaoFlexoreTenossinoviteDireito] = useState<any>([]);
 
@@ -79,12 +76,6 @@ function TendaoFlexoresTenossinoviteDireito() {
         }
     };
 
-
-    useEffect(() => {
-        PunhoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [PunhoDireitoLaudoNormal])
-
     return (
         <Box
             bg="#FAFAFA"
@@ -103,7 +94,7 @@ function TendaoFlexoresTenossinoviteDireito() {
 
 
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setFlexorLongoPolegarCheckbox(!FlexorLongoPolegarCheckbox);
                     }}
@@ -111,7 +102,7 @@ function TendaoFlexoresTenossinoviteDireito() {
                     Flexor longo do polegar
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setFlexorRadialCarpoCheckbox(!FlexorRadialCarpoCheckbox);
                     }}
@@ -119,7 +110,7 @@ function TendaoFlexoresTenossinoviteDireito() {
                     Flexor radial do carpo
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setFlexoresSuperficiaisCheckbox(!FlexoresSuperficiaisCheckbox);
                     }}
@@ -127,7 +118,7 @@ function TendaoFlexoresTenossinoviteDireito() {
                     Flexores superficiais dos dedos
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setFlexoresProfundosCheckbox(!FlexoresProfundosCheckbox);
                     }}
@@ -135,7 +126,7 @@ function TendaoFlexoresTenossinoviteDireito() {
                     Flexores profundos dos dedos
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setFlexorPalmarLongoCheckbox(!FlexorPalmarLongoCheckbox);
                     }}

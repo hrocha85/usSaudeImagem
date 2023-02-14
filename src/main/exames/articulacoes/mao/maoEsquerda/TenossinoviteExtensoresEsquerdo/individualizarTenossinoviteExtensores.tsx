@@ -4,7 +4,7 @@ import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
-export default function IndividualizarTenossinoviteExtensores({ numCalculo }) {
+export default function IndividualizarTenossinoviteExtensores({ numCalculo, Disable }) {
 
   const [TenossinoviteExtensoresEsquerdo, setTenossinoviteExtensoresEsquerdo] = useState<any>([]);
 
@@ -77,7 +77,7 @@ export default function IndividualizarTenossinoviteExtensores({ numCalculo }) {
 
   return (
     <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
-      <Checkbox
+      <Checkbox isDisabled={Disable}
         onChange={() => setmultiplosCalculosCheckbox(!multiplosCalculosCheckbox)}
       >
         {numCalculo}º dedo

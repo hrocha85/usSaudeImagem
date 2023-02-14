@@ -1,18 +1,13 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function BolsaOlecreaneanaEsquerdo() {
+function BolsaOlecreaneanaEsquerdo({ Disable }) {
     const altura = "100%";
     const largura = "100%";
-
-    let { CotoveloEsquerdoLaudoNormal } = useContext(CotoveloEsquerdoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
-
 
     const [fraseBolsaOlecreaneanaEsquerdo, setFraseBolsaOlecreaneanaEsquerdo] = useState<any>([]);
 
@@ -78,13 +73,6 @@ function BolsaOlecreaneanaEsquerdo() {
         }
     }, [ComLiquidoEspessadoCheckbox])
 
-
-
-    useEffect(() => {
-        CotoveloEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [CotoveloEsquerdoLaudoNormal])
-
     return (
         <Box
             bg="#FAFAFA"
@@ -105,7 +93,7 @@ function BolsaOlecreaneanaEsquerdo() {
 
             <Stack>
                 <Checkbox
-                    isDisabled={disableTudo || disableSemLiquido}
+                    isDisabled={Disable || disableSemLiquido}
                     onChange={() => {
                         setSemLiquidoCheckbox(!SemLiquidoCheckbox);
                     }}
@@ -113,7 +101,7 @@ function BolsaOlecreaneanaEsquerdo() {
                     Sem líquido
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo || disableComLiquidoEspessado}
+                    isDisabled={Disable || disableComLiquidoEspessado}
                     onChange={() => {
                         setComLiquidoEspessadoCheckbox(!ComLiquidoEspessadoCheckbox);
                     }}
