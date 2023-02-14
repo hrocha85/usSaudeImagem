@@ -2,11 +2,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { MaoDireitoNormalContext } from "../../../../../context/MaoDireitoNormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function AlteracaoPosCirurgiaDireito() {
+function AlteracaoPosCirurgiaDireito({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
@@ -33,9 +32,6 @@ function AlteracaoPosCirurgiaDireito() {
       ).Format_Laudo_Create_Storage();
     }
   }, [AlteracaoPosCirurgiaDireito]);
-
-  let { MaoDireitoLaudoNormal } = useContext(MaoDireitoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
 
   const [disableArtefatoCirurgicoTransfixandoInput, setdisableArtefatoCirurgicoTransfixandoInput] = useState(true);
   const [ArtefatoCirurgicoTransfixandoCheckbox, setArtefatoCirurgicoTransfixandoCheckbox] = useState(false);
@@ -98,11 +94,6 @@ function AlteracaoPosCirurgiaDireito() {
     criaStringArtefatoCirurgicoTransfixando(ArtefatoCirurgicoTransfixandoSelect);
   }, [ArtefatoCirurgicoTransfixandoSelect]);
 
-
-  useEffect(() => {
-    MaoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-  }, [MaoDireitoLaudoNormal])
-
   return (
     <Box
       bg="#FAFAFA"
@@ -124,7 +115,7 @@ function AlteracaoPosCirurgiaDireito() {
       <Stack>
 
         <Checkbox
-          isDisabled={disableTudo}
+          isDisabled={Disable}
           onChange={() => {
             setArtefatoCirurgicoCheckbox(!ArtefatoCirurgicoCheckbox);
           }}
@@ -134,7 +125,7 @@ function AlteracaoPosCirurgiaDireito() {
         <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
           <Checkbox
-            isDisabled={disableTudo}
+            isDisabled={Disable}
             onChange={() => setArtefatoCirurgicoTransfixandoCheckbox(!ArtefatoCirurgicoTransfixandoCheckbox)}>
             Artefato cirúrgico (fixação) no metacarpo. transfixando
           </Checkbox>

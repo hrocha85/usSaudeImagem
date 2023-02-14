@@ -4,7 +4,7 @@ import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
-export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo }) {
+export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo, Disable }) {
 
   const [fraseLiquidoPerintendineoHexoresEsquerdo, setFraseLiquidoPerintendineoHexoresEsquerdo] = useState<any>([]);
 
@@ -66,6 +66,7 @@ export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo }
   return (
     <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
       <Checkbox
+        isDisabled={Disable}
         onChange={() => setmultiplosCalculosCheckbox(!multiplosCalculosCheckbox)}
       >
         {numCalculo}º dedo

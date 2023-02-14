@@ -6,7 +6,7 @@ import { Format_Laudo } from "../../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
 import IndividualizarDerrameArticular from "./individualizarDerrameArticular";
 
-function MaoDerrameArticularEsquerda() {
+function MaoDerrameArticularEsquerda({ Disable }) {
 
   const altura = "100%";
   const largura = "100%";

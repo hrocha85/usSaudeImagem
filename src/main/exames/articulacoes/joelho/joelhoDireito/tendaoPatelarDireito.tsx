@@ -1,13 +1,12 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoPatelarDireito() {
+function TendaoPatelarDireito({ Disable }) {
   const altura = "100%";
   const largura = "90%";
 
@@ -33,10 +32,6 @@ function TendaoPatelarDireito() {
       ).Format_Laudo_Create_Storage();
     }
   }, [TendaoPatelarDireito]);
-
-
-  let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
 
   const [LesaoParcialInput, setLesaoParcialInput] = useState("");
   const [LesaoParcialInput2, setLesaoParcialInput2] = useState("");
@@ -216,13 +211,6 @@ function TendaoPatelarDireito() {
     criaStringLesaoParcial(LesaoParcialInput, LesaoParcialInput2, LesaoParcialInput3);
   }, [LesaoParcialInput, LesaoParcialInput2, LesaoParcialInput3]);
 
-
-
-  useEffect(() => {
-    CotoveloDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [CotoveloDireitoLaudoNormal])
-
   return (
     <Box
       bg="#FAFAFA"
@@ -243,7 +231,7 @@ function TendaoPatelarDireito() {
 
       <Stack>
         <Checkbox
-          isDisabled={disableTudo || disableAspectoNormal}
+          isDisabled={Disable || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
@@ -251,7 +239,7 @@ function TendaoPatelarDireito() {
           Aspecto Normal
         </Checkbox>
         <Checkbox
-          isDisabled={disableTudo || disableTendinopatiaSemRotura}
+          isDisabled={Disable || disableTendinopatiaSemRotura}
           onChange={() => {
             setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
           }}
@@ -261,7 +249,7 @@ function TendaoPatelarDireito() {
 
         <HStack>
           <Checkbox
-            isDisabled={disableTudo || disableLesaoParcial}
+            isDisabled={Disable || disableLesaoParcial}
             onChange={() => {
               setLesaoParcialCheckbox(!LesaoParcialCheckbox);
             }}
@@ -306,7 +294,7 @@ function TendaoPatelarDireito() {
           </HStack>
         </HStack>
         <Checkbox
-          isDisabled={disableTudo || disableAspectoPosCirurgico}
+          isDisabled={Disable || disableAspectoPosCirurgico}
           onChange={() => {
             setAspectoPosCirurgicoCheckbox(!AspectoPosCirurgicoCheckbox);
           }}
@@ -317,7 +305,7 @@ function TendaoPatelarDireito() {
         <Box display='flex' flexWrap='wrap' gap='10px'>
 
           <Checkbox
-            isDisabled={disableTudo}
+            isDisabled={Disable}
             onChange={() => {
               setPresencaEntesofitoCheckbox(!PresencaEntesofitoCheckbox);
             }}

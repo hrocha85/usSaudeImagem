@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-pascal-case */
 import { Flex } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import Bolsa_Direito from "./direito/bolsa_direito";
@@ -34,48 +35,48 @@ import Tendao_Flexor_Halux_Esquerdo from "./esquerdo/tendao_flexor_halux_esquerd
 import Tendao_Tibial_Anterior_Esquerdo from "./esquerdo/tendao_tibial_anterior_esquerdo";
 import Tendao_Tibial_Posterior_Esquerdo from "./esquerdo/tendao_tibial_posterior_esquerdo";
 
-export default function Tornozelos() {
+export default function Tornozelos({ Disable }) {
   return (
     <Flex flexDirection="column" maxW="98%">
       <TituloNomeExame titulo="Tornozelos/Pés" />
       <Flex gap={4} alignItems="start" justifyItems="center" flexWrap="wrap">
         <Flex flex={1} flexDirection="column">
           <Lado_Esquerdo_Torn lado={"Esquerdo"} />
-          <Derrame_Articular_Esquerdo />
-          <Tendao_Tibial_Anterior_Esquerdo />
-          <Tendao_Extensor_Halux_Esquerdo />
-          <Tendao_Extensor_Dedos_Esquerdo />
-          <Tendao_Tibial_Posterior_Esquerdo />
-          <Tendao_Flexor_Halux_Esquerdo />
-          <Tendao_Flexor_Dedos_Esquerdo />
-          <Tendao_Fibular_Curto_Esquerdo />
-          <Tendao_Fibular_Longo_Esquerdo />
-          <Tendao_Calcaneo_Esquerdo />
-          <Estruturas_Ligamentares_Esquerdo />
-          <Cisto_Esquerdo />
-          <Bolsa_Esquerdo />
-          <Gordura_Kager_Esquerdo />
-          <Fascia_Plantar_Esquerdo />
-          <Neuroma_Morton_Esquerdo />
+          <Derrame_Articular_Esquerdo Disable={Disable} />
+          <Tendao_Tibial_Anterior_Esquerdo Disable={Disable} />
+          <Tendao_Extensor_Halux_Esquerdo Disable={Disable} />
+          <Tendao_Extensor_Dedos_Esquerdo Disable={Disable} />
+          <Tendao_Tibial_Posterior_Esquerdo Disable={Disable} />
+          <Tendao_Flexor_Halux_Esquerdo Disable={Disable} />
+          <Tendao_Flexor_Dedos_Esquerdo Disable={Disable} />
+          <Tendao_Fibular_Curto_Esquerdo Disable={Disable} />
+          <Tendao_Fibular_Longo_Esquerdo Disable={Disable} />
+          <Tendao_Calcaneo_Esquerdo Disable={Disable} />
+          <Estruturas_Ligamentares_Esquerdo Disable={Disable} />
+          <Cisto_Esquerdo Disable={Disable} />
+          <Bolsa_Esquerdo Disable={Disable} />
+          <Gordura_Kager_Esquerdo Disable={Disable} />
+          <Fascia_Plantar_Esquerdo Disable={Disable} />
+          <Neuroma_Morton_Esquerdo Disable={Disable} />
         </Flex>
         <Flex flex={1} flexDirection="column" flexWrap="wrap">
           <Lado_Esquerdo_Torn lado={"Direito"} />
-          <Derrame_Articular_Direito />
-          <Tendao_Tibial_Anterior_Direito />
-          <Tendao_Extensor_Halux_Direito />
-          <Tendao_Extensor_Dedos_Direito />
-          <Tendao_Tibial_Posterior_Direito />
-          <Tendao_Flexor_Halux_Direito />
-          <Tendao_Flexor_Dedos_Direito />
-          <Tendao_Fibular_Curto_Direito />
-          <Tendao_Fibular_Longo_Direito />
-          <Tendao_Calcaneo_Direito />
-          <Estruturas_Ligamentares_Direito />
-          <Cisto_Direito />
-          <Bolsa_Direito />
-          <Gordura_Kager_Direito />
-          <Fascia_Plantar_Direito />
-          <Neuroma_Morton_Direito />
+          <Derrame_Articular_Direito Disable={Disable} />
+          <Tendao_Tibial_Anterior_Direito Disable={Disable} />
+          <Tendao_Extensor_Halux_Direito Disable={Disable} />
+          <Tendao_Extensor_Dedos_Direito Disable={Disable} />
+          <Tendao_Tibial_Posterior_Direito Disable={Disable} />
+          <Tendao_Flexor_Halux_Direito Disable={Disable} />
+          <Tendao_Flexor_Dedos_Direito Disable={Disable} />
+          <Tendao_Fibular_Curto_Direito Disable={Disable} />
+          <Tendao_Fibular_Longo_Direito Disable={Disable} />
+          <Tendao_Calcaneo_Direito Disable={Disable} />
+          <Estruturas_Ligamentares_Direito Disable={Disable} />
+          <Cisto_Direito Disable={Disable} />
+          <Bolsa_Direito Disable={Disable} />
+          <Gordura_Kager_Direito Disable={Disable} />
+          <Fascia_Plantar_Direito Disable={Disable} />
+          <Neuroma_Morton_Direito Disable={Disable} />
         </Flex>
       </Flex>
     </Flex>

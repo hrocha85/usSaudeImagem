@@ -1,18 +1,15 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function OmbroTendaoSupraespinhalEsquerdo() {
+function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
-
-  let { OmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext)
   const [frasesOmbroTendaoSupraespinhalEsquerdo, setFrasesOmbroTendaoSupraespinhalEsquerdo] = useState<any>([]);
 
   const subExame = 'Tendão Supraespinhal Esquerdo'
@@ -35,8 +32,6 @@ function OmbroTendaoSupraespinhalEsquerdo() {
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesOmbroTendaoSupraespinhalEsquerdo]);
-
-  const [disableTudo, setDisableTudo] = useState(false)
 
   const [RoturaParcialInput, setRoturaParcialInput] = useState("");
   const [RoturaParcialInput2, setRoturaParcialInput2] = useState("");
@@ -275,10 +270,6 @@ function OmbroTendaoSupraespinhalEsquerdo() {
     }
   }, [RoturaCompletaRetracaoCheckbox])
 
-  useEffect(() => {
-    OmbroEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [OmbroEsquerdoLaudoNormal])
 
   return (
     <Box
@@ -300,7 +291,7 @@ function OmbroTendaoSupraespinhalEsquerdo() {
 
       <Stack>
         <Checkbox
-          isDisabled={disableTudo}
+          isDisabled={Disable}
           onChange={() => {
             setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
           }}
@@ -308,7 +299,7 @@ function OmbroTendaoSupraespinhalEsquerdo() {
           Pequenas calcificações junto à inserção
         </Checkbox>
         <Checkbox
-          isDisabled={disableTudo || disableAspectoNormal}
+          isDisabled={Disable || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
@@ -317,7 +308,7 @@ function OmbroTendaoSupraespinhalEsquerdo() {
         </Checkbox>
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo || disableTendinopatiaSemRotura}
+            isDisabled={Disable || disableTendinopatiaSemRotura}
             onChange={() => {
               setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
             }}
@@ -357,7 +348,7 @@ function OmbroTendaoSupraespinhalEsquerdo() {
 
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo || disableRoturaParcial}
+            isDisabled={Disable || disableRoturaParcial}
             onChange={() => {
               setRoturaParcialCheckbox(!RoturaParcialCheckbox);
             }}
@@ -417,7 +408,7 @@ function OmbroTendaoSupraespinhalEsquerdo() {
         <Box display='flex' flexWrap='wrap' gap='5px'>
 
           <Checkbox
-            isDisabled={disableTudo || disableRoturaCompleta}
+            isDisabled={Disable || disableRoturaCompleta}
             onChange={() => {
               setRoturaCompletaCheckbox(!RoturaCompletaCheckbox);
             }}

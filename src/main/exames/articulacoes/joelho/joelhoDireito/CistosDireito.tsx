@@ -1,13 +1,12 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function CistosDireito() {
+function CistosDireito({ Disable }) {
     const altura = "100%";
     const largura = "90%";
 
@@ -33,8 +32,7 @@ function CistosDireito() {
             ).Format_Laudo_Create_Storage();
         }
     }, [CistosDireito]);
-    let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
+
 
     const [CistosBakerInput, setCistosBakerInput] = useState("");
     const [CistosBakerInput2, setCistosBakerInput2] = useState("");
@@ -149,10 +147,6 @@ function CistosDireito() {
         }
     }, [CistosParameniscalCheckbox, CistosParameniscalInput, CistosParameniscalInput2, CistosParameniscalInput3, CistosParameniscalSelect1, CistosParameniscalSelect2, CistosParameniscalSelect3]);
 
-    useEffect(() => {
-        CotoveloDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [CotoveloDireitoLaudoNormal])
 
     return (
         <Box
@@ -177,7 +171,7 @@ function CistosDireito() {
                 <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
                     <Checkbox
-                        isDisabled={disableTudo}
+                        isDisabled={Disable}
                         onChange={() => {
                             setCistosBakerCheckbox(!CistosBakerCheckbox);
                         }}
@@ -261,7 +255,7 @@ function CistosDireito() {
                 <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
                     <Checkbox
-                        isDisabled={disableTudo}
+                        isDisabled={Disable}
                         onChange={() => {
                             setCistosParameniscalCheckbox(!CistosParameniscalCheckbox);
                         }}

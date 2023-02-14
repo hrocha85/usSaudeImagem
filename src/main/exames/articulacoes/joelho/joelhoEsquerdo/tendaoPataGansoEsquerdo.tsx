@@ -1,12 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { JoelhoEsquerdoNormalContext } from "../../../../../context/JoelhoEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoPataGansoEsquerdo() {
+function TendaoPataGansoEsquerdo({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
@@ -35,8 +34,6 @@ function TendaoPataGansoEsquerdo() {
   }, [TendaoPataGansoEsquerdo]);
 
 
-  let { JoelhoEsquerdoLaudoNormal } = useContext(JoelhoEsquerdoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
   const [disableAspectoNormal, setdisableAspectoNormal] = useState(false)
   const [disableLiquidoBolsaSinovial, setdisableLiquidoBolsaSinovial] = useState(false)
   const [disableTendinopatia, setdisableTendinopatia] = useState(false)
@@ -103,10 +100,6 @@ function TendaoPataGansoEsquerdo() {
     }
   };
 
-  useEffect(() => {
-    JoelhoEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [JoelhoEsquerdoLaudoNormal])
 
   return (
     <Box
@@ -130,7 +123,7 @@ function TendaoPataGansoEsquerdo() {
 
       <Stack>
         <Checkbox
-          isDisabled={disableTudo || disableAspectoNormal}
+          isDisabled={Disable || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
@@ -139,7 +132,7 @@ function TendaoPataGansoEsquerdo() {
         </Checkbox>
 
         <Checkbox
-          isDisabled={disableTudo || disableTendinopatia}
+          isDisabled={Disable || disableTendinopatia}
           onChange={() => {
             setTendinopatiaCheckbox(!TendinopatiaCheckbox);
           }}
@@ -147,7 +140,7 @@ function TendaoPataGansoEsquerdo() {
         </Checkbox>
 
         <Checkbox
-          isDisabled={disableTudo || disableLiquidoBolsaSinovial}
+          isDisabled={Disable || disableLiquidoBolsaSinovial}
           onChange={() => {
             setLiquidoBolsaSinovialCheckbox(!LiquidoBolsaSinovialCheckbox);
           }}

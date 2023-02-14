@@ -11,7 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Estruturas_Ligamentares_Esquerdo() {
+export default function Estruturas_Ligamentares_Esquerdo({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
 
@@ -167,78 +167,78 @@ export default function Estruturas_Ligamentares_Esquerdo() {
         <Text fontWeight="semibold" padding="10px">
           Estruturas Ligamentares{" "}
         </Text>
-        <RadioGroup onChange={setValue} value={value} padding="10px">
+        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
 
           <Stack direction="column">
-          <Flex flexWrap='wrap' gap={1}>
+            <Flex flexWrap='wrap' gap={1}>
 
-            <Radio value="1">Não citar</Radio>
-            <HStack>
-              <Radio value="Normais">Normais</Radio>
-            </HStack>
-            <HStack>
-              <Radio value="Parcial Talofibular">
-                Sinais de lesão parcial do talofibular anterior
-              </Radio>
-            </HStack>
-            <HStack>
-              <Radio value="Completa Talofibular">
-                Sinais de lesão completa do talofibular anterior
-              </Radio>
-              <Select
-                placeholder="Selecione Opção"
-                isDisabled={!enableSelects1}
-                onChange={(e) => setValueSelect1(e.target.value)}
-              >
-                <option value="com líquido periligamentar">
-                  com líquido periligamentar
-                </option>
-                <option value="sem líquido periligamentar">
-                  sem líquido periligamentar
-                </option>
-              </Select>
-            </HStack>
-            <Radio value="Parcial Tibiofibular">
-              Sinais de lesão parcial do tibiofibular anterior
-            </Radio>
-            <HStack>
-              <Radio value="Completa Tibiofibular">
-                Sinais de lesão completa do tibiofibular anterior
-              </Radio>
-              <Select
-                placeholder="Selecione Opção"
-                isDisabled={!enableSelects2}
-                onChange={(e) => setValueSelect2(e.target.value)}
-              >
-                <option value="com líquido periligamentar">
-                  com líquido periligamentar
-                </option>
-                <option value="sem líquido periligamentar">
-                  sem líquido periligamentar
-                </option>
-              </Select>
-            </HStack>
-            <Radio value="Parcial Calcaneofibular">
-              Sinais de lesão parcial do calcaneofibular
-            </Radio>
-            <HStack>
-              <Radio value="Completa Calcaneofibular">
-                Sinais de lesão completa do calcaneofibular
-              </Radio>
-              <Select
-                placeholder="Selecione Opção"
-                isDisabled={!enableSelects3}
-                onChange={(e) => setValueSelect3(e.target.value)}
-              >
-                <option value="com líquido periligamentar">
-                  com líquido periligamentar
-                </option>
-                <option value="sem líquido periligamentar">
-                  sem líquido periligamentar
-                </option>
-              </Select>
+              <Radio value="1">Não citar</Radio>
+              <HStack>
+                <Radio value="Normais">Normais</Radio>
               </HStack>
-              </Flex>
+              <HStack>
+                <Radio value="Parcial Talofibular">
+                  Sinais de lesão parcial do talofibular anterior
+                </Radio>
+              </HStack>
+              <HStack>
+                <Radio value="Completa Talofibular">
+                  Sinais de lesão completa do talofibular anterior
+                </Radio>
+                <Select
+                  placeholder="Selecione Opção"
+                  isDisabled={!enableSelects1}
+                  onChange={(e) => setValueSelect1(e.target.value)}
+                >
+                  <option value="com líquido periligamentar">
+                    com líquido periligamentar
+                  </option>
+                  <option value="sem líquido periligamentar">
+                    sem líquido periligamentar
+                  </option>
+                </Select>
+              </HStack>
+              <Radio value="Parcial Tibiofibular">
+                Sinais de lesão parcial do tibiofibular anterior
+              </Radio>
+              <HStack>
+                <Radio value="Completa Tibiofibular">
+                  Sinais de lesão completa do tibiofibular anterior
+                </Radio>
+                <Select
+                  placeholder="Selecione Opção"
+                  isDisabled={!enableSelects2}
+                  onChange={(e) => setValueSelect2(e.target.value)}
+                >
+                  <option value="com líquido periligamentar">
+                    com líquido periligamentar
+                  </option>
+                  <option value="sem líquido periligamentar">
+                    sem líquido periligamentar
+                  </option>
+                </Select>
+              </HStack>
+              <Radio value="Parcial Calcaneofibular">
+                Sinais de lesão parcial do calcaneofibular
+              </Radio>
+              <HStack>
+                <Radio value="Completa Calcaneofibular">
+                  Sinais de lesão completa do calcaneofibular
+                </Radio>
+                <Select
+                  placeholder="Selecione Opção"
+                  isDisabled={!enableSelects3}
+                  onChange={(e) => setValueSelect3(e.target.value)}
+                >
+                  <option value="com líquido periligamentar">
+                    com líquido periligamentar
+                  </option>
+                  <option value="sem líquido periligamentar">
+                    sem líquido periligamentar
+                  </option>
+                </Select>
+              </HStack>
+            </Flex>
           </Stack>
         </RadioGroup>
       </Box>

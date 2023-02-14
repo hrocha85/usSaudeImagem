@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoGluteoMedioDireito() {
+function TendaoGluteoMedioDireito({ Disable }) {
     const altura = "100%";
     const largura = "100%";
 
@@ -77,7 +77,7 @@ function TendaoGluteoMedioDireito() {
         >
             <TituloNomeExame titulo="Tendão do glúteo médio" />
 
-            <RadioGroup onChange={setValue} value={value} padding="10px">
+            <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
                 <Stack direction="column">
                     <Radio value="1">Não citar</Radio>
                     <Radio value="de espessura e contornos preservados e ecotextura característica.">Aspecto Normal</Radio>
@@ -85,7 +85,7 @@ function TendaoGluteoMedioDireito() {
                 </Stack>
             </RadioGroup>
 
-            <Checkbox
+            <Checkbox isDisabled={Disable}
                 onChange={() => setPequenaCalcificacaoCheckbox(!PequenaCalcificacaoCheckbox)}>
                 pequena calcificação junto à inserção
             </Checkbox>

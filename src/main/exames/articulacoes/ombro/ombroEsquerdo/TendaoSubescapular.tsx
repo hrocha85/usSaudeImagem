@@ -7,12 +7,9 @@ import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoSubescapularOmbroEsquerdo() {
+function TendaoSubescapularOmbroEsquerdo({ Disable }) {
   const altura = "100%";
   const largura = "100%";
-
-  let { OmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
 
   const [fraseTendaoSubescapuçarEsquerdo, setFraseTendaoSubescapuçarEsquerdo] = useState<any>([]);
 
@@ -271,10 +268,6 @@ function TendaoSubescapularOmbroEsquerdo() {
     }
   }, [RoturaCompletaRetracaoCheckbox])
 
-  useEffect(() => {
-    OmbroEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [OmbroEsquerdoLaudoNormal])
 
   return (
     <Box
@@ -296,7 +289,7 @@ function TendaoSubescapularOmbroEsquerdo() {
 
       <Stack>
         <Checkbox
-          isDisabled={disableTudo}
+          isDisabled={Disable}
           onChange={() => {
             setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
           }}
@@ -304,7 +297,7 @@ function TendaoSubescapularOmbroEsquerdo() {
           Pequenas calcificações junto à inserção
         </Checkbox>
         <Checkbox
-          isDisabled={disableTudo || disableAspectoNormal}
+          isDisabled={Disable || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
@@ -313,7 +306,7 @@ function TendaoSubescapularOmbroEsquerdo() {
         </Checkbox>
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo || disableTendinopatiaSemRotura}
+            isDisabled={Disable || disableTendinopatiaSemRotura}
             onChange={() => {
               setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
             }}
@@ -353,7 +346,7 @@ function TendaoSubescapularOmbroEsquerdo() {
 
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo || disableRoturaParcial}
+            isDisabled={Disable || disableRoturaParcial}
             onChange={() => {
               setRoturaParcialCheckbox(!RoturaParcialCheckbox);
             }}
@@ -414,7 +407,7 @@ function TendaoSubescapularOmbroEsquerdo() {
         <Box display='flex' flexWrap='wrap' gap='5px'>
 
           <Checkbox
-            isDisabled={disableTudo || disableRoturaCompleta}
+            isDisabled={Disable || disableRoturaCompleta}
             onChange={() => {
               setRoturaCompletaCheckbox(!RoturaCompletaCheckbox);
             }}

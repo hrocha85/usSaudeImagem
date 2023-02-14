@@ -1,19 +1,13 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function ArticulacaoAcromioclavicularDireito() {
+function ArticulacaoAcromioclavicularDireito({ Disable }) {
   const altura = "100%";
   const largura = "100%";
-
-  let { OmbroDireitoLaudoNormal } = useContext(OmbroDireitoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
-
-
 
   const [fraseBolsaSubacromialSubdeltoidea, setFraseBolsaSubacromialSubdeltoidea] = useState<any>([]);
 
@@ -116,12 +110,6 @@ function ArticulacaoAcromioclavicularDireito() {
     }
   }, [OsteofitosCheckbox]);
 
-
-  useEffect(() => {
-    OmbroDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [OmbroDireitoLaudoNormal])
-
   return (
     <Box
       bg="#FAFAFA"
@@ -143,7 +131,7 @@ function ArticulacaoAcromioclavicularDireito() {
       <Stack>
 
         <Checkbox
-          isDisabled={disableTudo || disableNormal}
+          isDisabled={Disable || disableNormal}
           onChange={() => {
             setNormalCheckbox(!NormalCheckbox);
           }}
@@ -153,7 +141,7 @@ function ArticulacaoAcromioclavicularDireito() {
 
         <Box display='flex' flexWrap='wrap' gap='10px'>
           <Checkbox
-            isDisabled={disableTudo || disableOsteofitos}
+            isDisabled={Disable || disableOsteofitos}
             onChange={() => {
               setOsteofitosCheckbox(!OsteofitosCheckbox);
             }}

@@ -6,7 +6,7 @@ import { Format_Laudo } from "../../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
 import IndividualizarPolias from "./individualizarPolias";
 
-function Polias() {
+function Polias({ Disable }) {
 
   const altura = "100%";
   const largura = "100%";

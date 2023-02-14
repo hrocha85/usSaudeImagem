@@ -1,12 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { JoelhoDireitoNormalContext } from "../../../../../context/JoelhoDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function LigColFibularLateralDireito() {
+function LigColFibularLateralDireito({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
@@ -33,8 +32,7 @@ function LigColFibularLateralDireito() {
     }
   }, [LigamentoFibularLateral]);
 
-  let { JoelhoDireitoLaudoNormal } = useContext(JoelhoDireitoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
+
   const [disableAspectoNormal, setdisableAspectoNormal] = useState(false)
   const [disableLesaoEspessamento, setdisableLesaoEspessamento] = useState(false)
   const [disableLesaoAfilamento, setdisableLesaoAfilamento] = useState(false)
@@ -102,11 +100,6 @@ function LigColFibularLateralDireito() {
     }
   };
 
-  useEffect(() => {
-    JoelhoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [JoelhoDireitoLaudoNormal])
-
   return (
     <Box
       bg="#FAFAFA"
@@ -128,7 +121,7 @@ function LigColFibularLateralDireito() {
       <Stack>
 
         <Checkbox
-          isDisabled={disableTudo || disableAspectoNormal}
+          isDisabled={Disable || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
@@ -137,7 +130,7 @@ function LigColFibularLateralDireito() {
         </Checkbox>
 
         <Checkbox
-          isDisabled={disableTudo || disableLesaoAfilamento}
+          isDisabled={Disable || disableLesaoAfilamento}
           onChange={() => {
             setLesaoAfilamentoCheckbox(!LesaoAfilamentoCheckbox);
           }}
@@ -145,7 +138,7 @@ function LigColFibularLateralDireito() {
         </Checkbox>
 
         <Checkbox
-          isDisabled={disableTudo || disableLesaoEspessamento}
+          isDisabled={Disable || disableLesaoEspessamento}
           onChange={() => {
             setLesaoEspessamentoCheckbox(!LesaoEspessamentoCheckbox);
           }}

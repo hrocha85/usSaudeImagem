@@ -1,12 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Center, Checkbox, HStack, Input, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoQuadricepsFemoralDireito() {
+function TendaoQuadricepsFemoralDireito({ Disable }) {
     const altura = "100%";
     const largura = "90%";
 
@@ -33,9 +32,6 @@ function TendaoQuadricepsFemoralDireito() {
             ).Format_Laudo_Create_Storage();
         }
     }, [TendaoQuadricepsFemoralDireito]);
-
-    let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
 
     const [LesaoParcialInput, setLesaoParcialInput] = useState("");
     const [LesaoParcialInput2, setLesaoParcialInput2] = useState("");
@@ -186,13 +182,6 @@ function TendaoQuadricepsFemoralDireito() {
         criaStringLesaoParcial(LesaoParcialInput, LesaoParcialInput2, LesaoParcialInput3);
     }, [LesaoParcialInput, LesaoParcialInput2, LesaoParcialInput3]);
 
-
-
-    useEffect(() => {
-        CotoveloDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [CotoveloDireitoLaudoNormal])
-
     return (
         <Box
             bg="#FAFAFA"
@@ -213,7 +202,7 @@ function TendaoQuadricepsFemoralDireito() {
 
             <Stack>
                 <Checkbox
-                    isDisabled={disableTudo || disableAspectoNormal}
+                    isDisabled={Disable || disableAspectoNormal}
                     onChange={() => {
                         setAspectoNormalCheckbox(!AspectoNormalCheckbox);
                     }}
@@ -221,7 +210,7 @@ function TendaoQuadricepsFemoralDireito() {
                     Aspecto Normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo || disableTendinopatiaSemRotura}
+                    isDisabled={Disable || disableTendinopatiaSemRotura}
                     onChange={() => {
                         setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
                     }}
@@ -231,7 +220,7 @@ function TendaoQuadricepsFemoralDireito() {
 
                 <HStack>
                     <Checkbox
-                        isDisabled={disableTudo || disableLesaoParcial}
+                        isDisabled={Disable || disableLesaoParcial}
                         onChange={() => {
                             setLesaoParcialCheckbox(!LesaoParcialCheckbox);
                         }}
@@ -279,7 +268,7 @@ function TendaoQuadricepsFemoralDireito() {
                     <Center>
                         <WrapItem>
                             <Checkbox
-                                isDisabled={disableTudo}
+                                isDisabled={Disable}
                                 onChange={() => {
                                     setPresencaEntesofitoCheckbox(!PresencaEntesofitoCheckbox);
                                 }}

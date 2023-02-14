@@ -7,12 +7,10 @@ import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function PunhoCistosDireito() {
+function PunhoCistosDireito({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
-
-  let { PunhoDireitoLaudoNormal } = useContext(PunhoDireitoNormalContext)
   const [frasesPunhoCistosDireito, setFrasesPunhoCistosDireito] = useState<any>([]);
 
   const subExame = 'Cistos Direito'
@@ -35,8 +33,6 @@ function PunhoCistosDireito() {
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesPunhoCistosDireito]);
-
-  const [disableTudo, setDisableTudo] = useState(false)
 
   const [FaceDorsalInput, setFaceDorsalInput] = useState("");
   const [FaceDorsalInput2, setFaceDorsalInput2] = useState("");
@@ -155,10 +151,6 @@ function PunhoCistosDireito() {
     criaStringFaceVolar(FaceVolarInput, FaceVolarInput2, FaceVolarInput3);
   }, [FaceVolarInput, FaceVolarInput2, FaceVolarInput3, ComunicandoVolar]);
 
-  useEffect(() => {
-    PunhoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [PunhoDireitoLaudoNormal])
 
   return (
     <Box
@@ -182,7 +174,7 @@ function PunhoCistosDireito() {
 
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo}
+            isDisabled={Disable}
             onChange={() => {
               setFaceDorsalCheckbox(!FaceDorsalCheckbox);
             }}
@@ -249,7 +241,7 @@ function PunhoCistosDireito() {
         </Box>
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo}
+            isDisabled={Disable}
             onChange={() => {
               setFaceVolarCheckbox(!FaceVolarCheckbox);
             }}

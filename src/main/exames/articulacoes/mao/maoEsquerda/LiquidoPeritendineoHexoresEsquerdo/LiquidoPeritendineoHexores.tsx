@@ -4,7 +4,7 @@ import { Box } from "@chakra-ui/react";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
 import IndividualizarLiquidoPerintendineoHexores from "./individualizarLiquidoPerintendineoHexores";
 
-function LiquidoPeritendineoHexores() {
+function LiquidoPeritendineoHexores({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
@@ -30,6 +30,7 @@ function LiquidoPeritendineoHexores() {
               <IndividualizarLiquidoPerintendineoHexores
                 key={key}
                 numCalculo={num}
+                Disable={Disable}
               />
             );
           })}

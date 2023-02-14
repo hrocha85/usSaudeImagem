@@ -1,17 +1,13 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function NervoUlnarEsquerdo() {
+function NervoUlnarEsquerdo({ Disable }) {
     const altura = "100%";
     const largura = "100%";
-
-    let { CotoveloEsquerdoLaudoNormal } = useContext(CotoveloEsquerdoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
 
     const [fraseNervoUlnarEsquerdo, setFraseNervoUlnarEsquerdo] = useState<any>([]);
 
@@ -139,13 +135,6 @@ function NervoUlnarEsquerdo() {
         }
     }, [EspessuraAumentadaCheckbox])
 
-
-
-    useEffect(() => {
-        CotoveloEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [CotoveloEsquerdoLaudoNormal])
-
     return (
         <Box
             bg="#FAFAFA"
@@ -167,7 +156,7 @@ function NervoUlnarEsquerdo() {
             <Stack>
                 <HStack>
                     <Checkbox
-                        isDisabled={disableTudo}
+                        isDisabled={Disable}
                         onChange={() => {
                             setAreaSeccionalCheckbox(!AreaSeccionalCheckbox);
                         }}
@@ -187,7 +176,7 @@ function NervoUlnarEsquerdo() {
                     <Text>mm²</Text>
                 </HStack>
                 <Checkbox
-                    isDisabled={disableTudo || disableEspessuraNormal}
+                    isDisabled={Disable || disableEspessuraNormal}
                     onChange={() => {
                         setEspessuraNormalCheckbox(!EspessuraNormalCheckbox);
                     }}
@@ -195,7 +184,7 @@ function NervoUlnarEsquerdo() {
                     Espessura normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo || disableEspessuraAumentada}
+                    isDisabled={Disable || disableEspessuraAumentada}
                     onChange={() => {
                         setEspessuraAumentadaCheckbox(!EspessuraAumentadaCheckbox);
                     }}
@@ -203,7 +192,7 @@ function NervoUlnarEsquerdo() {
                     Espessura aumentada
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setSofreSubluxacaoCheckbox(!SofreSubluxacaoCheckbox);
                     }}
@@ -211,7 +200,7 @@ function NervoUlnarEsquerdo() {
                     Sofre subluxação durante manobra de flexão do cotovelo
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setSofreLuxacaoCheckbox(!SofreLuxacaoCheckbox);
                     }}

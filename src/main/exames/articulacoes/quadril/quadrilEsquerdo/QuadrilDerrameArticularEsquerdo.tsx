@@ -1,12 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { QuadrilEsquerdoNormalContext } from "../../../../../context/QuadrilEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function QuadrilDerrameArticularEsquerdo() {
+function QuadrilDerrameArticularEsquerdo(Disable) {
   const altura = "100%";
   const largura = "100%";
 
@@ -33,8 +32,6 @@ function QuadrilDerrameArticularEsquerdo() {
     }
   }, [QuadrilDerrameArticularEsquerdo]);
 
-  let { QuadrilEsquerdoLaudoNormal } = useContext(QuadrilEsquerdoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
   const [disablePresente, setDisablePresente] = useState(false)
   const [disableAusente, setDisableAusente] = useState(false)
 
@@ -111,10 +108,6 @@ function QuadrilDerrameArticularEsquerdo() {
   }, [PresenteSelect, EspessamentoSinovialCheckbox]);
 
 
-  useEffect(() => {
-    QuadrilEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-  }, [QuadrilEsquerdoLaudoNormal])
-
   return (
     <Box
       bg="#FAFAFA"
@@ -136,7 +129,7 @@ function QuadrilDerrameArticularEsquerdo() {
       <Stack>
 
         <Checkbox
-          isDisabled={disableTudo || disableAusente}
+          isDisabled={Disable || disableAusente}
           onChange={() => {
             setAusenteCheckbox(true);
             criaStringAusente();
@@ -146,7 +139,7 @@ function QuadrilDerrameArticularEsquerdo() {
         </Checkbox>
         <HStack>
           <Checkbox
-            isDisabled={disableTudo || disablePresente}
+            isDisabled={Disable || disablePresente}
             onChange={() => setPresenteCheckbox(!PresenteCheckbox)}>
             Presente
           </Checkbox>

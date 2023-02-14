@@ -1,18 +1,16 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoInfraespinhalOmbroEsquerdo() {
+function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
-  let { OmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
+
 
   const [fraseTendaoInfraespinhalEsquerdo, setFraseTendaoInfraespinhalEsquerdo] = useState<any>([]);
 
@@ -269,10 +267,6 @@ function TendaoInfraespinhalOmbroEsquerdo() {
     }
   }, [RoturaCompletaRetracaoCheckbox])
 
-  useEffect(() => {
-    OmbroEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [OmbroEsquerdoLaudoNormal])
 
   return (
     <Box
@@ -294,7 +288,7 @@ function TendaoInfraespinhalOmbroEsquerdo() {
 
       <Stack>
         <Checkbox
-          isDisabled={disableTudo}
+          isDisabled={Disable}
           onChange={() => {
             setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
           }}
@@ -302,7 +296,7 @@ function TendaoInfraespinhalOmbroEsquerdo() {
           Pequenas calcificações junto à inserção
         </Checkbox>
         <Checkbox
-          isDisabled={disableTudo || disableAspectoNormal}
+          isDisabled={Disable || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
@@ -311,7 +305,7 @@ function TendaoInfraespinhalOmbroEsquerdo() {
         </Checkbox>
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo || disableTendinopatiaSemRotura}
+            isDisabled={Disable || disableTendinopatiaSemRotura}
             onChange={() => {
               setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
             }}
@@ -351,7 +345,7 @@ function TendaoInfraespinhalOmbroEsquerdo() {
 
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo || disableRoturaParcial}
+            isDisabled={Disable || disableRoturaParcial}
             onChange={() => {
               setRoturaParcialCheckbox(!RoturaParcialCheckbox);
             }}
@@ -412,7 +406,7 @@ function TendaoInfraespinhalOmbroEsquerdo() {
         <Box display='flex' flexWrap='wrap' gap='5px'>
 
           <Checkbox
-            isDisabled={disableTudo || disableRoturaCompleta}
+            isDisabled={Disable || disableRoturaCompleta}
             onChange={() => {
               setRoturaCompletaCheckbox(!RoturaCompletaCheckbox);
             }}

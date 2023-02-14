@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 
-export default function IndividualizarRoturaExtensores({ numCalculo }) {
+export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) {
 
   const [FraseRoturaExtensoresDireito, setFraseRoturaExtensoresDireito] = useState<any>([]);
 
@@ -77,6 +77,7 @@ export default function IndividualizarRoturaExtensores({ numCalculo }) {
   return (
     <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
       <Checkbox
+        isDisabled={Disable}
         onChange={() => setmultiplosCalculosCheckBox(!multiplosCalculosCheckBox)}
       >
         {numCalculo}º dedo

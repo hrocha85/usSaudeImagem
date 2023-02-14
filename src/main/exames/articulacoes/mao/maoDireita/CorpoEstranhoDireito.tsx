@@ -1,12 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { MaoDireitoNormalContext } from "../../../../../context/MaoDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function CorpoEstranhoDireito() {
+function CorpoEstranhoDireito({ Disable }) {
     const altura = "100%";
     const largura = "90%";
 
@@ -34,9 +33,6 @@ function CorpoEstranhoDireito() {
         }
     }, [CorpoEstranhoMaoDireita]);
 
-
-    let { MaoDireitoLaudoNormal } = useContext(MaoDireitoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
 
     const [CorpoInput, setCorpoInput] = useState("");
     const [disableCorpoInput, setdisableCorpoInput] = useState(true);
@@ -87,12 +83,6 @@ function CorpoEstranhoDireito() {
         }
     }, [CorpoCheckbox, CorpoInput, CorpoSelect1, CorpoSelect2, CorpoSelect3]);
 
-
-    useEffect(() => {
-        MaoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [MaoDireitoLaudoNormal])
-
     return (
         <Box
             bg="#FAFAFA"
@@ -116,7 +106,7 @@ function CorpoEstranhoDireito() {
                 <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
                     <Checkbox
-                        isDisabled={disableTudo}
+                        isDisabled={Disable}
                         onChange={() => {
                             setCorpoCheckbox(!CorpoCheckbox);
                         }}

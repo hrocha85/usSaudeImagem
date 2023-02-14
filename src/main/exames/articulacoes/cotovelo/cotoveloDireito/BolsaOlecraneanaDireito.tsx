@@ -6,13 +6,9 @@ import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDir
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function BolsaOlecreaneanaDireito() {
+function BolsaOlecreaneanaDireito({ Disable }) {
     const altura = "100%";
     const largura = "100%";
-
-    let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
-
 
     const [fraseBolsaOlecreaneanaDireito, setFraseBolsaOlecreaneanaDireito] = useState<any>([]);
 
@@ -78,13 +74,6 @@ function BolsaOlecreaneanaDireito() {
         }
     }, [ComLiquidoEspessadoCheckbox])
 
-
-
-    useEffect(() => {
-        CotoveloDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [CotoveloDireitoLaudoNormal])
-
     return (
         <Box
             bg="#FAFAFA"
@@ -105,7 +94,7 @@ function BolsaOlecreaneanaDireito() {
 
             <Stack>
                 <Checkbox
-                    isDisabled={disableTudo || disableSemLiquido}
+                    isDisabled={Disable || disableSemLiquido}
                     onChange={() => {
                         setSemLiquidoCheckbox(!SemLiquidoCheckbox);
                     }}
@@ -113,7 +102,7 @@ function BolsaOlecreaneanaDireito() {
                     Sem líquido
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo || disableComLiquidoEspessado}
+                    isDisabled={Disable || disableComLiquidoEspessado}
                     onChange={() => {
                         setComLiquidoEspessadoCheckbox(!ComLiquidoEspessadoCheckbox);
                     }}

@@ -4,7 +4,7 @@ import { Box, Stack } from "@chakra-ui/react";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
 import IndividualizarTenossinoviteFlexores from "./individualizarTenossinoviteFlexores";
 
-function TenossinoviteFlexoresDireito() {
+function TenossinoviteFlexoresDireito({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
@@ -30,6 +30,7 @@ function TenossinoviteFlexoresDireito() {
               <IndividualizarTenossinoviteFlexores
                 key={key}
                 numCalculo={num}
+                Disable={Disable}
               />
             );
           })}

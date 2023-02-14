@@ -1,12 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { JoelhoDireitoNormalContext } from "../../../../../context/JoelhoDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function JoelhoDerrameArticularDireito() {
+function JoelhoDerrameArticularDireito({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
@@ -33,8 +32,7 @@ function JoelhoDerrameArticularDireito() {
     }
   }, [JoelhoDerrameArticularDireito]);
 
-  let { JoelhoDireitoLaudoNormal } = useContext(JoelhoDireitoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
+
   const [disablePresente, setDisablePresente] = useState(false)
   const [disableAusente, setDisableAusente] = useState(false)
 
@@ -111,10 +109,6 @@ function JoelhoDerrameArticularDireito() {
   }, [PresenteSelect, EspessamentoSinovialCheckbox]);
 
 
-  useEffect(() => {
-    JoelhoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-  }, [JoelhoDireitoLaudoNormal])
-
   return (
     <Box
       bg="#FAFAFA"
@@ -136,7 +130,7 @@ function JoelhoDerrameArticularDireito() {
       <Stack>
 
         <Checkbox
-          isDisabled={disableTudo || disableAusente}
+          isDisabled={Disable || disableAusente}
           onChange={() => {
             setAusenteCheckbox(true);
             criaStringAusente();
@@ -146,7 +140,7 @@ function JoelhoDerrameArticularDireito() {
         </Checkbox>
         <HStack>
           <Checkbox
-            isDisabled={disableTudo || disablePresente}
+            isDisabled={Disable || disablePresente}
             onChange={() => setPresenteCheckbox(!PresenteCheckbox)}>
             Presente
           </Checkbox>

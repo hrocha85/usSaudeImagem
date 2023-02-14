@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Box, Checkbox, Flex } from "@chakra-ui/react";
 import CotoveloLadoDireito from "./cotovelo/cotoveloDireito/ladoDireito";
 import CotoveloLadoEsquerdo from "./cotovelo/cotoveloEsquerdo/ladoEsquerdo";
 import OmbroLadoDireito from "./ombro/omboDireito/ladoDireito";
@@ -122,9 +122,15 @@ import QuadrilDerrameArticularEsquerdo from "./quadril/quadrilEsquerdo/QuadrilDe
 import TendaoGluteoMedioEsquerdo from "./quadril/quadrilEsquerdo/TendaoGluteoMedio";
 import TendaoGluteoMinimoEsquerdo from "./quadril/quadrilEsquerdo/TendaoGluteoMinimo";
 import Tornozelos from "./tornozelo/tornozelos";
+import { useState } from "react";
 
 function Articulacoes() {
+  const altura = '100%'
+  const largura = '180px'
+  const [Disable, SetDisable] = useState(false)
+
   return (
+
     <Flex
       flex={1}
       gap={4}
@@ -135,7 +141,27 @@ function Articulacoes() {
       justifyItems="center"
       flexWrap="wrap"
     >
-      <Tornozelos />
+
+      <Box
+        bg="#FAFAFA"
+        w={largura}
+        h={altura}
+        bgPosition="center"
+        bgRepeat="no-repeat"
+        borderRadius="10.85px"
+        boxShadow="md"
+        padding='10px 15px 10px 15px'
+        mt='2px'
+        mb='5px'>
+        <Box w='150px' >
+          <Checkbox
+            id="tudoNormal"
+            onChange={(e) => { SetDisable(!Disable) }}
+          >Articulações normais</Checkbox>
+        </Box>
+      </Box >
+
+      <Tornozelos Disable={Disable} />
       <Flex
         gap={4}
         alignItems="start"
@@ -149,21 +175,21 @@ function Articulacoes() {
 
           <OmbroNormalEsquerdo />
 
-          <OmbroTendaoSupraespinhalEsquerdo />
+          <OmbroTendaoSupraespinhalEsquerdo Disable={Disable} />
 
-          <VentreSupraespinhalEsquerdo />
+          <VentreSupraespinhalEsquerdo Disable={Disable} />
 
-          <TendaoInfraespinhalOmbroEsquerdo />
+          <TendaoInfraespinhalOmbroEsquerdo Disable={Disable} />
 
-          <VentreInfraespinhalEsquerdo />
+          <VentreInfraespinhalEsquerdo Disable={Disable} />
 
-          <TendaoSubescapularOmbroEsquerdo />
+          <TendaoSubescapularOmbroEsquerdo Disable={Disable} />
 
-          <TendaoCabeçaLongaBicepsEsquerdo />
+          <TendaoCabeçaLongaBicepsEsquerdo Disable={Disable} />
 
-          <BolsaSubacromial_SubdeltoideaEsquerdo />
+          <BolsaSubacromial_SubdeltoideaEsquerdo Disable={Disable} />
 
-          <ArticulacaoAcromioclavicularEsquerdo />
+          <ArticulacaoAcromioclavicularEsquerdo Disable={Disable} />
         </Flex>
 
         {/*OMBRO DIREITO */}
@@ -172,21 +198,21 @@ function Articulacoes() {
 
           <OmbroNormalDireito />
 
-          <OmbroTendaoSupraespinhalDireito />
+          <OmbroTendaoSupraespinhalDireito Disable={Disable} />
 
-          <VentreSupraespinhalDireito />
+          <VentreSupraespinhalDireito Disable={Disable} />
 
-          <TendaoInfraespinhalOmbroDireito />
+          <TendaoInfraespinhalOmbroDireito Disable={Disable} />
 
-          <VentreInfraespinhalDireito />
+          <VentreInfraespinhalDireito Disable={Disable} />
 
-          <TendaoSubescapularOmbroDireito />
+          <TendaoSubescapularOmbroDireito Disable={Disable} />
 
-          <TendaoCabeçaLongaBicepsDireito />
+          <TendaoCabeçaLongaBicepsDireito Disable={Disable} />
 
-          <BolsaSubacromial_SubdeltoideaDireito />
+          <BolsaSubacromial_SubdeltoideaDireito Disable={Disable} />
 
-          <ArticulacaoAcromioclavicularDireito />
+          <ArticulacaoAcromioclavicularDireito Disable={Disable} />
         </Flex>
       </Flex>
 
@@ -203,21 +229,21 @@ function Articulacoes() {
 
           <CotoveloNormalEsquerdo />
 
-          <TenComumExtensoresAntebracoEsquerdo />
+          <TenComumExtensoresAntebracoEsquerdo Disable={Disable} />
 
-          <TenComumFlexoresAntebracoEsquerdo />
+          <TenComumFlexoresAntebracoEsquerdo Disable={Disable} />
 
-          <TendaoBicepsBraquialEsquerdo />
+          <TendaoBicepsBraquialEsquerdo Disable={Disable} />
 
-          <TendaoTricepsBraquialEsquerdo />
+          <TendaoTricepsBraquialEsquerdo Disable={Disable} />
 
-          <LiquidoPeritendineoEsquerdo />
+          <LiquidoPeritendineoEsquerdo Disable={Disable} />
 
-          <NervoUlnarEsquerdo />
+          <NervoUlnarEsquerdo Disable={Disable} />
 
-          <BolsaOlecreaneanaEsquerdo />
+          <BolsaOlecreaneanaEsquerdo Disable={Disable} />
 
-          <DerrameArticularEsquerdo />
+          <DerrameArticularEsquerdo Disable={Disable} />
         </Flex>
 
         {/*COTOVELO DIREITO */}
@@ -226,21 +252,21 @@ function Articulacoes() {
 
           <CotoveloNormalDireito />
 
-          <TenComumExtensoresAntebracoDireito />
+          <TenComumExtensoresAntebracoDireito Disable={Disable} />
 
-          <TenComumFlexoresAntebracoDireito />
+          <TenComumFlexoresAntebracoDireito Disable={Disable} />
 
-          <TendaoBicepsBraquialDireito />
+          <TendaoBicepsBraquialDireito Disable={Disable} />
 
-          <TendaoTricepsBraquialDireito />
+          <TendaoTricepsBraquialDireito Disable={Disable} />
 
-          <LiquidoPeritendineoDireito />
+          <LiquidoPeritendineoDireito Disable={Disable} />
 
-          <NervoUlnarDireito />
+          <NervoUlnarDireito Disable={Disable} />
 
-          <BolsaOlecreaneanaDireito />
+          <BolsaOlecreaneanaDireito Disable={Disable} />
 
-          <DerrameArticularDireito />
+          <DerrameArticularDireito Disable={Disable} />
         </Flex>
       </Flex>
 
@@ -257,15 +283,15 @@ function Articulacoes() {
 
           <PunhoNormalEsquerdo />
 
-          <TendaoFlexoresTenossinoviteEsquerdo />
+          <TendaoFlexoresTenossinoviteEsquerdo Disable={Disable} />
 
-          <TendaoExtensoresTenossinoviteEsquerdo />
+          <TendaoExtensoresTenossinoviteEsquerdo Disable={Disable} />
 
-          <PunhoNervoMedianoEsquerdo />
+          <PunhoNervoMedianoEsquerdo Disable={Disable} />
 
-          <RetinaculoFlexoresEsquerdo />
+          <RetinaculoFlexoresEsquerdo Disable={Disable} />
 
-          <PunhoCistosEsquerdo />
+          <PunhoCistosEsquerdo Disable={Disable} />
         </Flex>
 
         {/*PUNHO DIREITO */}
@@ -274,15 +300,15 @@ function Articulacoes() {
 
           <PunhoNormalDireito />
 
-          <TendaoFlexoresTenossinoviteDireito />
+          <TendaoFlexoresTenossinoviteDireito Disable={Disable} />
 
-          <TendaoExtensoresTenossinoviteDireito />
+          <TendaoExtensoresTenossinoviteDireito Disable={Disable} />
 
-          <PunhoNervoMedianoDireito />
+          <PunhoNervoMedianoDireito Disable={Disable} />
 
-          <RetinaculoFlexoresDireito />
+          <RetinaculoFlexoresDireito Disable={Disable} />
 
-          <PunhoCistosDireito />
+          <PunhoCistosDireito Disable={Disable} />
         </Flex>
       </Flex>
 
@@ -299,31 +325,31 @@ function Articulacoes() {
 
           <MaoNormalEsquerdo />
 
-          <RoturaFlexoresEsquerdo />
+          <RoturaFlexoresEsquerdo Disable={Disable} />
 
-          <TenossinoviteFlexoresEsquerdo />
+          <TenossinoviteFlexoresEsquerdo Disable={Disable} />
 
-          <LiquidoPeritendineoHexoresEsquerda />
+          <LiquidoPeritendineoHexoresEsquerda Disable={Disable} />
 
-          <PoliasEsquerdo />
+          <PoliasEsquerdo Disable={Disable} />
 
-          <FibromatosePalmarEsquerdo />
+          <FibromatosePalmarEsquerdo Disable={Disable} />
 
-          <RoturaExtensoresEsquerdo />
+          <RoturaExtensoresEsquerdo Disable={Disable} />
 
-          <TenossinoviteExtensoresEsquerda />
+          <TenossinoviteExtensoresEsquerda Disable={Disable} />
 
-          <MaoCistosEsquerdo />
+          <MaoCistosEsquerdo Disable={Disable} />
 
-          <OssosEsquerda />
+          <OssosEsquerda Disable={Disable} />
 
-          <MaoDerrameArticularEsquerdo />
+          <MaoDerrameArticularEsquerdo Disable={Disable} />
 
-          <AlteracaoPosCirurgiaEsquerdo />
+          <AlteracaoPosCirurgiaEsquerdo Disable={Disable} />
 
-          <ColecaoEsquerdo />
+          <ColecaoEsquerdo Disable={Disable} />
 
-          <CorpoEstranhoEsquerdo />
+          <CorpoEstranhoEsquerdo Disable={Disable} />
         </Flex>
 
         {/*MAO DIREITO */}
@@ -332,31 +358,31 @@ function Articulacoes() {
 
           <MaoNormalDireito />
 
-          <RoturaFlexoresDireito />
+          <RoturaFlexoresDireito Disable={Disable} />
 
-          <TenossinoviteFlexoresDireito />
+          <TenossinoviteFlexoresDireito Disable={Disable} />
 
-          <LiquidoPeritendineoHexoresDireita />
+          <LiquidoPeritendineoHexoresDireita Disable={Disable} />
 
-          <PoliasDireita />
+          <PoliasDireita Disable={Disable} />
 
-          <FibromatosePalmarDireito />
+          <FibromatosePalmarDireito Disable={Disable} />
 
-          <RoturaExtensoresDireito />
+          <RoturaExtensoresDireito Disable={Disable} />
 
-          <TenossinoviteExtensoresDireita />
+          <TenossinoviteExtensoresDireita Disable={Disable} />
 
-          <MaoCistosDireito />
+          <MaoCistosDireito Disable={Disable} />
 
-          <OssosDireita />
+          <OssosDireita Disable={Disable} />
 
-          <MaoDerrameArticularDireita />
+          <MaoDerrameArticularDireita Disable={Disable} />
 
-          <AlteracaoPosCirurgiaDireito />
+          <AlteracaoPosCirurgiaDireito Disable={Disable} />
 
-          <ColecaoDireito />
+          <ColecaoDireito Disable={Disable} />
 
-          <CorpoEstranhoDireito />
+          <CorpoEstranhoDireito Disable={Disable} />
         </Flex>
       </Flex>
 
@@ -373,23 +399,23 @@ function Articulacoes() {
 
           <JoelhoNormalEsquerdo />
 
-          <JoelhoDerrameArticularEsquerdo />
+          <JoelhoDerrameArticularEsquerdo Disable={Disable} />
 
-          <LigColTibialMedialEsquerdo />
+          <LigColTibialMedialEsquerdo Disable={Disable} />
 
-          <LigColFibularLateralEsquerdo />
+          <LigColFibularLateralEsquerdo Disable={Disable} />
 
-          <TendaoPataGansoEsquerdo />
+          <TendaoPataGansoEsquerdo Disable={Disable} />
 
-          <TendaoQuadricepsFemoralEsquerdo />
+          <TendaoQuadricepsFemoralEsquerdo Disable={Disable} />
 
-          <TendaoBicepsFemoralEsquerdo />
+          <TendaoBicepsFemoralEsquerdo Disable={Disable} />
 
-          <TendaoPatelarEsquerdo />
+          <TendaoPatelarEsquerdo Disable={Disable} />
 
-          <MeniscosEsquerdo />
+          <MeniscosEsquerdo Disable={Disable} />
 
-          <CistosEsquerdo />
+          <CistosEsquerdo Disable={Disable} />
         </Flex>
 
         {/*JOELHO DIREITO */}
@@ -398,23 +424,23 @@ function Articulacoes() {
 
           <JoelhoNormalDireito />
 
-          <JoelhoDerrameArticularDireito />
+          <JoelhoDerrameArticularDireito Disable={Disable} />
 
-          <LigColTibialMedialDireito />
+          <LigColTibialMedialDireito Disable={Disable} />
 
-          <LigColFibularLateralDireito />
+          <LigColFibularLateralDireito Disable={Disable} />
 
-          <TendaoPataGansoDireito />
+          <TendaoPataGansoDireito Disable={Disable} />
 
-          <TendaoQuadricepsFemoralDireito />
+          <TendaoQuadricepsFemoralDireito Disable={Disable} />
 
-          <TendaoBicepsFemoralDireito />
+          <TendaoBicepsFemoralDireito Disable={Disable} />
 
-          <TendaoPatelarDireito />
+          <TendaoPatelarDireito Disable={Disable} />
 
-          <MeniscosDireito />
+          <MeniscosDireito Disable={Disable} />
 
-          <CistosDireito />
+          <CistosDireito Disable={Disable} />
         </Flex>
       </Flex>
 
@@ -431,15 +457,15 @@ function Articulacoes() {
 
           <QuadrilNormalEsquerdo />
 
-          <QuadrilDerrameArticularEsquerdo />
+          <QuadrilDerrameArticularEsquerdo Disable={Disable} />
 
-          <TendaoGluteoMedioEsquerdo />
+          <TendaoGluteoMedioEsquerdo Disable={Disable} />
 
-          <TendaoGluteoMinimoEsquerdo />
+          <TendaoGluteoMinimoEsquerdo Disable={Disable} />
 
-          <QuadrilBolsasEsquerdo />
+          <QuadrilBolsasEsquerdo Disable={Disable} />
 
-          <FasciaLataEsquerdo />
+          <FasciaLataEsquerdo Disable={Disable} />
         </Flex>
 
         {/*QUADRIL DIREITO */}
@@ -448,15 +474,15 @@ function Articulacoes() {
 
           <QuadrilNormalDireito />
 
-          <QuadrilDerrameArticularDireito />
+          <QuadrilDerrameArticularDireito Disable={Disable} />
 
-          <TendaoGluteoMedioDireito />
+          <TendaoGluteoMedioDireito Disable={Disable} />
 
-          <TendaoGluteoMinimoDireito />
+          <TendaoGluteoMinimoDireito Disable={Disable} />
 
-          <QuadrilBolsasDireito />
+          <QuadrilBolsasDireito Disable={Disable} />
 
-          <FasciaLataDireito />
+          <FasciaLataDireito Disable={Disable} />
         </Flex>
       </Flex>
 

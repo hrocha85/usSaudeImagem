@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function FasciaLataDireito() {
+function FasciaLataDireito({ Disable }) {
     const altura = "100%";
     const largura = "100%";
 
@@ -58,7 +58,7 @@ function FasciaLataDireito() {
         >
             <TituloNomeExame titulo="Fáscia lata" />
 
-            <RadioGroup onChange={setValue} value={value} padding="10px">
+            <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
                 <Stack direction="column">
                     <Radio value="1">Não citar</Radio>
                     <Radio value="Fáscia lata com espessura preservada e ecotextura homogênea.">Aspecto Normal</Radio>

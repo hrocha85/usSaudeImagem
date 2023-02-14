@@ -1,18 +1,15 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { OmbroDireitoNormalContext } from "../../../../../context/OmbroDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 
-function VentreInfraespinhalDireito() {
+function VentreInfraespinhalDireito({ Disable }) {
     const altura = "100%";
     const largura = "100%";
 
-    let { OmbroDireitoLaudoNormal } = useContext(OmbroDireitoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
     const [fraseVentreInfraespinhalDireito, setFraseVentreInfraespinhalDireito] = useState<any>([]);
 
     const subExame = 'Ventre Infraespinhal Direito'
@@ -81,11 +78,6 @@ function VentreInfraespinhalDireito() {
         SubstituicaoAdiposaCheckbox ? setdisableNormal(true) : setdisableNormal(false)
     }, [SubstituicaoAdiposaCheckbox])
 
-    useEffect(() => {
-        OmbroDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [OmbroDireitoLaudoNormal])
-
     return (
         <Box
             bg="#FAFAFA"
@@ -106,7 +98,7 @@ function VentreInfraespinhalDireito() {
 
             <Box display="flex" flexWrap="wrap" gap='10px'>
                 <Checkbox
-                    isDisabled={disableTudo || disableNormal}
+                    isDisabled={Disable || disableNormal}
                     onChange={() => {
                         setNormalCheckbox(!NormalCheckbox);
                     }}
@@ -114,7 +106,7 @@ function VentreInfraespinhalDireito() {
                     Normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo || disableSubstituicaoAdiposa}
+                    isDisabled={Disable || disableSubstituicaoAdiposa}
                     onChange={() => {
                         setSubstituicaoAdiposaCheckbox(!SubstituicaoAdiposaCheckbox);
                     }}

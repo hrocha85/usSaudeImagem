@@ -1,12 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { MaoEsquerdoNormalContext } from "../../../../../context/MaoEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function MaoCistosEsquerdo() {
+function MaoCistosEsquerdo({ Disable }) {
     const altura = "100%";
     const largura = "90%";
 
@@ -32,10 +31,6 @@ function MaoCistosEsquerdo() {
             ).Format_Laudo_Create_Storage();
         }
     }, [CistosEsquerdo]);
-
-
-    let { MaoEsquerdoLaudoNormal } = useContext(MaoEsquerdoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
 
     const [Cistos1Input, setCistos1Input] = useState<any>(0);
     const [Cistos1Input2, setCistos1Input2] = useState<any>(0);
@@ -169,11 +164,6 @@ function MaoCistosEsquerdo() {
     }, [Cistos1Checkbox, Cistos1Input, Cistos1Input2, Cistos1Select1, Cistos1Select2,
         Cistos2Checkbox, Cistos2Input, Cistos2Input2, Cistos2Select1, Cistos2Select2]);
 
-    useEffect(() => {
-        MaoEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [MaoEsquerdoLaudoNormal])
-
     return (
         <Box
             bg="#FAFAFA"
@@ -197,7 +187,7 @@ function MaoCistosEsquerdo() {
                 <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
                     <Checkbox
-                        isDisabled={disableTudo}
+                        isDisabled={Disable}
                         onChange={() => {
                             setCistos1Checkbox(!Cistos1Checkbox);
                         }}
@@ -270,7 +260,7 @@ function MaoCistosEsquerdo() {
                 <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
                     <Checkbox
-                        isDisabled={disableTudo}
+                        isDisabled={Disable}
                         onChange={() => {
                             setCistos2Checkbox(!Cistos2Checkbox);
                         }}

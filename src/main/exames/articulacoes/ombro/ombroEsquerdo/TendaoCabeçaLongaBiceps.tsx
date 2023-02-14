@@ -1,18 +1,15 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoCabeçaLongaBicepsEsquerdo() {
+function TendaoCabeçaLongaBicepsEsquerdo({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
-  let { OmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
 
   const [fraseTendaoCabecaLongaBicepsEsquerdo, setFraseTendaoCabecaLongaBicepsEsquerdo] = useState<any>([]);
 
@@ -366,11 +363,6 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
     }
   }, [RoturaCompletaRetracaoCheckbox])
 
-  useEffect(() => {
-    OmbroEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [OmbroEsquerdoLaudoNormal])
-
   return (
     <Box
       bg="#FAFAFA"
@@ -391,7 +383,7 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
 
       <Stack>
         <Checkbox
-          isDisabled={disableTudo}
+          isDisabled={Disable}
           onChange={() => {
             setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
           }}
@@ -399,7 +391,7 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
           Pequenas calcificações junto à inserção
         </Checkbox>
         <Checkbox
-          isDisabled={disableTudo || disableAspectoNormal}
+          isDisabled={Disable || disableAspectoNormal}
           onChange={() => {
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
@@ -408,7 +400,7 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
         </Checkbox>
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo || disableTendinopatiaSemRotura}
+            isDisabled={Disable || disableTendinopatiaSemRotura}
             onChange={() => {
               setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
             }}
@@ -438,7 +430,7 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
 
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo || disableRoturaParcial}
+            isDisabled={Disable || disableRoturaParcial}
             onChange={() => {
               setRoturaParcialCheckbox(!RoturaParcialCheckbox);
             }}
@@ -485,7 +477,7 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
         <Box display='flex' flexWrap='wrap' gap='5px'>
 
           <Checkbox
-            isDisabled={disableTudo || disableRoturaCompleta}
+            isDisabled={Disable || disableRoturaCompleta}
             onChange={() => {
               setRoturaCompletaCheckbox(!RoturaCompletaCheckbox);
             }}
@@ -525,7 +517,7 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
           />
         </Box>
         <Checkbox
-          isDisabled={disableTudo || disableRoturaLongitudinal}
+          isDisabled={Disable || disableRoturaLongitudinal}
           onChange={() => {
             setRoturaLongitudinalCheckbox(!RoturaLongitudinalCheckbox);
           }}
@@ -534,7 +526,7 @@ function TendaoCabeçaLongaBicepsEsquerdo() {
         </Checkbox>
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={disableTudo || DisableLuxacaoCheckbox}
+            isDisabled={Disable || DisableLuxacaoCheckbox}
             onChange={() => {
               setLuxacaoCheckbox(!LuxacaoCheckbox);
             }}

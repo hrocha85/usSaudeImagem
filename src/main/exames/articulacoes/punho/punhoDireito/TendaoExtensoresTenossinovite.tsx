@@ -1,18 +1,13 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { PunhoDireitoNormalContext } from "../../../../../context/PunhoDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoExtensoresTenossinoviteDireito() {
+function TendaoExtensoresTenossinoviteDireito({ Disable }) {
     const altura = "100%";
     const largura = "100%";
-
-    let { PunhoDireitoLaudoNormal } = useContext(PunhoDireitoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
-
     const [fraseTendaoExtensoresTenossinoviteDireito, setFraseTendaoExtensoresTenossinoviteDireito] = useState<any>([]);
 
     const subExame = "Tendões Extensores com tenossinovite Direito";
@@ -84,11 +79,6 @@ function TendaoExtensoresTenossinoviteDireito() {
     };
 
 
-    useEffect(() => {
-        PunhoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [PunhoDireitoLaudoNormal])
-
     return (
         <Box
             bg="#FAFAFA"
@@ -107,7 +97,7 @@ function TendaoExtensoresTenossinoviteDireito() {
 
 
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setICheckbox(!ICheckbox);
                     }}
@@ -115,7 +105,7 @@ function TendaoExtensoresTenossinoviteDireito() {
                     I = Abdoturo longo do polegar + extensor curto do polegar
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setIICheckbox(!IICheckbox);
                     }}
@@ -123,7 +113,7 @@ function TendaoExtensoresTenossinoviteDireito() {
                     II = Extensor longo radial do carpo + extensor curto radial do carpo
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setIIICheckbox(!IIICheckbox);
                     }}
@@ -131,7 +121,7 @@ function TendaoExtensoresTenossinoviteDireito() {
                     III = Extensor longo do polegar
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setIVCheckbox(!IVCheckbox);
                     }}
@@ -139,7 +129,7 @@ function TendaoExtensoresTenossinoviteDireito() {
                     IV = Extensor comum dos dedos e extensor do indicador
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setVCheckbox(!VCheckbox);
                     }}
@@ -147,7 +137,7 @@ function TendaoExtensoresTenossinoviteDireito() {
                     V = extensor do V dedo
                 </Checkbox>
                 <Checkbox
-                    isDisabled={disableTudo}
+                    isDisabled={Disable}
                     onChange={() => {
                         setVICheckbox(!VICheckbox);
                     }}

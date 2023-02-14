@@ -1,12 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { QuadrilDireitoNormalContext } from "../../../../../context/QuadrilDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function QuadrilDerrameArticularDireito() {
+function QuadrilDerrameArticularDireito({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
@@ -33,8 +32,7 @@ function QuadrilDerrameArticularDireito() {
     }
   }, [QuadrilDerrameArticularDireito]);
 
-  let { QuadrilDireitoLaudoNormal } = useContext(QuadrilDireitoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
+
   const [disablePresente, setDisablePresente] = useState(false)
   const [disableAusente, setDisableAusente] = useState(false)
 
@@ -110,11 +108,6 @@ function QuadrilDerrameArticularDireito() {
     criaStringPresente(PresenteSelect);
   }, [PresenteSelect, EspessamentoSinovialCheckbox]);
 
-
-  useEffect(() => {
-    QuadrilDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-  }, [QuadrilDireitoLaudoNormal])
-
   return (
     <Box
       bg="#FAFAFA"
@@ -136,7 +129,7 @@ function QuadrilDerrameArticularDireito() {
       <Stack>
 
         <Checkbox
-          isDisabled={disableTudo || disableAusente}
+          isDisabled={Disable || disableAusente}
           onChange={() => {
             setAusenteCheckbox(true);
             criaStringAusente();
@@ -146,7 +139,7 @@ function QuadrilDerrameArticularDireito() {
         </Checkbox>
         <HStack>
           <Checkbox
-            isDisabled={disableTudo || disablePresente}
+            isDisabled={Disable || disablePresente}
             onChange={() => setPresenteCheckbox(!PresenteCheckbox)}>
             Presente
           </Checkbox>

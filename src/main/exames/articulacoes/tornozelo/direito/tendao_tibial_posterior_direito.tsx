@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Tendao_Tibial_Posterior_Direito() {
+export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
 
@@ -89,13 +89,13 @@ export default function Tendao_Tibial_Posterior_Direito() {
           setFrasesTornozelo(
             !valueCheckBox
               ? (arr) => [
-                  ...arr,
-                  "Com ecotextura e espessura preservadas e contornos normais.",
-                ]
+                ...arr,
+                "Com ecotextura e espessura preservadas e contornos normais.",
+              ]
               : (arr) => [
-                  ...arr,
-                  `Com ecotextura e espessura preservadas e contornos normais, com líquido peritendíneo fisiológico`,
-                ]
+                ...arr,
+                `Com ecotextura e espessura preservadas e contornos normais, com líquido peritendíneo fisiológico`,
+              ]
           );
         }
         break;
@@ -192,7 +192,7 @@ export default function Tendao_Tibial_Posterior_Direito() {
         <Text fontWeight="semibold" padding="10px">
           Tendão Tibial Posterior
         </Text>
-        <RadioGroup onChange={setValue} value={value} padding="10px">
+        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <HStack>
