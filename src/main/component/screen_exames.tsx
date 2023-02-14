@@ -242,7 +242,7 @@ export default function Box_Default_With_Sidebar() {
   };
 
   const SairExames = () => {
-    window.location.href = "/#/Home";
+    window.location.href = "#/Home";
     setTabExames([{}]);
   };
 
