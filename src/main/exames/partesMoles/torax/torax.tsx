@@ -7,7 +7,7 @@ import Derrame_Pleural_Esquerdo from "./esquerdo/derrame_pleural_esquerdo";
 import Linha_Pleural_Esquerdo from "./esquerdo/linha_pleural_esquerdo";
 import Parenquima_Pulmonar_Esquedo from "./esquerdo/parenquima_pulmonar_esquedo";
 
-export default function Torax() {
+export default function Torax({ Disable }) {
   const altura = "100%";
   const largura = "66%";
   return (
@@ -30,17 +30,17 @@ export default function Torax() {
             <Text fontWeight="semibold" fontSize="lg">
               Hemitórax Esquerdo
             </Text>
-            <Linha_Pleural_Esquerdo />
-            <Parenquima_Pulmonar_Esquedo />
-            <Derrame_Pleural_Esquerdo />
+            <Linha_Pleural_Esquerdo Disable={Disable} />
+            <Parenquima_Pulmonar_Esquedo Disable={Disable} />
+            <Derrame_Pleural_Esquerdo Disable={Disable} />
           </Box>
           <Box>
             <Text fontWeight="semibold" fontSize="lg">
               Hemitórax Direito
             </Text>
-            <Linha_Pleural_Direito />
-            <Parenquima_Pulmonar_Direito />
-            <Derrame_Pleural_Direito />
+            <Linha_Pleural_Direito Disable={Disable} />
+            <Parenquima_Pulmonar_Direito Disable={Disable} />
+            <Derrame_Pleural_Direito Disable={Disable} />
           </Box>
         </Stack>
       </Box>

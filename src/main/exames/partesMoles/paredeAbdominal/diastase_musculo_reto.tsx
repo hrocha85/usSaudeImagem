@@ -26,29 +26,26 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
+import { useEffect, useState } from "react";
+
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Diastase_Musculo_Reto() {
+function Diastase_Musculo_Reto(Disable) {
   const altura = "auto";
   const largura = "100%";
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { laudoNormal } = useContext(NormalContext);
   const [frasesDiastase, setFrasesDiastase] = useState<any>([]);
 
   const [afastamentoCheckBox, setAfastamentoCheckBox] = useState(false);
 
-  const [disableDiastase, setDisableDiastase] = useState(false);
+
   const [disableInputs, setDisableInputs] = useState(true);
 
-  const [disableCheckbox, setDisableCheckbox] = useState(true);
 
-  const [disableAfastamentoCheckbox, setDisableAfastamentoCheckbox] =
-    useState(true);
+
   const [medidaAfastamento, setMedidaAfastamento] = useState("");
   const [defaultSelect, setDefaultSelect] = useState("Selecione Opção");
 
@@ -111,18 +108,13 @@ function Diastase_Musculo_Reto() {
     setFrasesDiastase((arr) => []);
   };
 
-  useEffect(() => {
-    laudoNormal ? setDisableCheckbox(true) : setDisableCheckbox(false);
-  });
 
   useEffect(() => {
     if (presenteCheckbox) {
       setDisableInputs(false);
       setPresenteCheckbox(true);
-      setDisableAfastamentoCheckbox(false);
     } else {
       removeAll();
-      setDisableAfastamentoCheckbox(true);
       setPresenteCheckbox(false);
       setAfastamentoCheckBox(false);
       setDisableInputs(true);
@@ -191,7 +183,7 @@ function Diastase_Musculo_Reto() {
         <Stack>
           <HStack>
             <Checkbox
-              isDisabled={disableCheckbox}
+              isDisabled={Disable}
               isChecked={presenteCheckbox}
               onChange={(e) => setPresenteCheckbox(!presenteCheckbox)}
             >
@@ -214,7 +206,7 @@ function Diastase_Musculo_Reto() {
           </HStack>
           <HStack>
             <Checkbox
-              isDisabled={disableAfastamentoCheckbox}
+              isDisabled={Disable}
               isChecked={afastamentoCheckBox}
               onChange={(e) => setAfastamentoCheckBox(!afastamentoCheckBox)}
             >

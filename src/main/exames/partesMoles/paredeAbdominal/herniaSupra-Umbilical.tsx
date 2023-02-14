@@ -6,11 +6,10 @@ import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function HerniaSupraUmbilical() {
+function HerniaSupraUmbilical({ Disable }) {
   const altura = "auto";
   const largura = "95%";
 
-  const { laudoNormal } = useContext(NormalContext);
   const [frasesHerniaSup, setFrasesHerniaSup] = useState<any>([]);
 
   const [checkedHerniaUmbilicalCheckBox, setCheckedHerniaUmbilicalCheckBox] =
@@ -18,9 +17,6 @@ function HerniaSupraUmbilical() {
   const [checkedAnelHerniacoCheckBox, setCheckedAnelHerniacoCheckBox] =
     useState(false);
   const [checkedSacoHerniacoCheckBox, setCheckedSacoHerniacoCheckBox] =
-    useState(false);
-
-  const [disableHerniaSupraUmbilical, setDisableHerniaSupraUmbilical] =
     useState(false);
 
   const [HerniaUmbilicalCheckbox, setCheckboxHerniaUmbilical] = useState(false);
@@ -38,11 +34,7 @@ function HerniaSupraUmbilical() {
 
   const [medida3Distancia, setMedida3Distancia] = useState("");
 
-  useEffect(() => {
-    laudoNormal
-      ? setDisableHerniaSupraUmbilical(true)
-      : setDisableHerniaSupraUmbilical(false);
-  });
+
 
   useEffect(() => {
     if (HerniaUmbilicalCheckbox) {
@@ -205,7 +197,7 @@ function HerniaSupraUmbilical() {
         <Stack>
           <HStack>
             <Checkbox
-              isDisabled={disableHerniaSupraUmbilical}
+              isDisabled={Disable}
               isChecked={checkedHerniaUmbilicalCheckBox}
               onChange={(e) =>
                 setCheckboxHerniaUmbilical(!HerniaUmbilicalCheckbox)

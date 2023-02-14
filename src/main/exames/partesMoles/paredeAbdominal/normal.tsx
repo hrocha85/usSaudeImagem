@@ -6,7 +6,7 @@ import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function ParedeAbdominalNormal() {
+function ParedeAbdominalNormal({ Disable }) {
   const altura = "100%";
   const largura = "225px";
 

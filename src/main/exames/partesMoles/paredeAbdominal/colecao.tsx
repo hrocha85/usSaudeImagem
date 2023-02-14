@@ -10,18 +10,16 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Colecao() {
+function Colecao({ Disable }) {
   const altura = "auto";
   const largura = "95%";
 
   const [frasesColecao, setFrasesColecao] = useState<any>([]);
 
-  const { laudoNormal } = useContext(NormalContext);
 
   const [inputLocalColecao, setInputLocalColecao] = useState("");
   const [LocalColecaoCheckbox, setCheckboxLocalColecao] = useState(false);
@@ -36,11 +34,6 @@ function Colecao() {
   const [medida3Colecao, setMedida3Colecao] = useState("");
   const [MedidaDistanciaPele, setMedidaDistanciaPele] = useState("");
 
-  const [disableColecao, setDisableColecao] = useState(false);
-
-  useEffect(() => {
-    laudoNormal ? setDisableColecao(true) : setDisableColecao(false);
-  });
 
   const criaStringLocalColecao = () => {
     removeLocalColecao();
@@ -126,7 +119,7 @@ function Colecao() {
         <Stack w="100%">
           <HStack>
             <Checkbox
-              isDisabled={disableColecao}
+              isDisabled={Disable}
               onChange={(e) => setCheckboxLocalColecao(!LocalColecaoCheckbox)}
               mr="30px"
             >
