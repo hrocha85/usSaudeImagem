@@ -23,34 +23,34 @@ import RinsUreteres from "./Rins_ureteres/rins_ureteres";
 
 function AbdomemTotal() {
   return (
-    <>
 
 
-      <Box>
-        <Normal></Normal>
 
-        <Figado />
+    <Box>
+      <Normal></Normal>
 
-        <VesiculaBiliar />
+      <Figado />
 
-        <ViasBiliares />
+      <VesiculaBiliar></VesiculaBiliar>
 
-        <Pancreas />
+      <ViasBiliares />
 
-        <Baco />
+      <Pancreas />
 
-        <AlcasIntestinais />
+      <Baco />
 
-        <Aorta_Retroperitoneo />
+      <AlcasIntestinais />
 
-        <Volume_vesical />
+      <Aorta_Retroperitoneo />
 
-        <LiquidoLivre />
+      <Volume_vesical />
 
-        <Bexiga />
-        <RinsUreteres />
+      <LiquidoLivre />
 
-        {/* <Aorta />
+      <Bexiga />
+      <RinsUreteres />
+
+      {/* <Aorta />
 
         <RimDireito />
 
@@ -63,8 +63,8 @@ function AbdomemTotal() {
         <Nodulos />
 
         <Cisto /> */}
-      </Box>
-    </>
+    </Box>
+
   );
 }
 

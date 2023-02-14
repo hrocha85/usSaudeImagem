@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, Select, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { NormalContext } from "../../../../../context/NormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Nefropatia() {
@@ -11,6 +12,13 @@ export default function Nefropatia() {
 
     const subExame = "Rins e ureteres. Nefropatia parenquimatosa crônica";
     const titulo_exame = "Abdômen total";
+    const { laudoNormal } = useContext(NormalContext);
+
+    const [DisableTudo, setDisableTudo] = useState(false)
+
+    useEffect(() => {
+        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+    }, [laudoNormal])
 
     const criaStringAfilamentoParenquimatoso = () => {
         let string = 'Rins tópicos,'
@@ -72,6 +80,7 @@ export default function Nefropatia() {
             <Text fontWeight="bold" >Nefropatia parenquimatosa crônica</Text>
             <Flex gap='10px'>
                 <Checkbox
+                    isDisabled={DisableTudo}
                     onChange={() => setAfilamentoParenquimatosoCheckbox(!AfilamentoParenquimatosoCheckbox)}>
                     Afilamento parenquimatoso e alteração ecotextural
                 </Checkbox>

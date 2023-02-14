@@ -3,6 +3,7 @@
 import { Box, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { MaoDireitoNormalContext } from "../../../../context/MaoDireitoNormalContext";
+import { NormalContext } from "../../../../context/NormalContext";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -35,8 +36,6 @@ function AlcasIntestinais() {
     }, [CistosDireito]);
 
 
-    let { MaoDireitoLaudoNormal } = useContext(MaoDireitoNormalContext)
-    const [disableTudo, setDisableTudo] = useState(false)
 
     const [ApendiciteCheckbox, setApendiciteCheckbox] = useState(false);
     const [ApendiciteInput, setApendiciteInput] = useState('');
@@ -133,11 +132,13 @@ function AlcasIntestinais() {
         }
     }, [ApendiciteCheckbox, ApendiciteInput, ColecaoApendiciteCheckbox]);
 
+    const { laudoNormal } = useContext(NormalContext);
+
+    const [DisableTudo, setDisableTudo] = useState(false)
+
     useEffect(() => {
-        MaoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-    }, [MaoDireitoLaudoNormal])
-
+        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+    }, [laudoNormal])
     return (
         <Box
             bg="#FAFAFA"
@@ -161,7 +162,7 @@ function AlcasIntestinais() {
                 <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
                     <Checkbox
-                        isDisabled={disableTudo}
+                        isDisabled={DisableTudo}
                         onChange={() => {
                             setApendiciteCheckbox(!ApendiciteCheckbox);
                         }}
@@ -198,7 +199,7 @@ function AlcasIntestinais() {
                 <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
                     <Checkbox
-                        isDisabled={disableTudo}
+                        isDisabled={DisableTudo}
                         onChange={() => {
                             setDiverticuliteCheckbox(!DiverticuliteCheckbox);
                         }}

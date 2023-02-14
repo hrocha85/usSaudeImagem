@@ -11,8 +11,6 @@ function Volume_vesical() {
     const altura = "100%";
     const largura = "66%";
 
-
-    const { laudoNormal } = useContext(NormalContext);
     const [VolumeVesical, setVolumeVesical] = useState<any>([]);
 
     const [VolumePreMiccionalInput1, setVolumePreMiccionalInput1] = useState('')
@@ -117,6 +115,13 @@ function Volume_vesical() {
         // console.log('posicao', index)
         // console.log("laudosPrin", laudoPrin)
     };
+    const { laudoNormal } = useContext(NormalContext);
+
+    const [DisableTudo, setDisableTudo] = useState(false)
+
+    useEffect(() => {
+        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+    }, [laudoNormal])
 
     const subExame = "Volume vesical pré e pós miccional (Resíduo)";
     const titulo_exame = "Abdômen total";
@@ -161,6 +166,7 @@ function Volume_vesical() {
                         <Text>Vol. pré-miccional:</Text>
                         <HStack>
                             <Input
+                                isDisabled={DisableTudo}
                                 w="60px"
                                 value={VolumePreMiccionalInput1}
                                 onChange={(e) => {
@@ -170,6 +176,7 @@ function Volume_vesical() {
                             />
                             <Text>x</Text>
                             <Input
+                                isDisabled={DisableTudo}
                                 w="60px"
                                 value={VolumePreMiccionalInput2}
                                 onChange={(e) => {
@@ -179,6 +186,7 @@ function Volume_vesical() {
                             />
                             <Text>x</Text>
                             <Input
+                                isDisabled={DisableTudo}
                                 w="60px"
                                 value={VolumePreMiccionalInput3}
                                 onChange={(e) => {
@@ -188,6 +196,7 @@ function Volume_vesical() {
                             />
                             <Text>mm = </Text>
                             <Input
+                                isDisabled={DisableTudo}
                                 w="60px"
                                 value={VolumePreMiccionalInput4}
                                 onChange={(e) => {
@@ -197,6 +206,7 @@ function Volume_vesical() {
                             />
                             <Text>ml</Text>
                             <Checkbox
+                                isDisabled={DisableTudo}
                                 onChange={() => setNaoCitarVolume(!NaoCitarVolume)}>
                                 Não citar
                             </Checkbox>
@@ -207,6 +217,7 @@ function Volume_vesical() {
                     <Text>Resíduo:</Text>
                     <HStack>
                         <Input
+                            isDisabled={DisableTudo}
                             w="60px"
                             value={ResiduoInput1}
                             onChange={(e) => {
@@ -216,6 +227,7 @@ function Volume_vesical() {
                         />
                         <Text>x</Text>
                         <Input
+                            isDisabled={DisableTudo}
                             w="60px"
                             value={ResiduoInput2}
                             onChange={(e) => {
@@ -225,6 +237,7 @@ function Volume_vesical() {
                         />
                         <Text>x</Text>
                         <Input
+                            isDisabled={DisableTudo}
                             w="60px"
                             value={ResiduoInput3}
                             onChange={(e) => {
@@ -234,6 +247,7 @@ function Volume_vesical() {
                         />
                         <Text>mm = </Text>
                         <Input
+                            isDisabled={DisableTudo}
                             w="60px"
                             value={ResiduoInput4}
                             onChange={(e) => {
@@ -243,6 +257,7 @@ function Volume_vesical() {
                         />
                         <Text>ml</Text>
                         <Checkbox
+                            isDisabled={DisableTudo}
                             onChange={() => setNaoCitarResiduo(!NaoCitarResiduo)}>
                             Não citar
                         </Checkbox>

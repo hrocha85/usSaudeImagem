@@ -11,8 +11,13 @@ function ViasBiliares() {
   const altura = "100%";
   const largura = "66%";
 
-
   const { laudoNormal } = useContext(NormalContext);
+
+  const [DisableTudo, setDisableTudo] = useState(false)
+
+  useEffect(() => {
+    laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+  }, [laudoNormal])
   const [frasesVias, setFrasesVias] = useState<any>([]);
 
   const [value, setValue] = useState("1");
@@ -124,7 +129,9 @@ function ViasBiliares() {
       <TituloNomeExame titulo="Vias Biliares" />
 
       <Box gap="25px" display="flex" flexWrap="wrap">
-        <RadioGroup onChange={setValue} value={value} padding="10px">
+        <RadioGroup
+          isDisabled={DisableTudo}
+          onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Não há dilatação das vias biliares intra ou extra-hepáticas">Colédoco normal</Radio>
@@ -134,7 +141,7 @@ function ViasBiliares() {
         <Stack>
           <Box>
             <Checkbox
-
+              isDisabled={DisableTudo}
               onChange={(e) => {
                 setDilatacaoCheckbox(!DilatacaoCheckbox);
               }}
@@ -145,6 +152,7 @@ function ViasBiliares() {
           <HStack >
             <Box>
               <Checkbox
+                isDisabled={DisableTudo}
                 onChange={(e) => {
                   setCitarCalibresCheckbox(!CitarCalibresCheckbox);
                 }}
