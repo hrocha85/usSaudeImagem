@@ -265,12 +265,17 @@ export default function Box_Default_With_Sidebar() {
   useEffect(() => {
     setIsMounted(true);
     tabExames.map((e) =>
+      console.log(e.nomeExame)
+    );
+    tabExames.map((e) =>
       e.nomeExame != undefined ? setCurrentExame(e) : null
     );
 
     return () => {
       setIsMounted(false);
     };
+
+
   }, []);
 
   if (!isMounted) {
