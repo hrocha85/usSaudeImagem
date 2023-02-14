@@ -13,7 +13,7 @@ import { LaudosContext } from "../../../../context/LuadosContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Ovario_Esquerdo() {
+function Ovario_Esquerdo({ Disable }) {
   const altura = "100%";
   const largura = "32.5%";
 
@@ -233,7 +233,7 @@ function Ovario_Esquerdo() {
           <Box w="200px">
             <Text>Medidas:</Text>
             <HStack marginTop="5px">
-              <Input
+              <Input isDisabled={Disable}
                 w="80px"
                 h="30px"
                 padding="5px"
@@ -242,7 +242,7 @@ function Ovario_Esquerdo() {
                 onChange={(e) => setmedidaOvario1(e.target.value)}
               />
               <Text>x</Text>
-              <Input
+              <Input isDisabled={Disable}
                 w="80px"
                 h="30px"
                 padding="5px"
@@ -251,7 +251,7 @@ function Ovario_Esquerdo() {
                 onChange={(e) => setmedidaOvario2(e.target.value)}
               />
               <Text>x</Text>
-              <Input
+              <Input isDisabled={Disable}
                 w="80px"
                 h="30px"
                 padding="5px"
@@ -266,7 +266,7 @@ function Ovario_Esquerdo() {
           </Box>
 
           <Stack>
-            <Checkbox
+            <Checkbox isDisabled={Disable}
               onChange={() => {
                 setnaoVisibilizadoCheckBox(true);
                 criaStringNaoVisibilizado();
@@ -275,7 +275,7 @@ function Ovario_Esquerdo() {
               Não visibilizado
             </Checkbox>
 
-            <Checkbox
+            <Checkbox isDisabled={Disable}
               onChange={() =>
                 setpadraoMicropolicisticoCheckBox(
                   !padraoMicropolicisticoCheckBox
@@ -284,7 +284,7 @@ function Ovario_Esquerdo() {
             >
               Padrão micropolicístico
             </Checkbox>
-            <Checkbox
+            <Checkbox isDisabled={Disable}
               onChange={() =>
                 setpadraoFolicularCheckBox(!padraoFolicularCheckBox)
               }
@@ -293,7 +293,7 @@ function Ovario_Esquerdo() {
             </Checkbox>
 
             <HStack>
-              <Checkbox onChange={() => setCistoCheckBox(!cistoCheckBox)}>
+              <Checkbox isDisabled={Disable} onChange={() => setCistoCheckBox(!cistoCheckBox)}>
                 Cisto
               </Checkbox>
               <Input
