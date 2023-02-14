@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function CistoSebaceo() {
+function CistoSebaceo({ Disable }) {
   const altura = "100%";
   const largura = "auto";
 
@@ -196,6 +196,7 @@ function CistoSebaceo() {
         <Stack>
           <HStack>
             <Checkbox
+              isDisabled={Disable}
               onChange={(e) =>
                 setCheckboxLocalCistoSebaceo(!LocalCistoSebaceoCheckbox)
               }
@@ -223,6 +224,7 @@ function CistoSebaceo() {
 
           <HStack>
             <Checkbox
+              isDisabled={Disable}
               onChange={(e) => setCistoUnicoCheckbox(!CistoUnicoCheckbox)}
             >
               Cisto único
@@ -270,6 +272,7 @@ function CistoSebaceo() {
 
           <HStack>
             <Checkbox
+              isDisabled={Disable}
               onChange={(e) =>
                 setMultiplosCistosCheckbox(!MultiplosCistosCheckbox)
               }

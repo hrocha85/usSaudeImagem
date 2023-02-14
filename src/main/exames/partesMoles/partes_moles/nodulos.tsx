@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import IndividualizarNodulos from "./individualizar_nodulos";
 
-function Nodulos() {
+function Nodulos({ Disable }) {
   const altura = "100%";
   const largura = "66%";
   var numberArray = [1, 2, 3, 4];
@@ -45,6 +45,7 @@ function Nodulos() {
         <Box w="100%">
           <HStack mb="10px">
             <Checkbox
+              isDisabled={Disable}
               onChange={(e) =>
                 setNoduloSubcutaneoCheckbox(!noduloSubcutaneoCheckbox)
               }
@@ -97,7 +98,7 @@ function Nodulos() {
                     selectNodulo1={noduloSelect}
                     selectNodulo2={noduloSelect2}
                     numNodulo={num}
-                    disable={!noduloSubcutaneoCheckbox}
+                    disable={!noduloSubcutaneoCheckbox || Disable}
                   />
                 );
               })}

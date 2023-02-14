@@ -1,25 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
+import { useEffect, useState } from "react";
+
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function HerniaUmbilical() {
+function HerniaUmbilical({ Disable }) {
   const altura = 'auto';
   const largura = "98%";
 
-  const { laudoNormal } = useContext(NormalContext);
+
   const [frasesHerniaUmb, setFrasesHerniaUmb] = useState<any>([]);
 
   const [checkedSacoHerniacoCheckBox, setCheckedSacoHerniacoCheckBox] =
     useState(false);
 
-  const [disableHerniaUmbilical, setDisableHerniaUmbilical] = useState(false);
   const [disableInputs, setDisableInputs] = useState(true);
 
-  const [disableCheckboxHerniaco, setDisableCheckboxHerniaco] = useState(true);
   const [medidaColo, setMedidaColo] = useState("");
 
   const [SacoHerniacoCheckbox, setSacoHerniacoCheckbox] = useState(false);
@@ -50,17 +48,6 @@ function HerniaUmbilical() {
     });
   };
 
-  useEffect(() => {
-    laudoNormal
-      ? setDisableHerniaUmbilical(true)
-      : setDisableHerniaUmbilical(false);
-  });
-
-  useEffect(() => {
-    laudoNormal
-      ? setDisableCheckboxHerniaco(true)
-      : setDisableCheckboxHerniaco(false);
-  });
 
   useEffect(() => {
     if (SacoHerniacoCheckbox) {
@@ -120,7 +107,7 @@ function HerniaUmbilical() {
         <Stack>
           <HStack>
             <Checkbox
-              isDisabled={disableCheckboxHerniaco}
+              isDisabled={Disable}
               isChecked={checkedSacoHerniacoCheckBox}
               onChange={(e) => setSacoHerniacoCheckbox(!SacoHerniacoCheckbox)}
             >

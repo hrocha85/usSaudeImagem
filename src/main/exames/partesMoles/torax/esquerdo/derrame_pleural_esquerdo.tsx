@@ -2,7 +2,7 @@ import { Box, Radio, RadioGroup, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Derrame_Pleural_Esquerdo() {
+export default function Derrame_Pleural_Esquerdo({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTorax, setFrasesTorax] = useState<any>([]);
 
@@ -105,7 +105,7 @@ export default function Derrame_Pleural_Esquerdo() {
         <Text fontWeight="semibold" padding="10px">
           Derrame Pleural
         </Text>
-        <RadioGroup onChange={setValue} value={value} padding="10px">
+        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Ausência de derrame pleural detectável.">

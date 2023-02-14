@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
-import { Grid } from "@chakra-ui/react";
+import { Box, Checkbox, Grid } from "@chakra-ui/react";
+import { useState } from "react";
 
 import CistoAnecoico from "../partesMoles/cistoAnecoico/cistoAnecoico";
 import CistoSebaceo from "../partesMoles/cistoSebaceo/cistoSebaceo";
@@ -20,22 +21,44 @@ import Achados_Normais from "./torax/achados_normais";
 import Torax from "./torax/torax";
 
 function PartesMoles() {
+  const altura = '100%'
+  const largura = '220px'
+  const [Disable, SetDisable] = useState(false)
   return (
     <>
-      <Achados_Normais />
-      {/*<Partes_Moles />*/}
-      <Nodulos/>
-      <Torax />
+      <Box
+        bg="#FAFAFA"
+        w={largura}
+        h={altura}
+        bgPosition="center"
+        bgRepeat="no-repeat"
+        borderRadius="10.85px"
+        boxShadow="md"
+        padding='10px 15px 10px 15px'
+        mt='2px'
+        mb='5px'>
+
+        <Checkbox
+          id="tudoNormal"
+          onChange={(e) => { SetDisable(!Disable) }}
+        >Partes moles normal</Checkbox>
+
+      </Box >
+
+      <Achados_Normais Disable={Disable} />
+      {/*<Partes_Moles Disable={Disable} />*/}
+      <Nodulos Disable={Disable} />
+      <Torax Disable={Disable} />
       <Grid templateColumns="repeat(2, 1fr)" gap={4} maxW="66%">
-        <CistoSebaceo />
-        <CistoAnecoico />
-        <ParedeAbdominalNormal />
-        <Hernia_Epigastrica />
-        <HerniaUmbilical />
-        <HerniaIncisional />
-        <HerniaSupraUmbilical />
-        <Colecao />
-        <Diastase_Musculo_Reto />
+        <CistoSebaceo Disable={Disable} />
+        <CistoAnecoico Disable={Disable} />
+        <ParedeAbdominalNormal Disable={Disable} />
+        <Hernia_Epigastrica Disable={Disable} />
+        <HerniaUmbilical Disable={Disable} />
+        <HerniaIncisional Disable={Disable} />
+        <HerniaSupraUmbilical Disable={Disable} />
+        <Colecao Disable={Disable} />
+        <Diastase_Musculo_Reto Disable={Disable} />
         {/*<Direita />*/}
         {/*<Esquerda />*/}
       </Grid>

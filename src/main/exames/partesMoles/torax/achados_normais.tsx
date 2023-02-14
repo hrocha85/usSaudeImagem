@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-export default function Achados_Normais() {
+export default function Achados_Normais({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
@@ -208,6 +208,7 @@ export default function Achados_Normais() {
       <Box gap="15px" display="flex" flexWrap="wrap" flexDirection="column">
         <Grid templateColumns="repeat(5, 1fr)" gap={6}>
           <Checkbox
+            isDisabled={Disable}
             onChange={() =>
               setPele_Tecido_NormaisCheckBox(!Pele_Tecido_NormaisCheckbox)
             }
@@ -215,6 +216,7 @@ export default function Achados_Normais() {
             Pele e tecido subcutâneo normais
           </Checkbox>
           <Checkbox
+            isDisabled={Disable}
             onChange={() =>
               setPlanos_Musculares_NormaisCheckBox(
                 !Planos_Musculates_NormaisCheckbox
@@ -224,6 +226,7 @@ export default function Achados_Normais() {
             Planos Musculares
           </Checkbox>
           <Checkbox
+            isDisabled={Disable}
             onChange={() =>
               setAusencia_Nodulos_Colecoes_NormaisCheckBox(
                 !Ausencia_Nodulos_Colecoes_NormaisCheckbox
@@ -233,6 +236,7 @@ export default function Achados_Normais() {
             Ausência de nódulos, massas ou coleções
           </Checkbox>
           <Checkbox
+            isDisabled={Disable}
             onChange={() =>
               setAusencia_Herniacoes_NormaisCheckBox(
                 !Ausencia_Herniacoes_NormaisCheckbox
@@ -242,6 +246,7 @@ export default function Achados_Normais() {
             Ausência de herniações
           </Checkbox>
           <Checkbox
+            isDisabled={Disable}
             onChange={() =>
               setAusencia_Diastase_NormaisCheckBox(
                 !Ausencia_Diastase_NormaisCheckbox

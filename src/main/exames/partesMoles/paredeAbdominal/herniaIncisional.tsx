@@ -2,35 +2,26 @@
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function HerniaIncisional() {
+function HerniaIncisional({ Disable }) {
   const altura = 'auto';
   const largura = "95%";
 
   const [frasesHerniaInc, setFrasesHerniaInc] = useState<any>([]);
 
-  const { laudoNormal } = useContext(NormalContext);
   const [HerniaIncisional, setHerniaIncisional] = useState("");
   const [HerniaIncisionalCheckbox, setCheckboxHerniaIncisional] =
     useState(false);
   const [disableSelectHerniaIncisional, setDisableSelectHerniaIncisional] =
     useState(true);
 
-  const [disableHerniaIncisional, setDisableHerniaIncisional] = useState(true);
-
   const [LocalSelect, setLocalSelect] = useState("");
   const [TercoSelect, setTercoSelect] = useState("");
   const [medida1Nodulo, setMedida1Nodulo] = useState("");
   const [medida2Nodulo, setMedida2Nodulo] = useState("");
 
-  useEffect(() => {
-    laudoNormal
-      ? setDisableHerniaIncisional(true)
-      : setDisableHerniaIncisional(false);
-  });
 
   useEffect(() => {
     HerniaIncisionalCheckbox
@@ -114,7 +105,7 @@ function HerniaIncisional() {
       <Box gap="15px" display="flex" flexWrap="wrap">
         <Stack w="100%">
           <Checkbox
-            isDisabled={disableHerniaIncisional}
+            isDisabled={Disable}
             onChange={(e) =>
               setCheckboxHerniaIncisional(!HerniaIncisionalCheckbox)
             }
