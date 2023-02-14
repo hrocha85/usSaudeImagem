@@ -23,6 +23,11 @@ function Pancreas() {
   }, [value]);
   const { laudoNormal } = useContext(NormalContext);
 
+  const [DisableTudo, setDisableTudo] = useState(false)
+
+  useEffect(() => {
+    laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+  }, [laudoNormal])
   const [frasesPancreas, setFrasesPancreas] = useState<any>([]);
 
   const [CabecaCheckbox, setCabecaCheckbox] = useState(false)
@@ -138,7 +143,9 @@ function Pancreas() {
       <Box>
         <TituloNomeExame titulo="Pâncreas" />
         <Box gap="25px" display="flex" flexWrap="wrap" >
-          <RadioGroup onChange={setValue} value={value} padding="10px">
+          <RadioGroup
+            isDisabled={DisableTudo}
+            onChange={setValue} value={value} padding="10px">
             <Stack direction="column">
               <Radio value="1">Não citar</Radio>
               <Radio value="Pâncreas de dimensões normais, contornos regulares e ecotextura homogênea. Não há dilatação do ducto pancreático.">Normal</Radio>
@@ -151,6 +158,7 @@ function Pancreas() {
             <Text fontWeight="bold" textAlign='center'>Dimensões (espessura)</Text>
             <HStack>
               <Checkbox
+                isDisabled={DisableTudo}
                 onChange={(e) => {
                   setCabecaCheckbox(!CabecaCheckbox);
                 }}
@@ -168,6 +176,7 @@ function Pancreas() {
             </HStack>
             <HStack>
               <Checkbox
+                isDisabled={DisableTudo}
                 onChange={(e) => {
                   setCorpoCheckbox(!CorpoCheckbox);
                 }}
@@ -185,6 +194,7 @@ function Pancreas() {
             </HStack>
             <HStack>
               <Checkbox
+                isDisabled={DisableTudo}
                 onChange={(e) => {
                   setCaudaCheckbox(!CaudaCheckbox);
                 }}

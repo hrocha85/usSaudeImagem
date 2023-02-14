@@ -1,9 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, Select, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { NormalContext } from "../../../../../context/NormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Cateter() {
+    const { laudoNormal } = useContext(NormalContext);
+
+    const [DisableTudo, setDisableTudo] = useState(false)
+
+    useEffect(() => {
+        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+    }, [laudoNormal])
+
     const [FraseRinsUreteres, setFraseRinsUreteres] = useState<any>([]);
     const [PresenteCheckbox, setPresenteCheckbox] = useState(false)
     const [ValueSelectCateter, setValueSelectCateter] = useState('')
@@ -65,7 +74,7 @@ export default function Cateter() {
         <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" p='5px' mt='5px' >
             <Text fontWeight="bold" >Cateter "Duplo J"</Text>
             <Flex gap='10px'>
-                <Checkbox
+                <Checkbox isDisabled={DisableTudo}
                     onChange={() => setPresenteCheckbox(!PresenteCheckbox)}>
                     Presente
                 </Checkbox>

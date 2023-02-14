@@ -10,8 +10,6 @@ function Baco() {
   const altura = "100%";
   const largura = "66%";
 
-
-  const { laudoNormal } = useContext(NormalContext);
   const [frasesBaco, setFrasesBaco] = useState<any>([]);
 
 
@@ -213,6 +211,14 @@ function Baco() {
   const subExame = "Baço";
   const titulo_exame = "Abdômen total";
 
+  const { laudoNormal } = useContext(NormalContext);
+
+  const [DisableTudo, setDisableTudo] = useState(false)
+
+  useEffect(() => {
+    laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+  }, [laudoNormal])
+
   useEffect(() => {
     if (Object.keys(frasesBaco).length == 0) {
       new Format_Laudo(
@@ -247,7 +253,9 @@ function Baco() {
 
       <Box mb="20px" gap="30px" display="flex" flexWrap="wrap" mt="20px">
 
-        <RadioGroup onChange={setValue} value={value} padding="10px">
+        <RadioGroup
+          isDisabled={DisableTudo}
+          onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Baço com dimensões normais, contornos regulares e ecotextura homogênea.">
@@ -277,6 +285,7 @@ function Baco() {
           <Text fontWeight="bold" textAlign='center'>Dimensões (espessura)</Text>
           <HStack>
             <Checkbox
+              isDisabled={DisableTudo}
               onChange={(e) => {
                 setDimensoesCheckbox(!DimensoesCheckbox);
               }}
@@ -302,6 +311,7 @@ function Baco() {
           </HStack>
           <HStack>
             <Checkbox
+              isDisabled={DisableTudo}
               onChange={(e) => {
                 setCitarIndiceCheckbox(!CitarIndiceCheckbox);
               }}
@@ -314,7 +324,7 @@ function Baco() {
         <Box display='flex' flexWrap='wrap' gap='10px'>
           <Box w="200px">
             <Checkbox
-
+              isDisabled={DisableTudo}
               onChange={(e) => {
                 setBacoAcessorioCheckbox(!BacoAcessorioCheckbox);
               }}
@@ -345,6 +355,7 @@ function Baco() {
 
           <Box w="200px">
             <Checkbox
+              isDisabled={DisableTudo}
               onChange={(e) => {
                 setCalcificacaoCheckbox(!CalcificacaoCheckbox);
               }}

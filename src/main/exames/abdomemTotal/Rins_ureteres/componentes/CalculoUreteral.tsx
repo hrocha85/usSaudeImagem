@@ -1,11 +1,21 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, Input, Select, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { NormalContext } from "../../../../../context/NormalContext";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function CalculoUreteral() {
+
+    const { laudoNormal } = useContext(NormalContext);
+
+    const [DisableTudo, setDisableTudo] = useState(false)
+
+    useEffect(() => {
+        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+    }, [laudoNormal])
+
     const [FraseCalculoUreteral, setFraseCalculoUreteral] = useState<any>([]);
     const [CalculoCheckbox, setCalculoCheckbox] = useState(false)
     const [ValueSelectCalculo1, setValueSelectCalculo1] = useState('')
@@ -74,7 +84,7 @@ export default function CalculoUreteral() {
         <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" p='5px' mt='5px' >
             <Text fontWeight="bold" >Cálculo uretal</Text>
             <Box display='flex' flexWrap='wrap' gap='10px'>
-                <Checkbox
+                <Checkbox isDisabled={DisableTudo}
                     onChange={() => setCalculoCheckbox(!CalculoCheckbox)}>
                     Cálculo
                 </Checkbox>

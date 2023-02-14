@@ -1,12 +1,21 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, Input, Select, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { NormalContext } from "../../../../../context/NormalContext";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Cistos() {
     const [FraseCisto, setFraseCisto] = useState<any>([]);
+
+    const { laudoNormal } = useContext(NormalContext);
+
+    const [DisableTudo, setDisableTudo] = useState(false)
+
+    useEffect(() => {
+        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+    }, [laudoNormal])
 
     const [Cisto01Checkbox, setCisto01Checkbox] = useState(false)
     const [InputCisto01, setInputCisto01] = useState('')
@@ -250,24 +259,22 @@ export default function Cistos() {
             <Box gap="25px" display="flex" flexWrap="wrap">
                 <Box w='150px'>
                     <Checkbox
-                        onChange={() => {
+                        isDisabled={DisableTudo} onChange={() => {
                             setCisto01Checkbox(!Cisto01Checkbox)
                         }}
                     >
                         Cisto 01
                     </Checkbox>
-                    <Input
-                        onChange={(e) => {
-                            setInputCisto01(e.target.value)
-                        }}
+                    <Input onChange={(e) => {
+                        setInputCisto01(e.target.value)
+                    }}
                         value={InputCisto01}
                         isDisabled={DisableOptionsCisto01}
                         placeholder="mm"
                     />
-                    <Select
-                        onChange={(e) => {
-                            setSelect01Cisto01(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect01Cisto01(e.target.value)
+                    }}
                         value={Select01Cisto01}
                         isDisabled={DisableOptionsCisto01}
                     >
@@ -278,10 +285,9 @@ export default function Cistos() {
                         <option value="terço médio">terço médio</option>
                         <option value="terço inferior">terço inferior</option>
                     </Select>
-                    <Select
-                        onChange={(e) => {
-                            setSelect02Cisto01(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect02Cisto01(e.target.value)
+                    }}
                         value={Select02Cisto01}
                         isDisabled={DisableOptionsCisto01}
                     >
@@ -294,25 +300,22 @@ export default function Cistos() {
                 </Box>
 
                 <Box w='150px'>
-                    <Checkbox
-                        onChange={() => {
-                            setCisto02Checkbox(!Cisto02Checkbox)
-                        }}
+                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                        setCisto02Checkbox(!Cisto02Checkbox)
+                    }}
                     >
                         Cisto 02
                     </Checkbox>
-                    <Input
-                        onChange={(e) => {
-                            setInputCisto02(e.target.value)
-                        }}
+                    <Input onChange={(e) => {
+                        setInputCisto02(e.target.value)
+                    }}
                         value={InputCisto02}
                         isDisabled={DisableOptionsCisto02}
                         placeholder="mm"
                     />
-                    <Select
-                        onChange={(e) => {
-                            setSelect01Cisto02(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect01Cisto02(e.target.value)
+                    }}
                         value={Select01Cisto02}
                         isDisabled={DisableOptionsCisto02}
                     >
@@ -323,10 +326,9 @@ export default function Cistos() {
                         <option value="terço médio">terço médio</option>
                         <option value="terço inferior">terço inferior</option>
                     </Select>
-                    <Select
-                        onChange={(e) => {
-                            setSelect02Cisto02(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect02Cisto02(e.target.value)
+                    }}
                         value={Select02Cisto02}
                         isDisabled={DisableOptionsCisto02}
                     >
@@ -339,25 +341,22 @@ export default function Cistos() {
                 </Box>
 
                 <Box w='150px'>
-                    <Checkbox
-                        onChange={() => {
-                            setCisto03Checkbox(!Cisto03Checkbox)
-                        }}
+                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                        setCisto03Checkbox(!Cisto03Checkbox)
+                    }}
                     >
                         Cisto 03
                     </Checkbox>
-                    <Input
-                        onChange={(e) => {
-                            setInputCisto03(e.target.value)
-                        }}
+                    <Input onChange={(e) => {
+                        setInputCisto03(e.target.value)
+                    }}
                         value={InputCisto03}
                         isDisabled={DisableOptionsCisto03}
                         placeholder="mm"
                     />
-                    <Select
-                        onChange={(e) => {
-                            setSelect01Cisto03(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect01Cisto03(e.target.value)
+                    }}
                         value={Select01Cisto03}
                         isDisabled={DisableOptionsCisto03}
                     >
@@ -368,10 +367,9 @@ export default function Cistos() {
                         <option value="terço médio">terço médio</option>
                         <option value="terço inferior">terço inferior</option>
                     </Select>
-                    <Select
-                        onChange={(e) => {
-                            setSelect02Cisto03(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect02Cisto03(e.target.value)
+                    }}
                         value={Select02Cisto03}
                         isDisabled={DisableOptionsCisto03}
                     >
@@ -384,25 +382,22 @@ export default function Cistos() {
                 </Box>
 
                 <Box w='150px'>
-                    <Checkbox
-                        onChange={() => {
-                            setCisto04Checkbox(!Cisto04Checkbox)
-                        }}
+                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                        setCisto04Checkbox(!Cisto04Checkbox)
+                    }}
                     >
                         Cisto 04
                     </Checkbox>
-                    <Input
-                        onChange={(e) => {
-                            setInputCisto04(e.target.value)
-                        }}
+                    <Input onChange={(e) => {
+                        setInputCisto04(e.target.value)
+                    }}
                         value={InputCisto04}
                         isDisabled={DisableOptionsCisto04}
                         placeholder="mm"
                     />
-                    <Select
-                        onChange={(e) => {
-                            setSelect01Cisto04(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect01Cisto04(e.target.value)
+                    }}
                         value={Select01Cisto04}
                         isDisabled={DisableOptionsCisto04}
                     >
@@ -413,10 +408,9 @@ export default function Cistos() {
                         <option value="terço médio">terço médio</option>
                         <option value="terço inferior">terço inferior</option>
                     </Select>
-                    <Select
-                        onChange={(e) => {
-                            setSelect02Cisto04(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect02Cisto04(e.target.value)
+                    }}
                         value={Select02Cisto04}
                         isDisabled={DisableOptionsCisto04}
                     >
@@ -428,25 +422,22 @@ export default function Cistos() {
                     </Select>
                 </Box>
                 <Box w='150px'>
-                    <Checkbox
-                        onChange={() => {
-                            setVariosCheckbox(!VariosCheckbox)
-                        }}
+                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                        setVariosCheckbox(!VariosCheckbox)
+                    }}
                     >
                         Vários bilaterais, o maior
                     </Checkbox>
-                    <Input
-                        onChange={(e) => {
-                            setInputVarios(e.target.value)
-                        }}
+                    <Input onChange={(e) => {
+                        setInputVarios(e.target.value)
+                    }}
                         value={InputVarios}
                         isDisabled={DisableOptionsVarios}
                         placeholder="mm"
                     />
-                    <Select
-                        onChange={(e) => {
-                            setSelect01Varios(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect01Varios(e.target.value)
+                    }}
                         value={Select01Varios}
                         isDisabled={DisableOptionsVarios}
                     >
@@ -457,10 +448,9 @@ export default function Cistos() {
                         <option value="terço médio">terço médio</option>
                         <option value="terço inferior">terço inferior</option>
                     </Select>
-                    <Select
-                        onChange={(e) => {
-                            setSelect02Varios(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect02Varios(e.target.value)
+                    }}
                         value={Select02Varios}
                         isDisabled={DisableOptionsVarios}
                     >

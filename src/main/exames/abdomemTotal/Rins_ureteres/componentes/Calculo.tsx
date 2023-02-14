@@ -1,12 +1,21 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, Input, Select, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { NormalContext } from "../../../../../context/NormalContext";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Calculo() {
     const [FraseCalculo, setFraseCalculo] = useState<any>([]);
+
+    const { laudoNormal } = useContext(NormalContext);
+
+    const [DisableTudo, setDisableTudo] = useState(false)
+
+    useEffect(() => {
+        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+    }, [laudoNormal])
 
     const [Calculo01Checkbox, setCalculo01Checkbox] = useState(false)
     const [InputCalculo01, setInputCalculo01] = useState('')
@@ -264,25 +273,22 @@ export default function Calculo() {
             <Text fontWeight="bold" >Cálculo</Text>
             <Box gap="25px" display="flex" flexWrap="wrap">
                 <Box w='150px'>
-                    <Checkbox
-                        onChange={() => {
-                            setCalculo01Checkbox(!Calculo01Checkbox)
-                        }}
+                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                        setCalculo01Checkbox(!Calculo01Checkbox)
+                    }}
                     >
                         Cálculo 01
                     </Checkbox>
-                    <Input
-                        onChange={(e) => {
-                            setInputCalculo01(e.target.value)
-                        }}
+                    <Input onChange={(e) => {
+                        setInputCalculo01(e.target.value)
+                    }}
                         value={InputCalculo01}
                         isDisabled={DisableOptionsCalculo01}
                         placeholder="mm"
                     />
-                    <Select
-                        onChange={(e) => {
-                            setSelect01Calculo01(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect01Calculo01(e.target.value)
+                    }}
                         value={Select01Calculo01}
                         isDisabled={DisableOptionsCalculo01}
                     >
@@ -293,10 +299,9 @@ export default function Calculo() {
                         <option value="médio">médio</option>
                         <option value="inferior">inferior</option>
                     </Select>
-                    <Select
-                        onChange={(e) => {
-                            setSelect02Calculo01(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect02Calculo01(e.target.value)
+                    }}
                         value={Select02Calculo01}
                         isDisabled={DisableOptionsCalculo01}
                     >
@@ -309,25 +314,22 @@ export default function Calculo() {
                 </Box>
 
                 <Box w='150px'>
-                    <Checkbox
-                        onChange={() => {
-                            setCalculo02Checkbox(!Calculo02Checkbox)
-                        }}
+                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                        setCalculo02Checkbox(!Calculo02Checkbox)
+                    }}
                     >
                         Cálculo 02
                     </Checkbox>
-                    <Input
-                        onChange={(e) => {
-                            setInputCalculo02(e.target.value)
-                        }}
+                    <Input onChange={(e) => {
+                        setInputCalculo02(e.target.value)
+                    }}
                         value={InputCalculo02}
                         isDisabled={DisableOptionsCalculo02}
                         placeholder="mm"
                     />
-                    <Select
-                        onChange={(e) => {
-                            setSelect01Calculo02(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect01Calculo02(e.target.value)
+                    }}
                         value={Select01Calculo02}
                         isDisabled={DisableOptionsCalculo02}
                     >
@@ -338,10 +340,9 @@ export default function Calculo() {
                         <option value="médio">médio</option>
                         <option value="inferior">inferior</option>
                     </Select>
-                    <Select
-                        onChange={(e) => {
-                            setSelect02Calculo02(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect02Calculo02(e.target.value)
+                    }}
                         value={Select02Calculo02}
                         isDisabled={DisableOptionsCalculo02}
                     >
@@ -354,25 +355,22 @@ export default function Calculo() {
                 </Box>
 
                 <Box w='150px'>
-                    <Checkbox
-                        onChange={() => {
-                            setCalculo03Checkbox(!Calculo03Checkbox)
-                        }}
+                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                        setCalculo03Checkbox(!Calculo03Checkbox)
+                    }}
                     >
                         Cálculo 03
                     </Checkbox>
-                    <Input
-                        onChange={(e) => {
-                            setInputCalculo03(e.target.value)
-                        }}
+                    <Input onChange={(e) => {
+                        setInputCalculo03(e.target.value)
+                    }}
                         value={InputCalculo03}
                         isDisabled={DisableOptionsCalculo03}
                         placeholder="mm"
                     />
-                    <Select
-                        onChange={(e) => {
-                            setSelect01Calculo03(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect01Calculo03(e.target.value)
+                    }}
                         value={Select01Calculo03}
                         isDisabled={DisableOptionsCalculo03}
                     >
@@ -383,10 +381,9 @@ export default function Calculo() {
                         <option value="médio">médio</option>
                         <option value="inferior">inferior</option>
                     </Select>
-                    <Select
-                        onChange={(e) => {
-                            setSelect02Calculo03(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect02Calculo03(e.target.value)
+                    }}
                         value={Select02Calculo03}
                         isDisabled={DisableOptionsCalculo03}
                     >
@@ -399,25 +396,22 @@ export default function Calculo() {
                 </Box>
 
                 <Box w='150px'>
-                    <Checkbox
-                        onChange={() => {
-                            setCalculo04Checkbox(!Calculo04Checkbox)
-                        }}
+                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                        setCalculo04Checkbox(!Calculo04Checkbox)
+                    }}
                     >
                         Cálculo 04
                     </Checkbox>
-                    <Input
-                        onChange={(e) => {
-                            setInputCalculo04(e.target.value)
-                        }}
+                    <Input onChange={(e) => {
+                        setInputCalculo04(e.target.value)
+                    }}
                         value={InputCalculo04}
                         isDisabled={DisableOptionsCalculo04}
                         placeholder="mm"
                     />
-                    <Select
-                        onChange={(e) => {
-                            setSelect01Calculo04(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect01Calculo04(e.target.value)
+                    }}
                         value={Select01Calculo04}
                         isDisabled={DisableOptionsCalculo04}
                     >
@@ -428,10 +422,9 @@ export default function Calculo() {
                         <option value="médio">médio</option>
                         <option value="inferior">inferior</option>
                     </Select>
-                    <Select
-                        onChange={(e) => {
-                            setSelect02Calculo04(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect02Calculo04(e.target.value)
+                    }}
                         value={Select02Calculo04}
                         isDisabled={DisableOptionsCalculo04}
                     >
@@ -443,25 +436,22 @@ export default function Calculo() {
                     </Select>
                 </Box>
                 <Box w='150px'>
-                    <Checkbox
-                        onChange={() => {
-                            setVariosCheckbox(!VariosCheckbox)
-                        }}
+                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                        setVariosCheckbox(!VariosCheckbox)
+                    }}
                     >
                         Vários bilaterais, o maior
                     </Checkbox>
-                    <Input
-                        onChange={(e) => {
-                            setInputVarios(e.target.value)
-                        }}
+                    <Input onChange={(e) => {
+                        setInputVarios(e.target.value)
+                    }}
                         value={InputVarios}
                         isDisabled={DisableOptionsVarios}
                         placeholder="mm"
                     />
-                    <Select
-                        onChange={(e) => {
-                            setSelect01Varios(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect01Varios(e.target.value)
+                    }}
                         value={Select01Varios}
                         isDisabled={DisableOptionsVarios}
                     >
@@ -472,10 +462,9 @@ export default function Calculo() {
                         <option value="médio">médio</option>
                         <option value="inferior">inferior</option>
                     </Select>
-                    <Select
-                        onChange={(e) => {
-                            setSelect02Varios(e.target.value)
-                        }}
+                    <Select onChange={(e) => {
+                        setSelect02Varios(e.target.value)
+                    }}
                         value={Select02Varios}
                         isDisabled={DisableOptionsVarios}
                     >
@@ -487,10 +476,9 @@ export default function Calculo() {
                     </Select>
                 </Box>
                 <Box>
-                    <Checkbox
-                        onChange={() => {
-                            setMicrocalculosCheckbox(!MicrocalculosCheckbox)
-                        }}
+                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                        setMicrocalculosCheckbox(!MicrocalculosCheckbox)
+                    }}
                     >
                         Micrcálculos bilaterais X calcificações vasculares
                     </Checkbox>

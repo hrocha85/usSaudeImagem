@@ -13,6 +13,12 @@ function Figado() {
 
   const { laudoNormal } = useContext(NormalContext);
 
+  const [DisableTudo, setDisableTudo] = useState(false)
+
+  useEffect(() => {
+    laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+  }, [laudoNormal])
+
   const [HomogeneoCheckbox, setHomogeneoCheckbox] = useState(false)
   const [EsteatoseCheckbox, setEsteatoseCheckbox] = useState(false)
   const [HepatopatiaCronicaCheckbox, setHepatopatiaCronicaCheckbox] = useState(false)
@@ -452,9 +458,7 @@ function Figado() {
         <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
           <Box>
             <Checkbox
-
-              id="normal"
-              value="Figado está normal "
+              isDisabled={DisableTudo}
               onChange={(e) => {
                 setHomogeneoCheckbox(!HomogeneoCheckbox);
               }}
@@ -464,6 +468,7 @@ function Figado() {
           </Box>
           <Box>
             <Checkbox
+              isDisabled={DisableTudo}
               onChange={(e) => {
                 setEsteatoseCheckbox(!EsteatoseCheckbox);
               }}
@@ -489,6 +494,7 @@ function Figado() {
           </Box>
           <Box>
             <Checkbox
+              isDisabled={DisableTudo}
               onChange={(e) => {
                 setHepatopatiaCronicaCheckbox(!HepatopatiaCronicaCheckbox)
               }}
@@ -515,6 +521,7 @@ function Figado() {
             <HStack>
               <Box>
                 <Checkbox
+                  isDisabled={DisableTudo}
                   onChange={(e) => {
                     setDimensoesCheckbox(!DimensoesCheckbox)
                   }}
@@ -614,6 +621,7 @@ function Figado() {
           display='flex'
           flexWrap='wrap'>
           <Checkbox
+            isDisabled={DisableTudo}
             w='150px'
             onChange={(e) => {
               setCistoSimplesCheckbox(!CistoSimplesCheckbox);
@@ -659,6 +667,7 @@ function Figado() {
           display='flex'
           flexWrap='wrap'>
           <Checkbox
+            isDisabled={DisableTudo}
             w='auto'
             onChange={(e) => {
               setVariosCistosCheckbox(!VariosCistosCheckbox);
@@ -705,6 +714,7 @@ function Figado() {
             flexWrap='wrap'
             gap='5px'>
             <Checkbox
+              isDisabled={DisableTudo}
               onChange={(e) => {
                 setNoduloCheckbox(!NoduloCheckbox);
               }}
@@ -792,7 +802,7 @@ function Figado() {
             flexWrap='wrap'
             gap='5px'>
             <Checkbox
-
+              isDisabled={DisableTudo}
               onChange={(e) => {
                 setVariosNodulosCheckbox(!VariosNodulosCheckbox);
               }}
@@ -902,6 +912,7 @@ function Figado() {
             flexWrap='wrap'
             gap='5px'>
             <Checkbox
+              isDisabled={DisableTudo}
               onChange={(e) => {
                 setCalcificacaoGrosseiraCheckbox(!CalcificacaoGrosseiraCheckbox);
               }}

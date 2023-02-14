@@ -2,7 +2,8 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { NormalContext } from "../../../../context/NormalContext";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -10,6 +11,14 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 function Bexiga() {
   const altura = "100%";
   const largura = "66%";
+
+  const { laudoNormal } = useContext(NormalContext);
+
+  const [DisableTudo, setDisableTudo] = useState(false)
+
+  useEffect(() => {
+    laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+  }, [laudoNormal])
 
   const [value, setValue] = useState("1");
   const [FraseAorta, setFraseAorta] = useState<any>([]);
@@ -164,7 +173,9 @@ function Bexiga() {
       <TituloNomeExame titulo="Bexiga" />
 
 
-      <RadioGroup w='auto' onChange={setValue} value={value} padding="10px">
+      <RadioGroup
+        isDisabled={DisableTudo}
+        w='auto' onChange={setValue} value={value} padding="10px">
         <Stack direction="column">
           <Flex>
             <Stack>
@@ -204,6 +215,7 @@ function Bexiga() {
             <Stack>
               <Stack>
                 <Checkbox
+                  isDisabled={DisableTudo}
                   onChange={() => setSondaFoleyCheckbox(!SondaFoleyCheckbox)}>
                   Presença de sonda Foley
                 </Checkbox>

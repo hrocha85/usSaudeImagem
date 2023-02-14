@@ -8,12 +8,17 @@ import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function VesiculaBiliar() {
+function VesiculaBiliar(value) {
   const altura = "100%";
   const largura = "66%";
 
-
   const { laudoNormal } = useContext(NormalContext);
+
+  const [DisableTudo, setDisableTudo] = useState(false)
+
+  useEffect(() => {
+    laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+  }, [laudoNormal])
 
   const [frasesVesicula, setFrasesVesicula] = useState<any>([]);
 
@@ -352,6 +357,7 @@ function VesiculaBiliar() {
 
         <Box>
           <Checkbox
+            isDisabled={DisableTudo}
             onChange={(e) => setNormalCheckbox(!NormalCheckbox)}
           >
             Normal
@@ -360,6 +366,7 @@ function VesiculaBiliar() {
 
         <Box w="150px">
           <Checkbox
+            isDisabled={DisableTudo}
             onChange={(e) =>
               setEspessuraParedeCheckbox(!EspessuraParedeCheckbox)}
           >
@@ -381,6 +388,7 @@ function VesiculaBiliar() {
 
         <Box w="150px">
           <Checkbox
+            isDisabled={DisableTudo}
             onChange={(e) =>
               setCalculoUnicoCheckbox(!CalculoUnicoCheckbox)}
           >
@@ -440,6 +448,7 @@ function VesiculaBiliar() {
 
         <Box w="180px">
           <Checkbox
+            isDisabled={DisableTudo}
             onChange={(e) => setDoisCalculosCheckbox(!DoisCalculosCheckbox)}
           >
             Dois cálculos de
@@ -475,6 +484,7 @@ function VesiculaBiliar() {
 
         <Box w="150px">
           <Checkbox
+            isDisabled={DisableTudo}
             onChange={(e) => setPolipoUnicoCheckbox(!PolipoUnicoCheckbox)}
           >
             pólipo único de
@@ -493,6 +503,7 @@ function VesiculaBiliar() {
 
         <Box w="180px">
           <Checkbox
+            isDisabled={DisableTudo}
             onChange={(e) => setMultiplosPoliposCheckbox(!MultiplosPoliposCheckbox)}
           >
             Múltiplos pólipos de
@@ -520,14 +531,14 @@ function VesiculaBiliar() {
         <Box w="120px">
           <Checkbox
             onChange={(e) => setColesteroloseCheckbox(!ColesteroloseCheckbox)}
-
+            isDisabled={DisableTudo}
           >
             Colesterolose
           </Checkbox>
         </Box>
         <Box>
           <Checkbox
-            value="Vazia"
+            isDisabled={DisableTudo}
             onChange={(e) => setVaziaCheckbox(!VaziaCheckbox)}
           >
             Vazia
@@ -535,7 +546,7 @@ function VesiculaBiliar() {
         </Box>
         <Box>
           <Checkbox
-            value="Vazia"
+            isDisabled={DisableTudo}
             onChange={(e) => setAusenteCheckbox(!AusenteCheckbox)}
           >
             Ausente

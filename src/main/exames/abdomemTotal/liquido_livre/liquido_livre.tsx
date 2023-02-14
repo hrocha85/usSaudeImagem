@@ -1,12 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Select } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function LiquidoLivre() {
   const altura = "100%";
   const largura = "66%";
+
+  const { laudoNormal } = useContext(NormalContext);
+
+  const [DisableTudo, setDisableTudo] = useState(false)
+
+  useEffect(() => {
+    laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+  }, [laudoNormal])
 
   const [frasesLiquidoLivre, setFrasesLiquidoLivre] = useState<any>([]);
 
@@ -87,6 +96,7 @@ function LiquidoLivre() {
         <Box gap="10px" display="flex" flexWrap="wrap" mb="10px">
 
           <Checkbox
+            isDisabled={DisableTudo}
             onChange={() => {
               setLiquidoLivreCheckbox(!LiquidoLivreCheckbox);
             }}

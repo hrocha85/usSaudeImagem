@@ -1,9 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, HStack, Select, Stack, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { NormalContext } from "../../../../../context/NormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function DilatacaoPielocalicinal() {
+
+    const { laudoNormal } = useContext(NormalContext);
+
+    const [DisableTudo, setDisableTudo] = useState(false)
+
+    useEffect(() => {
+        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+    }, [laudoNormal])
+
     const [FraseRinsUreteres, setFraseRinsUreteres] = useState<any>([]);
     const [DireitaCheckbox, setDireitaCheckbox] = useState(false)
     const [UreteralDireitaCheckbox, setUreteralDireitaCheckbox] = useState(false)
@@ -161,8 +171,7 @@ export default function DilatacaoPielocalicinal() {
             <Text fontWeight="bold" >Dilatação Pielocalicinal</Text>
             <Box display='flex' flexWrap='wrap' gap='10px'>
                 <HStack gap='10px'>
-                    <Checkbox
-                        onChange={() => setDireitaCheckbox(!DireitaCheckbox)}>
+                    <Checkbox isDisabled={DisableTudo} onChange={() => setDireitaCheckbox(!DireitaCheckbox)}>
                         DIREITA:
                     </Checkbox>
                     <Stack>
@@ -186,7 +195,7 @@ export default function DilatacaoPielocalicinal() {
                     </Stack>
                 </HStack >
                 <HStack gap='10px'>
-                    <Checkbox
+                    <Checkbox isDisabled={DisableTudo}
                         onChange={() => setEsquerdaCheckbox(!EsquerdaCheckbox)}>
                         Esquerda:
                     </Checkbox>
