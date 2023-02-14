@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Pancreas() {
+function Pancreas({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
@@ -21,13 +20,7 @@ function Pancreas() {
       setFrasesPancreas((arr) => [...arr, value]);
     }
   }, [value]);
-  const { laudoNormal } = useContext(NormalContext);
 
-  const [DisableTudo, setDisableTudo] = useState(false)
-
-  useEffect(() => {
-    laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-  }, [laudoNormal])
   const [frasesPancreas, setFrasesPancreas] = useState<any>([]);
 
   const [CabecaCheckbox, setCabecaCheckbox] = useState(false)
@@ -144,7 +137,7 @@ function Pancreas() {
         <TituloNomeExame titulo="Pâncreas" />
         <Box gap="25px" display="flex" flexWrap="wrap" >
           <RadioGroup
-            isDisabled={DisableTudo}
+            isDisabled={Disable}
             onChange={setValue} value={value} padding="10px">
             <Stack direction="column">
               <Radio value="1">Não citar</Radio>
@@ -158,7 +151,7 @@ function Pancreas() {
             <Text fontWeight="bold" textAlign='center'>Dimensões (espessura)</Text>
             <HStack>
               <Checkbox
-                isDisabled={DisableTudo}
+                isDisabled={Disable}
                 onChange={(e) => {
                   setCabecaCheckbox(!CabecaCheckbox);
                 }}
@@ -176,7 +169,7 @@ function Pancreas() {
             </HStack>
             <HStack>
               <Checkbox
-                isDisabled={DisableTudo}
+                isDisabled={Disable}
                 onChange={(e) => {
                   setCorpoCheckbox(!CorpoCheckbox);
                 }}
@@ -194,7 +187,7 @@ function Pancreas() {
             </HStack>
             <HStack>
               <Checkbox
-                isDisabled={DisableTudo}
+                isDisabled={Disable}
                 onChange={(e) => {
                   setCaudaCheckbox(!CaudaCheckbox);
                 }}

@@ -2,20 +2,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
-import { NormalContext } from "../../../../../context/NormalContext";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Calculo() {
+export default function Calculo({ Disable }) {
     const [FraseCalculo, setFraseCalculo] = useState<any>([]);
-
-    const { laudoNormal } = useContext(NormalContext);
-
-    const [DisableTudo, setDisableTudo] = useState(false)
-
-    useEffect(() => {
-        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-    }, [laudoNormal])
 
     const [Calculo01Checkbox, setCalculo01Checkbox] = useState(false)
     const [InputCalculo01, setInputCalculo01] = useState('')
@@ -273,7 +264,7 @@ export default function Calculo() {
             <Text fontWeight="bold" >Cálculo</Text>
             <Box gap="25px" display="flex" flexWrap="wrap">
                 <Box w='150px'>
-                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                    <Checkbox isDisabled={Disable} onChange={() => {
                         setCalculo01Checkbox(!Calculo01Checkbox)
                     }}
                     >
@@ -314,7 +305,7 @@ export default function Calculo() {
                 </Box>
 
                 <Box w='150px'>
-                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                    <Checkbox isDisabled={Disable} onChange={() => {
                         setCalculo02Checkbox(!Calculo02Checkbox)
                     }}
                     >
@@ -355,7 +346,7 @@ export default function Calculo() {
                 </Box>
 
                 <Box w='150px'>
-                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                    <Checkbox isDisabled={Disable} onChange={() => {
                         setCalculo03Checkbox(!Calculo03Checkbox)
                     }}
                     >
@@ -396,7 +387,7 @@ export default function Calculo() {
                 </Box>
 
                 <Box w='150px'>
-                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                    <Checkbox isDisabled={Disable} onChange={() => {
                         setCalculo04Checkbox(!Calculo04Checkbox)
                     }}
                     >
@@ -436,7 +427,7 @@ export default function Calculo() {
                     </Select>
                 </Box>
                 <Box w='150px'>
-                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                    <Checkbox isDisabled={Disable} onChange={() => {
                         setVariosCheckbox(!VariosCheckbox)
                     }}
                     >
@@ -476,7 +467,7 @@ export default function Calculo() {
                     </Select>
                 </Box>
                 <Box>
-                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                    <Checkbox isDisabled={Disable} onChange={() => {
                         setMicrocalculosCheckbox(!MicrocalculosCheckbox)
                     }}
                     >

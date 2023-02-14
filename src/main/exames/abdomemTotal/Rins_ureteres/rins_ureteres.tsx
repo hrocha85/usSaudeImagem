@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import Calculo from "./componentes/Calculo";
@@ -12,18 +11,10 @@ import DilatacaoPielocalicinal from "./componentes/DilatacaoPielocalicinal";
 import Nefropatia from "./componentes/Nefropatia";
 import NoduloSolido from "./componentes/NoduloSolido";
 
-function RinsUreteres() {
+function RinsUreteres({ Disable }) {
     const altura = "100%";
     const largura = "66%";
     const [FraseRinsUreteres, setFraseRinsUreteres] = useState<any>([]);
-
-    const { laudoNormal } = useContext(NormalContext);
-
-    const [DisableTudo, setDisableTudo] = useState(false)
-
-    useEffect(() => {
-        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-    }, [laudoNormal])
 
     const subExame = "Rins e ureteres";
     const titulo_exame = "Abdômen total";
@@ -91,30 +82,30 @@ function RinsUreteres() {
 
             <Box display='flex' flexWrap='wrap' gap='20px'>
                 <Checkbox
-                    isDisabled={DisableTudo}
+                    isDisabled={Disable}
                     onChange={() => setAspectoNormalCheckbox(!AspectoNormalCheckbox)}>
                     Aspecto normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={DisableTudo}
+                    isDisabled={Disable}
                     onChange={() => setAusenciaRimDirCheckbox(!AusenciaRimDirCheckbox)}>
                     Ausência do rim DIR.
                 </Checkbox>
                 <Checkbox
-                    isDisabled={DisableTudo}
+                    isDisabled={Disable}
                     onChange={() => setAusenciaRimEsqCheckbox(!AusenciaRimEsqCheckbox)}>
                     Ausência do rim ESQ.
                 </Checkbox>
             </Box>
 
-            <Nefropatia />
+            <Nefropatia Disable={Disable} />
 
-            <NoduloSolido />
-            <Cistos />
-            <Calculo />
-            <DilatacaoPielocalicinal />
-            <CalculoUreteral />
-            <Cateter />
+            <NoduloSolido Disable={Disable} />
+            <Cistos Disable={Disable} />
+            <Calculo Disable={Disable} />
+            <DilatacaoPielocalicinal Disable={Disable} />
+            <CalculoUreteral Disable={Disable} />
+            <Cateter Disable={Disable} />
         </Box>
     )
 }

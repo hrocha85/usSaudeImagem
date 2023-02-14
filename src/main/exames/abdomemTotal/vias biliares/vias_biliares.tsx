@@ -2,22 +2,14 @@
 /* eslint-disable eqeqeq */
 import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function ViasBiliares() {
+function ViasBiliares({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
-  const { laudoNormal } = useContext(NormalContext);
-
-  const [DisableTudo, setDisableTudo] = useState(false)
-
-  useEffect(() => {
-    laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-  }, [laudoNormal])
   const [frasesVias, setFrasesVias] = useState<any>([]);
 
   const [value, setValue] = useState("1");
@@ -130,7 +122,7 @@ function ViasBiliares() {
 
       <Box gap="25px" display="flex" flexWrap="wrap">
         <RadioGroup
-          isDisabled={DisableTudo}
+          isDisabled={Disable}
           onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
@@ -141,7 +133,7 @@ function ViasBiliares() {
         <Stack>
           <Box>
             <Checkbox
-              isDisabled={DisableTudo}
+              isDisabled={Disable}
               onChange={(e) => {
                 setDilatacaoCheckbox(!DilatacaoCheckbox);
               }}
@@ -152,7 +144,7 @@ function ViasBiliares() {
           <HStack >
             <Box>
               <Checkbox
-                isDisabled={DisableTudo}
+                isDisabled={Disable}
                 onChange={(e) => {
                   setCitarCalibresCheckbox(!CitarCalibresCheckbox);
                 }}

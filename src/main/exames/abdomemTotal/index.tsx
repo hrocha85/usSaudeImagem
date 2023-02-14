@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
-import { Box } from "@chakra-ui/react";
+import { Box, Checkbox } from "@chakra-ui/react";
 
 import Normal from "./abdomenNormal/normal";
 import AlcasIntestinais from "./alcas_intestinais/Alcas_Intestinais";
@@ -20,35 +20,55 @@ import ViasBiliares from "./vias biliares/vias_biliares";
 import Aorta_Retroperitoneo from "./Aorta_Retroperitoneo/Aorta_retroperitoneo"
 import Volume_vesical from "./volume_vesical/volume_vesical";
 import RinsUreteres from "./Rins_ureteres/rins_ureteres";
+import { useState } from "react";
 
 function AbdomemTotal() {
+  const altura = '100%'
+  const largura = '180px'
+  const [Disable, SetDisable] = useState(false)
+
   return (
 
-
-
     <Box>
-      <Normal></Normal>
+      <Box
+        bg="#FAFAFA"
+        w={largura}
+        h={altura}
+        bgPosition="center"
+        bgRepeat="no-repeat"
+        borderRadius="10.85px"
+        boxShadow="md"
+        padding='10px 15px 10px 15px'
+        mt='2px'
+        mb='5px'>
+        <Box w='150px' >
+          <Checkbox
+            id="tudoNormal"
+            onChange={(e) => { SetDisable(!Disable) }}
+          >Abdômen normal</Checkbox>
+        </Box>
+      </Box >
 
-      <Figado />
+      <Figado Disable={Disable} />
 
-      <VesiculaBiliar></VesiculaBiliar>
+      <VesiculaBiliar Disable={Disable} />
 
-      <ViasBiliares />
+      <ViasBiliares Disable={Disable} />
 
-      <Pancreas />
+      <Pancreas Disable={Disable} />
 
-      <Baco />
+      <Baco Disable={Disable} />
 
-      <AlcasIntestinais />
+      <AlcasIntestinais Disable={Disable} />
 
-      <Aorta_Retroperitoneo />
+      <Aorta_Retroperitoneo Disable={Disable} />
 
-      <Volume_vesical />
+      <Volume_vesical Disable={Disable} />
 
-      <LiquidoLivre />
+      <LiquidoLivre Disable={Disable} />
 
-      <Bexiga />
-      <RinsUreteres />
+      <Bexiga Disable={Disable} />
+      <RinsUreteres Disable={Disable} />
 
       {/* <Aorta />
 

@@ -2,12 +2,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Aorta_Retroperitoneo() {
+function Aorta_Retroperitoneo({ Disable }) {
     const altura = "100%";
     const largura = "66%";
 
@@ -154,14 +153,6 @@ function Aorta_Retroperitoneo() {
         }
     }, [CitarVPSCheckbox])
 
-    const { laudoNormal } = useContext(NormalContext);
-
-    const [DisableTudo, setDisableTudo] = useState(false)
-
-    useEffect(() => {
-        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-    }, [laudoNormal])
-
     const subExame = "Aorta / Retroperitôneo";
     const titulo_exame = "Abdômen total";
 
@@ -198,7 +189,7 @@ function Aorta_Retroperitoneo() {
             <TituloNomeExame titulo="Aorta / Retroperitôneo" />
 
 
-            <RadioGroup isDisabled={DisableTudo} w='auto' onChange={setValue} value={value} padding="10px">
+            <RadioGroup isDisabled={Disable} w='auto' onChange={setValue} value={value} padding="10px">
                 <Stack direction="column">
                     <Flex>
                         <Stack>
@@ -234,7 +225,7 @@ function Aorta_Retroperitoneo() {
                         <Stack>
                             <Stack>
                                 <Checkbox
-                                    isDisabled={DisableTudo}
+                                    isDisabled={Disable}
                                     onChange={() => setCitarFluxoCheckbox(!CitarFluxoCheckbox)}>
                                     Citar Fluxo normal ao Doppler
                                 </Checkbox>

@@ -2,22 +2,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Figado() {
+function Figado({ Disable }) {
   const altura = "100%";
   const largura = "66%";
-
-  const { laudoNormal } = useContext(NormalContext);
-
-  const [DisableTudo, setDisableTudo] = useState(false)
-
-  useEffect(() => {
-    laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-  }, [laudoNormal])
 
   const [HomogeneoCheckbox, setHomogeneoCheckbox] = useState(false)
   const [EsteatoseCheckbox, setEsteatoseCheckbox] = useState(false)
@@ -458,7 +449,7 @@ function Figado() {
         <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
           <Box>
             <Checkbox
-              isDisabled={DisableTudo}
+              isDisabled={Disable}
               onChange={(e) => {
                 setHomogeneoCheckbox(!HomogeneoCheckbox);
               }}
@@ -468,7 +459,7 @@ function Figado() {
           </Box>
           <Box>
             <Checkbox
-              isDisabled={DisableTudo}
+              isDisabled={Disable}
               onChange={(e) => {
                 setEsteatoseCheckbox(!EsteatoseCheckbox);
               }}
@@ -494,7 +485,7 @@ function Figado() {
           </Box>
           <Box>
             <Checkbox
-              isDisabled={DisableTudo}
+              isDisabled={Disable}
               onChange={(e) => {
                 setHepatopatiaCronicaCheckbox(!HepatopatiaCronicaCheckbox)
               }}
@@ -521,7 +512,7 @@ function Figado() {
             <HStack>
               <Box>
                 <Checkbox
-                  isDisabled={DisableTudo}
+                  isDisabled={Disable}
                   onChange={(e) => {
                     setDimensoesCheckbox(!DimensoesCheckbox)
                   }}
@@ -621,7 +612,7 @@ function Figado() {
           display='flex'
           flexWrap='wrap'>
           <Checkbox
-            isDisabled={DisableTudo}
+            isDisabled={Disable}
             w='150px'
             onChange={(e) => {
               setCistoSimplesCheckbox(!CistoSimplesCheckbox);
@@ -667,7 +658,7 @@ function Figado() {
           display='flex'
           flexWrap='wrap'>
           <Checkbox
-            isDisabled={DisableTudo}
+            isDisabled={Disable}
             w='auto'
             onChange={(e) => {
               setVariosCistosCheckbox(!VariosCistosCheckbox);
@@ -714,7 +705,7 @@ function Figado() {
             flexWrap='wrap'
             gap='5px'>
             <Checkbox
-              isDisabled={DisableTudo}
+              isDisabled={Disable}
               onChange={(e) => {
                 setNoduloCheckbox(!NoduloCheckbox);
               }}
@@ -802,7 +793,7 @@ function Figado() {
             flexWrap='wrap'
             gap='5px'>
             <Checkbox
-              isDisabled={DisableTudo}
+              isDisabled={Disable}
               onChange={(e) => {
                 setVariosNodulosCheckbox(!VariosNodulosCheckbox);
               }}
@@ -912,7 +903,7 @@ function Figado() {
             flexWrap='wrap'
             gap='5px'>
             <Checkbox
-              isDisabled={DisableTudo}
+              isDisabled={Disable}
               onChange={(e) => {
                 setCalcificacaoGrosseiraCheckbox(!CalcificacaoGrosseiraCheckbox);
               }}

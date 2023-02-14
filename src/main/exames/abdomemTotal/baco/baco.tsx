@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Baco() {
+function Baco({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
@@ -211,13 +210,6 @@ function Baco() {
   const subExame = "Baço";
   const titulo_exame = "Abdômen total";
 
-  const { laudoNormal } = useContext(NormalContext);
-
-  const [DisableTudo, setDisableTudo] = useState(false)
-
-  useEffect(() => {
-    laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-  }, [laudoNormal])
 
   useEffect(() => {
     if (Object.keys(frasesBaco).length == 0) {
@@ -254,7 +246,7 @@ function Baco() {
       <Box mb="20px" gap="30px" display="flex" flexWrap="wrap" mt="20px">
 
         <RadioGroup
-          isDisabled={DisableTudo}
+          isDisabled={Disable}
           onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
@@ -285,7 +277,7 @@ function Baco() {
           <Text fontWeight="bold" textAlign='center'>Dimensões (espessura)</Text>
           <HStack>
             <Checkbox
-              isDisabled={DisableTudo}
+              isDisabled={Disable}
               onChange={(e) => {
                 setDimensoesCheckbox(!DimensoesCheckbox);
               }}
@@ -311,7 +303,7 @@ function Baco() {
           </HStack>
           <HStack>
             <Checkbox
-              isDisabled={DisableTudo}
+              isDisabled={Disable}
               onChange={(e) => {
                 setCitarIndiceCheckbox(!CitarIndiceCheckbox);
               }}
@@ -324,7 +316,7 @@ function Baco() {
         <Box display='flex' flexWrap='wrap' gap='10px'>
           <Box w="200px">
             <Checkbox
-              isDisabled={DisableTudo}
+              isDisabled={Disable}
               onChange={(e) => {
                 setBacoAcessorioCheckbox(!BacoAcessorioCheckbox);
               }}
@@ -355,7 +347,7 @@ function Baco() {
 
           <Box w="200px">
             <Checkbox
-              isDisabled={DisableTudo}
+              isDisabled={Disable}
               onChange={(e) => {
                 setCalcificacaoCheckbox(!CalcificacaoCheckbox);
               }}
