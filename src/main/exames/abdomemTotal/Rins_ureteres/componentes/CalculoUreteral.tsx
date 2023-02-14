@@ -6,15 +6,7 @@ import { NormalContext } from "../../../../../context/NormalContext";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function CalculoUreteral() {
-
-    const { laudoNormal } = useContext(NormalContext);
-
-    const [DisableTudo, setDisableTudo] = useState(false)
-
-    useEffect(() => {
-        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-    }, [laudoNormal])
+export default function CalculoUreteral({ Disable }) {
 
     const [FraseCalculoUreteral, setFraseCalculoUreteral] = useState<any>([]);
     const [CalculoCheckbox, setCalculoCheckbox] = useState(false)
@@ -84,7 +76,7 @@ export default function CalculoUreteral() {
         <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" p='5px' mt='5px' >
             <Text fontWeight="bold" >Cálculo uretal</Text>
             <Box display='flex' flexWrap='wrap' gap='10px'>
-                <Checkbox isDisabled={DisableTudo}
+                <Checkbox isDisabled={Disable}
                     onChange={() => setCalculoCheckbox(!CalculoCheckbox)}>
                     Cálculo
                 </Checkbox>

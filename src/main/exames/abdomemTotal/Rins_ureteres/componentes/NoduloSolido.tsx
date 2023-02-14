@@ -2,11 +2,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
-import { NormalContext } from "../../../../../context/NormalContext";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function NoduloSolido() {
+export default function NoduloSolido({ Disable }) {
     const [FraseNoduloSolido, setFraseNoduloSolido] = useState<any>([]);
     const [NoduloCheckbox, setNoduloCheckbox] = useState(false)
     const [ValueSelectNodulo1, setValueSelectNodulo1] = useState('')
@@ -17,13 +16,6 @@ export default function NoduloSolido() {
     const [ValueInput1, setValueInput1] = useState('')
     const [ValueInput2, setValueInput2] = useState('')
 
-    const { laudoNormal } = useContext(NormalContext);
-
-    const [DisableTudo, setDisableTudo] = useState(false)
-
-    useEffect(() => {
-        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-    }, [laudoNormal])
 
     const subExame = "Rins e ureteres. Nódulo sólido";
     const titulo_exame = "Abdômen total";
@@ -92,7 +84,7 @@ export default function NoduloSolido() {
             <Text fontWeight="bold" >Nódulo sólido</Text>
             <Box display='flex' flexWrap='wrap' gap='10px'>
                 <Checkbox
-                    isDisabled={DisableTudo}
+                    isDisabled={Disable}
                     onChange={() => setNoduloCheckbox(!NoduloCheckbox)}>
                 </Checkbox>
                 <Select w='150px'

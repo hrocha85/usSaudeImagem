@@ -37,13 +37,11 @@ function App() {
                             <OmbroDireitoNormalProvider>
                               <DisableTributariaProvider>
                                 <StringNormalProvider>
-                                  <NormalProvider>
-                                    <LaudosProvider>
-                                      <ChakraProvider theme={tema}>
-                                        <Rotas />
-                                      </ChakraProvider>
-                                    </LaudosProvider>
-                                  </NormalProvider>
+                                  <LaudosProvider>
+                                    <ChakraProvider theme={tema}>
+                                      <Rotas />
+                                    </ChakraProvider>
+                                  </LaudosProvider>
                                 </StringNormalProvider>
                               </DisableTributariaProvider>
                             </OmbroDireitoNormalProvider>

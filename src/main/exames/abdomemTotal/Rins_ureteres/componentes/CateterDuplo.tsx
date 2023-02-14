@@ -4,15 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import { NormalContext } from "../../../../../context/NormalContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Cateter() {
-    const { laudoNormal } = useContext(NormalContext);
-
-    const [DisableTudo, setDisableTudo] = useState(false)
-
-    useEffect(() => {
-        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-    }, [laudoNormal])
-
+export default function Cateter({ Disable }) {
     const [FraseRinsUreteres, setFraseRinsUreteres] = useState<any>([]);
     const [PresenteCheckbox, setPresenteCheckbox] = useState(false)
     const [ValueSelectCateter, setValueSelectCateter] = useState('')
@@ -74,7 +66,7 @@ export default function Cateter() {
         <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" p='5px' mt='5px' >
             <Text fontWeight="bold" >Cateter "Duplo J"</Text>
             <Flex gap='10px'>
-                <Checkbox isDisabled={DisableTudo}
+                <Checkbox isDisabled={Disable}
                     onChange={() => setPresenteCheckbox(!PresenteCheckbox)}>
                     Presente
                 </Checkbox>

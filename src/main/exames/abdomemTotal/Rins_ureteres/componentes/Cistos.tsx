@@ -2,20 +2,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
-import { NormalContext } from "../../../../../context/NormalContext";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Cistos() {
+export default function Cistos({ Disable }) {
     const [FraseCisto, setFraseCisto] = useState<any>([]);
-
-    const { laudoNormal } = useContext(NormalContext);
-
-    const [DisableTudo, setDisableTudo] = useState(false)
-
-    useEffect(() => {
-        laudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-    }, [laudoNormal])
 
     const [Cisto01Checkbox, setCisto01Checkbox] = useState(false)
     const [InputCisto01, setInputCisto01] = useState('')
@@ -259,7 +250,7 @@ export default function Cistos() {
             <Box gap="25px" display="flex" flexWrap="wrap">
                 <Box w='150px'>
                     <Checkbox
-                        isDisabled={DisableTudo} onChange={() => {
+                        isDisabled={Disable} onChange={() => {
                             setCisto01Checkbox(!Cisto01Checkbox)
                         }}
                     >
@@ -300,7 +291,7 @@ export default function Cistos() {
                 </Box>
 
                 <Box w='150px'>
-                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                    <Checkbox isDisabled={Disable} onChange={() => {
                         setCisto02Checkbox(!Cisto02Checkbox)
                     }}
                     >
@@ -341,7 +332,7 @@ export default function Cistos() {
                 </Box>
 
                 <Box w='150px'>
-                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                    <Checkbox isDisabled={Disable} onChange={() => {
                         setCisto03Checkbox(!Cisto03Checkbox)
                     }}
                     >
@@ -382,7 +373,7 @@ export default function Cistos() {
                 </Box>
 
                 <Box w='150px'>
-                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                    <Checkbox isDisabled={Disable} onChange={() => {
                         setCisto04Checkbox(!Cisto04Checkbox)
                     }}
                     >
@@ -422,7 +413,7 @@ export default function Cistos() {
                     </Select>
                 </Box>
                 <Box w='150px'>
-                    <Checkbox isDisabled={DisableTudo} onChange={() => {
+                    <Checkbox isDisabled={Disable} onChange={() => {
                         setVariosCheckbox(!VariosCheckbox)
                     }}
                     >
