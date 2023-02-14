@@ -4,7 +4,7 @@ import { LaudosContext } from "../../../../context/LuadosContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Cirurgias() {
+function Cirurgias({ Disable }) {
   const altura = "100%";
   const largura = "520px";
 
@@ -131,6 +131,7 @@ function Cirurgias() {
         <Stack>
           <Stack>
             <Checkbox
+              isDisabled={Disable}
               onChange={() => {
                 sethisterectomiaTotalCheckBox(true);
                 criaStringHisterectomiaTotal();

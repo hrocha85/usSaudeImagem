@@ -12,7 +12,7 @@ import { LaudosContext } from "../../../../context/LuadosContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Utero() {
+function Utero({ Disable }) {
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [frasesUtero, setFrasesUtero] = useState<any>([]);
 
@@ -399,6 +399,7 @@ function Utero() {
         <Box>
           <Text>Posição:</Text>
           <Select
+            isDisabled={Disable}
             placeholder="Posição"
             onChange={(e) => {
               checkPosicaoUtero(e.target.value);
@@ -413,6 +414,7 @@ function Utero() {
           <Text>Medidas:</Text>
           <HStack marginTop="5px">
             <Input
+              isDisabled={Disable}
               w="80px"
               h="30px"
               padding="5px"
@@ -422,6 +424,7 @@ function Utero() {
             />
             <Text>x</Text>
             <Input
+              isDisabled={Disable}
               w="80px"
               h="30px"
               padding="5px"
@@ -431,6 +434,7 @@ function Utero() {
             />
             <Text>x</Text>
             <Input
+              isDisabled={Disable}
               w="80px"
               h="30px"
               padding="5px"
@@ -448,6 +452,7 @@ function Utero() {
           <Text>Endométrio:</Text>
           <HStack marginTop="5px">
             <Input
+              isDisabled={Disable}
               w="50px"
               h="30px"
               padding="5px"
@@ -461,7 +466,7 @@ function Utero() {
           </HStack>
         </Box>
         <Stack>
-          <Checkbox
+          <Checkbox isDisabled={Disable}
             onChange={() => {
               setEndometrioCheckBox(true);
               criaStringEndometrioCheckBox();
@@ -471,7 +476,7 @@ function Utero() {
           </Checkbox>
 
           <HStack>
-            <Checkbox onChange={() => setPolipoCheckBox(!polipoCheckBox)}>
+            <Checkbox isDisabled={Disable} onChange={() => setPolipoCheckBox(!polipoCheckBox)}>
               Pólipo endometrial
             </Checkbox>
             <Input
@@ -497,14 +502,14 @@ function Utero() {
             />
             <Text>mm</Text>
           </HStack>
-          <Checkbox
+          <Checkbox isDisabled={Disable}
             onChange={() =>
               setLiquidoEndometrialCheckBox(!liquidoEndometrialCheckBox)
             }
           >
             Líquido na cavidade endometrial
           </Checkbox>
-          <Checkbox
+          <Checkbox isDisabled={Disable}
             onChange={() =>
               setDIUBemPosicionadoCheckBox(!DIUBemPosicionadoCheckBox)
             }
@@ -513,7 +518,7 @@ function Utero() {
           </Checkbox>
 
           <HStack>
-            <Checkbox
+            <Checkbox isDisabled={Disable}
               onChange={() => setDIUDistanciaCheckBox(!DIUDistanciaCheckBox)}
             >
               DIU distando
@@ -531,7 +536,7 @@ function Utero() {
             <Text>mm do fundo da cavidade uterina</Text>
           </HStack>
           <HStack>
-            <Checkbox
+            <Checkbox isDisabled={Disable}
               onChange={() => setCistoNabothCheckBox(!cistoNabothCheckBox)}
             >
               Cisto de Naboth

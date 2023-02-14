@@ -13,7 +13,7 @@ import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import IndividualizarNodulos from "./individualizar_nodulos";
 
-function Miometrio() {
+function Miometrio({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
@@ -148,7 +148,7 @@ function Miometrio() {
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <Stack>
           <Stack>
-            <Checkbox
+            <Checkbox isDisabled={Disable}
               onChange={() => {
                 setmiometrioSemNodulosCheckBox(true);
                 criaStringMiometrioSemNodulos();
@@ -160,7 +160,7 @@ function Miometrio() {
               <HStack>
                 <Checkbox
                   whiteSpace="nowrap"
-                  isDisabled={!miometrioSemNodulosCheckBox}
+                  isDisabled={!miometrioSemNodulosCheckBox || Disable}
                   onChange={() =>
                     setmultiplosNodulosCheckBox(!multiplosNodulosCheckBox)
                   }
@@ -227,7 +227,7 @@ function Miometrio() {
                     <IndividualizarNodulos
                       key={key}
                       numNodulo={num}
-                      disable={!miometrioSemNodulosCheckBox}
+                      disable={!miometrioSemNodulosCheckBox || Disable}
                     />
                   );
                 })}

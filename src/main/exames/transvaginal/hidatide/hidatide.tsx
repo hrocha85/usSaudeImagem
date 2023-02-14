@@ -5,7 +5,7 @@ import { LaudosContext } from "../../../../context/LuadosContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Hidatide() {
+function Hidatide({ Disable }) {
   const altura = "100%";
   const largura = "33%";
 
@@ -99,6 +99,7 @@ function Hidatide() {
             <Box>
               <HStack>
                 <Checkbox
+                  isDisabled={Disable}
                   whiteSpace="nowrap"
                   onChange={() => {
                     setHidatideCheckBox(!hidatideCheckBox);
@@ -107,6 +108,7 @@ function Hidatide() {
                   Hidátide
                 </Checkbox>
                 <Select
+                  isDisabled={Disable}
                   w="auto"
                   onChange={(e) => {
                     setPosicaoHidatideSelect(e.target.value);
@@ -120,6 +122,7 @@ function Hidatide() {
                   <option value="esquerdo">Esquerda</option>
                 </Select>
                 <Input
+                  isDisabled={Disable}
                   w="60px"
                   h="77x"
                   padding="5px"

@@ -6,7 +6,7 @@ import { LaudosContext } from "../../../../context/LuadosContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Liquido_Livre() {
+function Liquido_Livre({ Disable }) {
   const altura = "100%";
   const largura = "33%";
 
@@ -89,6 +89,7 @@ function Liquido_Livre() {
             <Box>
               <HStack>
                 <Checkbox
+                  isDisabled={Disable}
                   whiteSpace="nowrap"
                   onChange={() => {
                     setLiquidoCheckBox(!LiquidoCheckBox);
@@ -97,6 +98,7 @@ function Liquido_Livre() {
                   Líquido Livre
                 </Checkbox>
                 <Select
+                  isDisabled={Disable}
                   w="auto"
                   onChange={(e) => {
                     setPosicaoLiquidoSelect(e.target.value);

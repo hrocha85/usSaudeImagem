@@ -6,7 +6,7 @@ import { LaudosContext } from "../../../../context/LuadosContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Hidrossalpinge() {
+function Hidrossalpinge({ Disable }) {
   const altura = "100%";
   const largura = "33%";
 
@@ -90,6 +90,7 @@ function Hidrossalpinge() {
             <Box>
               <HStack>
                 <Checkbox
+                  isDisabled={Disable}
                   whiteSpace="nowrap"
                   onChange={() => {
                     setHidrossalpingeCheckBox(!HidrossalpingeCheckBox);
@@ -98,6 +99,7 @@ function Hidrossalpinge() {
                   Hidrossalpinge
                 </Checkbox>
                 <Select
+                  isDisabled={Disable}
                   w="auto"
                   onChange={(e) => {
                     setPosicaoHidrossalpingeSelect(e.target.value);

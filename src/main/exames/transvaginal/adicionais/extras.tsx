@@ -6,7 +6,7 @@ import { LaudosContext } from "../../../../context/LuadosContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Extras() {
+function Extras({ Disable }) {
   const altura = "100%";
   const largura = "33%";
 
@@ -126,6 +126,7 @@ function Extras() {
             <Box>
               <HStack>
                 <Checkbox
+                  isDisabled={Disable}
                   whiteSpace="nowrap"
                   onChange={() => {
                     setUteroBiCheckBox(!uteroBiCheckBox);
@@ -134,6 +135,7 @@ function Extras() {
                   Útero bicorno
                 </Checkbox>
                 <Checkbox
+                  isDisabled={Disable}
                   whiteSpace="nowrap"
                   onChange={() => {
                     setVarizesCheckBox(!varizesCheckBox);
