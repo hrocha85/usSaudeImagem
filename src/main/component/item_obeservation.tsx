@@ -15,7 +15,7 @@ import {
   Text,
   Textarea,
   Tooltip,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { GrSubtractCircle } from "react-icons/gr";
@@ -420,7 +420,8 @@ const ItemObservation = () => {
             <Button
               mr={3}
               onClick={() => {
-                onClose(), ResetStates();
+                onClose();
+                ResetStates();
               }}
             >
               Cancelar
