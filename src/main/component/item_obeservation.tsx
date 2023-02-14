@@ -15,7 +15,7 @@ import {
   Text,
   Textarea,
   Tooltip,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { GrSubtractCircle } from "react-icons/gr";
@@ -175,23 +175,22 @@ const ItemObservation = () => {
       titulo_observacao: titulo!,
       observacao: inputObservacoes,
     };
-    observacoes = observacoes.filter(e => e.titulo_observacao !== "");
+    observacoes = observacoes.filter((e) => e.titulo_observacao !== "");
     observacoes.push(obs);
     localStorage.setItem("observacoes", JSON.stringify(observacoes));
   };
 
-const addNewObsercao = () => {
+  const addNewObsercao = () => {
     let observacoes = JSON.parse(localStorage.getItem("observacoes")!) || [];
     const obs = {
       id: id!,
       titulo_observacao: titulo!,
       observacao: inputObservacoes,
     };
-    observacoes = observacoes.filter(e => e.titulo_observacao !== "");
+    observacoes = observacoes.filter((e) => e.titulo_observacao !== "");
     observacoes.push(obs);
     localStorage.setItem("observacoes", JSON.stringify(observacoes));
   };
-
 
   const updateListaObservacoes = (id, value) => {
     var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
@@ -418,7 +417,12 @@ const addNewObsercao = () => {
             />
           </ModalBody>
           <ModalFooter>
-            <Button mr={3} onClick={()=>{onClose(), ResetStates()}} >
+            <Button
+              mr={3}
+              onClick={() => {
+                onClose(), ResetStates();
+              }}
+            >
               Cancelar
             </Button>
             <Button
