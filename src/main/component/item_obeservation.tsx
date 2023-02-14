@@ -418,7 +418,7 @@ const addNewObsercao = () => {
             />
           </ModalBody>
           <ModalFooter>
-            <Button mr={3} onClick={onClose}>
+            <Button mr={3} onClick={()=>{onClose(), ResetStates()}} >
               Cancelar
             </Button>
             <Button
