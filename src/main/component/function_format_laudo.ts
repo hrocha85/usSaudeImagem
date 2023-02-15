@@ -4,17 +4,20 @@ export class Format_Laudo {
   sub_exame_nome: string;
   frases_is_empty: boolean;
   frases_sub_exame: Array<string>;
+  conclusoes_sub_exame?: Array<string>;
 
   constructor(
     titulo_exame: string,
     sub_exame_nome: string,
     frases_is_empty: boolean,
-    frases_sub_exame: Array<string>
+    frases_sub_exame: Array<string>,
+    conclusoes_sub_exame?: Array<string>,
   ) {
     this.titulo_exame = titulo_exame;
     this.sub_exame_nome = sub_exame_nome;
     this.frases_is_empty = frases_is_empty;
     this.frases_sub_exame = frases_sub_exame;
+    this.conclusoes_sub_exame = conclusoes_sub_exame;
   }
 
   Format_Laudo_Create_Storage(): void {
@@ -45,6 +48,12 @@ export class Format_Laudo {
         Exames.subExames.map((subExame, indexS) => {
           if (subExame.subExameNome == this.sub_exame_nome) {
             Exames.subExames[indexS].frases = this.frases_sub_exame;
+            localStorage.setItem(this.sub_exame_nome, JSON.stringify(1));
+          }
+        });
+        Exames.subExames.map((subExame, indexS) => {
+          if (subExame.subExameNome == this.sub_exame_nome) {
+            Exames.subExames[indexS].conclusoes = this.conclusoes_sub_exame;
             localStorage.setItem(this.sub_exame_nome, JSON.stringify(1));
           }
         });

@@ -15,6 +15,7 @@ function RinsUreteres({ Disable }) {
     const altura = "100%";
     const largura = "66%";
     const [FraseRinsUreteres, setFraseRinsUreteres] = useState<any>([]);
+    const [ConclusoesRinsUreteres, setConclusoesRinsUreteres] = useState<any>([]);
 
     const subExame = "Rins e ureteres";
     const titulo_exame = "Abdômen total";
@@ -54,14 +55,16 @@ function RinsUreteres({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                FraseRinsUreteres
+                FraseRinsUreteres,
+                ConclusoesRinsUreteres
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                FraseRinsUreteres
+                FraseRinsUreteres,
+                ConclusoesRinsUreteres
             ).Format_Laudo_Create_Storage();
         }
     }, [FraseRinsUreteres]);

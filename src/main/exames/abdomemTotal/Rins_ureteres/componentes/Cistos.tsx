@@ -7,6 +7,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Cistos({ Disable }) {
     const [FraseCisto, setFraseCisto] = useState<any>([]);
+    const [ConclusoesCisto, setConclusoesCisto] = useState<any>([]);
 
     const [Cisto01Checkbox, setCisto01Checkbox] = useState(false)
     const [InputCisto01, setInputCisto01] = useState('')
@@ -233,14 +234,16 @@ export default function Cistos({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                FraseCisto
+                FraseCisto,
+                ConclusoesCisto
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                FraseCisto
+                FraseCisto,
+                ConclusoesCisto
             ).Format_Laudo_Create_Storage();
         }
     }, [FraseCisto]);

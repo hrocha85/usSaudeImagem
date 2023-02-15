@@ -11,6 +11,7 @@ function ViasBiliares({ Disable }) {
   const largura = "66%";
 
   const [frasesVias, setFrasesVias] = useState<any>([]);
+  const [ConclusoesVias, setConclusoesVias] = useState<any>([]);
 
   const [value, setValue] = useState("1");
 
@@ -102,6 +103,26 @@ function ViasBiliares({ Disable }) {
         subExame,
         false,
         frasesVias
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesVias]);
+
+  useEffect(() => {
+    if (Object.keys(frasesVias).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesVias,
+        ConclusoesVias
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesVias,
+        ConclusoesVias
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesVias]);

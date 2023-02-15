@@ -11,6 +11,7 @@ function AlcasIntestinais({ Disable }) {
     const largura = "66%";
 
     const [CistosDireito, setCistosDireito] = useState<any>([]);
+    const [ConclusoesCistosDireito, setConclusoesCistosDireito] = useState<any>([]);
 
     const subExame = `Alças Intestinais`
     const titulo_exame = "Abdômen total";
@@ -21,14 +22,16 @@ function AlcasIntestinais({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                CistosDireito
+                CistosDireito,
+                ConclusoesCistosDireito
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                CistosDireito
+                CistosDireito,
+                ConclusoesCistosDireito
             ).Format_Laudo_Create_Storage();
         }
     }, [CistosDireito]);

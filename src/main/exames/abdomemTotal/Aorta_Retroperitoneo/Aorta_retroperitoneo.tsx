@@ -12,6 +12,7 @@ function Aorta_Retroperitoneo({ Disable }) {
 
     const [value, setValue] = useState("1");
     const [FraseAorta, setFraseAorta] = useState<any>([]);
+    const [ConclusoesAorta, setConclusoesAorta] = useState<any>([]);
 
     const [valueSelect1, setValueSelect1] = useState("");
     const [valueSelect2, setValueSelect2] = useState("");
@@ -162,14 +163,16 @@ function Aorta_Retroperitoneo({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                FraseAorta
+                FraseAorta,
+                ConclusoesAorta
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                FraseAorta
+                FraseAorta,
+                ConclusoesAorta
             ).Format_Laudo_Create_Storage();
         }
     }, [FraseAorta]);

@@ -7,6 +7,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Calculo({ Disable }) {
     const [FraseCalculo, setFraseCalculo] = useState<any>([]);
+    const [ConclusoesCalculo, setConclusoesCalculo] = useState<any>([]);
 
     const [Calculo01Checkbox, setCalculo01Checkbox] = useState(false)
     const [InputCalculo01, setInputCalculo01] = useState('')
@@ -248,14 +249,16 @@ export default function Calculo({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                FraseCalculo
+                FraseCalculo,
+                ConclusoesCalculo
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                FraseCalculo
+                FraseCalculo,
+                ConclusoesCalculo
             ).Format_Laudo_Create_Storage();
         }
     }, [FraseCalculo]);

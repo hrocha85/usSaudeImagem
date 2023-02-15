@@ -8,6 +8,8 @@ export default function DilatacaoPielocalicinal({ Disable }) {
 
 
     const [FraseRinsUreteres, setFraseRinsUreteres] = useState<any>([]);
+    const [ConclusoesRinsUreteres, setConclusoesRinsUreteres] = useState<any>([]);
+
     const [DireitaCheckbox, setDireitaCheckbox] = useState(false)
     const [UreteralDireitaCheckbox, setUreteralDireitaCheckbox] = useState(false)
     const [ValueSelectDireita, setValueSelectDireita] = useState('')
@@ -148,14 +150,16 @@ export default function DilatacaoPielocalicinal({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                FraseRinsUreteres
+                FraseRinsUreteres,
+                ConclusoesRinsUreteres
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                FraseRinsUreteres
+                FraseRinsUreteres,
+                ConclusoesRinsUreteres
             ).Format_Laudo_Create_Storage();
         }
     }, [FraseRinsUreteres]);

@@ -7,6 +7,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function NoduloSolido({ Disable }) {
     const [FraseNoduloSolido, setFraseNoduloSolido] = useState<any>([]);
+    const [ConclusoesNoduloSolido, setConclusoesNoduloSolido] = useState<any>([]);
     const [NoduloCheckbox, setNoduloCheckbox] = useState(false)
     const [ValueSelectNodulo1, setValueSelectNodulo1] = useState('')
     const [ValueSelectNodulo2, setValueSelectNodulo2] = useState('')
@@ -68,14 +69,16 @@ export default function NoduloSolido({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                FraseNoduloSolido
+                FraseNoduloSolido,
+                ConclusoesNoduloSolido,
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                FraseNoduloSolido
+                FraseNoduloSolido,
+                ConclusoesNoduloSolido
             ).Format_Laudo_Create_Storage();
         }
     }, [FraseNoduloSolido]);

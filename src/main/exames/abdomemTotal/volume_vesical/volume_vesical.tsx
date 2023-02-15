@@ -11,6 +11,7 @@ function Volume_vesical({ Disable }) {
     const largura = "66%";
 
     const [VolumeVesical, setVolumeVesical] = useState<any>([]);
+    const [ConclusoesVolumeVesical, setConclusoesVolumeVesical] = useState<any>([]);
 
     const [VolumePreMiccionalInput1, setVolumePreMiccionalInput1] = useState('')
     const [VolumePreMiccionalInput2, setVolumePreMiccionalInput2] = useState('')
@@ -124,14 +125,16 @@ function Volume_vesical({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                VolumeVesical
+                VolumeVesical,
+                ConclusoesVolumeVesical
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                VolumeVesical
+                VolumeVesical,
+                ConclusoesVolumeVesical
             ).Format_Laudo_Create_Storage();
         }
     }, [VolumeVesical]);

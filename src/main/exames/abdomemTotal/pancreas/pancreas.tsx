@@ -22,6 +22,7 @@ function Pancreas({ Disable }) {
   }, [value]);
 
   const [frasesPancreas, setFrasesPancreas] = useState<any>([]);
+  const [ConclusoesPancreas, setConclusoesPancreas] = useState<any>([]);
 
   const [CabecaCheckbox, setCabecaCheckbox] = useState(false)
   const [CabecaInput, setCabecaInput] = useState('')
@@ -109,14 +110,16 @@ function Pancreas({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesPancreas
+        frasesPancreas,
+        ConclusoesPancreas
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesPancreas
+        frasesPancreas,
+        ConclusoesPancreas
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesPancreas]);

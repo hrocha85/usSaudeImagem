@@ -6,6 +6,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Cateter({ Disable }) {
     const [FraseRinsUreteres, setFraseRinsUreteres] = useState<any>([]);
+    const [ConclusoesRinsUreteres, setConclusoesRinsUreteres] = useState<any>([]);
     const [PresenteCheckbox, setPresenteCheckbox] = useState(false)
     const [ValueSelectCateter, setValueSelectCateter] = useState('')
     const [DisableSelectCateter, setDisableSelectCateter] = useState(true)
@@ -51,14 +52,16 @@ export default function Cateter({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                FraseRinsUreteres
+                FraseRinsUreteres,
+                ConclusoesRinsUreteres,
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                FraseRinsUreteres
+                FraseRinsUreteres,
+                ConclusoesRinsUreteres
             ).Format_Laudo_Create_Storage();
         }
     }, [FraseRinsUreteres]);

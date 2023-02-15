@@ -10,6 +10,7 @@ function Baco({ Disable }) {
   const largura = "66%";
 
   const [frasesBaco, setFrasesBaco] = useState<any>([]);
+  const [ConclusoesBaco, setConclusoesBaco] = useState<any>([]);
 
 
   const [valueSelect, setValueSelect] = useState("");
@@ -217,14 +218,16 @@ function Baco({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesBaco
+        frasesBaco,
+        ConclusoesBaco,
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesBaco
+        frasesBaco,
+        ConclusoesBaco
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesBaco]);

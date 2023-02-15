@@ -12,6 +12,7 @@ function VesiculaBiliar({ Disable }) {
   const largura = "66%";
 
   const [frasesVesicula, setFrasesVesicula] = useState<any>([]);
+  const [ConclusoesVesicula, setConclusoesVesicula] = useState<any>([]);
 
   const [NormalCheckbox, setNormalCheckbox] = useState(false)
   const [ColesteroloseCheckbox, setColesteroloseCheckbox] = useState(false)
@@ -318,14 +319,16 @@ function VesiculaBiliar({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesVesicula
+        frasesVesicula,
+        ConclusoesVesicula
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesVesicula
+        frasesVesicula,
+        ConclusoesVesicula,
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesVesicula]);
