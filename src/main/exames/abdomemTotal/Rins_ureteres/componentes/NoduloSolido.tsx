@@ -8,6 +8,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 export default function NoduloSolido({ Disable }) {
     const [FraseNoduloSolido, setFraseNoduloSolido] = useState<any>([]);
     const [ConclusoesNoduloSolido, setConclusoesNoduloSolido] = useState<any>([]);
+
     const [NoduloCheckbox, setNoduloCheckbox] = useState(false)
     const [ValueSelectNodulo1, setValueSelectNodulo1] = useState('')
     const [ValueSelectNodulo2, setValueSelectNodulo2] = useState('')
@@ -23,6 +24,7 @@ export default function NoduloSolido({ Disable }) {
 
     const criaStringNodulo = () => {
         let string = 'Presença de um nódulo '
+        var conclusao = 'Imagem nodular no'
         removeNodulo()
         var ValueInput1cm = new Convert_Medida(ValueInput1).Convert_Medida()
         var ValueInput2cm = new Convert_Medida(ValueInput2).Convert_Medida()
@@ -31,6 +33,9 @@ export default function NoduloSolido({ Disable }) {
             string = `${string} ${ValueSelectNodulo1} de ${ValueSelectNodulo2}, medindo ${ValueInput1cm}x${ValueInput2cm} cm 
             localizado no ${ValueSelectNodulo3} do ${ValueSelectNodulo4}.`
             setFraseNoduloSolido((arr) => [...arr, string]);
+            conclusao = `${conclusao} ${ValueSelectNodulo4}.`
+            setConclusoesNoduloSolido((arr) => [...arr, conclusao])
+
         }
     }
 
@@ -38,10 +43,19 @@ export default function NoduloSolido({ Disable }) {
         FraseNoduloSolido.map((e) => {
             if (e.includes("Presença de um nódulo ")) {
                 var index = FraseNoduloSolido.indexOf(e);
-
                 if (index > -1) {
                     FraseNoduloSolido.splice(index, 1);
                     setFraseNoduloSolido((arr) => [...arr]);
+                }
+            }
+        });
+        ConclusoesNoduloSolido.map((e) => {
+            if (e.includes("Imagem nodular no")) {
+                var index = ConclusoesNoduloSolido.indexOf(e);
+
+                if (index > -1) {
+                    ConclusoesNoduloSolido.splice(index, 1);
+                    setConclusoesNoduloSolido((arr) => [...arr]);
                 }
             }
         });
