@@ -29,6 +29,7 @@ export class Format_Laudo {
         if (this.frases_is_empty) {
           Exames.subExames.map((subExame) => {
             if (subExame.subExameNome == this.sub_exame_nome) {
+              subExame.conclusoes = null;
               subExame.frases = null;
               subExame.subExameNome = null;
             }
