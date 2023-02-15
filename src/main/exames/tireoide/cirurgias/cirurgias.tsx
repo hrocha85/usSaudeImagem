@@ -1,133 +1,88 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function LiquidoLivre() {
+function Cirurgias() {
   const altura = "100%";
   const largura = "66%";
 
-  let selectTireoidectomiaParcial = document.querySelector(
-    "#selectTireoidectomiaParcial"
-  ) as HTMLInputElement;
+  const [TireoidectomiaTotalCheckbox, setTireoidectomiaTotalCheckbox] = useState(false)
+  const [HemitireoidectomiaCheckbox, setHemitireoidectomiaCheckbox] = useState(false)
+  const [ValueHemitireoidectomiaSelect, setValueHemitireoidectomiaSelect] = useState('')
+  const [DisabledHemitireoidectomiaSelect, setDisabledHemitireoidectomiaSelect] = useState(true)
 
-  const [checkValueTireoidectomiaTotal, setCheckvalueTireoidectomiaTotal] =
-    useState({
-      TireoidectomiaTotal: false,
-    });
-
-  const [checkValueTireoidectomiaParcial, setCheckvalueTireoidectomiaParcial] =
-    useState({
-      TireoidectomiaParcial: false,
-      selectTireoidectomiaParcial: true,
-    });
-
-  const criarString = (value, valueId?, valueInput?) => {
-    //console.log("Valor cria string = ", value);
-    //arr => [...arr] captura os dados que já estavam e os mantem no array
-    setFrasesCirurgias((arr) => [...arr, value]);
-    //console.log("criaString = ", laudoPrin)
-  };
+  useEffect(() => {
+    const string = 'Falta Tireioide total'
+    TireoidectomiaTotalCheckbox ? setFrasesCirurgias((arr) => [...arr, string]) : removeItemString(string)
+  }, [TireoidectomiaTotalCheckbox])
 
   const removeItemString = (value) => {
-    // console.log("valor remove = ", value);
-    var index = frasesCirurgias.indexOf(value);
-    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+    var index = FrasesCirurgias.indexOf(value);
     if (index > -1) {
-      frasesCirurgias.splice(index, 1);
+      FrasesCirurgias.splice(index, 1);
       setFrasesCirurgias((arr) => [...arr]);
     }
-    // console.log('posicao', index)
-    // console.log("laudosPrin", laudoPrin)
   };
 
-  const [frasesCirurgias, setFrasesCirurgias] = useState<any>([]);
-
-  const verificaChecked = (value) => {
-    switch (value.id) {
-      case "TireoidectomiaTotal":
-        if (value.checked === true) {
-          criarString(value.value);
-          setCheckvalueTireoidectomiaParcial({
-            TireoidectomiaParcial: true,
-            selectTireoidectomiaParcial: true,
-          });
-        } else {
-          removeItemString(value.value);
-          setCheckvalueTireoidectomiaParcial({
-            TireoidectomiaParcial: false,
-            selectTireoidectomiaParcial: true,
-          });
-        }
-        break;
-      case "TireoidectomiaParcial":
-        if (value.checked === true) {
-          console.log(frasesCirurgias);
-          setCheckvalueTireoidectomiaTotal({
-            TireoidectomiaTotal: true,
-          });
-          setCheckvalueTireoidectomiaParcial({
-            TireoidectomiaParcial: false,
-            selectTireoidectomiaParcial: false,
-          });
-        } else {
-          removeItemString("Lobo Direito ");
-          removeItemString("Lobo Esquerdo ");
-          removeItemString("Lobo Direito e istmo");
-          removeItemString("Lobo Esquerdo e istmo");
-          setCheckvalueTireoidectomiaTotal({
-            TireoidectomiaTotal: false,
-          });
-          setCheckvalueTireoidectomiaParcial({
-            TireoidectomiaParcial: false,
-            selectTireoidectomiaParcial: true,
-          });
-          selectTireoidectomiaParcial.value = "";
-        }
-        break;
-      case "selectTireoidectomiaParcial":
-        if (value.value === "Lobo Direito ") {
-          removeItemString("Lobo Esquerdo ");
-          removeItemString("Lobo Direito e istmo");
-          criarString(value.value);
-        } else if (value.value === "Lobo Esquerdo ") {
-          removeItemString("Lobo Direito ");
-          removeItemString("Lobo Direito e istmo");
-          criarString(value.value);
-        } else if (value.value === "Lobo Direito e istmo") {
-          removeItemString("Lobo Direito ");
-          removeItemString("Lobo Esquerdo ");
-          criarString(value.value);
-        } else {
-          removeItemString("Lobo Direito e istmo");
-          removeItemString("Lobo Direito ");
-          removeItemString("Lobo Esquerdo ");
-          criarString(value.value);
-        }
-        break;
+  const criaStringHemitireoidectomia = () => {
+    removeHemitireoidectomia()
+    let string = 'FALTA Hemitireoidectomia'
+    if (HemitireoidectomiaCheckbox) {
+      if (ValueHemitireoidectomiaSelect != '') {
+        string = `${string} ${ValueHemitireoidectomiaSelect}`
+      }
+      setFrasesCirurgias((arr) => [...arr, string]);
     }
+  }
+
+  const removeHemitireoidectomia = () => {
+    FrasesCirurgias.map((e) => {
+      if (e.includes("FALTA Hemitireoidectomia")) {
+        var index = FrasesCirurgias.indexOf(e);
+
+        if (index > -1) {
+          FrasesCirurgias.splice(index, 1);
+          setFrasesCirurgias((arr) => [...arr]);
+        }
+      }
+    });
   };
+
+  useEffect(() => {
+    if (HemitireoidectomiaCheckbox) {
+      criaStringHemitireoidectomia()
+      setDisabledHemitireoidectomiaSelect(false)
+    } else {
+      setValueHemitireoidectomiaSelect('')
+      removeHemitireoidectomia()
+      setDisabledHemitireoidectomiaSelect(true)
+    }
+  }, [HemitireoidectomiaCheckbox, ValueHemitireoidectomiaSelect])
+
+  const [FrasesCirurgias, setFrasesCirurgias] = useState<any>([]);
 
   const subExame = "Cirurgias";
   const titulo_exame = "Tireóide";
 
   useEffect(() => {
-    if (Object.keys(frasesCirurgias).length == 0) {
+    if (Object.keys(FrasesCirurgias).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesCirurgias
+        FrasesCirurgias
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesCirurgias
+        FrasesCirurgias
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesCirurgias]);
+  }, [FrasesCirurgias]);
 
   return (
     <Box
@@ -147,11 +102,8 @@ function LiquidoLivre() {
         <Box gap="30px" display="flex" flexWrap="wrap" mb="10px">
           <Box>
             <Checkbox
-              disabled={checkValueTireoidectomiaTotal.TireoidectomiaTotal}
-              id="TireoidectomiaTotal"
-              value="Tireoidectomia Total "
               onChange={(e) => {
-                verificaChecked(e.target);
+                setTireoidectomiaTotalCheckbox(!TireoidectomiaTotalCheckbox)
               }}
             >
               Tireoidectomia Total
@@ -160,32 +112,24 @@ function LiquidoLivre() {
 
           <Box>
             <Checkbox
-              disabled={checkValueTireoidectomiaParcial.TireoidectomiaParcial}
-              id="TireoidectomiaParcial"
               onChange={(e) => {
-                verificaChecked(e.target);
+                setHemitireoidectomiaCheckbox(!HemitireoidectomiaCheckbox)
               }}
             >
-              Tireoidectomia parcial
+              Hemitireoidectomia
             </Checkbox>
             <Select
-              disabled={
-                checkValueTireoidectomiaParcial.selectTireoidectomiaParcial
-              }
-              id="selectTireoidectomiaParcial"
+              isDisabled={DisabledHemitireoidectomiaSelect}
+              value={ValueHemitireoidectomiaSelect}
               onChange={(e) => {
-                verificaChecked(e.target);
+                setValueHemitireoidectomiaSelect(e.target.value)
               }}
             >
               <option value="" disabled selected>
                 Select
               </option>
-              <option value="Lobo Direito ">Lobo Direito</option>
-              <option value="Lobo Esquerdo ">Lobo Esquerdo</option>
-              <option value="Lobo Direito e istmo">Lobo Direito e istmo</option>
-              <option value="Lobo Esquerdo e istmo">
-                Lobo Esquerdo e istmo
-              </option>
+              <option value="Direito ">Direito</option>
+              <option value="Esquerdo ">Esquerdo</option>
             </Select>
           </Box>
         </Box>
@@ -194,4 +138,4 @@ function LiquidoLivre() {
   );
 }
 
-export default LiquidoLivre;
+export default Cirurgias;
