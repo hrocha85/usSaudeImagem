@@ -5,6 +5,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Nefropatia({ Disable }) {
     const [FraseRinsUreteres, setFraseRinsUreteres] = useState<any>([]);
+    const [ConclusoesRinsUreteres, setConclusoesRinsUreteres] = useState<any>([]);
     const [AfilamentoParenquimatosoCheckbox, setAfilamentoParenquimatosoCheckbox] = useState(false)
     const [ValueSelectAfilamento, setValueSelectAfilamento] = useState('')
     const [DisableSelectAfilamento, setDisableSelectAfilamento] = useState(true)
@@ -57,14 +58,16 @@ export default function Nefropatia({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                FraseRinsUreteres
+                FraseRinsUreteres,
+                ConclusoesRinsUreteres,
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                FraseRinsUreteres
+                FraseRinsUreteres,
+                ConclusoesRinsUreteres
             ).Format_Laudo_Create_Storage();
         }
     }, [FraseRinsUreteres]);

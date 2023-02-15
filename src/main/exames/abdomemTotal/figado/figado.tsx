@@ -75,20 +75,24 @@ function Figado({ Disable }) {
 
 
   const [frasesFigado, setFrasesFigado] = useState<any>([]);
+  const [ConclusoesFigado, setConclusoesFigado] = useState<any>([]);
+
   useEffect(() => {
     if (Object.keys(frasesFigado).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesFigado
+        frasesFigado,
+        ConclusoesFigado
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesFigado
+        frasesFigado,
+        ConclusoesFigado
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesFigado]);
@@ -100,10 +104,20 @@ function Figado({ Disable }) {
       setFrasesFigado((arr) => [...arr]);
     }
   };
+  const removeItemStringConclusao = (value) => {
+    var index = ConclusoesFigado.indexOf(value);
+    if (index > -1) {
+      ConclusoesFigado.splice(index, 1);
+      setConclusoesFigado((arr) => [...arr]);
+    }
+  };
 
   useEffect(() => {
     var string = 'Fígado com dimensões normais, contornos regulares, bordas finas e ecotextura homogênea.'
+    var conclusao = 'concluido.'
+
     HomogeneoCheckbox ? setFrasesFigado((arr) => [...arr, string]) : removeItemString(string)
+    HomogeneoCheckbox ? setConclusoesFigado((arr) => [...arr, conclusao]) : removeItemStringConclusao(conclusao)
   }, [HomogeneoCheckbox])
 
   const criaStringEsteatose = (select) => {

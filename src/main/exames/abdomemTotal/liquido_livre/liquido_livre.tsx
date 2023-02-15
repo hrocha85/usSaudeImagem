@@ -9,6 +9,7 @@ function LiquidoLivre({ Disable }) {
   const largura = "66%";
 
   const [frasesLiquidoLivre, setFrasesLiquidoLivre] = useState<any>([]);
+  const [ConclusoesLiquidoLivre, setConclusoesLiquidoLivre] = useState<any>([]);
 
   const [LiquidoLivreCheckbox, setLiquidoLivreCheckbox] = useState(false)
   const [DisableSelect, setDisableSelect] = useState(true)
@@ -57,14 +58,16 @@ function LiquidoLivre({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesLiquidoLivre
+        frasesLiquidoLivre,
+        ConclusoesLiquidoLivre
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesLiquidoLivre
+        frasesLiquidoLivre,
+        ConclusoesLiquidoLivre
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesLiquidoLivre]);

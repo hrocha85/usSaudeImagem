@@ -17,6 +17,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 export default function Tendao_Tibial_Posterior_Esquerdo({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
+  const [ConclusoesTornozelo, setConclusoesTornozelo] = useState<any>([]);
 
   const [valueSelect1, setValueSelect1] = useState("");
   const [valueSelectOsso, setValueSelectOsso] = useState("");
@@ -168,14 +169,16 @@ export default function Tendao_Tibial_Posterior_Esquerdo({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesTornozelo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesTornozelo
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesTornozelo]);

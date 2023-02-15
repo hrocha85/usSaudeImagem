@@ -9,6 +9,8 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 export default function CalculoUreteral({ Disable }) {
 
     const [FraseCalculoUreteral, setFraseCalculoUreteral] = useState<any>([]);
+    const [ConclusoesCalculoUreteral, setConclusoesCalculoUreteral] = useState<any>([]);
+
     const [CalculoCheckbox, setCalculoCheckbox] = useState(false)
     const [ValueSelectCalculo1, setValueSelectCalculo1] = useState('')
     const [ValueSelectCalculo2, setValueSelectCalculo2] = useState('')
@@ -61,14 +63,16 @@ export default function CalculoUreteral({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                FraseCalculoUreteral
+                FraseCalculoUreteral,
+                ConclusoesCalculoUreteral
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                FraseCalculoUreteral
+                FraseCalculoUreteral,
+                ConclusoesCalculoUreteral
             ).Format_Laudo_Create_Storage();
         }
     }, [FraseCalculoUreteral]);
