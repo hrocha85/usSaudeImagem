@@ -44,6 +44,22 @@ export default function Calculo({ Disable }) {
     const subExame = "Rins e ureteres. Cálculo";
     const titulo_exame = "Abdômen total";
 
+    useEffect(() => {
+        const conclusaoDireita = 'Litíase ureteral à direita.'
+        const conclusaoEsquerda = 'Litíase ureteral à esquerda.'
+        if (Select02Calculo01 == 'rim direito' || Select02Calculo02 == 'rim direito' || Select02Calculo03 == 'rim direito' || Select02Calculo04 == 'rim direito') {
+            setConclusoesCalculo((arr) => [...arr, conclusaoDireita]);
+        } else {
+            removeItemString(conclusaoDireita)
+        }
+        if (Select02Calculo01 == 'rim esquerdo' || Select02Calculo02 == 'rim esquerdo' || Select02Calculo03 == 'rim esquerdo' || Select02Calculo04 == 'rim esquerdo') {
+            setConclusoesCalculo((arr) => [...arr, conclusaoEsquerda]);
+        } else {
+            removeItemString(conclusaoEsquerda)
+        }
+    }, [Select02Calculo01, Select02Calculo02, Select02Calculo03, Select02Calculo04])
+
+
     const criaStringCalculo01 = () => {
         let string = 'Cálculo 01: Cálculo de'
         removeCalculo01()

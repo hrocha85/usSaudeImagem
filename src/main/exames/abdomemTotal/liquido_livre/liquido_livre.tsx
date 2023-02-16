@@ -18,10 +18,13 @@ function LiquidoLivre({ Disable }) {
 
   const criaStringLiquidoLivre = () => {
     var string = "quantidade de líquido livre "
+    var conclusao = 'Presença de líquido em'
     removeFraseLiquidoLivre()
     if (Select1 != '' && Select2 != '') {
       string = `Nota-se ${Select2} ${string} ${Select1} `
+      conclusao = `${conclusao} ${Select2} quantidade ${Select1}`
       setFrasesLiquidoLivre((arr) => [...arr, string]);
+      setConclusoesLiquidoLivre((arr) => [...arr, conclusao]);
     }
   }
 
@@ -35,6 +38,16 @@ function LiquidoLivre({ Disable }) {
         }
       }
     });
+    ConclusoesLiquidoLivre.map((e) => {
+      if (e.includes('Presença de líquido em')) {
+        var index = ConclusoesLiquidoLivre.indexOf(e);
+        if (index > -1) {
+          ConclusoesLiquidoLivre.splice(index, 1);
+          setConclusoesLiquidoLivre((arr) => [...arr]);
+        }
+      }
+    });
+
   };
 
   useEffect(() => {

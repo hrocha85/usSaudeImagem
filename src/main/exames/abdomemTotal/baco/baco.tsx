@@ -77,10 +77,14 @@ function Baco({ Disable }) {
   }, [value]);
 
   useEffect(() => {
+    const conclusao = 'Esplenomegalia.'
     if (valueSelect != "") {
       removeSelectString();
       var select = ` ${valueSelect}`;
       setFrasesBaco((arr) => [...arr, select]);
+      setConclusoesBaco((arr) => [...arr, conclusao]);
+    } else {
+      removeItemConclusao(conclusao)
     }
   }, [valueSelect]);
 
@@ -154,13 +158,13 @@ function Baco({ Disable }) {
 
   }, [CalcificacaoCheckbox, CalcificacaoInput])
 
-  const removeItemString = (value) => {
+  const removeItemConclusao = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesBaco.indexOf(value);
+    var index = ConclusoesBaco.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
-      frasesBaco.splice(index, 1);
-      setFrasesBaco((arr) => [...arr]);
+      ConclusoesBaco.splice(index, 1);
+      setConclusoesBaco((arr) => [...arr]);
     }
     // console.log('posicao', index)
     // console.log("laudosPrin", laudoPrin)

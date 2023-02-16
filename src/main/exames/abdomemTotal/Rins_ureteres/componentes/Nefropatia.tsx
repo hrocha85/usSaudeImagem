@@ -16,14 +16,19 @@ export default function Nefropatia({ Disable }) {
 
     const criaStringAfilamentoParenquimatoso = () => {
         let string = 'Rins tópicos,'
+        let conclusao = 'Nefrolitíase'
         removeAfilamentoParenquimatoso()
         if (ValueSelectAfilamento != '') {
             if (ValueSelectAfilamento === 'bilateral') {
                 string = `${string} com dimensões normais e contornos regulares, notando-se redução da espessura e aumento da ecogenicidade do parênquima bilateralmente.`
+                conclusao = `${conclusao} bilateral.`
+                setConclusoesRinsUreteres((arr) => [...arr, conclusao]);
                 setFraseRinsUreteres((arr) => [...arr, string]);
             } else {
                 string = `${string} notando-se redução da espessura e aumento da ecogenicidade do parênquima. O rim ${ValueSelectAfilamento} conserva dimensões, espessura e ecogenicidade parenquimatosa normais.`
+                conclusao = `${conclusao} à ${ValueSelectAfilamento}.`
                 setFraseRinsUreteres((arr) => [...arr, string]);
+                setConclusoesRinsUreteres((arr) => [...arr, conclusao]);
             }
         }
     }
@@ -39,6 +44,17 @@ export default function Nefropatia({ Disable }) {
                 }
             }
         });
+        ConclusoesRinsUreteres.map((e) => {
+            if (e.includes("Nefrolitíase")) {
+                var index = ConclusoesRinsUreteres.indexOf(e);
+
+                if (index > -1) {
+                    ConclusoesRinsUreteres.splice(index, 1);
+                    setConclusoesRinsUreteres((arr) => [...arr]);
+                }
+            }
+        });
+
     };
 
     useEffect(() => {
