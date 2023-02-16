@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
+import { exec } from "child_process";
 import { useContext, useState } from "react";
 import { LaudosContext } from "../../context/LuadosContext";
 
@@ -213,7 +214,7 @@ export default function Format_PDF() {
       textAlign: "center",
       fontSize: "20",
       fontFamily: "MontserratBold",
-      marginTop:"3%"
+      marginTop: "3%",
     },
     textNomeSubExame: {
       fontWeigh: "bold",
@@ -228,11 +229,11 @@ export default function Format_PDF() {
       textAlign: "justify",
       fontSize: "12",
       fontFamily: "MontserratRegular",
-      lineHeight: 1.5,
+      lineHeight: 2,
     },
     laudo_viewer: {
       margin: 10,
-      marginBottom: "30%",
+      marginBottom: "25%",
     },
     view_frases: {
       marginLeft: "10px",
@@ -248,68 +249,63 @@ export default function Format_PDF() {
           title={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
           author={`Dr.${medico.nome}`}
         >
-          <Page size="A4" style={styles.page} wrap={true}>
-            <View style={styles.section}>
-              <View style={styles.viewAssinatura}>
-                <Image style={styles.imageClinica} src={clinicaSet.foto} />
-              </View>
-
-              <View style={styles.sectionColuna}>
-                <Text>{clinicaSet.nomeClinica}</Text>
-                <Text>{getPaciente()}</Text>
-                <Text>{getCurrentDate()}</Text>
-                <Text>{`Dr. ${medico.nome}`}</Text>
-              </View>
-            </View>
-            <View style={styles.line}></View>
-            {JSON.parse(localStorage.getItem("format_laudo")!).map(
-              (exame, key) => {
-                return (
-                  <View
-                    style={styles.laudo_viewer}
-                    key={key}
-                    break={key === 0 ? false : true}
-                  >
-                    <Text style={styles.textTituloExame}>
-                      {exame.titulo_exame.toUpperCase()}
-                    </Text>
-                    <View>{renderFrases(exame)}</View>
+          {JSON.parse(localStorage.getItem("format_laudo")!).map(
+            (exame, key) => {
+             return <Page size="A4" style={styles.page} wrap={true} key={key} break={false}>
+                <View style={styles.section}>
+                  <View style={styles.viewAssinatura}>
+                    <Image style={styles.imageClinica} src={clinicaSet.foto} />
                   </View>
-                );
-              }
-            )}
 
-            <View style={styles.pageNumber}>
-              <View style={styles.pageNumber}>
-                <View style={styles.footer}>
-                  <View style={styles.footerColuna}>
-                    <Image
-                      style={styles.imageAssinatura}
-                      src={medico.assinatura}
-                    />
-                    <span style={styles.borderFooter}></span>
-                    <View style={styles.viewdadosMedico}>
-                      <Text
-                        style={styles.textDadosMedico}
-                      >{`Dr. ${medico.nome}`}</Text>
-                      <Text
-                        style={styles.textDadosMedico}
-                      >{`CRM ${medico.crm}`}</Text>
+                  <View style={styles.sectionColuna}>
+                    <Text>{clinicaSet.nomeClinica}</Text>
+                    <Text>{getPaciente()}</Text>
+                    <Text>{getCurrentDate()}</Text>
+                    <Text>{`Dr. ${medico.nome}`}</Text>
+                  </View>
+                </View>
+                <View style={styles.line}></View>
+
+                <View style={styles.laudo_viewer} break={false}>
+                  <Text style={styles.textTituloExame}>
+                    {exame.titulo_exame.toUpperCase()}
+                  </Text>
+                  <View>{renderFrases(exame)}</View>
+                </View>
+
+                <View style={styles.pageNumber}>
+                  <View style={styles.pageNumber}>
+                    <View style={styles.footer}>
+                      <View style={styles.footerColuna}>
+                        <Image
+                          style={styles.imageAssinatura}
+                          src={medico.assinatura}
+                        />
+                        <span style={styles.borderFooter}></span>
+                        <View style={styles.viewdadosMedico}>
+                          <Text
+                            style={styles.textDadosMedico}
+                          >{`Dr. ${medico.nome}`}</Text>
+                          <Text
+                            style={styles.textDadosMedico}
+                          >{`CRM ${medico.crm}`}</Text>
+                        </View>
+                      </View>
+                      <Text style={styles.textSantaImagem}>
+                        Santa Imagem Diagnósticos por imagem
+                      </Text>
                     </View>
                   </View>
-                  <Text style={styles.textSantaImagem}>
-                    Santa Imagem Diagnósticos por imagem
+
+                  <Text style={styles.textDiagnostico}>
+                    "A impressão diagnóstica em exames de imagem não é absoluta,
+                    devendo ser correlacionada com dados clínicos, laboratorias
+                    e outros métodos de imagem complementares"
                   </Text>
                 </View>
-              </View>
-
-              <Text style={styles.textDiagnostico}>
-                "A impressão diagnóstica em exames de imagem não é absoluta,
-                devendo ser correlacionada com dados clínicos, laboratorias e
-                outros métodos de imagem complementares"
-              </Text>
-            </View>
-          </Page>
+              </Page>;
+            }
+          )}
         </Document>
       </PDFViewer>
     );
