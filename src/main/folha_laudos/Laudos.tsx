@@ -144,6 +144,7 @@ function Exames() {
       textAlign: "center",
       fontSize: "20",
       fontFamily: "MontserratBold",
+      marginTop: "3%",
     },
     textNomeSubExame: {
       fontWeigh: "bold",
@@ -152,13 +153,13 @@ function Exames() {
       fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
-      maxWidth: "35%",
+      maxWidth: "25%",
     },
     frasesSubExame: {
       textAlign: "justify",
       fontSize: "12",
       fontFamily: "MontserratRegular",
-      lineHeight: 1.5,
+      lineHeight: 2,
     },
     laudo_viewer: {
       margin: 10,
@@ -246,66 +247,69 @@ function Exames() {
         title={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
         author={`Dr.${medico.nome}`}
       >
-        <Page size="A4" style={styles.page}>
-          <ViewPDF style={styles.section}>
-            <ViewPDF style={styles.viewAssinatura}>
-              <ImagePDF style={styles.imageClinica} src={clinicaSet.foto} />
-            </ViewPDF>
+        {arrayLocal.map((exame, key) => {
+          return (
+            <Page
+              size="A4"
+              style={styles.page}
+              wrap={true}
+              key={key}
+              break={false}
+            >
+              <ViewPDF style={styles.section}>
+                <ViewPDF style={styles.viewAssinatura}>
+                  <ImagePDF style={styles.imageClinica} src={clinicaSet.foto} />
+                </ViewPDF>
 
-            <ViewPDF style={styles.sectionColuna}>
-              <TextPDF>{clinicaSet.nomeClinica}</TextPDF>
-              <TextPDF>{getPaciente()}</TextPDF>
-              <TextPDF>{getCurrentDate()}</TextPDF>
-              <TextPDF>{`Dr. ${medico.nome}`}</TextPDF>
-            </ViewPDF>
-          </ViewPDF>
-          <ViewPDF style={styles.line}></ViewPDF>
-          {arrayLocal.map((exame, key) => {
-            return (
-              <ViewPDF
-                style={styles.laudo_viewer}
-                key={key}
-                break={key === 0 ? false : true}
-              >
+                <ViewPDF style={styles.sectionColuna}>
+                  <TextPDF>{clinicaSet.nomeClinica}</TextPDF>
+                  <TextPDF>{getPaciente()}</TextPDF>
+                  <TextPDF>{getCurrentDate()}</TextPDF>
+                  <TextPDF>{`Dr. ${medico.nome}`}</TextPDF>
+                </ViewPDF>
+              </ViewPDF>
+              <ViewPDF style={styles.line}></ViewPDF>
+
+              <ViewPDF style={styles.laudo_viewer} break={false}>
                 <TextPDF style={styles.textTituloExame}>
                   {exame.titulo_exame.toUpperCase()}
                 </TextPDF>
                 <ViewPDF>{renderFrases(exame)}</ViewPDF>
               </ViewPDF>
-            );
-          })}
 
-          <ViewPDF style={styles.pageNumber}>
-            <ViewPDF style={styles.pageNumber}>
-              <ViewPDF style={styles.footer}>
-                <ViewPDF style={styles.footerColuna}>
-                  <ImagePDF
-                    style={styles.imageAssinatura}
-                    src={medico.assinatura}
-                  />
-                  <span style={styles.borderFooter}></span>
-                  <ViewPDF style={styles.viewdadosMedico}>
-                    <TextPDF
-                      style={styles.textDadosMedico}
-                    >{`Dr. ${medico.nome}`}</TextPDF>
-                    <TextPDF
-                      style={styles.textDadosMedico}
-                    >{`CRM ${medico.crm}`}</TextPDF>
+              <ViewPDF style={styles.pageNumber}>
+                <ViewPDF style={styles.pageNumber}>
+                  <ViewPDF style={styles.footer}>
+                    <ViewPDF style={styles.footerColuna}>
+                      <ImagePDF
+                        style={styles.imageAssinatura}
+                        src={medico.assinatura}
+                      />
+                      <span style={styles.borderFooter}></span>
+                      <ViewPDF style={styles.viewdadosMedico}>
+                        <TextPDF
+                          style={styles.textDadosMedico}
+                        >{`Dr. ${medico.nome}`}</TextPDF>
+                        <TextPDF
+                          style={styles.textDadosMedico}
+                        >{`CRM ${medico.crm}`}</TextPDF>
+                      </ViewPDF>
+                    </ViewPDF>
+                    <TextPDF style={styles.textSantaImagem}>
+                      Santa Imagem Diagnósticos por imagem
+                    </TextPDF>
                   </ViewPDF>
                 </ViewPDF>
-                <TextPDF style={styles.textSantaImagem}>
-                  Santa Imagem Diagnósticos por imagem
+
+                <TextPDF style={styles.textDiagnostico}>
+                  "A impressão diagnóstica em exames de imagem não é absoluta,
+                  devendo ser correlacionada com dados clínicos, laboratorias e
+                  outros métodos de imagem complementares"
                 </TextPDF>
               </ViewPDF>
-            </ViewPDF>
-
-            <TextPDF style={styles.textDiagnostico}>
-              "A impressão diagnóstica em exames de imagem não é absoluta,
-              devendo ser correlacionada com dados clínicos, laboratorias e
-              outros métodos de imagem complementares"
-            </TextPDF>
-          </ViewPDF>
-        </Page>
+            </Page>
+          );
+        })}
       </Document>
     );
   };
