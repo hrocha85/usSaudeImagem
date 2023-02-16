@@ -53,6 +53,21 @@ function Aorta_Retroperitoneo({ Disable }) {
             }
         });
     };
+    const removeConclusaoString = () => {
+        var index;
+        ConclusoesAorta.map((e) => {
+            if (e.includes("Aneurisma aórtico.")) {
+                index = ConclusoesAorta.indexOf(e);
+
+                if (index > -1) {
+                    ConclusoesAorta.splice(index, 1);
+                    setConclusoesAorta((arr) => [...arr]);
+                }
+            }
+        });
+    };
+
+
 
     useEffect(() => {
         if (value.includes("Aneurisma")) {
@@ -87,16 +102,20 @@ function Aorta_Retroperitoneo({ Disable }) {
     }, [value, valueInputCitarCalibre]);
 
     useEffect(() => {
+        const conclusao = 'Aneurisma aórtico.'
         removeSelectString()
+        removeConclusaoString()
         var select;
         var medida1 = new Convert_Medida(valueInput1).Convert_Medida()
         var medida2 = new Convert_Medida(valueInput2).Convert_Medida()
         if (valueInput1 != '' && valueInput2 != '' && valueInput1 != '' && valueInput2 != '' && TromboPerietalCheckbox) {
             select = `Aorta com paredes irregulares, apresentando dilatação aneurismática ${valueSelect1} ${valueSelect2} com calibre máximo de  ${medida1} cm e extensão de ${medida2} cm, com trombo parietal.`;
             setFraseAorta((arr) => [...arr, select]);
+            setConclusoesAorta((arr) => [...arr, conclusao]);
         } else if (valueInput1 != '' && valueInput2 != '' && valueInput1 != '' && valueInput2 != '') {
             select = `Aorta com paredes irregulares, apresentando dilatação aneurismática ${valueSelect1} ${valueSelect2} com calibre máximo de  ${medida1} cm e extensão de ${medida2} cm `;
             setFraseAorta((arr) => [...arr, select]);
+            setConclusoesAorta((arr) => [...arr, conclusao]);
         }
     }, [valueSelect1, valueSelect2, valueInput1, valueInput2, TromboPerietalCheckbox]);
 

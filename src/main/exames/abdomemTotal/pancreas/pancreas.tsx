@@ -16,10 +16,22 @@ function Pancreas({ Disable }) {
     if (value == "1") {
       setFrasesPancreas([]);
     } else {
+      if (value == 'Pâncreas de aspecto heterogêneo, com espessura aumentada e ecogenicidade reduzida do parênquima.') {
+        setConclusoesPancreas((arr) => [...arr, 'Sinais compatíveis com pancreatite aguda.']);
+      } else {
+        removeItemConclusao('Sinais compatíveis com pancreatite aguda.')
+      }
       setFrasesPancreas([]);
       setFrasesPancreas((arr) => [...arr, value]);
     }
   }, [value]);
+  const removeItemConclusao = (value) => {
+    var index = ConclusoesPancreas.indexOf(value);
+    if (index > -1) {
+      ConclusoesPancreas.splice(index, 1);
+      setConclusoesPancreas((arr) => [...arr]);
+    }
+  };
 
   const [frasesPancreas, setFrasesPancreas] = useState<any>([]);
   const [ConclusoesPancreas, setConclusoesPancreas] = useState<any>([]);

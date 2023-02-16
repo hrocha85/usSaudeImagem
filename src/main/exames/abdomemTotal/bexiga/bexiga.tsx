@@ -12,8 +12,8 @@ function Bexiga({ Disable }) {
   const largura = "66%";
 
   const [value, setValue] = useState("1");
-  const [FraseAorta, setFraseAorta] = useState<any>([]);
-  const [ConclusoesAorta, setConclusoesAorta] = useState<any>([]);
+  const [FraseBexiga, setFraseBexiga] = useState<any>([]);
+  const [ConclusoesBexiga, setConclusoesBexiga] = useState<any>([]);
 
   const [valueSelect1, setValueSelect1] = useState("");
   const [valueInput1, setValueInput1] = useState("");
@@ -29,12 +29,24 @@ function Bexiga({ Disable }) {
 
   const removeSelectString = () => {
     var index;
-    FraseAorta.map((e) => {
+    FraseBexiga.map((e) => {
       if (e.includes("Bexiga")) {
-        index = FraseAorta.indexOf(e);
+        index = FraseBexiga.indexOf(e);
         if (index > -1) {
-          FraseAorta.splice(index, 1);
-          setFraseAorta((arr) => [...arr]);
+          FraseBexiga.splice(index, 1);
+          setFraseBexiga((arr) => [...arr]);
+        }
+      }
+    });
+  };
+  const removeStringConclusao = () => {
+    var index;
+    ConclusoesBexiga.map((e) => {
+      if (e.includes("Bexiga com trabeculações.")) {
+        index = ConclusoesBexiga.indexOf(e);
+        if (index > -1) {
+          ConclusoesBexiga.splice(index, 1);
+          setConclusoesBexiga((arr) => [...arr]);
         }
       }
     });
@@ -62,25 +74,42 @@ function Bexiga({ Disable }) {
       setValueSelectCalculo('')
       setEnableSelects(false);
       if (value != "1") {
-        setFraseAorta([]);
-        setFraseAorta((arr) => [...arr, value]);
+        if (value == 'Bexiga com boa repleção, de conteúdo anecogênico, apresentando paredes difusamente espessadas e trabeculadas.') {
+          setConclusoesBexiga((arr) => [...arr, 'Bexiga com trabeculações.'])
+        } else {
+          removeStringConclusao()
+        }
+        setFraseBexiga([]);
+        setFraseBexiga((arr) => [...arr, value]);
       } else {
-        setFraseAorta([]);
+        setFraseBexiga([]);
       }
     }
   }, [value]);
 
   useEffect(() => {
     removeSelectString()
+    const conclusaoLesaoVegetante = 'Lesão vegetante na parede vesical.'
     var select;
     var medida1 = new Convert_Medida(valueInput1).Convert_Medida()
     var medida2 = new Convert_Medida(valueInput2).Convert_Medida()
     if (valueInput1 != '' && valueInput2 != '' && valueSelect1 != '') {
       select = `Bexiga com boa repleção, notando-se lesão polipoide de superfície irregular medindo 
       ${medida1} x ${medida2} cm, fixa ${valueSelect1}.`;
-      setFraseAorta((arr) => [...arr, select]);
+      setFraseBexiga((arr) => [...arr, select]);
+      setConclusoesBexiga((arr) => [...arr, conclusaoLesaoVegetante]);
+    } else {
+      removeItemString(conclusaoLesaoVegetante)
     }
   }, [valueSelect1, valueInput1, valueInput2]);
+
+  const removeItemString = (value) => {
+    var index = ConclusoesBexiga.indexOf(value);
+    if (index > -1) {
+      ConclusoesBexiga.splice(index, 1);
+      setConclusoesBexiga((arr) => [...arr]);
+    }
+  };
 
   useEffect(() => {
     removeSelectString()
@@ -89,31 +118,30 @@ function Bexiga({ Disable }) {
       var medida = new Convert_Medida(valueInputCalculo).Convert_Medida()
       string = `Bexiga com boa repleção, com paredes ${valueSelectCalculo}, notando-se no lúmen vesical imagem 
       hiperecogênica com sombra acústica posterior, móvel com as mudanças de decúbito, medindo ${medida} cm.`
-      setFraseAorta([]);
-      setFraseAorta((arr) => [...arr, string]);
+      setFraseBexiga([]);
+      setFraseBexiga((arr) => [...arr, string]);
     }
   }, [valueSelectCalculo, valueInputCalculo])
 
 
   const criaStringSondaFoley = () => {
-    var string = 'Presença de sonda com balão visível no lúmen vesical.'
+    const string = 'Presença de sonda com balão visível no lúmen vesical.'
+    const conclusaoSondaFoley = 'Presença de sonda vesical.'
     removeFraseSondaFoley()
+    removeItemString(conclusaoSondaFoley)
     if (SondaFoleyCheckbox) {
-      string = `${string}`
-      setFraseAorta((arr) => [...arr, string])
-    } else if (SondaFoleyCheckbox) {
-      string = `${string}.`
-      setFraseAorta((arr) => [...arr, string])
+      setFraseBexiga((arr) => [...arr, string])
+      setConclusoesBexiga((arr) => [...arr, conclusaoSondaFoley])
     }
   }
 
   const removeFraseSondaFoley = () => {
-    FraseAorta.map((e) => {
+    FraseBexiga.map((e) => {
       if (e.includes("Presença de sonda com balão visível no lúmen vesical.")) {
-        var index = FraseAorta.indexOf(e);
+        var index = FraseBexiga.indexOf(e);
         if (index > -1) {
-          FraseAorta.splice(index, 1);
-          setFraseAorta((arr) => [...arr]);
+          FraseBexiga.splice(index, 1);
+          setFraseBexiga((arr) => [...arr]);
         }
       }
     });
@@ -133,24 +161,24 @@ function Bexiga({ Disable }) {
   const titulo_exame = "Abdômen total";
 
   useEffect(() => {
-    if (Object.keys(FraseAorta).length == 0) {
+    if (Object.keys(FraseBexiga).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        FraseAorta,
-        ConclusoesAorta
+        FraseBexiga,
+        ConclusoesBexiga
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        FraseAorta,
-        ConclusoesAorta
+        FraseBexiga,
+        ConclusoesBexiga
       ).Format_Laudo_Create_Storage();
     }
-  }, [FraseAorta]);
+  }, [FraseBexiga]);
 
   return (
     <Box

@@ -19,6 +19,11 @@ function ViasBiliares({ Disable }) {
     if (value == "1") {
       setFrasesVias([]);
     } else {
+      if (value == 'Espessada e Irregular') {
+        setConclusoesVias((arr) => [...arr, 'Ectasia do colédoco.'])
+      } else {
+        removeItemConclusoes('Ectasia do colédoco.')
+      }
       setFrasesVias([]);
       setFrasesVias((arr) => [...arr, value]);
     }
@@ -34,7 +39,9 @@ function ViasBiliares({ Disable }) {
 
   useEffect(() => {
     var string = 'Observa-se dilatação de vias biliares intra-hepáticas.'
+    var conclusao = 'Dilatação de vias biliares intra-hepáticas.'
     DilatacaoCheckbox ? setFrasesVias((arr) => [...arr, string]) : removeItemString(string)
+    DilatacaoCheckbox ? setConclusoesVias((arr) => [...arr, conclusao]) : removeItemConclusoes(conclusao)
   }, [DilatacaoCheckbox])
 
   const criaStringCitarCalibre = (dados, calculo) => {
@@ -86,26 +93,18 @@ function ViasBiliares({ Disable }) {
     }
   };
 
+  const removeItemConclusoes = (value) => {
+    // console.log("valor remove = ", value);
+    var index = ConclusoesVias.indexOf(value);
+    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+    if (index > -1) {
+      ConclusoesVias.splice(index, 1);
+      setConclusoesVias((arr) => [...arr]);
+    }
+  };
+
   const subExame = "Vias Biliares";
   const titulo_exame = "Abdômen total";
-
-  useEffect(() => {
-    if (Object.keys(frasesVias).length == 0) {
-      new Format_Laudo(
-        titulo_exame,
-        subExame,
-        true,
-        frasesVias
-      ).Format_Laudo_Create_Storage();
-    } else {
-      new Format_Laudo(
-        titulo_exame,
-        subExame,
-        false,
-        frasesVias
-      ).Format_Laudo_Create_Storage();
-    }
-  }, [frasesVias]);
 
   useEffect(() => {
     if (Object.keys(frasesVias).length == 0) {

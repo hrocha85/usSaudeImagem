@@ -114,10 +114,7 @@ function Figado({ Disable }) {
 
   useEffect(() => {
     var string = 'Fígado com dimensões normais, contornos regulares, bordas finas e ecotextura homogênea.'
-    var conclusao = 'concluido.'
-
     HomogeneoCheckbox ? setFrasesFigado((arr) => [...arr, string]) : removeItemString(string)
-    HomogeneoCheckbox ? setConclusoesFigado((arr) => [...arr, conclusao]) : removeItemStringConclusao(conclusao)
   }, [HomogeneoCheckbox])
 
   const criaStringEsteatose = (select) => {
@@ -252,14 +249,33 @@ function Figado({ Disable }) {
     }
   }, [VariosCistosCheckbox, VariosCistosSelect, VariosCistosInput])
 
+
+
+
+  const removeFraseConclusaoNodulo = () => {
+    ConclusoesFigado.map((e) => {
+      if (e.includes("Nódulo hepático.")) {
+        var index = ConclusoesFigado.indexOf(e);
+
+        if (index > -1) {
+          ConclusoesFigado.splice(index, 1);
+          setConclusoesFigado((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
   const criaStringNodulo = (select1, select2, select3, input1, input2) => {
     var string = 'Nodulo'
+    const conclusaoNodulos = 'Nódulo hepático.'
     var medida1 = new Convert_Medida(input1).Convert_Medida()
     var medida2 = new Convert_Medida(input2).Convert_Medida()
     removeFraseNodulo()
     if (select1 !== '' && input1 !== '' && select2 !== '' && select3 !== '' && input2) {
       string = `${string} ${select1} de contornos ${select2}, medindo ${medida1} x ${medida2} cm, situado no ${select3}`;
       setFrasesFigado((arr) => [...arr, string]);
+      removeFraseConclusaoNodulo()
+      setConclusoesFigado((arr) => [...arr, conclusaoNodulos]);
     }
   };
   const removeFraseNodulo = () => {
@@ -293,12 +309,15 @@ function Figado({ Disable }) {
 
   const criaStringVariosNodulos = (select1, select2, select3, select4, input1, input2) => {
     var string = 'Presença de'
+    const conclusaoNodulos = 'Nódulo hepático.'
     var medida1 = new Convert_Medida(input1).Convert_Medida()
     var medida2 = new Convert_Medida(input2).Convert_Medida()
     removeFraseVariosNodulos()
     if (select1 !== '' && input1 !== '' && select2 !== '' && select3 !== '' && select4 !== '' && input2) {
       string = `${string} ${select1} ${select2} de contornos regulares medindo ${medida1} cm(${select3}) e ${medida2} cm (${select4}). Veia porta e veias hepáticas sem alterações.`;
       setFrasesFigado((arr) => [...arr, string]);
+      removeFraseConclusaoNodulo()
+      setConclusoesFigado((arr) => [...arr, conclusaoNodulos]);
     }
   };
   const removeFraseVariosNodulos = () => {
@@ -373,7 +392,11 @@ function Figado({ Disable }) {
     if (select !== '') {
       string = `${string} ${select}, contornos regulares, bordas finas e ecotextura homogênea. Veia 
       porta e veias hepáticas sem alterações`;
-
+      if (select == 'aumentadas') {
+        setConclusoesFigado((arr) => [...arr, 'Hepatomegalia.'])
+      } else {
+        removeItemStringConclusao('Hepatomegalia.')
+      }
       if (LDMedida !== '') {
         string = `${string}. Eixo longitudinal do lobo direito mede ${medidaLD} cm,`;
       }

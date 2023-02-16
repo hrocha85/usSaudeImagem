@@ -56,24 +56,34 @@ function VesiculaBiliar({ Disable }) {
       setFrasesVesicula((arr) => [...arr]);
     }
   };
+  const removeItemConclusao = (value) => {
+    var index = ConclusoesVesicula.indexOf(value);
+    if (index > -1) {
+      ConclusoesVesicula.splice(index, 1);
+      setConclusoesVesicula((arr) => [...arr]);
+    }
+  };
 
   useEffect(() => {
-    var string = 'Vesícula biliar com forma e dimensões normais, paredes finas e regulares, apresentando conteúdo anecogênico sem imagens calculosas.'
+    const string = 'Vesícula biliar com forma e dimensões normais, paredes finas e regulares, apresentando conteúdo anecogênico sem imagens calculosas.'
     NormalCheckbox ? setFrasesVesicula((arr) => [...arr, string]) : removeItemString(string)
   }, [NormalCheckbox])
 
   useEffect(() => {
-    var string = 'Sinais de colesterolose vesicular.'
+    const string = 'Sinais de colesterolose vesicular.'
     ColesteroloseCheckbox ? setFrasesVesicula((arr) => [...arr, string]) : removeItemString(string)
+    ColesteroloseCheckbox ? setConclusoesVesicula((arr) => [...arr, string]) : removeItemConclusao(string)
   }, [ColesteroloseCheckbox])
 
   useEffect(() => {
-    var string = 'Vesícula biliar vazia, sem condições satisfatórias para análise.'
+    const string = 'Vesícula biliar vazia, sem condições satisfatórias para análise.'
+    const conclusaoVazia = 'Vesícula biliar vazia.'
     VaziaCheckbox ? setFrasesVesicula((arr) => [...arr, string]) : removeItemString(string)
+    VaziaCheckbox ? setConclusoesVesicula((arr) => [...arr, conclusaoVazia]) : removeItemConclusao(conclusaoVazia)
   }, [VaziaCheckbox])
 
   useEffect(() => {
-    var string = 'Vesícula biliar não caracterizada (status pós-cirúrgico).'
+    const string = 'Vesícula biliar não caracterizada (status pós-cirúrgico).'
     AusenteCheckbox ? setFrasesVesicula((arr) => [...arr, string]) : removeItemString(string)
   }, [AusenteCheckbox])
 
@@ -264,6 +274,16 @@ function VesiculaBiliar({ Disable }) {
       }
     });
   };
+
+  useEffect(() => {
+    const conclusaoPolipos = 'Imagem compatível com pólipo na vesícula biliar.'
+    removeItemString(conclusaoPolipos)
+    if (PolipoUnicoInput != '' || MultiplosPoliposInput2 != '') {
+      setConclusoesVesicula((arr) => [...arr, conclusaoPolipos])
+    } else {
+      removeItemString(conclusaoPolipos)
+    }
+  }, [PolipoUnicoInput, MultiplosPoliposInput2])
 
   useEffect(() => {
     if (PolipoUnicoCheckbox) {
