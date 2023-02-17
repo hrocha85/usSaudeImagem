@@ -12,6 +12,7 @@ function HerniaUmbilical({ Disable }) {
 
 
   const [frasesHerniaUmb, setFrasesHerniaUmb] = useState<any>([]);
+  const [ConclusaoHerniaUmb, setConclusaoHerniaUmb] = useState<any>([]);
 
   const [checkedSacoHerniacoCheckBox, setCheckedSacoHerniacoCheckBox] =
     useState(false);
@@ -29,9 +30,12 @@ function HerniaUmbilical({ Disable }) {
     medida2SacoHerniaco
   ) => {
     removeHerniaUmbilical();
+    removeHerniaConclusao();
     if (medida1SacoHerniaco !== "" && medida2SacoHerniaco !== "") {
       let string = `Na cicatriz umbilical observa-se um saco herniário contendo tecido adiposo, com variação de volume às manobras compressivas e respiratórias, medindo ${medida1SacoHerniaco} x ${medida2SacoHerniaco} cm, com colo de ${medidaColo} cm.`;
+      let conclusao = 'Hérnia umbilical.'
       setFrasesHerniaUmb((arr) => [...arr, string]);
+      setConclusaoHerniaUmb((arr) => [...arr, conclusao]);
     }
   };
 
@@ -43,6 +47,18 @@ function HerniaUmbilical({ Disable }) {
         if (index > -1) {
           frasesHerniaUmb.splice(index, 1);
           setFrasesHerniaUmb((arr) => [...arr]);
+        }
+      }
+    });
+  };
+  const removeHerniaConclusao = () => {
+    ConclusaoHerniaUmb.map((e) => {
+      if (e.includes("Hérnia umbilical.")) {
+        let index = ConclusaoHerniaUmb.indexOf(e);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+        if (index > -1) {
+          ConclusaoHerniaUmb.splice(index, 1);
+          setConclusaoHerniaUmb((arr) => [...arr]);
         }
       }
     });
@@ -76,14 +92,16 @@ function HerniaUmbilical({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesHerniaUmb
+        frasesHerniaUmb,
+        ConclusaoHerniaUmb
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesHerniaUmb
+        frasesHerniaUmb,
+        ConclusaoHerniaUmb
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesHerniaUmb]);
