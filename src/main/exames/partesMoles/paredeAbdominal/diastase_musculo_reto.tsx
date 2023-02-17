@@ -31,20 +31,18 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Diastase_Musculo_Reto(Disable) {
+function Diastase_Musculo_Reto({ Disable }) {
   const altura = "auto";
   const largura = "100%";
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [frasesDiastase, setFrasesDiastase] = useState<any>([]);
+  const [ConclusaoDiastase, setConclusaoDiastase] = useState<any>([]);
 
   const [afastamentoCheckBox, setAfastamentoCheckBox] = useState(false);
 
-
   const [disableInputs, setDisableInputs] = useState(true);
-
-
 
   const [medidaAfastamento, setMedidaAfastamento] = useState("");
   const [defaultSelect, setDefaultSelect] = useState("Selecione Opção");
@@ -98,6 +96,19 @@ function Diastase_Musculo_Reto(Disable) {
     });
   };
 
+  const removeConclusao = () => {
+    ConclusaoDiastase.map((e) => {
+      if (e.includes(`Diástase do músculo reto abdominal.`)) {
+        let index = ConclusaoDiastase.indexOf(e);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+        if (index > -1) {
+          ConclusaoDiastase.splice(index, 1);
+          setConclusaoDiastase((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
   const removeAll = () => {
     while (Object.keys(frasesDiastase).length != 0) {
       frasesDiastase.map((e) => {
@@ -134,13 +145,17 @@ function Diastase_Musculo_Reto(Disable) {
   }, [afastamentoCheckBox]);
 
   useEffect(() => {
+    const conclusao = 'Diástase do músculo reto abdominal.'
     if (selectNivel != "" && selectNivel != defaultSelect) {
       if (medidaAfastamento == "" || medidaAfastamento == null) {
         criaStringDiastase_SEM_Medida();
       } else {
         criaStringDiastase_COM_Medida();
       }
+      removeConclusao()
+      setConclusaoDiastase((arr) => [...arr, conclusao])
     }
+
   }, [selectNivel, medidaAfastamento]);
 
   const subExame = "Parede Abdominal - Diástase do Músculo Reto Abdominal";
@@ -152,14 +167,16 @@ function Diastase_Musculo_Reto(Disable) {
         titulo_exame,
         subExame,
         true,
-        frasesDiastase
+        frasesDiastase,
+        ConclusaoDiastase
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesDiastase
+        frasesDiastase,
+        ConclusaoDiastase
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesDiastase]);

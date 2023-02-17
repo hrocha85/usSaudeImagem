@@ -1,14 +1,21 @@
 import { Box, Radio, RadioGroup, Select, Stack, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { DerramePleuralDireitaContext } from "../../../../../context/DerramePleuralDireitaContext";
+import { DerramePleuralEsquerdaContext } from "../../../../../context/DerramePleuralEsquerdaContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Derrame_Pleural_Esquerdo({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTorax, setFrasesTorax] = useState<any>([]);
+  const [ConclusaoTorax, setConclusaoTorax] = useState<any>([]);
 
   const [valueSelect1, setValueSelect1] = useState("");
   const [valueSelect2, setValueSelect2] = useState("");
   const [valueSelect3, setValueSelect3] = useState("");
+
+
+  const { DerramePleuralDireita } = useContext(DerramePleuralDireitaContext)
+  const { DerramePleuralEsquerda, setDerramePleuralEsquerda } = useContext(DerramePleuralEsquerdaContext)
 
   const [enableSelects, setEnableSelects] = useState<boolean>(false);
 
@@ -37,6 +44,32 @@ export default function Derrame_Pleural_Esquerdo({ Disable }) {
       }
     });
   };
+
+  const removeSelectConclusao = () => {
+    ConclusaoTorax.map((e) => {
+      if (e.includes("Derrame pleural")) {
+        var index = ConclusaoTorax.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoTorax.splice(index, 1);
+          setConclusaoTorax((arr) => [...arr]);
+        }
+      }
+
+    });
+  }
+
+  const criaStringConclusao = () => {
+    var conclusao = 'Derrame pleural Esquerda.'
+    var conclusaoBilateral = 'Derrame pleural Bilateral.'
+    removeSelectConclusao()
+    if (DerramePleuralEsquerda && DerramePleuralDireita) {
+      setConclusaoTorax((arr) => [...arr, conclusaoBilateral]);
+    } else if (DerramePleuralEsquerda) {
+      setConclusaoTorax((arr) => [...arr, conclusao]);
+    }
+  }
+
   const removeSelectStringMobilidade = () => {
     frasesTorax.map((e) => {
       if (e.includes("Mobilidade da cúpula frênica ")) {
@@ -72,7 +105,11 @@ export default function Derrame_Pleural_Esquerdo({ Disable }) {
 
     if (valueSelect1 != "" && valueSelect2 != "") {
       removeSelectString();
+      criaStringConclusao()
       setFrasesTorax((arr) => [...arr, select]);
+      setDerramePleuralEsquerda(true)
+    } else {
+      setDerramePleuralEsquerda(false)
     }
 
     if (valueSelect3 != "") {
@@ -87,14 +124,16 @@ export default function Derrame_Pleural_Esquerdo({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesTorax
+        frasesTorax,
+        ConclusaoTorax
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesTorax
+        frasesTorax,
+        ConclusaoTorax
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesTorax]);

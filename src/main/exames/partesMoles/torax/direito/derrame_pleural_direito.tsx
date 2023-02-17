@@ -1,14 +1,22 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Radio, RadioGroup, Select, Stack, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { DerramePleuralDireitaContext } from "../../../../../context/DerramePleuralDireitaContext";
+import { DerramePleuralEsquerdaContext } from "../../../../../context/DerramePleuralEsquerdaContext";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Derrame_Pleural_Direito({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTorax, setFrasesTorax] = useState<any>([]);
+  const [ConclusaoTorax, setConclusaoTorax] = useState<any>([]);
 
   const [valueSelect1, setValueSelect1] = useState("");
   const [valueSelect2, setValueSelect2] = useState("");
   const [valueSelect3, setValueSelect3] = useState("");
+
+  const { DerramePleuralDireita, setDerramePleuralDireita } = useContext(DerramePleuralDireitaContext)
+  const { DerramePleuralEsquerda } = useContext(DerramePleuralEsquerdaContext)
 
   const [enableSelects, setEnableSelects] = useState<boolean>(false);
 
@@ -37,6 +45,20 @@ export default function Derrame_Pleural_Direito({ Disable }) {
       }
     });
   };
+
+  const removeSelectConclusao = () => {
+    ConclusaoTorax.map((e) => {
+      if (e.includes("Derrame pleural")) {
+        var index = ConclusaoTorax.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoTorax.splice(index, 1);
+          setConclusaoTorax((arr) => [...arr]);
+        }
+      }
+
+    });
+  }
   const removeSelectStringMobilidade = () => {
     frasesTorax.map((e) => {
       if (e.includes("Mobilidade da cúpula frênica ")) {
@@ -65,14 +87,27 @@ export default function Derrame_Pleural_Direito({ Disable }) {
     }
   }, [value]);
 
+  const criaStringConclusao = () => {
+    var conclusao = 'Derrame pleural direita.'
+    var conclusaoBilateral = 'Derrame pleural Bilateral.'
+    removeSelectConclusao()
+    if (DerramePleuralEsquerda && DerramePleuralDireita) {
+      setConclusaoTorax((arr) => [...arr, conclusaoBilateral]);
+    } else if (DerramePleuralDireita) {
+      setConclusaoTorax((arr) => [...arr, conclusao]);
+    }
+  }
+
   useEffect(() => {
     var select = `Derrame Pleural ${valueSelect1} ${valueSelect2}`;
-    var mobilidade =
-      valueSelect3 != "1" ? `Mobilidade da cúpula frênica ${valueSelect3}` : "";
-
+    var mobilidade = valueSelect3 != "1" ? `Mobilidade da cúpula frênica ${valueSelect3}` : "";
     if (valueSelect1 != "" && valueSelect2 != "") {
       removeSelectString();
+      criaStringConclusao()
       setFrasesTorax((arr) => [...arr, select]);
+      setDerramePleuralDireita(true)
+    } else {
+      setDerramePleuralDireita(false)
     }
 
     if (valueSelect3 != "") {
@@ -87,17 +122,19 @@ export default function Derrame_Pleural_Direito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesTorax
+        frasesTorax,
+        ConclusaoTorax
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesTorax
+        frasesTorax,
+        ConclusaoTorax
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesTorax]);
+  }, [frasesTorax, ConclusaoTorax]);
 
   return (
     <Stack>
