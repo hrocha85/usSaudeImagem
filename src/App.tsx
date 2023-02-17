@@ -15,46 +15,52 @@ import { OmbroDireitoNormalProvider } from "./context/OmbroDireitoNormalContext"
 import { OmbroEsquerdoNormalProvider } from "./context/OmbroEsquerdoNormalContext";
 import { PunhoDireitoNormalProvider } from "./context/PunhoDireitoNormalContext";
 import { PunhoEsquerdoNormalProvider } from "./context/PunhoEsquerdoNormalContext";
+import { DerramePleuralDireitaProvider } from "./context/DerramePleuralDireitaContext";
 import { StringNormalProvider } from "./context/StringNormalContext";
 import { TabExamesProvider } from "./context/TabExameContext";
 import tema from "./main/Theme/Tema";
 import Rotas from "./Routes/Rotas";
+import { DerramePleuralEsquerdaProvider } from "./context/DerramePleuralEsquerdaContext";
 
 function App() {
   return (
     <TabExamesProvider>
       <EnableExamesProvider>
-        <JoelhoEsquerdoNormalProvider>
-          <JoelhoDireitoNormalProvider>
-            <MenuProvider>
-              <MaoDireitoNormalProvider>
-                <MaoEsquerdoNormalProvider>
-                  <PunhoEsquerdoNormalProvider>
-                    <PunhoDireitoNormalProvider>
-                      <CotoveloEsquerdoNormalProvider>
-                        <CotoveloDireitoNormalProvider>
-                          <OmbroEsquerdoNormalProvider>
-                            <OmbroDireitoNormalProvider>
-                              <DisableTributariaProvider>
-                                <StringNormalProvider>
-                                  <LaudosProvider>
-                                    <ChakraProvider theme={tema}>
-                                      <Rotas />
-                                    </ChakraProvider>
-                                  </LaudosProvider>
-                                </StringNormalProvider>
-                              </DisableTributariaProvider>
-                            </OmbroDireitoNormalProvider>
-                          </OmbroEsquerdoNormalProvider>
-                        </CotoveloDireitoNormalProvider>
-                      </CotoveloEsquerdoNormalProvider>
-                    </PunhoDireitoNormalProvider>
-                  </PunhoEsquerdoNormalProvider>
-                </MaoEsquerdoNormalProvider>
-              </MaoDireitoNormalProvider>
-            </MenuProvider>
-          </JoelhoDireitoNormalProvider>
-        </JoelhoEsquerdoNormalProvider>
+        <DerramePleuralDireitaProvider>
+          <DerramePleuralEsquerdaProvider>
+            <JoelhoEsquerdoNormalProvider>
+              <JoelhoDireitoNormalProvider>
+                <MenuProvider>
+                  <MaoDireitoNormalProvider>
+                    <MaoEsquerdoNormalProvider>
+                      <PunhoEsquerdoNormalProvider>
+                        <PunhoDireitoNormalProvider>
+                          <CotoveloEsquerdoNormalProvider>
+                            <CotoveloDireitoNormalProvider>
+                              <OmbroEsquerdoNormalProvider>
+                                <OmbroDireitoNormalProvider>
+                                  <DisableTributariaProvider>
+                                    <StringNormalProvider>
+                                      <LaudosProvider>
+                                        <ChakraProvider theme={tema}>
+                                          <Rotas />
+                                        </ChakraProvider>
+                                      </LaudosProvider>
+                                    </StringNormalProvider>
+                                  </DisableTributariaProvider>
+                                </OmbroDireitoNormalProvider>
+                              </OmbroEsquerdoNormalProvider>
+                            </CotoveloDireitoNormalProvider>
+                          </CotoveloEsquerdoNormalProvider>
+                        </PunhoDireitoNormalProvider>
+                      </PunhoEsquerdoNormalProvider>
+                    </MaoEsquerdoNormalProvider>
+                  </MaoDireitoNormalProvider>
+                </MenuProvider>
+              </JoelhoDireitoNormalProvider>
+            </JoelhoEsquerdoNormalProvider>
+          </DerramePleuralEsquerdaProvider>
+        </DerramePleuralDireitaProvider>
       </EnableExamesProvider>
     </TabExamesProvider>
   );

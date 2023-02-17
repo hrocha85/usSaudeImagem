@@ -19,6 +19,7 @@ function Colecao({ Disable }) {
   const largura = "95%";
 
   const [frasesColecao, setFrasesColecao] = useState<any>([]);
+  const [ConclusaoColecao, setConclusaoColecao] = useState<any>([]);
 
 
   const [inputLocalColecao, setInputLocalColecao] = useState("");
@@ -37,14 +38,18 @@ function Colecao({ Disable }) {
 
   const criaStringLocalColecao = () => {
     removeLocalColecao();
+    removeConclusao();
     if (
       planoColecaoSelect !== "" &&
       medida1Colecao !== "" &&
       medida2Colecao !== "" &&
       medida3Colecao !== ""
     ) {
-      let string = `Presença de coleção bem delimitada medindo ${medida1Colecao} x ${medida2Colecao} x ${medida3Colecao} cm (volume estimado em %4 ml), contendo ${planoColecaoSelect}.`;
+      var soma = (parseFloat(medida1Colecao) + parseFloat(medida2Colecao) + parseFloat(medida3Colecao)) / 1000
+      let conclusao = `Coleção líquida com volume estimado em ${soma} ml.`
+      let string = `Presença de coleção bem delimitada medindo ${medida1Colecao} x ${medida2Colecao} x ${medida3Colecao} cm (volume estimado em ${soma} ml), contendo ${planoColecaoSelect}.`;
       setFrasesColecao((arr) => [...arr, string]);
+      setConclusaoColecao((arr) => [...arr, conclusao]);
     }
   };
 
@@ -56,6 +61,19 @@ function Colecao({ Disable }) {
         if (index > -1) {
           frasesColecao.splice(index, 1);
           setFrasesColecao((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  const removeConclusao = () => {
+    ConclusaoColecao.map((e) => {
+      if (e.includes("Coleção líquida com volume estimado em ")) {
+        let index = ConclusaoColecao.indexOf(e);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+        if (index > -1) {
+          ConclusaoColecao.splice(index, 1);
+          setConclusaoColecao((arr) => [...arr]);
         }
       }
     });
@@ -88,14 +106,16 @@ function Colecao({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesColecao
+        frasesColecao,
+        ConclusaoColecao
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesColecao
+        frasesColecao,
+        ConclusaoColecao
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesColecao]);

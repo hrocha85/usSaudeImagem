@@ -14,6 +14,8 @@ function Hernia_Epigastrica({ Disable }) {
     []
   );
 
+  const [ConclusaoHerniaEpigastrica, setConclusaoHerniaEpigastrica] = useState<any>([]);
+
   const [checkedSacoHerniacoCheckBox, setCheckedSacoHerniacoCheckBox] =
     useState(false);
 
@@ -32,9 +34,12 @@ function Hernia_Epigastrica({ Disable }) {
     medida2SacoHerniaco
   ) => {
     removeHerniaUmbilical();
+    removeHerniaUmbilicalConclusao();
     if (medida1SacoHerniaco !== "" && medida2SacoHerniaco !== "") {
       let string = `Na região epigástrica, em topografia mediana, observa-se um saco herniário contendo tecido adiposo, medindo ${medida1SacoHerniaco} x ${medida2SacoHerniaco} cm, com colo de ${medidaColo} cm. A borda superior do colo herniário situa-se a ${medidaXifoide} cm do apêndice xifoide.`;
+      let conclusao = 'Hérnia epigástrica.'
       setFrasesHerniaEpigastrica((arr) => [...arr, string]);
+      setConclusaoHerniaEpigastrica((arr) => [...arr, conclusao]);
     }
   };
 
@@ -46,6 +51,19 @@ function Hernia_Epigastrica({ Disable }) {
         if (index > -1) {
           frasesHerniaEpigastrica.splice(index, 1);
           setFrasesHerniaEpigastrica((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  const removeHerniaUmbilicalConclusao = () => {
+    ConclusaoHerniaEpigastrica.map((e) => {
+      if (e.includes("Hérnia epigástrica.")) {
+        let index = ConclusaoHerniaEpigastrica.indexOf(e);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+        if (index > -1) {
+          ConclusaoHerniaEpigastrica.splice(index, 1);
+          setConclusaoHerniaEpigastrica((arr) => [...arr]);
         }
       }
     });
@@ -80,14 +98,16 @@ function Hernia_Epigastrica({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesHerniaEpigastrica
+        frasesHerniaEpigastrica,
+        ConclusaoHerniaEpigastrica
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesHerniaEpigastrica
+        frasesHerniaEpigastrica,
+        ConclusaoHerniaEpigastrica
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesHerniaEpigastrica]);
