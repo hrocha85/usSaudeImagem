@@ -94,6 +94,13 @@ function Exames() {
       marginLeft: 10,
       marginRight: 10,
     },
+    lineConclusoes: {
+      border: 1,
+      marginLeft: 10,
+      marginRight: 10,
+      marginBottom: 10,
+      marginTop: 10,
+    },
     laudo: {
       margin: 30,
       alignItems: "center",
@@ -146,6 +153,14 @@ function Exames() {
       fontFamily: "MontserratBold",
       marginTop: "3%",
     },
+    textConclusao: {
+      fontWeigh: "bold",
+      textAlign: "center",
+      fontSize: "17",
+      fontFamily: "MontserratBold",
+      marginTop: "1%",
+      marginBottom: "3%",
+    },
     textNomeSubExame: {
       fontWeigh: "bold",
       textAlign: "center",
@@ -153,7 +168,7 @@ function Exames() {
       fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
-      maxWidth: "25%",
+      maxWidth: "35%",
     },
     frasesSubExame: {
       textAlign: "justify",
@@ -161,14 +176,24 @@ function Exames() {
       fontFamily: "MontserratRegular",
       lineHeight: 2,
     },
+    frasesConclusoes: {
+      textAlign: "justify",
+      fontSize: "12",
+      fontFamily: "MontserratRegular",
+      lineHeight: 2,
+      marginLeft: 20,
+    },
     laudo_viewer: {
       margin: 10,
-      marginBottom: "30%",
     },
     view_frases: {
       marginLeft: "10px",
       marginRight: "30px",
       flex: 1,
+    },
+    viewConclusoes: {
+      marginTop: "5%",
+      marginBottom: "33%",
     },
   });
 
@@ -214,8 +239,6 @@ function Exames() {
 
   const Laudo = () => {
     const renderFrases = (exame) => {
-      var array = JSON.parse(localStorage.getItem("format_laudo")!);
-
       return exame.subExames.map((sub, key) => {
         return sub.subExameNome != null && sub.subExameNome != "" ? (
           <ViewPDF style={styles.inline} key={key} wrap={false}>
@@ -240,6 +263,18 @@ function Exames() {
           </ViewPDF>
         ) : null;
       });
+    };
+
+    const renderConclusoes = (exame) => {
+      if (exame.conclusoes != null && exame.conclusoes != undefined) {
+        return exame.conclusoes.map((conclusao, key) => {
+          return conclusao != null && conclusao != "" ? (
+            <TextPDF style={styles.frasesConclusoes} orphans={3}>
+              {conclusao}
+            </TextPDF>
+          ) : null;
+        });
+      }
     };
 
     return (
@@ -275,6 +310,16 @@ function Exames() {
                   {exame.titulo_exame.toUpperCase()}
                 </TextPDF>
                 <ViewPDF>{renderFrases(exame)}</ViewPDF>
+                {exame.conclusoes != null && exame.conclusoes != undefined ? (
+                  <ViewPDF style={styles.viewConclusoes}>
+                    <ViewPDF style={styles.lineConclusoes} break={true} />
+                    <TextPDF style={styles.textConclusao}>
+                      {`Conclusão ${exame.titulo_exame}`}
+                    </TextPDF>
+                    <ViewPDF>{renderConclusoes(exame)}</ViewPDF>
+                    <ViewPDF style={styles.lineConclusoes} />
+                  </ViewPDF>
+                ) : null}
               </ViewPDF>
 
               <ViewPDF style={styles.pageNumber}>
@@ -687,6 +732,40 @@ function Exames() {
                     </HStack>
                   ) : null;
                 })}
+
+                {exame.conclusoes != undefined &&
+                exame.conclusoes.length > 1 ? (
+                  <>
+                    <Divider
+                      marginBottom="10px"
+                      borderWidth="1px"
+                      borderColor="black"
+                    />
+                    <Text
+                      textDecoration="underline"
+                      fontWeight="bold"
+                      fontSize="17px"
+                      textAlign="center"
+                      textTransform="uppercase"
+                      marginBottom="10px"
+                    >
+                      {`Conclusão ${exame.titulo_exame}`}
+                    </Text>
+
+                    {exame.conclusoes.map((conclusao, key) => {
+                      return conclusao != "" && conclusao != null ? (
+                        <Text w="100%" textAlign="start" marginStart="10px">
+                          {conclusao}
+                        </Text>
+                      ) : null;
+                    })}
+                    <Divider
+                      marginTop="10px"
+                      borderWidth="1px"
+                      borderColor="black"
+                    />
+                  </>
+                ) : null}
 
                 <HStack justify="space-evenly" marginTop="10px"></HStack>
               </Box>

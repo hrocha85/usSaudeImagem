@@ -9,6 +9,7 @@ import {
   View,
 } from "@react-pdf/renderer";
 import { exec } from "child_process";
+import { relative } from "path";
 import { useContext, useState } from "react";
 import { LaudosContext } from "../../context/LuadosContext";
 
@@ -68,6 +69,17 @@ export default function Format_PDF() {
         </View>
       ) : null;
     });
+  };
+  const renderConclusoes = (exame) => {
+    if (exame.conclusoes != null && exame.conclusoes != undefined) {
+      return exame.conclusoes.map((conclusao, key) => {
+        return conclusao != null && conclusao != "" ? (
+          <Text style={styles.frasesConclusoes} orphans={3}>
+            {conclusao}
+          </Text>
+        ) : null;
+      });
+    }
   };
 
   const { laudoPrin } = useContext(LaudosContext);
@@ -164,6 +176,13 @@ export default function Format_PDF() {
       marginLeft: 10,
       marginRight: 10,
     },
+    lineConclusoes: {
+      border: 1,
+      marginLeft: 10,
+      marginRight: 10,
+      marginBottom: 10,
+      marginTop: 10,
+    },
     laudo: {
       margin: 30,
       alignItems: "center",
@@ -216,6 +235,14 @@ export default function Format_PDF() {
       fontFamily: "MontserratBold",
       marginTop: "3%",
     },
+    textConclusao: {
+      fontWeigh: "bold",
+      textAlign: "center",
+      fontSize: "17",
+      fontFamily: "MontserratBold",
+      marginTop: "1%",
+      marginBottom: "3%",
+    },
     textNomeSubExame: {
       fontWeigh: "bold",
       textAlign: "center",
@@ -231,14 +258,24 @@ export default function Format_PDF() {
       fontFamily: "MontserratRegular",
       lineHeight: 2,
     },
+    frasesConclusoes: {
+      textAlign: "justify",
+      fontSize: "12",
+      fontFamily: "MontserratRegular",
+      lineHeight: 2,
+      marginLeft: 20,
+    },
     laudo_viewer: {
       margin: 10,
-      marginBottom: "25%",
     },
     view_frases: {
       marginLeft: "10px",
       marginRight: "30px",
       flex: 1,
+    },
+    viewConclusoes: {
+      marginTop: "5%",
+      marginBottom: "33%",
     },
   });
 
@@ -251,59 +288,81 @@ export default function Format_PDF() {
         >
           {JSON.parse(localStorage.getItem("format_laudo")!).map(
             (exame, key) => {
-             return <Page size="A4" style={styles.page} wrap={true} key={key} break={false}>
-                <View style={styles.section}>
-                  <View style={styles.viewAssinatura}>
-                    <Image style={styles.imageClinica} src={clinicaSet.foto} />
-                  </View>
+              return (
+                <Page
+                  size="A4"
+                  style={styles.page}
+                  wrap={true}
+                  key={key}
+                  break={false}
+                >
+                  <View style={styles.section}>
+                    <View style={styles.viewAssinatura}>
+                      <Image
+                        style={styles.imageClinica}
+                        src={clinicaSet.foto}
+                      />
+                    </View>
 
-                  <View style={styles.sectionColuna}>
-                    <Text>{clinicaSet.nomeClinica}</Text>
-                    <Text>{getPaciente()}</Text>
-                    <Text>{getCurrentDate()}</Text>
-                    <Text>{`Dr. ${medico.nome}`}</Text>
-                  </View>
-                </View>
-                <View style={styles.line}></View>
-
-                <View style={styles.laudo_viewer} break={false}>
-                  <Text style={styles.textTituloExame}>
-                    {exame.titulo_exame.toUpperCase()}
-                  </Text>
-                  <View>{renderFrases(exame)}</View>
-                </View>
-
-                <View style={styles.pageNumber}>
-                  <View style={styles.pageNumber}>
-                    <View style={styles.footer}>
-                      <View style={styles.footerColuna}>
-                        <Image
-                          style={styles.imageAssinatura}
-                          src={medico.assinatura}
-                        />
-                        <span style={styles.borderFooter}></span>
-                        <View style={styles.viewdadosMedico}>
-                          <Text
-                            style={styles.textDadosMedico}
-                          >{`Dr. ${medico.nome}`}</Text>
-                          <Text
-                            style={styles.textDadosMedico}
-                          >{`CRM ${medico.crm}`}</Text>
-                        </View>
-                      </View>
-                      <Text style={styles.textSantaImagem}>
-                        Santa Imagem Diagnósticos por imagem
-                      </Text>
+                    <View style={styles.sectionColuna}>
+                      <Text>{clinicaSet.nomeClinica}</Text>
+                      <Text>{getPaciente()}</Text>
+                      <Text>{getCurrentDate()}</Text>
+                      <Text>{`Dr. ${medico.nome}`}</Text>
                     </View>
                   </View>
+                  <View style={styles.line}></View>
 
-                  <Text style={styles.textDiagnostico}>
-                    "A impressão diagnóstica em exames de imagem não é absoluta,
-                    devendo ser correlacionada com dados clínicos, laboratorias
-                    e outros métodos de imagem complementares"
-                  </Text>
-                </View>
-              </Page>;
+                  <View style={styles.laudo_viewer} break={false}>
+                    <Text style={styles.textTituloExame}>
+                      {exame.titulo_exame.toUpperCase()}
+                    </Text>
+                    <View>{renderFrases(exame)}</View>
+                    {exame.conclusoes != null &&
+                    exame.conclusoes != undefined ? (
+                      <View style={styles.viewConclusoes}>
+                        <View style={styles.lineConclusoes} break={true} />
+                        <Text style={styles.textConclusao}>
+                          {`Conclusão ${exame.titulo_exame}`}
+                        </Text>
+                        <View>{renderConclusoes(exame)}</View>
+                        <View style={styles.lineConclusoes} />
+                      </View>
+                    ) : null}
+                  </View>
+
+                  <View style={styles.pageNumber}>
+                    <View style={styles.pageNumber}>
+                      <View style={styles.footer}>
+                        <View style={styles.footerColuna}>
+                          <Image
+                            style={styles.imageAssinatura}
+                            src={medico.assinatura}
+                          />
+                          <span style={styles.borderFooter}></span>
+                          <View style={styles.viewdadosMedico}>
+                            <Text
+                              style={styles.textDadosMedico}
+                            >{`Dr. ${medico.nome}`}</Text>
+                            <Text
+                              style={styles.textDadosMedico}
+                            >{`CRM ${medico.crm}`}</Text>
+                          </View>
+                        </View>
+                        <Text style={styles.textSantaImagem}>
+                          Santa Imagem Diagnósticos por imagem
+                        </Text>
+                      </View>
+                    </View>
+
+                    <Text style={styles.textDiagnostico}>
+                      "A impressão diagnóstica em exames de imagem não é
+                      absoluta, devendo ser correlacionada com dados clínicos,
+                      laboratorias e outros métodos de imagem complementares"
+                    </Text>
+                  </View>
+                </Page>
+              );
             }
           )}
         </Document>
