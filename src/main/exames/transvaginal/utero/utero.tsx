@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
   Checkbox,
@@ -7,14 +8,13 @@ import {
   Stack,
   Text
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Utero({ Disable }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [frasesUtero, setFrasesUtero] = useState<any>([]);
+  const [ConclusaoUtero, setConclusaoUtero] = useState<any>([]);
 
   const subExame = "Útero";
   const titulo_exame = "Transvaginal";
@@ -25,14 +25,16 @@ function Utero({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesUtero
+        frasesUtero,
+        ConclusaoUtero
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesUtero
+        frasesUtero,
+        ConclusaoUtero
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesUtero]);
@@ -138,6 +140,7 @@ function Utero({ Disable }) {
       }
     });
   };
+
   // Funcoes medidas Utero - Fim
 
   //Funcoes medida Endometrio - Inicio
@@ -167,20 +170,26 @@ function Utero({ Disable }) {
   //Funcao checkBox Endometrio
   const criaStringEndometrioCheckBox = () => {
     var string = "Endométrio heterogêneo e espessado ";
+    var conclusao = "Espessamento endometrial.";
     if (endometrioCheckBox) {
       setFrasesUtero((arr) => [...arr, string]);
-      setEndometrioCheckBox(false);
+      setConclusaoUtero((arr) => [...arr, conclusao]);
+
     } else {
       removeItemString(string);
+      removeItemConclusao(conclusao);
     }
   };
 
   //Funcoes Polipo endometrial - Inicio
   const criaStringPolipoEndometrial = (medida1, medida2) => {
+    const conclusao = 'Imagem nodular sugestiva de pólipo endometrial.'
     removePolipoEndometrial();
+    removeItemConclusao(conclusao);
     if (medidaPolipo1 != "" && medidaPolipo2 != "") {
       var string = `Pólipo mede ${medida1} x ${medida2} mm `;
       setFrasesUtero((arr) => [...arr, string]);
+      setConclusaoUtero((arr) => [...arr, conclusao]);
     }
   };
   const removePolipoEndometrial = () => {
@@ -199,23 +208,16 @@ function Utero({ Disable }) {
 
   //Funcoes DIU Posicionado - Inicio
   const criaStringDIUBemPosicionado = () => {
-    var string = "DIU bem posicionado ";
-    setFrasesUtero((arr) => [...arr, string]);
+    var string = "DIU bem posicionado.";
+    var conclusao = 'DIU normoposicionado.'
+    if (DIUBemPosicionadoCheckBox) {
+      setFrasesUtero((arr) => [...arr, string]);
+      setConclusaoUtero((arr) => [...arr, conclusao]);
+    } else {
+      removeItemConclusao(conclusao)
+      removeItemString(string)
+    }
   };
-
-  const removeDIUPosicionado = () => {
-    frasesUtero.map((e) => {
-      if (e.includes("DIU bem posicionado")) {
-        var index = frasesUtero.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-        if (index > -1) {
-          frasesUtero.splice(index, 1);
-          setFrasesUtero((arr) => [...arr]);
-        }
-      }
-    });
-  };
-  //Funcoes DIU Posicionado - Fim
 
   //Funcoes Distancia DIU - Inicio
   const criaStringDIUDistancia = (distancia) => {
@@ -242,7 +244,10 @@ function Utero({ Disable }) {
   //Funcoes Liquido Endometrial - Incio
   const criaStringLiquidoEndometrial = () => {
     var string = "Líquido na cavidade endometrial ";
+    var conclusao = "Pequena quantidade de líquido na cavidade endometrial."
+    removeItemConclusao(conclusao)
     setFrasesUtero((arr) => [...arr, string]);
+    setConclusaoUtero((arr) => [...arr, conclusao]);
     return string;
   };
   const removeLiquidoEndometrial = () => {
@@ -262,10 +267,13 @@ function Utero({ Disable }) {
 
   //Funcoes Cisto Naboth - Incio
   const criaStringCistoNaboth = (medida) => {
+    let conclusao = 'Cistos de Naboth'
     removeCistoNaboth();
+    removeItemConclusao(conclusao)
     if (medida != "") {
       var string = `Cisto de Naboth com ${medida} mm `;
       setFrasesUtero((arr) => [...arr, string]);
+      setConclusaoUtero((arr) => [...arr, conclusao]);
     }
   };
   const removeCistoNaboth = () => {
@@ -290,6 +298,15 @@ function Utero({ Disable }) {
     if (index > -1) {
       frasesUtero.splice(index, 1);
       setFrasesUtero((arr) => [...arr]);
+    }
+  };
+  const removeItemConclusao = (value) => {
+    // console.log("valor remove = ", value);
+    var index = ConclusaoUtero.indexOf(value);
+    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+    if (index > -1) {
+      ConclusaoUtero.splice(index, 1);
+      setConclusaoUtero((arr) => [...arr]);
     }
   };
 
@@ -330,7 +347,7 @@ function Utero({ Disable }) {
     if (liquidoEndometrialCheckBox) {
       criaStringLiquidoEndometrial();
     } else {
-      removeLiquidoEndometrial();
+      removeLiquidoEndometrial()
     }
   }, [liquidoEndometrialCheckBox]);
 
@@ -338,11 +355,7 @@ function Utero({ Disable }) {
   //Quando checked chama a funcao de criar string
   //Quando unchecked chama a funcao para remover string
   useEffect(() => {
-    if (DIUBemPosicionadoCheckBox) {
-      criaStringDIUBemPosicionado();
-    } else {
-      removeDIUPosicionado();
-    }
+    criaStringDIUBemPosicionado();
   }, [DIUBemPosicionadoCheckBox]);
 
   //Observa o state do checkBox DIU distancia,

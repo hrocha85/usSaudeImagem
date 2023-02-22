@@ -1,10 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Checkbox, HStack, Input, Select } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarNodulos({ numNodulo, disable }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
 
   const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
   const [posicaoNodulosSelect, setPosicaoNodulosSelect] = useState("");
@@ -13,6 +12,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     useState(false);
 
   const [frasesMiometrio, setFrasesMiometrio] = useState<any>([]);
+  const [ConclusaoMiometrio, setConclusaoMiometrio] = useState<any>([]);
 
   const subExame = `Miométrio. Nódulo ${numNodulo}`;
   const titulo_exame = "Transvaginal"
@@ -23,14 +23,16 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesMiometrio
+        frasesMiometrio,
+        ConclusaoMiometrio
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesMiometrio
+        frasesMiometrio,
+        ConclusaoMiometrio
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesMiometrio]);
@@ -39,16 +41,14 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     settamanhoNoduloInput(event.target.value);
   };
 
-  const criaStringMultiplosNodulos = (
-    tamanhoNoduloInput,
-    nodulosSelect,
-    localizado
-  ) => {
+  const criaStringMultiplosNodulos = (tamanhoNoduloInput, nodulosSelect, localizado) => {
+    const conclusao = 'Miomatose uterina.'
     removeMultiplosNodulos();
-
+    removeItemStringConclusao(conclusao)
     if (tamanhoNoduloInput != "" && nodulosSelect != "" && localizado != "") {
       var string = `Nódulo de mioma ${numNodulo}: ${nodulosSelect} localizado na parede ${localizado} e medindo ${tamanhoNoduloInput} mm.`;
       setFrasesMiometrio((arr) => [...arr, string]);
+      setConclusaoMiometrio((arr) => [...arr, conclusao]);
     }
   };
 
@@ -63,6 +63,13 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
         }
       }
     });
+  };
+  const removeItemStringConclusao = (value) => {
+    var index = ConclusaoMiometrio.indexOf(value);
+    if (index > -1) {
+      ConclusaoMiometrio.splice(index, 1);
+      setConclusaoMiometrio((arr) => [...arr]);
+    }
   };
 
   useEffect(() => {
