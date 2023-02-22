@@ -1,6 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -8,8 +8,8 @@ function Cirurgias({ Disable }) {
   const altura = "100%";
   const largura = "520px";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [frasesCirurgia, setFrasesCirurgias] = useState<any>([]);
+  const [ConclusaoCirurgia, setConclusaoCirurgias] = useState<any>([]);
 
   const subExame = "Cirurgia";
   const titulo_exame = "Transvaginal"
@@ -20,14 +20,16 @@ function Cirurgias({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesCirurgia
+        frasesCirurgia,
+        ConclusaoCirurgia
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesCirurgia
+        frasesCirurgia,
+        ConclusaoCirurgia
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesCirurgia]);
@@ -48,8 +50,10 @@ function Cirurgias({ Disable }) {
 
   const criaStringHisterectomiaTotal = () => {
     var string = "Histerectomia Total.";
+    const conclusao = 'Histerectomia total.'
     if (histerectmoiaTotalCheckBox) {
       setFrasesCirurgias((arr) => [...arr, string]);
+      setConclusaoCirurgias((arr) => [...arr, conclusao]);
       sethisterectomiaTotalCheckBox(false);
       setisCheckedHisterectomiaSubTotal(false);
       removeMedidaHisterectomiaSubtotal();
@@ -58,19 +62,17 @@ function Cirurgias({ Disable }) {
       setmedidaHisterectomia3("");
     } else {
       removeItemString(string);
+      removeItemStringConclusao(conclusao)
     }
   };
 
   const criaStringMedidasHisterectomia = () => {
+    const conclusao = 'Histerectomia subtotal.'
     removeMedidaHisterectomiaSubtotal();
-
-    if (
-      medidaHisterectomia1 !== "" &&
-      medidaHisterectomia2 !== "" &&
-      medidaHisterectomia3 !== ""
-    ) {
+    if (medidaHisterectomia1 !== "" && medidaHisterectomia2 !== "" && medidaHisterectomia3 !== "") {
       var string = `Presença do colo uterino medindo ${medidaHisterectomia1} x ${medidaHisterectomia2} x ${medidaHisterectomia3} mm `;
       setFrasesCirurgias((arr) => [...arr, string]);
+      setConclusaoCirurgias((arr) => [...arr, conclusao]);
     }
   };
 
@@ -86,6 +88,16 @@ function Cirurgias({ Disable }) {
         }
       }
     });
+    ConclusaoCirurgia.map((e) => {
+      if (e.includes("Histerectomia subtotal.")) {
+        var index = ConclusaoCirurgia.indexOf(e);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+        if (index > -1) {
+          ConclusaoCirurgia.splice(index, 1);
+          setConclusaoCirurgias((arr) => [...arr]);
+        }
+      }
+    });
   };
 
   const removeItemString = (value) => {
@@ -94,6 +106,14 @@ function Cirurgias({ Disable }) {
     if (index > -1) {
       frasesCirurgia.splice(index, 1);
       setFrasesCirurgias((arr) => [...arr]);
+    }
+  };
+  const removeItemStringConclusao = (value) => {
+    var index = ConclusaoCirurgia.indexOf(value);
+
+    if (index > -1) {
+      ConclusaoCirurgia.splice(index, 1);
+      setConclusaoCirurgias((arr) => [...arr]);
     }
   };
 

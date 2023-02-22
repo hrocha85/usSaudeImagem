@@ -1,8 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -10,9 +9,8 @@ function Hidrossalpinge({ Disable }) {
   const altura = "100%";
   const largura = "33%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-
   const [frasesHidrossalpinge, setFrasesHidrossalpinge] = useState<any>([]);
+  const [ConclusaoHidrossalpinge, setConclusaoHidrossalpinge] = useState<any>([]);
 
   const subExame = "Hidrossalpinge";
   const titulo_exame = "Transvaginal"
@@ -23,14 +21,16 @@ function Hidrossalpinge({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesHidrossalpinge
+        frasesHidrossalpinge,
+        ConclusaoHidrossalpinge
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesHidrossalpinge
+        frasesHidrossalpinge,
+        ConclusaoHidrossalpinge
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesHidrossalpinge]);
@@ -41,10 +41,12 @@ function Hidrossalpinge({ Disable }) {
 
   const criaStringHidrossalpinge = () => {
     removeStringHidrossalpinge();
-
+    var conclusao = 'Hidrossalpinge'
     if (HidrossalpingeCheckBox && posicaoHidrossalpingeSelect !== "") {
       var string = `Nota-se em região anexial ${posicaoHidrossalpingeSelect} imagem anecóica, tubular, tortuosa, de limites precisos e contornos regulares.`;
+      conclusao = `${conclusao} ${posicaoHidrossalpingeSelect}.`
       setFrasesHidrossalpinge((arr) => [...arr, string]);
+      setConclusaoHidrossalpinge((arr) => [...arr, conclusao]);
     }
   };
 
@@ -56,6 +58,16 @@ function Hidrossalpinge({ Disable }) {
         if (index > -1) {
           frasesHidrossalpinge.splice(index, 1);
           setFrasesHidrossalpinge((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoHidrossalpinge.map((e) => {
+      if (e.includes("Hidrossalpinge")) {
+        var index = ConclusaoHidrossalpinge.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoHidrossalpinge.splice(index, 1);
+          setConclusaoHidrossalpinge((arr) => [...arr]);
         }
       }
     });
@@ -109,8 +121,8 @@ function Hidrossalpinge({ Disable }) {
                   <option value="" disabled selected>
                     Posição
                   </option>
-                  <option value="direita">Direita</option>
-                  <option value="esquerda">Esquerda</option>
+                  <option value="à direita">Direita</option>
+                  <option value="à esquerda">Esquerda</option>
                   <option value="bilateralmente">Bilateral</option>
                 </Select>
               </HStack>
