@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -9,9 +9,8 @@ function Hidatide({ Disable }) {
   const altura = "100%";
   const largura = "33%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-
   const [frasesHidatide, setFrasesHidatide] = useState<any>([]);
+  const [ConclusaoHidatide, setConclusaoHidatide] = useState<any>([]);
 
   const subExame = "Hidátide";
   const titulo_exame = "Transvaginal"
@@ -22,14 +21,16 @@ function Hidatide({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesHidatide
+        frasesHidatide,
+        ConclusaoHidatide
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesHidatide
+        frasesHidatide,
+        ConclusaoHidatide
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesHidatide]);
@@ -44,15 +45,12 @@ function Hidatide({ Disable }) {
 
   const criaStringHidatide = () => {
     removeStringHidatide();
-
-    if (
-      hidatideCheckBox &&
-      posicaoHidatideSelect !== "" &&
-      tamanhoHidatideInput !== ""
-    ) {
+    var conclusao = 'Cisto anexial'
+    if (hidatideCheckBox && posicaoHidatideSelect !== "" && tamanhoHidatideInput !== "") {
       var string = `Nota-se imagem em região anexial ${posicaoHidatideSelect} anecóica, arredondada, de limites precisos e contornos regulares, medindo ${tamanhoHidatideInput} mm. `;
-
+      conclusao = `${conclusao} ${posicaoHidatideSelect} podendo corresponder a hidátide de Morgani.`;
       setFrasesHidatide((arr) => [...arr, string]);
+      setConclusaoHidatide((arr) => [...arr, conclusao]);
     }
   };
 
@@ -64,6 +62,16 @@ function Hidatide({ Disable }) {
         if (index > -1) {
           frasesHidatide.splice(index, 1);
           setFrasesHidatide((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoHidatide.map((e) => {
+      if (e.includes("Cisto anexial")) {
+        var index = ConclusaoHidatide.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoHidatide.splice(index, 1);
+          setConclusaoHidatide((arr) => [...arr]);
         }
       }
     });

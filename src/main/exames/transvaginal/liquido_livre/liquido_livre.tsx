@@ -1,8 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -10,9 +9,8 @@ function Liquido_Livre({ Disable }) {
   const altura = "100%";
   const largura = "33%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-
   const [frasesLiquidoLivre, setFrasesLiquidoLivre] = useState<any>([]);
+  const [ConclusaoLiquidoLivre, setConclusaoLiquidoLivre] = useState<any>([]);
 
   const subExame = "Líquido Livre";
   const titulo_exame = "Transvaginal"
@@ -23,14 +21,16 @@ function Liquido_Livre({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesLiquidoLivre
+        frasesLiquidoLivre,
+        ConclusaoLiquidoLivre
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesLiquidoLivre
+        frasesLiquidoLivre,
+        ConclusaoLiquidoLivre
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesLiquidoLivre]);
@@ -39,11 +39,12 @@ function Liquido_Livre({ Disable }) {
   const [LiquidoCheckBox, setLiquidoCheckBox] = useState(false);
 
   const criaStringLiquidoLivre = () => {
+    const conclusao = 'Líquido livre na pelve.'
     removeStringLiquidoLivre();
-
     if (LiquidoCheckBox && posicaoLiquidoSelect !== "") {
       var string = `Presença de ${posicaoLiquidoSelect} quantidade de líquido livre no fundo de saco posterior.`;
       setFrasesLiquidoLivre((arr) => [...arr, string]);
+      setConclusaoLiquidoLivre((arr) => [...arr, conclusao]);
     }
   };
 
@@ -55,6 +56,16 @@ function Liquido_Livre({ Disable }) {
         if (index > -1) {
           frasesLiquidoLivre.splice(index, 1);
           setFrasesLiquidoLivre((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoLiquidoLivre.map((e) => {
+      if (e.includes("Líquido livre na pelve.")) {
+        var index = ConclusaoLiquidoLivre.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoLiquidoLivre.splice(index, 1);
+          setConclusaoLiquidoLivre((arr) => [...arr]);
         }
       }
     });
