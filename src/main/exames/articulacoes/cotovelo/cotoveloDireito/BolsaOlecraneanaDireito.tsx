@@ -1,8 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -11,6 +10,7 @@ function BolsaOlecreaneanaDireito({ Disable }) {
     const largura = "100%";
 
     const [fraseBolsaOlecreaneanaDireito, setFraseBolsaOlecreaneanaDireito] = useState<any>([]);
+    const [ConclusaoBolsaOlecreaneanaDireito, setConclusaoBolsaOlecreaneanaDireito] = useState<any>([]);
 
     const subExame = 'Tendão biceps braquial direito'
     const titulo_exame = 'Articulações'
@@ -21,14 +21,16 @@ function BolsaOlecreaneanaDireito({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                fraseBolsaOlecreaneanaDireito
+                fraseBolsaOlecreaneanaDireito,
+                ConclusaoBolsaOlecreaneanaDireito
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                fraseBolsaOlecreaneanaDireito
+                fraseBolsaOlecreaneanaDireito,
+                ConclusaoBolsaOlecreaneanaDireito
             ).Format_Laudo_Create_Storage();
         }
     }, [fraseBolsaOlecreaneanaDireito]);
@@ -42,7 +44,14 @@ function BolsaOlecreaneanaDireito({ Disable }) {
 
     const criaStringComLiquidoEspessado = () => {
         var string = "Pequena quantidade de líquido no interior da bolsa sinovial subcutânea do olécrano, associada a espessamento parietal.";
-        ComLiquidoEspessadoCheckbox ? setFraseBolsaOlecreaneanaDireito((arr) => [...arr, string]) : removeItemString(string);
+        const conclusao = 'Bursite olecraniana.'
+        if (ComLiquidoEspessadoCheckbox) {
+            setFraseBolsaOlecreaneanaDireito((arr) => [...arr, string])
+            setConclusaoBolsaOlecreaneanaDireito((arr) => [...arr, conclusao])
+        } else {
+            removeItemString(string);
+            removeItemConclusao(conclusao)
+        }
     };
 
     useEffect(() => {
@@ -54,6 +63,13 @@ function BolsaOlecreaneanaDireito({ Disable }) {
         if (index > -1) {
             fraseBolsaOlecreaneanaDireito.splice(index, 1);
             setFraseBolsaOlecreaneanaDireito((arr) => [...arr]);
+        }
+    };
+    const removeItemConclusao = (value) => {
+        var index = ConclusaoBolsaOlecreaneanaDireito.indexOf(value);
+        if (index > -1) {
+            ConclusaoBolsaOlecreaneanaDireito.splice(index, 1);
+            setConclusaoBolsaOlecreaneanaDireito((arr) => [...arr]);
         }
     };
 

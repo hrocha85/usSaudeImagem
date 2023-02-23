@@ -10,6 +10,7 @@ function BolsaSubacromial_SubdeltoideaDireito({ Disable }) {
   const largura = "100%";
 
   const [fraseBolsaSubacromialSubdeltoidea, setFraseBolsaSubacromialSubdeltoidea] = useState<any>([]);
+  const [ConclusaoBolsaSubacromialSubdeltoidea, setConclusaoBolsaSubacromialSubdeltoidea] = useState<any>([]);
 
   const subExame = 'Bolsa Subacromial-subdeltoidea Direito'
   const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function BolsaSubacromial_SubdeltoideaDireito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        fraseBolsaSubacromialSubdeltoidea
+        fraseBolsaSubacromialSubdeltoidea,
+        ConclusaoBolsaSubacromialSubdeltoidea
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        fraseBolsaSubacromialSubdeltoidea
+        fraseBolsaSubacromialSubdeltoidea,
+        ConclusaoBolsaSubacromialSubdeltoidea
       ).Format_Laudo_Create_Storage();
     }
   }, [fraseBolsaSubacromialSubdeltoidea]);
@@ -49,12 +52,15 @@ function BolsaSubacromial_SubdeltoideaDireito({ Disable }) {
   const criaStringLiquido = (selectLiquido) => {
     removeLiquido();
     var string;
+    const conclusao = 'Líquido na bolsa subacromial-subdeltoidea.'
     if (selectLiquido !== '' && EspessamentoSinoviaCheckbox) {
       string = `Presença de líquido em pequena quantidade na bolsa ${selectLiquido}, com espessamento sinovial associado.`;
       setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
+      setConclusaoBolsaSubacromialSubdeltoidea((arr) => [...arr, conclusao]);
     } else if (selectLiquido !== '') {
       string = `Presença de líquido em pequena quantidade na bolsa ${selectLiquido} `;
       setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
+      setConclusaoBolsaSubacromialSubdeltoidea((arr) => [...arr, conclusao]);
     }
   };
 
@@ -66,6 +72,16 @@ function BolsaSubacromial_SubdeltoideaDireito({ Disable }) {
         if (index > -1) {
           fraseBolsaSubacromialSubdeltoidea.splice(index, 1);
           setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoBolsaSubacromialSubdeltoidea.map((e) => {
+      if (e.includes("Líquido na bolsa subacromial-subdeltoidea.")) {
+        var index = ConclusaoBolsaSubacromialSubdeltoidea.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoBolsaSubacromialSubdeltoidea.splice(index, 1);
+          setConclusaoBolsaSubacromialSubdeltoidea((arr) => [...arr]);
         }
       }
     });
@@ -104,6 +120,7 @@ function BolsaSubacromial_SubdeltoideaDireito({ Disable }) {
       setdisableSemLiquido(true)
     } else {
       removeLiquido();
+      setSelectLiquido('')
       setDisableEspessamentoSinovia(true)
       setdisableLiquidoSelect(true);
       setdisableSemLiquido(false)
@@ -163,7 +180,7 @@ function BolsaSubacromial_SubdeltoideaDireito({ Disable }) {
               setSelectLiquido(e.target.value);
             }}
           >
-            <option value="não citar volume">Não citar volume</option>
+            <option value="">Não citar volume</option>
             <option value="pequena">pequena</option>
             <option value="moderada">moderada</option>
             <option value="acentuada">acentuada</option>

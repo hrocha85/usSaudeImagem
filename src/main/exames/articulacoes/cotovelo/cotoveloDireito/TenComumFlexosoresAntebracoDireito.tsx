@@ -11,6 +11,7 @@ function TenComumFlexoresAntebracoDireito({ Disable }) {
     const largura = "100%";
 
     const [fraseTenComumFlexoresAntebracoDireito, setFraseTenComumFlexoresAntebracoDireito] = useState<any>([]);
+    const [ConclusaoTenComumFlexoresAntebracoDireito, setConclusaoTenComumFlexoresAntebracoDireito] = useState<any>([]);
 
     const subExame = 'Tendão comum Flexores antebraço direito'
     const titulo_exame = 'Articulações'
@@ -21,14 +22,16 @@ function TenComumFlexoresAntebracoDireito({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                fraseTenComumFlexoresAntebracoDireito
+                fraseTenComumFlexoresAntebracoDireito,
+                ConclusaoTenComumFlexoresAntebracoDireito
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                fraseTenComumFlexoresAntebracoDireito
+                fraseTenComumFlexoresAntebracoDireito,
+                ConclusaoTenComumFlexoresAntebracoDireito
             ).Format_Laudo_Create_Storage();
         }
     }, [fraseTenComumFlexoresAntebracoDireito]);
@@ -80,7 +83,14 @@ function TenComumFlexoresAntebracoDireito({ Disable }) {
 
     const criaStringPequenasCalcificacoes = () => {
         var string = "Pequenas calcificações junto à inserção do tendão comum dos flexores.";
-        PequenasCalcificacoesCheckbox ? setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]) : removeItemString(string);
+        const conclusao = 'Pequenas calcificações junto à inserção do tendão comum dos flexores.'
+        if (PequenasCalcificacoesCheckbox) {
+            setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string])
+            setConclusaoTenComumFlexoresAntebracoDireito((arr) => [...arr, conclusao])
+        } else {
+            removeItemString(string);
+            removeItemConclusao(conclusao)
+        }
     };
 
     useEffect(() => {
@@ -89,7 +99,14 @@ function TenComumFlexoresAntebracoDireito({ Disable }) {
 
     const criaStringTendinopatiaSemRotura = () => {
         var string = "espessado, com alteração ecotextural, mas sem evidências de rotura.";
-        TendinopatiaSemRoturaCheckbox ? setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string]) : removeItemString(string);
+        const conclusao = 'Tendinopatia dos flexores.'
+        if (TendinopatiaSemRoturaCheckbox) {
+            setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr, string])
+            setConclusaoTenComumFlexoresAntebracoDireito((arr) => [...arr, conclusao])
+        } else {
+            removeItemString(string);
+            removeItemConclusao(conclusao)
+        }
     };
 
     useEffect(() => {
@@ -101,6 +118,14 @@ function TenComumFlexoresAntebracoDireito({ Disable }) {
         if (index > -1) {
             fraseTenComumFlexoresAntebracoDireito.splice(index, 1);
             setFraseTenComumFlexoresAntebracoDireito((arr) => [...arr]);
+        }
+    };
+
+    const removeItemConclusao = (value) => {
+        var index = ConclusaoTenComumFlexoresAntebracoDireito.indexOf(value);
+        if (index > -1) {
+            ConclusaoTenComumFlexoresAntebracoDireito.splice(index, 1);
+            setConclusaoTenComumFlexoresAntebracoDireito((arr) => [...arr]);
         }
     };
 

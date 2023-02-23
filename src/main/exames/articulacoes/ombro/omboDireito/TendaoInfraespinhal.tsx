@@ -11,6 +11,7 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
   const largura = "100%";
 
   const [fraseTendaoInfraespinhalDireito, setFraseTendaoInfraespinhalDireito] = useState<any>([]);
+  const [ConclusaoTendaoInfraespinhalDireito, setConclusaoTendaoInfraespinhalDireito] = useState<any>([]);
 
   const subExame = 'Tendão Infraespinhal Direito'
   const titulo_exame = 'Articulações'
@@ -21,14 +22,16 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        fraseTendaoInfraespinhalDireito
+        fraseTendaoInfraespinhalDireito,
+        ConclusaoTendaoInfraespinhalDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        fraseTendaoInfraespinhalDireito
+        fraseTendaoInfraespinhalDireito,
+        ConclusaoTendaoInfraespinhalDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [fraseTendaoInfraespinhalDireito]);
@@ -102,10 +105,13 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
 
   const criaStringPequenasCalcificacoes = () => {
     var string = "Há pequenas calcificações junto à inserção do infraespinhal.";
+    const conclusao = 'Pequenas calcificações na inserção do infraespinhal.'
     if (PequenasCalcificacoesCheckbox) {
       setFraseTendaoInfraespinhalDireito((arr) => [...arr, string]);
+      setConclusaoTendaoInfraespinhalDireito((arr) => [...arr, conclusao]);
     } else {
       removeItemString(string);
+      removeItemConclusao(conclusao);
     }
   };
 
@@ -114,7 +120,7 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
   }, [PequenasCalcificacoesCheckbox])
 
   const criaStringTendinopatiaSemRotura = (select, medidacm) => {
-    var string = 'Tendão do infraespinhal espessado, com alteração ecotextural, sem evidências de rotura. Presença de '
+    var string = 'Tendão do infraespinhal espessado, com alteração ecotextural, sem evidências de rotura. '
     removeFraseTendinopatiaSemRotura()
 
     var medida = new Convert_Medida(medidacm).Convert_Medida()
@@ -133,7 +139,7 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
   };
   const removeFraseTendinopatiaSemRotura = () => {
     fraseTendaoInfraespinhalDireito.map((e) => {
-      if (e.includes("Tendão do infraespinhal espessado, com alteração ecotextural, sem evidências de rotura. Presença de")) {
+      if (e.includes("Tendão do infraespinhal espessado, com alteração ecotextural, sem evidências de rotura.")) {
         var index = fraseTendaoInfraespinhalDireito.indexOf(e);
 
         if (index > -1) {
@@ -195,6 +201,13 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
     if (index > -1) {
       fraseTendaoInfraespinhalDireito.splice(index, 1);
       setFraseTendaoInfraespinhalDireito((arr) => [...arr]);
+    }
+  };
+  const removeItemConclusao = (value) => {
+    var index = ConclusaoTendaoInfraespinhalDireito.indexOf(value);
+    if (index > -1) {
+      ConclusaoTendaoInfraespinhalDireito.splice(index, 1);
+      setConclusaoTendaoInfraespinhalDireito((arr) => [...arr]);
     }
   };
 
@@ -317,7 +330,7 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
             }}
           >
             <option value="">não citar calcificações</option>
-            <option value="Calcificações intrassubstancial">Calcificações intrassubstancial</option>
+            <option value="Presença de calcificações intrassubstancial">Calcificações intrassubstancial</option>
           </Select>
           <Checkbox
             isDisabled={MedindoDisableTendinopatiaSemRotura}

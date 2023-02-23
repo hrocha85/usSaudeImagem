@@ -22,6 +22,10 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
     frasesOmbroTendaoSupraespinhalDireito,
     setFrasesOmbroTendaoSupraespinhalDireito,
   ] = useState<any>([]);
+  const [
+    ConclusaoOmbroTendaoSupraespinhalDireito,
+    setConclusaoOmbroTendaoSupraespinhalDireito,
+  ] = useState<any>([]);
 
   const subExame = "Tendão Supraespinhal direito";
   const titulo_exame = "Articulações";
@@ -32,14 +36,16 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesOmbroTendaoSupraespinhalDireito
+        frasesOmbroTendaoSupraespinhalDireito,
+        ConclusaoOmbroTendaoSupraespinhalDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesOmbroTendaoSupraespinhalDireito
+        frasesOmbroTendaoSupraespinhalDireito,
+        ConclusaoOmbroTendaoSupraespinhalDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesOmbroTendaoSupraespinhalDireito]);
@@ -102,25 +108,17 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
   const [InputRetracaoRoturaCompleta, setInputRetracaoRoturaCompleta] =
     useState("");
 
-  const criaStringRoturaParcial = (
-    medida1cm,
-    medida2cm,
-    medida3cm,
-    selectRoturaParcial
-  ) => {
+  const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm, selectRoturaParcial) => {
+    const conclusao = 'Tendinopatia do infraespinhal, com sinais de rotura parcial.'
     removeRoturaParcial();
     const medida1 = new Convert_Medida(medida1cm).Convert_Medida();
     const medida2 = new Convert_Medida(medida2cm).Convert_Medida();
     const medida3 = new Convert_Medida(medida3cm).Convert_Medida();
     if (RoturaParcialCheckbox) {
-      if (
-        medida1cm !== "" &&
-        medida2cm !== "" &&
-        medida3cm !== "" &&
-        selectRoturaParcial !== ""
-      ) {
+      if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectRoturaParcial !== "") {
         var string = `${selectRoturaParcial} espessado, com alteração ecotextural, observando-se sinais de rotura parcial ${medida1} x ${medida2} x ${medida3} cm`;
         setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
+        setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr, conclusao]);
       }
     } else {
       removeRoturaParcial();
@@ -141,6 +139,15 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
         }
       }
     });
+    ConclusaoOmbroTendaoSupraespinhalDireito.map((e) => {
+      if (e.includes("Tendinopatia do infraespinhal, com sinais de rotura parcial.")) {
+        var index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(e);
+        if (index > -1) {
+          ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
+          setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+        }
+      }
+    });
   };
 
   const criaStringAspectoNormal = () => {
@@ -156,9 +163,14 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
 
   const criaStringPequenasCalcificacoes = () => {
     var string = "Há pequenas calcificações junto à inserção do supraespinhal.";
-    PequenasCalcificacoesCheckbox
-      ? setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string])
-      : removeItemString(string);
+    const conclusao = 'Pequenas calcificações na inserção do supraespinhal.'
+    if (PequenasCalcificacoesCheckbox) {
+      setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string])
+      setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr, conclusao])
+    } else {
+      removeItemString(string);
+      removeItemConclusao(conclusao);
+    }
   };
 
   useEffect(() => {
@@ -167,7 +179,8 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
 
   const criaStringTendinopatiaSemRotura = (select, medidacm) => {
     var string =
-      "Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura. Presença de ";
+      "Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura.";
+    const conclusao = 'Tendinopatia do supraespinhal.'
     removeFraseTendinopatiaSemRotura();
 
     var medida = new Convert_Medida(medidacm).Convert_Medida();
@@ -180,6 +193,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
         string = `${string} ${select}`;
         setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
       }
+      setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr, conclusao]);
     } else {
       removeFraseTendinopatiaSemRotura();
     }
@@ -224,10 +238,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
   const removeFraseTendinopatiaSemRotura = () => {
     frasesOmbroTendaoSupraespinhalDireito.map((e) => {
       if (
-        e.includes(
-          "Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura. Presença de "
-        )
-      ) {
+        e.includes("Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura")) {
         var index = frasesOmbroTendaoSupraespinhalDireito.indexOf(e);
 
         if (index > -1) {
@@ -236,17 +247,31 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
         }
       }
     });
+    ConclusaoOmbroTendaoSupraespinhalDireito.map((e) => {
+      if (
+        e.includes("Tendinopatia do supraespinhal.")) {
+        var index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
+          setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+        }
+      }
+    });
   };
 
   const criaStringRoturaCompleta = (dados, medidaRetracao) => {
+    const conclusao = 'Tendinopatia do supraespinhal, com sinais de rotura completa.'
     removeFraseRoturaCompleta();
     var string;
     if (dados !== "" && medidaRetracao !== "") {
       string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo com retração de ${medidaRetracao} mm`;
       setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
+      setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr, conclusao]);
     } else if (dados !== "") {
       string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo`;
       setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
+      setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr, conclusao]);
     }
   };
   const removeFraseRoturaCompleta = () => {
@@ -260,6 +285,19 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
         if (index > -1) {
           frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);
           setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoOmbroTendaoSupraespinhalDireito.map((e) => {
+      if (
+        e.includes(
+          "Tendinopatia do supraespinhal, com sinais de rotura completa."
+        )
+      ) {
+        var index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(e);
+        if (index > -1) {
+          ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
+          setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
         }
       }
     });
@@ -294,6 +332,13 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
     if (index > -1) {
       frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);
       setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+    }
+  }
+  const removeItemConclusao = (value) => {
+    var index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(value);
+    if (index > -1) {
+      ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
+      setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
     }
   };
 
@@ -400,7 +445,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
             }}
           >
             <option value="">não citar calcificações</option>
-            <option value="Calcificações intrassubstancial">
+            <option value="Presença de calcificações intrassubstancial">
               Calcificações intrassubstancial
             </option>
           </Select>

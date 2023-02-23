@@ -20,7 +20,7 @@ function LadoEsquerdo() {
       mt="15px"
     >
       <Center>
-        <TituloNomeExame titulo={'Esquerdo'} />
+        <TituloNomeExame titulo={'Cotovelo Esquerdo'} />
       </Center>
     </Box>
   );

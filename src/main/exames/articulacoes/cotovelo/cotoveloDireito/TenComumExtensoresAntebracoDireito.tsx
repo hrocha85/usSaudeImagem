@@ -11,6 +11,7 @@ function TenComumExtensoresAntebracoDireito({ Disable }) {
     const largura = "100%";
 
     const [fraseTenComumExtensoresAntebracoDireito, setFraseTenComumExtensoresAntebracoDireito] = useState<any>([]);
+    const [ConclusaoTenComumExtensoresAntebracoDireito, setConclusaoTenComumExtensoresAntebracoDireito] = useState<any>([]);
 
     const subExame = 'Tendão comum extensores antebraço '
     const titulo_exame = 'Articulações'
@@ -21,14 +22,16 @@ function TenComumExtensoresAntebracoDireito({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                fraseTenComumExtensoresAntebracoDireito
+                fraseTenComumExtensoresAntebracoDireito,
+                ConclusaoTenComumExtensoresAntebracoDireito
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                fraseTenComumExtensoresAntebracoDireito
+                fraseTenComumExtensoresAntebracoDireito,
+                ConclusaoTenComumExtensoresAntebracoDireito
             ).Format_Laudo_Create_Storage();
         }
     }, [fraseTenComumExtensoresAntebracoDireito]);
@@ -85,7 +88,14 @@ function TenComumExtensoresAntebracoDireito({ Disable }) {
 
     const criaStringPequenasCalcificacoes = () => {
         var string = "Pequenas calcificações junto à inserção do tendão comum dos extensores.";
-        PequenasCalcificacoesCheckbox ? setFraseTenComumExtensoresAntebracoDireito((arr) => [...arr, string]) : removeItemString(string);
+        const conclusao = 'Pequenas calcificações junto à inserção do tendão comum dos extensores.'
+        if (PequenasCalcificacoesCheckbox) {
+            setFraseTenComumExtensoresAntebracoDireito((arr) => [...arr, string])
+            setConclusaoTenComumExtensoresAntebracoDireito((arr) => [...arr, conclusao])
+        } else {
+            removeItemString(string);
+            removeItemConclusao(conclusao);
+        }
     };
 
     useEffect(() => {
@@ -106,6 +116,13 @@ function TenComumExtensoresAntebracoDireito({ Disable }) {
         if (index > -1) {
             fraseTenComumExtensoresAntebracoDireito.splice(index, 1);
             setFraseTenComumExtensoresAntebracoDireito((arr) => [...arr]);
+        }
+    };
+    const removeItemConclusao = (value) => {
+        var index = ConclusaoTenComumExtensoresAntebracoDireito.indexOf(value);
+        if (index > -1) {
+            ConclusaoTenComumExtensoresAntebracoDireito.splice(index, 1);
+            setConclusaoTenComumExtensoresAntebracoDireito((arr) => [...arr]);
         }
     };
 

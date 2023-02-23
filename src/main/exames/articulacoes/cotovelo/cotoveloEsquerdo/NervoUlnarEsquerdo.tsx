@@ -10,6 +10,7 @@ function NervoUlnarEsquerdo({ Disable }) {
     const largura = "100%";
 
     const [fraseNervoUlnarEsquerdo, setFraseNervoUlnarEsquerdo] = useState<any>([]);
+    const [ConclusaoNervoUlnarEsquerdo, setConclusaoNervoUlnarEsquerdo] = useState<any>([]);
 
     const subExame = 'Nervo ulnar Esquerdo'
     const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function NervoUlnarEsquerdo({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                fraseNervoUlnarEsquerdo
+                fraseNervoUlnarEsquerdo,
+                ConclusaoNervoUlnarEsquerdo
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                fraseNervoUlnarEsquerdo
+                fraseNervoUlnarEsquerdo,
+                ConclusaoNervoUlnarEsquerdo
             ).Format_Laudo_Create_Storage();
         }
     }, [fraseNervoUlnarEsquerdo]);
@@ -71,10 +74,6 @@ function NervoUlnarEsquerdo({ Disable }) {
         criaStringSofreLuxacao()
     }, [SofreLuxacaoCheckbox])
 
-        ;
-
-
-
     useEffect(() => {
         if (AreaSeccionalCheckbox) {
             setdisableAreaSeccionalInput(false)
@@ -87,6 +86,7 @@ function NervoUlnarEsquerdo({ Disable }) {
 
     const criaStringEspessuraAumentada = () => {
         var string = "Nervo ulnar espessado e heterogêneo";
+
         removeFraseAreaSeccional()
         if (AreaSeccionalInput !== '') {
             string = `${string}, com área seccional de ${AreaSeccionalInput} mm²`
@@ -107,6 +107,34 @@ function NervoUlnarEsquerdo({ Disable }) {
                 if (index > -1) {
                     fraseNervoUlnarEsquerdo.splice(index, 1);
                     setFraseNervoUlnarEsquerdo((arr) => [...arr]);
+                }
+            }
+        });
+    };
+
+    const criaStringConclusao = () => {
+        var conclusao;
+        removeFraseConclusaoEspessamento()
+        if (EspessuraAumentadaCheckbox && (SofreSubluxacaoCheckbox || SofreLuxacaoCheckbox)) {
+            conclusao = 'Luxação do nervo ulnar, com espessamento do nervo.'
+            setConclusaoNervoUlnarEsquerdo((arr) => [...arr, conclusao]);
+        } else if (EspessuraAumentadaCheckbox) {
+            conclusao = 'Espessamento do nervo ulnar.'
+            setConclusaoNervoUlnarEsquerdo((arr) => [...arr, conclusao]);
+        }
+    }
+
+    useEffect(() => {
+        criaStringConclusao()
+    }, [EspessuraAumentadaCheckbox, SofreLuxacaoCheckbox, SofreSubluxacaoCheckbox])
+
+    const removeFraseConclusaoEspessamento = () => {
+        ConclusaoNervoUlnarEsquerdo.map((e) => {
+            if (e.includes(" do nervo")) {
+                var index = ConclusaoNervoUlnarEsquerdo.indexOf(e);
+                if (index > -1) {
+                    ConclusaoNervoUlnarEsquerdo.splice(index, 1);
+                    setConclusaoNervoUlnarEsquerdo((arr) => [...arr]);
                 }
             }
         });

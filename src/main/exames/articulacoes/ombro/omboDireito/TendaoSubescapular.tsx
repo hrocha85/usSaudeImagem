@@ -115,7 +115,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
   }, [PequenasCalcificacoesCheckbox])
 
   const criaStringTendinopatiaSemRotura = (select, medidacm) => {
-    var string = 'Tendão do subescapular espessado, com alteração ecotextural, sem evidências de rotura. Presença de '
+    var string = 'Tendão do subescapular espessado, com alteração ecotextural, sem evidências de rotura. '
     removeFraseTendinopatiaSemRotura()
 
     var medida = new Convert_Medida(medidacm).Convert_Medida()
@@ -135,7 +135,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
 
   const removeFraseTendinopatiaSemRotura = () => {
     fraseTendaoSubescapuçarDireito.map((e) => {
-      if (e.includes("Tendão do subescapular espessado, com alteração ecotextural, sem evidências de rotura. Presença de")) {
+      if (e.includes("Tendão do subescapular espessado, com alteração ecotextural, sem evidências de rotura.")) {
         var index = fraseTendaoSubescapuçarDireito.indexOf(e);
 
         if (index > -1) {
@@ -319,7 +319,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
             }}
           >
             <option value="">não citar calcificações</option>
-            <option value="Calcificações intrassubstancial">Calcificações intrassubstancial</option>
+            <option value="Presença de calcificações intrassubstancial">Calcificações intrassubstancial</option>
           </Select>
           <Checkbox
             isDisabled={MedindoDisableTendinopatiaSemRotura}

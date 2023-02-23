@@ -1,8 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
@@ -11,8 +10,8 @@ function TenComumFlexoresAntebracoEsquerdo({ Disable }) {
     const altura = "100%";
     const largura = "100%";
 
-
     const [fraseTenComumFlexoresAntebracoEsquerdo, setFraseTenComumFlexoresAntebracoEsquerdo] = useState<any>([]);
+    const [ConclusaoTenComumFlexoresAntebracoEsquerdo, setConclusaoTenComumFlexoresAntebracoEsquerdo] = useState<any>([]);
 
     const subExame = 'Tendão comum Flexores antebraço Esquerdo'
     const titulo_exame = 'Articulações'
@@ -23,14 +22,16 @@ function TenComumFlexoresAntebracoEsquerdo({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                fraseTenComumFlexoresAntebracoEsquerdo
+                fraseTenComumFlexoresAntebracoEsquerdo,
+                ConclusaoTenComumFlexoresAntebracoEsquerdo
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                fraseTenComumFlexoresAntebracoEsquerdo
+                fraseTenComumFlexoresAntebracoEsquerdo,
+                ConclusaoTenComumFlexoresAntebracoEsquerdo
             ).Format_Laudo_Create_Storage();
         }
     }, [fraseTenComumFlexoresAntebracoEsquerdo]);
@@ -82,7 +83,14 @@ function TenComumFlexoresAntebracoEsquerdo({ Disable }) {
 
     const criaStringPequenasCalcificacoes = () => {
         var string = "Pequenas calcificações junto à inserção do tendão comum dos flexores.";
-        PequenasCalcificacoesCheckbox ? setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+        const conclusao = 'Pequenas calcificações junto à inserção do tendão comum dos flexores.'
+        if (PequenasCalcificacoesCheckbox) {
+            setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string])
+            setConclusaoTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, conclusao])
+        } else {
+            removeItemString(string);
+            removeItemConclusao(conclusao)
+        }
     };
 
     useEffect(() => {
@@ -91,7 +99,14 @@ function TenComumFlexoresAntebracoEsquerdo({ Disable }) {
 
     const criaStringTendinopatiaSemRotura = () => {
         var string = "espessado, com alteração ecotextural, mas sem evidências de rotura.";
-        TendinopatiaSemRoturaCheckbox ? setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+        const conclusao = 'Tendinopatia dos flexores.'
+        if (TendinopatiaSemRoturaCheckbox) {
+            setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string])
+            setConclusaoTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, conclusao])
+        } else {
+            removeItemString(string);
+            removeItemConclusao(conclusao)
+        }
     };
 
     useEffect(() => {
@@ -103,6 +118,14 @@ function TenComumFlexoresAntebracoEsquerdo({ Disable }) {
         if (index > -1) {
             fraseTenComumFlexoresAntebracoEsquerdo.splice(index, 1);
             setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr]);
+        }
+    };
+
+    const removeItemConclusao = (value) => {
+        var index = ConclusaoTenComumFlexoresAntebracoEsquerdo.indexOf(value);
+        if (index > -1) {
+            ConclusaoTenComumFlexoresAntebracoEsquerdo.splice(index, 1);
+            setConclusaoTenComumFlexoresAntebracoEsquerdo((arr) => [...arr]);
         }
     };
 

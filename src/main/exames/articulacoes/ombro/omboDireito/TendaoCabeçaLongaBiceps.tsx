@@ -12,6 +12,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
 
 
   const [fraseTendaoCabecaLongaBicepsDireito, setFraseTendaoCabecaLongaBicepsDireito] = useState<any>([]);
+  const [ConclusaoTendaoCabecaLongaBicepsDireito, setConclusaoTendaoCabecaLongaBicepsDireito] = useState<any>([]);
 
   const subExame = 'Tendão da cabeça longa do Bíceps Direito'
   const titulo_exame = 'Articulações'
@@ -22,14 +23,16 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        fraseTendaoCabecaLongaBicepsDireito
+        fraseTendaoCabecaLongaBicepsDireito,
+        ConclusaoTendaoCabecaLongaBicepsDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        fraseTendaoCabecaLongaBicepsDireito
+        fraseTendaoCabecaLongaBicepsDireito,
+        ConclusaoTendaoCabecaLongaBicepsDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [fraseTendaoCabecaLongaBicepsDireito]);
@@ -151,6 +154,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
   };
 
   const criaStringRoturaCompleta = (dadosCm, medidaRetracaoCm) => {
+    const conclusao = 'Tendinopatia da cabeça longa do bíceps, com sinais de rotura completa.'
     removeFraseRoturaCompleta()
     var string;
     var dados = new Convert_Medida(dadosCm).Convert_Medida()
@@ -158,9 +162,11 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
     if (dadosCm !== '' && medidaRetracaoCm !== '') {
       string = `Tendão da cabeça longa do bíceps hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} cm de intervalo e ${medidaRetracao} cm de retração. Ausência de líquido na bainha.`;
       setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]);
+      setConclusaoTendaoCabecaLongaBicepsDireito((arr) => [...arr, conclusao]);
     } else if (dadosCm !== '') {
       string = `Tendão da cabeça longa do bíceps hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} cm. Ausência de líquido na bainha.`;
       setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]);
+      setConclusaoTendaoCabecaLongaBicepsDireito((arr) => [...arr, conclusao]);
     }
   }
 
@@ -176,6 +182,16 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
         if (index > -1) {
           fraseTendaoCabecaLongaBicepsDireito.splice(index, 1);
           setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoTendaoCabecaLongaBicepsDireito.map((e) => {
+      if (e.includes("Tendinopatia da cabeça longa do bíceps, com sinais de rotura completa.")) {
+        var index = ConclusaoTendaoCabecaLongaBicepsDireito.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoTendaoCabecaLongaBicepsDireito.splice(index, 1);
+          setConclusaoTendaoCabecaLongaBicepsDireito((arr) => [...arr]);
         }
       }
     });
@@ -214,11 +230,14 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
 
   const criaStringLuxacao = (select) => {
     var string;
+    var conclusao;
     removeFraseLuxacao();
     if (LuxacaoCheckbox) {
       if (select !== '') {
         string = `Tendão da cabeça longa do bíceps não caracterizado no sulco bicipital, apresentando-se luxado ${select}`
+        conclusao = `Luxação ${select} do tendão da cabeça longa do bíceps.`
         setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]);
+        setConclusaoTendaoCabecaLongaBicepsDireito((arr) => [...arr, conclusao]);
       }
     } else {
       removeFraseLuxacao();
@@ -232,6 +251,16 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
         if (index > -1) {
           fraseTendaoCabecaLongaBicepsDireito.splice(index, 1);
           setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoTendaoCabecaLongaBicepsDireito.map((e) => {
+      if (e.includes("do tendão da cabeça longa do bíceps")) {
+        var index = ConclusaoTendaoCabecaLongaBicepsDireito.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoTendaoCabecaLongaBicepsDireito.splice(index, 1);
+          setConclusaoTendaoCabecaLongaBicepsDireito((arr) => [...arr]);
         }
       }
     });

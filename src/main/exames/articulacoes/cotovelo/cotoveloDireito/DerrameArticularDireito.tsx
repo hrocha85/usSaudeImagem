@@ -10,6 +10,7 @@ function DerrameArticularDireito({ Disable }) {
     const largura = "100%";
 
     const [fraseDerrameArticularDireito, setFraseDerrameArticularDireito] = useState<any>([]);
+    const [ConclusaoDerrameArticularDireito, setConclusaoDerrameArticularDireito] = useState<any>([]);
 
     const subExame = 'Derrame articular direito'
     const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function DerrameArticularDireito({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                fraseDerrameArticularDireito
+                fraseDerrameArticularDireito,
+                ConclusaoDerrameArticularDireito
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                fraseDerrameArticularDireito
+                fraseDerrameArticularDireito,
+                ConclusaoDerrameArticularDireito
             ).Format_Laudo_Create_Storage();
         }
     }, [fraseDerrameArticularDireito]);
@@ -40,7 +43,14 @@ function DerrameArticularDireito({ Disable }) {
 
     const criaStringPresente = () => {
         var string = "Presença de líquido intra-articular.";
-        PresenteCheckbox ? setFraseDerrameArticularDireito((arr) => [...arr, string]) : removeItemString(string);
+        const conclusao = 'Derrame articular.'
+        if (PresenteCheckbox) {
+            setFraseDerrameArticularDireito((arr) => [...arr, string])
+            setConclusaoDerrameArticularDireito((arr) => [...arr, conclusao])
+        } else {
+            removeItemString(string);
+            removeItemConclusao(conclusao)
+        }
     };
 
     useEffect(() => {
@@ -52,6 +62,13 @@ function DerrameArticularDireito({ Disable }) {
         if (index > -1) {
             fraseDerrameArticularDireito.splice(index, 1);
             setFraseDerrameArticularDireito((arr) => [...arr]);
+        }
+    };
+    const removeItemConclusao = (value) => {
+        var index = ConclusaoDerrameArticularDireito.indexOf(value);
+        if (index > -1) {
+            ConclusaoDerrameArticularDireito.splice(index, 1);
+            setConclusaoDerrameArticularDireito((arr) => [...arr]);
         }
     };
 

@@ -10,6 +10,7 @@ function BolsaOlecreaneanaEsquerdo({ Disable }) {
     const largura = "100%";
 
     const [fraseBolsaOlecreaneanaEsquerdo, setFraseBolsaOlecreaneanaEsquerdo] = useState<any>([]);
+    const [ConclusaoBolsaOlecreaneanaEsquerdo, setConclusaoBolsaOlecreaneanaEsquerdo] = useState<any>([]);
 
     const subExame = 'Tendão biceps braquial Esquerdo'
     const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function BolsaOlecreaneanaEsquerdo({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                fraseBolsaOlecreaneanaEsquerdo
+                fraseBolsaOlecreaneanaEsquerdo,
+                ConclusaoBolsaOlecreaneanaEsquerdo
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                fraseBolsaOlecreaneanaEsquerdo
+                fraseBolsaOlecreaneanaEsquerdo,
+                ConclusaoBolsaOlecreaneanaEsquerdo
             ).Format_Laudo_Create_Storage();
         }
     }, [fraseBolsaOlecreaneanaEsquerdo]);
@@ -41,12 +44,26 @@ function BolsaOlecreaneanaEsquerdo({ Disable }) {
 
     const criaStringComLiquidoEspessado = () => {
         var string = "Pequena quantidade de líquido no interior da bolsa sinovial subcutânea do olécrano, associada a espessamento parietal.";
-        ComLiquidoEspessadoCheckbox ? setFraseBolsaOlecreaneanaEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+        const conclusao = 'Bursite olecraniana.'
+        if (ComLiquidoEspessadoCheckbox) {
+            setFraseBolsaOlecreaneanaEsquerdo((arr) => [...arr, string])
+            setConclusaoBolsaOlecreaneanaEsquerdo((arr) => [...arr, conclusao])
+        } else {
+            removeItemString(string);
+            removeItemConclusao(conclusao)
+        }
     };
 
     useEffect(() => {
         criaStringComLiquidoEspessado()
     }, [ComLiquidoEspessadoCheckbox])
+    const removeItemConclusao = (value) => {
+        var index = ConclusaoBolsaOlecreaneanaEsquerdo.indexOf(value);
+        if (index > -1) {
+            ConclusaoBolsaOlecreaneanaEsquerdo.splice(index, 1);
+            setConclusaoBolsaOlecreaneanaEsquerdo((arr) => [...arr]);
+        }
+    };
 
     const removeItemString = (value) => {
         var index = fraseBolsaOlecreaneanaEsquerdo.indexOf(value);
