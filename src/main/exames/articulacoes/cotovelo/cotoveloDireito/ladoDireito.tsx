@@ -6,7 +6,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 function LadoDireito() {
   const altura = "100%";
   const largura = "100%";
-  
+
   return (
     <Box
       bg="#FAFAFA"
@@ -20,7 +20,7 @@ function LadoDireito() {
       mt="15px"
     >
       <Center>
-        <TituloNomeExame titulo={"Direito"} />
+        <TituloNomeExame titulo={"Cotovelo Direito"} />
       </Center>
     </Box>
   );

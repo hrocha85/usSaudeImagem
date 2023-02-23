@@ -47,7 +47,7 @@ function ArticulacaoAcromioclavicularDireito({ Disable }) {
   const [EspessamentoCapsulosinovialCheckbox, setEspessamentoCapsulosinovialCheckbox] = useState(false);
 
   const criaStringOsteofitos = () => {
-    const conclusao = ' Sinais de osteoartrose acromioclavicular'
+    const conclusao = 'Sinais de osteoartrose acromioclavicular.'
     removeOsteofitos();
     var string = 'Presença de osteófitos marginais na articulação acromioclavicular '
     if (OsteofitosCheckbox) {
@@ -55,6 +55,7 @@ function ArticulacaoAcromioclavicularDireito({ Disable }) {
         string = `${string} com espessamento Capsulosinovial`;
       }
       setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]);
+      setConclusaoBolsaSubacromialSubdeltoidea((arr) => [...arr, conclusao]);
     }
   }
 
@@ -71,6 +72,16 @@ function ArticulacaoAcromioclavicularDireito({ Disable }) {
         if (index > -1) {
           fraseBolsaSubacromialSubdeltoidea.splice(index, 1);
           setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoBolsaSubacromialSubdeltoidea.map((e) => {
+      if (e.includes("Sinais de osteoartrose acromioclavicular")) {
+        var index = ConclusaoBolsaSubacromialSubdeltoidea.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoBolsaSubacromialSubdeltoidea.splice(index, 1);
+          setConclusaoBolsaSubacromialSubdeltoidea((arr) => [...arr]);
         }
       }
     });
