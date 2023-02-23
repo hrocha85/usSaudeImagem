@@ -10,6 +10,7 @@ function NervoUlnarDireito({ Disable }) {
     const largura = "100%";
 
     const [fraseNervoUlnarDireito, setFraseNervoUlnarDireito] = useState<any>([]);
+    const [ConclusaoNervoUlnarDireito, setConclusaoNervoUlnarDireito] = useState<any>([]);
 
     const subExame = 'Nervo ulnar direito'
     const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function NervoUlnarDireito({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                fraseNervoUlnarDireito
+                fraseNervoUlnarDireito,
+                ConclusaoNervoUlnarDireito
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                fraseNervoUlnarDireito
+                fraseNervoUlnarDireito,
+                ConclusaoNervoUlnarDireito
             ).Format_Laudo_Create_Storage();
         }
     }, [fraseNervoUlnarDireito]);
@@ -94,6 +97,7 @@ function NervoUlnarDireito({ Disable }) {
             string = `${string}.`
         }
         EspessuraAumentadaCheckbox ? setFraseNervoUlnarDireito((arr) => [...arr, string]) : removeFraseAreaSeccional()
+
     };
 
     useEffect(() => {
@@ -107,6 +111,34 @@ function NervoUlnarDireito({ Disable }) {
                 if (index > -1) {
                     fraseNervoUlnarDireito.splice(index, 1);
                     setFraseNervoUlnarDireito((arr) => [...arr]);
+                }
+            }
+        });
+
+    };
+    const criaStringConclusao = () => {
+        var conclusao;
+        removeFraseConclusaoEspessamento()
+        if (EspessuraAumentadaCheckbox && (SofreSubluxacaoCheckbox || SofreLuxacaoCheckbox)) {
+            conclusao = 'Luxação do nervo ulnar, com espessamento do nervo.'
+            setConclusaoNervoUlnarDireito((arr) => [...arr, conclusao]);
+        } else if (EspessuraAumentadaCheckbox) {
+            conclusao = 'Espessamento do nervo ulnar.'
+            setConclusaoNervoUlnarDireito((arr) => [...arr, conclusao]);
+        }
+    }
+
+    useEffect(() => {
+        criaStringConclusao()
+    }, [EspessuraAumentadaCheckbox, SofreLuxacaoCheckbox, SofreSubluxacaoCheckbox])
+
+    const removeFraseConclusaoEspessamento = () => {
+        ConclusaoNervoUlnarDireito.map((e) => {
+            if (e.includes("espessamento do nervo")) {
+                var index = ConclusaoNervoUlnarDireito.indexOf(e);
+                if (index > -1) {
+                    ConclusaoNervoUlnarDireito.splice(index, 1);
+                    setConclusaoNervoUlnarDireito((arr) => [...arr]);
                 }
             }
         });

@@ -12,6 +12,7 @@ function TendaoTricepsBraquialDireito({ Disable }) {
 
 
     const [fraseTendaoTricepsBraquialDireito, setFraseTendaoTricepsBraquialDireito] = useState<any>([]);
+    const [ConclusaoTendaoTricepsBraquialDireito, setConclusaoTendaoTricepsBraquialDireito] = useState<any>([]);
 
     const subExame = 'Tendão tríceps braquial Direito'
     const titulo_exame = 'Articulações'
@@ -22,14 +23,16 @@ function TendaoTricepsBraquialDireito({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                fraseTendaoTricepsBraquialDireito
+                fraseTendaoTricepsBraquialDireito,
+                ConclusaoTendaoTricepsBraquialDireito
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                fraseTendaoTricepsBraquialDireito
+                fraseTendaoTricepsBraquialDireito,
+                ConclusaoTendaoTricepsBraquialDireito
             ).Format_Laudo_Create_Storage();
         }
     }, [fraseTendaoTricepsBraquialDireito]);
@@ -51,6 +54,7 @@ function TendaoTricepsBraquialDireito({ Disable }) {
     const [EntesofitoCheckbox, setEntesofitoCheckbox] = useState(false);
 
     const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm) => {
+        const conclusao = 'Tendinopatia do tríceps braquial com sinais de rotura parcial.'
         removeRoturaParcial();
         var medida1 = new Convert_Medida(medida1cm).Convert_Medida();
         var medida2 = new Convert_Medida(medida2cm).Convert_Medida();
@@ -58,6 +62,7 @@ function TendaoTricepsBraquialDireito({ Disable }) {
         if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "") {
             var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
             setFraseTendaoTricepsBraquialDireito((arr) => [...arr, string]);
+            setConclusaoTendaoTricepsBraquialDireito((arr) => [...arr, conclusao]);
         }
     };
 
@@ -69,6 +74,16 @@ function TendaoTricepsBraquialDireito({ Disable }) {
                 if (index > -1) {
                     fraseTendaoTricepsBraquialDireito.splice(index, 1);
                     setFraseTendaoTricepsBraquialDireito((arr) => [...arr]);
+                }
+            }
+        });
+        ConclusaoTendaoTricepsBraquialDireito.map((e) => {
+            if (e.includes("Tendinopatia do tríceps braquial com sinais de rotura parcial.")) {
+                var index = ConclusaoTendaoTricepsBraquialDireito.indexOf(e);
+
+                if (index > -1) {
+                    ConclusaoTendaoTricepsBraquialDireito.splice(index, 1);
+                    setConclusaoTendaoTricepsBraquialDireito((arr) => [...arr]);
                 }
             }
         });
@@ -85,12 +100,14 @@ function TendaoTricepsBraquialDireito({ Disable }) {
     }, [AspectoNormalCheckbox])
 
     const criaStringEntesofito = (medidaCm) => {
+        const conclusao = 'Entesopatia do tríceps braquial.'
         removeStringEntesofito();
         var medida = new Convert_Medida(medidaCm).Convert_Medida()
         var string;
         if (medidaCm !== '') {
             string = `Presença de entesófito no tendão do tríceps braquial, medindo ${medida} cm.`
             setFraseTendaoTricepsBraquialDireito((arr) => [...arr, string]);
+            setConclusaoTendaoTricepsBraquialDireito((arr) => [...arr, conclusao]);
         }
     };
 
@@ -116,6 +133,16 @@ function TendaoTricepsBraquialDireito({ Disable }) {
                 if (index > -1) {
                     fraseTendaoTricepsBraquialDireito.splice(index, 1);
                     setFraseTendaoTricepsBraquialDireito((arr) => [...arr]);
+                }
+            }
+        });
+        ConclusaoTendaoTricepsBraquialDireito.map((e) => {
+            if (e.includes("Entesopatia do tríceps braquial.")) {
+                var index = ConclusaoTendaoTricepsBraquialDireito.indexOf(e);
+
+                if (index > -1) {
+                    ConclusaoTendaoTricepsBraquialDireito.splice(index, 1);
+                    setConclusaoTendaoTricepsBraquialDireito((arr) => [...arr]);
                 }
             }
         });

@@ -1,8 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { CotoveloEsquerdoNormalContext } from "../../../../../context/CotoveloEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -11,6 +10,7 @@ function DerrameArticularEsquerdo({ Disable }) {
     const largura = "100%";
 
     const [fraseDerrameArticularEsquerdo, setFraseDerrameArticularEsquerdo] = useState<any>([]);
+    const [ConclusaoDerrameArticularEsquerdo, setConclusaoDerrameArticularEsquerdo] = useState<any>([]);
 
     const subExame = 'Derrame articular Esquerdo'
     const titulo_exame = 'Articulações'
@@ -21,14 +21,16 @@ function DerrameArticularEsquerdo({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                fraseDerrameArticularEsquerdo
+                fraseDerrameArticularEsquerdo,
+                ConclusaoDerrameArticularEsquerdo
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                fraseDerrameArticularEsquerdo
+                fraseDerrameArticularEsquerdo,
+                ConclusaoDerrameArticularEsquerdo
             ).Format_Laudo_Create_Storage();
         }
     }, [fraseDerrameArticularEsquerdo]);
@@ -41,7 +43,14 @@ function DerrameArticularEsquerdo({ Disable }) {
 
     const criaStringPresente = () => {
         var string = "Presença de líquido intra-articular.";
-        PresenteCheckbox ? setFraseDerrameArticularEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+        const conclusao = 'Derrame articular.'
+        if (PresenteCheckbox) {
+            setFraseDerrameArticularEsquerdo((arr) => [...arr, string])
+            setConclusaoDerrameArticularEsquerdo((arr) => [...arr, conclusao])
+        } else {
+            removeItemString(string);
+            removeItemConclusao(conclusao)
+        }
     };
 
     useEffect(() => {
@@ -53,6 +62,13 @@ function DerrameArticularEsquerdo({ Disable }) {
         if (index > -1) {
             fraseDerrameArticularEsquerdo.splice(index, 1);
             setFraseDerrameArticularEsquerdo((arr) => [...arr]);
+        }
+    };
+    const removeItemConclusao = (value) => {
+        var index = ConclusaoDerrameArticularEsquerdo.indexOf(value);
+        if (index > -1) {
+            ConclusaoDerrameArticularEsquerdo.splice(index, 1);
+            setConclusaoDerrameArticularEsquerdo((arr) => [...arr]);
         }
     };
 

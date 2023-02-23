@@ -11,6 +11,7 @@ function TendaoBicepsBraquialDireito({ Disable }) {
     const largura = "100%";
 
     const [fraseTendaoBicepsBraquialDireito, setFraseTendaoBicepsBraquialDireito] = useState<any>([]);
+    const [ConclusaoTendaoBicepsBraquialDireito, setConclusaoTendaoBicepsBraquialDireito] = useState<any>([]);
 
     const subExame = 'Tendão biceps braquial direito'
     const titulo_exame = 'Articulações'
@@ -21,14 +22,16 @@ function TendaoBicepsBraquialDireito({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                fraseTendaoBicepsBraquialDireito
+                fraseTendaoBicepsBraquialDireito,
+                ConclusaoTendaoBicepsBraquialDireito
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                fraseTendaoBicepsBraquialDireito
+                fraseTendaoBicepsBraquialDireito,
+                ConclusaoTendaoBicepsBraquialDireito
             ).Format_Laudo_Create_Storage();
         }
     }, [fraseTendaoBicepsBraquialDireito]);
@@ -133,6 +136,33 @@ function TendaoBicepsBraquialDireito({ Disable }) {
         });
     };
 
+    const criaStringConclusaoTendinopatia = () => {
+        var string = 'Tendinopatia do bíceps braquial'
+        removeFraseConclusaoTendinopatia()
+        if (TendinopatiaSemRoturaCheckbox && RoturaParcialInput !== '' && RoturaParcialInput2 !== '' && RoturaParcialInput3 !== '') {
+            string = `${string} com sinais de rotura parcial.`
+        } else if (TendinopatiaSemRoturaCheckbox && InputMedindoRoturaCompleta !== '') {
+            string = `${string} com sinais de rotura completa.`
+        } else if (TendinopatiaSemRoturaCheckbox) {
+            string = `${string}.`
+        }
+        setConclusaoTendaoBicepsBraquialDireito((arr) => [...arr, string])
+    }
+    const removeFraseConclusaoTendinopatia = () => {
+        ConclusaoTendaoBicepsBraquialDireito.map((e) => {
+            if (e.includes("Tendinopatia do bíceps braquial")) {
+                var index = ConclusaoTendaoBicepsBraquialDireito.indexOf(e);
+
+                if (index > -1) {
+                    ConclusaoTendaoBicepsBraquialDireito.splice(index, 1);
+                    setConclusaoTendaoBicepsBraquialDireito((arr) => [...arr]);
+                }
+            }
+        });
+    };
+    useEffect(() => {
+        criaStringConclusaoTendinopatia()
+    }, [TendinopatiaSemRoturaCheckbox, RoturaParcialInput, RoturaParcialInput2, RoturaParcialInput3, InputMedindoRoturaCompleta])
     const criaStringRoturaCompleta = (dados) => {
         removeFraseRoturaCompleta()
         var string;
