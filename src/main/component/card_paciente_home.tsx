@@ -19,9 +19,9 @@ const CardListaMedicos = ({ altura }) => {
   const toast = useToast();
   const id = "test-toast";
 
-  const [nomePaciente, setNomePaciente] = useState<string>();
-  const [idadePaciente, setIdadePaciente] = useState<string>();
-  const [sexoPaciente, setSexoPaciente] = useState<string>();
+  const [nomePaciente, setNomePaciente] = useState<string>("0");
+  const [idadePaciente, setIdadePaciente] = useState<string>("0");
+  const [sexoPaciente, setSexoPaciente] = useState<string>("m");
 
   const [isDisable, setisDisable] = useState(true);
 

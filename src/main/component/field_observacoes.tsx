@@ -12,6 +12,8 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Spinner,
+  Stack,
   Text,
   Textarea,
   Tooltip,
@@ -29,10 +31,6 @@ export default function Field_Observacoes({ exame }) {
   const largura = "100%";
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  let titulo = "Observações";
-  if (exame && exame.nomeExame) {
-    titulo = `Observações ${exame.nomeExame}`;
-  }
   const button_plus = React.createElement("img", { src: PlusButton });
   var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
 
@@ -44,12 +42,9 @@ export default function Field_Observacoes({ exame }) {
 
   const [clickEditOBS, setclickEditOBS] = useState(false);
 
-  useEffect(() => {
-    console.log('nome exame', exame.nomeExame)
-  }, [])
+  const [isMounted, setIsMounted] = useState(false);
 
-  const subExame = titulo;
-  const titulo_exame = `${exame.nomeExame}`;
+  const [titulo_exame, setTitulo_Exame] = useState("Observações");
 
   const checkObservacoes = (observao_local_storage) => {
     if (Object.keys(arrayObservacoes).length >= 1) {
@@ -100,106 +95,106 @@ export default function Field_Observacoes({ exame }) {
       <Box>
         {observacoes != null && observacoes != undefined
           ? observacoes.map((e) => {
-            let output;
-            if (e.titulo_observacao == exame.nomeExame) {
-              output = e.observacao.map((i, key) => {
-                return (
-                  <HStack
-                    isInline={true}
-                    alignItems="center"
-                    justify="space-between"
-                  >
-                    <Tooltip
-                      label="Abrir Observação"
-                      backgroundColor="white"
-                      placement="top"
-                      hasArrow
-                      arrowSize={15}
-                      textColor="black"
-                      fontSize="20px"
-                      margin="20px"
-                      textAlign="center"
+              let output;
+              if (e.titulo_observacao == exame.nomeExame) {
+                output = e.observacao.map((i, key) => {
+                  return (
+                    <HStack
+                      isInline={true}
+                      alignItems="center"
+                      justify="space-between"
                     >
-                      <Box
-                        w="88%"
-                        maxW="88%"
-                        borderWidth="2px"
-                        borderColor="#f0f2f6"
-                        h="48px"
-                        borderRadius="md"
-                        _hover={{
-                          borderColor: "#47AEFC",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => {
-                          onOpen();
-                          setCurrentOBS(i);
-                          setclickEditOBS(false);
-                        }}
+                      <Tooltip
+                        label="Abrir Observação"
+                        backgroundColor="white"
+                        placement="top"
+                        hasArrow
+                        arrowSize={15}
+                        textColor="black"
+                        fontSize="20px"
+                        margin="20px"
+                        textAlign="center"
                       >
-                        <Text
-                          margin="10px"
-                          fontWeight="medium"
-                          textOverflow="ellipsis"
-                          overflow="hidden"
-                          whiteSpace="nowrap"
-                          textColor="black"
-                          fontSize="18px"
-                        >
-                          {i}
-                        </Text>
-                      </Box>
-                    </Tooltip>
-
-                    <Tooltip
-                      label={
-                        checkObservacoes(i)
-                          ? "Remover Observação"
-                          : "Inserir Observação"
-                      }
-                      backgroundColor="white"
-                      placement="top"
-                      hasArrow
-                      arrowSize={15}
-                      textColor="black"
-                      fontSize="20px"
-                      margin="20px"
-                      textAlign="center"
-                    >
-                      <Flex justify="end">
-                        <IconButton
-                          justifyContent="flex-end"
-                          aria-label="Add Item"
-                          icon={
-                            checkObservacoes(i) ? (
-                              <GrSubtractCircle size={30} />
-                            ) : (
-                              <AiOutlinePlusCircle size={30} />
-                            )
-                          }
-                          variant="link"
-                          marginEnd="5px"
-                          textColor="blue"
-                          onClick={() => {
-                            if (checkObservacoes(i)) {
-                              const index = arrayObservacoes.indexOf(i);
-                              if (index > -1) {
-                                arrayObservacoes.splice(index, 1);
-                                setArrayObservacoes((arr) => [...arr]);
-                              }
-                            } else {
-                              setArrayObservacoes((arr) => [...arr, i]);
-                            }
+                        <Box
+                          w="88%"
+                          maxW="88%"
+                          borderWidth="2px"
+                          borderColor="#f0f2f6"
+                          h="48px"
+                          borderRadius="md"
+                          _hover={{
+                            borderColor: "#47AEFC",
+                            cursor: "pointer",
                           }}
-                        />
-                      </Flex>
-                    </Tooltip>
-                  </HStack>
-                );
-              });
-            }
-            return output;
-          })
+                          onClick={() => {
+                            onOpen();
+                            setCurrentOBS(i);
+                            setclickEditOBS(false);
+                          }}
+                        >
+                          <Text
+                            margin="10px"
+                            fontWeight="medium"
+                            textOverflow="ellipsis"
+                            overflow="hidden"
+                            whiteSpace="nowrap"
+                            textColor="black"
+                            fontSize="18px"
+                          >
+                            {i}
+                          </Text>
+                        </Box>
+                      </Tooltip>
+
+                      <Tooltip
+                        label={
+                          checkObservacoes(i)
+                            ? "Remover Observação"
+                            : "Inserir Observação"
+                        }
+                        backgroundColor="white"
+                        placement="top"
+                        hasArrow
+                        arrowSize={15}
+                        textColor="black"
+                        fontSize="20px"
+                        margin="20px"
+                        textAlign="center"
+                      >
+                        <Flex justify="end">
+                          <IconButton
+                            justifyContent="flex-end"
+                            aria-label="Add Item"
+                            icon={
+                              checkObservacoes(i) ? (
+                                <GrSubtractCircle size={30} />
+                              ) : (
+                                <AiOutlinePlusCircle size={30} />
+                              )
+                            }
+                            variant="link"
+                            marginEnd="5px"
+                            textColor="blue"
+                            onClick={() => {
+                              if (checkObservacoes(i)) {
+                                const index = arrayObservacoes.indexOf(i);
+                                if (index > -1) {
+                                  arrayObservacoes.splice(index, 1);
+                                  setArrayObservacoes((arr) => [...arr]);
+                                }
+                              } else {
+                                setArrayObservacoes((arr) => [...arr, i]);
+                              }
+                            }}
+                          />
+                        </Flex>
+                      </Tooltip>
+                    </HStack>
+                  );
+                });
+              }
+              return output;
+            })
           : null}
       </Box>
     );
@@ -247,14 +242,14 @@ export default function Field_Observacoes({ exame }) {
     if (Object.keys(arrayObservacoes).length === 0) {
       new Format_Laudo(
         titulo_exame,
-        subExame,
+        titulo_exame,
         true,
         arrayObservacoes
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
-        subExame,
+        titulo_exame,
         false,
         arrayObservacoes
       ).Format_Laudo_Create_Storage();
@@ -266,61 +261,95 @@ export default function Field_Observacoes({ exame }) {
     Render_Box_Observacoes();
   }, [clickEditOBS]);
 
-  return (
-    <>
-      <Flex w="100%" h="327px" paddingStart="20px">
-        <Box
-          bg="#FAFAFA"
-          w={largura}
-          h={altura}
-          bgPosition="center"
-          bgRepeat="no-repeat"
-          borderRadius="10.85px"
-          boxShadow="md"
-          padding="24px 15px 20px 15px"
-          overflow="auto"
-        >
-          <TituloNomeExame titulo={titulo} />
-          {Render_Box_Observacoes()}
+  useEffect(() => {
+    setIsMounted(true);
+
+    exame.nomeExame != undefined
+      ? setTitulo_Exame(exame.nomeExame)
+      : setTitulo_Exame("Observações");
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
+
+  if (!isMounted) {
+    return (
+      <Center>
+        <Box marginTop="20%">
+          <Stack>
+            <Text textAlign="center" fontSize="xx-large">
+              CARREGANDO EXAME
+            </Text>
+            <Center>
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+              />
+            </Center>
+          </Stack>
         </Box>
-      </Flex>
+      </Center>
+    );
+  } else {
+    return (
+      <>
+        <Flex w="100%" h="327px" paddingStart="20px">
+          <Box
+            bg="#FAFAFA"
+            w={largura}
+            h={altura}
+            bgPosition="center"
+            bgRepeat="no-repeat"
+            borderRadius="10.85px"
+            boxShadow="md"
+            padding="24px 15px 20px 15px"
+            overflow="auto"
+          >
+            <TituloNomeExame titulo={titulo_exame} />
+            {Render_Box_Observacoes()}
+          </Box>
+        </Flex>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader fontSize="x-large">Observação</ModalHeader>
-          <ModalCloseButton size="lg" />
-          <ModalBody maxW="98%">
-            <Box padding="3%">
-              <Center>{Render_Observacao_or_Text_Area()}</Center>
-            </Box>
-          </ModalBody>
+        <Modal isOpen={isOpen} onClose={onClose} size="xl">
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader fontSize="x-large">Observação</ModalHeader>
+            <ModalCloseButton size="lg" />
+            <ModalBody maxW="98%">
+              <Box padding="3%">
+                <Center>{Render_Observacao_or_Text_Area()}</Center>
+              </Box>
+            </ModalBody>
 
-          <ModalFooter>
-            <Box width="100%">
-              <Button
-                marginBottom="2%"
-                fontSize="20px"
-                colorScheme={checkObservacoes(currentOBS) ? "red" : "blue"}
-                width="100%"
-                onClick={() => {
-                  if (editOBS != "" && editOBS != undefined) {
-                    onClick_Observacao_Editada();
-                  } else {
-                    onClick_Inserir_Observacao();
-                  }
-                  onClose();
-                }}
-              >
-                {checkObservacoes(currentOBS)
-                  ? "Remover Observação"
-                  : "Inserir Observação"}
-              </Button>
-              {Render_Editar_or_Cancel()}
-            </Box>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
-  );
+            <ModalFooter>
+              <Box width="100%">
+                <Button
+                  marginBottom="2%"
+                  fontSize="20px"
+                  colorScheme={checkObservacoes(currentOBS) ? "red" : "blue"}
+                  width="100%"
+                  onClick={() => {
+                    if (editOBS != "" && editOBS != undefined) {
+                      onClick_Observacao_Editada();
+                    } else {
+                      onClick_Inserir_Observacao();
+                    }
+                    onClose();
+                  }}
+                >
+                  {checkObservacoes(currentOBS)
+                    ? "Remover Observação"
+                    : "Inserir Observação"}
+                </Button>
+                {Render_Editar_or_Cancel()}
+              </Box>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </>
+    );
+  }
 }

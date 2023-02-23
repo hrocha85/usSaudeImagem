@@ -151,13 +151,27 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
       },
     ];
 
-    exames.map((e) => {
-      if (e.key == id) {
-        setTabExames((tabExames) => [...tabExames, e]);
-      }
-    });
-  };
+    let exameEncontrado: any = null;
 
+    while (!exameEncontrado) {
+      if (typeof id !== "string" && typeof id !== "number") {
+        break;
+      }
+      if (id <= 0 || id > exames.length) {
+        break;
+      }
+
+      exameEncontrado = exames.find((e) => e.key.toString() === id.toString());
+
+      if (
+        exameEncontrado &&
+        exameEncontrado !== null &&
+        exameEncontrado !== undefined
+      ) {
+        setTabExames((tabExames) => [...tabExames, exameEncontrado]);
+      }
+    }
+  };
   return (
     <GridItem
       w="200px"
