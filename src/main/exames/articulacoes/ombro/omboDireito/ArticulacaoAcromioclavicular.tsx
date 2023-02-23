@@ -10,6 +10,7 @@ function ArticulacaoAcromioclavicularDireito({ Disable }) {
   const largura = "100%";
 
   const [fraseBolsaSubacromialSubdeltoidea, setFraseBolsaSubacromialSubdeltoidea] = useState<any>([]);
+  const [ConclusaoBolsaSubacromialSubdeltoidea, setConclusaoBolsaSubacromialSubdeltoidea] = useState<any>([]);
 
   const subExame = 'Articulação acromioclavicular ombro direito'
   const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function ArticulacaoAcromioclavicularDireito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        fraseBolsaSubacromialSubdeltoidea
+        fraseBolsaSubacromialSubdeltoidea,
+        ConclusaoBolsaSubacromialSubdeltoidea
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        fraseBolsaSubacromialSubdeltoidea
+        fraseBolsaSubacromialSubdeltoidea,
+        ConclusaoBolsaSubacromialSubdeltoidea
       ).Format_Laudo_Create_Storage();
     }
   }, [fraseBolsaSubacromialSubdeltoidea]);
@@ -44,6 +47,7 @@ function ArticulacaoAcromioclavicularDireito({ Disable }) {
   const [EspessamentoCapsulosinovialCheckbox, setEspessamentoCapsulosinovialCheckbox] = useState(false);
 
   const criaStringOsteofitos = () => {
+    const conclusao = ' Sinais de osteoartrose acromioclavicular'
     removeOsteofitos();
     var string = 'Presença de osteófitos marginais na articulação acromioclavicular '
     if (OsteofitosCheckbox) {

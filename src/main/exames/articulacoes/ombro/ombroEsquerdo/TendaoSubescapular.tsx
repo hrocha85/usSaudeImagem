@@ -1,8 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
@@ -116,7 +115,7 @@ function TendaoSubescapularOmbroEsquerdo({ Disable }) {
   }, [PequenasCalcificacoesCheckbox])
 
   const criaStringTendinopatiaSemRotura = (select, medidacm) => {
-    var string = 'Tendão do subescapular espessado, com alteração ecotextural, sem evidências de rotura. Presença de '
+    var string = 'Tendão do subescapular espessado, com alteração ecotextural, sem evidências de rotura. '
     removeFraseTendinopatiaSemRotura()
 
     var medida = new Convert_Medida(medidacm).Convert_Medida()
@@ -136,7 +135,7 @@ function TendaoSubescapularOmbroEsquerdo({ Disable }) {
 
   const removeFraseTendinopatiaSemRotura = () => {
     fraseTendaoSubescapuçarEsquerdo.map((e) => {
-      if (e.includes("Tendão do subescapular espessado, com alteração ecotextural, sem evidências de rotura. Presença de")) {
+      if (e.includes("Tendão do subescapular espessado, com alteração ecotextural, sem evidências de rotura.")) {
         var index = fraseTendaoSubescapuçarEsquerdo.indexOf(e);
 
         if (index > -1) {
@@ -321,7 +320,7 @@ function TendaoSubescapularOmbroEsquerdo({ Disable }) {
             }}
           >
             <option value="">não citar calcificações</option>
-            <option value="Calcificações intrassubstancial">Calcificações intrassubstancial</option>
+            <option value="Presença de calcificações intrassubstancial">Calcificações intrassubstancial</option>
           </Select>
           <Checkbox
             isDisabled={MedindoDisableTendinopatiaSemRotura}
