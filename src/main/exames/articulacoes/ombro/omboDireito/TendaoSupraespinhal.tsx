@@ -22,6 +22,10 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
     frasesOmbroTendaoSupraespinhalDireito,
     setFrasesOmbroTendaoSupraespinhalDireito,
   ] = useState<any>([]);
+  const [
+    ConclusaoOmbroTendaoSupraespinhalDireito,
+    setConclusaoOmbroTendaoSupraespinhalDireito,
+  ] = useState<any>([]);
 
   const subExame = "Tendão Supraespinhal direito";
   const titulo_exame = "Articulações";
@@ -32,14 +36,16 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesOmbroTendaoSupraespinhalDireito
+        frasesOmbroTendaoSupraespinhalDireito,
+        ConclusaoOmbroTendaoSupraespinhalDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesOmbroTendaoSupraespinhalDireito
+        frasesOmbroTendaoSupraespinhalDireito,
+        ConclusaoOmbroTendaoSupraespinhalDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesOmbroTendaoSupraespinhalDireito]);
@@ -156,9 +162,14 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
 
   const criaStringPequenasCalcificacoes = () => {
     var string = "Há pequenas calcificações junto à inserção do supraespinhal.";
-    PequenasCalcificacoesCheckbox
-      ? setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string])
-      : removeItemString(string);
+    const conclusao = 'Pequenas calcificações na inserção do supraespinhal.'
+    if (PequenasCalcificacoesCheckbox) {
+      setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string])
+      setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr, conclusao])
+    } else {
+      removeItemString(string);
+      removeItemConclusao(conclusao);
+    }
   };
 
   useEffect(() => {
@@ -167,7 +178,8 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
 
   const criaStringTendinopatiaSemRotura = (select, medidacm) => {
     var string =
-      "Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura. Presença de ";
+      "Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura.";
+    const conclusao = 'Tendinopatia do supraespinhal.'
     removeFraseTendinopatiaSemRotura();
 
     var medida = new Convert_Medida(medidacm).Convert_Medida();
@@ -180,6 +192,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
         string = `${string} ${select}`;
         setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
       }
+      setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr, conclusao]);
     } else {
       removeFraseTendinopatiaSemRotura();
     }
@@ -224,15 +237,23 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
   const removeFraseTendinopatiaSemRotura = () => {
     frasesOmbroTendaoSupraespinhalDireito.map((e) => {
       if (
-        e.includes(
-          "Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura. Presença de "
-        )
-      ) {
+        e.includes("Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura")) {
         var index = frasesOmbroTendaoSupraespinhalDireito.indexOf(e);
 
         if (index > -1) {
           frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);
           setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoOmbroTendaoSupraespinhalDireito.map((e) => {
+      if (
+        e.includes("Tendinopatia do supraespinhal.")) {
+        var index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
+          setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
         }
       }
     });
@@ -294,6 +315,13 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
     if (index > -1) {
       frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);
       setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+    }
+  }
+  const removeItemConclusao = (value) => {
+    var index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(value);
+    if (index > -1) {
+      ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
+      setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
     }
   };
 
@@ -400,7 +428,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
             }}
           >
             <option value="">não citar calcificações</option>
-            <option value="Calcificações intrassubstancial">
+            <option value="Presença de calcificações intrassubstancial">
               Calcificações intrassubstancial
             </option>
           </Select>
