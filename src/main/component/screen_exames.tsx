@@ -421,10 +421,11 @@ export default function Box_Default_With_Sidebar() {
           alignItems="start"
           justifyItems="center"
           flexWrap="wrap"
-          w="62%"
+          w="65%"
           paddingBottom="3%"
+          marginStart="5px"
         >
-          <Flex flex={1} flexDirection="column" w="45%">
+          <Flex flex={1} flexDirection="column" maxW='50%'>
             <Field_Observacoes exame={currentExame} />
           </Flex>
 

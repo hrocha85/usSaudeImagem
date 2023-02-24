@@ -21,7 +21,6 @@ export class Format_Laudo {
 
   Format_Laudo_Create_Storage(): void {
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
-    console.log("concl", this.conclusoes_sub_exame);
 
     array.map((Exames) => {
       if (Exames.titulo_exame == this.titulo_exame) {
