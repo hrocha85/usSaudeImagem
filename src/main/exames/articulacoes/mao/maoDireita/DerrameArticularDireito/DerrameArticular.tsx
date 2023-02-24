@@ -12,6 +12,7 @@ function MaoDerrameArticularDireita({ Disable }) {
   const largura = "100%";
 
   const [FraseDerrameArticularDireito, setFraseDerrameArticularDireito] = useState<any>([]);
+  const [ConclusaoDerrameArticularDireito, setConclusaoDerrameArticularDireito] = useState<any>([]);
 
   const subExame = `Derrame articular mão Direita`
   const titulo_exame = 'Articulações'
@@ -22,14 +23,16 @@ function MaoDerrameArticularDireita({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        FraseDerrameArticularDireito
+        FraseDerrameArticularDireito,
+        ConclusaoDerrameArticularDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        FraseDerrameArticularDireito
+        FraseDerrameArticularDireito,
+        ConclusaoDerrameArticularDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [FraseDerrameArticularDireito]);
@@ -74,12 +77,14 @@ function MaoDerrameArticularDireita({ Disable }) {
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
+    const conclusao = 'Derrame articular.'
     var string = `Dedo 1 com presença de derrame articular: `
     if (PrimeiroDedo) {
       if (Proximal) {
         string = `${string} proximal`
       }
       setFraseDerrameArticularDireito((arr) => [...arr, string]);
+      setConclusaoDerrameArticularDireito((arr) => [...arr, conclusao]);
     } else {
       removeMultiplosCalculos();
     }
@@ -93,6 +98,16 @@ function MaoDerrameArticularDireita({ Disable }) {
         if (index > -1) {
           FraseDerrameArticularDireito.splice(index, 1);
           setFraseDerrameArticularDireito((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoDerrameArticularDireito.map((e) => {
+      if (e.includes(`Derrame articular.`)) {
+        var index = ConclusaoDerrameArticularDireito.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoDerrameArticularDireito.splice(index, 1);
+          setConclusaoDerrameArticularDireito((arr) => [...arr]);
         }
       }
     });

@@ -7,6 +7,7 @@ import { Format_Laudo } from "../../../../../component/function_format_laudo";
 export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo, Disable }) {
 
   const [fraseLiquidoPerintendineoHexoresEsquerdo, setFraseLiquidoPerintendineoHexoresEsquerdo] = useState<any>([]);
+  const [ConclusaoLiquidoPerintendineoHexoresEsquerdo, setConclusaoLiquidoPerintendineoHexoresEsquerdo] = useState<any>([]);
 
   const subExame = `Líquido peritendineo nos hexores ${numCalculo} Esquerdo`
   const titulo_exame = 'Articulações'
@@ -17,14 +18,16 @@ export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo, 
         titulo_exame,
         subExame,
         true,
-        fraseLiquidoPerintendineoHexoresEsquerdo
+        fraseLiquidoPerintendineoHexoresEsquerdo,
+        ConclusaoLiquidoPerintendineoHexoresEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        fraseLiquidoPerintendineoHexoresEsquerdo
+        fraseLiquidoPerintendineoHexoresEsquerdo,
+        ConclusaoLiquidoPerintendineoHexoresEsquerdo
       ).Format_Laudo_Create_Storage();
     }
   }, [fraseLiquidoPerintendineoHexoresEsquerdo]);
@@ -33,13 +36,28 @@ export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo, 
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
+    removeConclusao()
     var string;
+    const conclusao = `Líquido peritendíneo junto aos flexores do ${numCalculo} dedo.`
     if (multiplosCalculosCheckbox) {
       string = `Dedo ${numCalculo} com presença de líquido adjacente aos tendões `;
       setFraseLiquidoPerintendineoHexoresEsquerdo((arr) => [...arr, string]);
+      setConclusaoLiquidoPerintendineoHexoresEsquerdo((arr) => [...arr, conclusao]);
     }
   }
 
+  const removeConclusao = () => {
+    ConclusaoLiquidoPerintendineoHexoresEsquerdo.map((e) => {
+      if (e.includes(`${numCalculo}`)) {
+        var index = ConclusaoLiquidoPerintendineoHexoresEsquerdo.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoLiquidoPerintendineoHexoresEsquerdo.splice(index, 1);
+          setConclusaoLiquidoPerintendineoHexoresEsquerdo((arr) => [...arr]);
+        }
+      }
+    });
+  };
   const removeMultiplosCalculos = () => {
     fraseLiquidoPerintendineoHexoresEsquerdo.map((e) => {
       if (e.includes(`Dedo ${numCalculo}`)) {

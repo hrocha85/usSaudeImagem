@@ -8,6 +8,7 @@ import { Format_Laudo } from "../../../../../component/function_format_laudo";
 export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) {
 
   const [FraseRoturaExtensoresDireito, setFraseRoturaExtensoresDireito] = useState<any>([]);
+  const [ConclusaoRoturaExtensoresDireito, setConclusaoRoturaExtensoresDireito] = useState<any>([]);
 
   const subExame = `Rotura Extensores ${numCalculo} mão direita`
   const titulo_exame = 'Articulações'
@@ -18,14 +19,16 @@ export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) 
         titulo_exame,
         subExame,
         true,
-        FraseRoturaExtensoresDireito
+        FraseRoturaExtensoresDireito,
+        ConclusaoRoturaExtensoresDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        FraseRoturaExtensoresDireito
+        FraseRoturaExtensoresDireito,
+        ConclusaoRoturaExtensoresDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [FraseRoturaExtensoresDireito]);
@@ -38,10 +41,14 @@ export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) 
 
   const criaStringMultiplosCalculos = (tamanhoCalculoInput) => {
     removeMultiplosCalculos();
+    removeConclusao()
+    var conclusao = `Rotura do tendõe extensor do ${numCalculo} dedo`
     if (tamanhoCalculoInput !== "") {
       const medida = new Convert_Medida(tamanhoCalculoInput).Convert_Medida()
       var string = `Descontinuidade completa das fibras do tendão extensor do ${numCalculo} dedo com intervalor de ${medida} cm `;
       setFraseRoturaExtensoresDireito((arr) => [...arr, string]);
+      setConclusaoRoturaExtensoresDireito((arr) => [...arr, conclusao]);
+
     }
   };
 
@@ -53,6 +60,18 @@ export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) 
         if (index > -1) {
           FraseRoturaExtensoresDireito.splice(index, 1);
           setFraseRoturaExtensoresDireito((arr) => [...arr]);
+        }
+      }
+    });
+  };
+  const removeConclusao = () => {
+    ConclusaoRoturaExtensoresDireito.map((e) => {
+      if (e.includes(`${numCalculo}`)) {
+        var index = ConclusaoRoturaExtensoresDireito.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoRoturaExtensoresDireito.splice(index, 1);
+          setConclusaoRoturaExtensoresDireito((arr) => [...arr]);
         }
       }
     });

@@ -10,6 +10,7 @@ function ColecaoDireito({ Disable }) {
   const largura = "90%";
 
   const [ColecaoMaoDireito, setColecaoMaoDireito] = useState<any>([]);
+  const [ConclusaoColecaoMaoDireito, setConclusaoColecaoMaoDireito] = useState<any>([]);
 
   const subExame = `Coleção mão direita`
   const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function ColecaoDireito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        ColecaoMaoDireito
+        ColecaoMaoDireito,
+        ConclusaoColecaoMaoDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        ColecaoMaoDireito
+        ColecaoMaoDireito,
+        ConclusaoColecaoMaoDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [ColecaoMaoDireito]);
@@ -54,15 +57,28 @@ function ColecaoDireito({ Disable }) {
         }
       }
     });
+    ConclusaoColecaoMaoDireito.map((e) => {
+      if (e.includes('Coleção na')) {
+        var index = ConclusaoColecaoMaoDireito.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoColecaoMaoDireito.splice(index, 1);
+          setConclusaoColecaoMaoDireito((arr) => [...arr]);
+        }
+      }
+    });
   };
   const criaStringAlteracao = (medida1, medida2, medida3) => {
     var string = 'Presença de coleção'
+    var conclusao = 'Coleção na'
     var StringFinal;
     var calcVolume = (medida1 * medida2 * medida3) / 10
     removeColecaoMao()
     if (medida1 !== "" && medida2 !== "" && medida3 !== "" && AlteracaoSelect1 !== '' && AlteracaoSelect !== '') {
       StringFinal = `${string} ${AlteracaoSelect} na face ${AlteracaoSelect1},medindo ${medida1} x ${medida2} x ${medida3} mm (volume = ${calcVolume} ml)`;
+      conclusao = `${conclusao} ${AlteracaoSelect}`
       setColecaoMaoDireito((arr) => [...arr, StringFinal]);
+      setConclusaoColecaoMaoDireito((arr) => [...arr, conclusao]);
     }
   };
 

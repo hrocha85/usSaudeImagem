@@ -10,6 +10,7 @@ function MaoCistosDireito({ Disable }) {
     const largura = "90%";
 
     const [CistosDireito, setCistosDireito] = useState<any>([]);
+    const [ConclusaoDireito, setConclusaoDireito] = useState<any>([]);
 
     const subExame = `Cisto mão direita`
     const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function MaoCistosDireito({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                CistosDireito
+                CistosDireito,
+                ConclusaoDireito
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                CistosDireito
+                CistosDireito,
+                ConclusaoDireito
             ).Format_Laudo_Create_Storage();
         }
     }, [CistosDireito]);
@@ -88,9 +91,27 @@ function MaoCistosDireito({ Disable }) {
         });
     };
 
+    const criaStringConclusao = (dedo) => {
+        removeFraseConclusao()
+        var conclusao = `Cisto no ${dedo} dedo.`
+        setConclusaoDireito((arr) => [...arr, conclusao]);
+    }
+
+    const removeFraseConclusao = () => {
+        CistosDireito.map((e) => {
+            if (e.includes(`Cisto no`)) {
+                var index = CistosDireito.indexOf(e);
+
+                if (index > -1) {
+                    CistosDireito.splice(index, 1);
+                    setCistosDireito((arr) => [...arr]);
+                }
+            }
+        });
+    };
+
     const criaStringCistos1 = () => {
         removeFraseCisto1()
-
         var string = 'Cisto anecogênico de paredes finas e regulares situado superficialmente ao tendão flexor do '
         var StringFinal;
         var medida1 = Cistos1Input / 10
@@ -99,7 +120,7 @@ function MaoCistosDireito({ Disable }) {
         if (medida1 !== 0 && medida2 !== 0 && Cistos1Select1 !== '' && Cistos1Select2 !== '') {
             StringFinal = `${string} ${Cistos1Select1}, ao nível ${Cistos1Select2}, medindo ${medida1} x ${medida2} cm, `;
             setCistosDireito((arr) => [...arr, StringFinal]);
-
+            criaStringConclusao(Cistos1Select1)
         }
     };
     const removeFraseCisto1 = () => {
@@ -125,7 +146,7 @@ function MaoCistosDireito({ Disable }) {
         if (medida1 !== 0 && medida2 !== 0 && Cistos2Select1 !== '' && Cistos2Select2 !== '') {
             StringFinal = `${string} ${Cistos2Select1}, ao nível ${Cistos2Select2}, medindo ${medida1} x ${medida2} cm, `;
             setCistosDireito((arr) => [...arr, StringFinal]);
-
+            criaStringConclusao(Cistos2Select1)
         }
     };
     const removeFraseCisto2 = () => {

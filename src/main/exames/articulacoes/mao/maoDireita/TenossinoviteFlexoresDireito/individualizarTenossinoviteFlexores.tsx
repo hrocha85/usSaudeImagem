@@ -7,6 +7,7 @@ import { Format_Laudo } from "../../../../../component/function_format_laudo";
 export default function IndividualizarTenossinoviteFlexores({ numCalculo, Disable }) {
 
   const [fraseTenossinoviteFlexoresDireito, setFraseTenossinoviteFlexoresDireito] = useState<any>([]);
+  const [ConclusaoTenossinoviteFlexoresDireito, setConclusaoTenossinoviteFlexoresDireito] = useState<any>([]);
 
   const subExame = `Tenossinovite dos flexores ${numCalculo} mão direita`
   const titulo_exame = 'Articulações'
@@ -17,14 +18,16 @@ export default function IndividualizarTenossinoviteFlexores({ numCalculo, Disabl
         titulo_exame,
         subExame,
         true,
-        fraseTenossinoviteFlexoresDireito
+        fraseTenossinoviteFlexoresDireito,
+        ConclusaoTenossinoviteFlexoresDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        fraseTenossinoviteFlexoresDireito
+        fraseTenossinoviteFlexoresDireito,
+        ConclusaoTenossinoviteFlexoresDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [fraseTenossinoviteFlexoresDireito]);
@@ -35,14 +38,31 @@ export default function IndividualizarTenossinoviteFlexores({ numCalculo, Disabl
   const [DisableCheckbox, setDisableCheckbox] = useState(true);
 
 
+  const removeDedosConclusao = () => {
+    ConclusaoTenossinoviteFlexoresDireito.map((e) => {
+      if (e.includes(`${numCalculo}`)) {
+        var index = ConclusaoTenossinoviteFlexoresDireito.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoTenossinoviteFlexoresDireito.splice(index, 1);
+          setConclusaoTenossinoviteFlexoresDireito((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
+    removeDedosConclusao();
     var string;
+    var conclusao = `Tenossinovite dos flexores do dedo ${numCalculo}.`
     if (EspessamentoSinovialCheckbox && EspassamentoTendineoCheckbox) {
       string = `Dedo ${numCalculo} com espessamento dos tendões e da bainha sinovial.`;
       setFraseTenossinoviteFlexoresDireito((arr) => [...arr, string]);
+      setConclusaoTenossinoviteFlexoresDireito((arr) => [...arr, conclusao]);
     } else if (EspessamentoSinovialCheckbox) {
       string = `Dedo ${numCalculo} com espessamento da bainha sinovial.`;
+      setConclusaoTenossinoviteFlexoresDireito((arr) => [...arr, conclusao]);
       setFraseTenossinoviteFlexoresDireito((arr) => [...arr, string]);
     }
   };
