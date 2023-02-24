@@ -16,6 +16,7 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
     const obj = {
       titulo_exame: text,
       subExames: [{ subExameNome: "", frases: [] }],
+      conclusoes: [""],
     };
     format_laudo.push(obj);
     format_laudo.map((e) => {
@@ -189,7 +190,7 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
           pl="80px"
           // pt='30px'
           z-index="1"
-        //onClick={(e) => clicando(id, text)}
+          //onClick={(e) => clicando(id, text)}
         />
 
         <Tooltip
@@ -213,7 +214,9 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
           >
             <Button
               isDisabled={
-                id == 25 || id == 16 || id == 7 || id == 11 ? true : !enableExames
+                id == 25 || id == 16 || id == 7 || id == 11
+                  ? true
+                  : !enableExames
               }
               fontSize="13.9px"
               variant="link"

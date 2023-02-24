@@ -1,4 +1,3 @@
-
 export class Format_Laudo {
   titulo_exame: string;
   sub_exame_nome: string;
@@ -11,7 +10,7 @@ export class Format_Laudo {
     sub_exame_nome: string,
     frases_is_empty: boolean,
     frases_sub_exame: Array<string>,
-    conclusoes_sub_exame?: Array<string>,
+    conclusoes_sub_exame?: Array<string>
   ) {
     this.titulo_exame = titulo_exame;
     this.sub_exame_nome = sub_exame_nome;
@@ -22,10 +21,10 @@ export class Format_Laudo {
 
   Format_Laudo_Create_Storage(): void {
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
+    console.log("concl", this.conclusoes_sub_exame);
 
     array.map((Exames) => {
       if (Exames.titulo_exame == this.titulo_exame) {
-
         if (this.frases_is_empty) {
           Exames.subExames.map((subExame) => {
             if (subExame.subExameNome == this.sub_exame_nome) {
@@ -43,18 +42,21 @@ export class Format_Laudo {
             Exames.subExames.push({
               subExameNome: this.sub_exame_nome,
             });
+
+            if (
+              this.conclusoes_sub_exame &&
+              this.conclusoes_sub_exame.length > 0
+            ) {
+              this.conclusoes_sub_exame.map((conclusao) => {
+                Exames.conclusoes.push(conclusao);
+              });
+            }
             localStorage.setItem(this.sub_exame_nome, JSON.stringify(1));
           }
         }
         Exames.subExames.map((subExame, indexS) => {
           if (subExame.subExameNome == this.sub_exame_nome) {
             Exames.subExames[indexS].frases = this.frases_sub_exame;
-            localStorage.setItem(this.sub_exame_nome, JSON.stringify(1));
-          }
-        });
-        Exames.subExames.map((subExame, indexS) => {
-          if (subExame.subExameNome == this.sub_exame_nome) {
-            Exames.subExames[indexS].conclusoes = this.conclusoes_sub_exame;
             localStorage.setItem(this.sub_exame_nome, JSON.stringify(1));
           }
         });

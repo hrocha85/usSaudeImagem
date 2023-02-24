@@ -2,10 +2,13 @@
   "format_laudo": [
     {
       "titulo_exame": "",
-      "subExames": [{
-        "subExameNome":"",
-        "frases": [""]
-      }]
+      "subExames": [
+        {
+          "subExameNome": "",
+          "frases": [""]
+        }
+      ],
+      "conclusoes": [""]
     }
   ]
 }
