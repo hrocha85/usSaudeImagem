@@ -7,6 +7,7 @@ import { Format_Laudo } from "../../../../../component/function_format_laudo";
 export default function IndividualizarDerrameArticular({ numCalculo, desabilita }) {
 
   const [FraseDerrameArticularDireito, setFraseDerrameArticularDireito] = useState<any>([]);
+  const [ConclusaoDerrameArticularDireito, setConclusaoDerrameArticularDireito] = useState<any>([]);
 
   const subExame = `${numCalculo + 1}: Derrame Articular`
   const titulo_exame = 'Articulações'
@@ -17,14 +18,16 @@ export default function IndividualizarDerrameArticular({ numCalculo, desabilita 
         titulo_exame,
         subExame,
         true,
-        FraseDerrameArticularDireito
+        FraseDerrameArticularDireito,
+        ConclusaoDerrameArticularDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        FraseDerrameArticularDireito
+        FraseDerrameArticularDireito,
+        ConclusaoDerrameArticularDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [FraseDerrameArticularDireito]);
@@ -37,6 +40,7 @@ export default function IndividualizarDerrameArticular({ numCalculo, desabilita 
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
+    const conclusao = 'Derrame articular.'
     var string = `Dedo ${numCalculo + 1} com presença de derrame articular: `
     if (multiplosDedosCheckbox) {
       if (Proximal) {
@@ -46,6 +50,7 @@ export default function IndividualizarDerrameArticular({ numCalculo, desabilita 
         string = `${string} Distal`
       }
       setFraseDerrameArticularDireito((arr) => [...arr, string]);
+      setConclusaoDerrameArticularDireito((arr) => [...arr, conclusao]);
     } else {
       removeMultiplosCalculos();
     }
@@ -61,6 +66,16 @@ export default function IndividualizarDerrameArticular({ numCalculo, desabilita 
         if (index > -1) {
           FraseDerrameArticularDireito.splice(index, 1);
           setFraseDerrameArticularDireito((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoDerrameArticularDireito.map((e) => {
+      if (e.includes(`Derrame articular.`)) {
+        var index = ConclusaoDerrameArticularDireito.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoDerrameArticularDireito.splice(index, 1);
+          setConclusaoDerrameArticularDireito((arr) => [...arr]);
         }
       }
     });

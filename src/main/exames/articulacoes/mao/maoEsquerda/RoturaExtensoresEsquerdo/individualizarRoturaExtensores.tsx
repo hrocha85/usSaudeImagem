@@ -8,6 +8,7 @@ import { Format_Laudo } from "../../../../../component/function_format_laudo";
 export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) {
 
   const [FraseRoturaExtensoresEsquerdo, setFraseRoturaExtensoresEsquerdo] = useState<any>([]);
+  const [ConclusaoRoturaExtensoresEsquerdo, setConclusaoRoturaExtensoresEsquerdo] = useState<any>([]);
 
   const subExame = `Rotura Extensores ${numCalculo} mão esquerda`
   const titulo_exame = 'Articulações'
@@ -18,14 +19,16 @@ export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) 
         titulo_exame,
         subExame,
         true,
-        FraseRoturaExtensoresEsquerdo
+        FraseRoturaExtensoresEsquerdo,
+        ConclusaoRoturaExtensoresEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        FraseRoturaExtensoresEsquerdo
+        FraseRoturaExtensoresEsquerdo,
+        ConclusaoRoturaExtensoresEsquerdo
       ).Format_Laudo_Create_Storage();
     }
   }, [FraseRoturaExtensoresEsquerdo]);
@@ -38,11 +41,27 @@ export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) 
 
   const criaStringMultiplosCalculos = (tamanhoCalculoInput) => {
     removeMultiplosCalculos();
+    removeConclusao()
+    var conclusao = `Rotura do tendõe extensor do ${numCalculo} dedo`
     if (tamanhoCalculoInput !== "") {
       const medida = new Convert_Medida(tamanhoCalculoInput).Convert_Medida()
       var string = `Descontinuidade completa das fibras do tendão extensor do ${numCalculo} dedo com intervalor de ${medida} cm `;
       setFraseRoturaExtensoresEsquerdo((arr) => [...arr, string]);
+      setConclusaoRoturaExtensoresEsquerdo((arr) => [...arr, conclusao]);
     }
+  };
+
+  const removeConclusao = () => {
+    ConclusaoRoturaExtensoresEsquerdo.map((e) => {
+      if (e.includes(`${numCalculo}`)) {
+        var index = ConclusaoRoturaExtensoresEsquerdo.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoRoturaExtensoresEsquerdo.splice(index, 1);
+          setConclusaoRoturaExtensoresEsquerdo((arr) => [...arr]);
+        }
+      }
+    });
   };
 
   const removeMultiplosCalculos = () => {
