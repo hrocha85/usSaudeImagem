@@ -271,6 +271,13 @@ export default function Field_Observacoes({ exame }) {
       setIsMounted(false);
     };
   }, []);
+  
+  useEffect(() => {
+    exame.nomeExame != undefined
+      ? setTitulo_Exame(exame.nomeExame)
+      : setTitulo_Exame("Observações");
+    observacoes = JSON.parse(localStorage.getItem("observacoes")!);
+  }, [exame]);
 
   if (!isMounted) {
     return (
