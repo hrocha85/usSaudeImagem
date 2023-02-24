@@ -11,6 +11,7 @@ function TendaoGluteoMedioEsquerdo({ Disable }) {
     const [value, setValue] = useState("1");
     const [PequenaCalcificacaoCheckbox, setPequenaCalcificacaoCheckbox] = useState(false);
     const [frasesQuadrilTendaoGluteoMedioEsquerdo, setFrasesQuadrilTendaoGluteoMedioEsquerdo] = useState<any>([]);
+    const [ConclusaoQuadrilTendaoGluteoMedioEsquerdo, setConclusaoQuadrilTendaoGluteoMedioEsquerdo] = useState<any>([]);
 
     const subExame = "Tendão do glúteo médio esquerdo";
     const titulo_exame = "Articulações";
@@ -18,7 +19,14 @@ function TendaoGluteoMedioEsquerdo({ Disable }) {
     useEffect(() => {
         if (value == "1") {
             setFrasesQuadrilTendaoGluteoMedioEsquerdo([]);
+            setConclusaoQuadrilTendaoGluteoMedioEsquerdo([]);
+        } else if (value == 'com espessura aumentada e ecogenicidade diminuída.') {
+            setFrasesQuadrilTendaoGluteoMedioEsquerdo([]);
+            setConclusaoQuadrilTendaoGluteoMedioEsquerdo([]);
+            setConclusaoQuadrilTendaoGluteoMedioEsquerdo((arr) => [...arr, 'Tendinopatia do glúteo médio.'])
+            setFrasesQuadrilTendaoGluteoMedioEsquerdo((arr) => [...arr, value]);
         } else {
+            setConclusaoQuadrilTendaoGluteoMedioEsquerdo([]);
             setFrasesQuadrilTendaoGluteoMedioEsquerdo([]);
             setFrasesQuadrilTendaoGluteoMedioEsquerdo((arr) => [...arr, value]);
         }
@@ -30,14 +38,16 @@ function TendaoGluteoMedioEsquerdo({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                frasesQuadrilTendaoGluteoMedioEsquerdo
+                frasesQuadrilTendaoGluteoMedioEsquerdo,
+                ConclusaoQuadrilTendaoGluteoMedioEsquerdo
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                frasesQuadrilTendaoGluteoMedioEsquerdo
+                frasesQuadrilTendaoGluteoMedioEsquerdo,
+                ConclusaoQuadrilTendaoGluteoMedioEsquerdo
             ).Format_Laudo_Create_Storage();
         }
     }, [frasesQuadrilTendaoGluteoMedioEsquerdo]);
@@ -45,9 +55,22 @@ function TendaoGluteoMedioEsquerdo({ Disable }) {
 
     const criaStringPequenaCalcificacao = () => {
         var string = `Pequena calcificação junto à inserção do glúteo médio.`;
-        PequenaCalcificacaoCheckbox ? setFrasesQuadrilTendaoGluteoMedioEsquerdo((arr) => [...arr, string]) : removeItemString(string)
-
+        const conclusao = 'Pequenas calcificações junto às inserções do glúteo médio.'
+        if (PequenaCalcificacaoCheckbox) {
+            setFrasesQuadrilTendaoGluteoMedioEsquerdo((arr) => [...arr, string])
+            setConclusaoQuadrilTendaoGluteoMedioEsquerdo((arr) => [...arr, conclusao])
+        } else {
+            removeItemString(string)
+            removeItemStringConclusao(conclusao)
+        }
     }
+    const removeItemStringConclusao = (value) => {
+        var index = ConclusaoQuadrilTendaoGluteoMedioEsquerdo.indexOf(value);
+        if (index > -1) {
+            ConclusaoQuadrilTendaoGluteoMedioEsquerdo.splice(index, 1);
+            setConclusaoQuadrilTendaoGluteoMedioEsquerdo((arr) => [...arr]);
+        }
+    };
 
     useEffect(() => {
         criaStringPequenaCalcificacao()
