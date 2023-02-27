@@ -12,8 +12,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Spinner,
-  Stack,
   Text,
   Textarea,
   Tooltip,
@@ -31,6 +29,10 @@ export default function Field_Observacoes({ exame }) {
   const largura = "100%";
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  let titulo = "Observações";
+  if (exame && exame.nomeExame) {
+    titulo = `Observações ${exame.nomeExame}`;
+  }
   const button_plus = React.createElement("img", { src: PlusButton });
   var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
 
@@ -42,9 +44,8 @@ export default function Field_Observacoes({ exame }) {
 
   const [clickEditOBS, setclickEditOBS] = useState(false);
 
-  const [isMounted, setIsMounted] = useState(false);
-
-  const [titulo_exame, setTitulo_Exame] = useState("Observações");
+  const subExame = titulo;
+  const titulo_exame = `${exame.nomeExame}`;
 
   const checkObservacoes = (observao_local_storage) => {
     if (Object.keys(arrayObservacoes).length >= 1) {
@@ -242,14 +243,14 @@ export default function Field_Observacoes({ exame }) {
     if (Object.keys(arrayObservacoes).length === 0) {
       new Format_Laudo(
         titulo_exame,
-        titulo_exame,
+        subExame,
         true,
         arrayObservacoes
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
-        titulo_exame,
+        subExame,
         false,
         arrayObservacoes
       ).Format_Laudo_Create_Storage();
@@ -261,102 +262,62 @@ export default function Field_Observacoes({ exame }) {
     Render_Box_Observacoes();
   }, [clickEditOBS]);
 
-  useEffect(() => {
-    setIsMounted(true);
-
-    exame.nomeExame != undefined
-      ? setTitulo_Exame(exame.nomeExame)
-      : setTitulo_Exame("Observações");
-    return () => {
-      setIsMounted(false);
-    };
-  }, []);
-  
-  useEffect(() => {
-    exame.nomeExame != undefined
-      ? setTitulo_Exame(exame.nomeExame)
-      : setTitulo_Exame("Observações");
-    observacoes = JSON.parse(localStorage.getItem("observacoes")!);
-  }, [exame]);
-
-  if (!isMounted) {
-    return (
-      <Center>
-        <Box marginTop="20%">
-          <Stack>
-            <Text textAlign="center" fontSize="xx-large">
-              CARREGANDO EXAME
-            </Text>
-            <Center>
-              <Spinner
-                thickness="4px"
-                speed="0.65s"
-                emptyColor="gray.200"
-                color="blue.500"
-                size="xl"
-              />
-            </Center>
-          </Stack>
+  return (
+    <>
+      <Flex w="100%" h="327px" paddingStart="20px">
+        <Box
+          bg="#FAFAFA"
+          w={largura}
+          h={altura}
+          bgPosition="center"
+          bgRepeat="no-repeat"
+          borderRadius="10.85px"
+          boxShadow="md"
+          padding="24px 15px 20px 15px"
+          overflow="auto"
+        >
+          <TituloNomeExame titulo={titulo} />
+          {Render_Box_Observacoes()}
         </Box>
-      </Center>
-    );
-  } else {
-    return (
-      <>
-        <Flex w="100%" h="327px" paddingStart="20px">
-          <Box
-            bg="#FAFAFA"
-            w={largura}
-            h={altura}
-            bgPosition="center"
-            bgRepeat="no-repeat"
-            borderRadius="10.85px"
-            boxShadow="md"
-            padding="24px 15px 20px 15px"
-            overflow="auto"
-          >
-            <TituloNomeExame titulo={titulo_exame} />
-            {Render_Box_Observacoes()}
-          </Box>
-        </Flex>
+      </Flex>
 
-        <Modal isOpen={isOpen} onClose={onClose} size="xl">
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader fontSize="x-large">Observação</ModalHeader>
-            <ModalCloseButton size="lg" />
-            <ModalBody maxW="98%">
-              <Box padding="3%">
-                <Center>{Render_Observacao_or_Text_Area()}</Center>
-              </Box>
-            </ModalBody>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader fontSize="x-large">Observação</ModalHeader>
+          <ModalCloseButton size="lg" />
+          <ModalBody maxW="98%">
+            <Box padding="3%">
+              <Center>{Render_Observacao_or_Text_Area()}</Center>
+            </Box>
+          </ModalBody>
 
-            <ModalFooter>
-              <Box width="100%">
-                <Button
-                  marginBottom="2%"
-                  fontSize="20px"
-                  colorScheme={checkObservacoes(currentOBS) ? "red" : "blue"}
-                  width="100%"
-                  onClick={() => {
-                    if (editOBS != "" && editOBS != undefined) {
-                      onClick_Observacao_Editada();
-                    } else {
-                      onClick_Inserir_Observacao();
-                    }
-                    onClose();
-                  }}
-                >
-                  {checkObservacoes(currentOBS)
-                    ? "Remover Observação"
-                    : "Inserir Observação"}
-                </Button>
-                {Render_Editar_or_Cancel()}
-              </Box>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </>
-    );
-  }
+          <ModalFooter>
+            <Box width="100%">
+              <Button
+                marginBottom="2%"
+                fontSize="20px"
+                colorScheme={checkObservacoes(currentOBS) ? "red" : "blue"}
+                width="100%"
+                onClick={() => {
+                  if (editOBS != "" && editOBS != undefined) {
+                    onClick_Observacao_Editada();
+                  } else {
+                    
+                    onClick_Inserir_Observacao();
+                  }
+                  onClose();
+                }}
+              >
+                {checkObservacoes(currentOBS)
+                  ? "Remover Observação"
+                  : "Inserir Observação"}
+              </Button>
+              {Render_Editar_or_Cancel()}
+            </Box>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
 }
