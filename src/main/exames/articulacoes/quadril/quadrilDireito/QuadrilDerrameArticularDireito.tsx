@@ -10,6 +10,7 @@ function QuadrilDerrameArticularDireito({ Disable }) {
   const largura = "100%";
 
   const [QuadrilDerrameArticularDireito, setQuadrilDerrameArticularDireito] = useState<any>([]);
+  const [ConclusaoQuadrilDerrameArticularDireito, setConclusaoQuadrilDerrameArticularDireito] = useState<any>([]);
 
   const subExame = `Derrame articular no Quadril direito`
   const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function QuadrilDerrameArticularDireito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        QuadrilDerrameArticularDireito
+        QuadrilDerrameArticularDireito,
+        ConclusaoQuadrilDerrameArticularDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        QuadrilDerrameArticularDireito
+        QuadrilDerrameArticularDireito,
+        ConclusaoQuadrilDerrameArticularDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [QuadrilDerrameArticularDireito]);
@@ -59,13 +62,18 @@ function QuadrilDerrameArticularDireito({ Disable }) {
 
   const criaStringPresente = (Presente) => {
     removePresente();
+    var conclusao = 'Derrame articular'
     var string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
       string = `Presença de derrame articular ${Presente}, associado a espessamento sinovial. `;
+      conclusao = `${conclusao} associado a sinovite`
       setQuadrilDerrameArticularDireito((arr) => [...arr, string]);
+      setConclusaoQuadrilDerrameArticularDireito((arr) => [...arr, conclusao]);
     } else if (Presente !== "") {
       string = `Presença de derrame articular ${Presente}.`;
+      conclusao = `${conclusao}.`
       setQuadrilDerrameArticularDireito((arr) => [...arr, string]);
+      setConclusaoQuadrilDerrameArticularDireito((arr) => [...arr, conclusao]);
 
     }
   };
@@ -78,6 +86,16 @@ function QuadrilDerrameArticularDireito({ Disable }) {
         if (index > -1) {
           QuadrilDerrameArticularDireito.splice(index, 1);
           setQuadrilDerrameArticularDireito((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoQuadrilDerrameArticularDireito.map((e) => {
+      if (e.includes("Derrame articular")) {
+        var index = ConclusaoQuadrilDerrameArticularDireito.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoQuadrilDerrameArticularDireito.splice(index, 1);
+          setConclusaoQuadrilDerrameArticularDireito((arr) => [...arr]);
         }
       }
     });

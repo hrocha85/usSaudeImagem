@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -10,6 +10,7 @@ function JoelhoDerrameArticularEsquerdo({ Disable }) {
   const largura = "100%";
 
   const [JoelhoDerrameArticularEsquerdo, setJoelhoDerrameArticularEsquerdo] = useState<any>([]);
+  const [ConclusaoJoelhoDerrameArticularEsquerdo, setConclusaoJoelhoDerrameArticularEsquerdo] = useState<any>([]);
 
   const subExame = `Derrame articular no joelho esquerdo`
   const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function JoelhoDerrameArticularEsquerdo({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        JoelhoDerrameArticularEsquerdo
+        JoelhoDerrameArticularEsquerdo,
+        ConclusaoJoelhoDerrameArticularEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        JoelhoDerrameArticularEsquerdo
+        JoelhoDerrameArticularEsquerdo,
+        ConclusaoJoelhoDerrameArticularEsquerdo
       ).Format_Laudo_Create_Storage();
     }
   }, [JoelhoDerrameArticularEsquerdo]);
@@ -58,13 +61,18 @@ function JoelhoDerrameArticularEsquerdo({ Disable }) {
 
   const criaStringPresente = (Presente) => {
     removePresente();
+    var conclusao = 'Derrame articular'
     var string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
       string = `Preseça de ${Presente} derrame articular, associado a espessamento sinovial. `;
+      conclusao = `${conclusao} associado a sinovite.`
       setJoelhoDerrameArticularEsquerdo((arr) => [...arr, string]);
+      setConclusaoJoelhoDerrameArticularEsquerdo((arr) => [...arr, conclusao]);
     } else if (Presente !== "") {
       string = `Preseça de ${Presente} derrame articular.`;
+      conclusao = `${conclusao}.`
       setJoelhoDerrameArticularEsquerdo((arr) => [...arr, string]);
+      setConclusaoJoelhoDerrameArticularEsquerdo((arr) => [...arr, conclusao]);
 
     }
   };

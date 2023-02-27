@@ -11,33 +11,42 @@ function TendaoGluteoMinimoEsquerdo({ Disable }) {
     const [value, setValue] = useState("1");
     const [PequenaCalcificacaoCheckbox, setPequenaCalcificacaoCheckbox] = useState(false);
     const [frasesQuadrilTendaoGluteoMinimoEsquerdo, setFrasesQuadrilTendaoGluteoMinimoEsquerdo] = useState<any>([]);
+    const [ConclusaoQuadrilTendaoGluteoMinimoEsquerdo, setConclusaoQuadrilTendaoGluteoMinimoEsquerdo] = useState<any>([]);
 
     const subExame = "Tendão do glúteo mínimo Esquerdo";
     const titulo_exame = "Articulações";
 
     useEffect(() => {
+        const conclusao = 'Tendinopatia do glúteo mínimo.'
         if (value == "1") {
             setFrasesQuadrilTendaoGluteoMinimoEsquerdo([]);
+            removeItemStringConclusao(conclusao)
+        } else if (value == 'com espessura aumentada e ecogenicidade diminuída.') {
+            setFrasesQuadrilTendaoGluteoMinimoEsquerdo([]);
+            setConclusaoQuadrilTendaoGluteoMinimoEsquerdo((arr) => [...arr, conclusao])
+            setFrasesQuadrilTendaoGluteoMinimoEsquerdo((arr) => [...arr, value]);
         } else {
+            removeItemStringConclusao(conclusao)
             setFrasesQuadrilTendaoGluteoMinimoEsquerdo([]);
             setFrasesQuadrilTendaoGluteoMinimoEsquerdo((arr) => [...arr, value]);
         }
     }, [value]);
-
     useEffect(() => {
         if (Object.keys(frasesQuadrilTendaoGluteoMinimoEsquerdo).length == 0) {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 true,
-                frasesQuadrilTendaoGluteoMinimoEsquerdo
+                frasesQuadrilTendaoGluteoMinimoEsquerdo,
+                ConclusaoQuadrilTendaoGluteoMinimoEsquerdo
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                frasesQuadrilTendaoGluteoMinimoEsquerdo
+                frasesQuadrilTendaoGluteoMinimoEsquerdo,
+                ConclusaoQuadrilTendaoGluteoMinimoEsquerdo
             ).Format_Laudo_Create_Storage();
         }
     }, [frasesQuadrilTendaoGluteoMinimoEsquerdo]);
@@ -45,7 +54,14 @@ function TendaoGluteoMinimoEsquerdo({ Disable }) {
 
     const criaStringPequenaCalcificacao = () => {
         var string = `Pequena calcificação junto à inserção do glúteo mínimo.`;
-        PequenaCalcificacaoCheckbox ? setFrasesQuadrilTendaoGluteoMinimoEsquerdo((arr) => [...arr, string]) : removeItemString(string)
+        const conclusao = 'Pequenas calcificações junto às inserções do glúteo mínimo.'
+        if (PequenaCalcificacaoCheckbox) {
+            setFrasesQuadrilTendaoGluteoMinimoEsquerdo((arr) => [...arr, string])
+            setConclusaoQuadrilTendaoGluteoMinimoEsquerdo((arr) => [...arr, conclusao])
+        } else {
+            removeItemString(string)
+            removeItemStringConclusao(conclusao)
+        }
 
     }
 
@@ -59,6 +75,13 @@ function TendaoGluteoMinimoEsquerdo({ Disable }) {
         if (index > -1) {
             frasesQuadrilTendaoGluteoMinimoEsquerdo.splice(index, 1);
             setFrasesQuadrilTendaoGluteoMinimoEsquerdo((arr) => [...arr]);
+        }
+    };
+    const removeItemStringConclusao = (value) => {
+        var index = ConclusaoQuadrilTendaoGluteoMinimoEsquerdo.indexOf(value);
+        if (index > -1) {
+            ConclusaoQuadrilTendaoGluteoMinimoEsquerdo.splice(index, 1);
+            setConclusaoQuadrilTendaoGluteoMinimoEsquerdo((arr) => [...arr]);
         }
     };
 

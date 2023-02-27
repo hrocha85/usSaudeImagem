@@ -11,6 +11,7 @@ function CistosEsquerdo({ Disable }) {
     const largura = "90%";
 
     const [CistosEsquerdo, setCistosEsquerdo] = useState<any>([]);
+    const [ConclusaoCistosEsquerdo, setConclusaoCistosEsquerdo] = useState<any>([]);
 
     const subExame = `Cistos joelho Esquerdo`
     const titulo_exame = 'Articulações'
@@ -21,14 +22,16 @@ function CistosEsquerdo({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                CistosEsquerdo
+                CistosEsquerdo,
+                ConclusaoCistosEsquerdo
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                CistosEsquerdo
+                CistosEsquerdo,
+                ConclusaoCistosEsquerdo
             ).Format_Laudo_Create_Storage();
         }
     }, [CistosEsquerdo]);
@@ -69,10 +72,12 @@ function CistosEsquerdo({ Disable }) {
     const criaStringCistosBaker = (medida1, medida2, medida3) => {
         var string = 'Cisto e Baker medindo'
         var StringFinal;
+        const conclusao = 'Cisto de Baker.'
         removeCistoBaker()
         if (medida1 !== "" && medida2 !== "" && medida3 !== "" && CistosBakerSelect1 !== '' && CistosBakerSelect2 !== '' && CistosBakerSelect3 !== '') {
             StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${CistosBakerSelect1} ${CistosBakerSelect2} ${CistosBakerSelect3}`;
             setCistosEsquerdo((arr) => [...arr, StringFinal]);
+            setConclusaoCistosEsquerdo((arr) => [...arr, conclusao]);
         }
     };
 
@@ -84,6 +89,16 @@ function CistosEsquerdo({ Disable }) {
                 if (index > -1) {
                     CistosEsquerdo.splice(index, 1);
                     setCistosEsquerdo((arr) => [...arr]);
+                }
+            }
+        });
+        ConclusaoCistosEsquerdo.map((e) => {
+            if (e.includes("Cisto de Baker.")) {
+                var index = ConclusaoCistosEsquerdo.indexOf(e);
+
+                if (index > -1) {
+                    ConclusaoCistosEsquerdo.splice(index, 1);
+                    setConclusaoCistosEsquerdo((arr) => [...arr]);
                 }
             }
         });

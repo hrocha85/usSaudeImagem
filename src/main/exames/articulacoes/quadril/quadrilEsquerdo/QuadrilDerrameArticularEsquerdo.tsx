@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function QuadrilDerrameArticularEsquerdo(Disable) {
+function QuadrilDerrameArticularEsquerdo({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
   const [QuadrilDerrameArticularEsquerdo, setQuadrilDerrameArticularEsquerdo] = useState<any>([]);
+  const [ConclusaoQuadrilDerrameArticularEsquerdo, setConclusaoQuadrilDerrameArticularEsquerdo] = useState<any>([]);
 
   const subExame = `Derrame articular no Quadril Esquerdo`
   const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function QuadrilDerrameArticularEsquerdo(Disable) {
         titulo_exame,
         subExame,
         true,
-        QuadrilDerrameArticularEsquerdo
+        QuadrilDerrameArticularEsquerdo,
+        ConclusaoQuadrilDerrameArticularEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        QuadrilDerrameArticularEsquerdo
+        QuadrilDerrameArticularEsquerdo,
+        ConclusaoQuadrilDerrameArticularEsquerdo
       ).Format_Laudo_Create_Storage();
     }
   }, [QuadrilDerrameArticularEsquerdo]);
@@ -58,13 +61,18 @@ function QuadrilDerrameArticularEsquerdo(Disable) {
 
   const criaStringPresente = (Presente) => {
     removePresente();
+    var conclusao = 'Derrame articular'
     var string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
       string = `Presença de derrame articular ${Presente}, associado a espessamento sinovial. `;
+      conclusao = `${conclusao} associado a sinovite`
       setQuadrilDerrameArticularEsquerdo((arr) => [...arr, string]);
+      setConclusaoQuadrilDerrameArticularEsquerdo((arr) => [...arr, conclusao]);
     } else if (Presente !== "") {
       string = `Presença de derrame articular ${Presente}.`;
+      conclusao = `${conclusao}.`
       setQuadrilDerrameArticularEsquerdo((arr) => [...arr, string]);
+      setConclusaoQuadrilDerrameArticularEsquerdo((arr) => [...arr, conclusao]);
 
     }
   };
@@ -77,6 +85,16 @@ function QuadrilDerrameArticularEsquerdo(Disable) {
         if (index > -1) {
           QuadrilDerrameArticularEsquerdo.splice(index, 1);
           setQuadrilDerrameArticularEsquerdo((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoQuadrilDerrameArticularEsquerdo.map((e) => {
+      if (e.includes("Derrame articular")) {
+        var index = ConclusaoQuadrilDerrameArticularEsquerdo.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoQuadrilDerrameArticularEsquerdo.splice(index, 1);
+          setConclusaoQuadrilDerrameArticularEsquerdo((arr) => [...arr]);
         }
       }
     });

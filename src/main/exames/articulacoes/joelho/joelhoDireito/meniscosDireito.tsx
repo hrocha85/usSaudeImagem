@@ -10,6 +10,7 @@ function MeniscosDireito({ Disable }) {
   const largura = "100%";
 
   const [MeniscosDireito, setMeniscosDireito] = useState<any>([]);
+  const [ConclusaoMeniscosDireito, setConclusaoMeniscosDireito] = useState<any>([]);
 
   const subExame = `Meniscos joelho Direito`
   const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function MeniscosDireito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        MeniscosDireito
+        MeniscosDireito,
+        ConclusaoMeniscosDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        MeniscosDireito
+        MeniscosDireito,
+        ConclusaoMeniscosDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [MeniscosDireito]);
@@ -68,6 +71,39 @@ function MeniscosDireito({ Disable }) {
   const [LesaoLateralSelect2, setLesaoLateralSelect2] = useState("");
   const [LesaoMedialSelect1, setLesaoMedialSelect1] = useState("");
   const [LesaoMedialSelect2, setLesaoMedialSelect2] = useState("");
+
+  const criaStringConclusaoLesao = () => {
+    var conclusao;
+    removeAlteracaoConclusaoLesao()
+    if ((LesaoMedialSelect1 !== '' && LesaoMedialSelect2 !== '') && (LesaoMedialSelect1 !== '' && LesaoMedialSelect2 !== '')) {
+      conclusao = 'Sinais compatíveis com lesão dos meniscos lateral e medial.'
+      setConclusaoMeniscosDireito((arr) => [...arr, conclusao])
+    } else if ((LesaoMedialSelect1 !== '' && LesaoMedialSelect2 !== '') && (LesaoMedialSelect1 == '' && LesaoMedialSelect2 == '')) {
+      conclusao = 'Sinais compatíveis com lesão do menisco medial.'
+      setConclusaoMeniscosDireito((arr) => [...arr, conclusao])
+    } else if ((LesaoMedialSelect1 == '' && LesaoMedialSelect2 == '') && (LesaoMedialSelect1 !== '' && LesaoMedialSelect2 !== '')) {
+      conclusao = 'Sinais compatíveis com lesão do menisco lateral.'
+      setConclusaoMeniscosDireito((arr) => [...arr, conclusao])
+    } else {
+      removeAlteracaoConclusaoLesao()
+    }
+  }
+  useEffect(() => {
+    criaStringConclusaoLesao()
+  }, [LesaoMedialSelect1, LesaoMedialSelect1])
+
+  const removeAlteracaoConclusaoLesao = () => {
+    ConclusaoMeniscosDireito.map((e) => {
+      if (e.includes("Sinais compatíveis com lesão")) {
+        var index = ConclusaoMeniscosDireito.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoMeniscosDireito.splice(index, 1);
+          setConclusaoMeniscosDireito((arr) => [...arr]);
+        }
+      }
+    });
+  };
 
 
   const criaStringSemAnomalidades = () => {
@@ -152,6 +188,38 @@ function MeniscosDireito({ Disable }) {
     }
   }, [AlteracaoDegenerativaMedial, AlteracaoDegenerativaMedialSelect]);
 
+  const criaStringConclusaoExtrusao = () => {
+    var conclusao;
+    removeAlteracaoConclusaoExtrusao()
+    if (ExtrusaoMedialSelect !== '' && ExtrusaoLateralSelect !== '') {
+      conclusao = 'Extrusão dos meniscos lateral e medial.'
+      setConclusaoMeniscosDireito((arr) => [...arr, conclusao])
+    } else if (ExtrusaoMedialSelect !== '' && ExtrusaoLateralSelect == '') {
+      conclusao = 'Extrusão do menisco medial.'
+      setConclusaoMeniscosDireito((arr) => [...arr, conclusao])
+    } else if (ExtrusaoMedialSelect == '' && ExtrusaoLateralSelect !== '') {
+      conclusao = 'Extrusão do menisco lateral.'
+      setConclusaoMeniscosDireito((arr) => [...arr, conclusao])
+    } else {
+      removeAlteracaoConclusaoExtrusao()
+    }
+  }
+  useEffect(() => {
+    criaStringConclusaoExtrusao()
+  }, [ExtrusaoMedialSelect, ExtrusaoLateralSelect])
+
+  const removeAlteracaoConclusaoExtrusao = () => {
+    ConclusaoMeniscosDireito.map((e) => {
+      if (e.includes("Extrusão")) {
+        var index = ConclusaoMeniscosDireito.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoMeniscosDireito.splice(index, 1);
+          setConclusaoMeniscosDireito((arr) => [...arr]);
+        }
+      }
+    });
+  };
 
   const criaStringExtrusaoMedial = (Select) => {
     var string = 'Deslocamento periférico do menisco medial do'
