@@ -11,6 +11,7 @@ function TendaoPataGansoDireito({ Disable }) {
 
 
   const [TendaoPataGansoDireito, setTendaoPataGansoDireito] = useState<any>([]);
+  const [ConclusaoTendaoPataGansoDireito, setConclusaoTendaoPataGansoDireito] = useState<any>([]);
 
   const subExame = `Tendão "pata de ganso" joelho direito`
   const titulo_exame = 'Articulações'
@@ -21,14 +22,16 @@ function TendaoPataGansoDireito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        TendaoPataGansoDireito
+        TendaoPataGansoDireito,
+        ConclusaoTendaoPataGansoDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        TendaoPataGansoDireito
+        TendaoPataGansoDireito,
+        ConclusaoTendaoPataGansoDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [TendaoPataGansoDireito]);
@@ -57,10 +60,13 @@ function TendaoPataGansoDireito({ Disable }) {
   useEffect(() => {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
+
   const criaStringLTendinopatia = () => {
     var string = 'Espessamento e alteração ecotextural dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso) adjacente à sua inserção distal, compatível com tendinopatia.';
+    const conclusao = 'Tendinopatia da "pata de ganso".'
     if (TendinopatiaCheckbox) {
       setTendaoPataGansoDireito((arr) => [...arr, string]);
+      setConclusaoTendaoPataGansoDireito((arr) => [...arr, conclusao]);
       setdisableLiquidoBolsaSinovial(true)
       setdisableAspectoNormal(true)
 
@@ -68,6 +74,7 @@ function TendaoPataGansoDireito({ Disable }) {
       setdisableAspectoNormal(false)
       setdisableLiquidoBolsaSinovial(false)
       removeItemString(string);
+      removeItemStringConclusao(conclusao)
     }
   };
   useEffect(() => {
@@ -96,6 +103,14 @@ function TendaoPataGansoDireito({ Disable }) {
     if (index > -1) {
       TendaoPataGansoDireito.splice(index, 1);
       setTendaoPataGansoDireito((arr) => [...arr]);
+    }
+  };
+  const removeItemStringConclusao = (value) => {
+    var index = ConclusaoTendaoPataGansoDireito.indexOf(value);
+
+    if (index > -1) {
+      ConclusaoTendaoPataGansoDireito.splice(index, 1);
+      setConclusaoTendaoPataGansoDireito((arr) => [...arr]);
     }
   };
 

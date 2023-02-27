@@ -10,6 +10,7 @@ function MeniscosEsquerdo({ Disable }) {
   const largura = "100%";
 
   const [MeniscosEsquerdo, setMeniscosEsquerdo] = useState<any>([]);
+  const [ConclusaoMeniscosEsquerdo, setConclusaoMeniscosEsquerdo] = useState<any>([]);
 
   const subExame = `Meniscos joelho Esquerdo`
   const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function MeniscosEsquerdo({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        MeniscosEsquerdo
+        MeniscosEsquerdo,
+        ConclusaoMeniscosEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        MeniscosEsquerdo
+        MeniscosEsquerdo,
+        ConclusaoMeniscosEsquerdo
       ).Format_Laudo_Create_Storage();
     }
   }, [MeniscosEsquerdo]);
@@ -45,8 +48,8 @@ function MeniscosEsquerdo({ Disable }) {
   const [disableExtrusaoLateralSelect, setdisableExtrusaoLateralSelect] = useState(true);
   const [disableExtrusaoMedialSelect, setdisableExtrusaoMedialSelect] = useState(true);
 
-  const [disableLesaoLateralSelect, setdisableLesaoLateralSelect] = useState(true);
-  const [disableLesaoMedialSelect, setdisableLesaoMedialSelect] = useState(true);
+  const [disablesetLesaoMedialSelect1, setdisablesetLesaoMedialSelect1] = useState(true);
+  const [disableLesaoMedialSelect1, setdisableLesaoMedialSelect1] = useState(true);
 
   const [disableAtingindoSuperficieArtLateral, setdisableAtingindoSuperficieArtLateral] = useState(true);
   const [disableAtingindoSuperficieArtMedial, setdisableAtingindoSuperficieArtMedial] = useState(true);
@@ -64,10 +67,77 @@ function MeniscosEsquerdo({ Disable }) {
   const [LesaoMedial, setLesaoMedial] = useState(false);
   const [AtingindoSuperficieArtMedial, setAtingindoSuperficieArtMedial] = useState(false);
 
-  const [LesaoLateralSelect1, setLesaoLateralSelect1] = useState("");
-  const [LesaoLateralSelect2, setLesaoLateralSelect2] = useState("");
+  const [setLesaoMedialSelect11, setsetLesaoMedialSelect11] = useState("");
+  const [setLesaoMedialSelect12, setsetLesaoMedialSelect12] = useState("");
   const [LesaoMedialSelect1, setLesaoMedialSelect1] = useState("");
   const [LesaoMedialSelect2, setLesaoMedialSelect2] = useState("");
+
+  const criaStringConclusaoExtrusao = () => {
+    var conclusao;
+    removeAlteracaoConclusaoExtrusao()
+    if (ExtrusaoMedialSelect !== '' && ExtrusaoLateralSelect !== '') {
+      conclusao = 'Extrusão dos meniscos lateral e medial.'
+      setConclusaoMeniscosEsquerdo((arr) => [...arr, conclusao])
+    } else if (ExtrusaoMedialSelect !== '' && ExtrusaoLateralSelect == '') {
+      conclusao = 'Extrusão do menisco medial.'
+      setConclusaoMeniscosEsquerdo((arr) => [...arr, conclusao])
+    } else if (ExtrusaoMedialSelect == '' && ExtrusaoLateralSelect !== '') {
+      conclusao = 'Extrusão do menisco lateral.'
+      setConclusaoMeniscosEsquerdo((arr) => [...arr, conclusao])
+    } else {
+      removeAlteracaoConclusaoExtrusao()
+    }
+  }
+  useEffect(() => {
+    criaStringConclusaoExtrusao()
+  }, [ExtrusaoMedialSelect, ExtrusaoLateralSelect])
+
+  const removeAlteracaoConclusaoExtrusao = () => {
+    ConclusaoMeniscosEsquerdo.map((e) => {
+      if (e.includes("Extrusão")) {
+        var index = ConclusaoMeniscosEsquerdo.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoMeniscosEsquerdo.splice(index, 1);
+          setConclusaoMeniscosEsquerdo((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  const criaStringConclusaoLesao = () => {
+    var conclusao;
+    removeAlteracaoConclusaoLesao()
+    if ((LesaoMedialSelect1 !== '' && LesaoMedialSelect2 !== '') && (LesaoMedialSelect1 !== '' && LesaoMedialSelect2 !== '')) {
+      conclusao = 'Sinais compatíveis com lesão dos meniscos lateral e medial.'
+      setConclusaoMeniscosEsquerdo((arr) => [...arr, conclusao])
+    } else if ((LesaoMedialSelect1 !== '' && LesaoMedialSelect2 !== '') && (LesaoMedialSelect1 == '' && LesaoMedialSelect2 == '')) {
+      conclusao = 'Sinais compatíveis com lesão do menisco medial.'
+      setConclusaoMeniscosEsquerdo((arr) => [...arr, conclusao])
+    } else if ((LesaoMedialSelect1 == '' && LesaoMedialSelect2 == '') && (LesaoMedialSelect1 !== '' && LesaoMedialSelect2 !== '')) {
+      conclusao = 'Sinais compatíveis com lesão do menisco lateral.'
+      setConclusaoMeniscosEsquerdo((arr) => [...arr, conclusao])
+    } else {
+      removeAlteracaoConclusaoLesao()
+    }
+  }
+  useEffect(() => {
+    criaStringConclusaoLesao()
+  }, [LesaoMedialSelect1, LesaoMedialSelect1])
+
+  const removeAlteracaoConclusaoLesao = () => {
+    ConclusaoMeniscosEsquerdo.map((e) => {
+      if (e.includes("Sinais compatíveis com lesão")) {
+        var index = ConclusaoMeniscosEsquerdo.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoMeniscosEsquerdo.splice(index, 1);
+          setConclusaoMeniscosEsquerdo((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
 
 
   const criaStringSemAnomalidades = () => {
@@ -265,18 +335,18 @@ function MeniscosEsquerdo({ Disable }) {
   };
 
   useEffect(() => {
-    criaStringLesaoLateral(LesaoLateralSelect1, LesaoLateralSelect2);
+    criaStringLesaoLateral(setLesaoMedialSelect11, setLesaoMedialSelect12);
     if (LesaoLateral) {
-      setdisableLesaoLateralSelect(false);
+      setdisablesetLesaoMedialSelect1(false);
       setdisableAtingindoSuperficieArtLateral(false)
     } else {
-      setLesaoLateralSelect1('')
-      setLesaoLateralSelect2('')
-      setdisableLesaoLateralSelect(true);
+      setsetLesaoMedialSelect11('')
+      setsetLesaoMedialSelect12('')
+      setdisablesetLesaoMedialSelect1(true);
       setdisableAtingindoSuperficieArtLateral(true)
 
     }
-  }, [LesaoLateral, LesaoLateralSelect1, LesaoLateralSelect2, AtingindoSuperficieArtLateral])
+  }, [LesaoLateral, setLesaoMedialSelect11, setLesaoMedialSelect12, AtingindoSuperficieArtLateral])
 
   const criaStringLesaoMedial = (Select1, Select2) => {
     var string = 'Lesao do menisco Medial'
@@ -312,12 +382,12 @@ function MeniscosEsquerdo({ Disable }) {
   useEffect(() => {
     criaStringLesaoMedial(LesaoMedialSelect1, LesaoMedialSelect2);
     if (LesaoMedial) {
-      setdisableLesaoMedialSelect(false);
+      setdisableLesaoMedialSelect1(false);
       setdisableAtingindoSuperficieArtMedial(false)
     } else {
       setLesaoMedialSelect1('')
       setLesaoMedialSelect2('')
-      setdisableLesaoMedialSelect(true);
+      setdisableLesaoMedialSelect1(true);
       setdisableAtingindoSuperficieArtMedial(true)
     }
   }, [LesaoMedial, LesaoMedialSelect1, LesaoMedialSelect2, AtingindoSuperficieArtMedial])
@@ -525,10 +595,10 @@ function MeniscosEsquerdo({ Disable }) {
             </Checkbox>
             <Select
               w='150px'
-              isDisabled={disableLesaoLateralSelect}
-              value={LesaoLateralSelect1}
+              isDisabled={disablesetLesaoMedialSelect1}
+              value={setLesaoMedialSelect11}
               onChange={(e) => {
-                setLesaoLateralSelect1(e.target.value);
+                setsetLesaoMedialSelect11(e.target.value);
               }}
             >
               <option value='' disabled selected>Select</option>
@@ -539,10 +609,10 @@ function MeniscosEsquerdo({ Disable }) {
             </Select>
             <Select
               w='150px'
-              isDisabled={disableLesaoLateralSelect}
-              value={LesaoLateralSelect2}
+              isDisabled={disablesetLesaoMedialSelect1}
+              value={setLesaoMedialSelect12}
               onChange={(e) => {
-                setLesaoLateralSelect2(e.target.value);
+                setsetLesaoMedialSelect12(e.target.value);
               }}
             >
               <option value='' disabled selected>Select</option>
@@ -568,7 +638,7 @@ function MeniscosEsquerdo({ Disable }) {
             </Checkbox>
             <Select
               w='150px'
-              isDisabled={disableLesaoMedialSelect}
+              isDisabled={disableLesaoMedialSelect1}
               value={LesaoMedialSelect1}
               onChange={(e) => {
                 setLesaoMedialSelect1(e.target.value);
@@ -582,7 +652,7 @@ function MeniscosEsquerdo({ Disable }) {
             </Select>
             <Select
               w='150px'
-              isDisabled={disableLesaoMedialSelect}
+              isDisabled={disableLesaoMedialSelect1}
               value={LesaoMedialSelect2}
               onChange={(e) => {
                 setLesaoMedialSelect2(e.target.value);

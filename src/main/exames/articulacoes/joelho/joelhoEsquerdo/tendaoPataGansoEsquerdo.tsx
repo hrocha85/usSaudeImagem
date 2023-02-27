@@ -11,6 +11,7 @@ function TendaoPataGansoEsquerdo({ Disable }) {
 
 
   const [TendaoPataGansoEsquerdo, setTendaoPataGansoEsquerdo] = useState<any>([]);
+  const [ConclusaoTendaoPataGansoEsquerdo, setConclusaoTendaoPataGansoEsquerdo] = useState<any>([]);
 
   const subExame = `Tendão "pata de ganso" joelho esquerdo`
   const titulo_exame = 'Articulações'
@@ -21,14 +22,16 @@ function TendaoPataGansoEsquerdo({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        TendaoPataGansoEsquerdo
+        TendaoPataGansoEsquerdo,
+        ConclusaoTendaoPataGansoEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        TendaoPataGansoEsquerdo
+        TendaoPataGansoEsquerdo,
+        ConclusaoTendaoPataGansoEsquerdo
       ).Format_Laudo_Create_Storage();
     }
   }, [TendaoPataGansoEsquerdo]);
@@ -60,15 +63,17 @@ function TendaoPataGansoEsquerdo({ Disable }) {
   }, [AspectoNormalCheckbox])
   const criaStringLTendinopatia = () => {
     var string = 'Espessamento e alteração ecotextural dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso) adjacente à sua inserção distal, compatível com tendinopatia.';
+    const conclusao = 'Tendinopatia da "pata de ganso".'
     if (TendinopatiaCheckbox) {
       setTendaoPataGansoEsquerdo((arr) => [...arr, string]);
+      setConclusaoTendaoPataGansoEsquerdo((arr) => [...arr, conclusao]);
       setdisableLiquidoBolsaSinovial(true)
       setdisableAspectoNormal(true)
-
     } else {
       setdisableAspectoNormal(false)
       setdisableLiquidoBolsaSinovial(false)
       removeItemString(string);
+      removeItemStringConclusao(conclusao);
     }
   };
   useEffect(() => {
@@ -97,6 +102,14 @@ function TendaoPataGansoEsquerdo({ Disable }) {
     if (index > -1) {
       TendaoPataGansoEsquerdo.splice(index, 1);
       setTendaoPataGansoEsquerdo((arr) => [...arr]);
+    }
+  };
+  const removeItemStringConclusao = (value) => {
+    var index = ConclusaoTendaoPataGansoEsquerdo.indexOf(value);
+
+    if (index > -1) {
+      ConclusaoTendaoPataGansoEsquerdo.splice(index, 1);
+      setConclusaoTendaoPataGansoEsquerdo((arr) => [...arr]);
     }
   };
 

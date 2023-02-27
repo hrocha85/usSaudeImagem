@@ -10,6 +10,7 @@ function LigColTibialMedialEsquerdo({ Disable }) {
   const largura = "100%";
 
   const [LigamentoTibialMedial, setLigamentoTibialMedial] = useState<any>([]);
+  const [ConclusaoLigamentoTibialMedial, setConclusaoLigamentoTibialMedial] = useState<any>([]);
 
   const subExame = `Ligamento colateral tibial/medial joelho esquerdo`
   const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function LigColTibialMedialEsquerdo({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        LigamentoTibialMedial
+        LigamentoTibialMedial,
+        ConclusaoLigamentoTibialMedial
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        LigamentoTibialMedial
+        LigamentoTibialMedial,
+        ConclusaoLigamentoTibialMedial
       ).Format_Laudo_Create_Storage();
     }
   }, [LigamentoTibialMedial]);
@@ -74,8 +77,10 @@ function LigColTibialMedialEsquerdo({ Disable }) {
   }, [LesaoAfilamentoCheckbox])
 
   const criaStringLesaoEspessamento = () => {
+    const conclusao = 'Sinais de lesão parcial/estiramento do ligamento colateral tibial.'
     var string = "Ligamento colateral espessado e com alteração ecotextural, com aspecto compatível com lesão parcial/estiramento.";
     if (LesaoEspessamentoCheckbox) {
+      setConclusaoLigamentoTibialMedial((arr) => [...arr, conclusao]);
       setLigamentoTibialMedial((arr) => [...arr, string]);
       setdisableLesaoAfilamento(true)
       setdisableAspectoNormal(true)
@@ -83,6 +88,7 @@ function LigColTibialMedialEsquerdo({ Disable }) {
       setdisableAspectoNormal(false)
       setdisableLesaoAfilamento(false)
       removeItemString(string);
+      removeItemStringConclusao(conclusao)
     }
   };
 
@@ -96,6 +102,14 @@ function LigColTibialMedialEsquerdo({ Disable }) {
     if (index > -1) {
       LigamentoTibialMedial.splice(index, 1);
       setLigamentoTibialMedial((arr) => [...arr]);
+    }
+  };
+  const removeItemStringConclusao = (value) => {
+    var index = ConclusaoLigamentoTibialMedial.indexOf(value);
+
+    if (index > -1) {
+      ConclusaoLigamentoTibialMedial.splice(index, 1);
+      setConclusaoLigamentoTibialMedial((arr) => [...arr]);
     }
   };
 

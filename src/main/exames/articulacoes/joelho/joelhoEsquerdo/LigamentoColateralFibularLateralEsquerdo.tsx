@@ -10,6 +10,7 @@ function LigColFibularLateralEsquerdo({ Disable }) {
   const largura = "100%";
 
   const [LigamentoFibularLateral, setLigamentoFibularLateral] = useState<any>([]);
+  const [ConclusaoLigamentoFibularLateral, setConclusaoLigamentoFibularLateral] = useState<any>([]);
 
   const subExame = `Ligamento colateral fibular/lateral joelho esquerdo`
   const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function LigColFibularLateralEsquerdo({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        LigamentoFibularLateral
+        LigamentoFibularLateral,
+        ConclusaoLigamentoFibularLateral
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        LigamentoFibularLateral
+        LigamentoFibularLateral,
+        ConclusaoLigamentoFibularLateral
       ).Format_Laudo_Create_Storage();
     }
   }, [LigamentoFibularLateral]);
@@ -74,15 +77,18 @@ function LigColFibularLateralEsquerdo({ Disable }) {
   }, [LesaoAfilamentoCheckbox])
 
   const criaStringLesaoEspessamento = () => {
+    const conclusao = 'Sinais de lesão parcial/estiramento do ligamento colateral fibular.'
     var string = "Ligamento colateral fibular espessado e com alteração ecotextural, com aspecto compatível com lesão parcial/estiramento.";
     if (LesaoEspessamentoCheckbox) {
       setLigamentoFibularLateral((arr) => [...arr, string]);
+      setConclusaoLigamentoFibularLateral((arr) => [...arr, conclusao]);
       setdisableLesaoAfilamento(true)
       setdisableAspectoNormal(true)
     } else {
       setdisableAspectoNormal(false)
       setdisableLesaoAfilamento(false)
       removeItemString(string);
+      removeItemStringConclusao(conclusao)
     }
   };
 
@@ -96,6 +102,15 @@ function LigColFibularLateralEsquerdo({ Disable }) {
     if (index > -1) {
       LigamentoFibularLateral.splice(index, 1);
       setLigamentoFibularLateral((arr) => [...arr]);
+    }
+  };
+
+  const removeItemStringConclusao = (value) => {
+    var index = ConclusaoLigamentoFibularLateral.indexOf(value);
+
+    if (index > -1) {
+      ConclusaoLigamentoFibularLateral.splice(index, 1);
+      setConclusaoLigamentoFibularLateral((arr) => [...arr]);
     }
   };
 

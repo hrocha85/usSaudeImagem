@@ -11,6 +11,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
   const largura = "90%";
 
   const [TendaoPatelarEsquerdo, setTendaoPatelarEsquerdo] = useState<any>([]);
+  const [ConclusaoTendaoPatelarEsquerdo, setConclusaoTendaoPatelarEsquerdo] = useState<any>([]);
 
   const subExame = `Tendão patelar joelho esquerdo`
   const titulo_exame = 'Articulações'
@@ -21,14 +22,16 @@ function TendaoPatelarEsquerdo({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        TendaoPatelarEsquerdo
+        TendaoPatelarEsquerdo,
+        ConclusaoTendaoPatelarEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        TendaoPatelarEsquerdo
+        TendaoPatelarEsquerdo,
+        ConclusaoTendaoPatelarEsquerdo
       ).Format_Laudo_Create_Storage();
     }
   }, [TendaoPatelarEsquerdo]);
@@ -76,6 +79,35 @@ function TendaoPatelarEsquerdo({ Disable }) {
     });
   };
 
+  const criaStringConclusao = () => {
+    removeItemStringConclusao()
+    var conclusao = 'Tendinopatia do bíceps femoral'
+    if (TendinopatiaSemRoturaCheckbox && (LesaoParcialInput !== '' && LesaoParcialInput2 !== '' && LesaoParcialInput3 !== '')) {
+      conclusao = `${conclusao} com lesão parcial.`
+    } else if (TendinopatiaSemRoturaCheckbox) {
+      conclusao = `${conclusao}.`
+    }
+    setConclusaoTendaoPatelarEsquerdo(conclusao)
+  }
+
+  useEffect(() => {
+    criaStringConclusao()
+  }, [TendinopatiaSemRoturaCheckbox, LesaoParcialInput, LesaoParcialInput2, LesaoParcialInput3])
+
+  const removeItemStringConclusao = () => {
+    ConclusaoTendaoPatelarEsquerdo.map((e) => {
+      if (e.includes("Tendinopatia do bíceps femoral")) {
+        var index = ConclusaoTendaoPatelarEsquerdo.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoTendaoPatelarEsquerdo.splice(index, 1);
+          setConclusaoTendaoPatelarEsquerdo((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+
   const criaStringAspectoNormal = () => {
     var string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox ? setTendaoPatelarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
@@ -96,8 +128,11 @@ function TendaoPatelarEsquerdo({ Disable }) {
 
   const criaStringTendinopatiaSemRotura = () => {
     var string = "espessado, com alteração ecotextural, sem evidências de rotura.";
-    TendinopatiaSemRoturaCheckbox ? setTendaoPatelarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
-
+    if (TendinopatiaSemRoturaCheckbox) {
+      setTendaoPatelarEsquerdo((arr) => [...arr, string])
+    } else {
+      removeItemString(string);
+    }
   };
   useEffect(() => {
     criaStringTendinopatiaSemRotura()

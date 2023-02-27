@@ -10,6 +10,7 @@ function JoelhoDerrameArticularDireito({ Disable }) {
   const largura = "100%";
 
   const [JoelhoDerrameArticularDireito, setJoelhoDerrameArticularDireito] = useState<any>([]);
+  const [ConclusaoJoelhoDerrameArticularDireito, setConclusaoJoelhoDerrameArticularDireito] = useState<any>([]);
 
   const subExame = `Derrame articular no joelho direito`
   const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function JoelhoDerrameArticularDireito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        JoelhoDerrameArticularDireito
+        JoelhoDerrameArticularDireito,
+        ConclusaoJoelhoDerrameArticularDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        JoelhoDerrameArticularDireito
+        JoelhoDerrameArticularDireito,
+        ConclusaoJoelhoDerrameArticularDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [JoelhoDerrameArticularDireito]);
@@ -59,13 +62,18 @@ function JoelhoDerrameArticularDireito({ Disable }) {
 
   const criaStringPresente = (Presente) => {
     removePresente();
+    var conclusao = 'Derrame articular'
     var string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
       string = `Preseça de ${Presente} derrame articular, associado a espessamento sinovial. `;
+      conclusao = `${conclusao} associado a sinovite.`
       setJoelhoDerrameArticularDireito((arr) => [...arr, string]);
+      setConclusaoJoelhoDerrameArticularDireito((arr) => [...arr, conclusao]);
     } else if (Presente !== "") {
       string = `Preseça de ${Presente} derrame articular.`;
+      conclusao = `${conclusao}.`
       setJoelhoDerrameArticularDireito((arr) => [...arr, string]);
+      setConclusaoJoelhoDerrameArticularDireito((arr) => [...arr, conclusao]);
 
     }
   };
@@ -78,6 +86,16 @@ function JoelhoDerrameArticularDireito({ Disable }) {
         if (index > -1) {
           JoelhoDerrameArticularDireito.splice(index, 1);
           setJoelhoDerrameArticularDireito((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoJoelhoDerrameArticularDireito.map((e) => {
+      if (e.includes("Derrame articular")) {
+        var index = ConclusaoJoelhoDerrameArticularDireito.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoJoelhoDerrameArticularDireito.splice(index, 1);
+          setConclusaoJoelhoDerrameArticularDireito((arr) => [...arr]);
         }
       }
     });

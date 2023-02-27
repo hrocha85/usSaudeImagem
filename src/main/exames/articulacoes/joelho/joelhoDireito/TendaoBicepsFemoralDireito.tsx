@@ -10,6 +10,7 @@ function TendaoBicepsFemoralDireito({ Disable }) {
     const largura = "90%";
 
     const [TendaoBicepsFemoralDireito, setTendaoBicepsFemoralDireito] = useState<any>([]);
+    const [ConclusaoTendaoBicepsFemoralDireito, setConclusaoTendaoBicepsFemoralDireito] = useState<any>([]);
 
     const subExame = `Tendão bíceps femoral joelho direito`
     const titulo_exame = 'Articulações'
@@ -20,14 +21,16 @@ function TendaoBicepsFemoralDireito({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                TendaoBicepsFemoralDireito
+                TendaoBicepsFemoralDireito,
+                ConclusaoTendaoBicepsFemoralDireito
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                TendaoBicepsFemoralDireito
+                TendaoBicepsFemoralDireito,
+                ConclusaoTendaoBicepsFemoralDireito
             ).Format_Laudo_Create_Storage();
         }
     }, [TendaoBicepsFemoralDireito]);
@@ -79,9 +82,43 @@ function TendaoBicepsFemoralDireito({ Disable }) {
         criaStringAspectoNormal()
     }, [AspectoNormalCheckbox])
 
+
+    const criaStringConclusao = () => {
+        removeItemStringConclusao()
+        var conclusao = 'Tendinopatia do bíceps femoral'
+        if (TendinopatiaSemRoturaCheckbox && (LesaoParcialInput !== '' && LesaoParcialInput2 !== '' && LesaoParcialInput3 !== '')) {
+            conclusao = `${conclusao} com lesão parcial.`
+        } else if (TendinopatiaSemRoturaCheckbox) {
+            conclusao = `${conclusao}.`
+        }
+        setConclusaoTendaoBicepsFemoralDireito(conclusao)
+    }
+
+    useEffect(() => {
+        criaStringConclusao()
+    }, [TendinopatiaSemRoturaCheckbox, LesaoParcialInput, LesaoParcialInput2, LesaoParcialInput3])
+
+    const removeItemStringConclusao = () => {
+        ConclusaoTendaoBicepsFemoralDireito.map((e) => {
+            if (e.includes("Tendinopatia do bíceps femoral")) {
+                var index = ConclusaoTendaoBicepsFemoralDireito.indexOf(e);
+
+                if (index > -1) {
+                    ConclusaoTendaoBicepsFemoralDireito.splice(index, 1);
+                    setConclusaoTendaoBicepsFemoralDireito((arr) => [...arr]);
+                }
+            }
+        });
+    };
+
+
     const criaStringTendinopatiaSemRotura = () => {
         var string = "Tendão do bíceps femoral espessado, com alteração ecotextural, sem evidências de rotura.";
-        TendinopatiaSemRoturaCheckbox ? setTendaoBicepsFemoralDireito((arr) => [...arr, string]) : removeItemString(string);
+        if (TendinopatiaSemRoturaCheckbox) {
+            setTendaoBicepsFemoralDireito((arr) => [...arr, string])
+        } else {
+            removeItemString(string);
+        }
     };
     useEffect(() => {
         criaStringTendinopatiaSemRotura()
@@ -95,6 +132,7 @@ function TendaoBicepsFemoralDireito({ Disable }) {
             setTendaoBicepsFemoralDireito((arr) => [...arr]);
         }
     };
+
 
     useEffect(() => {
         if (AspectoNormalCheckbox) {
