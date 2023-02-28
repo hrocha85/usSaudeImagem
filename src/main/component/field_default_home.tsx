@@ -17,6 +17,7 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
       titulo_exame: text,
       subExames: [{ subExameNome: "", frases: [] }],
       conclusoes: [""],
+      observacoes: [""],
     };
     format_laudo.push(obj);
     format_laudo.map((e) => {
