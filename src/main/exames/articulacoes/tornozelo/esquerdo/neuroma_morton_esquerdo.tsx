@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import {
   Box,
   Flex,
@@ -16,6 +17,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 export default function Neuroma_Morton_Esquerdo({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
+  const [ConclusoesFrasesTornozelo, setConclusoesFrasesTornozelo] = useState<any>([]);
 
   const [enableMortonSelect, setEnableMortonSelect] = useState<boolean>(false);
   const [MortonInput, setMortonInput] = useState<boolean>(true);
@@ -32,6 +34,7 @@ export default function Neuroma_Morton_Esquerdo({ Disable }) {
     switch (value) {
       case "1":
         {
+          setConclusoesFrasesTornozelo([]);
           setFrasesTornozelo([]);
           setEnableMortonSelect(false);
           setMedida1Morton("");
@@ -42,6 +45,7 @@ export default function Neuroma_Morton_Esquerdo({ Disable }) {
         break;
       case "Ausente":
         {
+          setConclusoesFrasesTornozelo([]);
           setFrasesTornozelo([]);
           setMedida1Morton("");
           setMedida2Morton("");
@@ -67,6 +71,7 @@ export default function Neuroma_Morton_Esquerdo({ Disable }) {
             medida3Morton != "" &&
             valueSelect1 != ""
           ) {
+            setConclusoesFrasesTornozelo(['Imagem compatível com neuroma de Morton.'])
             setFrasesTornozelo((arr) => [
               ...arr,
               `Presença de nódulo hipoecogênico de contornos regulares medindo ${new Convert_Medida(
@@ -89,14 +94,16 @@ export default function Neuroma_Morton_Esquerdo({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesFrasesTornozelo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesFrasesTornozelo
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesTornozelo]);

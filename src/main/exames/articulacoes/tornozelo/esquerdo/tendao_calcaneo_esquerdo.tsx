@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import {
   Box,
   Checkbox,
@@ -17,6 +18,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
+  const [ConclusoesFrasesTornozelo, setConclusoesFrasesTornozelo] = useState<any>([]);
 
   const [valueSelect1, setValueSelect1] = useState("");
 
@@ -64,10 +66,34 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
     });
   };
 
+  const removeConclusoes = () => {
+    ConclusoesFrasesTornozelo.map((e) => {
+      if (e.includes("Sinais de tendinopatia do calcâneo")) {
+        var index = ConclusoesFrasesTornozelo.indexOf(e);
+
+        if (index > -1) {
+          ConclusoesFrasesTornozelo.splice(index, 1);
+          setConclusoesFrasesTornozelo((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusoesFrasesTornozelo.map((e) => {
+      if (e.includes("Entesófito na inserção do tendão calcâneo")) {
+        var index = ConclusoesFrasesTornozelo.indexOf(e);
+
+        if (index > -1) {
+          ConclusoesFrasesTornozelo.splice(index, 1);
+          setConclusoesFrasesTornozelo((arr) => [...arr]);
+        }
+      }
+    });
+  }
+
   useEffect(() => {
     switch (value) {
       case "1":
         {
+          removeConclusoes()
           setFrasesTornozelo([]);
           setEnableSelects(false);
           setdisableCheckBox(false);
@@ -83,6 +109,7 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
         break;
       case "Aspecto Normal":
         {
+          removeConclusoes()
           setFrasesTornozelo([]);
           setdisableCheckBox(true);
           setdisableInputs(true);
@@ -108,6 +135,8 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
         break;
       case "Tendinopatia sem rotura":
         {
+          const conclusao = 'Sinais de tendinopatia do calcâneo esquerdo.'
+          removeConclusoes()
           setFrasesTornozelo([]);
           setEnableSelects(true);
           setdisableInputs(true);
@@ -120,6 +149,7 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
           setEntesofitoCheckBox(true);
 
           if (valueSelect1 != "") {
+            setConclusoesFrasesTornozelo((arr) => [...arr, conclusao])
             setFrasesTornozelo((arr) => [
               ...arr,
               `Espessado, com alteração ecotextural, mas sem evidências de rotura, ${valueSelect1}`,
@@ -129,6 +159,8 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
         break;
       case "Lesão parcial medindo":
         {
+          const conclusao = 'Sinais de tendinopatia do calcâneo com lesão parcial esquerdo.'
+          removeConclusoes()
           setFrasesTornozelo([]);
           setdisableInputs(false);
           setMedidaInsercao("");
@@ -137,6 +169,7 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
           setEntesofitoCheckBox(true);
 
           if (medida1Lesao != "" && medida2Lesao != "" && medida3Lesao != "") {
+            setConclusoesFrasesTornozelo((arr) => [...arr, conclusao])
             setFrasesTornozelo((arr) => [
               ...arr,
               `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(
@@ -151,6 +184,9 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
         }
         break;
       case "Lesão completa": {
+        const conclusao = 'Sinais de rotura completa do tendão calcâneo esquerdo.'
+        const entesofito = 'Entesófito na inserção do tendão calcâneo esquerdo.'
+        removeConclusoes()
         setFrasesTornozelo([]);
         setdisableInputs(false);
 
@@ -160,6 +196,8 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
           medidaIntervalo != "" &&
           medidaEntesofito != ""
         ) {
+          setConclusoesFrasesTornozelo((arr) => [...arr, conclusao])
+          setConclusoesFrasesTornozelo((arr) => [...arr, entesofito])
           setFrasesTornozelo((arr) => [
             ...arr,
             `Lesão completa a ${new Convert_Medida(
@@ -170,7 +208,8 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
               medidaEntesofito
             ).Convert_Medida()} cm`,
           ]);
-        } else {
+        } else if (medidaInsercao != "" && medidaIntervalo != "") {
+          setConclusoesFrasesTornozelo((arr) => [...arr, conclusao])
           setFrasesTornozelo((arr) => [
             ...arr,
             `Lesão completa a ${new Convert_Medida(
@@ -201,14 +240,16 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesFrasesTornozelo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesFrasesTornozelo
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesTornozelo]);

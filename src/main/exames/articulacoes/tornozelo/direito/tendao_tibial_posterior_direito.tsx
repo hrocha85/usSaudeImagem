@@ -1,3 +1,6 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-lone-blocks */
 import {
   Box,
   Checkbox,
@@ -17,6 +20,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
+  const [ConclusoesTornozelo, setConclusoesTornozelo] = useState<any>([]);
 
   const [valueSelect1, setValueSelect1] = useState("");
   const [valueSelectOsso, setValueSelectOsso] = useState("");
@@ -60,10 +64,35 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
     });
   };
 
+
+  const removeConclusao = () => {
+    ConclusoesTornozelo.map((e) => {
+      if (e.includes("Sinais de tendinopatia do tibial posterior direito")) {
+        var index = ConclusoesTornozelo.indexOf(e);
+
+        if (index > -1) {
+          ConclusoesTornozelo.splice(index, 1);
+          setConclusoesTornozelo((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusoesTornozelo.map((e) => {
+      if (e.includes("Osso navicular acessório")) {
+        var index = ConclusoesTornozelo.indexOf(e);
+
+        if (index > -1) {
+          ConclusoesTornozelo.splice(index, 1);
+          setConclusoesTornozelo((arr) => [...arr]);
+        }
+      }
+    });
+  }
+
   useEffect(() => {
     switch (value) {
       case "1":
         {
+          removeConclusao()
           setFrasesTornozelo([]);
           setEnableSelects(false);
           setdisableCheckBox(false);
@@ -77,6 +106,7 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
         break;
       case "Aspecto Normal":
         {
+          removeConclusao()
           setFrasesTornozelo([]);
           setdisableCheckBox(true);
           setdisableCheckBoxOsso(true);
@@ -101,6 +131,8 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
         break;
       case "Tendinopatia sem rotura":
         {
+          removeConclusao()
+          const conclusao = 'Sinais de tendinopatia do tibial posterior direito.'
           setFrasesTornozelo([]);
           setdisableCheckBoxOsso(true);
           setEnableSelects(true);
@@ -110,6 +142,7 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
           setMedida3Lesao("");
           setValueSelectOsso("");
           if (valueSelect1 != "") {
+            setConclusoesTornozelo((arr) => [...arr, conclusao])
             setFrasesTornozelo((arr) => [
               ...arr,
               `Espessado, com alteração ecotextural, mas sem evidências de rotura, ${valueSelect1}`,
@@ -118,6 +151,9 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
         }
         break;
       case "Lesão parcial medindo": {
+        removeConclusao()
+        var conclusao = 'Sinais de tendinopatia do tibial posterior direito com lesão parcial.'
+        var conclusaoOssoNavicular = 'Osso navicular acessório'
         setdisableCheckBoxOsso(false);
         setFrasesTornozelo([]);
         setdisableInputs(false);
@@ -125,8 +161,11 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
           medida1Lesao != "" &&
           medida2Lesao != "" &&
           medida3Lesao != "" &&
-          valueCheckBoxOsso
+          valueSelectOsso != ""
         ) {
+          conclusaoOssoNavicular = `${conclusaoOssoNavicular} ${valueSelectOsso}`;
+          setConclusoesTornozelo((arr) => [...arr, conclusao])
+          setConclusoesTornozelo((arr) => [...arr, conclusaoOssoNavicular])
           setFrasesTornozelo((arr) => [
             ...arr,
             `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(
@@ -137,7 +176,10 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
               medida3Lesao
             ).Convert_Medida()} cm. Com presença de osso navicular acessório de ${valueSelectOsso}`,
           ]);
-        } else {
+        } else if (medida1Lesao != "" &&
+          medida2Lesao != "" &&
+          medida3Lesao != "") {
+          setConclusoesTornozelo((arr) => [...arr, conclusao])
           setFrasesTornozelo((arr) => [
             ...arr,
             `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(
@@ -168,14 +210,16 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesTornozelo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesTornozelo
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesTornozelo]);

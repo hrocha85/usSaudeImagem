@@ -1,3 +1,6 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-lone-blocks */
 import {
   Box,
   Checkbox,
@@ -61,10 +64,24 @@ export default function Tendao_Tibial_Posterior_Esquerdo({ Disable }) {
     });
   };
 
+  const removeConclusao = () => {
+    ConclusoesTornozelo.map((e) => {
+      if (e.includes("Sinais de tendinopatia do tibial posterior esquerdo")) {
+        var index = ConclusoesTornozelo.indexOf(e);
+
+        if (index > -1) {
+          ConclusoesTornozelo.splice(index, 1);
+          setConclusoesTornozelo((arr) => [...arr]);
+        }
+      }
+    });
+  }
+
   useEffect(() => {
     switch (value) {
       case "1":
         {
+          removeConclusao()
           setFrasesTornozelo([]);
           setEnableSelects(false);
           setdisableCheckBox(false);
@@ -78,6 +95,7 @@ export default function Tendao_Tibial_Posterior_Esquerdo({ Disable }) {
         break;
       case "Aspecto Normal":
         {
+          removeConclusao()
           setFrasesTornozelo([]);
           setdisableCheckBox(true);
           setdisableCheckBoxOsso(true);
@@ -102,6 +120,8 @@ export default function Tendao_Tibial_Posterior_Esquerdo({ Disable }) {
         break;
       case "Tendinopatia sem rotura":
         {
+          removeConclusao()
+          const conclusao = 'Sinais de tendinopatia do tibial posterior esquerdo.'
           setFrasesTornozelo([]);
           setdisableCheckBoxOsso(true);
           setEnableSelects(true);
@@ -111,6 +131,7 @@ export default function Tendao_Tibial_Posterior_Esquerdo({ Disable }) {
           setMedida3Lesao("");
           setValueSelectOsso("");
           if (valueSelect1 != "") {
+            setConclusoesTornozelo((arr) => [...arr, conclusao])
             setFrasesTornozelo((arr) => [
               ...arr,
               `Espessado, com alteração ecotextural, mas sem evidências de rotura, ${valueSelect1}`,
@@ -119,6 +140,8 @@ export default function Tendao_Tibial_Posterior_Esquerdo({ Disable }) {
         }
         break;
       case "Lesão parcial medindo": {
+        removeConclusao()
+        const conclusao = 'Sinais de tendinopatia do tibial posterior esquerdo com lesão parcial.'
         setdisableCheckBoxOsso(false);
         setFrasesTornozelo([]);
         setdisableInputs(false);
@@ -128,6 +151,7 @@ export default function Tendao_Tibial_Posterior_Esquerdo({ Disable }) {
           medida3Lesao != "" &&
           valueCheckBoxOsso
         ) {
+          setConclusoesTornozelo((arr) => [...arr, conclusao])
           setFrasesTornozelo((arr) => [
             ...arr,
             `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(
@@ -139,6 +163,7 @@ export default function Tendao_Tibial_Posterior_Esquerdo({ Disable }) {
             ).Convert_Medida()} cm. Com presença de osso navicular acessório de ${valueSelectOsso}`,
           ]);
         } else {
+          setConclusoesTornozelo((arr) => [...arr, conclusao])
           setFrasesTornozelo((arr) => [
             ...arr,
             `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(

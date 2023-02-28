@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-lone-blocks */
 import {
   Box,
   Checkbox,
@@ -17,6 +19,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 export default function Tendao_Fibular_Longo_Direito({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
+  const [ConclusoesFrasesTornozelo, setConclusoesFrasesTornozelo] = useState<any>([]);
 
   const [valueSelect1, setValueSelect1] = useState("");
 
@@ -57,10 +60,24 @@ export default function Tendao_Fibular_Longo_Direito({ Disable }) {
     });
   };
 
+  const removeConclusao = () => {
+    ConclusoesFrasesTornozelo.map((e) => {
+      if (e.includes("Sinais de tendinopatia do fibular longo")) {
+        var index = ConclusoesFrasesTornozelo.indexOf(e);
+
+        if (index > -1) {
+          ConclusoesFrasesTornozelo.splice(index, 1);
+          setConclusoesFrasesTornozelo((arr) => [...arr]);
+        }
+      }
+    });
+  }
+
   useEffect(() => {
     switch (value) {
       case "1":
         {
+          removeConclusao()
           setFrasesTornozelo([]);
           setEnableSelects(false);
           setdisableCheckBox(false);
@@ -72,6 +89,7 @@ export default function Tendao_Fibular_Longo_Direito({ Disable }) {
         break;
       case "Aspecto Normal":
         {
+          removeConclusao()
           setFrasesTornozelo([]);
           setdisableCheckBox(true);
           setdisableInputs(true);
@@ -93,6 +111,8 @@ export default function Tendao_Fibular_Longo_Direito({ Disable }) {
         break;
       case "Tendinopatia sem rotura":
         {
+          const conclusao = 'Sinais de tendinopatia do fibular longo direito.'
+          removeConclusao()
           setFrasesTornozelo([]);
           setEnableSelects(true);
           setdisableInputs(true);
@@ -100,6 +120,7 @@ export default function Tendao_Fibular_Longo_Direito({ Disable }) {
           setMedida2Lesao("");
           setMedida3Lesao("");
           if (valueSelect1 != "") {
+            setConclusoesFrasesTornozelo((arr) => [...arr, conclusao])
             setFrasesTornozelo((arr) => [
               ...arr,
               `Espessado, com alteração ecotextural, mas sem evidências de rotura, ${valueSelect1}`,
@@ -108,9 +129,12 @@ export default function Tendao_Fibular_Longo_Direito({ Disable }) {
         }
         break;
       case "Lesão parcial medindo": {
+        const conclusao = 'Sinais de tendinopatia do fibular longo com lesão parcial direito.'
+        removeConclusao()
         setFrasesTornozelo([]);
         setdisableInputs(false);
         if (medida1Lesao != "" && medida2Lesao != "" && medida3Lesao != "") {
+          setConclusoesFrasesTornozelo((arr) => [...arr, conclusao])
           setFrasesTornozelo((arr) => [
             ...arr,
             `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(
@@ -139,14 +163,16 @@ export default function Tendao_Fibular_Longo_Direito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesFrasesTornozelo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesFrasesTornozelo
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesTornozelo]);
