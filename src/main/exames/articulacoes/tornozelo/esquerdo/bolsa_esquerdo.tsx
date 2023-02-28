@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import { Box, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -5,6 +6,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 export default function Bolsa_Esquerdo({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
+  const [ConclusoesFrasesTornozelo, setConclusoesFrasesTornozelo] = useState<any>([]);
 
   const subExame = "Bolsa Esquerdo";
   const titulo_exame = "Articulações";
@@ -14,12 +16,13 @@ export default function Bolsa_Esquerdo({ Disable }) {
       case "1":
         {
           setFrasesTornozelo([]);
+          setConclusoesFrasesTornozelo([])
         }
         break;
       case "Ausente":
         {
           setFrasesTornozelo([]);
-
+          setConclusoesFrasesTornozelo([])
           setFrasesTornozelo((arr) => [
             ...arr,
             `Ausência de coleção líquida na bolsa retrocalcaniana.`,
@@ -29,7 +32,8 @@ export default function Bolsa_Esquerdo({ Disable }) {
       case "Presente":
         {
           setFrasesTornozelo([]);
-
+          setConclusoesFrasesTornozelo([])
+          setConclusoesFrasesTornozelo((arr) => [...arr, 'Bursite retrocalcaniana lado esquerdo.'])
           setFrasesTornozelo((arr) => [
             ...arr,
             `Presença de coleção líquida na bolsa retrocalcaniana.`,
@@ -45,14 +49,16 @@ export default function Bolsa_Esquerdo({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesFrasesTornozelo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesFrasesTornozelo
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesTornozelo]);

@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import {
   Box,
   Flex,
@@ -16,6 +17,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 export default function Fascia_Plantar_Direito({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTornozelo, setFrasesTornozelo] = useState<any>([]);
+  const [ConclusoesFrasesTornozelo, setConclusoesFrasesTornozelo] = useState<any>([]);
 
   const [enableFibromatoseSelect, setEnableFibromatoseSelect] =
     useState<boolean>(false);
@@ -36,6 +38,7 @@ export default function Fascia_Plantar_Direito({ Disable }) {
     switch (value) {
       case "1":
         {
+          setConclusoesFrasesTornozelo([]);
           setFrasesTornozelo([]);
           setEnableFibromatoseSelect(false);
           setMedida1Fibro("");
@@ -48,6 +51,7 @@ export default function Fascia_Plantar_Direito({ Disable }) {
         break;
       case "Normal":
         {
+          setConclusoesFrasesTornozelo([]);
           setFrasesTornozelo([]);
           setMedida1Fibro("");
           setMedida2Fibro("");
@@ -64,6 +68,7 @@ export default function Fascia_Plantar_Direito({ Disable }) {
         break;
       case "Fascilite":
         {
+          setConclusoesFrasesTornozelo(['Sinais de fascilíte plantar direito'])
           setFrasesTornozelo([]);
           setEnableFibromatoseSelect(false);
           setFasciliteInput(false);
@@ -84,6 +89,7 @@ export default function Fascia_Plantar_Direito({ Disable }) {
         break;
       case "Fibromatose":
         {
+          setConclusoesFrasesTornozelo(['Nódulo na fáscia plantar direito.'])
           setFrasesTornozelo([]);
           setEnableFibromatoseSelect(true);
           setFasciliteInput(true);
@@ -124,14 +130,16 @@ export default function Fascia_Plantar_Direito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesFrasesTornozelo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesTornozelo
+        frasesTornozelo,
+        ConclusoesFrasesTornozelo
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesTornozelo]);
