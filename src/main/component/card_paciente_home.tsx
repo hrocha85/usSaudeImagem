@@ -149,13 +149,16 @@ const CardListaMedicos = ({ altura }) => {
                     padding="20px"
                     onClick={() => {
                       addPaciente();
-                      toast({
-                        duration: 3000,
-                        title: `Paciente adicionado com sucesso`,
-                        position: "bottom",
-                        isClosable: true,
-                      });
-                      setEnableExames(true);
+
+                      setTimeout(() => {
+                        toast({
+                          duration: 3000,
+                          title: `Paciente adicionado com sucesso`,
+                          position: "bottom",
+                          isClosable: true,
+                        });
+                        setEnableExames(true);
+                      }, 500);
                     }}
                   >
                     Confirmar
