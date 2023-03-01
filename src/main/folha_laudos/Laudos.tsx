@@ -247,9 +247,9 @@ function Exames() {
             </TextPDF>
             <ViewPDF style={styles.view_frases}>
               {typeof sub.frases != "string" ? (
-                sub.frases.map((frase) => {
+                sub.frases.map((frase,key) => {
                   return (
-                    <TextPDF style={styles.frasesSubExame} orphans={3}>
+                    <TextPDF style={styles.frasesSubExame} orphans={3} key={key}>
                       {frase}
                     </TextPDF>
                   );
@@ -269,7 +269,7 @@ function Exames() {
       if (exame.conclusoes != null && exame.conclusoes != undefined) {
         return exame.conclusoes.map((conclusao, key) => {
           return conclusao != null && conclusao != "" ? (
-            <TextPDF style={styles.frasesConclusoes} orphans={3}>
+            <TextPDF style={styles.frasesConclusoes} orphans={3} key={key}>
               {conclusao}
             </TextPDF>
           ) : null;
@@ -754,7 +754,7 @@ function Exames() {
 
                     {exame.conclusoes.map((conclusao, key) => {
                       return conclusao != "" && conclusao != null ? (
-                        <Text w="100%" textAlign="start" marginStart="10px">
+                        <Text w="100%" textAlign="start" marginStart="10px" key={key}> 
                           {conclusao}
                         </Text>
                       ) : null;

@@ -263,19 +263,15 @@ export default function Box_Default_With_Sidebar() {
   };
 
   useEffect(() => {
-    setIsMounted(true);
-    tabExames.map((e) =>
-      console.log(e.nomeExame)
-    );
-    tabExames.map((e) =>
-      e.nomeExame != undefined ? setCurrentExame(e) : null
-    );
+    const exame = tabExames.find((e) => e.nomeExame !== undefined);
+    if (exame !== undefined) {
+      setCurrentExame(exame);
+      setIsMounted(true);
+    }
 
     return () => {
       setIsMounted(false);
     };
-
-
   }, []);
 
   if (!isMounted) {
@@ -425,17 +421,17 @@ export default function Box_Default_With_Sidebar() {
           alignItems="start"
           justifyItems="center"
           flexWrap="wrap"
-          w="62%"
+          w="65%"
           paddingBottom="3%"
+          marginStart="5px"
         >
-          <Flex flex={1} flexDirection="column" w="45%">
-
+          <Flex flex={1} flexDirection="column" maxW='50%'>
             <Field_Observacoes exame={currentExame} />
           </Flex>
 
-          <Flex flex={1} flexDirection="column">
+          {/*<Flex flex={1} flexDirection="column">
             {RenderConclusoes({ clean: cleanConclusoes, setCleanConclusoes })}
-          </Flex>
+          </Flex>*/}
         </Flex>
 
         {/** Modal Add Exame */}

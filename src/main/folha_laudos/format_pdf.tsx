@@ -59,8 +59,8 @@ export default function Format_PDF() {
           <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
           <View style={styles.view_frases}>
             {typeof sub.frases != "string" ? (
-              sub.frases.map((frase) => {
-                return <Text style={styles.frasesSubExame}>{frase}</Text>;
+              sub.frases.map((frase,key) => {
+                return <Text style={styles.frasesSubExame} key={key}>{frase}</Text>;
               })
             ) : (
               <Text style={styles.frasesSubExame}>{sub.frases}</Text>
@@ -70,11 +70,12 @@ export default function Format_PDF() {
       ) : null;
     });
   };
+
   const renderConclusoes = (exame) => {
     if (exame.conclusoes != null && exame.conclusoes != undefined) {
       return exame.conclusoes.map((conclusao, key) => {
         return conclusao != null && conclusao != "" ? (
-          <Text style={styles.frasesConclusoes} orphans={3}>
+          <Text style={styles.frasesConclusoes} orphans={3} key={key}>
             {conclusao}
           </Text>
         ) : null;

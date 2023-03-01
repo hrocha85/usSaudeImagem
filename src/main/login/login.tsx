@@ -1,4 +1,12 @@
-import { Box, Button, Center, Link, Select, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Link,
+  Select,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import BGImage from "../images/bg_img.png";
 
@@ -64,19 +72,19 @@ function Login() {
     getMedicos();
   });
 
-
   const verificaMedico = () => {
     if (lista_medico.length > 0) {
       return (
         <Center>
           <Stack>
             <Select
+              defaultValue=""
               w="100%"
               borderColor="black"
               textAlign="center"
               onChange={(event) => setmedicoString(event.currentTarget.value)}
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Médicos
               </option>
 
@@ -90,12 +98,13 @@ function Login() {
             </Select>
             {medicoSelecionado != null || undefined ? (
               <Select
+                defaultValue=""
                 w="200px"
                 borderColor="black"
                 textAlign="center"
                 onChange={(e) => setclinicaString(e.currentTarget.value)}
               >
-                <option value="" disabled selected>
+                <option value="" disabled>
                   Clínicas
                 </option>
                 {clinicasMedSelect.map((clinica, key) => {
@@ -138,14 +147,12 @@ function Login() {
             </Link>
           </Stack>
         </Center>
-      )
+      );
     } else {
       return (
         <Center>
           <Stack>
-            <Text fontWeight="bold">
-              Adicione um médico para prosseguir.
-            </Text>
+            <Text fontWeight="bold">Adicione um médico para prosseguir.</Text>
 
             <Link
               display="block"
@@ -158,10 +165,9 @@ function Login() {
             </Link>
           </Stack>
         </Center>
-      )
+      );
     }
-  }
-
+  };
 
   return (
     <Box
