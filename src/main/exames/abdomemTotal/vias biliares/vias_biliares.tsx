@@ -100,6 +100,7 @@ function ViasBiliares({ Disable }) {
     if (index > -1) {
       ConclusoesVias.splice(index, 1);
       setConclusoesVias((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
   };
 

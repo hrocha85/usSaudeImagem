@@ -51,6 +51,7 @@ export default function Nefropatia({ Disable }) {
                 if (index > -1) {
                     ConclusoesRinsUreteres.splice(index, 1);
                     setConclusoesRinsUreteres((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Nefrolitíase');
                 }
             }
         });

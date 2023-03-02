@@ -47,6 +47,7 @@ function Bexiga({ Disable }) {
         if (index > -1) {
           ConclusoesBexiga.splice(index, 1);
           setConclusoesBexiga((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Bexiga com trabeculações.');
         }
       }
     });

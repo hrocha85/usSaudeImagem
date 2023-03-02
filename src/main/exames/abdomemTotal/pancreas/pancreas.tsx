@@ -30,6 +30,7 @@ function Pancreas({ Disable }) {
     if (index > -1) {
       ConclusoesPancreas.splice(index, 1);
       setConclusoesPancreas((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
   };
 

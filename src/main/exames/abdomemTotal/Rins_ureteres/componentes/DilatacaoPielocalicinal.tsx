@@ -27,30 +27,23 @@ export default function DilatacaoPielocalicinal({ Disable }) {
 
 
 
-    const criaStringConclusao = () => {
-        let conclusaoBilateral = 'Dilatação do sistema coletor renal bilateralmente.'
-        let conclusao = 'Dilatação do sistema coletor renal.'
-        removeConclusão()
-        if (ValueSelectDireita !== '' && ValueSelectEsquerda !== "") {
-            setConclusoesRinsUreteres((arr) => [...arr, conclusaoBilateral]);
-        } else if (ValueSelectDireita !== '' || ValueSelectEsquerda !== '') {
-            setConclusoesRinsUreteres((arr) => [...arr, conclusao]);
+    useEffect(() => {
+        if (ValueSelectDireita !== '' || ValueSelectEsquerda !== '') {
+            var conclusao = 'Dilatação do sistema coletor renal.'
+            setConclusoesRinsUreteres([conclusao]);
         } else {
             removeConclusão()
         }
-    }
-    useEffect(() => {
-        criaStringConclusao()
     }, [ValueSelectDireita, ValueSelectEsquerda])
 
     const removeConclusão = () => {
         ConclusoesRinsUreteres.map((e) => {
             if (e.includes("Dilatação do sistema coletor renal")) {
                 var index = ConclusoesRinsUreteres.indexOf(e);
-
                 if (index > -1) {
                     ConclusoesRinsUreteres.splice(index, 1);
                     setConclusoesRinsUreteres((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Dilatação do sistema coletor renal');
                 }
             }
         });
@@ -59,12 +52,12 @@ export default function DilatacaoPielocalicinal({ Disable }) {
 
     const criaStringAmbos = () => {
         let string = 'Presença'
-        let conclusao = 'Dilatação do sistema coletor renal bilateralmente.'
+        //let conclusao = 'Dilatação do sistema coletor renal bilateralmente.'
         removeAmbos()
         if (AmbosCheckbox && ValueSelectDireita != '') {
             removeDireita()
             removeEsquerda()
-            string = `${string} ${ValueSelectEsquerda} dilatação pielocalicinal bilateral.`
+            string = `${string} ${ValueSelectEsquerda} de dilatação pielocalicinal bilateral.`
             if (UreteralEsquerdaCheckbox) {
                 string = `${string} Nota-se também dilatação ureteral à esquerda.`
             }
@@ -72,7 +65,7 @@ export default function DilatacaoPielocalicinal({ Disable }) {
                 string = `${string} Nota-se também dilatação ureteral à direita.`
             }
             setFraseRinsUreteres((arr) => [...arr, string]);
-            setConclusoesRinsUreteres((arr) => [...arr, conclusao]);
+            //setConclusoesRinsUreteres((arr) => [...arr, conclusao]);
         }
     }
     const removeAmbos = () => {
@@ -83,16 +76,6 @@ export default function DilatacaoPielocalicinal({ Disable }) {
                 if (index > -1) {
                     FraseRinsUreteres.splice(index, 1);
                     setFraseRinsUreteres((arr) => [...arr]);
-                }
-            }
-        });
-        ConclusoesRinsUreteres.map((e) => {
-            if (e.includes("Dilatação do sistema coletor renal bilateralmente.")) {
-                var index = ConclusoesRinsUreteres.indexOf(e);
-
-                if (index > -1) {
-                    ConclusoesRinsUreteres.splice(index, 1);
-                    setConclusoesRinsUreteres((arr) => [...arr]);
                 }
             }
         });

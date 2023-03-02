@@ -109,6 +109,7 @@ function Figado({ Disable }) {
     if (index > -1) {
       ConclusoesFigado.splice(index, 1);
       setConclusoesFigado((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
   };
 
@@ -260,13 +261,14 @@ function Figado({ Disable }) {
         if (index > -1) {
           ConclusoesFigado.splice(index, 1);
           setConclusoesFigado((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Nódulo hepático.');
         }
       }
     });
   };
 
   const criaStringNodulo = (select1, select2, select3, input1, input2) => {
-    var string = 'Nodulo'
+    var string = 'Nódulo'
     const conclusaoNodulos = 'Nódulo hepático.'
     var medida1 = new Convert_Medida(input1).Convert_Medida()
     var medida2 = new Convert_Medida(input2).Convert_Medida()
@@ -280,7 +282,7 @@ function Figado({ Disable }) {
   };
   const removeFraseNodulo = () => {
     frasesFigado.map((e) => {
-      if (e.includes("Nodulo")) {
+      if (e.includes("Nódulo")) {
         var index = frasesFigado.indexOf(e);
 
         if (index > -1) {
@@ -297,13 +299,14 @@ function Figado({ Disable }) {
       setDisableNoduloSelect1(false)
 
     } else {
+      removeFraseConclusaoNodulo()
+      removeFraseNodulo()
       setDisableNoduloSelect1(true)
       setNoduloSelect1('')
       setNoduloSelect2('')
       setNoduloSelect3('')
       setNoduloInput1('')
       setNoduloInput2('')
-      removeFraseNodulo()
     }
   }, [NoduloCheckbox, NoduloSelect1, NoduloSelect2, NoduloSelect3, NoduloInput1, NoduloInput2])
 
@@ -338,6 +341,7 @@ function Figado({ Disable }) {
       criaStringVariosNodulos(VariosNodulosSelect1, VariosNodulosSelect2, VariosNodulosSelect3, VariosNodulosSelect4, VariosNodulosInput1, VariosNodulosInput2)
       setDisableVariosNodulosSelect1(false)
     } else {
+      removeFraseConclusaoNodulo()
       setDisableVariosNodulosSelect1(true)
       setVariosNodulosSelect1('')
       setVariosNodulosSelect2('')

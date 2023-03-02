@@ -2,12 +2,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
+import Conclusoes from "../../../../component/conclusoes";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Cistos({ Disable }) {
     const [FraseCisto, setFraseCisto] = useState<any>([]);
     const [ConclusoesCisto, setConclusoesCisto] = useState<any>([]);
+
+    var ArrayConclusao = ['']
 
     const [Cisto01Checkbox, setCisto01Checkbox] = useState(false)
     const [InputCisto01, setInputCisto01] = useState('')
@@ -39,54 +42,61 @@ export default function Cistos({ Disable }) {
     const [Select01Varios, setSelect01Varios] = useState('')
     const [Select02Varios, setSelect02Varios] = useState('')
 
-    const [FraseCisto01Checkbox, setFraseCisto01Checkbox] = useState(false)
-    const [FraseCisto02Checkbox, setFraseCisto02Checkbox] = useState(false)
-    const [FraseCisto03Checkbox, setFraseCisto03Checkbox] = useState(false)
-    const [FraseCisto04Checkbox, setFraseCisto04Checkbox] = useState(false)
-    const [FraseMultiplosCistosCheckbox, setFraseMultiplosCistosCheckbox] = useState(false)
-
     const subExame = "Rins e ureteres. Cistos";
     const titulo_exame = "Abdômen total";
 
     const criaStringConclusao = () => {
-        let string = 'Cisto renal conclusão'
-        if (FraseCisto01Checkbox || FraseCisto02Checkbox || FraseCisto03Checkbox || FraseCisto04Checkbox || FraseMultiplosCistosCheckbox) {
-            string = `${string}.`
-            setConclusoesCisto((arr) => [...arr, string]);
+        let conclusao = 'Cisto renal conclusão.'
+        //  removeConclusao(conclusao)
+        if (Cisto01Checkbox || Cisto02Checkbox || Cisto03Checkbox || Cisto04Checkbox || VariosCheckbox) {
+            FraseCisto.map((e) => {
+                if (e.includes("Cisto")) {
+                    ArrayConclusao.shift()
+                    ArrayConclusao.shift()
+                    setConclusoesCisto([conclusao]);
+                    ArrayConclusao.push(conclusao)
+
+                }
+            });
         } else {
-            removeConclusao()
+            ArrayConclusao.shift()
+            removeConclusao(conclusao)
+
         }
+        // if (FraseCisto01Checkbox || FraseCisto02Checkbox || FraseCisto03Checkbox || FraseCisto04Checkbox || FraseMultiplosCistosCheckbox) {
+        //     console.log("ta caindo aqui")
+        //     setConclusoesCisto((arr) => [...arr, string]);
+        //     console.log(ConclusoesCisto)
+        // } else {
+        //     removeConclusao(string)
+        // }
     }
 
-    const removeConclusao = () => {
+    const removeConclusao = (value) => {
         ConclusoesCisto.map((e) => {
-            if (e.includes('Cisto renal conclusão')) {
+            if (e.includes(value)) {
                 var index = ConclusoesCisto.indexOf(e);
 
                 if (index > -1) {
                     ConclusoesCisto.splice(index, 1);
                     setConclusoesCisto((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao(value);
                 }
             }
         });
     };
 
     useEffect(() => {
-        removeConclusao()
         criaStringConclusao()
-    }, [FraseCisto01Checkbox, FraseCisto02Checkbox, FraseCisto03Checkbox, FraseCisto04Checkbox, FraseMultiplosCistosCheckbox])
+    }, [FraseCisto])
 
     const criaStringCisto01 = () => {
         let string = 'Cisto 01: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo'
         removeCisto01()
         var InputCisto01cm = new Convert_Medida(InputCisto01).Convert_Medida()
-
         if (Select01Cisto01 != '' && Select02Cisto01 != '' && InputCisto01 != '') {
-            setFraseCisto01Checkbox(true)
             string = `${string}, medindo ${InputCisto01cm} cm, visível no ${Select01Cisto01} do ${Select02Cisto01}.`
             setFraseCisto((arr) => [...arr, string]);
-        } else {
-            setFraseCisto01Checkbox(false)
         }
     }
 
@@ -121,11 +131,9 @@ export default function Cistos({ Disable }) {
         removeCisto02()
         var InputCisto02cm = new Convert_Medida(InputCisto02).Convert_Medida()
         if (Select01Cisto02 != '' && Select02Cisto02 != '' && InputCisto02 != '') {
-            setFraseCisto02Checkbox(true)
+
             string = `${string}, medindo ${InputCisto02cm} cm, visível no ${Select01Cisto02} do ${Select02Cisto02}.`
             setFraseCisto((arr) => [...arr, string]);
-        } else {
-            setFraseCisto02Checkbox(false)
         }
     }
 
@@ -160,11 +168,9 @@ export default function Cistos({ Disable }) {
         removeCisto03()
         var InputCisto03cm = new Convert_Medida(InputCisto03).Convert_Medida()
         if (Select01Cisto03 != '' && Select02Cisto03 != '' && InputCisto03 != '') {
-            setFraseCisto03Checkbox(true)
+
             string = `${string}, medindo ${InputCisto03cm} cm, visível no ${Select01Cisto03} do ${Select02Cisto03}.`
             setFraseCisto((arr) => [...arr, string]);
-        } else {
-            setFraseCisto03Checkbox(false)
         }
     }
 
@@ -200,11 +206,9 @@ export default function Cistos({ Disable }) {
         var InputCisto04cm = new Convert_Medida(InputCisto04).Convert_Medida()
 
         if (Select01Cisto04 != '' && Select02Cisto04 != '' && InputCisto04 != '') {
-            setFraseCisto04Checkbox(true)
+
             string = `${string}, medindo ${InputCisto04cm} cm, visível no ${Select01Cisto04} do ${Select02Cisto04}.`
             setFraseCisto((arr) => [...arr, string]);
-        } else {
-            setFraseCisto04Checkbox(false)
         }
     }
 
@@ -240,11 +244,9 @@ export default function Cistos({ Disable }) {
         var InputVarioscm = new Convert_Medida(InputVarios).Convert_Medida()
 
         if (Select01Varios != '' && Select02Varios != '' && InputVarios != '') {
-            setFraseMultiplosCistosCheckbox(true)
+
             string = `${string} ${Select01Varios} ${Select02Varios} ${InputVarioscm}`
             setFraseCisto((arr) => [...arr, string]);
-        } else {
-            setFraseMultiplosCistosCheckbox(false)
         }
     }
 
@@ -283,7 +285,7 @@ export default function Cistos({ Disable }) {
                 subExame,
                 true,
                 FraseCisto,
-                ConclusoesCisto
+                ArrayConclusao
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
@@ -291,7 +293,7 @@ export default function Cistos({ Disable }) {
                 subExame,
                 false,
                 FraseCisto,
-                ConclusoesCisto
+                ArrayConclusao
             ).Format_Laudo_Create_Storage();
         }
     }, [FraseCisto]);

@@ -1,7 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -62,6 +62,7 @@ function Aorta_Retroperitoneo({ Disable }) {
                 if (index > -1) {
                     ConclusoesAorta.splice(index, 1);
                     setConclusoesAorta((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao('Aneurisma aórtico.');
                 }
             }
         });
