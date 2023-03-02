@@ -38,6 +38,11 @@ export default function Field_Observacoes({ exame }) {
 
   const [arrayObservacoes, setArrayObservacoes] = useState<any>([]);
 
+  const initialItem = { id: exame.nomeExame, values: [""] };
+  const [items, setItems] = useState<{ id: string; values: string[] }[]>([
+    initialItem,
+  ]);
+
   const [currentOBS, setCurrentOBS] = useState<string>();
 
   const [editOBS, setEditOBS] = useState<string>();
@@ -48,13 +53,10 @@ export default function Field_Observacoes({ exame }) {
   const titulo_exame = `${exame.nomeExame}`;
 
   const checkObservacoes = (observao_local_storage) => {
-    if (Object.keys(arrayObservacoes).length >= 1) {
-      return arrayObservacoes.includes(observao_local_storage);
-    } else {
-      return false;
-    }
+    return items.some((item) => item.values.includes(observao_local_storage));
   };
 
+  console.log(items);
   const Render_Observacao_or_Text_Area = () => {
     return (
       <>
@@ -178,13 +180,35 @@ export default function Field_Observacoes({ exame }) {
                             textColor="blue"
                             onClick={() => {
                               if (checkObservacoes(i)) {
-                                const index = arrayObservacoes.indexOf(i);
-                                if (index > -1) {
-                                  arrayObservacoes.splice(index, 1);
-                                  setArrayObservacoes((arr) => [...arr]);
-                                }
+                                setItems((items) =>
+                                  items.map((item) => {
+                                    if (item.id === exame.nomeExame) {
+                                      const newValues = item.values.filter(
+                                        (value) => value !== i
+                                      );
+                                      return {
+                                        ...item,
+                                        values: newValues,
+                                      };
+                                    }
+                                    return item;
+                                  })
+                                );
+                                setArrayObservacoes((observacoes) =>
+                                  observacoes.filter((obs) => obs !== i)
+                                );
                               } else {
-                                setArrayObservacoes((arr) => [...arr, i]);
+                                setItems(
+                                  items.map((item) => {
+                                    if (item.id === exame.nomeExame) {
+                                      return {
+                                        ...item,
+                                        values: [...item.values, i], // adiciona i ao array existente
+                                      };
+                                    }
+                                    return item;
+                                  })
+                                );
                               }
                             }}
                           />
@@ -203,13 +227,31 @@ export default function Field_Observacoes({ exame }) {
 
   const onClick_Observacao_Editada = () => {
     if (checkObservacoes(currentOBS)) {
-      const index = arrayObservacoes.indexOf(editOBS);
-      if (index > -1) {
-        arrayObservacoes.splice(index, 1);
-        setArrayObservacoes((arr) => [...arr]);
-      }
+      setItems((items) =>
+        items.map((item) => {
+          if (item.id === exame.nomeExame) {
+            const newValues = item.values.filter((value) => value !== editOBS);
+            return {
+              ...item,
+              values: newValues,
+            };
+          }
+          return item;
+        })
+      );
     } else {
-      setArrayObservacoes((arr) => [...arr, editOBS]);
+      setItems((items) =>
+        items.map((item) => {
+          if (item.id === exame.nomeExame) {
+            const newValues = [...item.values, editOBS!];
+            return {
+              ...item,
+              values: newValues,
+            };
+          }
+          return item;
+        })
+      );
       updateLocalStorage(editOBS, currentOBS);
     }
   };
@@ -303,7 +345,6 @@ export default function Field_Observacoes({ exame }) {
                   if (editOBS != "" && editOBS != undefined) {
                     onClick_Observacao_Editada();
                   } else {
-                    
                     onClick_Inserir_Observacao();
                   }
                   onClose();
