@@ -1,7 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Flex, Input, Select, Text } from "@chakra-ui/react";
-import { useEffect, useState, useContext } from "react";
+import { Box, Checkbox, Input, Select, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
@@ -50,12 +50,12 @@ export default function Calculo({ Disable }) {
         if (Select02Calculo01 == 'rim direito' || Select02Calculo02 == 'rim direito' || Select02Calculo03 == 'rim direito' || Select02Calculo04 == 'rim direito') {
             setConclusoesCalculo((arr) => [...arr, conclusaoDireita]);
         } else {
-            removeItemString(conclusaoDireita)
+            removeItemStringConclusao(conclusaoDireita)
         }
         if (Select02Calculo01 == 'rim esquerdo' || Select02Calculo02 == 'rim esquerdo' || Select02Calculo03 == 'rim esquerdo' || Select02Calculo04 == 'rim esquerdo') {
             setConclusoesCalculo((arr) => [...arr, conclusaoEsquerda]);
         } else {
-            removeItemString(conclusaoEsquerda)
+            removeItemStringConclusao(conclusaoEsquerda)
         }
     }, [Select02Calculo01, Select02Calculo02, Select02Calculo03, Select02Calculo04])
 
@@ -252,6 +252,16 @@ export default function Calculo({ Disable }) {
         if (index > -1) {
             FraseCalculo.splice(index, 1);
             setFraseCalculo((arr) => [...arr]);
+        }
+    };
+    const removeItemStringConclusao = (value) => {
+        // console.log("valor remove = ", value);
+        var index = ConclusoesCalculo.indexOf(value);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+        if (index > -1) {
+            ConclusoesCalculo.splice(index, 1);
+            setConclusoesCalculo((arr) => [...arr]);
+            new Format_Laudo(titulo_exame).Remove_Conclusao(value);
         }
     };
     useEffect(() => {

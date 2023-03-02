@@ -68,13 +68,29 @@ export class Format_Laudo {
 
   Remove_Conclusao(conclusao): void {
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
-
     array.map((Exames) => {
       if (Exames.titulo_exame == this.titulo_exame) {
         Exames.conclusoes.map((e, index) => {
           if (e === conclusao) {
             Exames.conclusoes.splice(index, 1);
             localStorage.setItem("format_laudo", JSON.stringify(array));
+          }
+        });
+      }
+    });
+  }
+
+  Remove_Conclusao_Select(conclusao): void {
+    var array = JSON.parse(localStorage.getItem("format_laudo")!);
+    array.map((Exames) => {
+      if (Exames.titulo_exame == this.titulo_exame) {
+        Exames.conclusoes.map((e, index) => {
+          if (e.includes(conclusao)) {
+            var posicao = e.indexOf(conclusao)
+            if (posicao > -1) {
+              Exames.conclusoes.splice(index, 1);
+              localStorage.setItem("format_laudo", JSON.stringify(array));
+            }
           }
         });
       }

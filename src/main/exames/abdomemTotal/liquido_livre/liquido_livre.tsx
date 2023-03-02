@@ -44,6 +44,7 @@ function LiquidoLivre({ Disable }) {
         if (index > -1) {
           ConclusoesLiquidoLivre.splice(index, 1);
           setConclusoesLiquidoLivre((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Presença de líquido em');
         }
       }
     });

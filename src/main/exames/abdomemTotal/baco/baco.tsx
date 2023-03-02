@@ -65,6 +65,7 @@ function Baco({ Disable }) {
     if (value == "enable") {
       setEnableSelectAumentado(true);
     } else {
+      setValueSelect('')
       if (value == "1") {
         setFrasesBaco([]);
         setEnableSelectAumentado(false);
@@ -165,6 +166,7 @@ function Baco({ Disable }) {
     if (index > -1) {
       ConclusoesBaco.splice(index, 1);
       setConclusoesBaco((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
     // console.log('posicao', index)
     // console.log("laudosPrin", laudoPrin)

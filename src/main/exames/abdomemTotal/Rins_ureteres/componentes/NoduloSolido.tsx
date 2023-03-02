@@ -30,11 +30,11 @@ export default function NoduloSolido({ Disable }) {
         var ValueInput2cm = new Convert_Medida(ValueInput2).Convert_Medida()
         if (ValueSelectNodulo1 != '' && ValueSelectNodulo2 != '' && ValueSelectNodulo3 != '' && ValueSelectNodulo4 != '' &&
             ValueInput1 != '' && ValueInput2 != '') {
-            string = `${string} ${ValueSelectNodulo1} de ${ValueSelectNodulo2}, medindo ${ValueInput1cm}x${ValueInput2cm} cm 
+            string = `${string} ${ValueSelectNodulo1} de ${ValueSelectNodulo2}, medindo ${ValueInput1cm} x ${ValueInput2cm} cm 
             localizado no ${ValueSelectNodulo3} do ${ValueSelectNodulo4}.`
-            setFraseNoduloSolido((arr) => [...arr, string]);
             conclusao = `${conclusao} ${ValueSelectNodulo4}.`
             setConclusoesNoduloSolido((arr) => [...arr, conclusao])
+            setFraseNoduloSolido((arr) => [...arr, string]);
 
         }
     }
@@ -52,10 +52,10 @@ export default function NoduloSolido({ Disable }) {
         ConclusoesNoduloSolido.map((e) => {
             if (e.includes("Imagem nodular no")) {
                 var index = ConclusoesNoduloSolido.indexOf(e);
-
                 if (index > -1) {
                     ConclusoesNoduloSolido.splice(index, 1);
                     setConclusoesNoduloSolido((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Imagem nodular no');
                 }
             }
         });
