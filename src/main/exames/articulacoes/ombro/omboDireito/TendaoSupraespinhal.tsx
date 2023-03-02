@@ -109,7 +109,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
     useState("");
 
   const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm, selectRoturaParcial) => {
-    const conclusao = 'Tendinopatia do infraespinhal, com sinais de rotura parcial.'
+    const conclusao = 'Tendinopatia do supraespinhal, com sinais de rotura parcial.'
     removeRoturaParcial();
     const medida1 = new Convert_Medida(medida1cm).Convert_Medida();
     const medida2 = new Convert_Medida(medida2cm).Convert_Medida();
@@ -140,11 +140,12 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
       }
     });
     ConclusaoOmbroTendaoSupraespinhalDireito.map((e) => {
-      if (e.includes("Tendinopatia do infraespinhal, com sinais de rotura parcial.")) {
+      if (e.includes("Tendinopatia do supraespinhal, com sinais de rotura parcial.")) {
         var index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(e);
         if (index > -1) {
           ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
           setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao("Tendinopatia do supraespinhal, com sinais de rotura parcial.")
         }
       }
     });
@@ -255,6 +256,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
         if (index > -1) {
           ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
           setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao("Tendinopatia do supraespinhal.")
         }
       }
     });
@@ -298,6 +300,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
         if (index > -1) {
           ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
           setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao("Tendinopatia do supraespinhal, com sinais de rotura completa.")
         }
       }
     });
@@ -339,6 +342,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
     if (index > -1) {
       ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
       setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value)
     }
   };
 

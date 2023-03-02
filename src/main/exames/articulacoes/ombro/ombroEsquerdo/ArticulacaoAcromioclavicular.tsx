@@ -72,6 +72,7 @@ function ArticulacaoAcromioclavicularEsquerdo({ Disable }) {
         if (index > -1) {
           fraseBolsaSubacromialSubdeltoidea.splice(index, 1);
           setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr]);
+
         }
       }
     });
@@ -82,6 +83,7 @@ function ArticulacaoAcromioclavicularEsquerdo({ Disable }) {
         if (index > -1) {
           ConclusaoBolsaSubacromialSubdeltoidea.splice(index, 1);
           setConclusaoBolsaSubacromialSubdeltoidea((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select("Sinais de osteoartrose acromioclavicular")
         }
       }
     });
