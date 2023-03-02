@@ -68,6 +68,7 @@ function Hidrossalpinge({ Disable }) {
         if (index > -1) {
           ConclusaoHidrossalpinge.splice(index, 1);
           setConclusaoHidrossalpinge((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Hidrossalpinge');
         }
       }
     });

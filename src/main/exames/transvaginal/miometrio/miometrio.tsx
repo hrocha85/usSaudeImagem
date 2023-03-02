@@ -72,10 +72,7 @@ function Miometrio({ Disable }) {
 
   const removeMultiplosNodulos = () => {
     frasesMiometrio.map((e) => {
-      if (
-        e.includes(
-          "O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma,"
-        )
+      if (e.includes("O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma,")
       ) {
         var index = frasesMiometrio.indexOf(e);
 
@@ -114,6 +111,7 @@ function Miometrio({ Disable }) {
     if (index > -1) {
       ConclusaoMiometrio.splice(index, 1);
       setConclusaoMiometrio((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
   };
 
@@ -125,6 +123,7 @@ function Miometrio({ Disable }) {
         localizacaoNodulosSelect
       );
     } else {
+      removeItemStringConclusao('Miomatose uterina.')
       removeMultiplosNodulos();
       settamanhoNoduloInput("");
       setPosicaoNodulosSelect("");

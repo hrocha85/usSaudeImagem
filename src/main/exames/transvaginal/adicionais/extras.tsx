@@ -79,6 +79,7 @@ function Extras({ Disable }) {
         if (index > -1) {
           ConclusaoAdicionais.splice(index, 1);
           setConclusaoAdicionais((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Varizes pélvicas.');
         }
       }
     });
@@ -101,6 +102,7 @@ function Extras({ Disable }) {
         if (index > -1) {
           ConclusaoAdicionais.splice(index, 1);
           setConclusaoAdicionais((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Achados ecográficos sugestivos de malformação mulleriana (útero septado ou bicorno).');
         }
       }
     });

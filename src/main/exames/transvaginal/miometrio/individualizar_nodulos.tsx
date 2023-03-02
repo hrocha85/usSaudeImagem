@@ -41,10 +41,11 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     settamanhoNoduloInput(event.target.value);
   };
 
+
   const criaStringMultiplosNodulos = (tamanhoNoduloInput, nodulosSelect, localizado) => {
     const conclusao = 'Miomatose uterina.'
-    removeMultiplosNodulos();
     removeItemStringConclusao(conclusao)
+    removeMultiplosNodulos();
     if (tamanhoNoduloInput != "" && nodulosSelect != "" && localizado != "") {
       var string = `Nódulo de mioma ${numNodulo}: ${nodulosSelect} localizado na parede ${localizado} e medindo ${tamanhoNoduloInput} mm.`;
       setFrasesMiometrio((arr) => [...arr, string]);
@@ -69,6 +70,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     if (index > -1) {
       ConclusaoMiometrio.splice(index, 1);
       setConclusaoMiometrio((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
   };
 
@@ -80,6 +82,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
         localizacaoNodulosSelect
       );
     } else {
+      removeItemStringConclusao('Miomatose uterina.')
       removeMultiplosNodulos();
       settamanhoNoduloInput("");
       setPosicaoNodulosSelect("");

@@ -95,6 +95,7 @@ function Cirurgias({ Disable }) {
         if (index > -1) {
           ConclusaoCirurgia.splice(index, 1);
           setConclusaoCirurgias((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Histerectomia subtotal.');
         }
       }
     });
@@ -114,6 +115,7 @@ function Cirurgias({ Disable }) {
     if (index > -1) {
       ConclusaoCirurgia.splice(index, 1);
       setConclusaoCirurgias((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
   };
 
