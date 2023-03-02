@@ -119,6 +119,7 @@ function Ovario_Esquerdo({ Disable }) {
         if (index > -1) {
           ConclusaoOvarioEsquerdo.splice(index, 1);
           setConclusaoOvarioEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao("Ovário esquerdo com padrão folicular.")
         }
       }
     });
@@ -157,33 +158,35 @@ function Ovario_Esquerdo({ Disable }) {
         if (index > -1) {
           ConclusaoOvarioEsquerdo.splice(index, 1);
           setConclusaoOvarioEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao("Ovário esquerdo com aspecto micropolicístico.")
         }
       }
     });
   };
   //Funcoes Padrao Micropolicistico - Fim
 
-  //Funcoes Cisto - Inicio
   const criaStringCisto = (medida, cisto) => {
     var conclusao = ' no ovário esquerdo.'
     var SelectConclusao;
     removeCisto();
 
-    if (cisto === 'Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior') {
+    if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior') {
       SelectConclusao = 'Cisto simples'
-    } else if (cisto === 'Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior e septação fina') {
+    } else if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior e septação fina') {
       SelectConclusao = 'Cisto septado'
-    } else if (cisto === 'Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, multiloculada, de limites precisos e contornos regulares, com reforço acústico posterior') {
+    } else if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, multiloculada, de limites precisos e contornos regulares, com reforço acústico posterior') {
       SelectConclusao = 'Cisto multiloculado'
-    } else if (cisto === 'Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística, de paredes espessas e irregulares, conteúdo anecóide, com septos espessos e moderados debris de permeio') {
+    } else if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística, de paredes espessas e irregulares, conteúdo anecóide, com septos espessos e moderados debris de permeio') {
       SelectConclusao = 'Cisto hemorrágico'
-    } else if (cisto === 'Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima apresenta imagem arredondada, anecóica de limites precisos e contornos regulares, com finos debrís em seu interior') {
+    } else if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima apresenta imagem arredondada, anecóica de limites precisos e contornos regulares, com finos debrís em seu interior') {
       SelectConclusao = 'Imagem cística sugestiva de endometrioma'
-    } else if (cisto === 'Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística, de paredes espessas e regulares, conteúdo anecóide, sem septos ou debris') {
+    } else if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística, de paredes espessas e regulares, conteúdo anecóide, sem septos ou debris') {
       SelectConclusao = 'Cisto de corpo lúteo'
-    } else if (cisto === 'Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima apresenta imagem nodular hiperecogênica de limites precisos e contornos definidos, apresentando reforço acústico posterior, com área cística em seu interior') {
+    } else if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima apresenta imagem nodular hiperecogênica de limites precisos e contornos definidos, apresentando reforço acústico posterior, com área cística em seu interior') {
       SelectConclusao = 'Imagem sugestiva de cisto dermóide'
     }
+
+
     if (medida !== "" && cisto !== "") {
       var string = `${cisto}, medindo ${medida} mm `;
       conclusao = `${SelectConclusao} ${conclusao}`
@@ -210,6 +213,7 @@ function Ovario_Esquerdo({ Disable }) {
         if (index > -1) {
           ConclusaoOvarioEsquerdo.splice(index, 1);
           setConclusaoOvarioEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(" no ovário esquerdo.")
         }
       }
     });
@@ -265,11 +269,13 @@ function Ovario_Esquerdo({ Disable }) {
       removeCisto();
       setdisableCistoInput(true);
       setCistoInput("");
+      setCistoSelect("")
     }
   }, [cistoCheckBox]);
 
   useEffect(() => {
     criaStringCisto(cistoInput, cistoSelect);
+
   }, [cistoInput, cistoSelect]);
 
   return (
@@ -366,6 +372,7 @@ function Ovario_Esquerdo({ Disable }) {
               />
               <Text>mm</Text>
               <Select
+                value={cistoSelect}
                 isDisabled={disableCistoInput}
                 onChange={(e) => {
                   setCistoSelect(e.target.value);

@@ -72,6 +72,7 @@ function Hidatide({ Disable }) {
         if (index > -1) {
           ConclusaoHidatide.splice(index, 1);
           setConclusaoHidatide((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Cisto anexial');
         }
       }
     });

@@ -118,6 +118,7 @@ function Ovario_Direito({ Disable }) {
         if (index > -1) {
           ConclusaoOvarioDireito.splice(index, 1);
           setConclusaoOvarioDireito((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Ovário direito com padrão folicular.');
         }
       }
     });
@@ -150,16 +151,16 @@ function Ovario_Direito({ Disable }) {
       }
     });
     ConclusaoOvarioDireito.map((e) => {
-      if (
-        e.includes(
-          "Ovário direito com aspecto micropolicístico."
-        )
+      if (e.includes(
+        "Ovário direito com aspecto micropolicístico."
+      )
       ) {
         var index = ConclusaoOvarioDireito.indexOf(e);
-
         if (index > -1) {
           ConclusaoOvarioDireito.splice(index, 1);
           setConclusaoOvarioDireito((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Ovário direito com aspecto micropolicístico.');
+
         }
       }
     });
@@ -216,6 +217,7 @@ function Ovario_Direito({ Disable }) {
         if (index > -1) {
           ConclusaoOvarioDireito.splice(index, 1);
           setConclusaoOvarioDireito((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(' no ovário direito.');
         }
       }
     });
@@ -269,6 +271,7 @@ function Ovario_Direito({ Disable }) {
       setdisableCistoInput(false);
     } else {
       removeCisto();
+      setCistoSelect("")
       setdisableCistoInput(true);
       setCistoInput("");
     }
@@ -373,6 +376,7 @@ function Ovario_Direito({ Disable }) {
               <Text>mm</Text>
               <Select
                 isDisabled={disableCistoInput}
+                value={cistoSelect}
                 onChange={(e) => {
                   setCistoSelect(e.target.value);
                 }}

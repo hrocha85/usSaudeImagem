@@ -66,6 +66,7 @@ function Liquido_Livre({ Disable }) {
         if (index > -1) {
           ConclusaoLiquidoLivre.splice(index, 1);
           setConclusaoLiquidoLivre((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Líquido livre na pelve.');
         }
       }
     });

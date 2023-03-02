@@ -96,7 +96,7 @@ function Utero({ Disable }) {
   const [endometrio, setEndometrio] = useState<string | null>(null);
 
   //Endometrio checkbox
-  const [endometrioCheckBox, setEndometrioCheckBox] = useState(true);
+  const [endometrioCheckBox, setEndometrioCheckBox] = useState(false);
 
   //Funcoes Posicao - Inicio
   const criaStringPosicaoUtero = (value) => {
@@ -181,6 +181,10 @@ function Utero({ Disable }) {
     }
   };
 
+  useEffect(() => {
+    criaStringEndometrioCheckBox()
+  }, [endometrioCheckBox])
+
   //Funcoes Polipo endometrial - Inicio
   const criaStringPolipoEndometrial = (medida1, medida2) => {
     const conclusao = 'Imagem nodular sugestiva de pólipo endometrial.'
@@ -245,11 +249,15 @@ function Utero({ Disable }) {
   const criaStringLiquidoEndometrial = () => {
     var string = "Líquido na cavidade endometrial ";
     var conclusao = "Pequena quantidade de líquido na cavidade endometrial."
-    removeItemConclusao(conclusao)
-    setFrasesUtero((arr) => [...arr, string]);
-    setConclusaoUtero((arr) => [...arr, conclusao]);
-    return string;
+    if (liquidoEndometrialCheckBox) {
+      setFrasesUtero((arr) => [...arr, string]);
+      setConclusaoUtero((arr) => [...arr, conclusao]);
+    } else {
+      removeLiquidoEndometrial()
+      removeItemConclusao(conclusao)
+    }
   };
+
   const removeLiquidoEndometrial = () => {
     // console.log("valor remove = ", value);
     frasesUtero.map((e) => {
@@ -307,6 +315,7 @@ function Utero({ Disable }) {
     if (index > -1) {
       ConclusaoUtero.splice(index, 1);
       setConclusaoUtero((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value)
     }
   };
 
@@ -344,11 +353,9 @@ function Utero({ Disable }) {
   //Quando checked chama a funcao de criar string
   //Quando unchecked chama a funcao para remover string
   useEffect(() => {
-    if (liquidoEndometrialCheckBox) {
-      criaStringLiquidoEndometrial();
-    } else {
-      removeLiquidoEndometrial()
-    }
+
+    criaStringLiquidoEndometrial();
+
   }, [liquidoEndometrialCheckBox]);
 
   //Observa o checkBox de DIU bem posicionado
@@ -363,6 +370,7 @@ function Utero({ Disable }) {
   //Quando unchecked desabilita os Input, remove a string do laudos Array e zera os states
   useEffect(() => {
     if (DIUDistanciaCheckBox) {
+      console.log(ConclusaoUtero)
       setDisableDIUInput(false);
     } else {
       removeDIUDistancia();
@@ -481,8 +489,7 @@ function Utero({ Disable }) {
         <Stack>
           <Checkbox isDisabled={Disable}
             onChange={() => {
-              setEndometrioCheckBox(true);
-              criaStringEndometrioCheckBox();
+              setEndometrioCheckBox(!endometrioCheckBox);
             }}
           >
             Endométrio heterogêneo e espessado
