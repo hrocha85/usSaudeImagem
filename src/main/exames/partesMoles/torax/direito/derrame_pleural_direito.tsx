@@ -54,6 +54,7 @@ export default function Derrame_Pleural_Direito({ Disable }) {
         if (index > -1) {
           ConclusaoTorax.splice(index, 1);
           setConclusaoTorax((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Derrame pleural');
         }
       }
 
@@ -75,7 +76,10 @@ export default function Derrame_Pleural_Direito({ Disable }) {
   useEffect(() => {
     if (value.includes("Derrame Pleural")) {
       setEnableSelects(true);
+      setDerramePleuralDireita(true)
     } else {
+      setDerramePleuralDireita(false)
+      removeSelectConclusao()
       if (value == "1") {
         setFrasesTorax([]);
         setEnableSelects(false);
@@ -87,34 +91,28 @@ export default function Derrame_Pleural_Direito({ Disable }) {
     }
   }, [value]);
 
-  const criaStringConclusao = () => {
-    var conclusao = 'Derrame pleural direita.'
-    var conclusaoBilateral = 'Derrame pleural Bilateral.'
-    removeSelectConclusao()
-    if (DerramePleuralEsquerda && DerramePleuralDireita) {
-      setConclusaoTorax((arr) => [...arr, conclusaoBilateral]);
-    } else if (DerramePleuralDireita) {
-      setConclusaoTorax((arr) => [...arr, conclusao]);
-    }
-  }
 
   useEffect(() => {
+    removeSelectConclusao()
+    var conclusao = 'Derrame pleural direita.'
+    var conclusaoBilateral = 'Derrame pleural Bilateral.'
     var select = `Derrame Pleural ${valueSelect1} ${valueSelect2}`;
     var mobilidade = valueSelect3 != "1" ? `Mobilidade da cúpula frênica ${valueSelect3}` : "";
     if (valueSelect1 != "" && valueSelect2 != "") {
+      if (DerramePleuralEsquerda) {
+        setConclusaoTorax((arr) => [...arr, conclusaoBilateral]);
+      } else {
+        setConclusaoTorax((arr) => [...arr, conclusao]);
+      }
       removeSelectString();
-      criaStringConclusao()
       setFrasesTorax((arr) => [...arr, select]);
-      setDerramePleuralDireita(true)
-    } else {
-      setDerramePleuralDireita(false)
     }
 
     if (valueSelect3 != "") {
       removeSelectStringMobilidade();
       setFrasesTorax((arr) => [...arr, mobilidade]);
     }
-  }, [valueSelect1, valueSelect2, valueSelect3]);
+  }, [DerramePleuralEsquerda, valueSelect1, valueSelect2, valueSelect3]);
 
   useEffect(() => {
     if (Object.keys(frasesTorax).length == 0) {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Radio, RadioGroup, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
 import { DerramePleuralDireitaContext } from "../../../../../context/DerramePleuralDireitaContext";
@@ -54,21 +55,12 @@ export default function Derrame_Pleural_Esquerdo({ Disable }) {
           ConclusaoTorax.splice(index, 1);
           setConclusaoTorax((arr) => [...arr]);
         }
+        new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Derrame pleural');
       }
 
     });
   }
 
-  const criaStringConclusao = () => {
-    var conclusao = 'Derrame pleural Esquerda.'
-    var conclusaoBilateral = 'Derrame pleural Bilateral.'
-    removeSelectConclusao()
-    if (DerramePleuralEsquerda && DerramePleuralDireita) {
-      setConclusaoTorax((arr) => [...arr, conclusaoBilateral]);
-    } else if (DerramePleuralEsquerda) {
-      setConclusaoTorax((arr) => [...arr, conclusao]);
-    }
-  }
 
   const removeSelectStringMobilidade = () => {
     frasesTorax.map((e) => {
@@ -87,6 +79,7 @@ export default function Derrame_Pleural_Esquerdo({ Disable }) {
     if (value.includes("Derrame Pleural")) {
       setEnableSelects(true);
     } else {
+      removeSelectConclusao()
       if (value == "1") {
         setFrasesTorax([]);
         setEnableSelects(false);
@@ -99,13 +92,18 @@ export default function Derrame_Pleural_Esquerdo({ Disable }) {
   }, [value]);
 
   useEffect(() => {
+    removeSelectConclusao()
+    var conclusao = 'Derrame pleural Esquerda.'
+    var conclusaoBilateral = 'Derrame pleural Bilateral.'
     var select = `Derrame Pleural ${valueSelect1} ${valueSelect2}`;
-    var mobilidade =
-      valueSelect3 != "1" ? `Mobilidade da cúpula frênica ${valueSelect3}` : "";
-
+    var mobilidade = valueSelect3 != "1" ? `Mobilidade da cúpula frênica ${valueSelect3}` : "";
     if (valueSelect1 != "" && valueSelect2 != "") {
+      if (DerramePleuralDireita) {
+        setConclusaoTorax((arr) => [...arr, conclusaoBilateral]);
+      } else {
+        setConclusaoTorax((arr) => [...arr, conclusao]);
+      }
       removeSelectString();
-      criaStringConclusao()
       setFrasesTorax((arr) => [...arr, select]);
       setDerramePleuralEsquerda(true)
     } else {
@@ -116,7 +114,7 @@ export default function Derrame_Pleural_Esquerdo({ Disable }) {
       removeSelectStringMobilidade();
       setFrasesTorax((arr) => [...arr, mobilidade]);
     }
-  }, [valueSelect1, valueSelect2, valueSelect3]);
+  }, [DerramePleuralDireita, valueSelect1, valueSelect2, valueSelect3]);
 
   useEffect(() => {
     if (Object.keys(frasesTorax).length == 0) {

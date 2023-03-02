@@ -63,10 +63,11 @@ function CistoSebaceo({ Disable }) {
 
   const criaStringLocalCistoSebaceo = (local) => {
     removeLocalCistoSebaceo();
+    const conclusao = 'Provável cisto sebáceo.'
     removeConclusaoCisto()
     if (local !== "" && local !== null) {
       let string = `Presença de imagem cística superficial de conteúdo hipoecogênico, com contornos regulares,sugestiva de cisto sebáceo localizado ${local} `;
-      criaStringConclusao()
+      setConclusaoCistoSeb((arr) => [...arr, conclusao])
       setFrasesCistoSeb((arr) => [...arr, string]);
     }
   };
@@ -84,7 +85,8 @@ function CistoSebaceo({ Disable }) {
       medida3CistoUnico !== ""
     ) {
       let string = `Cisto único mede ${medida1CistoUnico}x${medida2CistoUnico}x${medida3CistoUnico}mm`;
-      criaStringConclusao()
+      const conclusao = 'Provável cisto sebáceo.'
+      setConclusaoCistoSeb((arr) => [...arr, conclusao])
       setFrasesCistoSeb((arr) => [...arr, string]);
     }
   };
@@ -92,8 +94,9 @@ function CistoSebaceo({ Disable }) {
     removeMultiplosCistos();
     removeConclusaoCisto()
     if (medida1MultiplosCistos !== "" && medida2MultiplosCistos !== "" && medida3MultiplosCistos !== "") {
-      let string = `Múltiplos cistos o maior mede ${medida1MultiplosCistos}x${medida2MultiplosCistos}x${medida3MultiplosCistos}mm`;
-      criaStringConclusao()
+      let string = `Múltiplos cistos o maior mede ${medida1MultiplosCistos} x ${medida2MultiplosCistos} x ${medida3MultiplosCistos} mm`;
+      const conclusao = 'Provável cisto sebáceo.'
+      setConclusaoCistoSeb((arr) => [...arr, conclusao])
       setFrasesCistoSeb((arr) => [...arr, string]);
     }
   };
@@ -143,6 +146,7 @@ function CistoSebaceo({ Disable }) {
         if (index > -1) {
           ConclusaoCistoSeb.splice(index, 1);
           setConclusaoCistoSeb((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Provável cisto sebáceo.');
         }
       }
     });
@@ -182,14 +186,16 @@ function CistoSebaceo({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        frasesCistoSeb
+        frasesCistoSeb,
+        ConclusaoCistoSeb
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesCistoSeb
+        frasesCistoSeb,
+        ConclusaoCistoSeb
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesCistoSeb]);
