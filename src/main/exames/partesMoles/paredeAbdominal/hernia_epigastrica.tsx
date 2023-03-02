@@ -64,6 +64,7 @@ function Hernia_Epigastrica({ Disable }) {
         if (index > -1) {
           ConclusaoHerniaEpigastrica.splice(index, 1);
           setConclusaoHerniaEpigastrica((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Hérnia epigástrica.');
         }
       }
     });

@@ -59,6 +59,7 @@ function HerniaUmbilical({ Disable }) {
         if (index > -1) {
           ConclusaoHerniaUmb.splice(index, 1);
           setConclusaoHerniaUmb((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Hérnia umbilical.');
         }
       }
     });

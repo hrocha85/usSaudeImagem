@@ -45,15 +45,15 @@ function Diastase_Musculo_Reto({ Disable }) {
   const [disableInputs, setDisableInputs] = useState(true);
 
   const [medidaAfastamento, setMedidaAfastamento] = useState("");
-  const [defaultSelect, setDefaultSelect] = useState("Selecione Opção");
 
   const [presenteCheckbox, setPresenteCheckbox] = useState(false);
+  const [DisableCitarDistancia, setDisableCitarDistancia] = useState(true);
 
   const [selectNivel, setSelectNivel] = useState("");
 
   const criaStringDiastase_SEM_Medida = () => {
-    removeDiastase_SEM_Medida();
 
+    removeDiastase_SEM_Medida();
     let string = `Nota-se afastamento patológico dos ventres do músculo reto abdominal ao nível do ${selectNivel}`;
     setFrasesDiastase((arr) => [...arr, string]);
   };
@@ -104,6 +104,7 @@ function Diastase_Musculo_Reto({ Disable }) {
         if (index > -1) {
           ConclusaoDiastase.splice(index, 1);
           setConclusaoDiastase((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Diástase do músculo reto abdominal.');
         }
       }
     });
@@ -122,17 +123,21 @@ function Diastase_Musculo_Reto({ Disable }) {
 
   useEffect(() => {
     if (presenteCheckbox) {
-      setDisableInputs(false);
+
       setPresenteCheckbox(true);
+      setDisableCitarDistancia(false)
     } else {
+      removeConclusao()
+      setDisableCitarDistancia(true)
       removeAll();
       setPresenteCheckbox(false);
       setAfastamentoCheckBox(false);
-      setDisableInputs(true);
       setMedidaAfastamento("");
-      setDefaultSelect("Selecione Opção");
+      setSelectNivel('')
     }
   }, [presenteCheckbox]);
+
+
 
   useEffect(() => {
     if (!afastamentoCheckBox) {
@@ -146,13 +151,13 @@ function Diastase_Musculo_Reto({ Disable }) {
 
   useEffect(() => {
     const conclusao = 'Diástase do músculo reto abdominal.'
-    if (selectNivel != "" && selectNivel != defaultSelect) {
-      if (medidaAfastamento == "" || medidaAfastamento == null) {
-        criaStringDiastase_SEM_Medida();
-      } else {
+    removeConclusao()
+    removeAll()
+    if (selectNivel != "") {
+      criaStringDiastase_SEM_Medida();
+      if (medidaAfastamento !== '') {
         criaStringDiastase_COM_Medida();
       }
-      removeConclusao()
       setConclusaoDiastase((arr) => [...arr, conclusao])
     }
 
@@ -209,10 +214,10 @@ function Diastase_Musculo_Reto({ Disable }) {
             <Select
               isDisabled={!presenteCheckbox}
               w="40%"
-              defaultValue={defaultSelect}
+              value={selectNivel}
               onChange={(e) => setSelectNivel(e.target.value)}
-              placeholder={defaultSelect}
             >
+              <option value="" disabled selected>Selecione</option>
               <option value="epigástrio">epigástrio</option>
               <option value="mesogástrio">mesogástrio</option>
               <option value="hipogástrio">hipogástrio</option>
@@ -223,7 +228,7 @@ function Diastase_Musculo_Reto({ Disable }) {
           </HStack>
           <HStack>
             <Checkbox
-              isDisabled={Disable}
+              isDisabled={Disable || DisableCitarDistancia}
               isChecked={afastamentoCheckBox}
               onChange={(e) => setAfastamentoCheckBox(!afastamentoCheckBox)}
             >
