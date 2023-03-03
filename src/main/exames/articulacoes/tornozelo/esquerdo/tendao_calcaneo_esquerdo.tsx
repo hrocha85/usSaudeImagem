@@ -93,7 +93,10 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
     switch (value) {
       case "1":
         {
-          removeConclusoes()
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de tendinopatia do calcâneo esquerdo.')
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de tendinopatia do calcâneo com lesão parcial esquerdo.')
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de rotura completa do tendão calcâneo esquerdo.')
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Entesófito na inserção do tendão calcâneo esquerdo.')
           setFrasesTornozelo([]);
           setEnableSelects(false);
           setdisableCheckBox(false);
@@ -109,7 +112,10 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
         break;
       case "Aspecto Normal":
         {
-          removeConclusoes()
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de tendinopatia do calcâneo esquerdo.')
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de tendinopatia do calcâneo com lesão parcial esquerdo.')
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de rotura completa do tendão calcâneo esquerdo.')
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Entesófito na inserção do tendão calcâneo esquerdo.')
           setFrasesTornozelo([]);
           setdisableCheckBox(true);
           setdisableInputs(true);
@@ -136,7 +142,9 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
       case "Tendinopatia sem rotura":
         {
           const conclusao = 'Sinais de tendinopatia do calcâneo esquerdo.'
-          removeConclusoes()
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de tendinopatia do calcâneo com lesão parcial esquerdo.')
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de rotura completa do tendão calcâneo esquerdo.')
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Entesófito na inserção do tendão calcâneo esquerdo.')
           setFrasesTornozelo([]);
           setEnableSelects(true);
           setdisableInputs(true);
@@ -149,7 +157,7 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
           setEntesofitoCheckBox(true);
 
           if (valueSelect1 != "") {
-            setConclusoesFrasesTornozelo((arr) => [...arr, conclusao])
+            setConclusoesFrasesTornozelo([conclusao])
             setFrasesTornozelo((arr) => [
               ...arr,
               `Espessado, com alteração ecotextural, mas sem evidências de rotura, ${valueSelect1}`,
@@ -160,7 +168,9 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
       case "Lesão parcial medindo":
         {
           const conclusao = 'Sinais de tendinopatia do calcâneo com lesão parcial esquerdo.'
-          removeConclusoes()
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de tendinopatia do calcâneo esquerdo.')
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de rotura completa do tendão calcâneo esquerdo.')
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Entesófito na inserção do tendão calcâneo esquerdo.')
           setFrasesTornozelo([]);
           setdisableInputs(false);
           setMedidaInsercao("");
@@ -169,7 +179,7 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
           setEntesofitoCheckBox(true);
 
           if (medida1Lesao != "" && medida2Lesao != "" && medida3Lesao != "") {
-            setConclusoesFrasesTornozelo((arr) => [...arr, conclusao])
+            setConclusoesFrasesTornozelo([conclusao])
             setFrasesTornozelo((arr) => [
               ...arr,
               `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(
@@ -184,9 +194,12 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
         }
         break;
       case "Lesão completa": {
+        new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de tendinopatia do calcâneo esquerdo.')
+        new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de tendinopatia do calcâneo com lesão parcial esquerdo.')
+
         const conclusao = 'Sinais de rotura completa do tendão calcâneo esquerdo.'
         const entesofito = 'Entesófito na inserção do tendão calcâneo esquerdo.'
-        removeConclusoes()
+
         setFrasesTornozelo([]);
         setdisableInputs(false);
 
@@ -196,7 +209,7 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
           medidaIntervalo != "" &&
           medidaEntesofito != ""
         ) {
-          setConclusoesFrasesTornozelo((arr) => [...arr, conclusao])
+          setConclusoesFrasesTornozelo([conclusao])
           setConclusoesFrasesTornozelo((arr) => [...arr, entesofito])
           setFrasesTornozelo((arr) => [
             ...arr,
@@ -209,7 +222,8 @@ export default function Tendao_Calcaneo_Esquerdo({ Disable }) {
             ).Convert_Medida()} cm`,
           ]);
         } else if (medidaInsercao != "" && medidaIntervalo != "") {
-          setConclusoesFrasesTornozelo((arr) => [...arr, conclusao])
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Entesófito na inserção do tendão calcâneo esquerdo.')
+          setConclusoesFrasesTornozelo([conclusao])
           setFrasesTornozelo((arr) => [
             ...arr,
             `Lesão completa a ${new Convert_Medida(

@@ -111,6 +111,7 @@ function LigColTibialMedialDireito({ Disable }) {
     if (index > -1) {
       ConclusaoLigamentoTibialMedial.splice(index, 1);
       setConclusaoLigamentoTibialMedial((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value)
     }
   };
   return (

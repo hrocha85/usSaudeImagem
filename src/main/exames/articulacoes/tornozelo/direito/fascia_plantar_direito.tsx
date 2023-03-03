@@ -38,6 +38,8 @@ export default function Fascia_Plantar_Direito({ Disable }) {
     switch (value) {
       case "1":
         {
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Nódulo na fáscia plantar direito.')
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de fascilíte plantar direito.')
           setConclusoesFrasesTornozelo([]);
           setFrasesTornozelo([]);
           setEnableFibromatoseSelect(false);
@@ -51,6 +53,8 @@ export default function Fascia_Plantar_Direito({ Disable }) {
         break;
       case "Normal":
         {
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Nódulo na fáscia plantar direito.')
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de fascilíte plantar direito.')
           setConclusoesFrasesTornozelo([]);
           setFrasesTornozelo([]);
           setMedida1Fibro("");
@@ -68,7 +72,8 @@ export default function Fascia_Plantar_Direito({ Disable }) {
         break;
       case "Fascilite":
         {
-          setConclusoesFrasesTornozelo(['Sinais de fascilíte plantar direito'])
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Nódulo na fáscia plantar direito.')
+          setConclusoesFrasesTornozelo(['Sinais de fascilíte plantar direito.'])
           setFrasesTornozelo([]);
           setEnableFibromatoseSelect(false);
           setFasciliteInput(false);
@@ -89,6 +94,7 @@ export default function Fascia_Plantar_Direito({ Disable }) {
         break;
       case "Fibromatose":
         {
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Sinais de fascilíte plantar direito.')
           setConclusoesFrasesTornozelo(['Nódulo na fáscia plantar direito.'])
           setFrasesTornozelo([]);
           setEnableFibromatoseSelect(true);

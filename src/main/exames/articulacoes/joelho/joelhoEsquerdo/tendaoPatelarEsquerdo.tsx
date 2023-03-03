@@ -102,6 +102,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
         if (index > -1) {
           ConclusaoTendaoPatelarEsquerdo.splice(index, 1);
           setConclusaoTendaoPatelarEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Tendinopatia do bíceps femoral')
         }
       }
     });

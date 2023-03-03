@@ -16,6 +16,7 @@ export default function Bolsa_Esquerdo({ Disable }) {
       case "1":
         {
           setFrasesTornozelo([]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Bursite retrocalcaniana lado esquerdo.')
           setConclusoesFrasesTornozelo([])
         }
         break;
@@ -23,6 +24,7 @@ export default function Bolsa_Esquerdo({ Disable }) {
         {
           setFrasesTornozelo([]);
           setConclusoesFrasesTornozelo([])
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Bursite retrocalcaniana lado esquerdo.')
           setFrasesTornozelo((arr) => [
             ...arr,
             `Ausência de coleção líquida na bolsa retrocalcaniana.`,

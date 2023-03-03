@@ -100,6 +100,7 @@ function MeniscosEsquerdo({ Disable }) {
         if (index > -1) {
           ConclusaoMeniscosEsquerdo.splice(index, 1);
           setConclusaoMeniscosEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Extrusão')
         }
       }
     });
@@ -133,6 +134,7 @@ function MeniscosEsquerdo({ Disable }) {
         if (index > -1) {
           ConclusaoMeniscosEsquerdo.splice(index, 1);
           setConclusaoMeniscosEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Sinais compatíveis com lesão')
         }
       }
     });

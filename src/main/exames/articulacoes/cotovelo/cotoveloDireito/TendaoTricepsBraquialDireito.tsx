@@ -143,6 +143,7 @@ function TendaoTricepsBraquialDireito({ Disable }) {
                 if (index > -1) {
                     ConclusaoTendaoTricepsBraquialDireito.splice(index, 1);
                     setConclusaoTendaoTricepsBraquialDireito((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao('Entesopatia do tríceps braquial.')
                 }
             }
         });

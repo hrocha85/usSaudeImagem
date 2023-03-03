@@ -10,28 +10,28 @@ function TendaoSubescapularOmbroEsquerdo({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
-  const [fraseTendaoSubescapuçarEsquerdo, setFraseTendaoSubescapuçarEsquerdo] = useState<any>([]);
+  const [fraseTendaoSubescapularEsquerdo, setFraseTendaoSubescapularEsquerdo] = useState<any>([]);
 
   const subExame = 'Tendão Subescapular Esquerdo'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
-    if (Object.keys(fraseTendaoSubescapuçarEsquerdo).length === 0) {
+    if (Object.keys(fraseTendaoSubescapularEsquerdo).length === 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        fraseTendaoSubescapuçarEsquerdo
+        fraseTendaoSubescapularEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        fraseTendaoSubescapuçarEsquerdo
+        fraseTendaoSubescapularEsquerdo
       ).Format_Laudo_Create_Storage();
     }
-  }, [fraseTendaoSubescapuçarEsquerdo]);
+  }, [fraseTendaoSubescapularEsquerdo]);
 
   const [RoturaParcialInput, setRoturaParcialInput] = useState("");
   const [RoturaParcialInput2, setRoturaParcialInput2] = useState("");
@@ -73,7 +73,7 @@ function TendaoSubescapularOmbroEsquerdo({ Disable }) {
     if (RoturaParcialCheckbox) {
       if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectRoturaParcial !== '') {
         var string = `${selectRoturaParcial} espessado, com alteração ecotextural, observando-se sinais de rotura parcial ${medida1} x ${medida2} x ${medida3} cm`;
-        setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]);
+        setFraseTendaoSubescapularEsquerdo((arr) => [...arr, string]);
       }
     } else {
       removeRoturaParcial();
@@ -81,12 +81,12 @@ function TendaoSubescapularOmbroEsquerdo({ Disable }) {
   };
 
   const removeRoturaParcial = () => {
-    fraseTendaoSubescapuçarEsquerdo.map((e) => {
+    fraseTendaoSubescapularEsquerdo.map((e) => {
       if (e.includes("espessado, com alteração ecotextural, observando-se sinais de rotura parcial ")) {
-        var index = fraseTendaoSubescapuçarEsquerdo.indexOf(e);
+        var index = fraseTendaoSubescapularEsquerdo.indexOf(e);
         if (index > -1) {
-          fraseTendaoSubescapuçarEsquerdo.splice(index, 1);
-          setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr]);
+          fraseTendaoSubescapularEsquerdo.splice(index, 1);
+          setFraseTendaoSubescapularEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -94,7 +94,7 @@ function TendaoSubescapularOmbroEsquerdo({ Disable }) {
 
   const criaStringAspectoNormal = () => {
     var string = "com ecotextura e espessura preservadas e contornos normais.";
-    AspectoNormalCheckbox ? setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
+    AspectoNormalCheckbox ? setFraseTendaoSubescapularEsquerdo((arr) => [...arr, string]) : removeItemString(string);
   }
 
   useEffect(() => {
@@ -104,7 +104,7 @@ function TendaoSubescapularOmbroEsquerdo({ Disable }) {
   const criaStringPequenasCalcificacoes = () => {
     var string = "Há pequenas calcificações junto à inserção do subescapular.";
     if (PequenasCalcificacoesCheckbox) {
-      setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]);
+      setFraseTendaoSubescapularEsquerdo((arr) => [...arr, string]);
     } else {
       removeItemString(string);
     }
@@ -123,10 +123,10 @@ function TendaoSubescapularOmbroEsquerdo({ Disable }) {
     if (TendinopatiaSemRoturaCheckbox) {
       if (select !== '' && medidacm !== '') {
         string = `${string} ${select} medindo ${medida} cm`;
-        setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]);
+        setFraseTendaoSubescapularEsquerdo((arr) => [...arr, string]);
       } else {
         string = `${string} ${select}`;
-        setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]);
+        setFraseTendaoSubescapularEsquerdo((arr) => [...arr, string]);
       }
     } else {
       removeFraseTendinopatiaSemRotura()
@@ -134,13 +134,13 @@ function TendaoSubescapularOmbroEsquerdo({ Disable }) {
   };
 
   const removeFraseTendinopatiaSemRotura = () => {
-    fraseTendaoSubescapuçarEsquerdo.map((e) => {
+    fraseTendaoSubescapularEsquerdo.map((e) => {
       if (e.includes("Tendão do subescapular espessado, com alteração ecotextural, sem evidências de rotura.")) {
-        var index = fraseTendaoSubescapuçarEsquerdo.indexOf(e);
+        var index = fraseTendaoSubescapularEsquerdo.indexOf(e);
 
         if (index > -1) {
-          fraseTendaoSubescapuçarEsquerdo.splice(index, 1);
-          setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr]);
+          fraseTendaoSubescapularEsquerdo.splice(index, 1);
+          setFraseTendaoSubescapularEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -151,20 +151,20 @@ function TendaoSubescapularOmbroEsquerdo({ Disable }) {
     var string;
     if (dados !== '' && medidaRetracao !== '') {
       string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo com ${medidaRetracao} mm de retração`;
-      setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]);
+      setFraseTendaoSubescapularEsquerdo((arr) => [...arr, string]);
     } else if (dados !== '') {
       string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo`;
-      setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr, string]);
+      setFraseTendaoSubescapularEsquerdo((arr) => [...arr, string]);
     }
   }
   const removeFraseRoturaCompleta = () => {
-    fraseTendaoSubescapuçarEsquerdo.map((e) => {
+    fraseTendaoSubescapularEsquerdo.map((e) => {
       if (e.includes("Hipoecogênico, heterogêneo, observando-se sinais de rotura completa")) {
-        var index = fraseTendaoSubescapuçarEsquerdo.indexOf(e);
+        var index = fraseTendaoSubescapularEsquerdo.indexOf(e);
 
         if (index > -1) {
-          fraseTendaoSubescapuçarEsquerdo.splice(index, 1);
-          setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr]);
+          fraseTendaoSubescapularEsquerdo.splice(index, 1);
+          setFraseTendaoSubescapularEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -193,10 +193,10 @@ function TendaoSubescapularOmbroEsquerdo({ Disable }) {
 
 
   const removeItemString = (value) => {
-    var index = fraseTendaoSubescapuçarEsquerdo.indexOf(value);
+    var index = fraseTendaoSubescapularEsquerdo.indexOf(value);
     if (index > -1) {
-      fraseTendaoSubescapuçarEsquerdo.splice(index, 1);
-      setFraseTendaoSubescapuçarEsquerdo((arr) => [...arr]);
+      fraseTendaoSubescapularEsquerdo.splice(index, 1);
+      setFraseTendaoSubescapularEsquerdo((arr) => [...arr]);
     }
   };
 

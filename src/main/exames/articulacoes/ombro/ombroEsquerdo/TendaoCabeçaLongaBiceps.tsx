@@ -192,6 +192,7 @@ function TendaoCabeçaLongaBicepsEsquerdo({ Disable }) {
         if (index > -1) {
           ConclusaoTendaoCabecaLongaBicepsEsquerdo.splice(index, 1);
           setConclusaoTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao("Tendinopatia da cabeça longa do bíceps, com sinais de rotura completa.")
         }
       }
     });
@@ -261,6 +262,7 @@ function TendaoCabeçaLongaBicepsEsquerdo({ Disable }) {
         if (index > -1) {
           ConclusaoTendaoCabecaLongaBicepsEsquerdo.splice(index, 1);
           setConclusaoTendaoCabecaLongaBicepsEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select("do tendão da cabeça longa do bíceps")
         }
       }
     });

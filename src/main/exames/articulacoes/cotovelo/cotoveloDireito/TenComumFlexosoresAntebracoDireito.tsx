@@ -126,6 +126,7 @@ function TenComumFlexoresAntebracoDireito({ Disable }) {
         if (index > -1) {
             ConclusaoTenComumFlexoresAntebracoDireito.splice(index, 1);
             setConclusaoTenComumFlexoresAntebracoDireito((arr) => [...arr]);
+            new Format_Laudo(titulo_exame).Remove_Conclusao(value)
         }
     };
 

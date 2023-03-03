@@ -37,28 +37,6 @@ export default function Tendao_Flexor_Halux_Esquerdo({ Disable }) {
   const subExame = "Tendão Flexor Longo do Hálux Esquerdo";
   const titulo_exame = "Articulações";
 
-  const removeSelectString = () => {
-    frasesTornozelo.map((e) => {
-      if (e.includes("Derrame articular ")) {
-        var index = frasesTornozelo.indexOf(e);
-
-        if (index > -1) {
-          frasesTornozelo.splice(index, 1);
-          setFrasesTornozelo((arr) => [...arr]);
-        }
-      }
-    });
-    frasesTornozelo.map((e) => {
-      if (e.includes("Ausência de derrame ")) {
-        var index = frasesTornozelo.indexOf(e);
-
-        if (index > -1) {
-          frasesTornozelo.splice(index, 1);
-          setFrasesTornozelo((arr) => [...arr]);
-        }
-      }
-    });
-  };
 
   const removeConclusao = () => {
     ConclusoesTornozelo.map((e) => {
@@ -68,6 +46,8 @@ export default function Tendao_Flexor_Halux_Esquerdo({ Disable }) {
         if (index > -1) {
           ConclusoesTornozelo.splice(index, 1);
           setConclusoesTornozelo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Sinais de tendinopatia do extensor longo do hálux')
+
         }
       }
     });
@@ -120,7 +100,7 @@ export default function Tendao_Flexor_Halux_Esquerdo({ Disable }) {
           setMedida2Lesao("");
           setMedida3Lesao("");
           if (valueSelect1 != "") {
-            setConclusoesTornozelo((arr) => [...arr, conclusao])
+            setConclusoesTornozelo([conclusao])
             setFrasesTornozelo((arr) => [
               ...arr,
               `Espessado, com alteração ecotextural, mas sem evidências de rotura, ${valueSelect1}`,

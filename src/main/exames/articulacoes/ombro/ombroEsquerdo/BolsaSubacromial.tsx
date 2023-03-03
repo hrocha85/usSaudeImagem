@@ -83,6 +83,7 @@ function BolsaSubacromial_SubdeltoideaEsquerdo({ Disable }) {
         if (index > -1) {
           ConclusaoBolsaSubacromialSubdeltoidea.splice(index, 1);
           setConclusaoBolsaSubacromialSubdeltoidea((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select("Líquido na bolsa subacromial-subdeltoidea.")
         }
       }
     });

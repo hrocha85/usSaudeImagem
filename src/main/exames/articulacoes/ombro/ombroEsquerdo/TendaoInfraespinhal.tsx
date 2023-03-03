@@ -210,6 +210,7 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
     if (index > -1) {
       ConclusaoTendaoInfraespinhalEsquerdo.splice(index, 1);
       setConclusaoTendaoInfraespinhalEsquerdo((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value)
     }
   };
 

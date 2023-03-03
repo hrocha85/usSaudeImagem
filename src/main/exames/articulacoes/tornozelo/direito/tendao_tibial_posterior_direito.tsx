@@ -41,30 +41,6 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
   const subExame = "Tendão Tibial Posterior Direito";
   const titulo_exame = "Articulações";
 
-  const removeSelectString = () => {
-    frasesTornozelo.map((e) => {
-      if (e.includes("Derrame articular ")) {
-        var index = frasesTornozelo.indexOf(e);
-
-        if (index > -1) {
-          frasesTornozelo.splice(index, 1);
-          setFrasesTornozelo((arr) => [...arr]);
-        }
-      }
-    });
-    frasesTornozelo.map((e) => {
-      if (e.includes("Ausência de derrame ")) {
-        var index = frasesTornozelo.indexOf(e);
-
-        if (index > -1) {
-          frasesTornozelo.splice(index, 1);
-          setFrasesTornozelo((arr) => [...arr]);
-        }
-      }
-    });
-  };
-
-
   const removeConclusao = () => {
     ConclusoesTornozelo.map((e) => {
       if (e.includes("Sinais de tendinopatia do tibial posterior direito")) {
@@ -73,6 +49,8 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
         if (index > -1) {
           ConclusoesTornozelo.splice(index, 1);
           setConclusoesTornozelo((arr) => [...arr]);
+
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Sinais de tendinopatia do tibial posterior direito')
         }
       }
     });
@@ -83,6 +61,7 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
         if (index > -1) {
           ConclusoesTornozelo.splice(index, 1);
           setConclusoesTornozelo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Osso navicular acessório')
         }
       }
     });

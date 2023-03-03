@@ -50,10 +50,10 @@ export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo, 
     ConclusaoLiquidoPerintendineoHexoresEsquerdo.map((e) => {
       if (e.includes(`${numCalculo}`)) {
         var index = ConclusaoLiquidoPerintendineoHexoresEsquerdo.indexOf(e);
-
         if (index > -1) {
           ConclusaoLiquidoPerintendineoHexoresEsquerdo.splice(index, 1);
           setConclusaoLiquidoPerintendineoHexoresEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(`${numCalculo}`)
         }
       }
     });

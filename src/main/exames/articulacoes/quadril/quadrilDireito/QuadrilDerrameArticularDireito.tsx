@@ -96,6 +96,7 @@ function QuadrilDerrameArticularDireito({ Disable }) {
         if (index > -1) {
           ConclusaoQuadrilDerrameArticularDireito.splice(index, 1);
           setConclusaoQuadrilDerrameArticularDireito((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(`Derrame articular`)
         }
       }
     });

@@ -16,12 +16,14 @@ export default function Bolsa_Direito({ Disable }) {
       case "1":
         {
           setConclusoesFrasesTornozelo([])
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Bursite retrocalcaniana lado direito.')
           setFrasesTornozelo([]);
         }
         break;
       case "Ausente":
         {
           setFrasesTornozelo([]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Bursite retrocalcaniana lado direito.')
           setConclusoesFrasesTornozelo([])
           setFrasesTornozelo((arr) => [
             ...arr,

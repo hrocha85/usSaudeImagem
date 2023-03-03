@@ -34,6 +34,7 @@ export default function Neuroma_Morton_Esquerdo({ Disable }) {
     switch (value) {
       case "1":
         {
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Imagem compatível com neuroma de Morton.')
           setConclusoesFrasesTornozelo([]);
           setFrasesTornozelo([]);
           setEnableMortonSelect(false);
@@ -45,6 +46,7 @@ export default function Neuroma_Morton_Esquerdo({ Disable }) {
         break;
       case "Ausente":
         {
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Imagem compatível com neuroma de Morton.')
           setConclusoesFrasesTornozelo([]);
           setFrasesTornozelo([]);
           setMedida1Morton("");

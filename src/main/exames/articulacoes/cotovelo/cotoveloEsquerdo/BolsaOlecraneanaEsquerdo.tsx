@@ -62,6 +62,7 @@ function BolsaOlecreaneanaEsquerdo({ Disable }) {
         if (index > -1) {
             ConclusaoBolsaOlecreaneanaEsquerdo.splice(index, 1);
             setConclusaoBolsaOlecreaneanaEsquerdo((arr) => [...arr]);
+            new Format_Laudo(titulo_exame).Remove_Conclusao(value)
         }
     };
 

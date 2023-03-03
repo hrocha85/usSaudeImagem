@@ -100,6 +100,7 @@ function MeniscosDireito({ Disable }) {
         if (index > -1) {
           ConclusaoMeniscosDireito.splice(index, 1);
           setConclusaoMeniscosDireito((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Sinais compatíveis com lesão')
         }
       }
     });
@@ -216,6 +217,7 @@ function MeniscosDireito({ Disable }) {
         if (index > -1) {
           ConclusaoMeniscosDireito.splice(index, 1);
           setConclusaoMeniscosDireito((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Extrusão')
         }
       }
     });

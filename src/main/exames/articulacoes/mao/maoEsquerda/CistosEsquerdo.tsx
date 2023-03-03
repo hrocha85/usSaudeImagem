@@ -98,13 +98,14 @@ function MaoCistosEsquerdo({ Disable }) {
     }
 
     const removeFraseConclusao = () => {
-        CistosEsquerdo.map((e) => {
+        ConclusaoEsquerdo.map((e) => {
             if (e.includes(`Cisto no`)) {
-                var index = CistosEsquerdo.indexOf(e);
+                var index = ConclusaoEsquerdo.indexOf(e);
 
                 if (index > -1) {
-                    CistosEsquerdo.splice(index, 1);
-                    setCistosEsquerdo((arr) => [...arr]);
+                    ConclusaoEsquerdo.splice(index, 1);
+                    setConclusaoEsquerdo((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao('Cisto no')
                 }
             }
         });
