@@ -247,9 +247,13 @@ function Exames() {
             </TextPDF>
             <ViewPDF style={styles.view_frases}>
               {typeof sub.frases != "string" ? (
-                sub.frases.map((frase,key) => {
+                sub.frases.map((frase, key) => {
                   return (
-                    <TextPDF style={styles.frasesSubExame} orphans={3} key={key}>
+                    <TextPDF
+                      style={styles.frasesSubExame}
+                      orphans={3}
+                      key={key}
+                    >
                       {frase}
                     </TextPDF>
                   );
@@ -271,6 +275,18 @@ function Exames() {
           return conclusao != null && conclusao != "" ? (
             <TextPDF style={styles.frasesConclusoes} orphans={3} key={key}>
               {conclusao}
+            </TextPDF>
+          ) : null;
+        });
+      }
+    };
+
+    const renderObservacoes = (exame) => {
+      if (exame.observacoes != null && exame.observacoes != undefined) {
+        return exame.observacoes.map((observacao, key) => {
+          return observacao != null && observacao != "" ? (
+            <TextPDF style={styles.frasesSubExame} orphans={3} key={key}>
+              {observacao}
             </TextPDF>
           ) : null;
         });
@@ -310,7 +326,19 @@ function Exames() {
                   {exame.titulo_exame.toUpperCase()}
                 </TextPDF>
                 <ViewPDF>{renderFrases(exame)}</ViewPDF>
-                {exame.conclusoes != null && exame.conclusoes != undefined ? (
+
+                {exame.observacoes != null && exame.observacoes != undefined ? (
+                  <ViewPDF style={styles.inline}>
+                    <TextPDF style={styles.textNomeSubExame}>
+                      {`Observações ${exame.titulo_exame}:`}
+                    </TextPDF>
+                    <ViewPDF>{renderObservacoes(exame)}</ViewPDF>
+                  </ViewPDF>
+                ) : null}
+
+                {exame.conclusoes != null &&
+                exame.conclusoes != undefined &&
+                exame.conclusoes.lenght > 1 ? (
                   <ViewPDF style={styles.viewConclusoes}>
                     <ViewPDF style={styles.lineConclusoes} break={true} />
                     <TextPDF style={styles.textConclusao}>
@@ -733,6 +761,35 @@ function Exames() {
                   ) : null;
                 })}
 
+                {exame.observacoes != undefined &&
+                exame.observacoes.length > 1 ? (
+                  <>
+                    <HStack>
+                      <Text textDecoration="underline" fontWeight="semibold">
+                        Observações {exame.titulo_exame}:
+                      </Text>
+                      <Box w="100%">
+                        {typeof exame.observacoes != "string"
+                          ? exame.observacoes.map((frase, key) => {
+                              return (
+                                <Stack key={key}>
+                                  <Text
+                                    wordBreak="break-word"
+                                    w="100%"
+                                    textAlign="start"
+                                    marginStart="10px"
+                                  >
+                                    {frase}
+                                  </Text>
+                                </Stack>
+                              );
+                            })
+                          : null}
+                      </Box>
+                    </HStack>
+                  </>
+                ) : null}
+
                 {exame.conclusoes != undefined &&
                 exame.conclusoes.length > 1 ? (
                   <>
@@ -754,7 +811,12 @@ function Exames() {
 
                     {exame.conclusoes.map((conclusao, key) => {
                       return conclusao != "" && conclusao != null ? (
-                        <Text w="100%" textAlign="start" marginStart="10px" key={key}> 
+                        <Text
+                          w="100%"
+                          textAlign="start"
+                          marginStart="10px"
+                          key={key}
+                        >
                           {conclusao}
                         </Text>
                       ) : null;

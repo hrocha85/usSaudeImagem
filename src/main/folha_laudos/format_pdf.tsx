@@ -59,8 +59,12 @@ export default function Format_PDF() {
           <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
           <View style={styles.view_frases}>
             {typeof sub.frases != "string" ? (
-              sub.frases.map((frase,key) => {
-                return <Text style={styles.frasesSubExame} key={key}>{frase}</Text>;
+              sub.frases.map((frase, key) => {
+                return (
+                  <Text style={styles.frasesSubExame} key={key}>
+                    {frase}
+                  </Text>
+                );
               })
             ) : (
               <Text style={styles.frasesSubExame}>{sub.frases}</Text>
@@ -77,6 +81,17 @@ export default function Format_PDF() {
         return conclusao != null && conclusao != "" ? (
           <Text style={styles.frasesConclusoes} orphans={3} key={key}>
             {conclusao}
+          </Text>
+        ) : null;
+      });
+    }
+  };
+  const renderObservacoes = (exame) => {
+    if (exame.observacoes != null && exame.observacoes != undefined) {
+      return exame.observacoes.map((observacao, key) => {
+        return observacao != null && observacao != "" ? (
+          <Text style={styles.frasesSubExame} orphans={3} key={key}>
+            {observacao}
           </Text>
         ) : null;
       });
@@ -319,8 +334,20 @@ export default function Format_PDF() {
                       {exame.titulo_exame.toUpperCase()}
                     </Text>
                     <View>{renderFrases(exame)}</View>
+
+                    {exame.observacoes != null &&
+                    exame.observacoes != undefined ? (
+                      <View style={styles.inline}>
+                          <Text style={styles.textNomeSubExame}>
+                            {`Observações ${exame.titulo_exame}:`}
+                          </Text>
+                          <View>{renderObservacoes(exame)}</View>
+                      </View>
+                    ) : null}
+
                     {exame.conclusoes != null &&
-                    exame.conclusoes != undefined ? (
+                    exame.conclusoes != undefined &&
+                    exame.conclusoes.lenght > 1 ? (
                       <View style={styles.viewConclusoes}>
                         <View style={styles.lineConclusoes} break={true} />
                         <Text style={styles.textConclusao}>

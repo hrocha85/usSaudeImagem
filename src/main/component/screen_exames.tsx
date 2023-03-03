@@ -252,6 +252,8 @@ export default function Box_Default_With_Sidebar() {
     const obj = {
       titulo_exame: exame,
       subExames: [{ subExameNome: "", frases: [] }],
+      conclusoes: [""],
+      observacoes: [""],
     };
     array.push(obj);
 
@@ -425,8 +427,8 @@ export default function Box_Default_With_Sidebar() {
           paddingBottom="3%"
           marginStart="5px"
         >
-          <Flex flex={1} flexDirection="column" maxW='50%'>
-            <Field_Observacoes exame={currentExame} />
+          <Flex flex={1} flexDirection="column" maxW="60%">
+            <Field_Observacoes exame={currentExame} key={tabIndex} />
           </Flex>
 
           {/*<Flex flex={1} flexDirection="column">
