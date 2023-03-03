@@ -53,6 +53,7 @@ export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo, 
         if (index > -1) {
           ConclusaoLiquidoPerintendineoHexoresDireito.splice(index, 1);
           setConclusaoLiquidoPerintendineoHexoresDireito((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(`${numCalculo}`)
         }
       }
     });

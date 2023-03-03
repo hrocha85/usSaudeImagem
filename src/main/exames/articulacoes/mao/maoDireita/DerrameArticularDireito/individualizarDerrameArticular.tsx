@@ -76,6 +76,7 @@ export default function IndividualizarDerrameArticular({ numCalculo, desabilita 
         if (index > -1) {
           ConclusaoDerrameArticularDireito.splice(index, 1);
           setConclusaoDerrameArticularDireito((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Derrame articular.')
         }
       }
     });

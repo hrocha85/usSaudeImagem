@@ -59,6 +59,7 @@ export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) 
         if (index > -1) {
           ConclusaoRoturaExtensoresEsquerdo.splice(index, 1);
           setConclusaoRoturaExtensoresEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(`${numCalculo}`)
         }
       }
     });

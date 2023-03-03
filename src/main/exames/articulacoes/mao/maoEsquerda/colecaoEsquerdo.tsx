@@ -64,6 +64,7 @@ function ColecaoEsquerdo({ Disable }) {
         if (index > -1) {
           ConclusaoColecaoMaoEsquerdo.splice(index, 1);
           setConclusaoColecaoMaoEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(`Coleção na`)
         }
       }
     });

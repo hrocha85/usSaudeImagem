@@ -46,6 +46,7 @@ export default function IndividualizarTenossinoviteFlexores({ numCalculo, Disabl
         if (index > -1) {
           ConclusaoTenossinoviteFlexoresEsquerdo.splice(index, 1);
           setConclusaoTenossinoviteFlexoresEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(`${numCalculo}`)
         }
       }
     });
