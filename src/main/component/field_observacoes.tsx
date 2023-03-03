@@ -17,7 +17,7 @@ import {
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { GrSubtractCircle } from "react-icons/gr";
 import PlusButton from "../images/button_plus.png";
@@ -28,20 +28,23 @@ export default function Field_Observacoes({ exame }) {
   const altura = "100%";
   const largura = "100%";
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const get_format_laudo = JSON.parse(localStorage.getItem("format_laudo")!);
+  const observacao: any[] = get_format_laudo.map((e) => {
+    if (e.titulo_exame == exame.nomeExame) {
+      return e.observacoes;
+    }
+  });
 
   let titulo = "Observações";
   if (exame && exame.nomeExame) {
     titulo = `Observações ${exame.nomeExame}`;
   }
-  const button_plus = React.createElement("img", { src: PlusButton });
   var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
 
-  const [arrayObservacoes, setArrayObservacoes] = useState<any>([]);
-
-  const initialItem = { id: exame.nomeExame, values: [""] };
-  const [items, setItems] = useState<{ id: string; values: string[] }[]>([
-    initialItem,
-  ]);
+  const [items, setItems] = useState<{ id: string; values: string[] }>({
+    id: exame.nomeExame,
+    values: [""],
+  });
 
   const [currentOBS, setCurrentOBS] = useState<string>();
 
@@ -49,14 +52,30 @@ export default function Field_Observacoes({ exame }) {
 
   const [clickEditOBS, setclickEditOBS] = useState(false);
 
-  const subExame = titulo;
   const titulo_exame = `${exame.nomeExame}`;
 
-  const checkObservacoes = (observao_local_storage) => {
-    return items.some((item) => item.values.includes(observao_local_storage));
-  };
+  const checkObservacoes = useCallback(
+    (observao_local_storage) => {
+      const get_format_laudo = JSON.parse(
+        localStorage.getItem("format_laudo")!
+      );
+      const observacao = get_format_laudo
+        .filter((e) => e.titulo_exame == exame.nomeExame)
+        .flatMap((e) => e.observacoes)
+        .filter((observacao) => observacao);
 
-  console.log(items);
+      if (
+        items.values.includes(observao_local_storage) ||
+        observacao.includes(observao_local_storage)
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    [exame.nomeExame, items, localStorage.getItem("format_laudo")]
+  );
+
   const Render_Observacao_or_Text_Area = () => {
     return (
       <>
@@ -180,35 +199,29 @@ export default function Field_Observacoes({ exame }) {
                             textColor="blue"
                             onClick={() => {
                               if (checkObservacoes(i)) {
-                                setItems((items) =>
-                                  items.map((item) => {
-                                    if (item.id === exame.nomeExame) {
-                                      const newValues = item.values.filter(
-                                        (value) => value !== i
-                                      );
-                                      return {
-                                        ...item,
-                                        values: newValues,
-                                      };
-                                    }
-                                    return item;
-                                  })
-                                );
-                                setArrayObservacoes((observacoes) =>
-                                  observacoes.filter((obs) => obs !== i)
-                                );
+                                new Format_Laudo(
+                                  exame.nomeExame
+                                ).Remove_Observacao(i);
+
+                                setItems((prevItems) => ({
+                                  ...prevItems,
+                                  values: prevItems.values.map((value) =>
+                                    value !== i ? value : ""
+                                  ),
+                                }));
                               } else {
-                                setItems(
-                                  items.map((item) => {
-                                    if (item.id === exame.nomeExame) {
-                                      return {
-                                        ...item,
-                                        values: [...item.values, i], // adiciona i ao array existente
-                                      };
-                                    }
-                                    return item;
-                                  })
-                                );
+                                setItems((prevItems) => {
+                                  if (prevItems.id === exame.nomeExame) {
+                                    const newValues = [...prevItems.values, i];
+                                    const updatedItem = Object.assign(
+                                      {},
+                                      prevItems,
+                                      { values: newValues }
+                                    );
+                                    return updatedItem;
+                                  }
+                                  return prevItems;
+                                });
                               }
                             }}
                           />
@@ -227,44 +240,48 @@ export default function Field_Observacoes({ exame }) {
 
   const onClick_Observacao_Editada = () => {
     if (checkObservacoes(currentOBS)) {
-      setItems((items) =>
-        items.map((item) => {
-          if (item.id === exame.nomeExame) {
-            const newValues = item.values.filter((value) => value !== editOBS);
-            return {
-              ...item,
-              values: newValues,
-            };
-          }
-          return item;
-        })
-      );
+      setItems((prevItems) => {
+        if (prevItems.id === exame.nomeExame) {
+          const newValues = prevItems.values.filter(
+            (value) => value !== editOBS
+          );
+          return {
+            ...prevItems,
+            values: newValues,
+          };
+        }
+        return prevItems;
+      });
     } else {
-      setItems((items) =>
-        items.map((item) => {
-          if (item.id === exame.nomeExame) {
-            const newValues = [...item.values, editOBS!];
-            return {
-              ...item,
-              values: newValues,
-            };
-          }
-          return item;
-        })
-      );
+      setItems((prevItem) => ({
+        id: prevItem.id,
+        values: [...prevItem.values, editOBS!],
+      }));
+
       updateLocalStorage(editOBS, currentOBS);
     }
   };
 
   const onClick_Inserir_Observacao = () => {
     if (checkObservacoes(currentOBS)) {
-      const index = arrayObservacoes.indexOf(currentOBS);
-      if (index > -1) {
-        arrayObservacoes.splice(index, 1);
-        setArrayObservacoes((arr) => [...arr]);
-      }
+      new Format_Laudo(exame.nomeExame).Remove_Observacao(currentOBS);
+      setItems((prevItems) => {
+        if (prevItems.id === exame.nomeExame) {
+          const newValues = prevItems.values.filter(
+            (value) => value !== currentOBS!
+          );
+          return {
+            ...prevItems,
+            values: newValues,
+          };
+        }
+        return prevItems;
+      });
     } else {
-      setArrayObservacoes((arr) => [...arr, currentOBS]);
+      setItems((prevItem) => ({
+        id: prevItem.id,
+        values: [...prevItem.values, currentOBS!],
+      }));
     }
   };
 
@@ -282,22 +299,21 @@ export default function Field_Observacoes({ exame }) {
   };
 
   useEffect(() => {
-    if (Object.keys(arrayObservacoes).length === 0) {
-      new Format_Laudo(
-        titulo_exame,
-        subExame,
-        true,
-        arrayObservacoes
-      ).Format_Laudo_Create_Storage();
-    } else {
-      new Format_Laudo(
-        titulo_exame,
-        subExame,
-        false,
-        arrayObservacoes
-      ).Format_Laudo_Create_Storage();
-    }
-  }, [arrayObservacoes]);
+    const get_format_laudo = JSON.parse(localStorage.getItem("format_laudo")!);
+    const observacao = get_format_laudo
+      .filter((e) => e.titulo_exame == exame.nomeExame)
+      .flatMap((e) => e.observacoes)
+      .filter((observacao) => observacao);
+
+    setItems({
+      id: exame.nomeExame,
+      values: observacao.length > 1 ? observacao : [""],
+    });
+  }, [exame]);
+
+  useEffect(() => {
+    new Format_Laudo().Add_Observacao(items, titulo_exame);
+  }, [items]);
 
   useEffect(() => {
     Render_Observacao_or_Text_Area();

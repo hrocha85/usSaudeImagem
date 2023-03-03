@@ -66,6 +66,32 @@ export class Format_Laudo {
     window.dispatchEvent(new Event("storage"));
   }
 
+  Add_Observacao(observacoes, titulo_exame): void {
+    var obs: { id: string; values: string[] } = observacoes;
+    var array = JSON.parse(localStorage.getItem("format_laudo")!);
+
+    array.map((Exames) => {
+      if (Exames.titulo_exame == titulo_exame) {
+        if (obs != undefined) {
+          obs.values.map((e: string) => {
+            if (obs.id == titulo_exame) {
+              if (e != "" && !Exames.observacoes.includes(e)) {
+                Exames.observacoes.push(e);
+              }
+            }
+          });
+        }
+      }
+    });
+    localStorage.setItem("format_laudo", JSON.stringify(array));
+    window.dispatchEvent(new Event("storage"));
+  }
+  /**
+   *
+   * @param conclusao
+   *
+   *
+   */
   Remove_Conclusao(conclusao): void {
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
 
@@ -79,5 +105,22 @@ export class Format_Laudo {
         });
       }
     });
+    window.dispatchEvent(new Event("storage"));
+  }
+  Remove_Observacao(observacao): void {
+    console.log("obs", observacao);
+    var array = JSON.parse(localStorage.getItem("format_laudo")!);
+
+    array.map((Exames) => {
+      if (Exames.titulo_exame == this.titulo_exame) {
+        Exames.observacoes.map((e, index) => {
+          if (e === observacao) {
+            Exames.observacoes.splice(index, 1);
+            localStorage.setItem("format_laudo", JSON.stringify(array));
+          }
+        });
+      }
+    });
+    window.dispatchEvent(new Event("storage"));
   }
 }
