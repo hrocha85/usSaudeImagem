@@ -100,6 +100,7 @@ function CistosDireito({ Disable }) {
                 if (index > -1) {
                     ConclusaoCistosDireito.splice(index, 1);
                     setConclusaoCistosDireito((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao(`Cisto de Baker.`)
                 }
             }
         });

@@ -68,6 +68,7 @@ export default function Tendao_Fibular_Longo_Direito({ Disable }) {
         if (index > -1) {
           ConclusoesFrasesTornozelo.splice(index, 1);
           setConclusoesFrasesTornozelo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Sinais de tendinopatia do fibular longo')
         }
       }
     });
@@ -120,7 +121,7 @@ export default function Tendao_Fibular_Longo_Direito({ Disable }) {
           setMedida2Lesao("");
           setMedida3Lesao("");
           if (valueSelect1 != "") {
-            setConclusoesFrasesTornozelo((arr) => [...arr, conclusao])
+            setConclusoesFrasesTornozelo([conclusao])
             setFrasesTornozelo((arr) => [
               ...arr,
               `Espessado, com alteração ecotextural, mas sem evidências de rotura, ${valueSelect1}`,
@@ -134,7 +135,7 @@ export default function Tendao_Fibular_Longo_Direito({ Disable }) {
         setFrasesTornozelo([]);
         setdisableInputs(false);
         if (medida1Lesao != "" && medida2Lesao != "" && medida3Lesao != "") {
-          setConclusoesFrasesTornozelo((arr) => [...arr, conclusao])
+          setConclusoesFrasesTornozelo([conclusao])
           setFrasesTornozelo((arr) => [
             ...arr,
             `Espessado, com alteração ecotextural, observando-se sinais de lesão parcial medindo ${new Convert_Medida(

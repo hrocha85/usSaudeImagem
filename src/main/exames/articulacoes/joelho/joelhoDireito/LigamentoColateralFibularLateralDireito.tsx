@@ -112,6 +112,7 @@ function LigColFibularLateralDireito({ Disable }) {
     if (index > -1) {
       ConclusaoLigamentoFibularLateral.splice(index, 1);
       setConclusaoLigamentoFibularLateral((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value)
     }
   };
 

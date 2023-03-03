@@ -106,6 +106,7 @@ function TendaoBicepsFemoralDireito({ Disable }) {
                 if (index > -1) {
                     ConclusaoTendaoBicepsFemoralDireito.splice(index, 1);
                     setConclusaoTendaoBicepsFemoralDireito((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Tendinopatia do bíceps femoral')
                 }
             }
         });

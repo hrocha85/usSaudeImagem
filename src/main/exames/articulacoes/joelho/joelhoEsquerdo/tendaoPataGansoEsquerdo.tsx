@@ -110,6 +110,7 @@ function TendaoPataGansoEsquerdo({ Disable }) {
     if (index > -1) {
       ConclusaoTendaoPataGansoEsquerdo.splice(index, 1);
       setConclusaoTendaoPataGansoEsquerdo((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value)
     }
   };
 

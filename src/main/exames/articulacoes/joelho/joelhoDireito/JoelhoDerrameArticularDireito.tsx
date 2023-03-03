@@ -96,6 +96,7 @@ function JoelhoDerrameArticularDireito({ Disable }) {
         if (index > -1) {
           ConclusaoJoelhoDerrameArticularDireito.splice(index, 1);
           setConclusaoJoelhoDerrameArticularDireito((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(`Derrame articular`)
         }
       }
     });

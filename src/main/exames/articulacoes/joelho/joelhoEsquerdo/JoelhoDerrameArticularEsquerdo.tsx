@@ -88,6 +88,17 @@ function JoelhoDerrameArticularEsquerdo({ Disable }) {
         }
       }
     });
+    ConclusaoJoelhoDerrameArticularEsquerdo.map((e) => {
+      if (e.includes("Derrame articular")) {
+        var index = ConclusaoJoelhoDerrameArticularEsquerdo.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoJoelhoDerrameArticularEsquerdo.splice(index, 1);
+          setConclusaoJoelhoDerrameArticularEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(`Derrame articular`)
+        }
+      }
+    });
   };
 
   const removeItemString = (value) => {
