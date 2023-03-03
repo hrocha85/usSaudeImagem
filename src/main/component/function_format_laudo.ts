@@ -42,16 +42,19 @@ export class Format_Laudo {
               subExameNome: this.sub_exame_nome,
             });
 
-            if (
-              this.conclusoes_sub_exame &&
-              this.conclusoes_sub_exame.length > 0
-            ) {
-              this.conclusoes_sub_exame.map((conclusao) => {
-                Exames.conclusoes.push(conclusao);
-              });
-            }
             localStorage.setItem(this.sub_exame_nome!, JSON.stringify(1));
           }
+          if (
+            this.conclusoes_sub_exame &&
+            this.conclusoes_sub_exame.length > 0
+          ) {
+            this.conclusoes_sub_exame.map((conclusao) => {
+              if (!Exames.conclusoes.includes(conclusao)) {
+                Exames.conclusoes.push(conclusao);
+              }
+            });
+          }
+          localStorage.setItem(this.sub_exame_nome!, JSON.stringify(1));
         }
         Exames.subExames.map((subExame, indexS) => {
           if (subExame.subExameNome == this.sub_exame_nome) {
@@ -106,6 +109,7 @@ export class Format_Laudo {
     });
     window.dispatchEvent(new Event("storage"));
   }
+
   Remove_Observacao(observacao): void {
     console.log("obs", observacao);
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
@@ -129,7 +133,7 @@ export class Format_Laudo {
       if (Exames.titulo_exame == this.titulo_exame) {
         Exames.conclusoes.map((e, index) => {
           if (e.includes(conclusao)) {
-            var posicao = e.indexOf(conclusao)
+            var posicao = e.indexOf(conclusao);
             if (posicao > -1) {
               Exames.conclusoes.splice(index, 1);
               localStorage.setItem("format_laudo", JSON.stringify(array));
