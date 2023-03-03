@@ -10,7 +10,7 @@ import {
 } from "@react-pdf/renderer";
 import { exec } from "child_process";
 import { relative } from "path";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../context/LuadosContext";
 
 export default function Format_PDF() {
@@ -34,9 +34,8 @@ export default function Format_PDF() {
   const getCurrentDate = () => {
     const timeStamp = new Date();
 
-    return `${timeStamp.getDate()}/${
-      timeStamp.getMonth() + 1
-    }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
+    return `${timeStamp.getDate()}/${timeStamp.getMonth() + 1
+      }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
   };
 
   const getUserMedico = () => {
@@ -336,27 +335,28 @@ export default function Format_PDF() {
                     <View>{renderFrases(exame)}</View>
 
                     {exame.observacoes != null &&
-                    exame.observacoes != undefined ? (
+                      exame.observacoes.length >= 0 &&
+                      exame.observacoes != undefined ? (
                       <View style={styles.inline}>
-                          <Text style={styles.textNomeSubExame}>
-                            {`Observações ${exame.titulo_exame}:`}
-                          </Text>
-                          <View>{renderObservacoes(exame)}</View>
+                        <Text style={styles.textNomeSubExame}>
+                          {`Observações ${exame.titulo_exame}:`}
+                        </Text>
+                        <View>{renderObservacoes(exame)}</View>
                       </View>
                     ) : null}
 
                     {exame.conclusoes != null &&
-                    exame.conclusoes != undefined &&
-                    exame.conclusoes.lenght > 1 ? (
-                      <View style={styles.viewConclusoes}>
-                        <View style={styles.lineConclusoes} break={true} />
-                        <Text style={styles.textConclusao}>
-                          {`Conclusão ${exame.titulo_exame}`}
-                        </Text>
-                        <View>{renderConclusoes(exame)}</View>
-                        <View style={styles.lineConclusoes} />
-                      </View>
-                    ) : null}
+                      exame.conclusoes != undefined
+                      ? (
+                        <View style={styles.viewConclusoes}>
+                          <View style={styles.lineConclusoes} break={true} />
+                          <Text style={styles.textConclusao}>
+                            {`Conclusão ${exame.titulo_exame}`}
+                          </Text>
+                          <View>{renderConclusoes(exame)}</View>
+                          <View style={styles.lineConclusoes} />
+                        </View>
+                      ) : null}
                   </View>
 
                   <View style={styles.pageNumber}>
