@@ -335,7 +335,7 @@ export default function Format_PDF() {
                     <View>{renderFrases(exame)}</View>
 
                     {exame.observacoes != null &&
-                      exame.observacoes.length >= 0 &&
+                      exame.observacoes.length > 1 &&
                       exame.observacoes != undefined ? (
                       <View style={styles.inline}>
                         <Text style={styles.textNomeSubExame}>
