@@ -156,6 +156,7 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
                 if (index > -1) {
                     ConclusaoTendaoBicepsBraquialEsquerdo.splice(index, 1);
                     setConclusaoTendaoBicepsBraquialEsquerdo((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Tendinopatia do bíceps braquial')
                 }
             }
         });

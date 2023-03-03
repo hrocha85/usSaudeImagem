@@ -135,6 +135,7 @@ function NervoUlnarEsquerdo({ Disable }) {
                 if (index > -1) {
                     ConclusaoNervoUlnarEsquerdo.splice(index, 1);
                     setConclusaoNervoUlnarEsquerdo((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao_Select(' do nervo')
                 }
             }
         });

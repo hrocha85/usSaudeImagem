@@ -123,6 +123,7 @@ function TenComumExtensoresAntebracoDireito({ Disable }) {
         if (index > -1) {
             ConclusaoTenComumExtensoresAntebracoDireito.splice(index, 1);
             setConclusaoTenComumExtensoresAntebracoDireito((arr) => [...arr]);
+            new Format_Laudo(titulo_exame).Remove_Conclusao(value)
         }
     };
 

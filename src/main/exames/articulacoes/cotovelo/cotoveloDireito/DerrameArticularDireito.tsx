@@ -69,6 +69,7 @@ function DerrameArticularDireito({ Disable }) {
         if (index > -1) {
             ConclusaoDerrameArticularDireito.splice(index, 1);
             setConclusaoDerrameArticularDireito((arr) => [...arr]);
+            new Format_Laudo(titulo_exame).Remove_Conclusao(value)
         }
     };
 

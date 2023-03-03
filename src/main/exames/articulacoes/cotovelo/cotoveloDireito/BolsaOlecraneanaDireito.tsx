@@ -70,6 +70,7 @@ function BolsaOlecreaneanaDireito({ Disable }) {
         if (index > -1) {
             ConclusaoBolsaOlecreaneanaDireito.splice(index, 1);
             setConclusaoBolsaOlecreaneanaDireito((arr) => [...arr]);
+            new Format_Laudo(titulo_exame).Remove_Conclusao(value)
         }
     };
 

@@ -74,10 +74,6 @@ function NervoUlnarDireito({ Disable }) {
         criaStringSofreLuxacao()
     }, [SofreLuxacaoCheckbox])
 
-        ;
-
-
-
     useEffect(() => {
         if (AreaSeccionalCheckbox) {
             setdisableAreaSeccionalInput(false)
@@ -134,11 +130,12 @@ function NervoUlnarDireito({ Disable }) {
 
     const removeFraseConclusaoEspessamento = () => {
         ConclusaoNervoUlnarDireito.map((e) => {
-            if (e.includes("espessamento do nervo")) {
+            if (e.includes(" do nervo")) {
                 var index = ConclusaoNervoUlnarDireito.indexOf(e);
                 if (index > -1) {
                     ConclusaoNervoUlnarDireito.splice(index, 1);
                     setConclusaoNervoUlnarDireito((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao_Select(' do nervo')
                 }
             }
         });
