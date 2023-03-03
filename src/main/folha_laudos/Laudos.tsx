@@ -281,6 +281,18 @@ function Exames() {
       }
     };
 
+    const renderObservacoes = (exame) => {
+      if (exame.observacoes != null && exame.observacoes != undefined) {
+        return exame.observacoes.map((observacao, key) => {
+          return observacao != null && observacao != "" ? (
+            <TextPDF style={styles.frasesSubExame} orphans={3} key={key}>
+              {observacao}
+            </TextPDF>
+          ) : null;
+        });
+      }
+    };
+
     return (
       <Document
         title={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
@@ -314,7 +326,19 @@ function Exames() {
                   {exame.titulo_exame.toUpperCase()}
                 </TextPDF>
                 <ViewPDF>{renderFrases(exame)}</ViewPDF>
-                {exame.conclusoes != null && exame.conclusoes != undefined ? (
+
+                {exame.observacoes != null && exame.observacoes != undefined ? (
+                  <ViewPDF style={styles.inline}>
+                    <TextPDF style={styles.textNomeSubExame}>
+                      {`Observações ${exame.titulo_exame}:`}
+                    </TextPDF>
+                    <ViewPDF>{renderObservacoes(exame)}</ViewPDF>
+                  </ViewPDF>
+                ) : null}
+
+                {exame.conclusoes != null &&
+                exame.conclusoes != undefined &&
+                exame.conclusoes.lenght > 1 ? (
                   <ViewPDF style={styles.viewConclusoes}>
                     <ViewPDF style={styles.lineConclusoes} break={true} />
                     <TextPDF style={styles.textConclusao}>
