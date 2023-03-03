@@ -83,6 +83,7 @@ function TendaoGluteoMedioDireito({ Disable }) {
         if (index > -1) {
             ConclusaoQuadrilTendaoGluteoMedioDireito.splice(index, 1);
             setConclusaoQuadrilTendaoGluteoMedioDireito((arr) => [...arr]);
+            new Format_Laudo(titulo_exame).Remove_Conclusao(value)
         }
     };
 

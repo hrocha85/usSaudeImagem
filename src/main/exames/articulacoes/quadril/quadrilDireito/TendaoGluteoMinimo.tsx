@@ -83,6 +83,8 @@ function TendaoGluteoMinimoDireito({ Disable }) {
         if (index > -1) {
             ConclusaoQuadrilTendaoGluteoMinimoDireito.splice(index, 1);
             setConclusaoQuadrilTendaoGluteoMinimoDireito((arr) => [...arr]);
+
+            new Format_Laudo(titulo_exame).Remove_Conclusao(value)
         }
     };
 
