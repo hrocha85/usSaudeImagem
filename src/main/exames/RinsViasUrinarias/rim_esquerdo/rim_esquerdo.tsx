@@ -1,5 +1,3 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
   Checkbox,
@@ -7,7 +5,7 @@ import {
   Input,
   Select,
   Stack,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -41,15 +39,12 @@ function RimEsquerdo() {
   const [checkboxRimPelvico, setCheckboxRimPelvico] = useState(false);
 
   const removeItemString = (value) => {
-    // console.log("valor remove = ", value);
     var index = frasesRimE.indexOf(value);
-    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+
     if (index > -1) {
       frasesRimE.splice(index, 1);
       setFrasesRimE((arr) => [...arr]);
     }
-    // console.log('posicao', index)
-    // console.log("laudosPrin", laudoPrin)
   };
 
   const CriaStringMedidas = () => {
@@ -57,7 +52,7 @@ function RimEsquerdo() {
     if (checkboxMedidas) {
       setDisableMedidas(false);
       if (valueInput1Medida.length == 4 && valueParenquima.length == 4) {
-        const valorInput = `Rim esquerdo medindo ${valueInput1Medida} mm  e parênquima de ${valueParenquima} mm `;
+        const valorInput = `Rim Esquerdo medindo ${valueInput1Medida} mm  e parênquima de ${valueParenquima} mm `;
         setFrasesRimE((arr) => [...arr, valorInput]);
       }
     } else {
@@ -73,7 +68,7 @@ function RimEsquerdo() {
     frasesRimE.map((e) => {
       if (e.includes("Rim Esquerdo medindo")) {
         let index = frasesRimE.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+
         if (index > -1) {
           frasesRimE.splice(index, 1);
           setFrasesRimE((arr) => [...arr]);
@@ -127,7 +122,7 @@ function RimEsquerdo() {
     frasesRimE.map((e) => {
       if (e.includes("Rim Esquerdo ausente")) {
         let index = frasesRimE.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+
         if (index > -1) {
           frasesRimE.splice(index, 1);
           setFrasesRimE((arr) => [...arr]);
