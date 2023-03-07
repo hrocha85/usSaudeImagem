@@ -52,8 +52,9 @@ function Miometrio({ Disable }) {
   const [multiplosNodulosCheckBox, setmultiplosNodulosCheckBox] =
     useState(false);
 
-  const [miometrioSemNodulosCheckBox, setmiometrioSemNodulosCheckBox] =
-    useState(true);
+  const [miometrioSemNodulosCheckBox, setmiometrioSemNodulosCheckBox] = useState(true);
+
+  const [MiometrioHomogeneoSemNodulosCheckBox, setMiometrioHomogeneoSemNodulosCheckBox] = useState(false);
 
   const handleChangeNoduloInput = (event) => {
     settamanhoNoduloInput(event.target.value);
@@ -97,6 +98,21 @@ function Miometrio({ Disable }) {
       removeItemStringConclusao(conclusao);
     }
   };
+  const criaStringMiometrioHomogeneoSemNodulos = () => {
+    var string =
+      'falta'
+    const conclusao = 'falta.'
+    if (MiometrioHomogeneoSemNodulosCheckBox) {
+      setFrasesMiometrio((arr) => [...arr, string]);
+      setConclusaoMiometrio((arr) => [...arr, conclusao]);
+    } else {
+      removeItemString(string);
+      removeItemStringConclusao(conclusao);
+    }
+  };
+  useEffect(() => {
+    criaStringMiometrioHomogeneoSemNodulos()
+  }, [MiometrioHomogeneoSemNodulosCheckBox])
 
   const removeItemString = (value) => {
     var index = frasesMiometrio.indexOf(value);
@@ -161,6 +177,13 @@ function Miometrio({ Disable }) {
             >
               Miométrio heterogêneo sem nódulos
             </Checkbox>
+            <Checkbox isDisabled={Disable}
+              onChange={() => {
+                setMiometrioHomogeneoSemNodulosCheckBox(!MiometrioHomogeneoSemNodulosCheckBox);
+              }}
+            >
+              Miométrio Homogêneo sem nódulos
+            </Checkbox>
             <Box>
               <HStack>
                 <Checkbox
@@ -179,7 +202,6 @@ function Miometrio({ Disable }) {
                   w="60px"
                   h="77x"
                   padding="5px"
-                  maxLength={2}
                   textAlign="center"
                   onChange={handleChangeNoduloInput}
                   placeholder={"mm"}
@@ -198,6 +220,7 @@ function Miometrio({ Disable }) {
                   <option value="Intramural">Intramural</option>
                   <option value="Subseroso">Subseroso </option>
                   <option value="Submucoso">Submucoso</option>
+                  <option value="médio versão">Médio versão</option>
                 </Select>
 
                 <Select

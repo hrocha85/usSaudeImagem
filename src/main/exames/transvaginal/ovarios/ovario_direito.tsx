@@ -47,6 +47,7 @@ function Ovario_Direito({ Disable }) {
   const [medidaOvario1, setmedidaOvario1] = useState("");
   const [medidaOvario2, setmedidaOvario2] = useState("");
   const [medidaOvario3, setmedidaOvario3] = useState("");
+  const [medidaOvario4, setmedidaOvario4] = useState(0);
   //States medidas ovario - Fim
 
   //States cisto - input,checkbox e select - Inicio
@@ -73,7 +74,9 @@ function Ovario_Direito({ Disable }) {
   //Funcoes medidas ovario - Inicio
   const criaStringMedidasOvario = () => {
     if (medidaOvario1 != "" && medidaOvario2 != "" && medidaOvario3 != "") {
-      var string = `Ovário Direito mede ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm `;
+      var medida4 = (parseInt(medidaOvario1) + parseInt(medidaOvario2) + parseInt(medidaOvario3) / 1000)
+      setmedidaOvario4(medida4)
+      var string = `Ovário Direito mede ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm (${medida4} cm³)`;
       setFrasesOvarioDireito((arr) => [...arr, string]);
     }
   };
@@ -297,14 +300,13 @@ function Ovario_Direito({ Disable }) {
 
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <Stack>
-          <Box w="200px">
+          <Box w="260px">
             <Text>Medidas:</Text>
             <HStack marginTop="5px">
               <Input isDisabled={Disable}
                 w="80px"
                 h="30px"
                 padding="5px"
-                maxLength={2}
                 textAlign="center"
                 onChange={(e) => setmedidaOvario1(e.target.value)}
               />
@@ -313,7 +315,6 @@ function Ovario_Direito({ Disable }) {
                 w="80px"
                 h="30px"
                 padding="5px"
-                maxLength={2}
                 textAlign="center"
                 onChange={(e) => setmedidaOvario2(e.target.value)}
               />
@@ -322,13 +323,20 @@ function Ovario_Direito({ Disable }) {
                 w="80px"
                 h="30px"
                 padding="5px"
-                maxLength={2}
                 textAlign="center"
                 onChange={(e) => {
                   setmedidaOvario3(e.target.value);
                 }}
               />
               <Text>mm</Text>
+              <Input isDisabled={Disable}
+                w="80px"
+                h="30px"
+                padding="5px"
+                value={medidaOvario4}
+                textAlign="center"
+              />
+              <Text>cm³</Text>
             </HStack>
           </Box>
 
@@ -369,7 +377,6 @@ function Ovario_Direito({ Disable }) {
                 w="45px"
                 h="30px"
                 padding="5px"
-                maxLength={2}
                 textAlign="center"
                 onChange={handleChangeCistoInput}
               />
