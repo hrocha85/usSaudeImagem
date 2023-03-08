@@ -46,6 +46,7 @@ function Utero({ Disable }) {
   const [medidaUtero1, setmedidaUtero1] = useState("");
   const [medidaUtero2, setmedidaUtero2] = useState("");
   const [medidaUtero3, setmedidaUtero3] = useState("");
+  const [medidaUtero4, setmedidaUtero4] = useState(0);
   //States Medidas Utero - Fim
 
   //States Medida Polipo - Inicio
@@ -123,8 +124,14 @@ function Utero({ Disable }) {
   // Funcoes medidas Utero - Inicio
   const criaStringMedidasUtero = () => {
     if (medidaUtero1 != "" && medidaUtero2 != "" && medidaUtero3 != "") {
-      var string = `Útero com ${medidaUtero1} x ${medidaUtero2} x ${medidaUtero3} mm `;
+      var medida4 = (parseInt(medidaUtero1) + parseInt(medidaUtero2) + parseInt(medidaUtero3) / 1000)
+      setmedidaUtero4(medida4)
+
+      var string = `Útero com ${medidaUtero1} x ${medidaUtero2} x ${medidaUtero3} mm (${medida4} cm³) `;
       setFrasesUtero((arr) => [...arr, string]);
+    } else {
+      setmedidaUtero4(0)
+
     }
   };
   const removeMedidas = () => {
@@ -431,7 +438,7 @@ function Utero({ Disable }) {
           </Select>
         </Box>
 
-        <Box w="200px">
+        <Box w="300px">
           <Text>Medidas:</Text>
           <HStack marginTop="5px">
             <Input
@@ -439,7 +446,6 @@ function Utero({ Disable }) {
               w="80px"
               h="30px"
               padding="5px"
-              maxLength={2}
               textAlign="center"
               onChange={(e) => setmedidaUtero1(e.target.value)}
             />
@@ -449,7 +455,6 @@ function Utero({ Disable }) {
               w="80px"
               h="30px"
               padding="5px"
-              maxLength={2}
               textAlign="center"
               onChange={(e) => setmedidaUtero2(e.target.value)}
             />
@@ -459,13 +464,22 @@ function Utero({ Disable }) {
               w="80px"
               h="30px"
               padding="5px"
-              maxLength={2}
               textAlign="center"
               onChange={(e) => {
                 setmedidaUtero3(e.target.value);
               }}
             />
             <Text>mm</Text>
+            <Input
+              isDisabled={Disable}
+              w="80px"
+              h="30px"
+              value={medidaUtero4}
+              padding="5px"
+              textAlign="center"
+
+            />
+            <Text>cm³</Text>
           </HStack>
         </Box>
 
@@ -477,7 +491,6 @@ function Utero({ Disable }) {
               w="50px"
               h="30px"
               padding="5px"
-              maxLength={2}
               textAlign="center"
               onBlur={(e) => {
                 setEndometrio(e.target.value);
@@ -505,7 +518,6 @@ function Utero({ Disable }) {
               h="30px"
               value={medidaPolipo1}
               padding="5px"
-              maxLength={2}
               textAlign="center"
               onChange={handleChangeMedidaPolipo1}
             />
@@ -516,7 +528,6 @@ function Utero({ Disable }) {
               h="30px"
               value={medidaPolipo2}
               padding="5px"
-              maxLength={2}
               textAlign="center"
               onChange={handleChangeMedidaPolipo2}
             />
@@ -549,7 +560,6 @@ function Utero({ Disable }) {
               w="35px"
               h="30px"
               padding="5px"
-              maxLength={2}
               textAlign="center"
               onChange={handleChangeDistanciaDIU}
             />
@@ -567,7 +577,6 @@ function Utero({ Disable }) {
               w="35px"
               h="30px"
               padding="5px"
-              maxLength={2}
               textAlign="center"
               onChange={handleChangeCistoNaboth}
             />

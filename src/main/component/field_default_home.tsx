@@ -60,95 +60,100 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
         nomeExame: "Transvaginal",
         link: `#/Home/${6}`,
       },
+      // {
+      //   key: 7,
+      //   nomeExame: "Doppler Renal",
+      //   link: `#/Home/${7}`,
+      // },
       {
         key: 7,
-        nomeExame: "Doppler Renal",
+        nomeExame: "Doppler Venoso de MMII",
         link: `#/Home/${7}`,
       },
       {
         key: 8,
-        nomeExame: "Doppler Venoso de MMII",
+        nomeExame: "Tireóide",
         link: `#/Home/${8}`,
       },
       {
         key: 9,
-        nomeExame: "Tireóide",
+        nomeExame: "Doppler das Carótidas",
         link: `#/Home/${9}`,
       },
+      // {
+      //   key: 10,
+      //   nomeExame: "Doppler Hepático",
+      //   link: `#/Home/${10}`,
+      // },
       {
         key: 10,
-        nomeExame: "Doppler das Carótidas",
+        nomeExame: "Doppler Arterial de MMII",
         link: `#/Home/${10}`,
       },
+      // {
+      //   key: 13,
+      //   nomeExame: "Tireóide 2",
+      //   link: `#/Home/${13}`,
+      // },
+      // {
+      //   key: 14,
+      //   nomeExame: "Doppler das Carótidas 2",
+      //   link: `#/Home/${14}`,
+      // },
       {
         key: 11,
-        nomeExame: "Doppler Hepático",
+        nomeExame: "Rins e Vias Urinárias",
         link: `#/Home/${11}`,
       },
+      // {
+      //   key: 12,
+      //   nomeExame: "Dopper Venoso de MMSS",
+      //   link: `#/Home/${12}`,
+      // },
       {
         key: 12,
-        nomeExame: "Doppler Arterial de MMII",
+        nomeExame: "Doppler da Tireóide",
         link: `#/Home/${12}`,
       },
       {
         key: 13,
-        nomeExame: "Tireóide 2",
+        nomeExame: "Partes Moles",
         link: `#/Home/${13}`,
       },
       {
         key: 14,
-        nomeExame: "Doppler das Carótidas 2",
+        nomeExame: "Testículo",
         link: `#/Home/${14}`,
       },
       {
         key: 15,
-        nomeExame: "Rins e Vias Urinárias",
+        nomeExame: "Doppler de Bolsa Testicular",
         link: `#/Home/${15}`,
       },
+      // {
+      //   key: 21,
+      //   nomeExame: "Doppler da Tireóide 2",
+      //   link: `#/Home/${21}`,
+      // },
       {
         key: 16,
-        nomeExame: "Dopper Venoso de MMSS",
+        nomeExame: "Pélvico",
         link: `#/Home/${16}`,
       },
       {
         key: 17,
-        nomeExame: "Doppler da Tireóide",
+        nomeExame: "Próstata",
         link: `#/Home/${17}`,
       },
       {
         key: 18,
-        nomeExame: "Partes Moles",
+        nomeExame: "Articulações",
         link: `#/Home/${18}`,
       },
       {
         key: 19,
-        nomeExame: "Testículo",
+        nomeExame: "Região Inguinal",
         link: `#/Home/${19}`,
-      },
-      {
-        key: 20,
-        nomeExame: "Doppler de Bolsa Testicular",
-        link: `#/Home/${20}`,
-      },
-      {
-        key: 21,
-        nomeExame: "Doppler da Tireóide 2",
-        link: `#/Home/${21}`,
-      },
-      {
-        key: 22,
-        nomeExame: "Pélvico",
-        link: `#/Home/${22}`,
-      },
-      {
-        key: 23,
-        nomeExame: "Próstata",
-        link: `#/Home/${23}`,
-      },
-      {
-        key: 24,
-        nomeExame: "Articulações",
-        link: `#/Home/${24}`,
       },
     ];
 
@@ -205,7 +210,7 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
           pl="80px"
           // pt='30px'
           z-index="1"
-          //onClick={(e) => clicando(id, text)}
+        //onClick={(e) => clicando(id, text)}
         />
 
         <Tooltip
@@ -228,11 +233,6 @@ const FieldDefaultHome = ({ text, textColor, id }) => {
             z-index="1"
           >
             <Button
-              isDisabled={
-                id == 25 || id == 16 || id == 7 || id == 11
-                  ? true
-                  : !enableExames
-              }
               fontSize="13.9px"
               variant="link"
               textAlign="center"
