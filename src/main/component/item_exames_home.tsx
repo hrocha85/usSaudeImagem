@@ -27,83 +27,84 @@ const ItemExamesHome = () => {
       key: 6,
       nomeExame: "Transvaginal",
     },
+    // {
+    //   key: 7,
+    //   nomeExame: "Doppler Renal",
+    // },
     {
       key: 7,
-      nomeExame: "Doppler Renal",
-    },
-    {
-      key: 8,
       nomeExame: "Doppler Venoso de MMII",
     },
     {
-      key: 9,
+      key: 8,
       nomeExame: "Tireóide",
     },
     {
-      key: 10,
+      key: 9,
       nomeExame: "Doppler das Carótidas",
     },
+    // {
+    //   key: 11,
+    //   nomeExame: "Doppler Hepático",
+    // },
     {
-      key: 11,
-      nomeExame: "Doppler Hepático",
-    },
-    {
-      key: 12,
+      key: 10,
       nomeExame: "Doppler Arterial de MMII",
     },
+    // {
+    //   key: 13,
+    //   nomeExame: "Tireóide 2",
+    // },
+    // {
+    //   key: 14,
+    //   nomeExame: "Doppler das Carótidas 2",
+    // },
     {
-      key: 13,
-      nomeExame: "Tireóide 2",
-    },
-    {
-      key: 14,
-      nomeExame: "Doppler das Carótidas 2",
-    },
-    {
-      key: 15,
+      key: 11,
       nomeExame: "Rins e Vias Urinárias",
     },
+    // {
+    //   key: 16,
+    //   nomeExame: "Dopper Venoso de MMSS",
+    // },
     {
-      key: 16,
-      nomeExame: "Dopper Venoso de MMSS",
-    },
-    {
-      key: 17,
+      key: 12,
       nomeExame: "Doppler da Tireóide",
     },
     {
-      key: 18,
+      key: 13,
       nomeExame: "Partes Moles",
     },
     {
-      key: 19,
+      key: 14,
       nomeExame: "Testículo",
     },
     {
-      key: 20,
+      key: 15,
       nomeExame: "Doppler de Bolsa Testicular",
     },
+    // {
+    //   key: 21,
+    //   nomeExame: "Doppler da Tireóide 2",
+    // },
     {
-      key: 21,
-      nomeExame: "Doppler da Tireóide 2",
-    },
-    {
-      key: 22,
+      key: 16,
       nomeExame: "Pélvico",
     },
     {
-      key: 23,
+      key: 17,
       nomeExame: "Próstata",
     },
     {
-      key: 24,
+      key: 18,
       nomeExame: "Articulações",
     },
     {
-      key: 25,
-      nomeExame: "Reg. Inguinal",
+      key: 19,
+      nomeExame: "Região Inguinal",
     },
   ]
+
 
   return (
     <>

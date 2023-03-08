@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-pascal-case */
 import { AddIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -45,6 +46,7 @@ import Mamas from "../exames/mamas";
 import PartesMoles from "../exames/partesMoles";
 import Pelvico from "../exames/pelvico";
 import Prostata from "../exames/prostata";
+import Regiao_Inguinal from "../exames/regiao_inguinal";
 import RinseViasUrinarias from "../exames/RinsViasUrinarias";
 import Testiculo from "../exames/testiculo";
 import Tireoide from "../exames/tireoide";
@@ -103,50 +105,50 @@ export default function Box_Default_With_Sidebar() {
       nomeExame: "Transvaginal",
       link: `#/Home/${6}`,
     },
+    // {
+    //   key: 7,
+    //   nomeExame: "Doppler Renal",
+    //   link: `#/Home/${7}`,
+    // },
     {
       key: 7,
-      nomeExame: "Doppler Renal",
+      nomeExame: "Doppler Venoso de MMII",
       link: `#/Home/${7}`,
     },
     {
       key: 8,
-      nomeExame: "Doppler Venoso de MMII",
+      nomeExame: "Tireóide",
       link: `#/Home/${8}`,
     },
     {
       key: 9,
-      nomeExame: "Tireóide",
+      nomeExame: "Doppler das Carótidas",
       link: `#/Home/${9}`,
     },
+    // {
+    //   key: 11,
+    //   nomeExame: "Doppler Hepático",
+    //   link: `#/Home/${11}`,
+    // },
     {
       key: 10,
-      nomeExame: "Doppler das Carótidas",
+      nomeExame: "Doppler Arterial de MMII",
       link: `#/Home/${10}`,
     },
+    // {
+    //   key: 13,
+    //   nomeExame: "Tireóide 2",
+    //   link: `#/Home/${13}`,
+    // },
+    //    {
+    //   key: 14,
+    //   nomeExame: "Doppler das Carótidas 2",
+    //   link: `#/Home/${14}`,
+    // },
     {
       key: 11,
-      nomeExame: "Doppler Hepático",
-      link: `#/Home/${11}`,
-    },
-    {
-      key: 12,
-      nomeExame: "Doppler Arterial de MMII",
-      link: `#/Home/${12}`,
-    },
-    {
-      key: 13,
-      nomeExame: "Tireóide 2",
-      link: `#/Home/${13}`,
-    },
-    {
-      key: 14,
-      nomeExame: "Doppler das Carótidas 2",
-      link: `#/Home/${14}`,
-    },
-    {
-      key: 15,
       nomeExame: "Rins e Vias Urinárias",
-      link: `#/Home/${15}`,
+      link: `#/Home/${11}`,
     },
     /*{
       key: 16,
@@ -154,50 +156,50 @@ export default function Box_Default_With_Sidebar() {
       link: `#/Home/${16}`,
     },*/
     {
-      key: 17,
+      key: 12,
       nomeExame: "Doppler da Tireóide",
+      link: `#/Home/${12}`,
+    },
+    {
+      key: 13,
+      nomeExame: "Partes Moles",
+      link: `#/Home/${13}`,
+    },
+    {
+      key: 14,
+      nomeExame: "Testículo",
+      link: `#/Home/${14}`,
+    },
+    {
+      key: 15,
+      nomeExame: "Doppler de Bolsa Testicular",
+      link: `#/Home/${15}`,
+    },
+    // {
+    //   key: 21,
+    //   nomeExame: "Doppler da Tireóide 2",
+    //   link: `#/Home/${21}`,
+    // },
+    {
+      key: 16,
+      nomeExame: "Pélvico",
+      link: `#/Home/${16}`,
+    },
+    {
+      key: 17,
+      nomeExame: "Próstata",
       link: `#/Home/${17}`,
     },
     {
       key: 18,
-      nomeExame: "Partes Moles",
+      nomeExame: "Articulações",
       link: `#/Home/${18}`,
     },
     {
       key: 19,
-      nomeExame: "Testículo",
+      nomeExame: "Região Inguinal",
       link: `#/Home/${19}`,
-    },
-    {
-      key: 20,
-      nomeExame: "Doppler de Bolsa Testicular",
-      link: `#/Home/${20}`,
-    },
-    {
-      key: 21,
-      nomeExame: "Doppler da Tireóide 2",
-      link: `#/Home/${21}`,
-    },
-    {
-      key: 22,
-      nomeExame: "Pélvico",
-      link: `#/Home/${22}`,
-    },
-    {
-      key: 23,
-      nomeExame: "Próstata",
-      link: `#/Home/${23}`,
-    },
-    {
-      key: 24,
-      nomeExame: "Articulações",
-      link: `#/Home/${24}`,
-    },
-    /*{
-      key: 25,
-      nomeExame: "Reg. Inguinal",
-      link: `#/Home/${25}`,
-    },*/
+    }
   ];
 
   const handleSliderChange = (event) => {
@@ -256,7 +258,7 @@ export default function Box_Default_With_Sidebar() {
       observacoes: [""],
     };
     array.push(obj);
-
+    console.log('linha 261')
     localStorage.setItem("format_laudo", JSON.stringify(array));
   };
 
@@ -265,11 +267,13 @@ export default function Box_Default_With_Sidebar() {
   };
 
   useEffect(() => {
+
     const exame = tabExames.find((e) => e.nomeExame !== undefined);
     if (exame !== undefined) {
       setCurrentExame(exame);
       setIsMounted(true);
     }
+    console.log('274', exame)
 
     return () => {
       setIsMounted(false);
@@ -394,22 +398,23 @@ export default function Box_Default_With_Sidebar() {
                         4: <Doppler_Arterial_MMII />,
                         5: <AbdomemSuperior />,
                         6: <Transvaginal />,
-                        7: <DopplerRenal />,
-                        8: <DopplerVenosoMMII />,
-                        9: <Tireoide />,
-                        10: <DopplerCarotidas />,
-                        12: <Doppler_Arterial_MMII />,
-                        13: <Tireoide2 />,
-                        14: <DopplerCarotidas2 />,
-                        15: <RinseViasUrinarias />,
-                        17: <DopplerTireoide />,
-                        18: <PartesMoles />,
-                        19: <Testiculo />,
-                        20: <DopplerBolsaTesticular />,
-                        21: <DopplerTireoide2 />,
-                        22: <Pelvico />,
-                        23: <Prostata />,
-                        24: <Articulacoes />,
+                        // 7: <DopplerRenal />,
+                        7: <DopplerVenosoMMII />,
+                        8: <Tireoide />,
+                        9: <DopplerCarotidas />,
+                        10: <Doppler_Arterial_MMII />,
+                        // 13: <Tireoide2 />,
+                        // 14: <DopplerCarotidas2 />,
+                        11: <RinseViasUrinarias />,
+                        12: <DopplerTireoide />,
+                        13: <PartesMoles />,
+                        14: <Testiculo />,
+                        15: <DopplerBolsaTesticular />,
+                        // 21: <DopplerTireoide2 />,
+                        16: <Pelvico />,
+                        17: <Prostata />,
+                        18: <Articulacoes />,
+                        19: <Regiao_Inguinal />
                       }[e.key]
                     }
                   </TabPanel>

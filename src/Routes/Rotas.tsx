@@ -38,7 +38,7 @@ function Rotas() {
       <Route path="/" element={<SplashScreen />} />
       <Route path="/Home" element={<Home />} />
       <Route path="/Login" element={<Login />} />
-      <Route path="/Home/1" element={<AbdomemTotal />} />
+      {/* <Route path="/Home/1" element={<AbdomemTotal />} />
       <Route path="/Home/2" element={<DopplerTransvaginal />} />
       <Route path="/Home/3" element={<Mamas />} />
       <Route path="/Home/5" element={<AbdomemSuperior />} />
@@ -59,7 +59,7 @@ function Rotas() {
       <Route path="/Home/21" element={<DopplerTireoide2 />} />
       <Route path="/Home/23" element={<Prostata />} />
       <Route path="/Home/24" element={<Articulacoes />} />
-      <Route path="/Home/25" element={<Regiao_Inguinal />} />
+      <Route path="/Home/25" element={<Regiao_Inguinal />} /> */}
       <Route path="/Home/Configuracoes" element={<Configuracoes />} />
       <Route path="/Format_PDF" element={<Format_PDF />} />
       <Route

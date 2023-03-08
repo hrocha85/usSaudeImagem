@@ -270,7 +270,7 @@ function Exames() {
     };
 
     const renderConclusoes = (exame) => {
-      console.log("aqui");
+      console.log(exame)
       if (exame.conclusoes != null && exame.conclusoes != undefined) {
         return exame.conclusoes.map((conclusao, key) => {
           return conclusao != null && conclusao != "" ? (
@@ -329,8 +329,8 @@ function Exames() {
                 <ViewPDF>{renderFrases(exame)}</ViewPDF>
 
                 {exame.observacoes != null &&
-                exame.observacoes != undefined &&
-                exame.observacoes.lenght > 1 ? (
+                  exame.observacoes != undefined &&
+                  exame.observacoes.lenght > 1 ? (
                   <ViewPDF style={styles.inline}>
                     <TextPDF style={styles.textNomeSubExame}>
                       {`Observações ${exame.titulo_exame}:`}
@@ -415,17 +415,15 @@ function Exames() {
   const getCurrentDate = () => {
     const timeStamp = new Date();
 
-    return `${timeStamp.getDate()}/${
-      timeStamp.getMonth() + 1
-    }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
+    return `${timeStamp.getDate()}/${timeStamp.getMonth() + 1
+      }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
   };
 
   const getCurrentDateLaudo = () => {
     const timeStamp = new Date();
 
-    return `${timeStamp.getDate()}/${
-      timeStamp.getMonth() + 1
-    }/${timeStamp.getFullYear()}`;
+    return `${timeStamp.getDate()}/${timeStamp.getMonth() + 1
+      }/${timeStamp.getFullYear()}`;
   };
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
@@ -765,7 +763,7 @@ function Exames() {
                 })}
 
                 {exame.observacoes != undefined &&
-                exame.observacoes.length > 1 ? (
+                  exame.observacoes.length > 1 ? (
                   <>
                     <HStack>
                       <Text textDecoration="underline" fontWeight="semibold">
@@ -774,19 +772,19 @@ function Exames() {
                       <Box w="100%">
                         {typeof exame.observacoes != "string"
                           ? exame.observacoes.map((frase, key) => {
-                              return (
-                                <Stack key={key}>
-                                  <Text
-                                    wordBreak="break-word"
-                                    w="100%"
-                                    textAlign="start"
-                                    marginStart="10px"
-                                  >
-                                    {frase}
-                                  </Text>
-                                </Stack>
-                              );
-                            })
+                            return (
+                              <Stack key={key}>
+                                <Text
+                                  wordBreak="break-word"
+                                  w="100%"
+                                  textAlign="start"
+                                  marginStart="10px"
+                                >
+                                  {frase}
+                                </Text>
+                              </Stack>
+                            );
+                          })
                           : null}
                       </Box>
                     </HStack>
@@ -794,7 +792,7 @@ function Exames() {
                 ) : null}
 
                 {exame.conclusoes != undefined &&
-                exame.conclusoes.length > 1 ? (
+                  exame.conclusoes.length > 1 ? (
                   <>
                     <Divider
                       marginBottom="10px"

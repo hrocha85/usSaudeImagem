@@ -1,8 +1,6 @@
-import { Box, Text } from "@chakra-ui/react";
-import BoxTitleBackground from "../../component/box_title_background";
-import BGImage from "../../images/bg_img.png";
-import Exames from "../../folha_laudos/Laudos";
-import HerniaDireito from "./direito/HerniaDireito"
+import { Box } from "@chakra-ui/react";
+import HerniaDireito from "./direito/HerniaDireito";
+import HerniaEsquerdo from "./esquerdo/HerniaEsquerdo";
 
 function Regiao_Inguinal() {
 
@@ -14,14 +12,11 @@ function Regiao_Inguinal() {
                 w='66%'
                 ml="10px">
 
-                <Box w='45%'>
+                <Box w='400px'>
                     <HerniaDireito />
                 </Box>
-                <Box w='45%'
-                // display='flex'
-                // flexWrap='wrap'
-                >
-
+                <Box w='400px'>
+                    <HerniaEsquerdo />
                 </Box>
             </Box>
         </>

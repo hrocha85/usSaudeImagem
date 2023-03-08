@@ -5,32 +5,32 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function HerniaDireito() {
+function HerniaEsquerdo() {
   const altura = "100%";
   const largura = "95%";
 
-  const [FraseHerniaDireito, setFraseHerniaDireito] = useState<any>([]);
+  const [FraseHerniaEsquerdo, setFraseHerniaEsquerdo] = useState<any>([]);
 
-  const subExame = `Hernia Direita`
+  const subExame = `Hernia Esquerda`
   const titulo_exame = 'Região Inguinal'
 
   useEffect(() => {
-    if (Object.keys(FraseHerniaDireito).length === 0) {
+    if (Object.keys(FraseHerniaEsquerdo).length === 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        FraseHerniaDireito
+        FraseHerniaEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        FraseHerniaDireito
+        FraseHerniaEsquerdo
       ).Format_Laudo_Create_Storage();
     }
-  }, [FraseHerniaDireito]);
+  }, [FraseHerniaEsquerdo]);
 
   const [value, setValue] = useState("1");
   const [enableSelects, setEnableSelects] = useState<boolean>(false);
@@ -41,35 +41,35 @@ function HerniaDireito() {
   const [valueSelect3, setValueSelect3] = useState('1');
 
   const removeSelectString = () => {
-    FraseHerniaDireito.map((e) => {
+    FraseHerniaEsquerdo.map((e) => {
       if (e.includes("Derrame Pleural ")) {
-        var index = FraseHerniaDireito.indexOf(e);
+        var index = FraseHerniaEsquerdo.indexOf(e);
 
         if (index > -1) {
-          FraseHerniaDireito.splice(index, 1);
-          setFraseHerniaDireito((arr) => [...arr]);
+          FraseHerniaEsquerdo.splice(index, 1);
+          setFraseHerniaEsquerdo((arr) => [...arr]);
         }
       }
     });
-    FraseHerniaDireito.map((e) => {
+    FraseHerniaEsquerdo.map((e) => {
       if (e.includes("Ausência de derrame ")) {
-        var index = FraseHerniaDireito.indexOf(e);
+        var index = FraseHerniaEsquerdo.indexOf(e);
 
         if (index > -1) {
-          FraseHerniaDireito.splice(index, 1);
-          setFraseHerniaDireito((arr) => [...arr]);
+          FraseHerniaEsquerdo.splice(index, 1);
+          setFraseHerniaEsquerdo((arr) => [...arr]);
         }
       }
     });
   };
   const removeSelectStringMobilidade = () => {
-    FraseHerniaDireito.map((e) => {
+    FraseHerniaEsquerdo.map((e) => {
       if (e.includes("Mobilidade da cúpula frênica ")) {
-        var index = FraseHerniaDireito.indexOf(e);
+        var index = FraseHerniaEsquerdo.indexOf(e);
 
         if (index > -1) {
-          FraseHerniaDireito.splice(index, 1);
-          setFraseHerniaDireito((arr) => [...arr]);
+          FraseHerniaEsquerdo.splice(index, 1);
+          setFraseHerniaEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -83,12 +83,12 @@ function HerniaDireito() {
       setValueSelect2("")
       setValueSelect3("1")
       if (value == "1") {
-        setFraseHerniaDireito([]);
+        setFraseHerniaEsquerdo([]);
         setEnableSelects(false);
       } else {
         setEnableSelects(false);
-        setFraseHerniaDireito([]);
-        setFraseHerniaDireito((arr) => [...arr, value]);
+        setFraseHerniaEsquerdo([]);
+        setFraseHerniaEsquerdo((arr) => [...arr, value]);
       }
     }
   }, [value]);
@@ -100,12 +100,12 @@ function HerniaDireito() {
 
     if (valueSelect1 != "" && valueSelect2 != "") {
       removeSelectString();
-      setFraseHerniaDireito((arr) => [...arr, select]);
+      setFraseHerniaEsquerdo((arr) => [...arr, select]);
     }
 
     if (valueSelect3 != "") {
       removeSelectStringMobilidade();
-      setFraseHerniaDireito((arr) => [...arr, mobilidade]);
+      setFraseHerniaEsquerdo((arr) => [...arr, mobilidade]);
     }
   }, [valueSelect1, valueSelect2, valueSelect3]);
 
@@ -123,7 +123,7 @@ function HerniaDireito() {
       padding="15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Hérnia Direita" />
+      <TituloNomeExame titulo="Hérnia Esquerda" />
       <Stack>
 
         <RadioGroup onChange={setValue} value={value} padding="10px">
@@ -182,4 +182,4 @@ function HerniaDireito() {
     </Box >
   );
 }
-export default HerniaDireito;
+export default HerniaEsquerdo;
