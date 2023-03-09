@@ -5,7 +5,7 @@ import {
   HStack,
   Input,
   Select,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -39,9 +39,11 @@ function CalculoProstata() {
     useState(true);
   const [Ecotextura, setEcotextura] = useState("");
   const [Dimensoes, setDimensoes] = useState("");
+  const [Textura, setTextura] = useState("");
 
-  const [ContornosIrregularesCheckBox, setContornosIrregularesCheckBox] =
-    useState(true);
+  const [TexturaCheckBox, setTexturaCheckBox] = useState(true);
+
+  const [VesiculaCheckBox, setVesiculaCheckBox] = useState(true);
 
   const criaStringCalcProstata = (
     medida1CalcProstata,
@@ -84,6 +86,7 @@ function CalculoProstata() {
   const calculoGramas = () => {
     return calculoVolume() * 1.05;
   };
+
   const calculoVolume = () => {
     return (
       Number(medida1CalcProstata) *
@@ -174,6 +177,18 @@ function CalculoProstata() {
     });
   };
 
+  const removeTextura = () => {
+    frasesProstata.map((e) => {
+      if (e.includes("Tecido prostático com textura")) {
+        let index = frasesProstata.indexOf(e);
+        if (index > -1) {
+          frasesProstata.splice(index, 1);
+          setFrasesProstata((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
   const criaStringProstataEcotextura = () => {
     var string = `Próstata com ecotextura ${Ecotextura}`;
     if (!ProstataEcotexturaCheckBox) {
@@ -183,21 +198,52 @@ function CalculoProstata() {
     }
   };
 
+  const criaStringTextura = () => {
+    var string = "";
+
+    switch (Textura) {
+      case "Uniforme":
+        string =
+          "Tecido prostático com textura uniforme, sem alterações de ecogenicidade.";
+        break;
+      case "Heterogênea":
+        string =
+          "Tecido prostático com textura heterogênea, com destaque para calcificações parenquimatosas, traduzidas por imagens ecorrefringentes, produtoras de sombras acústicas.";
+        break;
+    }
+
+    if (!TexturaCheckBox) {
+      setFrasesProstata((arr) => [...arr, string]);
+    } else {
+      removeItemString(string);
+    }
+  };
+
+  const criaStringVesicula = () => {
+    var string =
+      "Vesícula Seminais: Bem individualizadas, com curso, configuração, diâmetros e ecotextura compatíveis com o normal.";
+
+    setFrasesProstata((arr) => [...arr, string]);
+  };
+
+  const removeVesicula = () => {
+    frasesProstata.map((e) => {
+      if (e.includes("Vesícula Seminais: Bem individualizadas, ")) {
+        let index = frasesProstata.indexOf(e);
+        if (index > -1) {
+          frasesProstata.splice(index, 1);
+          setFrasesProstata((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
   const removeItemString = (value) => {
     var index = frasesProstata.indexOf(value);
 
     if (index > -1) {
       frasesProstata.splice(index, 1);
       setFrasesProstata((arr) => [...arr]);
-    }
-  };
-
-  const criaStringContornosIrregulares = () => {
-    var string = "Contornos prostáticos irregulares";
-    if (ContornosIrregularesCheckBox) {
-      setFrasesProstata((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
     }
   };
 
@@ -223,6 +269,24 @@ function CalculoProstata() {
   }, [CalcProstataCheckbox]);
 
   useEffect(() => {
+    removeEcotextura();
+    setEcotextura("");
+  }, [ProstataEcotexturaCheckBox]);
+
+  useEffect(() => {
+    removeTextura();
+    setTextura("");
+  }, [TexturaCheckBox]);
+
+  useEffect(() => {
+    if (!VesiculaCheckBox) {
+      criaStringVesicula();
+    } else {
+      removeVesicula();
+    }
+  }, [VesiculaCheckBox]);
+
+  useEffect(() => {
     criaStringCalcVolumePos(
       medida1CalcVolumePos,
       medida2CalcVolumePos,
@@ -239,16 +303,18 @@ function CalculoProstata() {
   }, [medida1CalcVolumePre, medida2CalcVolumePre, medida3CalcVolumePre]);
 
   useEffect(() => {
-    removeEcotextura();
-    setEcotextura("");
-  }, [ProstataEcotexturaCheckBox]);
-
-  useEffect(() => {
     if (Ecotextura != "") {
       removeEcotextura();
       criaStringProstataEcotextura();
     }
   }, [Ecotextura]);
+
+  useEffect(() => {
+    if (Textura != "") {
+      removeTextura();
+      criaStringTextura();
+    }
+  }, [Textura]);
 
   useEffect(() => {
     if (
@@ -480,15 +546,35 @@ function CalculoProstata() {
               <option value="Heterogênea">Heterogênea</option>
             </Select>
           </HStack>
-          <Checkbox
-            onChange={() => {
-              criaStringContornosIrregulares();
-              setContornosIrregularesCheckBox(!ContornosIrregularesCheckBox);
-            }}
-          >
-            Contornos Prostáticos irregulares
-          </Checkbox>
+          <HStack>
+            <Checkbox
+              onChange={() => {
+                setTexturaCheckBox(!TexturaCheckBox);
+              }}
+            >
+              Tecido Prostático
+            </Checkbox>
+            <Select
+              isDisabled={TexturaCheckBox}
+              placeholder="Textura"
+              value={Textura}
+              borderColor="black"
+              w="auto"
+              onChange={(e) => setTextura(e.target.value)}
+              flexShrink={1}
+            >
+              <option value="Uniforme">Uniforme</option>
+              <option value="Heterogênea">Heterogênea</option>
+            </Select>
+          </HStack>
         </Box>
+        <Checkbox
+          onChange={() => {
+            setVesiculaCheckBox(!VesiculaCheckBox);
+          }}
+        >
+          Vesícula Seminais
+        </Checkbox>
       </Flex>
     </Flex>
   );

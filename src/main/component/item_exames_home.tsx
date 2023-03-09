@@ -94,12 +94,6 @@ const ItemExamesHome = () => {
     {
       key: 23,
       nomeExame: "Próstata",
-      observações: [
-        "Exame restrito para avaliação do volume prostático, devendo ser correlacionado com os dados clínicos e exames laboratoriais específicos para pesquisa de neoplasia.",
-        "Exames anteriores não disponíveis para estudo comparativo.",
-        "Estaremos à disposição para a discussão do presente caso.",
-        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
-      ],
     },
     {
       key: 24,
@@ -119,7 +113,7 @@ const ItemExamesHome = () => {
           text={exames.nomeExame}
           textColor={"#1A202C"}
           id={exames.key.toString()}
-          obs={exames.observações}
+          obs={null}
         />
       ))}
     </>
