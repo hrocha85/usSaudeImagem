@@ -6,18 +6,19 @@ import { TabExamesContext } from "../../context/TabExameContext";
 import FormatLaudo from "../../Data/Format_Laudo.json";
 import reghd_2 from "../images/reghd_2.png";
 
-const FieldDefaultHome = ({ text, textColor, id }) => {
+const FieldDefaultHome = ({ text, textColor, id, obs }) => {
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
   const { tabExames, setTabExames } = useContext(TabExamesContext);
 
   const format_laudo = FormatLaudo.format_laudo;
 
   const AddTituloLaudo = () => {
+    console.log('obs',obs)
     const obj = {
       titulo_exame: text,
       subExames: [{ subExameNome: "", frases: [] }],
       conclusoes: [""],
-      observacoes: [""],
+      observacoes: obs !== null ? obs : [""],
     };
     format_laudo.push(obj);
     format_laudo.map((e) => {

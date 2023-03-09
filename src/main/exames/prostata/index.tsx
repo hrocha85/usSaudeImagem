@@ -7,11 +7,11 @@ import Extra from "./extra/extra";
 function Prostata() {
   return (
     <Box ml="10px">
-      <CalculoProstata></CalculoProstata>
+      <CalculoProstata />
 
-      <CalculoVolume></CalculoVolume>
+      {/*<CalculoVolume />*/}
 
-      <Extra></Extra>
+     {/*<Extra />*/}
     </Box>
   );
 }
