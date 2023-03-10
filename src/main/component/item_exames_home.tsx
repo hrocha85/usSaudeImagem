@@ -77,6 +77,11 @@ const ItemExamesHome = () => {
     {
       key: 14,
       nomeExame: "Testículo",
+      observacao: [
+        "Conviria controle ecográfico periódico, a critério clínico.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+      ],
     },
     {
       key: 15,
@@ -109,7 +114,6 @@ const ItemExamesHome = () => {
       nomeExame: "Região Inguinal",
     },
   ];
-
 
   return (
     <>
