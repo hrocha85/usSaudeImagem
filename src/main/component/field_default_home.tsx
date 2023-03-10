@@ -30,14 +30,16 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
 
     localStorage.setItem("format_laudo", JSON.stringify(format_laudo));
 
-    const setObservacao = {
-      id: id,
-      titulo_observacao: text,
-      observacao: obs!,
-    };
-    observacoes.push(setObservacao);
+    if (obs != null) {
+      const setObservacao = {
+        id: id,
+        titulo_observacao: text,
+        observacao: obs!,
+      };
+      observacoes.push(setObservacao);
 
-    localStorage.setItem("observacoes", JSON.stringify(observacoes));
+      localStorage.setItem("observacoes", JSON.stringify(observacoes));
+    }
   };
   const AddExameID = () => {
     const exames = [
