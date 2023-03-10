@@ -376,7 +376,7 @@ function CalculoProstata() {
       <TituloNomeExame titulo="Próstata" />
 
       <Flex gap="15px" flexWrap="wrap" flex={1}>
-        <HStack>
+        <HStack flexWrap="wrap">
           <Checkbox
             whiteSpace="nowrap"
             onChange={(e) => setCalcProstataCheckbox(!CalcProstataCheckbox)}
@@ -525,7 +525,7 @@ function CalculoProstata() {
             />
           </HStack>
           <Text>cm³</Text>
-          <HStack>
+          <HStack flexWrap="wrap">
             <Checkbox
               onChange={() => {
                 setProstataEcotexturaCheckBox(!ProstataEcotexturaCheckBox);
@@ -546,7 +546,7 @@ function CalculoProstata() {
               <option value="Heterogênea">Heterogênea</option>
             </Select>
           </HStack>
-          <HStack>
+          <HStack flexWrap='wrap'>
             <Checkbox
               onChange={() => {
                 setTexturaCheckBox(!TexturaCheckBox);
