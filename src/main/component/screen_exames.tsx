@@ -59,11 +59,9 @@ import Conclusoes from "./conclusoes";
 import Field_Observacoes from "./field_observacoes";
 
 export default function Box_Default_With_Sidebar() {
-  const {
-    isOpen: isOpenRemoveExameModal,
+  const { isOpen: isOpenRemoveExameModal,
     onOpen: onOpenRemoveExameModal,
-    onClose: onCloseRemoveExameModal,
-  } = useDisclosure();
+    onClose: onCloseRemoveExameModal, } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { tabExames, setTabExames } = useContext(TabExamesContext);
   const [tabIndex, setTabIndex] = useState(0);
@@ -258,7 +256,6 @@ export default function Box_Default_With_Sidebar() {
       observacoes: [""],
     };
     array.push(obj);
-    console.log('linha 261')
     localStorage.setItem("format_laudo", JSON.stringify(array));
   };
 
@@ -273,8 +270,6 @@ export default function Box_Default_With_Sidebar() {
       setCurrentExame(exame);
       setIsMounted(true);
     }
-    console.log('274', exame)
-
     return () => {
       setIsMounted(false);
     };
