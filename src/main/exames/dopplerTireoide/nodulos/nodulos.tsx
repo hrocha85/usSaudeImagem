@@ -10,19 +10,18 @@ function Nodulos() {
   const altura = "100%";
   const largura = "66%";
 
-
   const [FraseNodulos, setFraseNodulos] = useState<any>([]);
-  const [ConclusaoNodulosDireito, setConclusaoNodulosDireito] = useState<any>([]);
+  const [ConclusaoNodulosDireito, setConclusaoNodulosDireito] = useState<any>(
+    []
+  );
 
   const subExame = "Nódulos";
   const titulo_exame = "Doppler da Tireóide";
 
-  var soma = 5
-
-  var numberArray = [1, 2, 3, 4, 5];
 
   const [contador, setContador] = useState(6);
   const [elementos, setElementos] = useState<any>([]);
+  const [numberArray, setNumberArray] = useState([1, 2, 3, 4, 5]);
 
   const [TamanhoInput1, setTamanhoInput1] = useState("");
   const [TamanhoInput2, setTamanhoInput2] = useState("");
@@ -35,33 +34,21 @@ function Nodulos() {
   const [SelectCalcificacoes, setSelectCalcificacoes] = useState("");
   const [SelectDoppler, setSelectDoppler] = useState("");
 
-  const [multiplosCalculosCheckBox, setmultiplosCalculosCheckBox] = useState(false);
+  const [multiplosCalculosCheckBox, setmultiplosCalculosCheckBox] =
+    useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
-  function adicionarArray() {
-    numberArray.push(soma += 1)
+  const [updateNodulos, setUpdateNodulos] = useState(false);
 
-    console.log(numberArray)
-
-  }
-
-  // useEffect(() => {
-  //   console.log("aqaa")
-  // }, [Nodulos()])
+ 
   function Nodulos() {
     return (
       <>
         {numberArray.map((num, key) => {
-          return (
-            <IndividualizarNodulos
-              key={key}
-              numCalculo={num}
-
-            />
-          );
+          return <IndividualizarNodulos key={key} numCalculo={num} />;
         })}
       </>
-    )
+    );
   }
 
   // const criaStringMultiplosNodulos = () => {
@@ -125,8 +112,6 @@ function Nodulos() {
   //     setSelectDoppler("");
   //   }
   // }, [multiplosCalculosCheckBox, TamanhoInput1, TamanhoInput2, SelectLocalizado, SelectDo, SelectConsistencia, SelectEcogenicidade, SelectMargens, SelectOrientacao, SelectCalcificacoes, SelectDoppler]);
-
-
 
   // function adicionarElemento() {
   //   const novoElemento = <Box gap="25px" display="flex" flexWrap="wrap" mt="20px" mb="10px">
@@ -308,6 +293,15 @@ function Nodulos() {
     }
   }, [FraseNodulos]);
 
+  useEffect(() => {
+    if (updateNodulos) {
+      setUpdateNodulos(false);
+      console.log(numberArray);
+      setNumberArray([...numberArray, numberArray.length + 1]);
+      Nodulos();
+    }
+  }, [updateNodulos]);
+
   return (
     <Box
       bg="#FAFAFA"
@@ -320,11 +314,8 @@ function Nodulos() {
       padding="24px 15px 24px 15px"
       mt="20px"
     >
-
       <TituloNomeExame titulo="Nódulos" />
-      <Box display='flex' flexWrap='wrap' >
-
-
+      <Box display="flex" flexWrap="wrap">
         {Nodulos()}
 
         {/* <>
@@ -342,10 +333,14 @@ function Nodulos() {
           <Box key={index}>{elemento}</Box>
         ))} */}
       </Box>
-      <Button colorScheme='blue' onClick={() => {
-        adicionarArray();
-        Nodulos()
-      }}>+1 Nódulo</Button>
+      <Button
+        colorScheme="blue"
+        onClick={() => {
+          setUpdateNodulos(true);
+        }}
+      >
+        +1 Nódulo
+      </Button>
     </Box>
   );
 }
