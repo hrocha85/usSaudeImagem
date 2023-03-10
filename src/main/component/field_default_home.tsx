@@ -5,20 +5,21 @@ import { EnableExamesContext } from "../../context/ExamesEnableContext";
 import { TabExamesContext } from "../../context/TabExameContext";
 import FormatLaudo from "../../Data/Format_Laudo.json";
 import reghd_2 from "../images/reghd_2.png";
+import Observacoes from "../../Data/Observacoes.json";
 
 const FieldDefaultHome = ({ text, textColor, id, obs }) => {
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
   const { tabExames, setTabExames } = useContext(TabExamesContext);
 
   const format_laudo = FormatLaudo.format_laudo;
+  const observacoes = Observacoes.observacoes;
 
   const AddTituloLaudo = () => {
-    console.log('obs',obs)
     const obj = {
       titulo_exame: text,
       subExames: [{ subExameNome: "", frases: [] }],
       conclusoes: [""],
-      observacoes: obs !== null ? obs : [""],
+      observacoes: [""],
     };
     format_laudo.push(obj);
     format_laudo.map((e) => {
@@ -28,6 +29,15 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
     });
 
     localStorage.setItem("format_laudo", JSON.stringify(format_laudo));
+
+    const setObservacao = {
+      id: id,
+      titulo_observacao: text,
+      observacao: obs!,
+    };
+    observacoes.push(setObservacao);
+
+    localStorage.setItem("observacoes", JSON.stringify(observacoes));
   };
   const AddExameID = () => {
     const exames = [
