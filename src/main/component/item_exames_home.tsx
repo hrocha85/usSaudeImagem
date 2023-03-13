@@ -1,4 +1,3 @@
-import { Text } from "@chakra-ui/react";
 import FieldDefaultHome from "./field_default_home";
 
 const ItemExamesHome = () => {
@@ -78,6 +77,11 @@ const ItemExamesHome = () => {
     {
       key: 14,
       nomeExame: "Testículo",
+      observacao: [
+        "Conviria controle ecográfico periódico, a critério clínico.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+      ],
     },
     {
       key: 15,
@@ -94,6 +98,12 @@ const ItemExamesHome = () => {
     {
       key: 17,
       nomeExame: "Próstata",
+      observacao: [
+        "Exame restrito para avaliação do volume prostático, devendo ser correlacionado com os dados clínicos e exames laboratoriais específicos para pesquisa de neoplasia.",
+        "Exames anteriores não disponíveis para estudo comparativo.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+      ],
     },
     {
       key: 18,
@@ -103,19 +113,21 @@ const ItemExamesHome = () => {
       key: 19,
       nomeExame: "Região Inguinal",
     },
-  ]
-
+  ];
 
   return (
     <>
-      {
-        exames.map((exames, key) => (
-          <FieldDefaultHome key={key} text={exames.nomeExame} textColor={"#1A202C"} id={exames.key.toString()} />
-        ))
-      }
+      {exames.map((exames, key) => (
+        <FieldDefaultHome
+          key={key}
+          text={exames.nomeExame}
+          textColor={"#1A202C"}
+          id={exames.key.toString()}
+          obs={exames.observacao}
+        />
+      ))}
     </>
   );
-}
-
+};
 
 export default ItemExamesHome;

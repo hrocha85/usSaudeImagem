@@ -1,5 +1,3 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -11,17 +9,12 @@ function Bexiga() {
 
   const [frasesBexgiga, setFrasesBexiga] = useState<any>([]);
 
-  //States Distancia DIU- Inicio
-
   const [disableCheckboxCalculoInput, setDisableCheckboxCalculo] =
     useState(false);
   const [CalculoMedeCheckbox, setCalculoMedeCheckbox] = useState(false);
   const [disableCalculoInput, setDisableCalculoInput] = useState(true);
   const [distanciaCalculoInput, setDistanciaCalculoInput] = useState("");
 
-  //States Distancia DIU- Fim
-
-  //States Cisto de Naboth - Inicio
   const [
     disableCheckboxDiverticuloMedeInput,
     setdisableCheckboxDiverticuloMede,
@@ -38,13 +31,9 @@ function Bexiga() {
     useState(true);
   const [UretroceleMedeCheckbox, setUretroceleMedeCheckbox] = useState(false);
 
-  //States Cisto de Naboth - Fim
-
-  //Checkbox Liquido Endometrial
   const [DisableEsforcoCheckbox, setDisableEsforcoCheckbox] = useState(false);
   const [EsforcoCheckbox, setEsforcoCheckbox] = useState(false);
 
-  // Checkbox DIU posicionado
   const [DisableVaziaCheckbox, setDisableVaziaCheckbox] = useState(false);
   const [VaziaCheckbox, setVaziaCheckbox] = useState(false);
 
@@ -52,13 +41,12 @@ function Bexiga() {
     useState(false);
   const [OmitirBexigaCheckbox, setOmitirBexigaCheckbox] = useState(false);
 
-  //Endometrio checkbox
   const [DisableNormalcheckbox, setDisableNormalcheckbox] = useState(false);
   const [Normalcheckbox, setNormalcheckbox] = useState(false);
 
-  //Funcao checkbox Endometrio
   const criaStringNormalcheckbox = () => {
-    var string = "Bexiga está normal";
+    var string =
+      "Cheia, de paredes normo-espessas. Não se notam imagens calculosas.";
     if (!Normalcheckbox) {
       setDisableCheckboxCalculo(true);
       setdisableCheckboxDiverticuloMede(true);
@@ -95,6 +83,7 @@ function Bexiga() {
       removeItemString(string);
     }
   };
+  
   const criaStringOmitirBexiga = () => {
     var string = "Omitir bexiga ";
     if (!OmitirBexigaCheckbox) {
@@ -104,7 +93,6 @@ function Bexiga() {
     }
   };
 
-  //Funcoes Distancia DIU - Inicio
   const criaStringCalculoMede = (distancia) => {
     removeCalculoMede();
     if (distancia !== "") {
@@ -116,7 +104,7 @@ function Bexiga() {
     frasesBexgiga.map((e) => {
       if (e.includes("Cálculo mede ")) {
         var index = frasesBexgiga.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+
         if (index > -1) {
           frasesBexgiga.splice(index, 1);
           setFrasesBexiga((arr) => [...arr]);
@@ -124,11 +112,8 @@ function Bexiga() {
       }
     });
   };
-  //Funcoes Distancia DIU - Fim
 
-  //Funcoes Liquido Endometrial - Incio
 
-  //Funcoes Cisto Naboth - Incio
   const criaStringDiverticuloMede = (medida) => {
     removeDiverticuloMede();
     if (medida !== "") {
@@ -136,11 +121,12 @@ function Bexiga() {
       setFrasesBexiga((arr) => [...arr, string]);
     }
   };
+
   const removeDiverticuloMede = () => {
     frasesBexgiga.map((e) => {
       if (e.includes("Diverticulo mede ")) {
         var index = frasesBexgiga.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+
         if (index > -1) {
           frasesBexgiga.splice(index, 1);
           setFrasesBexiga((arr) => [...arr]);
@@ -156,11 +142,12 @@ function Bexiga() {
       setFrasesBexiga((arr) => [...arr, string]);
     }
   };
+
   const removeUretroceleMede = () => {
     frasesBexgiga.map((e) => {
       if (e.includes("Uretrocele mede ")) {
         var index = frasesBexgiga.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+
         if (index > -1) {
           frasesBexgiga.splice(index, 1);
           setFrasesBexiga((arr) => [...arr]);
@@ -168,13 +155,10 @@ function Bexiga() {
       }
     });
   };
-  //Funcoes Cisto Naboth - Fim
 
-  //Remove string generico
   const removeItemString = (value) => {
-    // console.log("valor remove = ", value);
     var index = frasesBexgiga.indexOf(value);
-    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+
     if (index > -1) {
       frasesBexgiga.splice(index, 1);
       setFrasesBexiga((arr) => [...arr]);
@@ -213,14 +197,10 @@ function Bexiga() {
     }
   }, [CalculoMedeCheckbox]);
 
-  //Observa o input distancia DIU, chama a funcao criar string
   useEffect(() => {
     criaStringCalculoMede(distanciaCalculoInput);
   }, [distanciaCalculoInput]);
 
-  //Observa o state do checkbox Cisto Naboth,
-  //Quando checked habilita os Input para inserir os valores
-  //Quando unchecked desabilita os Input, remove a string do laudos Array e zera os states
   useEffect(() => {
     if (DiverticuloMedeCheckbox) {
       setdisableDiverticuloMedeInput(false);
@@ -241,7 +221,6 @@ function Bexiga() {
     }
   }, [UretroceleMedeCheckbox]);
 
-  //Observa o input Cisto Naboth, chama a funcao criar string
   useEffect(() => {
     criaStringDiverticuloMede(DiverticuloMedeInput);
   }, [DiverticuloMedeInput]);

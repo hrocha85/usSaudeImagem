@@ -145,7 +145,11 @@ const ItemObservation = () => {
       observacao: [""],
     },
     { id: 22, titulo_observacao: "Pélvico", observacao: [""] },
-    { id: 23, titulo_observacao: "Próstata", observacao: [""] },
+    {
+      id: 23,
+      titulo_observacao: "Próstata",
+      observacao: [""],
+    },
     {
       id: 24,
       titulo_observacao: "Articulações",
@@ -278,10 +282,15 @@ const ItemObservation = () => {
   };
 
   const ItensObservacao = () => {
+    var observ =
+      localStorage.getItem("observacoes") != null
+        ? JSON.parse(localStorage.getItem("observacoes")!)
+        : null;
+console.log('123123',observ)
     return (
       <>
-        {localStorage.getItem("observacoes") != null
-          ? JSON.parse(localStorage.getItem("observacoes")!).map((e) => {
+        {observ != null
+          ? observ.map((e) => {
               if (e.id == id) {
                 return e.observacao.map((item, key) => {
                   return (
