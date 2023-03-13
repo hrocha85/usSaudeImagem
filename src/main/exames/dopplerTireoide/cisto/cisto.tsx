@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Cisto() {
+function Cisto({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
@@ -476,6 +476,7 @@ function Cisto() {
         <Box mt="10px" mb="30px" gap="25px" display="flex" flexWrap="wrap">
           <Box w="125px">
             <Checkbox
+              isDisabled={Disable}
               onChange={(e) => {
                 verificaChecked(e.target);
               }}
@@ -527,6 +528,7 @@ function Cisto() {
 
           <Box w="125px">
             <Checkbox
+              isDisabled={Disable}
               onChange={(e) => {
                 verificaChecked(e.target);
               }}
@@ -578,6 +580,7 @@ function Cisto() {
 
           <Box w="125px">
             <Checkbox
+              isDisabled={Disable}
               onChange={(e) => {
                 verificaChecked(e.target);
               }}
@@ -627,6 +630,7 @@ function Cisto() {
 
           <Box w="125px">
             <Checkbox
+              isDisabled={Disable}
               onChange={(e) => {
                 verificaChecked(e.target);
               }}
@@ -676,6 +680,7 @@ function Cisto() {
 
           <Box w="200px">
             <Checkbox
+              isDisabled={Disable}
               onChange={(e) => {
                 verificaChecked(e.target);
               }}
@@ -705,6 +710,7 @@ function Cisto() {
       <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
         <Box w="400px">
           <Checkbox
+            isDisabled={Disable}
             onChange={(e) => {
               verificaChecked(e.target);
             }}
@@ -742,6 +748,7 @@ function Cisto() {
 
         <Box w="400px">
           <Checkbox
+            isDisabled={Disable}
             onChange={(e) => {
               verificaChecked(e.target);
             }}

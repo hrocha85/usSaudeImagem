@@ -89,9 +89,6 @@ export default function IndividualizarNodulos({ numCalculo }) {
   };
 
   useEffect(() => {
-    console.log('ta caindo aqui dentro')
-  },)
-  useEffect(() => {
     if (multiplosCalculosCheckBox) {
       setDisableSelect(false)
       criaStringMultiplosNodulos();
@@ -113,8 +110,8 @@ export default function IndividualizarNodulos({ numCalculo }) {
   }, [multiplosCalculosCheckBox, TamanhoInput1, TamanhoInput2, SelectLocalizado, SelectDo, SelectConsistencia, SelectEcogenicidade, SelectMargens, SelectOrientacao, SelectCalcificacoes, SelectDoppler]);
 
   return (
-    <Box gap="25px" display="flex" flexWrap="wrap" mt="20px" mb="10px">
-      <Box w="160px">
+    <Box display="flex" flexWrap="wrap" mt="20px" mb="10px">
+      <Box w="160px" >
         <Checkbox
           onChange={() => setmultiplosCalculosCheckBox(!multiplosCalculosCheckBox)}
         >

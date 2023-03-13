@@ -4,7 +4,7 @@ import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function EcotexturaParenquima() {
+function EcotexturaParenquima({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
@@ -119,7 +119,7 @@ function EcotexturaParenquima() {
       <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
         <Checkbox
           isChecked={defaultValueNormal.defaultValueNormal}
-          disabled={checkValueNormal.normal}
+          disabled={checkValueNormal.normal || Disable}
           value="Normal "
           id="Normal"
           onChange={(e) => {
@@ -129,7 +129,7 @@ function EcotexturaParenquima() {
           Normal
         </Checkbox>
         <Checkbox
-          disabled={checkValueHeterogenea.Heterogenea}
+          disabled={checkValueHeterogenea.Heterogenea || Disable}
           value="Heterogênea "
           id="Heterogenea"
           onChange={(e) => {

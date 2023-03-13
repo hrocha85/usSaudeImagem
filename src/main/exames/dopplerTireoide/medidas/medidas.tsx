@@ -6,7 +6,7 @@ import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Medidas() {
+function Medidas({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
@@ -222,7 +222,7 @@ function Medidas() {
       <Box display='flex' flexWrap='wrap' gap="20px" mb="10px">
         <Box >
           <Checkbox
-            id="LoboDireito"
+            isDisabled={Disable}
             onChange={() => {
               setLoboDireitoCheckbox(!LoboDireitoCheckbox)
             }}
@@ -265,7 +265,7 @@ function Medidas() {
         </Box>
         <Box >
           <Checkbox
-            id="LoboEsquerdo"
+            isDisabled={Disable}
             onChange={() => {
               setLoboEsquerdoCheckbox(!LoboEsquerdoCheckbox)
             }}
@@ -308,7 +308,7 @@ function Medidas() {
         </Box>
         <Box >
           <Checkbox
-            id="Istmo"
+            isDisabled={Disable}
             onChange={() => {
               setIstmoCheckbox(!IstmoCheckbox)
             }}
@@ -359,8 +359,6 @@ function Medidas() {
           </Checkbox>
         </Box>
       </Box>
-
-
     </Box >
   );
 }
