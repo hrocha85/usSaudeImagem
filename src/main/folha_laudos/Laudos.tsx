@@ -270,7 +270,6 @@ function Exames() {
     };
 
     const renderConclusoes = (exame) => {
-      console.log(exame)
       if (exame.conclusoes != null && exame.conclusoes != undefined) {
         return exame.conclusoes.map((conclusao, key) => {
           return conclusao != null && conclusao != "" ? (

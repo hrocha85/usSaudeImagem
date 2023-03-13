@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Idade() {
+function Idade({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
@@ -93,6 +93,7 @@ function Idade() {
 
       <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
         <Checkbox
+          isDisabled={Disable}
           disabled={checkValueAdulto.normal}
           value="Adulto "
           id="Adulto"
@@ -103,6 +104,7 @@ function Idade() {
           Adulto
         </Checkbox>
         <Checkbox
+          isDisabled={Disable}
           disabled={checkValueMenor14Anos.Menor14Anos}
           value="Menor de 14 anos "
           id="Menor14Anos"

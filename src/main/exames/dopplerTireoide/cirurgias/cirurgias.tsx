@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function LiquidoLivre() {
+function LiquidoLivre({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
@@ -147,7 +147,7 @@ function LiquidoLivre() {
         <Box gap="30px" display="flex" flexWrap="wrap" mb="10px">
           <Box>
             <Checkbox
-              disabled={checkValueTireoidectomiaTotal.TireoidectomiaTotal}
+              disabled={checkValueTireoidectomiaTotal.TireoidectomiaTotal || Disable}
               id="TireoidectomiaTotal"
               value="Tireoidectomia Total "
               onChange={(e) => {
@@ -160,7 +160,7 @@ function LiquidoLivre() {
 
           <Box>
             <Checkbox
-              disabled={checkValueTireoidectomiaParcial.TireoidectomiaParcial}
+              disabled={checkValueTireoidectomiaParcial.TireoidectomiaParcial || Disable}
               id="TireoidectomiaParcial"
               onChange={(e) => {
                 verificaChecked(e.target);

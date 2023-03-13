@@ -1,204 +1,209 @@
-import { Box, Checkbox, Input } from "@chakra-ui/react";
+/* eslint-disable eqeqeq */
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Medidas() {
+function Medidas({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
-  let inputPrimeiraMedidaLoboDireito = document.querySelector(
-    "#InputPrimeiraMedidaLoboDireito"
-  ) as HTMLInputElement;
-  let inputSegundaMedidaLoboDireito = document.querySelector(
-    "#InputSegundaMedidaLoboDireito"
-  ) as HTMLInputElement;
-  let inputTerceiraMedidaLoboDireito = document.querySelector(
-    "#InputTerceiraMedidaLoboDireito"
-  ) as HTMLInputElement;
+  const [FrasesMedidas, setFrasesMedidas] = useState<any>([]);
 
-  let inputPrimeiraMedidaLoboEsquerdo = document.querySelector(
-    "#InputPrimeiraMedidaLoboEsquerdo"
-  ) as HTMLInputElement;
-  let inputSegundaMedidaLoboEsquerdo = document.querySelector(
-    "#InputSegundaMedidaLoboEsquerdo"
-  ) as HTMLInputElement;
-  let inputTerceiraMedidaLoboEsquerdo = document.querySelector(
-    "#InputTerceiraMedidaLoboEsquerdo"
-  ) as HTMLInputElement;
-  let inputIstmo = document.querySelector("#InputIstmo") as HTMLInputElement;
+  const [LoboDireitoCheckbox, setLoboDireitoCheckbox] = useState(false)
+  const [LoboEsquerdoCheckbox, setLoboEsquerdoCheckbox] = useState(false)
+  const [IstmoCheckbox, setIstmoCheckbox] = useState(false)
 
-  const [frasesMedidas, setFrasesMedidas] = useState<any>([]);
+  const [DisableInputsLoboDireito, setDisableInputsLoboDireito] = useState(true)
+  const [ValueInput1LoboDireito, setValueInput1LoboDireito] = useState('')
+  const [ValueInput2LoboDireito, setValueInput2LoboDireito] = useState('')
+  const [ValueInput3LoboDireito, setValueInput3LoboDireito] = useState('')
+  const [ValueInput4LoboDireito, setValueInput4LoboDireito] = useState(0)
 
-  const [valueInput1Medida, setValueInput1Medida] = useState("");
-  const [valueInput2Medida, setValueInput2Medida] = useState("");
-  const [valueFraseMedidaLoboDireito, setValueFraseMedidaLoboDireito] =
-    useState("");
-  const [valueFraseMedidaLoboEsquerdo, setValueFraseMedidaLoboEsquerdo] =
-    useState("");
-  const [valueFraseIstmo, setValueFraseIstmo] = useState("");
+  const [DisableInputsLoboEsquerdo, setDisableInputsLoboEsquerdo] = useState(true)
+  const [ValueInput1LoboEsquerdo, setValueInput1LoboEsquerdo] = useState('')
+  const [ValueInput2LoboEsquerdo, setValueInput2LoboEsquerdo] = useState('')
+  const [ValueInput3LoboEsquerdo, setValueInput3LoboEsquerdo] = useState('')
+  const [ValueInput4LoboEsquerdo, setValueInput4LoboEsquerdo] = useState(0)
 
-  const [checkValueMedidasLoboDireito, setCheckvalueMedidasLoboDireito] =
-    useState({
-      inputMedidaLoboDireito: true,
+  const [DisableInputsIstmo, setDisableInputsIstmo] = useState(true)
+  const [DisableInputsIstmoFiliforme, setDisableInputsIstmoFiliforme] = useState(true)
+  const [ValueInput1Istmo, setValueInput1Istmo] = useState('')
+  const [ValueInput2Istmo, setValueInput2Istmo] = useState('')
+  const [ValueInput3Istmo, setValueInput3Istmo] = useState('')
+  const [ValueInput4Istmo, setValueInput4Istmo] = useState(0)
+  const [IstmoFiliformeCheckbox, setIstmoFiliformeCheckbox] = useState(false)
+
+
+  const criaStringLoboDireito = () => {
+    var string = 'Lobo Direito Falta'
+    removeFraseLoboDireito()
+    var medida1cm = new Convert_Medida(ValueInput1LoboDireito).Convert_Medida()
+    var medida2cm = new Convert_Medida(ValueInput2LoboDireito).Convert_Medida()
+    var medida3cm = new Convert_Medida(ValueInput3LoboDireito).Convert_Medida()
+    if (ValueInput1LoboDireito != '' && ValueInput2LoboDireito != '' && ValueInput3LoboDireito != '') {
+      var medida4 = (parseInt(ValueInput1LoboDireito) * parseInt(ValueInput2LoboDireito) * parseInt(ValueInput3LoboDireito)) / 1000
+      setValueInput4LoboDireito(medida4)
+      string = `${string} ${medida1cm} x ${medida2cm} x ${medida3cm} cm (${medida4} cm³) `
+      setFrasesMedidas((arr) => [...arr, string]);
+    }
+  }
+
+  const removeFraseLoboDireito = () => {
+    FrasesMedidas.map((e) => {
+      if (e.includes("Lobo Direito Falta")) {
+        var index = FrasesMedidas.indexOf(e);
+        if (index > -1) {
+          FrasesMedidas.splice(index, 1);
+          setFrasesMedidas((arr) => [...arr]);
+        }
+      }
     });
-  const [checkValueMedidasLoboEsquerdo, setCheckvalueMedidasLoboEsquerdo] =
-    useState({
-      inputMedidaLoboEsquerdo: true,
-    });
-
-  const [checkValueIstmo, setCheckvalueIstmo] = useState({
-    inputIstmo: true,
-  });
-
-  const CriaStringMedidaLoboDireito = (value) => {
-    let dadoInputTerceiraMedidaLoboDireito = value;
-    const valorInput =
-      "Lobo Direito com " +
-      valueInput1Medida +
-      " x " +
-      valueInput2Medida +
-      " x " +
-      dadoInputTerceiraMedidaLoboDireito +
-      "mm ";
-    setFrasesMedidas((arr) => [...arr, valorInput]);
-    setValueFraseMedidaLoboDireito(valorInput);
   };
-
-  const removeStringMedidaLoboDireito = () => {
-    const index = frasesMedidas.indexOf(valueFraseMedidaLoboDireito);
-    if (index > -1) {
-      frasesMedidas.splice(index, 1);
-      setFrasesMedidas((arr) => [...arr]);
-    }
-    inputPrimeiraMedidaLoboDireito.value = "";
-    inputSegundaMedidaLoboDireito.value = "";
-    inputTerceiraMedidaLoboDireito.value = "";
-  };
-
-  const CriaStringMedidaLoboEsquerdo = (value) => {
-    let dadoInputTerceiraMedidaLoboEsquerdo = value;
-    const valorInput =
-      "Lobo Esquerdo com " +
-      valueInput1Medida +
-      " x " +
-      valueInput2Medida +
-      " x " +
-      dadoInputTerceiraMedidaLoboEsquerdo +
-      "mm ";
-    setFrasesMedidas((arr) => [...arr, valorInput]);
-    setValueFraseMedidaLoboEsquerdo(valorInput);
-  };
-
-  const removeStringMedidaLoboEsquerdo = () => {
-    const index = frasesMedidas.indexOf(valueFraseMedidaLoboEsquerdo);
-    if (index > -1) {
-      frasesMedidas.splice(index, 1);
-      setFrasesMedidas((arr) => [...arr]);
-    }
-    inputPrimeiraMedidaLoboEsquerdo.value = "";
-    inputSegundaMedidaLoboEsquerdo.value = "";
-    inputTerceiraMedidaLoboEsquerdo.value = "";
-  };
-
-  const pegaValorInputIstmo = (value) => {
-    let dadoInputIstmo = value;
-    const valorInput = "Istmo com " + dadoInputIstmo + "mm ";
-    setFrasesMedidas((arr) => [...arr, valorInput]);
-    setValueFraseIstmo(valorInput);
-  };
-
-  const removeStringIstmo = () => {
-    const index = frasesMedidas.indexOf(valueFraseIstmo);
-    if (index > -1) {
-      frasesMedidas.splice(index, 1);
-      setFrasesMedidas((arr) => [...arr]);
-    }
-    inputIstmo.value = "";
-  };
-
-  const verificaChecked = (value) => {
-    switch (value.id) {
-      case "LoboDireito":
-        if (value.checked === true) {
-          setCheckvalueMedidasLoboDireito({
-            inputMedidaLoboDireito: false,
-          });
-        } else {
-          setCheckvalueMedidasLoboDireito({
-            inputMedidaLoboDireito: true,
-          });
-          removeStringMedidaLoboDireito();
-        }
-        break;
-      case "InputPrimeiraMedidaLoboDireito":
-        setValueInput1Medida(value.value);
-        break;
-      case "InputSegundaMedidaLoboDireito":
-        setValueInput2Medida(value.value);
-        break;
-      case "InputTerceiraMedidaLoboDireito":
-        CriaStringMedidaLoboDireito(value.value);
-        break;
-      case "LoboEsquerdo":
-        if (value.checked === true) {
-          setCheckvalueMedidasLoboEsquerdo({
-            inputMedidaLoboEsquerdo: false,
-          });
-        } else {
-          setCheckvalueMedidasLoboEsquerdo({
-            inputMedidaLoboEsquerdo: true,
-          });
-          removeStringMedidaLoboEsquerdo();
-        }
-        break;
-      case "InputPrimeiraMedidaLoboEsquerdo":
-        setValueInput1Medida(value.value);
-        break;
-      case "InputSegundaMedidaLoboEsquerdo":
-        setValueInput2Medida(value.value);
-        break;
-      case "InputTerceiraMedidaLoboEsquerdo":
-        CriaStringMedidaLoboEsquerdo(value.value);
-        break;
-      case "Istmo":
-        if (value.checked === true) {
-          setCheckvalueIstmo({
-            inputIstmo: false,
-          });
-        } else {
-          setCheckvalueIstmo({
-            inputIstmo: true,
-          });
-          removeStringIstmo();
-        }
-        break;
-      case "InputIstmo":
-        pegaValorInputIstmo(value.value);
-        break;
-    }
-  };
-
-  const subExame = "Medidas";
-  const titulo_exame = "Doppler da Tireóide";
 
   useEffect(() => {
-    if (Object.keys(frasesMedidas).length == 0) {
+    if (LoboDireitoCheckbox) {
+      criaStringLoboDireito()
+      setDisableInputsLoboDireito(false)
+    } else {
+      removeFraseLoboDireito()
+      setDisableInputsLoboDireito(true)
+      setValueInput1LoboDireito('')
+      setValueInput2LoboDireito('')
+      setValueInput3LoboDireito('')
+      setValueInput4LoboDireito(0)
+    }
+  }, [LoboDireitoCheckbox, ValueInput1LoboDireito, ValueInput3LoboDireito, ValueInput2LoboDireito])
+
+  const criaStringLoboEsquerdo = () => {
+    var string = 'Lobo Esquerdo Falta'
+    removeFraseLoboEsquerdo()
+    var medida1cm = new Convert_Medida(ValueInput1LoboEsquerdo).Convert_Medida()
+    var medida2cm = new Convert_Medida(ValueInput2LoboEsquerdo).Convert_Medida()
+    var medida3cm = new Convert_Medida(ValueInput3LoboEsquerdo).Convert_Medida()
+    if (ValueInput1LoboEsquerdo != '' && ValueInput2LoboEsquerdo != '' && ValueInput3LoboEsquerdo != '') {
+      var medida4 = (parseInt(ValueInput1LoboEsquerdo) * parseInt(ValueInput2LoboEsquerdo) * parseInt(ValueInput3LoboEsquerdo)) / 1000
+      setValueInput4LoboEsquerdo(medida4)
+      string = `${string} ${medida1cm} x ${medida2cm} x ${medida3cm} cm (${medida4} cm³)`
+      setFrasesMedidas((arr) => [...arr, string]);
+    }
+  }
+
+  const removeFraseLoboEsquerdo = () => {
+    FrasesMedidas.map((e) => {
+      if (e.includes("Lobo Esquerdo Falta")) {
+        var index = FrasesMedidas.indexOf(e);
+        if (index > -1) {
+          FrasesMedidas.splice(index, 1);
+          setFrasesMedidas((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (LoboEsquerdoCheckbox) {
+      criaStringLoboEsquerdo()
+      setDisableInputsLoboEsquerdo(false)
+    } else {
+      removeFraseLoboEsquerdo()
+      setDisableInputsLoboEsquerdo(true)
+      setValueInput1LoboEsquerdo('')
+      setValueInput2LoboEsquerdo('')
+      setValueInput3LoboEsquerdo('')
+      setValueInput4LoboEsquerdo(0)
+    }
+  }, [LoboEsquerdoCheckbox, ValueInput1LoboEsquerdo, ValueInput3LoboEsquerdo, ValueInput2LoboEsquerdo])
+
+  const criaStringIstmo = () => {
+    var string = 'Lobo Istmo Falta'
+    removeFraseIstmo()
+    var medida1cm = new Convert_Medida(ValueInput1Istmo).Convert_Medida()
+    var medida2cm = new Convert_Medida(ValueInput2Istmo).Convert_Medida()
+    var medida3cm = new Convert_Medida(ValueInput3Istmo).Convert_Medida()
+    if (ValueInput1Istmo != '' && ValueInput2Istmo != '' && ValueInput3Istmo != '') {
+      setDisableInputsIstmoFiliforme(true)
+      var medida4 = (parseInt(ValueInput1Istmo) * parseInt(ValueInput2Istmo) * parseInt(ValueInput3Istmo)) / 1000
+      setValueInput4Istmo(medida4)
+      string = `${string} ${medida1cm} x ${medida2cm} x ${medida3cm} cm ${(medida4)} cm³`
+      setFrasesMedidas((arr) => [...arr, string]);
+    }
+  }
+  const removeString = (value) => {
+    var index = FrasesMedidas.indexOf(value);
+    if (index > -1) {
+      FrasesMedidas.splice(index, 1);
+      setFrasesMedidas((arr) => [...arr]);
+    }
+  };
+
+  const removeFraseIstmo = () => {
+    FrasesMedidas.map((e) => {
+      if (e.includes("Lobo Istmo Falta")) {
+        var index = FrasesMedidas.indexOf(e);
+        if (index > -1) {
+          FrasesMedidas.splice(index, 1);
+          setFrasesMedidas((arr) => [...arr]);
+        }
+      }
+    });
+  };
+  const criaStringIstmoFiliforme = () => {
+    var string = 'Lobo Filoforme Falta'
+    removeFraseIstmo()
+    if (IstmoFiliformeCheckbox) {
+      setFrasesMedidas((arr) => [...arr, string]);
+    } else {
+      removeString(string)
+    }
+  }
+
+  useEffect(() => {
+    var string = 'Lobo Filoforme Falta'
+    if (IstmoCheckbox) {
+      setDisableInputsIstmoFiliforme(false)
+      if (IstmoFiliformeCheckbox) {
+        criaStringIstmoFiliforme()
+        setDisableInputsIstmo(true)
+      } else {
+        removeString(string)
+        setDisableInputsIstmo(false)
+        criaStringIstmo()
+      }
+    } else {
+      removeFraseIstmo()
+      setDisableInputsIstmo(true)
+      setDisableInputsIstmoFiliforme(true)
+      setValueInput1Istmo('')
+      setValueInput2Istmo('')
+      setValueInput3Istmo('')
+      setValueInput4Istmo(0)
+    }
+  }, [IstmoCheckbox, ValueInput1Istmo, ValueInput3Istmo, ValueInput2Istmo, IstmoFiliformeCheckbox])
+
+
+  const subExame = "Medidas";
+  const titulo_exame = "Tireóide";
+
+  useEffect(() => {
+    if (Object.keys(FrasesMedidas).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesMedidas
+        FrasesMedidas
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesMedidas
+        FrasesMedidas
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesMedidas]);
+  }, [FrasesMedidas]);
 
   return (
     <Box
@@ -212,119 +217,149 @@ function Medidas() {
       padding="24px 15px 10px 15px"
       mt="20px"
     >
-      <Box mb="20px">
-        <TituloNomeExame titulo="Medidas" />
+      <TituloNomeExame titulo="Medidas" />
 
-        <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
-          <Box w="200px">
-            <Checkbox
-              id="LoboDireito"
+      <Box display='flex' flexWrap='wrap' gap="20px" mb="10px">
+        <Box >
+          <Checkbox
+            isDisabled={Disable}
+            onChange={() => {
+              setLoboDireitoCheckbox(!LoboDireitoCheckbox)
+            }}
+          >
+            Lobo Direito
+          </Checkbox>
+          <Box display='flex' flexWrap='wrap'>
+            <Input
+              w='60px'
+              value={ValueInput1LoboDireito}
+              isDisabled={DisableInputsLoboDireito}
               onChange={(e) => {
-                verificaChecked(e.target);
+                setValueInput1LoboDireito(e.target.value)
               }}
-            >
-              Lobo Direito
-            </Checkbox>
-            <Box>
-              <Input
-                id="InputPrimeiraMedidaLoboDireito"
-                onBlur={(e) => {
-                  verificaChecked(e.target);
-                }}
-                disabled={checkValueMedidasLoboDireito.inputMedidaLoboDireito}
-                w="25%"
-                placeholder="0"
-              />
-              x
-              <Input
-                id="InputSegundaMedidaLoboDireito"
-                onBlur={(e) => {
-                  verificaChecked(e.target);
-                }}
-                disabled={checkValueMedidasLoboDireito.inputMedidaLoboDireito}
-                w="25%"
-                placeholder="0"
-              />
-              x
-              <Input
-                id="InputTerceiraMedidaLoboDireito"
-                onBlur={(e) => {
-                  verificaChecked(e.target);
-                }}
-                disabled={checkValueMedidasLoboDireito.inputMedidaLoboDireito}
-                w="25%"
-                placeholder="0"
-              />
-              mm
-            </Box>
-          </Box>
-          <Box w="200px">
-            <Checkbox
-              id="LoboEsquerdo"
+              placeholder="0"
+            />
+            <Text alignSelf='center'>x</Text>
+            <Input
+              w='60px'
+              isDisabled={DisableInputsLoboDireito}
+              value={ValueInput2LoboDireito}
               onChange={(e) => {
-                verificaChecked(e.target);
+                setValueInput2LoboDireito(e.target.value)
               }}
-            >
-              Lobo Esquerdo
-            </Checkbox>
-            <Box>
-              <Input
-                id="InputPrimeiraMedidaLoboEsquerdo"
-                onBlur={(e) => {
-                  verificaChecked(e.target);
-                }}
-                disabled={checkValueMedidasLoboEsquerdo.inputMedidaLoboEsquerdo}
-                w="25%"
-                placeholder="0"
-              />
-              x
-              <Input
-                id="InputSegundaMedidaLoboEsquerdo"
-                onBlur={(e) => {
-                  verificaChecked(e.target);
-                }}
-                disabled={checkValueMedidasLoboEsquerdo.inputMedidaLoboEsquerdo}
-                w="25%"
-                placeholder="0"
-              />
-              x
-              <Input
-                id="InputTerceiraMedidaLoboEsquerdo"
-                onBlur={(e) => {
-                  verificaChecked(e.target);
-                }}
-                disabled={checkValueMedidasLoboEsquerdo.inputMedidaLoboEsquerdo}
-                w="25%"
-                placeholder="0"
-              />
-              mm
-            </Box>
-          </Box>
-          <Box w="200px">
-            <Checkbox
-              id="Istmo"
+              placeholder="0"
+            />
+            <Text alignSelf='center'>x</Text>
+            <Input
+              w='60px'
+              value={ValueInput3LoboDireito}
+              isDisabled={DisableInputsLoboDireito}
               onChange={(e) => {
-                verificaChecked(e.target);
+                setValueInput3LoboDireito(e.target.value)
               }}
-            >
-              Istmo
-            </Checkbox>
-            <Box>
-              <Input
-                id="InputIstmo"
-                onBlur={(e) => {
-                  verificaChecked(e.target);
-                }}
-                disabled={checkValueIstmo.inputIstmo}
-                w="25%"
-                placeholder="0"
-              />
-              mm
-            </Box>
+              placeholder="0"
+            />
+            <Text alignSelf='center'>mm</Text>
+            <Text alignSelf='center'> ({ValueInput4LoboDireito} cm³)</Text>
           </Box>
         </Box>
+        <Box >
+          <Checkbox
+            isDisabled={Disable}
+            onChange={() => {
+              setLoboEsquerdoCheckbox(!LoboEsquerdoCheckbox)
+            }}
+          >
+            Lobo Esquerdo
+          </Checkbox>
+          <Box display='flex' flexWrap='wrap'>
+            <Input
+              w='60px'
+              value={ValueInput1LoboEsquerdo}
+              isDisabled={DisableInputsLoboEsquerdo}
+              onChange={(e) => {
+                setValueInput1LoboEsquerdo(e.target.value)
+              }}
+              placeholder="0"
+            />
+            <Text alignSelf='center'>x</Text>
+            <Input
+              w='60px'
+              isDisabled={DisableInputsLoboEsquerdo}
+              value={ValueInput2LoboEsquerdo}
+              onChange={(e) => {
+                setValueInput2LoboEsquerdo(e.target.value)
+              }}
+              placeholder="0"
+            />
+            <Text alignSelf='center'>x</Text>
+            <Input
+              w='60px'
+              value={ValueInput3LoboEsquerdo}
+              isDisabled={DisableInputsLoboEsquerdo}
+              onChange={(e) => {
+                setValueInput3LoboEsquerdo(e.target.value)
+              }}
+              placeholder="0"
+            />
+            <Text alignSelf='center'>mm</Text>
+            <Text alignSelf='center'> ({ValueInput4LoboEsquerdo} cm³)</Text>
+          </Box>
+        </Box>
+        <Box >
+          <Checkbox
+            isDisabled={Disable}
+            onChange={() => {
+              setIstmoCheckbox(!IstmoCheckbox)
+            }}
+          >
+            Istmo
+          </Checkbox>
+          <Box display='flex' flexWrap='wrap'>
+            <Input
+              w='60px'
+              value={ValueInput1Istmo}
+              isDisabled={DisableInputsIstmo}
+              onChange={(e) => {
+                setValueInput1Istmo(e.target.value)
+              }}
+              placeholder="0"
+            />
+            <Text alignSelf='center'>x</Text>
+            <Input
+              w='60px'
+              isDisabled={DisableInputsIstmo}
+              value={ValueInput2Istmo}
+              onChange={(e) => {
+                setValueInput2Istmo(e.target.value)
+              }}
+              placeholder="0"
+            />
+            <Text alignSelf='center'>x</Text>
+            <Input
+              w='60px'
+              value={ValueInput3Istmo}
+              isDisabled={DisableInputsIstmo}
+              onChange={(e) => {
+                setValueInput3Istmo(e.target.value)
+              }}
+              placeholder="0"
+            />
+            <Text alignSelf='center'>mm</Text>
+            <Text alignSelf='center'> ({ValueInput4Istmo} cm³)</Text>
+          </Box>
+
+          <Checkbox
+            isDisabled={DisableInputsIstmoFiliforme}
+            onChange={(e) => {
+              setIstmoFiliformeCheckbox(!IstmoFiliformeCheckbox)
+            }}
+          >
+            o istmo é filiforme? (não mensurável)
+          </Checkbox>
+        </Box>
       </Box>
-    </Box>
+    </Box >
   );
 }
 
