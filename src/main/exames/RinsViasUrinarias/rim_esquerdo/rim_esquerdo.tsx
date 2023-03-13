@@ -1,6 +1,12 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Input, Select } from "@chakra-ui/react";
+import {
+  Box,
+  Checkbox,
+  HStack,
+  Input,
+  Select,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -33,27 +39,20 @@ function RimEsquerdo() {
   const [checkboxRimPelvico, setCheckboxRimPelvico] = useState(false);
 
   const removeItemString = (value) => {
-    // console.log("valor remove = ", value);
     var index = frasesRimE.indexOf(value);
-    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+
     if (index > -1) {
       frasesRimE.splice(index, 1);
       setFrasesRimE((arr) => [...arr]);
     }
-    // console.log('posicao', index)
-    // console.log("laudosPrin", laudoPrin)
   };
 
   const CriaStringMedidas = () => {
     removeStringMedidas();
     if (checkboxMedidas) {
       setDisableMedidas(false);
-      if (
-        valueInput1Medida !== "" &&
-        valueInput2Medida !== "" &&
-        valueParenquima !== ""
-      ) {
-        const valorInput = `Rim Esquerdo medindo ${valueInput1Medida} x ${valueInput2Medida} mm parênquima de ${valueParenquima} mm `;
+      if (valueInput1Medida.length == 4 && valueParenquima.length == 4) {
+        const valorInput = `Rim Esquerdo medindo ${valueInput1Medida} mm  e parênquima de ${valueParenquima} mm `;
         setFrasesRimE((arr) => [...arr, valorInput]);
       }
     } else {
@@ -69,7 +68,7 @@ function RimEsquerdo() {
     frasesRimE.map((e) => {
       if (e.includes("Rim Esquerdo medindo")) {
         let index = frasesRimE.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+
         if (index > -1) {
           frasesRimE.splice(index, 1);
           setFrasesRimE((arr) => [...arr]);
@@ -77,11 +76,6 @@ function RimEsquerdo() {
       }
     });
   };
-
-  useEffect(() => {
-    CriaStringMedidas();
-    removeStringMedidas();
-  }, [checkboxMedidas, valueInput1Medida, valueInput2Medida, valueParenquima]);
 
   const criaStringPresente = () => {
     let string = "Rim Esquerdo Presente";
@@ -96,6 +90,7 @@ function RimEsquerdo() {
       removeItemString(string);
     }
   };
+
   const criaStringDimensoesReduzidas = () => {
     let string = "Dimensões reduzidas";
     if (checkboxDimensoes) {
@@ -104,9 +99,6 @@ function RimEsquerdo() {
       removeItemString(string);
     }
   };
-  useEffect(() => {
-    criaStringDimensoesReduzidas();
-  }, [checkboxDimensoes]);
 
   const criaStringAusente = () => {
     removeFraseAusente();
@@ -125,11 +117,12 @@ function RimEsquerdo() {
       setValueSelectAusente("");
     }
   };
+
   const removeFraseAusente = () => {
     frasesRimE.map((e) => {
       if (e.includes("Rim Esquerdo ausente")) {
         let index = frasesRimE.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+
         if (index > -1) {
           frasesRimE.splice(index, 1);
           setFrasesRimE((arr) => [...arr]);
@@ -137,22 +130,6 @@ function RimEsquerdo() {
       }
     });
   };
-
-  useEffect(() => {
-    criaStringAusente();
-  }, [valueSelectAusente, checkboxAusente]);
-
-  const criaStringRimFerradura = () => {
-    let string = "Rim Esquerdo em Ferradura";
-    if (checkboxRimFerradura) {
-      setFrasesRimE((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
-  };
-  useEffect(() => {
-    criaStringRimFerradura();
-  }, [checkboxRimFerradura]);
 
   const criaStringNefropatiaCronica = () => {
     let string = "Rim Esquerdo com nefropatia crônica";
@@ -162,9 +139,15 @@ function RimEsquerdo() {
       removeItemString(string);
     }
   };
-  useEffect(() => {
-    criaStringNefropatiaCronica();
-  }, [checkboxNefropatiaCronica]);
+
+  const criaStringRimFerradura = () => {
+    let string = "Rim Esquerdo em Ferradura";
+    if (checkboxRimFerradura) {
+      setFrasesRimE((arr) => [...arr, string]);
+    } else {
+      removeItemString(string);
+    }
+  };
 
   const criaStringRimPelvico = () => {
     let string = "Rim Esquerdo pélvico";
@@ -174,6 +157,28 @@ function RimEsquerdo() {
       removeItemString(string);
     }
   };
+
+  useEffect(() => {
+    CriaStringMedidas();
+    removeStringMedidas();
+  }, [checkboxMedidas, valueInput1Medida, valueInput2Medida, valueParenquima]);
+
+  useEffect(() => {
+    criaStringDimensoesReduzidas();
+  }, [checkboxDimensoes]);
+
+  useEffect(() => {
+    criaStringAusente();
+  }, [valueSelectAusente, checkboxAusente]);
+
+  useEffect(() => {
+    criaStringRimFerradura();
+  }, [checkboxRimFerradura]);
+
+  useEffect(() => {
+    criaStringNefropatiaCronica();
+  }, [checkboxNefropatiaCronica]);
+
   useEffect(() => {
     criaStringRimPelvico();
   }, [checkboxRimPelvico]);
@@ -258,49 +263,41 @@ function RimEsquerdo() {
               <option value="Interposição Gasosa">Interposição gasosa</option>
             </Select>
           </Box>
-
-          <Box w="165px">
-            <Checkbox
-              id="Medidas"
-              onChange={(e) => {
-                setCheckboxMedidas(!checkboxMedidas);
-              }}
-            >
-              Medidas
-            </Checkbox>
-            <Box>
+          <Stack paddingBottom="5px">
+            <HStack w="220px">
+              <Checkbox
+                id="Medidas"
+                onChange={(e) => {
+                  setCheckboxMedidas(!checkboxMedidas);
+                }}
+              >
+                Medidas
+              </Checkbox>
               <Input
+                maxLength={4}
                 value={valueInput1Medida}
                 onChange={(e) => {
                   setValueInput1Medida(e.target.value);
                 }}
                 isDisabled={disableMedidas}
-                w="35%"
+                w="auto"
                 placeholder="00"
               />
-              x
-              <Input
-                value={valueInput2Medida}
-                onChange={(e) => {
-                  setValueInput2Medida(e.target.value);
-                }}
-                isDisabled={disableMedidas}
-                w="35%"
-                placeholder="00"
-              />
-              mm
-            </Box>
+              <Text>mm</Text>
+            </HStack>
             <Input
+              maxLength={4}
               value={valueParenquima}
               onChange={(e) => {
                 setValueParenquima(e.target.value);
               }}
               isDisabled={disableMedidas}
               mt="5px"
-              w="100%"
+              w="auto"
+              maxWidth="173px"
               placeholder="Parênquima(mm)"
             />
-          </Box>
+          </Stack>
 
           <Box w="200px">
             <Checkbox

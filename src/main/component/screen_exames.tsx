@@ -57,6 +57,7 @@ import BGImage from "../images/bg_img.png";
 import Sidebar from "../menu/sideBar";
 import Conclusoes from "./conclusoes";
 import Field_Observacoes from "./field_observacoes";
+import Observacoes from "../../Data/Observacoes.json";
 
 export default function Box_Default_With_Sidebar() {
   const { isOpen: isOpenRemoveExameModal,
@@ -167,6 +168,11 @@ export default function Box_Default_With_Sidebar() {
       key: 14,
       nomeExame: "Testículo",
       link: `#/Home/${14}`,
+      observacao: [
+        "Conviria controle ecográfico periódico, a critério clínico.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+      ],
     },
     {
       key: 15,
@@ -187,6 +193,12 @@ export default function Box_Default_With_Sidebar() {
       key: 17,
       nomeExame: "Próstata",
       link: `#/Home/${17}`,
+      observacao: [
+        "Exame restrito para avaliação do volume prostático, devendo ser correlacionado com os dados clínicos e exames laboratoriais específicos para pesquisa de neoplasia.",
+        "Exames anteriores não disponíveis para estudo comparativo.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+      ],
     },
     {
       key: 18,
@@ -197,7 +209,7 @@ export default function Box_Default_With_Sidebar() {
       key: 19,
       nomeExame: "Região Inguinal",
       link: `#/Home/${19}`,
-    }
+    },
   ];
 
   const handleSliderChange = (event) => {
@@ -248,15 +260,28 @@ export default function Box_Default_With_Sidebar() {
 
   const AddNewExame = (exame) => {
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
+    const observacoes = Observacoes.observacoes;
 
     const obj = {
-      titulo_exame: exame,
+      titulo_exame: exame.nomeExame,
       subExames: [{ subExameNome: "", frases: [] }],
       conclusoes: [""],
       observacoes: [""],
     };
     array.push(obj);
+
     localStorage.setItem("format_laudo", JSON.stringify(array));
+
+    if (exame.observacao != null) {
+      const setObservacao = {
+        id: exame.key,
+        titulo_observacao: exame.nomeExame,
+        observacao: exame.observacao!,
+      };
+      observacoes.push(setObservacao);
+
+      localStorage.setItem("observacoes", JSON.stringify(observacoes));
+    }
   };
 
   const RenderConclusoes = ({ clean, setCleanConclusoes }) => {
@@ -264,12 +289,12 @@ export default function Box_Default_With_Sidebar() {
   };
 
   useEffect(() => {
-
     const exame = tabExames.find((e) => e.nomeExame !== undefined);
     if (exame !== undefined) {
       setCurrentExame(exame);
       setIsMounted(true);
     }
+
     return () => {
       setIsMounted(false);
     };
@@ -409,7 +434,7 @@ export default function Box_Default_With_Sidebar() {
                         16: <Pelvico />,
                         17: <Prostata />,
                         18: <Articulacoes />,
-                        19: <Regiao_Inguinal />
+                        19: <Regiao_Inguinal />,
                       }[e.key]
                     }
                   </TabPanel>
@@ -474,7 +499,7 @@ export default function Box_Default_With_Sidebar() {
                             obj.nomeExame === exame.nomeExame
                         );
                         if (!found) {
-                          AddNewExame(exame.nomeExame);
+                          AddNewExame(exame);
                           onClose();
                           return [...tabExames, exame];
                         }

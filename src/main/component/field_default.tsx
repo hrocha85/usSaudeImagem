@@ -33,7 +33,6 @@ const FieldDefault = ({ observacao, textColor }) => {
 
   const addObservacoes = () => {
     descricoes.push(descricao)
-    console.log('desc', descricao)
     setDescricao(null)
   }
 
