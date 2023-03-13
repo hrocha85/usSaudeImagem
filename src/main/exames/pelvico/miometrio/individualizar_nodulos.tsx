@@ -2,9 +2,9 @@ import { Button, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { isLineBreak } from "typescript";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarNodulos({ numNodulo, disable }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
 
   const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
   const [posicaoNodulosSelect, setPosicaoNodulosSelect] = useState("");
@@ -12,6 +12,32 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
   const [multiplosNodulosCheckBox, setmultiplosNodulosCheckBox] =
     useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
+
+  const [frasesMiometrio, setFrasesMiometrio] = useState<any>([]);
+  const [ConclusaoMiometrio, setConclusaoMiometrio] = useState<any>([]);
+
+  const subExame = `Miométrio. Nódulo ${numNodulo}`;
+  const titulo_exame = "Transvaginal"
+
+  useEffect(() => {
+    if (Object.keys(frasesMiometrio).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesMiometrio,
+        ConclusaoMiometrio
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesMiometrio,
+        ConclusaoMiometrio
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesMiometrio]);
 
   const handleChangeNoduloInput = (event) => {
     settamanhoNoduloInput(event.target.value);
@@ -26,18 +52,18 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
 
     if (tamanhoNoduloInput != "" && nodulosSelect != "" && localizado != "") {
       var string = `Nódulo ${numNodulo} mede ${tamanhoNoduloInput} mm ${nodulosSelect} localizado ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMiometrio((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosNodulos = () => {
-    laudoPrin.map((e) => {
+    frasesMiometrio.map((e) => {
       if (e.includes(`Nódulo ${numNodulo}`)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesMiometrio.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMiometrio.splice(index, 1);
+          setFrasesMiometrio((arr) => [...arr]);
         }
       }
     });
@@ -81,7 +107,6 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
         w="60px"
         h="77x"
         padding="5px"
-        maxLength={2}
         textAlign="center"
         onChange={handleChangeNoduloInput}
         placeholder={"mm"}

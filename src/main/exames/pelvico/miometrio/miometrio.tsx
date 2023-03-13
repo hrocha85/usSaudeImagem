@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
   Checkbox,
@@ -9,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import IndividualizarNodulos from "./individualizar_nodulos";
 
@@ -16,12 +18,18 @@ function Miometrio() {
   const altura = "100%";
   const largura = "66%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesMiometrio, setFrasesMiometrio] = useState<any>([]);
+  const [ConclusaoMiometrio, setConclusaoMiometrio] = useState<any>([]);
+
+  const subExame = "Miométrio";
+  const titulo_exame = "Pélvico";
+
   var numberArray = [1, 2, 3, 4, 5];
 
   const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
   const [posicaoNodulosSelect, setPosicaoNodulosSelect] = useState("");
   const [localizacaoNodulosSelect, setlocalizacaoNodulosSelect] = useState("");
+  const [MiometrioHomogeneoSemNodulosCheckBox, setMiometrioHomogeneoSemNodulosCheckBox] = useState(false);
 
   const [multiplosNodulosCheckBox, setmultiplosNodulosCheckBox] =
     useState(false);
@@ -34,12 +42,55 @@ function Miometrio() {
   const [DisableCheckboxSemNodulos, setDisableCheckboxSemNodulos] =
     useState(false);
 
+  useEffect(() => {
+    if (Object.keys(frasesMiometrio).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesMiometrio,
+        ConclusaoMiometrio
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesMiometrio,
+        ConclusaoMiometrio
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesMiometrio]);
 
 
   const handleChangeNoduloInput = (event) => {
     settamanhoNoduloInput(event.target.value);
   };
 
+  const criaStringMiometrioHomogeneoSemNodulos = () => {
+    var string =
+      'falta'
+    const conclusao = 'falta.'
+    if (MiometrioHomogeneoSemNodulosCheckBox) {
+      setFrasesMiometrio((arr) => [...arr, string]);
+      setConclusaoMiometrio((arr) => [...arr, conclusao]);
+    } else {
+      removeItemString(string);
+      removeItemStringConclusao(conclusao);
+    }
+  };
+  useEffect(() => {
+    criaStringMiometrioHomogeneoSemNodulos()
+  }, [MiometrioHomogeneoSemNodulosCheckBox])
+
+  const removeItemStringConclusao = (value) => {
+    var index = ConclusaoMiometrio.indexOf(value);
+    if (index > -1) {
+      ConclusaoMiometrio.splice(index, 1);
+      setConclusaoMiometrio((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+    }
+  };
   const criaStringMultiplosNodulos = (
     tamanhoNoduloInput,
     nodulosSelect,
@@ -49,18 +100,18 @@ function Miometrio() {
 
     if (tamanhoNoduloInput != "" && nodulosSelect != "" && localizado != "") {
       var string = `Múltiplos nódulos de mioma, o maior mede ${tamanhoNoduloInput}mm ${nodulosSelect} localizado ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMiometrio((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosNodulos = () => {
-    laudoPrin.map((e) => {
+    frasesMiometrio.map((e) => {
       if (e.includes("mioma")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesMiometrio.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMiometrio.splice(index, 1);
+          setFrasesMiometrio((arr) => [...arr]);
         }
       }
     });
@@ -69,7 +120,7 @@ function Miometrio() {
   const criaStringMiometrioSemNodulos = () => {
     var string = "Miométrio heterogêneo sem nódulos ";
     if (miometrioSemNodulosCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMiometrio((arr) => [...arr, string]);
       setmiometrioSemNodulosCheckBox(false);
     } else {
       removeItemString(string);
@@ -77,11 +128,11 @@ function Miometrio() {
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesMiometrio.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesMiometrio.splice(index, 1);
+      setFrasesMiometrio((arr) => [...arr]);
     }
   };
 
@@ -135,6 +186,13 @@ function Miometrio() {
             >
               Miométrio heterogêneo sem nódulos
             </Checkbox>
+            <Checkbox
+              onChange={() => {
+                setMiometrioHomogeneoSemNodulosCheckBox(!MiometrioHomogeneoSemNodulosCheckBox);
+              }}
+            >
+              Miométrio Homogêneo sem nódulos
+            </Checkbox>
             <Box>
               <HStack>
                 <Checkbox
@@ -153,7 +211,6 @@ function Miometrio() {
                   w="60px"
                   h="77x"
                   padding="5px"
-                  maxLength={2}
                   textAlign="center"
                   onChange={handleChangeNoduloInput}
                   placeholder={"mm"}

@@ -99,32 +99,43 @@ function Utero({ Disable }) {
   //Endometrio checkbox
   const [endometrioCheckBox, setEndometrioCheckBox] = useState(false);
 
+  const [PosicaoSelect, setPosicaoSelect] = useState('');
+
+
   //Funcoes Posicao - Inicio
-  const criaStringPosicaoUtero = (value) => {
-    var string = `Útero em ${value} `;
-    return string;
-  };
-
-  const checkPosicaoUtero = (value) => {
-    switch (value) {
-      case "Anteversoflexão":
-        removeItemString(criaStringPosicaoUtero("Retroversoflexão"));
-        setFrasesUtero((arr) => [...arr, criaStringPosicaoUtero(value)]);
-        break;
-
-      case "Retroversoflexão": {
-        removeItemString(criaStringPosicaoUtero("Anteversoflexão"));
-        setFrasesUtero((arr) => [...arr, criaStringPosicaoUtero(value)]);
-        break;
-      }
+  const CriaStringPosicao = (value) => {
+    var frase = `Útero em`
+    removePosicao()
+    if (value != '') {
+      frase = `${frase} ${value}`
+      setFrasesUtero((arr) => [...arr, frase])
     }
   };
+
+  useEffect(() => {
+    CriaStringPosicao(PosicaoSelect)
+  }, [PosicaoSelect])
+
+  const removePosicao = () => {
+    // console.log("valor remove = ", value);
+    frasesUtero.map((e) => {
+      if (e.includes("Útero em")) {
+        var index = frasesUtero.indexOf(e);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+        if (index > -1) {
+          frasesUtero.splice(index, 1);
+          setFrasesUtero((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
   //Funcoes Posicao - Fim
 
   // Funcoes medidas Utero - Inicio
   const criaStringMedidasUtero = () => {
     if (medidaUtero1 != "" && medidaUtero2 != "" && medidaUtero3 != "") {
-      var medida4 = (parseInt(medidaUtero1) + parseInt(medidaUtero2) + parseInt(medidaUtero3) / 1000)
+      var medida4 = (parseInt(medidaUtero1) * parseInt(medidaUtero2) * parseInt(medidaUtero3) / 1000)
       setmedidaUtero4(medida4)
 
       var string = `Útero com ${medidaUtero1} x ${medidaUtero2} x ${medidaUtero3} mm (${medida4} cm³) `;
@@ -427,14 +438,15 @@ function Utero({ Disable }) {
         <Box>
           <Text>Posição:</Text>
           <Select
-            isDisabled={Disable}
-            placeholder="Posição"
             onChange={(e) => {
-              checkPosicaoUtero(e.target.value);
+              setPosicaoSelect(e.target.value);
             }}
           >
+            <option selected disabled value="">Selecione</option>
+            <option value="">Não citar</option>
             <option value="Anteversoflexão">Anteversoflexão</option>
             <option value="Retroversoflexão">Retroversoflexão</option>
+            <option value="Médio versão">Médio versão</option>
           </Select>
         </Box>
 

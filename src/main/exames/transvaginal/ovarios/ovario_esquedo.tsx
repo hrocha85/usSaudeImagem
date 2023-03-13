@@ -75,7 +75,7 @@ function Ovario_Esquerdo({ Disable }) {
   //Funcoes medidas ovario - Inicio
   const criaStringMedidasOvario = () => {
     if (medidaOvario1 !== "" && medidaOvario2 !== "" && medidaOvario3 !== "") {
-      var medida4 = (parseInt(medidaOvario1) + parseInt(medidaOvario2) + parseInt(medidaOvario3) / 1000)
+      var medida4 = (parseInt(medidaOvario1) * parseInt(medidaOvario2) * parseInt(medidaOvario3) / 1000)
       setmedidaOvario4(medida4)
 
       var string = `Ovário Esquerdo mede ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm (${medida4} cm³)`;
