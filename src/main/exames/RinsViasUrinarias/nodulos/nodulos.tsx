@@ -225,7 +225,6 @@ function Nodulos() {
                   setValueInput01Nodulo01(e.target.value);
                 }}
                 isDisabled={disableNodulo01}
-                maxLength={3}
                 w="55px"
                 placeholder="00"
               />
@@ -236,7 +235,6 @@ function Nodulos() {
                   setValueInput02Nodulo01(e.target.value);
                 }}
                 isDisabled={disableNodulo01}
-                maxLength={3}
                 w="55px"
                 placeholder="00"
               />
