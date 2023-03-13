@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-pascal-case */
 import { Box, HStack } from "@chakra-ui/react";
- 
+
 import Extras from "./adicionais/extras";
 import Cirurgias from "./cirurgias/cirurgias";
 import Hidatide from "./hidatide/hidatide";
@@ -13,7 +14,7 @@ import Utero from "./utero/utero";
 function Pelvico() {
   return (
     <>
-      
+
 
       <Box ml="10px">
         <Utero />
