@@ -103,7 +103,6 @@ function RimDireito() {
 
   const criaStringAusente = () => {
     removeFraseAusente();
-    console.log("aqui");
     if (checkboxAusente) {
       console.log(valueSelectAusente);
       setDisableSelectAusente(false);
@@ -275,7 +274,6 @@ function RimDireito() {
                 Medidas
               </Checkbox>
               <Input
-                maxLength={4}
                 value={valueInput1Medida}
                 onChange={(e) => {
                   setValueInput1Medida(e.target.value);
@@ -287,7 +285,6 @@ function RimDireito() {
               <Text>mm</Text>
             </HStack>
             <Input
-              maxLength={4}
               value={valueParenquima}
               onChange={(e) => {
                 setValueParenquima(e.target.value);

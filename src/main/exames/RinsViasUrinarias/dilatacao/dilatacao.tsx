@@ -28,7 +28,6 @@ function Dilatacao() {
 
   const criaStringDilatacaoDireito = () => {
     removeFraseDilatacaoDireito();
-    console.log("aqui");
     if (checkboxDilatacaoDireito) {
       console.log(valueSelectDilatacaoDireito);
       setDisableSelectDilatacaoDireito(false);

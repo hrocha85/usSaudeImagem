@@ -83,7 +83,7 @@ function Bexiga() {
       removeItemString(string);
     }
   };
-  
+
   const criaStringOmitirBexiga = () => {
     var string = "Omitir bexiga ";
     if (!OmitirBexigaCheckbox) {
@@ -319,7 +319,6 @@ function Bexiga() {
               w="35px"
               h="30px"
               padding="5px"
-              maxLength={2}
               textAlign="center"
               onChange={(e) => {
                 setDistanciaCalculoInput(e.target.value);
@@ -342,7 +341,6 @@ function Bexiga() {
               w="35px"
               h="30px"
               padding="5px"
-              maxLength={2}
               textAlign="center"
               onChange={(e) => {
                 setDiverticuloMedeInput(e.target.value);
@@ -365,7 +363,6 @@ function Bexiga() {
               w="35px"
               h="30px"
               padding="5px"
-              maxLength={2}
               textAlign="center"
               onChange={(e) => {
                 setUretroceleMedeInput(e.target.value);

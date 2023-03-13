@@ -27,14 +27,14 @@ export default function IndividualizarCalculos({ numCalculo }) {
       CalculosSelect !== "" &&
       localizado !== ""
     ) {
-      var string = `Nódulo ${numCalculo} mede ${tamanhoCalculoInput} mm ${CalculosSelect} localizado ${localizado} `;
+      var string = `Cálculo ${numCalculo} mede ${tamanhoCalculoInput} mm ${CalculosSelect} localizado ${localizado} `;
       setFrasesIndCalc((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCalculos = () => {
     frasesIndCalc.map((e) => {
-      if (e.includes(`Nódulo ${numCalculo}`)) {
+      if (e.includes(`Cálculo ${numCalculo}`)) {
         var index = frasesIndCalc.indexOf(e);
 
         if (index > -1) {
@@ -104,7 +104,6 @@ export default function IndividualizarCalculos({ numCalculo }) {
         w="60px"
         h="77x"
         padding="5px"
-        maxLength={2}
         textAlign="center"
         onChange={(e) => {
           settamanhoCalculoInput(e.target.value);
