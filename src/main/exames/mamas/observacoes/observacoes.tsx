@@ -7,7 +7,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Observacoes() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "66%";
 
   const [frasesOBS, setFrasesOBS] = useState<any>([]);
 

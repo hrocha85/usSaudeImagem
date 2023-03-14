@@ -7,7 +7,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function MamaMasculina() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "66%";
 
   const [frasesMamaMasc, setFrasesMamaMasc] = useState<any>([]);
 
