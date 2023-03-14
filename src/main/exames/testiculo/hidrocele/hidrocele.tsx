@@ -5,7 +5,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidrocele() {
   const altura = "100%";
-  const largura = "87%";
+  const largura = "27%";
 
   const [frasesHidrocelete, setFrasesHidrocelete] = useState<any>([]);
 
@@ -46,7 +46,7 @@ function Hidrocele() {
     }
   }, [HidroceleCheckBox, posicaoHidroceleSelect]);
 
-const subExame = "Hidrocelete";
+  const subExame = "Hidrocelete";
   const titulo_exame = "Testículo";
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const subExame = "Hidrocelete";
       borderRadius="10.85px"
       boxShadow="md"
       padding="24px 15px 20px 15px"
-      mt="15px"
+      mt="30px"
     >
       <TituloNomeExame titulo="Hidrocele" />
 
@@ -105,7 +105,7 @@ const subExame = "Hidrocelete";
                   <option value="" disabled selected>
                     Posição
                   </option>
-                  <option value="Líquido em quantidade fisiológica na bolsa testicular.">
+                  <option value="Ausência de sinais de hidrocele.">
                     ausente
                   </option>
                   <option value="Acúmulo de líquido na hemibolsa testicular direita, em quantidade">
