@@ -7,7 +7,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Abscesso() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "66%";
 
   const [frasesAbcesso, setFrasesAbcesso] = useState<any>([]);
 
@@ -76,7 +76,7 @@ function Abscesso() {
     valueInputTamanhoAbscessoPresente,
     valueInputTamanho2AbscessoPresente,
   ]);
-//  const [frasesAbcesso, setFrasesAbcesso] = useState<any>([]);
+  //  const [frasesAbcesso, setFrasesAbcesso] = useState<any>([]);
 
   const subExame = "Abcesso";
   const titulo_exame = "Mamas";

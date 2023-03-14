@@ -6,7 +6,7 @@ import { Format_Laudo } from "../../../component/function_format_laudo";
 
 function Extra() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "66%";
 
   const [frasesExtra, setFrasesExtra] = useState<any>([]);
 

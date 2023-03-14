@@ -7,7 +7,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Implantes() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "66%";
 
   const [frasesIMP, setFrasesIMP] = useState<any>([]);
 
