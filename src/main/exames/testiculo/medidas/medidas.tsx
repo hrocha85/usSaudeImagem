@@ -17,10 +17,11 @@ function Testiculos() {
 
   const stringPadrao =
     "Testículos com forma, dimensões e contornos normais, medindo:";
+  const stringPadrao2 =
+    "Exame realizado em modo bidimensional, com equipamento dinâmico linear multifrequêncial. Foram feitas varreduras nos sentidos transversal, longitudinal e oblíquos.";
 
-  const [frasesMedidas, setFrasesMedidas] = useState<any>([stringPadrao]);
-  const [ConclusoesTesticulos, setConclusoesTesticulos] = useState<any>([]);  
-
+  const [frasesMedidas, setFrasesMedidas] = useState<any>([stringPadrao2]);
+  const [ConclusoesTesticulos, setConclusoesTesticulos] = useState<any>([]);
 
   const [medidaTesticuloDireito1, setmedidaTesticuloDireito1] = useState("");
   const [medidaTesticuloDireito2, setmedidaTesticuloDireito2] = useState("");
@@ -39,7 +40,11 @@ function Testiculos() {
     var string = `TESTÍCULO D.: ${medidaTesticuloDireito1} x ${medidaTesticuloDireito2} x ${medidaTesticuloDireito3} cm. Vol ${volumeTesticulo(
       "direito"
     )} cm³. ${parenquimaDireito(tecidoDireito)}`;
-    setFrasesMedidas((arr) => [...arr, string]);
+    if (!frasesMedidas.includes(stringPadrao)) {
+      setFrasesMedidas((arr) => [...arr, stringPadrao, string]);
+    } else {
+      setFrasesMedidas((arr) => [...arr, string]);
+    }
   };
 
   const removeMedidasDireito = () => {
@@ -59,7 +64,11 @@ function Testiculos() {
     var string = `TESTÍCULO E.: ${medidaTesticuloEsquerdo1} x ${medidaTesticuloEsquerdo2} x ${medidaTesticuloEsquerdo3} cm. Vol ${volumeTesticulo(
       "esquerdo"
     )} cm³. ${parenquimaEsquerdo(tecidoEsquerdo)}`;
-    setFrasesMedidas((arr) => [...arr, string]);
+    if (!frasesMedidas.includes(stringPadrao)) {
+      setFrasesMedidas((arr) => [...arr, stringPadrao, string]);
+    } else {
+      setFrasesMedidas((arr) => [...arr, string]);
+    }
   };
 
   const removeMedidasEsquerdo = () => {
@@ -161,25 +170,14 @@ function Testiculos() {
     }
   };
 
-  const criaStringConclusao = () => {
-    var string =
-      "Exame ultrassonográfico da bolsa escrotal, testículos e epidídimos, dentro dos parâmetros da normalidade.";
-    setFrasesMedidas((arr) => [...arr, string]);
-  };
+  const removeItemConclusao = (value) => {
+    var index = ConclusoesTesticulos.indexOf(value);
 
-  const removeConclusao = () => {
-    frasesMedidas.map((e) => {
-      if (
-        e.includes("Exame ultrassonográfico da bolsa escrotal, testículos e ")
-      ) {
-        var index = frasesMedidas.indexOf(e);
-
-        if (index > -1) {
-          frasesMedidas.splice(index, 1);
-          setFrasesMedidas((arr) => [...arr]);
-        }
-      }
-    });
+    if (index > -1) {
+      ConclusoesTesticulos.splice(index, 1);
+      setConclusoesTesticulos((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+    }
   };
 
   useEffect(() => {
@@ -217,22 +215,46 @@ function Testiculos() {
   ]);
 
   useEffect(() => {
+    const conclusao =
+      "Exame ultrassonográfico da bolsa escrotal dentro dos parâmetros da normalidade.";
     if (bolsaTesticularCheckBox) {
       criaStringBolsaTesticular();
+      setConclusoesTesticulos((arr) => [...arr, conclusao]);
     } else {
       removeBolsaTesticular();
+      removeItemConclusao(conclusao);
     }
   }, [bolsaTesticularCheckBox]);
 
   useEffect(() => {
+    const conclusao = "Epidídimos dentro dos parâmetros da normalidade.";
     if (epidimosCheckBox) {
       criaStringEpidimos();
+      setConclusoesTesticulos((arr) => [...arr, conclusao]);
     } else {
       removeEpidimos();
+      removeItemConclusao(conclusao);
     }
   }, [epidimosCheckBox]);
 
- 
+  useEffect(() => {
+    const conclusaoD =
+      "Tecido Testiculo Direito com textura uniforme e a ecogenicidade está dentro da normalidade.";
+    const conclusaoE =
+      "Tecido Testiculo Esquerdo com textura uniforme e a ecogenicidade está dentro da normalidade.";
+
+    if (tecidoDireito == "Homogêneo") {
+      setConclusoesTesticulos((arr) => [...arr, conclusaoD]);
+    } else {
+      removeItemConclusao(conclusaoD);
+    }
+
+    if (tecidoEsquerdo == "Homogêneo") {
+      setConclusoesTesticulos((arr) => [...arr, conclusaoE]);
+    } else {
+      removeItemConclusao(conclusaoE);
+    }
+  }, [tecidoDireito, tecidoEsquerdo]);
 
   const subExame = "Medidas";
   const titulo_exame = "Testículo";
@@ -243,14 +265,16 @@ function Testiculos() {
         titulo_exame,
         subExame,
         true,
-        frasesMedidas
+        frasesMedidas,
+        ConclusoesTesticulos
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesMedidas
+        frasesMedidas,
+        ConclusoesTesticulos
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesMedidas]);
