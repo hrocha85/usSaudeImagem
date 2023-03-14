@@ -271,14 +271,15 @@ export default function Format_PDF() {
       textAlign: "justify",
       fontSize: "12",
       fontFamily: "MontserratRegular",
-      lineHeight: 2,
+      lineHeight: 3,
     },
     frasesConclusoes: {
       textAlign: "justify",
       fontSize: "12",
       fontFamily: "MontserratRegular",
-      lineHeight: 2,
+      lineHeight: 3,
       marginLeft: 20,
+
     },
     laudo_viewer: {
       margin: 10,
