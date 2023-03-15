@@ -66,6 +66,7 @@ export default function IndividualizarCistos({ numCisto, disable }) {
   const subExame = "Cistos Epididimários";
   const titulo_exame = "Testículo";
 
+
   useEffect(() => {
     if (Object.keys(frasesCistos).length == 0) {
       new Format_Laudo(

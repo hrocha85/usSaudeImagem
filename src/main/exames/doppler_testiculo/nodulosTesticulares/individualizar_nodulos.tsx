@@ -3,105 +3,106 @@ import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 
-export default function IndividualizarCistos({ numCisto, disable }) {
-  const [frasesCistos, setFrasesCistos] = useState<any>([]);
+export default function IndividualizarNodulos({ numNodulo, disable }) {
+  const [frasesNodulos, setFrasesNodulos] = useState<any>([]);
 
-  const [tamanhoCistoInput, settamanhoCistoInput] = useState("");
-  const [posicaoCistosSelect, setPosicaoCistosSelect] = useState("");
-  const [conteudoCistosSelect, setConteudoCistosSelect] = useState("");
-  const [localizacaoCistosSelect, setlocalizacaoCistosSelect] = useState("");
-  const [multiplosCistosCheckBox, setmultiplosCistosCheckBox] = useState(false);
+  const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
+  const [posicaoNoduloSelect, setPosicaoNoduloSelect] = useState("");
+  const [conteudoNoduloSelect, setConteudoNoduloSelect] = useState("");
+  const [localizacaoNoduloSelect, setlocalizacaoNoduloSelect] = useState("");
+  const [multiplosNodulosCheckBox, setmultiplosNodulosCheckBox] =
+    useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
-  const criaStringMultiplosCistos = (
-    conteudoCistoSelect,
-    tamanhoCistoInput,
-    CistosSelect,
+  const criaStringMultiplosNodulos = (
+    conteudoNoduloselect,
+    tamanhoNoduloInput,
+    NoduloSelect,
     localizado
   ) => {
-    removeMultiplosCistos();
-    if (tamanhoCistoInput !== "" && CistosSelect !== "" && localizado !== "") {
-      var string = `Cisto Testícular ${numCisto}: mede ${tamanhoCistoInput} mm, conteúdo ${conteudoCistoSelect}, localizado no ${CistosSelect}, do  ${localizado} `;
-      setFrasesCistos((arr) => [...arr, string]);
+    removeMultiplosNodulos();
+    if (tamanhoNoduloInput !== "" && NoduloSelect !== "" && localizado !== "") {
+      var string = `Nódulo Testícular ${numNodulo}: mede ${tamanhoNoduloInput} mm, conteúdo ${conteudoNoduloselect}, localizado no ${NoduloSelect}, do  ${localizado} `;
+      setFrasesNodulos((arr) => [...arr, string]);
     }
   };
 
-  const removeMultiplosCistos = () => {
-    frasesCistos.map((e) => {
-      if (e.includes(`Cisto Testícular ${numCisto}`)) {
-        var index = frasesCistos.indexOf(e);
+  const removeMultiplosNodulos = () => {
+    frasesNodulos.map((e) => {
+      if (e.includes(`Nódulo Testícular ${numNodulo}`)) {
+        var index = frasesNodulos.indexOf(e);
 
         if (index > -1) {
-          frasesCistos.splice(index, 1);
-          setFrasesCistos((arr) => [...arr]);
+          frasesNodulos.splice(index, 1);
+          setFrasesNodulos((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    if (multiplosCistosCheckBox) {
+    if (multiplosNodulosCheckBox) {
       setDisableSelect(false);
-      criaStringMultiplosCistos(
-        conteudoCistosSelect,
-        tamanhoCistoInput,
-        posicaoCistosSelect,
-        localizacaoCistosSelect
+      criaStringMultiplosNodulos(
+        conteudoNoduloSelect,
+        tamanhoNoduloInput,
+        posicaoNoduloSelect,
+        localizacaoNoduloSelect
       );
     } else {
       setDisableSelect(true);
-      removeMultiplosCistos();
-      settamanhoCistoInput("");
-      setPosicaoCistosSelect("");
-      setlocalizacaoCistosSelect("");
+      removeMultiplosNodulos();
+      settamanhoNoduloInput("");
+      setPosicaoNoduloSelect("");
+      setlocalizacaoNoduloSelect("");
     }
   }, [
-    multiplosCistosCheckBox,
-    conteudoCistosSelect,
-    posicaoCistosSelect,
-    tamanhoCistoInput,
-    localizacaoCistosSelect,
+    multiplosNodulosCheckBox,
+    conteudoNoduloSelect,
+    posicaoNoduloSelect,
+    tamanhoNoduloInput,
+    localizacaoNoduloSelect,
   ]);
 
-  const subExame = "Cistos Testiculares";
-  const titulo_exame = "Testículo";
+  const subExame = "Nódulos Testiculares";
+  const titulo_exame = "Doppler Testículo";
 
 
   useEffect(() => {
-    if (Object.keys(frasesCistos).length == 0) {
+    if (Object.keys(frasesNodulos).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesCistos
+        frasesNodulos
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesCistos
+        frasesNodulos
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesCistos]);
+  }, [frasesNodulos]);
 
   return (
     <Box gap="15px" display="flex" flexWrap="wrap">
       <Checkbox
         whiteSpace="nowrap"
         isDisabled={disable}
-        onChange={() => setmultiplosCistosCheckBox(!multiplosCistosCheckBox)}
+        onChange={() => setmultiplosNodulosCheckBox(!multiplosNodulosCheckBox)}
       >
-        Cisto {numCisto}
+        Nodulo {numNodulo}
       </Checkbox>
       <HStack>
         <Select
           w="auto"
           isDisabled={DisableSelect}
           onChange={(e) => {
-            setConteudoCistosSelect(e.target.value);
+            setConteudoNoduloSelect(e.target.value);
           }}
-          value={conteudoCistosSelect}
+          value={conteudoNoduloSelect}
         >
           <option value="" disabled selected>
             Conteúdo
@@ -115,13 +116,13 @@ export default function IndividualizarCistos({ numCisto, disable }) {
         <Text fontSize="13px">Mede</Text>
         <Input
           isDisabled={DisableSelect}
-          value={tamanhoCistoInput}
+          value={tamanhoNoduloInput}
           w="60px"
           h="77x"
           padding="5px"
           maxLength={2}
           textAlign="center"
-          onChange={(e) => settamanhoCistoInput(e.target.value)}
+          onChange={(e) => settamanhoNoduloInput(e.target.value)}
           placeholder={"mm"}
         />
         <Text fontSize="13px">mm</Text>
@@ -132,9 +133,9 @@ export default function IndividualizarCistos({ numCisto, disable }) {
           w="auto"
           isDisabled={DisableSelect}
           onChange={(e) => {
-            setPosicaoCistosSelect(e.target.value);
+            setPosicaoNoduloSelect(e.target.value);
           }}
-          value={posicaoCistosSelect}
+          value={posicaoNoduloSelect}
         >
           <option value="" disabled selected>
             Posição
@@ -150,9 +151,9 @@ export default function IndividualizarCistos({ numCisto, disable }) {
           w="auto"
           isDisabled={DisableSelect}
           onChange={(e) => {
-            setlocalizacaoCistosSelect(e.target.value);
+            setlocalizacaoNoduloSelect(e.target.value);
           }}
-          value={localizacaoCistosSelect}
+          value={localizacaoNoduloSelect}
         >
           <option value="" disabled selected>
             Localizado

@@ -21,14 +21,14 @@ export default function IndividualizarCistos({ numCisto, disable }) {
   ) => {
     removeMultiplosCistos();
     if (tamanhoCistoInput !== "" && CistosSelect !== "" && localizado !== "") {
-      var string = `Cisto Testícular ${numCisto}: mede ${tamanhoCistoInput} mm, conteúdo ${conteudoCistoSelect}, localizado no ${CistosSelect}, do  ${localizado} `;
+      var string = `Cisto Epididimários ${numCisto}: mede ${tamanhoCistoInput} mm, conteúdo ${conteudoCistoSelect}, localizado no ${CistosSelect}, do  ${localizado} `;
       setFrasesCistos((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosCistos = () => {
     frasesCistos.map((e) => {
-      if (e.includes(`Cisto Testícular ${numCisto}`)) {
+      if (e.includes(`Cisto Epididimários ${numCisto}`)) {
         var index = frasesCistos.indexOf(e);
 
         if (index > -1) {
@@ -63,8 +63,8 @@ export default function IndividualizarCistos({ numCisto, disable }) {
     localizacaoCistosSelect,
   ]);
 
-  const subExame = "Cistos Testiculares";
-  const titulo_exame = "Testículo";
+  const subExame = "Cistos Epididimários";
+  const titulo_exame = "Doppler Testículo";
 
 
   useEffect(() => {
@@ -84,7 +84,6 @@ export default function IndividualizarCistos({ numCisto, disable }) {
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesCistos]);
-
   return (
     <Box gap="15px" display="flex" flexWrap="wrap">
       <Checkbox
@@ -139,9 +138,9 @@ export default function IndividualizarCistos({ numCisto, disable }) {
           <option value="" disabled selected>
             Posição
           </option>
-          <option value="terço superior">terço superior</option>
-          <option value="terço médio">terço médio </option>
-          <option value="terço inferior">terço inferior</option>
+          <option value="na cabeça epididimária">na cabeça epididimária</option>
+          <option value="no corpo epididimário">terço</option>
+          <option value="na cauda epididimária">na cauda epididimária</option>
         </Select>
       </HStack>
       <HStack>
@@ -157,8 +156,8 @@ export default function IndividualizarCistos({ numCisto, disable }) {
           <option value="" disabled selected>
             Localizado
           </option>
-          <option value="testículo direito">Testículo direito</option>
-          <option value="testículo esquerdo">Testículo esquerdo</option>
+          <option value="à direita">à direita</option>
+          <option value="à esquerda">à esquerda</option>
         </Select>
       </HStack>
     </Box>

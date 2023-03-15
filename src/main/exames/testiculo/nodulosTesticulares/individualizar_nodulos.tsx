@@ -67,6 +67,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
   const subExame = "Nódulos Testiculares";
   const titulo_exame = "Testículo";
 
+
   useEffect(() => {
     if (Object.keys(frasesNodulos).length == 0) {
       new Format_Laudo(

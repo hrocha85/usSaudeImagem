@@ -49,6 +49,7 @@ function Orquite() {
   const subExame = "Orquite";
   const titulo_exame = "Testículo";
 
+
   useEffect(() => {
     if (Object.keys(frasesOrquite).length == 0) {
       new Format_Laudo(

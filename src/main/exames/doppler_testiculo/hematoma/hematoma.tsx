@@ -62,7 +62,7 @@ function Hematoma() {
   ]);
 
 const subExame = "Hematoma";
-  const titulo_exame = "Testículo";
+  const titulo_exame = "Doppler Testículo";
 
 
   useEffect(() => {

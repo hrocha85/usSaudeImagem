@@ -30,18 +30,17 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { TabExamesContext } from "../../context/TabExameContext";
+import Observacoes from "../../Data/Observacoes.json";
 import AbdomemTotal from "../exames/abdomemTotal";
 import AbdomemSuperior from "../exames/abdomenSuperior";
 import Articulacoes from "../exames/articulacoes";
 import DopplerBolsaTesticular from "../exames/dopplerBolsaTesticular";
 import DopplerCarotidas from "../exames/dopplerCarotidas";
-import DopplerCarotidas2 from "../exames/dopplerCarotidas2";
-import DopplerRenal from "../exames/dopplerRenal";
 import DopplerTireoide from "../exames/dopplerTireoide";
-import DopplerTireoide2 from "../exames/dopplerTireoide2";
 import DopplerTransvaginal from "../exames/dopplerTransvaginal";
 import DopplerVenosoMMII from "../exames/dopplerVenosoMMII";
 import Doppler_Arterial_MMII from "../exames/doppler_arterial_MMII";
+import DopplerTesticulo from "../exames/doppler_testiculo";
 import Mamas from "../exames/mamas";
 import PartesMoles from "../exames/partesMoles";
 import Pelvico from "../exames/pelvico";
@@ -50,19 +49,19 @@ import Regiao_Inguinal from "../exames/regiao_inguinal";
 import RinseViasUrinarias from "../exames/RinsViasUrinarias";
 import Testiculo from "../exames/testiculo";
 import Tireoide from "../exames/tireoide";
-import Tireoide2 from "../exames/tireoide2";
 import Transvaginal from "../exames/transvaginal";
 import Exames from "../folha_laudos/Laudos";
 import BGImage from "../images/bg_img.png";
 import Sidebar from "../menu/sideBar";
 import Conclusoes from "./conclusoes";
 import Field_Observacoes from "./field_observacoes";
-import Observacoes from "../../Data/Observacoes.json";
 
 export default function Box_Default_With_Sidebar() {
-  const { isOpen: isOpenRemoveExameModal,
+  const {
+    isOpen: isOpenRemoveExameModal,
     onOpen: onOpenRemoveExameModal,
-    onClose: onCloseRemoveExameModal, } = useDisclosure();
+    onClose: onCloseRemoveExameModal,
+  } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { tabExames, setTabExames } = useContext(TabExamesContext);
   const [tabIndex, setTabIndex] = useState(0);
@@ -209,6 +208,16 @@ export default function Box_Default_With_Sidebar() {
       key: 19,
       nomeExame: "Região Inguinal",
       link: `#/Home/${19}`,
+    },
+    {
+      key: 20,
+      nomeExame: "Doppler Testículo",
+      link: `#/Home/${20}`,
+      observacao: [
+        "Conviria controle ecográfico periódico, a critério clínico.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+      ],
     },
   ];
 
@@ -435,6 +444,7 @@ export default function Box_Default_With_Sidebar() {
                         17: <Prostata />,
                         18: <Articulacoes />,
                         19: <Regiao_Inguinal />,
+                        20: <DopplerTesticulo />,
                       }[e.key]
                     }
                   </TabPanel>

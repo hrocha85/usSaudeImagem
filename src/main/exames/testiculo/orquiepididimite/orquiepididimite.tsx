@@ -51,6 +51,7 @@ function Orquiepididimite() {
 const subExame = "Orquiepididimite";
   const titulo_exame = "Testículo";
 
+
   useEffect(() => {
     if (Object.keys(frasesOrquiepididimite).length == 0) {
       new Format_Laudo(

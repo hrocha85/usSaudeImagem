@@ -5,7 +5,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidrocele() {
   const altura = "100%";
-  const largura = "27%";
+  const largura = "90%";
 
   const [frasesHidrocelete, setFrasesHidrocelete] = useState<any>([]);
 
@@ -47,7 +47,7 @@ function Hidrocele() {
   }, [HidroceleCheckBox, posicaoHidroceleSelect]);
 
   const subExame = "Hidrocelete";
-  const titulo_exame = "Testículo";
+  const titulo_exame = "Doppler Testículo";
 
 
   useEffect(() => {
@@ -78,7 +78,7 @@ function Hidrocele() {
       borderRadius="10.85px"
       boxShadow="md"
       padding="24px 15px 20px 15px"
-      mt="30px"
+      mt="15px"
     >
       <TituloNomeExame titulo="Hidrocele" />
 
