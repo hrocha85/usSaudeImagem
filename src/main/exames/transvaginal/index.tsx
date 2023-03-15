@@ -2,6 +2,7 @@ import { Box, Checkbox, HStack } from "@chakra-ui/react";
 import { useState } from "react";
 
 import Extras from "./adicionais/extras";
+import Bexiga from "./bexiga/bexiga";
 import Cirurgias from "./cirurgias/cirurgias";
 import Hidatide from "./hidatide/hidatide";
 import Hidrossalpinge from "./hidrossalpinge/hidrossalpinge";
@@ -41,6 +42,7 @@ function Transvaginal() {
           <Ovario_Esquerdo Disable={Disable} />
           <Ovario_Direito Disable={Disable} />
         </HStack>
+        <Bexiga Disable={Disable} />
         <Miometrio Disable={Disable} />
         <HStack alignItems="baseline">
           <Hidatide Disable={Disable} />

@@ -5,7 +5,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidrossalpinge() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "300px";
 
   const [frasesHidro, setFrasesHidro] = useState<any>([]);
 
