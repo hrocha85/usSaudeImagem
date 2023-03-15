@@ -5,7 +5,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Liquido_Livre() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "300px";
 
   const [frasesLL, setFrasesLL] = useState<any>([]);
 

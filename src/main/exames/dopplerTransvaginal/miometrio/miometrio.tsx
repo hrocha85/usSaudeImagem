@@ -22,6 +22,22 @@ function Miometrio() {
 
   var numberArray = [1, 2, 3, 4, 5];
 
+  const [HomogeneaNormalCheckbox, setHomogeneaNormalCheckbox] = useState(false);
+  const [DisableHomogeneaNormal, setDisableHomogeneaNormal] = useState(false);
+
+  const [HeterogeneaCheckbox, setHeterogeneaCheckbox] = useState(false);
+  const [DisableHeterogenea, setDisableHeterogenea] = useState(false);
+
+  const [HomogeneaExcetoCheckbox, setHomogeneaExcetoCheckbox] = useState(false);
+  const [DisableHomogeneaExceto, setDisableHomogeneaExceto] = useState(false);
+
+
+  const [RegularCheckbox, setRegularCheckbox] = useState(false);
+  const [DisableRegularCheckbox, setDisableRegularCheckbox] = useState(false);
+
+  const [IrregularCheckbox, setIrregularCheckbox] = useState(false);
+  const [DisableIrregularCheckbox, setDisableIrregularCheckbox] = useState(false);
+
   const [DisableSelect, setDisableSelect] = useState(true);
 
   const [disableInputsDoppler, setDisableInputsDoppler] = useState(true);
@@ -298,6 +314,68 @@ function Miometrio() {
     DopplerNodulosSelect,
   ]);
 
+  useEffect(() => {
+    const string = 'Miométrio Regular ou Normal'
+    if (RegularCheckbox) {
+      setDisableIrregularCheckbox(true)
+      setFrasesMiometrio((arr) => [...arr, string])
+    } else {
+      setDisableIrregularCheckbox(false)
+      removeItemString(string)
+    }
+  }, [RegularCheckbox])
+
+  useEffect(() => {
+    const string = 'Miométrio irregular'
+    if (IrregularCheckbox) {
+      setDisableRegularCheckbox(true)
+      setFrasesMiometrio((arr) => [...arr, string])
+    } else {
+      setDisableRegularCheckbox(false)
+      removeItemString(string)
+    }
+  }, [IrregularCheckbox])
+
+  useEffect(() => {
+    const string = 'Textura Homogênea ou normal'
+    if (HomogeneaNormalCheckbox) {
+      setDisableHeterogenea(true)
+      setDisableHomogeneaExceto(true)
+      setFrasesMiometrio((arr) => [...arr, string])
+    } else {
+      setDisableHeterogenea(false)
+      setDisableHomogeneaExceto(false)
+      removeItemString(string)
+    }
+  }, [HomogeneaNormalCheckbox])
+
+  useEffect(() => {
+    const string = 'Textura Heterogênea'
+    if (HeterogeneaCheckbox) {
+      setDisableHomogeneaNormal(true)
+      setDisableHomogeneaExceto(true)
+      setFrasesMiometrio((arr) => [...arr, string])
+    } else {
+      setDisableHomogeneaNormal(false)
+      setDisableHomogeneaExceto(false)
+      removeItemString(string)
+    }
+  }, [HeterogeneaCheckbox])
+
+  useEffect(() => {
+    const string = 'Textura Homogênea exceto por:'
+    if (HomogeneaExcetoCheckbox) {
+      setDisableHomogeneaNormal(true)
+      setDisableHeterogenea(true)
+      setFrasesMiometrio((arr) => [...arr, string])
+    } else {
+      setDisableHomogeneaNormal(false)
+      setDisableHeterogenea(false)
+      removeItemString(string)
+    }
+  }, [HomogeneaExcetoCheckbox])
+
+
   const subExame = "Miométrio";
   const titulo_exame = "Doppler Transvaginal";
 
@@ -335,6 +413,24 @@ function Miometrio() {
 
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <Stack>
+          <Box gap='10px' display='flex' flexWrap='wrap'>
+            <Checkbox
+              disabled={DisableRegularCheckbox}
+              onChange={() => {
+                setRegularCheckbox(!RegularCheckbox);
+              }}
+            >
+              Regular ou Normal
+            </Checkbox>
+            <Checkbox
+              disabled={DisableIrregularCheckbox}
+              onChange={() => {
+                setIrregularCheckbox(!IrregularCheckbox)
+              }}
+            >
+              Irregular
+            </Checkbox>
+          </Box>
           <Box>
             <Checkbox
               onChange={() => {
@@ -423,6 +519,37 @@ function Miometrio() {
               </Select>
             </HStack>
           </Box>
+          <Text fontWeight="semibold" fontSize="16px">
+            Textura
+          </Text>
+          <Box gap='10px' display='flex' flexWrap='wrap'>
+            <Checkbox
+              disabled={DisableHomogeneaNormal}
+              onChange={() => {
+                setHomogeneaNormalCheckbox(!HomogeneaNormalCheckbox);
+              }}
+            >
+              Homogênea ou normal
+            </Checkbox>
+            <Checkbox
+              disabled={DisableHeterogenea}
+              onChange={() => {
+                setHeterogeneaCheckbox(!HeterogeneaCheckbox)
+              }}
+            >
+              Heterogênea
+            </Checkbox>
+            <Checkbox
+              disabled={DisableHomogeneaExceto}
+              onChange={() => {
+                setHomogeneaExcetoCheckbox(!HomogeneaExcetoCheckbox)
+              }}
+            >
+              Homogênea exceto por:
+            </Checkbox>
+          </Box>
+
+
           <Text fontWeight="semibold" fontSize="16px">
             Individualizar Nódulos
           </Text>

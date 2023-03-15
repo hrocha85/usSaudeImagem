@@ -14,7 +14,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Ovario_Esquerdo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "400px";
 
   const [frasesOVE, setFrasesOVE] = useState<any>([]);
 

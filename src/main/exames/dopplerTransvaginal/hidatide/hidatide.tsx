@@ -5,7 +5,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidatide() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "300px";
 
   const [frasesHidatide, setFrasesHidate] = useState<any>([]);
 
