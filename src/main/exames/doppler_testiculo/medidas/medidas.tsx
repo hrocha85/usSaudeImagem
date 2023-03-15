@@ -20,8 +20,11 @@ function DopplerTesticulos() {
   const stringPadrao2 =
     "Exame realizado em modo bidimensional, com equipamento dinâmico linear multifrequêncial. Foram feitas varreduras nos sentidos transversal, longitudinal e oblíquos.";
 
-  const [frasesMedidasDoppler, setFrasesMedidasDoppler] = useState<any>([stringPadrao2]);
-  const [ConclusoesTesticulosDoppler, setConclusoesTesticulosDoppler] = useState<any>([]);
+  const [frasesMedidasDoppler, setFrasesMedidasDoppler] = useState<any>([
+    stringPadrao2,
+  ]);
+  const [ConclusoesTesticulosDoppler, setConclusoesTesticulosDoppler] =
+    useState<any>([]);
 
   const [medidaTesticuloDireito1, setmedidaTesticuloDireito1] = useState("");
   const [medidaTesticuloDireito2, setmedidaTesticuloDireito2] = useState("");
@@ -238,27 +241,66 @@ function DopplerTesticulos() {
   }, [epidimosCheckBox]);
 
   useEffect(() => {
-    const conclusaoD =
+    const conclusaoDireitoHomo =
       "Tecido Testiculo Direito com textura uniforme e a ecogenicidade está dentro da normalidade.";
-    const conclusaoE =
+
+    const conclusaoDireitoHete =
+      "Tecido Testiculo Direito com textura não uniforme e a ecogenicidade alterada.";
+
+    const conclusaoEsquerdoHomo =
       "Tecido Testiculo Esquerdo com textura uniforme e a ecogenicidade está dentro da normalidade.";
 
-    if (tecidoDireito == "Homogêneo") {
-      setConclusoesTesticulosDoppler((arr) => [...arr, conclusaoD]);
-    } else {
-      removeItemConclusao(conclusaoD);
-    }
+    const conclusaoEsquerdoHete =
+      "Tecido Testiculo Esquerdo com textura não uniforme e a ecogenicidade alterada.";
 
-    if (tecidoEsquerdo == "Homogêneo") {
-      setConclusoesTesticulosDoppler((arr) => [...arr, conclusaoE]);
-    } else {
-      removeItemConclusao(conclusaoE);
+    switch (tecidoDireito) {
+      case "Homogêneo": {
+        removeItemConclusao(conclusaoDireitoHomo);
+        removeItemConclusao(conclusaoDireitoHete);
+        setConclusoesTesticulosDoppler((arr) => [...arr, conclusaoDireitoHomo]);
+        break;
+      }
+      case "Heterogênea": {
+        removeItemConclusao(conclusaoDireitoHete);
+        removeItemConclusao(conclusaoDireitoHomo);
+        setConclusoesTesticulosDoppler((arr) => [...arr, conclusaoDireitoHete]);
+        break;
+      }
+      default: {
+        removeItemConclusao(conclusaoDireitoHete);
+        removeItemConclusao(conclusaoDireitoHomo);
+        break;
+      }
+    }
+    switch (tecidoEsquerdo) {
+      case "Homogêneo": {
+        removeItemConclusao(conclusaoEsquerdoHete);
+        removeItemConclusao(conclusaoEsquerdoHomo);
+        setConclusoesTesticulosDoppler((arr) => [
+          ...arr,
+          conclusaoEsquerdoHomo,
+        ]);
+        break;
+      }
+      case "Heterogênea": {
+        removeItemConclusao(conclusaoEsquerdoHomo);
+        removeItemConclusao(conclusaoEsquerdoHete);
+        setConclusoesTesticulosDoppler((arr) => [
+          ...arr,
+          conclusaoEsquerdoHete,
+        ]);
+        break;
+      }
+      default: {
+        removeItemConclusao(conclusaoEsquerdoHete);
+        removeItemConclusao(conclusaoEsquerdoHomo);
+        break;
+      }
     }
   }, [tecidoDireito, tecidoEsquerdo]);
 
   const subExame = "Medidas Doppler";
   const titulo_exame = "Doppler Testículo";
-
 
   useEffect(() => {
     if (Object.keys(frasesMedidasDoppler).length == 0) {

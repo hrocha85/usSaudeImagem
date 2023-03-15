@@ -238,27 +238,60 @@ function Testiculos() {
   }, [epidimosCheckBox]);
 
   useEffect(() => {
-    const conclusaoD =
+    const conclusaoDireitoHomo =
       "Tecido Testiculo Direito com textura uniforme e a ecogenicidade está dentro da normalidade.";
-    const conclusaoE =
+
+    const conclusaoDireitoHete =
+      "Tecido Testiculo Direito com textura não uniforme e a ecogenicidade alterada.";
+
+    const conclusaoEsquerdoHomo =
       "Tecido Testiculo Esquerdo com textura uniforme e a ecogenicidade está dentro da normalidade.";
 
-    if (tecidoDireito == "Homogêneo") {
-      setConclusoesTesticulos((arr) => [...arr, conclusaoD]);
-    } else {
-      removeItemConclusao(conclusaoD);
-    }
+    const conclusaoEsquerdoHete =
+      "Tecido Testiculo Esquerdo com textura não uniforme e a ecogenicidade alterada.";
 
-    if (tecidoEsquerdo == "Homogêneo") {
-      setConclusoesTesticulos((arr) => [...arr, conclusaoE]);
-    } else {
-      removeItemConclusao(conclusaoE);
+    switch (tecidoDireito) {
+      case "Homogêneo": {
+        removeItemConclusao(conclusaoDireitoHomo);
+        removeItemConclusao(conclusaoDireitoHete);
+        setConclusoesTesticulos((arr) => [...arr, conclusaoDireitoHomo]);
+        break;
+      }
+      case "Heterogênea": {
+        removeItemConclusao(conclusaoDireitoHete);
+        removeItemConclusao(conclusaoDireitoHomo);
+        setConclusoesTesticulos((arr) => [...arr, conclusaoDireitoHete]);
+        break;
+      }
+      default: {
+        removeItemConclusao(conclusaoDireitoHete);
+        removeItemConclusao(conclusaoDireitoHomo);
+        break;
+      }
+    }
+    switch (tecidoEsquerdo) {
+      case "Homogêneo": {
+        removeItemConclusao(conclusaoEsquerdoHete);
+        removeItemConclusao(conclusaoEsquerdoHomo);
+        setConclusoesTesticulos((arr) => [...arr, conclusaoEsquerdoHomo]);
+        break;
+      }
+      case "Heterogênea": {
+        removeItemConclusao(conclusaoEsquerdoHomo);
+        removeItemConclusao(conclusaoEsquerdoHete);
+        setConclusoesTesticulos((arr) => [...arr, conclusaoEsquerdoHete]);
+        break;
+      }
+      default: {
+        removeItemConclusao(conclusaoEsquerdoHete);
+        removeItemConclusao(conclusaoEsquerdoHomo);
+        break;
+      }
     }
   }, [tecidoDireito, tecidoEsquerdo]);
 
   const subExame = "Medidas";
   const titulo_exame = "Testículo";
-
 
   useEffect(() => {
     if (Object.keys(frasesMedidas).length == 0) {
