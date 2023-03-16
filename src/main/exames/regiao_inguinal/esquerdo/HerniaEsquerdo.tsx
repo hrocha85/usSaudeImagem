@@ -7,7 +7,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function HerniaEsquerdo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "400px";
 
   const [FraseHerniaEsquerdo, setFraseHerniaEsquerdo] = useState<any>([]);
 
