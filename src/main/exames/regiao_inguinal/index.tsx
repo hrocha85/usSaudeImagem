@@ -1,23 +1,39 @@
 import { Box } from "@chakra-ui/react";
+import CalcificacoesPatologicas from "./CalcificacoesPatologicas/CalcificacoesPatologicas";
 import HerniaDireito from "./direito/HerniaDireito";
 import HerniaEsquerdo from "./esquerdo/HerniaEsquerdo";
+import FeixesMusculares from "./FeixesMusculares/FeixesMusculares";
+import HerniacaoDireito from "./HerniacaoDireito/HerniacaoDireito";
+import HerniacaoEsquerdo from "./HerniacaoEsquerdo/HerniacaoEsquerdo";
+import Massas from "./Massa/Massas";
 
 function Regiao_Inguinal() {
 
     return (
         <>
             <Box
+                gap='15px'
                 display='flex'
                 flexWrap='wrap'
                 w='66%'
                 ml="10px">
+                <HerniaDireito />
 
-                <Box w='400px'>
-                    <HerniaDireito />
-                </Box>
-                <Box w='400px'>
-                    <HerniaEsquerdo />
-                </Box>
+                <HerniaEsquerdo />
+
+                <FeixesMusculares />
+                <CalcificacoesPatologicas />
+                <Massas />
+            </Box>
+            <Box
+                mt='15px'
+                gap='15px'
+                display='flex'
+                flexWrap='wrap'
+                w='66%'
+                ml="10px">
+                <HerniacaoDireito />
+                <HerniacaoEsquerdo />
             </Box>
         </>
     );

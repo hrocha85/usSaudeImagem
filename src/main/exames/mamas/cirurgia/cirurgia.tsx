@@ -33,10 +33,7 @@ function Cirurgia() {
   ] = useState("");
 
   const criaStringCirurgiaMastectomia = () => {
-    removeFraseCirurgiaMastectomia();
-    console.log("aqui");
     if (checkboxCirurgiaMastectomia) {
-      console.log(valueSelectCirurgiaMastectomia);
       setDisableSelectCirurgiaMastectomia(false);
       if (valueSelectCirurgiaMastectomia !== "") {
         let string = `Mastectomia ${valueSelectCirurgiaMastectomia}`;
@@ -66,9 +63,7 @@ function Cirurgia() {
 
   const criaStringCirurgiaQuadrantectomia = () => {
     removeFraseCirurgiaQuadrantectomia();
-    console.log("aqui");
     if (checkboxCirurgiaQuadrantectomia) {
-      console.log(valueSelectCirurgiaQuadrantectomia);
       setDisableSelectCirurgiaQuadrantectomia(false);
       if (valueSelectCirurgiaQuadrantectomia !== "") {
         let string = `Quadrantectomia  ${valueSelectCirurgiaQuadrantectomia}`;
