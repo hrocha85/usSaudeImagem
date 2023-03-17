@@ -181,7 +181,6 @@ function Exames() {
       fontFamily: "MontserratRegular",
       lineHeight: 3,
       marginLeft: 20,
-
     },
     laudo_viewer: {
       margin: 10,
@@ -729,7 +728,7 @@ function Exames() {
                           textDecoration="underline"
                           fontWeight="semibold"
                           whiteSpace={
-                            sub_exame.subExameNome.length <= 24
+                            sub_exame.subExameNome.length <= 20
                               ? "nowrap"
                               : "normal"
                           }

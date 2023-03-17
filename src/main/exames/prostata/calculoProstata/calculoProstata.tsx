@@ -421,13 +421,13 @@ function CalculoProstata() {
               setMedida3CalcProstata(e.target.value);
             }}
           />
-          <Text>cm</Text>
+          <Text>cm³</Text>
           <Select
             isDisabled={!CalcProstataCheckbox}
             placeholder="Dimensões"
             value={Dimensoes}
             borderColor="black"
-            w="28%"
+            w="27%"
             onChange={(e) => setDimensoes(e.target.value)}
             flexShrink={1}
           >
@@ -546,7 +546,7 @@ function CalculoProstata() {
               <option value="Heterogênea">Heterogênea</option>
             </Select>
           </HStack>
-          <HStack flexWrap='wrap'>
+          <HStack flexWrap="wrap">
             <Checkbox
               onChange={() => {
                 setTexturaCheckBox(!TexturaCheckBox);
