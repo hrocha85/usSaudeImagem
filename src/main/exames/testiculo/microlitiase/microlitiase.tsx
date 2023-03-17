@@ -50,6 +50,7 @@ function Microlitiase() {
   const subExame = "Microlitíase";
   const titulo_exame = "Testículo";
 
+
   useEffect(() => {
     if (Object.keys(frasesMicrolitiase).length == 0) {
       new Format_Laudo(

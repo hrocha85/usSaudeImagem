@@ -3,70 +3,70 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Torcao() {
+function Varicocele() {
   const altura = "100%";
-  const largura = "87%";
+  const largura = "90%";
 
-  const [frasesTorcao, setFrasesTorcao] = useState<any>([]);
+  const [frasesVaricocele, setFrasesVaricocele] = useState<any>([]);
 
-  const [posicaoTorcaoSelect, setPosicaoTorcaoSelect] = useState("");
-  const [TorcaoCheckBox, setTorcaoCheckBox] = useState(false);
+  const [posicaoVaricoceleSelect, setPosicaoVaricoceleSelect] = useState("");
+  const [VaricoceleCheckBox, setVaricoceleCheckBox] = useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
-  const criaStringTorcaoLivre = () => {
-    removeStringTorcaoLivre();
+  const criaStringVaricoceleLivre = () => {
+    removeStringVaricoceleLivre();
 
-    if (TorcaoCheckBox && posicaoTorcaoSelect !== "") {
-      var string = `Torção no local: ${posicaoTorcaoSelect}`;
-      setFrasesTorcao((arr) => [...arr, string]);
+    if (VaricoceleCheckBox && posicaoVaricoceleSelect !== "") {
+      var string = `Varicocele no local: ${posicaoVaricoceleSelect}`;
+      setFrasesVaricocele((arr) => [...arr, string]);
     }
   };
 
-  const removeStringTorcaoLivre = () => {
-    frasesTorcao.map((e) => {
-      if (e.includes("Torção no local")) {
-        var index = frasesTorcao.indexOf(e);
+  const removeStringVaricoceleLivre = () => {
+    frasesVaricocele.map((e) => {
+      if (e.includes("Varicocele no local")) {
+        var index = frasesVaricocele.indexOf(e);
 
         if (index > -1) {
-          frasesTorcao.splice(index, 1);
-          setFrasesTorcao((arr) => [...arr]);
+          frasesVaricocele.splice(index, 1);
+          setFrasesVaricocele((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    if (TorcaoCheckBox) {
+    if (VaricoceleCheckBox) {
       setDisableSelect(false);
-      criaStringTorcaoLivre();
+      criaStringVaricoceleLivre();
     } else {
       setDisableSelect(true);
-      removeStringTorcaoLivre();
-      setPosicaoTorcaoSelect("");
+      removeStringVaricoceleLivre();
+      setPosicaoVaricoceleSelect("");
     }
-  }, [TorcaoCheckBox, posicaoTorcaoSelect]);
+  }, [VaricoceleCheckBox, posicaoVaricoceleSelect]);
 
-  const subExame = "Torção";
-  const titulo_exame = "Testículo";
+  const subExame = "Varicocele";
+  const titulo_exame = "Doppler Testículo";
 
 
   useEffect(() => {
-    if (Object.keys(frasesTorcao).length == 0) {
+    if (Object.keys(frasesVaricocele).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesTorcao
+        frasesVaricocele
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesTorcao
+        frasesVaricocele
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesTorcao]);
+  }, [frasesVaricocele]);
 
   return (
     <Box
@@ -80,7 +80,7 @@ function Torcao() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Torção" />
+      <TituloNomeExame titulo="Varicocele" />
 
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <Stack>
@@ -90,18 +90,18 @@ function Torcao() {
                 <Checkbox
                   whiteSpace="nowrap"
                   onChange={() => {
-                    setTorcaoCheckBox(!TorcaoCheckBox);
+                    setVaricoceleCheckBox(!VaricoceleCheckBox);
                   }}
                 >
-                  Torção no local
+                  Varicocele no local
                 </Checkbox>
                 <Select
                   isDisabled={DisableSelect}
                   w="auto"
                   onChange={(e) => {
-                    setPosicaoTorcaoSelect(e.target.value);
+                    setPosicaoVaricoceleSelect(e.target.value);
                   }}
-                  value={posicaoTorcaoSelect}
+                  value={posicaoVaricoceleSelect}
                 >
                   <option value="" disabled selected>
                     Posição
@@ -109,6 +109,7 @@ function Torcao() {
                   <option value="ausente">ausente</option>
                   <option value="à direita">à direita</option>
                   <option value="à esquerda">à esquerda</option>
+                  <option value="bilateral">bilateral</option>
                 </Select>
               </HStack>
             </Box>
@@ -118,4 +119,4 @@ function Torcao() {
     </Box>
   );
 }
-export default Torcao;
+export default Varicocele;

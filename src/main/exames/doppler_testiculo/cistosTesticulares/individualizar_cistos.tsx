@@ -64,7 +64,7 @@ export default function IndividualizarCistos({ numCisto, disable }) {
   ]);
 
   const subExame = "Cistos Testiculares";
-  const titulo_exame = "Testículo";
+  const titulo_exame = "Doppler Testículo";
 
 
   useEffect(() => {

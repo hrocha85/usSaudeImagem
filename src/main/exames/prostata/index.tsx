@@ -5,6 +5,7 @@ import CalculoProstata from "./calculoProstata/calculoProstata";
 import CalculoVolume from "./calculoVolume/calculoVolume";
 import Extra from "./extra/extra";
 import Bexiga from "./bexiga/bexiga";
+import ImpressaoDiagnostica from "./impressao_diagnostica/impressao_diagnostica";
 function Prostata() {
   return (
     <Box ml="10px">
@@ -14,6 +15,7 @@ function Prostata() {
       {/*<CalculoVolume />*/}
 
       {/*<Extra />*/}
+      <ImpressaoDiagnostica />
     </Box>
   );
 }

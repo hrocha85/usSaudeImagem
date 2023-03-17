@@ -3,70 +3,71 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Torcao() {
+function Microlitiase() {
   const altura = "100%";
-  const largura = "87%";
+  const largura = "90%";
 
-  const [frasesTorcao, setFrasesTorcao] = useState<any>([]);
+  const [frasesMicrolitiase, setFrasesMicrolitiase] = useState<any>([]);
 
-  const [posicaoTorcaoSelect, setPosicaoTorcaoSelect] = useState("");
-  const [TorcaoCheckBox, setTorcaoCheckBox] = useState(false);
+  const [posicaoMicrolitiaseSelect, setPosicaoMicrolitiaseSelect] =
+    useState("");
+  const [MicrolitiaseCheckBox, setMicrolitiaseCheckBox] = useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
-  const criaStringTorcaoLivre = () => {
-    removeStringTorcaoLivre();
+  const criaStringMicrolitiaseLivre = () => {
+    removeStringMicrolitiaseLivre();
 
-    if (TorcaoCheckBox && posicaoTorcaoSelect !== "") {
-      var string = `Torção no local: ${posicaoTorcaoSelect}`;
-      setFrasesTorcao((arr) => [...arr, string]);
+    if (MicrolitiaseCheckBox && posicaoMicrolitiaseSelect !== "") {
+      var string = `Microlitíase no local: ${posicaoMicrolitiaseSelect}`;
+      setFrasesMicrolitiase((arr) => [...arr, string]);
     }
   };
 
-  const removeStringTorcaoLivre = () => {
-    frasesTorcao.map((e) => {
-      if (e.includes("Torção no local")) {
-        var index = frasesTorcao.indexOf(e);
+  const removeStringMicrolitiaseLivre = () => {
+    frasesMicrolitiase.map((e) => {
+      if (e.includes("Microlitíase no local")) {
+        var index = frasesMicrolitiase.indexOf(e);
 
         if (index > -1) {
-          frasesTorcao.splice(index, 1);
-          setFrasesTorcao((arr) => [...arr]);
+          frasesMicrolitiase.splice(index, 1);
+          setFrasesMicrolitiase((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    if (TorcaoCheckBox) {
+    if (MicrolitiaseCheckBox) {
       setDisableSelect(false);
-      criaStringTorcaoLivre();
+      criaStringMicrolitiaseLivre();
     } else {
       setDisableSelect(true);
-      removeStringTorcaoLivre();
-      setPosicaoTorcaoSelect("");
+      removeStringMicrolitiaseLivre();
+      setPosicaoMicrolitiaseSelect("");
     }
-  }, [TorcaoCheckBox, posicaoTorcaoSelect]);
+  }, [MicrolitiaseCheckBox, posicaoMicrolitiaseSelect]);
 
-  const subExame = "Torção";
-  const titulo_exame = "Testículo";
+  const subExame = "Microlitíase";
+  const titulo_exame = "Doppler Testículo";
 
 
   useEffect(() => {
-    if (Object.keys(frasesTorcao).length == 0) {
+    if (Object.keys(frasesMicrolitiase).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesTorcao
+        frasesMicrolitiase
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesTorcao
+        frasesMicrolitiase
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesTorcao]);
+  }, [frasesMicrolitiase]);
 
   return (
     <Box
@@ -80,7 +81,7 @@ function Torcao() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Torção" />
+      <TituloNomeExame titulo="Microlitíase" />
 
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <Stack>
@@ -90,25 +91,26 @@ function Torcao() {
                 <Checkbox
                   whiteSpace="nowrap"
                   onChange={() => {
-                    setTorcaoCheckBox(!TorcaoCheckBox);
+                    setMicrolitiaseCheckBox(!MicrolitiaseCheckBox);
                   }}
                 >
-                  Torção no local
+                  Microlitiase no local
                 </Checkbox>
                 <Select
                   isDisabled={DisableSelect}
                   w="auto"
                   onChange={(e) => {
-                    setPosicaoTorcaoSelect(e.target.value);
+                    setPosicaoMicrolitiaseSelect(e.target.value);
                   }}
-                  value={posicaoTorcaoSelect}
+                  value={posicaoMicrolitiaseSelect}
                 >
                   <option value="" disabled selected>
                     Posição
                   </option>
                   <option value="ausente">ausente</option>
-                  <option value="à direita">à direita</option>
-                  <option value="à esquerda">à esquerda</option>
+                  <option value="testículo direito">testículo direito</option>
+                  <option value="testículo esquerdo">testículo esquerdo</option>
+                  <option value="bilateral">bilateral</option>
                 </Select>
               </HStack>
             </Box>
@@ -118,4 +120,4 @@ function Torcao() {
     </Box>
   );
 }
-export default Torcao;
+export default Microlitiase;

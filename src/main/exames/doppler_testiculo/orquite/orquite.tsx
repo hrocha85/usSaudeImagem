@@ -3,70 +3,70 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Torcao() {
+function Orquite() {
   const altura = "100%";
   const largura = "87%";
 
-  const [frasesTorcao, setFrasesTorcao] = useState<any>([]);
+  const [frasesOrquite, setFrasesOrquite] = useState<any>([]);
 
-  const [posicaoTorcaoSelect, setPosicaoTorcaoSelect] = useState("");
-  const [TorcaoCheckBox, setTorcaoCheckBox] = useState(false);
+  const [posicaoOrquiteSelect, setPosicaoOrquiteSelect] = useState("");
+  const [OrquiteCheckBox, setOrquiteCheckBox] = useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
-  const criaStringTorcaoLivre = () => {
-    removeStringTorcaoLivre();
+  const criaStringOrquiteLivre = () => {
+    removeStringOrquiteLivre();
 
-    if (TorcaoCheckBox && posicaoTorcaoSelect !== "") {
-      var string = `Torção no local: ${posicaoTorcaoSelect}`;
-      setFrasesTorcao((arr) => [...arr, string]);
+    if (OrquiteCheckBox && posicaoOrquiteSelect !== "") {
+      var string = `Orquite no local: ${posicaoOrquiteSelect}`;
+      setFrasesOrquite((arr) => [...arr, string]);
     }
   };
 
-  const removeStringTorcaoLivre = () => {
-    frasesTorcao.map((e) => {
-      if (e.includes("Torção no local")) {
-        var index = frasesTorcao.indexOf(e);
+  const removeStringOrquiteLivre = () => {
+    frasesOrquite.map((e) => {
+      if (e.includes("Orquite no local")) {
+        var index = frasesOrquite.indexOf(e);
 
         if (index > -1) {
-          frasesTorcao.splice(index, 1);
-          setFrasesTorcao((arr) => [...arr]);
+          frasesOrquite.splice(index, 1);
+          setFrasesOrquite((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    if (TorcaoCheckBox) {
+    if (OrquiteCheckBox) {
       setDisableSelect(false);
-      criaStringTorcaoLivre();
+      criaStringOrquiteLivre();
     } else {
       setDisableSelect(true);
-      removeStringTorcaoLivre();
-      setPosicaoTorcaoSelect("");
+      removeStringOrquiteLivre();
+      setPosicaoOrquiteSelect("");
     }
-  }, [TorcaoCheckBox, posicaoTorcaoSelect]);
+  }, [OrquiteCheckBox, posicaoOrquiteSelect]);
 
-  const subExame = "Torção";
-  const titulo_exame = "Testículo";
+  const subExame = "Orquite";
+  const titulo_exame = "Doppler Testículo";
 
 
   useEffect(() => {
-    if (Object.keys(frasesTorcao).length == 0) {
+    if (Object.keys(frasesOrquite).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesTorcao
+        frasesOrquite
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesTorcao
+        frasesOrquite
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesTorcao]);
+  }, [frasesOrquite]);
 
   return (
     <Box
@@ -80,7 +80,7 @@ function Torcao() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Torção" />
+      <TituloNomeExame titulo="Orquite" />
 
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <Stack>
@@ -90,25 +90,26 @@ function Torcao() {
                 <Checkbox
                   whiteSpace="nowrap"
                   onChange={() => {
-                    setTorcaoCheckBox(!TorcaoCheckBox);
+                    setOrquiteCheckBox(!OrquiteCheckBox);
                   }}
                 >
-                  Torção no local
+                  Orquite no local
                 </Checkbox>
                 <Select
                   isDisabled={DisableSelect}
                   w="auto"
                   onChange={(e) => {
-                    setPosicaoTorcaoSelect(e.target.value);
+                    setPosicaoOrquiteSelect(e.target.value);
                   }}
-                  value={posicaoTorcaoSelect}
+                  value={posicaoOrquiteSelect}
                 >
                   <option value="" disabled selected>
                     Posição
                   </option>
                   <option value="ausente">ausente</option>
-                  <option value="à direita">à direita</option>
-                  <option value="à esquerda">à esquerda</option>
+                  <option value="testículo direito">testículo direito</option>
+                  <option value="testículo esquerdo">testículo esquerdo</option>
+                  <option value="bilateral">bilateral</option>
                 </Select>
               </HStack>
             </Box>
@@ -118,4 +119,4 @@ function Torcao() {
     </Box>
   );
 }
-export default Torcao;
+export default Orquite;

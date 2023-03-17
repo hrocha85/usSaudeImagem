@@ -168,6 +168,11 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
         nomeExame: "Região Inguinal",
         link: `#/Home/${19}`,
       },
+      {
+        key: 20,
+        nomeExame: "Doppler Testículo",
+        link: `#/Home/${20}`,
+      },
     ];
 
     let exameEncontrado: any = null;

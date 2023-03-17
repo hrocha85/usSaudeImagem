@@ -49,6 +49,7 @@ function Varicocele() {
   const subExame = "Varicocele";
   const titulo_exame = "Testículo";
 
+
   useEffect(() => {
     if (Object.keys(frasesVaricocele).length == 0) {
       new Format_Laudo(

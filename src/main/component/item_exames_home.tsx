@@ -113,6 +113,15 @@ const ItemExamesHome = () => {
       key: 19,
       nomeExame: "Região Inguinal",
     },
+    {
+      key: 20,
+      nomeExame: "Doppler Testículo",
+      observacao: [
+        "Conviria controle ecográfico periódico, a critério clínico.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+      ],
+    },
   ];
 
   return (
