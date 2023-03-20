@@ -208,6 +208,11 @@ export default function Box_Default_With_Sidebar() {
       key: 19,
       nomeExame: "Região Inguinal",
       link: `#/Home/${19}`,
+      observacao: [
+        "Exames anteriores não disponíveis para estudo comparativo.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos."
+      ],
     },
     {
       key: 20,

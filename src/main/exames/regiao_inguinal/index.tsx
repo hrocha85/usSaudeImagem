@@ -5,6 +5,7 @@ import HerniaEsquerdo from "./esquerdo/HerniaEsquerdo";
 import FeixesMusculares from "./FeixesMusculares/FeixesMusculares";
 import HerniacaoDireito from "./HerniacaoDireito/HerniacaoDireito";
 import HerniacaoEsquerdo from "./HerniacaoEsquerdo/HerniacaoEsquerdo";
+import Impressoes from "./Impressoes/ImpressaoDiagnostica";
 import Massas from "./Massa/Massas";
 
 function Regiao_Inguinal() {
@@ -35,6 +36,7 @@ function Regiao_Inguinal() {
                 <HerniacaoDireito />
                 <HerniacaoEsquerdo />
             </Box>
+            <Impressoes />
         </>
     );
 }

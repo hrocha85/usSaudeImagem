@@ -38,7 +38,7 @@ function HerniaDireito() {
 
   const [valueSelect1, setValueSelect1] = useState("");
   const [valueSelect2, setValueSelect2] = useState("");
-  const [valueSelect3, setValueSelect3] = useState('1');
+  const [valueSelect3, setValueSelect3] = useState("");
 
   const removeSelectString = () => {
     FraseHerniaDireito.map((e) => {
@@ -81,7 +81,7 @@ function HerniaDireito() {
     } else {
       setValueSelect1("")
       setValueSelect2("")
-      setValueSelect3("1")
+      setValueSelect3("")
       if (value == "1") {
         setFraseHerniaDireito([]);
         setEnableSelects(false);
@@ -95,17 +95,20 @@ function HerniaDireito() {
 
   useEffect(() => {
     var select = `Derrame Pleural ${valueSelect1} ${valueSelect2}`;
-    var mobilidade =
-      valueSelect3 != "1" ? `Mobilidade da cúpula frênica ${valueSelect3}` : "";
+
 
     if (valueSelect1 != "" && valueSelect2 != "") {
       removeSelectString();
       setFraseHerniaDireito((arr) => [...arr, select]);
     }
 
+    removeSelectStringMobilidade();
     if (valueSelect3 != "") {
-      removeSelectStringMobilidade();
+      var mobilidade =
+        `Mobilidade da cúpula frênica ${valueSelect3}`
       setFraseHerniaDireito((arr) => [...arr, mobilidade]);
+    } else {
+      setValueSelect3("")
     }
   }, [valueSelect1, valueSelect2, valueSelect3]);
 
@@ -166,8 +169,8 @@ function HerniaDireito() {
                   isDisabled={!enableSelects}
                   onChange={(e) => setValueSelect3(e.target.value)}
                 >
-                  <option selected disabled value="1">Selecione</option>
-                  <option value="1">não citar</option>
+                  <option selected disabled value="">Selecione</option>
+                  <option value="">não citar</option>
                   <option value="normal">normal</option>
                   <option value="diminuída">diminuída</option>
                   <option value="diminuída, com elevação diafragmática">
