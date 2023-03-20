@@ -8,10 +8,12 @@ import Axila_esquerda from "./axilas/axila_esquerda";
 import Birads from "./birads/birads";
 import Cirurgia from "./cirurgia/cirurgia";
 import Cistos from "./cistos/cistos";
+import Conclusoes from "./conclusao/Conclusoes";
 import Extra from "./extra/extra";
 import Extra1 from "./extra1/Extra1";
 import Extra2 from "./extra2/Extra2";
 import Extra3 from "./extra3/Extra3";
+import Extra4 from "./Extra4/Extra4";
 import Implantes from "./implantes/implantes";
 import MamaMasculina from "./mamaMasculina/mamaMasculina";
 import Microcalcificacoes from "./MIcrocalcificacoes/Microcalcificacoes";
@@ -60,6 +62,8 @@ function Mamas() {
 
         <Extra />
 
+        <Extra4 />
+        <Conclusoes />
       </Box>
     </>
   );
