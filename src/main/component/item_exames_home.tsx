@@ -112,6 +112,11 @@ const ItemExamesHome = () => {
     {
       key: 19,
       nomeExame: "Região Inguinal",
+      observacao: [
+        "Exames anteriores não disponíveis para estudo comparativo.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos."
+      ],
     },
     {
       key: 20,

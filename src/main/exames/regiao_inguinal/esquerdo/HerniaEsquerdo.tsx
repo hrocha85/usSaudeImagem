@@ -14,23 +14,7 @@ function HerniaEsquerdo() {
   const subExame = `Hernia Esquerda`
   const titulo_exame = 'Região Inguinal'
 
-  useEffect(() => {
-    if (Object.keys(FraseHerniaEsquerdo).length === 0) {
-      new Format_Laudo(
-        titulo_exame,
-        subExame,
-        true,
-        FraseHerniaEsquerdo
-      ).Format_Laudo_Create_Storage();
-    } else {
-      new Format_Laudo(
-        titulo_exame,
-        subExame,
-        false,
-        FraseHerniaEsquerdo
-      ).Format_Laudo_Create_Storage();
-    }
-  }, [FraseHerniaEsquerdo]);
+
 
   const [value, setValue] = useState("1");
   const [enableSelects, setEnableSelects] = useState<boolean>(false);
@@ -38,7 +22,7 @@ function HerniaEsquerdo() {
 
   const [valueSelect1, setValueSelect1] = useState("");
   const [valueSelect2, setValueSelect2] = useState("");
-  const [valueSelect3, setValueSelect3] = useState('1');
+  const [valueSelect3, setValueSelect3] = useState("");
 
   const removeSelectString = () => {
     FraseHerniaEsquerdo.map((e) => {
@@ -81,7 +65,7 @@ function HerniaEsquerdo() {
     } else {
       setValueSelect1("")
       setValueSelect2("")
-      setValueSelect3("1")
+      setValueSelect3("")
       if (value == "1") {
         setFraseHerniaEsquerdo([]);
         setEnableSelects(false);
@@ -95,21 +79,40 @@ function HerniaEsquerdo() {
 
   useEffect(() => {
     var select = `Derrame Pleural ${valueSelect1} ${valueSelect2}`;
-    var mobilidade =
-      valueSelect3 != "1" ? `Mobilidade da cúpula frênica ${valueSelect3}` : "";
+
 
     if (valueSelect1 != "" && valueSelect2 != "") {
       removeSelectString();
       setFraseHerniaEsquerdo((arr) => [...arr, select]);
     }
 
+    removeSelectStringMobilidade();
     if (valueSelect3 != "") {
-      removeSelectStringMobilidade();
+      var mobilidade =
+        `Mobilidade da cúpula frênica ${valueSelect3}`
       setFraseHerniaEsquerdo((arr) => [...arr, mobilidade]);
+    } else {
+      setValueSelect3("")
     }
   }, [valueSelect1, valueSelect2, valueSelect3]);
 
-
+  useEffect(() => {
+    if (Object.keys(FraseHerniaEsquerdo).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        FraseHerniaEsquerdo
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        FraseHerniaEsquerdo
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [FraseHerniaEsquerdo]);
 
   return (
     <Box
@@ -166,8 +169,8 @@ function HerniaEsquerdo() {
                   isDisabled={!enableSelects}
                   onChange={(e) => setValueSelect3(e.target.value)}
                 >
-                  <option selected disabled value="1">Selecione</option>
-                  <option value="1">não citar</option>
+                  <option selected disabled value="">Selecione</option>
+                  <option value="">não citar</option>
                   <option value="normal">normal</option>
                   <option value="diminuída">diminuída</option>
                   <option value="diminuída, com elevação diafragmática">

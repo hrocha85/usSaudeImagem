@@ -104,6 +104,9 @@ function Conclusoes() {
       padding="24px 15px 10px 15px"
       mt='10px'
     >
+
+
+      <TituloNomeExame titulo="Conclusões" />
       <Box gap="10px" display="flex" flexWrap="wrap" mb="10px">
         <Checkbox
           onChange={(e) => {
