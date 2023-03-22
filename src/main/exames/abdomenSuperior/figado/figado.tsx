@@ -1,6 +1,5 @@
 import { Box, Checkbox, Input, Select } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -125,8 +124,6 @@ function Figado() {
   ) as HTMLInputElement;
 
   const [frasesFigado, setFrasesFigado] = useState<any>([]);
-
-  const { laudoNormal } = useContext(NormalContext);
 
   const [selectCalcificacao, setSelectCalcificacao] = useState("");
   const [inputCalcificacao, setInputCalcificacao] = useState("");
@@ -460,141 +457,6 @@ function Figado() {
     setFrasesFigado((arr) => []);
   };
 
-  useEffect(() => {
-    if (laudoNormal === true) {
-      setDefaultValueNormal({ defaultValueNormal: true });
-      criarString("Figado está normal ");
-      console.log(frasesFigado);
-      setCheckValueHepatiteAguda({
-        HepatiteAguda: true,
-      });
-      setCheckValueHepatiteCronica({
-        HepatiteCronica: true,
-      });
-      setCheckValueDimensoes({
-        dimensoes: true,
-        SelectDimensoes: true,
-      });
-      setCheckValueEsteatose({
-        esteatose: true,
-        SelectEsteatose: true,
-      });
-
-      //----------------------------------------------------
-
-      setCheckValueCalcificacao({
-        calcificacao: true,
-        SelectCalcificacao: true,
-        InputCalcificacao: true,
-      });
-      setCheckValueCisto01({
-        cisto01: true,
-        SelectCisto01: true,
-        InputCisto01: true,
-      });
-      setCheckValueCisto02({
-        cisto02: true,
-        SelectCisto02: true,
-        InputCisto02: true,
-      });
-      setCheckValueCisto03({
-        cisto03: true,
-        SelectCisto03: true,
-        InputCisto03: true,
-      });
-      setCheckValueMultiplosCistos({
-        MultiplosCistos: true,
-        SelectMultiplosCistos: true,
-        InputMultiplosCistos: true,
-      });
-      //-------------------------------------------------------------------
-      setCheckValueNodulo01({
-        nodulo01: true,
-        SelectNodulo01: true,
-        InputNodulo01: true,
-      });
-      setCheckValueNodulo02({
-        nodulo02: true,
-        SelectNodulo02: true,
-        InputNodulo02: true,
-      });
-      setCheckValueNodulo03({
-        nodulo03: true,
-        SelectNodulo03: true,
-        InputNodulo03: true,
-      });
-      setCheckValueMultiplosNodulos({
-        MultiplosNodulos: true,
-        SelectMultiplosNodulos: true,
-        InputMultiplosNodulos: true,
-      });
-    } else {
-      setDefaultValueNormal({ defaultValueNormal: false });
-      removeNormal();
-      setCheckValueHepatiteAguda({
-        HepatiteAguda: false,
-      });
-      setCheckValueHepatiteCronica({
-        HepatiteCronica: false,
-      });
-      setCheckValueDimensoes({
-        dimensoes: false,
-        SelectDimensoes: true,
-      });
-      setCheckValueEsteatose({
-        esteatose: false,
-        SelectEsteatose: true,
-      });
-
-      //-----------------------------------------------------------------
-      setCheckValueCalcificacao({
-        calcificacao: false,
-        SelectCalcificacao: true,
-        InputCalcificacao: true,
-      });
-      setCheckValueCisto01({
-        cisto01: false,
-        SelectCisto01: true,
-        InputCisto01: true,
-      });
-      setCheckValueCisto02({
-        cisto02: false,
-        SelectCisto02: true,
-        InputCisto02: true,
-      });
-      setCheckValueCisto03({
-        cisto03: false,
-        SelectCisto03: true,
-        InputCisto03: true,
-      });
-      setCheckValueMultiplosCistos({
-        MultiplosCistos: false,
-        SelectMultiplosCistos: true,
-        InputMultiplosCistos: true,
-      });
-      //--------------------------------------
-      setCheckValueNodulo01({
-        nodulo01: false,
-        SelectNodulo01: true,
-        InputNodulo01: true,
-      });
-      setCheckValueNodulo02({
-        nodulo02: false,
-        SelectNodulo02: true,
-        InputNodulo02: true,
-      });
-      setCheckValueNodulo03({
-        nodulo03: false,
-        SelectNodulo03: true,
-        InputNodulo03: true,
-      });
-      setCheckValueMultiplosNodulos({
-        MultiplosNodulos: false,
-        SelectMultiplosNodulos: true,
-        InputMultiplosNodulos: true,
-      });
-    }
-  }, [laudoNormal]);
 
   const verificaChecked = (value) => {
     switch (value.id) {

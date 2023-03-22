@@ -1,4 +1,5 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Checkbox } from "@chakra-ui/react";
+import { useState } from "react";
 
 import Cirurgias from "./cirurgias/cirurgias";
 import Cisto from "./cisto/cisto";
@@ -10,16 +11,35 @@ import Linfonodomegalias from "./Linfonodomegalias/Linfonodomegalias";
 import Medidas from "./medidas/medidas";
 import Nodulos from "./nodulos/nodulos";
 import Procedimentos from "./ProcedimentosDiagnosticos/Procedimentos_diagnosticos";
-import Normal from "./TireoideNormal/normal";
 
 function Tireoide() {
+  const altura = '100%'
+  const largura = '180px'
+  const [Normal, setNormal] = useState(false)
+
+
   return (
     <>
-
+      <Box
+        bg="#FAFAFA"
+        w={largura}
+        h={altura}
+        bgPosition="center"
+        bgRepeat="no-repeat"
+        borderRadius="10.85px"
+        boxShadow="md"
+        padding='10px 15px 10px 15px'
+        mt='2px'
+        mb='5px'>
+        <Box w='150px' >
+          <Checkbox
+            id="tudoNormal"
+            onChange={(e) => setNormal(!Normal)}
+          >Tireoide normal</Checkbox>
+        </Box>
+      </Box >
 
       <Box ml="10px">
-        <Normal />
-
         <Medidas />
 
         <DopplerParenquima />

@@ -110,7 +110,7 @@ function Liquido_Livre({ Disable }) {
                   Líquido Livre
                 </Checkbox>
                 <Select
-                  isDisabled={Disable}
+                  isDisabled={Disable || !LiquidoCheckBox}
                   w="auto"
                   onChange={(e) => {
                     setPosicaoLiquidoSelect(e.target.value);

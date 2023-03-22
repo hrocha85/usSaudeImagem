@@ -1,6 +1,5 @@
 import { Box, Checkbox, Input, Select } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -52,7 +51,6 @@ function VesiculaBiliar() {
     defaultValueNormal: false,
   });
 
-  const { laudoNormal } = useContext(NormalContext);
   const [inputCalculoUnico, setInputCalculoUnico] = useState("");
 
   const [inputPoliposUnico, setInputPoliposUnico] = useState("");
@@ -179,79 +177,6 @@ function VesiculaBiliar() {
       });
     }
   };
-
-  useEffect(() => {
-    if (laudoNormal === true) {
-      setDefaultValueNormal({ defaultValueNormal: true });
-      criarString("Vesicula biliar Normal");
-      setCheckvalueCalculoUnico({
-        CalculoUnico: true,
-        InputCalculoUnico: true,
-      });
-      setCheckvalueMultiplosCalculos({
-        MultiplosCalculos: true,
-        InputMultiplosCalculos: true,
-      });
-      setCheckvaluePolipoUnico({
-        PolipoUnico: true,
-        InputCalculoUnico: true,
-      });
-      setCheckvalueMultiplosPolipos({
-        MultiplosPolipos: true,
-        InputMultiplosPolipos: true,
-      });
-      setCheckvalueColesterolose({
-        colesterolose: true,
-      });
-      setCheckvalueNaoVisibilizado({
-        NaoVisibilizado: true,
-        SelectNaoVisibilizado: true,
-      });
-      setCheckvalueEmPorcelana({
-        EmPorcelana: true,
-      });
-      setCheckvalueBileEspessa({
-        BilleEspessa: true,
-      });
-      setCheckvalueVazia({
-        Vazia: true,
-      });
-    } else {
-      setDefaultValueNormal({ defaultValueNormal: false });
-      setCheckvalueCalculoUnico({
-        CalculoUnico: false,
-        InputCalculoUnico: true,
-      });
-      setCheckvalueMultiplosCalculos({
-        MultiplosCalculos: false,
-        InputMultiplosCalculos: true,
-      });
-      setCheckvaluePolipoUnico({
-        PolipoUnico: false,
-        InputCalculoUnico: true,
-      });
-      setCheckvalueMultiplosPolipos({
-        MultiplosPolipos: false,
-        InputMultiplosPolipos: true,
-      });
-      setCheckvalueColesterolose({
-        colesterolose: false,
-      });
-      setCheckvalueNaoVisibilizado({
-        NaoVisibilizado: false,
-        SelectNaoVisibilizado: true,
-      });
-      setCheckvalueEmPorcelana({
-        EmPorcelana: false,
-      });
-      setCheckvalueBileEspessa({
-        BilleEspessa: false,
-      });
-      setCheckvalueVazia({
-        Vazia: false,
-      });
-    }
-  }, [laudoNormal]);
 
   const verificaChecked = (value) => {
     switch (value.id) {

@@ -10,7 +10,6 @@ import { LaudosProvider } from "./context/LuadosContext";
 import { MaoDireitoNormalProvider } from "./context/MaoDireitoNormalContext";
 import { MaoEsquerdoNormalProvider } from "./context/MaoEsquerdoNormalContext";
 import { MenuProvider } from "./context/MenuContext";
-import { NormalProvider } from "./context/NormalContext";
 import { OmbroDireitoNormalProvider } from "./context/OmbroDireitoNormalContext";
 import { OmbroEsquerdoNormalProvider } from "./context/OmbroEsquerdoNormalContext";
 import { PunhoDireitoNormalProvider } from "./context/PunhoDireitoNormalContext";

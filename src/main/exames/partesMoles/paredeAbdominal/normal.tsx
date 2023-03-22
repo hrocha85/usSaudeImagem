@@ -2,7 +2,6 @@
 /* eslint-disable array-callback-return */
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -12,15 +11,14 @@ function ParedeAbdominalNormal({ Disable }) {
 
   const [frasesNormal, setFrasesNormal] = useState<any>([]);
 
-  let { laudoNormal, setLaudoNormal } = useContext(NormalContext);
 
   const verificaChecked = (value) => {
     if (value.checked === true) {
-      setLaudoNormal(true);
+
       setFrasesNormal((arr) => [...arr, "Parede abdominal íntegra."]);
     } else {
       removeItemString();
-      setLaudoNormal(false);
+
     }
   };
   const removeItemString = () => {

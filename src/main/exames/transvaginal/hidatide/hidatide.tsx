@@ -117,7 +117,7 @@ function Hidatide({ Disable }) {
                   Hidátide
                 </Checkbox>
                 <Select
-                  isDisabled={Disable}
+                  isDisabled={Disable || !hidatideCheckBox}
                   w="auto"
                   onChange={(e) => {
                     setPosicaoHidatideSelect(e.target.value);
@@ -131,7 +131,7 @@ function Hidatide({ Disable }) {
                   <option value="esquerdo">Esquerda</option>
                 </Select>
                 <Input
-                  isDisabled={Disable}
+                  isDisabled={Disable || !hidatideCheckBox}
                   w="60px"
                   h="77x"
                   padding="5px"
