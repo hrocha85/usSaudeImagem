@@ -1,7 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import "./App.css";
-import { CotoveloDireitoNormalProvider } from "./context/CotoveloDireitoNormalContext";
-import { CotoveloEsquerdoNormalProvider } from "./context/CotoveloEsquerdoNormalContext";
+
 import { DisableTributariaProvider } from "./context/disableTributariasContext";
 import { EnableExamesProvider } from "./context/ExamesEnableContext";
 import { JoelhoDireitoNormalProvider } from "./context/JoelhoDireitoNormalContext";
@@ -34,23 +33,19 @@ function App() {
                     <MaoEsquerdoNormalProvider>
                       <PunhoEsquerdoNormalProvider>
                         <PunhoDireitoNormalProvider>
-                          <CotoveloEsquerdoNormalProvider>
-                            <CotoveloDireitoNormalProvider>
-                              <OmbroEsquerdoNormalProvider>
-                                <OmbroDireitoNormalProvider>
-                                  <DisableTributariaProvider>
-                                    <StringNormalProvider>
-                                      <LaudosProvider>
-                                        <ChakraProvider theme={tema}>
-                                          <Rotas />
-                                        </ChakraProvider>
-                                      </LaudosProvider>
-                                    </StringNormalProvider>
-                                  </DisableTributariaProvider>
-                                </OmbroDireitoNormalProvider>
-                              </OmbroEsquerdoNormalProvider>
-                            </CotoveloDireitoNormalProvider>
-                          </CotoveloEsquerdoNormalProvider>
+                          <OmbroEsquerdoNormalProvider>
+                            <OmbroDireitoNormalProvider>
+                              <DisableTributariaProvider>
+                                <StringNormalProvider>
+                                  <LaudosProvider>
+                                    <ChakraProvider theme={tema}>
+                                      <Rotas />
+                                    </ChakraProvider>
+                                  </LaudosProvider>
+                                </StringNormalProvider>
+                              </DisableTributariaProvider>
+                            </OmbroDireitoNormalProvider>
+                          </OmbroEsquerdoNormalProvider>
                         </PunhoDireitoNormalProvider>
                       </PunhoEsquerdoNormalProvider>
                     </MaoEsquerdoNormalProvider>
