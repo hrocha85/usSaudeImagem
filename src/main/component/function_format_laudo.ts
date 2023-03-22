@@ -127,6 +127,25 @@ export class Format_Laudo {
     window.dispatchEvent(new Event("storage"));
   }
 
+  Remove_Observacao_Select(observacao): void {
+    console.log("caindo aqui");
+    var array = JSON.parse(localStorage.getItem("format_laudo")!);
+    array.map((Exames) => {
+      if (Exames.titulo_exame == this.titulo_exame) {
+        Exames.observacoes.map((e, index) => {
+          if (e.includes(observacao)) {
+            var posicao = e.indexOf(observacao);
+            if (posicao > -1) {
+              Exames.observacoes.splice(index, 1);
+              localStorage.setItem("format_laudo", JSON.stringify(array));
+            }
+          }
+        });
+      }
+    });
+    window.dispatchEvent(new Event("storage"));
+  }
+
   Remove_Conclusao_Select(conclusao): void {
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
     array.map((Exames) => {

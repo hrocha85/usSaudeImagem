@@ -87,6 +87,13 @@ export default function Box_Default_With_Sidebar() {
       key: 3,
       nomeExame: "Mamas",
       link: `#/Home/${3}`,
+      observacao: [
+        "Conviria controle ecográfico periódico, a critério clínico.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+        "A critério clínico, tendo-se em conta o aspecto liposubstituido do tecido mamário (normal para a pós-menopausa), estaria indicado para melhor avaliação, estudo radiológico digital bilateral (mamografia digital).",
+        "Exames anteriores não disponíveis para estudo comparativo."
+      ],
     },
     {
       key: 4,

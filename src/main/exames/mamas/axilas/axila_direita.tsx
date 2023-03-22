@@ -1,37 +1,38 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Select } from "@chakra-ui/react";
+import { Box, Checkbox, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Axila_direita() {
   const altura = "100%";
-  const largura = "400px";
+  const largura = "33%";
 
   const [frasesAxilas, setFrasesAxilas] = useState<any>([]);
 
   const [CheckboxAxilasLinfadenomegalia, setCheckboxAxilasLinfadenomegalia] = useState(false);
 
-  const [disableSelectAxilasLinfadenomegalia, setDisableSelectAxilasLinfadenomegalia,] = useState(true);
-
-  const [valueSelectAxilasLinfadenomegalia, setValueSelectAxilasLinfadenomegalia,] = useState("");
-
-  const [CheckboxAxilaAcessoria, setCheckboxAxilaAcessoria] = useState(false);
-
-  const [disableSelectAxilaAcessoria, setDisableSelectAxilaAcessoria,] = useState(true);
-
-  const [valueSelectAxilaAcessoria, setValueSelectAxilaAcessoria] = useState("");
-
-
   const [CheckboxPeleTecido, setCheckboxPeleTecido] = useState(false);
-
-  const [disableSelectPeleTecido, setDisableSelectPeleTecido,] = useState(true);
 
   const [valueSelectPeleTecido, setValueSelectPeleTecido] = useState("");
 
   const [CheckboxTecidoFibrograndular, setCheckboxTecidoFibrograndular] = useState(false);
 
+  const [CheckboxSemNodulo, setCheckboxSemNodulo] = useState(false);
+  const [CheckboxPresencaImagemSolida, setCheckboxPresencaImagemSolida] = useState(false);
+  const [CheckboxIsoecogenica, setCheckboxIsoecogenica] = useState(false);
+  const [CheckboxHipoecogenica, setCheckboxHipoecogenica] = useState(false);
+  const [CheckboxHiperecogenicaContornos, setCheckboxHiperecogenicaContornos] = useState(false);
+  const [ValueSelectHiperecogenicaContornos, setValueSelectHiperecogenicaContornos] = useState('');
+
+  const [ParcialmentePrecisosCheckbox, setParcialmentePrecisosCheckbox] = useState(false);
+  const [PerpendicularPeleInput, setPerpendicularPeleInput] = useState('');
+  const [PerpendicularPeleSelect, setPerpendicularPeleSelect] = useState('');
+
+  const [LinfonodosAxilaresCheckbox, setLinfonodosAxilaresCheckbox] = useState(false);
+  const [SugestivasLinfonodomegaliaCheckbox, setSugestivasLinfonodomegaliaCheckbox] = useState(false);
+  const [SugestivasLinfonodomegaliaAtipicosCheckbox, setSugestivasLinfonodomegaliaAtipicosCheckbox] = useState(false);
 
 
   const removeItemString = (value) => {
@@ -44,23 +45,80 @@ function Axila_direita() {
     }
   };
 
+  useEffect(() => {
+    const string = `Presença de tecido fibroglandular em regiao axilar.`
+    CheckboxTecidoFibrograndular ? setFrasesAxilas((arr) => [...arr, string]) : removeItemString(string)
+  }, [CheckboxTecidoFibrograndular]);
+
+  useEffect(() => {
+    const string = `Não há evidência de nódulo ou massa de caráter sólido, cístico ou complexo.`
+    CheckboxSemNodulo ? setFrasesAxilas((arr) => [...arr, string]) : removeItemString(string)
+  }, [CheckboxSemNodulo]);
+
+  useEffect(() => {
+    const string = `Presença de imagem sólida.`
+    CheckboxPresencaImagemSolida ? setFrasesAxilas((arr) => [...arr, string]) : removeItemString(string)
+  }, [CheckboxPresencaImagemSolida]);
+
+  useEffect(() => {
+    const string = `Isoecogênica.`
+    CheckboxIsoecogenica ? setFrasesAxilas((arr) => [...arr, string]) : removeItemString(string)
+  }, [CheckboxIsoecogenica]);
+
+  useEffect(() => {
+    const string = `Hipoecogênica.`
+    CheckboxHipoecogenica ? setFrasesAxilas((arr) => [...arr, string]) : removeItemString(string)
+  }, [CheckboxHipoecogenica]);
+
+
+  const criaStringHperecogenicaContornos = () => {
+    var string = 'Hiperecogênica de contornos '
+    removeFraseSelect(string);
+    if (CheckboxHiperecogenicaContornos) {
+      if (ValueSelectHiperecogenicaContornos !== "") {
+        string = `${string} ${ValueSelectHiperecogenicaContornos}.`;
+        setFrasesAxilas((arr) => [...arr, string]);
+      }
+    } else {
+      setValueSelectHiperecogenicaContornos("");
+    }
+  };
+
+  useEffect(() => {
+    criaStringHperecogenicaContornos();
+  }, [ValueSelectHiperecogenicaContornos, CheckboxHiperecogenicaContornos]);
+
 
 
   useEffect(() => {
-    const string = `Presença de tecido figbroglandular em regiao axilar.`
-    CheckboxTecidoFibrograndular ? setFrasesAxilas((arr) => [...arr, string]) : removeItemString(string)
-  }, [CheckboxTecidoFibrograndular]);
+    const string = `Linfonodos axilares identificados no exame de aspecto habitual.`
+    LinfonodosAxilaresCheckbox ? setFrasesAxilas((arr) => [...arr, string]) : removeItemString(string)
+  }, [LinfonodosAxilaresCheckbox]);
+
+  useEffect(() => {
+    const string = `Imagens sugestivas de linfonodomegalia, sem sinais de atipia.`
+    SugestivasLinfonodomegaliaCheckbox ? setFrasesAxilas((arr) => [...arr, string]) : removeItemString(string)
+  }, [SugestivasLinfonodomegaliaCheckbox]);
+
+  useEffect(() => {
+    const string = `Imagens sugestivas de linfonodos atipicos.`
+    SugestivasLinfonodomegaliaAtipicosCheckbox ? setFrasesAxilas((arr) => [...arr, string]) : removeItemString(string)
+  }, [SugestivasLinfonodomegaliaAtipicosCheckbox]);
+
+  useEffect(() => {
+    const string = `Axila Linfadenomegalia.`
+    CheckboxAxilasLinfadenomegalia ? setFrasesAxilas((arr) => [...arr, string]) : removeItemString(string)
+  }, [CheckboxAxilasLinfadenomegalia]);
+
 
   const criaStringPeleTecido = () => {
     removeFrasePeleTecido();
     if (CheckboxPeleTecido) {
-      setDisableSelectPeleTecido(false);
       if (valueSelectPeleTecido !== "") {
         let string = `Pele e tecido subcutâneo de espessura  ${valueSelectPeleTecido}`;
         setFrasesAxilas((arr) => [...arr, string]);
       }
     } else {
-      setDisableSelectPeleTecido(true);
       setValueSelectPeleTecido("");
     }
   };
@@ -81,22 +139,26 @@ function Axila_direita() {
     criaStringPeleTecido();
   }, [valueSelectPeleTecido, CheckboxPeleTecido]);
 
-  const criaStringAxilasLinfadenomegalia = () => {
-    removeFraseAxilasLinfadenomegalia();
-    if (CheckboxAxilasLinfadenomegalia) {
-      setDisableSelectAxilasLinfadenomegalia(false);
-      if (valueSelectAxilasLinfadenomegalia !== "") {
-        let string = `Linfadenomegalia ${valueSelectAxilasLinfadenomegalia}`;
+
+  const criaStringParcialmentePrecisos = () => {
+    var string = 'parcialmente precisos e bordos finos, bem circunscrito, de orientação'
+    removeFraseSelect(string)
+    if (ParcialmentePrecisosCheckbox) {
+      if (PerpendicularPeleInput != '' && PerpendicularPeleSelect != '') {
+        string = `${string} ${PerpendicularPeleSelect} medindo cerca de ${PerpendicularPeleInput} cm.`
         setFrasesAxilas((arr) => [...arr, string]);
       }
     } else {
-      setDisableSelectAxilasLinfadenomegalia(true);
-      setValueSelectAxilasLinfadenomegalia("");
+      setPerpendicularPeleSelect('')
+      setPerpendicularPeleInput('')
     }
-  };
-  const removeFraseAxilasLinfadenomegalia = () => {
+  }
+  useEffect(() => {
+    criaStringParcialmentePrecisos()
+  }, [ParcialmentePrecisosCheckbox, PerpendicularPeleInput, PerpendicularPeleSelect])
+  const removeFraseSelect = (value) => {
     frasesAxilas.map((e) => {
-      if (e.includes("Linfadenomegalia")) {
+      if (e.includes(value)) {
         let index = frasesAxilas.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
@@ -106,41 +168,6 @@ function Axila_direita() {
       }
     });
   };
-
-  useEffect(() => {
-    criaStringAxilasLinfadenomegalia();
-  }, [valueSelectAxilasLinfadenomegalia, CheckboxAxilasLinfadenomegalia]);
-
-  const criaStringAxilaAcessoria = () => {
-    removeFraseAxilaAcessoria();
-    if (CheckboxAxilaAcessoria) {
-      console.log(valueSelectAxilaAcessoria);
-      setDisableSelectAxilaAcessoria(false);
-      if (valueSelectAxilaAcessoria !== "") {
-        let string = `axila acessória  ${valueSelectAxilaAcessoria}`;
-        setFrasesAxilas((arr) => [...arr, string]);
-      }
-    } else {
-      setDisableSelectAxilaAcessoria(true);
-      setValueSelectAxilaAcessoria("");
-    }
-  };
-  const removeFraseAxilaAcessoria = () => {
-    frasesAxilas.map((e) => {
-      if (e.includes("axila acessória ")) {
-        let index = frasesAxilas.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-        if (index > -1) {
-          frasesAxilas.splice(index, 1);
-          setFrasesAxilas((arr) => [...arr]);
-        }
-      }
-    });
-  };
-
-  useEffect(() => {
-    criaStringAxilaAcessoria();
-  }, [valueSelectAxilaAcessoria, CheckboxAxilaAcessoria]);
 
   const subExame = "Axila Direita";
   const titulo_exame = "Mamas";
@@ -191,7 +218,7 @@ function Axila_direita() {
             </Checkbox>
             <Select
               w="150px"
-              isDisabled={disableSelectPeleTecido}
+              isDisabled={!CheckboxPeleTecido}
               onChange={(e) => {
                 setValueSelectPeleTecido(e.target.value);
               }}
@@ -201,8 +228,7 @@ function Axila_direita() {
                 Selecione
               </option>
               <option value="conservada">Conservada</option>
-              <option value="????">????</option>
-              <option value="????">????</option>
+              <option value="espessada">Espessada</option>
 
             </Select>
           </Box>
@@ -217,6 +243,118 @@ function Axila_direita() {
               Tecido fibrograndular
             </Checkbox>
           </Box>
+
+          <Box display="flex">
+            <Checkbox
+              onChange={(e) => {
+                setCheckboxSemNodulo(
+                  !CheckboxSemNodulo
+                );
+              }}
+            >
+              Não há evidência de nódulo ou massa de caráter sólido, cístico ou complexo.
+            </Checkbox>
+          </Box>
+          <Box display="flex">
+            <Checkbox
+              onChange={(e) => {
+                setCheckboxPresencaImagemSolida(
+                  !CheckboxPresencaImagemSolida
+                );
+              }}
+            >
+              Presença de imagem sólida.
+            </Checkbox>
+          </Box>
+          <Box display="flex">
+            <Checkbox
+              onChange={(e) => {
+                setCheckboxIsoecogenica(
+                  !CheckboxIsoecogenica
+                );
+              }}
+            >Isoecogênica
+            </Checkbox>
+          </Box>
+
+          <Box display="flex">
+            <Checkbox
+              onChange={(e) => {
+                setCheckboxHipoecogenica(
+                  !CheckboxHipoecogenica
+                );
+              }}
+            >Hipoecogênica
+            </Checkbox>
+          </Box>
+
+          <Box display="flex">
+            <Checkbox
+              onChange={(e) => {
+                setCheckboxHiperecogenicaContornos(
+                  !CheckboxHiperecogenicaContornos
+                );
+              }}
+            >Hiperecogênica de contornos
+            </Checkbox>
+            <Select
+              w="150px"
+              isDisabled={!CheckboxHiperecogenicaContornos}
+              onChange={(e) => {
+                setValueSelectHiperecogenicaContornos(e.target.value);
+              }}
+              value={ValueSelectHiperecogenicaContornos}
+            >
+              <option value="" disabled selected>
+                Selecione
+              </option>
+              <option value="regulares">Regulares</option>
+              <option value="irregulares">Irregulares</option>
+            </Select>
+          </Box>
+
+
+
+
+
+
+          <Box display="flex" flexWrap='wrap'>
+            <Checkbox
+              onChange={(e) => {
+                setParcialmentePrecisosCheckbox(
+                  !ParcialmentePrecisosCheckbox
+                );
+              }}
+            >Parcialmente precisos e bordos finos, bem circunscrito, de orientação
+            </Checkbox>
+            <Select
+              w="150px"
+              isDisabled={!ParcialmentePrecisosCheckbox}
+              onChange={(e) => {
+                setPerpendicularPeleSelect(e.target.value);
+              }}
+              value={PerpendicularPeleSelect}
+            >
+              <option value="" disabled selected>
+                Selecione
+              </option>
+              <option value="paralela a pele">Paralela a pele</option>
+              <option value="perpendicular a pele">Perpendicular a pele</option>
+
+            </Select>
+            <Text alignSelf='center'>medindo cerca de</Text>
+            <Input
+              p='0px'
+              textAlign='center'
+              w='40px'
+              isDisabled={!ParcialmentePrecisosCheckbox}
+              value={PerpendicularPeleInput}
+              onChange={(e) => setPerpendicularPeleInput(e.target.value)}
+            >
+
+            </Input>
+            <Text alignSelf='center'>cm</Text>
+          </Box>
           <Box display="flex">
             <Checkbox
               onChange={(e) => {
@@ -227,45 +365,37 @@ function Axila_direita() {
             >
               Linfadenomegalia
             </Checkbox>
-            <Select
-              w="150px"
-              isDisabled={disableSelectAxilasLinfadenomegalia}
-              onChange={(e) => {
-                setValueSelectAxilasLinfadenomegalia(e.target.value);
-              }}
-              value={valueSelectAxilasLinfadenomegalia}
-            >
-              <option value="" disabled selected>
-                Selecione
-              </option>
-              <option value="na axila direita">axila direita</option>
-              <option value="na axila direita">axila direita</option>
-              <option value="bilateral">bilateral</option>
-            </Select>
           </Box>
           <Box display="flex">
             <Checkbox
               onChange={(e) => {
-                setCheckboxAxilaAcessoria(!CheckboxAxilaAcessoria);
+                setLinfonodosAxilaresCheckbox(
+                  !LinfonodosAxilaresCheckbox
+                );
               }}
-            >
-              Axila Acessório
+            >Linfonodos axilares identificados no exame de aspecto habitual.
             </Checkbox>
-            <Select
-              w="150px"
-              isDisabled={disableSelectAxilaAcessoria}
+          </Box>
+          <Box display="flex">
+            <Checkbox
               onChange={(e) => {
-                setValueSelectAxilaAcessoria(e.target.value);
+                setSugestivasLinfonodomegaliaCheckbox(
+                  !SugestivasLinfonodomegaliaCheckbox
+                );
               }}
-              value={valueSelectAxilaAcessoria}
-            >
-              <option value="" disabled selected>
-                Selecione
-              </option>
-              <option value="na axila direita">axila direita</option>
-              <option value="na axila direita">axila direita</option>
-              <option value="bilateral">bilateral</option>
-            </Select>
+            >Imagens sugestivas de linfonodomegalia, sem sinais de atipia.
+            </Checkbox>
+          </Box>
+
+          <Box display="flex">
+            <Checkbox
+              onChange={(e) => {
+                setSugestivasLinfonodomegaliaAtipicosCheckbox(
+                  !SugestivasLinfonodomegaliaAtipicosCheckbox
+                );
+              }}
+            >Imagens sugestivas de linfonodos atipicos.
+            </Checkbox>
           </Box>
         </Box>
       </Box>
