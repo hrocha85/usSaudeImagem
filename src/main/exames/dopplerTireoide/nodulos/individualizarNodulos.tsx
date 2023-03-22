@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Center, Checkbox, Input, Select } from "@chakra-ui/react";
+import { Box, Checkbox, Input, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarNodulos({ numCalculo }) {
-
   const [FraseNodulosDireito, setFraseNodulosDireito] = useState<any>([]);
-  const [ConclusaoNodulosDireito, setConclusaoNodulosDireito] = useState<any>([]);
+  
+  const [ConclusaoNodulosDireito, setConclusaoNodulosDireito] = useState<any>(
+    []
+  );
 
   const subExame = `Nódulo ${numCalculo}`;
   const titulo_exame = "Doppler da Tireóide";
@@ -35,28 +37,67 @@ export default function IndividualizarNodulos({ numCalculo }) {
 
   const [TamanhoInput1, setTamanhoInput1] = useState("");
   const [TamanhoInput2, setTamanhoInput2] = useState("");
+  const [TamanhoParciais, setTamanhoParciais] = useState("");
   const [SelectLocalizado, setSelectLocalizado] = useState("");
+  const [SelectContornos, setSelectContornos] = useState("");
+  const [SelectPrecisos, setSelectPrecisos] = useState("");
   const [SelectDo, setSelectDo] = useState("");
   const [SelectConsistencia, setSelectConsistencia] = useState("");
+  const [SelectFluxo, setSelectFluxo] = useState("");
   const [SelectEcogenicidade, setSelectEcogenicidade] = useState("");
   const [SelectMargens, setSelectMargens] = useState("");
   const [SelectOrientacao, setSelectOrientacao] = useState("");
   const [SelectCalcificacoes, setSelectCalcificacoes] = useState("");
   const [SelectDoppler, setSelectDoppler] = useState("");
+  const [SelectLagalla, setSelectLagalla] = useState("");
+  const [SelectRADS, setSelectRADS] = useState("");
 
-  const [multiplosCalculosCheckBox, setmultiplosCalculosCheckBox] = useState(false);
+  const [IR, setIR] = useState("");
+  const [IP, setIP] = useState("");
+  const [VEL, setVEL] = useState("");
+
+  const [multiplosCalculosCheckBox, setmultiplosCalculosCheckBox] =
+    useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
   const criaStringMultiplosNodulos = () => {
     removeMultiplosCalculos();
-    removeConclusao()
-    var conclusao = `Falta conclusao ${numCalculo}`
-    if (TamanhoInput1 !== '' && TamanhoInput2 !== '' && SelectLocalizado !== '' && SelectDo !== '' && SelectConsistencia !== '' && SelectEcogenicidade
-      !== '' && SelectMargens !== '' && SelectOrientacao !== '' && SelectCalcificacoes !== '' && SelectDoppler) {
-      const medida = new Convert_Medida(TamanhoInput1).Convert_Medida()
-      const medida2 = new Convert_Medida(TamanhoInput2).Convert_Medida()
-      var string = `Falta Frase ${numCalculo} ${medida} x ${medida2} ${SelectLocalizado} ${SelectDo} ${SelectConsistencia} ${SelectEcogenicidade}
-      ${SelectMargens} ${SelectOrientacao} ${SelectCalcificacoes} ${SelectDoppler}.`;
+    removeConclusao();
+    var conclusao = `Falta conclusao ${numCalculo}`;
+    if (
+      TamanhoInput1 !== "" &&
+      TamanhoInput2 !== "" &&
+      SelectLocalizado !== "" &&
+      SelectDo !== "" &&
+      SelectConsistencia !== "" &&
+      SelectEcogenicidade !== "" &&
+      SelectMargens !== "" &&
+      SelectOrientacao !== "" &&
+      SelectCalcificacoes !== "" &&
+      SelectDoppler &&
+      SelectContornos !== "" &&
+      SelectPrecisos !== "" &&
+      TamanhoParciais != "" &&
+      SelectFluxo !== "" &&
+      SelectLagalla !== "" &&
+      SelectRADS !== "" &&
+      IR !== "" &&
+      IP !== "" &&
+      VEL !== ""
+    ) {
+      const medida = new Convert_Medida(TamanhoInput1).Convert_Medida();
+      const medida2 = new Convert_Medida(TamanhoInput2).Convert_Medida();
+
+      var fluxo =
+        SelectFluxo !== "não apresentando fluxo"
+          ? `apresentando fluxo ${SelectFluxo}`
+          : SelectFluxo;
+
+      var string = `Formação nodular ${medida} x ${medida2} ${SelectEcogenicidade} de contornos ${SelectContornos}
+       e bordos finos e limites parcialmente ${SelectPrecisos}  medindo ${TamanhoParciais} cm no seu maior eixo,
+       relacionada ao ${SelectLocalizado} do ${SelectDo} ${fluxo}, com margens 
+      ${SelectMargens} ${SelectOrientacao} ${SelectCalcificacoes}
+       com IR - ${IR}, IP - ${IP} e VEL - ${VEL} cm/s (CHAMMAS - ${SelectDoppler}, LAGALLA - ${SelectLagalla}, TI-RADS - ${SelectRADS}).`;
       setFraseNodulosDireito((arr) => [...arr, string]);
       setConclusaoNodulosDireito((arr) => [...arr, conclusao]);
     }
@@ -64,7 +105,7 @@ export default function IndividualizarNodulos({ numCalculo }) {
 
   const removeMultiplosCalculos = () => {
     FraseNodulosDireito.map((e) => {
-      if (e.includes(`Falta Frase ${numCalculo}`)) {
+      if (e.includes(`Formação nodular `)) {
         var index = FraseNodulosDireito.indexOf(e);
 
         if (index > -1) {
@@ -74,6 +115,7 @@ export default function IndividualizarNodulos({ numCalculo }) {
       }
     });
   };
+
   const removeConclusao = () => {
     ConclusaoNodulosDireito.map((e) => {
       if (e.includes(`Falta conclusao ${numCalculo}`)) {
@@ -82,7 +124,9 @@ export default function IndividualizarNodulos({ numCalculo }) {
         if (index > -1) {
           ConclusaoNodulosDireito.splice(index, 1);
           setConclusaoNodulosDireito((arr) => [...arr]);
-          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(`Falta conclusao ${numCalculo}`)
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(
+            `Falta conclusao ${numCalculo}`
+          );
         }
       }
     });
@@ -90,11 +134,11 @@ export default function IndividualizarNodulos({ numCalculo }) {
 
   useEffect(() => {
     if (multiplosCalculosCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringMultiplosNodulos();
     } else {
-      removeConclusao()
-      setDisableSelect(true)
+      removeConclusao();
+      setDisableSelect(true);
       removeMultiplosCalculos();
       setTamanhoInput1("");
       setTamanhoInput2("");
@@ -106,18 +150,44 @@ export default function IndividualizarNodulos({ numCalculo }) {
       setSelectOrientacao("");
       setSelectCalcificacoes("");
       setSelectDoppler("");
+      setSelectRADS("");
+      setSelectPrecisos("");
+      setSelectLagalla("");
+      setIP("");
+      setIR("");
+      setVEL("");
     }
-  }, [multiplosCalculosCheckBox, TamanhoInput1, TamanhoInput2, SelectLocalizado, SelectDo, SelectConsistencia, SelectEcogenicidade, SelectMargens, SelectOrientacao, SelectCalcificacoes, SelectDoppler]);
+  }, [
+    multiplosCalculosCheckBox,
+    TamanhoInput1,
+    TamanhoInput2,
+    SelectLocalizado,
+    SelectDo,
+    SelectConsistencia,
+    SelectEcogenicidade,
+    SelectMargens,
+    SelectOrientacao,
+    SelectCalcificacoes,
+    SelectDoppler,
+    SelectContornos,
+    SelectRADS,
+    SelectPrecisos,
+    SelectLagalla,
+    IR,
+    IP,
+    VEL,
+  ]);
 
   return (
     <Box display="flex" flexWrap="wrap" mt="20px" mb="10px">
-      <Box w="160px" >
+      <Box w="250px" padding="10px">
         <Checkbox
-          onChange={() => setmultiplosCalculosCheckBox(!multiplosCalculosCheckBox)}
+          onChange={() =>
+            setmultiplosCalculosCheckBox(!multiplosCalculosCheckBox)
+          }
         >
           Nódulo {numCalculo}
         </Checkbox>
-
         <Select
           isDisabled={DisableSelect}
           onChange={(e) => {
@@ -134,6 +204,42 @@ export default function IndividualizarNodulos({ numCalculo }) {
           <option value="terço Inferior">Terço inferior</option>
           <option value="no istmo">Terço inferior</option>
         </Select>
+        <Select
+          isDisabled={DisableSelect}
+          onChange={(e) => {
+            setSelectPrecisos(e.target.value);
+          }}
+          value={SelectPrecisos}
+          mt="5px"
+        >
+          <option value="" disabled selected>
+            Contornos
+          </option>
+          <option value="Regulares">Regulares</option>
+          <option value="Irregulares">Irregulares</option>
+        </Select>
+        <Select
+          isDisabled={DisableSelect}
+          onChange={(e) => {
+            setSelectContornos(e.target.value);
+          }}
+          value={SelectContornos}
+          mt="5px"
+        >
+          <option value="" disabled selected>
+            Limites Parciais
+          </option>
+          <option value="Precisos">Precisos</option>
+          <option value="Imprecisos">Imprecisos</option>
+        </Select>
+        <Input
+          maxLength={2}
+          isDisabled={DisableSelect}
+          onChange={(e) => setTamanhoParciais(e.target.value)}
+          value={TamanhoParciais}
+          w="150px"
+          placeholder="Parciais CM"
+        />
         <Select
           isDisabled={DisableSelect}
           onChange={(e) => {
@@ -167,6 +273,29 @@ export default function IndividualizarNodulos({ numCalculo }) {
           />
           mm
         </Box>
+        <Select
+          isDisabled={DisableSelect}
+          onChange={(e) => {
+            setSelectFluxo(e.target.value);
+          }}
+          value={SelectFluxo}
+          mt="5px"
+        >
+          <option value="" disabled selected>
+            Fluxo
+          </option>
+          <option value="fluxo periférico e central com predomínio periférico">
+            Fluxo periférico e central com predomínio periférico
+          </option>
+          <option value="fluxo periférico e central com predomínio central">
+            Fluxo periférico e central com predomínio central
+          </option>
+          <option value="exclusivamente periférico">
+            Exclusivamente periférico
+          </option>
+          <option value="exclusivamente central">Exclusivamente central</option>
+          <option value="não apresentando fluxo">Não apresentando fluxo</option>
+        </Select>
         <Select
           isDisabled={DisableSelect}
           onChange={(e) => {
@@ -224,7 +353,6 @@ export default function IndividualizarNodulos({ numCalculo }) {
             Microlobuladas sem halo
           </option>
         </Select>
-
         <Select
           isDisabled={DisableSelect}
           onChange={(e) => {
@@ -257,9 +385,7 @@ export default function IndividualizarNodulos({ numCalculo }) {
           <option value="com calcificações grosseiras">
             Com calcificações grosseiras
           </option>
-          <option value="com microcalcificações">
-            Com microcalcificações
-          </option>
+          <option value="com microcalcificações">Com microcalcificações</option>
         </Select>
         <Select
           isDisabled={DisableSelect}
@@ -267,17 +393,100 @@ export default function IndividualizarNodulos({ numCalculo }) {
             setSelectDoppler(e.target.value);
           }}
           value={SelectDoppler}
-          mt="5px"        >
+          mt="5px"
+        >
           <option value="" disabled selected>
-            Doppler
+            Chammas
           </option>
-          <option value="Chammas I">Chammas I</option>
-          <option value="Chammas II">Chammas II</option>
-          <option value="Chammas III">Chammas III</option>
-          <option value="Chammas IV">Chammas IV</option>
-          <option value="Chammas V">Chammas V</option>
+          <option value="Padrão I (ausência de vascularização)">
+            padrão I (ausência de vascularização)
+          </option>
+          <option value="Padrão II (apenas vascularização periférica)">
+            padrão II (apenas vascularização periférica)
+          </option>
+          <option value="Padrão III (vascularização periférica maior ou igual à central)">
+            padrão III (vascularização periférica maior ou igual à central)
+          </option>
+          <option value="Padrão IV (vascularização central maior que a periférica)">
+            padrão IV (vascularização central maior que a periférica)
+          </option>
+          <option value="Padrão V (apenas vascularização central)">
+            padrão V (apenas vascularização central)
+          </option>
         </Select>
+        <Select
+          isDisabled={DisableSelect}
+          onChange={(e) => {
+            setSelectLagalla(e.target.value);
+          }}
+          value={SelectLagalla}
+          mt="5px"
+        >
+          <option value="" disabled selected>
+            Lagalla
+          </option>
+          <option value="Tipo I (ausência de vascularização)">
+            tipo I (ausência de vascularização)
+          </option>
+          <option value="Tipo II (vascularização perinodular)">
+            tipo II (vascularização perinodular)
+          </option>
+          <option value="Tipo III (vascularização peri e intranodular)">
+            tipo III (vascularização peri e intranodular) 
+          </option>
+        </Select>
+        <Select
+          isDisabled={DisableSelect}
+          onChange={(e) => {
+            setSelectRADS(e.target.value);
+          }}
+          value={SelectRADS}
+          mt="5px"
+        >
+          <option value="" disabled selected>
+            ACR TI-RADS
+          </option>
+          <option value="ACR TI-RADS 1">ACR TI-RADS 1</option>
+          <option value="ACR TI-RADS 2">ACR TI-RADS 2</option>
+          <option value="ACR TI-RADS 3">ACR TI-RADS 3</option>
+          <option value="ACR TI-RADS 4">ACR TI-RADS 4</option>
+          <option value="ACR TI-RADS 5">ACR TI-RADS 5</option>
+        </Select>
+        <Input
+          isDisabled={DisableSelect}
+          onChange={(e) => setIR(e.target.value)}
+          value={IR}
+          w="55px"
+          placeholder="IR"
+          marginEnd="5px"
+        />
+        <Input
+          isDisabled={DisableSelect}
+          onChange={(e) => setIP(e.target.value)}
+          value={IP}
+          w="55px"
+          placeholder="IP"
+        />
+        <Input
+          isDisabled={DisableSelect}
+          onChange={(e) => setVEL(e.target.value)}
+          value={VEL}
+          w="120px"
+          placeholder="VEL CM/S"
+        />
       </Box>
     </Box>
   );
 }
+/***
+ * Formação nodular hipoecogênica/isoecogenica/ hiperecogenica
+ *  de contornos regulares/irregulares e bordos finos e limites parcialmente
+ * precisos/ precisos / imprecisos medindo __ cm no seu maior eixo,
+ * relacionada ao terço superior /médio/ inferior do lobo direito/esquerdo,
+ * apresentando fluxo periférico e central com predomínio periférico/ apresentando fluxo periférico e
+ * central com predomínio central / exclusivamente periférico/ exclusivamente central / não apresentando fluxo,
+ * com IR 0,00    , IP 0,00    e Vel  000     cm/s (CHAMMAS __ , LAGALLA __, TIRADS __)
+ *
+ *
+ *
+ */

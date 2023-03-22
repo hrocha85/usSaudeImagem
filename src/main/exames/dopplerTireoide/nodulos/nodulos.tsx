@@ -1,5 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Button, Checkbox, Flex, Input, Select } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Flex,
+  Grid,
+  Input,
+  Select,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -12,15 +20,12 @@ function Nodulos({ Disable }) {
 
   const [FraseNodulos, setFraseNodulos] = useState<any>([]);
 
-
   const subExame = "Nódulos";
   const titulo_exame = "Doppler da Tireóide";
 
-  const [numberArray, setNumberArray] = useState([1, 2, 3, 4, 5]);
-
+  const [numberArray, setNumberArray] = useState([1, 2, 3]);
 
   const [updateNodulos, setUpdateNodulos] = useState(false);
-
 
   function Nodulos() {
     return (
@@ -72,8 +77,7 @@ function Nodulos({ Disable }) {
       mt="20px"
     >
       <TituloNomeExame titulo="Nódulos" />
-      <Box
-        display="flex" flexWrap="wrap">
+      <Box display="flex" flexWrap="wrap">
         {Nodulos()}
       </Box>
       <Button
