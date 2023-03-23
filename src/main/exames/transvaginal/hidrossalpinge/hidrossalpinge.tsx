@@ -112,7 +112,7 @@ function Hidrossalpinge({ Disable }) {
                   Hidrossalpinge
                 </Checkbox>
                 <Select
-                  isDisabled={Disable}
+                  isDisabled={Disable || !HidrossalpingeCheckBox}
                   w="auto"
                   onChange={(e) => {
                     setPosicaoHidrossalpingeSelect(e.target.value);

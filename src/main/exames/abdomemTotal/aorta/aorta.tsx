@@ -1,8 +1,6 @@
 import { Box, Text, Checkbox, Select, Input } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
-import { LaudosContext } from "../../../../context/LuadosContext";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 
 function Aorta() {
@@ -19,7 +17,6 @@ function Aorta() {
     "#InputExtensao"
   ) as HTMLInputElement;
 
-  const { laudoNormal } = useContext(NormalContext);
   const [valueFraseAneurisma, setValueFraseAneurisma] = useState("");
 
   const [valueLocalizacaoAneurmisma, setValueLocalizacaoAneurmisma] =
@@ -116,39 +113,6 @@ function Aorta() {
     setFrasesAorta((arr) => [...arr, value]);
     //console.log("criaString = ", laudoPrin)
   };
-  useEffect(() => {
-    if (laudoNormal === true) {
-      setDefaultValueNormal({ defaultValueNormal: true });
-      criarString("Aorta Normal ");
-      setCheckValueNaoVisibilizada({
-        NaoVisibilizada: true,
-      });
-      setCheckValueAteromatosa({
-        ateromatosa: true,
-      });
-      setCheckvalueAneurisma({
-        aneurisma: true,
-        selectLocalizacao: true,
-        inputCalibreMaximo: true,
-        inputExtensao: true,
-      });
-    } else {
-      setDefaultValueNormal({ defaultValueNormal: false });
-      //   removeNormal()
-      setCheckValueNaoVisibilizada({
-        NaoVisibilizada: false,
-      });
-      setCheckValueAteromatosa({
-        ateromatosa: false,
-      });
-      setCheckvalueAneurisma({
-        aneurisma: false,
-        selectLocalizacao: true,
-        inputCalibreMaximo: true,
-        inputExtensao: true,
-      });
-    }
-  }, [laudoNormal]);
 
   const verificaChecked = (value) => {
     switch (value.id) {

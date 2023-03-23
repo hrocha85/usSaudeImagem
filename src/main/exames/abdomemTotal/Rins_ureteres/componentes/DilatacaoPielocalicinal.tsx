@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Flex, HStack, Select, Stack, Text } from "@chakra-ui/react";
-import { useEffect, useState, useContext } from "react";
-import { NormalContext } from "../../../../../context/NormalContext";
+import { Box, Checkbox, HStack, Select, Stack, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function DilatacaoPielocalicinal({ Disable }) {

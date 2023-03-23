@@ -6,8 +6,6 @@ import TendaoInfraespinhalOmbroDireito from "./ombro/omboDireito/TendaoInfraespi
 import OmbroLadoEsquerdo from "./ombro/ombroEsquerdo/ladoEsquerdo";
 import TendaoInfraespinhalOmbroEsquerdo from "./ombro/ombroEsquerdo/TendaoInfraespinhal";
 
-import CotoveloNormalDireito from "./cotovelo/cotoveloDireito/normal";
-import CotoveloNormalEsquerdo from "./cotovelo/cotoveloEsquerdo/normal";
 import JoelhoDerrameArticularDireito from "./joelho/joelhoDireito/JoelhoDerrameArticularDireito";
 import JoelhoLadoDireito from "./joelho/joelhoDireito/ladoDireito";
 import LigColTibialMedialDireito from "./joelho/joelhoDireito/LigamentoColateralTibialMedialDireito";
@@ -227,8 +225,6 @@ function Articulacoes() {
         <Flex flex={1} flexDirection="column">
           <CotoveloLadoEsquerdo />
 
-          <CotoveloNormalEsquerdo />
-
           <TenComumExtensoresAntebracoEsquerdo Disable={Disable} />
 
           <TenComumFlexoresAntebracoEsquerdo Disable={Disable} />
@@ -249,8 +245,6 @@ function Articulacoes() {
         {/*COTOVELO DIREITO */}
         <Flex flex={1} flexDirection="column">
           <CotoveloLadoDireito />
-
-          <CotoveloNormalDireito />
 
           <TenComumExtensoresAntebracoDireito Disable={Disable} />
 

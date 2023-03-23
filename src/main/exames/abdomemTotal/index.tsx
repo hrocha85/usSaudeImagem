@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import { Box, Checkbox } from "@chakra-ui/react";
 
-import Normal from "./abdomenNormal/normal";
 import AlcasIntestinais from "./alcas_intestinais/Alcas_Intestinais";
 import Aorta from "./aorta/aorta";
 import Baco from "./baco/baco";

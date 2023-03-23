@@ -1,6 +1,5 @@
 import { Box, Checkbox, Input, Select } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -39,7 +38,6 @@ function Baco() {
   ) as HTMLInputElement;
   let InputCisto = document.querySelector("#InputCisto") as HTMLInputElement;
 
-  const { laudoNormal } = useContext(NormalContext);
   const [frasesBaco, setFrasesBaco] = useState<any>([]);
 
   const [inputBacoAcessorio, setinputBacoAcessorio] = useState("");
@@ -180,7 +178,7 @@ function Baco() {
 
   const TrocaCorBorda = (value) => {
     value.id === "aumentadoComEcotextura" &&
-    aumentadoComEcotextura.checked === true
+      aumentadoComEcotextura.checked === true
       ? setCorBordaAumentadoEcotextura("#0000FF")
       : setCorBordaAumentadoEcotextura("#E0E0E0");
 
@@ -201,55 +199,6 @@ function Baco() {
       : setCorBordaCisto("#E0E0E0");
   };
 
-  useEffect(() => {
-    if (laudoNormal === true) {
-      setDefaultValueNormal({ defaultValueNormal: true });
-      criarString("paciente está normal ");
-      setCheckvalueAumentadoEcotextura({
-        aumentadoComEcotextura: true,
-        SelectAumentadoComEcotextura: true,
-      });
-      setCheckvalueNaoVisibilizado({
-        naoVisibilizado: true,
-        SelectNaoVisibilizado: true,
-      });
-      setCheckvalueBacoAcessorio({
-        bacoAcessorio: true,
-        InputBacoAcessorio: true,
-      });
-      setCheckvalueCalcificacoes({
-        calcificacoes: true,
-        InputCalcificacoes: true,
-      });
-      setCheckvalueCisto({
-        cisto: true,
-        InputCisto: true,
-      });
-    } else {
-      setDefaultValueNormal({ defaultValueNormal: false });
-      //   removeNormal()
-      setCheckvalueAumentadoEcotextura({
-        aumentadoComEcotextura: false,
-        SelectAumentadoComEcotextura: true,
-      });
-      setCheckvalueNaoVisibilizado({
-        naoVisibilizado: false,
-        SelectNaoVisibilizado: true,
-      });
-      setCheckvalueBacoAcessorio({
-        bacoAcessorio: false,
-        InputBacoAcessorio: true,
-      });
-      setCheckvalueCalcificacoes({
-        calcificacoes: false,
-        InputCalcificacoes: true,
-      });
-      setCheckvalueCisto({
-        cisto: false,
-        InputCisto: true,
-      });
-    }
-  }, [laudoNormal]);
 
   const verificaChecked = (value) => {
     switch (value.id) {

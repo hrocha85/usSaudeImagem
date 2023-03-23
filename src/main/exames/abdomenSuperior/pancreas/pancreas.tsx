@@ -1,6 +1,5 @@
 import { Box, Checkbox, Input } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -10,7 +9,6 @@ function Pancreas() {
 
   let InputCisto = document.querySelector("#InputCisto") as HTMLInputElement;
 
-  const { laudoNormal } = useContext(NormalContext);
   const [frasesPancreas, setFrasesPancreas] = useState<any>([]);
 
   const [ValueInputCisto, setValueInputCisto] = useState("");
@@ -67,42 +65,6 @@ function Pancreas() {
       setFrasesPancreas((arr) => [...arr]);
     }
   };
-
-  useEffect(() => {
-    if (laudoNormal === true) {
-      setDefaultValueNormal({ defaultValueNormal: true });
-      criarString("Pâncreas está está normal ");
-      setCheckValueCisto({
-        cisto: true,
-        input: true,
-      });
-      setCheckValueNaoVisibilizado({
-        NaoVisibilizado: true,
-      });
-      setCheckValuePancreatiteAguda({
-        PancreatiteAguda: true,
-      });
-      setCheckValuePancreatiteCronica({
-        PancreatiteCronica: true,
-      });
-    } else {
-      setDefaultValueNormal({ defaultValueNormal: false });
-      //   removeNormal()
-      setCheckValueCisto({
-        cisto: false,
-        input: true,
-      });
-      setCheckValueNaoVisibilizado({
-        NaoVisibilizado: false,
-      });
-      setCheckValuePancreatiteAguda({
-        PancreatiteAguda: false,
-      });
-      setCheckValuePancreatiteCronica({
-        PancreatiteCronica: false,
-      });
-    }
-  }, [laudoNormal]);
 
   const setValueFrasePancreas = (value) => {
     switch (value.id) {
