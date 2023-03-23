@@ -1,6 +1,5 @@
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -12,7 +11,6 @@ function ViasBiliares() {
     "#ViasBiliaresDilatadas"
   ) as HTMLInputElement;
 
-  const { laudoNormal } = useContext(NormalContext);
   const [frasesVias, setFrasesVias] = useState<any>([]);
 
   const [defaultValueNormal, setDefaultValueNormal] = useState({
@@ -75,23 +73,6 @@ function ViasBiliares() {
         break;
     }
   };
-
-  useEffect(() => {
-    if (laudoNormal === true) {
-      criarString("Colédoco Normal ");
-      setDefaultValueNormal({ defaultValueNormal: true });
-      setCheckvalueColedocoEcstasiado({
-        ColedocoEcstasiado: true,
-      });
-    } else {
-      setDefaultValueNormal({ defaultValueNormal: false });
-      //removeNormal()
-      //removeItemString('Colédoco Normal ');
-      setCheckvalueColedocoEcstasiado({
-        ColedocoEcstasiado: false,
-      });
-    }
-  }, [laudoNormal]);
 
   const setValueFraseViasBiliares = (value) => {
     viasBiliaresDilatadas.checked === true

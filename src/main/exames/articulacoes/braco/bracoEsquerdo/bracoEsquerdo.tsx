@@ -1,8 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { BracoEsquerdoNormalContext } from "../../../../../context/BracoEsquerdoNormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
@@ -12,7 +11,6 @@ function BracoEsquerdo() {
 
   const [frasesBracoEsquerdo, setFrasesBracoEsquerdo] = useState<any>([]);
 
-  let { BracoEsquerdoLaudoNormal } = useContext(BracoEsquerdoNormalContext);
   const [disableTudo, setDisableTudo] = useState(false);
 
   const [RoturaTendaoCheckBox, setRoturaTendaoCheckBox] = useState(true);
@@ -37,9 +35,6 @@ function BracoEsquerdo() {
     }
   };
 
-  useEffect(() => {
-    BracoEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false);
-  }, [BracoEsquerdoLaudoNormal]);
 
   const subExame = "Braço Esquerdo";
   const titulo_exame = "Articulações";

@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -11,7 +10,6 @@ function EcotexturaParenquima() {
 
   const [FrasesECO, setFrasesECO] = useState<any>([]);
 
-  const { laudoNormal } = useContext(NormalContext);
 
   const [NormalCheckbox, setNormalCheckbox] = useState(false)
   const [InespecificaCheckbox, setInespecificaCheckbox] = useState(false)

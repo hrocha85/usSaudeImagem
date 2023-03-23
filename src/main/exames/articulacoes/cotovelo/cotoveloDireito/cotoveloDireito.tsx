@@ -1,16 +1,14 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Select, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { Box, Checkbox } from "@chakra-ui/react";
+import { useContext, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
-import { CotoveloDireitoNormalContext } from "../../../../../context/CotoveloDireitoNormalContext";
 
 function CotoveloDireito() {
   const altura = "100%";
   const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  let { CotoveloDireitoLaudoNormal } = useContext(CotoveloDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
   const [EpicondiliteLateraCheckBox, setEpicondiliteLateraCheckBox] = useState(true);
@@ -76,11 +74,6 @@ function CotoveloDireito() {
       setLaudoPrin((arr) => [...arr]);
     }
   };
-
-  useEffect(() => {
-    CotoveloDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [CotoveloDireitoLaudoNormal])
 
 
   return (

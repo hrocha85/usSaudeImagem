@@ -1,6 +1,5 @@
 import { Box, Checkbox } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { NormalContext } from "../../../../context/NormalContext";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -9,8 +8,6 @@ function EcotexturaParenquima() {
   const largura = "66%";
 
   const [frasesECO, setFrasesECO] = useState<any>([]);
-
-  const { laudoNormal } = useContext(NormalContext);
 
   const [defaultValueNormal, setDefaultValueNormal] = useState({
     defaultValueNormal: false,
@@ -37,16 +34,7 @@ function EcotexturaParenquima() {
     setFrasesECO((arr) => []);
   };
 
-  useEffect(() => {
-    if (laudoNormal === true) {
-      setDefaultValueNormal({ defaultValueNormal: true });
-      setFrasesECO((arr) => [...arr, "Tireoide Normal "]);
-      console.log(frasesECO);
-    } else {
-      setDefaultValueNormal({ defaultValueNormal: false });
-      removeNormal();
-    }
-  }, [laudoNormal]);
+
 
   const verificaChecked = (value) => {
     switch (value.id) {

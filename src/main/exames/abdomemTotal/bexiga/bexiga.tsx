@@ -83,6 +83,7 @@ function Bexiga({ Disable }) {
       setEnableSelects(false);
 
     } else {
+      removeStringConclusao()
       setDisableInputCalculo(true)
       setValueInput1('')
       setValueInput2('')
@@ -99,6 +100,7 @@ function Bexiga({ Disable }) {
         setFraseBexiga([]);
         setFraseBexiga((arr) => [...arr, value]);
       } else {
+        removeStringConclusao()
         setFraseBexiga([]);
       }
     }

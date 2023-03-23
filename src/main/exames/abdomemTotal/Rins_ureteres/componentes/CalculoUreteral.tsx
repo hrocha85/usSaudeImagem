@@ -1,8 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Flex, Input, Select, Text } from "@chakra-ui/react";
-import { useEffect, useState, useContext } from "react";
-import { NormalContext } from "../../../../../context/NormalContext";
+import { Box, Checkbox, Input, Select, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
