@@ -9,9 +9,7 @@ import {
   Image,
   Input,
   InputGroup,
-  InputLeftAddon,
-  Link,
-  List,
+  InputLeftAddon, List,
   ListIcon,
   ListItem,
   Modal,
@@ -32,10 +30,8 @@ import {
   TagCloseButton,
   TagLabel,
   Text,
-  Tooltip,
-  useToast,
-  useDisclosure,
-  useOutsideClick,
+  Tooltip, useDisclosure,
+  useOutsideClick, useToast
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineClear, AiOutlinePlusCircle } from "react-icons/ai";
@@ -86,7 +82,11 @@ const Configuracoes = () => {
 
   let padRef = React.useRef<SignatureCanvas>(null);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenModalAddMedico,
+    onOpen: onOpenModalAddMedico,
+    onClose: onCloseModalAddMedico,
+  } = useDisclosure();
 
   const [nome, setNome] = useState("");
 
@@ -218,66 +218,66 @@ const Configuracoes = () => {
       <>
         {getUserMedico() != null
           ? getMedicos().map((medi) => {
-            if (medi.nome == getUserMedico().nome) {
-              return medi.laudos.map((laudos, key) => {
-                if (
-                  laudos.laudo != null &&
-                  laudos.laudo != "" &&
-                  laudos != undefined
-                ) {
-                  return (
-                    <Center>
-                      <List spacing={3} size="20px" key={key}>
-                        <ListItem
-                          padding="10px"
-                          onClick={() => {
-                            showSavedLaudo(laudos.laudo);
-                          }}
-                          cursor="pointer"
-                          _hover={{
-                            bg: "blue.100",
-                            fontWeight: "semibold",
-                            borderRadius: "10px",
-                          }}
-                        >
-                          <ListIcon
-                            as={VscFilePdf}
-                            color="blue.600"
-                            h="25px"
-                            w="25px"
-                            fontSize="xxx-large"
+              if (medi.nome == getUserMedico().nome) {
+                return medi.laudos.map((laudos, key) => {
+                  if (
+                    laudos.laudo != null &&
+                    laudos.laudo != "" &&
+                    laudos != undefined
+                  ) {
+                    return (
+                      <Center>
+                        <List spacing={3} size="20px" key={key}>
+                          <ListItem
+                            padding="10px"
+                            onClick={() => {
+                              showSavedLaudo(laudos.laudo);
+                            }}
+                            cursor="pointer"
+                            _hover={{
+                              bg: "blue.100",
+                              fontWeight: "semibold",
+                              borderRadius: "10px",
+                            }}
+                          >
+                            <ListIcon
+                              as={VscFilePdf}
+                              color="blue.600"
+                              h="25px"
+                              w="25px"
+                              fontSize="xxx-large"
+                            />
+                            {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
+                          </ListItem>
+                          <Divider
+                            orientation="horizontal"
+                            marginBottom="10px"
                           />
-                          {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
-                        </ListItem>
-                        <Divider
-                          orientation="horizontal"
-                          marginBottom="10px"
-                        />
-                      </List>
-                    </Center>
-                  );
-                } else {
-                  return (
-                    <Center>
-                      <List size="20px">
-                        <ListItem
-                          fontSize="17px"
-                          textAlign="center"
-                          fontWeight="semibold"
-                        >
-                          Nenhum laudo encontrado
-                        </ListItem>
-                        <Divider
-                          orientation="horizontal"
-                          marginBottom="10px"
-                        />
-                      </List>
-                    </Center>
-                  );
-                }
-              });
-            }
-          })
+                        </List>
+                      </Center>
+                    );
+                  } else {
+                    return (
+                      <Center>
+                        <List size="20px">
+                          <ListItem
+                            fontSize="17px"
+                            textAlign="center"
+                            fontWeight="semibold"
+                          >
+                            Nenhum laudo encontrado
+                          </ListItem>
+                          <Divider
+                            orientation="horizontal"
+                            marginBottom="10px"
+                          />
+                        </List>
+                      </Center>
+                    );
+                  }
+                });
+              }
+            })
           : listaLaudosVazia()}
       </>
     );
@@ -494,7 +494,7 @@ const Configuracoes = () => {
             fontSize="19px"
             fontWeight="semibold"
             onClick={() => {
-              onOpen();
+              onOpenModalAddMedico();
               setStateClickAddMedico(true);
             }}
           >
@@ -509,7 +509,11 @@ const Configuracoes = () => {
         </Tooltip>
       </Stack>
 
-      <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
+      <Modal
+        isOpen={isOpenModalAddMedico}
+        onClose={onCloseModalAddMedico}
+        colorScheme="blackAlpha"
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader></ModalHeader>
@@ -591,18 +595,19 @@ const Configuracoes = () => {
                   Clínicas:
                 </Text>
                 <Select
-                  placeholder={
-                    listaClinicas.length > 0
-                      ? "Clínicas Cadastradas"
-                      : "Nenhuma Clínica Cadastrada"
-                  }
                   variant="filled"
                   textAlign="center"
                   onChange={(e) => {
+                    console.log("eVALUE", e.target.value);
                     setClinica((prevClin) => [...prevClin, e.target.value]);
                     TAGS();
                   }}
                 >
+                  <option value="" disabled selected>
+                    {listaClinicas.length > 0
+                      ? "Clínicas Cadastradas"
+                      : "Nenhuma Clínica Cadastrada"}
+                  </option>
                   {listaClinicas.map((e, key) => {
                     return (
                       <option key={key} value={JSON.stringify(e)}>
@@ -684,10 +689,10 @@ const Configuracoes = () => {
             backgroundColor="#0e63fe"
             margin="10px"
             onClick={() => {
-              if (nome !== "" && crm !== "") {
+              if (nome !== "" && crm !== "" && clinicas.length >= 1) {
                 AddMedico();
                 ResetDados();
-                onClose();
+                onCloseModalAddMedico();
                 authParaLogar();
                 toast({
                   duration: 3000,
@@ -698,7 +703,7 @@ const Configuracoes = () => {
               } else {
                 toast({
                   duration: 3000,
-                  title: `Preencha Nome e CRM para cadastrar.`,
+                  title: `Preencha Nome, CRM e escolha uma clínica para cadastrar.`,
                   status: "error",
                   position: "bottom",
                   isClosable: true,

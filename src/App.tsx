@@ -21,7 +21,7 @@ import Rotas from "./Routes/Rotas";
 import { DerramePleuralEsquerdaProvider } from "./context/DerramePleuralEsquerdaContext";
 
 function App() {
-  localStorage.clear()
+  //localStorage.clear()
 
   return (
     <TabExamesProvider>
