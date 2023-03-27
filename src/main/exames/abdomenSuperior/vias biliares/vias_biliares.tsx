@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -7,99 +8,120 @@ function ViasBiliares() {
   const altura = "100%";
   const largura = "66%";
 
-  let viasBiliaresDilatadas = document.querySelector(
-    "#ViasBiliaresDilatadas"
-  ) as HTMLInputElement;
+  const [FrasesVias, setFrasesVias] = useState<any>([]);
+  const [ConclusaoVias, setConclusaoVias] = useState<any>([]);
 
-  const [frasesVias, setFrasesVias] = useState<any>([]);
+  const [NormalCheckbox, setNormalCheckbox] = useState(false)
+  const [EctasiadoCheckbox, setEctasiadoCheckbox] = useState(false)
+  const [ViasBiliaresCheckbox, setViasBiliaresCheckbox] = useState(false)
 
-  const [defaultValueNormal, setDefaultValueNormal] = useState({
-    defaultValueNormal: false,
-  });
-  const [checkValueNormal, setCheckvalueNormal] = useState({
-    normal: false,
-  });
-  const [checkValueColedocoEcstasiado, setCheckvalueColedocoEcstasiado] =
-    useState({
-      ColedocoEcstasiado: false,
+  const [DisableViasBiliaresCheckbox, setDisableViasBiliaresCheckbox] = useState(true)
+
+  useEffect(() => {
+    let stringNormal = 'extra-hepáticas sem dilatações.'
+    const conclusao = 'Dilatação de vias biliares intra-hepáticas.'
+    const stringViasBiliares = 'Presença de sinais de dilatação de vias biliares intra-hepáticas.'
+    console.log('aqui')
+    removeItemSelect('extra-hepáticas sem dilatações.')
+    removeItemConclusao(conclusao)
+    if (NormalCheckbox) {
+      if (ViasBiliaresCheckbox) {
+        stringNormal = `Intra e ${stringNormal}`
+        setFrasesVias((arr) => [...arr, stringViasBiliares])
+        setConclusaoVias((arr) => [...arr, conclusao])
+      } else {
+        removeItemSelect('extra-hepáticas sem dilatações.')
+        removeItemSelect(stringViasBiliares)
+        removeItemConclusao(conclusao)
+      }
+      removeItemSelect('extra-hepáticas sem dilatações.')
+      setFrasesVias((arr) => [...arr, stringNormal])
+    } else {
+      removeItemSelect('extra-hepáticas sem dilatações.')
+    }
+  }, [NormalCheckbox, ViasBiliaresCheckbox])
+
+  useEffect(() => {
+    let stringEctasiado = 'Colédoco ectasiado.'
+    const conclusaoEctasiado = 'Colédoco ectasiado.'
+    const conclusao = 'Dilatação de vias biliares intra-hepáticas.'
+    const stringViasBiliares = 'Presença de sinais de dilatação de vias biliares intra-hepáticas.'
+
+    removeItemSelect('Colédoco ectasiado.')
+    removeItemConclusao(conclusao)
+    if (EctasiadoCheckbox) {
+      if (ViasBiliaresCheckbox) {
+        setConclusaoVias((arr) => [...arr, conclusao])
+        setFrasesVias((arr) => [...arr, stringViasBiliares])
+      } else {
+        removeItemSelect('Colédoco ectasiado.')
+        removeItemSelect(stringViasBiliares)
+        removeItemConclusao(conclusao)
+      }
+      setConclusaoVias((arr) => [...arr, conclusaoEctasiado])
+      setFrasesVias((arr) => [...arr, stringEctasiado])
+    } else {
+      removeItemConclusao(conclusao)
+      removeItemConclusao(conclusaoEctasiado)
+      removeItemSelect('Colédoco ectasiado.')
+    }
+  }, [EctasiadoCheckbox, ViasBiliaresCheckbox])
+
+  useEffect(() => {
+    NormalCheckbox || EctasiadoCheckbox ? setDisableViasBiliaresCheckbox(false) : setDisableViasBiliaresCheckbox(true)
+  }, [EctasiadoCheckbox, NormalCheckbox])
+
+  const removeItemSelect = (value) => {
+    FrasesVias.map((e) => {
+      if (e.includes(value)) {
+        var index = FrasesVias.indexOf(e);
+        if (index > -1) {
+          FrasesVias.splice(index, 1);
+          setFrasesVias((arr) => [...arr]);
+        }
+      }
     });
-
-  const criarString = (value, valueId?, valueInput?) => {
-    //console.log("Valor cria string = ", value);
-    //arr => [...arr] captura os dados que já estavam e os mantem no array
-    setFrasesVias((arr) => [...arr, value]);
-    //console.log("criaString = ", laudoPrin)
+  }
+  const removeItemConclusao = (value) => {
+    var index = ConclusaoVias.indexOf(value);
+    if (index > -1) {
+      ConclusaoVias.splice(index, 1);
+      setConclusaoVias((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+    }
   };
-
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesVias.indexOf(value);
+    var index = FrasesVias.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
-      frasesVias.splice(index, 1);
+      FrasesVias.splice(index, 1);
       setFrasesVias((arr) => [...arr]);
     }
-  };
-
-  const verificaChecked = (value) => {
-    switch (value.id) {
-      case "ColedocoNormal":
-        if (value.checked === true) {
-          setDefaultValueNormal({ defaultValueNormal: true });
-          setFrasesVias((arr) => [...arr, value.value]);
-          setCheckvalueColedocoEcstasiado({
-            ColedocoEcstasiado: true,
-          });
-        } else {
-          setDefaultValueNormal({ defaultValueNormal: false });
-          removeItemString(value.value);
-          setCheckvalueColedocoEcstasiado({
-            ColedocoEcstasiado: false,
-          });
-        }
-        break;
-      case "ColedocoEcasiado":
-        if (value.checked === true) {
-          setFrasesVias((arr) => [...arr, value.value]);
-          setCheckvalueNormal({
-            normal: true,
-          });
-        } else {
-          removeItemString(value.value);
-          setCheckvalueNormal({
-            normal: false,
-          });
-        }
-        break;
-    }
-  };
-
-  const setValueFraseViasBiliares = (value) => {
-    viasBiliaresDilatadas.checked === true
-      ? setFrasesVias((arr) => [...arr, value.value])
-      : removeItemString(value.value);
   };
 
   const subExame = "Vias Biliares";
   const titulo_exame = "Abdomen Superior";
 
   useEffect(() => {
-    if (Object.keys(frasesVias).length == 0) {
+    if (Object.keys(FrasesVias).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesVias
+        FrasesVias,
+        ConclusaoVias
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesVias
+        FrasesVias,
+        ConclusaoVias
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesVias]);
+  }, [FrasesVias]);
 
   return (
     <Box
@@ -117,32 +139,20 @@ function ViasBiliares() {
 
       <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
         <Checkbox
-          isChecked={defaultValueNormal.defaultValueNormal}
-          disabled={checkValueNormal.normal}
-          value="Colédoco Normal "
-          id="ColedocoNormal"
-          onChange={(e) => {
-            verificaChecked(e.target);
-          }}
+          isDisabled={EctasiadoCheckbox}
+          onChange={(e) => setNormalCheckbox(!NormalCheckbox)}
         >
           Colédoco Normal
         </Checkbox>
         <Checkbox
-          disabled={checkValueColedocoEcstasiado.ColedocoEcstasiado}
-          value="Colédoco Ectasiado "
-          id="ColedocoEcasiado"
-          onChange={(e) => {
-            verificaChecked(e.target);
-          }}
+          isDisabled={NormalCheckbox}
+          onChange={(e) => setEctasiadoCheckbox(!EctasiadoCheckbox)}
         >
           Colédoco Ectasiado
         </Checkbox>
         <Checkbox
-          value="Vias Biliares Intra-Hepáticas Dilatadas"
-          id="ViasBiliaresDilatadas"
-          onChange={(e) => {
-            setValueFraseViasBiliares(e.target);
-          }}
+          isDisabled={DisableViasBiliaresCheckbox}
+          onChange={(e) => setViasBiliaresCheckbox(!ViasBiliaresCheckbox)}
         >
           Vias Biliares Intra-Hepáticas Dilatadas
         </Checkbox>

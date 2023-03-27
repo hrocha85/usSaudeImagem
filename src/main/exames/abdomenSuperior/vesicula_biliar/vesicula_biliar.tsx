@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Input, Select } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -7,437 +8,220 @@ function VesiculaBiliar() {
   const altura = "100%";
   const largura = "66%";
 
-  let calculoUnico = document.querySelector(
-    "#CalculoUnico"
-  ) as HTMLInputElement;
-  let multiplosCalculos = document.querySelector(
-    "#MultiplosCalculos"
-  ) as HTMLInputElement;
-  let polipoUnico = document.querySelector("#PolipoUnico") as HTMLInputElement;
-  let multiplosPolipos = document.querySelector(
-    "#MultiplosPolipos"
-  ) as HTMLInputElement;
-  let colesterolose = document.querySelector(
-    "#colesterolose"
-  ) as HTMLInputElement;
-  let naoVisibilizado = document.querySelector(
-    "#NaoVisibilizado"
-  ) as HTMLInputElement;
-  let emPorcelana = document.querySelector("#EmPorcelana") as HTMLInputElement;
-  let billeEspessa = document.querySelector(
-    "#BilleEspessa"
-  ) as HTMLInputElement;
-  let vazia = document.querySelector("#Vazia") as HTMLInputElement;
+  const [FrasesVesicula, setFrasesVesicula] = useState<any>([]);
+  const [ConclusaoVesicula, setConclusaoVesicula] = useState<any>([]);
 
-  let InputMultiplosCalculos = document.querySelector(
-    "#InputMultiplosCalculos"
-  ) as HTMLInputElement;
-  let InputCalculoUnico = document.querySelector(
-    "#InputCalculoUnico"
-  ) as HTMLInputElement;
+  const [NormalCheckbox, setNormalCheckbox] = useState(false)
+  const [CalculoUnicoCheckbox, setCalculoUnicoCheckbox] = useState(false)
+  const [CalculoUnicoInput, setCalculoUnicoInput] = useState('')
+  const [MultiplosCalculosCheckbox, setMultiplosCalculosCheckbox] = useState(false)
+  const [MultiplosCalculosInput, setMultiplosCalculosInput] = useState('')
+  const [ColesteroloseCheckbox, setColesteroloseCheckbox] = useState(false)
+  const [VaziaCheckbox, setVaziaCheckbox] = useState(false)
+  const [MultiplosPoliposCheckbox, setMultiplosPoliposCheckbox] = useState(false)
+  const [MultiplosPoliposInput, setMultiplosPoliposInput] = useState('')
+  const [PolipoUnicoCheckbox, setPolipoUnicoCheckbox] = useState(false)
+  const [PolipoUnicoInput, setPolipoUnicoInput] = useState('')
+  const [NaoVisibilizadoCheckbox, setNaoVisibilizadoCheckbox] = useState(false)
+  const [NaoVisibilizadoSelect, setNaoVisibilizadoSelect] = useState('')
+  const [PorcelanaCheckbox, setPorcelanaCheckbox] = useState(false)
+  const [BileEpessaCheckbox, setBileEpessaCheckbox] = useState(false)
 
-  let InputPopiloUnico = document.querySelector(
-    "#InputPopiloUnico"
-  ) as HTMLInputElement;
-  let InputMultiplosPolipos = document.querySelector(
-    "#InputMultiplosPolipos"
-  ) as HTMLInputElement;
+  const criaStringNaoVisibilizado = () => {
+    var string = 'não caracterizada'
+    var conclusao = 'Interposição gasosa das alças intestinais.'
+    removeItemSelect(string)
+    removeStringConclusao(conclusao)
+    removeStringConclusao('Colecistectomia.')
+    if (NaoVisibilizadoCheckbox) {
+      if (NaoVisibilizadoSelect != '') {
+        string = `${NaoVisibilizadoSelect}.`
+        setFrasesVesicula((arr) => [...arr, string])
+        if (NaoVisibilizadoSelect === 'não caracterizada (status pós-cirúrgico).') {
+          setConclusaoVesicula((arr) => [...arr, conclusao])
+        } else {
+          conclusao = 'Colecistectomia.'
+          setConclusaoVesicula((arr) => [...arr, conclusao])
+        }
+      }
+    } else {
+      setNaoVisibilizadoSelect('')
+    }
+  }
 
-  let SelectNaoVisibilizado = document.querySelector(
-    "#SelectNaoVisibilizado"
-  ) as HTMLInputElement;
+  useEffect(() => {
+    criaStringNaoVisibilizado()
+  }, [NaoVisibilizadoCheckbox, NaoVisibilizadoSelect])
 
-  const [defaultValueNormal, setDefaultValueNormal] = useState({
-    defaultValueNormal: false,
-  });
+  const criaStringCalculoUnico = () => {
+    var string = 'com paredes e mucosa regulares, apresentando imagem irregular, hiperecóica, com sombra acústica posterior, medindo'
+    const conclusao = 'Colelitíase biliar.'
+    removeItemSelect(string)
+    removeStringConclusao(conclusao)
+    if (CalculoUnicoCheckbox) {
+      if (CalculoUnicoInput != '') {
+        string = `${string} ${CalculoUnicoInput} mm.`
+        setFrasesVesicula((arr) => [...arr, string])
+        setConclusaoVesicula((arr) => [...arr, conclusao])
+      }
+    } else {
+      setCalculoUnicoInput('')
+    }
+  }
 
-  const [inputCalculoUnico, setInputCalculoUnico] = useState("");
+  useEffect(() => {
+    criaStringCalculoUnico()
+  }, [CalculoUnicoCheckbox, CalculoUnicoInput])
 
-  const [inputPoliposUnico, setInputPoliposUnico] = useState("");
+  const criaStringMultiplosCalculos = () => {
+    var string = 'com paredes e mucosa regulares, apresentando imagens irregulares, hiperecóicas, com sombra acústica posterior, a maior medindo'
+    const conclusao = 'Colelitíase biliar.'
+    removeItemSelect(string)
+    removeStringConclusao(conclusao)
+    if (MultiplosCalculosCheckbox) {
+      if (MultiplosCalculosInput != '') {
+        string = `${string} ${MultiplosCalculosInput} mm.`
+        setFrasesVesicula((arr) => [...arr, string])
+        setConclusaoVesicula((arr) => [...arr, conclusao])
+      }
+    } else {
+      setMultiplosCalculosInput('')
+    }
+  }
 
-  const [frasesVesicula, setFrasesVesicula] = useState<any>([]);
+  useEffect(() => {
+    criaStringMultiplosCalculos()
+  }, [MultiplosCalculosCheckbox, MultiplosCalculosInput])
 
-  const [checkValueNormal, setCheckvalueNormal] = useState({
-    normal: false,
-  });
-  const [checkValueCalculoUnico, setCheckvalueCalculoUnico] = useState({
-    CalculoUnico: false,
-    InputCalculoUnico: true,
-  });
-  const [checkValueMultiplosCalculos, setCheckvalueMultiplosCalculos] =
-    useState({
-      MultiplosCalculos: false,
-      InputMultiplosCalculos: true,
+  const criaStringMultiplosPolipos = () => {
+    var string = 'normodistendida, com paredes finas, apresentando imagens nodulares, sólidas, hiperecogênicas, de aspecto polipóide, com contornos regulares, imóveis à mudança de decúbito, a maior medindo'
+    const conclusao = 'Imagens nodulares intra-vesiculares compatíveis com pólipos.'
+    removeItemSelect(string)
+    removeStringConclusao(conclusao)
+    if (MultiplosPoliposCheckbox) {
+      if (MultiplosPoliposInput != '') {
+        string = `${string} ${MultiplosPoliposInput}.`
+        setFrasesVesicula((arr) => [...arr, string])
+        setConclusaoVesicula((arr) => [...arr, conclusao])
+      }
+    } else {
+      setMultiplosPoliposInput('')
+    }
+  }
+
+  useEffect(() => {
+    criaStringMultiplosPolipos()
+  }, [MultiplosPoliposCheckbox, MultiplosPoliposInput])
+
+  const criaStringPolipoUnico = () => {
+    var string = 'normodistendida, com paredes finas, apresentando imagem nodular, sólida, hiperecogênica, de aspecto polipóide, com contornos regulares, imóvel à mudança de decúbito, medindo'
+    const conclusao = 'Imagem nodular intra-vesicular compatível com pólipo.'
+    removeItemSelect(string)
+    removeStringConclusao(conclusao)
+    if (PolipoUnicoCheckbox) {
+      if (PolipoUnicoInput != '') {
+        string = `${string} ${PolipoUnicoInput} mm.`
+        setFrasesVesicula((arr) => [...arr, string])
+        setConclusaoVesicula((arr) => [...arr, conclusao])
+      }
+    } else {
+      setPolipoUnicoInput('')
+    }
+  }
+
+  useEffect(() => {
+    criaStringPolipoUnico()
+  }, [PolipoUnicoCheckbox, PolipoUnicoInput])
+
+  useEffect(() => {
+    const string = 'com paredes e mucosa regulares, lúmen anecóico.'
+    NormalCheckbox ? setFrasesVesicula((arr) => [...arr, string]) : removeItemString(string)
+  }, [NormalCheckbox])
+  useEffect(() => {
+    const string = 'normodistendida, com paredes finas apresentando pequenos focos hiperecogênicos de artefatos em cauda de cometa, medindo até 0,2 cm, podendo corresponder a colesterolose.'
+    const conclusao = 'Colesterolose vesicular.'
+    ColesteroloseCheckbox ? setFrasesVesicula((arr) => [...arr, string]) : removeItemString(string)
+    ColesteroloseCheckbox ? setConclusaoVesicula((arr) => [...arr, conclusao]) : removeStringConclusao(conclusao)
+  }, [ColesteroloseCheckbox])
+  useEffect(() => {
+    const string = 'apresenta-se hipodistendida.'
+    const conclusao = 'Vesícula biliar hipodistendida.'
+    VaziaCheckbox ? setFrasesVesicula((arr) => [...arr, string]) : removeItemString(string)
+    VaziaCheckbox ? setConclusaoVesicula((arr) => [...arr, conclusao]) : removeStringConclusao(conclusao)
+  }, [VaziaCheckbox])
+  useEffect(() => {
+    const string = 'com paredes e mucosa regulares, lúmen apresentando bile espessa.'
+    const conclusao = 'Bile espessa.'
+    BileEpessaCheckbox ? setFrasesVesicula((arr) => [...arr, string]) : removeItemString(string)
+    BileEpessaCheckbox ? setConclusaoVesicula((arr) => [...arr, conclusao]) : removeStringConclusao(conclusao)
+  }, [BileEpessaCheckbox])
+  useEffect(() => {
+    const string = 'sombra acústica compacta em loja vesicular com não caracterização da parede anterior.'
+    const conclusao = 'Vesícula biliar em porcelana.'
+    PorcelanaCheckbox ? setFrasesVesicula((arr) => [...arr, string]) : removeItemString(string)
+    PorcelanaCheckbox ? setConclusaoVesicula((arr) => [...arr, conclusao]) : removeStringConclusao(conclusao)
+  }, [PorcelanaCheckbox])
+
+  const removeItemSelect = (value) => {
+    FrasesVesicula.map((e) => {
+      if (e.includes(value)) {
+        var index = FrasesVesicula.indexOf(e);
+        if (index > -1) {
+          FrasesVesicula.splice(index, 1);
+          setFrasesVesicula((arr) => [...arr]);
+        }
+      }
     });
-  const [checkValuePolipoUnico, setCheckvaluePolipoUnico] = useState({
-    PolipoUnico: false,
-    InputCalculoUnico: true,
-  });
-  const [checkValueMultiplosPolipos, setCheckvalueMultiplosPolipos] = useState({
-    MultiplosPolipos: false,
-    InputMultiplosPolipos: true,
-  });
-  const [checkValueColesterolose, setCheckvalueColesterolose] = useState({
-    colesterolose: false,
-  });
-  const [checkValueNaoVisibilizado, setCheckvalueNaoVisibilizado] = useState({
-    NaoVisibilizado: false,
-    SelectNaoVisibilizado: true,
-  });
-  const [checkValueEmPorcelana, setCheckvalueEmPorcelana] = useState({
-    EmPorcelana: false,
-  });
-  const [checkValueBileEspessa, setCheckvalueBileEspessa] = useState({
-    BilleEspessa: false,
-  });
-  const [checkValueVazia, setCheckvalueVazia] = useState({
-    Vazia: false,
-  });
+  }
 
-  const criarString = (value, valueId?, valueInput?) => {
-    //console.log("Valor cria string = ", value);
-    //arr => [...arr] captura os dados que já estavam e os mantem no array
-    setFrasesVesicula((arr) => [...arr, value]);
-    //console.log("criaString = ", laudoPrin)
+  const removeStringConclusao = (value) => {
+    var index;
+    ConclusaoVesicula.map((e) => {
+      if (e.includes(value)) {
+        index = ConclusaoVesicula.indexOf(e);
+        if (index > -1) {
+          ConclusaoVesicula.splice(index, 1);
+          setConclusaoVesicula((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+        }
+      }
+    });
   };
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesVesicula.indexOf(value);
+    var index = FrasesVesicula.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
-      frasesVesicula.splice(index, 1);
+      FrasesVesicula.splice(index, 1);
       setFrasesVesicula((arr) => [...arr]);
     }
     // console.log('posicao', index)
     // console.log("laudosPrin", laudoPrin)
   };
 
-  const pegaValorInputCalculo = (value) => {
-    let dadoInputCalculo = value.value;
-    if (value.id === "InputCalculoUnico") {
-      const valorInput = "Cálculo único com " + dadoInputCalculo + "mm ";
-      setFrasesVesicula((arr) => [...arr, valorInput]);
-      setInputCalculoUnico(valorInput);
-    } else if (value.id === "InputMultiplosCalculos") {
-      const valorInput = "Múltiplos cálculos com " + dadoInputCalculo + "mm ";
-      setFrasesVesicula((arr) => [...arr, valorInput]);
-      setInputCalculoUnico(valorInput);
-    }
-  };
-  const removeStringCalculo = () => {
-    const index = frasesVesicula.indexOf(inputCalculoUnico);
-    if (index > -1) {
-      frasesVesicula.splice(index, 1);
-      setFrasesVesicula((arr) => [...arr]);
-    }
-    InputCalculoUnico.value = "";
-    InputMultiplosCalculos.value = "";
-  };
-
-  const pegaValorInputPopilo = (value) => {
-    let dadoInputCalculo = value.value;
-    if (value.id === "InputPopiloUnico") {
-      const valorInput = "Pópilo único com " + dadoInputCalculo + "mm ";
-      setFrasesVesicula((arr) => [...arr, valorInput]);
-      setInputPoliposUnico(valorInput);
-    } else if (value.id === "InputMultiplosPolipos") {
-      const valorInput = "Múltiplos Pópilos com " + dadoInputCalculo + "mm ";
-      setFrasesVesicula((arr) => [...arr, valorInput]);
-      setInputPoliposUnico(valorInput);
-    }
-  };
-  const removeStringPopilo = () => {
-    const index = frasesVesicula.indexOf(inputPoliposUnico);
-    if (index > -1) {
-      frasesVesicula.splice(index, 1);
-      setFrasesVesicula((arr) => [...arr]);
-    }
-    InputPopiloUnico.value = "";
-    InputMultiplosPolipos.value = "";
-  };
-  const DeterminaCondicaoCheckNormal = () => {
-    if (
-      calculoUnico.checked === true ||
-      multiplosCalculos.checked === true ||
-      polipoUnico.checked === true ||
-      naoVisibilizado.checked === true ||
-      emPorcelana.checked === true ||
-      billeEspessa.checked === true ||
-      vazia.checked === true ||
-      multiplosPolipos.checked === true ||
-      colesterolose.checked === true
-    ) {
-      setCheckvalueNormal({
-        normal: true,
-      });
-    } else {
-      setCheckvalueNormal({
-        normal: false,
-      });
-    }
-  };
-
-  const verificaChecked = (value) => {
-    switch (value.id) {
-      case "normal":
-        if (value.checked === true) {
-          setDefaultValueNormal({ defaultValueNormal: true });
-          criarString(value.value);
-          setCheckvalueCalculoUnico({
-            CalculoUnico: true,
-            InputCalculoUnico: true,
-          });
-          setCheckvalueMultiplosCalculos({
-            MultiplosCalculos: true,
-            InputMultiplosCalculos: true,
-          });
-          setCheckvaluePolipoUnico({
-            PolipoUnico: true,
-            InputCalculoUnico: true,
-          });
-          setCheckvalueMultiplosPolipos({
-            MultiplosPolipos: true,
-            InputMultiplosPolipos: true,
-          });
-          setCheckvalueColesterolose({
-            colesterolose: true,
-          });
-          setCheckvalueNaoVisibilizado({
-            NaoVisibilizado: true,
-            SelectNaoVisibilizado: true,
-          });
-          setCheckvalueEmPorcelana({
-            EmPorcelana: true,
-          });
-          setCheckvalueBileEspessa({
-            BilleEspessa: true,
-          });
-          setCheckvalueVazia({
-            Vazia: true,
-          });
-        } else {
-          setDefaultValueNormal({ defaultValueNormal: false });
-          setCheckvalueCalculoUnico({
-            CalculoUnico: false,
-            InputCalculoUnico: true,
-          });
-          setCheckvalueMultiplosCalculos({
-            MultiplosCalculos: false,
-            InputMultiplosCalculos: true,
-          });
-          setCheckvaluePolipoUnico({
-            PolipoUnico: false,
-            InputCalculoUnico: true,
-          });
-          setCheckvalueMultiplosPolipos({
-            MultiplosPolipos: false,
-            InputMultiplosPolipos: true,
-          });
-          setCheckvalueColesterolose({
-            colesterolose: false,
-          });
-          setCheckvalueNaoVisibilizado({
-            NaoVisibilizado: false,
-            SelectNaoVisibilizado: true,
-          });
-          setCheckvalueEmPorcelana({
-            EmPorcelana: false,
-          });
-          setCheckvalueBileEspessa({
-            BilleEspessa: false,
-          });
-          setCheckvalueVazia({
-            Vazia: false,
-          });
-          removeItemString(value.value);
-        }
-        break;
-      case "CalculoUnico":
-        if (value.checked === true) {
-          setCheckvalueMultiplosCalculos({
-            MultiplosCalculos: true,
-            InputMultiplosCalculos: true,
-          });
-          setCheckvalueCalculoUnico({
-            CalculoUnico: false,
-            InputCalculoUnico: false,
-          });
-        } else {
-          setCheckvalueCalculoUnico({
-            CalculoUnico: false,
-            InputCalculoUnico: true,
-          });
-          setCheckvalueMultiplosCalculos({
-            MultiplosCalculos: false,
-            InputMultiplosCalculos: true,
-          });
-          removeStringCalculo();
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "InputCalculoUnico":
-        pegaValorInputCalculo(value);
-        break;
-      case "MultiplosCalculos":
-        if (value.checked === true) {
-          setCheckvalueMultiplosCalculos({
-            MultiplosCalculos: false,
-            InputMultiplosCalculos: false,
-          });
-          setCheckvalueCalculoUnico({
-            CalculoUnico: true,
-            InputCalculoUnico: true,
-          });
-        } else {
-          setCheckvalueMultiplosCalculos({
-            MultiplosCalculos: false,
-            InputMultiplosCalculos: true,
-          });
-          setCheckvalueCalculoUnico({
-            CalculoUnico: false,
-            InputCalculoUnico: true,
-          });
-          removeStringCalculo();
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "InputMultiplosCalculos":
-        pegaValorInputCalculo(value);
-        break;
-      case "PolipoUnico":
-        if (value.checked === true) {
-          setCheckvaluePolipoUnico({
-            PolipoUnico: false,
-            InputCalculoUnico: false,
-          });
-          setCheckvalueMultiplosPolipos({
-            MultiplosPolipos: true,
-            InputMultiplosPolipos: true,
-          });
-        } else {
-          setCheckvaluePolipoUnico({
-            PolipoUnico: false,
-            InputCalculoUnico: true,
-          });
-          setCheckvalueMultiplosPolipos({
-            MultiplosPolipos: false,
-            InputMultiplosPolipos: true,
-          });
-          removeStringPopilo();
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "InputPopiloUnico":
-        pegaValorInputPopilo(value);
-        break;
-      case "MultiplosPolipos":
-        if (value.checked === true) {
-          setCheckvalueMultiplosPolipos({
-            MultiplosPolipos: false,
-            InputMultiplosPolipos: false,
-          });
-          setCheckvaluePolipoUnico({
-            PolipoUnico: true,
-            InputCalculoUnico: true,
-          });
-        } else {
-          setCheckvalueMultiplosPolipos({
-            MultiplosPolipos: false,
-            InputMultiplosPolipos: true,
-          });
-          setCheckvaluePolipoUnico({
-            PolipoUnico: false,
-            InputCalculoUnico: true,
-          });
-          removeStringPopilo();
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "InputMultiplosPolipos":
-        pegaValorInputPopilo(value);
-        break;
-      case "colesterolose":
-        if (value.checked === true) {
-          criarString(value.value);
-        } else {
-          removeItemString(value.value);
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "NaoVisibilizado":
-        if (value.checked === true) {
-          setCheckvalueNaoVisibilizado({
-            NaoVisibilizado: false,
-            SelectNaoVisibilizado: false,
-          });
-        } else {
-          setCheckvalueNaoVisibilizado({
-            NaoVisibilizado: false,
-            SelectNaoVisibilizado: true,
-          });
-          removeItemString("Ausencia Cirurgica");
-          removeItemString("Interposição Gasosa");
-          SelectNaoVisibilizado.value = " ";
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "SelectNaoVisibilizado":
-        if (value.value === "Ausencia Cirurgica") {
-          removeItemString("Interposição Gasosa");
-          criarString(value.value);
-        } else {
-          removeItemString("Ausencia Cirurgica");
-          criarString(value.value);
-        }
-        break;
-      case "EmPorcelana":
-        if (value.checked === true) {
-          criarString(value.value);
-        } else {
-          removeItemString(value.value);
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "BilleEspessa":
-        if (value.checked === true) {
-          criarString(value.value);
-        } else {
-          removeItemString(value.value);
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-      case "Vazia":
-        if (value.checked === true) {
-          criarString(value.value);
-        } else {
-          removeItemString(value.value);
-        }
-        DeterminaCondicaoCheckNormal();
-        break;
-    }
-  };
-
   const subExame = "Vesícula Biliar";
   const titulo_exame = "Abdomen Superior";
 
   useEffect(() => {
-    if (Object.keys(frasesVesicula).length == 0) {
+    if (Object.keys(FrasesVesicula).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesVesicula
+        FrasesVesicula,
+        ConclusaoVesicula
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesVesicula
+        FrasesVesicula,
+        ConclusaoVesicula
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesVesicula]);
+  }, [FrasesVesicula]);
 
   return (
     <Box
@@ -451,184 +235,143 @@ function VesiculaBiliar() {
       padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <Box borderBottom="1px">
-        <TituloNomeExame titulo="Vesícula Biliar" />
 
-        <Box gap="25px" display="flex" flexWrap="wrap" mt="20px">
-          <Box>
-            <Checkbox
-              isChecked={defaultValueNormal.defaultValueNormal}
-              onChange={(e) => {
-                verificaChecked(e.target);
-              }}
-              disabled={checkValueNormal.normal}
-              value="Vesicula biliar Normal"
-              id="normal"
-            >
-              Normal
-            </Checkbox>
-          </Box>
+      <TituloNomeExame titulo="Vesícula Biliar" />
 
-          <Box w="150px">
-            <Checkbox
-              onChange={(e) => {
-                verificaChecked(e.target);
-              }}
-              disabled={checkValueCalculoUnico.CalculoUnico}
-              id="CalculoUnico"
-            >
-              Cálculo Único
-            </Checkbox>
-            <Input
-              onBlur={(e) => {
-                verificaChecked(e.target);
-              }}
-              disabled={checkValueCalculoUnico.InputCalculoUnico}
-              id="InputCalculoUnico"
-              placeholder="mm"
-            />
-          </Box>
-
-          <Box w="261px">
-            <Checkbox
-              onChange={(e) => {
-                verificaChecked(e.target);
-              }}
-              id="MultiplosCalculos"
-              disabled={checkValueMultiplosCalculos.MultiplosCalculos}
-            >
-              Múltiplos cálculos, o maior mede:
-            </Checkbox>
-            <Input
-              onBlur={(e) => {
-                verificaChecked(e.target);
-              }}
-              id="InputMultiplosCalculos"
-              disabled={checkValueMultiplosCalculos.InputMultiplosCalculos}
-              placeholder="mm"
-            />
-          </Box>
-
-          <Box w="120px">
-            <Checkbox
-              onChange={(e) => {
-                verificaChecked(e.target);
-              }}
-              value="Colesterolose"
-              id="colesterolose"
-              disabled={checkValueColesterolose.colesterolose}
-            >
-              Colesterolose
-            </Checkbox>
-          </Box>
-          <Box>
-            <Checkbox
-              id="Vazia"
-              value="Vazia"
-              onChange={(e) => {
-                verificaChecked(e.target);
-              }}
-              disabled={checkValueVazia.Vazia}
-            >
-              Vazia
-            </Checkbox>
-          </Box>
+      <Box columnGap="20px" display="flex" flexWrap="wrap" mt="20px">
+        <Box>
+          <Checkbox
+            isDisabled={CalculoUnicoCheckbox || MultiplosCalculosCheckbox ||
+              ColesteroloseCheckbox || VaziaCheckbox || MultiplosPoliposCheckbox ||
+              PolipoUnicoCheckbox || NaoVisibilizadoCheckbox || PorcelanaCheckbox || BileEpessaCheckbox}
+            onChange={(e) => setNormalCheckbox(!NormalCheckbox)}
+          >
+            Normal
+          </Checkbox>
         </Box>
-      </Box>
 
-      <Box gap="15px" display="flex" flexWrap="wrap" mt="20px">
+        <Box w="150px">
+          <Checkbox
+            isDisabled={NormalCheckbox}
+            onChange={(e) => setCalculoUnicoCheckbox(!CalculoUnicoCheckbox)}
+          >
+            Cálculo Único
+          </Checkbox>
+          <Input
+            textAlign='center'
+            p='0'
+            w='50px'
+            value={CalculoUnicoInput}
+            isDisabled={!CalculoUnicoCheckbox}
+            onChange={(e) => setCalculoUnicoInput(e.target.value)}
+          />
+        </Box>
+
+        <Box w="261px">
+          <Checkbox
+            isDisabled={NormalCheckbox}
+            onChange={(e) => setMultiplosCalculosCheckbox(!MultiplosCalculosCheckbox)}
+          >
+            Múltiplos cálculos, o maior mede:
+          </Checkbox>
+          <Input
+            textAlign='center'
+            p='0'
+            w='50px'
+            value={MultiplosCalculosInput}
+            isDisabled={!MultiplosCalculosCheckbox}
+            onChange={(e) => setMultiplosCalculosInput(e.target.value)}
+          />
+        </Box>
+
+        <Box w="120px">
+          <Checkbox
+            isDisabled={NormalCheckbox}
+            onChange={(e) => setColesteroloseCheckbox(!ColesteroloseCheckbox)}
+
+          >
+            Colesterolose
+          </Checkbox>
+        </Box>
+        <Box>
+          <Checkbox
+            isDisabled={NormalCheckbox}
+            onChange={(e) => setVaziaCheckbox(!VaziaCheckbox)}
+          >
+            Vazia
+          </Checkbox>
+        </Box>
+
         <Box w="256px">
           <Checkbox
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="MultiplosPolipos"
-            disabled={checkValueMultiplosPolipos.MultiplosPolipos}
+            isDisabled={NormalCheckbox}
+            onChange={(e) => setMultiplosPoliposCheckbox(!MultiplosPoliposCheckbox)}
           >
             Múltiplos Pólipos, o maior mede:
           </Checkbox>
           <Input
-            onBlur={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="InputMultiplosPolipos"
-            disabled={checkValueMultiplosPolipos.InputMultiplosPolipos}
-            w="150px"
-            placeholder="mm"
+            textAlign='center'
+            p='0'
+            w='50px'
+            value={MultiplosPoliposInput}
+            isDisabled={!MultiplosPoliposCheckbox}
+            onChange={(e) => setMultiplosPoliposInput(e.target.value)}
           />
         </Box>
         <Box w="150px">
           <Checkbox
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="PolipoUnico"
-            disabled={checkValuePolipoUnico.PolipoUnico}
+            isDisabled={NormalCheckbox}
+            onChange={(e) => setPolipoUnicoCheckbox(!PolipoUnicoCheckbox)}
           >
             Pólipo único
           </Checkbox>
           <Input
-            onBlur={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="InputPopiloUnico"
-            disabled={checkValuePolipoUnico.InputCalculoUnico}
-            mb="10px"
-            placeholder="mm"
+            textAlign='center'
+            p='0'
+            w='50px'
+            value={PolipoUnicoInput}
+            isDisabled={!PolipoUnicoCheckbox}
+            onChange={(e) => setPolipoUnicoInput(e.target.value)}
           />
         </Box>
         <Box w="150px">
           <Checkbox
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="NaoVisibilizado"
-            disabled={checkValueNaoVisibilizado.NaoVisibilizado}
+            isDisabled={NormalCheckbox}
+            onChange={(e) => setNaoVisibilizadoCheckbox(!NaoVisibilizadoCheckbox)}
           >
             Não visibilizado
           </Checkbox>
           <Select
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            disabled={checkValueNaoVisibilizado.SelectNaoVisibilizado}
-            id="SelectNaoVisibilizado"
-            mb="10px"
-            w="150px"
+            isDisabled={!NaoVisibilizadoCheckbox}
+            onChange={(e) => setNaoVisibilizadoSelect(e.target.value)}
+            value={NaoVisibilizadoSelect}
           >
             <option value="" disabled selected>
               Selecione
             </option>
-            <option value="Ausencia Cirurgica">Ausência cirúrgica</option>
-            <option value="Interposição Gasosa">Interposição gasosa</option>
+            <option value="não caracterizada (status pós-cirúrgico).">Ausência cirúrgica</option>
+            <option value="não caracterizada.">Interposição gasosa</option>
           </Select>
         </Box>
-        <Box w="100px">
+        <Box >
           <Checkbox
-            id="EmPorcelana"
-            value="Em Porcelana"
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            disabled={checkValueEmPorcelana.EmPorcelana}
+            isDisabled={NormalCheckbox}
+            onChange={(e) => setPorcelanaCheckbox(!PorcelanaCheckbox)}
           >
             Em Porcelana
           </Checkbox>
         </Box>
-        <Box w="100px">
+        <Box >
           <Checkbox
-            id="BilleEspessa"
-            value="Bille Espessa"
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            disabled={checkValueBileEspessa.BilleEspessa}
+            isDisabled={NormalCheckbox}
+            onChange={(e) => setBileEpessaCheckbox(!BileEpessaCheckbox)}
           >
             Bile Espessa
           </Checkbox>
         </Box>
       </Box>
     </Box>
+
   );
 }
 

@@ -63,13 +63,7 @@ export default function Cistos({ Disable }) {
             removeConclusao(conclusao)
 
         }
-        // if (FraseCisto01Checkbox || FraseCisto02Checkbox || FraseCisto03Checkbox || FraseCisto04Checkbox || FraseMultiplosCistosCheckbox) {
-        //     console.log("ta caindo aqui")
-        //     setConclusoesCisto((arr) => [...arr, string]);
-        //     console.log(ConclusoesCisto)
-        // } else {
-        //     removeConclusao(string)
-        // }
+
     }
 
     const removeConclusao = (value) => {
