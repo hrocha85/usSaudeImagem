@@ -125,7 +125,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
     tamanhoNoduloInput,
   ]);
 
-  const subExame = "Individualizar Nódulo";
+  const subExame = `Nódulo ${numNodulo}`;
   const titulo_exame = "Mamas";
 
   useEffect(() => {
