@@ -10,7 +10,6 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
-  Link,
   List,
   ListIcon,
   ListItem,
@@ -33,11 +32,11 @@ import {
   TagLabel,
   Text,
   Tooltip,
-  useToast,
   useDisclosure,
   useOutsideClick,
+  useToast,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { AiOutlineClear, AiOutlinePlusCircle } from "react-icons/ai";
 import { BiCamera } from "react-icons/bi";
 import { FaRegFolderOpen } from "react-icons/fa";
@@ -63,6 +62,7 @@ if (localStorage.getItem("medicos") != null) {
 
 const Configuracoes = () => {
   const toast = useToast();
+
   const getMedicos = () => {
     var medicos;
     var item;
@@ -86,7 +86,11 @@ const Configuracoes = () => {
 
   let padRef = React.useRef<SignatureCanvas>(null);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenModalAddMedico,
+    onOpen: onOpenModalAddMedico,
+    onClose: onCloseModalAddMedico,
+  } = useDisclosure();
 
   const [nome, setNome] = useState("");
 
@@ -99,8 +103,6 @@ const Configuracoes = () => {
   const [defaultUserImage, setDefaultUserImage] = useState(DefaultImageClinica);
 
   const inputFile = useRef<HTMLInputElement | null>(null);
-
-  const [selectedFile, setSelectedFile] = useState();
 
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
@@ -218,66 +220,66 @@ const Configuracoes = () => {
       <>
         {getUserMedico() != null
           ? getMedicos().map((medi) => {
-            if (medi.nome == getUserMedico().nome) {
-              return medi.laudos.map((laudos, key) => {
-                if (
-                  laudos.laudo != null &&
-                  laudos.laudo != "" &&
-                  laudos != undefined
-                ) {
-                  return (
-                    <Center>
-                      <List spacing={3} size="20px" key={key}>
-                        <ListItem
-                          padding="10px"
-                          onClick={() => {
-                            showSavedLaudo(laudos.laudo);
-                          }}
-                          cursor="pointer"
-                          _hover={{
-                            bg: "blue.100",
-                            fontWeight: "semibold",
-                            borderRadius: "10px",
-                          }}
-                        >
-                          <ListIcon
-                            as={VscFilePdf}
-                            color="blue.600"
-                            h="25px"
-                            w="25px"
-                            fontSize="xxx-large"
+              if (medi.nome == getUserMedico().nome) {
+                return medi.laudos.map((laudos, key) => {
+                  if (
+                    laudos.laudo != null &&
+                    laudos.laudo != "" &&
+                    laudos != undefined
+                  ) {
+                    return (
+                      <Center>
+                        <List spacing={3} size="20px" key={key}>
+                          <ListItem
+                            padding="10px"
+                            onClick={() => {
+                              showSavedLaudo(laudos.laudo);
+                            }}
+                            cursor="pointer"
+                            _hover={{
+                              bg: "blue.100",
+                              fontWeight: "semibold",
+                              borderRadius: "10px",
+                            }}
+                          >
+                            <ListIcon
+                              as={VscFilePdf}
+                              color="blue.600"
+                              h="25px"
+                              w="25px"
+                              fontSize="xxx-large"
+                            />
+                            {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
+                          </ListItem>
+                          <Divider
+                            orientation="horizontal"
+                            marginBottom="10px"
                           />
-                          {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
-                        </ListItem>
-                        <Divider
-                          orientation="horizontal"
-                          marginBottom="10px"
-                        />
-                      </List>
-                    </Center>
-                  );
-                } else {
-                  return (
-                    <Center>
-                      <List size="20px">
-                        <ListItem
-                          fontSize="17px"
-                          textAlign="center"
-                          fontWeight="semibold"
-                        >
-                          Nenhum laudo encontrado
-                        </ListItem>
-                        <Divider
-                          orientation="horizontal"
-                          marginBottom="10px"
-                        />
-                      </List>
-                    </Center>
-                  );
-                }
-              });
-            }
-          })
+                        </List>
+                      </Center>
+                    );
+                  } else {
+                    return (
+                      <Center>
+                        <List size="20px">
+                          <ListItem
+                            fontSize="17px"
+                            textAlign="center"
+                            fontWeight="semibold"
+                          >
+                            Nenhum laudo encontrado
+                          </ListItem>
+                          <Divider
+                            orientation="horizontal"
+                            marginBottom="10px"
+                          />
+                        </List>
+                      </Center>
+                    );
+                  }
+                });
+              }
+            })
           : listaLaudosVazia()}
       </>
     );
@@ -359,42 +361,6 @@ const Configuracoes = () => {
     );
   };
 
-  useEffect(() => {
-    var item;
-    var item_parse;
-    if (localStorage.getItem("minhasClinicas") != null) {
-      item = localStorage.getItem("minhasClinicas");
-      item_parse = JSON.parse(item);
-      setListaClinicas(item_parse);
-    }
-  }, [stateClickAddMedico]);
-
-  useEffect(() => {
-    setMedicos(getMedicos);
-    Laudos();
-  }, [localStorage.getItem("medicos")]);
-
-  useEffect(() => {
-    showImageAssinatura();
-  }, [imageAssinatura]);
-
-  useOutsideClick({
-    ref: refNomeDoutor,
-    handler: () => {
-      setInputNomeDoutor(false);
-      if (nome.length != 0) {
-        setplaceHolderDoutor(nome);
-      } else {
-        setplaceHolderDoutor("Nome");
-      }
-    },
-  });
-
-  useEffect(() => {
-    TAGS();
-    setUpdateTAGS(false);
-  }, [updateTAGS == true]);
-
   const handleCRM = (event) => {
     let input = event.target;
     input.value = CrmMask(input.value);
@@ -420,96 +386,25 @@ const Configuracoes = () => {
     }
   };
 
-  return (
-    <Box
-      w="100vh auto"
-      h="100% auto"
-      minH="100vh"
-      backgroundImage={BGImage}
-      backgroundSize="cover"
-      backgroundClip="padding-box"
-      backgroundRepeat="no-repeat"
-      // paddingBottom="10px"
-      alignItems="center"
-    >
-      <Sidebar />
-      <Stack
-        direction="row"
-        justify="space-between"
-        align="center"
-        padding="0px 20px 20px 20px"
-      >
-        <BoxTitleBackground
-          PadLeft="20px"
-          fontsize="19px"
-          tamanho="180px"
-          titulo="Configurações"
+  const returnObservacoes = () => {
+    return userLogged ? (
+      <Stack direction="row" justify="center">
+        <RectangularCard
+          titulo="Observações"
+          altura="282px"
+          item={<ItemObservation />}
         />
-
-        <Popover>
-          <PopoverTrigger>
-            <Button
-              borderRadius="xl"
-              backgroundColor="white"
-              w="42"
-              h="42"
-              boxShadow="md"
-              fontSize="20px"
-            >
-              <Icon as={FaRegFolderOpen} margin="5px" />
-              Laudos
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent borderRadius="20px" w="225px">
-            <PopoverArrow />
-
-            <PopoverBody>{Laudos()}</PopoverBody>
-          </PopoverContent>
-        </Popover>
       </Stack>
-      <Stack direction="row" flexWrap="wrap" gap="5px">
-        <MainCard titulo="Clínicas" icon={true} clinica={null} medicos={null} />
+    ) : null;
+  };
 
-        {medicos.map((medico, key) => {
-          return <Medicos key={key} medico={medico} id={key} />;
-        })}
-
-        <Tooltip
-          label="Adicionar Médico"
-          backgroundColor="white"
-          placement="top"
-          defaultIsOpen={false}
-          hasArrow
-          arrowSize={15}
-          textColor="black"
-          fontSize="20px"
-        >
-          <Button
-            borderRadius="xl"
-            backgroundColor="white"
-            w="42"
-            h="42"
-            boxShadow="md"
-            textColor="#4CBFF0"
-            fontSize="19px"
-            fontWeight="semibold"
-            onClick={() => {
-              onOpen();
-              setStateClickAddMedico(true);
-            }}
-          >
-            <Icon
-              as={AiOutlinePlusCircle}
-              marginRight="8px"
-              w="30px"
-              h="30px"
-            />
-            Adicionar
-          </Button>
-        </Tooltip>
-      </Stack>
-
-      <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
+  const ModalAddMedico = () => {
+    return (
+      <Modal
+        isOpen={isOpenModalAddMedico}
+        onClose={onCloseModalAddMedico}
+        colorScheme="blackAlpha"
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader></ModalHeader>
@@ -591,18 +486,19 @@ const Configuracoes = () => {
                   Clínicas:
                 </Text>
                 <Select
-                  placeholder={
-                    listaClinicas.length > 0
-                      ? "Clínicas Cadastradas"
-                      : "Nenhuma Clínica Cadastrada"
-                  }
                   variant="filled"
                   textAlign="center"
                   onChange={(e) => {
+                    console.log("eVALUE", e.target.value);
                     setClinica((prevClin) => [...prevClin, e.target.value]);
                     TAGS();
                   }}
                 >
+                  <option value="" disabled selected>
+                    {listaClinicas.length > 0
+                      ? "Clínicas Cadastradas"
+                      : "Nenhuma Clínica Cadastrada"}
+                  </option>
                   {listaClinicas.map((e, key) => {
                     return (
                       <option key={key} value={JSON.stringify(e)}>
@@ -684,10 +580,10 @@ const Configuracoes = () => {
             backgroundColor="#0e63fe"
             margin="10px"
             onClick={() => {
-              if (nome !== "" && crm !== "") {
+              if (nome !== "" && crm !== "" && clinicas.length >= 1) {
                 AddMedico();
                 ResetDados();
-                onClose();
+                onCloseModalAddMedico();
                 authParaLogar();
                 toast({
                   duration: 3000,
@@ -698,7 +594,7 @@ const Configuracoes = () => {
               } else {
                 toast({
                   duration: 3000,
-                  title: `Preencha Nome e CRM para cadastrar.`,
+                  title: `Preencha Nome, CRM e escolha uma clínica para cadastrar.`,
                   status: "error",
                   position: "bottom",
                   isClosable: true,
@@ -710,18 +606,143 @@ const Configuracoes = () => {
           </Button>
         </ModalContent>
       </Modal>
+    );
+  };
 
-      {userLogged ? (
-        <Stack direction="row" justify="center">
-          <RectangularCard
-            titulo="Observações"
-            altura="282px"
-            item={<ItemObservation />}
-          />
-        </Stack>
-      ) : null}
+  const returnPOPoverLaudos = () => {
+    return (
+      <Popover>
+        <PopoverTrigger>
+          <Button
+            borderRadius="xl"
+            backgroundColor="white"
+            w="42"
+            h="42"
+            boxShadow="md"
+            fontSize="20px"
+          >
+            <Icon as={FaRegFolderOpen} margin="5px" />
+            Laudos
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent borderRadius="20px" w="225px">
+          <PopoverArrow />
+
+          <PopoverBody>{Laudos()}</PopoverBody>
+        </PopoverContent>
+      </Popover>
+    );
+  };
+  
+  useEffect(() => {
+    var item;
+    var item_parse;
+    if (localStorage.getItem("minhasClinicas") != null) {
+      item = localStorage.getItem("minhasClinicas");
+      item_parse = JSON.parse(item);
+      setListaClinicas(item_parse);
+    }
+  }, [stateClickAddMedico]);
+
+  useEffect(() => {
+    setMedicos(getMedicos);
+    Laudos();
+  }, [localStorage.getItem("medicos")]);
+
+  useEffect(() => {
+    showImageAssinatura();
+  }, [imageAssinatura]);
+
+  useOutsideClick({
+    ref: refNomeDoutor,
+    handler: () => {
+      setInputNomeDoutor(false);
+      if (nome.length != 0) {
+        setplaceHolderDoutor(nome);
+      } else {
+        setplaceHolderDoutor("Nome");
+      }
+    },
+  });
+
+  useEffect(() => {
+    TAGS();
+    setUpdateTAGS(false);
+  }, [updateTAGS == true]);
+
+  return (
+    <Box
+      w="100vh auto"
+      h="100% auto"
+      minH="100vh"
+      backgroundImage={BGImage}
+      backgroundSize="cover"
+      backgroundClip="padding-box"
+      backgroundRepeat="no-repeat"
+      // paddingBottom="10px"
+      alignItems="center"
+    >
+      <Sidebar />
+      <Stack
+        direction="row"
+        justify="space-between"
+        align="center"
+        padding="0px 20px 20px 20px"
+      >
+        <BoxTitleBackground
+          PadLeft="20px"
+          fontsize="19px"
+          tamanho="180px"
+          titulo="Configurações"
+        />
+
+        {returnPOPoverLaudos()}
+      </Stack>
+      <Stack direction="row" flexWrap="wrap" gap="5px">
+        <MainCard titulo="Clínicas" icon={true} clinica={null} medicos={null} />
+
+        {medicos.map((medico, key) => {
+          return <Medicos key={key} medico={medico} id={key} />;
+        })}
+
+        <Tooltip
+          label="Adicionar Médico"
+          backgroundColor="white"
+          placement="top"
+          defaultIsOpen={false}
+          hasArrow
+          arrowSize={15}
+          textColor="black"
+          fontSize="20px"
+        >
+          <Button
+            borderRadius="xl"
+            backgroundColor="white"
+            w="42"
+            h="42"
+            boxShadow="md"
+            textColor="#4CBFF0"
+            fontSize="19px"
+            fontWeight="semibold"
+            onClick={() => {
+              onOpenModalAddMedico();
+              setStateClickAddMedico(true);
+            }}
+          >
+            <Icon
+              as={AiOutlinePlusCircle}
+              marginRight="8px"
+              w="30px"
+              h="30px"
+            />
+            Adicionar
+          </Button>
+        </Tooltip>
+      </Stack>
+      {ModalAddMedico()}
+      {returnObservacoes()}
     </Box>
   );
 };
 
-export default Configuracoes;
+export default memo(Configuracoes);
