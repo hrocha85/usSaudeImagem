@@ -45,11 +45,7 @@ function CalculoProstata() {
 
   const [VesiculaCheckBox, setVesiculaCheckBox] = useState(true);
 
-  const criaStringCalcProstata = (
-    medida1CalcProstata,
-    medida2CalcProstata,
-    medida3CalcProstata
-  ) => {
+  const criaStringCalcProstata = (medida1CalcProstata, medida2CalcProstata, medida3CalcProstata) => {
     removeCalcProstata();
     let dimensao;
     switch (Dimensoes) {
@@ -89,30 +85,14 @@ function CalculoProstata() {
 
   const calculoVolume = () => {
     return (
-      Number(medida1CalcProstata) *
-      Number(medida2CalcProstata) *
-      Number(medida3CalcProstata) *
-      0.52
+      Number(medida1CalcProstata) * Number(medida2CalcProstata) * Number(medida3CalcProstata) * 0.52
     );
   };
 
-  const criaStringCalcVolumePre = (
-    medida1CalcVolumePre,
-    medida2CalcVolumePre,
-    medida3CalcVolumePre
-  ) => {
+  const criaStringCalcVolumePre = (medida1CalcVolumePre, medida2CalcVolumePre, medida3CalcVolumePre) => {
     removeCalcVolumePre();
-
-    if (
-      medida1CalcVolumePre != "" &&
-      medida2CalcVolumePre != "" &&
-      medida3CalcVolumePre != ""
-    ) {
-      let conta =
-        Number(medida1CalcVolumePre) *
-        Number(medida2CalcVolumePre) *
-        Number(medida3CalcVolumePre) *
-        0.52;
+    if (medida1CalcVolumePre != "" && medida2CalcVolumePre != "" && medida3CalcVolumePre != "") {
+      let conta = Number(medida1CalcVolumePre) * Number(medida2CalcVolumePre) * Number(medida3CalcVolumePre) * 0.52;
       let string = `Volume vesical pré-miccional de: ${conta.toFixed(2)} cm³`;
       setFrasesProstata((arr) => [...arr, string]);
     }
@@ -131,23 +111,12 @@ function CalculoProstata() {
     });
   };
 
-  const criaStringCalcVolumePos = (
-    medida1CalcVolumePos,
-    medida2CalcVolumePos,
-    medida3CalcVolumePos
-  ) => {
+  const criaStringCalcVolumePos = (medida1CalcVolumePos, medida2CalcVolumePos, medida3CalcVolumePos) => {
     removeCalcVolumePos();
 
     if (
-      medida1CalcVolumePos != "" &&
-      medida2CalcVolumePos != "" &&
-      medida3CalcVolumePos != ""
-    ) {
-      let conta =
-        Number(medida1CalcVolumePos) *
-        Number(medida2CalcVolumePos) *
-        Number(medida3CalcVolumePos) *
-        0.52;
+      medida1CalcVolumePos != "" && medida2CalcVolumePos != "" && medida3CalcVolumePos != "") {
+      let conta = Number(medida1CalcVolumePos) * Number(medida2CalcVolumePos) * Number(medida3CalcVolumePos) * 0.52;
       let string = `Volume residual pós-miccional de: ${conta.toFixed(1)} cm³`;
       setFrasesProstata((arr) => [...arr, string]);
     }
