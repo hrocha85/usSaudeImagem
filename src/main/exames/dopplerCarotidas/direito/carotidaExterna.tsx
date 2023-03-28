@@ -15,7 +15,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function CarotidaExternaDireita() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "380px";
 
   const [frasesCarotidaExterna, setFrasesCarotidaExterna] = useState<any>([]);
 
@@ -290,7 +290,7 @@ function CarotidaExternaDireita() {
         </Box>
 
         <Stack>
-          <HStack>
+          <Box gap='5px' alignItems='center' display='flex' flexWrap='wrap'>
             <Checkbox onChange={() => setPlacaCheckBox(!PlacaCheckBox)}>
               Placa
             </Checkbox>
@@ -317,7 +317,7 @@ function CarotidaExternaDireita() {
               }}
             />
             <Text>mm</Text>
-          </HStack>
+          </Box>
           <Checkbox
             onChange={() => {
               setOclusaoCheckBox(true);

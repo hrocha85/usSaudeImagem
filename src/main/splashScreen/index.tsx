@@ -4,6 +4,8 @@ import logo from './logo.png'
 import './styles.css'
 
 const SplashScreen = () => {
+  localStorage.clear()
+
   const [redirectNow, setRedirectNow] = useState(false);
   //tempo de 5 segundos para sair da pagina
   setTimeout(() => setRedirectNow(true), 5000);

@@ -15,7 +15,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function CarotidaInternaEsquerda() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "380px";
 
   const [frasesCarotidaInterna, setFrasesCarotidaInterna] = useState<any>([]);
 
@@ -290,7 +290,7 @@ function CarotidaInternaEsquerda() {
         </Box>
 
         <Stack>
-          <HStack>
+          <Box alignItems='center' gap='5px' display='flex' flexWrap='wrap'>
             <Checkbox onChange={() => setPlacaCheckBox(!PlacaCheckBox)}>
               Placa
             </Checkbox>
@@ -317,7 +317,7 @@ function CarotidaInternaEsquerda() {
               }}
             />
             <Text>mm</Text>
-          </HStack>
+          </Box>
           <Checkbox
             onChange={() => {
               setOclusaoCheckBox(true);

@@ -15,7 +15,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function CarotidaVertebralEsquerda() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "380px";
 
   const [frasesCarotidaVertebral, setFrasesCarotidaVertebral] = useState<any>(
     []
@@ -280,7 +280,7 @@ function CarotidaVertebralEsquerda() {
         </Box>
 
         <Stack>
-          <HStack>
+          <Box alignItems='center' gap='5px' display='flex' flexWrap='wrap'>
             <Checkbox onChange={() => setPlacaCheckBox(!PlacaCheckBox)}>
               Placa
             </Checkbox>
@@ -307,7 +307,7 @@ function CarotidaVertebralEsquerda() {
               }}
             />
             <Text>mm</Text>
-          </HStack>
+          </Box>
           <Checkbox
             onChange={() => {
               setFluxoAusenteCheckBox(true);

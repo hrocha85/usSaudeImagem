@@ -15,7 +15,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function CarotidaComumDireita() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "380px";
 
   const [frasesCarotidaComum, setFrasesCarotidaComum] = useState<any>([]);
 
@@ -243,11 +243,9 @@ function CarotidaComumDireita() {
               <Text mr="10px">VPS</Text>
               <Input
                 isDisabled={disableInputsMedidas}
-                w="60px"
-                h="77x"
-                padding="5px"
+                w="45px"
+                padding="0px"
                 value={MedidaDireitaVPS}
-                maxLength={2}
                 textAlign="center"
                 onChange={(e) => {
                   setMedidaDireitaVPS(e.target.value);
@@ -260,12 +258,10 @@ function CarotidaComumDireita() {
               <Text mr="10px">VDF</Text>
               <Input
                 isDisabled={disableInputsMedidas}
-                w="60px"
-                h="77x"
-                padding="5px"
-                value={MedidaDireitaVDF}
-                maxLength={2}
+                w="45px"
+                padding="0px"
                 textAlign="center"
+                value={MedidaDireitaVDF}
                 onChange={(e) => {
                   setMedidaDireitaVDF(e.target.value);
                 }}
@@ -277,12 +273,10 @@ function CarotidaComumDireita() {
               <Text mr="10px">EMI</Text>
               <Input
                 isDisabled={disableInputsMedidas}
-                w="60px"
-                h="77x"
-                padding="5px"
-                value={MedidaDireitaEMI}
-                maxLength={2}
+                w="45px"
+                padding="0px"
                 textAlign="center"
+                value={MedidaDireitaEMI}
                 onChange={(e) => {
                   setMedidaDireitaEMI(e.target.value);
                 }}
@@ -294,7 +288,7 @@ function CarotidaComumDireita() {
         </Box>
 
         <Stack>
-          <HStack>
+          <Box alignItems='center' gap='5px' display='flex' flexWrap='wrap'>
             <Checkbox onChange={() => setPlacaCheckBox(!PlacaCheckBox)}>
               Placa
             </Checkbox>
@@ -312,16 +306,14 @@ function CarotidaComumDireita() {
               isDisabled={disablePlacaInput}
               value={PlacaInput}
               w="45px"
-              h="30px"
-              padding="5px"
-              maxLength={2}
+              padding="0px"
               textAlign="center"
               onChange={(e) => {
                 setPlacaInput(e.target.value);
               }}
             />
             <Text>mm</Text>
-          </HStack>
+          </Box>
           <Checkbox
             onChange={() => {
               setOclusaoCheckBox(true);
