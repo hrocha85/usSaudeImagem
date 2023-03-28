@@ -15,7 +15,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function CarotidaInternaDireita() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "380px";
 
   const [frasesCarotidaID, setFrasesCarotidaID] = useState<any>([]);
 
@@ -256,11 +256,9 @@ function CarotidaInternaDireita() {
               <Text mr="10px">VPS</Text>
               <Input
                 isDisabled={disableInputsMedidas}
-                w="60px"
-                h="77x"
-                padding="5px"
+                w="45px"
+                padding="0px"
                 value={MedidaDireitaVPS}
-                maxLength={2}
                 textAlign="center"
                 onChange={(e) => {
                   setMedidaDireitaVPS(e.target.value);
@@ -273,11 +271,9 @@ function CarotidaInternaDireita() {
               <Text mr="10px">VDF</Text>
               <Input
                 isDisabled={disableInputsMedidas}
-                w="60px"
-                h="77x"
-                padding="5px"
+                w="45px"
+                padding="0px"
                 value={MedidaDireitaVDF}
-                maxLength={2}
                 textAlign="center"
                 onChange={(e) => {
                   setMedidaDireitaVDF(e.target.value);
@@ -290,7 +286,7 @@ function CarotidaInternaDireita() {
         </Box>
 
         <Stack>
-          <HStack>
+          <Box gap='5px' alignItems='center' display='flex' flexWrap='wrap'>
             <Checkbox onChange={() => setPlacaCheckBox(!PlacaCheckBox)}>
               Placa
             </Checkbox>
@@ -308,16 +304,14 @@ function CarotidaInternaDireita() {
               isDisabled={disablePlacaInput}
               value={PlacaInput}
               w="45px"
-              h="30px"
-              padding="5px"
-              maxLength={2}
+              padding="0px"
               textAlign="center"
               onChange={(e) => {
                 setPlacaInput(e.target.value);
               }}
             />
             <Text>mm</Text>
-          </HStack>
+          </Box>
           <Checkbox
             onChange={() => {
               setOclusaoCheckBox(true);

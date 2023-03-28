@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
- 
+
 import BulboCarotideoDireito from "./direito/bulboCarotideo";
 import CarotidaComumDireita from "./direito/carotidaComum";
 import CarotidaExternaDireita from "./direito/carotidaExterna";
@@ -16,50 +16,32 @@ import LadoEsquerdo from "./esquerdo/ladoEsquerdo";
 function DopplerCarotidas() {
   return (
     <>
-      
-
       <Box ml="10px">
         <Box textAlign="center">
           <LadoDireito />
         </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <CarotidaComumDireita />
-          </Box>
-          <Box w="450px" mb="15px">
-            <CarotidaInternaDireita />
-          </Box>
+
+        <Box gap='10px' display='flex' flexWrap='wrap'>
+          <CarotidaComumDireita />
+          <CarotidaInternaDireita />
+          <CarotidaExternaDireita />
+          <CarotidaVertebralDireita />
         </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <CarotidaExternaDireita />
-          </Box>
-          <Box w="450px" mb="15px">
-            <CarotidaVertebralDireita />
-          </Box>
-        </Box>
+
         <Box textAlign="center">
           <BulboCarotideoDireito />
         </Box>
         <Box textAlign="center">
           <LadoEsquerdo />
         </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <CarotidaComumEsquerda />
-          </Box>
-          <Box w="450px" mb="15px">
-            <CarotidaInternaEsquerda />
-          </Box>
+
+        <Box w='66%' gap='10px' display='flex' flexWrap='wrap'>
+          <CarotidaComumEsquerda />
+          <CarotidaInternaEsquerda />
+          <CarotidaExternaEsquerda />
+          <CarotidaVertebralEsquerda />
         </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <CarotidaExternaEsquerda />
-          </Box>
-          <Box w="450px" mb="15px">
-            <CarotidaVertebralEsquerda />
-          </Box>
-        </Box>
+
         <Box textAlign="center">
           <BulboCarotideoEsquerdo />
         </Box>
