@@ -347,7 +347,7 @@ function Utero({ Disable }) {
             <Text>mm</Text>
             <Input
               isDisabled={Disable}
-              w="80px"
+              w="100px"
               h="30px"
               value={medidaUtero4}
               padding="0px"
