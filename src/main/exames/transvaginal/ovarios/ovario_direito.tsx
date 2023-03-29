@@ -15,7 +15,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Ovario_Direito({ Disable }) {
   const altura = "100%";
-  const largura = "33%";
+  const largura = "40%";
 
   const [frasesOvarioDireito, setFrasesOvarioDireito] = useState<any>([]);
   const [ConclusaoOvarioDireito, setConclusaoOvarioDireito] = useState<any>([]);
@@ -69,23 +69,27 @@ function Ovario_Direito({ Disable }) {
   const [padraoFolicularCheckBox, setpadraoFolicularCheckBox] = useState(false);
 
   //State Nao Visibilizado
-  const [naoVisibilizadoCheckBox, setnaoVisibilizadoCheckBox] = useState(true);
+  const [NaoVisibilizadoCheckBox, setNaoVisibilizadoCheckBox] = useState(false);
+
+  const [NaoVisibilizadoDisable, setNaoVisibilizadoDisable] = useState(false);
 
   //Funcoes medidas ovario - Inicio
   const criaStringMedidasOvario = () => {
+    var string = 'Medida do ovário:'
+    removeStringSelect(string)
     if (medidaOvario1 != "" && medidaOvario2 != "" && medidaOvario3 != "") {
-      var medida4 = (parseInt(medidaOvario1) * parseInt(medidaOvario2) * parseInt(medidaOvario3) / 1000)
+      var medida4 = (parseInt(medidaOvario1) * parseInt(medidaOvario2) * parseInt(medidaOvario3) / 1000) / 2
       setmedidaOvario4(medida4)
-      var string = `Ovário Direito mede ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm (${medida4} cm³)`;
+      string = `${string} ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm (${medida4} cm³)`;
       setFrasesOvarioDireito((arr) => [...arr, string]);
     } else {
       setmedidaOvario4(0)
     }
   };
 
-  const removeMedidasOvario = () => {
+  const removeStringSelect = (value) => {
     frasesOvarioDireito.map((e) => {
-      if (e.includes("Ovário Direito mede")) {
+      if (e.includes(value)) {
         var index = frasesOvarioDireito.indexOf(e);
 
         if (index > -1) {
@@ -95,6 +99,11 @@ function Ovario_Direito({ Disable }) {
       }
     });
   };
+
+  useEffect(() => {
+    criaStringMedidasOvario();
+  }, [medidaOvario1, medidaOvario2, medidaOvario3]);
+
   //Funcoes medidas ovario - Fim
 
   //Funcoes Padrao Folicular - Inicio
@@ -231,15 +240,21 @@ function Ovario_Direito({ Disable }) {
   //Funcoes Cisto - Fim
 
   //Função Nao Visibilizado
-  const criaStringNaoVisibilizado = () => {
-    var string = "Ovário direito não visibilizado ";
-    if (naoVisibilizadoCheckBox) {
-      setFrasesOvarioDireito((arr) => [...arr, string]);
-      setnaoVisibilizadoCheckBox(false);
+  useEffect(() => {
+    var string = "Ovário direito não visibilizado.";
+    if (NaoVisibilizadoCheckBox) {
+      setFrasesOvarioDireito((arr) => [...arr, string])
+      setCistoInput("");
+      setCistoInput("");
+      setmedidaOvario1('')
+      setmedidaOvario2('')
+      setmedidaOvario3('')
+      setCistoSelect('')
     } else {
       removeItemString(string);
+
     }
-  };
+  }, [NaoVisibilizadoCheckBox])
 
   const removeItemString = (value) => {
     var index = frasesOvarioDireito.indexOf(value);
@@ -250,10 +265,6 @@ function Ovario_Direito({ Disable }) {
     }
   };
 
-  useEffect(() => {
-    removeMedidasOvario();
-    criaStringMedidasOvario();
-  }, [medidaOvario1, medidaOvario2, medidaOvario3]);
 
   useEffect(() => {
     if (padraoMicropolicisticoCheckBox) {
@@ -286,6 +297,16 @@ function Ovario_Direito({ Disable }) {
     criaStringCisto(cistoInput, cistoSelect);
   }, [cistoInput, cistoSelect]);
 
+  useEffect(() => {
+    if ((medidaOvario1 != '' && medidaOvario2 != '' && medidaOvario3 != '') || padraoMicropolicisticoCheckBox
+      || padraoFolicularCheckBox || cistoCheckBox) {
+      setNaoVisibilizadoDisable(true)
+    } else {
+      setNaoVisibilizadoDisable(false)
+    }
+  }, [padraoFolicularCheckBox, cistoCheckBox, padraoMicropolicisticoCheckBox,
+    medidaOvario3, medidaOvario2, medidaOvario1])
+
   return (
     <Box
       bg="#FAFAFA"
@@ -305,36 +326,39 @@ function Ovario_Direito({ Disable }) {
           <Box w="260px">
             <Text>Medidas:</Text>
             <HStack marginTop="5px">
-              <Input isDisabled={Disable}
+              <Input isDisabled={Disable || NaoVisibilizadoCheckBox}
+                value={medidaOvario1}
                 w="80px"
                 h="30px"
-                padding="5px"
+                padding="0px"
                 textAlign="center"
                 onChange={(e) => setmedidaOvario1(e.target.value)}
               />
               <Text>x</Text>
-              <Input isDisabled={Disable}
+              <Input isDisabled={Disable || NaoVisibilizadoCheckBox}
                 w="80px"
                 h="30px"
-                padding="5px"
+                value={medidaOvario2}
+                padding="0px"
                 textAlign="center"
                 onChange={(e) => setmedidaOvario2(e.target.value)}
               />
               <Text>x</Text>
-              <Input isDisabled={Disable}
+              <Input isDisabled={Disable || NaoVisibilizadoCheckBox}
                 w="80px"
                 h="30px"
-                padding="5px"
+                value={medidaOvario3}
+                padding="0px"
                 textAlign="center"
                 onChange={(e) => {
                   setmedidaOvario3(e.target.value);
                 }}
               />
               <Text>mm</Text>
-              <Input isDisabled={Disable}
-                w="80px"
+              <Input isDisabled={Disable || NaoVisibilizadoCheckBox}
+                w="100px"
                 h="30px"
-                padding="5px"
+                padding="0px"
                 value={medidaOvario4}
                 textAlign="center"
               />
@@ -343,16 +367,15 @@ function Ovario_Direito({ Disable }) {
           </Box>
 
           <Stack>
-            <Checkbox isDisabled={Disable}
+            <Checkbox isDisabled={Disable || NaoVisibilizadoDisable}
               onChange={() => {
-                setnaoVisibilizadoCheckBox(true);
-                criaStringNaoVisibilizado();
+                setNaoVisibilizadoCheckBox(!NaoVisibilizadoCheckBox);
               }}
             >
               Não visibilizado
             </Checkbox>
 
-            <Checkbox isDisabled={Disable}
+            <Checkbox isDisabled={Disable || NaoVisibilizadoCheckBox}
               onChange={() =>
                 setpadraoMicropolicisticoCheckBox(
                   !padraoMicropolicisticoCheckBox
@@ -361,7 +384,7 @@ function Ovario_Direito({ Disable }) {
             >
               Padrão micropolicístico
             </Checkbox>
-            <Checkbox isDisabled={Disable}
+            <Checkbox isDisabled={Disable || NaoVisibilizadoCheckBox}
               onChange={() =>
                 setpadraoFolicularCheckBox(!padraoFolicularCheckBox)
               }
@@ -370,7 +393,7 @@ function Ovario_Direito({ Disable }) {
             </Checkbox>
 
             <HStack>
-              <Checkbox isDisabled={Disable} onChange={() => setCistoCheckBox(!cistoCheckBox)}>
+              <Checkbox isDisabled={Disable || NaoVisibilizadoCheckBox} onChange={() => setCistoCheckBox(!cistoCheckBox)}>
                 Cisto
               </Checkbox>
               <Input
@@ -378,7 +401,7 @@ function Ovario_Direito({ Disable }) {
                 value={cistoInput}
                 w="45px"
                 h="30px"
-                padding="5px"
+                padding="0px"
                 textAlign="center"
                 onChange={handleChangeCistoInput}
               />
