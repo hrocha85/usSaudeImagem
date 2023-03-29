@@ -99,9 +99,8 @@ function Miometrio({ Disable }) {
     }
   };
   const criaStringMiometrioHomogeneoSemNodulos = () => {
-    var string =
-      'falta'
-    const conclusao = 'falta.'
+    var string = 'Miométrio homogêneo sem nódulos'
+    const conclusao = 'Miométrio homogêneo sem nódulos.'
     if (MiometrioHomogeneoSemNodulosCheckBox) {
       setFrasesMiometrio((arr) => [...arr, string]);
       setConclusaoMiometrio((arr) => [...arr, conclusao]);
@@ -182,7 +181,7 @@ function Miometrio({ Disable }) {
                 setMiometrioHomogeneoSemNodulosCheckBox(!MiometrioHomogeneoSemNodulosCheckBox);
               }}
             >
-              Miométrio Homogêneo sem nódulos
+              Miométrio homogêneo sem nódulos
             </Checkbox>
             <Box>
               <HStack>
