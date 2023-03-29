@@ -1,18 +1,42 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Hidatide() {
+function Hidatide({ Disable }) {
   const altura = "100%";
   const largura = "33%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesHidatide, setFrasesHidatide] = useState<any>([]);
+  const [ConclusaoHidatide, setConclusaoHidatide] = useState<any>([]);
+
+  const subExame = "Hidátide";
+  const titulo_exame = "Pélvico"
+  useEffect(() => {
+    if (Object.keys(frasesHidatide).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesHidatide,
+        ConclusaoHidatide
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesHidatide,
+        ConclusaoHidatide
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesHidatide]);
 
   const [tamanhoHidatideInput, settamanhoHidatideInput] = useState("");
   const [posicaoHidatideSelect, setPosicaoHidatideSelect] = useState("");
   const [hidatideCheckBox, setHidatideCheckBox] = useState(false);
-  const [DisableSelect, setDisableSelect] = useState(true);
 
   const handleTamanhoHidatideInput = (event) => {
     settamanhoHidatideInput(event.target.value);
@@ -20,26 +44,34 @@ function Hidatide() {
 
   const criaStringHidatide = () => {
     removeStringHidatide();
-
-    if (
-      hidatideCheckBox &&
-      posicaoHidatideSelect != "" &&
-      tamanhoHidatideInput != ""
-    ) {
-      var string = `Hidátide lado ${posicaoHidatideSelect} mede ${tamanhoHidatideInput} mm `;
-
-      setLaudoPrin((arr) => [...arr, string]);
+    var conclusao = 'Cisto anexial'
+    if (hidatideCheckBox && posicaoHidatideSelect !== "" && tamanhoHidatideInput !== "") {
+      var string = `Nota-se imagem em região anexial ${posicaoHidatideSelect} anecóica, arredondada, de limites precisos e contornos regulares, medindo ${tamanhoHidatideInput} mm. `;
+      conclusao = `${conclusao} ${posicaoHidatideSelect} podendo corresponder a hidátide de Morgani.`;
+      setFrasesHidatide((arr) => [...arr, string]);
+      setConclusaoHidatide((arr) => [...arr, conclusao]);
     }
   };
 
   const removeStringHidatide = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Hidátide")) {
-        var index = laudoPrin.indexOf(e);
+    frasesHidatide.map((e) => {
+      if (e.includes("Nota-se imagem em região anexial ")) {
+        var index = frasesHidatide.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesHidatide.splice(index, 1);
+          setFrasesHidatide((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoHidatide.map((e) => {
+      if (e.includes("Cisto anexial")) {
+        var index = ConclusaoHidatide.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoHidatide.splice(index, 1);
+          setConclusaoHidatide((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Cisto anexial');
         }
       }
     });
@@ -47,10 +79,8 @@ function Hidatide() {
 
   useEffect(() => {
     if (hidatideCheckBox) {
-      setDisableSelect(false)
       criaStringHidatide();
     } else {
-      setDisableSelect(true)
       removeStringHidatide();
       setPosicaoHidatideSelect("");
       settamanhoHidatideInput("");
@@ -77,6 +107,7 @@ function Hidatide() {
             <Box>
               <HStack>
                 <Checkbox
+                  isDisabled={Disable}
                   whiteSpace="nowrap"
                   onChange={() => {
                     setHidatideCheckBox(!hidatideCheckBox);
@@ -85,8 +116,8 @@ function Hidatide() {
                   Hidátide
                 </Checkbox>
                 <Select
+                  isDisabled={Disable || !hidatideCheckBox}
                   w="auto"
-                  isDisabled={DisableSelect}
                   onChange={(e) => {
                     setPosicaoHidatideSelect(e.target.value);
                   }}
@@ -99,7 +130,7 @@ function Hidatide() {
                   <option value="esquerdo">Esquerda</option>
                 </Select>
                 <Input
-                  isDisabled={DisableSelect}
+                  isDisabled={Disable || !hidatideCheckBox}
                   w="60px"
                   h="77x"
                   padding="5px"

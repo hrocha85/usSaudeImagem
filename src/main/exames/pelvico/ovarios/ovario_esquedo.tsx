@@ -1,5 +1,6 @@
-/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable eqeqeq */
+/* eslint-disable array-callback-return */
 import {
   Box,
   Checkbox,
@@ -13,35 +14,34 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Ovario_Esquerdo() {
+function Ovario_Esquerdo({ Disable }) {
   const altura = "100%";
-  const largura = "40%";
+  const largura = "32.5%";
 
+  const [frasesOvarioEsquerdo, setfrasesOvarioEsquerdo] = useState<any>([]);
+  const [ConclusaoOvarioEsquerdo, setConclusaoOvarioEsquerdo] = useState<any>([]);
 
-  const [FraseOvario, setFraseOvario] = useState<any>([]);
-
-  const subExame = `Ovário Esquerdo`;
-  const titulo_exame = "Pélvico"
-
-
+  const subExame = "Ovário Esquerdo";
+  const titulo_exame = "Pélvico";
   useEffect(() => {
-    if (Object.keys(FraseOvario).length == 0) {
+    if (Object.keys(frasesOvarioEsquerdo).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        FraseOvario,
+        frasesOvarioEsquerdo,
+        ConclusaoOvarioEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        FraseOvario,
+        frasesOvarioEsquerdo,
+        ConclusaoOvarioEsquerdo
       ).Format_Laudo_Create_Storage();
     }
-  }, [FraseOvario]);
-
+  }, [frasesOvarioEsquerdo]);
 
   //States medidas ovario - Inicio
   const [medidaOvario1, setmedidaOvario1] = useState("");
@@ -78,20 +78,18 @@ function Ovario_Esquerdo() {
       setmedidaOvario4(medida4)
 
       var string = `Ovário Esquerdo mede ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm (${medida4} cm³)`;
-      setFraseOvario((arr) => [...arr, string]);
-    } else {
-      setmedidaOvario4(0)
+      setfrasesOvarioEsquerdo((arr) => [...arr, string]);
     }
   };
 
   const removeMedidasOvario = () => {
-    FraseOvario.map((e) => {
-      if (e.includes("Ovário Esquerdo")) {
-        var index = FraseOvario.indexOf(e);
+    frasesOvarioEsquerdo.map((e) => {
+      if (e.includes("Ovário Esquerdo mede")) {
+        var index = frasesOvarioEsquerdo.indexOf(e);
 
         if (index > -1) {
-          FraseOvario.splice(index, 1);
-          setFraseOvario((arr) => [...arr]);
+          frasesOvarioEsquerdo.splice(index, 1);
+          setfrasesOvarioEsquerdo((arr) => [...arr]);
         }
       }
     });
@@ -100,18 +98,31 @@ function Ovario_Esquerdo() {
 
   //Funcoes Padrao Folicular - Inicio
   const criaStringPadraoFolicular = () => {
-    var string = "Ovário esquerdo com padrão folicular ";
-    setFraseOvario((arr) => [...arr, string]);
+    var string = "Ovário esquerdo com padrão folicular.";
+    const conclusao = 'Ovário esquerdo com padrão folicular.'
+    setfrasesOvarioEsquerdo((arr) => [...arr, string]);
+    setConclusaoOvarioEsquerdo((arr) => [...arr, conclusao]);
   };
 
   const removePadraoFolicular = () => {
-    FraseOvario.map((e) => {
+    frasesOvarioEsquerdo.map((e) => {
       if (e.includes("folicular")) {
-        var index = FraseOvario.indexOf(e);
+        var index = frasesOvarioEsquerdo.indexOf(e);
 
         if (index > -1) {
-          FraseOvario.splice(index, 1);
-          setFraseOvario((arr) => [...arr]);
+          frasesOvarioEsquerdo.splice(index, 1);
+          setfrasesOvarioEsquerdo((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoOvarioEsquerdo.map((e) => {
+      if (e.includes("Ovário esquerdo com padrão folicular.")) {
+        var index = ConclusaoOvarioEsquerdo.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoOvarioEsquerdo.splice(index, 1);
+          setConclusaoOvarioEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao("Ovário esquerdo com padrão folicular.")
         }
       }
     });
@@ -120,45 +131,96 @@ function Ovario_Esquerdo() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringPadraoMicropolicistico = () => {
-    var string = "Ovário esquerdo com padrão micropolicístico ";
-    setFraseOvario((arr) => [...arr, string]);
+    var string =
+      "Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe em seu interior múltiplas imagens císticas, distribuídas predominantemente na periferia, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.";
+    const conclusao = 'Ovário esquerdo com aspecto micropolicístico.'
+    setfrasesOvarioEsquerdo((arr) => [...arr, string]);
+    setConclusaoOvarioEsquerdo((arr) => [...arr, conclusao]);
     return string;
   };
 
   const removePadraoMicropolicistico = () => {
-    FraseOvario.map((e) => {
-      if (e.includes("micropolicístico")) {
-        var index = FraseOvario.indexOf(e);
+    frasesOvarioEsquerdo.map((e) => {
+      if (
+        e.includes(
+          "Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe em seu interior múltiplas imagens císticas, distribuídas predominantemente na periferia, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris."
+        )
+      ) {
+        var index = frasesOvarioEsquerdo.indexOf(e);
 
         if (index > -1) {
-          FraseOvario.splice(index, 1);
-          setFraseOvario((arr) => [...arr]);
+          frasesOvarioEsquerdo.splice(index, 1);
+          setfrasesOvarioEsquerdo((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoOvarioEsquerdo.map((e) => {
+      if (e.includes("Ovário esquerdo com aspecto micropolicístico.")) {
+        var index = ConclusaoOvarioEsquerdo.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoOvarioEsquerdo.splice(index, 1);
+          setConclusaoOvarioEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao("Ovário esquerdo com aspecto micropolicístico.")
         }
       }
     });
   };
   //Funcoes Padrao Micropolicistico - Fim
 
-  //Funcoes Cisto - Inicio
   const criaStringCisto = (medida, cisto) => {
+    var conclusao = ' no ovário esquerdo.'
+    var SelectConclusao;
     removeCisto();
-    if (medida != "") {
-      var string = `Cisto no ovário esquerdo com ${medida}mm ${cisto} `;
-      setFraseOvario((arr) => [...arr, string]);
+
+    if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior') {
+      SelectConclusao = 'Cisto simples'
+    } else if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior e septação fina') {
+      SelectConclusao = 'Cisto septado'
+    } else if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, multiloculada, de limites precisos e contornos regulares, com reforço acústico posterior') {
+      SelectConclusao = 'Cisto multiloculado'
+    } else if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística, de paredes espessas e irregulares, conteúdo anecóide, com septos espessos e moderados debris de permeio') {
+      SelectConclusao = 'Cisto hemorrágico'
+    } else if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima apresenta imagem arredondada, anecóica de limites precisos e contornos regulares, com finos debrís em seu interior') {
+      SelectConclusao = 'Imagem cística sugestiva de endometrioma'
+    } else if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística, de paredes espessas e regulares, conteúdo anecóide, sem septos ou debris') {
+      SelectConclusao = 'Cisto de corpo lúteo'
+    } else if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima apresenta imagem nodular hiperecogênica de limites precisos e contornos definidos, apresentando reforço acústico posterior, com área cística em seu interior') {
+      SelectConclusao = 'Imagem sugestiva de cisto dermóide'
+    }
+
+
+    if (medida !== "" && cisto !== "") {
+      var string = `${cisto}, medindo ${medida} mm `;
+      conclusao = `${SelectConclusao} ${conclusao}`
+      setfrasesOvarioEsquerdo((arr) => [...arr, string]);
+      setConclusaoOvarioEsquerdo((arr) => [...arr, conclusao]);
     }
   };
 
   const removeCisto = () => {
-    FraseOvario.map((e) => {
-      if (e.includes("Cisto")) {
-        var index = FraseOvario.indexOf(e);
+    frasesOvarioEsquerdo.map((e) => {
+      if (e.includes("medindo")) {
+        var index = frasesOvarioEsquerdo.indexOf(e);
 
         if (index > -1) {
-          FraseOvario.splice(index, 1);
-          setFraseOvario((arr) => [...arr]);
+          frasesOvarioEsquerdo.splice(index, 1);
+          setfrasesOvarioEsquerdo((arr) => [...arr]);
         }
       }
     });
+    ConclusaoOvarioEsquerdo.map((e) => {
+      if (e.includes(' no ovário esquerdo.')) {
+        var index = ConclusaoOvarioEsquerdo.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoOvarioEsquerdo.splice(index, 1);
+          setConclusaoOvarioEsquerdo((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(" no ovário esquerdo.")
+        }
+      }
+    });
+
   };
   //Funcoes Cisto - Fim
 
@@ -166,7 +228,7 @@ function Ovario_Esquerdo() {
   const criaStringNaoVisibilizado = () => {
     var string = "Ovário esquerdo não visibilizado ";
     if (naoVisibilizadoCheckBox) {
-      setFraseOvario((arr) => [...arr, string]);
+      setfrasesOvarioEsquerdo((arr) => [...arr, string]);
       setnaoVisibilizadoCheckBox(false);
     } else {
       removeItemString(string);
@@ -174,11 +236,11 @@ function Ovario_Esquerdo() {
   };
 
   const removeItemString = (value) => {
-    var index = FraseOvario.indexOf(value);
+    var index = frasesOvarioEsquerdo.indexOf(value);
 
     if (index > -1) {
-      FraseOvario.splice(index, 1);
-      setFraseOvario((arr) => [...arr]);
+      frasesOvarioEsquerdo.splice(index, 1);
+      setfrasesOvarioEsquerdo((arr) => [...arr]);
     }
   };
 
@@ -210,11 +272,13 @@ function Ovario_Esquerdo() {
       removeCisto();
       setdisableCistoInput(true);
       setCistoInput("");
+      setCistoSelect("")
     }
   }, [cistoCheckBox]);
 
   useEffect(() => {
     criaStringCisto(cistoInput, cistoSelect);
+
   }, [cistoInput, cistoSelect]);
 
   return (
@@ -233,10 +297,10 @@ function Ovario_Esquerdo() {
 
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <Stack>
-          <Box w="300px">
+          <Box w="260px">
             <Text>Medidas:</Text>
             <HStack marginTop="5px">
-              <Input
+              <Input isDisabled={Disable}
                 w="80px"
                 h="30px"
                 padding="5px"
@@ -244,7 +308,7 @@ function Ovario_Esquerdo() {
                 onChange={(e) => setmedidaOvario1(e.target.value)}
               />
               <Text>x</Text>
-              <Input
+              <Input isDisabled={Disable}
                 w="80px"
                 h="30px"
                 padding="5px"
@@ -252,7 +316,7 @@ function Ovario_Esquerdo() {
                 onChange={(e) => setmedidaOvario2(e.target.value)}
               />
               <Text>x</Text>
-              <Input
+              <Input isDisabled={Disable}
                 w="80px"
                 h="30px"
                 padding="5px"
@@ -262,7 +326,7 @@ function Ovario_Esquerdo() {
                 }}
               />
               <Text>mm</Text>
-              <Input
+              <Input isDisabled={Disable}
                 w="80px"
                 h="30px"
                 value={medidaOvario4}
@@ -275,7 +339,7 @@ function Ovario_Esquerdo() {
           </Box>
 
           <Stack>
-            <Checkbox
+            <Checkbox isDisabled={Disable}
               onChange={() => {
                 setnaoVisibilizadoCheckBox(true);
                 criaStringNaoVisibilizado();
@@ -284,7 +348,7 @@ function Ovario_Esquerdo() {
               Não visibilizado
             </Checkbox>
 
-            <Checkbox
+            <Checkbox isDisabled={Disable}
               onChange={() =>
                 setpadraoMicropolicisticoCheckBox(
                   !padraoMicropolicisticoCheckBox
@@ -293,7 +357,7 @@ function Ovario_Esquerdo() {
             >
               Padrão micropolicístico
             </Checkbox>
-            <Checkbox
+            <Checkbox isDisabled={Disable}
               onChange={() =>
                 setpadraoFolicularCheckBox(!padraoFolicularCheckBox)
               }
@@ -302,7 +366,7 @@ function Ovario_Esquerdo() {
             </Checkbox>
 
             <HStack>
-              <Checkbox onChange={() => setCistoCheckBox(!cistoCheckBox)}>
+              <Checkbox isDisabled={Disable} onChange={() => setCistoCheckBox(!cistoCheckBox)}>
                 Cisto
               </Checkbox>
               <Input
@@ -316,18 +380,36 @@ function Ovario_Esquerdo() {
               />
               <Text>mm</Text>
               <Select
+                value={cistoSelect}
                 isDisabled={disableCistoInput}
                 onChange={(e) => {
                   setCistoSelect(e.target.value);
                 }}
               >
-                <option value="Cisto simples">Cisto Simples</option>
-                <option value="Cisto septação fina">Cisto septação fina</option>
-                <option value="Multiloculado">Multiloculado</option>
-                <option value="Hemorrágico">Hemorrágico</option>
-                <option value="Endometrioma">Endometrioma</option>
-                <option value="Corpo lúteo">Corpo lúteo</option>
-                <option value="Cisto dermóide">Cisto dermóide</option>
+                <option value="" disabled selected>
+                  Selecione
+                </option>
+                <option value="Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior">
+                  Cisto Simples
+                </option>
+                <option value="Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior e septação fina">
+                  Cisto septação fina
+                </option>
+                <option value="Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, multiloculada, de limites precisos e contornos regulares, com reforço acústico posterior">
+                  Multiloculado
+                </option>
+                <option value="Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística, de paredes espessas e irregulares, conteúdo anecóide, com septos espessos e moderados debris de permeio">
+                  Hemorrágico
+                </option>
+                <option value="Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima apresenta imagem arredondada, anecóica de limites precisos e contornos regulares, com finos debrís em seu interior">
+                  Endometrioma
+                </option>
+                <option value="Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística, de paredes espessas e regulares, conteúdo anecóide, sem septos ou debris">
+                  Corpo lúteo
+                </option>
+                <option value="Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima apresenta imagem nodular hiperecogênica de limites precisos e contornos definidos, apresentando reforço acústico posterior, com área cística em seu interior">
+                  Cisto dermóide
+                </option>
               </Select>
             </HStack>
           </Stack>

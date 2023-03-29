@@ -1,14 +1,38 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Cirurgias() {
+function Cirurgias({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  const largura = "520px";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesCirurgia, setFrasesCirurgias] = useState<any>([]);
+  const [ConclusaoCirurgia, setConclusaoCirurgias] = useState<any>([]);
+
+  const subExame = "Cirurgia";
+  const titulo_exame = "Pélvico"
+  useEffect(() => {
+    if (Object.keys(frasesCirurgia).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesCirurgia,
+        ConclusaoCirurgia
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesCirurgia,
+        ConclusaoCirurgia
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesCirurgia]);
+
 
   const [medidaHisterectomia1, setmedidaHisterectomia1] = useState("");
   const [medidaHisterectomia2, setmedidaHisterectomia2] = useState("");
@@ -17,9 +41,6 @@ function Cirurgias() {
   const [histerectomiaSubtotalCheckBox, setHisterectomiaSubTotalCheckBox] =
     useState(false);
 
-  const [DisableInput, setDisableInput] = useState(true);
-  const [DisableHisterectomiaTotal, setDisableHisterectomiaTotal] = useState(false);
-
   const [isCheckedHisterectomiaSubTotal, setisCheckedHisterectomiaSubTotal] =
     useState(false);
 
@@ -27,9 +48,11 @@ function Cirurgias() {
     useState(true);
 
   const criaStringHisterectomiaTotal = () => {
-    var string = "Histerectomia Total ";
+    var string = "Histerectomia Total.";
+    const conclusao = 'Histerectomia total.'
     if (histerectmoiaTotalCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCirurgias((arr) => [...arr, string]);
+      setConclusaoCirurgias((arr) => [...arr, conclusao]);
       sethisterectomiaTotalCheckBox(false);
       setisCheckedHisterectomiaSubTotal(false);
       removeMedidaHisterectomiaSubtotal();
@@ -38,53 +61,67 @@ function Cirurgias() {
       setmedidaHisterectomia3("");
     } else {
       removeItemString(string);
+      removeItemStringConclusao(conclusao)
     }
   };
 
   const criaStringMedidasHisterectomia = () => {
+    const conclusao = 'Histerectomia subtotal.'
     removeMedidaHisterectomiaSubtotal();
-
-    if (
-      medidaHisterectomia1 != "" &&
-      medidaHisterectomia2 != "" &&
-      medidaHisterectomia3 != ""
-    ) {
-      var string = `Histerectomia subtotal, colo mede ${medidaHisterectomia1} x ${medidaHisterectomia2} x ${medidaHisterectomia3} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+    if (medidaHisterectomia1 !== "" && medidaHisterectomia2 !== "" && medidaHisterectomia3 !== "") {
+      var string = `Presença do colo uterino medindo ${medidaHisterectomia1} x ${medidaHisterectomia2} x ${medidaHisterectomia3} mm `;
+      setFrasesCirurgias((arr) => [...arr, string]);
+      setConclusaoCirurgias((arr) => [...arr, conclusao]);
     }
   };
 
   const removeMedidaHisterectomiaSubtotal = () => {
     // console.log("valor remove = ", value);
-    laudoPrin.map((e) => {
-      if (e.includes("Histerectomia subtotal")) {
-        var index = laudoPrin.indexOf(e);
+    frasesCirurgia.map((e) => {
+      if (e.includes("Presença do colo uterino medindo")) {
+        var index = frasesCirurgia.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCirurgia.splice(index, 1);
+          setFrasesCirurgias((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoCirurgia.map((e) => {
+      if (e.includes("Histerectomia subtotal.")) {
+        var index = ConclusaoCirurgia.indexOf(e);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+        if (index > -1) {
+          ConclusaoCirurgia.splice(index, 1);
+          setConclusaoCirurgias((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Histerectomia subtotal.');
         }
       }
     });
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesCirurgia.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesCirurgia.splice(index, 1);
+      setFrasesCirurgias((arr) => [...arr]);
+    }
+  };
+  const removeItemStringConclusao = (value) => {
+    var index = ConclusaoCirurgia.indexOf(value);
+
+    if (index > -1) {
+      ConclusaoCirurgia.splice(index, 1);
+      setConclusaoCirurgias((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
   };
 
   useEffect(() => {
     if (histerectomiaSubtotalCheckBox) {
-      setDisableHisterectomiaTotal(true)
-      setDisableInput(false)
       criaStringMedidasHisterectomia();
     } else {
-      setDisableHisterectomiaTotal(false)
-      setDisableInput(true)
       removeMedidaHisterectomiaSubtotal();
       setmedidaHisterectomia1("");
       setmedidaHisterectomia2("");
@@ -115,7 +152,7 @@ function Cirurgias() {
         <Stack>
           <Stack>
             <Checkbox
-              isDisabled={DisableHisterectomiaTotal}
+              isDisabled={Disable}
               onChange={() => {
                 sethisterectomiaTotalCheckBox(true);
                 criaStringHisterectomiaTotal();
@@ -140,7 +177,7 @@ function Cirurgias() {
                 </Checkbox>
 
                 <Input
-                  isDisabled={DisableInput}
+                  isDisabled={!histerectmoiaTotalCheckBox}
                   value={medidaHisterectomia1}
                   w="35px"
                   h="30px"
@@ -151,7 +188,7 @@ function Cirurgias() {
                 />
                 <Text>x</Text>
                 <Input
-                  isDisabled={DisableInput}
+                  isDisabled={!histerectmoiaTotalCheckBox}
                   value={medidaHisterectomia2}
                   w="35px"
                   h="30px"
@@ -162,7 +199,7 @@ function Cirurgias() {
                 />
                 <Text>x</Text>
                 <Input
-                  isDisabled={DisableInput}
+                  isDisabled={!histerectmoiaTotalCheckBox}
                   value={medidaHisterectomia3}
                   w="35px"
                   h="30px"
