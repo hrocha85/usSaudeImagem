@@ -13,29 +13,24 @@ import Utero from "./utero/utero";
 
 function Pelvico() {
   return (
-    <>
-
-
-      <Box ml="10px">
-        <Utero />
-        <HStack alignItems="baseline">
-          <Ovario_Esquerdo />
-          <Ovario_Direito />
-        </HStack>
-        <Miometrio />
-        <Cirurgias />
-        <HStack alignItems="baseline">
-          <Hidatide />
-          <Hidrossalpinge />
-        </HStack>
-        <HStack alignItems="baseline">
-          <Liquido_Livre />
-          <Extras />
-        </HStack>
-      </Box>
-    </>
+    <Box ml="10px">
+      <Utero />
+      <HStack alignItems="baseline">
+        <Ovario_Esquerdo />
+        <Ovario_Direito />
+      </HStack>
+      <Miometrio />
+      <Cirurgias />
+      <HStack alignItems="baseline">
+        <Hidatide />
+        <Hidrossalpinge />
+      </HStack>
+      <HStack alignItems="baseline">
+        <Liquido_Livre />
+        <Extras />
+      </HStack>
+    </Box>
   );
 }
 
 export default Pelvico;
-//TODO pelvico é igual ao transvaginal ??
