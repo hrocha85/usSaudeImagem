@@ -99,7 +99,7 @@ export default function IndividualizarNodulos({ numCalculo }) {
       ${SelectMargens} ${SelectOrientacao} ${SelectCalcificacoes}
        com IR - ${IR}, IP - ${IP} e VEL - ${VEL} cm/s (CHAMMAS - ${SelectDoppler}, LAGALLA - ${SelectLagalla}, TI-RADS - ${SelectRADS}).`;
       setFraseNodulosDireito((arr) => [...arr, string]);
-      setConclusaoNodulosDireito((arr) => [...arr, conclusao]);
+      //setConclusaoNodulosDireito((arr) => [...arr, conclusao]);
     }
   };
 

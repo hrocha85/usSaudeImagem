@@ -217,6 +217,7 @@ function Medidas({ Disable }) {
       removeString(string);
     }
   };
+  
   const criaStringIstmoDesprezivel = () => {
     var string = "Lobo Istmo Desprezível";
     removeFraseIstmo();
