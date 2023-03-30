@@ -8,6 +8,7 @@ function Hidrossalpinge() {
   const largura = "300px";
 
   const [frasesHidro, setFrasesHidro] = useState<any>([]);
+  const [ConclusaoHidro, setConclusaoHidro] = useState<any>([]);
 
   const [posicaoHidrossalpingeSelect, setPosicaoHidrossalpingeSelect] =
     useState("");
@@ -18,14 +19,16 @@ function Hidrossalpinge() {
     removeStringHidrossalpinge();
 
     if (HidrossalpingeCheckBox && posicaoHidrossalpingeSelect != "") {
-      var string = `Hidrossalpinge ${posicaoHidrossalpingeSelect}`;
+      var string = `Nota-se em região anexial ${posicaoHidrossalpingeSelect} imagem anecóica, tubular, tortuosa, de limites precisos e contornos regulares.`;
+      var conclusao = `Hidrossalpinge à ${posicaoHidrossalpingeSelect}.`
       setFrasesHidro((arr) => [...arr, string]);
+      setConclusaoHidro((arr) => [...arr, conclusao]);
     }
   };
 
   const removeStringHidrossalpinge = () => {
     frasesHidro.map((e) => {
-      if (e.includes("Hidrossalpinge")) {
+      if (e.includes("Nota-se em região anexial ")) {
         var index = frasesHidro.indexOf(e);
 
         if (index > -1) {
@@ -33,6 +36,17 @@ function Hidrossalpinge() {
           setFrasesHidro((arr) => [...arr]);
         }
       }
+    });
+    ConclusaoHidro.map((e) => {
+      if (e.includes('Hidrossalpinge')) {
+        var index = ConclusaoHidro.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoHidro.splice(index, 1);
+          setConclusaoHidro((arr) => [...arr]);
+        }
+      }
+      new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Hidrossalpinge')
     });
   };
 
@@ -56,14 +70,16 @@ function Hidrossalpinge() {
         titulo_exame,
         subExame,
         true,
-        frasesHidro
+        frasesHidro,
+        ConclusaoHidro
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesHidro
+        frasesHidro,
+        ConclusaoHidro
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesHidro]);
@@ -106,8 +122,8 @@ function Hidrossalpinge() {
                   <option value="" disabled selected>
                     Posição
                   </option>
-                  <option value="direita">Direita</option>
-                  <option value="esquerda">Esquerda</option>
+                  <option value="à direita">Direita</option>
+                  <option value="à esquerda">Esquerda</option>
                   <option value="bilateral">Bilateral</option>
                 </Select>
               </HStack>

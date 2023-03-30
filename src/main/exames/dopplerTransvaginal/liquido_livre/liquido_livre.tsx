@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -8,23 +9,30 @@ function Liquido_Livre() {
   const largura = "300px";
 
   const [frasesLL, setFrasesLL] = useState<any>([]);
+  const [ConclusaoLL, setConclusaoLL] = useState<any>([]);
 
   const [posicaoLiquidoSelect, setPosicaoLiquidoSelect] = useState("");
   const [LiquidoCheckBox, setLiquidoCheckBox] = useState(false);
-  const [DisableSelect, setDisableSelect] = useState(true);
 
   const criaStringLiquidoLivre = () => {
     removeStringLiquidoLivre();
-
-    if (LiquidoCheckBox && posicaoLiquidoSelect != "") {
-      var string = `Líquido livre ${posicaoLiquidoSelect}`;
-      setFrasesLL((arr) => [...arr, string]);
+    if (LiquidoCheckBox) {
+      if (posicaoLiquidoSelect != "") {
+        var conclusao = `Líquido livre na pelve.`;
+        var string = `Presença de ${posicaoLiquidoSelect} quantidade de líquido livre no fundo de saco posterior.`;
+        setFrasesLL((arr) => [...arr, string]);
+        setConclusaoLL((arr) => [...arr, conclusao]);
+      }
     }
   };
 
+  useEffect(() => {
+    criaStringLiquidoLivre();
+  }, [LiquidoCheckBox, posicaoLiquidoSelect]);
+
   const removeStringLiquidoLivre = () => {
     frasesLL.map((e) => {
-      if (e.includes("Líquido")) {
+      if (e.includes("quantidade de líquido livre no fundo de saco posterior.")) {
         var index = frasesLL.indexOf(e);
 
         if (index > -1) {
@@ -33,18 +41,18 @@ function Liquido_Livre() {
         }
       }
     });
-  };
+    ConclusaoLL.map((e) => {
+      if (e.includes('Líquido livre na pelve.')) {
+        var index = ConclusaoLL.indexOf(e);
 
-  useEffect(() => {
-    if (LiquidoCheckBox) {
-      setDisableSelect(false);
-      criaStringLiquidoLivre();
-    } else {
-      setDisableSelect(true);
-      removeStringLiquidoLivre();
-      setPosicaoLiquidoSelect("");
-    }
-  }, [LiquidoCheckBox, posicaoLiquidoSelect]);
+        if (index > -1) {
+          ConclusaoLL.splice(index, 1);
+          setConclusaoLL((arr) => [...arr]);
+        }
+      }
+      new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Líquido livre na pelve.')
+    });
+  };
 
   const subExame = "Líquido Livre";
   const titulo_exame = "Doppler Transvaginal";
@@ -55,14 +63,16 @@ function Liquido_Livre() {
         titulo_exame,
         subExame,
         true,
-        frasesLL
+        frasesLL,
+        ConclusaoLL
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesLL
+        frasesLL,
+        ConclusaoLL
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesLL]);
@@ -94,7 +104,7 @@ function Liquido_Livre() {
                   Líquido Livre
                 </Checkbox>
                 <Select
-                  isDisabled={DisableSelect}
+                  isDisabled={!LiquidoCheckBox}
                   w="auto"
                   onChange={(e) => {
                     setPosicaoLiquidoSelect(e.target.value);
@@ -102,7 +112,7 @@ function Liquido_Livre() {
                   value={posicaoLiquidoSelect}
                 >
                   <option value="" disabled selected>
-                    Posição
+                    Quantidade
                   </option>
                   <option value="pequena">Pequena</option>
                   <option value="moderada">Moderada</option>

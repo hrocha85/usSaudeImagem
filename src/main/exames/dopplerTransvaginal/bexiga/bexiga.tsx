@@ -1,9 +1,8 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { Convert_Medida } from "../../../component/function_convert_medidas";
+import { Box, Checkbox } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -23,9 +22,7 @@ function Bexiga() {
   const [DisableNaoVisibilizada, setDisableNaoVisibilizada] = useState(false)
 
   const [NormoEspessasCheckbox, setNormoEspessasCheckbox] = useState(false)
-  const [DisableNormoEspessadas, setDisableNormoEspessadas] = useState(false)
   const [EspessadasCheckbox, setEspessadasCheckbox] = useState(false)
-  const [DisableEspessadas, setDisableEspessadas] = useState(false)
   const [DisableParedes, setDisableParedes] = useState(true)
 
   const removeItemString = (value) => {
@@ -40,21 +37,19 @@ function Bexiga() {
   useEffect(() => {
     var string = `${StringParedes} de paredes normo-espessas.`
     if (NormoEspessasCheckbox) {
+      console.log('aqui')
       setFraseBexiga((arr) => [...arr, string]);
-      setDisableEspessadas(true)
     } else {
-      setDisableEspessadas(false)
       removeItemString(string)
     }
+    console.log(FraseBexiga)
   }, [NormoEspessasCheckbox])
 
   useEffect(() => {
     var string = `${StringParedes} de paredes espessadas.`
     if (EspessadasCheckbox) {
       setFraseBexiga((arr) => [...arr, string]);
-      setDisableNormoEspessadas(true)
     } else {
-      setDisableNormoEspessadas(false)
       removeItemString(string)
     }
   }, [EspessadasCheckbox])
@@ -90,7 +85,6 @@ function Bexiga() {
 
   useEffect(() => {
     if (NaoVisibilizadaCheckbox) {
-
       setDisableCheia(true)
       setDisableVazia(true)
     } else {
@@ -101,7 +95,7 @@ function Bexiga() {
 
 
   const subExame = "Bexiga";
-  const titulo_exame = "Transvaginal";
+  const titulo_exame = "Doppler Transvaginal";
 
   useEffect(() => {
     if (Object.keys(FraseBexiga).length == 0) {
@@ -165,13 +159,13 @@ function Bexiga() {
       </Box >
       <Box gap='25px' display='flex' flexWrap='wrap'>
         <Checkbox
-          disabled={DisableParedes || DisableNormoEspessadas}
+          disabled={DisableParedes || EspessadasCheckbox}
           onChange={() => setNormoEspessasCheckbox(!NormoEspessasCheckbox)}
         >
           Paredes normo-espessas
         </Checkbox>
         <Checkbox
-          disabled={DisableParedes || DisableEspessadas}
+          disabled={DisableParedes || NormoEspessasCheckbox}
           onChange={() => setEspessadasCheckbox(!EspessadasCheckbox)}
         >
           Paredes espessadas
