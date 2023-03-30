@@ -17,28 +17,11 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     settamanhoNoduloInput(event.target.value);
   };
 
-  const criaStringMultiplosNodulos = (
-    tamanhoNoduloInput,
-    nodulosSelect,
-    localizado,
-    DopplerNodulosSelect
-  ) => {
+  const criaStringMultiplosNodulos = (tamanhoNoduloInput, nodulosSelect, localizado, DopplerNodulosSelect) => {
     removeMultiplosNodulos();
     var string;
-    if (
-      DopplerNodulosSelect !== "" &&
-      tamanhoNoduloInput !== "" &&
-      nodulosSelect !== "" &&
-      localizado !== ""
-    ) {
-      string = `Nódulo ${numNodulo} mede ${tamanhoNoduloInput} mm ${nodulosSelect} localizado ${localizado}, doppler ${DopplerNodulosSelect} `;
-      setFrasesNodulos((arr) => [...arr, string]);
-    } else if (
-      tamanhoNoduloInput !== "" &&
-      nodulosSelect !== "" &&
-      localizado !== ""
-    ) {
-      string = `Nódulo ${numNodulo} mede ${tamanhoNoduloInput} mm ${nodulosSelect} localizado ${localizado} `;
+    if (DopplerNodulosSelect !== "" && tamanhoNoduloInput !== "" && nodulosSelect !== "" && localizado !== "") {
+      string = `Nódulo ${numNodulo}: ${nodulosSelect}, localizado na parede, ${localizado} medindo ${tamanhoNoduloInput} mm, com vascularização ${DopplerNodulosSelect}.`;
       setFrasesNodulos((arr) => [...arr, string]);
     }
   };
