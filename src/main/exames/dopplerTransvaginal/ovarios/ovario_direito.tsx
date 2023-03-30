@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
   Checkbox,
@@ -16,92 +17,133 @@ function Ovario_Direito() {
   const largura = "400px";
 
   const [frasesOVD, setFrasesOVD] = useState<any>([]);
+  const [ConclusaoOVD, setConclusaoOVD] = useState<any>([]);
 
-  const [dopplerMedidasCheckBox, setdopplerMedidasCheckBox] = useState(false);
+  const [dopplerMedidasCheckbox, setdopplerMedidasCheckbox] = useState(false);
   const [disableInputsDoppler, setDisableInputsDoppler] = useState(true);
 
   const [MedidaDireitaIR, setMedidaDireitaIR] = useState("");
   const [MedidaDireitaIP, setMedidaDireitaIP] = useState("");
 
   //States medidas ovario - Inicio
-  const [medidaOvario1, setmedidaOvario1] = useState("");
-  const [medidaOvario2, setmedidaOvario2] = useState("");
-  const [medidaOvario3, setmedidaOvario3] = useState("");
+  const [medidaOvario1, setmedidaOvario1] = useState(5);
+  const [medidaOvario2, setmedidaOvario2] = useState(5);
+  const [medidaOvario3, setmedidaOvario3] = useState(5);
+  const [medidaOvario4, setmedidaOvario4] = useState(0);
+  const [CitarMedidaCheckbox, setCitarMedidaCheckbox] = useState(false);
   //States medidas ovario - Fim
 
   //States cisto - input,checkbox e select - Inicio
   const [cistoInput, setCistoInput] = useState("");
-  const [disableCistoInput, setdisableCistoInput] = useState(true);
-  const [cistoCheckBox, setCistoCheckBox] = useState(false);
+  const [cistoCheckbox, setCistoCheckbox] = useState(false);
   const [cistoSelect, setCistoSelect] = useState("");
 
   const handleChangeCistoInput = (event) => {
     setCistoInput(event.target.value);
   };
+  const handleChangeMedida1Input = (event) => {
+    setmedidaOvario1(event.target.value);
+  };
+  const handleChangeMedida2Input = (event) => {
+    setmedidaOvario2(event.target.value);
+  };
+  const handleChangeMedida3Input = (event) => {
+    setmedidaOvario3(event.target.value);
+  };
   //States cisto - input,checkbox e select - Fim
 
-  //State checkBox Padrao Micropolicistico
-  const [padraoMicropolicisticoCheckBox, setpadraoMicropolicisticoCheckBox] =
+  //State checkbox Padrao Micropolicistico
+  const [padraoMicropolicisticoCheckbox, setpadraoMicropolicisticoCheckbox] =
     useState(false);
 
   //State Padrao Folicular
-  const [padraoFolicularCheckBox, setpadraoFolicularCheckBox] = useState(false);
+  const [padraoFolicularCheckbox, setpadraoFolicularCheckbox] = useState(false);
 
   //State Nao Visibilizado
-  const [naoVisibilizadoCheckBox, setnaoVisibilizadoCheckBox] = useState(true);
+  const [naoVisibilizadoCheckbox, setnaoVisibilizadoCheckbox] = useState(false);
 
   //Funcoes medidas ovario - Inicio
+
+
+
   const criaStringMedidasOvario = () => {
-    if (medidaOvario1 != "" && medidaOvario2 != "" && medidaOvario3 != "") {
-      var string = `Ovário Direito mede ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm `;
-      setFrasesOVD((arr) => [...arr, string]);
+    var string = 'Medida ovário'
+    removeItemSelect(string);
+    if (CitarMedidaCheckbox) {
+      if (medidaOvario1 != 0 && medidaOvario2 != 0 && medidaOvario3 != 0) {
+        var medida4 = (medidaOvario1 * (medidaOvario2) * (medidaOvario3) / 1000) / 2
+        setmedidaOvario4(medida4)
+        string = `${string} ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm (Vol= ${medida4}cm³).`;
+        setFrasesOVD((arr) => [...arr, string]);
+      }
     }
   };
 
-  const removeMedidasOvario = () => {
-    frasesOVD.map((e) => {
-      if (e.includes("Ovário Direito")) {
-        var index = frasesOVD.indexOf(e);
+  useEffect(() => {
+    criaStringMedidasOvario();
+  }, [medidaOvario1, medidaOvario2, medidaOvario3, CitarMedidaCheckbox]);
 
-        if (index > -1) {
-          frasesOVD.splice(index, 1);
-          setFrasesOVD((arr) => [...arr]);
-        }
-      }
-    });
-  };
-  //Funcoes medidas ovario - Fim
 
   //Funcoes Padrao Folicular - Inicio
   const criaStringPadraoFolicular = () => {
-    var string = "Ovário direito com padrão folicular ";
-    setFrasesOVD((arr) => [...arr, string]);
+    const conclusao = 'Ovário direito com padrão folicular'
+    var string = "O parênquima exibe em seu interior múltiplos folículos, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.";
+    removeItemString(string)
+    removeItemConclusao(conclusao)
+    if (padraoFolicularCheckbox) {
+      setFrasesOVD((arr) => [...arr, string]);
+      setConclusaoOVD((arr) => [...arr, conclusao]);
+    }
   };
 
-  const removePadraoFolicular = () => {
-    frasesOVD.map((e) => {
-      if (e.includes("folicular")) {
-        var index = frasesOVD.indexOf(e);
+  useEffect(() => {
 
-        if (index > -1) {
-          frasesOVD.splice(index, 1);
-          setFrasesOVD((arr) => [...arr]);
-        }
-      }
-    });
-  };
+    criaStringPadraoFolicular();
+
+  }, [padraoFolicularCheckbox]);
+
   //Funcoes Padrao Folicular - Fim
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringPadraoMicropolicistico = () => {
-    var string = "Ovário direito com padrão micropolicístico ";
-    setFrasesOVD((arr) => [...arr, string]);
-    return string;
+    const conclusao = 'Ovário direito com aspecto micropolicístico.'
+    var string = "O parênquima exibe em seu interior múltiplos folículos, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.";
+    removeItemString(string)
+    removeItemConclusao(conclusao)
+    if (padraoMicropolicisticoCheckbox) {
+      setFrasesOVD((arr) => [...arr, string]);
+      setConclusaoOVD((arr) => [...arr, conclusao]);
+    }
+  };
+  const removeItemConclusao = (value) => {
+    // console.log("valor remove = ", value);
+    var index = ConclusaoOVD.indexOf(value);
+    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+    if (index > -1) {
+      ConclusaoOVD.splice(index, 1);
+      setConclusaoOVD((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value)
+    }
+  };
+  const removeItemConclusaoSelect = (value) => {
+    // console.log("valor remove = ", value);
+    ConclusaoOVD.map((e) => {
+      if (e.includes(value)) {
+        var index = ConclusaoOVD.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoOVD.splice(index, 1);
+          setConclusaoOVD((arr) => [...arr]);
+        }
+      }
+      new Format_Laudo(titulo_exame).Remove_Conclusao_Select(value)
+    });
+
   };
 
-  const removePadraoMicropolicistico = () => {
+  const removeItemSelect = (value) => {
     frasesOVD.map((e) => {
-      if (e.includes("micropolicístico")) {
+      if (e.includes(value)) {
         var index = frasesOVD.indexOf(e);
 
         if (index > -1) {
@@ -111,41 +153,49 @@ function Ovario_Direito() {
       }
     });
   };
+
+  useEffect(() => {
+    criaStringPadraoMicropolicistico();
+  }, [padraoMicropolicisticoCheckbox]);
   //Funcoes Padrao Micropolicistico - Fim
 
   //Funcoes Cisto - Inicio
   const criaStringCisto = (medida, cisto) => {
-    removeCisto();
-    if (medida != "") {
-      var string = `Cisto no ovário direito com ${medida}mm ${cisto} `;
-      setFrasesOVD((arr) => [...arr, string]);
+    var string = `O parênquima apresenta imagem arredondada, anecóica de limites precisos e contornos regulares, com finos debrís em seu interior, medindo`;
+    var conclusao = 'Imagem cística sugestiva de'
+    removeItemSelect(string);
+    removeItemConclusaoSelect(conclusao)
+    if (cistoCheckbox) {
+      if (medida != "" && cisto != '') {
+        string = `${string} ${medida} mm.`
+        conclusao = `${conclusao} ${cisto} no ovário direito.`
+        setFrasesOVD((arr) => [...arr, string]);
+        setConclusaoOVD((arr) => [...arr, conclusao]);
+      }
+    } else {
+      setCistoInput('')
+      setCistoSelect('')
+
     }
   };
 
-  const removeCisto = () => {
-    frasesOVD.map((e) => {
-      if (e.includes("Cisto")) {
-        var index = frasesOVD.indexOf(e);
+  useEffect(() => {
+    criaStringCisto(cistoInput, cistoSelect);
+  }, [cistoCheckbox, cistoInput, cistoSelect]);
 
-        if (index > -1) {
-          frasesOVD.splice(index, 1);
-          setFrasesOVD((arr) => [...arr]);
-        }
-      }
-    });
-  };
   //Funcoes Cisto - Fim
 
   //Função Nao Visibilizado
   const criaStringNaoVisibilizado = () => {
     var string = "Ovário direito não visibilizado ";
-    if (naoVisibilizadoCheckBox) {
+    removeItemString(string);
+    if (naoVisibilizadoCheckbox) {
       setFrasesOVD((arr) => [...arr, string]);
-      setnaoVisibilizadoCheckBox(false);
-    } else {
-      removeItemString(string);
     }
   };
+  useEffect(() => {
+    criaStringNaoVisibilizado()
+  }, [naoVisibilizadoCheckbox])
 
   const removeItemString = (value) => {
     var index = frasesOVD.indexOf(value);
@@ -212,43 +262,9 @@ function Ovario_Direito() {
     criaStringArteriaDireitaIP(MedidaDireitaIP);
   }, [MedidaDireitaIP]);
 
-  useEffect(() => {
-    removeMedidasOvario();
-    criaStringMedidasOvario();
-  }, [medidaOvario1, medidaOvario2, medidaOvario3]);
 
   useEffect(() => {
-    if (padraoMicropolicisticoCheckBox) {
-      criaStringPadraoMicropolicistico();
-    } else {
-      removePadraoMicropolicistico();
-    }
-  }, [padraoMicropolicisticoCheckBox]);
-
-  useEffect(() => {
-    if (padraoFolicularCheckBox) {
-      criaStringPadraoFolicular();
-    } else {
-      removePadraoFolicular();
-    }
-  }, [padraoFolicularCheckBox]);
-
-  useEffect(() => {
-    if (cistoCheckBox) {
-      setdisableCistoInput(false);
-    } else {
-      removeCisto();
-      setdisableCistoInput(true);
-      setCistoInput("");
-    }
-  }, [cistoCheckBox]);
-
-  useEffect(() => {
-    criaStringCisto(cistoInput, cistoSelect);
-  }, [cistoInput, cistoSelect]);
-
-  useEffect(() => {
-    if (dopplerMedidasCheckBox) {
+    if (dopplerMedidasCheckbox) {
       setDisableInputsDoppler(false);
     } else {
       setMedidaDireitaIR("");
@@ -257,7 +273,7 @@ function Ovario_Direito() {
       removeStringArteriaDireitaIP();
       setDisableInputsDoppler(true);
     }
-  }, [dopplerMedidasCheckBox]);
+  }, [dopplerMedidasCheckbox]);
 
   const subExame = "Ovário Direito";
   const titulo_exame = "Doppler Transvaginal";
@@ -268,14 +284,16 @@ function Ovario_Direito() {
         titulo_exame,
         subExame,
         true,
-        frasesOVD
+        frasesOVD,
+        ConclusaoOVD
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesOVD
+        frasesOVD,
+        ConclusaoOVD
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesOVD]);
@@ -296,55 +314,67 @@ function Ovario_Direito() {
 
       <Box display="flex" flexWrap="wrap" mt="20px">
         <Stack borderBottom="1px">
-          <Box w="200px">
-            <Text>Medidas:</Text>
+          <Box w="250px">
+            <Checkbox
+              isDisabled={naoVisibilizadoCheckbox}
+              onChange={(e) => setCitarMedidaCheckbox(!CitarMedidaCheckbox)}>
+              Medidas:
+            </Checkbox>
             <HStack marginTop="5px">
               <Input
+                isDisabled={!CitarMedidaCheckbox}
                 w="80px"
                 h="30px"
-                padding="5px"
-                maxLength={2}
+                padding="0px"
+                value={medidaOvario1}
                 textAlign="center"
-                onChange={(e) => setmedidaOvario1(e.target.value)}
+                onChange={handleChangeMedida1Input}
               />
               <Text>x</Text>
               <Input
+                isDisabled={!CitarMedidaCheckbox}
                 w="80px"
                 h="30px"
-                padding="5px"
-                maxLength={2}
+                padding="0px"
+                value={medidaOvario2}
                 textAlign="center"
-                onChange={(e) => setmedidaOvario2(e.target.value)}
+                onChange={handleChangeMedida2Input}
               />
               <Text>x</Text>
               <Input
+                isDisabled={!CitarMedidaCheckbox}
                 w="80px"
                 h="30px"
-                padding="5px"
-                maxLength={2}
+                padding="0px"
+                value={medidaOvario3}
                 textAlign="center"
-                onChange={(e) => {
-                  setmedidaOvario3(e.target.value);
-                }}
+                onChange={handleChangeMedida3Input}
               />
               <Text>mm</Text>
+              <Input
+                w="100px"
+                h="30px"
+                value={medidaOvario4}
+                padding="0px"
+                textAlign="center"
+
+              />
+              <Text>cm³</Text>
             </HStack>
           </Box>
 
           <Stack>
             <Checkbox
-              onChange={() => {
-                setnaoVisibilizadoCheckBox(true);
-                criaStringNaoVisibilizado();
-              }}
+              isDisabled={CitarMedidaCheckbox}
+              onChange={() => setnaoVisibilizadoCheckbox(!naoVisibilizadoCheckbox)}
             >
               Não visibilizado
             </Checkbox>
 
             <Checkbox
               onChange={() =>
-                setpadraoMicropolicisticoCheckBox(
-                  !padraoMicropolicisticoCheckBox
+                setpadraoMicropolicisticoCheckbox(
+                  !padraoMicropolicisticoCheckbox
                 )
               }
             >
@@ -352,33 +382,34 @@ function Ovario_Direito() {
             </Checkbox>
             <Checkbox
               onChange={() =>
-                setpadraoFolicularCheckBox(!padraoFolicularCheckBox)
+                setpadraoFolicularCheckbox(!padraoFolicularCheckbox)
               }
             >
               Padrão Folicular
             </Checkbox>
 
             <HStack>
-              <Checkbox onChange={() => setCistoCheckBox(!cistoCheckBox)}>
+              <Checkbox onChange={() => setCistoCheckbox(!cistoCheckbox)}>
                 Cisto
               </Checkbox>
               <Input
-                isDisabled={disableCistoInput}
+                isDisabled={!cistoCheckbox}
                 value={cistoInput}
                 w="45px"
                 h="30px"
                 padding="5px"
-                maxLength={2}
                 textAlign="center"
                 onChange={handleChangeCistoInput}
               />
               <Text>mm</Text>
               <Select
-                isDisabled={disableCistoInput}
+                isDisabled={!cistoCheckbox}
+                value={cistoSelect}
                 onChange={(e) => {
                   setCistoSelect(e.target.value);
                 }}
               >
+                <option value="" selected disabled>Selecione</option>
                 <option value="Cisto simples">Cisto Simples</option>
                 <option value="Cisto septação fina">Cisto septação fina</option>
                 <option value="Multiloculado">Multiloculado</option>
@@ -397,7 +428,7 @@ function Ovario_Direito() {
           <Box display="flex" flexWrap="wrap">
             <Checkbox
               onChange={() =>
-                setdopplerMedidasCheckBox(!dopplerMedidasCheckBox)
+                setdopplerMedidasCheckbox(!dopplerMedidasCheckbox)
               }
             >
               Citar medidas
@@ -413,7 +444,6 @@ function Ovario_Direito() {
                     h="77x"
                     padding="5px"
                     value={MedidaDireitaIR}
-                    maxLength={2}
                     textAlign="center"
                     onChange={(e) => {
                       setMedidaDireitaIR(e.target.value);
@@ -429,7 +459,6 @@ function Ovario_Direito() {
                     h="77x"
                     padding="5px"
                     value={MedidaDireitaIP}
-                    maxLength={2}
                     textAlign="center"
                     onChange={(e) => {
                       setMedidaDireitaIP(e.target.value);
