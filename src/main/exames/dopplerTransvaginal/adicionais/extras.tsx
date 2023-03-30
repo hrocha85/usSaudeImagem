@@ -8,66 +8,58 @@ function Extras() {
   const largura = "300px";
 
   const [frasesExtras, setFrasesExtras] = useState<any>([]);
+  const [ConclusaoExtras, setConclusaoExtras] = useState<any>([]);
 
   const [uteroBiCheckBox, setUteroBiCheckBox] = useState(false);
   const [varizesCheckBox, setVarizesCheckBox] = useState(false);
 
   const criaStringVarizes = () => {
-    removeStringVarizes();
-
+    const string = "Nota-se em regiões para-uterinas presença de várias imagens anecóicas, tubulares, tortuosas, de limites precisos e contornos regulares.";
+    const conclusao = "Varizes pélvicas.";
+    removeItemString(string);
+    removeItemConclusao(conclusao)
     if (varizesCheckBox) {
-      var string = "Varizes pélvicas ";
       setFrasesExtras((arr) => [...arr, string]);
+      setConclusaoExtras((arr) => [...arr, conclusao]);
     }
   };
   const criaStringUteroBi = () => {
-    removeStringUteroBi();
-
+    const string = "Nota-se em varredura transversal do fundo uterino, descontinuidade do eco apresentando duplicação da cavidade uterina com interposição de miométrio entre as mesmas."
+    const conclusao = "Achados ecográficos sugestivos de malformação mulleriana (útero septado ou bicorno).";
+    removeItemString(string);
+    removeItemConclusao(conclusao)
     if (uteroBiCheckBox) {
-      var string = "Útero bicorno ";
       setFrasesExtras((arr) => [...arr, string]);
+      setConclusaoExtras((arr) => [...arr, conclusao]);
+    }
+  };
+  const removeItemString = (value) => {
+    // console.log("valor remove = ", value);
+    var index = frasesExtras.indexOf(value);
+    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+    if (index > -1) {
+      frasesExtras.splice(index, 1);
+      setFrasesExtras((arr) => [...arr]);
+    }
+  };
+  const removeItemConclusao = (value) => {
+    // console.log("valor remove = ", value);
+    var index = ConclusaoExtras.indexOf(value);
+    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+    if (index > -1) {
+      ConclusaoExtras.splice(index, 1);
+      setConclusaoExtras((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value)
     }
   };
 
-  const removeStringVarizes = () => {
-    frasesExtras.map((e) => {
-      if (e.includes("Varizes")) {
-        var index = frasesExtras.indexOf(e);
-
-        if (index > -1) {
-          frasesExtras.splice(index, 1);
-          setFrasesExtras((arr) => [...arr]);
-        }
-      }
-    });
-  };
-  const removeStringUteroBi = () => {
-    frasesExtras.map((e) => {
-      if (e.includes("Útero")) {
-        var index = frasesExtras.indexOf(e);
-
-        if (index > -1) {
-          frasesExtras.splice(index, 1);
-          setFrasesExtras((arr) => [...arr]);
-        }
-      }
-    });
-  };
 
   useEffect(() => {
-    if (uteroBiCheckBox) {
-      criaStringUteroBi();
-    } else {
-      removeStringUteroBi();
-    }
+    criaStringUteroBi();
   }, [uteroBiCheckBox]);
 
   useEffect(() => {
-    if (varizesCheckBox) {
-      criaStringVarizes();
-    } else {
-      removeStringVarizes();
-    }
+    criaStringVarizes();
   }, [varizesCheckBox]);
 
   const subExame = "Extras";
@@ -79,14 +71,16 @@ function Extras() {
         titulo_exame,
         subExame,
         true,
-        frasesExtras
+        frasesExtras,
+        ConclusaoExtras
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesExtras
+        frasesExtras,
+        ConclusaoExtras
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesExtras]);
