@@ -5,18 +5,24 @@ import {
   Input,
   Select,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Utero({ Disable }) {
-  const [frasesUtero, setFrasesUtero] = useState<any>([]);
+  const stringPadrao =
+    "Exame realizado com equipamento dinâmico, transdutor convexo de 3,5 MHz";
+  const liquidoEndometrialUncheck =
+    "Fundo de Saco Douglas: sem coleções ou massas anormais";
+
+  const [frasesUtero, setFrasesUtero] = useState<any>([stringPadrao]);
   const [ConclusaoUtero, setConclusaoUtero] = useState<any>([]);
 
   const subExame = "Útero";
   const titulo_exame = "Pélvico";
+
   useEffect(() => {
     if (Object.keys(frasesUtero).length == 0) {
       new Format_Laudo(
@@ -86,32 +92,13 @@ function Utero({ Disable }) {
 
   const [PosicaoSelect, setPosicaoSelect] = useState("");
 
-  const CriaStringPosicao = (value) => {
-    var frase = `Útero em`;
-    removePosicao();
-    if (value != "") {
-      frase = `${frase} ${value}`;
-      setFrasesUtero((arr) => [...arr, frase]);
-    }
-  };
-
-  
-
-  const removePosicao = () => {
-    frasesUtero.map((e) => {
-      if (e.includes("Útero em")) {
-        var index = frasesUtero.indexOf(e);
-
-        if (index > -1) {
-          frasesUtero.splice(index, 1);
-          setFrasesUtero((arr) => [...arr]);
-        }
-      }
-    });
-  };
-
   const criaStringMedidasUtero = () => {
-    if (medidaUtero1 != "" && medidaUtero2 != "" && medidaUtero3 != "" && PosicaoSelect != "") {
+    if (
+      medidaUtero1 != "" &&
+      medidaUtero2 != "" &&
+      medidaUtero3 != "" &&
+      PosicaoSelect != ""
+    ) {
       var medida4 =
         (parseInt(medidaUtero1) *
           parseInt(medidaUtero2) *
@@ -125,6 +112,7 @@ function Utero({ Disable }) {
       setmedidaUtero4(0);
     }
   };
+
   const removeMedidas = () => {
     frasesUtero.map((e) => {
       if (e.includes("Útero em ")) {
@@ -235,6 +223,7 @@ function Utero({ Disable }) {
     var string = "Líquido na cavidade endometrial ";
     var conclusao = "Pequena quantidade de líquido na cavidade endometrial.";
     if (liquidoEndometrialCheckBox) {
+      removeItemString(liquidoEndometrialUncheck);
       setFrasesUtero((arr) => [...arr, string]);
       setConclusaoUtero((arr) => [...arr, conclusao]);
     } else {
@@ -300,7 +289,7 @@ function Utero({ Disable }) {
   useEffect(() => {
     removeMedidas();
     criaStringMedidasUtero();
-  }, [medidaUtero1, medidaUtero2, medidaUtero3,PosicaoSelect]);
+  }, [medidaUtero1, medidaUtero2, medidaUtero3, PosicaoSelect]);
 
   useEffect(() => {
     criaStringEndometrio();
@@ -322,7 +311,17 @@ function Utero({ Disable }) {
   }, [medidaPolipo1, medidaPolipo2]);
 
   useEffect(() => {
-    criaStringLiquidoEndometrial();
+    var conclusao = "Pequena quantidade de líquido na cavidade endometrial.";
+
+    if (liquidoEndometrialCheckBox) {
+      criaStringLiquidoEndometrial();
+    } else if (frasesUtero.includes(liquidoEndometrialUncheck)) {
+      return;
+    } else {
+      removeLiquidoEndometrial();
+      removeItemConclusao(conclusao);
+      setFrasesUtero([...frasesUtero, liquidoEndometrialUncheck]);
+    }
   }, [liquidoEndometrialCheckBox]);
 
   useEffect(() => {
