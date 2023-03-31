@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
   Checkbox,
@@ -5,39 +6,112 @@ import {
   Input,
   Select,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
-import { isFocusable } from "@testing-library/user-event/dist/utils";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function RimDireito() {
+function RimDireito({ Nefropatia, CheckboxNefropatia, RimPelvico, CheckboxRimPelvico, RimFerradura }) {
   const altura = "100%";
-  const largura = "66%";
+  const largura = "100%";
 
   const [frasesRimD, setFrasesRimD] = useState<any>([]);
+  const [ConclusaoRimD, setConclusaoRimD] = useState<any>([]);
 
   const [checkboxMedidas, setCheckboxMedidas] = useState(false);
-  const [disableMedidas, setDisableMedidas] = useState(true);
   const [valueInput1Medida, setValueInput1Medida] = useState("");
   const [valueInput2Medida, setValueInput2Medida] = useState("");
   const [valueParenquima, setValueParenquima] = useState("");
 
-  const [checkboxPresente, setCheckboxPresente] = useState(true);
-  const [disablePresente, setDisablePresente] = useState(false);
+  const [checkboxPresente, setCheckboxPresente] = useState(false);
 
   const [checkboxAusente, setCheckboxAusente] = useState(false);
-  const [disableAusente, setDisableAusente] = useState(false);
-  const [disableSelectAusente, setDisableSelectAusente] = useState(true);
   const [valueSelectAusente, setValueSelectAusente] = useState("");
 
   const [checkboxDimensoes, setCheckboxDimensoes] = useState(false);
 
-  const [checkboxRimFerradura, setCheckboxRimFerradura] = useState(false);
-  const [checkboxNefropatiaCronica, setCheckboxNefropatiaCronica] =
-    useState(false);
-  const [checkboxRimPelvico, setCheckboxRimPelvico] = useState(false);
+  useEffect(() => {
+    if (RimFerradura) {
+      setFrasesRimD([])
+      setConclusaoRimD([])
+    }
+  }, [RimFerradura])
+
+  useEffect(() => {
+    const string = 'em topografia ectópica, na fossa ilíaca direita, de morfologia, contornos e ecotextura normais.'
+    removeItemString(string)
+    if (RimPelvico === 'Rim direito' && CheckboxRimPelvico) {
+      setFrasesRimD((arr) => [...arr, string]);
+    }
+  }, [RimPelvico, CheckboxRimPelvico])
+
+  useEffect(() => {
+    const string = 'de morfologia e topografia habitual, com dimensões reduzidas, contornos lobulados, aumento da ecogenicidade e perda da diferenciação corticomedular.'
+    removeItemString(string);
+    if (Nefropatia === 'direito' && CheckboxNefropatia) {
+      setFrasesRimD((arr) => [...arr, string]);
+    }
+  }, [CheckboxNefropatia, Nefropatia])
+
+
+  const criaStringAusente = () => {
+    var string = 'não visibilizado.'
+    removeItemConclusao('Interposição gasosa das alças intestinais.')
+    removeItemConclusao('Nefrectomia à direita.')
+    removeItemString(string);
+    if (checkboxAusente) {
+      if (valueSelectAusente !== "") {
+        valueSelectAusente === 'Ausência Cirurgica' ? setConclusaoRimD((arr) => [...arr, 'Nefrectomia à direita.']) : setConclusaoRimD((arr) => [...arr, 'Interposição gasosa das alças intestinais.'])
+        setFrasesRimD((arr) => [...arr, string]);
+      }
+    } else {
+      setValueSelectAusente("");
+    }
+  };
+
+  useEffect(() => {
+    criaStringAusente();
+  }, [valueSelectAusente, checkboxAusente]);
+
+  const criaStringPresente = () => {
+    let string = "Diferenciação córtico-medular preservada. Sistema pielo-calicinal sem alterações ecográficas, não se evidenciando dilatação e/ou cálculos em seu interior. Não há evidências de tumorações renais.";
+    const conclusao = 'Rim direito de dimensões reduzidas.'
+    removeFraseSelect(string)
+    removeItemConclusao(conclusao)
+    if (checkboxPresente) {
+      if (checkboxDimensoes) {
+        string = `tópico, de limites precisos, ecotextura habitual e dimensões reduzidas. ${string}`
+        setConclusaoRimD((arr) => [...arr, conclusao])
+      } else {
+        string = `tópico, de limites precisos, ecotextura habitual. ${string}`
+      }
+      setFrasesRimD((arr) => [...arr, string]);
+    }
+  };
+
+  useEffect(() => {
+    criaStringPresente()
+  }, [checkboxPresente, checkboxDimensoes])
+
+  const CriaStringMedidas = () => {
+    var string = 'Medida do rim direito:'
+    removeFraseSelect(string);
+    if (checkboxMedidas) {
+      if (valueInput1Medida != '' && valueParenquima != '' && valueInput2Medida != '') {
+        const valorInput = `${string} ${valueInput1Medida}x${valueInput2Medida} mm. Espessura do parênquima: ${valueParenquima} mm.`;
+        setFrasesRimD((arr) => [...arr, valorInput]);
+      }
+    } else {
+      setValueInput1Medida("");
+      setValueInput2Medida("");
+      setValueParenquima("");
+    }
+  };
+
+  useEffect(() => {
+    CriaStringMedidas();
+  }, [checkboxMedidas, valueInput1Medida, valueInput2Medida, valueParenquima]);
 
   const removeItemString = (value) => {
     var index = frasesRimD.indexOf(value);
@@ -47,27 +121,21 @@ function RimDireito() {
       setFrasesRimD((arr) => [...arr]);
     }
   };
+  const removeItemConclusao = (value) => {
+    var index = ConclusaoRimD.indexOf(value);
 
-  const CriaStringMedidas = () => {
-    removeStringMedidas();
-    if (checkboxMedidas) {
-      setDisableMedidas(false);
-      if (valueInput1Medida.length == 4 && valueParenquima.length == 4) {
-        const valorInput = `Rim direito medindo ${valueInput1Medida} mm  e parênquima de ${valueParenquima} mm `;
-        setFrasesRimD((arr) => [...arr, valorInput]);
-      }
-    } else {
-      setDisableMedidas(true);
-      removeStringMedidas();
-      setValueInput1Medida("");
-      setValueInput2Medida("");
-      setValueParenquima("");
+    if (index > -1) {
+      ConclusaoRimD.splice(index, 1);
+      setConclusaoRimD((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
   };
 
-  const removeStringMedidas = () => {
+
+
+  const removeFraseSelect = (value) => {
     frasesRimD.map((e) => {
-      if (e.includes("Rim direito medindo")) {
+      if (e.includes(value)) {
         let index = frasesRimD.indexOf(e);
 
         if (index > -1) {
@@ -78,110 +146,7 @@ function RimDireito() {
     });
   };
 
-  const criaStringPresente = () => {
-    let string = "Rim Direito Presente";
-    if (checkboxPresente) {
-      setFrasesRimD((arr) => [...arr, string]);
-      setCheckboxPresente(false);
-      setDisableAusente(true);
-      setDisableSelectAusente(true);
-      removeFraseAusente();
-    } else {
-      setDisableAusente(false);
-      removeItemString(string);
-    }
-  };
 
-  const criaStringDimensoesReduzidas = () => {
-    let string = "Dimensões reduzidas";
-    if (checkboxDimensoes) {
-      setFrasesRimD((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
-  };
-
-  const criaStringAusente = () => {
-    removeFraseAusente();
-    if (checkboxAusente) {
-      console.log(valueSelectAusente);
-      setDisableSelectAusente(false);
-      setDisablePresente(true);
-      if (valueSelectAusente !== "") {
-        let string = `Rim direito ausente ${valueSelectAusente}`;
-        setFrasesRimD((arr) => [...arr, string]);
-      }
-    } else {
-      setDisablePresente(false);
-      setDisableSelectAusente(true);
-      setValueSelectAusente("");
-    }
-  };
-
-  const removeFraseAusente = () => {
-    frasesRimD.map((e) => {
-      if (e.includes("Rim direito ausente")) {
-        let index = frasesRimD.indexOf(e);
-
-        if (index > -1) {
-          frasesRimD.splice(index, 1);
-          setFrasesRimD((arr) => [...arr]);
-        }
-      }
-    });
-  };
-
-  const criaStringRimFerradura = () => {
-    let string = "Rim Direito em Ferradura";
-    if (checkboxRimFerradura) {
-      setFrasesRimD((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
-  };
-
-  const criaStringNefropatiaCronica = () => {
-    let string = "Rim Direito com nefropatia crônica";
-    if (checkboxNefropatiaCronica) {
-      setFrasesRimD((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
-  };
-
-  const criaStringRimPelvico = () => {
-    let string = "Rim Direito pélvico";
-    if (checkboxRimPelvico) {
-      setFrasesRimD((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
-  };
-
-  useEffect(() => {
-    CriaStringMedidas();
-    removeStringMedidas();
-  }, [checkboxMedidas, valueInput1Medida, valueInput2Medida, valueParenquima]);
-
-  useEffect(() => {
-    criaStringDimensoesReduzidas();
-  }, [checkboxDimensoes]);
-
-  useEffect(() => {
-    criaStringAusente();
-  }, [valueSelectAusente, checkboxAusente]);
-
-  useEffect(() => {
-    criaStringRimFerradura();
-  }, [checkboxRimFerradura]);
-
-  useEffect(() => {
-    criaStringNefropatiaCronica();
-  }, [checkboxNefropatiaCronica]);
-
-  useEffect(() => {
-    criaStringRimPelvico();
-  }, [checkboxRimPelvico]);
 
   const subExame = "Rim Direito";
   const titulo_exame = "Rins e Vias Urinárias";
@@ -192,48 +157,42 @@ function RimDireito() {
         titulo_exame,
         subExame,
         true,
-        frasesRimD
+        frasesRimD,
+        ConclusaoRimD
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesRimD
+        frasesRimD,
+        ConclusaoRimD
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesRimD]);
 
   return (
     <Box
-      bg="#FAFAFA"
       w={largura}
       h={altura}
-      bgPosition="center"
-      bgRepeat="no-repeat"
-      borderRadius="10.85px"
-      boxShadow="md"
-      padding="24px 15px 10px 15px"
-      mt="20px"
+      border='1px'
+      p='5px'
+      borderRadius='10px'
+
     >
-      <Box mb="20px">
+      <Box>
         <TituloNomeExame titulo="Rim Direito" />
 
         <Box
-          borderBottom="1px"
           gap="25px"
           display="flex"
           flexWrap="wrap"
-          mb="10px"
         >
           <Box w="100px">
             <Checkbox
               value="Rim direito presente"
-              disabled={disablePresente}
-              onChange={() => {
-                setCheckboxPresente(true);
-                criaStringPresente();
-              }}
+              isDisabled={checkboxAusente || RimFerradura}
+              onChange={() => setCheckboxPresente(!checkboxPresente)}
             >
               Presente
             </Checkbox>
@@ -241,7 +200,7 @@ function RimDireito() {
 
           <Box w="150px">
             <Checkbox
-              isDisabled={disableAusente}
+              isDisabled={checkboxPresente || RimFerradura}
               onChange={(e) => {
                 setCheckboxAusente(!checkboxAusente);
               }}
@@ -249,7 +208,7 @@ function RimDireito() {
               Ausente
             </Checkbox>
             <Select
-              isDisabled={disableSelectAusente}
+              isDisabled={!checkboxAusente}
               onChange={(e) => {
                 setValueSelectAusente(e.target.value);
               }}
@@ -266,7 +225,7 @@ function RimDireito() {
           <Stack paddingBottom="5px">
             <HStack w="220px">
               <Checkbox
-                id="Medidas"
+                isDisabled={!checkboxPresente || RimFerradura}
                 onChange={(e) => {
                   setCheckboxMedidas(!checkboxMedidas);
                 }}
@@ -274,31 +233,50 @@ function RimDireito() {
                 Medidas
               </Checkbox>
               <Input
+                textAlign='center'
+                p='0px'
                 value={valueInput1Medida}
                 onChange={(e) => {
                   setValueInput1Medida(e.target.value);
                 }}
-                isDisabled={disableMedidas}
+                isDisabled={!checkboxMedidas}
                 w="auto"
+                h='35px'
+                placeholder="00"
+              />
+              <Text>x</Text>
+              <Input
+                p='0px'
+                textAlign='center'
+                value={valueInput2Medida}
+                onChange={(e) => {
+                  setValueInput2Medida(e.target.value);
+                }}
+                isDisabled={!checkboxMedidas}
+                w="auto"
+                h='35px'
                 placeholder="00"
               />
               <Text>mm</Text>
             </HStack>
             <Input
+              p='0px'
+              textAlign='center'
               value={valueParenquima}
               onChange={(e) => {
                 setValueParenquima(e.target.value);
               }}
-              isDisabled={disableMedidas}
-              mt="5px"
+              isDisabled={!checkboxMedidas}
               w="auto"
-              maxWidth="173px"
+              mt='0'
+              h='35px'
+              // maxWidth="173px"
               placeholder="Parênquima(mm)"
             />
           </Stack>
 
           <Box w="200px">
-            <Checkbox
+            <Checkbox isDisabled={!checkboxPresente || RimFerradura}
               onChange={(e) => {
                 setCheckboxDimensoes(!checkboxDimensoes);
               }}
@@ -307,37 +285,7 @@ function RimDireito() {
             </Checkbox>
           </Box>
         </Box>
-        <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
-          <Box w="160px">
-            <Checkbox
-              onChange={(e) => {
-                setCheckboxRimFerradura(!checkboxRimFerradura);
-              }}
-            >
-              Rim em Ferradura
-            </Checkbox>
-          </Box>
 
-          <Box w="160px">
-            <Checkbox
-              onChange={(e) => {
-                setCheckboxNefropatiaCronica(!checkboxNefropatiaCronica);
-              }}
-            >
-              Nefropatia Crônica
-            </Checkbox>
-          </Box>
-
-          <Box w="160px">
-            <Checkbox
-              onChange={(e) => {
-                setCheckboxRimPelvico(!checkboxRimPelvico);
-              }}
-            >
-              Rim Pélvico
-            </Checkbox>
-          </Box>
-        </Box>
       </Box>
     </Box>
   );
