@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarNodulos({ numNodulo, disable }) {
-  const [frasesNodulos, setFrasesNodulos] = useState<any>([]);
+  const [FrasesNodulos, setFrasesNodulos] = useState<any>([]);
+  const [ConclusaoNodulos, setConclusaoNodulos] = useState<any>([]);
 
   const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
   const [posicaoNoduloSelect, setPosicaoNoduloSelect] = useState("");
@@ -20,20 +21,31 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     NoduloSelect,
     localizado
   ) => {
+    const conclusao = 'Nódulo testicular.'
+    removeItemConclusao(conclusao)
     removeMultiplosNodulos();
     if (tamanhoNoduloInput !== "" && NoduloSelect !== "" && localizado !== "") {
       var string = `Nódulo Testícular ${numNodulo}: mede ${tamanhoNoduloInput} mm, conteúdo ${conteudoNoduloselect}, localizado no ${NoduloSelect}, do  ${localizado} `;
       setFrasesNodulos((arr) => [...arr, string]);
+      setConclusaoNodulos((arr) => [...arr, conclusao]);
     }
   };
+  const removeItemConclusao = (value) => {
+    var index = ConclusaoNodulos.indexOf(value);
 
+    if (index > -1) {
+      ConclusaoNodulos.splice(index, 1);
+      setConclusaoNodulos((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+    }
+  };
   const removeMultiplosNodulos = () => {
-    frasesNodulos.map((e) => {
+    FrasesNodulos.map((e) => {
       if (e.includes(`Nódulo Testícular ${numNodulo}`)) {
-        var index = frasesNodulos.indexOf(e);
+        var index = FrasesNodulos.indexOf(e);
 
         if (index > -1) {
-          frasesNodulos.splice(index, 1);
+          FrasesNodulos.splice(index, 1);
           setFrasesNodulos((arr) => [...arr]);
         }
       }
@@ -50,6 +62,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
         localizacaoNoduloSelect
       );
     } else {
+      removeItemConclusao('Nódulo testicular.')
       setDisableSelect(true);
       removeMultiplosNodulos();
       settamanhoNoduloInput("");
@@ -64,27 +77,28 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     localizacaoNoduloSelect,
   ]);
 
-  const subExame = "Nódulos Testiculares";
+  const subExame = `Nódulos Testiculares ${numNodulo}`;
   const titulo_exame = "Testículo";
 
-
   useEffect(() => {
-    if (Object.keys(frasesNodulos).length == 0) {
+    if (Object.keys(FrasesNodulos).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesNodulos
+        FrasesNodulos,
+        ConclusaoNodulos
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesNodulos
+        FrasesNodulos,
+        ConclusaoNodulos
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesNodulos]);
+  }, [FrasesNodulos]);
 
   return (
     <Box gap="15px" display="flex" flexWrap="wrap">
