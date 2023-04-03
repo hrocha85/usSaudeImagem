@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -7,12 +9,13 @@ function Bexiga() {
   const altura = "100%";
   const largura = "95%";
 
-  const [frasesBexgiga, setFrasesBexiga] = useState<any>([]);
+  const [FrasesBexiga, setFrasesBexiga] = useState<any>([]);
+  const [ConclusaoBexiga, setConclusaoBexiga] = useState<any>([]);
 
   const [disableCheckboxCalculoInput, setDisableCheckboxCalculo] =
     useState(false);
+
   const [CalculoMedeCheckbox, setCalculoMedeCheckbox] = useState(false);
-  const [disableCalculoInput, setDisableCalculoInput] = useState(true);
   const [distanciaCalculoInput, setDistanciaCalculoInput] = useState("");
 
   const [
@@ -44,112 +47,122 @@ function Bexiga() {
   const [DisableNormalcheckbox, setDisableNormalcheckbox] = useState(false);
   const [Normalcheckbox, setNormalcheckbox] = useState(false);
 
-  const criaStringNormalcheckbox = () => {
-    var string =
-      "Cheia, de paredes normo-espessas. Não se notam imagens calculosas.";
-    if (!Normalcheckbox) {
-      setDisableCheckboxCalculo(true);
-      setdisableCheckboxDiverticuloMede(true);
-      setdisableCheckboxUretroceleMede(true);
-      setDisableEsforcoCheckbox(true);
-      setDisableVaziaCheckbox(true);
-      setDisableOmitirBexigaCheckbox(true);
-      setFrasesBexiga((arr) => [...arr, string]);
-    } else {
-      setDisableCheckboxCalculo(false);
-      setdisableCheckboxDiverticuloMede(false);
-      setdisableCheckboxUretroceleMede(false);
-      setDisableEsforcoCheckbox(false);
-      setDisableVaziaCheckbox(false);
-      setDisableOmitirBexigaCheckbox(false);
-      removeItemString(string);
-    }
+  const removeFraseConclusao = (value) => {
+    ConclusaoBexiga.map((e) => {
+      if (e.includes(value)) {
+        var index = ConclusaoBexiga.indexOf(e);
+        if (index > -1) {
+          ConclusaoBexiga.splice(index, 1);
+          setConclusaoBexiga((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(value);
+        }
+      }
+    });
   };
 
   const criaStringEsforco = () => {
-    var string = "Líquido na cavidade endometrial ";
-    if (!EsforcoCheckbox) {
+    const string = "Com boa repleção, de paredes espessadas, com aspecto serrilhado, apresentando pseudo-divertículos com colo de comunicação com o lúmen vesical.";
+    const conclusao = 'Bexiga de esforço.'
+    removeItemString(string)
+    removeFraseConclusao(conclusao)
+    if (EsforcoCheckbox) {
       setFrasesBexiga((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
+      setConclusaoBexiga((arr) => [...arr, conclusao]);
     }
   };
+
+  useEffect(() => {
+    criaStringEsforco()
+  }, [EsforcoCheckbox])
+
 
   const criaStringVazia = () => {
-    var string = "Bexiga vazia ";
-    if (!VaziaCheckbox) {
-      setFrasesBexiga((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+    var string = "com repleção insuficiente pra análise.";
+    VaziaCheckbox ? setFrasesBexiga((arr) => [...arr, string]) : removeItemString(string);
   };
+  useEffect(() => {
+    criaStringVazia()
+  }, [VaziaCheckbox])
 
-  const criaStringOmitirBexiga = () => {
-    var string = "Omitir bexiga ";
-    if (!OmitirBexigaCheckbox) {
-      setFrasesBexiga((arr) => [...arr, string]);
-    } else {
-      removeItemString(string);
-    }
+  const criaStringNormal = () => {
+    var string = "Paredes finas e regulares, conteúdo anecóico e homogêneo.";
+    Normalcheckbox ? setFrasesBexiga((arr) => [...arr, string]) : removeItemString(string);
   };
+  useEffect(() => {
+    criaStringNormal()
+  }, [Normalcheckbox])
 
-  const criaStringCalculoMede = (distancia) => {
-    removeCalculoMede();
-    if (distancia !== "") {
-      var string = `Cálculo mede ${distancia} mm `;
-      setFrasesBexiga((arr) => [...arr, string]);
-    }
-  };
-  const removeCalculoMede = () => {
-    frasesBexgiga.map((e) => {
-      if (e.includes("Cálculo mede ")) {
-        var index = frasesBexgiga.indexOf(e);
-
-        if (index > -1) {
-          frasesBexgiga.splice(index, 1);
-          setFrasesBexiga((arr) => [...arr]);
-        }
+  const criaStringCalculoMede = () => {
+    var string = 'Nota-se no interior da bexiga imagem arredondada, de limites precisos, contornos regulares, hiperecogênica, com sombra acústica posterior, móvel com o decúbito, medindo'
+    const conclusao = 'Litíase vesical.'
+    removeStringSelect(string);
+    removeFraseConclusao(conclusao)
+    if (CalculoMedeCheckbox) {
+      if (distanciaCalculoInput != "") {
+        string = `${string} ${distanciaCalculoInput} mm.`;
+        setFrasesBexiga((arr) => [...arr, string]);
+        setConclusaoBexiga((arr) => [...arr, conclusao]);
       }
-    });
-  };
-
-
-  const criaStringDiverticuloMede = (medida) => {
-    removeDiverticuloMede();
-    if (medida !== "") {
-      var string = `Diverticulo mede ${medida}mm `;
-      setFrasesBexiga((arr) => [...arr, string]);
+    } else {
+      setDistanciaCalculoInput("");
     }
   };
 
-  const removeDiverticuloMede = () => {
-    frasesBexgiga.map((e) => {
-      if (e.includes("Diverticulo mede ")) {
-        var index = frasesBexgiga.indexOf(e);
 
-        if (index > -1) {
-          frasesBexgiga.splice(index, 1);
-          setFrasesBexiga((arr) => [...arr]);
-        }
+  useEffect(() => {
+    criaStringCalculoMede();
+  }, [CalculoMedeCheckbox, distanciaCalculoInput]);
+
+  const criaStringDiverticulo = () => {
+    var string = 'Paredes finas e irregulares, conteúdo anecóico e homogêneo, apresentando uma imagem de divertículo com colo de'
+    const conclusao = 'Divertículo na bexiga.'
+    removeStringSelect(string);
+    removeFraseConclusao(conclusao)
+    if (DiverticuloMedeCheckbox) {
+      if (DiverticuloMedeInput != "") {
+        string = `${string} ${DiverticuloMedeInput} mm.`;
+        setFrasesBexiga((arr) => [...arr, string]);
+        setConclusaoBexiga((arr) => [...arr, conclusao]);
       }
-    });
-  };
-
-  const criaStringUretroceleMede = (medida) => {
-    removeUretroceleMede();
-    if (medida !== "") {
-      var string = `Uretrocele mede ${medida}mm `;
-      setFrasesBexiga((arr) => [...arr, string]);
+    } else {
+      setDiverticuloMedeInput("");
     }
   };
 
-  const removeUretroceleMede = () => {
-    frasesBexgiga.map((e) => {
-      if (e.includes("Uretrocele mede ")) {
-        var index = frasesBexgiga.indexOf(e);
+
+  useEffect(() => {
+    criaStringDiverticulo();
+  }, [DiverticuloMedeCheckbox, DiverticuloMedeInput]);
+
+  const criaStringUretocele = () => {
+    var string = 'Nota-se no interior da bexiga imagem arredondada, de limites precisos, contornos regulares, anecóica, medindo'
+    const conclusao = 'Uretrocele.'
+    removeStringSelect(string);
+    removeFraseConclusao(conclusao)
+    if (UretroceleMedeCheckbox) {
+      if (UretroceleMedeInput != "") {
+        string = `${string} ${UretroceleMedeInput} mm.`;
+        setFrasesBexiga((arr) => [...arr, string]);
+        setConclusaoBexiga((arr) => [...arr, conclusao]);
+      }
+    } else {
+      setUretroceleMedeInput("");
+    }
+  };
+
+
+  useEffect(() => {
+    criaStringUretocele();
+  }, [UretroceleMedeCheckbox, UretroceleMedeInput]);
+
+
+  const removeStringSelect = (value) => {
+    FrasesBexiga.map((e) => {
+      if (e.includes(value)) {
+        var index = FrasesBexiga.indexOf(e);
 
         if (index > -1) {
-          frasesBexgiga.splice(index, 1);
+          FrasesBexiga.splice(index, 1);
           setFrasesBexiga((arr) => [...arr]);
         }
       }
@@ -157,10 +170,10 @@ function Bexiga() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesBexgiga.indexOf(value);
+    var index = FrasesBexiga.indexOf(value);
 
     if (index > -1) {
-      frasesBexgiga.splice(index, 1);
+      FrasesBexiga.splice(index, 1);
       setFrasesBexiga((arr) => [...arr]);
     }
   };
@@ -187,68 +200,29 @@ function Bexiga() {
     DiverticuloMedeCheckbox,
   ]);
 
-  useEffect(() => {
-    if (CalculoMedeCheckbox) {
-      setDisableCalculoInput(false);
-    } else {
-      removeCalculoMede();
-      setDisableCalculoInput(true);
-      setDistanciaCalculoInput("");
-    }
-  }, [CalculoMedeCheckbox]);
-
-  useEffect(() => {
-    criaStringCalculoMede(distanciaCalculoInput);
-  }, [distanciaCalculoInput]);
-
-  useEffect(() => {
-    if (DiverticuloMedeCheckbox) {
-      setdisableDiverticuloMedeInput(false);
-    } else {
-      removeDiverticuloMede();
-      setdisableDiverticuloMedeInput(true);
-      setDiverticuloMedeInput("");
-    }
-  }, [DiverticuloMedeCheckbox]);
-
-  useEffect(() => {
-    if (UretroceleMedeCheckbox) {
-      setdisableUretroceleMedeInput(false);
-    } else {
-      removeUretroceleMede();
-      setdisableUretroceleMedeInput(true);
-      setUretroceleMedeInput("");
-    }
-  }, [UretroceleMedeCheckbox]);
-
-  useEffect(() => {
-    criaStringDiverticuloMede(DiverticuloMedeInput);
-  }, [DiverticuloMedeInput]);
-
-  useEffect(() => {
-    criaStringUretroceleMede(UretroceleMedeInput);
-  }, [UretroceleMedeInput]);
 
   const subExame = "Bexiga";
   const titulo_exame = "Rins e Vias Urinárias";
 
   useEffect(() => {
-    if (Object.keys(frasesBexgiga).length == 0) {
+    if (Object.keys(FrasesBexiga).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesBexgiga
+        FrasesBexiga,
+        ConclusaoBexiga
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesBexgiga
+        FrasesBexiga,
+        ConclusaoBexiga
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesBexgiga]);
+  }, [FrasesBexiga]);
 
   return (
     <Box
@@ -270,37 +244,33 @@ function Bexiga() {
             isDisabled={DisableNormalcheckbox}
             onChange={() => {
               setNormalcheckbox(!Normalcheckbox);
-              criaStringNormalcheckbox();
             }}
           >
             Normal
           </Checkbox>
 
           <Checkbox
-            isDisabled={DisableEsforcoCheckbox}
+            isDisabled={VaziaCheckbox || Normalcheckbox || OmitirBexigaCheckbox}
             onChange={() => {
               setEsforcoCheckbox(!EsforcoCheckbox);
-              criaStringEsforco();
             }}
           >
             De esforço
           </Checkbox>
 
           <Checkbox
-            isDisabled={DisableVaziaCheckbox}
+            isDisabled={OmitirBexigaCheckbox || EsforcoCheckbox || Normalcheckbox}
             onChange={() => {
               setVaziaCheckbox(!VaziaCheckbox);
-              criaStringVazia();
             }}
           >
             Vazia
           </Checkbox>
 
           <Checkbox
-            isDisabled={DisableOmitirBexigaCheckbox}
+            isDisabled={Normalcheckbox || EsforcoCheckbox || VaziaCheckbox}
             onChange={() => {
               setOmitirBexigaCheckbox(!OmitirBexigaCheckbox);
-              criaStringOmitirBexiga();
             }}
           >
             Omitir bexiga
@@ -314,11 +284,11 @@ function Bexiga() {
               Cálculo mede
             </Checkbox>
             <Input
-              isDisabled={disableCalculoInput}
+              isDisabled={!CalculoMedeCheckbox}
               value={distanciaCalculoInput}
               w="35px"
               h="30px"
-              padding="5px"
+              padding="0px"
               textAlign="center"
               onChange={(e) => {
                 setDistanciaCalculoInput(e.target.value);
@@ -336,11 +306,11 @@ function Bexiga() {
               Diverticulo mede
             </Checkbox>
             <Input
-              isDisabled={disableDiverticuloMedeInput}
+              isDisabled={!DiverticuloMedeCheckbox}
               value={DiverticuloMedeInput}
               w="35px"
               h="30px"
-              padding="5px"
+              padding="0px"
               textAlign="center"
               onChange={(e) => {
                 setDiverticuloMedeInput(e.target.value);
@@ -362,7 +332,7 @@ function Bexiga() {
               value={UretroceleMedeInput}
               w="35px"
               h="30px"
-              padding="5px"
+              padding="0px"
               textAlign="center"
               onChange={(e) => {
                 setUretroceleMedeInput(e.target.value);

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -10,9 +10,9 @@ function Calculo() {
   const altura = "100%";
   const largura = "66%";
 
-  const [frasesCalc, setFrasesCalc] = useState<any>([]);
-
-  var numberArray = [1, 2, 3, 4];
+  const [FrasesCalc, setFrasesCalc] = useState<any>([]);
+  const [ConclusaoCalc, setConclusaoCalc] = useState<any>([]);
+  var ArrayConclusao = ['']
 
   const [tamanhoNoduloDireitoInput, settamanhoNoduloDireitoInput] =
     useState("");
@@ -20,11 +20,9 @@ function Calculo() {
     useState("");
 
   const [
-    multiplosCalculosRimDireitoCheckBox,
-    setmultiplosCalculosRimDireitoCheckBox,
+    Calculo1RimDireitoCheckBox,
+    setCalculo1RimDireitoCheckBox,
   ] = useState(false);
-
-  const [DisableSelectDireito, setDisableSelectDireito] = useState(true);
 
   const [tamanhoNoduloEsquerdoInput, settamanhoNoduloEsquerdoInput] =
     useState("");
@@ -32,171 +30,375 @@ function Calculo() {
     useState("");
 
   const [
-    multiplosCalculosRimEsquerdoCheckBox,
-    setmultiplosCalculosRimEsquerdoCheckBox,
+    Calculo1RimEsquerdoCheckBox,
+    setCalculo1RimEsquerdoCheckBox,
   ] = useState(false);
 
-  const [DisableSelectEsquerdo, setDisableSelectEsquerdo] = useState(true);
-
   const [UreterCheckBox, setUreterCheckBox] = useState(false);
-  const [DisableUreterSelect, setDisableUreterSelect] = useState(true);
   const [UreterSelect, setUreterSelect] = useState("");
   const [posicaoUreterSelect, setPosicaoUreterSelect] = useState("");
   const [tamanhoUreterInput, setTamanhoUreterInput] = useState("");
 
-  const criaStringMultiplosCalculosRimDireito = (
-    tamanhoNoduloDireitoInput,
-    localizado
-  ) => {
-    removeMultiplosCalculosRimDireito();
 
-    if (tamanhoNoduloDireitoInput !== "" && localizado !== "") {
-      var string = `Múltiplos calculos no rim direito, o maior mede ${tamanhoNoduloDireitoInput}mm  localizado ${localizado} `;
-      setFrasesCalc((arr) => [...arr, string]);
-    }
-  };
 
-  const removeMultiplosCalculosRimDireito = () => {
-    frasesCalc.map((e) => {
-      if (e.includes("Múltiplos calculos no rim direito")) {
-        var index = frasesCalc.indexOf(e);
+  const criaStringConclusao = () => {
+    let conclusao = 'Litíase renal.'
+    //  removeConclusao(conclusao)
+    if (Calculo1CheckBox || Calculo2CheckBox || Calculo3CheckBox || Calculo4CheckBox || Calculo1RimDireitoCheckBox || Calculo1RimEsquerdoCheckBox) {
+      FrasesCalc.map((e) => {
+        if (e.includes("Cálculo")) {
+          //ArrayConclusao.shift()
+          setConclusaoCalc((arr) => [...arr, conclusao]);
+          ArrayConclusao.push(conclusao)
 
-        if (index > -1) {
-          frasesCalc.splice(index, 1);
-          setFrasesCalc((arr) => [...arr]);
         }
-      }
-    });
-  };
+      });
+    } else {
+      ArrayConclusao.shift()
+      removeItemConclusao(conclusao)
+    }
+  }
 
   useEffect(() => {
-    if (multiplosCalculosRimDireitoCheckBox) {
-      setDisableSelectDireito(false);
-      criaStringMultiplosCalculosRimDireito(
-        tamanhoNoduloDireitoInput,
-        posicaoCalculosDireitoSelect
-      );
+    criaStringConclusao()
+  }, [FrasesCalc])
+
+  const criaStringCalculo1RimDireito = (tamanhoNoduloDireitoInput, localizado) => {
+    var string = 'Rim Direito: Sistema pielo-calicial apresentando  múltiplas imagens hiperecogênicas, com formação de sombra acústica posterior, limites precisos e contornos regulares, a maior em'
+    const conclusao = 'Litíase renal.'
+    removeItemConclusao(conclusao)
+    removeItemStringSelect(string)
+    if (Calculo1RimDireitoCheckBox) {
+      if (tamanhoNoduloDireitoInput !== "" && localizado !== "") {
+        string = `${string} ${localizado}, medindo ${tamanhoNoduloDireitoInput} mm.`;
+        setFrasesCalc((arr) => [...arr, string]);
+        setConclusaoCalc((arr) => [...arr, conclusao])
+      }
     } else {
-      setDisableSelectDireito(true);
-      removeMultiplosCalculosRimDireito();
       settamanhoNoduloDireitoInput("");
       setPosicaoCalculosDireitoSelect("");
     }
-  }, [
-    multiplosCalculosRimDireitoCheckBox,
-    posicaoCalculosDireitoSelect,
-    tamanhoNoduloDireitoInput,
-  ]);
-  const criaStringMultiplosCalculosRimEsquerdo = (
-    tamanhoNoduloEsquerdoInput,
-    localizado
-  ) => {
-    removeMultiplosCalculosRimEsquerdo();
-
-    if (tamanhoNoduloEsquerdoInput !== "" && localizado !== "") {
-      var string = `Múltiplos calculos no rim Esquerdo, o maior mede ${tamanhoNoduloEsquerdoInput}mm  localizado ${localizado} `;
-      setFrasesCalc((arr) => [...arr, string]);
-    }
-  };
-
-  const removeMultiplosCalculosRimEsquerdo = () => {
-    frasesCalc.map((e) => {
-      if (e.includes("Múltiplos calculos no rim Esquerdo")) {
-        var index = frasesCalc.indexOf(e);
-
-        if (index > -1) {
-          frasesCalc.splice(index, 1);
-          setFrasesCalc((arr) => [...arr]);
-        }
-      }
-    });
   };
 
   useEffect(() => {
-    if (multiplosCalculosRimEsquerdoCheckBox) {
-      setDisableSelectEsquerdo(false);
-      criaStringMultiplosCalculosRimEsquerdo(
-        tamanhoNoduloEsquerdoInput,
-        posicaoCalculosEsquerdoSelect
-      );
+    criaStringCalculo1RimDireito(tamanhoNoduloDireitoInput, posicaoCalculosDireitoSelect);
+  }, [
+    Calculo1RimDireitoCheckBox,
+    posicaoCalculosDireitoSelect,
+    tamanhoNoduloDireitoInput,
+  ]);
+
+
+  const criaStringCalculo1RimEsquerdo = (tamanhoNoduloEsquerdoInput, localizado) => {
+    var string = 'Rim Esquerdo: Sistema pielo-calicial apresentando  múltiplas imagens hiperecogênicas, com formação de sombra acústica posterior, limites precisos e contornos regulares, a maior em'
+    const conclusao = 'Litíase renal.'
+    removeItemConclusao(conclusao)
+    removeItemStringSelect(string)
+    if (Calculo1RimEsquerdoCheckBox) {
+      if (tamanhoNoduloEsquerdoInput !== "" && localizado !== "") {
+        string = `${string} ${localizado}, medindo ${tamanhoNoduloEsquerdoInput} mm.`;
+        setFrasesCalc((arr) => [...arr, string]);
+        setConclusaoCalc((arr) => [...arr, conclusao])
+      }
     } else {
-      setDisableSelectEsquerdo(true);
-      removeMultiplosCalculosRimEsquerdo();
       settamanhoNoduloEsquerdoInput("");
       setPosicaoCalculosEsquerdoSelect("");
     }
+  };
+
+  useEffect(() => {
+    criaStringCalculo1RimEsquerdo(tamanhoNoduloEsquerdoInput, posicaoCalculosEsquerdoSelect);
   }, [
-    multiplosCalculosRimEsquerdoCheckBox,
+    Calculo1RimEsquerdoCheckBox,
     posicaoCalculosEsquerdoSelect,
     tamanhoNoduloEsquerdoInput,
   ]);
 
-  const criaStringCalculoUretal = (
-    UreterSelect,
-    posicaoUreterSelect,
-    tamanhoUreterInput
-  ) => {
-    removeCalculoUretal();
-    if (
-      UreterSelect !== "" &&
-      posicaoUreterSelect !== "" &&
-      tamanhoUreterInput !== ""
-    ) {
-      var string = `Cálculo uretal medindo ${tamanhoUreterInput} mm  localizado ${posicaoUreterSelect}, do ureter ${UreterSelect}`;
-      setFrasesCalc((arr) => [...arr, string]);
+  const criaStringCalculoUretal = (UreterSelect, posicaoUreterSelect, tamanhoUreterInput) => {
+    var conclusao = 'Litíase ureteral à'
+    var string = 'com formação de sombra acústica posterior, de limites precisos e contornos regulares, medindo'
+    removeItemConclusaoSelect(conclusao)
+    removeItemStringSelect(string)
+    if (UreterCheckBox) {
+      if (UreterSelect !== "" && posicaoUreterSelect !== "" && tamanhoUreterInput !== "") {
+        string = `Ureter  ${UreterSelect} apresentando em seu interior imagem hiperecogênica em ${posicaoUreterSelect}, ${string} ${tamanhoUreterInput} mm.`;
+        conclusao = `${conclusao} ${UreterSelect}`
+        setFrasesCalc((arr) => [...arr, string]);
+        setConclusaoCalc((arr) => [...arr, conclusao])
+      }
+    } else {
+      setUreterSelect("");
+      setPosicaoUreterSelect("");
+      setTamanhoUreterInput("");
     }
   };
 
-  const removeCalculoUretal = () => {
-    frasesCalc.map((e) => {
-      if (e.includes("Cálculo uretal medindo")) {
-        var index = frasesCalc.indexOf(e);
-
+  useEffect(() => {
+    criaStringCalculoUretal(
+      UreterSelect,
+      posicaoUreterSelect,
+      tamanhoUreterInput
+    );
+  }, [UreterCheckBox, UreterSelect, posicaoUreterSelect, tamanhoUreterInput]);
+  const removeItemStringSelect = (value) => {
+    FrasesCalc.map((e) => {
+      if (
+        e.includes(value)
+      ) {
+        var index = FrasesCalc.indexOf(e);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          frasesCalc.splice(index, 1);
+          FrasesCalc.splice(index, 1);
           setFrasesCalc((arr) => [...arr]);
         }
       }
     });
   };
+  const removeItemConclusaoSelect = (value) => {
+    ConclusaoCalc.map((e) => {
+      if (
+        e.includes(value)
+      ) {
+        var index = ConclusaoCalc.indexOf(e);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+        if (index > -1) {
+          ConclusaoCalc.splice(index, 1);
+          setConclusaoCalc((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(value)
+        }
+      }
+    });
+  };
+
+  const [tamanhoCalculo1Input, settamanhoCalculo1Input] = useState("");
+  const [posicaoCalculo1Select, setPosicaoCalculo1Select] = useState("");
+  const [localizacaoCalculo1Select, setlocalizacaoCalculo1Select] = useState("");
+  const [Calculo1CheckBox, setCalculo1CheckBox] = useState(false);
+
+  const [tamanhoCalculo2Input, settamanhoCalculo2Input] = useState("");
+  const [posicaoCalculo2Select, setPosicaoCalculo2Select] = useState("");
+  const [localizacaoCalculo2Select, setlocalizacaoCalculo2Select] = useState("");
+  const [Calculo2CheckBox, setCalculo2CheckBox] = useState(false);
+
+  const [tamanhoCalculo3Input, settamanhoCalculo3Input] = useState("");
+  const [posicaoCalculo3Select, setPosicaoCalculo3Select] = useState("");
+  const [localizacaoCalculo3Select, setlocalizacaoCalculo3Select] = useState("");
+  const [Calculo3CheckBox, setCalculo3CheckBox] = useState(false);
+
+  const [tamanhoCalculo4Input, settamanhoCalculo4Input] = useState("");
+  const [posicaoCalculo4Select, setPosicaoCalculo4Select] = useState("");
+  const [localizacaoCalculo4Select, setlocalizacaoCalculo4Select] = useState("");
+  const [Calculo4CheckBox, setCalculo4CheckBox] = useState(false);
+
+  const criaStringCalculo = () => {
+    let conclusao = 'Litíase renal.'
+    var string = 'Presença de imagem hiperecogênica, com formação de sombra acústica posterior, de limites precisos e contornos regulares:'
+    removeCalculo(string);
+    removeItemConclusao(conclusao)
+    if (Calculo1CheckBox || Calculo2CheckBox || Calculo3CheckBox || Calculo4CheckBox) {
+      if (Calculo1CheckBox) {
+        if (tamanhoCalculo1Input !== "" && posicaoCalculo1Select !== "" && localizacaoCalculo1Select !== "") {
+          string = `${string} \n ${localizacaoCalculo4Select}-  ${posicaoCalculo1Select}, medindo ${tamanhoCalculo1Input} mm.`;
+        }
+      } else {
+        settamanhoCalculo1Input("");
+        setPosicaoCalculo1Select("");
+        setlocalizacaoCalculo1Select("");
+      }
+      if (Calculo2CheckBox) {
+        if (tamanhoCalculo2Input !== "" && posicaoCalculo2Select !== "" && localizacaoCalculo2Select !== "") {
+          string = `${string} \n ${localizacaoCalculo4Select}-  ${posicaoCalculo2Select}, medindo ${tamanhoCalculo2Input} mm.`;
+        }
+      } else {
+        settamanhoCalculo2Input("");
+        setPosicaoCalculo2Select("");
+        setlocalizacaoCalculo2Select("");
+      }
+      if (Calculo3CheckBox) {
+        if (tamanhoCalculo3Input !== "" && posicaoCalculo3Select !== "" && localizacaoCalculo3Select !== "") {
+          string = `${string} \n ${localizacaoCalculo4Select}-  ${posicaoCalculo3Select}, medindo ${tamanhoCalculo3Input} mm.`;
+        }
+      } else {
+        settamanhoCalculo3Input("");
+        setPosicaoCalculo3Select("");
+        setlocalizacaoCalculo3Select("");
+      }
+      if (Calculo4CheckBox) {
+        if (tamanhoCalculo4Input !== "" && posicaoCalculo4Select !== "" && localizacaoCalculo4Select !== "") {
+          string = `${string} \n ${localizacaoCalculo4Select}-  ${posicaoCalculo4Select}, medindo ${tamanhoCalculo4Input} mm.`;
+        }
+      } else {
+        settamanhoCalculo4Input("");
+        setPosicaoCalculo4Select("");
+        setlocalizacaoCalculo4Select("");
+      }
+      setFrasesCalc((arr) => [...arr, string]);
+      setConclusaoCalc((arr) => [...arr, conclusao]);
+    }
+  };
+
 
   useEffect(() => {
-    if (UreterCheckBox) {
-      setDisableUreterSelect(false);
-      criaStringCalculoUretal(
-        UreterSelect,
-        posicaoUreterSelect,
-        tamanhoUreterInput
-      );
-    } else {
-      setDisableUreterSelect(true);
-      removeCalculoUretal();
-      setUreterSelect("");
-      setPosicaoUreterSelect("");
-      setTamanhoUreterInput("");
+    criaStringCalculo()
+  }, [Calculo1CheckBox, posicaoCalculo1Select, tamanhoCalculo1Input, localizacaoCalculo1Select,
+    Calculo2CheckBox, posicaoCalculo2Select, tamanhoCalculo2Input, localizacaoCalculo2Select,
+    Calculo3CheckBox, posicaoCalculo3Select, tamanhoCalculo3Input, localizacaoCalculo3Select,
+    Calculo4CheckBox, posicaoCalculo4Select, tamanhoCalculo4Input, localizacaoCalculo4Select]);
+
+  // const criaStringCalculo1 = () => {
+
+  //   var string = 'Cálculo 1'
+  //   removeCalculo(string);
+  //   if (Calculo1CheckBox) {
+  //     if (tamanhoCalculo1Input !== "" && posicaoCalculo1Select !== "" && localizacaoCalculo1Select !== "") {
+  //       string = `${localizacaoCalculo1Select}: ${string}, no ${posicaoCalculo1Select}, medindo ${tamanhoCalculo1Input} mm.`;
+  //       setFrasesCalc((arr) => [...arr, string]);
+  //     }
+  //   } else {
+  //     settamanhoCalculo1Input("");
+  //     setPosicaoCalculo1Select("");
+  //     setlocalizacaoCalculo1Select("");
+  //   }
+  // };
+
+
+  // useEffect(() => {
+  //   criaStringCalculo1()
+  // }, [
+  //   Calculo1CheckBox,
+  //   posicaoCalculo1Select,
+  //   tamanhoCalculo1Input,
+  //   localizacaoCalculo1Select,
+  // ]);
+
+  // const criaStringCalculo2 = () => {
+
+  //   var string = 'Cálculo 2'
+  //   removeCalculo(string);
+  //   if (Calculo2CheckBox) {
+  //     if (tamanhoCalculo2Input !== "" && posicaoCalculo2Select !== "" && localizacaoCalculo2Select !== "") {
+  //       string = `${localizacaoCalculo2Select}: ${string}, no ${posicaoCalculo2Select}, medindo ${tamanhoCalculo2Input} mm.`;
+  //       setFrasesCalc((arr) => [...arr, string]);
+  //     }
+  //   } else {
+  //     settamanhoCalculo2Input("");
+  //     setPosicaoCalculo2Select("");
+  //     setlocalizacaoCalculo2Select("");
+  //   }
+  // };
+
+
+
+  // useEffect(() => {
+  //   criaStringCalculo2()
+  // }, [
+  //   Calculo2CheckBox,
+  //   posicaoCalculo2Select,
+  //   tamanhoCalculo2Input,
+  //   localizacaoCalculo2Select,
+  // ]);
+
+  // const criaStringCalculo3 = () => {
+
+  //   var string = 'Cálculo 3'
+  //   removeCalculo(string);
+  //   if (Calculo3CheckBox) {
+  //     if (tamanhoCalculo3Input !== "" && posicaoCalculo3Select !== "" && localizacaoCalculo3Select !== "") {
+  //       string = `${localizacaoCalculo3Select}: ${string}, no ${posicaoCalculo3Select}, medindo ${tamanhoCalculo3Input} mm.`;
+  //       setFrasesCalc((arr) => [...arr, string]);
+  //     }
+  //   } else {
+  //     settamanhoCalculo3Input("");
+  //     setPosicaoCalculo3Select("");
+  //     setlocalizacaoCalculo3Select("");
+  //   }
+  // };
+
+
+
+  // useEffect(() => {
+  //   criaStringCalculo3()
+  // }, [
+  //   Calculo3CheckBox,
+  //   posicaoCalculo3Select,
+  //   tamanhoCalculo3Input,
+  //   localizacaoCalculo3Select,
+  // ]);
+
+  // const criaStringCalculo4 = () => {
+
+  //   var string = 'Cálculo 4'
+  //   removeCalculo(string);
+  //   if (Calculo4CheckBox) {
+  //     if (tamanhoCalculo4Input !== "" && posicaoCalculo4Select !== "" && localizacaoCalculo4Select !== "") {
+  //       string = `${localizacaoCalculo4Select}: ${string}, no ${posicaoCalculo4Select}, medindo ${tamanhoCalculo4Input} mm.`;
+  //       setFrasesCalc((arr) => [...arr, string]);
+  //     }
+  //   } else {
+  //     settamanhoCalculo4Input("");
+  //     setPosicaoCalculo4Select("");
+  //     setlocalizacaoCalculo4Select("");
+  //   }
+  // };
+
+
+
+  // useEffect(() => {
+  //   criaStringCalculo4()
+  // }, [
+  //   Calculo4CheckBox,
+  //   posicaoCalculo4Select,
+  //   tamanhoCalculo4Input,
+  //   localizacaoCalculo4Select,
+  // ]);
+
+
+
+  const removeCalculo = (value) => {
+    FrasesCalc.map((e) => {
+      if (e.includes(value)) {
+        var index = FrasesCalc.indexOf(e);
+
+        if (index > -1) {
+          FrasesCalc.splice(index, 1);
+          setFrasesCalc((arr) => [...arr]);
+        }
+      }
+    });
+  };
+  const removeItemConclusao = (value) => {
+    var index = ConclusaoCalc.indexOf(value);
+
+    if (index > -1) {
+      ConclusaoCalc.splice(index, 1);
+      setConclusaoCalc((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
-  }, [UreterCheckBox, UreterSelect, posicaoUreterSelect, tamanhoUreterInput]);
+  };
+
 
   const subExame = "Cálculos";
   const titulo_exame = "Rins e Vias Urinárias";
 
   useEffect(() => {
-    if (Object.keys(frasesCalc).length == 0) {
+    if (Object.keys(FrasesCalc).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesCalc
+        FrasesCalc,
+        ConclusaoCalc
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesCalc
+        FrasesCalc,
+        ConclusaoCalc
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesCalc]);
+  }, [FrasesCalc]);
 
   return (
     <Box
@@ -217,8 +419,8 @@ function Calculo() {
           <Box gap="5px" display="flex" flexWrap="wrap">
             <Checkbox
               onChange={() =>
-                setmultiplosCalculosRimDireitoCheckBox(
-                  !multiplosCalculosRimDireitoCheckBox
+                setCalculo1RimDireitoCheckBox(
+                  !Calculo1RimDireitoCheckBox
                 )
               }
             >
@@ -226,7 +428,7 @@ function Calculo() {
             </Checkbox>
 
             <Input
-              isDisabled={DisableSelectDireito}
+              isDisabled={!Calculo1RimDireitoCheckBox}
               value={tamanhoNoduloDireitoInput}
               w="60px"
               h="77x"
@@ -237,7 +439,7 @@ function Calculo() {
             />
             <Select
               w="auto"
-              isDisabled={DisableSelectDireito}
+              isDisabled={!Calculo1RimDireitoCheckBox}
               onChange={(e) => {
                 setPosicaoCalculosDireitoSelect(e.target.value);
               }}
@@ -247,15 +449,15 @@ function Calculo() {
                 Posição
               </option>
               <option value="Intramural">Intramural</option>
-              <option value="Subseroso">Subseroso </option>
+              <option value="Subseroso">Subseroso</option>
               <option value="Submucoso">Submucoso</option>
             </Select>
           </Box>
           <Box gap="5px" display="flex" flexWrap="wrap">
             <Checkbox
               onChange={() =>
-                setmultiplosCalculosRimEsquerdoCheckBox(
-                  !multiplosCalculosRimEsquerdoCheckBox
+                setCalculo1RimEsquerdoCheckBox(
+                  !Calculo1RimEsquerdoCheckBox
                 )
               }
             >
@@ -263,7 +465,7 @@ function Calculo() {
             </Checkbox>
 
             <Input
-              isDisabled={DisableSelectEsquerdo}
+              isDisabled={!Calculo1RimEsquerdoCheckBox}
               value={tamanhoNoduloEsquerdoInput}
               w="60px"
               h="77x"
@@ -274,7 +476,7 @@ function Calculo() {
             />
             <Select
               w="auto"
-              isDisabled={DisableSelectEsquerdo}
+              isDisabled={!Calculo1RimEsquerdoCheckBox}
               onChange={(e) => {
                 setPosicaoCalculosEsquerdoSelect(e.target.value);
               }}
@@ -294,7 +496,7 @@ function Calculo() {
             </Checkbox>
 
             <Input
-              isDisabled={DisableUreterSelect}
+              isDisabled={!UreterCheckBox}
               value={tamanhoUreterInput}
               w="60px"
               h="77x"
@@ -305,7 +507,7 @@ function Calculo() {
             />
             <Select
               w="auto"
-              isDisabled={DisableUreterSelect}
+              isDisabled={!UreterCheckBox}
               onChange={(e) => {
                 setPosicaoUreterSelect(e.target.value);
               }}
@@ -321,7 +523,7 @@ function Calculo() {
 
             <Select
               w="auto"
-              isDisabled={DisableUreterSelect}
+              isDisabled={!UreterCheckBox}
               onChange={(e) => {
                 setUreterSelect(e.target.value);
               }}
@@ -339,13 +541,221 @@ function Calculo() {
           <Text fontWeight="semibold" fontSize="16px">
             Individualizar calculos
           </Text>
-          <Stack>
+          <HStack>
+            <Checkbox
+              onChange={() =>
+                setCalculo1CheckBox(!Calculo1CheckBox)
+              }
+            >
+              Cálculo 1
+            </Checkbox>
+
+            <Input
+              isDisabled={!Calculo1CheckBox}
+              value={tamanhoCalculo1Input}
+              w="60px"
+              h="77x"
+              padding="5px"
+              textAlign="center"
+              onChange={(e) => {
+                settamanhoCalculo1Input(e.target.value);
+              }}
+              placeholder={"mm"}
+            />
+            <Select
+              w="auto"
+              isDisabled={!Calculo1CheckBox}
+              onChange={(e) => {
+                setPosicaoCalculo1Select(e.target.value);
+              }}
+              value={posicaoCalculo1Select}
+            >
+              <option value="" disabled selected>
+                no
+              </option>
+              <option value="terço superior">terço superior</option>
+              <option value="terço médio">terço médio </option>
+              <option value="terço inferior">terço inferior</option>
+            </Select>
+
+            <Select
+              w="auto"
+              isDisabled={!Calculo1CheckBox}
+              onChange={(e) => {
+                setlocalizacaoCalculo1Select(e.target.value);
+              }}
+              value={localizacaoCalculo1Select}
+            >
+              <option value="" disabled selected>
+                do
+              </option>
+              <option value="Rim direito">Rim direito</option>
+              <option value="Rim esquerdo">Rim esquerdo</option>
+            </Select>
+          </HStack>
+          <HStack>
+            <Checkbox
+              onChange={() =>
+                setCalculo2CheckBox(!Calculo2CheckBox)
+              }
+            >
+              Cálculo 2
+            </Checkbox>
+
+            <Input
+              isDisabled={!Calculo2CheckBox}
+              value={tamanhoCalculo2Input}
+              w="60px"
+              h="77x"
+              padding="5px"
+              textAlign="center"
+              onChange={(e) => {
+                settamanhoCalculo2Input(e.target.value);
+              }}
+              placeholder={"mm"}
+            />
+            <Select
+              w="auto"
+              isDisabled={!Calculo2CheckBox}
+              onChange={(e) => {
+                setPosicaoCalculo2Select(e.target.value);
+              }}
+              value={posicaoCalculo2Select}
+            >
+              <option value="" disabled selected>
+                no
+              </option>
+              <option value="terço superior">terço superior</option>
+              <option value="terço médio">terço médio </option>
+              <option value="terço inferior">terço inferior</option>
+            </Select>
+
+            <Select
+              w="auto"
+              isDisabled={!Calculo2CheckBox}
+              onChange={(e) => {
+                setlocalizacaoCalculo2Select(e.target.value);
+              }}
+              value={localizacaoCalculo2Select}
+            >
+              <option value="" disabled selected>
+                do
+              </option>
+              <option value="Rim direito">Rim direito</option>
+              <option value="Rim esquerdo">Rim esquerdo</option>
+            </Select>
+          </HStack>
+          <HStack>
+            <Checkbox
+              onChange={() =>
+                setCalculo3CheckBox(!Calculo3CheckBox)
+              }
+            >
+              Cálculo 3
+            </Checkbox>
+
+            <Input
+              isDisabled={!Calculo3CheckBox}
+              value={tamanhoCalculo3Input}
+              w="60px"
+              h="77x"
+              padding="5px"
+              textAlign="center"
+              onChange={(e) => {
+                settamanhoCalculo3Input(e.target.value);
+              }}
+              placeholder={"mm"}
+            />
+            <Select
+              w="auto"
+              isDisabled={!Calculo3CheckBox}
+              onChange={(e) => {
+                setPosicaoCalculo3Select(e.target.value);
+              }}
+              value={posicaoCalculo3Select}
+            >
+              <option value="" disabled selected>
+                no
+              </option>
+              <option value="terço superior">terço superior</option>
+              <option value="terço médio">terço médio </option>
+              <option value="terço inferior">terço inferior</option>
+            </Select>
+
+            <Select
+              w="auto"
+              isDisabled={!Calculo3CheckBox}
+              onChange={(e) => {
+                setlocalizacaoCalculo3Select(e.target.value);
+              }}
+              value={localizacaoCalculo3Select}
+            >
+              <option value="" disabled selected>
+                do
+              </option>
+              <option value="Rim direito">Rim direito</option>
+              <option value="Rim esquerdo">Rim esquerdo</option>
+            </Select>
+          </HStack>
+          <HStack>
+            <Checkbox
+              onChange={() =>
+                setCalculo4CheckBox(!Calculo4CheckBox)
+              }
+            >
+              Cálculo 4
+            </Checkbox>
+
+            <Input
+              isDisabled={!Calculo4CheckBox}
+              value={tamanhoCalculo4Input}
+              w="60px"
+              h="77x"
+              padding="5px"
+              textAlign="center"
+              onChange={(e) => {
+                settamanhoCalculo4Input(e.target.value);
+              }}
+              placeholder={"mm"}
+            />
+            <Select
+              w="auto"
+              isDisabled={!Calculo4CheckBox}
+              onChange={(e) => {
+                setPosicaoCalculo4Select(e.target.value);
+              }}
+              value={posicaoCalculo4Select}
+            >
+              <option value="" disabled selected>
+                no
+              </option>
+              <option value="terço superior">terço superior</option>
+              <option value="terço médio">terço médio </option>
+              <option value="terço inferior">terço inferior</option>
+            </Select>
+
+            <Select
+              w="auto"
+              isDisabled={!Calculo4CheckBox}
+              onChange={(e) => {
+                setlocalizacaoCalculo4Select(e.target.value);
+              }}
+              value={localizacaoCalculo4Select}
+            >
+              <option value="" disabled selected>
+                do
+              </option>
+              <option value="Rim direito">Rim direito</option>
+              <option value="Rim esquerdo">Rim esquerdo</option>
+            </Select>
+          </HStack>
+          {/* <Stack>
             <>
               {numberArray.map((num, key) => {
                 return <IndividualizarCalculos key={key} numCalculo={num} />;
               })}
             </>
-          </Stack>
+          </Stack> */}
         </Stack>
       </Box>
     </Box>
