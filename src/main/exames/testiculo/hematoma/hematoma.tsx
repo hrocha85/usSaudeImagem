@@ -10,6 +10,7 @@ function Hematoma() {
   const largura = "90%";
 
   const [frasesHematoma, setFrasesHematoma] = useState<any>([]);
+  const [ConclusaoHematoma, setConclusaoHematoma] = useState<any>([]);
 
   const [tamanhoHematomaInput, settamanhoHematomaInput] = useState("");
   const [tamanho2HematomaInput, settamanho2HematomaInput] = useState("");
@@ -19,20 +20,36 @@ function Hematoma() {
 
   const criaStringHematoma = () => {
     removeStringHematoma();
+    var conclusao = 'Imagem heterogênea adjacente ao testículo à'
+    removeItemConclusao(conclusao)
     if (
       HematomaCheckBox &&
       posicaoHematomaSelect !== "" &&
       tamanhoHematomaInput !== "" &&
       tamanho2HematomaInput !== ""
     ) {
-      var string = `Hematoma lado ${posicaoHematomaSelect} medindo ${tamanhoHematomaInput}x${tamanho2HematomaInput} mm `;
+      conclusao = `${conclusao} ${posicaoHematomaSelect}. Considerar a possibilidade de hematoma.`
+      var string = `Observa-se em testículo ${posicaoHematomaSelect} imagem heterogênea, de contornos irregulares, sem fluxo ao Doppler, com septações e moderados debris de permeio, sugerindo conteúdo cístico-espesso, adjacente ao testículo, medindo cerca de ${tamanhoHematomaInput} x ${tamanho2HematomaInput} mm. `;
       setFrasesHematoma((arr) => [...arr, string]);
+      setConclusaoHematoma((arr) => [...arr, conclusao]);
     }
   };
+  const removeItemConclusao = (value) => {
+    ConclusaoHematoma.map((e) => {
+      if (e.includes(value)) {
+        var index = ConclusaoHematoma.indexOf(e);
 
+        if (index > -1) {
+          ConclusaoHematoma.splice(index, 1);
+          setConclusaoHematoma((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(value)
+        }
+      }
+    });
+  };
   const removeStringHematoma = () => {
     frasesHematoma.map((e) => {
-      if (e.includes("Hematoma")) {
+      if (e.includes("Observa-se em testículo")) {
         var index = frasesHematoma.indexOf(e);
 
         if (index > -1) {
@@ -44,9 +61,9 @@ function Hematoma() {
   };
 
   useEffect(() => {
+    criaStringHematoma();
     if (HematomaCheckBox) {
       setDisableSelect(false);
-      criaStringHematoma();
     } else {
       setDisableSelect(true);
       removeStringHematoma();
@@ -61,7 +78,7 @@ function Hematoma() {
     tamanho2HematomaInput,
   ]);
 
-const subExame = "Hematoma";
+  const subExame = "Hematoma";
   const titulo_exame = "Testículo";
 
 
@@ -71,14 +88,16 @@ const subExame = "Hematoma";
         titulo_exame,
         subExame,
         true,
-        frasesHematoma
+        frasesHematoma,
+        ConclusaoHematoma
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesHematoma
+        frasesHematoma,
+        ConclusaoHematoma
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesHematoma]);

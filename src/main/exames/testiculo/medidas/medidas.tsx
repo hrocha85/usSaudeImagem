@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
   Checkbox,
@@ -37,19 +38,24 @@ function Testiculos() {
   const [epidimosCheckBox, setEpidimosCheckBox] = useState(false);
 
   const criaStringMedidasTesticuloDireito = () => {
-    var string = `TESTÍCULO D.: ${medidaTesticuloDireito1} x ${medidaTesticuloDireito2} x ${medidaTesticuloDireito3} cm. Vol ${volumeTesticulo(
-      "direito"
-    )} cm³. ${parenquimaDireito(tecidoDireito)}`;
-    if (!frasesMedidas.includes(stringPadrao)) {
-      setFrasesMedidas((arr) => [...arr, stringPadrao, string]);
+    var string = `TESTÍCULO D.: `
+    removeMedidas(string)
+    removeMedidas(stringPadrao)
+    if (medidaTesticuloDireito1 != '' && medidaTesticuloDireito2 != '' && medidaTesticuloDireito3 != '' && tecidoDireito != '') {
+      string = `${string}${medidaTesticuloDireito1} x ${medidaTesticuloDireito2} x ${medidaTesticuloDireito3} cm. Vol ${volumeTesticulo('direito')} cm³. ${parenquimaDireito(tecidoDireito)}`
+      if (!frasesMedidas.includes(stringPadrao)) {
+        setFrasesMedidas((arr) => [...arr, stringPadrao, string]);
+      } else {
+        setFrasesMedidas((arr) => [...arr, string]);
+      }
     } else {
-      setFrasesMedidas((arr) => [...arr, string]);
+      setTecidoDireito('')
     }
   };
 
-  const removeMedidasDireito = () => {
+  const removeMedidas = (value) => {
     frasesMedidas.map((e) => {
-      if (e.includes("TESTÍCULO D.:")) {
+      if (e.includes(value)) {
         var index = frasesMedidas.indexOf(e);
 
         if (index > -1) {
@@ -61,27 +67,19 @@ function Testiculos() {
   };
 
   const criaStringMedidasTesticuloEsquerdo = () => {
-    var string = `TESTÍCULO E.: ${medidaTesticuloEsquerdo1} x ${medidaTesticuloEsquerdo2} x ${medidaTesticuloEsquerdo3} cm. Vol ${volumeTesticulo(
-      "esquerdo"
-    )} cm³. ${parenquimaEsquerdo(tecidoEsquerdo)}`;
-    if (!frasesMedidas.includes(stringPadrao)) {
-      setFrasesMedidas((arr) => [...arr, stringPadrao, string]);
-    } else {
-      setFrasesMedidas((arr) => [...arr, string]);
-    }
-  };
-
-  const removeMedidasEsquerdo = () => {
-    frasesMedidas.map((e) => {
-      if (e.includes("TESTÍCULO E.: ")) {
-        var index = frasesMedidas.indexOf(e);
-
-        if (index > -1) {
-          frasesMedidas.splice(index, 1);
-          setFrasesMedidas((arr) => [...arr]);
-        }
+    var string = `TESTÍCULO E.: `
+    removeMedidas(string)
+    removeMedidas(stringPadrao)
+    if (medidaTesticuloEsquerdo1 != '' && medidaTesticuloEsquerdo2 != '' && medidaTesticuloEsquerdo3 != '' && tecidoEsquerdo != '') {
+      string = `${string}${medidaTesticuloEsquerdo1} x ${medidaTesticuloEsquerdo2} x ${medidaTesticuloEsquerdo3} cm. Vol ${volumeTesticulo('esquerdo')} cm³. ${parenquimaEsquerdo(tecidoEsquerdo)}`
+      if (!frasesMedidas.includes(stringPadrao)) {
+        setFrasesMedidas((arr) => [...arr, stringPadrao, string]);
+      } else {
+        setFrasesMedidas((arr) => [...arr, string]);
       }
-    });
+    } else {
+      setTecidoEsquerdo('')
+    }
   };
 
   const criaStringBolsaTesticular = () => {
@@ -181,15 +179,9 @@ function Testiculos() {
   };
 
   useEffect(() => {
-    if (
-      medidaTesticuloDireito1 != "" &&
-      medidaTesticuloDireito2 != "" &&
-      medidaTesticuloDireito3 != "" &&
-      tecidoDireito != ""
-    ) {
-      removeMedidasDireito();
-      criaStringMedidasTesticuloDireito();
-    }
+
+    criaStringMedidasTesticuloDireito();
+
   }, [
     medidaTesticuloDireito1,
     medidaTesticuloDireito2,
@@ -198,15 +190,7 @@ function Testiculos() {
   ]);
 
   useEffect(() => {
-    if (
-      medidaTesticuloEsquerdo1 != "" &&
-      medidaTesticuloEsquerdo2 != "" &&
-      medidaTesticuloEsquerdo3 != "" &&
-      tecidoEsquerdo != ""
-    ) {
-      removeMedidasEsquerdo();
-      criaStringMedidasTesticuloEsquerdo();
-    }
+    criaStringMedidasTesticuloEsquerdo();
   }, [
     medidaTesticuloEsquerdo1,
     medidaTesticuloEsquerdo2,
@@ -361,13 +345,13 @@ function Testiculos() {
           <Text>cm</Text>
 
           <Select
-            placeholder="Tecido"
             value={tecidoDireito}
             borderColor="black"
             w="auto"
             onChange={(e) => setTecidoDireito(e.target.value)}
             flexShrink={1}
           >
+            <option disabled selected value="">Tecido</option>
             <option value="Homogêneo">Homogêneo</option>
             <option value="Heterogênea">Heterogênea</option>
           </Select>

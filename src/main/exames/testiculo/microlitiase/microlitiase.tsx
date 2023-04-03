@@ -7,7 +7,8 @@ function Microlitiase() {
   const altura = "100%";
   const largura = "90%";
 
-  const [frasesMicrolitiase, setFrasesMicrolitiase] = useState<any>([]);
+  const [FrasesMicrolitiase, setFrasesMicrolitiase] = useState<any>([]);
+  const [ConclusaoMicrolitiase, setConclusaoMicrolitiase] = useState<any>([]);
 
   const [posicaoMicrolitiaseSelect, setPosicaoMicrolitiaseSelect] =
     useState("");
@@ -15,34 +16,53 @@ function Microlitiase() {
   const [DisableSelect, setDisableSelect] = useState(true);
 
   const criaStringMicrolitiaseLivre = () => {
-    removeStringMicrolitiaseLivre();
-
+    var string = 'posicionado normalmente, com ecotextura homogênea, exceto por pequenos focos hiperecogênicos, desprovidos de sombra acústica posterior, distribuídos esparsamente, medindo de 0,1 a 0,3 cm, sugerindo microlitíase.'
+    removeStringMicrolitiaseLivre(string);
+    var conclusao = 'Microlitíase testicular'
+    removeItemConclusao(conclusao)
     if (MicrolitiaseCheckBox && posicaoMicrolitiaseSelect !== "") {
-      var string = `Microlitíase no local: ${posicaoMicrolitiaseSelect}`;
+      if (posicaoMicrolitiaseSelect === 'bilateral') {
+        string = `Testículo direito e esquerdo ${string}`;
+      } else {
+        string = `Testículo ${posicaoMicrolitiaseSelect} ${string}`;
+      }
+      conclusao = `${conclusao} ${posicaoMicrolitiaseSelect}.`
       setFrasesMicrolitiase((arr) => [...arr, string]);
+      setConclusaoMicrolitiase((arr) => [...arr, conclusao]);
     }
   };
 
-  const removeStringMicrolitiaseLivre = () => {
-    frasesMicrolitiase.map((e) => {
-      if (e.includes("Microlitíase no local")) {
-        var index = frasesMicrolitiase.indexOf(e);
+  const removeStringMicrolitiaseLivre = (value) => {
+    FrasesMicrolitiase.map((e) => {
+      if (e.includes(value)) {
+        var index = FrasesMicrolitiase.indexOf(e);
 
         if (index > -1) {
-          frasesMicrolitiase.splice(index, 1);
+          FrasesMicrolitiase.splice(index, 1);
           setFrasesMicrolitiase((arr) => [...arr]);
         }
       }
     });
   };
+  const removeItemConclusao = (value) => {
+    ConclusaoMicrolitiase.map((e) => {
+      if (e.includes(value)) {
+        var index = ConclusaoMicrolitiase.indexOf(e);
 
+        if (index > -1) {
+          ConclusaoMicrolitiase.splice(index, 1);
+          setConclusaoMicrolitiase((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(value)
+        }
+      }
+    });
+  };
   useEffect(() => {
+    criaStringMicrolitiaseLivre();
     if (MicrolitiaseCheckBox) {
       setDisableSelect(false);
-      criaStringMicrolitiaseLivre();
     } else {
       setDisableSelect(true);
-      removeStringMicrolitiaseLivre();
       setPosicaoMicrolitiaseSelect("");
     }
   }, [MicrolitiaseCheckBox, posicaoMicrolitiaseSelect]);
@@ -52,22 +72,24 @@ function Microlitiase() {
 
 
   useEffect(() => {
-    if (Object.keys(frasesMicrolitiase).length == 0) {
+    if (Object.keys(FrasesMicrolitiase).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesMicrolitiase
+        FrasesMicrolitiase,
+        ConclusaoMicrolitiase
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesMicrolitiase
+        FrasesMicrolitiase,
+        ConclusaoMicrolitiase
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesMicrolitiase]);
+  }, [FrasesMicrolitiase]);
 
   return (
     <Box
@@ -107,9 +129,9 @@ function Microlitiase() {
                   <option value="" disabled selected>
                     Posição
                   </option>
-                  <option value="ausente">ausente</option>
-                  <option value="testículo direito">testículo direito</option>
-                  <option value="testículo esquerdo">testículo esquerdo</option>
+                  <option value="">ausente</option>
+                  <option value="direito">testículo direito</option>
+                  <option value="esquerdo">testículo esquerdo</option>
                   <option value="bilateral">bilateral</option>
                 </Select>
               </HStack>

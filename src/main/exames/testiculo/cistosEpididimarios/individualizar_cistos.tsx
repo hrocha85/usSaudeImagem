@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarCistos({ numCisto, disable }) {
-  const [frasesCistos, setFrasesCistos] = useState<any>([]);
+  const [FrasesCistos, setFrasesCistos] = useState<any>([]);
+  const [ConclusaoCistos, setConclusaoCistos] = useState<any>([]);
 
   const [tamanhoCistoInput, settamanhoCistoInput] = useState("");
   const [posicaoCistosSelect, setPosicaoCistosSelect] = useState("");
@@ -19,20 +20,33 @@ export default function IndividualizarCistos({ numCisto, disable }) {
     CistosSelect,
     localizado
   ) => {
+    const conclusao = 'Cisto epididimário.'
+    removeItemConclusao('Cisto epididimário.')
     removeMultiplosCistos();
     if (tamanhoCistoInput !== "" && CistosSelect !== "" && localizado !== "") {
       var string = `Cisto Epididimários ${numCisto}: mede ${tamanhoCistoInput} mm, conteúdo ${conteudoCistoSelect}, localizado no ${CistosSelect}, do  ${localizado} `;
       setFrasesCistos((arr) => [...arr, string]);
+      setConclusaoCistos((arr) => [...arr, conclusao]);
+    }
+  };
+
+  const removeItemConclusao = (value) => {
+    var index = ConclusaoCistos.indexOf(value);
+
+    if (index > -1) {
+      ConclusaoCistos.splice(index, 1);
+      setConclusaoCistos((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
   };
 
   const removeMultiplosCistos = () => {
-    frasesCistos.map((e) => {
+    FrasesCistos.map((e) => {
       if (e.includes(`Cisto Epididimários ${numCisto}`)) {
-        var index = frasesCistos.indexOf(e);
+        var index = FrasesCistos.indexOf(e);
 
         if (index > -1) {
-          frasesCistos.splice(index, 1);
+          FrasesCistos.splice(index, 1);
           setFrasesCistos((arr) => [...arr]);
         }
       }
@@ -49,6 +63,7 @@ export default function IndividualizarCistos({ numCisto, disable }) {
         localizacaoCistosSelect
       );
     } else {
+      removeItemConclusao('Cisto epididimário.')
       setDisableSelect(true);
       removeMultiplosCistos();
       settamanhoCistoInput("");
@@ -63,27 +78,29 @@ export default function IndividualizarCistos({ numCisto, disable }) {
     localizacaoCistosSelect,
   ]);
 
-  const subExame = "Cistos Epididimários";
+  const subExame = `Cistos Epididimários ${numCisto}`;
   const titulo_exame = "Testículo";
 
 
   useEffect(() => {
-    if (Object.keys(frasesCistos).length == 0) {
+    if (Object.keys(FrasesCistos).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesCistos
+        FrasesCistos,
+        ConclusaoCistos
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesCistos
+        FrasesCistos,
+        ConclusaoCistos
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesCistos]);
+  }, [FrasesCistos]);
   return (
     <Box gap="15px" display="flex" flexWrap="wrap">
       <Checkbox
