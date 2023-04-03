@@ -9,48 +9,36 @@ function Dilatacao() {
   const altura = "100%";
   const largura = "66%";
 
-  const [frasesDilatacao, setFrasesDilatacao] = useState<any>([]);
+  const [FraseDilatacao, setFraseDilatacao] = useState<any>([]);
+  const [ConclusaoDilatacao, setConclusaoDilatacao] = useState<any>([]);
 
   const [checkboxDilatacaoDireito, setCheckboxDilatacaoDireito] =
     useState(false);
-  const [disableSelectDilatacaoDireito, setDisableSelectDilatacaoDireito] =
-    useState(true);
+
   const [valueSelectDilatacaoDireito, setValueSelectDilatacaoDireito] =
     useState("");
 
   const [checkboxDilatacaoEsquerdo, setCheckboxDilatacaoEsquerdo] =
     useState(false);
 
-  const [disableSelectDilatacaoEsquerdo, setDisableSelectDilatacaoEsquerdo] =
-    useState(true);
   const [valueSelectDilatacaoEsquerdo, setValueSelectDilatacaoEsquerdo] =
     useState("");
 
   const criaStringDilatacaoDireito = () => {
-    removeFraseDilatacaoDireito();
+    var string = 'Presença de dilatação pielo-calicial'
+    var conclusao = 'Dilatação pielo-calicial'
+    removeStringSelect(string)
+    removeConclusaoSelect(conclusao)
     if (checkboxDilatacaoDireito) {
-      console.log(valueSelectDilatacaoDireito);
-      setDisableSelectDilatacaoDireito(false);
       if (valueSelectDilatacaoDireito !== "") {
-        let string = `Rim direito com dilatação ${valueSelectDilatacaoDireito}`;
-        setFrasesDilatacao((arr) => [...arr, string]);
+        string = `${string} ${valueSelectDilatacaoDireito} no rim direito.`;
+        conclusao = `${conclusao} ${valueSelectDilatacaoDireito} no rim direito.`;
+        setFraseDilatacao((arr) => [...arr, string]);
+        setConclusaoDilatacao((arr) => [...arr, conclusao]);
       }
     } else {
-      setDisableSelectDilatacaoDireito(true);
       setValueSelectDilatacaoDireito("");
     }
-  };
-  const removeFraseDilatacaoDireito = () => {
-    frasesDilatacao.map((e) => {
-      if (e.includes("Rim direito com dilatação")) {
-        let index = frasesDilatacao.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-        if (index > -1) {
-          frasesDilatacao.splice(index, 1);
-          setFrasesDilatacao((arr) => [...arr]);
-        }
-      }
-    });
   };
 
   useEffect(() => {
@@ -58,57 +46,75 @@ function Dilatacao() {
   }, [valueSelectDilatacaoDireito, checkboxDilatacaoDireito]);
 
   const criaStringDilatacaoEsquerdo = () => {
-    removeFraseDilatacaoEsquerdo();
-    console.log("aqui");
+    var string = 'Presença de dilatação pielo-calicial'
+    var conclusao = 'Dilatação pielo-calicial'
+    removeStringSelect(string)
+    removeConclusaoSelect(conclusao)
     if (checkboxDilatacaoEsquerdo) {
-      console.log(valueSelectDilatacaoEsquerdo);
-      setDisableSelectDilatacaoEsquerdo(false);
       if (valueSelectDilatacaoEsquerdo !== "") {
-        let string = `Rim esquerdo com dilatação ${valueSelectDilatacaoEsquerdo}`;
-        setFrasesDilatacao((arr) => [...arr, string]);
+        string = `${string} ${valueSelectDilatacaoEsquerdo} no rim Esquerdo.`;
+        conclusao = `${conclusao} ${valueSelectDilatacaoEsquerdo} no rim Esquerdo.`;
+        setFraseDilatacao((arr) => [...arr, string]);
+        setConclusaoDilatacao((arr) => [...arr, conclusao]);
       }
     } else {
-      setDisableSelectDilatacaoEsquerdo(true);
       setValueSelectDilatacaoEsquerdo("");
     }
-  };
-  const removeFraseDilatacaoEsquerdo = () => {
-    frasesDilatacao.map((e) => {
-      if (e.includes("Rim esquerdo com dilatação")) {
-        let index = frasesDilatacao.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-        if (index > -1) {
-          frasesDilatacao.splice(index, 1);
-          setFrasesDilatacao((arr) => [...arr]);
-        }
-      }
-    });
   };
 
   useEffect(() => {
     criaStringDilatacaoEsquerdo();
   }, [valueSelectDilatacaoEsquerdo, checkboxDilatacaoEsquerdo]);
 
+  const removeStringSelect = (value) => {
+    FraseDilatacao.map((e) => {
+      if (e.includes(value)) {
+        var index = FraseDilatacao.indexOf(e);
+
+        if (index > -1) {
+          FraseDilatacao.splice(index, 1);
+          setFraseDilatacao((arr) => [...arr]);
+        }
+      }
+    });
+  };
+  const removeConclusaoSelect = (value) => {
+
+    ConclusaoDilatacao.map((e) => {
+      if (e.includes(value)) {
+        var index = ConclusaoDilatacao.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoDilatacao.splice(index, 1);
+          setConclusaoDilatacao((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(value);
+        }
+      }
+    });
+  };
+
   const subExame = "Dilatação";
   const titulo_exame = "Rins e Vias Urinárias";
 
   useEffect(() => {
-    if (Object.keys(frasesDilatacao).length == 0) {
+    if (Object.keys(FraseDilatacao).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesDilatacao
+        FraseDilatacao,
+        ConclusaoDilatacao
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesDilatacao
+        FraseDilatacao,
+        ConclusaoDilatacao
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesDilatacao]);
+  }, [FraseDilatacao]);
 
   return (
     <Box
@@ -136,7 +142,7 @@ function Dilatacao() {
             </Checkbox>
             <Select
               w="150px"
-              isDisabled={disableSelectDilatacaoDireito}
+              isDisabled={!checkboxDilatacaoDireito}
               onChange={(e) => {
                 setValueSelectDilatacaoDireito(e.target.value);
               }}
@@ -160,7 +166,7 @@ function Dilatacao() {
             </Checkbox>
             <Select
               w="150px"
-              isDisabled={disableSelectDilatacaoEsquerdo}
+              isDisabled={!checkboxDilatacaoEsquerdo}
               onChange={(e) => {
                 setValueSelectDilatacaoEsquerdo(e.target.value);
               }}

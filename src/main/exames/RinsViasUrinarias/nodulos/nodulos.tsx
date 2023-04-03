@@ -9,9 +9,9 @@ function Nodulos() {
   const altura = "100%";
   const largura = "95%";
 
-  const [frasesNodulos, setFrasesNodulos] = useState<any>([]);
+  const [FrasesNodulos, setFrasesNodulos] = useState<any>([]);
+  const [ConclusaoNodulos, setConclusaoNodulos] = useState<any>([]);
 
-  const [disableNodulo01, setDisableNodulo01] = useState(true);
   const [checkboxNodulo01, setCheckboxNodulo01] = useState(false);
   const [valueInput01Nodulo01, setValueInput01Nodulo01] = useState("");
   const [valueInput02Nodulo01, setValueInput02Nodulo01] = useState("");
@@ -20,7 +20,7 @@ function Nodulos() {
   const [valueSelect03Nodulo01, setValueSelect03Nodulo01] = useState("");
   const [valueSelect04Nodulo01, setValueSelect04Nodulo01] = useState("");
 
-  const [disableNodulo02, setDisableNodulo02] = useState(true);
+
   const [checkboxNodulo02, setCheckboxNodulo02] = useState(false);
   const [valueInput01Nodulo02, setValueInput01Nodulo02] = useState("");
   const [valueInput02Nodulo02, setValueInput02Nodulo02] = useState("");
@@ -29,142 +29,77 @@ function Nodulos() {
   const [valueSelect03Nodulo02, setValueSelect03Nodulo02] = useState("");
   const [valueSelect04Nodulo02, setValueSelect04Nodulo02] = useState("");
 
-  const removeStringNodulo01 = () => {
-    frasesNodulos.map((e) => {
-      if (e.includes(`Nódulo 01`)) {
-        var index = frasesNodulos.indexOf(e);
+  const removeStringNodulo = (value) => {
+    FrasesNodulos.map((e) => {
+      if (e.includes(value)) {
+        var index = FrasesNodulos.indexOf(e);
 
         if (index > -1) {
-          frasesNodulos.splice(index, 1);
+          FrasesNodulos.splice(index, 1);
           setFrasesNodulos((arr) => [...arr]);
         }
       }
     });
   };
-  const criaStringNodulo01 = (
-    Input01Nodulo01,
-    Input02Nodulo01,
-    Select01Nodulo01,
-    Select02Nodulo01,
-    Select03Nodulo01,
-    Select04Nodulo01
-  ) => {
-    removeStringNodulo01();
-    if (
-      Input01Nodulo01 !== "" &&
-      Input02Nodulo01 !== "" &&
-      Select01Nodulo01 !== "" &&
-      Select02Nodulo01 !== "" &&
-      Select03Nodulo01 !== "" &&
-      Select04Nodulo01 !== ""
-    ) {
-      const Frase = `Nódulo 01 com ${Input01Nodulo01} x ${Input02Nodulo01} mm localizado no 
-             ${Select01Nodulo01} do ${Select02Nodulo01} com contornos ${Select03Nodulo01} do tipo ${Select04Nodulo01}`;
-      setFrasesNodulos((arr) => [...arr, Frase]);
+  const removeFraseConclusao = (value) => {
+    ConclusaoNodulos.map((e) => {
+      if (e.includes(value)) {
+        var index = ConclusaoNodulos.indexOf(e);
+        if (index > -1) {
+          ConclusaoNodulos.splice(index, 1);
+          setConclusaoNodulos((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(value);
+        }
+      }
+    });
+  };
+
+  const criaStringNodulo = () => {
+    const conclusao = 'Nódulos renais.'
+    var string = 'Nota-se imagens nodulares sólidas,corticais, sem alterara a arquitetura vascular e pielo-calicinal.'
+    removeStringNodulo(string);
+    removeFraseConclusao(conclusao)
+
+    if (checkboxNodulo01 || checkboxNodulo02) {
+      if (checkboxNodulo01) {
+        if (valueInput01Nodulo01 !== "" && valueInput02Nodulo01 !== "" && valueSelect01Nodulo01 !== "" && valueSelect02Nodulo01 !== "" && valueSelect03Nodulo01 !== "" && valueSelect04Nodulo01 !== "") {
+          string = `${string} \n ${valueSelect02Nodulo01}: Uma com conteúdo ${valueSelect04Nodulo01}, no ${valueSelect01Nodulo01}, homogêneo, contornos ${valueSelect03Nodulo01}, medindo ${valueInput01Nodulo01} x ${valueInput02Nodulo01} mm.`;
+        }
+      } else {
+        setValueInput01Nodulo01("");
+        setValueInput02Nodulo01("");
+        setValueSelect01Nodulo01("");
+        setValueSelect02Nodulo01("");
+        setValueSelect03Nodulo01("");
+        setValueSelect04Nodulo01("");
+      }
+      if (checkboxNodulo02) {
+        if (valueInput01Nodulo02 !== "" && valueInput02Nodulo02 !== "" && valueSelect01Nodulo02 !== "" && valueSelect02Nodulo02 !== "" && valueSelect03Nodulo02 !== "" && valueSelect04Nodulo02 !== "") {
+          string = `${string} \n ${valueSelect02Nodulo02}: Uma com conteúdo ${valueSelect04Nodulo02}, no ${valueSelect01Nodulo02}, homogêneo, contornos ${valueSelect03Nodulo02}, medindo ${valueInput01Nodulo02} x ${valueInput02Nodulo02} mm.`;
+        }
+      } else {
+        setValueInput01Nodulo02("");
+        setValueInput02Nodulo02("");
+        setValueSelect01Nodulo02("");
+        setValueSelect02Nodulo02("");
+        setValueSelect03Nodulo02("");
+        setValueSelect04Nodulo02("");
+      }
+      setFrasesNodulos((arr) => [...arr, string]);
+      setConclusaoNodulos((arr) => [...arr, conclusao]);
     }
   };
 
   useEffect(() => {
-    if (checkboxNodulo01) {
-      setDisableNodulo01(false);
-    } else {
-      removeStringNodulo01();
-      setDisableNodulo01(true);
-      setValueInput01Nodulo01("");
-      setValueInput02Nodulo01("");
-      setValueSelect01Nodulo01("");
-      setValueSelect02Nodulo01("");
-      setValueSelect03Nodulo01("");
-      setValueSelect04Nodulo01("");
-    }
-  }, [checkboxNodulo01]);
-
-  useEffect(() => {
-    if (checkboxNodulo01) {
-      removeStringNodulo01();
-      criaStringNodulo01(
-        valueInput01Nodulo01,
-        valueInput02Nodulo01,
-        valueSelect01Nodulo01,
-        valueSelect02Nodulo01,
-        valueSelect03Nodulo01,
-        valueSelect04Nodulo01
-      );
-    } else {
-    }
-  }, [
+    criaStringNodulo();
+  }, [checkboxNodulo01,
     valueInput01Nodulo01,
     valueInput02Nodulo01,
     valueSelect01Nodulo01,
     valueSelect02Nodulo01,
     valueSelect03Nodulo01,
     valueSelect04Nodulo01,
-  ]);
-
-  const removeStringNodulo02 = () => {
-    frasesNodulos.map((e) => {
-      if (e.includes(`Nódulo 02`)) {
-        var index = frasesNodulos.indexOf(e);
-
-        if (index > -1) {
-          frasesNodulos.splice(index, 1);
-          setFrasesNodulos((arr) => [...arr]);
-        }
-      }
-    });
-  };
-  const criaStringNodulo02 = (
-    Input01Nodulo02,
-    Input02Nodulo02,
-    Select01Nodulo02,
-    Select02Nodulo02,
-    Select03Nodulo02,
-    Select04Nodulo02
-  ) => {
-    removeStringNodulo02();
-    if (
-      Input01Nodulo02 !== "" &&
-      Input02Nodulo02 !== "" &&
-      Select01Nodulo02 !== "" &&
-      Select02Nodulo02 !== "" &&
-      Select03Nodulo02 !== "" &&
-      Select04Nodulo02 !== ""
-    ) {
-      const Frase = `Nódulo 02 com ${Input01Nodulo02} x ${Input02Nodulo02} mm localizado no 
-             ${Select01Nodulo02} do ${Select02Nodulo02} com contornos ${Select03Nodulo02} do tipo ${Select04Nodulo02}`;
-      setFrasesNodulos((arr) => [...arr, Frase]);
-    }
-  };
-
-  useEffect(() => {
-    if (checkboxNodulo02) {
-      setDisableNodulo02(false);
-    } else {
-      removeStringNodulo02();
-      setDisableNodulo02(true);
-      setValueInput01Nodulo02("");
-      setValueInput02Nodulo02("");
-      setValueSelect01Nodulo02("");
-      setValueSelect02Nodulo02("");
-      setValueSelect03Nodulo02("");
-      setValueSelect04Nodulo02("");
-    }
-  }, [checkboxNodulo02]);
-
-  useEffect(() => {
-    if (checkboxNodulo02) {
-      removeStringNodulo02();
-      criaStringNodulo02(
-        valueInput01Nodulo02,
-        valueInput02Nodulo02,
-        valueSelect01Nodulo02,
-        valueSelect02Nodulo02,
-        valueSelect03Nodulo02,
-        valueSelect04Nodulo02
-      );
-    } else {
-    }
-  }, [
+    checkboxNodulo02,
     valueInput01Nodulo02,
     valueInput02Nodulo02,
     valueSelect01Nodulo02,
@@ -173,26 +108,29 @@ function Nodulos() {
     valueSelect04Nodulo02,
   ]);
 
+
   const subExame = "Nódulos";
   const titulo_exame = "Rins e Vias Urinárias";
 
   useEffect(() => {
-    if (Object.keys(frasesNodulos).length == 0) {
+    if (Object.keys(FrasesNodulos).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesNodulos
+        FrasesNodulos,
+        ConclusaoNodulos
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesNodulos
+        FrasesNodulos,
+        ConclusaoNodulos
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesNodulos]);
+  }, [FrasesNodulos]);
 
   return (
     <Box
@@ -224,7 +162,7 @@ function Nodulos() {
                 onChange={(e) => {
                   setValueInput01Nodulo01(e.target.value);
                 }}
-                isDisabled={disableNodulo01}
+                isDisabled={!checkboxNodulo01}
                 w="55px"
                 placeholder="00"
               />
@@ -234,14 +172,14 @@ function Nodulos() {
                 onChange={(e) => {
                   setValueInput02Nodulo01(e.target.value);
                 }}
-                isDisabled={disableNodulo01}
+                isDisabled={!checkboxNodulo01}
                 w="55px"
                 placeholder="00"
               />
               mm
             </Box>
             <Select
-              isDisabled={disableNodulo01}
+              isDisabled={!checkboxNodulo01}
               value={valueSelect01Nodulo01}
               onChange={(e) => {
                 setValueSelect01Nodulo01(e.target.value);
@@ -257,7 +195,7 @@ function Nodulos() {
               <option value="terço Inferior">Terço inferior</option>
             </Select>
             <Select
-              isDisabled={disableNodulo01}
+              isDisabled={!checkboxNodulo01}
               value={valueSelect02Nodulo01}
               onChange={(e) => {
                 setValueSelect02Nodulo01(e.target.value);
@@ -272,7 +210,7 @@ function Nodulos() {
               <option value="Rim esquerdo">Rim Esquerdo</option>
             </Select>
             <Select
-              isDisabled={disableNodulo01}
+              isDisabled={!checkboxNodulo01}
               value={valueSelect03Nodulo01}
               onChange={(e) => {
                 setValueSelect03Nodulo01(e.target.value);
@@ -287,7 +225,7 @@ function Nodulos() {
               <option value="irregulares">Irregulares</option>
             </Select>
             <Select
-              isDisabled={disableNodulo01}
+              isDisabled={!checkboxNodulo01}
               value={valueSelect04Nodulo01}
               onChange={(e) => {
                 setValueSelect04Nodulo01(e.target.value);
@@ -318,7 +256,7 @@ function Nodulos() {
                 onChange={(e) => {
                   setValueInput01Nodulo02(e.target.value);
                 }}
-                isDisabled={disableNodulo02}
+                isDisabled={!checkboxNodulo02}
                 w="55px"
                 placeholder="00"
               />
@@ -328,7 +266,7 @@ function Nodulos() {
                 onChange={(e) => {
                   setValueInput02Nodulo02(e.target.value);
                 }}
-                isDisabled={disableNodulo02}
+                isDisabled={!checkboxNodulo02}
                 w="55px"
                 placeholder="00"
               />
@@ -339,7 +277,7 @@ function Nodulos() {
               onChange={(e) => {
                 setValueSelect01Nodulo02(e.target.value);
               }}
-              isDisabled={disableNodulo02}
+              isDisabled={!checkboxNodulo02}
               mt="5px"
               w="160px"
             >
@@ -355,7 +293,7 @@ function Nodulos() {
               onChange={(e) => {
                 setValueSelect02Nodulo02(e.target.value);
               }}
-              isDisabled={disableNodulo02}
+              isDisabled={!checkboxNodulo02}
               mt="5px"
               w="160px"
             >
@@ -370,7 +308,7 @@ function Nodulos() {
               onChange={(e) => {
                 setValueSelect03Nodulo02(e.target.value);
               }}
-              isDisabled={disableNodulo02}
+              isDisabled={!checkboxNodulo02}
               mt="5px"
               w="160px"
             >
@@ -385,7 +323,7 @@ function Nodulos() {
               onChange={(e) => {
                 setValueSelect04Nodulo02(e.target.value);
               }}
-              isDisabled={disableNodulo02}
+              isDisabled={!checkboxNodulo02}
               mt="5px"
               w="160px"
             >
