@@ -8,15 +8,19 @@ function Cirurgias() {
   const altura = "100%";
   const largura = "66%";
 
-  const [TireoidectomiaTotalCheckbox, setTireoidectomiaTotalCheckbox] = useState(false)
-  const [HemitireoidectomiaCheckbox, setHemitireoidectomiaCheckbox] = useState(false)
-  const [ValueHemitireoidectomiaSelect, setValueHemitireoidectomiaSelect] = useState('')
-  const [DisabledHemitireoidectomiaSelect, setDisabledHemitireoidectomiaSelect] = useState(true)
+  const [TireoidectomiaTotalCheckbox, setTireoidectomiaTotalCheckbox] =
+    useState(false);
+  const [HemitireoidectomiaCheckbox, setHemitireoidectomiaCheckbox] =
+    useState(false);
+  const [ValueHemitireoidectomiaSelect, setValueHemitireoidectomiaSelect] =
+    useState("");
+  const [
+    DisabledHemitireoidectomiaSelect,
+    setDisabledHemitireoidectomiaSelect,
+  ] = useState(true);
 
-  useEffect(() => {
-    const string = 'Falta Tireioide total'
-    TireoidectomiaTotalCheckbox ? setFrasesCirurgias((arr) => [...arr, string]) : removeItemString(string)
-  }, [TireoidectomiaTotalCheckbox])
+  const [ConclusaoCirurgia, setConclusaoCirurgia] = useState<any>([]);
+  const [FrasesCirurgias, setFrasesCirurgias] = useState<any>([]);
 
   const removeItemString = (value) => {
     var index = FrasesCirurgias.indexOf(value);
@@ -27,15 +31,15 @@ function Cirurgias() {
   };
 
   const criaStringHemitireoidectomia = () => {
-    removeHemitireoidectomia()
-    let string = 'FALTA Hemitireoidectomia'
+    removeHemitireoidectomia();
+    let string = "FALTA Hemitireoidectomia";
     if (HemitireoidectomiaCheckbox) {
-      if (ValueHemitireoidectomiaSelect != '') {
-        string = `${string} ${ValueHemitireoidectomiaSelect}`
+      if (ValueHemitireoidectomiaSelect != "") {
+        string = `${string} ${ValueHemitireoidectomiaSelect}`;
       }
       setFrasesCirurgias((arr) => [...arr, string]);
     }
-  }
+  };
 
   const removeHemitireoidectomia = () => {
     FrasesCirurgias.map((e) => {
@@ -50,36 +54,61 @@ function Cirurgias() {
     });
   };
 
+  const removeConclusao = (value) => {
+    ConclusaoCirurgia.map((e) => {
+      if (e.includes(value)) {
+        var index = ConclusaoCirurgia.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoCirurgia.splice(index, 1);
+          setConclusaoCirurgia((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+        }
+      }
+    });
+  };
+
   useEffect(() => {
     if (HemitireoidectomiaCheckbox) {
-      criaStringHemitireoidectomia()
-      setDisabledHemitireoidectomiaSelect(false)
+      criaStringHemitireoidectomia();
+      setDisabledHemitireoidectomiaSelect(false);
     } else {
-      setValueHemitireoidectomiaSelect('')
-      removeHemitireoidectomia()
-      setDisabledHemitireoidectomiaSelect(true)
+      setValueHemitireoidectomiaSelect("");
+      removeHemitireoidectomia();
+      setDisabledHemitireoidectomiaSelect(true);
     }
-  }, [HemitireoidectomiaCheckbox, ValueHemitireoidectomiaSelect])
+  }, [HemitireoidectomiaCheckbox, ValueHemitireoidectomiaSelect]);
 
-  const [FrasesCirurgias, setFrasesCirurgias] = useState<any>([]);
+  useEffect(() => {
+    const string = "Tireoidectomia total";
+    if (TireoidectomiaTotalCheckbox) {
+      setFrasesCirurgias((arr) => [...arr, string]);
+      setConclusaoCirurgia((arr) => [...arr, string]);
+    } else {
+      removeItemString(string);
+      removeConclusao(string);
+    }
+  }, [TireoidectomiaTotalCheckbox]);
 
   const subExame = "Cirurgias";
   const titulo_exame = "Tireóide";
 
   useEffect(() => {
-    if (Object.keys(FrasesCirurgias).length == 0) {
+    if (Object.keys(FrasesCirurgias).length === 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        FrasesCirurgias
+        FrasesCirurgias,
+        ConclusaoCirurgia
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        FrasesCirurgias
+        FrasesCirurgias,
+        ConclusaoCirurgia
       ).Format_Laudo_Create_Storage();
     }
   }, [FrasesCirurgias]);
@@ -103,7 +132,7 @@ function Cirurgias() {
           <Box>
             <Checkbox
               onChange={(e) => {
-                setTireoidectomiaTotalCheckbox(!TireoidectomiaTotalCheckbox)
+                setTireoidectomiaTotalCheckbox(!TireoidectomiaTotalCheckbox);
               }}
             >
               Tireoidectomia Total
@@ -113,7 +142,7 @@ function Cirurgias() {
           <Box>
             <Checkbox
               onChange={(e) => {
-                setHemitireoidectomiaCheckbox(!HemitireoidectomiaCheckbox)
+                setHemitireoidectomiaCheckbox(!HemitireoidectomiaCheckbox);
               }}
             >
               Hemitireoidectomia
@@ -122,7 +151,7 @@ function Cirurgias() {
               isDisabled={DisabledHemitireoidectomiaSelect}
               value={ValueHemitireoidectomiaSelect}
               onChange={(e) => {
-                setValueHemitireoidectomiaSelect(e.target.value)
+                setValueHemitireoidectomiaSelect(e.target.value);
               }}
             >
               <option value="" disabled selected>
