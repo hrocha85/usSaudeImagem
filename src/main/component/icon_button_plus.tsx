@@ -35,12 +35,6 @@ const button = React.createElement("img", { src: PlusButton });
 var dados;
 export let minhasClinicas = infoClinicas.clinicas;
 
-if (localStorage.getItem("minhasClinicas") != null) {
-  dados = localStorage.getItem("minhasClinicas");
-
-  minhasClinicas = JSON.parse(dados);
-} else minhasClinicas = [];
-
 const IconButtonPlus = (props) => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -72,6 +66,8 @@ const IconButtonPlus = (props) => {
   const refCEP = useRef<HTMLInputElement | null>(null);
 
   const refNomeClinica = useRef<HTMLInputElement | null>(null);
+
+  console.log("minhasClinicas", minhasClinicas);
 
   const AddClinica = () => {
     const obj = {
@@ -163,6 +159,14 @@ const IconButtonPlus = (props) => {
     value = value.replace(/(-\d{3})\d+?$/, "$1");
     return value;
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("minhasClinicas") != null) {
+      dados = localStorage.getItem("minhasClinicas");
+
+      minhasClinicas = JSON.parse(dados);
+    } else minhasClinicas = [];
+  }, []);
 
   return (
     <>

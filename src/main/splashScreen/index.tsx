@@ -4,12 +4,7 @@ import logo from "./logo.png";
 import "./styles.css";
 
 const SplashScreen = () => {
-  const keysToKeep = ["chakra-ui-color-mode"];
-
-  keysToKeep.forEach((key) => {
-    localStorage.clear();
-    localStorage.setItem(key, "light");
-  });
+ 
 
   const [redirectNow, setRedirectNow] = useState(false);
   //tempo de 5 segundos para sair da pagina

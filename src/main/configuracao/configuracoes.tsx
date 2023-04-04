@@ -54,11 +54,6 @@ import Medicos from "./medicos";
 
 var dados;
 export let lista_medicos = MedicosJSON.medicos;
-if (localStorage.getItem("medicos") != null) {
-  dados = localStorage.getItem("medicos");
-
-  lista_medicos = JSON.parse(dados);
-} else lista_medicos = [];
 
 const Configuracoes = () => {
   const toast = useToast();
@@ -119,6 +114,8 @@ const Configuracoes = () => {
   const [imageAssinatura, setImageAssinatura] = useState(true);
 
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
+
+  console.log("clinicas", listaClinicas);
 
   useEffect(() => {
     setMedicos(getMedicos);
@@ -633,7 +630,7 @@ const Configuracoes = () => {
       </Popover>
     );
   };
-  
+
   useEffect(() => {
     var item;
     var item_parse;
@@ -669,6 +666,14 @@ const Configuracoes = () => {
     TAGS();
     setUpdateTAGS(false);
   }, [updateTAGS == true]);
+
+  useEffect(() => {
+    if (localStorage.getItem("medicos") != null) {
+      dados = localStorage.getItem("medicos");
+
+      lista_medicos = JSON.parse(dados);
+    } else lista_medicos = [];
+  }, []);
 
   return (
     <Box
