@@ -585,6 +585,7 @@ export default function Box_Default_With_Sidebar() {
                 Cancelar
               </Button>
               <Button
+                background='#A0A0A0'
                 variant="ghost"
                 fontSize="20px"
                 onClick={() => RemoveTabExame()}
