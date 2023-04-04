@@ -50,7 +50,7 @@ function Medidas() {
   const [ValueSelectRADS, setValueSelectRADS] = useState('')
 
   const criaStringLoboDireito = () => {
-    var string = 'Lobo Direito Falta'
+    var string = 'Lobo Direito: '
     removeFraseLoboDireito()
     var medida1cm = new Convert_Medida(ValueInput1LoboDireito).Convert_Medida()
     var medida2cm = new Convert_Medida(ValueInput2LoboDireito).Convert_Medida()
@@ -65,7 +65,7 @@ function Medidas() {
 
   const removeFraseLoboDireito = () => {
     FrasesMedidas.map((e) => {
-      if (e.includes("Lobo Direito Falta")) {
+      if (e.includes("Lobo Direito: ")) {
         var index = FrasesMedidas.indexOf(e);
         if (index > -1) {
           FrasesMedidas.splice(index, 1);
@@ -90,7 +90,7 @@ function Medidas() {
   }, [LoboDireitoCheckbox, ValueInput1LoboDireito, ValueInput3LoboDireito, ValueInput2LoboDireito])
 
   const criaStringLoboEsquerdo = () => {
-    var string = 'Lobo Esquerdo Falta'
+    var string = 'Lobo Esquerdo: '
     removeFraseLoboEsquerdo()
     var medida1cm = new Convert_Medida(ValueInput1LoboEsquerdo).Convert_Medida()
     var medida2cm = new Convert_Medida(ValueInput2LoboEsquerdo).Convert_Medida()
@@ -105,7 +105,7 @@ function Medidas() {
 
   const removeFraseLoboEsquerdo = () => {
     FrasesMedidas.map((e) => {
-      if (e.includes("Lobo Esquerdo Falta")) {
+      if (e.includes("Lobo Esquerdo: ")) {
         var index = FrasesMedidas.indexOf(e);
         if (index > -1) {
           FrasesMedidas.splice(index, 1);
@@ -130,7 +130,7 @@ function Medidas() {
   }, [LoboEsquerdoCheckbox, ValueInput1LoboEsquerdo, ValueInput3LoboEsquerdo, ValueInput2LoboEsquerdo])
 
   const criaStringIstmo = () => {
-    var string = 'Lobo Istmo Falta'
+    var string = 'Lobo Istmo: '
     removeFraseIstmo()
     var medida1cm = new Convert_Medida(ValueInput1Istmo).Convert_Medida()
     var medida2cm = new Convert_Medida(ValueInput2Istmo).Convert_Medida()
@@ -153,7 +153,7 @@ function Medidas() {
 
   const removeFraseIstmo = () => {
     FrasesMedidas.map((e) => {
-      if (e.includes("Lobo Istmo Falta")) {
+      if (e.includes("Lobo Istmo: ")) {
         var index = FrasesMedidas.indexOf(e);
         if (index > -1) {
           FrasesMedidas.splice(index, 1);
@@ -163,7 +163,7 @@ function Medidas() {
     });
   };
   const criaStringIstmoFiliforme = () => {
-    var string = 'Lobo Filoforme Falta'
+    var string = 'Lobo Filoforme: '
     removeFraseIstmo()
     if (IstmoFiliformeCheckbox) {
       setFrasesMedidas((arr) => [...arr, string]);
@@ -173,7 +173,7 @@ function Medidas() {
   }
 
   useEffect(() => {
-    var string = 'Lobo Filoforme Falta'
+    var string = 'Lobo Filoforme: '
     if (IstmoCheckbox) {
       setDisableInputsIstmoFiliforme(false)
       if (IstmoFiliformeCheckbox) {
