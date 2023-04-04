@@ -56,7 +56,6 @@
     "start:desktop": "electron ./public/electron.js"
   },
   "build": {
-    "icon": "public/logo.ico",
     "appId": "com.exemple.electron",
     "productName": "Laudos",
     "files": [
@@ -65,6 +64,12 @@
     ],
     "directories": {
       "buildResources": "public"
+    },
+    "win": {
+      "icon": "public/logo.ico"
+    },
+    "linux": {
+      "icon": "public/logo.png"
     }
   },
   "eslintConfig": {
