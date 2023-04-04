@@ -6,10 +6,10 @@ const ItemExamesHome = () => {
       key: 1,
       nomeExame: "Abdômen total",
     },
-    {
-      key: 2,
-      nomeExame: "Doppler Transvaginal",
-    },
+    // {
+    //   key: 2,
+    //   nomeExame: "Doppler Transvaginal",
+    // },
     {
       key: 3,
       nomeExame: "Mamas",
@@ -21,10 +21,10 @@ const ItemExamesHome = () => {
         "Exames anteriores não disponíveis para estudo comparativo."
       ],
     },
-    {
-      key: 4,
-      nomeExame: "Doppler Artrial do MMSS",
-    },
+    // {
+    //   key: 4,
+    //   nomeExame: "Doppler Artrial do MMSS",
+    // },
     {
       key: 5,
       nomeExame: "Abdomen Superior",
@@ -37,26 +37,26 @@ const ItemExamesHome = () => {
     //   key: 7,
     //   nomeExame: "Doppler Renal",
     // },
-    {
-      key: 7,
-      nomeExame: "Doppler Venoso de MMII",
-    },
+    // {
+    //   key: 7,
+    //   nomeExame: "Doppler Venoso de MMII",
+    // },
     {
       key: 8,
       nomeExame: "Tireóide",
     },
-    {
-      key: 9,
-      nomeExame: "Doppler das Carótidas",
-    },
+    // {
+    //   key: 9,
+    //   nomeExame: "Doppler das Carótidas",
+    // },
     // {
     //   key: 11,
     //   nomeExame: "Doppler Hepático",
     // },
-    {
-      key: 10,
-      nomeExame: "Doppler Arterial de MMII",
-    },
+    // {
+    //   key: 10,
+    //   nomeExame: "Doppler Arterial de MMII",
+    // },
     // {
     //   key: 13,
     //   nomeExame: "Tireóide 2",
@@ -73,10 +73,10 @@ const ItemExamesHome = () => {
     //   key: 16,
     //   nomeExame: "Dopper Venoso de MMSS",
     // },
-    {
-      key: 12,
-      nomeExame: "Doppler da Tireóide",
-    },
+    // {
+    //   key: 12,
+    //   nomeExame: "Doppler da Tireóide",
+    // },
     {
       key: 13,
       nomeExame: "Partes Moles",
@@ -90,10 +90,10 @@ const ItemExamesHome = () => {
         "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
       ],
     },
-    {
-      key: 15,
-      nomeExame: "Doppler de Bolsa Testicular",
-    },
+    // {
+    //   key: 15,
+    //   nomeExame: "Doppler de Bolsa Testicular",
+    // },
     // {
     //   key: 21,
     //   nomeExame: "Doppler da Tireóide 2",
@@ -125,15 +125,15 @@ const ItemExamesHome = () => {
         "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos."
       ],
     },
-    {
-      key: 20,
-      nomeExame: "Doppler Testículo",
-      observacao: [
-        "Conviria controle ecográfico periódico, a critério clínico.",
-        "Estaremos à disposição para a discussão do presente caso.",
-        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
-      ],
-    },
+    // {
+    //   key: 20,
+    //   nomeExame: "Doppler Testículo",
+    //   observacao: [
+    //     "Conviria controle ecográfico periódico, a critério clínico.",
+    //     "Estaremos à disposição para a discussão do presente caso.",
+    //     "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+    //   ],
+    // },
   ];
 
   return (

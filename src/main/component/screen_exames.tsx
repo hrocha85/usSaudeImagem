@@ -78,11 +78,11 @@ export default function Box_Default_With_Sidebar() {
       nomeExame: "Abdômen total",
       link: `#/Home/${1}`,
     },
-    {
-      key: 2,
-      nomeExame: "Doppler Transvaginal",
-      link: `#/Home/${2}`,
-    },
+    // {
+    //   key: 2,
+    //   nomeExame: "Doppler Transvaginal",
+    //   link: `#/Home/${2}`,
+    // },
     {
       key: 3,
       nomeExame: "Mamas",
@@ -95,11 +95,11 @@ export default function Box_Default_With_Sidebar() {
         "Exames anteriores não disponíveis para estudo comparativo."
       ],
     },
-    {
-      key: 4,
-      nomeExame: "Doppler Artrial do MMSS",
-      link: `#/Home/${4}`,
-    },
+    // {
+    //   key: 4,
+    //   nomeExame: "Doppler Artrial do MMSS",
+    //   link: `#/Home/${4}`,
+    // },
     {
       key: 5,
       nomeExame: "Abdomen Superior",
@@ -115,31 +115,31 @@ export default function Box_Default_With_Sidebar() {
     //   nomeExame: "Doppler Renal",
     //   link: `#/Home/${7}`,
     // },
-    {
-      key: 7,
-      nomeExame: "Doppler Venoso de MMII",
-      link: `#/Home/${7}`,
-    },
+    // {
+    //   key: 7,
+    //   nomeExame: "Doppler Venoso de MMII",
+    //   link: `#/Home/${7}`,
+    // },
     {
       key: 8,
       nomeExame: "Tireóide",
       link: `#/Home/${8}`,
     },
-    {
-      key: 9,
-      nomeExame: "Doppler das Carótidas",
-      link: `#/Home/${9}`,
-    },
+    // {
+    //   key: 9,
+    //   nomeExame: "Doppler das Carótidas",
+    //   link: `#/Home/${9}`,
+    // },
     // {
     //   key: 11,
     //   nomeExame: "Doppler Hepático",
     //   link: `#/Home/${11}`,
     // },
-    {
-      key: 10,
-      nomeExame: "Doppler Arterial de MMII",
-      link: `#/Home/${10}`,
-    },
+    // {
+    //   key: 10,
+    //   nomeExame: "Doppler Arterial de MMII",
+    //   link: `#/Home/${10}`,
+    // },
     // {
     //   key: 13,
     //   nomeExame: "Tireóide 2",
@@ -160,11 +160,11 @@ export default function Box_Default_With_Sidebar() {
       nomeExame: "Dopper Venoso de MMSS",
       link: `#/Home/${16}`,
     },*/
-    {
-      key: 12,
-      nomeExame: "Doppler da Tireóide",
-      link: `#/Home/${12}`,
-    },
+    // {
+    //   key: 12,
+    //   nomeExame: "Doppler da Tireóide",
+    //   link: `#/Home/${12}`,
+    // },
     {
       key: 13,
       nomeExame: "Partes Moles",
@@ -180,11 +180,11 @@ export default function Box_Default_With_Sidebar() {
         "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
       ],
     },
-    {
-      key: 15,
-      nomeExame: "Doppler de Bolsa Testicular",
-      link: `#/Home/${15}`,
-    },
+    // {
+    //   key: 15,
+    //   nomeExame: "Doppler de Bolsa Testicular",
+    //   link: `#/Home/${15}`,
+    // },
     // {
     //   key: 21,
     //   nomeExame: "Doppler da Tireóide 2",
@@ -221,16 +221,16 @@ export default function Box_Default_With_Sidebar() {
         "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos."
       ],
     },
-    {
-      key: 20,
-      nomeExame: "Doppler Testículo",
-      link: `#/Home/${20}`,
-      observacao: [
-        "Conviria controle ecográfico periódico, a critério clínico.",
-        "Estaremos à disposição para a discussão do presente caso.",
-        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
-      ],
-    },
+    // {
+    //   key: 20,
+    //   nomeExame: "Doppler Testículo",
+    //   link: `#/Home/${20}`,
+    //   observacao: [
+    //     "Conviria controle ecográfico periódico, a critério clínico.",
+    //     "Estaremos à disposição para a discussão do presente caso.",
+    //     "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+    //   ],
+    // },
   ];
 
   const handleSliderChange = (event) => {

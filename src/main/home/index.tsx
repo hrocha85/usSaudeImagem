@@ -2,14 +2,21 @@ import {
   Box,
   Button,
   Center,
-  Flex,
   HStack,
   Image,
   Link,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Spinner,
   Stack,
   Text,
   Tooltip,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,12 +25,12 @@ import Default_Backgound from "../component/default_backgound";
 import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
 import { Clear_Local_Storage } from "../component/remove_sub_exames_local_storage";
-import BGImage from "../images/bg_img.png";
 import Configuracao from "../images/gear.webp";
 
 function Home() {
   const [isMounted, setIsMounted] = useState(false);
   const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   var user = JSON.parse(localStorage.getItem("user")!);
   var clinica = JSON.parse(user.clinica);
@@ -40,6 +47,7 @@ function Home() {
 
   useEffect(() => {
     setIsMounted(true);
+    onOpen();
     return () => {
       setIsMounted(false);
     };
@@ -133,6 +141,25 @@ function Home() {
               Sair
             </Button>
           </Tooltip>
+        </Center>
+        <Center>
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay
+              bg="blackAlpha.100"
+              backdropFilter="blur(3px) hue-rotate(90deg)"
+            />
+            <ModalContent backgroundColor="gray.300">
+              <ModalHeader>Exames Doppler Desabilitados</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody></ModalBody>
+
+              <ModalFooter>
+                <Button colorScheme="blue" mr={3} onClick={onClose}>
+                  Fechar
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
         </Center>
       </Default_Backgound>
     );

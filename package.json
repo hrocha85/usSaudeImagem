@@ -54,6 +54,7 @@
     "start:desktop": "electron ./public/electron.js"
   },
   "build": {
+    "icon": "public/logo.ico",
     "appId": "com.exemple.electron",
     "productName": "Laudos",
     "files": [
