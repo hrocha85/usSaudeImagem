@@ -57,7 +57,7 @@
   },
   "build": {
     "appId": "com.exemple.electron",
-    "productName": "Laudos",
+    "productName": "Santa Imagem",
     "files": [
       "build/**/*",
       "node_modules/**/*"
@@ -70,6 +70,9 @@
     },
     "linux": {
       "icon": "public/logo.png"
+    },
+    "mac": {
+      "icon": "public/logo.icns"
     }
   },
   "eslintConfig": {
