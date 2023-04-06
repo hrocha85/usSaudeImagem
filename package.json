@@ -66,10 +66,10 @@
       "buildResources": "public"
     },
     "win": {
-      "icon": "public/logo.ico"
+      "icon": "public/logo_sem_background.ico"
     },
     "linux": {
-      "icon": "public/logo.png"
+      "icon": "public/logo_sem_background.png"
     },
     "mac": {
       "icon": "public/logo.icns"
