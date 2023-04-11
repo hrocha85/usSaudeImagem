@@ -315,7 +315,7 @@ function Exames() {
                   <TextPDF>{clinicaSet.nomeClinica}</TextPDF>
                   <TextPDF>{getPaciente()}</TextPDF>
                   <TextPDF>{getCurrentDate()}</TextPDF>
-                  <TextPDF>{`Médico Solicitante: Dr. ${medico.nome}`}</TextPDF>
+                  <TextPDF>{`Dr. ${medico.nome}`}</TextPDF>
                 </ViewPDF>
               </ViewPDF>
               <ViewPDF style={styles.line}></ViewPDF>
@@ -690,7 +690,7 @@ function Exames() {
             <Text fontWeight="bold">{clinicaSet.nomeClinica}</Text>
             <Text>{getPaciente()}</Text>
             <Text>{getCurrentDate()}</Text>
-            <Text>{`Médico Solicitante: Dr. ${medico.nome}`}</Text>
+            <Text>{`Dr. ${medico.nome}`}</Text>
           </Grid>
         </Grid>
         <Center>
