@@ -3,7 +3,8 @@
     {
       "nome": "",
       "sexo": "",
-      "idade": ""
+      "idade": "",
+      "medico_solicitante":""
     }
   ]
 }

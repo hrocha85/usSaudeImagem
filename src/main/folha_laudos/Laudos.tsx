@@ -315,6 +315,7 @@ function Exames() {
                   <TextPDF>{clinicaSet.nomeClinica}</TextPDF>
                   <TextPDF>{getPaciente()}</TextPDF>
                   <TextPDF>{getCurrentDate()}</TextPDF>
+                  <TextPDF>{`Médico Solicitante: Dr. ${getMedicoSolicitante()}`}</TextPDF>
                   <TextPDF>{`Dr. ${medico.nome}`}</TextPDF>
                 </ViewPDF>
               </ViewPDF>
@@ -407,6 +408,14 @@ function Exames() {
       return JSON.parse(localStorage.getItem("paciente")!).nome;
     } else {
       return "Nome paciente";
+    }
+  };
+
+  const getMedicoSolicitante = () => {
+    if (localStorage.getItem("paciente") != null) {
+      return JSON.parse(localStorage.getItem("paciente")!).medico_solicitante;
+    } else {
+      return "Médico Solicitante";
     }
   };
 
@@ -690,6 +699,7 @@ function Exames() {
             <Text fontWeight="bold">{clinicaSet.nomeClinica}</Text>
             <Text>{getPaciente()}</Text>
             <Text>{getCurrentDate()}</Text>
+            <Text>{`Médico Solicitante: Dr. ${getMedicoSolicitante()}`}</Text>
             <Text>{`Dr. ${medico.nome}`}</Text>
           </Grid>
         </Grid>
