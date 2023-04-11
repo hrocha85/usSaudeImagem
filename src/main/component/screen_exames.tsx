@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-pascal-case */
 import { AddIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -30,23 +29,16 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { TabExamesContext } from "../../context/TabExameContext";
-import Observacoes from "../../Data/Observacoes.json";
+import RinseViasUrinarias from "../exames/RinsViasUrinarias";
 import AbdomemTotal from "../exames/abdomemTotal";
 import AbdomemSuperior from "../exames/abdomenSuperior";
 import Articulacoes from "../exames/articulacoes";
-import DopplerBolsaTesticular from "../exames/dopplerBolsaTesticular";
-import DopplerCarotidas from "../exames/dopplerCarotidas";
-import DopplerTireoide from "../exames/dopplerTireoide";
 import DopplerTransvaginal from "../exames/dopplerTransvaginal";
-import DopplerVenosoMMII from "../exames/dopplerVenosoMMII";
-import Doppler_Arterial_MMII from "../exames/doppler_arterial_MMII";
-import DopplerTesticulo from "../exames/doppler_testiculo";
 import Mamas from "../exames/mamas";
 import PartesMoles from "../exames/partesMoles";
 import Pelvico from "../exames/pelvico";
 import Prostata from "../exames/prostata";
 import Regiao_Inguinal from "../exames/regiao_inguinal";
-import RinseViasUrinarias from "../exames/RinsViasUrinarias";
 import Testiculo from "../exames/testiculo";
 import Tireoide from "../exames/tireoide";
 import Transvaginal from "../exames/transvaginal";
@@ -78,11 +70,7 @@ export default function Box_Default_With_Sidebar() {
       nomeExame: "Abdômen total",
       link: `#/Home/${1}`,
     },
-    // {
-    //   key: 2,
-    //   nomeExame: "Doppler Transvaginal",
-    //   link: `#/Home/${2}`,
-    // },
+
     {
       key: 3,
       nomeExame: "Mamas",
@@ -92,14 +80,10 @@ export default function Box_Default_With_Sidebar() {
         "Estaremos à disposição para a discussão do presente caso.",
         "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
         "A critério clínico, tendo-se em conta o aspecto liposubstituido do tecido mamário (normal para a pós-menopausa), estaria indicado para melhor avaliação, estudo radiológico digital bilateral (mamografia digital).",
-        "Exames anteriores não disponíveis para estudo comparativo."
+        "Exames anteriores não disponíveis para estudo comparativo.",
       ],
     },
-    // {
-    //   key: 4,
-    //   nomeExame: "Doppler Artrial do MMSS",
-    //   link: `#/Home/${4}`,
-    // },
+
     {
       key: 5,
       nomeExame: "Abdomen Superior",
@@ -110,61 +94,19 @@ export default function Box_Default_With_Sidebar() {
       nomeExame: "Transvaginal",
       link: `#/Home/${6}`,
     },
-    // {
-    //   key: 7,
-    //   nomeExame: "Doppler Renal",
-    //   link: `#/Home/${7}`,
-    // },
-    // {
-    //   key: 7,
-    //   nomeExame: "Doppler Venoso de MMII",
-    //   link: `#/Home/${7}`,
-    // },
+
     {
       key: 8,
       nomeExame: "Tireóide",
       link: `#/Home/${8}`,
     },
-    // {
-    //   key: 9,
-    //   nomeExame: "Doppler das Carótidas",
-    //   link: `#/Home/${9}`,
-    // },
-    // {
-    //   key: 11,
-    //   nomeExame: "Doppler Hepático",
-    //   link: `#/Home/${11}`,
-    // },
-    // {
-    //   key: 10,
-    //   nomeExame: "Doppler Arterial de MMII",
-    //   link: `#/Home/${10}`,
-    // },
-    // {
-    //   key: 13,
-    //   nomeExame: "Tireóide 2",
-    //   link: `#/Home/${13}`,
-    // },
-    //    {
-    //   key: 14,
-    //   nomeExame: "Doppler das Carótidas 2",
-    //   link: `#/Home/${14}`,
-    // },
+
     {
       key: 11,
       nomeExame: "Rins e Vias Urinárias",
       link: `#/Home/${11}`,
     },
-    /*{
-      key: 16,
-      nomeExame: "Dopper Venoso de MMSS",
-      link: `#/Home/${16}`,
-    },*/
-    // {
-    //   key: 12,
-    //   nomeExame: "Doppler da Tireóide",
-    //   link: `#/Home/${12}`,
-    // },
+
     {
       key: 13,
       nomeExame: "Partes Moles",
@@ -180,16 +122,7 @@ export default function Box_Default_With_Sidebar() {
         "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
       ],
     },
-    // {
-    //   key: 15,
-    //   nomeExame: "Doppler de Bolsa Testicular",
-    //   link: `#/Home/${15}`,
-    // },
-    // {
-    //   key: 21,
-    //   nomeExame: "Doppler da Tireóide 2",
-    //   link: `#/Home/${21}`,
-    // },
+
     {
       key: 16,
       nomeExame: "Pélvico",
@@ -218,19 +151,9 @@ export default function Box_Default_With_Sidebar() {
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
         "Estaremos à disposição para a discussão do presente caso.",
-        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos."
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos.",
       ],
     },
-    // {
-    //   key: 20,
-    //   nomeExame: "Doppler Testículo",
-    //   link: `#/Home/${20}`,
-    //   observacao: [
-    //     "Conviria controle ecográfico periódico, a critério clínico.",
-    //     "Estaremos à disposição para a discussão do presente caso.",
-    //     "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
-    //   ],
-    // },
   ];
 
   const handleSliderChange = (event) => {
@@ -280,28 +203,47 @@ export default function Box_Default_With_Sidebar() {
   };
 
   const AddNewExame = (exame) => {
-    var array = JSON.parse(localStorage.getItem("format_laudo")!);
-    const observacoes = Observacoes.observacoes;
+    const existingFormatLaudo = localStorage.getItem("format_laudo");
 
-    const obj = {
+    const newFormatLaudo = {
       titulo_exame: exame.nomeExame,
       subExames: [{ subExameNome: "", frases: [] }],
       conclusoes: [""],
       observacoes: [""],
     };
-    array.push(obj);
-
-    localStorage.setItem("format_laudo", JSON.stringify(array));
 
     if (exame.observacao != null) {
-      const setObservacao = {
+      const existingObservacoes = localStorage.getItem("observacoes");
+
+      const newObservacao = {
         id: exame.key,
         titulo_observacao: exame.nomeExame,
         observacao: exame.observacao!,
       };
-      observacoes.push(setObservacao);
 
-      localStorage.setItem("observacoes", JSON.stringify(observacoes));
+      if (existingObservacoes !== null) {
+        const parsedObservacoes = JSON.parse(existingObservacoes);
+        const existingObservacaoIndex = parsedObservacoes.findIndex(
+          (obs) => obs.titulo_observacao === exame.nomeExame
+        );
+        if (existingObservacaoIndex !== -1) {
+          parsedObservacoes[existingObservacaoIndex].observacao =
+            exame.observacao!;
+        } else {
+          parsedObservacoes.push(newObservacao);
+        }
+        localStorage.setItem("observacoes", JSON.stringify(parsedObservacoes));
+      } else {
+        localStorage.setItem("observacoes", JSON.stringify([newObservacao]));
+      }
+    }
+
+    if (existingFormatLaudo !== null) {
+      const parsedFormatLaudo = JSON.parse(existingFormatLaudo);
+      const mergedFormatLaudo = [...parsedFormatLaudo, newFormatLaudo];
+      localStorage.setItem("format_laudo", JSON.stringify(mergedFormatLaudo));
+    } else {
+      localStorage.setItem("format_laudo", JSON.stringify([newFormatLaudo]));
     }
   };
 
@@ -315,7 +257,6 @@ export default function Box_Default_With_Sidebar() {
       setCurrentExame(exame);
       setIsMounted(true);
     }
-
     return () => {
       setIsMounted(false);
     };
@@ -436,27 +377,21 @@ export default function Box_Default_With_Sidebar() {
                         1: <AbdomemTotal />,
                         2: <DopplerTransvaginal />,
                         3: <Mamas />,
-                        4: <Doppler_Arterial_MMII />,
+
                         5: <AbdomemSuperior />,
                         6: <Transvaginal />,
-                        // 7: <DopplerRenal />,
-                        7: <DopplerVenosoMMII />,
+
                         8: <Tireoide />,
-                        9: <DopplerCarotidas />,
-                        10: <Doppler_Arterial_MMII />,
-                        // 13: <Tireoide2 />,
-                        // 14: <DopplerCarotidas2 />,
+
                         11: <RinseViasUrinarias />,
-                        12: <DopplerTireoide />,
+
                         13: <PartesMoles />,
                         14: <Testiculo />,
-                        15: <DopplerBolsaTesticular />,
-                        // 21: <DopplerTireoide2 />,
+
                         16: <Pelvico />,
                         17: <Prostata />,
                         18: <Articulacoes />,
                         19: <Regiao_Inguinal />,
-                        20: <DopplerTesticulo />,
                       }[e.key]
                     }
                   </TabPanel>
@@ -585,7 +520,7 @@ export default function Box_Default_With_Sidebar() {
                 Cancelar
               </Button>
               <Button
-                background='#A0A0A0'
+                background="#A0A0A0"
                 variant="ghost"
                 fontSize="20px"
                 onClick={() => RemoveTabExame()}

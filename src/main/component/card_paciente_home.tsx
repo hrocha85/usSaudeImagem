@@ -17,7 +17,6 @@ const CardListaMedicos = ({ altura }) => {
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
 
   const toast = useToast();
-  const id = "test-toast";
 
   const [nomePaciente, setNomePaciente] = useState<string>("");
   const [idadePaciente, setIdadePaciente] = useState<string>("");
@@ -34,6 +33,7 @@ const CardListaMedicos = ({ altura }) => {
     } else medicos = [];
     return medicos;
   };
+
   var lista_medico = getMedicos();
 
   const getPaciente = () => {
@@ -48,9 +48,11 @@ const CardListaMedicos = ({ altura }) => {
   const handleNomePacienteInput = (event) => {
     setNomePaciente(event.target.value);
   };
+
   const handleIdadePacienteInput = (event) => {
     setIdadePaciente(event.target.value);
   };
+  
   const handleSexoPacienteInput = (event) => {
     setSexoPaciente(event.target.value);
   };

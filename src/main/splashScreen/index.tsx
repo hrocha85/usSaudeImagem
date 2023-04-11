@@ -4,7 +4,11 @@ import logo from "./logo.png";
 import "./styles.css";
 
 const SplashScreen = () => {
-  localStorage.clear();
+  const isFirstTime = localStorage.getItem("isFirstTime");
+  if (!isFirstTime) {
+    localStorage.clear();
+    localStorage.setItem("isFirstTime", "false");
+  }
 
   const [redirectNow, setRedirectNow] = useState(false);
   //tempo de 5 segundos para sair da pagina

@@ -15,32 +15,68 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
   const observacoes = Observacoes.observacoes;
 
   const AddTituloLaudo = () => {
-    const obj = {
+    const existingFormatLaudo = localStorage.getItem("format_laudo");
+
+    const newFormatLaudo = {
       titulo_exame: text,
       subExames: [{ subExameNome: "", frases: [] }],
       conclusoes: [""],
       observacoes: [""],
     };
-    format_laudo.push(obj);
-    format_laudo.map((e) => {
-      if (e.titulo_exame == "") {
-        format_laudo.shift();
-      }
-    });
 
-    localStorage.setItem("format_laudo", JSON.stringify(format_laudo));
+    let updatedFormatLaudo: any = [];
+
+    if (existingFormatLaudo !== null) {
+      updatedFormatLaudo = JSON.parse(existingFormatLaudo).map((exame) => {
+        if (exame.titulo_exame === text) {
+          return {
+            ...exame,
+            observacoes: [...exame.observacoes, obs],
+          };
+        }
+        return exame;
+      });
+    }
+
+    if (updatedFormatLaudo.every((exame) => exame.titulo_exame !== text)) {
+      updatedFormatLaudo.push(newFormatLaudo);
+    }
+
+    localStorage.setItem("format_laudo", JSON.stringify(updatedFormatLaudo));
+
+    const existingObservacoes = localStorage.getItem("observacoes");
 
     if (obs != null) {
-      const setObservacao = {
+      const newObservacao = {
         id: id,
         titulo_observacao: text,
         observacao: obs!,
       };
-      observacoes.push(setObservacao);
 
-      localStorage.setItem("observacoes", JSON.stringify(observacoes));
+      if (existingObservacoes !== null) {
+        const parsedObservacoes = JSON.parse(existingObservacoes);
+        const existingObservacao = parsedObservacoes.find(
+          (obs) => obs.titulo_observacao === text
+        );
+        if (existingObservacao) {
+          existingObservacao.observacao = obs!;
+          localStorage.setItem(
+            "observacoes",
+            JSON.stringify(parsedObservacoes)
+          );
+        } else {
+          const mergedObservacoes = [...parsedObservacoes, newObservacao];
+          localStorage.setItem(
+            "observacoes",
+            JSON.stringify(mergedObservacoes)
+          );
+        }
+      } else {
+        localStorage.setItem("observacoes", JSON.stringify([newObservacao]));
+      }
     }
   };
+
   const AddExameID = () => {
     const exames = [
       {
@@ -73,11 +109,7 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
         nomeExame: "Transvaginal",
         link: `#/Home/${6}`,
       },
-      // {
-      //   key: 7,
-      //   nomeExame: "Doppler Renal",
-      //   link: `#/Home/${7}`,
-      // },
+
       {
         key: 7,
         nomeExame: "Doppler Venoso de MMII",
@@ -93,36 +125,19 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
         nomeExame: "Doppler das Carótidas",
         link: `#/Home/${9}`,
       },
-      // {
-      //   key: 10,
-      //   nomeExame: "Doppler Hepático",
-      //   link: `#/Home/${10}`,
-      // },
+
       {
         key: 10,
         nomeExame: "Doppler Arterial de MMII",
         link: `#/Home/${10}`,
       },
-      // {
-      //   key: 13,
-      //   nomeExame: "Tireóide 2",
-      //   link: `#/Home/${13}`,
-      // },
-      // {
-      //   key: 14,
-      //   nomeExame: "Doppler das Carótidas 2",
-      //   link: `#/Home/${14}`,
-      // },
+
       {
         key: 11,
         nomeExame: "Rins e Vias Urinárias",
         link: `#/Home/${11}`,
       },
-      // {
-      //   key: 12,
-      //   nomeExame: "Dopper Venoso de MMSS",
-      //   link: `#/Home/${12}`,
-      // },
+
       {
         key: 12,
         nomeExame: "Doppler da Tireóide",
@@ -143,11 +158,7 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
         nomeExame: "Doppler de Bolsa Testicular",
         link: `#/Home/${15}`,
       },
-      // {
-      //   key: 21,
-      //   nomeExame: "Doppler da Tireóide 2",
-      //   link: `#/Home/${21}`,
-      // },
+
       {
         key: 16,
         nomeExame: "Pélvico",
@@ -175,25 +186,12 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
       },
     ];
 
-    let exameEncontrado: any = null;
+    const exameEncontrado = exames.find(
+      (e) => e.key.toString() === id.toString()
+    );
 
-    while (!exameEncontrado) {
-      if (typeof id !== "string" && typeof id !== "number") {
-        break;
-      }
-      if (id <= 0 || id > exames.length) {
-        break;
-      }
-
-      exameEncontrado = exames.find((e) => e.key.toString() === id.toString());
-
-      if (
-        exameEncontrado &&
-        exameEncontrado !== null &&
-        exameEncontrado !== undefined
-      ) {
-        setTabExames((tabExames) => [...tabExames, exameEncontrado]);
-      }
+    if (exameEncontrado) {
+      setTabExames((tabExames) => [...tabExames, exameEncontrado]);
     }
   };
   return (
@@ -226,9 +224,7 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
           fontSize="14px"
           position="relative"
           pl="80px"
-          // pt='30px'
           z-index="1"
-        //onClick={(e) => clicando(id, text)}
         />
 
         <Tooltip
