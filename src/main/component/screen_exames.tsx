@@ -77,6 +77,13 @@ export default function Box_Default_With_Sidebar() {
       key: 1,
       nomeExame: "Abdômen total",
       link: `#/Home/${1}`,
+      observacao: [
+        "Exame prejudicado devido grande presença de gases intestinais.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Exames anteriores não disponíveis para estudo comparativo.",
+        "JUP – Junção Uretero Piélica.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos."
+      ],
     },
     // {
     //   key: 2,

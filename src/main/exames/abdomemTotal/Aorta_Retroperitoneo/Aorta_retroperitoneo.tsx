@@ -220,6 +220,9 @@ function Aorta_Retroperitoneo({ Disable }) {
                             <Radio w='auto' value="Aorta e veia cava inferior com calibre e trajeto preservados.">
                                 Aorta Normal
                             </Radio>
+                            <Radio w='auto' value="Presença de adenopatia para aórtica ou ao redor dos demais grandes vasos abdominais.">
+                                Aorta Alterada
+                            </Radio>
                             <Radio value="Aorta com paredes hiperecogênicas e discretamente irregulares, conservando calibre normal.">
                                 Aorta ateromatosa
                             </Radio>

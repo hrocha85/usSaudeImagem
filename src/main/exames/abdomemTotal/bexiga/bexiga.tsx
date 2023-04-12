@@ -21,7 +21,10 @@ function Bexiga({ Disable }) {
   const [valueInput1, setValueInput1] = useState("");
   const [valueInput2, setValueInput2] = useState("");
 
-  const [enableSelects, setEnableSelects] = useState<boolean>(false);
+  const [valueSelect1EstudoUltrassonográfico, setValueSelect1EstudoUltrassonográfico] = useState("");
+  const [DisableEstudoUltrassonografico, setDisableEstudoUltrassonografico] = useState(true);
+
+  const [enableSelects, setEnableSelects] = useState<boolean>(true);
 
   const [valueInputCalculo, setValueInputCalculo] = useState("");
   const [DisableInputCalculo, setDisableInputCalculo] = useState(true);
@@ -42,6 +45,79 @@ function Bexiga({ Disable }) {
   const [DisableEspessadas, setDisableEspessadas] = useState(false)
   const [DisableParedes, setDisableParedes] = useState(true)
 
+  const [ImagensCalculosasCheckbox, setImagensCalculosasCheckbox] = useState(false)
+  const [ImagensCalculosasSelect, setImagensCalculosasSelect] = useState('')
+
+  const [ColecaoPelvicaCheckbox, setColecaoPelvicaCheckbox] = useState(false)
+  const [ColecaoPelvicaSelect, setColecaoPelvicaSelect] = useState('')
+
+
+  const criaStringColecaoPelvica = () => {
+    removeStringColecaoPelvica()
+    var string = `de massa ou de coleção pélvica de qualquer natureza.`
+    if (ColecaoPelvicaCheckbox) {
+      if (ColecaoPelvicaSelect != '') {
+        string = `${ColecaoPelvicaSelect} ${string}`;
+        setFraseBexiga((arr) => [...arr, string])
+      }
+    } else {
+      setColecaoPelvicaSelect('')
+    }
+  }
+  const removeStringColecaoPelvica = () => {
+    var index;
+    FraseBexiga.map((e) => {
+      if (e.includes("massa ou de coleção pélvica de qualquer natureza.")) {
+        index = FraseBexiga.indexOf(e);
+        if (index > -1) {
+          FraseBexiga.splice(index, 1);
+          setFraseBexiga((arr) => [...arr]);
+
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    criaStringColecaoPelvica()
+  }, [ColecaoPelvicaCheckbox, ColecaoPelvicaSelect])
+
+  const criaStringImagensCalculosas = () => {
+    removeStringImagensCalculosas()
+    var string = `${ImagensCalculosasSelect}`
+    if (ImagensCalculosasCheckbox) {
+      if (ImagensCalculosasSelect != '') {
+        setFraseBexiga((arr) => [...arr, string])
+      }
+    } else {
+      setImagensCalculosasSelect('')
+    }
+  }
+  const removeStringImagensCalculosas = () => {
+    var index;
+    FraseBexiga.map((e) => {
+      if (e.includes("Não se notam imagens calculosas.")) {
+        index = FraseBexiga.indexOf(e);
+        if (index > -1) {
+          FraseBexiga.splice(index, 1);
+          setFraseBexiga((arr) => [...arr]);
+
+        }
+      }
+      if (e.includes("Presença de imagem hiper ecogênica, produtora de sombra acústica posterior, compatível com calculo.")) {
+        index = FraseBexiga.indexOf(e);
+        if (index > -1) {
+          FraseBexiga.splice(index, 1);
+          setFraseBexiga((arr) => [...arr]);
+
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    criaStringImagensCalculosas()
+  }, [ImagensCalculosasCheckbox, ImagensCalculosasSelect])
 
   const removeSelectString = () => {
     var index;
@@ -68,43 +144,78 @@ function Bexiga({ Disable }) {
       }
     });
   };
+  const removeStringLesaoVegetanteConclusao = () => {
+    var index;
+    ConclusoesBexiga.map((e) => {
+      if (e.includes("Lesão vegetante na parede vesical.")) {
+        index = ConclusoesBexiga.indexOf(e);
+        if (index > -1) {
+          ConclusoesBexiga.splice(index, 1);
+          setConclusoesBexiga((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Lesão vegetante na parede vesical.');
+        }
+      }
+    });
+  };
 
   useEffect(() => {
     if (value.includes("lesão vegetante")) {
-      setEnableSelects(true);
+      setEnableSelects(false);
+      setDisableEstudoUltrassonografico(true)
+      setValueSelect1EstudoUltrassonográfico('')
       setValueInputCalculo('')
       setValueSelectCalculo('')
       setDisableInputCalculo(true)
     } else if (value.includes("contendo cálculo medindo")) {
       setDisableInputCalculo(false)
+      setDisableEstudoUltrassonografico(true)
+      setValueSelect1EstudoUltrassonográfico('')
       setValueInput1('')
       setValueInput2('')
       setValueSelect1('')
-      setEnableSelects(false);
-
+      setEnableSelects(true);
+    } else if (value.includes("Estudo ultrassonográfico")) {
+      setDisableEstudoUltrassonografico(false)
+      setValueSelect1EstudoUltrassonográfico('')
+      setEnableSelects(true);
+      setDisableInputCalculo(true)
     } else {
       removeStringConclusao()
-      setDisableInputCalculo(true)
+      removeStringLesaoVegetanteConclusao()
+      setValueSelect1EstudoUltrassonográfico('')
       setValueInput1('')
       setValueInput2('')
       setValueSelect1('')
       setValueInputCalculo('')
       setValueSelectCalculo('')
-      setEnableSelects(false);
+      setDisableEstudoUltrassonografico(true)
+      setDisableInputCalculo(true)
+      setEnableSelects(true);
       if (value != "1") {
         if (value == 'Bexiga com boa repleção, de conteúdo anecogênico, apresentando paredes difusamente espessadas e trabeculadas.') {
           setConclusoesBexiga((arr) => [...arr, 'Bexiga com trabeculações.'])
         } else {
           removeStringConclusao()
+          removeStringLesaoVegetanteConclusao()
         }
         setFraseBexiga([]);
         setFraseBexiga((arr) => [...arr, value]);
       } else {
         removeStringConclusao()
+        removeStringLesaoVegetanteConclusao()
         setFraseBexiga([]);
       }
     }
   }, [value]);
+
+  useEffect(() => {
+    removeSelectString()
+    var frase;
+    if (valueSelect1EstudoUltrassonográfico != '') {
+      frase = `Bexiga Apresentando ${valueSelect1EstudoUltrassonográfico} de caracterização limitada ao estudo ultrassonográfico.`;
+      setFraseBexiga((arr) => [...arr, frase]);
+    }
+  }, [valueSelect1EstudoUltrassonográfico]);
 
   useEffect(() => {
     removeSelectString()
@@ -184,25 +295,32 @@ function Bexiga({ Disable }) {
 
   useEffect(() => {
     var string = `${StringParedes} de paredes normo-espessas.`
-    if (NormoEspessasCheckbox) {
-      setFraseBexiga((arr) => [...arr, string]);
-      setDisableEspessadas(true)
+    if (CheiaCheckbox || VaziaCheckbox || NaoVisibilizadaCheckbox) {
+      if (NormoEspessasCheckbox) {
+        setFraseBexiga((arr) => [...arr, string]);
+        setDisableEspessadas(true)
+      } else {
+        setDisableEspessadas(false)
+        removeItemString(string)
+      }
     } else {
-      setDisableEspessadas(false)
       removeItemString(string)
     }
-  }, [NormoEspessasCheckbox])
+  }, [NormoEspessasCheckbox, CheiaCheckbox, VaziaCheckbox, NaoVisibilizadaCheckbox])
 
   useEffect(() => {
     var string = `${StringParedes} de paredes espessadas.`
-    if (EspessadasCheckbox) {
-      setFraseBexiga((arr) => [...arr, string]);
-      setDisableNormoEspessadas(true)
-    } else {
-      setDisableNormoEspessadas(false)
+    if (CheiaCheckbox || VaziaCheckbox || NaoVisibilizadaCheckbox) {
+      if (EspessadasCheckbox) {
+        setFraseBexiga((arr) => [...arr, string]);
+        setDisableNormoEspessadas(true)
+      } else {
+        setDisableNormoEspessadas(false)
+        removeItemString(string)
+      }
       removeItemString(string)
     }
-  }, [EspessadasCheckbox])
+  }, [EspessadasCheckbox, VaziaCheckbox, VaziaCheckbox, NaoVisibilizadaCheckbox])
 
 
   useEffect(() => {
@@ -308,7 +426,7 @@ function Bexiga({ Disable }) {
                   placeholder="00"
                   onChange={(e) => setValueInputCalculo(e.target.value)}
                 />
-                <Text alignSelf='mm'>mm com paredes</Text>
+                <Text alignSelf='center'>mm com paredes</Text>
                 <Select w='150px'
                   isDisabled={DisableInputCalculo}
                   value={valueSelectCalculo}
@@ -317,6 +435,21 @@ function Bexiga({ Disable }) {
                   <option selected disabled value="">Selecione</option>
                   <option value="de espessura normal">de espessura normal</option>
                   <option value="difusamente trabeculadas">difusamente trabeculadas</option>
+                </Select>
+
+              </HStack>
+              <HStack>
+                <Radio value="Estudo ultrassonográfico">
+                  Estudo ultrassonográfico
+                </Radio>
+                <Select w='150px'
+                  isDisabled={DisableEstudoUltrassonografico}
+                  value={valueSelect1EstudoUltrassonográfico}
+                  onChange={(e) => setValueSelect1EstudoUltrassonográfico(e.target.value)}
+                >
+                  <option selected disabled value="">Selecione</option>
+                  <option value="média">Média</option>
+                  <option value="repleção">Repleção</option>
                 </Select>
 
               </HStack>
@@ -339,14 +472,14 @@ function Bexiga({ Disable }) {
               <Input w='60px'
                 value={valueInput1}
                 placeholder="00"
-                isDisabled={!enableSelects}
+                isDisabled={enableSelects}
                 onChange={(e) => setValueInput1(e.target.value)}
               />
               <Text alignSelf='center'>x</Text>
               <Input w='60px'
                 value={valueInput2}
                 placeholder="00"
-                isDisabled={!enableSelects}
+                isDisabled={enableSelects}
                 onChange={(e) => setValueInput2(e.target.value)}
               />
               <Text alignSelf='center'>mm</Text>
@@ -354,7 +487,7 @@ function Bexiga({ Disable }) {
             <Box display='flex' flexWrap='wrap' ml='30px'>
               <Text alignSelf='center'>situada</Text>
               <Select w='150px'
-                isDisabled={!enableSelects}
+                isDisabled={enableSelects}
                 value={valueSelect1}
                 onChange={(e) => setValueSelect1(e.target.value)}
               >
@@ -412,6 +545,40 @@ function Bexiga({ Disable }) {
           Paredes espessadas
         </Checkbox>
       </Box>
+      <Box display='flex' flexWrap='wrap'>
+        <Box display='flex' flexWrap='wrap'>
+          <Checkbox
+            onChange={() => setImagensCalculosasCheckbox(!ImagensCalculosasCheckbox)}
+          >
+            Imagens calculosas
+          </Checkbox>
+          <Select w='150px'
+            isDisabled={!ImagensCalculosasCheckbox}
+            value={ImagensCalculosasSelect}
+            onChange={(e) => setImagensCalculosasSelect(e.target.value)}
+          >
+            <option selected disabled value="">Selecione</option>
+            <option value="Não se notam imagens calculosas.">Ausente</option>
+            <option value="Presença de imagem hiper ecogênica, produtora de sombra acústica posterior, compatível com calculo.">Presente</option>
+          </Select>
+        </Box >
+        <Box display='flex' flexWrap='wrap'>
+          <Checkbox
+            onChange={() => setColecaoPelvicaCheckbox(!ColecaoPelvicaCheckbox)}
+          >
+            Massa ou de coleção pélvica
+          </Checkbox>
+          <Select w='150px'
+            isDisabled={!ColecaoPelvicaCheckbox}
+            value={ColecaoPelvicaSelect}
+            onChange={(e) => setColecaoPelvicaSelect(e.target.value)}
+          >
+            <option selected disabled value="">Selecione</option>
+            <option value="Ausência">Ausente</option>
+            <option value="Presença">Presente</option>
+          </Select>
+        </Box >
+      </Box >
     </Box >
   );
 }
