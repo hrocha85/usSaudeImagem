@@ -27,21 +27,21 @@ function AbdomemTotal() {
   const altura = '100%'
   const largura = '40%'
 
-  const [frasesFigado, setFrasesFigado] = useState<any>([]);
+  const [frasesAdomenTotal, setFrasesAdomenTotal] = useState<any>([]);
 
   const [Disable, SetDisable] = useState(false)
   const [NormalSelect, SetNormalSelect] = useState('')
   const [NormalEstruturasSelect, SetNormalEstruturasSelect] = useState('')
 
-  const subExame = "Fígado";
+  const subExame = "Abdômen total";
   const titulo_exame = "Abdômen total";
   const removeStringSelect = (value) => {
-    frasesFigado.map((e) => {
+    frasesAdomenTotal.map((e) => {
       if (e.includes(value)) {
-        var index = frasesFigado.indexOf(e);
+        var index = frasesAdomenTotal.indexOf(e);
         if (index > -1) {
-          frasesFigado.splice(index, 1);
-          setFrasesFigado((arr) => [...arr]);
+          frasesAdomenTotal.splice(index, 1);
+          setFrasesAdomenTotal((arr) => [...arr]);
         }
       }
     });
@@ -55,7 +55,7 @@ function AbdomemTotal() {
         Parênquima hepático com textura uniforme, sem alterações de ecogenicidade.
         Estruturas vasculares intra-hepáticas e tronco da veia porta de características ${NormalEstruturasSelect} (Calibre normal até 1,2 cm).
         Hilo hepático de aspecto normal.`
-        setFrasesFigado([frase])
+        setFrasesAdomenTotal([frase])
       }
     } else {
       SetNormalSelect("")
@@ -64,22 +64,22 @@ function AbdomemTotal() {
   }, [Disable, NormalSelect, NormalEstruturasSelect])
 
   useEffect(() => {
-    if (Object.keys(frasesFigado).length == 0) {
+    if (Object.keys(frasesAdomenTotal).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesFigado
+        frasesAdomenTotal
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesFigado
+        frasesAdomenTotal
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesFigado]);
+  }, [frasesAdomenTotal]);
 
   return (
 
