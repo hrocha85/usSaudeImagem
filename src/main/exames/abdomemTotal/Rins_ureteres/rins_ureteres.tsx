@@ -3,10 +3,10 @@ import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
-import Calculo from "./componentes/Calculo";
+import Calculo from "./componentes/Calculo/Calculo";
 import CalculoUreteral from "./componentes/CalculoUreteral";
 import Cateter from "./componentes/CateterDuplo";
-import Cistos from "./componentes/Cistos";
+import Cistos from "./componentes/Cisto/Cistos";
 import DilatacaoPielocalicinal from "./componentes/DilatacaoPielocalicinal";
 import Nefropatia from "./componentes/Nefropatia";
 import NoduloSolido from "./componentes/NoduloSolido";
@@ -25,7 +25,7 @@ function RinsUreteres({ Disable }) {
     const [AusenciaRimEsqCheckbox, setAusenciaRimEsqCheckbox] = useState(false)
 
     useEffect(() => {
-        const string = 'Aspecto normal'
+        const string = 'Em situações tópicas, com formas, contornos e dimensões normais.\nComplexos ecogênicos centrais com distribuições e ecogenicidades normais.\nNão se notam imagens calculosas.'
         AspectoNormalCheckbox ? setFraseRinsUreteres((arr) => [...arr, string]) : removeItemString(string)
     }, [AspectoNormalCheckbox])
 

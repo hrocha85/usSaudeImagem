@@ -58,7 +58,6 @@ function Nodulos({ Disable }) {
   useEffect(() => {
     if (updateNodulos) {
       setUpdateNodulos(false);
-      console.log(numberArray);
       setNumberArray([...numberArray, numberArray.length + 1]);
       Nodulos();
     }
