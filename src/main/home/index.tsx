@@ -2,14 +2,21 @@ import {
   Box,
   Button,
   Center,
-  Flex,
   HStack,
   Image,
   Link,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Spinner,
   Stack,
   Text,
   Tooltip,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,12 +25,15 @@ import Default_Backgound from "../component/default_backgound";
 import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
 import { Clear_Local_Storage } from "../component/remove_sub_exames_local_storage";
-import BGImage from "../images/bg_img.png";
 import Configuracao from "../images/gear.webp";
+
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Home() {
   const [isMounted, setIsMounted] = useState(false);
   const navigate = useNavigate();
+  const MySwal = withReactContent(Swal);
 
   var user = JSON.parse(localStorage.getItem("user")!);
   var clinica = JSON.parse(user.clinica);
@@ -40,6 +50,8 @@ function Home() {
 
   useEffect(() => {
     setIsMounted(true);
+    MySwal.fire("Exames Doppler Desabilitados");
+
     return () => {
       setIsMounted(false);
     };
