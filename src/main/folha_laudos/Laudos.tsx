@@ -585,63 +585,64 @@ function Exames() {
   const RenderLaudoEditTrue = () => {
     return (
       <>
-        {arrayLocal.map((exame, key, IndexExame) => {
-          return (
-            <Box key={key}>
-              <Text
-                textDecoration="underline"
-                fontWeight="bold"
-                fontSize="19px"
-                textAlign="center"
-                textTransform="uppercase"
-              >
-                {exame.titulo_exame}
-              </Text>
+        {JSON.parse(localStorage.getItem("format_laudo")!).map(
+          (exame, key, IndexExame) => {
+            return (
+              <Box key={key}>
+                <Text
+                  textDecoration="underline"
+                  fontWeight="bold"
+                  fontSize="19px"
+                  textAlign="center"
+                  textTransform="uppercase"
+                >
+                  {exame.titulo_exame}
+                </Text>
 
-              {exame.subExames.map((sub_exame, keys) => {
-                return sub_exame.subExameNome != null &&
-                  sub_exame.subExameNome != "" ? (
-                  <HStack
-                    justifyContent="space-between"
-                    marginBottom="30px"
-                    marginTop="20px"
-                    key={keys}
-                  >
-                    <HStack justify="space-between">
-                      <Text
-                        textDecoration="underline"
-                        fontWeight="semibold"
-                        whiteSpace="nowrap"
-                      >
-                        {sub_exame.subExameNome}:
-                      </Text>
-                      <Box w="100%">
+                {exame.subExames.map((sub_exame, keys) => {
+                  return sub_exame.subExameNome != null &&
+                    sub_exame.subExameNome != "" ? (
+                    <HStack
+                      justifyContent="space-between"
+                      marginBottom="30px"
+                      marginTop="20px"
+                      key={keys}
+                    >
+                      <HStack justify="space-between">
+                        <Text
+                          textDecoration="underline"
+                          fontWeight="semibold"
+                          whiteSpace="nowrap"
+                        >
+                          {sub_exame.subExameNome}:
+                        </Text>
                         <Box w="100%">
-                          {sub_exame.frases.map((frase, index) => {
-                            return EditarLaudo(
-                              sub_exame.frases,
-                              IndexExame,
-                              keys,
-                              index
-                            );
-                          })}
+                          <Box w="100%">
+                            {sub_exame.frases.map((frase, index) => {
+                              return EditarLaudo(
+                                frase,
+                                IndexExame,
+                                keys,
+                                index
+                              );
+                            })}
+                          </Box>
                         </Box>
-                      </Box>
+                      </HStack>
                     </HStack>
-                  </HStack>
-                ) : null;
-              })}
+                  ) : null;
+                })}
 
-              <HStack justify="space-evenly" marginTop="10px"></HStack>
-            </Box>
-          );
-        })}
+                <HStack justify="space-evenly" marginTop="10px"></HStack>
+              </Box>
+            );
+          }
+        )}
       </>
     );
   };
 
   const RenderLaudoEditFalse = () => {
-    console.log("locals", JSON.parse(localStorage.getItem("format_laudo")!));
     return (
       <>
         {JSON.parse(localStorage.getItem("format_laudo")!).map(
