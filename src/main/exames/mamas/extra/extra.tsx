@@ -96,7 +96,7 @@ function Extra() {
       borderRadius="10.85px"
       boxShadow="md"
       padding="24px 15px 10px 15px"
-      mt="20px"
+      mt='20px'
     >
       <Checkbox
         onChange={(e) => {
