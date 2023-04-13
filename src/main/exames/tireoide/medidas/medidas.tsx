@@ -28,37 +28,68 @@ function Medidas() {
   const [IstmoCheckbox, setIstmoCheckbox] = useState(false)
 
   const [DisableInputsLoboDireito, setDisableInputsLoboDireito] = useState(true)
-  const [ValueInput1LoboDireito, setValueInput1LoboDireito] = useState('')
-  const [ValueInput2LoboDireito, setValueInput2LoboDireito] = useState('')
-  const [ValueInput3LoboDireito, setValueInput3LoboDireito] = useState('')
-  const [ValueInput4LoboDireito, setValueInput4LoboDireito] = useState(0)
+  const [ValueInput1LoboDireito, setValueInput1LoboDireito] = useState<number>(0)
+  const [ValueInput2LoboDireito, setValueInput2LoboDireito] = useState<number>(0)
+  const [ValueInput3LoboDireito, setValueInput3LoboDireito] = useState<number>(0)
+  const [ValueInput4LoboDireito, setValueInput4LoboDireito] = useState<number>(0)
 
   const [DisableInputsLoboEsquerdo, setDisableInputsLoboEsquerdo] = useState(true)
-  const [ValueInput1LoboEsquerdo, setValueInput1LoboEsquerdo] = useState('')
-  const [ValueInput2LoboEsquerdo, setValueInput2LoboEsquerdo] = useState('')
-  const [ValueInput3LoboEsquerdo, setValueInput3LoboEsquerdo] = useState('')
-  const [ValueInput4LoboEsquerdo, setValueInput4LoboEsquerdo] = useState(0)
+  const [ValueInput1LoboEsquerdo, setValueInput1LoboEsquerdo] = useState<number>(0)
+  const [ValueInput2LoboEsquerdo, setValueInput2LoboEsquerdo] = useState<number>(0)
+  const [ValueInput3LoboEsquerdo, setValueInput3LoboEsquerdo] = useState<number>(0)
+  const [ValueInput4LoboEsquerdo, setValueInput4LoboEsquerdo] = useState<number>(0)
 
-  const [DisableInputsIstmo, setDisableInputsIstmo] = useState(true)
-  const [DisableInputsIstmoFiliforme, setDisableInputsIstmoFiliforme] = useState(true)
-  const [ValueInput1Istmo, setValueInput1Istmo] = useState('')
-  const [ValueInput2Istmo, setValueInput2Istmo] = useState('')
-  const [ValueInput3Istmo, setValueInput3Istmo] = useState('')
-  const [ValueInput4Istmo, setValueInput4Istmo] = useState(0)
-  const [IstmoFiliformeCheckbox, setIstmoFiliformeCheckbox] = useState(false)
+  const [ValueInput1Istmo, setValueInput1Istmo] = useState<number>(0)
+  const [ValueInput2Istmo, setValueInput2Istmo] = useState<number>(0)
+  const [ValueInput3Istmo, setValueInput3Istmo] = useState<number>(0)
+  const [ValueInput4Istmo, setValueInput4Istmo] = useState<number>(0)
+  const [IstmoDesprezivelCheckbox, setIstmoDesprezivelCheckbox] = useState(false)
 
   const [ValueSelectRADS, setValueSelectRADS] = useState('')
+
+  const [ValueInput1Soma, setValueInput1Soma] = useState<number>(0)
+  const [ValueInput2Soma, setValueInput2Soma] = useState<number>(0)
+  const [ValueInput3Soma, setValueInput3Soma] = useState<number>(0)
+  const [ValueInput4Soma, setValueInput4Soma] = useState<number>(0)
+
+  const handleChangeInput1LoboDireito = (e) => {
+    setValueInput1LoboDireito(e.target.value)
+  }
+  const handleChangeInput2LoboDireito = (e) => {
+    setValueInput2LoboDireito(e.target.value)
+  }
+  const handleChangeInput3LoboDireito = (e) => {
+    setValueInput3LoboDireito(e.target.value)
+  }
+
+  const handleChangeInput1LoboEsquerdo = (e) => {
+    setValueInput1LoboEsquerdo(e.target.value)
+  }
+  const handleChangeInput2LoboEsquerdo = (e) => {
+    setValueInput2LoboEsquerdo(e.target.value)
+  }
+  const handleChangeInput3LoboEsquerdo = (e) => {
+    setValueInput3LoboEsquerdo(e.target.value)
+  }
+
+  const handleChangeInput1Istmo = (e) => {
+    setValueInput1Istmo(e.target.value)
+  }
+  const handleChangeInput2Istmo = (e) => {
+    setValueInput2Istmo(e.target.value)
+  }
+  const handleChangeInput3Istmo = (e) => {
+    setValueInput3Istmo(e.target.value)
+  }
+
 
   const criaStringLoboDireito = () => {
     var string = 'Lobo Direito: '
     removeFraseLoboDireito()
-    var medida1cm = new Convert_Medida(ValueInput1LoboDireito).Convert_Medida()
-    var medida2cm = new Convert_Medida(ValueInput2LoboDireito).Convert_Medida()
-    var medida3cm = new Convert_Medida(ValueInput3LoboDireito).Convert_Medida()
-    if (ValueInput1LoboDireito != '' && ValueInput2LoboDireito != '' && ValueInput3LoboDireito != '') {
-      var medida4 = (parseInt(ValueInput1LoboDireito) * parseInt(ValueInput2LoboDireito) * parseInt(ValueInput3LoboDireito)) / 1000
+    if (LoboDireitoCheckbox) {
+      var medida4 = ((ValueInput1LoboDireito) * (ValueInput2LoboDireito) * (ValueInput3LoboDireito)) / 1000
       setValueInput4LoboDireito(medida4)
-      string = `${string} ${medida1cm} x ${medida2cm} x ${medida3cm} cm (${medida4} cm³) `
+      string = `${string} ${ValueInput1LoboDireito} x ${ValueInput2LoboDireito} x ${ValueInput3LoboDireito} mm (${medida4} cm³) `
       setFrasesMedidas((arr) => [...arr, string]);
     }
   }
@@ -76,29 +107,34 @@ function Medidas() {
   };
 
   useEffect(() => {
-    if (LoboDireitoCheckbox) {
-      criaStringLoboDireito()
-      setDisableInputsLoboDireito(false)
-    } else {
-      removeFraseLoboDireito()
-      setDisableInputsLoboDireito(true)
-      setValueInput1LoboDireito('')
-      setValueInput2LoboDireito('')
-      setValueInput3LoboDireito('')
-      setValueInput4LoboDireito(0)
+    if (ValueInput1LoboDireito != 0 || ValueInput3LoboDireito != 0 || ValueInput2LoboDireito != 0 ||
+      ValueInput1LoboEsquerdo != 0 || ValueInput3LoboEsquerdo != 0 || ValueInput2LoboEsquerdo != 0 ||
+      ValueInput1Istmo != 0 || ValueInput2Istmo != 0 || ValueInput3Istmo) {
+      var soma1 = ValueInput1LoboDireito + ValueInput1LoboEsquerdo + ValueInput1Istmo
+      var soma2 = ValueInput2LoboDireito + ValueInput2LoboEsquerdo + ValueInput2Istmo
+      var soma3 = ValueInput3LoboDireito + ValueInput3LoboEsquerdo + ValueInput3Istmo
+
+      setValueInput1Soma(soma1)
+      setValueInput2Soma(!Number.isNaN(soma2) ? soma2 : 0)
+      setValueInput3Soma(!Number.isNaN(soma3) ? soma3 : 0)
     }
+  }, [ValueInput1LoboDireito, ValueInput3LoboDireito, ValueInput2LoboDireito,
+    ValueInput1LoboEsquerdo, ValueInput3LoboEsquerdo, ValueInput2LoboEsquerdo,
+    ValueInput1Istmo, ValueInput2Istmo, ValueInput3Istmo])
+
+  useEffect(() => {
+
+    criaStringLoboDireito()
+
   }, [LoboDireitoCheckbox, ValueInput1LoboDireito, ValueInput3LoboDireito, ValueInput2LoboDireito])
 
   const criaStringLoboEsquerdo = () => {
     var string = 'Lobo Esquerdo: '
     removeFraseLoboEsquerdo()
-    var medida1cm = new Convert_Medida(ValueInput1LoboEsquerdo).Convert_Medida()
-    var medida2cm = new Convert_Medida(ValueInput2LoboEsquerdo).Convert_Medida()
-    var medida3cm = new Convert_Medida(ValueInput3LoboEsquerdo).Convert_Medida()
-    if (ValueInput1LoboEsquerdo != '' && ValueInput2LoboEsquerdo != '' && ValueInput3LoboEsquerdo != '') {
-      var medida4 = (parseInt(ValueInput1LoboEsquerdo) * parseInt(ValueInput2LoboEsquerdo) * parseInt(ValueInput3LoboEsquerdo)) / 1000
+    if (ValueInput1LoboEsquerdo && ValueInput2LoboEsquerdo && ValueInput3LoboEsquerdo) {
+      var medida4 = ((ValueInput1LoboEsquerdo) * (ValueInput2LoboEsquerdo) * (ValueInput3LoboEsquerdo)) / 1000
       setValueInput4LoboEsquerdo(medida4)
-      string = `${string} ${medida1cm} x ${medida2cm} x ${medida3cm} cm (${medida4} cm³)`
+      string = `${string} ${ValueInput1LoboEsquerdo} x ${ValueInput2LoboEsquerdo} x ${ValueInput3LoboEsquerdo} mm (${medida4} cm³)`
       setFrasesMedidas((arr) => [...arr, string]);
     }
   }
@@ -122,9 +158,9 @@ function Medidas() {
     } else {
       removeFraseLoboEsquerdo()
       setDisableInputsLoboEsquerdo(true)
-      setValueInput1LoboEsquerdo('')
-      setValueInput2LoboEsquerdo('')
-      setValueInput3LoboEsquerdo('')
+      setValueInput1LoboEsquerdo(0)
+      setValueInput2LoboEsquerdo(0)
+      setValueInput3LoboEsquerdo(0)
       setValueInput4LoboEsquerdo(0)
     }
   }, [LoboEsquerdoCheckbox, ValueInput1LoboEsquerdo, ValueInput3LoboEsquerdo, ValueInput2LoboEsquerdo])
@@ -132,15 +168,18 @@ function Medidas() {
   const criaStringIstmo = () => {
     var string = 'Lobo Istmo: '
     removeFraseIstmo()
-    var medida1cm = new Convert_Medida(ValueInput1Istmo).Convert_Medida()
-    var medida2cm = new Convert_Medida(ValueInput2Istmo).Convert_Medida()
-    var medida3cm = new Convert_Medida(ValueInput3Istmo).Convert_Medida()
-    if (ValueInput1Istmo != '' && ValueInput2Istmo != '' && ValueInput3Istmo != '') {
-      setDisableInputsIstmoFiliforme(true)
-      var medida4 = (parseInt(ValueInput1Istmo) * parseInt(ValueInput2Istmo) * parseInt(ValueInput3Istmo)) / 1000
-      setValueInput4Istmo(medida4)
-      string = `${string} ${medida1cm} x ${medida2cm} x ${medida3cm} cm ${(medida4)} cm³`
-      setFrasesMedidas((arr) => [...arr, string]);
+
+    if (IstmoCheckbox) {
+      if (ValueInput1Istmo && ValueInput2Istmo && ValueInput3Istmo) {
+        var medida4 = ((ValueInput1Istmo) * (ValueInput2Istmo) * (ValueInput3Istmo)) / 1000
+        setValueInput4Istmo(medida4)
+        string = `${string} ${ValueInput1Istmo} x ${ValueInput2Istmo} x ${ValueInput3Istmo} mm ${(medida4)} cm³`
+        setFrasesMedidas((arr) => [...arr, string]);
+      }
+    } else {
+      setValueInput1Istmo(0)
+      setValueInput2Istmo(0)
+      setValueInput3Istmo(0)
     }
   }
   const removeString = (value) => {
@@ -162,43 +201,22 @@ function Medidas() {
       }
     });
   };
-  const criaStringIstmoFiliforme = () => {
-    var string = 'Lobo Filoforme: '
-    removeFraseIstmo()
-    if (IstmoFiliformeCheckbox) {
-      setFrasesMedidas((arr) => [...arr, string]);
-    } else {
-      removeString(string)
-    }
-  }
+  useEffect(() => {
+    criaStringIstmo()
+  }, [ValueInput1Istmo, ValueInput2Istmo, ValueInput3Istmo, IstmoCheckbox])
 
   useEffect(() => {
-    var string = 'Lobo Filoforme: '
-    if (IstmoCheckbox) {
-      setDisableInputsIstmoFiliforme(false)
-      if (IstmoFiliformeCheckbox) {
-        criaStringIstmoFiliforme()
-        setDisableInputsIstmo(true)
-      } else {
-        removeString(string)
-        setDisableInputsIstmo(false)
-        criaStringIstmo()
-      }
-    } else {
-      removeFraseIstmo()
-      setDisableInputsIstmo(true)
-      setDisableInputsIstmoFiliforme(true)
-      setValueInput1Istmo('')
-      setValueInput2Istmo('')
-      setValueInput3Istmo('')
-      setValueInput4Istmo(0)
-    }
-  }, [IstmoCheckbox, ValueInput1Istmo, ValueInput3Istmo, ValueInput2Istmo, IstmoFiliformeCheckbox])
+    const string = 'Istmo desprezível.'
+    removeString(string)
+    IstmoDesprezivelCheckbox ? setFrasesMedidas((arr) => [...arr, string]) : removeString(string)
+  }, [IstmoDesprezivelCheckbox])
+
+
 
   const criaStringRADS = () => {
     let string = `TI-RADS global`
     removeFraseRADS()
-    if (ValueSelectRADS != '') {
+    if (ValueSelectRADS) {
       string = `${string} ${ValueSelectRADS}`
       setFrasesMedidas((arr) => [...arr, string]);
     }
@@ -217,7 +235,7 @@ function Medidas() {
   };
 
   useEffect(() => {
-    if (ValueSelectRADS != '') {
+    if (ValueSelectRADS) {
       criaStringRADS()
     } else {
       removeFraseRADS()
@@ -273,31 +291,22 @@ function Medidas() {
             <Box display='flex' flexWrap='wrap'>
               <Input
                 w='60px'
-                value={ValueInput1LoboDireito}
-                isDisabled={DisableInputsLoboDireito}
-                onChange={(e) => {
-                  setValueInput1LoboDireito(e.target.value)
-                }}
+                isDisabled={!LoboDireitoCheckbox}
+                onChange={(e) => { handleChangeInput1LoboDireito(e) }}
                 placeholder="0"
               />
               <Text alignSelf='center'>x</Text>
               <Input
                 w='60px'
-                isDisabled={DisableInputsLoboDireito}
-                value={ValueInput2LoboDireito}
-                onChange={(e) => {
-                  setValueInput2LoboDireito(e.target.value)
-                }}
+                isDisabled={!LoboDireitoCheckbox}
+                onChange={(e) => { handleChangeInput2LoboDireito(e) }}
                 placeholder="0"
               />
               <Text alignSelf='center'>x</Text>
               <Input
                 w='60px'
-                value={ValueInput3LoboDireito}
-                isDisabled={DisableInputsLoboDireito}
-                onChange={(e) => {
-                  setValueInput3LoboDireito(e.target.value)
-                }}
+                isDisabled={!LoboDireitoCheckbox}
+                onChange={(e) => { handleChangeInput3LoboDireito(e) }}
                 placeholder="0"
               />
               <Text alignSelf='center'>mm</Text>
@@ -318,9 +327,7 @@ function Medidas() {
                 w='60px'
                 value={ValueInput1LoboEsquerdo}
                 isDisabled={DisableInputsLoboEsquerdo}
-                onChange={(e) => {
-                  setValueInput1LoboEsquerdo(e.target.value)
-                }}
+                onChange={(e) => { handleChangeInput1LoboEsquerdo(e) }}
                 placeholder="0"
               />
               <Text alignSelf='center'>x</Text>
@@ -328,9 +335,7 @@ function Medidas() {
                 w='60px'
                 isDisabled={DisableInputsLoboEsquerdo}
                 value={ValueInput2LoboEsquerdo}
-                onChange={(e) => {
-                  setValueInput2LoboEsquerdo(e.target.value)
-                }}
+                onChange={(e) => { handleChangeInput2LoboEsquerdo(e) }}
                 placeholder="0"
               />
               <Text alignSelf='center'>x</Text>
@@ -338,9 +343,7 @@ function Medidas() {
                 w='60px'
                 value={ValueInput3LoboEsquerdo}
                 isDisabled={DisableInputsLoboEsquerdo}
-                onChange={(e) => {
-                  setValueInput3LoboEsquerdo(e.target.value)
-                }}
+                onChange={(e) => { handleChangeInput3LoboEsquerdo(e) }}
                 placeholder="0"
               />
               <Text alignSelf='center'>mm</Text>
@@ -348,58 +351,84 @@ function Medidas() {
             </Box>
           </Box>
           <Box >
-            <Checkbox
-              id="Istmo"
-              onChange={() => {
-                setIstmoCheckbox(!IstmoCheckbox)
-              }}
-            >
-              Istmo
-            </Checkbox>
+            <HStack>
+              <Checkbox
+                isDisabled={IstmoDesprezivelCheckbox}
+                onChange={() => {
+                  setIstmoCheckbox(!IstmoCheckbox)
+                }}
+              >
+                Istmo
+              </Checkbox>
+              <Checkbox
+                isDisabled={IstmoCheckbox}
+                onChange={(e) => { handleChangeInput3LoboEsquerdo(e) }}
+              >
+                Istmo desprezível
+              </Checkbox>
+            </HStack>
             <Box display='flex' flexWrap='wrap'>
               <Input
                 w='60px'
                 value={ValueInput1Istmo}
-                isDisabled={DisableInputsIstmo}
-                onChange={(e) => {
-                  setValueInput1Istmo(e.target.value)
-                }}
+                isDisabled={!IstmoCheckbox}
+                onChange={(e) => { handleChangeInput1Istmo(e) }}
                 placeholder="0"
               />
               <Text alignSelf='center'>x</Text>
               <Input
                 w='60px'
-                isDisabled={DisableInputsIstmo}
+                isDisabled={!IstmoCheckbox}
                 value={ValueInput2Istmo}
-                onChange={(e) => {
-                  setValueInput2Istmo(e.target.value)
-                }}
+                onChange={(e) => { handleChangeInput2Istmo(e) }}
                 placeholder="0"
               />
               <Text alignSelf='center'>x</Text>
               <Input
                 w='60px'
                 value={ValueInput3Istmo}
-                isDisabled={DisableInputsIstmo}
-                onChange={(e) => {
-                  setValueInput3Istmo(e.target.value)
-                }}
+                isDisabled={!IstmoCheckbox}
+                onChange={(e) => { handleChangeInput3Istmo(e.target.value) }}
                 placeholder="0"
               />
               <Text alignSelf='center'>mm</Text>
               <Text alignSelf='center'> ({ValueInput4Istmo} cm³)</Text>
             </Box>
 
-            <Checkbox
-              isDisabled={DisableInputsIstmoFiliforme}
-              onChange={(e) => {
-                setIstmoFiliformeCheckbox(!IstmoFiliformeCheckbox)
-              }}
-            >
-              o istmo é filiforme? (não mensurável)
-            </Checkbox>
           </Box>
         </Stack>
+        <Spacer />
+        <Stack>
+          <Box >
+            <Text alignSelf='center'>
+              Lobo Direito + Esquerdo + Istmo
+            </Text>
+            <Box display='flex' flexWrap='wrap'>
+              <Input
+                w='60px'
+                value={ValueInput1Soma}
+                placeholder="0"
+              />
+              <Text alignSelf='center'>x</Text>
+              <Input
+                w='60px'
+                value={ValueInput2Soma}
+
+                placeholder="0"
+              />
+              <Text alignSelf='center'>x</Text>
+              <Input
+                w='60px'
+                value={ValueInput3Soma}
+
+                placeholder="0"
+              />
+              <Text alignSelf='center'>mm</Text>
+              <Text alignSelf='center'> ({ValueInput4LoboDireito} cm³)</Text>
+            </Box>
+          </Box>
+        </Stack>
+
         <Spacer />
         <Stack>
           <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" padding='5px' h='100%' w='100%'>

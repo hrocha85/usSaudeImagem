@@ -6,7 +6,6 @@ import CistosColoides from "./CistosColoides/CistosColoides";
 import DopplerParenquima from "./DopplerParenquima/DopplerParenquima";
 import EcotexturaParenquima from "./EcotexturaParenquima/EcotexturaParenquima";
 import Linfonodomegalias from "./Linfonodomegalias/Linfonodomegalias";
-import Procedimentos from "./ProcedimentosDiagnosticos/Procedimentos_diagnosticos";
 import Cirurgias from "./cirurgias/cirurgias";
 import Medidas from "./medidas/medidas";
 import Nodulos from "./nodulos/nodulos";
@@ -26,7 +25,7 @@ function Tireoide() {
 
   useEffect(() => {
     Normal
-      ? setFrasesTireoide(["Exame realizado com equipamento dinâmico, transdutor linear de alta resolução, com frequência de 7,5 MHz. Glândula tireóide apresentando topografia habitual, simétrica, com dimensões reduzidas, superfície regular e ecotextura homogênea."])
+      ? setFrasesTireoide(["Exame tiróide não apresenta alterações."])
       : setFrasesTireoide([]);
   }, [Normal]);
 
@@ -72,14 +71,13 @@ function Tireoide() {
       </Box>
 
       <Box ml="10px">
-        <Medidas />
-        <DopplerParenquima />
         <EcotexturaParenquima />
-        <Procedimentos />
+        <DopplerParenquima />
+        <Medidas />
+        <Linfonodomegalias />
         <Cirurgias />
         <CistosColoides />
         <Nodulos />
-        <Linfonodomegalias />
       </Box>
     </>
   );
