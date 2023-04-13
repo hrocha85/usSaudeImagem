@@ -13,15 +13,15 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
 
-const CardListaMedicos = ({ altura }) => {
+const CardPaciente = ({ altura }) => {
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
 
   const toast = useToast();
-  const id = "test-toast";
 
   const [nomePaciente, setNomePaciente] = useState<string>("");
   const [idadePaciente, setIdadePaciente] = useState<string>("");
   const [sexoPaciente, setSexoPaciente] = useState<string>("m");
+  const [medico_solicitante, setMedicoSolicitante] = useState<string>("");
 
   const [isDisable, setisDisable] = useState(true);
 
@@ -34,6 +34,7 @@ const CardListaMedicos = ({ altura }) => {
     } else medicos = [];
     return medicos;
   };
+
   var lista_medico = getMedicos();
 
   const getPaciente = () => {
@@ -48,9 +49,14 @@ const CardListaMedicos = ({ altura }) => {
   const handleNomePacienteInput = (event) => {
     setNomePaciente(event.target.value);
   };
+  const handleMedicoSolicitanteInput = (event) => {
+    setMedicoSolicitante(event.target.value);
+  };
+
   const handleIdadePacienteInput = (event) => {
     setIdadePaciente(event.target.value);
   };
+
   const handleSexoPacienteInput = (event) => {
     setSexoPaciente(event.target.value);
   };
@@ -60,6 +66,7 @@ const CardListaMedicos = ({ altura }) => {
       nome: nomePaciente,
       idadePaciente: idadePaciente,
       sexo: sexoPaciente,
+      medico_solicitante: medico_solicitante,
     };
 
     localStorage.setItem("paciente", JSON.stringify(pacienteProps));
@@ -69,12 +76,19 @@ const CardListaMedicos = ({ altura }) => {
     setNomePaciente("");
     setIdadePaciente("");
     setSexoPaciente("");
+    setMedicoSolicitante("");
     setEnableExames(false);
     localStorage.removeItem("paciente");
   };
 
   const checkDisable = () => {
-    if (nomePaciente != null && idadePaciente != null && sexoPaciente != null) {
+    console.log(isDisable);
+    if (
+      nomePaciente != "" &&
+      idadePaciente != "" &&
+      sexoPaciente != "" &&
+      medico_solicitante != ""
+    ) {
       setisDisable(false);
     } else {
       setisDisable(true);
@@ -91,7 +105,7 @@ const CardListaMedicos = ({ altura }) => {
 
   useEffect(() => {
     checkDisable();
-  }, [nomePaciente, idadePaciente, sexoPaciente]);
+  }, [nomePaciente, idadePaciente, sexoPaciente, medico_solicitante]);
 
   return (
     <Center>
@@ -109,6 +123,7 @@ const CardListaMedicos = ({ altura }) => {
             <Text textAlign="center" mt="10px" mb="10px">
               Insira os dados do paciente:
             </Text>
+
             <HStack display="flex" margin="20px" spacing="10px">
               <Input
                 borderColor="black"
@@ -141,8 +156,23 @@ const CardListaMedicos = ({ altura }) => {
                 <option value="Masculino">Masculino</option>
                 <option value="Feminino">Feminino</option>
               </Select>
+            </HStack>
+
+            <HStack display="flex" margin="20px" justify="center">
+              <Input
+                textAlign="center"
+                borderColor="black"
+                placeholder="Médico Solicitante"
+                value={medico_solicitante}
+                size="sm"
+                h="40px"
+                w="250px"
+                borderRadius="md"
+                onChange={handleMedicoSolicitanteInput}
+              />
+
               <Wrap>
-                <WrapItem w="245px">
+                <WrapItem>
                   <Button
                     isDisabled={isDisable}
                     colorScheme="blue"
@@ -180,4 +210,4 @@ const CardListaMedicos = ({ altura }) => {
   );
 };
 
-export default CardListaMedicos;
+export default CardPaciente;

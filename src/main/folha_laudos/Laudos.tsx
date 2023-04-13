@@ -24,8 +24,8 @@ import {
   Document,
   Font,
   Image as ImagePDF,
-  Page,
   PDFDownloadLink,
+  Page,
   StyleSheet,
   Text as TextPDF,
   View as ViewPDF,
@@ -35,8 +35,9 @@ import { BiLoaderAlt } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { GoDesktopDownload } from "react-icons/go";
-import { LaudosContext } from "../../context/LuadosContext";
+import { RiCloseLine } from "react-icons/ri";
 import LaudosJSON from "../../Data/Laudos.json";
+import { LaudosContext } from "../../context/LuadosContext";
 import "./Laudos.css";
 
 function Exames() {
@@ -315,6 +316,7 @@ function Exames() {
                   <TextPDF>{clinicaSet.nomeClinica}</TextPDF>
                   <TextPDF>{getPaciente()}</TextPDF>
                   <TextPDF>{getCurrentDate()}</TextPDF>
+                  <TextPDF>{`Médico Solicitante: Dr. ${getMedicoSolicitante()}`}</TextPDF>
                   <TextPDF>{`Dr. ${medico.nome}`}</TextPDF>
                 </ViewPDF>
               </ViewPDF>
@@ -410,6 +412,14 @@ function Exames() {
     }
   };
 
+  const getMedicoSolicitante = () => {
+    if (localStorage.getItem("paciente") != null) {
+      return JSON.parse(localStorage.getItem("paciente")!).medico_solicitante;
+    } else {
+      return "Médico Solicitante";
+    }
+  };
+
   const getCurrentDate = () => {
     const timeStamp = new Date();
 
@@ -436,6 +446,7 @@ function Exames() {
     JSON.parse(localStorage.getItem("format_laudo")!)
   );
   const [laudo, setLaudo] = useState<any>(Laudo());
+  const [updateSuccess, setUpdateSuccess] = useState(false);
 
   const update = (laudos) => {
     var array = JSON.parse(localStorage.getItem("medicos")!);
@@ -476,15 +487,21 @@ function Exames() {
     return arrayLocal;
   };
 
-  const EditarLaudo = (defaultValue, IndexExame, Index_Sub_Exame) => {
+  const EditarLaudo = (
+    defaultValue,
+    IndexExame,
+    Index_Sub_Exame,
+    Index_Frase
+  ) => {
+    const handleSubmit = async (event) => {
+      await updateLaudo(event, IndexExame, Index_Sub_Exame, Index_Frase);
+    };
     return (
       <Editable
         defaultValue={defaultValue}
         isPreviewFocusable={true}
         selectAllOnFocus={false}
-        onChange={(e) => {
-          handleEditLaudoInput(e, IndexExame, Index_Sub_Exame);
-        }}
+        onSubmit={handleSubmit}
       >
         <Tooltip
           label="Clique para editar"
@@ -515,195 +532,122 @@ function Exames() {
 
     return isEditing ? (
       <ButtonGroup justifyContent="end" size="sm" w="full" spacing={2} mt={2}>
-        <IconButton
-          aria-label="Check"
-          icon={<CheckIcon />}
-          {...getSubmitButtonProps()}
-        />
-
-        <IconButton
-          aria-label="Close"
-          icon={<CloseIcon boxSize={3} />}
-          {...getCancelButtonProps()}
-        />
+        <Tooltip
+          label="Confirmar Edição"
+          fontSize="xl"
+          backgroundColor="white"
+          placement="bottom"
+          hasArrow
+          arrowSize={15}
+          textColor="black"
+        >
+          <IconButton
+            aria-label="Check"
+            icon={<CheckIcon />}
+            {...getSubmitButtonProps()}
+          />
+        </Tooltip>
+        <Tooltip
+          label="Cancelar Edição"
+          fontSize="xl"
+          backgroundColor="white"
+          placement="bottom"
+          hasArrow
+          arrowSize={15}
+          textColor="black"
+        >
+          <IconButton
+            aria-label="Close"
+            icon={<CloseIcon boxSize={3} />}
+            {...getCancelButtonProps()}
+          />
+        </Tooltip>
       </ButtonGroup>
     ) : null;
   }
 
-  const handleEditLaudoInput = async (event, IndexExame, Index_Sub_Exame) => {
-    updateLaudo(event, IndexExame, Index_Sub_Exame);
-  };
-
-  const updateLaudo = (event, IndexExame, Index_Sub_Exame) => {
+  const updateLaudo = async (
+    event,
+    IndexExame,
+    Index_Sub_Exame,
+    Index_Frase
+  ) => {
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
 
     array.map((Exames) => {
-      console.log("teste", Exames.subExames[Index_Sub_Exame]);
-
-      Exames.subExames[Index_Sub_Exame].frases = event;
+      Exames.subExames[Index_Sub_Exame].frases[Index_Frase] = event;
       localStorage.setItem("format_laudo", JSON.stringify(array));
     });
+
     setLaudo(Laudo());
   };
 
-  useEffect(() => {
-    if (urlLaudo != null) {
-      AddLaudoSalvo();
-    }
-  }, [urlLaudo]);
+  const RenderLaudoEditTrue = () => {
+    return (
+      <>
+        {JSON.parse(localStorage.getItem("format_laudo")!).map(
+          (exame, key, IndexExame) => {
+            return (
+              <Box key={key}>
+                <Text
+                  textDecoration="underline"
+                  fontWeight="bold"
+                  fontSize="19px"
+                  textAlign="center"
+                  textTransform="uppercase"
+                >
+                  {exame.titulo_exame}
+                </Text>
 
-  window.addEventListener("storage", () => {
-    getFormatLaudo();
-  });
+                {exame.subExames.map((sub_exame, keys) => {
+                  return sub_exame.subExameNome != null &&
+                    sub_exame.subExameNome != "" ? (
+                    <HStack
+                      justifyContent="space-between"
+                      marginBottom="30px"
+                      marginTop="20px"
+                      key={keys}
+                    >
+                      <HStack justify="space-between">
+                        <Text
+                          textDecoration="underline"
+                          fontWeight="semibold"
+                          whiteSpace="nowrap"
+                        >
+                          {sub_exame.subExameNome}:
+                        </Text>
+                        <Box w="100%">
+                          <Box w="100%">
+                            {sub_exame.frases.map((frase, index) => {
+                              return EditarLaudo(
+                                frase,
+                                IndexExame,
+                                keys,
+                                index
+                              );
+                            })}
+                          </Box>
+                        </Box>
+                      </HStack>
+                    </HStack>
+                  ) : null;
+                })}
 
-  useEffect(() => {
-    setLaudo(Laudo());
-    getFormatLaudo();
-  }, [localStorage.getItem("format_laudo")!]);
+                <HStack justify="space-evenly" marginTop="10px"></HStack>
+              </Box>
+            );
+          }
+        )}
+      </>
+    );
+  };
 
-  return (
-    <Box
-      w="32%"
-      h="40%"
-      maxH="50%"
-      float="right"
-      position="sticky"
-      top={1}
-      transition="0.2"
-      marginEnd="1%"
-    >
-      <Center paddingBottom="30px">
-        <Stack
-          w="20%"
-          justify="space-around"
-          direction="row"
-          h="70px"
-          alignItems="center"
-        >
-          <Link
-            //href={`#/Format_PDF`}
-            //target="_blank"
-            style={{ textDecoration: "none" }}
-            onClick={() => window.open(`#/Format_PDF`, "_blank")}
-          >
-            <Tooltip
-              label="Visualizar Laudo"
-              fontSize="xl"
-              backgroundColor="white"
-              placement="top"
-              hasArrow
-              arrowSize={15}
-              textColor="black"
-            >
-              <Circle size="50px" bg="gray.200">
-                <Icon
-                  w={30}
-                  h={30}
-                  as={BsEye}
-                  color="twitter.600"
-                  size="30px"
-                  onClick={() => {
-                    //<Format_PDF />;
-                  }}
-                />
-              </Circle>
-            </Tooltip>
-          </Link>
-          <Box>
-            <PDFDownloadLink
-              document={laudo != null ? laudo : Laudo()}
-              fileName={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
-            >
-              {({ blob, url, loading, error }) =>
-                loading ? (
-                  <Icon as={BiLoaderAlt} color="#4658fc" w={50} h={40} />
-                ) : (
-                  <Tooltip
-                    label="Baixar Laudo"
-                    fontSize="xl"
-                    backgroundColor="white"
-                    placement="top"
-                    hasArrow
-                    arrowSize={15}
-                    textColor="black"
-                  >
-                    <Circle size="50px" bg="gray.200">
-                      <Icon
-                        as={GoDesktopDownload}
-                        w={30}
-                        h={30}
-                        color="twitter.600"
-                        onClick={() => {
-                          convertBlob(blob!);
-                        }}
-                      />
-                    </Circle>
-                  </Tooltip>
-                )
-              }
-            </PDFDownloadLink>
-          </Box>
-          <Tooltip
-            label="Editar Laudo"
-            fontSize="xl"
-            backgroundColor="white"
-            placement="top"
-            hasArrow
-            arrowSize={15}
-            textColor="black"
-          >
-            <Circle size="50px" bg="gray.200">
-              <Icon
-                w={30}
-                h={30}
-                as={FiEdit}
-                color="twitter.600"
-                onClick={() => {
-                  setEdit(true);
-                }}
-              />
-            </Circle>
-          </Tooltip>
-        </Stack>
-      </Center>
-
-      <Box className="zoom" boxShadow="xl" ref={ref} height="75vh">
-        <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
-          <Box>
-            <Image
-              src={clinicaSet.foto}
-              alt="Imagem Clínica"
-              boxSize="130px"
-              objectFit="scale-down"
-              borderRadius="full"
-              padding="5px"
-              marginStart="20px"
-            />
-          </Box>
-
-          <Grid
-            templateColumns="repeat(1, 1fr)"
-            marginStart="50px"
-            justifyItems="center"
-            justifySelf="center"
-          >
-            <Text fontWeight="bold">{clinicaSet.nomeClinica}</Text>
-            <Text>{getPaciente()}</Text>
-            <Text>{getCurrentDate()}</Text>
-            <Text>{`Dr. ${medico.nome}`}</Text>
-          </Grid>
-        </Grid>
-        <Center>
-          <Divider
-            inlineSize="95%"
-            margin="5px"
-            borderColor="black"
-            marginTop="15px"
-          />
-        </Center>
-        <Box margin="20px">
-          {arrayLocal.map((exame, key, IndexExame) => {
-            return edit == false ? (
+  const RenderLaudoEditFalse = () => {
+    return (
+      <>
+        {JSON.parse(localStorage.getItem("format_laudo")!).map(
+          (exame, key, IndexExame) => {
+            return (
               <Box key={key}>
                 <Text
                   textDecoration="underline"
@@ -832,47 +776,204 @@ function Exames() {
 
                 <HStack justify="space-evenly" marginTop="10px"></HStack>
               </Box>
-            ) : (
-              <Box key={key}>
-                <Text
-                  textDecoration="underline"
-                  fontWeight="bold"
-                  fontSize="19px"
-                  textAlign="center"
-                  textTransform="uppercase"
-                >
-                  {exame.titulo_exame}
-                </Text>
-
-                {exame.subExames.map((sub_exame, keys) => {
-                  return sub_exame.subExameNome != null &&
-                    sub_exame.subExameNome != "" ? (
-                    <HStack
-                      justifyContent="space-between"
-                      marginBottom="30px"
-                      marginTop="20px"
-                      key={keys}
-                    >
-                      <HStack justify="space-between">
-                        <Text
-                          textDecoration="underline"
-                          fontWeight="semibold"
-                          whiteSpace="nowrap"
-                        >
-                          {sub_exame.subExameNome}:
-                        </Text>
-                        <Box w="100%">
-                          {EditarLaudo(sub_exame.frases, IndexExame, keys)}
-                        </Box>
-                      </HStack>
-                    </HStack>
-                  ) : null;
-                })}
-
-                <HStack justify="space-evenly" marginTop="10px"></HStack>
-              </Box>
             );
-          })}
+          }
+        )}
+      </>
+    );
+  };
+
+  useEffect(() => {
+    if (urlLaudo != null) {
+      AddLaudoSalvo();
+    }
+  }, [urlLaudo]);
+
+  window.addEventListener("storage", () => {
+    getFormatLaudo();
+  });
+
+  useEffect(() => {
+    setLaudo(Laudo());
+    getFormatLaudo();
+  }, [localStorage.getItem("format_laudo")!]);
+
+  /* useEffect(() => {
+    console.log("edit", edit);
+    if (edit) {
+      RenderLaudoEditTrue();
+    } else {
+      RenderLaudoEditFalse();
+    }
+  }, [edit, localStorage.getItem("format_laudo")!]);*/
+
+  return (
+    <Box
+      w="32%"
+      h="40%"
+      maxH="50%"
+      float="right"
+      position="sticky"
+      top={1}
+      transition="0.2"
+      marginEnd="1%"
+    >
+      <Center paddingBottom="30px">
+        <Stack
+          w="20%"
+          justify="space-around"
+          direction="row"
+          h="70px"
+          alignItems="center"
+        >
+          <Link
+            //href={`#/Format_PDF`}
+            //target="_blank"
+            style={{ textDecoration: "none" }}
+            onClick={() => window.open(`#/Format_PDF`, "_blank")}
+          >
+            <Tooltip
+              label="Visualizar Laudo"
+              fontSize="xl"
+              backgroundColor="white"
+              placement="top"
+              hasArrow
+              arrowSize={15}
+              textColor="black"
+            >
+              <Circle size="50px" bg="gray.200">
+                <Icon
+                  w={30}
+                  h={30}
+                  as={BsEye}
+                  color="twitter.600"
+                  size="30px"
+                  onClick={() => {
+                    //<Format_PDF />;
+                  }}
+                />
+              </Circle>
+            </Tooltip>
+          </Link>
+          <Box>
+            <PDFDownloadLink
+              document={laudo != null ? laudo : Laudo()}
+              fileName={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
+            >
+              {({ blob, url, loading, error }) =>
+                loading ? (
+                  <Icon as={BiLoaderAlt} color="#4658fc" w={50} h={40} />
+                ) : (
+                  <Tooltip
+                    label="Baixar Laudo"
+                    fontSize="xl"
+                    backgroundColor="white"
+                    placement="top"
+                    hasArrow
+                    arrowSize={15}
+                    textColor="black"
+                  >
+                    <Circle size="50px" bg="gray.200">
+                      <Icon
+                        as={GoDesktopDownload}
+                        w={30}
+                        h={30}
+                        color="twitter.600"
+                        onClick={() => {
+                          convertBlob(blob!);
+                        }}
+                      />
+                    </Circle>
+                  </Tooltip>
+                )
+              }
+            </PDFDownloadLink>
+          </Box>
+          {edit == false ? (
+            <Tooltip
+              label="Editar Laudo"
+              fontSize="xl"
+              backgroundColor="white"
+              placement="top"
+              hasArrow
+              arrowSize={15}
+              textColor="black"
+            >
+              <Circle size="50px" bg="gray.200">
+                <Icon
+                  w={30}
+                  h={30}
+                  as={FiEdit}
+                  color="twitter.600"
+                  onClick={() => {
+                    setEdit(true);
+                  }}
+                />
+              </Circle>
+            </Tooltip>
+          ) : (
+            <Tooltip
+              label="Sair Modo Edição"
+              fontSize="xl"
+              backgroundColor="white"
+              placement="top"
+              hasArrow
+              arrowSize={15}
+              textColor="black"
+            >
+              <Circle size="50px" bg="gray.200">
+                <Icon
+                  w={30}
+                  h={30}
+                  as={RiCloseLine}
+                  color="twitter.600"
+                  onClick={() => {
+                    setEdit(false);
+                  }}
+                />
+              </Circle>
+            </Tooltip>
+          )}
+        </Stack>
+      </Center>
+
+      <Box className="zoom" boxShadow="xl" ref={ref} height="75vh">
+        <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
+          <Box>
+            <Image
+              src={clinicaSet.foto}
+              alt="Imagem Clínica"
+              boxSize="130px"
+              objectFit="scale-down"
+              borderRadius="full"
+              padding="5px"
+              marginStart="20px"
+            />
+          </Box>
+
+          <Grid
+            templateColumns="repeat(1, 1fr)"
+            marginStart="50px"
+            justifyItems="center"
+            justifySelf="center"
+          >
+            <Text fontWeight="bold">{clinicaSet.nomeClinica}</Text>
+            <Text>{getPaciente()}</Text>
+            <Text>{getCurrentDate()}</Text>
+            <Text>{`Médico Solicitante: Dr. ${getMedicoSolicitante()}`}</Text>
+            <Text>{`Dr. ${medico.nome}`}</Text>
+          </Grid>
+        </Grid>
+        <Center>
+          <Divider
+            inlineSize="95%"
+            margin="5px"
+            borderColor="black"
+            marginTop="15px"
+          />
+        </Center>
+        <Box margin="20px" key={+edit}>
+          {edit ? RenderLaudoEditTrue() : RenderLaudoEditFalse()}
         </Box>
         <Box position="absolute" w="100%">
           <HStack w="100%" justify="space-between">

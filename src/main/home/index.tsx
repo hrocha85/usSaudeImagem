@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CardListaMedicos from "../component/card_paciente_home";
+import CardPaciente from "../component/card_paciente_home";
 import Default_Backgound from "../component/default_backgound";
 import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
@@ -95,7 +95,7 @@ function Home() {
 
         <Center>
           <Stack alignItems="center" marginTop="3%">
-            <CardListaMedicos altura="300px" />
+            <CardPaciente altura="300px" />
           </Stack>
         </Center>
 

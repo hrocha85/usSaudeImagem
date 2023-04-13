@@ -37,6 +37,7 @@ const ItemObservation = () => {
   const [value, setValue] = useState("");
   const [clickSave, setClickSave] = useState(false);
   const [currentOBS, setCurrentOBS] = useState<string>();
+  const [FinalList, setFinalList] = useState<string[]>([]);
 
   const [editOBS, setEditOBS] = useState<string>();
 
@@ -50,23 +51,33 @@ const ItemObservation = () => {
     localStorage.getItem("observacoes")!
   );
 
-  const observacoes = [
+  const observacoesArray = [
     {
       id: 1,
       titulo_observacao: "Abdômen total",
       observacao: [""],
     },
+    // {
+    //   id: 2,
+    //   titulo_observacao: "Doppler Transvaginal",
+    //   observacao: [""],
+    // },
     {
-      id: 2,
-      titulo_observacao: "Doppler Transvaginal",
-      observacao: [""],
+      id: 3,
+      titulo_observacao: "Mamas",
+      observacao: [
+        "Conviria controle ecográfico periódico, a critério clínico.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+        "A critério clínico, tendo-se em conta o aspecto liposubstituido do tecido mamário (normal para a pós-menopausa), estaria indicado para melhor avaliação, estudo radiológico digital bilateral (mamografia digital).",
+        "Exames anteriores não disponíveis para estudo comparativo.",
+      ],
     },
-    { id: 3, titulo_observacao: "Mamas", observacao: [""] },
-    {
-      id: 4,
-      titulo_observacao: "Doppler Artrial do MMSS",
-      observacao: [""],
-    },
+    // {
+    //   id: 4,
+    //   titulo_observacao: "Doppler Artrial do MMSS",
+    //   observacao: [""],
+    // },
     {
       id: 5,
       titulo_observacao: "Abdômen Superior",
@@ -77,73 +88,73 @@ const ItemObservation = () => {
       titulo_observacao: "Transvaginal",
       observacao: [""],
     },
-    {
-      id: 7,
-      titulo_observacao: "Doppler Renal",
-      observacao: [""],
-    },
-    {
-      id: 8,
-      titulo_observacao: "Doppler Venoso de MMII",
-      observacao: [""],
-    },
+    // {
+    //   id: 7,
+    //   titulo_observacao: "Doppler Renal",
+    //   observacao: [""],
+    // },
+    // {
+    //   id: 8,
+    //   titulo_observacao: "Doppler Venoso de MMII",
+    //   observacao: [""],
+    // },
     { id: 9, titulo_observacao: "Tireóide", observacao: [""] },
-    {
-      id: 10,
-      titulo_observacao: "Doppler das Carótidas",
-      observacao: [""],
-    },
-    {
-      id: 11,
-      titulo_observacao: "Doppler Hepático",
-      observacao: [""],
-    },
-    {
-      id: 12,
-      titulo_observacao: "Doppler Arterial de MMII",
-      observacao: [""],
-    },
+    // {
+    //   id: 10,
+    //   titulo_observacao: "Doppler das Carótidas",
+    //   observacao: [""],
+    // },
+    // {
+    //   id: 11,
+    //   titulo_observacao: "Doppler Hepático",
+    //   observacao: [""],
+    // },
+    // {
+    //   id: 12,
+    //   titulo_observacao: "Doppler Arterial de MMII",
+    //   observacao: [""],
+    // },
     {
       id: 13,
       titulo_observacao: "Tireóide 2",
       observacao: [""],
     },
-    {
-      id: 14,
-      titulo_observacao: "Doppler das Carótidas 2",
-      observacao: [""],
-    },
+    // {
+    //   id: 14,
+    //   titulo_observacao: "Doppler das Carótidas 2",
+    //   observacao: [""],
+    // },
     {
       id: 15,
       titulo_observacao: "Rins e Vias Urinárias",
       observacao: [""],
     },
-    {
-      id: 16,
-      titulo_observacao: "Doppler Venoso de MMSS",
-      observacao: [""],
-    },
-    {
-      id: 17,
-      titulo_observacao: "Doppler da Tireóide",
-      observacao: [""],
-    },
+    // {
+    //   id: 16,
+    //   titulo_observacao: "Doppler Venoso de MMSS",
+    //   observacao: [""],
+    // },
+    // {
+    //   id: 17,
+    //   titulo_observacao: "Doppler da Tireóide",
+    //   observacao: [""],
+    // },
     {
       id: 18,
       titulo_observacao: "Partes Moles",
       observacao: [""],
     },
     { id: 19, titulo_observacao: "Testículo", observacao: [""] },
-    {
-      id: 20,
-      titulo_observacao: "Doppler de Bolsa Testicular",
-      observacao: [""],
-    },
-    {
-      id: 21,
-      titulo_observacao: "Doppler da Tireóide 2",
-      observacao: [""],
-    },
+    // {
+    //   id: 20,
+    //   titulo_observacao: "Doppler de Bolsa Testicular",
+    //   observacao: [""],
+    // },
+    // {
+    //   id: 21,
+    //   titulo_observacao: "Doppler da Tireóide 2",
+    //   observacao: [""],
+    // },
     { id: 22, titulo_observacao: "Pélvico", observacao: [""] },
     {
       id: 23,
@@ -282,15 +293,30 @@ const ItemObservation = () => {
   };
 
   const ItensObservacao = () => {
-    var observ =
-      localStorage.getItem("observacoes") != null
-        ? JSON.parse(localStorage.getItem("observacoes")!)
-        : null;
-console.log('123123',observ)
+    //Ajustar observacoes de configuracoes com a que aparece no exame
+
+
+    let observacoes_localStorage: any[] = [];
+
+    const observacaofind = observacoesArray.find((obs) => obs.id === id!);
+
+    if (localStorage.getItem("observacoes") != null) {
+      observacoes_localStorage = JSON.parse(
+        localStorage.getItem("observacoes")!
+      );
+    } else {
+      /*if (
+        observacaofind &&
+        observacaofind.observacao &&
+        observacaofind.observacao.length > 1
+      ) {
+        observacoes_localStorage.push(observacaofind);
+      }*/
+    }
     return (
       <>
-        {observ != null
-          ? observ.map((e) => {
+        {observacoes_localStorage != null
+          ? observacoes_localStorage.map((e) => {
               if (e.id == id) {
                 return e.observacao.map((item, key) => {
                   return (
@@ -372,7 +398,7 @@ console.log('123123',observ)
 
   return (
     <>
-      {observacoes.map((observacoes, key) => (
+      {observacoesArray.map((observacoes, key) => (
         <Flex key={key}>
           <GridItem
             key={key}

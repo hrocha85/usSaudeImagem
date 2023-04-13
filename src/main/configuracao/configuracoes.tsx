@@ -631,6 +631,14 @@ const Configuracoes = () => {
     );
   };
 
+  const checkMedicosLocalStorage = () => {
+    if (localStorage.getItem("medicos") != null) {
+      dados = localStorage.getItem("medicos");
+
+      lista_medicos = JSON.parse(dados);
+    } else lista_medicos = [];
+  }
+
   useEffect(() => {
     var item;
     var item_parse;
@@ -668,11 +676,7 @@ const Configuracoes = () => {
   }, [updateTAGS == true]);
 
   useEffect(() => {
-    if (localStorage.getItem("medicos") != null) {
-      dados = localStorage.getItem("medicos");
-
-      lista_medicos = JSON.parse(dados);
-    } else lista_medicos = [];
+    checkMedicosLocalStorage()
   }, []);
 
   return (

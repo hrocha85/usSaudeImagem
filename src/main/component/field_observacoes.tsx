@@ -113,6 +113,7 @@ export default function Field_Observacoes({ exame }) {
   };
 
   const Render_Box_Observacoes = () => {
+    console.log(observacoes)
     return (
       <Box>
         {observacoes != null && observacoes != undefined
