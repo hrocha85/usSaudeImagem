@@ -356,7 +356,8 @@ export default function Format_PDF() {
                     ) : null}
 
                     {exame.conclusoes != null &&
-                    exame.conclusoes != undefined ? (
+                    exame.conclusoes != undefined &&
+                    exame.conclusoes.length > 1 ? (
                       <View style={styles.viewConclusoes}>
                         <View style={styles.lineConclusoes} break={true} />
                         <Text style={styles.textConclusao}>

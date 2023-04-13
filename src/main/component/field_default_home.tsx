@@ -247,6 +247,8 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
             z-index="1"
           >
             <Button
+              _hover={{ bg: "blue.100",padding:'3px' }}
+              isDisabled={!enableExames}
               fontSize="13.9px"
               variant="link"
               textAlign="center"
