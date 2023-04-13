@@ -19,7 +19,7 @@ function Extra4() {
             borderRadius="10.85px"
             boxShadow="md"
             padding="24px 15px 10px 15px"
-            mt='10px'
+            mt='20px'
         >
             <Image src={ObsBIRADS} />
         </Box>

@@ -7,7 +7,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function OutrasPatologicas() {
   const altura = "100%";
-  const largura = "300px";
+  const largura = "50%";
 
   const [FrasePatologicas, setFrasePatologicas] = useState<any>([]);
 
@@ -68,7 +68,7 @@ function OutrasPatologicas() {
       borderRadius="10.85px"
       boxShadow="md"
       padding="24px 15px 10px 15px"
-      mt="20px"
+      mt='20px'
     >
       <Box >
         <TituloNomeExame titulo="Outras alterações patológicas" />

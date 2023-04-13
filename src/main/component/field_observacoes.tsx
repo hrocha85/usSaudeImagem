@@ -117,122 +117,122 @@ export default function Field_Observacoes({ exame }) {
       <Box>
         {observacoes != null && observacoes != undefined
           ? observacoes.map((e) => {
-              let output;
-              if (e.titulo_observacao == exame.nomeExame) {
-                output = e.observacao.map((i, key) => {
-                  return (
-                    <HStack
-                      isInline={true}
-                      alignItems="center"
-                      justify="space-between"
+            let output;
+            if (e.titulo_observacao == exame.nomeExame) {
+              output = e.observacao.map((i, key) => {
+                return (
+                  <HStack
+                    isInline={true}
+                    alignItems="center"
+                    justify="space-between"
+                  >
+                    <Tooltip
+                      label="Abrir Observação"
+                      backgroundColor="white"
+                      placement="top"
+                      hasArrow
+                      arrowSize={15}
+                      textColor="black"
+                      fontSize="20px"
+                      margin="20px"
+                      textAlign="center"
                     >
-                      <Tooltip
-                        label="Abrir Observação"
-                        backgroundColor="white"
-                        placement="top"
-                        hasArrow
-                        arrowSize={15}
-                        textColor="black"
-                        fontSize="20px"
-                        margin="20px"
-                        textAlign="center"
+                      <Box
+                        w="88%"
+                        maxW="88%"
+                        borderWidth="2px"
+                        borderColor="#f0f2f6"
+                        h="48px"
+                        borderRadius="md"
+                        _hover={{
+                          borderColor: "#47AEFC",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => {
+                          onOpen();
+                          setCurrentOBS(i);
+                          setclickEditOBS(false);
+                        }}
                       >
-                        <Box
-                          w="88%"
-                          maxW="88%"
-                          borderWidth="2px"
-                          borderColor="#f0f2f6"
-                          h="48px"
-                          borderRadius="md"
-                          _hover={{
-                            borderColor: "#47AEFC",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => {
-                            onOpen();
-                            setCurrentOBS(i);
-                            setclickEditOBS(false);
-                          }}
+                        <Text
+                          margin="10px"
+                          fontWeight="medium"
+                          textOverflow="ellipsis"
+                          overflow="hidden"
+                          whiteSpace="nowrap"
+                          textColor="black"
+                          fontSize="18px"
                         >
-                          <Text
-                            margin="10px"
-                            fontWeight="medium"
-                            textOverflow="ellipsis"
-                            overflow="hidden"
-                            whiteSpace="nowrap"
-                            textColor="black"
-                            fontSize="18px"
-                          >
-                            {i}
-                          </Text>
-                        </Box>
-                      </Tooltip>
+                          {i}
+                        </Text>
+                      </Box>
+                    </Tooltip>
 
-                      <Tooltip
-                        label={
-                          checkObservacoes(i)
-                            ? "Remover Observação"
-                            : "Inserir Observação"
-                        }
-                        backgroundColor="white"
-                        placement="top"
-                        hasArrow
-                        arrowSize={15}
-                        textColor="black"
-                        fontSize="20px"
-                        margin="20px"
-                        textAlign="center"
-                      >
-                        <Flex justify="end">
-                          <IconButton
-                            justifyContent="flex-end"
-                            aria-label="Add Item"
-                            icon={
-                              checkObservacoes(i) ? (
-                                <GrSubtractCircle size={30} />
-                              ) : (
-                                <AiOutlinePlusCircle size={30} />
-                              )
+                    <Tooltip
+                      label={
+                        checkObservacoes(i)
+                          ? "Remover Observação"
+                          : "Inserir Observação"
+                      }
+                      backgroundColor="white"
+                      placement="top"
+                      hasArrow
+                      arrowSize={15}
+                      textColor="black"
+                      fontSize="20px"
+                      margin="20px"
+                      textAlign="center"
+                    >
+                      <Flex justify="end">
+                        <IconButton
+                          justifyContent="flex-end"
+                          aria-label="Add Item"
+                          icon={
+                            checkObservacoes(i) ? (
+                              <GrSubtractCircle size={30} />
+                            ) : (
+                              <AiOutlinePlusCircle size={30} />
+                            )
+                          }
+                          variant="link"
+                          marginEnd="5px"
+                          textColor="blue"
+                          onClick={() => {
+                            if (checkObservacoes(i)) {
+                              new Format_Laudo(
+                                exame.nomeExame
+                              ).Remove_Observacao(i);
+
+                              setItems((prevItems) => ({
+                                ...prevItems,
+                                values: prevItems.values.map((value) =>
+                                  value !== i ? value : ""
+                                ),
+                              }));
+                            } else {
+                              setItems((prevItems) => {
+                                if (prevItems.id === exame.nomeExame) {
+                                  const newValues = [...prevItems.values, i];
+                                  const updatedItem = Object.assign(
+                                    {},
+                                    prevItems,
+                                    { values: newValues }
+                                  );
+                                  return updatedItem;
+                                }
+                                return prevItems;
+                              });
                             }
-                            variant="link"
-                            marginEnd="5px"
-                            textColor="blue"
-                            onClick={() => {
-                              if (checkObservacoes(i)) {
-                                new Format_Laudo(
-                                  exame.nomeExame
-                                ).Remove_Observacao(i);
-
-                                setItems((prevItems) => ({
-                                  ...prevItems,
-                                  values: prevItems.values.map((value) =>
-                                    value !== i ? value : ""
-                                  ),
-                                }));
-                              } else {
-                                setItems((prevItems) => {
-                                  if (prevItems.id === exame.nomeExame) {
-                                    const newValues = [...prevItems.values, i];
-                                    const updatedItem = Object.assign(
-                                      {},
-                                      prevItems,
-                                      { values: newValues }
-                                    );
-                                    return updatedItem;
-                                  }
-                                  return prevItems;
-                                });
-                              }
-                            }}
-                          />
-                        </Flex>
-                      </Tooltip>
-                    </HStack>
-                  );
-                });
-              }
-              return output;
-            })
+                          }}
+                        />
+                      </Flex>
+                    </Tooltip>
+                  </HStack>
+                );
+              });
+            }
+            return output;
+          })
           : null}
       </Box>
     );

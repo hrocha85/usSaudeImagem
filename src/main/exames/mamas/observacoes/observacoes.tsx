@@ -100,7 +100,7 @@ function Observacoes() {
       mt="20px"
     >
       <Box mb="20px">
-        <TituloNomeExame titulo="Observacoes" />
+        {/* <TituloNomeExame titulo="Observacoes" /> */}
 
         <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
           <Checkbox
@@ -111,7 +111,7 @@ function Observacoes() {
           >
             Sem exame anterior para comparação
           </Checkbox>
-          <Box display="flex" flexWrap="wrap">
+          {/* <Box display="flex" flexWrap="wrap">
             <Checkbox
               onChange={(e) => {
                 setCheckboxNaoObservado(!checkboxNaoObservado);
@@ -133,7 +133,7 @@ function Observacoes() {
               <option value="mama direita">Mama direita</option>
               <option value="mama esquerda">Mama esquerda</option>
             </Select>
-          </Box>
+          </Box> */}
         </Box>
       </Box>
     </Box>

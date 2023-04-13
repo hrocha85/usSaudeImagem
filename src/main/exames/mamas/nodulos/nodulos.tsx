@@ -18,7 +18,7 @@ function Calculo() {
   const altura = "100%";
   const largura = "66%";
 
-  const [frasesNodulos, setFrasesNodulos] = useState<any>([]);
+  const [FrasesNodulos, setFrasesNodulos] = useState<any>([]);
 
   var numberArray = [1, 2, 3, 4, 5, 6];
 
@@ -36,10 +36,14 @@ function Calculo() {
   const [IndistintaCheckbox, setIndistintaCheckbox] = useState(false);
   const [EspiculadaCheckbox, setEspiculadaCheckbox] = useState(false);
 
+
+  const [checkboxNaoObservado, setCheckboxNaoObservado] = useState(false);
+  const [valueSelectNaoObservado, setValueSelectNaoObservado] = useState("");
+
   const removeItemString = (value) => {
-    var index = frasesNodulos.indexOf(value);
+    var index = FrasesNodulos.indexOf(value);
     if (index > -1) {
-      frasesNodulos.splice(index, 1);
+      FrasesNodulos.splice(index, 1);
       setFrasesNodulos((arr) => [...arr]);
     }
   };
@@ -220,12 +224,12 @@ function Calculo() {
   };
 
   const removeMultiplosNodulosMamaDireita = () => {
-    frasesNodulos.map((e) => {
+    FrasesNodulos.map((e) => {
       if (e.includes(`Múltiplos nodulos na mama direita`)) {
-        var index = frasesNodulos.indexOf(e);
+        var index = FrasesNodulos.indexOf(e);
 
         if (index > -1) {
-          frasesNodulos.splice(index, 1);
+          FrasesNodulos.splice(index, 1);
           setFrasesNodulos((arr) => [...arr]);
         }
       }
@@ -315,12 +319,12 @@ function Calculo() {
   };
 
   const removeMultiplosNodulosMamaEsquerda = () => {
-    frasesNodulos.map((e) => {
+    FrasesNodulos.map((e) => {
       if (e.includes(`Múltiplos nodulos na mama Esquerda`)) {
-        var index = frasesNodulos.indexOf(e);
+        var index = FrasesNodulos.indexOf(e);
 
         if (index > -1) {
-          frasesNodulos.splice(index, 1);
+          FrasesNodulos.splice(index, 1);
           setFrasesNodulos((arr) => [...arr]);
         }
       }
@@ -372,26 +376,54 @@ function Calculo() {
     tamanhoNoduloMamaEsquerdaInput,
   ]);
 
+  const criaStringNaoObservado = () => {
+    removeFraseNaoObservado();
+    if (checkboxNaoObservado) {
+      if (valueSelectNaoObservado !== "") {
+        let string = `Não foi visibilizado o nódulo na ${valueSelectNaoObservado} descrito no exame anterior. Sugerimos controle ultra-sonográfico.`;
+        setFrasesNodulos((arr) => [...arr, string]);
+      }
+    } else {
+      setValueSelectNaoObservado("");
+    }
+  };
+  const removeFraseNaoObservado = () => {
+    FrasesNodulos.map((e) => {
+      if (e.includes("Não foi visibilizado o nódulo")) {
+        let index = FrasesNodulos.indexOf(e);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+        if (index > -1) {
+          FrasesNodulos.splice(index, 1);
+          setFrasesNodulos((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    criaStringNaoObservado();
+  }, [valueSelectNaoObservado, checkboxNaoObservado]);
+
   const subExame = "Nódulos";
   const titulo_exame = "Mamas";
 
   useEffect(() => {
-    if (Object.keys(frasesNodulos).length == 0) {
+    if (Object.keys(FrasesNodulos).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        frasesNodulos
+        FrasesNodulos
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesNodulos
+        FrasesNodulos
       ).Format_Laudo_Create_Storage();
     }
-  }, [frasesNodulos]);
+  }, [FrasesNodulos]);
 
   return (
     <Box
@@ -518,6 +550,30 @@ function Calculo() {
             Espiculada
           </Checkbox>
         </Stack>
+
+        <Box display="flex" flexWrap="wrap">
+          <Checkbox
+            onChange={(e) => {
+              setCheckboxNaoObservado(!checkboxNaoObservado);
+            }}
+          >
+            Não observado nódulo descrito em exame anterior.
+          </Checkbox>
+          <Select
+            w="150px"
+            isDisabled={!checkboxNaoObservado}
+            onChange={(e) => {
+              setValueSelectNaoObservado(e.target.value);
+            }}
+            value={valueSelectNaoObservado}
+          >
+            <option value="" disabled selected>
+              Selecione
+            </option>
+            <option value="mama direita">Mama direita</option>
+            <option value="mama esquerda">Mama esquerda</option>
+          </Select>
+        </Box>
 
       </Box>
       <Box borderBottom="1px">
