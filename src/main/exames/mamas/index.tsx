@@ -1,4 +1,4 @@
-import { Box, Text, Radio, RadioGroup, Stack } from "@chakra-ui/react";
+import { Box, Text, Radio, RadioGroup, Stack, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 
 import Abscesso from "./abscesso/abscesso";
@@ -54,18 +54,10 @@ function Mamas() {
 
   return (
     <>
-      <Box ml="10px">
+      <Box ml="10px" rowGap='20px' >
 
-        <Box display='flex' flexWrap='wrap' gap='15px'>
-          <Simetria />
-          <Assimetria />
-          <Extra1 />
-          <Extra2 />
-          <Microcalcificacoes />
-          <OutrasPatologicas />
-          <Extra3 />
-        </Box >
 
+        <Microcalcificacoes />
         <Nodulo />
         <Cistos />
 
@@ -100,20 +92,29 @@ function Mamas() {
 
         <Implantes />
 
-        <Observacoes />
-
         <Birads />
 
         <Abscesso />
 
-
-
         <Extra />
 
         <Extra4 />
-        <Conclusoes />
+
+        <Simetria />
+
+        <Extra1 />
+
+        <Extra2 />
+
+
+        <OutrasPatologicas />
+
         <Obs />
-      </Box>
+        <Extra3 />
+
+        {/* <Observacoes /> */}
+        <Conclusoes />
+      </Box >
     </>
   );
 }

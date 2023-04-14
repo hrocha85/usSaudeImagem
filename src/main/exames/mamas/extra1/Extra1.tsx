@@ -77,6 +77,7 @@ function Extra1() {
       borderRadius="10.85px"
       boxShadow="md"
       padding="24px 15px 10px 15px"
+      mt='20px'
     >
       <Box gap="10px" display="flex" flexWrap="wrap" mb="10px">
         <Checkbox
