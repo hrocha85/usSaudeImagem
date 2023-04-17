@@ -594,7 +594,7 @@ function Calculo() {
             w="60px"
             h="77x"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => {
               setTamanhoNoduloMamaDireitaInput(e.target.value);
@@ -608,7 +608,7 @@ function Calculo() {
             w="60px"
             h="77x"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => {
               setTamanho2NoduloMamaDireitaInput(e.target.value);
@@ -650,7 +650,7 @@ function Calculo() {
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setDistanciaMamiloMamaDireitaInput(e.target.value);
@@ -664,7 +664,7 @@ function Calculo() {
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setDistanciaPeleMamaDireitaInput(e.target.value);
@@ -787,7 +787,7 @@ function Calculo() {
             w="60px"
             h="77x"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => {
               setTamanhoNoduloMamaEsquerdaInput(e.target.value);
@@ -801,7 +801,7 @@ function Calculo() {
             w="60px"
             h="77x"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => {
               setTamanho2NoduloMamaEsquerdaInput(e.target.value);
@@ -843,7 +843,7 @@ function Calculo() {
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setDistanciaMamiloMamaEsquerdaInput(e.target.value);
@@ -857,7 +857,7 @@ function Calculo() {
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setDistanciaPeleMamaEsquerdaInput(e.target.value);

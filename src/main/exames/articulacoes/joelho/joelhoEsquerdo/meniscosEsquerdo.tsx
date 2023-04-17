@@ -530,7 +530,7 @@ function MeniscosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setUltrapassandoMargemLateralInput(e.target.value) }}
             />
@@ -569,7 +569,7 @@ function MeniscosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setUltrapassandoMargemMedialInput(e.target.value) }}
             />

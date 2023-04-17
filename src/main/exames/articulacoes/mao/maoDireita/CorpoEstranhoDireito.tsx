@@ -162,7 +162,7 @@ function CorpoEstranhoDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setCorpoInput(e.target.value) }}
                         />

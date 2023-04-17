@@ -138,7 +138,7 @@ function HerniaUmbilical({ Disable }) {
               h="30px"
               value={medida1SacoHerniaco}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida1SacoHerniaco(e.target.value);
@@ -151,7 +151,7 @@ function HerniaUmbilical({ Disable }) {
               h="30px"
               value={medida2SacoHerniaco}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida2SacoHerniaco(e.target.value);
@@ -166,7 +166,7 @@ function HerniaUmbilical({ Disable }) {
               w="35px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedidaColo(e.target.value);

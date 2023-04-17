@@ -136,7 +136,7 @@ function ArteriaSegmentarEsquerda() {
           w="45px"
           h="30px"
           padding="5px"
-          maxLength={2}
+          
           textAlign="center"
           onChange={(e) => {
             setPVSSegmentarInput(e.target.value);
@@ -154,7 +154,7 @@ function ArteriaSegmentarEsquerda() {
           w="45px"
           h="30px"
           padding="5px"
-          maxLength={2}
+          
           textAlign="center"
           onChange={(e) => {
             setAceleracaoInput(e.target.value);

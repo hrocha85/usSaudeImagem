@@ -186,7 +186,7 @@ function PunhoCistosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setFaceDorsalInput(e.target.value) }}
             />
@@ -197,7 +197,7 @@ function PunhoCistosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setFaceDorsalInput2(e.target.value) }}
             />
@@ -208,7 +208,7 @@ function PunhoCistosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setFaceDorsalInput3(e.target.value) }}
             />
@@ -253,7 +253,7 @@ function PunhoCistosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setFaceVolarInput(e.target.value) }}
             />
@@ -264,7 +264,7 @@ function PunhoCistosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setFaceVolarInput2(e.target.value) }}
             />
@@ -275,7 +275,7 @@ function PunhoCistosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setFaceVolarInput3(e.target.value) }}
             />

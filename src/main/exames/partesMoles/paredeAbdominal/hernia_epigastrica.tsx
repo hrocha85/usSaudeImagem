@@ -144,7 +144,7 @@ function Hernia_Epigastrica({ Disable }) {
               h="30px"
               value={medida1SacoHerniaco}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida1SacoHerniaco(e.target.value);
@@ -157,7 +157,7 @@ function Hernia_Epigastrica({ Disable }) {
               h="30px"
               value={medida2SacoHerniaco}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida2SacoHerniaco(e.target.value);
@@ -172,7 +172,7 @@ function Hernia_Epigastrica({ Disable }) {
               w="35px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedidaColo(e.target.value);
@@ -189,7 +189,7 @@ function Hernia_Epigastrica({ Disable }) {
               h="30px"
               marginEnd="10px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedidaXifoide(e.target.value);

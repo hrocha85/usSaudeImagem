@@ -242,7 +242,7 @@ function Diastase_Musculo_Reto({ Disable }) {
               h="30px"
               marginEnd="10px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedidaAfastamento(e.target.value);

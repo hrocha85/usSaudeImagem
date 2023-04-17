@@ -160,7 +160,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
         w="60px"
         h="77x"
         padding="5px"
-        maxLength={2}
+        
         textAlign="center"
         onChange={(e) => {
           setTamanhoNoduloInput(e.target.value);
@@ -174,7 +174,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
         w="60px"
         h="77x"
         padding="5px"
-        maxLength={2}
+        
         textAlign="center"
         onChange={(e) => {
           setTamanho2NoduloInput(e.target.value);
@@ -228,7 +228,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
           w="60px"
           h="77x"
           padding="5px"
-          maxLength={2}
+          
           textAlign="center"
           onChange={(e) => {
             setDistanciaMamiloInput(e.target.value);
@@ -242,7 +242,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
           w="60px"
           h="77x"
           padding="5px"
-          maxLength={2}
+          
           textAlign="center"
           onChange={(e) => {
             setDistanciaPeleInput(e.target.value);

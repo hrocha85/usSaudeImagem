@@ -353,7 +353,7 @@ function CalculoProstata() {
             Dimensões Prostata
           </Checkbox>
           <Input
-            maxLength={2}
+            
             isDisabled={disableProstataInput1}
             w="35px"
             h="30px"
@@ -366,7 +366,7 @@ function CalculoProstata() {
           />
           <Text>x</Text>
           <Input
-            maxLength={2}
+            
             isDisabled={disableProstataInput1}
             w="35px"
             h="30px"
@@ -379,7 +379,7 @@ function CalculoProstata() {
           />
           <Text>x</Text>
           <Input
-            maxLength={2}
+            
             isDisabled={disableProstataInput1}
             w="35px"
             h="30px"

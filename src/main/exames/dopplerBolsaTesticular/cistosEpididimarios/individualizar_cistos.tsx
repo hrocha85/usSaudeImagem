@@ -118,7 +118,7 @@ export default function IndividualizarCistos({ numCisto, disable }) {
           w="60px"
           h="77x"
           padding="5px"
-          maxLength={2}
+          
           textAlign="center"
           onChange={(e) => settamanhoCistoInput(e.target.value)}
           placeholder={"mm"}

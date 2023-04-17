@@ -335,7 +335,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setInputMedindoTendinopatiaSemRotura(e.target.value) }}
           />
@@ -358,7 +358,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput(e.target.value) }}
             />
@@ -369,7 +369,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput2(e.target.value) }}
             />
@@ -380,7 +380,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput3(e.target.value) }}
             />
@@ -419,7 +419,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setInputMedindoRoturaCompleta(e.target.value) }}
           />
@@ -439,7 +439,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setInputRetracaoRoturaCompleta(e.target.value) }}
           />

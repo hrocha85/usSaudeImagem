@@ -299,7 +299,7 @@ function TendaoPatelarDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setLesaoParcialInput(e.target.value) }}
             />
@@ -310,7 +310,7 @@ function TendaoPatelarDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setLesaoParcialInput2(e.target.value) }}
             />
@@ -321,7 +321,7 @@ function TendaoPatelarDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setLesaoParcialInput3(e.target.value) }}
             />
@@ -365,7 +365,7 @@ function TendaoPatelarDireito({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setInputMedindoPresencaEntesofito(e.target.value) }}
           />

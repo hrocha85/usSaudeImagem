@@ -402,7 +402,7 @@ const FieldDefaultIcon = ({
                         variant={focusEdit}
                         borderStartRadius={"md"}
                         borderEndRadius={"md"}
-                        maxLength={15}
+                        
                         fontWeight={"bold"}
                         textColor={"black"}
                         onChange={(e) => {
@@ -431,7 +431,7 @@ const FieldDefaultIcon = ({
                         borderEndRadius={"md"}
                         fontWeight={"bold"}
                         textColor={"black"}
-                        maxLength={9}
+                        
                         onChange={(e) => {
                           setUpdateCEP(e.target.value);
                           setCep(e.target.value);

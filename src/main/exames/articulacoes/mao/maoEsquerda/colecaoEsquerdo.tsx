@@ -163,7 +163,7 @@ function ColecaoEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setAlteracaoInput(e.target.value) }}
             />
@@ -174,7 +174,7 @@ function ColecaoEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setAlteracaoInput2(e.target.value) }}
             />
@@ -185,7 +185,7 @@ function ColecaoEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => { setAlteracaoInput3(e.target.value) }}
             />

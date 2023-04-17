@@ -221,7 +221,7 @@ function HerniaSupraUmbilical({ Disable }) {
               h="30px"
               value={medida1AnelHerniaco}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida1AnelHerniaco(e.target.value);
@@ -234,7 +234,7 @@ function HerniaSupraUmbilical({ Disable }) {
               h="30px"
               value={medida2AnelHerniaco}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida2AnelHerniaco(e.target.value);
@@ -257,7 +257,7 @@ function HerniaSupraUmbilical({ Disable }) {
               h="30px"
               value={medida1SacoHerniaco}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida1SacoHerniaco(e.target.value);
@@ -270,7 +270,7 @@ function HerniaSupraUmbilical({ Disable }) {
               h="30px"
               value={medida2SacoHerniaco}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida2SacoHerniaco(e.target.value);
@@ -286,7 +286,7 @@ function HerniaSupraUmbilical({ Disable }) {
               h="30px"
               value={medida3Distancia}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida3Distancia(e.target.value);

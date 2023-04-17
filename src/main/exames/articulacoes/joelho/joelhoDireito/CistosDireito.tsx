@@ -202,7 +202,7 @@ function CistosDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setCistosBakerInput(e.target.value) }}
                         />
@@ -213,7 +213,7 @@ function CistosDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setCistosBakerInput2(e.target.value) }}
                         />
@@ -224,7 +224,7 @@ function CistosDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setCistosBakerInput3(e.target.value) }}
                         />
@@ -286,7 +286,7 @@ function CistosDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setCistosParameniscalInput(e.target.value) }}
                         />
@@ -297,7 +297,7 @@ function CistosDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setCistosParameniscalInput2(e.target.value) }}
                         />
@@ -308,7 +308,7 @@ function CistosDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setCistosParameniscalInput3(e.target.value) }}
                         />

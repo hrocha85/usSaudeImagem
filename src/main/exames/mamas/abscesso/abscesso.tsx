@@ -171,7 +171,7 @@ function Abscesso() {
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setValueInputTamanhoAbscessoPresente(e.target.value);
@@ -185,7 +185,7 @@ function Abscesso() {
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setValueInputTamanho2AbscessoPresente(e.target.value);

@@ -178,7 +178,7 @@ function HerniaIncisional({ Disable }) {
               h="30px"
               value={medida1Nodulo}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida1Nodulo(e.target.value);
@@ -191,7 +191,7 @@ function HerniaIncisional({ Disable }) {
               h="30px"
               value={medida2Nodulo}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida2Nodulo(e.target.value);

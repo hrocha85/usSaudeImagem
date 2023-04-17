@@ -227,7 +227,7 @@ function TenComumExtensoresAntebracoEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setRoturaParcialInput(e.target.value) }}
                         />
@@ -238,7 +238,7 @@ function TenComumExtensoresAntebracoEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setRoturaParcialInput2(e.target.value) }}
                         />
@@ -249,7 +249,7 @@ function TenComumExtensoresAntebracoEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setRoturaParcialInput3(e.target.value) }}
                         />

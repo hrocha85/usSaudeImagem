@@ -154,7 +154,7 @@ function Colecao({ Disable }) {
                 h="30px"
                 value={medida1Colecao}
                 padding="5px"
-                maxLength={2}
+                
                 textAlign="center"
                 onChange={(e) => {
                   setMedida1Colecao(e.target.value);
@@ -167,7 +167,7 @@ function Colecao({ Disable }) {
                 h="30px"
                 value={medida2Colecao}
                 padding="5px"
-                maxLength={2}
+                
                 textAlign="center"
                 onChange={(e) => {
                   setMedida2Colecao(e.target.value);
@@ -180,7 +180,7 @@ function Colecao({ Disable }) {
                 h="30px"
                 value={medida3Colecao}
                 padding="5px"
-                maxLength={2}
+                
                 textAlign="center"
                 onChange={(e) => {
                   setMedida3Colecao(e.target.value);

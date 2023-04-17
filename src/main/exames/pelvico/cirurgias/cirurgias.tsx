@@ -182,7 +182,7 @@ function Cirurgias({ Disable }) {
                   w="35px"
                   h="30px"
                   padding="5px"
-                  maxLength={2}
+                  
                   textAlign="center"
                   onChange={(e) => setmedidaHisterectomia1(e.target.value)}
                 />
@@ -193,7 +193,7 @@ function Cirurgias({ Disable }) {
                   w="35px"
                   h="30px"
                   padding="5px"
-                  maxLength={2}
+                  
                   textAlign="center"
                   onChange={(e) => setmedidaHisterectomia2(e.target.value)}
                 />
@@ -204,7 +204,7 @@ function Cirurgias({ Disable }) {
                   w="35px"
                   h="30px"
                   padding="5px"
-                  maxLength={2}
+                  
                   textAlign="center"
                   onChange={(e) => setmedidaHisterectomia3(e.target.value)}
                 />
