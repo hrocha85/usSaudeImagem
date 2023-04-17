@@ -332,8 +332,7 @@ export default function Format_PDF() {
                       <Text>{clinicaSet.nomeClinica}</Text>
                       <Text>{getPaciente()}</Text>
                       <Text>{getCurrentDate()}</Text>
-                      <Text>{`Médico Solicitante: Dr. ${getMedicoSolicitante()}`}</Text>
-                      <Text>{`Dr. ${medico.nome}`}</Text>
+                      <Text>{`Dr. ${getMedicoSolicitante()}`}</Text>
                     </View>
                   </View>
                   <View style={styles.line}></View>

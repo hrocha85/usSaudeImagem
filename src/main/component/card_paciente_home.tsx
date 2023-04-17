@@ -10,8 +10,12 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
+import React from "react";
+
+import CreatableSelect from "react-select/creatable";
+import Medicos_Solicitantes from "../../Data/Medicos_Solicitantes.json";
 
 const CardPaciente = ({ altura }) => {
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
@@ -49,9 +53,6 @@ const CardPaciente = ({ altura }) => {
   const handleNomePacienteInput = (event) => {
     setNomePaciente(event.target.value);
   };
-  const handleMedicoSolicitanteInput = (event) => {
-    setMedicoSolicitante(event.target.value);
-  };
 
   const handleIdadePacienteInput = (event) => {
     setIdadePaciente(event.target.value);
@@ -59,6 +60,16 @@ const CardPaciente = ({ altura }) => {
 
   const handleSexoPacienteInput = (event) => {
     setSexoPaciente(event.target.value);
+  };
+
+  const handleSelectChange = (selectedOption) => {
+    if (!selectedOption.value) return;
+
+    setMedicoSolicitante(
+      selectedOption.value != "" && selectedOption.value != null
+        ? selectedOption.value
+        : null
+    );
   };
 
   const addPaciente = () => {
@@ -72,6 +83,22 @@ const CardPaciente = ({ altura }) => {
     localStorage.setItem("paciente", JSON.stringify(pacienteProps));
   };
 
+  const addMedicosSolicitantes = () => {
+    let medicos_solicitantes =
+      JSON.parse(localStorage.getItem("medicos_solicitantes")!) || [];
+
+    const index = medicos_solicitantes.findIndex((medico) => {
+      return medico === medico_solicitante;
+    });
+
+    if (index === -1) {
+      medicos_solicitantes.push(medico_solicitante);
+      localStorage.setItem(
+        "medicos_solicitantes",
+        JSON.stringify(medicos_solicitantes)
+      );
+    }
+  };
   const resetDados = () => {
     setNomePaciente("");
     setIdadePaciente("");
@@ -82,7 +109,6 @@ const CardPaciente = ({ altura }) => {
   };
 
   const checkDisable = () => {
-    console.log(isDisable);
     if (
       nomePaciente != "" &&
       idadePaciente != "" &&
@@ -94,6 +120,21 @@ const CardPaciente = ({ altura }) => {
       setisDisable(true);
     }
   };
+
+  let options: Array<{ value: string; label: string }> = [];
+
+  const storedMedicos = localStorage.getItem("medicos_solicitantes");
+
+  if (storedMedicos) {
+    const parsedMedicos = JSON.parse(storedMedicos);
+
+    options = parsedMedicos.map((medico) => ({
+      value: medico,
+      label: medico,
+    }));
+  } else {
+    options = [{ value: "", label: "Insira um médico solicitante" }];
+  }
 
   useEffect(() => {
     getPaciente();
@@ -159,18 +200,24 @@ const CardPaciente = ({ altura }) => {
             </HStack>
 
             <HStack display="flex" margin="20px" justify="center">
-              <Input
-                textAlign="center"
-                borderColor="black"
-                placeholder="Médico Solicitante"
-                value={medico_solicitante}
-                size="sm"
-                h="40px"
-                w="250px"
-                borderRadius="md"
-                onChange={handleMedicoSolicitanteInput}
+              <CreatableSelect
+                isClearable={true}
+                onChange={handleSelectChange}
+                onCreateOption={(inputValue: string) => {
+                  setMedicoSolicitante(inputValue);
+                }}
+                options={options}
+                value={{
+                  value:
+                    medico_solicitante != null && medico_solicitante != ""
+                      ? medico_solicitante
+                      : null,
+                  label:
+                    medico_solicitante != null && medico_solicitante != ""
+                      ? medico_solicitante
+                      : "Insira Médico Solicitante",
+                }}
               />
-
               <Wrap>
                 <WrapItem>
                   <Button
@@ -179,6 +226,7 @@ const CardPaciente = ({ altura }) => {
                     padding="20px"
                     onClick={() => {
                       addPaciente();
+                      addMedicosSolicitantes();
 
                       setTimeout(() => {
                         toast({

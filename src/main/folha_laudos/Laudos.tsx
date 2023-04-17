@@ -316,8 +316,7 @@ function Exames() {
                   <TextPDF>{clinicaSet.nomeClinica}</TextPDF>
                   <TextPDF>{getPaciente()}</TextPDF>
                   <TextPDF>{getCurrentDate()}</TextPDF>
-                  <TextPDF>{`Médico Solicitante: Dr. ${getMedicoSolicitante()}`}</TextPDF>
-                  <TextPDF>{`Dr. ${medico.nome}`}</TextPDF>
+                  <TextPDF>{`Dr. ${getMedicoSolicitante()}`}</TextPDF>
                 </ViewPDF>
               </ViewPDF>
               <ViewPDF style={styles.line}></ViewPDF>
@@ -339,7 +338,9 @@ function Exames() {
                   </ViewPDF>
                 ) : null}
 
-                {exame.conclusoes != null && exame.conclusoes != undefined ? (
+                {exame.conclusoes != null &&
+                exame.conclusoes != undefined &&
+                exame.conclusoes.lenght > 1 ? (
                   <ViewPDF style={styles.viewConclusoes}>
                     <ViewPDF style={styles.lineConclusoes} break={true} />
                     <TextPDF style={styles.textConclusao}>
@@ -348,9 +349,7 @@ function Exames() {
                     <ViewPDF>{renderConclusoes(exame)}</ViewPDF>
                     <ViewPDF style={styles.lineConclusoes} />
                   </ViewPDF>
-                ) : (
-                  <Text>ss</Text>
-                )}
+                ) : null}
               </ViewPDF>
 
               <ViewPDF style={styles.pageNumber}>
@@ -960,8 +959,7 @@ function Exames() {
             <Text fontWeight="bold">{clinicaSet.nomeClinica}</Text>
             <Text>{getPaciente()}</Text>
             <Text>{getCurrentDate()}</Text>
-            <Text>{`Médico Solicitante: Dr. ${getMedicoSolicitante()}`}</Text>
-            <Text>{`Dr. ${medico.nome}`}</Text>
+            <Text>{`Dr. ${getMedicoSolicitante()}`}</Text>
           </Grid>
         </Grid>
         <Center>
