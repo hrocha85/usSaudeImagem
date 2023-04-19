@@ -323,28 +323,27 @@ const ItemObservation = () => {
       <>
         {observacoes_localStorage != null
           ? observacoes_localStorage.map((e) => {
-              if (e.id == id) {
-                return e.observacao.map((item, key) => {
-                  return (
-                    <HStack>
-                      <Box
-                        w="98%"
-                        key={key}
-                        margin="20px"
-                        textAlign="center"
-                      >
-                        <Flex justify="end">
-                          <IconButton
-                            justifyContent="flex-end"
-                            aria-label="Remove Item"
-                            icon={<GrSubtractCircle size={30} />}
-                            variant="link"
-                            marginEnd="5px"
-                            textColor="blue"
-                            onClick={() => Apagar_Observacao(item)}
-                          />
-                        </Flex>
-                      </Tooltip>
+            if (e.id == id) {
+              return e.observacao.map((item, key) => {
+                return (
+                  <HStack>
+                    <Box
+                      w="98%"
+                      key={key}
+                      margin="20px"
+                      textAlign="center"
+                    >
+                      <Flex justify="end">
+                        <IconButton
+                          justifyContent="flex-end"
+                          aria-label="Remove Item"
+                          icon={<GrSubtractCircle size={30} />}
+                          variant="link"
+                          marginEnd="5px"
+                          textColor="blue"
+                          onClick={() => Apagar_Observacao(item)}
+                        />
+                      </Flex>
                     </Box>
                   </HStack>
                 );

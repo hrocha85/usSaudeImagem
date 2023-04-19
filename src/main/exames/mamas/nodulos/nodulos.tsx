@@ -239,20 +239,6 @@ function Calculo() {
             placeholder={"cm"}
           />
           <Text alignSelf="center">x</Text>
-          <Input
-            isDisabled={DisableSelectMamaEsquerda}
-            value={tamanho2NoduloMamaEsquerdaInput}
-            w="60px"
-            h="77x"
-            padding="5px"
-            
-            textAlign="center"
-            onChange={(e) => {
-              setTamanho2NoduloMamaEsquerdaInput(e.target.value);
-            }}
-            placeholder={"cm"}
-          />
-
           <Select
             w="auto"
             isDisabled={!multiplosNoduloMamaCheckBox}
