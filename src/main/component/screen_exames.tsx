@@ -47,6 +47,7 @@ import BGImage from "../images/bg_img.png";
 import Sidebar from "../menu/sideBar";
 import Conclusoes from "./conclusoes";
 import Field_Observacoes from "./field_observacoes";
+import Axila from "../exames/axila";
 
 export default function Box_Default_With_Sidebar() {
   const {
@@ -161,6 +162,27 @@ export default function Box_Default_With_Sidebar() {
         "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos.",
       ],
     },
+    {
+      key: 20,
+      nomeExame: "Axila",
+      link: `#/Home/${25}`,
+      observacao: [
+        "Exames anteriores não disponíveis para estudo comparativo.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos."
+      ],
+    },
+    // {
+    //   key: 20,
+    //   nomeExame: "Doppler Testículo",
+    //   link: `#/Home/${20}`,
+    //   observacao: [
+    //     "Conviria controle ecográfico periódico, a critério clínico.",
+    //     "Estaremos à disposição para a discussão do presente caso.",
+    //     "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+    //   ],
+    // },
+
   ];
 
   const handleSliderChange = (event) => {
@@ -399,6 +421,8 @@ export default function Box_Default_With_Sidebar() {
                         17: <Prostata />,
                         18: <Articulacoes />,
                         19: <Regiao_Inguinal />,
+                        20: <Axila />,
+
                       }[e.key]
                     }
                   </TabPanel>

@@ -2,6 +2,7 @@
 /* eslint-disable array-callback-return */
 import {
   Box,
+  Button,
   Checkbox,
   HStack,
   Input,
@@ -19,26 +20,29 @@ function Calculo() {
   const largura = "66%";
 
   const [FrasesNodulos, setFrasesNodulos] = useState<any>([]);
+  const [UpdateNodulos, setUpdateNodulos] = useState(false);
 
-  var numberArray = [1, 2, 3, 4, 5, 6];
+  const [numberArray, setNumberArray] = useState([1]);
 
+  function Nodulos() {
+    return (
+      <>
+        {numberArray.map((num, key) => {
+          return <IndividualizarNodulos key={key} numNodulo={num} />;
+        })}
+      </>
+    );
+  }
+
+  useEffect(() => {
+    if (UpdateNodulos) {
+      setUpdateNodulos(false);
+      setNumberArray([...numberArray, numberArray.length + 1]);
+      Nodulos();
+    }
+  }, [UpdateNodulos]);
 
   const [AusenciaNodulosCheckbox, setAusenciaNodulosCheckbox] = useState(false);
-  const [PresencaNodulosCheckboxHiperdenso, setPresencaNodulosCheckboxHiperdenso] = useState(false);
-  const [PresencaNodulosCheckboxIsodenso, setPresencaNodulosCheckboxIsodenso] = useState(false);
-  const [PresencaNodulosCheckboxHipodenso, setPresencaNodulosCheckboxHipodenso] = useState(false);
-  const [GorduraOvalCheckbox, setGorduraOvalCheckbox] = useState(false);
-  const [GorduraRedondaCheckbox, setGorduraRedondaCheckbox] = useState(false);
-  const [GorduraIrregularCheckbox, setGorduraIrregularCheckbox] = useState(false);
-  const [MargensCircunscritasCheckbox, setMargensCircunscritasCheckbox] = useState(false);
-  const [ObscurecidasCheckbox, setObscurecidasCheckbox] = useState(false);
-  const [MicrolobuladaCheckbox, setMicrolobuladaCheckbox] = useState(false);
-  const [IndistintaCheckbox, setIndistintaCheckbox] = useState(false);
-  const [EspiculadaCheckbox, setEspiculadaCheckbox] = useState(false);
-
-
-  const [checkboxNaoObservado, setCheckboxNaoObservado] = useState(false);
-  const [valueSelectNaoObservado, setValueSelectNaoObservado] = useState("");
 
   const removeItemString = (value) => {
     var index = FrasesNodulos.indexOf(value);
@@ -53,345 +57,72 @@ function Calculo() {
     AusenciaNodulosCheckbox ? setFrasesNodulos((arr) => [...arr, string]) : removeItemString(string)
   }, [AusenciaNodulosCheckbox])
 
-  useEffect(() => {
-    const string = 'Presença de Nódulo hiperdenso.'
-    PresencaNodulosCheckboxHiperdenso ? setFrasesNodulos((arr) => [...arr, string]) : removeItemString(string)
-  }, [PresencaNodulosCheckboxHiperdenso])
 
-  useEffect(() => {
-    const string = 'Presença de Nódulo isodenso.'
-    PresencaNodulosCheckboxIsodenso ? setFrasesNodulos((arr) => [...arr, string]) : removeItemString(string)
-  }, [PresencaNodulosCheckboxIsodenso])
-
-  useEffect(() => {
-    const string = 'Presença de Nódulo hipodenso.'
-    PresencaNodulosCheckboxHipodenso ? setFrasesNodulos((arr) => [...arr, string]) : removeItemString(string)
-  }, [PresencaNodulosCheckboxHipodenso])
-
-  useEffect(() => {
-    const string = 'contendo gordura oval.'
-    GorduraOvalCheckbox ? setFrasesNodulos((arr) => [...arr, string]) : removeItemString(string)
-  }, [GorduraOvalCheckbox])
-
-  useEffect(() => {
-    const string = 'contendo gordura redondo.'
-    GorduraRedondaCheckbox ? setFrasesNodulos((arr) => [...arr, string]) : removeItemString(string)
-  }, [GorduraRedondaCheckbox])
-
-  useEffect(() => {
-    const string = 'contendo gordura irregular.'
-    GorduraIrregularCheckbox ? setFrasesNodulos((arr) => [...arr, string]) : removeItemString(string)
-  }, [GorduraIrregularCheckbox])
-
-  useEffect(() => {
-    const string = 'margens circunscritas.'
-    MargensCircunscritasCheckbox ? setFrasesNodulos((arr) => [...arr, string]) : removeItemString(string)
-  }, [MargensCircunscritasCheckbox])
-
-  useEffect(() => {
-    const string = 'obscurecidas.'
-    ObscurecidasCheckbox ? setFrasesNodulos((arr) => [...arr, string]) : removeItemString(string)
-  }, [ObscurecidasCheckbox])
-
-  useEffect(() => {
-    const string = 'microlobulada.'
-    MicrolobuladaCheckbox ? setFrasesNodulos((arr) => [...arr, string]) : removeItemString(string)
-  }, [MicrolobuladaCheckbox])
-
-  useEffect(() => {
-    const string = 'indistinta.'
-    IndistintaCheckbox ? setFrasesNodulos((arr) => [...arr, string]) : removeItemString(string)
-  }, [IndistintaCheckbox])
-
-  useEffect(() => {
-    const string = 'espiculada.'
-    EspiculadaCheckbox ? setFrasesNodulos((arr) => [...arr, string]) : removeItemString(string)
-  }, [EspiculadaCheckbox])
-
-  const [tamanhoNoduloMamaDireitaInput, setTamanhoNoduloMamaDireitaInput] =
-    useState("");
-  const [tamanho2NoduloMamaDireitaInput, setTamanho2NoduloMamaDireitaInput] =
-    useState("");
+  const [tamanhoNoduloMamaInput, setTamanhoNoduloMamaInput] = useState("");
   const [
-    localizacaoNoduloMamaDireitaSelect,
-    setLocalizacaoNoduloMamaDireitaSelect,
+    localizacaoNoduloMamaSelect,
+    setLocalizacaoNoduloMamaSelect,
   ] = useState("");
-  const [distanciaMamiloMamaDireitaInput, setDistanciaMamiloMamaDireitaInput] =
+  const [distanciaMamiloMamaInput, setDistanciaMamiloMamaInput] =
     useState("");
-  const [distanciaPeleMamaDireitaInput, setDistanciaPeleMamaDireitaInput] =
+  const [distanciaPeleMamaInput, setDistanciaPeleMamaInput] =
     useState("");
-  const [formaNoduloMamaDireitaSelect, setFormaNoduloMamaDireitaSelect] =
+  const [formaNoduloMamaSelect, setFormaNoduloMamaSelect] =
     useState("");
-  const [margensNoduloMamaDireitaSelect, setMargensNoduloMamaDireitaSelect] =
+  const [margensNoduloMamaSelect, setMargensNoduloMamaSelect] =
     useState("");
-  const [limitesNoduloMamaDireitaSelect, setLimitesNoduloMamaDireitaSelect] =
+  const [limitesNoduloMamaSelect, setLimitesNoduloMamaSelect] =
     useState("");
-  const [
-    ecogenicidadeNoduloMamaDireitaSelect,
-    setEcogenicidadeNoduloMamaDireitaSelect,
-  ] = useState("");
-  const [
-    orientacaoNoduloMamaDireitaSelect,
-    setOrientacaoNoduloMamaDireitaSelect,
-  ] = useState("");
-  const [
-    efeitoAcusticoNoduloMamaDireitaSelect,
-    setEfeitoAcusticoNoduloMamaDireitaSelect,
-  ] = useState("");
-
-  const [
-    multiplosNoduloMamaDireitaCheckBox,
-    setMultiplosNoduloMamaDireitaCheckBox,
-  ] = useState(false);
-  const [DisableSelectMamaDireita, setDisableSelectMamaDireita] =
-    useState(true);
-
-  const [tamanhoNoduloMamaEsquerdaInput, setTamanhoNoduloMamaEsquerdaInput] =
+  const [LadoNoduloMamaSelect, setLadoNoduloMamaSelect] =
     useState("");
-  const [tamanho2NoduloMamaEsquerdaInput, setTamanho2NoduloMamaEsquerdaInput] =
-    useState("");
-  const [
-    localizacaoNoduloMamaEsquerdaSelect,
-    setLocalizacaoNoduloMamaEsquerdaSelect,
-  ] = useState("");
-  const [
-    distanciaMamiloMamaEsquerdaInput,
-    setDistanciaMamiloMamaEsquerdaInput,
-  ] = useState("");
-  const [distanciaPeleMamaEsquerdaInput, setDistanciaPeleMamaEsquerdaInput] =
-    useState("");
-  const [formaNoduloMamaEsquerdaSelect, setFormaNoduloMamaEsquerdaSelect] =
-    useState("");
-  const [margensNoduloMamaEsquerdaSelect, setMargensNoduloMamaEsquerdaSelect] =
-    useState("");
-  const [limitesNoduloMamaEsquerdaSelect, setLimitesNoduloMamaEsquerdaSelect] =
-    useState("");
-  const [
-    ecogenicidadeNoduloMamaEsquerdaSelect,
-    setEcogenicidadeNoduloMamaEsquerdaSelect,
-  ] = useState("");
-  const [
-    orientacaoNoduloMamaEsquerdaSelect,
-    setOrientacaoNoduloMamaEsquerdaSelect,
-  ] = useState("");
-  const [
-    efeitoAcusticoNoduloMamaEsquerdaSelect,
-    setEfeitoAcusticoNoduloMamaEsquerdaSelect,
-  ] = useState("");
+  const [ecogenicidadeNoduloMamaSelect, setEcogenicidadeNoduloMamaSelect,] = useState("");
+  const [orientacaoNoduloMamaSelect, setOrientacaoNoduloMamaSelect,] = useState("");
+  const [efeitoAcusticoNoduloMamaSelect, setEfeitoAcusticoNoduloMamaSelect,] = useState("");
 
-  const [
-    multiplosNoduloMamaEsquerdaCheckBox,
-    setMultiplosNoduloMamaEsquerdaCheckBox,
-  ] = useState(false);
-  const [DisableSelectMamaEsquerda, setDisableSelectMamaEsquerda] =
-    useState(true);
+  const [multiplosNoduloMamaCheckBox, setMultiplosNoduloMamaCheckBox,] = useState(false);
 
-  const criaStringMultiplosNodulosMamaDireita = (
-    efeitoAcusticoNoduloMamaDireitaSelect,
-    orientacaoNoduloMamaDireitaSelect,
-    ecogenicidadeNoduloMamaDireitaSelect,
-    limitesNoduloMamaDireitaSelect,
-    margensNoduloMamaDireitaSelect,
-    formaNoduloMamaDireitaSelect,
-    distanciaPeleMamaDireitaInput,
-    distanciaMamiloMamaDireitaInput,
-    localizacaoNoduloMamaDireitaSelect,
-    tamanho2NoduloMamaDireitaInput,
-    tamanhoNoduloMamaDireitaInput
-  ) => {
-    removeMultiplosNodulosMamaDireita();
 
-    if (
-      tamanhoNoduloMamaDireitaInput !== "" &&
-      tamanho2NoduloMamaDireitaInput !== "" &&
-      localizacaoNoduloMamaDireitaSelect !== "" &&
-      distanciaMamiloMamaDireitaInput !== "" &&
-      distanciaPeleMamaDireitaInput !== "" &&
-      formaNoduloMamaDireitaSelect !== "" &&
-      margensNoduloMamaDireitaSelect !== "" &&
-      limitesNoduloMamaDireitaSelect !== "" &&
-      ecogenicidadeNoduloMamaDireitaSelect !== "" &&
-      orientacaoNoduloMamaDireitaSelect !== "" &&
-      efeitoAcusticoNoduloMamaDireitaSelect !== ""
-    ) {
-      var string = `Múltiplos nodulos na mama direita, o maior mede com as seguintes características: \n 
-        - ${localizacaoNoduloMamaDireitaSelect}, medindo ${tamanhoNoduloMamaDireitaInput} x ${tamanho2NoduloMamaDireitaInput} mm, distando ${distanciaMamiloMamaDireitaInput} mm
-        do mamilo e ${distanciaPeleMamaDireitaInput} mm da pele, com forma ${formaNoduloMamaDireitaSelect}, ${ecogenicidadeNoduloMamaDireitaSelect},
-        com margens ${margensNoduloMamaDireitaSelect}, limites ${limitesNoduloMamaDireitaSelect}, com seu eixo ${orientacaoNoduloMamaDireitaSelect} e 
-        apresentando ${efeitoAcusticoNoduloMamaDireitaSelect}.`;
-      setFrasesNodulos((arr) => [...arr, string]);
-    }
-  };
-
-  const removeMultiplosNodulosMamaDireita = () => {
-    FrasesNodulos.map((e) => {
-      if (e.includes(`Múltiplos nodulos na mama direita`)) {
-        var index = FrasesNodulos.indexOf(e);
-
-        if (index > -1) {
-          FrasesNodulos.splice(index, 1);
-          setFrasesNodulos((arr) => [...arr]);
-        }
-      }
-    });
-  };
-
-  useEffect(() => {
-    if (multiplosNoduloMamaDireitaCheckBox) {
-      setDisableSelectMamaDireita(false);
-      criaStringMultiplosNodulosMamaDireita(
-        efeitoAcusticoNoduloMamaDireitaSelect,
-        orientacaoNoduloMamaDireitaSelect,
-        ecogenicidadeNoduloMamaDireitaSelect,
-        limitesNoduloMamaDireitaSelect,
-        margensNoduloMamaDireitaSelect,
-        formaNoduloMamaDireitaSelect,
-        distanciaPeleMamaDireitaInput,
-        distanciaMamiloMamaDireitaInput,
-        localizacaoNoduloMamaDireitaSelect,
-        tamanho2NoduloMamaDireitaInput,
-        tamanhoNoduloMamaDireitaInput
-      );
-    } else {
-      setDisableSelectMamaDireita(true);
-      removeMultiplosNodulosMamaDireita();
-      setTamanhoNoduloMamaDireitaInput("");
-      setTamanho2NoduloMamaDireitaInput("");
-      setDistanciaMamiloMamaDireitaInput("");
-      setDistanciaPeleMamaDireitaInput("");
-      setFormaNoduloMamaDireitaSelect("");
-      setMargensNoduloMamaDireitaSelect("");
-      setLimitesNoduloMamaDireitaSelect("");
-      setEcogenicidadeNoduloMamaDireitaSelect("");
-      setOrientacaoNoduloMamaDireitaSelect("");
-      setEfeitoAcusticoNoduloMamaDireitaSelect("");
-    }
-  }, [
-    multiplosNoduloMamaDireitaCheckBox,
-    efeitoAcusticoNoduloMamaDireitaSelect,
-    orientacaoNoduloMamaDireitaSelect,
-    ecogenicidadeNoduloMamaDireitaSelect,
-    limitesNoduloMamaDireitaSelect,
-    margensNoduloMamaDireitaSelect,
-    formaNoduloMamaDireitaSelect,
-    distanciaPeleMamaDireitaInput,
-    distanciaMamiloMamaDireitaInput,
-    localizacaoNoduloMamaDireitaSelect,
-    tamanho2NoduloMamaDireitaInput,
-    tamanhoNoduloMamaDireitaInput,
-  ]);
-
-  const criaStringMultiplosNodulosMamaEsquerda = (
-    efeitoAcusticoNoduloMamaEsquerdaSelect,
-    orientacaoNoduloMamaEsquerdaSelect,
-    ecogenicidadeNoduloMamaEsquerdaSelect,
-    limitesNoduloMamaEsquerdaSelect,
-    margensNoduloMamaEsquerdaSelect,
-    formaNoduloMamaEsquerdaSelect,
-    distanciaPeleMamaEsquerdaInput,
-    distanciaMamiloMamaEsquerdaInput,
-    localizacaoNoduloMamaEsquerdaSelect,
-    tamanho2NoduloMamaEsquerdaInput,
-    tamanhoNoduloMamaEsquerdaInput
-  ) => {
-    removeMultiplosNodulosMamaEsquerda();
-
-    if (
-      tamanhoNoduloMamaEsquerdaInput !== "" &&
-      tamanho2NoduloMamaEsquerdaInput !== "" &&
-      localizacaoNoduloMamaEsquerdaSelect !== "" &&
-      distanciaMamiloMamaEsquerdaInput !== "" &&
-      distanciaPeleMamaEsquerdaInput !== "" &&
-      formaNoduloMamaEsquerdaSelect !== "" &&
-      margensNoduloMamaEsquerdaSelect !== "" &&
-      limitesNoduloMamaEsquerdaSelect !== "" &&
-      ecogenicidadeNoduloMamaEsquerdaSelect !== "" &&
-      orientacaoNoduloMamaEsquerdaSelect !== "" &&
-      efeitoAcusticoNoduloMamaEsquerdaSelect !== ""
-    ) {
-      var string = `Múltiplos nodulos na mama Esquerda, o maior mede com as seguintes características: \n 
-        - ${localizacaoNoduloMamaEsquerdaSelect}, medindo ${tamanhoNoduloMamaEsquerdaInput} x ${tamanho2NoduloMamaEsquerdaInput} mm, distando ${distanciaMamiloMamaEsquerdaInput} mm
-        do mamilo e ${distanciaPeleMamaEsquerdaInput} mm da pele, com forma ${formaNoduloMamaEsquerdaSelect}, ${ecogenicidadeNoduloMamaEsquerdaSelect},
-        com margens ${margensNoduloMamaEsquerdaSelect}, limites ${limitesNoduloMamaEsquerdaSelect}, com seu eixo ${orientacaoNoduloMamaEsquerdaSelect} e 
-        apresentando ${efeitoAcusticoNoduloMamaEsquerdaSelect}.`;
-      setFrasesNodulos((arr) => [...arr, string]);
-    }
-  };
-
-  const removeMultiplosNodulosMamaEsquerda = () => {
-    FrasesNodulos.map((e) => {
-      if (e.includes(`Múltiplos nodulos na mama Esquerda`)) {
-        var index = FrasesNodulos.indexOf(e);
-
-        if (index > -1) {
-          FrasesNodulos.splice(index, 1);
-          setFrasesNodulos((arr) => [...arr]);
-        }
-      }
-    });
-  };
-
-  useEffect(() => {
-    if (multiplosNoduloMamaEsquerdaCheckBox) {
-      setDisableSelectMamaEsquerda(false);
-      criaStringMultiplosNodulosMamaEsquerda(
-        efeitoAcusticoNoduloMamaEsquerdaSelect,
-        orientacaoNoduloMamaEsquerdaSelect,
-        ecogenicidadeNoduloMamaEsquerdaSelect,
-        limitesNoduloMamaEsquerdaSelect,
-        margensNoduloMamaEsquerdaSelect,
-        formaNoduloMamaEsquerdaSelect,
-        distanciaPeleMamaEsquerdaInput,
-        distanciaMamiloMamaEsquerdaInput,
-        localizacaoNoduloMamaEsquerdaSelect,
-        tamanho2NoduloMamaEsquerdaInput,
-        tamanhoNoduloMamaEsquerdaInput
-      );
-    } else {
-      setDisableSelectMamaEsquerda(true);
-      removeMultiplosNodulosMamaEsquerda();
-      setTamanhoNoduloMamaEsquerdaInput("");
-      setTamanho2NoduloMamaEsquerdaInput("");
-      setDistanciaMamiloMamaEsquerdaInput("");
-      setDistanciaPeleMamaEsquerdaInput("");
-      setFormaNoduloMamaEsquerdaSelect("");
-      setMargensNoduloMamaEsquerdaSelect("");
-      setLimitesNoduloMamaEsquerdaSelect("");
-      setEcogenicidadeNoduloMamaEsquerdaSelect("");
-      setOrientacaoNoduloMamaEsquerdaSelect("");
-      setEfeitoAcusticoNoduloMamaEsquerdaSelect("");
-    }
-  }, [
-    multiplosNoduloMamaEsquerdaCheckBox,
-    efeitoAcusticoNoduloMamaEsquerdaSelect,
-    orientacaoNoduloMamaEsquerdaSelect,
-    ecogenicidadeNoduloMamaEsquerdaSelect,
-    limitesNoduloMamaEsquerdaSelect,
-    margensNoduloMamaEsquerdaSelect,
-    formaNoduloMamaEsquerdaSelect,
-    distanciaPeleMamaEsquerdaInput,
-    distanciaMamiloMamaEsquerdaInput,
-    localizacaoNoduloMamaEsquerdaSelect,
-    tamanho2NoduloMamaEsquerdaInput,
-    tamanhoNoduloMamaEsquerdaInput,
-  ]);
-
-  const criaStringNaoObservado = () => {
-    removeFraseNaoObservado();
-    if (checkboxNaoObservado) {
-      if (valueSelectNaoObservado !== "") {
-        let string = `Não foi visibilizado o nódulo na ${valueSelectNaoObservado} descrito no exame anterior. Sugerimos controle ultra-sonográfico.`;
+  const criaStringMultiplosNodulosMama = () => {
+    let string = 'o maior com as seguintes características:'
+    removeMultiplosNodulosMama(string);
+    if (multiplosNoduloMamaCheckBox) {
+      if (LadoNoduloMamaSelect &&
+        tamanhoNoduloMamaInput &&
+        localizacaoNoduloMamaSelect &&
+        distanciaMamiloMamaInput &&
+        distanciaPeleMamaInput &&
+        formaNoduloMamaSelect &&
+        margensNoduloMamaSelect &&
+        limitesNoduloMamaSelect &&
+        ecogenicidadeNoduloMamaSelect &&
+        orientacaoNoduloMamaSelect &&
+        efeitoAcusticoNoduloMamaSelect) {
+        string = `Múltiplos nodulos na ${LadoNoduloMamaSelect}, ${string}\n 
+        - ${localizacaoNoduloMamaSelect}, medindo ${tamanhoNoduloMamaInput} cm, distando ${distanciaMamiloMamaInput} cm
+        do mamilo e ${distanciaPeleMamaInput} cm da pele, com forma ${formaNoduloMamaSelect}, ${ecogenicidadeNoduloMamaSelect},
+        com margens ${margensNoduloMamaSelect}, limites ${limitesNoduloMamaSelect}, com seu eixo ${orientacaoNoduloMamaSelect} e 
+        apresentando ${efeitoAcusticoNoduloMamaSelect}.`;
         setFrasesNodulos((arr) => [...arr, string]);
       }
     } else {
-      setValueSelectNaoObservado("");
+      setTamanhoNoduloMamaInput("");
+      setDistanciaMamiloMamaInput("");
+      setDistanciaPeleMamaInput("");
+      setFormaNoduloMamaSelect("");
+      setMargensNoduloMamaSelect("");
+      setLimitesNoduloMamaSelect("");
+      setEcogenicidadeNoduloMamaSelect("");
+      setOrientacaoNoduloMamaSelect("");
+      setEfeitoAcusticoNoduloMamaSelect("");
+      setLadoNoduloMamaSelect("")
     }
   };
-  const removeFraseNaoObservado = () => {
+
+  const removeMultiplosNodulosMama = (value) => {
     FrasesNodulos.map((e) => {
-      if (e.includes("Não foi visibilizado o nódulo")) {
-        let index = FrasesNodulos.indexOf(e);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+      if (e.includes(value)) {
+        var index = FrasesNodulos.indexOf(e);
+
         if (index > -1) {
           FrasesNodulos.splice(index, 1);
           setFrasesNodulos((arr) => [...arr]);
@@ -401,8 +132,23 @@ function Calculo() {
   };
 
   useEffect(() => {
-    criaStringNaoObservado();
-  }, [valueSelectNaoObservado, checkboxNaoObservado]);
+    criaStringMultiplosNodulosMama();
+  }, [
+    multiplosNoduloMamaCheckBox,
+    efeitoAcusticoNoduloMamaSelect,
+    orientacaoNoduloMamaSelect,
+    ecogenicidadeNoduloMamaSelect,
+    limitesNoduloMamaSelect,
+    margensNoduloMamaSelect,
+    formaNoduloMamaSelect,
+    distanciaPeleMamaInput,
+    distanciaMamiloMamaInput,
+    localizacaoNoduloMamaSelect,
+    tamanhoNoduloMamaInput,
+    LadoNoduloMamaSelect
+  ]);
+
+
 
   const subExame = "Nódulos";
   const titulo_exame = "Mamas";
@@ -451,177 +197,54 @@ function Calculo() {
           >
             Ausência de nódulos
           </Checkbox>
-          <Checkbox
-            onChange={(e) => {
-              setPresencaNodulosCheckboxHiperdenso(!PresencaNodulosCheckboxHiperdenso);
-            }}
-          >
-            Presença de nódulos hiperdenso
-          </Checkbox>
-          <Checkbox
-            onChange={(e) => {
-              setPresencaNodulosCheckboxIsodenso(!PresencaNodulosCheckboxIsodenso);
-            }}
-          >
-            Presença de nódulos Isodenso
-          </Checkbox>
-          <Checkbox
-            onChange={(e) => {
-              setPresencaNodulosCheckboxHipodenso(!PresencaNodulosCheckboxHipodenso);
-            }}
-          >
-            Presença de nódulos Hipodenso
-          </Checkbox>
         </Stack>
-
-        <Stack>
-          <Checkbox
-            onChange={(e) => {
-              setGorduraOvalCheckbox(
-                !GorduraOvalCheckbox
-              );
-            }}
-          >
-            Contendo gordura oval
-          </Checkbox>
-          <Checkbox
-            onChange={(e) => {
-              setGorduraRedondaCheckbox(
-                !GorduraRedondaCheckbox
-              );
-            }}
-          >
-            Contendo gordura Redonda
-          </Checkbox>
-          <Checkbox
-            onChange={(e) => {
-              setGorduraIrregularCheckbox(
-                !GorduraIrregularCheckbox
-              );
-            }}
-          >
-            Contendo gordura Irregular
-          </Checkbox>
-
-          <Checkbox
-            onChange={(e) => {
-              setMargensCircunscritasCheckbox(
-                !MargensCircunscritasCheckbox
-              );
-            }}
-          >
-            Margens circunscritas
-          </Checkbox>
-
-          <Checkbox
-            onChange={(e) => {
-              setObscurecidasCheckbox(
-                !ObscurecidasCheckbox
-              );
-            }}
-          >
-            Obscurecidas
-          </Checkbox>
-          <Checkbox
-            onChange={(e) => {
-              setMicrolobuladaCheckbox(
-                !MicrolobuladaCheckbox
-              );
-            }}
-          >
-            Microlobulada
-          </Checkbox>
-          <Checkbox
-            onChange={(e) => {
-              setIndistintaCheckbox(
-                !IndistintaCheckbox
-              );
-            }}
-          >
-            Indistinta
-          </Checkbox>
-          <Checkbox
-            onChange={(e) => {
-              setEspiculadaCheckbox(
-                !EspiculadaCheckbox
-              );
-            }}
-          >
-            Espiculada
-          </Checkbox>
-        </Stack>
-
-        <Box display="flex" flexWrap="wrap">
-          <Checkbox
-            onChange={(e) => {
-              setCheckboxNaoObservado(!checkboxNaoObservado);
-            }}
-          >
-            Não observado nódulo descrito em exame anterior.
-          </Checkbox>
-          <Select
-            w="150px"
-            isDisabled={!checkboxNaoObservado}
-            onChange={(e) => {
-              setValueSelectNaoObservado(e.target.value);
-            }}
-            value={valueSelectNaoObservado}
-          >
-            <option value="" disabled selected>
-              Selecione
-            </option>
-            <option value="mama direita">Mama direita</option>
-            <option value="mama esquerda">Mama esquerda</option>
-          </Select>
-        </Box>
 
       </Box>
       <Box borderBottom="1px">
         <Box borderBottom="1px" gap="5px" display="flex" flexWrap="wrap">
           <Checkbox
             onChange={() =>
-              setMultiplosNoduloMamaDireitaCheckBox(
-                !multiplosNoduloMamaDireitaCheckBox
+              setMultiplosNoduloMamaCheckBox(
+                !multiplosNoduloMamaCheckBox
               )
             }
           >
-            Múltiplos nódulos na mama direita, o maior mede
+            Múltiplos nódulos na mama
           </Checkbox>
-
-          <Input
-            isDisabled={DisableSelectMamaDireita}
-            value={tamanhoNoduloMamaDireitaInput}
-            w="60px"
-            h="77x"
-            padding="5px"
-            maxLength={2}
-            textAlign="center"
-            onChange={(e) => {
-              setTamanhoNoduloMamaDireitaInput(e.target.value);
-            }}
-            placeholder={"mm"}
-          />
-          <Text alignSelf="center">x</Text>
-          <Input
-            isDisabled={DisableSelectMamaDireita}
-            value={tamanho2NoduloMamaDireitaInput}
-            w="60px"
-            h="77x"
-            padding="5px"
-            maxLength={2}
-            textAlign="center"
-            onChange={(e) => {
-              setTamanho2NoduloMamaDireitaInput(e.target.value);
-            }}
-            placeholder={"mm"}
-          />
           <Select
             w="auto"
-            isDisabled={DisableSelectMamaDireita}
+            isDisabled={!multiplosNoduloMamaCheckBox}
             onChange={(e) => {
-              setLocalizacaoNoduloMamaDireitaSelect(e.target.value);
+              setLadoNoduloMamaSelect(e.target.value);
             }}
-            value={localizacaoNoduloMamaDireitaSelect}
+            value={LadoNoduloMamaSelect}
+          >
+            <option value="" disabled selected>
+              dir/esq
+            </option>
+            <option value="mama direita">Mama direita</option>
+            <option value="mama esquerda">Mama esquerda</option>
+          </Select>
+          <Text alignSelf='center'>, o maior mede</Text>
+          <Input
+            isDisabled={!multiplosNoduloMamaCheckBox}
+            value={tamanhoNoduloMamaInput}
+            w="50px"
+            padding="5px"
+            textAlign="center"
+            onChange={(e) => {
+              setTamanhoNoduloMamaInput(e.target.value);
+            }}
+            placeholder={"cm"}
+          />
+
+          <Select
+            w="auto"
+            isDisabled={!multiplosNoduloMamaCheckBox}
+            onChange={(e) => {
+              setLocalizacaoNoduloMamaSelect(e.target.value);
+            }}
+            value={localizacaoNoduloMamaSelect}
           >
             <option value="" disabled selected>
               Localizado
@@ -645,41 +268,37 @@ function Calculo() {
           <HStack>
             <Text alignSelf="center">a</Text>
             <Input
-              isDisabled={DisableSelectMamaDireita}
-              value={distanciaMamiloMamaDireitaInput}
-              w="60px"
-              h="77x"
-              padding="5px"
-              maxLength={2}
+              isDisabled={!multiplosNoduloMamaCheckBox}
+              value={distanciaMamiloMamaInput}
+              w="50px"
+              padding="0px"
               textAlign="center"
               onChange={(e) => {
-                setDistanciaMamiloMamaDireitaInput(e.target.value);
+                setDistanciaMamiloMamaInput(e.target.value);
               }}
-              placeholder={"mm"}
+              placeholder={"cm"}
             />
-            <Text alignSelf="center">mm do mamilo e </Text>
+            <Text alignSelf="center">cm do mamilo e </Text>
             <Input
-              isDisabled={DisableSelectMamaDireita}
-              value={distanciaPeleMamaDireitaInput}
-              w="60px"
-              h="77x"
-              padding="5px"
-              maxLength={2}
+              isDisabled={!multiplosNoduloMamaCheckBox}
+              value={distanciaPeleMamaInput}
+              w="50px"
+              padding="0px"
               textAlign="center"
               onChange={(e) => {
-                setDistanciaPeleMamaDireitaInput(e.target.value);
+                setDistanciaPeleMamaInput(e.target.value);
               }}
-              placeholder={"mm"}
+              placeholder={"cm"}
             />
-            <Text alignSelf="center">mm da pele</Text>
+            <Text alignSelf="center">cm da pele</Text>
           </HStack>
           <Select
             w="auto"
-            isDisabled={DisableSelectMamaDireita}
+            isDisabled={!multiplosNoduloMamaCheckBox}
             onChange={(e) => {
-              setFormaNoduloMamaDireitaSelect(e.target.value);
+              setFormaNoduloMamaSelect(e.target.value);
             }}
-            value={formaNoduloMamaDireitaSelect}
+            value={formaNoduloMamaSelect}
           >
             <option value="" disabled selected>
               Forma
@@ -690,11 +309,11 @@ function Calculo() {
           </Select>
           <Select
             w="auto"
-            isDisabled={DisableSelectMamaDireita}
+            isDisabled={!multiplosNoduloMamaCheckBox}
             onChange={(e) => {
-              setMargensNoduloMamaDireitaSelect(e.target.value);
+              setMargensNoduloMamaSelect(e.target.value);
             }}
-            value={margensNoduloMamaDireitaSelect}
+            value={margensNoduloMamaSelect}
           >
             <option value="" disabled selected>
               Margens
@@ -708,11 +327,11 @@ function Calculo() {
           </Select>
           <Select
             w="auto"
-            isDisabled={DisableSelectMamaDireita}
+            isDisabled={!multiplosNoduloMamaCheckBox}
             onChange={(e) => {
-              setLimitesNoduloMamaDireitaSelect(e.target.value);
+              setLimitesNoduloMamaSelect(e.target.value);
             }}
-            value={limitesNoduloMamaDireitaSelect}
+            value={limitesNoduloMamaSelect}
           >
             <option value="" disabled selected>
               Limites
@@ -723,11 +342,11 @@ function Calculo() {
           </Select>
           <Select
             w="auto"
-            isDisabled={DisableSelectMamaDireita}
+            isDisabled={!multiplosNoduloMamaCheckBox}
             onChange={(e) => {
-              setEcogenicidadeNoduloMamaDireitaSelect(e.target.value);
+              setEcogenicidadeNoduloMamaSelect(e.target.value);
             }}
-            value={ecogenicidadeNoduloMamaDireitaSelect}
+            value={ecogenicidadeNoduloMamaSelect}
           >
             <option value="" disabled selected>
               Padrão ecog.
@@ -740,11 +359,11 @@ function Calculo() {
           </Select>
           <Select
             w="auto"
-            isDisabled={DisableSelectMamaDireita}
+            isDisabled={!multiplosNoduloMamaCheckBox}
             onChange={(e) => {
-              setOrientacaoNoduloMamaDireitaSelect(e.target.value);
+              setOrientacaoNoduloMamaSelect(e.target.value);
             }}
-            value={orientacaoNoduloMamaDireitaSelect}
+            value={orientacaoNoduloMamaSelect}
           >
             <option value="" disabled selected>
               Orientação
@@ -755,11 +374,11 @@ function Calculo() {
           <Select
             mb="5px"
             w="auto"
-            isDisabled={DisableSelectMamaDireita}
+            isDisabled={!multiplosNoduloMamaCheckBox}
             onChange={(e) => {
-              setEfeitoAcusticoNoduloMamaDireitaSelect(e.target.value);
+              setEfeitoAcusticoNoduloMamaSelect(e.target.value);
             }}
-            value={efeitoAcusticoNoduloMamaDireitaSelect}
+            value={efeitoAcusticoNoduloMamaSelect}
           >
             <option value="" disabled selected>
               Efeito acúst.
@@ -770,209 +389,24 @@ function Calculo() {
           </Select>
         </Box>
 
-        <Box gap="5px" display="flex" flexWrap="wrap">
-          <Checkbox
-            onChange={() =>
-              setMultiplosNoduloMamaEsquerdaCheckBox(
-                !multiplosNoduloMamaEsquerdaCheckBox
-              )
-            }
-          >
-            Múltiplos nódulos na mama esquerda, o maior mede
-          </Checkbox>
-
-          <Input
-            isDisabled={DisableSelectMamaEsquerda}
-            value={tamanhoNoduloMamaEsquerdaInput}
-            w="60px"
-            h="77x"
-            padding="5px"
-            maxLength={2}
-            textAlign="center"
-            onChange={(e) => {
-              setTamanhoNoduloMamaEsquerdaInput(e.target.value);
-            }}
-            placeholder={"mm"}
-          />
-          <Text alignSelf="center">x</Text>
-          <Input
-            isDisabled={DisableSelectMamaEsquerda}
-            value={tamanho2NoduloMamaEsquerdaInput}
-            w="60px"
-            h="77x"
-            padding="5px"
-            maxLength={2}
-            textAlign="center"
-            onChange={(e) => {
-              setTamanho2NoduloMamaEsquerdaInput(e.target.value);
-            }}
-            placeholder={"mm"}
-          />
-          <Select
-            w="auto"
-            isDisabled={DisableSelectMamaEsquerda}
-            onChange={(e) => {
-              setLocalizacaoNoduloMamaEsquerdaSelect(e.target.value);
-            }}
-            value={localizacaoNoduloMamaEsquerdaSelect}
-          >
-            <option value="" disabled selected>
-              Localizado
-            </option>
-            <option value="à 1 hora">à 1 hora</option>
-            <option value="às 2 horas">às 2 horas</option>
-            <option value="às 3 horas">às 3 horas</option>
-            <option value="às 4 horas">às 4 horas</option>
-            <option value="às 5 horas">às 5 horas</option>
-            <option value="às 6 horas">às 6 horas</option>
-            <option value="às 7 horas">às 7 horas</option>
-            <option value="às 8 horas">às 8 horas</option>
-            <option value="às 9 horas">às 9 horas</option>
-            <option value="às 10 horas">às 10 horas</option>
-            <option value="às 11 horas">às 11 horas</option>
-            <option value="às 12 horas">às 12 horas</option>
-            <option value="na região retropapilar">
-              na região retropapilar
-            </option>
-          </Select>
-          <HStack>
-            <Text alignSelf="center">a</Text>
-            <Input
-              isDisabled={DisableSelectMamaEsquerda}
-              value={distanciaMamiloMamaEsquerdaInput}
-              w="60px"
-              h="77x"
-              padding="5px"
-              maxLength={2}
-              textAlign="center"
-              onChange={(e) => {
-                setDistanciaMamiloMamaEsquerdaInput(e.target.value);
-              }}
-              placeholder={"mm"}
-            />
-            <Text alignSelf="center">mm do mamilo e </Text>
-            <Input
-              isDisabled={DisableSelectMamaEsquerda}
-              value={distanciaPeleMamaEsquerdaInput}
-              w="60px"
-              h="77x"
-              padding="5px"
-              maxLength={2}
-              textAlign="center"
-              onChange={(e) => {
-                setDistanciaPeleMamaEsquerdaInput(e.target.value);
-              }}
-              placeholder={"mm"}
-            />
-            <Text alignSelf="center">mm da pele</Text>
-          </HStack>
-          <Select
-            w="auto"
-            isDisabled={DisableSelectMamaEsquerda}
-            onChange={(e) => {
-              setFormaNoduloMamaEsquerdaSelect(e.target.value);
-            }}
-            value={formaNoduloMamaEsquerdaSelect}
-          >
-            <option value="" disabled selected>
-              Forma
-            </option>
-            <option value="oval">oval</option>
-            <option value="redonda">redonda</option>
-            <option value="irregular">irregular</option>
-          </Select>
-          <Select
-            w="auto"
-            isDisabled={DisableSelectMamaEsquerda}
-            onChange={(e) => {
-              setMargensNoduloMamaEsquerdaSelect(e.target.value);
-            }}
-            value={margensNoduloMamaEsquerdaSelect}
-          >
-            <option value="" disabled selected>
-              Margens
-            </option>
-            <option value="circunscritas">circunscritas</option>
-            <option value="não circunscritas">não circunscritas</option>
-            <option value="indistintas">indistintas</option>
-            <option value="angulares">angulares</option>
-            <option value="microlobuladas">microlobuladas</option>
-            <option value="espiculadas">espiculadas</option>
-          </Select>
-          <Select
-            w="auto"
-            isDisabled={DisableSelectMamaEsquerda}
-            onChange={(e) => {
-              setLimitesNoduloMamaEsquerdaSelect(e.target.value);
-            }}
-            value={limitesNoduloMamaEsquerdaSelect}
-          >
-            <option value="" disabled selected>
-              Limites
-            </option>
-            <option value="bem definidos">bem definidos</option>
-            <option value="com halo ecogênico">com halo ecogênico</option>
-            <option value="com halo anecóico">com halo anecóico</option>
-          </Select>
-          <Select
-            w="auto"
-            isDisabled={DisableSelectMamaEsquerda}
-            onChange={(e) => {
-              setEcogenicidadeNoduloMamaEsquerdaSelect(e.target.value);
-            }}
-            value={ecogenicidadeNoduloMamaEsquerdaSelect}
-          >
-            <option value="" disabled selected>
-              Padrão ecog.
-            </option>
-            <option value="hipoecogênico">hipoecogênico</option>
-            <option value="hiperecogênico">hiperecogênico</option>
-            <option value="isoecogênico">isoecogênico</option>
-            <option value="anecóico">anecóico</option>
-            <option value="complexo">complexo</option>
-          </Select>
-          <Select
-            w="auto"
-            isDisabled={DisableSelectMamaEsquerda}
-            onChange={(e) => {
-              setOrientacaoNoduloMamaEsquerdaSelect(e.target.value);
-            }}
-            value={orientacaoNoduloMamaEsquerdaSelect}
-          >
-            <option value="" disabled selected>
-              Orientação
-            </option>
-            <option value="paralelo à pele">paralelo à pele</option>
-            <option value="não paralelo à pele">não paralelo à pele</option>
-          </Select>
-          <Select
-            mb="5px"
-            w="auto"
-            isDisabled={DisableSelectMamaEsquerda}
-            onChange={(e) => {
-              setEfeitoAcusticoNoduloMamaEsquerdaSelect(e.target.value);
-            }}
-            value={efeitoAcusticoNoduloMamaEsquerdaSelect}
-          >
-            <option value="" disabled selected>
-              Efeito acúst.
-            </option>
-            <option value="ausente">ausente</option>
-            <option value="sombra acústica">sombra acústica</option>
-            <option value="reforço acústico">reforço acústico</option>
-          </Select>
-        </Box>
       </Box>
       <Text fontWeight="semibold" fontSize="16px">
         Individualizar Nódulos
       </Text>
-      <Stack>
-        <>
-          {numberArray.map((num, key) => {
-            return <IndividualizarNodulos key={key} numNodulo={num} />;
-          })}
-        </>
-      </Stack>
+
+      <Box gap="25px" display="flex" flexWrap="wrap">
+        {Nodulos()}
+        <Button
+          colorScheme="blue"
+          onClick={() => {
+            setUpdateNodulos(true);
+          }}
+        >
+          +1 Nódulo
+        </Button>
+
+      </Box>
+
     </Box>
   );
 }
