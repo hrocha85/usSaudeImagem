@@ -188,4 +188,25 @@ export class Format_Laudo {
     });
     window.dispatchEvent(new Event("storage"));
   }
+
+  Change_Title(titulo_original, titulo_novo, change): void {
+    var array = JSON.parse(localStorage.getItem("format_laudo")!);
+
+    if (change) {
+      array.map((Exames) => {
+        if (Exames.titulo_exame == titulo_original) {
+          Exames.titulo_exame = titulo_novo;
+        }
+      });
+      localStorage.setItem("format_laudo", JSON.stringify(array));
+      new Format_Laudo().Format_Laudo_Create_Storage();
+    } else {
+      array.map((Exames) => {
+        if (Exames.titulo_exame == titulo_novo)
+          Exames.titulo_exame = titulo_original;
+      });
+      localStorage.setItem("format_laudo", JSON.stringify(array));
+      new Format_Laudo().Format_Laudo_Create_Storage();
+    }
+  }
 }

@@ -95,10 +95,10 @@ function DopplerParenquima() {
   useEffect(() => {
     if (DescreverDoppler) {
       setDisableDescreverDoppler(true);
-      changeTitle(true);
+      new Format_Laudo().Change_Title("Tireóide", titulo_exame, true);
     } else {
       setDisableDescreverDoppler(false);
-      changeTitle(false);
+      new Format_Laudo().Change_Title("Tireóide", titulo_exame, false);
     }
   }, [DescreverDoppler]);
 
@@ -131,24 +131,6 @@ function DopplerParenquima() {
       setFrasesDopplerParenquima((arr) => [...arr, value]);
     }
   }, [value]);
-
-  const changeTitle = (change) => {
-    var array = JSON.parse(localStorage.getItem("format_laudo")!);
-
-    if (change) {
-      array.map((Exames) => {
-        Exames.titulo_exame = titulo_exame;
-      });
-      localStorage.setItem("format_laudo", JSON.stringify(array));
-      new Format_Laudo().Format_Laudo_Create_Storage();
-    } else {
-      array.map((Exames) => {
-        Exames.titulo_exame = "Tireóide";
-      });
-      localStorage.setItem("format_laudo", JSON.stringify(array));
-      new Format_Laudo().Format_Laudo_Create_Storage();
-    }
-  };
 
   const criaStringVelSistolicaSuperiorDir = () => {
     let string = "Artéria tiredoideana Superior Direita";
