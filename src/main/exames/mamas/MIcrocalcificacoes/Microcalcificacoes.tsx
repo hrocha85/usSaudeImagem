@@ -116,6 +116,7 @@ function Microcalcificacoes() {
       borderRadius="10.85px"
       boxShadow="md"
       padding="24px 15px 10px 15px"
+      mt='20px'
     >
       <TituloNomeExame titulo='Microcalcificações' />
       <Box gap="10px" display="flex" flexWrap="wrap" mb="10px">

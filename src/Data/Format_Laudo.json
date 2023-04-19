@@ -5,7 +5,9 @@
       "subExames": [
         {
           "subExameNome": "",
-          "frases": [""]
+          "frases": [""],
+          "image": ""
+
         }
       ],
       "conclusoes": [""],

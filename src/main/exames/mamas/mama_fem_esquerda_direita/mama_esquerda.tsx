@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Input, Select, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -10,16 +10,13 @@ function Mama_esquerda() {
   const largura = "33%";
 
   const [frasesMamas, setFrasesMamas] = useState<any>([]);
+  const [ConclusaoMamas, setConclusaoMamas] = useState<any>([]);
 
+  const [checkedItems, setCheckedItems] = useState([false, false, false, false, false, false, false, false])
 
-  const [CheckboxSemNodulo, setCheckboxSemNodulo] = useState(false);
-  const [CheckboxPresencaImagemSolida, setCheckboxPresencaImagemSolida] = useState(false);
-  const [CheckboxIsoecogenica, setCheckboxIsoecogenica] = useState(false);
-  const [CheckboxHipoecogenica, setCheckboxHipoecogenica] = useState(false);
-  const [CheckboxHiperecogenicaContornos, setCheckboxHiperecogenicaContornos] = useState(false);
-  const [ValueSelectHiperecogenicaContornos, setValueSelectHiperecogenicaContornos] = useState('');
+  const allChecked = checkedItems.every(Boolean)
+  const isIndeterminate = checkedItems.some(Boolean) && !allChecked
 
-  const [ParcialmentePrecisosCheckbox, setParcialmentePrecisosCheckbox] = useState(false);
   const [QSLCheckbox, setQSLCheckbox] = useState(false);
   const [QSMCheckbox, setQSMCheckbox] = useState(false);
   const [QILCheckbox, setQILCheckbox] = useState(false);
@@ -27,13 +24,6 @@ function Mama_esquerda() {
   const [PerpendicularPeleInput, setPerpendicularPeleInput] = useState('');
   const [PerpendicularPeleInput2, setPerpendicularPeleInput2] = useState('');
   const [PerpendicularPeleSelect, setPerpendicularPeleSelect] = useState('');
-
-  const [HomogeneaGordurosoCheckbox, setHomogeneaGordurosoCheckbox] = useState(false);
-  const [HomogeneaFibroglandularCheckbox, setHomogeneaFibroglandularCheckbox] = useState(false);
-  const [HeterogeneaFibroglandularCheckbox, setHeterogeneaFibroglandularCheckbox] = useState(false);
-  const [HomogeneaTecidoMamarioRetroAreolaresCheckbox, setHomogeneaTecidoMamarioRetroAreolaresCheckbox] = useState(false);
-  const [HomogeneaTecidoMamarioGordurosoCheckbox, setHomogeneaTecidoMamarioGordurosoCheckbox] = useState(false);
-  const [EspacoMamarioNormalCheckbox, setEspacoMamarioNormalCheckbox] = useState(false);
 
 
   const removeItemString = (value) => {
@@ -47,83 +37,46 @@ function Mama_esquerda() {
   };
 
   useEffect(() => {
-    const string = `Presença de tecido fibroglandular em regiao axilar.`
-    HomogeneaGordurosoCheckbox ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
-  }, [HomogeneaGordurosoCheckbox]);
-
-  useEffect(() => {
     const string = `Não há evidência de nódulo ou massa de caráter sólido, cístico ou complexo.`
-    CheckboxSemNodulo ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
-  }, [CheckboxSemNodulo]);
+    checkedItems[5] ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
+  }, [checkedItems[5]]);
 
-  useEffect(() => {
-    const string = `Presença de imagem sólida.`
-    CheckboxPresencaImagemSolida ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
-  }, [CheckboxPresencaImagemSolida]);
-
-  useEffect(() => {
-    const string = `Isoecogênica.`
-    CheckboxIsoecogenica ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
-  }, [CheckboxIsoecogenica]);
-
-  useEffect(() => {
-    const string = `Hipoecogênica.`
-    CheckboxHipoecogenica ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
-  }, [CheckboxHipoecogenica]);
 
   useEffect(() => {
     const string = `Ecotextura homogênea de fundo, com predomínio do tecido gorduroso.`
-    HomogeneaGordurosoCheckbox ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
-  }, [HomogeneaGordurosoCheckbox]);
+    checkedItems[0] ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
+  }, [checkedItems[0]]);
 
   useEffect(() => {
     const string = `Ecotextura homogênea de fundo, com predomínio do tecido fibroglandular.`
-    HomogeneaFibroglandularCheckbox ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
-  }, [HomogeneaFibroglandularCheckbox]);
+    checkedItems[1] ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
+  }, [checkedItems[1]]);
 
   useEffect(() => {
     const string = `Ecotextura heterogênea de fundo, com predomínio do tecido fibroglandular.`
-    HeterogeneaFibroglandularCheckbox ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
-  }, [HeterogeneaFibroglandularCheckbox]);
+    checkedItems[2] ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
+  }, [checkedItems[2]]);
 
   useEffect(() => {
     const string = `Ecotextura homogênea de fundo, com o tecido mamário em maiores proporções nos quadrantes súpero-externos e regiões retro areolares.`
-    HomogeneaTecidoMamarioRetroAreolaresCheckbox ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
-  }, [HomogeneaTecidoMamarioRetroAreolaresCheckbox]);
+    checkedItems[3] ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
+  }, [checkedItems[3]]);
 
   useEffect(() => {
     const string = `Ecotextura homogênea de fundo, com tecido mamário entremeado por tecido gorduroso.`
-    HomogeneaTecidoMamarioGordurosoCheckbox ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
-  }, [HomogeneaTecidoMamarioGordurosoCheckbox]);
+    checkedItems[4] ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
+  }, [checkedItems[4]]);
 
   useEffect(() => {
     const string = `Espaço retro mamário normal.`
-    EspacoMamarioNormalCheckbox ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
-  }, [EspacoMamarioNormalCheckbox]);
-
-
-  const criaStringHperecogenicaContornos = () => {
-    var string = 'Hiperecogênica de contornos '
-    removeFraseSelect(string);
-    if (CheckboxHiperecogenicaContornos) {
-      if (ValueSelectHiperecogenicaContornos !== "") {
-        string = `${string} ${ValueSelectHiperecogenicaContornos}.`;
-        setFrasesMamas((arr) => [...arr, string]);
-      }
-    } else {
-      setValueSelectHiperecogenicaContornos("");
-    }
-  };
-
-  useEffect(() => {
-    criaStringHperecogenicaContornos();
-  }, [ValueSelectHiperecogenicaContornos, CheckboxHiperecogenicaContornos]);
+    checkedItems[7] ? setFrasesMamas((arr) => [...arr, string]) : removeItemString(string)
+  }, [checkedItems[7]]);
 
 
   const criaStringParcialmentePrecisos = () => {
     var string = 'parcialmente precisos e bordos finos, bem circunscrito, de orientação'
     removeFraseSelect(string)
-    if (ParcialmentePrecisosCheckbox) {
+    if (checkedItems[6]) {
       if (PerpendicularPeleInput != '' && PerpendicularPeleSelect != '' && PerpendicularPeleInput2 != '') {
         string = `${string} ${PerpendicularPeleSelect} medindo cerca de ${PerpendicularPeleInput} cm à ${PerpendicularPeleInput2} cm da região aerolar`
         if (QSLCheckbox || QSMCheckbox || QILCheckbox || QIMCheckbox) {
@@ -145,7 +98,29 @@ function Mama_esquerda() {
   }
   useEffect(() => {
     criaStringParcialmentePrecisos()
-  }, [ParcialmentePrecisosCheckbox, PerpendicularPeleInput, PerpendicularPeleInput2, PerpendicularPeleSelect, QSLCheckbox, QSMCheckbox, QILCheckbox, QIMCheckbox])
+  }, [checkedItems[6], PerpendicularPeleInput, PerpendicularPeleInput2, PerpendicularPeleSelect, QSLCheckbox, QSMCheckbox, QILCheckbox, QIMCheckbox])
+
+  useEffect(() => {
+    let conclusao = 'Exame mamario dentro dos padrões da normalidade.'
+    removeConclusao(conclusao)
+    if (checkedItems[0] && checkedItems[5] && checkedItems[7]) {
+      setConclusaoMamas([conclusao])
+    }
+  }, [checkedItems[0], checkedItems[5], checkedItems[7]])
+
+  const removeConclusao = (value) => {
+    ConclusaoMamas.map((e) => {
+      if (e.includes(value)) {
+        var index = ConclusaoMamas.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoMamas.splice(index, 1);
+          setConclusaoMamas((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+        }
+      }
+    });
+  };
   const removeFraseSelect = (value) => {
     frasesMamas.map((e) => {
       if (e.includes(value)) {
@@ -159,7 +134,7 @@ function Mama_esquerda() {
     });
   };
 
-  const subExame = "Mama esquerda";
+  const subExame = "Mama feminina esquerda";
   const titulo_exame = "Mamas";
 
   useEffect(() => {
@@ -168,14 +143,16 @@ function Mama_esquerda() {
         titulo_exame,
         subExame,
         true,
-        frasesMamas
+        frasesMamas,
+        ConclusaoMamas
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesMamas
+        frasesMamas,
+        ConclusaoMamas
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesMamas]);
@@ -195,232 +172,249 @@ function Mama_esquerda() {
       <Box mb="20px">
         <TituloNomeExame titulo="Mama feminina esquerda" />
 
-        <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
+        <Box display="flex" flexWrap="wrap" mb="10px">
 
-          <Box display="flex">
-            <Checkbox
-              onChange={(e) => {
-                setCheckboxSemNodulo(
-                  !CheckboxSemNodulo
-                );
-              }}
-            >
-              Não há evidência de nódulo ou massa de caráter sólido, cístico ou complexo.
-            </Checkbox>
-          </Box>
+          <Checkbox
+            isChecked={allChecked}
+            isIndeterminate={isIndeterminate}
+            onChange={(e) => {
+              setCheckedItems([e.target.checked,
+              e.target.checked,
+              e.target.checked,
+              e.target.checked,
+              e.target.checked,
+              e.target.checked,
+              e.target.checked,
+              e.target.checked,
+              ]);
+            }}
+          >
+            <Text fontWeight="semibold" fontSize="16px">
+              Marcar todos
+            </Text>
+          </Checkbox>
+          <Stack gap='10px' ml='15px'>
+            <Box display="flex">
+              <Checkbox
+                isChecked={checkedItems[0]}
+                onChange={(e) => {
+                  setCheckedItems([
+                    e.target.checked,
+                    checkedItems[1],
+                    checkedItems[2],
+                    checkedItems[3],
+                    checkedItems[4],
+                    checkedItems[5],
+                    checkedItems[6],
+                    checkedItems[7],
+                  ]);
+                }}
+              >
+                Ecotextura homogênea de fundo, com predomínio do tecido gorduroso.
+              </Checkbox>
+            </Box>
 
-          <Box display="flex">
-            <Checkbox
-              onChange={(e) => {
-                setCheckboxPresencaImagemSolida(
-                  !CheckboxPresencaImagemSolida
-                );
-              }}
-            >
-              Presença de imagem sólida.
-            </Checkbox>
-          </Box>
-          <Box display="flex">
-            <Checkbox
-              onChange={(e) => {
-                setCheckboxIsoecogenica(
-                  !CheckboxIsoecogenica
-                );
-              }}
-            >Isoecogênica
-            </Checkbox>
-          </Box>
+            <Box display="flex">
+              <Checkbox
+                isChecked={checkedItems[1]}
+                onChange={(e) => {
+                  setCheckedItems([checkedItems[0],
+                  e.target.checked,
+                  checkedItems[2],
+                  checkedItems[3],
+                  checkedItems[4],
+                  checkedItems[5],
+                  checkedItems[6],
+                  checkedItems[7],
+                  ]);
+                }}
+              >
+                Ecotextura homogênea de fundo, com predomínio do tecido fibroglandular.
+              </Checkbox>
+            </Box>
+            <Box display="flex">
+              <Checkbox
+                isChecked={checkedItems[2]}
+                onChange={(e) => {
+                  setCheckedItems([checkedItems[0],
+                  checkedItems[1],
+                  e.target.checked,
+                  checkedItems[3],
+                  checkedItems[4],
+                  checkedItems[5],
+                  checkedItems[6],
+                  checkedItems[7],
+                  ]);
+                }}
+              >
+                Ecotextura heterogênea de fundo, com predomínio do tecido fibroglandular.
+              </Checkbox>
+            </Box>
 
-          <Box display="flex">
-            <Checkbox
-              onChange={(e) => {
-                setCheckboxHipoecogenica(
-                  !CheckboxHipoecogenica
-                );
-              }}
-            >Hipoecogênica
-            </Checkbox>
-          </Box>
+            <Box display="flex">
+              <Checkbox
+                isChecked={checkedItems[3]}
+                onChange={(e) => {
+                  setCheckedItems([checkedItems[0],
+                  checkedItems[1],
+                  checkedItems[2],
+                  e.target.checked,
+                  checkedItems[4],
+                  checkedItems[5],
+                  checkedItems[6],
+                  checkedItems[7],
+                  ]);
 
-          <Box display="flex">
-            <Checkbox
-              onChange={(e) => {
-                setCheckboxHiperecogenicaContornos(
-                  !CheckboxHiperecogenicaContornos
-                );
-              }}
-            >Hiperecogênica de contornos
-            </Checkbox>
-            <Select
-              w="150px"
-              isDisabled={!CheckboxHiperecogenicaContornos}
-              onChange={(e) => {
-                setValueSelectHiperecogenicaContornos(e.target.value);
-              }}
-              value={ValueSelectHiperecogenicaContornos}
-            >
-              <option value="" disabled selected>
-                Selecione
-              </option>
-              <option value="regulares">Regulares</option>
-              <option value="irregulares">Irregulares</option>
-            </Select>
-          </Box>
-          <Box display="flex" flexWrap='wrap'>
-            <Checkbox
-              onChange={(e) => {
-                setParcialmentePrecisosCheckbox(
-                  !ParcialmentePrecisosCheckbox
-                );
-              }}
-            >Parcialmente precisos e bordos finos, bem circunscrito, de orientação
-            </Checkbox>
-            <Select
-              w="150px"
-              isDisabled={!ParcialmentePrecisosCheckbox}
-              onChange={(e) => {
-                setPerpendicularPeleSelect(e.target.value);
-              }}
-              value={PerpendicularPeleSelect}
-            >
-              <option value="" disabled selected>
-                Selecione
-              </option>
-              <option value="paralela a pele">Paralela a pele</option>
-              <option value="perpendicular a pele">Perpendicular a pele</option>
+                }}
+              >
+                Ecotextura homogênea de fundo, com o tecido mamário em maiores proporções nos quadrantes súpero-externos e regiões retro areolares.
+              </Checkbox>
+            </Box>
+            <Box display="flex">
+              <Checkbox
+                isChecked={checkedItems[4]}
+                onChange={(e) => {
+                  setCheckedItems([checkedItems[0],
+                  checkedItems[1],
+                  checkedItems[2],
+                  checkedItems[3],
+                  e.target.checked,
+                  checkedItems[5],
+                  checkedItems[6],
+                  checkedItems[7],
+                  ]);
+                }}
+              >
+                Ecotextura homogênea de fundo, com tecido mamário entremeado por tecido gorduroso.
+              </Checkbox>
+            </Box>
+            <Box display="flex">
+              <Checkbox
+                isChecked={checkedItems[5]}
+                onChange={(e) => {
+                  setCheckedItems([checkedItems[0],
+                  checkedItems[1],
+                  checkedItems[2],
+                  checkedItems[3],
+                  checkedItems[4],
+                  e.target.checked,
+                  checkedItems[6],
+                  checkedItems[7],
+                  ]);
+                }}
+              >
+                Não há evidência de nódulo ou massa de caráter sólido, cístico ou complexo.
+              </Checkbox>
+            </Box>
 
-            </Select>
-            <Text alignSelf='center'>medindo cerca de</Text>
-            <Input
-              p='0px'
-              textAlign='center'
-              w='40px'
-              isDisabled={!ParcialmentePrecisosCheckbox}
-              value={PerpendicularPeleInput}
-              onChange={(e) => setPerpendicularPeleInput(e.target.value)}
-            />
+            <Box display="flex" flexWrap='wrap'>
+              <Checkbox
+                isChecked={checkedItems[6]}
+                onChange={(e) => {
+                  setCheckedItems([checkedItems[0],
+                  checkedItems[1],
+                  checkedItems[2],
+                  checkedItems[3],
+                  checkedItems[4],
+                  checkedItems[5],
+                  e.target.checked,
+                  checkedItems[7],
+                  ]);
+                }}
+              >Parcialmente precisos e bordos finos, bem circunscrito, de orientação
+              </Checkbox>
+              <Select
+                w="150px"
+                isDisabled={!checkedItems[6]}
+                onChange={(e) => {
+                  setPerpendicularPeleSelect(e.target.value);
+                }}
+                value={PerpendicularPeleSelect}
+              >
+                <option value="" disabled selected>
+                  Selecione
+                </option>
+                <option value="paralela a pele">Paralela a pele</option>
+                <option value="perpendicular a pele">Perpendicular a pele</option>
 
+              </Select>
+              <Text alignSelf='center'>medindo cerca de</Text>
+              <Input
+                p='0px'
+                textAlign='center'
+                w='40px'
+                isDisabled={!checkedItems[6]}
+                value={PerpendicularPeleInput}
+                onChange={(e) => setPerpendicularPeleInput(e.target.value)}
+              />
+              <Text alignSelf='center'>cm, </Text>
+              <Input
+                p='0px'
+                textAlign='center'
+                w='40px'
+                isDisabled={!checkedItems[6]}
+                value={PerpendicularPeleInput2}
+                onChange={(e) => setPerpendicularPeleInput2(e.target.value)}
+              />
+              <Text alignSelf='center'>cm da região areolar.</Text>
+              <Text alignSelf='center'>Localizado em</Text>
+              <Checkbox
+                isDisabled={!checkedItems[6]}
+                onChange={(e) => {
+                  setQSLCheckbox(
+                    !QSLCheckbox
+                  );
+                }}
+              >QSL
+              </Checkbox>
+              <Checkbox
+                isDisabled={!checkedItems[6]}
+                onChange={(e) => {
+                  setQSMCheckbox(
+                    !QSMCheckbox
+                  );
+                }}
+              >QSM
+              </Checkbox>
+              <Checkbox
+                isDisabled={!checkedItems[6]}
+                onChange={(e) => {
+                  setQILCheckbox(
+                    !QILCheckbox
+                  );
+                }}
+              >QIL
+              </Checkbox>
+              <Checkbox
+                isDisabled={!checkedItems[6]}
+                onChange={(e) => {
+                  setQIMCheckbox(
+                    !QIMCheckbox
+                  );
+                }}
+              >QIM
+              </Checkbox>
+            </Box>
 
-            <Text alignSelf='center'>cm, </Text>
-            <Input
-              p='0px'
-              textAlign='center'
-              w='40px'
-              isDisabled={!ParcialmentePrecisosCheckbox}
-              value={PerpendicularPeleInput2}
-              onChange={(e) => setPerpendicularPeleInput2(e.target.value)}
-            />
-            <Text alignSelf='center'>cm da região areolar.</Text>
-            <Text alignSelf='center'>Localizado em</Text>
-            <Checkbox
-              isDisabled={!ParcialmentePrecisosCheckbox}
-              onChange={(e) => {
-                setQSLCheckbox(
-                  !QSLCheckbox
-                );
-              }}
-            >QSL
-            </Checkbox>
-            <Checkbox
-              isDisabled={!ParcialmentePrecisosCheckbox}
-              onChange={(e) => {
-                setQSMCheckbox(
-                  !QSMCheckbox
-                );
-              }}
-            >QSM
-            </Checkbox>
-            <Checkbox
-              isDisabled={!ParcialmentePrecisosCheckbox}
-              onChange={(e) => {
-                setQILCheckbox(
-                  !QILCheckbox
-                );
-              }}
-            >QIL
-            </Checkbox>
-            <Checkbox
-              isDisabled={!ParcialmentePrecisosCheckbox}
-              onChange={(e) => {
-                setQIMCheckbox(
-                  !QIMCheckbox
-                );
-              }}
-            >QIM
-            </Checkbox>
-          </Box>
+            <Box display="flex">
+              <Checkbox
+                isChecked={checkedItems[7]}
+                onChange={(e) => {
+                  setCheckedItems([checkedItems[0],
+                  checkedItems[1],
+                  checkedItems[2],
+                  checkedItems[3],
+                  checkedItems[4],
+                  checkedItems[5],
+                  checkedItems[6],
+                  e.target.checked]);
+                }}
+              >
+                Espaço retro mamário normal.
+              </Checkbox>
+            </Box>
 
-
-          <Box display="flex">
-            <Checkbox
-              onChange={(e) => {
-                setHomogeneaGordurosoCheckbox(
-                  !HomogeneaGordurosoCheckbox
-                );
-              }}
-            >
-              Ecotextura homogênea de fundo, com predomínio do tecido gorduroso.
-            </Checkbox>
-          </Box>
-
-          <Box display="flex">
-            <Checkbox
-              onChange={(e) => {
-                setHomogeneaFibroglandularCheckbox(
-                  !HomogeneaFibroglandularCheckbox
-                );
-              }}
-            >
-              Ecotextura homogênea de fundo, com predomínio do tecido fibroglandular.
-            </Checkbox>
-          </Box>
-          <Box display="flex">
-            <Checkbox
-              onChange={(e) => {
-                setHeterogeneaFibroglandularCheckbox(
-                  !HeterogeneaFibroglandularCheckbox
-                );
-              }}
-            >
-              Ecotextura heterogênea de fundo, com predomínio do tecido fibroglandular.
-            </Checkbox>
-          </Box>
-
-          <Box display="flex">
-            <Checkbox
-              onChange={(e) => {
-                setHomogeneaTecidoMamarioRetroAreolaresCheckbox(
-                  !HomogeneaTecidoMamarioRetroAreolaresCheckbox
-                );
-              }}
-            >
-              Ecotextura homogênea de fundo, com o tecido mamário em maiores proporções nos quadrantes súpero-externos e regiões retro areolares.
-            </Checkbox>
-          </Box>
-          <Box display="flex">
-            <Checkbox
-              onChange={(e) => {
-                setHomogeneaTecidoMamarioGordurosoCheckbox(
-                  !HomogeneaTecidoMamarioGordurosoCheckbox
-                );
-              }}
-            >
-              Ecotextura homogênea de fundo, com tecido mamário entremeado por tecido gorduroso.
-            </Checkbox>
-          </Box>
-          <Box display="flex">
-            <Checkbox
-              onChange={(e) => {
-                setEspacoMamarioNormalCheckbox(
-                  !EspacoMamarioNormalCheckbox
-                );
-              }}
-            >
-              Espaço retro mamário normal.
-            </Checkbox>
-          </Box>
-
-
+          </Stack>
 
         </Box>
       </Box>
