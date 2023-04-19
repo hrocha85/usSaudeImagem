@@ -19,7 +19,7 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
 
     const newFormatLaudo = {
       titulo_exame: text,
-      subExames: [{ subExameNome: "", frases: [] }],
+      subExames: [{ subExameNome: "", frases: [], image: "" }],
       conclusoes: [""],
       observacoes: [""],
     };
@@ -247,7 +247,7 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
             z-index="1"
           >
             <Button
-              _hover={{ bg: "blue.100",padding:'3px' }}
+              _hover={{ bg: "blue.100", padding: "3px" }}
               isDisabled={!enableExames}
               fontSize="13.9px"
               variant="link"
