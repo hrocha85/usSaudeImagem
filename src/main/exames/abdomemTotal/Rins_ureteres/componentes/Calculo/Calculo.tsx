@@ -137,7 +137,7 @@ export default function Calculo({ Disable }) {
                         setUpdateCalculos(true);
                     }}
                 >
-                    +1 Nódulo
+                    +1 Cálculo
                 </Button>
             </Box>
 

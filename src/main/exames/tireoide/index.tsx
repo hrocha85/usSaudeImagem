@@ -6,28 +6,48 @@ import CistosColoides from "./CistosColoides/CistosColoides";
 import DopplerParenquima from "./DopplerParenquima/DopplerParenquima";
 import EcotexturaParenquima from "./EcotexturaParenquima/EcotexturaParenquima";
 import Linfonodomegalias from "./Linfonodomegalias/Linfonodomegalias";
-import Procedimentos from "./ProcedimentosDiagnosticos/Procedimentos_diagnosticos";
 import Cirurgias from "./cirurgias/cirurgias";
 import Medidas from "./medidas/medidas";
 import Nodulos from "./nodulos/nodulos";
+import Procedimentos from "./ProcedimentoCirurgico/ProcedimentoCirurgico";
+import Calcificacao from "./Calcificacao/Calcificacao";
 
 function Tireoide() {
   const altura = "100%";
   const largura = "180px";
+
+  const fraseInicial = 'Exame realizado com equipamento dinâmico, transdutor linear de alta resolução, com frequência de 7.5 MHz.'
+
   const [Normal, setNormal] = useState(false);
 
-  const [FrasesTireoide, setFrasesTireoide] = useState<any>([]);
+  const [FrasesTireoide, setFrasesTireoide] = useState<any>([fraseInicial]);
   const [ConclusaoTireoide, setConclusaoTireoide] = useState<any>(
     []
   );
 
   const subExame = "Tireóide";
   const titulo_exame = "Tireóide";
+  // useEffect(() => {
+  //     if (DescreverDoppler) {
+  //         titulo_exame = "Tireóide com doppler";
+  //     } else {
+  //         titulo_exame = "Tireóide";
+  //     }
 
+  // }, [DescreverDoppler])
+
+  const removeItemString = (value) => {
+    var index = FrasesTireoide.indexOf(value);
+
+    if (index > -1) {
+      FrasesTireoide.splice(index, 1);
+      setFrasesTireoide((arr) => [...arr]);
+    }
+  };
   useEffect(() => {
     Normal
-      ? setFrasesTireoide(["Exame realizado com equipamento dinâmico, transdutor linear de alta resolução, com frequência de 7,5 MHz. Glândula tireóide apresentando topografia habitual, simétrica, com dimensões reduzidas, superfície regular e ecotextura homogênea."])
-      : setFrasesTireoide([]);
+      ? setFrasesTireoide((arr) => [...arr, "Glândula tireóide apresentando topografia habitual, simétrica, com dimensões normais, superficie regular e ecotextura homogênea."])
+      : removeItemString("Glândula tireóide apresentando topografia habitual, simétrica, com dimensões normais, superficie regular e ecotextura homogênea.");
   }, [Normal]);
 
   useEffect(() => {
@@ -65,21 +85,22 @@ function Tireoide() {
         mb="5px"
       >
         <Box w="150px">
-          <Checkbox id="tudoNormal" onChange={(e) => setNormal(!Normal)}>
+          <Checkbox onChange={(e) => setNormal(!Normal)}>
             Tireoide normal
           </Checkbox>
         </Box>
       </Box>
 
       <Box ml="10px">
-        <Medidas />
-        <DopplerParenquima />
         <EcotexturaParenquima />
-        <Procedimentos />
         <Cirurgias />
+        <Procedimentos />
+        <Medidas />
+        <Calcificacao />
+        <DopplerParenquima />
+        <Linfonodomegalias />
         <CistosColoides />
         <Nodulos />
-        <Linfonodomegalias />
       </Box>
     </>
   );

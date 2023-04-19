@@ -55,7 +55,7 @@ function DopplerParenquima() {
     }, [DescreverDoppler])
 
     const subExame = "Doppler Parênquima";
-    const titulo_exame = "Tireóide";
+    var titulo_exame = "Tireóide com doppler";
 
     useEffect(() => {
         if (Object.keys(FrasesDopplerParenquima).length == 0) {
@@ -304,7 +304,7 @@ function DopplerParenquima() {
                 <TituloNomeExame titulo="Descrever Doppler do parênquima" />
             </Checkbox>
             <RadioGroup
-                isDisabled={DisableDescreverDoppler}
+                isDisabled={!DisableDescreverDoppler}
                 w='auto' onChange={setValue} value={value} padding="10px">
                 <Flex
                     gap='30px'>
@@ -321,15 +321,15 @@ function DopplerParenquima() {
                 </Flex>
             </RadioGroup>
             <Flex gap='30px' >
-                <Checkbox isDisabled={DisableDescreverDoppler}
+                <Checkbox isDisabled={!DisableDescreverDoppler}
                     onChange={() => setCitarArteriasCheckbox(!CitarArteriasCheckbox)}>
                     Citar as artérias tireoideanas:
                 </Checkbox>
-                <Checkbox isDisabled={DisableDescreverDoppler}
+                <Checkbox isDisabled={!DisableDescreverDoppler}
                     onChange={() => setVelocNormaisCheckbox(!VelocNormaisCheckbox)}>
                     Veloc. normais
                 </Checkbox>
-                <Checkbox isDisabled={DisableDescreverDoppler}
+                <Checkbox isDisabled={!DisableDescreverDoppler}
                     onChange={() => setVelocAumentadasCheckbox(!VelocAumentadasCheckbox)}>
                     Veloc. aumentadas
                 </Checkbox>
@@ -339,7 +339,7 @@ function DopplerParenquima() {
                     <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" padding='5px' h='100%' w='100%'>
                         <Text alignSelf='center'>A. Tir. Superior D:</Text>
                         <HStack>
-                            <Checkbox isDisabled={DisableDescreverDoppler}
+                            <Checkbox isDisabled={!DisableDescreverDoppler}
                                 onChange={() => setVelSistolicaSuperioreriorDirCheckbox(!VelSistolicaSuperioreriorDirCheckbox)}>
                                 Vel.Sistólica
                             </Checkbox>
@@ -353,7 +353,7 @@ function DopplerParenquima() {
                             <Text alignSelf='center'>cm/s</Text>
                         </HStack>
                         <HStack>
-                            <Checkbox isDisabled={DisableDescreverDoppler}
+                            <Checkbox isDisabled={!DisableDescreverDoppler}
                                 onChange={() => setIRSuperiorDirCheckbox(!IRSuperiorDirCheckbox)}
                                 ml='40px'>
                                 I.R.
@@ -371,7 +371,7 @@ function DopplerParenquima() {
                         <Text alignSelf='center'>A. Tir. Inferior D:</Text>
 
                         <HStack>
-                            <Checkbox isDisabled={DisableDescreverDoppler}
+                            <Checkbox isDisabled={!DisableDescreverDoppler}
                                 onChange={() => setVelSistolicaInferiorDirCheckbox(!VelSistolicaInferiorDirCheckbox)}>
                                 Vel.Sistólica
                             </Checkbox>
@@ -385,7 +385,7 @@ function DopplerParenquima() {
                             <Text alignSelf='center'>cm/s</Text>
                         </HStack>
                         <HStack>
-                            <Checkbox isDisabled={DisableDescreverDoppler}
+                            <Checkbox isDisabled={!DisableDescreverDoppler}
                                 onChange={() => setIRInferiorDirCheckbox(!IRInferiorDirCheckbox)}
                                 ml='40px'>
                                 I.R.
@@ -404,7 +404,7 @@ function DopplerParenquima() {
                     <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" padding='5px' h='100%' w='100%'>
                         <Text alignSelf='center'>A. Tir. Superior E:</Text>
                         <HStack>
-                            <Checkbox isDisabled={DisableDescreverDoppler}
+                            <Checkbox isDisabled={!DisableDescreverDoppler}
                                 onChange={() => setVelSistolicaSuperioreriorEsqCheckbox(!VelSistolicaSuperioreriorEsqCheckbox)}>
                                 Vel.Sistólica
                             </Checkbox>
@@ -418,7 +418,7 @@ function DopplerParenquima() {
                             <Text alignSelf='center'>cm/s</Text>
                         </HStack>
                         <HStack>
-                            <Checkbox isDisabled={DisableDescreverDoppler}
+                            <Checkbox isDisabled={!DisableDescreverDoppler}
                                 onChange={() => setIRSuperiorEsqCheckbox(!IRSuperiorEsqCheckbox)}
                                 ml='40px'>
                                 I.R.
@@ -435,7 +435,7 @@ function DopplerParenquima() {
                     <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" padding='5px' h='100%' w='100%'>
                         <Text alignSelf='center'>A. Tir. Inferior D:</Text>
                         <HStack>
-                            <Checkbox isDisabled={DisableDescreverDoppler}
+                            <Checkbox isDisabled={!DisableDescreverDoppler}
                                 onChange={() => setVelSistolicaInferiorEsqCheckbox(!VelSistolicaInferiorEsqCheckbox)}>
                                 Vel.Sistólica
                             </Checkbox>
@@ -449,7 +449,7 @@ function DopplerParenquima() {
                             <Text alignSelf='center'>cm/s</Text>
                         </HStack>
                         <HStack>
-                            <Checkbox isDisabled={DisableDescreverDoppler}
+                            <Checkbox isDisabled={!DisableDescreverDoppler}
                                 onChange={() => setIRInferiorEsqCheckbox(!IRInferiorEsqCheckbox)}
                                 ml='40px'>
                                 I.R.
