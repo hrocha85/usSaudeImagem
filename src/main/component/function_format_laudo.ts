@@ -4,19 +4,22 @@ export class Format_Laudo {
   frases_is_empty?: boolean;
   frases_sub_exame?: Array<string>;
   conclusoes_sub_exame?: Array<string>;
+  image?: string;
 
   constructor(
     titulo_exame?: string,
     sub_exame_nome?: string,
     frases_is_empty?: boolean,
     frases_sub_exame?: Array<string>,
-    conclusoes_sub_exame?: Array<string>
+    conclusoes_sub_exame?: Array<string>,
+    image?: string
   ) {
     this.titulo_exame = titulo_exame;
     this.sub_exame_nome = sub_exame_nome;
     this.frases_is_empty = frases_is_empty;
     this.frases_sub_exame = frases_sub_exame;
     this.conclusoes_sub_exame = conclusoes_sub_exame;
+    this.image = image;
   }
 
   Format_Laudo_Create_Storage(): void {
@@ -59,6 +62,13 @@ export class Format_Laudo {
         Exames.subExames.map((subExame, indexS) => {
           if (subExame.subExameNome == this.sub_exame_nome) {
             Exames.subExames[indexS].frases = this.frases_sub_exame;
+            if (this.image != null && this.image != undefined) {
+              Exames.subExames.map((subExame, indexS) => {
+                if (subExame.subExameNome == this.sub_exame_nome) {
+                  Exames.subExames[indexS].image = this.image;
+                }
+              });
+            }
             localStorage.setItem(this.sub_exame_nome!, JSON.stringify(1));
           }
         });
@@ -161,5 +171,21 @@ export class Format_Laudo {
         });
       }
     });
+  }
+
+  Remove_Image(): void {
+    var array = JSON.parse(localStorage.getItem("format_laudo")!);
+    array.map((Exames) => {
+      if (Exames.titulo_exame == this.titulo_exame) {
+        Exames.subExames.map((subExame, indexS) => {
+          if (subExame.subExameNome == this.sub_exame_nome) {
+            Exames.subExames.splice(indexS, 1); // remove o elemento da lista
+            localStorage.setItem("format_laudo", JSON.stringify(array));
+            localStorage.removeItem(this.sub_exame_nome!);
+          }
+        });
+      }
+    });
+    window.dispatchEvent(new Event("storage"));
   }
 }

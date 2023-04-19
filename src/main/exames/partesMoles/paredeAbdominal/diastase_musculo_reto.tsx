@@ -30,10 +30,13 @@ import { useEffect, useState } from "react";
 
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
+import SugestaoRef from "../../../images/ref_partes_moles.png";
 
 function Diastase_Musculo_Reto({ Disable }) {
   const altura = "auto";
   const largura = "100%";
+
+  const [imageAdded, setImageAdded] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -52,7 +55,6 @@ function Diastase_Musculo_Reto({ Disable }) {
   const [selectNivel, setSelectNivel] = useState("");
 
   const criaStringDiastase_SEM_Medida = () => {
-
     removeDiastase_SEM_Medida();
     let string = `Nota-se afastamento patológico dos ventres do músculo reto abdominal ao nível do ${selectNivel}`;
     setFrasesDiastase((arr) => [...arr, string]);
@@ -104,7 +106,9 @@ function Diastase_Musculo_Reto({ Disable }) {
         if (index > -1) {
           ConclusaoDiastase.splice(index, 1);
           setConclusaoDiastase((arr) => [...arr]);
-          new Format_Laudo(titulo_exame).Remove_Conclusao('Diástase do músculo reto abdominal.');
+          new Format_Laudo(titulo_exame).Remove_Conclusao(
+            "Diástase do músculo reto abdominal."
+          );
         }
       }
     });
@@ -120,24 +124,46 @@ function Diastase_Musculo_Reto({ Disable }) {
     setFrasesDiastase((arr) => []);
   };
 
+  const AddImageFormatLaudo = (sugest) => {
+    new Format_Laudo(
+      titulo_exame,
+      sugest,
+      undefined,
+      undefined,
+      undefined,
+      SugestaoRef
+    ).Format_Laudo_Create_Storage();
+    setImageAdded(true);
+    onClose()
+  };
+
+  const RemoveImageFormatLaudo = (sugest) => {
+    new Format_Laudo(
+      titulo_exame,
+      sugest,
+      undefined,
+      undefined,
+      undefined,
+      SugestaoRef
+    ).Remove_Image();
+    setImageAdded(false);
+    onClose()
+  };
 
   useEffect(() => {
     if (presenteCheckbox) {
-
       setPresenteCheckbox(true);
-      setDisableCitarDistancia(false)
+      setDisableCitarDistancia(false);
     } else {
-      removeConclusao()
-      setDisableCitarDistancia(true)
+      removeConclusao();
+      setDisableCitarDistancia(true);
       removeAll();
       setPresenteCheckbox(false);
       setAfastamentoCheckBox(false);
       setMedidaAfastamento("");
-      setSelectNivel('')
+      setSelectNivel("");
     }
   }, [presenteCheckbox]);
-
-
 
   useEffect(() => {
     if (!afastamentoCheckBox) {
@@ -150,17 +176,16 @@ function Diastase_Musculo_Reto({ Disable }) {
   }, [afastamentoCheckBox]);
 
   useEffect(() => {
-    const conclusao = 'Diástase do músculo reto abdominal.'
-    removeConclusao()
-    removeAll()
+    const conclusao = "Diástase do músculo reto abdominal.";
+    removeConclusao();
+    removeAll();
     if (selectNivel != "") {
       criaStringDiastase_SEM_Medida();
-      if (medidaAfastamento !== '') {
+      if (medidaAfastamento !== "") {
         criaStringDiastase_COM_Medida();
       }
-      setConclusaoDiastase((arr) => [...arr, conclusao])
+      setConclusaoDiastase((arr) => [...arr, conclusao]);
     }
-
   }, [selectNivel, medidaAfastamento]);
 
   const subExame = "Parede Abdominal - Diástase do Músculo Reto Abdominal";
@@ -217,7 +242,9 @@ function Diastase_Musculo_Reto({ Disable }) {
               value={selectNivel}
               onChange={(e) => setSelectNivel(e.target.value)}
             >
-              <option value="" disabled selected>Selecione</option>
+              <option value="" disabled selected>
+                Selecione
+              </option>
               <option value="epigástrio">epigástrio</option>
               <option value="mesogástrio">mesogástrio</option>
               <option value="hipogástrio">hipogástrio</option>
@@ -337,9 +364,30 @@ function Diastase_Musculo_Reto({ Disable }) {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Fechar
-            </Button>
+            <HStack>
+              <Button
+                marginTop="10px"
+                color={imageAdded ? "red" : "#394BEE"}
+                fontSize="16px"
+                fontWeight="semibold"
+                alignItems="center"
+                padding="5px"
+                backgroundColor="#E3E5F8"
+                onClick={() =>
+                  imageAdded
+                    ? RemoveImageFormatLaudo("Sugestão de Referência")
+                    : AddImageFormatLaudo("Sugestão de Referência")
+                }
+                _hover={{ backgroundColor: "#47AEFC8E" }}
+              >
+                {imageAdded
+                  ? "Remover Imagem do Laudo"
+                  : "Adicionar Imagem ao Laudo"}
+              </Button>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                Fechar
+              </Button>
+            </HStack>
           </ModalFooter>
         </ModalContent>
       </Modal>

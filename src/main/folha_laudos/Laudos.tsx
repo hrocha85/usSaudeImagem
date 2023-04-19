@@ -24,8 +24,8 @@ import {
   Document,
   Font,
   Image as ImagePDF,
-  Page,
   PDFDownloadLink,
+  Page,
   StyleSheet,
   Text as TextPDF,
   View as ViewPDF,
@@ -35,9 +35,11 @@ import { BiLoaderAlt } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { GoDesktopDownload } from "react-icons/go";
-import { LaudosContext } from "../../context/LuadosContext";
+import { RiCloseLine } from "react-icons/ri";
 import LaudosJSON from "../../Data/Laudos.json";
+import { LaudosContext } from "../../context/LuadosContext";
 import "./Laudos.css";
+import SubMenu from "../menu/subMenu";
 
 function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -245,7 +247,7 @@ function Exames() {
               {sub.subExameNome}:
             </TextPDF>
             <ViewPDF style={styles.view_frases}>
-              {typeof sub.frases != "string" ? (
+              {typeof sub.frases != "string" && sub.frases != null ? (
                 sub.frases.map((frase, key) => {
                   return (
                     <TextPDF
@@ -263,6 +265,9 @@ function Exames() {
                 </TextPDF>
               )}
             </ViewPDF>
+            {sub.image != null && sub.image != "" ? (
+              <ImagePDF src={sub.image} />
+            ) : null}
           </ViewPDF>
         ) : null;
       });
@@ -315,6 +320,7 @@ function Exames() {
                   <TextPDF>{clinicaSet.nomeClinica}</TextPDF>
                   <TextPDF>{getPaciente()}</TextPDF>
                   <TextPDF>{getCurrentDate()}</TextPDF>
+                  <TextPDF>{`Médico Solicitante: Dr. ${getMedicoSolicitante()}`}</TextPDF>
                   <TextPDF>{`Dr. ${medico.nome}`}</TextPDF>
                 </ViewPDF>
               </ViewPDF>
@@ -328,7 +334,7 @@ function Exames() {
 
                 {exame.observacoes != null &&
                 exame.observacoes != undefined &&
-                exame.observacoes.lenght > 1 ? (
+                exame.observacoes.length > 1 ? (
                   <ViewPDF style={styles.inline}>
                     <TextPDF style={styles.textNomeSubExame}>
                       {`Observações ${exame.titulo_exame}:`}
@@ -337,18 +343,18 @@ function Exames() {
                   </ViewPDF>
                 ) : null}
 
-                {exame.conclusoes != null && exame.conclusoes != undefined ? (
+                {exame.conclusoes != null &&
+                exame.conclusoes != undefined &&
+                exame.conclusoes.filter((c) => c !== "").length > 0 ? (
                   <ViewPDF style={styles.viewConclusoes}>
                     <ViewPDF style={styles.lineConclusoes} break={true} />
                     <TextPDF style={styles.textConclusao}>
-                      {`Conclusão ${exame.titulo_exame}`}
+                      {`Conclusão ${exame.titulo_exame} aasda`}
                     </TextPDF>
                     <ViewPDF>{renderConclusoes(exame)}</ViewPDF>
                     <ViewPDF style={styles.lineConclusoes} />
                   </ViewPDF>
-                ) : (
-                  <Text>ss</Text>
-                )}
+                ) : null}
               </ViewPDF>
 
               <ViewPDF style={styles.pageNumber}>
@@ -410,6 +416,14 @@ function Exames() {
     }
   };
 
+  const getMedicoSolicitante = () => {
+    if (localStorage.getItem("paciente") != null) {
+      return JSON.parse(localStorage.getItem("paciente")!).medico_solicitante;
+    } else {
+      return "Médico Solicitante";
+    }
+  };
+
   const getCurrentDate = () => {
     const timeStamp = new Date();
 
@@ -436,6 +450,7 @@ function Exames() {
     JSON.parse(localStorage.getItem("format_laudo")!)
   );
   const [laudo, setLaudo] = useState<any>(Laudo());
+  const [updateSuccess, setUpdateSuccess] = useState(false);
 
   const update = (laudos) => {
     var array = JSON.parse(localStorage.getItem("medicos")!);
@@ -476,15 +491,21 @@ function Exames() {
     return arrayLocal;
   };
 
-  const EditarLaudo = (defaultValue, IndexExame, Index_Sub_Exame) => {
+  const EditarLaudo = (
+    defaultValue,
+    IndexExame,
+    Index_Sub_Exame,
+    Index_Frase
+  ) => {
+    const handleSubmit = async (event) => {
+      await updateLaudo(event, IndexExame, Index_Sub_Exame, Index_Frase);
+    };
     return (
       <Editable
         defaultValue={defaultValue}
         isPreviewFocusable={true}
         selectAllOnFocus={false}
-        onChange={(e) => {
-          handleEditLaudoInput(e, IndexExame, Index_Sub_Exame);
-        }}
+        onSubmit={handleSubmit}
       >
         <Tooltip
           label="Clique para editar"
@@ -515,35 +536,259 @@ function Exames() {
 
     return isEditing ? (
       <ButtonGroup justifyContent="end" size="sm" w="full" spacing={2} mt={2}>
-        <IconButton
-          aria-label="Check"
-          icon={<CheckIcon />}
-          {...getSubmitButtonProps()}
-        />
-
-        <IconButton
-          aria-label="Close"
-          icon={<CloseIcon boxSize={3} />}
-          {...getCancelButtonProps()}
-        />
+        <Tooltip
+          label="Confirmar Edição"
+          fontSize="xl"
+          backgroundColor="white"
+          placement="bottom"
+          hasArrow
+          arrowSize={15}
+          textColor="black"
+        >
+          <IconButton
+            aria-label="Check"
+            icon={<CheckIcon />}
+            {...getSubmitButtonProps()}
+          />
+        </Tooltip>
+        <Tooltip
+          label="Cancelar Edição"
+          fontSize="xl"
+          backgroundColor="white"
+          placement="bottom"
+          hasArrow
+          arrowSize={15}
+          textColor="black"
+        >
+          <IconButton
+            aria-label="Close"
+            icon={<CloseIcon boxSize={3} />}
+            {...getCancelButtonProps()}
+          />
+        </Tooltip>
       </ButtonGroup>
     ) : null;
   }
 
-  const handleEditLaudoInput = async (event, IndexExame, Index_Sub_Exame) => {
-    updateLaudo(event, IndexExame, Index_Sub_Exame);
-  };
-
-  const updateLaudo = (event, IndexExame, Index_Sub_Exame) => {
+  const updateLaudo = async (
+    event,
+    IndexExame,
+    Index_Sub_Exame,
+    Index_Frase
+  ) => {
     var array = JSON.parse(localStorage.getItem("format_laudo")!);
 
     array.map((Exames) => {
-      console.log("teste", Exames.subExames[Index_Sub_Exame]);
-
-      Exames.subExames[Index_Sub_Exame].frases = event;
+      Exames.subExames[Index_Sub_Exame].frases[Index_Frase] = event;
       localStorage.setItem("format_laudo", JSON.stringify(array));
     });
+
     setLaudo(Laudo());
+  };
+
+  const RenderLaudoEditTrue = () => {
+    return (
+      <>
+        {JSON.parse(localStorage.getItem("format_laudo")!).map(
+          (exame, key, IndexExame) => {
+            return (
+              <Box key={key}>
+                <Text
+                  textDecoration="underline"
+                  fontWeight="bold"
+                  fontSize="19px"
+                  textAlign="center"
+                  textTransform="uppercase"
+                >
+                  {exame.titulo_exame}
+                </Text>
+
+                {exame.subExames.map((sub_exame, keys) => {
+                  return sub_exame.subExameNome != null &&
+                    sub_exame.subExameNome != "" ? (
+                    <HStack
+                      justifyContent="space-between"
+                      marginBottom="30px"
+                      marginTop="20px"
+                      key={keys}
+                    >
+                      <HStack justify="space-between">
+                        <Text
+                          textDecoration="underline"
+                          fontWeight="semibold"
+                          whiteSpace="nowrap"
+                        >
+                          {sub_exame.subExameNome}:
+                        </Text>
+                        <Box w="100%">
+                          <Box w="100%">
+                            {sub_exame.frases.map((frase, index) => {
+                              return EditarLaudo(
+                                frase,
+                                IndexExame,
+                                keys,
+                                index
+                              );
+                            })}
+                          </Box>
+                        </Box>
+                      </HStack>
+                    </HStack>
+                  ) : null;
+                })}
+
+                <HStack justify="space-evenly" marginTop="10px"></HStack>
+              </Box>
+            );
+          }
+        )}
+      </>
+    );
+  };
+
+  const RenderLaudoEditFalse = () => {
+    return (
+      <>
+        {JSON.parse(localStorage.getItem("format_laudo")!).map(
+          (exame, key, IndexExame) => {
+            return (
+              <Box key={key}>
+                <Text
+                  textDecoration="underline"
+                  fontWeight="bold"
+                  fontSize="19px"
+                  textAlign="center"
+                  textTransform="uppercase"
+                >
+                  {exame.titulo_exame}
+                </Text>
+                {exame.subExames.map((sub_exame, keys) => {
+                  return sub_exame.subExameNome != null &&
+                    sub_exame.subExameNome != "" ? (
+                    <HStack
+                      justifyContent="space-between"
+                      marginBottom="30px"
+                      marginTop="20px"
+                      key={keys}
+                    >
+                      <HStack justify="space-between">
+                        <Text
+                          textDecoration="underline"
+                          fontWeight="semibold"
+                          whiteSpace={
+                            sub_exame.subExameNome.length <= 20
+                              ? "nowrap"
+                              : "normal"
+                          }
+                        >
+                          {sub_exame.subExameNome}:
+                        </Text>
+                        <Box w="100%">
+                          {typeof sub_exame.frases != "string" &&
+                          sub_exame.frases != null ? (
+                            sub_exame.frases.map((frase, key) => {
+                              return (
+                                <Stack key={key}>
+                                  <Text
+                                    wordBreak="break-word"
+                                    w="100%"
+                                    textAlign="start"
+                                    marginStart="10px"
+                                  >
+                                    {frase}
+                                  </Text>
+                                </Stack>
+                              );
+                            })
+                          ) : (
+                            <Text w="100%" textAlign="start" marginStart="10px">
+                              {exame.frases}
+                            </Text>
+                          )}
+                        </Box>
+                      </HStack>
+                      {sub_exame.image != null && sub_exame.image != "" ? (
+                        <Image src={sub_exame.image} />
+                      ) : null}
+                    </HStack>
+                  ) : null;
+                })}
+
+                {exame.observacoes != undefined &&
+                exame.observacoes.length > 1 ? (
+                  <>
+                    <HStack>
+                      <Text textDecoration="underline" fontWeight="semibold">
+                        Observações {exame.titulo_exame}:
+                      </Text>
+                      <Box w="100%">
+                        {typeof exame.observacoes != "string"
+                          ? exame.observacoes.map((frase, key) => {
+                              return (
+                                <Stack key={key}>
+                                  <Text
+                                    wordBreak="break-word"
+                                    w="100%"
+                                    textAlign="start"
+                                    marginStart="10px"
+                                  >
+                                    {frase}
+                                  </Text>
+                                </Stack>
+                              );
+                            })
+                          : null}
+                      </Box>
+                    </HStack>
+                  </>
+                ) : null}
+
+                {exame.conclusoes != undefined &&
+                exame.conclusoes.length > 1 ? (
+                  <>
+                    <Divider
+                      marginBottom="10px"
+                      borderWidth="1px"
+                      borderColor="black"
+                    />
+                    <Text
+                      textDecoration="underline"
+                      fontWeight="bold"
+                      fontSize="17px"
+                      textAlign="center"
+                      textTransform="uppercase"
+                      marginBottom="10px"
+                    >
+                      {`Conclusão ${exame.titulo_exame}`}
+                    </Text>
+
+                    {exame.conclusoes.map((conclusao, key) => {
+                      return conclusao != "" && conclusao != null ? (
+                        <Text
+                          w="100%"
+                          textAlign="start"
+                          marginStart="10px"
+                          key={key}
+                        >
+                          {conclusao}
+                        </Text>
+                      ) : null;
+                    })}
+                    <Divider
+                      marginTop="10px"
+                      borderWidth="1px"
+                      borderColor="black"
+                    />
+                  </>
+                ) : null}
+
+                <HStack justify="space-evenly" marginTop="10px"></HStack>
+              </Box>
+            );
+          }
+        )}
+      </>
+    );
   };
 
   useEffect(() => {
@@ -560,6 +805,15 @@ function Exames() {
     setLaudo(Laudo());
     getFormatLaudo();
   }, [localStorage.getItem("format_laudo")!]);
+
+  /* useEffect(() => {
+    console.log("edit", edit);
+    if (edit) {
+      RenderLaudoEditTrue();
+    } else {
+      RenderLaudoEditFalse();
+    }
+  }, [edit, localStorage.getItem("format_laudo")!]);*/
 
   return (
     <Box
@@ -643,27 +897,51 @@ function Exames() {
               }
             </PDFDownloadLink>
           </Box>
-          <Tooltip
-            label="Editar Laudo"
-            fontSize="xl"
-            backgroundColor="white"
-            placement="top"
-            hasArrow
-            arrowSize={15}
-            textColor="black"
-          >
-            <Circle size="50px" bg="gray.200">
-              <Icon
-                w={30}
-                h={30}
-                as={FiEdit}
-                color="twitter.600"
-                onClick={() => {
-                  setEdit(true);
-                }}
-              />
-            </Circle>
-          </Tooltip>
+          {edit == false ? (
+            <Tooltip
+              label="Editar Laudo"
+              fontSize="xl"
+              backgroundColor="white"
+              placement="top"
+              hasArrow
+              arrowSize={15}
+              textColor="black"
+            >
+              <Circle size="50px" bg="gray.200">
+                <Icon
+                  w={30}
+                  h={30}
+                  as={FiEdit}
+                  color="twitter.600"
+                  onClick={() => {
+                    setEdit(true);
+                  }}
+                />
+              </Circle>
+            </Tooltip>
+          ) : (
+            <Tooltip
+              label="Sair Modo Edição"
+              fontSize="xl"
+              backgroundColor="white"
+              placement="top"
+              hasArrow
+              arrowSize={15}
+              textColor="black"
+            >
+              <Circle size="50px" bg="gray.200">
+                <Icon
+                  w={30}
+                  h={30}
+                  as={RiCloseLine}
+                  color="twitter.600"
+                  onClick={() => {
+                    setEdit(false);
+                  }}
+                />
+              </Circle>
+            </Tooltip>
+          )}
         </Stack>
       </Center>
 
@@ -690,6 +968,7 @@ function Exames() {
             <Text fontWeight="bold">{clinicaSet.nomeClinica}</Text>
             <Text>{getPaciente()}</Text>
             <Text>{getCurrentDate()}</Text>
+            <Text>{`Médico Solicitante: Dr. ${getMedicoSolicitante()}`}</Text>
             <Text>{`Dr. ${medico.nome}`}</Text>
           </Grid>
         </Grid>
@@ -701,178 +980,8 @@ function Exames() {
             marginTop="15px"
           />
         </Center>
-        <Box margin="20px">
-          {arrayLocal.map((exame, key, IndexExame) => {
-            return edit == false ? (
-              <Box key={key}>
-                <Text
-                  textDecoration="underline"
-                  fontWeight="bold"
-                  fontSize="19px"
-                  textAlign="center"
-                  textTransform="uppercase"
-                >
-                  {exame.titulo_exame}
-                </Text>
-                {exame.subExames.map((sub_exame, keys) => {
-                  return sub_exame.subExameNome != null &&
-                    sub_exame.subExameNome != "" ? (
-                    <HStack
-                      justifyContent="space-between"
-                      marginBottom="30px"
-                      marginTop="20px"
-                      key={keys}
-                    >
-                      <HStack justify="space-between">
-                        <Text
-                          textDecoration="underline"
-                          fontWeight="semibold"
-                          whiteSpace={
-                            sub_exame.subExameNome.length <= 20
-                              ? "nowrap"
-                              : "normal"
-                          }
-                        >
-                          {sub_exame.subExameNome}:
-                        </Text>
-                        <Box w="100%">
-                          {typeof sub_exame.frases != "string" ? (
-                            sub_exame.frases.map((frase, key) => {
-                              return (
-                                <Stack key={key}>
-                                  <Text
-                                    wordBreak="break-word"
-                                    w="100%"
-                                    textAlign="start"
-                                    marginStart="10px"
-                                  >
-                                    {frase}
-                                  </Text>
-                                </Stack>
-                              );
-                            })
-                          ) : (
-                            <Text w="100%" textAlign="start" marginStart="10px">
-                              {exame.frases}
-                            </Text>
-                          )}
-                        </Box>
-                      </HStack>
-                    </HStack>
-                  ) : null;
-                })}
-
-                {exame.observacoes != undefined &&
-                exame.observacoes.length > 1 ? (
-                  <>
-                    <HStack>
-                      <Text textDecoration="underline" fontWeight="semibold">
-                        Observações {exame.titulo_exame}:
-                      </Text>
-                      <Box w="100%">
-                        {typeof exame.observacoes != "string"
-                          ? exame.observacoes.map((frase, key) => {
-                              return (
-                                <Stack key={key}>
-                                  <Text
-                                    wordBreak="break-word"
-                                    w="100%"
-                                    textAlign="start"
-                                    marginStart="10px"
-                                  >
-                                    {frase}
-                                  </Text>
-                                </Stack>
-                              );
-                            })
-                          : null}
-                      </Box>
-                    </HStack>
-                  </>
-                ) : null}
-
-                {exame.conclusoes != undefined &&
-                exame.conclusoes.length > 1 ? (
-                  <>
-                    <Divider
-                      marginBottom="10px"
-                      borderWidth="1px"
-                      borderColor="black"
-                    />
-                    <Text
-                      textDecoration="underline"
-                      fontWeight="bold"
-                      fontSize="17px"
-                      textAlign="center"
-                      textTransform="uppercase"
-                      marginBottom="10px"
-                    >
-                      {`Conclusão ${exame.titulo_exame}`}
-                    </Text>
-
-                    {exame.conclusoes.map((conclusao, key) => {
-                      return conclusao != "" && conclusao != null ? (
-                        <Text
-                          w="100%"
-                          textAlign="start"
-                          marginStart="10px"
-                          key={key}
-                        >
-                          {conclusao}
-                        </Text>
-                      ) : null;
-                    })}
-                    <Divider
-                      marginTop="10px"
-                      borderWidth="1px"
-                      borderColor="black"
-                    />
-                  </>
-                ) : null}
-
-                <HStack justify="space-evenly" marginTop="10px"></HStack>
-              </Box>
-            ) : (
-              <Box key={key}>
-                <Text
-                  textDecoration="underline"
-                  fontWeight="bold"
-                  fontSize="19px"
-                  textAlign="center"
-                  textTransform="uppercase"
-                >
-                  {exame.titulo_exame}
-                </Text>
-
-                {exame.subExames.map((sub_exame, keys) => {
-                  return sub_exame.subExameNome != null &&
-                    sub_exame.subExameNome != "" ? (
-                    <HStack
-                      justifyContent="space-between"
-                      marginBottom="30px"
-                      marginTop="20px"
-                      key={keys}
-                    >
-                      <HStack justify="space-between">
-                        <Text
-                          textDecoration="underline"
-                          fontWeight="semibold"
-                          whiteSpace="nowrap"
-                        >
-                          {sub_exame.subExameNome}:
-                        </Text>
-                        <Box w="100%">
-                          {EditarLaudo(sub_exame.frases, IndexExame, keys)}
-                        </Box>
-                      </HStack>
-                    </HStack>
-                  ) : null;
-                })}
-
-                <HStack justify="space-evenly" marginTop="10px"></HStack>
-              </Box>
-            );
-          })}
+        <Box margin="20px" key={+edit}>
+          {edit ? RenderLaudoEditTrue() : RenderLaudoEditFalse()}
         </Box>
         <Box position="absolute" w="100%">
           <HStack w="100%" justify="space-between">

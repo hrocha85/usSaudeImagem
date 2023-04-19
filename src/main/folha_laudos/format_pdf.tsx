@@ -30,12 +30,20 @@ export default function Format_PDF() {
       return "Nome paciente";
     }
   };
+  const getMedicoSolicitante = () => {
+    if (localStorage.getItem("paciente") != null) {
+      return JSON.parse(localStorage.getItem("paciente")!).medico_solicitante;
+    } else {
+      return "Médico Solicitante";
+    }
+  };
 
   const getCurrentDate = () => {
     const timeStamp = new Date();
 
-    return `${timeStamp.getDate()}/${timeStamp.getMonth() + 1
-      }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
+    return `${timeStamp.getDate()}/${
+      timeStamp.getMonth() + 1
+    }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
   };
 
   const getUserMedico = () => {
@@ -57,7 +65,7 @@ export default function Format_PDF() {
         <View style={styles.inline} wrap={false} key={key}>
           <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
           <View style={styles.view_frases}>
-            {typeof sub.frases != "string" ? (
+            {typeof sub.frases != "string" && sub.frases != null ? (
               sub.frases.map((frase, key) => {
                 return (
                   <Text style={styles.frasesSubExame} key={key}>
@@ -69,6 +77,9 @@ export default function Format_PDF() {
               <Text style={styles.frasesSubExame}>{sub.frases}</Text>
             )}
           </View>
+          {sub.image != null && sub.image != "" ? (
+            <Image src={sub.image} />
+          ) : null}
         </View>
       ) : null;
     });
@@ -85,6 +96,7 @@ export default function Format_PDF() {
       });
     }
   };
+
   const renderObservacoes = (exame) => {
     if (exame.observacoes != null && exame.observacoes != undefined) {
       return exame.observacoes.map((observacao, key) => {
@@ -279,7 +291,6 @@ export default function Format_PDF() {
       fontFamily: "MontserratRegular",
       lineHeight: 3,
       marginLeft: 20,
-
     },
     laudo_viewer: {
       margin: 10,
@@ -324,6 +335,7 @@ export default function Format_PDF() {
                       <Text>{clinicaSet.nomeClinica}</Text>
                       <Text>{getPaciente()}</Text>
                       <Text>{getCurrentDate()}</Text>
+                      <Text>{`Médico Solicitante: Dr. ${getMedicoSolicitante()}`}</Text>
                       <Text>{`Dr. ${medico.nome}`}</Text>
                     </View>
                   </View>
@@ -336,8 +348,8 @@ export default function Format_PDF() {
                     <View>{renderFrases(exame)}</View>
 
                     {exame.observacoes != null &&
-                      exame.observacoes.length > 1 &&
-                      exame.observacoes != undefined ? (
+                    exame.observacoes.length > 1 &&
+                    exame.observacoes != undefined ? (
                       <View style={styles.inline}>
                         <Text style={styles.textNomeSubExame}>
                           {`Observações ${exame.titulo_exame}:`}
@@ -347,17 +359,17 @@ export default function Format_PDF() {
                     ) : null}
 
                     {exame.conclusoes != null &&
-                      exame.conclusoes != undefined
-                      ? (
-                        <View style={styles.viewConclusoes}>
-                          <View style={styles.lineConclusoes} break={true} />
-                          <Text style={styles.textConclusao}>
-                            {`Conclusão ${exame.titulo_exame}`}
-                          </Text>
-                          <View>{renderConclusoes(exame)}</View>
-                          <View style={styles.lineConclusoes} />
-                        </View>
-                      ) : null}
+                    exame.conclusoes != undefined &&
+                    exame.conclusoes.length > 1 ? (
+                      <View style={styles.viewConclusoes}>
+                        <View style={styles.lineConclusoes} break={true} />
+                        <Text style={styles.textConclusao}>
+                          {`Conclusão ${exame.titulo_exame}`}
+                        </Text>
+                        <View>{renderConclusoes(exame)}</View>
+                        <View style={styles.lineConclusoes} />
+                      </View>
+                    ) : null}
                   </View>
 
                   <View style={styles.pageNumber}>
