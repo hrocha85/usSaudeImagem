@@ -233,7 +233,7 @@ export default function IndividualizarNodulos({ numCalculo }) {
           <option value="Imprecisos">Imprecisos</option>
         </Select>
         <Input
-          maxLength={2}
+          
           isDisabled={DisableSelect}
           onChange={(e) => setTamanhoParciais(e.target.value)}
           value={TamanhoParciais}

@@ -127,7 +127,7 @@ function FibromatosePalmarEsquerdo({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setNoduloInput(e.target.value) }}
           />
@@ -138,7 +138,7 @@ function FibromatosePalmarEsquerdo({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setNoduloInput2(e.target.value) }}
           />
@@ -149,7 +149,7 @@ function FibromatosePalmarEsquerdo({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setNoduloInput3(e.target.value) }}
           />

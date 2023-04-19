@@ -156,7 +156,7 @@ export default function Cisto_Esquerdo({ Disable }) {
                     h="30px"
                     value={medida1Cisto}
                     padding="5px"
-                    maxLength={2}
+                    
                     textAlign="center"
                     onChange={(e) => {
                       setMedida1Cisto(e.target.value);
@@ -169,7 +169,7 @@ export default function Cisto_Esquerdo({ Disable }) {
                     h="30px"
                     value={medida2Cisto}
                     padding="5px"
-                    maxLength={2}
+                    
                     textAlign="center"
                     onChange={(e) => {
                       setMedida2Cisto(e.target.value);

@@ -236,7 +236,7 @@ function Cisto() {
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 settamanhoCistoMamaDireitoInput(e.target.value);
@@ -303,7 +303,7 @@ function Cisto() {
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setTamanhoCistoMamaEsquerdoInput(e.target.value);

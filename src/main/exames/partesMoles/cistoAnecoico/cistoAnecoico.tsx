@@ -231,7 +231,7 @@ function CistoAnecoico({ Disable }) {
               h="30px"
               value={medida1CistoUnico}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida1CistoUnico(e.target.value);
@@ -244,7 +244,7 @@ function CistoAnecoico({ Disable }) {
               h="30px"
               value={medida2CistoUnico}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida2CistoUnico(e.target.value);
@@ -257,7 +257,7 @@ function CistoAnecoico({ Disable }) {
               h="30px"
               value={medida3CistoUnico}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida3CistoUnico(e.target.value);
@@ -281,7 +281,7 @@ function CistoAnecoico({ Disable }) {
               h="30px"
               value={medida1MultiplosCistos}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida1MultiplosCistos(e.target.value);
@@ -294,7 +294,7 @@ function CistoAnecoico({ Disable }) {
               h="30px"
               value={medida2MultiplosCistos}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida2MultiplosCistos(e.target.value);
@@ -307,7 +307,7 @@ function CistoAnecoico({ Disable }) {
               h="30px"
               value={medida3MultiplosCistos}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida3MultiplosCistos(e.target.value);

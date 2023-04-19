@@ -259,7 +259,7 @@ function MaoCistosEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setCistos1Input(e.target.value) }}
                         />
@@ -270,7 +270,7 @@ function MaoCistosEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setCistos1Input2(e.target.value) }}
                         />
@@ -332,7 +332,7 @@ function MaoCistosEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setCistos2Input(e.target.value) }}
                         />
@@ -343,7 +343,7 @@ function MaoCistosEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+                            
                             textAlign="center"
                             onChange={(e) => { setCistos2Input2(e.target.value) }}
                         />

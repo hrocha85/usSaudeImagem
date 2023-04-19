@@ -133,7 +133,7 @@ function Aorta() {
           w="45px"
           h="30px"
           padding="5px"
-          maxLength={2}
+          
           textAlign="center"
           onChange={(e) => {
             setCalibreInput(e.target.value);
@@ -151,7 +151,7 @@ function Aorta() {
           w="45px"
           h="30px"
           padding="5px"
-          maxLength={2}
+          
           textAlign="center"
           onChange={(e) => {
             setPVSInput(e.target.value);

@@ -548,7 +548,7 @@ const Configuracoes = () => {
                   placeholder="00000000-0/BR"
                   fontSize="18px"
                   textAlign={"center"}
-                  maxLength={13}
+                  
                   onChange={(event) => {
                     handleCRM(event);
                     setCrm(event.target.value);

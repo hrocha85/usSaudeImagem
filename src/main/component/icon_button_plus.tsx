@@ -288,7 +288,7 @@ const IconButtonPlus = (props) => {
                             variant="filled"
                             borderStartRadius={"md"}
                             borderEndRadius={"md"}
-                            maxLength={15}
+                            
                             onClick={() => {}}
                           />
                         ) : (
@@ -330,7 +330,7 @@ const IconButtonPlus = (props) => {
                             variant="filled"
                             borderStartRadius={"md"}
                             borderEndRadius={"md"}
-                            maxLength={9}
+                            
                             onClick={() => {}}
                           />
                         ) : (

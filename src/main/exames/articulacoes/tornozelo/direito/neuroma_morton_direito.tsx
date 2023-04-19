@@ -147,7 +147,7 @@ export default function Neuroma_Morton_Direito({ Disable }) {
                   h="30px"
                   value={medida1Morton}
                   padding="5px"
-                  maxLength={2}
+                  
                   textAlign="center"
                   onChange={(e) => {
                     setMedida1Morton(e.target.value);
@@ -160,7 +160,7 @@ export default function Neuroma_Morton_Direito({ Disable }) {
                   h="30px"
                   value={medida2Morton}
                   padding="5px"
-                  maxLength={2}
+                  
                   textAlign="center"
                   onChange={(e) => {
                     setMedida2Morton(e.target.value);
@@ -173,7 +173,7 @@ export default function Neuroma_Morton_Direito({ Disable }) {
                   h="30px"
                   value={medida3Morton}
                   padding="5px"
-                  maxLength={2}
+                  
                   textAlign="center"
                   onChange={(e) => {
                     setMedida3Morton(e.target.value);

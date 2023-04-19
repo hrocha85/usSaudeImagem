@@ -314,7 +314,7 @@ function Bexiga() {
             Dimensões Bexiga
           </Checkbox>
           <Input
-            maxLength={2}
+            
             isDisabled={disableBexigaInput1}
             w="35px"
             h="30px"
@@ -327,7 +327,7 @@ function Bexiga() {
           />
           <Text>x</Text>
           <Input
-            maxLength={2}
+            
             isDisabled={disableBexigaInput1}
             w="35px"
             h="30px"
@@ -340,7 +340,7 @@ function Bexiga() {
           />
           <Text>x</Text>
           <Input
-            maxLength={2}
+            
             isDisabled={disableBexigaInput1}
             w="35px"
             h="30px"
@@ -411,7 +411,7 @@ function Bexiga() {
             <Text>Volume pré-miccional</Text>
           </Checkbox>
           <Input
-            maxLength={2}
+            
             isDisabled={disableVolumePreInput1}
             w="35px"
             h="30px"
@@ -432,7 +432,7 @@ function Bexiga() {
             Volume pós-miccional
           </Checkbox>
           <Input
-            maxLength={2}
+            
             isDisabled={disableVolumePosInput1}
             w="35px"
             h="30px"

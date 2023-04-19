@@ -178,7 +178,7 @@ export default function Fascia_Plantar_Esquerdo({ Disable }) {
                   h="30px"
                   value={medidaFascilite}
                   padding="5px"
-                  maxLength={2}
+                  
                   textAlign="center"
                   onChange={(e) => {
                     setMedidaFascilite(e.target.value);
@@ -206,7 +206,7 @@ export default function Fascia_Plantar_Esquerdo({ Disable }) {
                   h="30px"
                   value={medida1Fibro}
                   padding="5px"
-                  maxLength={2}
+                  
                   textAlign="center"
                   onChange={(e) => {
                     setMedida1Fibro(e.target.value);
@@ -219,7 +219,7 @@ export default function Fascia_Plantar_Esquerdo({ Disable }) {
                   h="30px"
                   value={medida2Fibro}
                   padding="5px"
-                  maxLength={2}
+                  
                   textAlign="center"
                   onChange={(e) => {
                     setMedida2Fibro(e.target.value);
@@ -232,7 +232,7 @@ export default function Fascia_Plantar_Esquerdo({ Disable }) {
                   h="30px"
                   value={medida3Fibro}
                   padding="5px"
-                  maxLength={2}
+                  
                   textAlign="center"
                   onChange={(e) => {
                     setMedida3Fibro(e.target.value);

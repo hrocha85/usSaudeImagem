@@ -134,7 +134,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
           w="60px"
           h="77x"
           padding="5px"
-          maxLength={2}
+          
           textAlign="center"
           onChange={(e) => settamanhoNoduloInput(e.target.value)}
           placeholder={"mm"}

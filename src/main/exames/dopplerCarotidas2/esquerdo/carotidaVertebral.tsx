@@ -249,7 +249,7 @@ function CarotidaVertebralEsquerda() {
                 h="77x"
                 padding="5px"
                 value={MedidaEsquerdaVPS}
-                maxLength={2}
+                
                 textAlign="center"
                 onChange={(e) => {
                   setMedidaEsquerdaVPS(e.target.value);
@@ -266,7 +266,7 @@ function CarotidaVertebralEsquerda() {
                 h="77x"
                 padding="5px"
                 value={MedidaEsquerdaVDF}
-                maxLength={2}
+                
                 textAlign="center"
                 onChange={(e) => {
                   setMedidaEsquerdaVDF(e.target.value);
@@ -299,7 +299,7 @@ function CarotidaVertebralEsquerda() {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setPlacaInput(e.target.value);

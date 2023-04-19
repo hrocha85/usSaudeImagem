@@ -167,7 +167,7 @@ function SubescapularOmbroDireito() {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setTendiniteInput(e.target.value) }}
           />
@@ -196,7 +196,7 @@ function SubescapularOmbroDireito() {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setRoturaInput(e.target.value) }}
           />

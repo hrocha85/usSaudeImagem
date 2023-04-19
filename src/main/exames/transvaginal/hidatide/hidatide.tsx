@@ -135,7 +135,7 @@ function Hidatide({ Disable }) {
                   w="60px"
                   h="77x"
                   padding="5px"
-                  maxLength={2}
+                  
                   textAlign="center"
                   placeholder={"mm"}
                   value={tamanhoHidatideInput}

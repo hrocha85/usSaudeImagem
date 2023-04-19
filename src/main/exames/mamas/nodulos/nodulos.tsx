@@ -211,6 +211,7 @@ function Calculo() {
           >
             Múltiplos nódulos na mama
           </Checkbox>
+
           <Select
             w="auto"
             isDisabled={!multiplosNoduloMamaCheckBox}
@@ -230,10 +231,24 @@ function Calculo() {
             isDisabled={!multiplosNoduloMamaCheckBox}
             value={tamanhoNoduloMamaInput}
             w="50px"
-            padding="5px"
+            padding="0px"
             textAlign="center"
             onChange={(e) => {
               setTamanhoNoduloMamaInput(e.target.value);
+            }}
+            placeholder={"cm"}
+          />
+          <Text alignSelf="center">x</Text>
+          <Input
+            isDisabled={DisableSelectMamaEsquerda}
+            value={tamanho2NoduloMamaEsquerdaInput}
+            w="60px"
+            h="77x"
+            padding="5px"
+            
+            textAlign="center"
+            onChange={(e) => {
+              setTamanho2NoduloMamaEsquerdaInput(e.target.value);
             }}
             placeholder={"cm"}
           />

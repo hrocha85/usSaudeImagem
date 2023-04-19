@@ -212,7 +212,7 @@ export default function Tendao_Tibial_Anterior_Esquerdo({ Disable }) {
                     h="30px"
                     value={medida1Lesao}
                     padding="5px"
-                    maxLength={2}
+                    
                     textAlign="center"
                     onChange={(e) => {
                       setMedida1Lesao(e.target.value);
@@ -225,7 +225,7 @@ export default function Tendao_Tibial_Anterior_Esquerdo({ Disable }) {
                     h="30px"
                     value={medida2Lesao}
                     padding="5px"
-                    maxLength={2}
+                    
                     textAlign="center"
                     onChange={(e) => {
                       setMedida2Lesao(e.target.value);
@@ -238,7 +238,7 @@ export default function Tendao_Tibial_Anterior_Esquerdo({ Disable }) {
                     h="30px"
                     value={medida3Lesao}
                     padding="5px"
-                    maxLength={2}
+                    
                     textAlign="center"
                     onChange={(e) => {
                       setMedida3Lesao(e.target.value);
