@@ -170,7 +170,7 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
       },
       {
         key: 20,
-        nomeExame: "Doppler Testículo",
+        nomeExame: "Axila",
         link: `#/Home/${20}`,
       },
     ];
