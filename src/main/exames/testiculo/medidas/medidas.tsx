@@ -274,7 +274,7 @@ function Testiculos() {
     }
   }, [tecidoDireito, tecidoEsquerdo]);
 
-  const subExame = "Medidas";
+  const subExame = "Testículos";
   const titulo_exame = "Testículo";
 
   useEffect(() => {
@@ -318,7 +318,7 @@ function Testiculos() {
             w="30px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => setmedidaTesticuloDireito1(e.target.value)}
           />
@@ -327,7 +327,7 @@ function Testiculos() {
             w="30px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => setmedidaTesticuloDireito2(e.target.value)}
           />
@@ -336,7 +336,7 @@ function Testiculos() {
             w="30px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => {
               setmedidaTesticuloDireito3(e.target.value);
@@ -362,7 +362,7 @@ function Testiculos() {
             w="30px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => setmedidaTesticuloEsquerdo1(e.target.value)}
           />
@@ -371,7 +371,7 @@ function Testiculos() {
             w="30px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => setmedidaTesticuloEsquerdo2(e.target.value)}
           />
@@ -380,7 +380,7 @@ function Testiculos() {
             w="30px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => {
               setmedidaTesticuloEsquerdo3(e.target.value);

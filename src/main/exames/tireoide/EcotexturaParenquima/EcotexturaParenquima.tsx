@@ -4,16 +4,32 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function EcotexturaParenquima() {
+function EcotexturaParenquima({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
   const [FrasesECO, setFrasesECO] = useState<any>([]);
   const [ConclusaoECO, setConclusaoECO] = useState<any>([]);
 
+  const [Normal, setNormal] = useState(false)
   const [NormalCheckbox, setNormalCheckbox] = useState(false);
   const [InespecificaCheckbox, setInespecificaCheckbox] = useState(false);
   const [TireoiditeCheckbox, setTireoiditeCheckbox] = useState(false);
+
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    const string = "Ecotextura normal";
+    if (Normal) {
+      setNormalCheckbox(!NormalCheckbox)
+    } else {
+      removeItemString(string)
+      removeConclusao(string)
+    }
+  }, [Normal])
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
@@ -41,39 +57,36 @@ function EcotexturaParenquima() {
 
   useEffect(() => {
     const string = "Ecotextura normal";
-    const stringPadrao = `Exame realizado com equipamento dinâmico, transdutor linear de alta resolução, com frequência de 7,5 MHz.Glândula tireóide apresentando topografia habitual, simétrica, com dimensões reduzidas, superfície regular e ${string}`;
 
     if (NormalCheckbox) {
-      setFrasesECO((arr) => [...arr, stringPadrao]);
+      setFrasesECO((arr) => [...arr, string]);
       setConclusaoECO((arr) => [...arr, string]);
     } else {
-      removeItemString(stringPadrao);
+      removeItemString(string);
       removeConclusao(string);
     }
   }, [NormalCheckbox]);
 
   useEffect(() => {
     const string = "Ecotextura Inespecífica";
-    const stringPadrao = `Exame realizado com equipamento dinâmico, transdutor linear de alta resolução, com frequência de 7,5 MHz.Glândula tireóide apresentando topografia habitual, simétrica, com dimensões reduzidas, superfície regular e ${string}`;
 
     if (InespecificaCheckbox) {
-      setFrasesECO((arr) => [...arr, stringPadrao]);
+      setFrasesECO((arr) => [...arr, string]);
       setConclusaoECO((arr) => [...arr, string]);
     } else {
-      removeItemString(stringPadrao);
+      removeItemString(string);
       removeConclusao(string);
     }
   }, [InespecificaCheckbox]);
 
   useEffect(() => {
     const string = "Ecotextura com alteração textural";
-    const stringPadrao = `Exame realizado com equipamento dinâmico, transdutor linear de alta resolução, com frequência de 7,5 MHz.Glândula tireóide apresentando topografia habitual, simétrica, com dimensões reduzidas, superfície regular e ${string}`;
 
     if (TireoiditeCheckbox) {
-      setFrasesECO((arr) => [...arr, stringPadrao]);
+      setFrasesECO((arr) => [...arr, string]);
       setConclusaoECO((arr) => [...arr, string]);
     } else {
-      removeItemString(stringPadrao);
+      removeItemString(string);
       removeConclusao(string);
     }
   }, [TireoiditeCheckbox]);
@@ -116,7 +129,9 @@ function EcotexturaParenquima() {
 
       <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
         <Checkbox
+          isChecked={Normal}
           onChange={() => {
+            setNormal(!Normal)
             setNormalCheckbox(!NormalCheckbox);
           }}
         >

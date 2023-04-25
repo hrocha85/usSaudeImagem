@@ -27,14 +27,7 @@ function Tireoide() {
 
   const subExame = "Tireóide";
   const titulo_exame = "Tireóide";
-  // useEffect(() => {
-  //     if (DescreverDoppler) {
-  //         titulo_exame = "Tireóide com doppler";
-  //     } else {
-  //         titulo_exame = "Tireóide";
-  //     }
 
-  // }, [DescreverDoppler])
 
   const removeItemString = (value) => {
     var index = FrasesTireoide.indexOf(value);
@@ -92,13 +85,13 @@ function Tireoide() {
       </Box>
 
       <Box ml="10px">
-        <EcotexturaParenquima />
+        <EcotexturaParenquima Disable={Normal} />
         <Cirurgias />
         <Procedimentos />
         <Medidas />
         <Calcificacao />
         <DopplerParenquima />
-        <Linfonodomegalias />
+        <Linfonodomegalias Disable={Normal} />
         <CistosColoides />
         <Nodulos />
       </Box>

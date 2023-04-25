@@ -7,6 +7,7 @@ import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function Nodulo({ numCalculo }) {
     const [FrasesNodulos, setFrasesNodulos] = useState<any>([]);
+    const [ConclusaoNodulos, setConclusaoNodulos] = useState<any>([]);
 
     const [valueInput01Nodulo, setValueInput01Nodulo] = useState("");
     const [valueInput02Nodulo, setValueInput02Nodulo] = useState("");
@@ -39,11 +40,13 @@ export default function Nodulo({ numCalculo }) {
 
     const criaStringNodulo = () => {
         let string = `Nódulo ${numCalculo}`
+        const conclusao = 'Imagem sugestiva de nódulo'
         removeStringNodulo()
+        removeConclusaoString(conclusao)
         if (NoduloCheckbox) {
             if (valueInput01Nodulo != '' && valueInput02Nodulo != '' && valueInput03Nodulo != '' &&
                 valueSelect01Nodulo != '' && valueSelect02Nodulo != '' && valueSelect03Nodulo != '' && valueSelect04Nodulo != '') {
-                string = `${string} mede ${valueInput01Nodulo} x ${valueInput02Nodulo} x ${valueInput03Nodulo}mm, ${valueSelect01Nodulo} ${valueSelect02Nodulo} ${valueSelect03Nodulo} ${valueSelect04Nodulo}`
+                string = `${string} mede ${valueInput01Nodulo} x ${valueInput02Nodulo} x ${valueInput03Nodulo}cm, ${valueSelect01Nodulo} ${valueSelect02Nodulo} ${valueSelect03Nodulo} ${valueSelect04Nodulo}`
                 if (ValueTIRADSNodulo) {
                     string = `${string} ${ValueTIRADSNodulo}`
                 }
@@ -67,6 +70,7 @@ export default function Nodulo({ numCalculo }) {
                 }
                 string = `${string}.`
                 setFrasesNodulos((arr) => [...arr, string]);
+                setConclusaoNodulos((arr) => [...arr, conclusao]);
             }
         } else {
             setValueInput01Nodulo('')
@@ -104,6 +108,21 @@ export default function Nodulo({ numCalculo }) {
         });
     };
 
+    const removeConclusaoString = (value) => {
+        var index;
+        ConclusaoNodulos.map((e) => {
+            if (e.includes(value)) {
+                index = ConclusaoNodulos.indexOf(e);
+
+                if (index > -1) {
+                    ConclusaoNodulos.splice(index, 1);
+                    setConclusaoNodulos((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+                }
+            }
+        });
+    };
+
     const subExame = `Nódulo ${numCalculo}`;
     const titulo_exame = "Tireóide";
 
@@ -113,14 +132,16 @@ export default function Nodulo({ numCalculo }) {
                 titulo_exame,
                 subExame,
                 true,
-                FrasesNodulos
+                FrasesNodulos,
+                ConclusaoNodulos
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                FrasesNodulos
+                FrasesNodulos,
+                ConclusaoNodulos
             ).Format_Laudo_Create_Storage();
         }
     }, [FrasesNodulos]);
@@ -138,6 +159,8 @@ export default function Nodulo({ numCalculo }) {
                 <HStack>
                     <Text alignSelf='center'>Mede: </Text>
                     <Input
+                        p='0'
+                        textAlign='center'
                         isDisabled={!NoduloCheckbox}
                         value={valueInput01Nodulo}
                         onChange={(e) => {
@@ -148,6 +171,8 @@ export default function Nodulo({ numCalculo }) {
                     />
                     <Text alignSelf='center'>x</Text>
                     <Input
+                        p='0'
+                        textAlign='center'
                         isDisabled={!NoduloCheckbox}
                         value={valueInput02Nodulo}
                         onChange={(e) => {
@@ -158,6 +183,8 @@ export default function Nodulo({ numCalculo }) {
                     />
                     <Text alignSelf='center'>x</Text>
                     <Input
+                        p='0'
+                        textAlign='center'
                         isDisabled={!NoduloCheckbox}
                         value={valueInput03Nodulo}
                         onChange={(e) => {
@@ -166,7 +193,7 @@ export default function Nodulo({ numCalculo }) {
                         w="55px"
                         placeholder="00"
                     />
-                    <Text alignSelf='center'>mm</Text>
+                    <Text alignSelf='center'>cm</Text>
                 </HStack>
                 <Spacer />
 
@@ -231,6 +258,8 @@ export default function Nodulo({ numCalculo }) {
                                 <option value="I">I</option>
                                 <option value="II">II</option>
                                 <option value="III">III</option>
+                                <option value="IV">IV</option>
+                                <option value="V">V</option>
                             </Select>
                         </Stack>
                     </Box>
@@ -352,6 +381,8 @@ export default function Nodulo({ numCalculo }) {
                                 IR:
                             </Text>
                             <Input
+                                p='0'
+                                textAlign='center'
                                 isDisabled={!Vascularizacao}
                                 onChange={(e) => setInputIR(e.target.value)}
                                 value={InputIR}
@@ -364,6 +395,8 @@ export default function Nodulo({ numCalculo }) {
                                 IP:
                             </Text>
                             <Input
+                                p='0'
+                                textAlign='center'
                                 isDisabled={!Vascularizacao}
                                 onChange={(e) => setInputIP(e.target.value)}
                                 value={InputIP}
@@ -376,6 +409,8 @@ export default function Nodulo({ numCalculo }) {
                                 VEL:
                             </Text>
                             <Input
+                                p='0'
+                                textAlign='center'
                                 isDisabled={!Vascularizacao}
                                 onChange={(e) => setInputVEL(e.target.value)}
                                 value={InputVEL}

@@ -8,10 +8,8 @@ import {
   Input,
   Radio,
   RadioGroup,
-  Select,
-  Spacer,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -448,6 +446,8 @@ function DopplerParenquima() {
                 Vel.Sistólica
               </Checkbox>
               <Input
+                p='0'
+                textAlign='center'
                 onChange={(e) =>
                   setVelSistolicaSuperiorDirInput(e.target.value)
                 }
@@ -469,6 +469,8 @@ function DopplerParenquima() {
                 I.R.
               </Checkbox>
               <Input
+                p='0'
+                textAlign='center'
                 isDisabled={DisableIRSuperiorDirInput}
                 value={IRSuperiorDirInput}
                 onChange={(e) => setIRSuperiorDirInput(e.target.value)}
@@ -499,6 +501,8 @@ function DopplerParenquima() {
                 Vel.Sistólica
               </Checkbox>
               <Input
+                p='0'
+                textAlign='center'
                 onChange={(e) =>
                   setVelSistolicaInferiorDirInput(e.target.value)
                 }
@@ -520,6 +524,8 @@ function DopplerParenquima() {
                 I.R.
               </Checkbox>
               <Input
+                p='0'
+                textAlign='center'
                 isDisabled={DisableIRInferiorDirInput}
                 value={IRInferiorDirInput}
                 onChange={(e) => setIRInferiorDirInput(e.target.value)}
@@ -551,6 +557,8 @@ function DopplerParenquima() {
                 Vel.Sistólica
               </Checkbox>
               <Input
+                p='0'
+                textAlign='center'
                 onChange={(e) =>
                   setVelSistolicaSuperiorEsqInput(e.target.value)
                 }
@@ -572,6 +580,8 @@ function DopplerParenquima() {
                 I.R.
               </Checkbox>
               <Input
+                p='0'
+                textAlign='center'
                 isDisabled={DisableIRSuperiorEsqInput}
                 value={IRSuperiorEsqInput}
                 onChange={(e) => setIRSuperiorEsqInput(e.target.value)}
@@ -601,6 +611,8 @@ function DopplerParenquima() {
                 Vel.Sistólica
               </Checkbox>
               <Input
+                p='0'
+                textAlign='center'
                 onChange={(e) =>
                   setVelSistolicaInferiorEsqInput(e.target.value)
                 }
@@ -622,6 +634,8 @@ function DopplerParenquima() {
                 I.R.
               </Checkbox>
               <Input
+                p='0'
+                textAlign='center'
                 isDisabled={DisableIRInferiorEsqInput}
                 value={IRInferiorEsqInput}
                 onChange={(e) => setIRInferiorEsqInput(e.target.value)}

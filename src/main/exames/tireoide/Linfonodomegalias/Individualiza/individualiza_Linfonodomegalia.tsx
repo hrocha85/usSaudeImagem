@@ -207,6 +207,8 @@ export default function Individualiza_Linfonodomegalias() {
                 <HStack>
                     <Text alignSelf='center'>Mede: </Text>
                     <Input
+                        p='0'
+                        textAlign='center'
                         isDisabled={DisableOptionsLinfonodomegalia}
                         value={valueInput01Linfonodomegalia}
                         onChange={(e) => {
@@ -217,6 +219,8 @@ export default function Individualiza_Linfonodomegalias() {
                     />
                     <Text alignSelf='center'>x</Text>
                     <Input
+                        p='0'
+                        textAlign='center'
                         isDisabled={DisableOptionsLinfonodomegalia}
                         value={valueInput02Linfonodomegalia}
                         onChange={(e) => {
@@ -227,6 +231,8 @@ export default function Individualiza_Linfonodomegalias() {
                     />
                     <Text alignSelf='center'>x</Text>
                     <Input
+                        p='0'
+                        textAlign='center'
                         isDisabled={DisableOptionsLinfonodomegalia}
                         value={valueInput03Linfonodomegalia}
                         onChange={(e) => {
@@ -235,7 +241,7 @@ export default function Individualiza_Linfonodomegalias() {
                         w="55px"
                         placeholder="00"
                     />
-                    <Text alignSelf='center'>mm</Text>
+                    <Text alignSelf='center'>cm</Text>
                 </HStack>
                 <Spacer />
             </Wrap>
@@ -349,6 +355,8 @@ export default function Individualiza_Linfonodomegalias() {
                             índice de resistividade:
                         </Checkbox>
                         <Input
+                            p='0'
+                            textAlign='center'
                             isDisabled={DisableInputResistividade}
                             onChange={(e) => setInputResistividade(e.target.value)}
                             value={InputResistividade}

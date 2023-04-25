@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
+import { Convert_Medida } from "../../../component/function_convert_medidas";
 
 function Pancreas({ Disable }) {
   const altura = "100%";
@@ -53,18 +53,16 @@ function Pancreas({ Disable }) {
   const criaStringDimensoes = (dadosCabeca, dadosCorpo, dadosCauda) => {
     var string = 'A espessura pancreática foi mensurada em '
     removeFraseDimensoes()
-    const medida1 = new Convert_Medida(dadosCabeca).Convert_Medida()
-    const medida2 = new Convert_Medida(dadosCorpo).Convert_Medida()
-    const medida3 = new Convert_Medida(dadosCauda).Convert_Medida()
+
     if (dadosCabeca != '' || dadosCorpo != '' || dadosCorpo != '') {
       if (dadosCabeca != '') {
-        string = `${string} ${medida1} cm na cabeça `
+        string = `${string} ${dadosCabeca} cm na cabeça `
       }
       if (dadosCorpo != '') {
-        string = `${string} ${medida2} cm no corpo `
+        string = `${string} ${dadosCorpo} cm no corpo `
       }
       if (dadosCauda != '') {
-        string = `${string} ${medida3} cm na cauda.`
+        string = `${string} ${dadosCauda} cm na cauda.`
       }
       setFrasesPancreas((arr) => [...arr, string])
     }
@@ -114,6 +112,10 @@ function Pancreas({ Disable }) {
     }
   }, [CaudaCheckbox])
 
+  useEffect(() => {
+    Disable ? setValue('Pâncreas de dimensões normais, contornos regulares e ecotextura homogênea. Não há dilatação do ducto pancreático.') : setValue('1')
+  }, [Disable])
+
   const subExame = "Pâncreas";
   const titulo_exame = "Abdômen total";
 
@@ -153,7 +155,6 @@ function Pancreas({ Disable }) {
         <TituloNomeExame titulo="Pâncreas" />
         <Box gap="25px" display="flex" flexWrap="wrap" >
           <RadioGroup
-            isDisabled={Disable}
             onChange={setValue} value={value} padding="10px">
             <Stack direction="column">
               <Radio value="1">Não citar</Radio>
@@ -167,7 +168,6 @@ function Pancreas({ Disable }) {
             <Text fontWeight="bold" textAlign='center'>Dimensões (espessura)</Text>
             <HStack>
               <Checkbox
-                isDisabled={Disable}
                 onChange={(e) => {
                   setCabecaCheckbox(!CabecaCheckbox);
                 }}
@@ -175,17 +175,18 @@ function Pancreas({ Disable }) {
                 Cabeça
               </Checkbox>
               <Input
+                p='0'
+                textAlign='center'
                 w='55px'
                 value={CabecaInput}
                 onChange={(e) => setCabecaInput(e.target.value)}
                 disabled={DisableCabecaInput}
                 placeholder="00"
               />
-              <Text alignItems='center'>mm</Text>
+              <Text alignItems='center'>cm</Text>
             </HStack>
             <HStack>
               <Checkbox
-                isDisabled={Disable}
                 onChange={(e) => {
                   setCorpoCheckbox(!CorpoCheckbox);
                 }}
@@ -193,17 +194,18 @@ function Pancreas({ Disable }) {
                 Corpo
               </Checkbox>
               <Input
+                p='0'
+                textAlign='center'
                 w='55px'
                 value={CorpoInput}
                 onChange={(e) => setCorpoInput(e.target.value)}
                 disabled={DisableCorpoInput}
                 placeholder="00"
               />
-              <Text alignItems='center'>mm</Text>
+              <Text alignItems='center'>cm</Text>
             </HStack>
             <HStack>
               <Checkbox
-                isDisabled={Disable}
                 onChange={(e) => {
                   setCaudaCheckbox(!CaudaCheckbox);
                 }}
@@ -211,13 +213,15 @@ function Pancreas({ Disable }) {
                 Cauda
               </Checkbox>
               <Input
+                p='0'
+                textAlign='center'
                 w='55px'
                 value={CaudaInput}
                 onChange={(e) => setCaudaInput(e.target.value)}
                 disabled={DisableCaudaInput}
                 placeholder="00"
               />
-              <Text alignItems='center'>mm</Text>
+              <Text alignItems='center'>cm</Text>
             </HStack>
           </Box>
         </Box>

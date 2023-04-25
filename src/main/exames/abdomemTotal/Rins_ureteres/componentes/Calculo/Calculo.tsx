@@ -2,14 +2,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Button, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Convert_Medida } from "../../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 import IndividualizarCalculos from "./individualizar_calculos";
 
 export default function Calculo({ Disable }) {
 
-    const [numberArray, setNumberArray] = useState([1, 2, 3]);
-
+    const [numberArray, setNumberArray] = useState([1]);
 
     const [FraseCalculo, setFraseCalculo] = useState<any>([]);
     const [ConclusoesCalculo, setConclusoesCalculo] = useState<any>([]);
@@ -48,10 +46,8 @@ export default function Calculo({ Disable }) {
     const criaStringVarios = () => {
         let string = 'Imagens calculosas bilaterais, medindo até'
         removeVarios()
-        var InputVarioscm = new Convert_Medida(InputVarios).Convert_Medida()
-
         if (Select01Varios != '' && Select02Varios != '' && InputVarios != '') {
-            string = `${string} ${InputVarioscm} cm, o maior localizada no grupamento calicinal  ${Select01Varios} do ${Select02Varios}`
+            string = `${string} ${InputVarios} cm, o maior localizada no grupamento calicinal  ${Select01Varios} do ${Select02Varios}`
             setFraseCalculo((arr) => [...arr, string]);
         }
     }
@@ -131,7 +127,7 @@ export default function Calculo({ Disable }) {
             <Box gap="25px" display="flex" flexWrap="wrap">
                 {Calculos()}
                 <Button
-                    isDisabled={Disable}
+
                     colorScheme="blue"
                     onClick={() => {
                         setUpdateCalculos(true);
@@ -143,18 +139,21 @@ export default function Calculo({ Disable }) {
 
             <Box gap='25px' display='flex' flexWrap="wrap">
                 <Stack w='150px'>
-                    <Checkbox isDisabled={Disable} onChange={() => {
+                    <Checkbox onChange={() => {
                         setVariosCheckbox(!VariosCheckbox)
                     }}
                     >
                         Vários bilaterais, o maior
                     </Checkbox>
-                    <Input onChange={(e) => {
-                        setInputVarios(e.target.value)
-                    }}
+                    <Input
+                        p='0'
+                        textAlign='center'
+                        onChange={(e) => {
+                            setInputVarios(e.target.value)
+                        }}
                         value={InputVarios}
                         isDisabled={DisableOptionsVarios}
-                        placeholder="mm"
+                        placeholder="cm"
                     />
                     <Select onChange={(e) => {
                         setSelect01Varios(e.target.value)
@@ -183,7 +182,7 @@ export default function Calculo({ Disable }) {
                     </Select>
                 </Stack>
                 <Box >
-                    <Checkbox isDisabled={Disable} onChange={() => {
+                    <Checkbox onChange={() => {
                         setMicrocalculosCheckbox(!MicrocalculosCheckbox)
                     }}
                     >

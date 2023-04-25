@@ -1,7 +1,6 @@
 
 import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -92,10 +91,8 @@ function Baco({ Disable }) {
   const criaStringBacoAcessorio = (dados1, dados2) => {
     var string = 'Presença de baço acessório (variação anatômica) medindo'
     removeFraseBacoAcessorio()
-    const medida1 = new Convert_Medida(dados1).Convert_Medida()
-    const medida2 = new Convert_Medida(dados2).Convert_Medida()
     if (dados1 != '' && dados2 != '') {
-      string = `${string} ${medida1} x ${medida2} cm.`
+      string = `${string} ${dados1} x ${dados2} cm.`
       setFrasesBaco((arr) => [...arr, string])
     }
   }
@@ -128,9 +125,8 @@ function Baco({ Disable }) {
   const criaStringCalcificacao = (dados1) => {
     var string = 'Nota-se calcificação parenquimatosa medindo'
     removeFraseCalcificacao()
-    const medida1 = new Convert_Medida(dados1).Convert_Medida()
     if (dados1 != '') {
-      string = `${string} ${medida1} cm, de provável natureza sequelar.`
+      string = `${string} ${dados1} cm, de provável natureza sequelar.`
       setFrasesBaco((arr) => [...arr, string])
     }
   }
@@ -160,30 +156,28 @@ function Baco({ Disable }) {
   }, [CalcificacaoCheckbox, CalcificacaoInput])
 
   const removeItemConclusao = (value) => {
-    
+
     var index = ConclusoesBaco.indexOf(value);
-    
+
     if (index > -1) {
       ConclusoesBaco.splice(index, 1);
       setConclusoesBaco((arr) => [...arr]);
       new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
-    
-    
+
+
   };
 
 
   const criaStringDimensoes = (dados1, dados2) => {
     var string = 'Mede'
     removeFraseDimensoes()
-    const medida1 = new Convert_Medida(dados1).Convert_Medida()
-    const medida2 = new Convert_Medida(dados2).Convert_Medida()
     if (dados1 != '' && dados2 != '' && CitarIndiceCheckbox) {
-      string = `${string} ${medida1} x ${medida2} cm em seu maior e menor eixo (índice esplênico uniplanar).`
+      string = `${string} ${dados1} x ${dados2} cm em seu maior e menor eixo (índice esplênico uniplanar).`
       setFrasesBaco((arr) => [...arr, string])
 
     } else if (dados1 != '' && dados2 != '') {
-      string = `${string} ${medida1} x ${medida2} cm em seu maior e menor eixo.`
+      string = `${string} ${dados1} x ${dados2} cm em seu maior e menor eixo.`
       setFrasesBaco((arr) => [...arr, string])
 
     }
@@ -213,6 +207,10 @@ function Baco({ Disable }) {
       setDimensoesInput2('')
     }
   }, [DimensoesCheckbox, DimensoesInput1, DimensoesInput2, CitarIndiceCheckbox])
+
+  useEffect(() => {
+    Disable ? setValue("Baço com dimensões normais, contornos regulares e ecotextura homogênea.") : setValue('1')
+  }, [Disable])
 
   const subExame = "Baço";
   const titulo_exame = "Abdômen total";
@@ -255,7 +253,6 @@ function Baco({ Disable }) {
       <Box mb="20px" gap="30px" display="flex" flexWrap="wrap" mt="20px">
 
         <RadioGroup
-          isDisabled={Disable}
           onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
@@ -286,7 +283,6 @@ function Baco({ Disable }) {
           <Text fontWeight="bold" textAlign='center'>Dimensões (espessura)</Text>
           <HStack>
             <Checkbox
-              isDisabled={Disable}
               onChange={(e) => {
                 setDimensoesCheckbox(!DimensoesCheckbox);
               }}
@@ -294,6 +290,8 @@ function Baco({ Disable }) {
 
             </Checkbox>
             <Input
+              p='0'
+              textAlign='center'
               w='55px'
               value={DimensoesInput1}
               onChange={(e) => setDimensoesInput1(e.target.value)}
@@ -302,17 +300,18 @@ function Baco({ Disable }) {
             />
             <Text alignItems='center'>x</Text>
             <Input
+              p='0'
+              textAlign='center'
               w='55px'
               value={DimensoesInput2}
               onChange={(e) => setDimensoesInput2(e.target.value)}
               disabled={DisableDimensoesInput}
               placeholder="00"
             />
-            <Text alignItems='center'>mm</Text>
+            <Text alignItems='center'>cm</Text>
           </HStack>
           <HStack>
             <Checkbox
-              isDisabled={Disable}
               onChange={(e) => {
                 setCitarIndiceCheckbox(!CitarIndiceCheckbox);
               }}
@@ -325,7 +324,6 @@ function Baco({ Disable }) {
         <Box display='flex' flexWrap='wrap' gap='10px'>
           <Box w="200px">
             <Checkbox
-              isDisabled={Disable}
               onChange={(e) => {
                 setBacoAcessorioCheckbox(!BacoAcessorioCheckbox);
               }}
@@ -333,6 +331,8 @@ function Baco({ Disable }) {
               Presença de baço acessório medindo
             </Checkbox>
             <Input
+              p='0'
+              textAlign='center'
               isDisabled={DisableBacoAcessorioInput}
               w="50px"
               value={BacoAcessorioInput1}
@@ -343,6 +343,8 @@ function Baco({ Disable }) {
             />
             x
             <Input
+              p='0'
+              textAlign='center'
               w="50px"
               isDisabled={DisableBacoAcessorioInput}
               value={BacoAcessorioInput2}
@@ -351,12 +353,11 @@ function Baco({ Disable }) {
               }}
               placeholder="0"
             />
-            mm
+            cm
           </Box>
 
           <Box w="200px">
             <Checkbox
-              isDisabled={Disable}
               onChange={(e) => {
                 setCalcificacaoCheckbox(!CalcificacaoCheckbox);
               }}
@@ -364,13 +365,15 @@ function Baco({ Disable }) {
               Calcificação esplênica medindo
             </Checkbox>
             <Input
+              p='0'
+              textAlign='center'
               w='70px'
               value={CalcificacaoInput}
               isDisabled={DisableCalcificacaoInput}
               onChange={(e) => {
                 setCalcificacaoInput(e.target.value);
               }}
-              placeholder="mm"
+              placeholder="cm"
             />
           </Box>
         </Box>

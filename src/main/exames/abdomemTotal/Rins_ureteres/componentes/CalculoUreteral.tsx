@@ -2,7 +2,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Convert_Medida } from "../../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function CalculoUreteral({ Disable }) {
@@ -23,9 +22,8 @@ export default function CalculoUreteral({ Disable }) {
     const criaStringCalculo = () => {
         let string = 'Cálculo de '
         removeCalculo()
-        var ValueInput1cm = new Convert_Medida(ValueInput1).Convert_Medida()
         if (ValueSelectCalculo1 != '' && ValueSelectCalculo2 != '' && ValueInput1 != '') {
-            string = `${string} ${ValueInput1cm} cm ${ValueSelectCalculo1} ${ValueSelectCalculo2}`
+            string = `${string} ${ValueInput1} cm ${ValueSelectCalculo1} ${ValueSelectCalculo2}`
             setFraseCalculoUreteral((arr) => [...arr, string]);
         }
     }
@@ -79,17 +77,20 @@ export default function CalculoUreteral({ Disable }) {
         <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" p='5px' mt='5px' >
             <Text fontWeight="bold" >Cálculo uretal</Text>
             <Box display='flex' flexWrap='wrap' gap='10px'>
-                <Checkbox isDisabled={Disable}
+                <Checkbox
                     onChange={() => setCalculoCheckbox(!CalculoCheckbox)}>
                     Cálculo
                 </Checkbox>
-                <Input w='60px'
+                <Input
+                    p='0'
+                    textAlign='center'
+                    w='60px'
                     isDisabled={DisableSelectCalculo}
                     value={ValueInput1}
                     placeholder="00"
                     onChange={(e) => setValueInput1(e.target.value)}
                 />
-                <Text alignSelf='center'>mm</Text>
+                <Text alignSelf='center'>cm</Text>
                 <Select w='150px'
                     isDisabled={DisableSelectCalculo}
                     value={ValueSelectCalculo1}
