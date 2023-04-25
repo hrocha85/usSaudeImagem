@@ -48,6 +48,8 @@ import Sidebar from "../menu/sideBar";
 import Conclusoes from "./conclusoes";
 import Field_Observacoes from "./field_observacoes";
 import Axila from "../exames/axila";
+import Torax from "../exames/torax";
+import ParedeAbdominal from "../exames/paredeAbdominal";
 
 export default function Box_Default_With_Sidebar() {
   const {
@@ -165,7 +167,27 @@ export default function Box_Default_With_Sidebar() {
     {
       key: 20,
       nomeExame: "Axila",
-      link: `#/Home/${25}`,
+      link: `#/Home/${20}`,
+      observacao: [
+        "Exames anteriores não disponíveis para estudo comparativo.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos."
+      ],
+    },
+    {
+      key: 21,
+      nomeExame: "Torax",
+      link: `#/Home/${21}`,
+      observacao: [
+        "Exames anteriores não disponíveis para estudo comparativo.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos."
+      ],
+    },
+    {
+      key: 22,
+      nomeExame: "Parede Abdominal",
+      link: `#/Home/${22}`,
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
         "Estaremos à disposição para a discussão do presente caso.",
@@ -422,6 +444,8 @@ export default function Box_Default_With_Sidebar() {
                         18: <Articulacoes />,
                         19: <Regiao_Inguinal />,
                         20: <Axila />,
+                        21: <Torax />,
+                        22: <ParedeAbdominal />,
 
                       }[e.key]
                     }

@@ -2,7 +2,7 @@ import { Box, Radio, RadioGroup, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
-export default function Parenquima_Pulmonar_Esquedo({ Disable }) {
+export default function Parenquima_Pulmonar_Direito({ Disable }) {
   const [value, setValue] = useState("1");
   const [frasesTorax, setFrasesTorax] = useState<any>([]);
 
@@ -10,8 +10,8 @@ export default function Parenquima_Pulmonar_Esquedo({ Disable }) {
   const [enableSelectConsolidacao, setEnableSelectConsolidacao] =
     useState<boolean>(false);
 
-  const subExame = "Hemitórax Esquerdo. Parênquima Pulmonar";
-  const titulo_exame = "Partes Moles";
+  const subExame = "Hemitórax Direito. Parênquima Pulmonar";
+  const titulo_exame = "Torax";
 
   const removeSelectString = () => {
     frasesTorax.map((e) => {
@@ -50,6 +50,11 @@ export default function Parenquima_Pulmonar_Esquedo({ Disable }) {
   }, [valueSelect]);
 
   useEffect(() => {
+    Disable ? setValue('Normal nos segmentos acessíveis (Linhas A presentes, Linhas B raras/ausentes)') : setValue('1')
+  }, [Disable])
+
+
+  useEffect(() => {
     if (Object.keys(frasesTorax).length == 0) {
       new Format_Laudo(
         titulo_exame,
@@ -73,7 +78,7 @@ export default function Parenquima_Pulmonar_Esquedo({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Parênquima Pulmonar
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Normal nos segmentos acessíveis (Linhas A presentes, Linhas B raras/ausentes)">

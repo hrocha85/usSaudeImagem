@@ -21,7 +21,7 @@ export default function Derrame_Pleural_Esquerdo({ Disable }) {
   const [enableSelects, setEnableSelects] = useState<boolean>(false);
 
   const subExame = "Hemitórax Esquerdo. Parênquima Pulmonar";
-  const titulo_exame = "Partes Moles";
+  const titulo_exame = "Torax";
 
   const removeSelectString = () => {
     frasesTorax.map((e) => {
@@ -92,6 +92,11 @@ export default function Derrame_Pleural_Esquerdo({ Disable }) {
   }, [value]);
 
   useEffect(() => {
+    Disable ? setValue('Ausência de derrame pleural detectável.') : setValue('1')
+  }, [Disable])
+
+
+  useEffect(() => {
     removeSelectConclusao()
     var conclusao = 'Derrame pleural Esquerda.'
     var conclusaoBilateral = 'Derrame pleural Bilateral.'
@@ -142,7 +147,7 @@ export default function Derrame_Pleural_Esquerdo({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Derrame Pleural
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Ausência de derrame pleural detectável.">
