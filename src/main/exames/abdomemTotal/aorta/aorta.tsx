@@ -1,373 +1,342 @@
-import { Box, Text, Checkbox, Select, Input } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import TituloNomeExame from "../../../component/titulo_nome_exame";
+/* eslint-disable eqeqeq */
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
+import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Aorta() {
-  const altura = "100%";
-  const largura = "66%";
+function Aorta({ Disable }) {
+    const altura = "100%";
+    const largura = "66%";
 
-  let selectLocalizacao = document.querySelector(
-    "#SelectLocalizacao"
-  ) as HTMLInputElement;
-  let inputCalibreMaximo = document.querySelector(
-    "#InputCalibreMaximo"
-  ) as HTMLInputElement;
-  let inputExtensao = document.querySelector(
-    "#InputExtensao"
-  ) as HTMLInputElement;
+    const [value, setValue] = useState("1");
+    const [FraseAorta, setFraseAorta] = useState<any>([]);
+    const [ConclusoesAorta, setConclusoesAorta] = useState<any>([]);
 
-  const [valueFraseAneurisma, setValueFraseAneurisma] = useState("");
+    const [valueSelect1, setValueSelect1] = useState("");
+    const [valueSelect2, setValueSelect2] = useState("");
+    const [valueInput1, setValueInput1] = useState("");
+    const [valueInput2, setValueInput2] = useState("");
+    const [TromboPerietalCheckbox, setTromboPerietalCheckbox] = useState(false)
 
-  const [valueLocalizacaoAneurmisma, setValueLocalizacaoAneurmisma] =
-    useState("");
-  const [valueInputCalibreMax, setValueInputCalibreMax] = useState("");
+    const [enableSelects, setEnableSelects] = useState<boolean>(false);
 
-  const [defaultValueNormal, setDefaultValueNormal] = useState({
-    defaultValueNormal: false,
-  });
+    const [CitarCalibreCheckbox, setCitarCalibreCheckbox] = useState(false)
+    const [DisableCitarCalibreCheckbox, setDisableCitarCalibreCheckbox] = useState(true);
+    const [valueInputCitarCalibre, setValueInputCitarCalibre] = useState("");
+    const [DisableInputCitarCalibre, setDisableInputCitarCalibre] = useState(true);
 
-  const [checkValueNormal, setCheckValueNormal] = useState({
-    normal: false,
-  });
+    const [CitarFluxoCheckbox, setCitarFluxoCheckbox] = useState(false)
+    const [CitarVPSCheckbox, setCitarVPSCheckbox] = useState(false)
+    const [valueInputVPS, setValueInputVPS] = useState("");
+    const [DisableInputCitarVPS, setDisableInputCitarVPS] = useState(true);
+    const [DisableCitarVPSCheckbox, setDisableCitarVPSCheckbox] = useState(true);
 
-  const [checkValueNaoVisibilizada, setCheckValueNaoVisibilizada] = useState({
-    NaoVisibilizada: false,
-  });
-  const [checkValueAteromatosa, setCheckValueAteromatosa] = useState({
-    ateromatosa: false,
-  });
+    const removeSelectString = () => {
+        var index;
+        FraseAorta.map((e) => {
+            if (e.includes("Aneurisma")) {
+                index = FraseAorta.indexOf(e);
 
-  const [checkValueAneurisma, setCheckvalueAneurisma] = useState({
-    aneurisma: false,
-    selectLocalizacao: true,
-    inputCalibreMaximo: true,
-    inputExtensao: true,
-  });
+                if (index > -1) {
+                    FraseAorta.splice(index, 1);
+                    setFraseAorta((arr) => [...arr]);
+                }
+            } else if (e.includes("Aorta")) {
+                index = FraseAorta.indexOf(e);
 
-  const [frasesAorta, setFrasesAorta] = useState<any>([]);
+                if (index > -1) {
+                    FraseAorta.splice(index, 1);
+                    setFraseAorta((arr) => [...arr]);
+                }
+            }
+        });
+    };
+    const removeConclusaoString = () => {
+        var index;
+        ConclusoesAorta.map((e) => {
+            if (e.includes("Aneurisma aórtico.")) {
+                index = ConclusoesAorta.indexOf(e);
 
-  const subExame = "Aorta";
-  const titulo_exame = "Abdomen total";
+                if (index > -1) {
+                    ConclusoesAorta.splice(index, 1);
+                    setConclusoesAorta((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao('Aneurisma aórtico.');
+                }
+            }
+        });
+    };
 
-  useEffect(() => {
-    if (Object.keys(frasesAorta).length == 0) {
-      new Format_Laudo(
-        titulo_exame,
-        subExame,
-        true,
-        frasesAorta
-      ).Format_Laudo_Create_Storage();
-    } else {
-      new Format_Laudo(
-        titulo_exame,
-        subExame,
-        false,
-        frasesAorta
-      ).Format_Laudo_Create_Storage();
-    }
-  }, [frasesAorta]);
 
-  const removeItemString = (value) => {
-    // console.log("valor remove = ", value);
-    var index = frasesAorta.indexOf(value);
-    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-    if (index > -1) {
-      frasesAorta.splice(index, 1);
-      setFrasesAorta((arr) => [...arr]);
-    }
-    inputExtensao.value = "";
-    selectLocalizacao.value = "";
-    inputCalibreMaximo.value = "";
-  };
 
-  const removeStringAneurisma = () => {
-    setCheckvalueAneurisma({
-      aneurisma: false,
-      selectLocalizacao: true,
-      inputCalibreMaximo: true,
-      inputExtensao: true,
-    });
-    const index = frasesAorta.indexOf(valueFraseAneurisma);
-    if (index > -1) {
-      frasesAorta.splice(index, 1);
-      setFrasesAorta((arr) => [...arr]);
-    }
-  };
-
-  const criaStringInputCisto = (value) => {
-    const string =
-      "Aneurisma Localizado no " +
-      valueLocalizacaoAneurmisma +
-      "com calibre de " +
-      valueInputCalibreMax +
-      " mm com extensão de " +
-      value.value;
-    setValueFraseAneurisma(string);
-    setFrasesAorta((arr) => [...arr, string]);
-  };
-
-  const criarString = (value, valueId?, valueInput?) => {
-    //console.log("Valor cria string = ", value);
-    //arr => [...arr] captura os dados que já estavam e os mantem no array
-    setFrasesAorta((arr) => [...arr, value]);
-    //console.log("criaString = ", laudoPrin)
-  };
-
-  const verificaChecked = (value) => {
-    switch (value.id) {
-      case "AortaNormal":
-        if (value.checked === true) {
-          setDefaultValueNormal({ defaultValueNormal: true });
-          setFrasesAorta((arr) => [...arr, value.value]);
-          setCheckValueNaoVisibilizada({
-            NaoVisibilizada: true,
-          });
-          setCheckValueAteromatosa({
-            ateromatosa: true,
-          });
-          setCheckvalueAneurisma({
-            aneurisma: true,
-            selectLocalizacao: true,
-            inputCalibreMaximo: true,
-            inputExtensao: true,
-          });
+    useEffect(() => {
+        if (value.includes("Aneurisma")) {
+            setEnableSelects(true);
+        } else if (value.includes("Aorta ateromatosa e ectasiada")) {
+            setDisableCitarCalibreCheckbox(false)
+            var string;
+            if (valueInputCitarCalibre != '') {
+                var medida = new Convert_Medida(valueInputCitarCalibre).Convert_Medida()
+                string = `Aorta com paredes hiperecogênicas e irregulares, com calibre transverso máximo ${medida} cm nos segmentos acessíveis.`
+                setFraseAorta([]);
+                setFraseAorta((arr) => [...arr, string]);
+            } else {
+                setFraseAorta([]);
+                string = `Aorta com paredes hiperecogênicas e irregulares`
+                setFraseAorta((arr) => [...arr, string]);
+            }
         } else {
-          setDefaultValueNormal({ defaultValueNormal: false });
-          removeItemString(value.value);
-          setCheckValueNaoVisibilizada({
-            NaoVisibilizada: false,
-          });
-          setCheckValueAteromatosa({
-            ateromatosa: false,
-          });
-          setCheckvalueAneurisma({
-            aneurisma: false,
-            selectLocalizacao: true,
-            inputCalibreMaximo: true,
-            inputExtensao: true,
-          });
+            setValueInput1('')
+            setValueInput2('')
+            setValueSelect1('')
+            setValueSelect2('')
+            if (value != "1") {
+                setFraseAorta([]);
+                setEnableSelects(false);
+                setFraseAorta((arr) => [...arr, value]);
+            } else {
+                setEnableSelects(false);
+                setFraseAorta([]);
+            }
         }
-        break;
-      case "NaoVisibilizada":
-        if (value.checked === true) {
-          setFrasesAorta((arr) => [...arr, value.value]);
-          setCheckValueNormal({
-            normal: true,
-          });
-          setCheckValueAteromatosa({
-            ateromatosa: true,
-          });
-          setCheckvalueAneurisma({
-            aneurisma: true,
-            selectLocalizacao: true,
-            inputCalibreMaximo: true,
-            inputExtensao: true,
-          });
-        } else {
-          removeItemString(value.value);
-          setCheckValueNormal({
-            normal: false,
-          });
-          setCheckValueAteromatosa({
-            ateromatosa: false,
-          });
-          setCheckvalueAneurisma({
-            aneurisma: false,
-            selectLocalizacao: true,
-            inputCalibreMaximo: true,
-            inputExtensao: true,
-          });
-        }
-        break;
-      case "Ateromatosa":
-        if (value.checked === true) {
-          setFrasesAorta((arr) => [...arr, value.value]);
-          setCheckValueNormal({
-            normal: true,
-          });
-          setCheckValueNaoVisibilizada({
-            NaoVisibilizada: true,
-          });
-          setCheckvalueAneurisma({
-            aneurisma: true,
-            selectLocalizacao: true,
-            inputCalibreMaximo: true,
-            inputExtensao: true,
-          });
-        } else {
-          removeItemString(value.value);
-          setCheckValueNormal({
-            normal: false,
-          });
-          setCheckValueNaoVisibilizada({
-            NaoVisibilizada: false,
-          });
-          setCheckvalueAneurisma({
-            aneurisma: false,
-            selectLocalizacao: true,
-            inputCalibreMaximo: true,
-            inputExtensao: true,
-          });
-        }
-        break;
-      case "Aneurisma":
-        if (value.checked === true) {
-          setCheckvalueAneurisma({
-            aneurisma: false,
-            selectLocalizacao: false,
-            inputCalibreMaximo: false,
-            inputExtensao: false,
-          });
-          setCheckValueNormal({
-            normal: true,
-          });
-          setCheckValueNaoVisibilizada({
-            NaoVisibilizada: true,
-          });
-          setCheckValueAteromatosa({
-            ateromatosa: true,
-          });
-        } else {
-          setCheckValueNormal({
-            normal: false,
-          });
-          setCheckValueNaoVisibilizada({
-            NaoVisibilizada: false,
-          });
-          setCheckValueAteromatosa({
-            ateromatosa: false,
-          });
-          removeStringAneurisma();
-          removeItemString("Ateromatosa");
-          removeItemString("Aorta Normal ");
-          removeItemString("Nao Visibilizada");
-        }
-        break;
+    }, [value, valueInputCitarCalibre]);
 
-      case "InputCalibreMaximo":
-        setValueInputCalibreMax(value.value);
-        break;
-      case "SelectLocalizacao":
-        setValueLocalizacaoAneurmisma(value.value);
-        break;
-      case "InputExtensao":
-        criaStringInputCisto(value);
-        break;
+    useEffect(() => {
+        const conclusao = 'Aneurisma aórtico.'
+        removeSelectString()
+        removeConclusaoString()
+        var select;
+        if (valueInput1 != '' && valueInput2 != '' && valueInput1 != '' && valueInput2 != '' && TromboPerietalCheckbox) {
+            select = `Aorta com paredes irregulares, apresentando dilatação aneurismática ${valueSelect1} ${valueSelect2} com calibre máximo de  ${valueInput1} cm e extensão de ${valueInput2} cm, com trombo parietal.`;
+            setFraseAorta((arr) => [...arr, select]);
+            setConclusoesAorta((arr) => [...arr, conclusao]);
+        } else if (valueInput1 != '' && valueInput2 != '' && valueInput1 != '' && valueInput2 != '') {
+            select = `Aorta com paredes irregulares, apresentando dilatação aneurismática ${valueSelect1} ${valueSelect2} com calibre máximo de  ${valueInput1} cm e extensão de ${valueInput2} cm `;
+            setFraseAorta((arr) => [...arr, select]);
+            setConclusoesAorta((arr) => [...arr, conclusao]);
+        }
+    }, [valueSelect1, valueSelect2, valueInput1, valueInput2, TromboPerietalCheckbox]);
+
+    useEffect(() => {
+        if (CitarCalibreCheckbox) {
+            setDisableInputCitarCalibre(false)
+        } else {
+            setValueInputCitarCalibre('')
+            setDisableInputCitarCalibre(true)
+        }
+    }, [CitarCalibreCheckbox])
+
+    const criaStringCitarFluxo = () => {
+        var string = 'A avaliação da aorta com Doppler demonstra fluxo de padrão trifásico normal e velocidades preservadas'
+        removeFraseCitarFluxo()
+        const medida = new Convert_Medida(valueInputVPS).Convert_Medida()
+        if (valueInputVPS != '' && CitarFluxoCheckbox) {
+            string = `${string} (VPS= ${medida} cm/s).`
+            setFraseAorta((arr) => [...arr, string])
+        } else if (CitarFluxoCheckbox) {
+            string = `${string}.`
+            setFraseAorta((arr) => [...arr, string])
+        }
     }
-  };
 
-  return (
-    <Box
-      bg="#FAFAFA"
-      w={largura}
-      h={altura}
-      bgPosition="center"
-      bgRepeat="no-repeat"
-      borderRadius="10.85px"
-      boxShadow="md"
-      padding="24px 15px 20px 15px"
-      mt="15px"
-    >
-      <Box borderBottom="1px">
-        <TituloNomeExame titulo="Aorta" />
+    const removeFraseCitarFluxo = () => {
+        FraseAorta.map((e) => {
+            if (e.includes("A avaliação da aorta com Doppler demonstra fluxo de padrão trifásico normal e velocidades preservadas")) {
+                var index = FraseAorta.indexOf(e);
+                if (index > -1) {
+                    FraseAorta.splice(index, 1);
+                    setFraseAorta((arr) => [...arr]);
+                }
+            }
+        });
+    };
 
-        <Box gap="30px" display="flex" flexWrap="wrap" mb="20px">
-          <Checkbox
-            isChecked={defaultValueNormal.defaultValueNormal}
-            value="Aorta Normal  "
-            disabled={checkValueNormal.normal}
-            id="AortaNormal"
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-          >
-            Normal
-          </Checkbox>
-          <Checkbox
-            disabled={checkValueNaoVisibilizada.NaoVisibilizada}
-            value="Nao Visibilizada"
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="NaoVisibilizada"
-          >
-            Não Visibilizado
-          </Checkbox>
-          <Checkbox
-            value="Ateromatosa"
-            disabled={checkValueAteromatosa.ateromatosa}
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="Ateromatosa"
-          >
-            Ateromatosa
-          </Checkbox>
-          <Checkbox
-            value=""
-            disabled={checkValueAneurisma.aneurisma}
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="Aneurisma"
-          >
-            Aneurisma
-          </Checkbox>
-        </Box>
-      </Box>
-      {/* ------------------------------------------------------------------------------------------------------------ */}
+    useEffect(() => {
+        if (CitarFluxoCheckbox) {
+            criaStringCitarFluxo()
+            setDisableCitarVPSCheckbox(false)
+        } else {
+            removeFraseCitarFluxo()
+            setDisableCitarVPSCheckbox(true)
+            setValueInputVPS('')
+        }
+    }, [CitarFluxoCheckbox, valueInputVPS])
 
-      <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
-        <Box>
-          <Text>Localização:</Text>
-          <Select
-            disabled={checkValueAneurisma.selectLocalizacao}
-            onChange={(e) => {
-              verificaChecked(e.target);
-            }}
-            id="SelectLocalizacao"
-          >
-            <option value="" disabled selected>
-              Localização
-            </option>
-            <option value="supra-renal">Supra-renal</option>
-            <option value="tercoProximal">terço proximal</option>
-            <option value="tercoMedio">Terço médio</option>
-            <option value="tercoDistal">Terço distal</option>
-            <option value="bifurcacao">Bifurcação</option>
-            <option value="infraRenal">Infra-renal</option>
-          </Select>
-        </Box>
+    useEffect(() => {
+        if (CitarVPSCheckbox) {
+            setDisableInputCitarVPS(false)
+        } else {
+            setDisableInputCitarVPS(true)
+            setValueInputVPS('')
+        }
+    }, [CitarVPSCheckbox])
 
-        <Box w="200px">
-          <Text>Calire máximo:</Text>
-          <Input
-            disabled={checkValueAneurisma.inputCalibreMaximo}
-            id="InputCalibreMaximo"
-            onBlur={(e) => {
-              verificaChecked(e.target);
-            }}
-            w="100%"
-            placeholder="mm"
-          />
-        </Box>
+    useEffect(() => {
+        Disable ? setValue('De diâmetro preservado. \n Paredes aórticas com espessura e a ecogenicidade normais, regulares.') : setValue('1')
+    }, [Disable])
 
-        <Box w="200px">
-          <Text>Extensão:</Text>
-          <Input
-            disabled={checkValueAneurisma.inputExtensao}
-            id="InputExtensao"
-            onBlur={(e) => {
-              verificaChecked(e.target);
-            }}
-            w="100%"
-            placeholder="mm"
-          />
-        </Box>
-      </Box>
-    </Box>
-  );
+    const subExame = "Aorta";
+    const titulo_exame = "Abdômen total";
+
+    useEffect(() => {
+        if (Object.keys(FraseAorta).length == 0) {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                true,
+                FraseAorta,
+                ConclusoesAorta
+            ).Format_Laudo_Create_Storage();
+        } else {
+            new Format_Laudo(
+                titulo_exame,
+                subExame,
+                false,
+                FraseAorta,
+                ConclusoesAorta
+            ).Format_Laudo_Create_Storage();
+        }
+    }, [FraseAorta]);
+
+    return (
+        <Box
+            bg="#FAFAFA"
+            w={largura}
+            h={altura}
+            bgPosition="center"
+            bgRepeat="no-repeat"
+            borderRadius="10.85px"
+            boxShadow="md"
+            padding="15px"
+            mt="15px"
+        >
+            <TituloNomeExame titulo="Aorta" />
+
+
+            <RadioGroup w='auto' onChange={setValue} value={value} padding="10px">
+                <Stack direction="column">
+                    <Flex>
+                        <Stack>
+                            <Radio w='auto' value="1">Não citar</Radio>
+                            <Radio w='auto' value={'De diâmetro preservado. \n Paredes aórticas com espessura e a ecogenicidade normais, regulares.'}>
+                                Aorta Normal
+                            </Radio>
+                            <Radio w='auto' value="Presença de adenopatia para aórtica ou ao redor dos demais grandes vasos abdominais.">
+                                Aorta Alterada
+                            </Radio>
+                            <Radio value="Aorta com paredes hiperecogênicas e discretamente irregulares, conservando calibre normal.">
+                                Aorta ateromatosa
+                            </Radio>
+                            <HStack>
+                                <Radio value="Aorta ateromatosa e ectasiada">
+                                    Aorta ateromatosa e ectasiada
+                                </Radio>
+                                <HStack>
+                                    <Checkbox
+                                        isDisabled={DisableCitarCalibreCheckbox}
+                                        onChange={() => setCitarCalibreCheckbox(!CitarCalibreCheckbox)}>
+                                        citar calibre
+                                    </Checkbox>
+                                    <Input
+                                        p='0'
+                                        textAlign='center'
+                                        value={valueInputCitarCalibre}
+                                        isDisabled={DisableInputCitarCalibre}
+                                        w='60px'
+                                        placeholder="00"
+                                        onChange={(e) => setValueInputCitarCalibre(e.target.value)}
+                                    />
+                                    <Text alignSelf='center'>cm</Text>
+                                </HStack>
+                            </HStack>
+                        </Stack>
+                        <Spacer />
+                        <Stack>
+                            <Stack>
+                                <Checkbox
+                                    onChange={() => setCitarFluxoCheckbox(!CitarFluxoCheckbox)}>
+                                    Citar Fluxo normal ao Doppler
+                                </Checkbox>
+                                <HStack alignSelf='center'>
+                                    <Checkbox
+                                        isDisabled={DisableCitarVPSCheckbox}
+                                        onChange={() => setCitarVPSCheckbox(!CitarVPSCheckbox)}>
+                                        Citar VPS
+                                    </Checkbox>
+                                    <Input
+                                        p='0'
+                                        textAlign='center'
+                                        isDisabled={DisableInputCitarVPS}
+                                        value={valueInputVPS}
+                                        onChange={(e) => setValueInputVPS(e.target.value)}
+                                        w='60px'
+                                        placeholder="00"
+                                    />
+                                    <Text alignSelf='center'>cm/s</Text>
+                                </HStack>
+                            </Stack>
+                        </Stack>
+                    </Flex>
+                    <Box w='auto'>
+                        <HStack >
+                            <Radio value="Aneurisma">Aneurisma</Radio>
+                            <Select w='150px'
+                                isDisabled={!enableSelects}
+                                onChange={(e) => setValueSelect1(e.target.value)}
+                            >
+                                <option selected disabled value="">Selecione</option>
+                                <option value="fusifome">Fusifome</option>
+                                <option value="sacular">Sacular</option>
+                            </Select>
+                            <Select w='150px'
+                                isDisabled={!enableSelects}
+                                onChange={(e) => setValueSelect2(e.target.value)}
+                            >
+                                <option selected disabled value="">Selecione</option>
+                                <option value="infrarrenal">infrarrenal</option>
+                                <option value="no terço médio">no terço médio</option>
+                                <option value="no terço proximal">no terço proximal</option>
+                                <option value="no terço distal">no terço distal</option>
+                                <option value="junto à bifurcação">junto à bifurcação</option>
+                            </Select>
+                        </HStack>
+                        <Box display='flex' flexWrap='wrap' marginTop="10px">
+                            <Text alignSelf='center'>com calibre máximo de </Text>
+                            <Input
+                                p='0'
+                                textAlign='center' w='60px'
+                                value={valueInput1}
+                                placeholder="00"
+                                isDisabled={!enableSelects}
+                                onChange={(e) => setValueInput1(e.target.value)}
+                            />
+                            <Text alignSelf='center'>cm e</Text>
+                            <Input
+                                p='0'
+                                textAlign='center' w='60px'
+                                value={valueInput2}
+                                placeholder="00"
+                                isDisabled={!enableSelects}
+                                onChange={(e) => setValueInput2(e.target.value)}
+                            />
+                            <Text alignSelf='center'>cm de extensão</Text>
+                            <Checkbox
+                                isDisabled={!enableSelects}
+                                onChange={(e) => setTromboPerietalCheckbox(!TromboPerietalCheckbox)}
+                            >
+                                com trombo perietal
+                            </Checkbox>
+                        </Box >
+                    </Box>
+                    <Radio value="Aorta inacessível por interposição gasosa de alças intestinais.">
+                        Inacessível (não citar linfonodos retroperitoneais)
+                    </Radio>
+                </Stack>
+            </RadioGroup>
+
+        </Box >
+    );
 }
 
-export default Aorta;
+export default Aorta

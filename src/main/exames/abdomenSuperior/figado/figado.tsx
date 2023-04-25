@@ -1,245 +1,452 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Box, Button, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
+import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
-import IndividualizarCistos from "./individualizar_cisto";
-import IndividualizarNodulos from "./individualizar_nodulos";
+import IndividualizarCistos from "./individualizarCistoSimples";
+import IndividualizarNodulos from "./individualizarNodulos";
 
-function Figado() {
+function Figado({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
+  const [numberArray, setNumberArray] = useState([1]);
 
-  const [Medida1NoduloInput, setMedida1NoduloInput] = useState("");
-  const [Medida2NoduloInput, setMedida2NoduloInput] = useState("");
-  const [Select1Nodulo, setSelect1Nodulo] = useState("");
-  const [Select2Nodulo, setSelect2Nodulo] = useState("");
-  const [Select3Nodulo, setSelect3Nodulo] = useState("");
+  const [UpdateCistos, setUpdateCistos] = useState(false);
 
-  const [multiplosNodulosCheckBox, setmultiplosNodulosCheckBox] = useState(false);
-
-  const [Medida1CistoInput, setMedida1CistoInput] = useState("");
-  const [Select1Cisto, setSelect1Cisto] = useState("");
-
-  const [multiplosCistosCheckBox, setmultiplosCistosCheckBox] = useState(false);
-
-  const [FrasesFigado, setFrasesFigado] = useState<any>([]);
-  const [ConclusaoFigado, setConclusaoFigado] = useState<any>([]);
-  var numberArray = [1, 2, 3];
-
-  const [CheckboxNormal, setCheckboxNormal] = useState(false);
-  const [CheckboxHepatiteAguda, setCheckboxHepatiteAguda] = useState(false);
-  const [CheckboxHepatiteCronica, setCheckboxHepatiteCronica] = useState(false);
-  const [CheckboxDimensoes, setCheckboxDimensoes] = useState(false);
-  const [SelectDimensoes, setSelectDimensoes] = useState('');
-  const [CheckboxEsteatose, setCheckboxEsteatose] = useState(false);
-  const [SelectEsteatose, setSelectEsteatose] = useState('');
-
-  const [CheckboxCalcificacao, setCheckboxCalcificacao] = useState(false);
-  const [SelectCalcificacao, setSelectCalcificacao] = useState('');
-  const [InputCalcificacao, setInputCalcificacao] = useState('');
-
-  const criaStringMultiplosNodulos = () => {
-    const conclusao = 'Nódulos hepáticos sugestivos de hemangiomas.'
-    let string = 'Notam-se múltiplos nódulos, o maior'
-    removeItemSelect(string);
-    removeItemConclusao(conclusao)
-    if (multiplosNodulosCheckBox) {
-      if (Medida1NoduloInput != "" && Medida2NoduloInput != "" && Select1Nodulo != '' && Select2Nodulo != '' && Select3Nodulo != '') {
-        string = `${string} ${Select3Nodulo},arredondado, de limites precisos e contornos 
-         ${Select2Nodulo}, desprovido de sombra acústica posterior, localizado no ${Select1Nodulo} medindo ${Medida1NoduloInput}x${Medida2NoduloInput} mm.`;
-        setFrasesFigado((arr) => [...arr, string]);
-        setConclusaoFigado((arr) => [...arr, conclusao]);
-      }
-    } else {
-      removeItemSelect(string)
-      setMedida1NoduloInput("");
-      setMedida2NoduloInput("");
-      setSelect1Nodulo("");
-      setSelect2Nodulo("");
-      setSelect3Nodulo("");
-    }
-  };
-
-  const criaStringMultiplosCistos = () => {
-    const conclusao = 'Cistos hepáticos.'
-    let string = 'Notam-se imagens císticas, de paredes finas e regulares, conteúdo anecóide homogêneo, a maior no'
-    removeItemSelect(string);
-    removeItemConclusao(conclusao)
-    if (multiplosCistosCheckBox) {
-      if (Medida1CistoInput != "" && Select1Cisto != '') {
-        string = `${string} ${Select1Cisto} medindo ${Medida1CistoInput} mm.`;
-        setFrasesFigado((arr) => [...arr, string]);
-        setConclusaoFigado((arr) => [...arr, conclusao]);
-      }
-    } else {
-      removeItemSelect(string);
-      setMedida1CistoInput("");
-      setSelect1Cisto("");
-    }
-  };
-
-  useEffect(() => {
-    criaStringMultiplosCistos();
-  }, [multiplosCistosCheckBox, Medida1CistoInput, Select1Cisto]);
-  useEffect(() => {
-    criaStringMultiplosNodulos();
-  }, [multiplosNodulosCheckBox, Medida1NoduloInput, Medida2NoduloInput, Select1Nodulo, Select2Nodulo, Select3Nodulo]);
-  const removeItemString = (value) => {
-    var index = FrasesFigado.indexOf(value);
-
-    if (index > -1) {
-      FrasesFigado.splice(index, 1);
-      setFrasesFigado((arr) => [...arr]);
-    }
-  };
-
-  const removeItemConclusao = (value) => {
-    var index = ConclusaoFigado.indexOf(value);
-    if (index > -1) {
-      ConclusaoFigado.splice(index, 1);
-      setConclusaoFigado((arr) => [...arr]);
-      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
-    }
-  };
-  useEffect(() => {
-    const string = 'A forma é regular, a superfície é lisa e dimensões normais.'
-    CheckboxNormal ? setFrasesFigado((arr) => [...arr, string]) : removeItemString(string)
-  }, [CheckboxNormal])
-
-  useEffect(() => {
-    const conclusao = `Alteração parenquimatosa hepática. Considerar possibilidade de hepatite aguda.`
-    const string = 'Parênquima hepático apresentando discreto aumento da refrigência peri-portal difusamente.'
-    CheckboxHepatiteAguda ? setFrasesFigado((arr) => [...arr, string]) : removeItemString(string)
-    CheckboxHepatiteAguda ? setConclusaoFigado((arr) => [...arr, conclusao]) : removeItemConclusao(conclusao)
-  }, [CheckboxHepatiteAguda])
-
-  useEffect(() => {
-    const conclusao = `Hepatopatia crônica.`
-    const string = 'Vasos hepáticos de difícil caracterização.'
-    CheckboxHepatiteCronica ? setFrasesFigado((arr) => [...arr, string]) : removeItemString(string)
-    CheckboxHepatiteCronica ? setConclusaoFigado((arr) => [...arr, conclusao]) : removeItemConclusao(conclusao)
-  }, [CheckboxHepatiteCronica])
-
-  const criaStringDimensoes = () => {
-    var conclusao = 'Fígado de dimensões'
-    var string = 'Dimensões'
-    removeItemConclusaoSelect(conclusao)
-    removeItemSelect(string)
-    if (CheckboxDimensoes) {
-      if (SelectDimensoes !== '') {
-        string = `${string} ${SelectDimensoes}.`
-        conclusao = `${conclusao} ${SelectDimensoes}.`
-        if (CheckboxDimensoes) {
-          setFrasesFigado((arr) => [...arr, string])
-          setConclusaoFigado((arr) => [...arr, conclusao])
-        }
-      }
-    } else {
-      removeItemConclusaoSelect(conclusao)
-      removeItemString(string)
-      setSelectDimensoes('')
-    }
+  function Cistos() {
+    return (
+      <>
+        {numberArray.map((num, key) => {
+          return <IndividualizarCistos key={key} numCalculo={num} />;
+        })}
+      </>
+    );
   }
-  useEffect(() => {
-    criaStringDimensoes()
-  }, [CheckboxDimensoes, SelectDimensoes])
 
-  const criaStringCalcificacao = () => {
-    const conclusao = 'Calcificação hepática de aspecto residual.'
-    var string = 'Nota-se foco hiperecogênico, irregular, provido de acústica posterior, no '
-    removeItemConclusao(conclusao)
-    removeItemSelect(string)
-    if (CheckboxCalcificacao) {
-      if (SelectCalcificacao !== '' && InputCalcificacao !== '') {
-        string = `${string} ${SelectCalcificacao} medindo ${InputCalcificacao} mm.`
-        if (CheckboxCalcificacao) {
-          setFrasesFigado((arr) => [...arr, string])
-          setConclusaoFigado((arr) => [...arr, conclusao])
-        }
-      }
-    } else {
-      removeItemConclusao(conclusao)
-      removeItemString(string)
-      setSelectCalcificacao('')
-      setInputCalcificacao('')
+  useEffect(() => {
+    if (UpdateCistos) {
+      setUpdateCistos(false);
+      setNumberArray([...numberArray, numberArray.length + 1]);
+      Cistos();
     }
-  }
-  useEffect(() => {
-    criaStringCalcificacao()
-  }, [CheckboxCalcificacao, SelectCalcificacao, InputCalcificacao])
+  }, [UpdateCistos]);
 
-  const criaStringEsteatose = () => {
-    var conclusao = 'Esteatose'
-    var string = 'Esteastose'
-    removeItemConclusaoSelect(conclusao)
-    removeItemSelect(string)
-    if (CheckboxEsteatose) {
-      if (SelectEsteatose !== '') {
-        string = `${string} ${SelectEsteatose}.`
-        conclusao = `${conclusao} ${SelectEsteatose}.`
-        if (CheckboxEsteatose) {
-          setFrasesFigado((arr) => [...arr, string])
-          setConclusaoFigado((arr) => [...arr, conclusao])
-        }
-      }
-    } else {
-      removeItemConclusaoSelect(conclusao)
-      removeItemString(string)
-      setSelectEsteatose('')
+  const [numberArrayNodulos, setNumberArrayNodulos] = useState([1]);
+
+  const [UpdateNodulos, setUpdateNodulos] = useState(false);
+
+  function Nodulos() {
+    return (
+      <>
+        {numberArrayNodulos.map((num, key) => {
+          return <IndividualizarNodulos key={key} numCalculo={num} />;
+        })}
+      </>
+    );
+  }
+
+  useEffect(() => {
+    if (UpdateNodulos) {
+      setUpdateNodulos(false);
+      setNumberArrayNodulos([...numberArrayNodulos, numberArrayNodulos.length + 1]);
+      Nodulos();
     }
-  }
-  useEffect(() => {
-    criaStringEsteatose()
-  }, [CheckboxEsteatose, SelectEsteatose])
+  }, [UpdateNodulos]);
 
-  const removeItemSelect = (value) => {
-    FrasesFigado.map((e) => {
-      if (e.includes(value)) {
-        var index = FrasesFigado.indexOf(e);
-        if (index > -1) {
-          FrasesFigado.splice(index, 1);
-          setFrasesFigado((arr) => [...arr]);
-        }
-      }
-    });
-  }
-  const removeItemConclusaoSelect = (value) => {
-    ConclusaoFigado.map((e) => {
-      if (e.includes(value)) {
-        var index = ConclusaoFigado.indexOf(e);
-        if (index > -1) {
-          ConclusaoFigado.splice(index, 1);
-          setConclusaoFigado((arr) => [...arr]);
-          new Format_Laudo(titulo_exame).Remove_Conclusao_Select(value);
-        }
-      }
-    });
-  }
+  const [HemangiomaCheckbox, setHemangiomaCheckbox] = useState(false)
+  const [HomogeneoCheckbox, setHomogeneoCheckbox] = useState(false)
+  const [EsteatoseCheckbox, setEsteatoseCheckbox] = useState(false)
+  const [HepatopatiaCronicaCheckbox, setHepatopatiaCronicaCheckbox] = useState(false)
+
+  const [VariosCistosCheckbox, setVariosCistosCheckbox] = useState(false)
+
+  const [VariosNodulosCheckbox, setVariosNodulosCheckbox] = useState(false)
+  const [CalcificacaoGrosseiraCheckbox, setCalcificacaoGrosseiraCheckbox] = useState(false)
+
+  const [DisableEsteatoseSelect, setDisableEsteatoseSelect] = useState(true)
+  const [DisableHepatopatiaCronicaSelect, setDisableHepatopatiaCronicaSelect] = useState(true)
+
+  const [DisableVariosCistosSelect, setDisableVariosCistosSelect] = useState(true)
+
+
+  const [DisableVariosNodulosSelect1, setDisableVariosNodulosSelect1] = useState(true)
+
+  const [DisableCalcificacaoGrosseiraSelect, setDisableCalcificacaoGrosseiraSelect] = useState(true)
+
+  const [EsteatoseSelect, setEsteatoseSelect] = useState('')
+  const [HepatopatiaCronicaSelect, setHepatopatiaCronicaSelect] = useState('')
+
+
+  const [VariosCistosSelect, setVariosCistosSelect] = useState('')
+  const [VariosCistosInput, setVariosCistosInput] = useState('')
+
+
+  const [VariosNodulosSelect1, setVariosNodulosSelect1] = useState('')
+  const [VariosNodulosSelect2, setVariosNodulosSelect2] = useState('')
+  const [VariosNodulosInput1, setVariosNodulosInput1] = useState('')
+  const [VariosNodulosInput2, setVariosNodulosInput2] = useState('')
+  const [VariosNodulosSelect3, setVariosNodulosSelect3] = useState('')
+  const [VariosNodulosSelect4, setVariosNodulosSelect4] = useState('')
+
+  const [CalcificacaoGrosseiraSelect, setCalcificacaoGrosseiraSelect] = useState('')
+  const [CalcificacaoGrosseiraInput, setCalcificacaoGrosseiraInput] = useState('')
+
+  const [DimensoesSelect, setDimensoesSelect] = useState('')
+  const [LDInput, setLDInput] = useState('')
+  const [LEInput, setLEInput] = useState('')
+  const [LCInput, setLCInput] = useState('')
+  const [LDCheckbox, setLDCheckbox] = useState(false)
+  const [LECheckbox, setLECheckbox] = useState(false)
+  const [LCCheckbox, setLCCheckbox] = useState(false)
+  const [DimensoesCheckbox, setDimensoesCheckbox] = useState(false)
+  const [DisableDimensoesOptions, setDisableDimensoesOptions] = useState(false)
+
+  const [DisableLDInput, setDisableLDInput] = useState(true)
+  const [DisableLEInput, setDisableLEInput] = useState(true)
+  const [DisableLCInput, setDisableLCInput] = useState(true)
+
+  useEffect(() => {
+    const string = 'Presença de Hemangioma'
+    HemangiomaCheckbox ? setFrasesFigado((arr) => [...arr, string]) : removeItemString(string)
+  }, [HemangiomaCheckbox])
 
   const subExame = "Fígado";
   const titulo_exame = "Abdomen Superior";
 
+  const [frasesFigado, setFrasesFigado] = useState<any>([]);
+  const [ConclusoesFigado, setConclusoesFigado] = useState<any>([]);
+
   useEffect(() => {
-    if (Object.keys(FrasesFigado).length == 0) {
+    if (Object.keys(frasesFigado).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        FrasesFigado,
-        ConclusaoFigado
+        frasesFigado,
+        ConclusoesFigado
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        FrasesFigado,
-        ConclusaoFigado
+        frasesFigado,
+        ConclusoesFigado
       ).Format_Laudo_Create_Storage();
     }
-  }, [FrasesFigado]);
+  }, [frasesFigado]);
+
+  const removeItemString = (value) => {
+    var index = frasesFigado.indexOf(value);
+    if (index > -1) {
+      frasesFigado.splice(index, 1);
+      setFrasesFigado((arr) => [...arr]);
+    }
+  };
+  const removeItemStringConclusao = (value) => {
+    var index = ConclusoesFigado.indexOf(value);
+    if (index > -1) {
+      ConclusoesFigado.splice(index, 1);
+      setConclusoesFigado((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+    }
+  };
+
+  useEffect(() => {
+    var string = 'Fígado com dimensões normais, contornos regulares, bordas finas e ecotextura homogênea.'
+    HomogeneoCheckbox ? setFrasesFigado((arr) => [...arr, string]) : removeItemString(string)
+  }, [HomogeneoCheckbox])
+
+
+  const criaStringEsteatose = (select) => {
+    var string = 'Fígado com dimensões normais, contornos regulares e bordas finas, apresentando '
+    removeFraseEsteatose()
+    if (select !== '') {
+      string = `${string} ${select}`;
+      setFrasesFigado((arr) => [...arr, string]);
+    }
+  };
+  const removeFraseEsteatose = () => {
+    frasesFigado.map((e) => {
+      if (e.includes("Fígado com dimensões normais, contornos regulares e bordas finas, apresentando ")) {
+        var index = frasesFigado.indexOf(e);
+
+        if (index > -1) {
+          frasesFigado.splice(index, 1);
+          setFrasesFigado((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (EsteatoseCheckbox) {
+      criaStringEsteatose(EsteatoseSelect)
+      setDisableEsteatoseSelect(false)
+    } else {
+      setEsteatoseSelect('')
+      setDisableEsteatoseSelect(true)
+      removeFraseEsteatose()
+    }
+  }, [EsteatoseCheckbox, EsteatoseSelect])
+
+  const criaStringHepatopatiaCronica = (select) => {
+    var string = 'Fígado com dimensões normais e ecotextura difusamente heterogênea '
+    removeFraseHepatopatiaCronica()
+    if (select !== '') {
+      string = `${string} ${select}`;
+      setFrasesFigado((arr) => [...arr, string]);
+    }
+  };
+  const removeFraseHepatopatiaCronica = () => {
+    frasesFigado.map((e) => {
+      if (e.includes("Fígado com dimensões normais e ecotextura difusamente heterogênea")) {
+        var index = frasesFigado.indexOf(e);
+
+        if (index > -1) {
+          frasesFigado.splice(index, 1);
+          setFrasesFigado((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (HepatopatiaCronicaCheckbox) {
+      criaStringHepatopatiaCronica(HepatopatiaCronicaSelect)
+      setDisableHepatopatiaCronicaSelect(false)
+    } else {
+      setHepatopatiaCronicaSelect('')
+      setDisableHepatopatiaCronicaSelect(true)
+      removeFraseHepatopatiaCronica()
+    }
+  }, [HepatopatiaCronicaCheckbox, HepatopatiaCronicaSelect])
+
+
+
+  const criaStringVariosCistos = (select, input) => {
+    var string = 'Cistos de conteúdo anecogênico, com paredes finas e contornos regulares '
+    removeFraseVariosCistos()
+    var medida = new Convert_Medida(input).Convert_Medida()
+    if (select !== '' && input !== '') {
+      string = `${string}, medindo até ${medida} cm, o maior localizado no ${select}. Veia porta e veias hepáticas sem alterações.`;
+      setFrasesFigado((arr) => [...arr, string]);
+    }
+  };
+  const removeFraseVariosCistos = () => {
+    frasesFigado.map((e) => {
+      if (e.includes("Cistos de conteúdo anecogênico, com paredes finas e contornos regulares")) {
+        var index = frasesFigado.indexOf(e);
+
+        if (index > -1) {
+          frasesFigado.splice(index, 1);
+          setFrasesFigado((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (VariosCistosCheckbox) {
+      criaStringVariosCistos(VariosCistosSelect, VariosCistosInput)
+      setDisableVariosCistosSelect(false)
+    } else {
+      setDisableVariosCistosSelect(true)
+      setVariosCistosSelect('')
+      setVariosCistosInput('')
+      removeFraseVariosCistos()
+    }
+  }, [VariosCistosCheckbox, VariosCistosSelect, VariosCistosInput])
+
+
+
+
+  const removeFraseConclusaoNodulo = () => {
+    ConclusoesFigado.map((e) => {
+      if (e.includes("Nódulo hepático.")) {
+        var index = ConclusoesFigado.indexOf(e);
+
+        if (index > -1) {
+          ConclusoesFigado.splice(index, 1);
+          setConclusoesFigado((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Nódulo hepático.');
+        }
+      }
+    });
+  };
+
+
+  const criaStringVariosNodulos = (select1, select2, select3, select4, input1, input2) => {
+    var string = 'Presença de'
+    const conclusaoNodulos = 'Nódulo hepático.'
+
+    removeFraseVariosNodulos()
+    if (select1 !== '' && input1 !== '' && select2 !== '' && select3 !== '' && select4 !== '' && input2) {
+      string = `${string} ${select1} ${select2} de contornos regulares medindo ${input1} cm(${select3}) e ${input2} cm (${select4}). Veia porta e veias hepáticas sem alterações.`;
+      setFrasesFigado((arr) => [...arr, string]);
+      removeFraseConclusaoNodulo()
+      setConclusoesFigado((arr) => [...arr, conclusaoNodulos]);
+    }
+  };
+  const removeFraseVariosNodulos = () => {
+    frasesFigado.map((e) => {
+      if (e.includes("Presença de")) {
+        var index = frasesFigado.indexOf(e);
+
+        if (index > -1) {
+          frasesFigado.splice(index, 1);
+          setFrasesFigado((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (VariosNodulosCheckbox) {
+      criaStringVariosNodulos(VariosNodulosSelect1, VariosNodulosSelect2, VariosNodulosSelect3, VariosNodulosSelect4, VariosNodulosInput1, VariosNodulosInput2)
+      setDisableVariosNodulosSelect1(false)
+    } else {
+      removeFraseConclusaoNodulo()
+      setDisableVariosNodulosSelect1(true)
+      setVariosNodulosSelect1('')
+      setVariosNodulosSelect2('')
+      setVariosNodulosSelect3('')
+      setVariosNodulosSelect4('')
+      setVariosNodulosInput1('')
+      setVariosNodulosInput2('')
+      removeFraseVariosNodulos()
+    }
+  }, [VariosNodulosCheckbox, VariosNodulosSelect1, VariosNodulosSelect2, VariosNodulosSelect3, VariosNodulosSelect4, VariosNodulosInput1, VariosNodulosInput2])
+
+  const criaStringCalcificacaoGrosseira = (select, input) => {
+    var string = 'Nota-se uma calcificação grosseira de '
+
+    removeFraseCalcificacaoGrosseira()
+    if (select !== '' && input !== '') {
+      string = `${string} ${input} cm localizada no ${select}.`;
+      setFrasesFigado((arr) => [...arr, string]);
+    }
+  };
+  const removeFraseCalcificacaoGrosseira = () => {
+    frasesFigado.map((e) => {
+      if (e.includes("Nota-se uma calcificação grosseira de")) {
+        var index = frasesFigado.indexOf(e);
+
+        if (index > -1) {
+          frasesFigado.splice(index, 1);
+          setFrasesFigado((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (CalcificacaoGrosseiraCheckbox) {
+      criaStringCalcificacaoGrosseira(CalcificacaoGrosseiraSelect, CalcificacaoGrosseiraInput)
+      setDisableCalcificacaoGrosseiraSelect(false)
+    } else {
+      setCalcificacaoGrosseiraSelect('')
+      setCalcificacaoGrosseiraInput('')
+      setDisableCalcificacaoGrosseiraSelect(true)
+      removeFraseCalcificacaoGrosseira()
+    }
+  }, [CalcificacaoGrosseiraCheckbox, CalcificacaoGrosseiraSelect, CalcificacaoGrosseiraInput])
+
+  const criaStringDimensoes = (select, LDMedida, LEMedida, LCMedida) => {
+    var string = 'Fígado com dimensões'
+    removeFraseDimensoes()
+    if (select !== '') {
+      string = `${string} ${select}, contornos regulares, bordas finas e ecotextura homogênea. Veia 
+      porta e veias hepáticas sem alterações`;
+      if (select == 'aumentadas') {
+        setConclusoesFigado((arr) => [...arr, 'Hepatomegalia.'])
+      } else {
+        removeItemStringConclusao('Hepatomegalia.')
+      }
+      if (LDMedida !== '') {
+        string = `${string}. Eixo longitudinal do lobo direito mede ${LDMedida} cm,`;
+      }
+      if (LEMedida !== '') {
+        string = `${string}. Eixo longitudinal do lobo esquerdo mede ${LEMedida} cm,`;
+      }
+      if (LCMedida !== '') {
+        string = `${string}. Eixo longitudinal do lobo caudado mede ${LCMedida} cm,`;
+      }
+      string = `${string} veia porta e veias hepáticas sem alterações.`
+      setFrasesFigado((arr) => [...arr, string]);
+    }
+  };
+  const removeFraseDimensoes = () => {
+    frasesFigado.map((e) => {
+      if (e.includes("Fígado com dimensões")) {
+        var index = frasesFigado.indexOf(e);
+
+        if (index > -1) {
+          frasesFigado.splice(index, 1);
+          setFrasesFigado((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+
+  useEffect(() => {
+    if (DimensoesCheckbox) {
+      criaStringDimensoes(DimensoesSelect, LDInput, LEInput, LCInput)
+      setDisableDimensoesOptions(false)
+    } else {
+      setDisableDimensoesOptions(true)
+      setDimensoesSelect('')
+      setLDInput('')
+      setLEInput('')
+      setLCInput('')
+      setDisableLDInput(true)
+      setDisableLCInput(true)
+      setDisableLEInput(true)
+      removeFraseDimensoes()
+    }
+  }, [DimensoesCheckbox, DimensoesSelect, LDInput, LEInput, LCInput])
+
+  useEffect(() => {
+    if (LDCheckbox) {
+      setDisableLDInput(false)
+    } else {
+      setLDInput('')
+      setDisableLDInput(true)
+    }
+  }, [LDCheckbox])
+
+  useEffect(() => {
+    if (LECheckbox) {
+      setDisableLEInput(false)
+    } else {
+      setLEInput('')
+      setDisableLEInput(true)
+    }
+  }, [LECheckbox])
+
+  useEffect(() => {
+    if (LCCheckbox) {
+      setDisableLCInput(false)
+    } else {
+      setLCInput('')
+      setDisableLCInput(true)
+    }
+  }, [LCCheckbox])
+
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = 'Fígado com dimensões normais, contornos regulares, bordas finas e ecotextura homogênea.'
+    Normal ? setHomogeneoCheckbox(!HomogeneoCheckbox) : removeItemString(string)
+  }, [Normal])
 
   return (
     <Box
@@ -255,253 +462,352 @@ function Figado() {
       <Box borderBottom="1px">
         <TituloNomeExame titulo="Fígado" />
 
-        <Box columnGap="25px" display="flex" flexWrap="wrap" mb="10px">
+        <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
           <Box>
             <Checkbox
-              onChange={(e) => setCheckboxNormal(!CheckboxNormal)}
+              isChecked={Normal}
+              onChange={(e) => {
+                setNormal(!Normal)
+                setHomogeneoCheckbox(!HomogeneoCheckbox);
+              }}
             >
-              Normal
+              Homogêneo
             </Checkbox>
           </Box>
           <Box>
             <Checkbox
-              onChange={(e) => setCheckboxHepatiteAguda(!CheckboxHepatiteAguda)}
-            >
-              Hepatite Aguda
-            </Checkbox>
-          </Box>
-          <Box>
-            <Checkbox
-              onChange={(e) => setCheckboxHepatiteCronica(!CheckboxHepatiteCronica)}
-            >
-              Hepatopatia Crônica
-            </Checkbox>
-          </Box>
-          <Box>
-            <Checkbox
-              onChange={(e) => setCheckboxDimensoes(!CheckboxDimensoes)}
-            >
-              Dimensões
-            </Checkbox>
-            <Select
-              value={SelectDimensoes}
-              isDisabled={!CheckboxDimensoes}
-              onChange={(e) => setSelectDimensoes(e.target.value)}
-            >
-              <option value="" disabled selected>
-                Selecione
-              </option>
-              <option value="aumentadas">Aumentadas</option>
-              <option value="reduzidas">Reduzidas</option>
-            </Select>
-          </Box>
-          <Box>
-            <Checkbox
-              onChange={(e) => setCheckboxEsteatose(!CheckboxEsteatose)}
+
+              onChange={(e) => {
+                setEsteatoseCheckbox(!EsteatoseCheckbox);
+              }}
             >
               Esteatose
             </Checkbox>
             <Select
-              value={SelectEsteatose}
-              isDisabled={!CheckboxEsteatose}
-              onChange={(e) => setSelectEsteatose(e.target.value)}
               w="100%"
+              isDisabled={DisableEsteatoseSelect}
+              value={EsteatoseSelect}
+              onChange={(e) => {
+                setEsteatoseSelect(e.target.value);
+              }}
             >
               <option value="" disabled selected>
                 Selecione
               </option>
-              <option value="leve">Leve</option>
-              <option value="moderada">Moderada</option>
+              <option value="aumento difuso da ecogenicidade que determina atenuação posterior do feixe acústico.">Grau não especificado</option>
+              <option value="discreto aumento difuso da ecogenicidade.">Discreta</option>
+              <option value="Sinais de esteatose hepática moderada (grau II).">Moderada</option>
               <option value="acentuada">Acentuada</option>
             </Select>
           </Box>
-
-          <Box gap='5px' display='flex' flexWrap='wrap'>
+          <Box>
             <Checkbox
-              onChange={(e) => setCheckboxCalcificacao(!CheckboxCalcificacao)}
-              w='120px'
+
+              onChange={(e) => {
+                setHepatopatiaCronicaCheckbox(!HepatopatiaCronicaCheckbox)
+              }}
             >
-              Calcificação
+              Hepatopatia crônica
             </Checkbox>
             <Select
-              value={SelectCalcificacao}
-              isDisabled={!CheckboxCalcificacao}
-              onChange={(e) => setSelectCalcificacao(e.target.value)}
-              p='0px'
-              textAlign='center'
-              w='140px'
+              w="100%"
+              isDisabled={DisableHepatopatiaCronicaSelect}
+              value={HepatopatiaCronicaSelect}
+              onChange={(e) => {
+                setHepatopatiaCronicaSelect(e.target.value);
+              }}
             >
               <option value="" disabled selected>
                 Selecione
               </option>
-              <option value="Segmento I">Segmento I</option>
-              <option value="Segmento II">Segmento II</option>
-              <option value="Segmento III">Segmento III</option>
-              <option value="Segmento IV">Segmento IV</option>
-              <option value="Segmento V">Segmento V</option>
-              <option value="Segmento VI">Segmento VI</option>
-              <option value="Segmento VII">Segmento VII</option>
-              <option value="Segmento VIII">Segmento VIII</option>
+              <option value=", com bordas discretamente rombas, conservando contornos regulares.">Incipiente</option>
+              <option value=", contornos serrilhados e bordas rombas.">Avançada</option>
             </Select>
-            <Text alignSelf='center'>mede</Text>
-            <Input
-              value={InputCalcificacao}
-              isDisabled={!CheckboxCalcificacao}
-              onChange={(e) => setInputCalcificacao(e.target.value)}
-              w='50px'
-              p='0px'
-              textAlign='center'
-            />
-            <Text alignSelf='center'>mm</Text>
-          </Box>
-        </Box>
+          </Box >
 
+          <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" p='5px'>
+            <HStack>
+              <Box>
+                <Checkbox
+
+                  onChange={(e) => {
+                    setDimensoesCheckbox(!DimensoesCheckbox)
+                  }}
+                >
+                  Dimensões
+                </Checkbox>
+                <Select
+                  isDisabled={DisableDimensoesOptions}
+                  w="100%"
+                  value={DimensoesSelect}
+                  onChange={(e) => {
+                    setDimensoesSelect(e.target.value);
+                  }}
+                >
+                  <option value="" disabled selected>
+                    Selecione
+                  </option>
+                  <option value="normais">Normais</option>
+                  <option value="aumentadas">Aumentadas</option>
+                  <option value="aumentadas à custa do lobo direito">Aumentadas à custa do lobo direito</option>
+                  <option value="aumentadas à custa do lobo esquerdo">Aumentadas à custa do lobo esquerdo</option>
+                  <option value="reduzidas">Reduzidas</option>
+                </Select>
+              </Box>
+              <Stack>
+                <HStack>
+                  <Checkbox
+                    isDisabled={DisableDimensoesOptions}
+                    onChange={(e) => {
+                      setLDCheckbox(!LDCheckbox)
+                    }}
+                  >
+                    LD
+                  </Checkbox>
+                  <Input
+                    p='0px'
+                    textAlign='center'
+                    w='60px'
+                    isDisabled={DisableLDInput}
+                    value={LDInput}
+                    onChange={(e) => {
+                      setLDInput(e.target.value);
+                    }}
+                    placeholder="cm"
+                  />
+                </HStack>
+                <HStack>
+                  <Checkbox
+                    isDisabled={DisableDimensoesOptions}
+                    onChange={(e) => {
+                      setLECheckbox(!LECheckbox)
+                    }}
+                  >
+                    LE
+                  </Checkbox>
+                  <Input
+                    p='0px'
+                    textAlign='center'
+                    w='60px'
+                    isDisabled={DisableLEInput}
+                    value={LEInput}
+                    onChange={(e) => {
+                      setLEInput(e.target.value);
+                    }}
+                    placeholder="cm"
+                  />
+                </HStack>
+                <HStack>
+                  <Checkbox
+                    isDisabled={DisableDimensoesOptions}
+                    onChange={(e) => {
+                      setLCCheckbox(!LCCheckbox)
+                    }}
+                  >
+                    LC
+                  </Checkbox>
+                  <Input
+                    p='0px'
+                    textAlign='center'
+                    w='60px'
+                    isDisabled={DisableLCInput}
+                    value={LCInput}
+                    onChange={(e) => {
+                      setLCInput(e.target.value);
+                    }}
+                    placeholder="cm"
+                  />
+                </HStack>
+              </Stack>
+            </HStack>
+          </Box>
+
+        </Box>
       </Box>
 
       {/* ------------------------------------------------------------------------------------------------------------ */}
 
       <Box
-        borderBottom="1px"
         mt="20px"
-        gap="25px"
-        display="flex"
-        flexWrap="wrap"
       >
+        <Box gap="10px" display="flex" flexWrap="wrap">
+          {Cistos()}
+          <Button
+            colorScheme="blue"
+            onClick={() => {
+              setUpdateCistos(true);
+            }}
+          >
+            +1 Cisto
+          </Button>
+        </Box>
 
 
-        <Stack w="100%">
-          <>
-            {numberArray.map((num, key) => {
-              return (
-                <IndividualizarNodulos
-                  key={key}
-                  numNodulo={num}
-                  Disable={multiplosNodulosCheckBox}
-                />
-              );
-            })}
-          </>
-          <Box display="flex" flexWrap='wrap' alignItems='center' gap='5px'>
-            <Checkbox
-              whiteSpace="nowrap"
-              onChange={() => setmultiplosNodulosCheckBox(!multiplosNodulosCheckBox)}
+        <Box
+          mt='10px'
+          gap='5px'
+          display='flex'
+          flexWrap='wrap'>
+          <Checkbox
+
+            w='auto'
+            onChange={(e) => {
+              setVariosCistosCheckbox(!VariosCistosCheckbox);
+            }}
+          >
+            Vários cistos, o maior com
+          </Checkbox>
+          <Input
+            p='0px'
+            textAlign='center'
+            w='60px'
+            isDisabled={DisableVariosCistosSelect}
+            value={VariosCistosInput}
+            onChange={(e) => {
+              setVariosCistosInput(e.target.value);
+            }}
+            placeholder="cm"
+          />
+          <Text alignSelf='center'>cm, atuando no</Text>
+          <Select
+            w='150px'
+            isDisabled={DisableVariosCistosSelect}
+            value={VariosCistosSelect}
+            onChange={(e) => {
+              setVariosCistosSelect(e.target.value);
+            }}
+          >
+            <option value="" disabled selected>
+              Selecione
+            </option>
+            <option value="Segmento I">Segmento I</option>
+            <option value="Segmento II">Segmento II</option>
+            <option value="Segmento III">Segmento III</option>
+            <option value="Segmento IV">Segmento IV</option>
+            <option value="Segmento V">Segmento V</option>
+            <option value="Segmento VI">Segmento VI</option>
+            <option value="Segmento VII">Segmento VII</option>
+            <option value="Segmento VIII">Segmento VIII</option>
+          </Select>
+        </Box>
+
+        {/* ------------------------------------------------------------------------------------------------------------ */}
+
+        <Box mt="20px" gap="25px" >
+          <Box gap="10px" display="flex" flexWrap="wrap">
+            {Nodulos()}
+            <Button
+              colorScheme="blue"
+              onClick={() => {
+                setUpdateNodulos(true);
+              }}
             >
-              Múltiplos nódulos
+              +1 Nodulo
+            </Button>
+          </Box>
+
+
+          <Box
+            display='flex'
+            flexWrap='wrap'
+            gap='5px'>
+            <Checkbox
+
+              onChange={(e) => {
+                setVariosNodulosCheckbox(!VariosNodulosCheckbox);
+              }}
+            >
+              Nódulos
             </Checkbox>
-
-            <Input
-              p='0'
-              w='50px'
-              textAlign='center'
-              isDisabled={!multiplosNodulosCheckBox}
-              value={Medida1NoduloInput}
-              onChange={(e) => setMedida1NoduloInput(e.target.value)}
-              placeholder={"mm"}
-            />
-            <Text>x</Text>
-
-            <Input
-              p='0'
-              w='50px'
-              textAlign='center'
-              isDisabled={!multiplosNodulosCheckBox}
-              value={Medida2NoduloInput}
-              onChange={(e) => setMedida2NoduloInput(e.target.value)}
-              placeholder={"mm"}
-            />
             <Select
-              isDisabled={!multiplosNodulosCheckBox}
               w='150px'
-              onChange={(e) => setSelect1Nodulo(e.target.value)}
-              value={Select1Nodulo}
+              isDisabled={DisableVariosNodulosSelect1}
+              value={VariosNodulosSelect1}
+              onChange={(e) => {
+                setVariosNodulosSelect1(e.target.value);
+              }}
             >
               <option value="" disabled selected>
                 Localizado
               </option>
-              <option value="Segmento I">Segmento I</option>
-              <option value="Segmento II">Segmento II</option>
-              <option value="Segmento III">Segmento III</option>
-              <option value="Segmento IV">Segmento IV</option>
-              <option value="Segmento V">Segmento V</option>
-              <option value="Segmento VI">Segmento VI</option>
-              <option value="Segmento VII">Segmento VII</option>
-              <option value="Segmento VIII">Segmento VIII</option>
+              <option value="hiperecongênico">Hiperecongênico</option>
+              <option value="hipoecogênico">Hipoecogênico</option>
+              <option value="hipoecogênico (hemangioma)">Hipoecogênico (hemangioma)</option>
             </Select>
             <Select
-              isDisabled={!multiplosNodulosCheckBox}
               w='150px'
-              onChange={(e) => setSelect2Nodulo(e.target.value)}
-              value={Select2Nodulo}
+              isDisabled={DisableVariosNodulosSelect1}
+              value={VariosNodulosSelect2}
+              onChange={(e) => {
+                setVariosNodulosSelect2(e.target.value);
+              }}
             >
               <option value="" disabled selected>
                 Contornos
               </option>
-              <option value="Regulares">Regulares</option>
-              <option value="Irregulares">Irregulares</option>
-              <option value="Lobulados">Lobulados</option>
+              <option value="dois no total">Dois no total</option>
+              <option value="os dois maiores">Os dois maiores</option>
+
             </Select>
-            <Select
-              isDisabled={!multiplosNodulosCheckBox}
-              w='150px'
-              onChange={(e) => setSelect3Nodulo(e.target.value)}
-              value={Select3Nodulo}
-            >
-              <option value="" disabled selected>
-                Ecogenicidade
-              </option>
-              <option value="Hippoecogenico">Hipoecogênico</option>
-              <option value="Hiperecogênico">Hiperecogênico</option>
-              <option value="Isoecogênico">Isoecogênico</option>
-            </Select>
-          </Box>
-
-        </Stack>
-      </Box>
-      <Box
-        mt="20px"
-        gap="25px"
-        display="flex"
-        flexWrap="wrap"
-      >
-
-
-        <Stack w="100%">
-          <>
-            {numberArray.map((num, key) => {
-              return (
-                <IndividualizarCistos
-                  key={key}
-                  numCisto={num}
-                  Disable={multiplosCistosCheckBox}
-                />
-              );
-            })}
-          </>
-          <Box display="flex" flexWrap='wrap' alignItems='center' gap='5px'>
-            <Checkbox
-              whiteSpace="nowrap"
-              onChange={() => setmultiplosCistosCheckBox(!multiplosCistosCheckBox)}
-            >Múltiplos cistos
-            </Checkbox>
-
+            <Text alignSelf='center'>medindo</Text>
             <Input
-              p='0'
-              w='50px'
+              p='0px'
               textAlign='center'
-              isDisabled={!multiplosCistosCheckBox}
-              value={Medida1CistoInput}
-              onChange={(e) => setMedida1CistoInput(e.target.value)}
-              placeholder={"mm"}
+              w='60px'
+              isDisabled={DisableVariosNodulosSelect1}
+              value={VariosNodulosInput1}
+              onChange={(e) => {
+                setVariosNodulosInput1(e.target.value);
+              }}
+              placeholder="cm"
             />
-            <Text alignItems='center'>mm, localizado no</Text>
+            <Text alignSelf='center'>cm</Text>
+            <Text alignSelf='center'>no</Text>
             <Select
-              isDisabled={!multiplosCistosCheckBox}
               w='150px'
-              onChange={(e) => setSelect1Cisto(e.target.value)}
-              value={Select1Cisto}
+              isDisabled={DisableVariosNodulosSelect1}
+              value={VariosNodulosSelect3}
+              onChange={(e) => {
+                setVariosNodulosSelect3(e.target.value);
+              }}
             >
               <option value="" disabled selected>
-                Localizado
+                Selecione
+              </option>
+              <option value="Segmento I">Segmento I</option>
+              <option value="Segmento II">Segmento II</option>
+              <option value="Segmento III">Segmento III</option>
+              <option value="Segmento IV">Segmento IV</option>
+              <option value="Segmento V">Segmento V</option>
+              <option value="Segmento VI">Segmento VI</option>
+              <option value="Segmento VII">Segmento VII</option>
+              <option value="Segmento VIII">Segmento VIII</option>
+            </Select>
+            <Text alignSelf='center'>, e medindo</Text>
+            <Input
+              p='0px'
+              textAlign='center'
+              w='60px'
+              isDisabled={DisableVariosNodulosSelect1}
+              value={VariosNodulosInput2}
+              onChange={(e) => {
+                setVariosNodulosInput2(e.target.value);
+              }}
+              placeholder="cm"
+            />
+            <Text alignSelf='center'>cm</Text>
+            <Text alignSelf='center'>no</Text>
+
+            <Select
+              w='150px'
+              isDisabled={DisableVariosNodulosSelect1}
+              value={VariosNodulosSelect4}
+              onChange={(e) => {
+                setVariosNodulosSelect4(e.target.value);
+              }}
+            >
+              <option value="" disabled selected>
+                Selecione
               </option>
               <option value="Segmento I">Segmento I</option>
               <option value="Segmento II">Segmento II</option>
@@ -513,10 +819,65 @@ function Figado() {
               <option value="Segmento VIII">Segmento VIII</option>
             </Select>
           </Box>
-        </Stack>
-      </Box>
-    </Box >
 
+          <Box
+            mt='10px'
+            display='flex'
+            flexWrap='wrap'
+            gap='5px'>
+            <Checkbox
+
+              onChange={(e) => {
+                setCalcificacaoGrosseiraCheckbox(!CalcificacaoGrosseiraCheckbox);
+              }}
+            >
+              Calcificação grosseira de
+            </Checkbox>
+            <Select
+              w='150px'
+              isDisabled={DisableCalcificacaoGrosseiraSelect}
+              value={CalcificacaoGrosseiraSelect}
+              onChange={(e) => {
+                setCalcificacaoGrosseiraSelect(e.target.value);
+              }}
+            >
+              <option value="" disabled selected>
+                Selecione
+              </option>
+              <option value="Segmento I">Segmento I</option>
+              <option value="Segmento II">Segmento II</option>
+              <option value="Segmento III">Segmento III</option>
+              <option value="Segmento IV">Segmento IV</option>
+              <option value="Segmento V">Segmento V</option>
+              <option value="Segmento VI">Segmento VI</option>
+              <option value="Segmento VII">Segmento VII</option>
+              <option value="Segmento VIII">Segmento VIII</option>
+            </Select>
+            <Input
+              p='0px'
+              textAlign='center'
+              w='60px'
+              isDisabled={DisableCalcificacaoGrosseiraSelect}
+              value={CalcificacaoGrosseiraInput}
+              onChange={(e) => {
+                setCalcificacaoGrosseiraInput(e.target.value);
+              }}
+              placeholder="cm"
+            />
+          </Box>
+        </Box>
+      </Box>
+      <Box>
+        <Checkbox
+
+          onChange={(e) => {
+            setHemangiomaCheckbox(!HemangiomaCheckbox);
+          }}
+        >
+          Hemangioma
+        </Checkbox>
+      </Box>
+    </Box>
   );
 }
 

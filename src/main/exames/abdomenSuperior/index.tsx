@@ -1,12 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/jsx-pascal-case */
 import { Box, Checkbox, Select } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
-import Baco from "./baco/baco";
-import Figado from "./figado/figado";
-import LiquidoLivre from "./liquido_livre/liquido_livre";
-import Pancreas from "./pancreas/pancreas";
-import VesiculaBiliar from "./vesicula_biliar/vesicula_biliar";
-import ViasBiliares from "./vias biliares/vias_biliares";
+
+
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../component/function_format_laudo";
+import Figado from "./figado/figado";
+import VesiculaBiliar from "./vesicula_bliar/vesicula_biliar";
+import ViasBiliares from "./vias biliares/vias_biliares";
+import Pancreas from "./pancreas/pancreas";
+import Baco from "./baco/baco";
+
 
 function AbdomemSuperior() {
   const altura = '100%'
@@ -17,6 +21,7 @@ function AbdomemSuperior() {
   const [Disable, SetDisable] = useState(false)
   const [NormalSelect, SetNormalSelect] = useState('')
   const [NormalEstruturasSelect, SetNormalEstruturasSelect] = useState('')
+
 
   const subExame = "Abdomen superior";
   const titulo_exame = "Abdomen Superior";
@@ -65,80 +70,75 @@ function AbdomemSuperior() {
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesAdomenSuperior]);
+
   return (
-    <>
 
+    <Box>
+      <Box
+        bg="#FAFAFA"
+        w={largura}
+        h={altura}
+        bgPosition="center"
+        bgRepeat="no-repeat"
+        borderRadius="10.85px"
+        boxShadow="md"
+        padding='10px 15px 10px 15px'
+        mt='2px'
+        mb='5px'
+        display='flex'
+        flexWrap='wrap'
+        alignItems='center' gap='5px'>
 
-      <Box ml="10px">
-        <Box
-          bg="#FAFAFA"
-          w={largura}
-          h={altura}
-          bgPosition="center"
-          bgRepeat="no-repeat"
-          borderRadius="10.85px"
-          boxShadow="md"
-          padding='10px 15px 10px 15px'
-          mt='2px'
-          mb='5px'
-          display='flex'
-          flexWrap='wrap'
-          alignItems='center' gap='5px'>
+        <Box w='150px' >
+          <Checkbox
+            onChange={(e) => { SetDisable(!Disable) }}
+          >Abdômen normal</Checkbox>
+        </Box>
+        <Select
+          borderColor='black'
+          w='150px'
+          isDisabled={!Disable}
+          value={NormalSelect}
+          onChange={(e) => {
+            SetNormalSelect(e.target.value);
+          }}
+        >
+          <option value="" disabled selected>
+            Dimensões
+          </option>
+          <option value="normais">Normais</option>
+          <option value="aumentado">Aumentado</option>
+          <option value="diminuído">Diminuído</option>
+        </Select>
+        <Select
+          borderColor='black'
+          w='150px'
+          isDisabled={!Disable}
+          value={NormalEstruturasSelect}
+          onChange={(e) => {
+            SetNormalEstruturasSelect(e.target.value);
+          }}
+        >
+          <option value="" disabled selected>
+            Estruturas vasculares
+          </option>
+          <option value="normais">Normais</option>
+          <option value="não visibilizados">Não visibilizados</option>
+        </Select>
+      </Box >
 
-          <Box w='150px' >
-            <Checkbox
-              id="tudoNormal"
-              onChange={(e) => { SetDisable(!Disable) }}
-            >Abdômen normal</Checkbox>
-          </Box>
-          <Select
-            borderColor='black'
-            w='150px'
-            isDisabled={!Disable}
-            value={NormalSelect}
-            onChange={(e) => {
-              SetNormalSelect(e.target.value);
-            }}
-          >
-            <option value="" disabled selected>
-              Dimensões
-            </option>
-            <option value="normais">Normais</option>
-            <option value="aumentado">Aumentado</option>
-            <option value="diminuído">Diminuído</option>
-          </Select>
-          <Select
-            borderColor='black'
-            w='150px'
-            isDisabled={!Disable}
-            value={NormalEstruturasSelect}
-            onChange={(e) => {
-              SetNormalEstruturasSelect(e.target.value);
-            }}
-          >
-            <option value="" disabled selected>
-              Estruturas vasculares
-            </option>
-            <option value="normais">Normais</option>
-            <option value="não visibilizados">Não visibilizados</option>
-          </Select>
-        </Box >
+      <Figado Disable={Disable} />
 
-        <Figado></Figado>
+      <VesiculaBiliar Disable={Disable} />
 
-        <VesiculaBiliar></VesiculaBiliar>
+      <ViasBiliares Disable={Disable} />
 
-        <ViasBiliares></ViasBiliares>
+      <Pancreas Disable={Disable} />
 
-        <Baco></Baco>
+      <Baco Disable={Disable} />
 
+    </Box>
 
-        <Pancreas></Pancreas>
-
-        <LiquidoLivre></LiquidoLivre>
-
-      </Box>
-    </>
   );
 }
 

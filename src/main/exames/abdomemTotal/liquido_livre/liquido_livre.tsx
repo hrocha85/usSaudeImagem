@@ -104,7 +104,6 @@ function LiquidoLivre({ Disable }) {
         <Box gap="10px" display="flex" flexWrap="wrap" mb="10px">
 
           <Checkbox
-            isDisabled={Disable}
             onChange={() => {
               setLiquidoLivreCheckbox(!LiquidoLivreCheckbox);
             }}

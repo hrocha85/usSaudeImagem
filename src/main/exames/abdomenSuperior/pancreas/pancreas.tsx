@@ -1,123 +1,143 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Input, Radio, RadioGroup, Stack } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
+import { Convert_Medida } from "../../../component/function_convert_medidas";
 
-function Pancreas() {
+function Pancreas({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
-  const [FrasesPancreas, setFrasesPancreas] = useState<any>([]);
-  const [ConclusaoPancreas, setConclusaoPancreas] = useState<any>([]);
 
   const [value, setValue] = useState("1");
-  const [ValueInput, setValueInput] = useState("");
-  const [enableInput, setEnableInput] =
-    useState<boolean>(false);
 
-  const removeItemSelect = (value) => {
-    FrasesPancreas.map((e) => {
-      if (e.includes(value)) {
-        var index = FrasesPancreas.indexOf(e);
+  useEffect(() => {
+    if (value == "1") {
+      setFrasesPancreas([]);
+    } else {
+      if (value == 'Pâncreas de aspecto heterogêneo, com espessura aumentada e ecogenicidade reduzida do parênquima.') {
+        setConclusoesPancreas((arr) => [...arr, 'Sinais compatíveis com pancreatite aguda.']);
+      } else {
+        removeItemConclusao('Sinais compatíveis com pancreatite aguda.')
+      }
+      setFrasesPancreas([]);
+      setFrasesPancreas((arr) => [...arr, value]);
+    }
+  }, [value]);
+  const removeItemConclusao = (value) => {
+    var index = ConclusoesPancreas.indexOf(value);
+    if (index > -1) {
+      ConclusoesPancreas.splice(index, 1);
+      setConclusoesPancreas((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+    }
+  };
+
+  const [frasesPancreas, setFrasesPancreas] = useState<any>([]);
+  const [ConclusoesPancreas, setConclusoesPancreas] = useState<any>([]);
+
+  const [CabecaCheckbox, setCabecaCheckbox] = useState(false)
+  const [CabecaInput, setCabecaInput] = useState('')
+  const [DisableCabecaInput, setDisableCabecaInput] = useState(true)
+
+  const [CorpoCheckbox, setCorpoCheckbox] = useState(false)
+  const [CorpoInput, setCorpoInput] = useState('')
+  const [DisableCorpoInput, setDisableCorpoInput] = useState(true)
+
+  const [CaudaCheckbox, setCaudaCheckbox] = useState(false)
+  const [CaudaInput, setCaudaInput] = useState('')
+  const [DisableCaudaInput, setDisableCaudaInput] = useState(true)
+
+
+  const criaStringDimensoes = (dadosCabeca, dadosCorpo, dadosCauda) => {
+    var string = 'A espessura pancreática foi mensurada em '
+    removeFraseDimensoes()
+
+    if (dadosCabeca != '' || dadosCorpo != '' || dadosCorpo != '') {
+      if (dadosCabeca != '') {
+        string = `${string} ${dadosCabeca} cm na cabeça `
+      }
+      if (dadosCorpo != '') {
+        string = `${string} ${dadosCorpo} cm no corpo `
+      }
+      if (dadosCauda != '') {
+        string = `${string} ${dadosCauda} cm na cauda.`
+      }
+      setFrasesPancreas((arr) => [...arr, string])
+    }
+  }
+
+  const removeFraseDimensoes = () => {
+    frasesPancreas.map((e) => {
+      if (e.includes("A espessura pancreática foi mensurada em ")) {
+        var index = frasesPancreas.indexOf(e);
         if (index > -1) {
-          FrasesPancreas.splice(index, 1);
+          frasesPancreas.splice(index, 1);
           setFrasesPancreas((arr) => [...arr]);
         }
       }
     });
-  }
-  const removeStringConclusao = (value) => {
-    var index;
-    ConclusaoPancreas.map((e) => {
-      if (e.includes(value)) {
-        index = ConclusaoPancreas.indexOf(e);
-        if (index > -1) {
-          ConclusaoPancreas.splice(index, 1);
-          setConclusaoPancreas((arr) => [...arr]);
-          new Format_Laudo(titulo_exame).Remove_Conclusao(value);
-        }
-      }
-    });
   };
-  useEffect(() => {
-    removeStringConclusao('Meteorismo intestinal moderado.')
-    removeStringConclusao('Alteração parenquimatosa pancreática. Considerar possibilidade de pancreatite aguda.')
-    removeStringConclusao('Pancreatite crônica.')
-    removeStringConclusao('Cisto pancreático simples.')
-    setConclusaoPancreas([])
-    if (value == 'não visibilizado devido à interposição gasosa das alças intestinais.') {
-      setConclusaoPancreas(['Meteorismo intestinal moderado.'])
-    }
-    if (value == 'de contornos irregulares e parcialmente obscurecidos, com hipoecogenicidade textural e dimensões aumentadas. Ducto de Wirsung de calibre preservado.') {
-      setConclusaoPancreas(['Alteração parenquimatosa pancreática. Considerar possibilidade de pancreatite aguda.'])
-    }
-    if (value == 'de dimensões normais, com contornos lobulados e focos irregulares de calcificações nas regiões de cabeça e corpo. Ducto de Wirsung ectasiado, de aspecto levemente tortuoso.') {
-      setConclusaoPancreas(['Pancreatite crônica.'])
-    }
-    if (value == 'enable' && ValueInput != '') {
-      setConclusaoPancreas(['Cisto pancreático simples.'])
-    }
-  }, [value, ValueInput])
 
   useEffect(() => {
-    if (value == "enable") {
-      setEnableInput(true);
+    if (CabecaCheckbox) {
+      criaStringDimensoes(CabecaInput, CorpoInput, CaudaInput)
+      setDisableCabecaInput(false)
     } else {
-      setValueInput('')
-      if (value == "1") {
-        setFrasesPancreas([]);
-        setEnableInput(false);
-      } else {
-        setFrasesPancreas([]);
-        setFrasesPancreas((arr) => [...arr, value]);
-        setEnableInput(false);
-      }
+      removeFraseDimensoes()
+      setDisableCabecaInput(true)
+      setCabecaInput('')
     }
-  }, [value]);
+  }, [CabecaCheckbox, CabecaInput, CorpoInput, CaudaInput])
+
 
   useEffect(() => {
-    setFrasesPancreas([]);
-    var string = 'visibilizados cabeça e corpo, com dimensões normais, limites precisos e ecotextura típica. Nota-se imagem anecóica, de limites precisos e contornos regulares, com reforço acústico posterior, medindo'
-    if (ValueInput != "") {
-      removeItemSelect(string);
-      string = `${string} ${ValueInput} mm.`;
-      setFrasesPancreas((arr) => [...arr, string]);
-    }
-  }, [ValueInput])
+    if (CorpoCheckbox) {
+      setDisableCorpoInput(false)
+    } else {
 
-  const removeItemString = (value) => {
-    // console.log("valor remove = ", value);
-    var index = FrasesPancreas.indexOf(value);
-    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
-    if (index > -1) {
-      FrasesPancreas.splice(index, 1);
-      setFrasesPancreas((arr) => [...arr]);
+      setDisableCorpoInput(true)
+      setCorpoInput('')
     }
-  };
+  }, [CorpoCheckbox])
+
+  useEffect(() => {
+    if (CaudaCheckbox) {
+
+      setDisableCaudaInput(false)
+    } else {
+      setDisableCaudaInput(true)
+      setCaudaInput('')
+    }
+  }, [CaudaCheckbox])
+
+  useEffect(() => {
+    Disable ? setValue('Pâncreas de dimensões normais, contornos regulares e ecotextura homogênea. Não há dilatação do ducto pancreático.') : setValue('1')
+  }, [Disable])
 
   const subExame = "Pâncreas";
   const titulo_exame = "Abdomen Superior";
 
   useEffect(() => {
-    if (Object.keys(FrasesPancreas).length == 0) {
+    if (Object.keys(frasesPancreas).length == 0) {
       new Format_Laudo(
         titulo_exame,
         subExame,
         true,
-        FrasesPancreas,
-        ConclusaoPancreas
+        frasesPancreas,
+        ConclusoesPancreas
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        FrasesPancreas,
-        ConclusaoPancreas
+        frasesPancreas,
+        ConclusoesPancreas
       ).Format_Laudo_Create_Storage();
     }
-  }, [FrasesPancreas]);
+  }, [frasesPancreas]);
 
   return (
     <Box
@@ -133,35 +153,80 @@ function Pancreas() {
     >
       <Box>
         <TituloNomeExame titulo="Pâncreas" />
-
-        <RadioGroup onChange={setValue} value={value} padding="10px">
-          <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
-
-            <Radio value="1">Não citar</Radio>
-            <Radio value="visibilizados cabeça e corpo, com dimensões normais, limites precisos e ecotextura típica.">Normal</Radio>
-            <Radio value="não visibilizado devido à interposição gasosa das alças intestinais.">
-              Não visibilizado
-            </Radio>
-            <Radio value="de contornos irregulares e parcialmente obscurecidos, com hipoecogenicidade textural e dimensões aumentadas. Ducto de Wirsung de calibre preservado.">
-              Pancreatite Aguda
-            </Radio>
-            <Radio value="de dimensões normais, com contornos lobulados e focos irregulares de calcificações nas regiões de cabeça e corpo. Ducto de Wirsung ectasiado, de aspecto levemente tortuoso.">
-              Pancreatite Crônica
-            </Radio>
-            <Radio value="enable">Cisto</Radio>
-            <Input
-              p='0px'
-              textAlign='center'
-              w='50px'
-              value={ValueInput}
-              isDisabled={!enableInput}
-              onChange={(e) => setValueInput(e.target.value)}
-            />
-
+        <Box gap="25px" display="flex" flexWrap="wrap" >
+          <RadioGroup
+            onChange={setValue} value={value} padding="10px">
+            <Stack direction="column">
+              <Radio value="1">Não citar</Radio>
+              <Radio value="Pâncreas de dimensões normais, contornos regulares e ecotextura homogênea. Não há dilatação do ducto pancreático.">Normal</Radio>
+              <Radio value="Pâncreas parcialmente visibilizado devido à interposição de alças intestinais.">Parcialmente acessível</Radio>
+              <Radio value="Pâncreas inacessível devido à interposição gasosa de alças intestinais.">Inacessível</Radio>
+              <Radio value="Pâncreas de aspecto heterogêneo, com espessura aumentada e ecogenicidade reduzida do parênquima.">Sinais de pancreatite aguda</Radio>
+            </Stack>
+          </RadioGroup>
+          <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" padding='5px' h='100%'>
+            <Text fontWeight="bold" textAlign='center'>Dimensões (espessura)</Text>
+            <HStack>
+              <Checkbox
+                onChange={(e) => {
+                  setCabecaCheckbox(!CabecaCheckbox);
+                }}
+              >
+                Cabeça
+              </Checkbox>
+              <Input
+                p='0'
+                textAlign='center'
+                w='55px'
+                value={CabecaInput}
+                onChange={(e) => setCabecaInput(e.target.value)}
+                disabled={DisableCabecaInput}
+                placeholder="00"
+              />
+              <Text alignItems='center'>cm</Text>
+            </HStack>
+            <HStack>
+              <Checkbox
+                onChange={(e) => {
+                  setCorpoCheckbox(!CorpoCheckbox);
+                }}
+              >
+                Corpo
+              </Checkbox>
+              <Input
+                p='0'
+                textAlign='center'
+                w='55px'
+                value={CorpoInput}
+                onChange={(e) => setCorpoInput(e.target.value)}
+                disabled={DisableCorpoInput}
+                placeholder="00"
+              />
+              <Text alignItems='center'>cm</Text>
+            </HStack>
+            <HStack>
+              <Checkbox
+                onChange={(e) => {
+                  setCaudaCheckbox(!CaudaCheckbox);
+                }}
+              >
+                Cauda
+              </Checkbox>
+              <Input
+                p='0'
+                textAlign='center'
+                w='55px'
+                value={CaudaInput}
+                onChange={(e) => setCaudaInput(e.target.value)}
+                disabled={DisableCaudaInput}
+                placeholder="00"
+              />
+              <Text alignItems='center'>cm</Text>
+            </HStack>
           </Box>
-        </RadioGroup>
+        </Box>
       </Box>
-    </Box>
+    </Box >
   );
 }
 

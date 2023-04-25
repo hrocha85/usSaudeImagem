@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function Cisto({ numCalculo }) {
-    const [FrasesNodulos, setFrasesNodulos] = useState<any>([]);
+    const [FrasesCistos, setFrasesCistos] = useState<any>([]);
+    const [ConclusaoCistos, setConclusaoCistos] = useState<any>([]);
 
     const [CistoColoideCheckbox, setCistoColoideCheckbox] = useState(false)
     const [ValueCistoColoideSelect, setValueCistoColoideSelect] = useState('')
@@ -13,11 +14,14 @@ export default function Cisto({ numCalculo }) {
 
     const criaStringNodulo = () => {
         let string = `Cisto coloide ${numCalculo}`
+        const conclusao = 'Imagem sugestiva de cisto coloide.'
         removeStringNodulo()
+        removeConclusaoString(conclusao)
         if (CistoColoideCheckbox) {
             if (ValueCistoColoideSelect && ValueCistoColoideInput) {
                 string = `${string} ${ValueCistoColoideSelect} ${ValueCistoColoideInput}.`
-                setFrasesNodulos((arr) => [...arr, string]);
+                setFrasesCistos((arr) => [...arr, string]);
+                setConclusaoCistos((arr) => [...arr, conclusao])
             }
         } else {
             setValueCistoColoideInput('')
@@ -30,12 +34,26 @@ export default function Cisto({ numCalculo }) {
     }, [CistoColoideCheckbox, ValueCistoColoideSelect, ValueCistoColoideInput])
 
     const removeStringNodulo = () => {
-        FrasesNodulos.map((e) => {
+        FrasesCistos.map((e) => {
             if (e.includes(`Cisto coloide ${numCalculo}`)) {
-                var index = FrasesNodulos.indexOf(e);
+                var index = FrasesCistos.indexOf(e);
                 if (index > -1) {
-                    FrasesNodulos.splice(index, 1);
-                    setFrasesNodulos((arr) => [...arr]);
+                    FrasesCistos.splice(index, 1);
+                    setFrasesCistos((arr) => [...arr]);
+                }
+            }
+        });
+    };
+    const removeConclusaoString = (value) => {
+        var index;
+        ConclusaoCistos.map((e) => {
+            if (e.includes(value)) {
+                index = ConclusaoCistos.indexOf(e);
+
+                if (index > -1) {
+                    ConclusaoCistos.splice(index, 1);
+                    setConclusaoCistos((arr) => [...arr]);
+                    new Format_Laudo(titulo_exame).Remove_Conclusao(value);
                 }
             }
         });
@@ -45,22 +63,24 @@ export default function Cisto({ numCalculo }) {
     const titulo_exame = "Tireóide";
 
     useEffect(() => {
-        if (Object.keys(FrasesNodulos).length == 0) {
+        if (Object.keys(FrasesCistos).length == 0) {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 true,
-                FrasesNodulos
+                FrasesCistos,
+                ConclusaoCistos
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                FrasesNodulos
+                FrasesCistos,
+                ConclusaoCistos
             ).Format_Laudo_Create_Storage();
         }
-    }, [FrasesNodulos]);
+    }, [FrasesCistos]);
 
     return (
 
@@ -73,13 +93,15 @@ export default function Cisto({ numCalculo }) {
                 Cisto Coloide {numCalculo}
             </Checkbox>
             <Input
+                p='0'
+                textAlign='center'
                 onChange={(e) => setValueCistoColoideInput(e.target.value)}
                 isDisabled={!CistoColoideCheckbox}
                 value={ValueCistoColoideInput}
                 w='60px'
                 placeholder="00"
             />
-            <Text alignSelf='center'>mm no</Text>
+            <Text alignSelf='center'>cm no</Text>
             <Select
                 w='auto'
                 isDisabled={!CistoColoideCheckbox}
@@ -102,6 +124,5 @@ export default function Cisto({ numCalculo }) {
                 <option value="istmo à esquerda ">istmo à esquerda</option>
             </Select>
         </Wrap>
-
     )
 }

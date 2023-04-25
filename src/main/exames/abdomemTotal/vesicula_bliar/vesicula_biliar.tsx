@@ -1,15 +1,61 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Checkbox, HStack, Input, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
+import IndividualizarCalculo from "./IndividualizaCalculo";
+import IndividualizarPolipo from "./IndividualizaPolipo";
 
 function VesiculaBiliar({ Disable }) {
   const altura = "100%";
   const largura = "66%";
+
+  const [numberArray, setNumberArray] = useState([1]);
+
+  const [UpdateCalculos, setUpdateCalculos] = useState(false);
+
+  function Calculos() {
+    return (
+      <>
+        {numberArray.map((num, key) => {
+          return <IndividualizarCalculo key={key} numCalculo={num} />;
+        })}
+      </>
+    );
+  }
+
+  useEffect(() => {
+    if (UpdateCalculos) {
+      setUpdateCalculos(false);
+      setNumberArray([...numberArray, numberArray.length + 1]);
+      Calculos();
+    }
+  }, [UpdateCalculos]);
+
+  const [numberArrayPolipo, setNumberArrayPolipo] = useState([1]);
+
+  const [UpdatePolipos, setUpdatePolipos] = useState(false);
+
+  function Polipos() {
+    return (
+      <>
+        {numberArrayPolipo.map((num, key) => {
+          return <IndividualizarPolipo key={key} numCalculo={num} />;
+        })}
+      </>
+    );
+  }
+
+  useEffect(() => {
+    if (UpdatePolipos) {
+      setUpdatePolipos(false);
+      setNumberArrayPolipo([...numberArrayPolipo, numberArrayPolipo.length + 1]);
+      Polipos();
+    }
+  }, [UpdatePolipos]);
+
 
   const [frasesVesicula, setFrasesVesicula] = useState<any>([]);
   const [ConclusoesVesicula, setConclusoesVesicula] = useState<any>([]);
@@ -24,12 +70,7 @@ function VesiculaBiliar({ Disable }) {
   const [DisableCitarEspessuraInput, setDisableCitarEspessuraInput] =
     useState(true);
 
-  const [CalculoUnicoCheckbox, setCalculoUnicoCheckbox] = useState(false);
-  const [CalculoUnicoInput, setCalculoUnicoInput] = useState("");
-  const [DisableCalculoUnicoInput, setDisableCalculoUnicoInput] =
-    useState(true);
-  const [CalculoUnicoColecisiteCheckbox, setCalculoUnicoColecisiteCheckbox] =
-    useState(false);
+
 
   const [MultiplosCalculosCheckbox, setMultiplosCalculosCheckbox] =
     useState(false);
@@ -42,24 +83,11 @@ function VesiculaBiliar({ Disable }) {
     setMultiplosCalculosColecisiteCheckbox,
   ] = useState(false);
 
-  const [DoisCalculosCheckbox, setDoisCalculosCheckbox] = useState(false);
-  const [DoisCalculosInput1, setDoisCalculosInput1] = useState("");
-  const [DoisCalculosInput2, setDoisCalculosInput2] = useState("");
-  const [DisableDoisCalculosInput, setDisableDoisCalculosInput] =
-    useState(true);
-  const [DoisCalculosColecisiteCheckbox, setDoisCalculosColecisiteCheckbox] =
-    useState(false);
-
-  const [PolipoUnicoCheckbox, setPolipoUnicoCheckbox] = useState(false);
-  const [PolipoUnicoInput, setPolipoUnicoInput] = useState("");
-  const [DisablePolipoUnicoInput, setDisablePolipoUnicoInput] = useState(true);
 
   const [MultiplosPoliposCheckbox, setMultiplosPoliposCheckbox] =
     useState(false);
   const [MultiplosPoliposInput1, setMultiplosPoliposInput1] = useState("");
   const [MultiplosPoliposInput2, setMultiplosPoliposInput2] = useState("");
-  const [DisableMultiplosPoliposInput, setDisableMultiplosPoliposInput] =
-    useState(true);
 
   const removeItemString = (value) => {
     var index = frasesVesicula.indexOf(value);
@@ -117,9 +145,9 @@ function VesiculaBiliar({ Disable }) {
   const criaStringCitarEspessura = (dados) => {
     var string = "Espessura da parede vesicular";
     removeFraseCitarEspessura();
-    const medida = new Convert_Medida(dados).Convert_Medida();
+
     if (dados != "") {
-      string = `${string} = ${medida} cm.`;
+      string = `${string} = ${dados} cm.`;
       setFrasesVesicula((arr) => [...arr, string]);
     }
   };
@@ -147,67 +175,16 @@ function VesiculaBiliar({ Disable }) {
     }
   }, [EspessuraParedeCheckbox, CitarEspessuraInput]);
 
-  const criaStringCalculoUnico = (dados) => {
-    var string = "Vesícula biliar";
-    removeFraseCalculoUnico();
-    const medida = new Convert_Medida(dados).Convert_Medida();
-    if (dados != "" && CalculoUnicoColecisiteCheckbox) {
-      string = `${string} distendida, com paredes espessadas, apresentando uma imagem calculosa fixa no infundíbulo, medindo ${medida} cm.`;
-      setFrasesVesicula((arr) => [...arr, string]);
-    } else if (dados != "") {
-      string = `${string} com forma e dimensões normais, paredes finas e regulares, apresentando uma imagem calculosa em seu interior, móvel às mudanças de decúbito, medindo ${medida} cm`;
-      setFrasesVesicula((arr) => [...arr, string]);
-    }
-  };
 
-  const removeFraseCalculoUnico = () => {
-    frasesVesicula.map((e) => {
-      var index;
-      if (
-        e.includes(
-          "distendida, com paredes espessadas, apresentando uma imagem calculosa fixa no infundíbulo, medindo"
-        )
-      ) {
-        index = frasesVesicula.indexOf(e);
-        if (index > -1) {
-          frasesVesicula.splice(index, 1);
-          setFrasesVesicula((arr) => [...arr]);
-        }
-      } else if (
-        e.includes(
-          "com forma e dimensões normais, paredes finas e regulares, apresentando uma imagem calculosa em seu interior, móvel às mudanças de decúbito,"
-        )
-      ) {
-        index = frasesVesicula.indexOf(e);
-        if (index > -1) {
-          frasesVesicula.splice(index, 1);
-          setFrasesVesicula((arr) => [...arr]);
-        }
-      }
-    });
-  };
-
-  useEffect(() => {
-    if (CalculoUnicoCheckbox) {
-      criaStringCalculoUnico(CalculoUnicoInput);
-      setDisableCalculoUnicoInput(false);
-    } else {
-      setDisableCalculoUnicoInput(true);
-      removeFraseCalculoUnico();
-      setCalculoUnicoInput("");
-    }
-  }, [CalculoUnicoCheckbox, CalculoUnicoInput, CalculoUnicoColecisiteCheckbox]);
 
   const criaStringMultiplosCalculos = (dados1, dados2) => {
     var string = "Vesícula biliar";
     removeFraseMultiplosCalculos();
-    const medida1 = new Convert_Medida(dados1).Convert_Medida();
-    const medida2 = new Convert_Medida(dados2).Convert_Medida();
     if (dados1 != "" && dados2 != "" && MultiplosCalculosColecisiteCheckbox) {
-      string = `${string} distendida, com paredes espessadas, apresentando múltiplas imagens calculosas em seu interior, medindo de ${medida1} a ${medida2} cm.`;
+      string = `${string} distendida, com paredes espessadas, apresentando múltiplas imagens calculosas em seu interior, medindo de ${dados1} a ${dados2} cm.`;
       setFrasesVesicula((arr) => [...arr, string]);
     } else if (dados1 != "" && dados2 != "") {
-      string = `${string} com forma e dimensões normais, paredes finas e regulares, apresentando imagens calculosas em seu interior, móveis às mudanças de decúbito, medindo de ${medida1} a ${medida2} cm`;
+      string = `${string} com forma e dimensões normais, paredes finas e regulares, apresentando imagens calculosas em seu interior, móveis às mudanças de decúbito, medindo de ${dados1} a ${dados2} cm`;
       setFrasesVesicula((arr) => [...arr, string]);
     }
   };
@@ -259,120 +236,23 @@ function VesiculaBiliar({ Disable }) {
     MultiplosCalculosColecisiteCheckbox,
   ]);
 
-  const criaStringDoisCalculos = (dados1, dados2) => {
-    var string = "Vesícula biliar";
-    removeFraseDoisCalculos();
-    const medida1 = new Convert_Medida(dados1).Convert_Medida();
-    const medida2 = new Convert_Medida(dados2).Convert_Medida();
-    if (dados1 != "" && dados2 != "" && DoisCalculosColecisiteCheckbox) {
-      string = `${string} distendida, com paredes espessadas, apresentando duas imagens calculosas em seu interior, medindo ${medida1} e ${medida2} cm.`;
-      setFrasesVesicula((arr) => [...arr, string]);
-    } else if (dados1 != "" && dados2 != "") {
-      string = `${string} com forma e dimensões normais, paredes finas e regulares, apresentando duas imagens calculosas em seu interior, móveis às mudanças de decúbito, medindo ${medida1} e ${medida2} cm`;
-      setFrasesVesicula((arr) => [...arr, string]);
-    }
-  };
 
-  const removeFraseDoisCalculos = () => {
-    frasesVesicula.map((e) => {
-      var index;
-      if (
-        e.includes(
-          "distendida, com paredes espessadas, apresentando duas imagens calculosas em seu interior,"
-        )
-      ) {
-        index = frasesVesicula.indexOf(e);
-        if (index > -1) {
-          frasesVesicula.splice(index, 1);
-          setFrasesVesicula((arr) => [...arr]);
-        }
-      } else if (
-        e.includes(
-          "com forma e dimensões normais, paredes finas e regulares, apresentando duas imagens calculosas em seu interior, móveis às mudanças de decúbito,"
-        )
-      ) {
-        index = frasesVesicula.indexOf(e);
-        if (index > -1) {
-          frasesVesicula.splice(index, 1);
-          setFrasesVesicula((arr) => [...arr]);
-        }
-      }
-    });
-  };
 
-  useEffect(() => {
-    if (DoisCalculosCheckbox) {
-      criaStringDoisCalculos(DoisCalculosInput1, DoisCalculosInput2);
-      setDisableDoisCalculosInput(false);
-    } else {
-      setDisableDoisCalculosInput(true);
-      removeFraseDoisCalculos();
-      setDoisCalculosInput1("");
-      setDoisCalculosInput2("");
-    }
-  }, [
-    DoisCalculosCheckbox,
-    DoisCalculosInput1,
-    DoisCalculosInput2,
-    DoisCalculosColecisiteCheckbox,
-  ]);
-
-  const criaStringPolipoUnico = (dados1) => {
-    var string =
-      "Imagem polipoide hiperecogênica aderida à parede da vesícula, medindo";
-    removeFrasePolipoUnico();
-    const medida1 = new Convert_Medida(dados1).Convert_Medida();
-    if (dados1 != "") {
-      string = `${string} ${medida1} cm`;
-      setFrasesVesicula((arr) => [...arr, string]);
-    }
-  };
-
-  const removeFrasePolipoUnico = () => {
-    frasesVesicula.map((e) => {
-      if (
-        e.includes(
-          "Imagem polipoide hiperecogênica aderida à parede da vesícula, medindo"
-        )
-      ) {
-        var index = frasesVesicula.indexOf(e);
-        if (index > -1) {
-          frasesVesicula.splice(index, 1);
-          setFrasesVesicula((arr) => [...arr]);
-        }
-      }
-    });
-  };
-
-  useEffect(() => {
-    const conclusaoPolipos = "Imagem compatível com pólipo na vesícula biliar.";
-    removeItemString(conclusaoPolipos);
-    if (PolipoUnicoInput != "" || MultiplosPoliposInput2 != "") {
-      setConclusoesVesicula((arr) => [...arr, conclusaoPolipos]);
-    } else {
-      removeItemString(conclusaoPolipos);
-    }
-  }, [PolipoUnicoInput, MultiplosPoliposInput2]);
-
-  useEffect(() => {
-    if (PolipoUnicoCheckbox) {
-      criaStringPolipoUnico(PolipoUnicoInput);
-      setDisablePolipoUnicoInput(false);
-    } else {
-      setDisablePolipoUnicoInput(true);
-      removeFrasePolipoUnico();
-      setPolipoUnicoInput("");
-    }
-  }, [PolipoUnicoCheckbox, PolipoUnicoInput]);
   const criaStringMultiplosPolipos = (dados1, dados2) => {
     var string =
       "Imagens polipoides hiperecogênicas aderidas às paredes da vesícula, medindo de";
+    const conclusaoPolipos = "Imagem compatível com pólipo na vesícula biliar.";
+    removeItemConclusao(conclusaoPolipos);
     removeFraseMultiplosPolipos();
-    const medida1 = new Convert_Medida(dados1).Convert_Medida();
-    const medida2 = new Convert_Medida(dados2).Convert_Medida();
-    if (dados1 != "" && dados2 != "") {
-      string = `${string} ${medida1} a ${medida2} cm`;
-      setFrasesVesicula((arr) => [...arr, string]);
+    if (MultiplosPoliposCheckbox) {
+      if (dados1 != "" && dados2 != "") {
+        string = `${string} ${dados1} a ${dados2} cm`;
+        setFrasesVesicula((arr) => [...arr, string]);
+        setConclusoesVesicula((arr) => [...arr, conclusaoPolipos]);
+      }
+    } else {
+      setMultiplosPoliposInput1("");
+      setMultiplosPoliposInput2("");
     }
   };
 
@@ -392,24 +272,29 @@ function VesiculaBiliar({ Disable }) {
     });
   };
 
+
   useEffect(() => {
-    if (MultiplosPoliposCheckbox) {
-      criaStringMultiplosPolipos(
-        MultiplosPoliposInput1,
-        MultiplosPoliposInput2
-      );
-      setDisableMultiplosPoliposInput(false);
-    } else {
-      setDisableMultiplosPoliposInput(true);
-      removeFraseMultiplosPolipos();
-      setMultiplosPoliposInput1("");
-      setMultiplosPoliposInput2("");
-    }
+    criaStringMultiplosPolipos(
+      MultiplosPoliposInput1,
+      MultiplosPoliposInput2
+    );
+
   }, [
     MultiplosPoliposCheckbox,
     MultiplosPoliposInput1,
     MultiplosPoliposInput2,
   ]);
+
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    const string = "Vesícula biliar com forma e dimensões normais, paredes finas e regulares, apresentando conteúdo anecogênico sem imagens calculosas.";
+    Normal ? setNormalCheckbox(!NormalCheckbox) : removeItemString(string)
+  }, [Normal])
 
   const subExame = "Vesícula Biliar";
   const titulo_exame = "Abdômen total";
@@ -451,8 +336,11 @@ function VesiculaBiliar({ Disable }) {
       <Box gap="25px" display="flex" flexWrap="wrap" mt="20px">
         <Box>
           <Checkbox
-            isDisabled={Disable}
-            onChange={(e) => setNormalCheckbox(!NormalCheckbox)}
+            isChecked={Normal}
+            onChange={(e) => {
+              setNormal(!Normal)
+              setNormalCheckbox(!NormalCheckbox)
+            }}
           >
             Normal
           </Checkbox>
@@ -460,7 +348,7 @@ function VesiculaBiliar({ Disable }) {
 
         <Box w="150px">
           <Checkbox
-            isDisabled={Disable}
+
             onChange={(e) =>
               setEspessuraParedeCheckbox(!EspessuraParedeCheckbox)
             }
@@ -469,43 +357,30 @@ function VesiculaBiliar({ Disable }) {
           </Checkbox>
           <HStack>
             <Input
+              p='0'
+              textAlign='center'
               w="60px"
               onChange={(e) => {
                 setCitarEspessuraInput(e.target.value);
               }}
               value={CitarEspessuraInput}
               disabled={DisableCitarEspessuraInput}
-              placeholder="mm"
+              placeholder="cm"
             />
-            <Text alignSelf="center">mm</Text>
+            <Text alignSelf="center">cm</Text>
           </HStack>
         </Box>
 
-        <Box w="150px">
-          <Checkbox
-            isDisabled={Disable}
-            onChange={(e) => setCalculoUnicoCheckbox(!CalculoUnicoCheckbox)}
-          >
-            Cálculo Único de
-          </Checkbox>
-          <Input
-            onChange={(e) => {
-              setCalculoUnicoInput(e.target.value);
+        <Box gap="10px" display="flex" flexWrap="wrap">
+          {Calculos()}
+          <Button
+            colorScheme="blue"
+            onClick={() => {
+              setUpdateCalculos(true);
             }}
-            value={CalculoUnicoInput}
-            disabled={DisableCalculoUnicoInput}
-            placeholder="mm"
-          />
-          <Checkbox
-            onChange={(e) => {
-              setCalculoUnicoColecisiteCheckbox(
-                !CalculoUnicoColecisiteCheckbox
-              );
-            }}
-            disabled={DisableCalculoUnicoInput}
           >
-            colecisite aguda?
-          </Checkbox>
+            +1 Cisto
+          </Button>
         </Box>
 
         <Box w="180px">
@@ -518,6 +393,8 @@ function VesiculaBiliar({ Disable }) {
           </Checkbox>
           <HStack>
             <Input
+              p='0'
+              textAlign='center'
               value={MultiplosCalculosInput1}
               w="50px"
               onChange={(e) => setMultiplosCalculosInput1(e.target.value)}
@@ -526,13 +403,15 @@ function VesiculaBiliar({ Disable }) {
             />
             <Text alignSelf="center">a</Text>
             <Input
+              p='0'
+              textAlign='center'
               value={MultiplosCalculosInput2}
               w="50px"
               onChange={(e) => setMultiplosCalculosInput2(e.target.value)}
               disabled={DisableMultiplosCalculosInput}
               placeholder="00"
             />
-            <Text alignSelf="center">mm</Text>
+            <Text alignSelf="center">cm</Text>
           </HStack>
           <Checkbox
             onChange={(e) => {
@@ -546,65 +425,22 @@ function VesiculaBiliar({ Disable }) {
           </Checkbox>
         </Box>
 
-        <Box w="180px">
-          <Checkbox
-            isDisabled={Disable}
-            onChange={(e) => setDoisCalculosCheckbox(!DoisCalculosCheckbox)}
-          >
-            Dois cálculos de
-          </Checkbox>
-          <HStack>
-            <Input
-              w="50px"
-              value={DoisCalculosInput1}
-              onChange={(e) => setDoisCalculosInput1(e.target.value)}
-              disabled={DisableDoisCalculosInput}
-              placeholder="00"
-            />
-            <Text alignSelf="center">e</Text>
-            <Input
-              value={DoisCalculosInput2}
-              w="50px"
-              onChange={(e) => setDoisCalculosInput2(e.target.value)}
-              disabled={DisableDoisCalculosInput}
-              placeholder="00"
-            />
-            <Text alignSelf="center">mm</Text>
-          </HStack>
-          <Checkbox
-            onChange={(e) => {
-              setDoisCalculosColecisiteCheckbox(
-                !DoisCalculosColecisiteCheckbox
-              );
+
+        <Box gap="10px" display="flex" flexWrap="wrap">
+          {Polipos()}
+          <Button
+            colorScheme="blue"
+            onClick={() => {
+              setUpdatePolipos(true);
             }}
-            disabled={DisableDoisCalculosInput}
           >
-            colecisite aguda?
-          </Checkbox>
-        </Box>
-
-        <Box w="150px">
-          <Checkbox
-            isDisabled={Disable}
-            onChange={(e) => setPolipoUnicoCheckbox(!PolipoUnicoCheckbox)}
-          >
-            pólipo único de
-          </Checkbox>
-          <HStack>
-            <Input
-              value={PolipoUnicoInput}
-              w="60px"
-              onChange={(e) => setPolipoUnicoInput(e.target.value)}
-              disabled={DisablePolipoUnicoInput}
-              placeholder="mm"
-            />
-            <Text alignSelf="center">mm</Text>
-          </HStack>
+            +1 Polipo
+          </Button>
         </Box>
 
         <Box w="180px">
           <Checkbox
-            isDisabled={Disable}
+
             onChange={(e) =>
               setMultiplosPoliposCheckbox(!MultiplosPoliposCheckbox)
             }
@@ -613,35 +449,39 @@ function VesiculaBiliar({ Disable }) {
           </Checkbox>
           <HStack>
             <Input
+              p='0'
+              textAlign='center'
               value={MultiplosPoliposInput1}
               w="50px"
               onChange={(e) => setMultiplosPoliposInput1(e.target.value)}
-              disabled={DisableMultiplosPoliposInput}
+              disabled={!MultiplosPoliposCheckbox}
               placeholder="00"
             />
             <Text alignSelf="center">a</Text>
             <Input
+              p='0'
+              textAlign='center'
               value={MultiplosPoliposInput2}
               w="50px"
               onChange={(e) => setMultiplosPoliposInput2(e.target.value)}
-              disabled={DisableMultiplosPoliposInput}
+              disabled={!MultiplosPoliposCheckbox}
               placeholder="00"
             />
-            <Text alignSelf="center">mm</Text>
+            <Text alignSelf="center">cm</Text>
           </HStack>
         </Box>
 
         <Box w="120px">
           <Checkbox
             onChange={(e) => setColesteroloseCheckbox(!ColesteroloseCheckbox)}
-            isDisabled={Disable}
+
           >
             Colesterolose
           </Checkbox>
         </Box>
         <Box>
           <Checkbox
-            isDisabled={Disable}
+
             onChange={(e) => setVaziaCheckbox(!VaziaCheckbox)}
           >
             Vazia
@@ -649,7 +489,7 @@ function VesiculaBiliar({ Disable }) {
         </Box>
         <Box>
           <Checkbox
-            isDisabled={Disable}
+
             onChange={(e) => setAusenteCheckbox(!AusenteCheckbox)}
           >
             Ausente

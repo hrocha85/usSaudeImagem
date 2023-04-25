@@ -62,7 +62,7 @@ function Medidas() {
       if (ValueInput1LoboDireito && ValueInput2LoboDireito && ValueInput3LoboDireito) {
         let medida4 = +(parseFloat(ValueInput1LoboDireito.replace(",", ".")) * parseFloat(ValueInput2LoboDireito.replace(",", ".")) * parseFloat(ValueInput3LoboDireito.replace(",", ".")))
         setValueInput4LoboDireito(parseFloat(medida4.toFixed(2)))
-        string = `${string} ${ValueInput1LoboDireito} x ${ValueInput2LoboDireito} x ${ValueInput3LoboDireito} mm (${medida4} cm³) `
+        string = `${string} ${ValueInput1LoboDireito} x ${ValueInput2LoboDireito} x ${ValueInput3LoboDireito} cm (${medida4} cm³) `
         setFrasesMedidas((arr) => [...arr, string]);
       }
     } else {
@@ -87,7 +87,7 @@ function Medidas() {
       if (ValueInput1LoboEsquerdo && ValueInput2LoboEsquerdo && ValueInput3LoboEsquerdo) {
         var medida4 = (parseFloat(ValueInput1LoboEsquerdo.replace(",", ".")) * parseFloat(ValueInput2LoboEsquerdo.replace(",", ".")) * parseFloat(ValueInput3LoboEsquerdo.replace(",", ".")))
         setValueInput4LoboEsquerdo(parseFloat(medida4.toFixed(2)))
-        string = `${string} ${ValueInput1LoboEsquerdo} x ${ValueInput2LoboEsquerdo} x ${ValueInput3LoboEsquerdo} mm (${medida4} cm³)`
+        string = `${string} ${ValueInput1LoboEsquerdo} x ${ValueInput2LoboEsquerdo} x ${ValueInput3LoboEsquerdo} cm (${medida4} cm³)`
         setFrasesMedidas((arr) => [...arr, string]);
       }
     } else {
@@ -123,7 +123,7 @@ function Medidas() {
       if (ValueInput1Istmo && ValueInput2Istmo && ValueInput3Istmo) {
         var medida4 = (parseFloat(ValueInput1Istmo.replace(",", ".")) * parseFloat(ValueInput2Istmo.replace(",", ".")) * parseFloat(ValueInput3Istmo.replace(",", ".")))
         setValueInput4Istmo(parseFloat(medida4.toFixed(2)))
-        string = `${string} ${ValueInput1Istmo} x ${ValueInput2Istmo} x ${ValueInput3Istmo} mm ${(parseFloat(medida4.toFixed(2)))} cm³`
+        string = `${string} ${ValueInput1Istmo} x ${ValueInput2Istmo} x ${ValueInput3Istmo} cm ${(parseFloat(medida4.toFixed(2)))} cm³`
         setFrasesMedidas((arr) => [...arr, string]);
       }
     } else {
@@ -267,7 +267,7 @@ function Medidas() {
                 onChange={(e) => setValueInput3LoboDireito(e.target.value)}
                 placeholder="0"
               />
-              <Text alignSelf='center'>mm</Text>
+              <Text alignSelf='center'>cm</Text>
               <Text alignSelf='center'> ({ValueInput4LoboDireito} cm³)</Text>
             </Box>
           </Box>
@@ -310,7 +310,7 @@ function Medidas() {
                 onChange={(e) => setValueInput3LoboEsquerdo(e.target.value)}
                 placeholder="0"
               />
-              <Text alignSelf='center'>mm</Text>
+              <Text alignSelf='center'>cm</Text>
               <Text alignSelf='center'> ({ValueInput4LoboEsquerdo} cm³)</Text>
             </Box>
           </Box>
@@ -326,7 +326,7 @@ function Medidas() {
               </Checkbox>
               <Checkbox
                 isDisabled={IstmoCheckbox}
-                onChange={(e) => setIstmoDesprezivelCheckbox(!IstmoCheckbox)}
+                onChange={(e) => setIstmoDesprezivelCheckbox(!IstmoDesprezivelCheckbox)}
               >
                 Istmo desprezível
               </Checkbox>
@@ -361,7 +361,7 @@ function Medidas() {
                 onChange={(e) => setValueInput3Istmo(e.target.value)}
                 placeholder="0"
               />
-              <Text alignSelf='center'>mm</Text>
+              <Text alignSelf='center'>cm</Text>
               <Text alignSelf='center'> ({ValueInput4Istmo} cm³)</Text>
             </Box>
 

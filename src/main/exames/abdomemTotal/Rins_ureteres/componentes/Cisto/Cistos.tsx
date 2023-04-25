@@ -1,9 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Button, Checkbox, Flex, Input, Select, Text } from "@chakra-ui/react";
-import { useEffect, useState, useContext } from "react";
-import Conclusoes from "../../../../../component/conclusoes";
-import { Convert_Medida } from "../../../../../component/function_convert_medidas";
+import { Box, Button, Checkbox, Input, Select, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 import IndividualizarCistos from "./individualizar_cistos";
 
@@ -13,7 +11,7 @@ export default function Cistos({ Disable }) {
 
     var ArrayConclusao = ['']
 
-    const [numberArray, setNumberArray] = useState([1, 2, 3]);
+    const [numberArray, setNumberArray] = useState([1]);
 
     const [VariosCheckbox, setVariosCheckbox] = useState(false)
     const [InputVarios, setInputVarios] = useState('')
@@ -82,11 +80,9 @@ export default function Cistos({ Disable }) {
     const criaStringVarios = () => {
         let string = 'Varios: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo'
         removeVarios()
-        var InputVarioscm = new Convert_Medida(InputVarios).Convert_Medida()
-
         if (Select01Varios != '' && Select02Varios != '' && InputVarios != '') {
 
-            string = `${string} ${Select01Varios} ${Select02Varios} ${InputVarioscm}`
+            string = `${string} ${Select01Varios} ${Select02Varios} ${InputVarios}`
             setFraseCisto((arr) => [...arr, string]);
         }
     }
@@ -145,7 +141,7 @@ export default function Cistos({ Disable }) {
                 <Box gap="25px" display="flex" flexWrap="wrap">
                     {Calculos()}
                     <Button
-                        isDisabled={Disable}
+
                         colorScheme="blue"
                         onClick={() => {
                             setUpdateCalculos(true);
@@ -156,18 +152,21 @@ export default function Cistos({ Disable }) {
 
                 </Box>
                 <Box w='150px'>
-                    <Checkbox isDisabled={Disable} onChange={() => {
+                    <Checkbox onChange={() => {
                         setVariosCheckbox(!VariosCheckbox)
                     }}
                     >
                         Vários bilaterais, o maior
                     </Checkbox>
-                    <Input onChange={(e) => {
-                        setInputVarios(e.target.value)
-                    }}
+                    <Input
+                        p='0'
+                        textAlign='center'
+                        onChange={(e) => {
+                            setInputVarios(e.target.value)
+                        }}
                         value={InputVarios}
                         isDisabled={DisableOptionsVarios}
-                        placeholder="mm"
+                        placeholder="cm"
                     />
                     <Select onChange={(e) => {
                         setSelect01Varios(e.target.value)

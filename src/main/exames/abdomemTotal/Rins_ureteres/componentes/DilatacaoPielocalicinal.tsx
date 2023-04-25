@@ -193,7 +193,7 @@ export default function DilatacaoPielocalicinal({ Disable }) {
             <Text fontWeight="bold" >Dilatação Pielocalicinal</Text>
             <Box display='flex' flexWrap='wrap' gap='10px'>
                 <HStack gap='10px'>
-                    <Checkbox isDisabled={Disable} onChange={() => setDireitaCheckbox(!DireitaCheckbox)}>
+                    <Checkbox onChange={() => setDireitaCheckbox(!DireitaCheckbox)}>
                         DIREITA:
                     </Checkbox>
                     <Stack>
@@ -217,7 +217,7 @@ export default function DilatacaoPielocalicinal({ Disable }) {
                     </Stack>
                 </HStack >
                 <HStack gap='10px'>
-                    <Checkbox isDisabled={Disable}
+                    <Checkbox
                         onChange={() => setEsquerdaCheckbox(!EsquerdaCheckbox)}>
                         Esquerda:
                     </Checkbox>

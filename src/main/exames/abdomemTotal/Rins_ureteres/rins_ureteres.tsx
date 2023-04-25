@@ -9,7 +9,7 @@ import Cateter from "./componentes/CateterDuplo";
 import Cistos from "./componentes/Cisto/Cistos";
 import DilatacaoPielocalicinal from "./componentes/DilatacaoPielocalicinal";
 import Nefropatia from "./componentes/Nefropatia";
-import NoduloSolido from "./componentes/NoduloSolido";
+import NoduloSolido from "./componentes/NoduloSolido/NoduloSolido";
 
 function RinsUreteres({ Disable }) {
     const altura = "100%";
@@ -49,6 +49,17 @@ function RinsUreteres({ Disable }) {
         }
     };
 
+    const [Normal, setNormal] = useState(false)
+
+    useEffect(() => {
+        Disable ? setNormal(true) : setNormal(false)
+    }, [Disable])
+
+    useEffect(() => {
+        const string = 'Em situações tópicas, com formas, contornos e dimensões normais.\nComplexos ecogênicos centrais com distribuições e ecogenicidades normais.\nNão se notam imagens calculosas.'
+        Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+    }, [Normal])
+
     useEffect(() => {
         if (Object.keys(FraseRinsUreteres).length == 0) {
             new Format_Laudo(
@@ -85,17 +96,18 @@ function RinsUreteres({ Disable }) {
 
             <Box display='flex' flexWrap='wrap' gap='20px'>
                 <Checkbox
-                    isDisabled={Disable}
-                    onChange={() => setAspectoNormalCheckbox(!AspectoNormalCheckbox)}>
+                    isChecked={Normal}
+                    onChange={() => {
+                        setNormal(!Normal)
+                        setAspectoNormalCheckbox(!AspectoNormalCheckbox)
+                    }}>
                     Aspecto normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
                     onChange={() => setAusenciaRimDirCheckbox(!AusenciaRimDirCheckbox)}>
                     Ausência do rim DIR.
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
                     onChange={() => setAusenciaRimEsqCheckbox(!AusenciaRimEsqCheckbox)}>
                     Ausência do rim ESQ.
                 </Checkbox>

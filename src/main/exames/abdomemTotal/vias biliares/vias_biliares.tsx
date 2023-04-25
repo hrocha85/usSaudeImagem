@@ -104,6 +104,14 @@ function ViasBiliares({ Disable }) {
     }
   };
 
+  useEffect(() => {
+    if (Disable) {
+      setValue('Não há dilatação das vias biliares intra ou extra-hepáticas')
+    } else {
+      setValue('1')
+    }
+  }, [Disable])
+
   const subExame = "Vias Biliares";
   const titulo_exame = "Abdômen total";
 
@@ -143,7 +151,6 @@ function ViasBiliares({ Disable }) {
 
       <Box gap="25px" display="flex" flexWrap="wrap">
         <RadioGroup
-          isDisabled={Disable}
           onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
@@ -154,7 +161,6 @@ function ViasBiliares({ Disable }) {
         <Stack>
           <Box>
             <Checkbox
-              isDisabled={Disable}
               onChange={(e) => {
                 setDilatacaoCheckbox(!DilatacaoCheckbox);
               }}
@@ -165,7 +171,6 @@ function ViasBiliares({ Disable }) {
           <HStack >
             <Box>
               <Checkbox
-                isDisabled={Disable}
                 onChange={(e) => {
                   setCitarCalibresCheckbox(!CitarCalibresCheckbox);
                 }}

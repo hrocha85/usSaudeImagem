@@ -43,10 +43,9 @@ function CistosColoides() {
   const criaStringCistosEsparsos = () => {
     removeCistosEsparsos()
     let string = 'FALTA CistosEsparsos'
-    let medidacm = new Convert_Medida(ValueCistosEsparsosInput).Convert_Medida()
 
     if (ValueCistosEsparsosSelect != '' && ValueCistosEsparsosInput != '') {
-      string = `${string} ${ValueCistosEsparsosSelect} ${medidacm} cm`
+      string = `${string} ${ValueCistosEsparsosSelect} ${ValueCistosEsparsosInput} cm`
       setFrasesCistosColoides((arr) => [...arr, string]);
     }
 
@@ -126,13 +125,15 @@ function CistosColoides() {
               Cistos coloides esparsos de até
             </Checkbox>
             <Input
+              p='0'
+              textAlign='center'
               value={ValueCistosEsparsosInput}
               onChange={(e) => setValueCistosEsparsosInput(e.target.value)}
               isDisabled={DisabledCistosEsparsosSelect}
               w='60px'
               placeholder="00"
             />
-            <Text alignSelf='center'>mm,</Text>
+            <Text alignSelf='center'>cm,</Text>
             <Text alignSelf='center'> o maior deles situado no</Text>
             <Select
               w='auto'

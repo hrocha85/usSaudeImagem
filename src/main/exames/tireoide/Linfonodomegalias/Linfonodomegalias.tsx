@@ -9,14 +9,41 @@ import Individualiza_Linfonodomegalias from "./Individualiza/individualiza_Linfo
 import Individualiza_MultiplosLinfonodos from "./Individualiza/individualiza_mutiplos";
 
 
-function Linfonodomegalias() {
+function Linfonodomegalias({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
 
   const [FrasesLinfonodomegalias, setFrasesLinfonodomegalias] = useState<any>([]);
+  const [NormalCheckbox, setNormalCheckbox] = useState(false);
 
+  useEffect(() => {
+    const string = 'Linfonodomegalias normais'
+    NormalCheckbox ? setFrasesLinfonodomegalias((arr) => [...arr, string]) : removeFrase(string)
+  }, [NormalCheckbox])
 
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    const string = 'Linfonodomegalias normais'
+    Normal ? setNormalCheckbox(!NormalCheckbox) : removeFrase(string)
+  }, [Normal])
+
+  const removeFrase = (value) => {
+    FrasesLinfonodomegalias.map((e) => {
+      if (e.includes(value)) {
+        var index = FrasesLinfonodomegalias.indexOf(e);
+        if (index > -1) {
+          FrasesLinfonodomegalias.splice(index, 1);
+          setFrasesLinfonodomegalias((arr) => [...arr]);
+        }
+      }
+    });
+  };
   const subExame = "Linfonodomegalias";
   const titulo_exame = "Tireóide";
 
@@ -52,7 +79,16 @@ function Linfonodomegalias() {
       <Box h="100%">
         <TituloNomeExame titulo="Linfonodomegalias" />
 
-        <Box gap="25px" display="flex" flexWrap="wrap" mt="20px" mb="10px">
+        <Checkbox
+          isChecked={Normal}
+          onChange={() => {
+            setNormal(!Normal)
+            setNormalCheckbox(!NormalCheckbox)
+          }}>
+          Normal
+        </Checkbox>
+        <Box gap="25px" display="flex" flexWrap="wrap" mt="10px" mb="10px">
+
           <Individualiza_Linfonodomegalias />
           <Individualiza_MultiplosLinfonodos />
         </Box>

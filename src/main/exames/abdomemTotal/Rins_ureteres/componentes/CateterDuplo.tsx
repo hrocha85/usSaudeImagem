@@ -68,7 +68,7 @@ export default function Cateter({ Disable }) {
         <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" p='5px' mt='5px' >
             <Text fontWeight="bold" >Cateter "Duplo J"</Text>
             <Flex gap='10px'>
-                <Checkbox isDisabled={Disable}
+                <Checkbox
                     onChange={() => setPresenteCheckbox(!PresenteCheckbox)}>
                     Presente
                 </Checkbox>
