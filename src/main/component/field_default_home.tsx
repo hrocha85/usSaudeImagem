@@ -184,6 +184,16 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
         nomeExame: "Axila",
         link: `#/Home/${20}`,
       },
+      {
+        key: 21,
+        nomeExame: "Torax",
+        link: `#/Home/${21}`,
+      },
+      {
+        key: 22,
+        nomeExame: "Parede Abdominal",
+        link: `#/Home/${21}`,
+      },
     ];
 
     const exameEncontrado = exames.find(

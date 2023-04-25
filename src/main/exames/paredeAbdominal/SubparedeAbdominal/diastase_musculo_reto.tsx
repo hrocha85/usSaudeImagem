@@ -34,7 +34,7 @@ import SugestaoRef from "../../../images/ref_partes_moles.png";
 
 function Diastase_Musculo_Reto({ Disable }) {
   const altura = "auto";
-  const largura = "100%";
+  const largura = "66%";
 
   const [imageAdded, setImageAdded] = useState(false);
 
@@ -188,8 +188,8 @@ function Diastase_Musculo_Reto({ Disable }) {
     }
   }, [selectNivel, medidaAfastamento]);
 
-  const subExame = "Parede Abdominal - Diástase do Músculo Reto Abdominal";
-  const titulo_exame = "Partes Moles";
+  const subExame = "Diástase do Músculo Reto Abdominal";
+  const titulo_exame = "Parede Abdominal";
 
   useEffect(() => {
     if (Object.keys(frasesDiastase).length == 0) {
@@ -223,7 +223,6 @@ function Diastase_Musculo_Reto({ Disable }) {
       padding="15px 15px 20px 15px"
       mt="10px"
     >
-      <Text>Parede Abdominal</Text>
       <TituloNomeExame titulo="Diástase do Músculo Reto Abdominal" />
 
       <Box gap="15px" display="flex" flexWrap="wrap">
@@ -269,7 +268,7 @@ function Diastase_Musculo_Reto({ Disable }) {
               h="30px"
               marginEnd="10px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedidaAfastamento(e.target.value);

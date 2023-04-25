@@ -15,12 +15,12 @@ import RimDireito from "./rim_direito/rim_direito";
 import RimEsquerdo from "./rim_esquerdo/rim_esquerdo";
 import VesiculaBiliar from "./vesicula_bliar/vesicula_biliar";
 import ViasBiliares from "./vias biliares/vias_biliares";
-import Aorta from "./Aorta/Aorta"
 import Volume_vesical from "./volume_vesical/volume_vesical";
 import RinsUreteres from "./Rins_ureteres/rins_ureteres";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../component/function_format_laudo";
 import Retroperineo from "./Retroperineo/Retroperineo";
+import Aorta from "./Aorta/aorta";
 
 function AbdomemTotal() {
   const altura = '100%'

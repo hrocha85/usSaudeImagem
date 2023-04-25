@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Grid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Format_Laudo } from "../../../component/function_format_laudo";
-import TituloNomeExame from "../../../component/titulo_nome_exame";
+import { Format_Laudo } from "../../component/function_format_laudo";
+import TituloNomeExame from "../../component/titulo_nome_exame";
 
 export default function Achados_Normais({ Disable }) {
   const altura = "100%";

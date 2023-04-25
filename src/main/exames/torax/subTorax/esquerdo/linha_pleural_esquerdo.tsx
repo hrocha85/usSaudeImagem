@@ -7,7 +7,7 @@ export default function Linha_Pleural_Esquerdo({ Disable }) {
   const [frasesTorax, setFrasesTorax] = useState<any>([]);
 
   const subExame = "Hemitórax Esquerdo. Linha Pleural";
-  const titulo_exame = "Partes Moles";
+  const titulo_exame = "Torax";
 
   useEffect(() => {
     if (value == "1") {
@@ -17,6 +17,11 @@ export default function Linha_Pleural_Esquerdo({ Disable }) {
       setFrasesTorax((arr) => [...arr, value]);
     }
   }, [value]);
+
+
+  useEffect(() => {
+    Disable ? setValue('Fina e Regular') : setValue('1')
+  }, [Disable])
 
   useEffect(() => {
     if (Object.keys(frasesTorax).length == 0) {
@@ -42,7 +47,7 @@ export default function Linha_Pleural_Esquerdo({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Linha Pleural
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Fina e Regular">Fina e Regular</Radio>

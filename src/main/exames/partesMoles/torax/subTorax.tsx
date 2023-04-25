@@ -7,7 +7,7 @@ import Derrame_Pleural_Esquerdo from "./esquerdo/derrame_pleural_esquerdo";
 import Linha_Pleural_Esquerdo from "./esquerdo/linha_pleural_esquerdo";
 import Parenquima_Pulmonar_Esquedo from "./esquerdo/parenquima_pulmonar_esquedo";
 
-export default function Torax({ Disable }) {
+export default function SubTorax({ Disable }) {
   const altura = "100%";
   const largura = "66%";
   return (

@@ -113,7 +113,7 @@ export default function IndividualizarNodulos({
 
         textAlign="center"
         onChange={handleChangeNoduloInputMedida1}
-        placeholder={"mm"}
+        placeholder={"cm"}
       />
       <Text>x</Text>
 
@@ -126,7 +126,7 @@ export default function IndividualizarNodulos({
 
         textAlign="center"
         onChange={handleChangeNoduloInputMedida2}
-        placeholder={"mm"}
+        placeholder={"cm"}
       />
       <Text>x</Text>
 
@@ -139,7 +139,7 @@ export default function IndividualizarNodulos({
 
         textAlign="center"
         onChange={handleChangeNoduloInputMedida3}
-        placeholder={"mm"}
+        placeholder={"cm"}
       />
     </HStack>
   );

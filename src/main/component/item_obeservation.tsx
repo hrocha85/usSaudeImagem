@@ -171,6 +171,16 @@ const ItemObservation = () => {
       titulo_observacao: "Axila",
       observacao: [""],
     },
+    {
+      id: 26,
+      titulo_observacao: "Torax",
+      observacao: [""],
+    },
+    {
+      id: 27,
+      titulo_observacao: "Parede Abdominal",
+      observacao: [""],
+    },
   ];
   const observacoesJSON = Observacoes.observacoes;
 

@@ -16,7 +16,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Colecao({ Disable }) {
   const altura = "auto";
-  const largura = "95%";
+  const largura = "auto";
 
   const [frasesColecao, setFrasesColecao] = useState<any>([]);
   const [ConclusaoColecao, setConclusaoColecao] = useState<any>([]);
@@ -98,8 +98,8 @@ function Colecao({ Disable }) {
     criaStringLocalColecao();
   }, [planoColecaoSelect, medida1Colecao, medida2Colecao, medida3Colecao]);
 
-  const subExame = "Parede Abdominal - Coleção";
-  const titulo_exame = "Partes Moles";
+  const subExame = "Coleção";
+  const titulo_exame = "Parede Abdominal";
 
   useEffect(() => {
     if (Object.keys(frasesColecao).length == 0) {
@@ -133,7 +133,6 @@ function Colecao({ Disable }) {
       padding="15px 15px 20px 15px"
       mt="10px"
     >
-      <Text>Parede Abdominal</Text>
       <TituloNomeExame titulo="Coleção" />
 
       <Box display="flex" flexWrap="wrap">
@@ -153,8 +152,8 @@ function Colecao({ Disable }) {
                 w="35px"
                 h="30px"
                 value={medida1Colecao}
-                padding="5px"
-                
+                padding="0px"
+
                 textAlign="center"
                 onChange={(e) => {
                   setMedida1Colecao(e.target.value);
@@ -166,8 +165,8 @@ function Colecao({ Disable }) {
                 w="35px"
                 h="30px"
                 value={medida2Colecao}
-                padding="5px"
-                
+                padding="0px"
+
                 textAlign="center"
                 onChange={(e) => {
                   setMedida2Colecao(e.target.value);
@@ -179,14 +178,14 @@ function Colecao({ Disable }) {
                 w="35px"
                 h="30px"
                 value={medida3Colecao}
-                padding="5px"
-                
+                padding="0px"
+
                 textAlign="center"
                 onChange={(e) => {
                   setMedida3Colecao(e.target.value);
                 }}
               />
-              <Text>mm</Text>
+              <Text>cm</Text>
             </HStack>
           </HStack>
           <Center>
