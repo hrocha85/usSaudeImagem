@@ -25,7 +25,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     removeItemConclusao(conclusao)
     removeMultiplosNodulos();
     if (tamanhoNoduloInput !== "" && NoduloSelect !== "" && localizado !== "") {
-      var string = `Nódulo Testícular ${numNodulo}: mede ${tamanhoNoduloInput} mm, conteúdo ${conteudoNoduloselect}, localizado no ${NoduloSelect}, do  ${localizado} `;
+      var string = `Nódulo Testícular ${numNodulo}: mede ${tamanhoNoduloInput} cm, conteúdo ${conteudoNoduloselect}, localizado no ${NoduloSelect}, do  ${localizado} `;
       setFrasesNodulos((arr) => [...arr, string]);
       setConclusaoNodulos((arr) => [...arr, conclusao]);
     }
@@ -133,13 +133,13 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
           value={tamanhoNoduloInput}
           w="60px"
           h="77x"
-          padding="5px"
-          
+          padding="0px"
+
           textAlign="center"
           onChange={(e) => settamanhoNoduloInput(e.target.value)}
-          placeholder={"mm"}
+          placeholder={"cm"}
         />
-        <Text fontSize="13px">mm</Text>
+        <Text fontSize="13px">cm</Text>
       </HStack>
       <HStack>
         <Text fontSize="13px">Local</Text>
