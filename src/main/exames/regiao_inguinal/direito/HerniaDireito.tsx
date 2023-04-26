@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function HerniaDireito() {
+function HerniaDireito({ Disable }) {
   const altura = "100%";
   const largura = "400px";
 

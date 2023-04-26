@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Impressoes() {
+function Impressoes({ Disable }) {
   const altura = "100%";
   const largura = "50%";
 
@@ -17,6 +17,23 @@ function Impressoes() {
   const [HerniaEncarceradaDireita, setHerniaEncarceradaDireita] = useState(false);
 
   const [HerniaEncarceradaEsquerda, setHerniaEncarceradaEsquerda] = useState(false);
+
+  const [Normal, setNormal] = useState(false);
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false);
+  }, [Disable])
+
+  useEffect(() => {
+    if (Normal) {
+      setDentroDosPadroesCheckbox(true)
+    } else {
+      setDentroDosPadroesCheckbox(false)
+
+      removeItemString('Exame da região inguinal dentro dos padrões da normalidade.')
+    }
+  }, [Normal])
+
 
   const removeSelectString = () => {
     FraseVagina.map((e) => {
@@ -49,7 +66,7 @@ function Impressoes() {
   };
 
   useEffect(() => {
-    const string = 'Feixes Musculares em situação tópica.'
+    const string = 'Exame da região inguinal dentro dos padrões da normalidade.'
     DentroDosPadroesCheckbox ? setFraseVagina((arr) => ([...arr, string])) : removeItemString(string)
   }, [DentroDosPadroesCheckbox])
 
@@ -102,7 +119,9 @@ function Impressoes() {
 
       <Box gap="5px" display="flex" flexWrap="wrap" mt="10px">
         <Checkbox
+          isChecked={Normal}
           onChange={() => {
+            setNormal(!Normal)
             setDentroDosPadroesCheckbox(!DentroDosPadroesCheckbox);
           }}
         >

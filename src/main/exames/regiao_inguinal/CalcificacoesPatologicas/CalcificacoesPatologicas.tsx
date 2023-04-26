@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function CalcificacoesPatologicas() {
+function CalcificacoesPatologicas({ Disable }) {
   const altura = "100%";
   const largura = "350px";
 
@@ -16,6 +16,23 @@ function CalcificacoesPatologicas() {
 
   const [PresenteCheckbox, setPresenteCheckbox] = useState(false);
   const [DisablePresente, setDisablePresente] = useState(false);
+
+  const [Normal, setNormal] = useState(false);
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false);
+  }, [Disable])
+
+  useEffect(() => {
+    if (Normal) {
+      setAusenciaCheckbox(true)
+
+    } else {
+      setAusenciaCheckbox(false)
+      removeItemString('Ausência de calcificações patológicas')
+
+    }
+  }, [Normal])
 
   const removeItemString = (value) => {
     var index = FraseVagina.indexOf(value);
@@ -83,8 +100,10 @@ function CalcificacoesPatologicas() {
 
       <Box gap="5px" display="flex" flexWrap="wrap" mt="10px">
         <Checkbox
+          isChecked={Normal}
           disabled={DisableAusencia}
           onChange={() => {
+            setNormal(!Normal)
             setAusenciaCheckbox(!AusenciaCheckbox);
           }}
         >
