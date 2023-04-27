@@ -14,6 +14,7 @@ function Hidrossalpinge({ Disable }) {
 
   const subExame = "Hidrossalpinge";
   const titulo_exame = "Pélvico"
+
   useEffect(() => {
     if (Object.keys(frasesHidrossalpinge).length == 0) {
       new Format_Laudo(
@@ -102,7 +103,7 @@ function Hidrossalpinge({ Disable }) {
             <Box>
               <HStack>
                 <Checkbox
-                  isDisabled={Disable}
+
                   whiteSpace="nowrap"
                   onChange={() => {
                     setHidrossalpingeCheckBox(!HidrossalpingeCheckBox);
@@ -111,7 +112,7 @@ function Hidrossalpinge({ Disable }) {
                   Hidrossalpinge
                 </Checkbox>
                 <Select
-                  isDisabled={Disable || !HidrossalpingeCheckBox}
+                  isDisabled={!HidrossalpingeCheckBox}
                   w="auto"
                   onChange={(e) => {
                     setPosicaoHidrossalpingeSelect(e.target.value);

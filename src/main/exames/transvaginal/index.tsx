@@ -11,6 +11,7 @@ import Miometrio from "./miometrio/miometrio";
 import Ovario_Direito from "./ovarios/ovario_direito";
 import Ovario_Esquerdo from "./ovarios/ovario_esquedo";
 import Utero from "./utero/utero";
+import Vagina from "./vagina/vagina";
 
 function Transvaginal() {
   const altura = '100%'
@@ -36,14 +37,15 @@ function Transvaginal() {
           >Transvaginal Normal</Checkbox>
 
         </Box >
+        <Bexiga Disable={Disable} />
+        <Vagina Disable={Disable} />
         <Utero Disable={Disable} />
 
-        <HStack alignItems="baseline">
-          <Ovario_Esquerdo Disable={Disable} />
-          <Ovario_Direito Disable={Disable} />
-        </HStack>
-        <Bexiga Disable={Disable} />
-        <Miometrio Disable={Disable} />
+
+        <Ovario_Esquerdo />
+        <Ovario_Direito Disable={Disable} />
+
+
         <HStack alignItems="baseline">
           <Hidatide Disable={Disable} />
           <Hidrossalpinge Disable={Disable} />
