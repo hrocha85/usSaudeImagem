@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
+  Button,
   Checkbox,
   HStack,
   Input,
@@ -42,8 +43,30 @@ function Miometrio({ Disable }) {
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesMiometrio]);
+  const [UpdateNodulos, setUpdateNodulos] = useState(false);
+  const [numberArray, setNumberArray] = useState([1]);
 
-  var numberArray = [1, 2, 3, 4, 5];
+  function Nodulos() {
+    return (
+      <>
+        {numberArray.map((num, key) => {
+          return <IndividualizarNodulos
+            key={key}
+            numNodulo={num}
+            disable={!miometrioSemNodulosCheckBox || Disable}
+          />
+        })}
+      </>
+    );
+  }
+
+  useEffect(() => {
+    if (UpdateNodulos) {
+      setUpdateNodulos(false);
+      setNumberArray([...numberArray, numberArray.length + 1]);
+      Nodulos();
+    }
+  }, [UpdateNodulos]);
 
   const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
   const [posicaoNodulosSelect, setPosicaoNodulosSelect] = useState("");
@@ -248,17 +271,18 @@ function Miometrio({ Disable }) {
               Individualizar Nódulos
             </Text>
             <Stack>
-              <>
-                {numberArray.map((num, key) => {
-                  return (
-                    <IndividualizarNodulos
-                      key={key}
-                      numNodulo={num}
-                      disable={!miometrioSemNodulosCheckBox || Disable}
-                    />
-                  );
-                })}
-              </>
+              <Box gap="25px" display="flex" flexWrap="wrap">
+                {Nodulos()}
+                <Button
+
+                  colorScheme="blue"
+                  onClick={() => {
+                    setUpdateNodulos(true);
+                  }}
+                >
+                  +1 Nódulo
+                </Button>
+              </Box>
             </Stack>
           </Stack>
         </Stack>

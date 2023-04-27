@@ -35,14 +35,15 @@ function Liquido_Livre({ Disable }) {
     }
   }, [frasesLiquidoLivre]);
 
-  const [posicaoLiquidoSelect, setPosicaoLiquidoSelect] = useState("");
+  const [QuantidadeLiquidoSelect, setQuantidadeLiquidoSelect] = useState("");
+  const [PosicaoLiquidoSelect, setPosicaoLiquidoSelect] = useState("");
   const [LiquidoCheckBox, setLiquidoCheckBox] = useState(false);
 
   const criaStringLiquidoLivre = () => {
     const conclusao = 'Líquido livre na pelve.'
     removeStringLiquidoLivre();
-    if (LiquidoCheckBox && posicaoLiquidoSelect !== "") {
-      var string = `Presença de ${posicaoLiquidoSelect} quantidade de líquido livre no fundo de saco posterior.`;
+    if (LiquidoCheckBox && QuantidadeLiquidoSelect !== "" && PosicaoLiquidoSelect !== '') {
+      var string = `Presença de ${QuantidadeLiquidoSelect} quantidade de líquido livre no fundo de saco ${PosicaoLiquidoSelect}.`;
       setFrasesLiquidoLivre((arr) => [...arr, string]);
       setConclusaoLiquidoLivre((arr) => [...arr, conclusao]);
     }
@@ -77,9 +78,10 @@ function Liquido_Livre({ Disable }) {
       criaStringLiquidoLivre();
     } else {
       removeStringLiquidoLivre();
-      setPosicaoLiquidoSelect("");
+      setQuantidadeLiquidoSelect("");
+      setPosicaoLiquidoSelect('')
     }
-  }, [LiquidoCheckBox, posicaoLiquidoSelect]);
+  }, [LiquidoCheckBox, QuantidadeLiquidoSelect, PosicaoLiquidoSelect]);
 
   return (
     <Box
@@ -101,7 +103,7 @@ function Liquido_Livre({ Disable }) {
             <Box>
               <HStack>
                 <Checkbox
-                  isDisabled={Disable}
+
                   whiteSpace="nowrap"
                   onChange={() => {
                     setLiquidoCheckBox(!LiquidoCheckBox);
@@ -110,19 +112,33 @@ function Liquido_Livre({ Disable }) {
                   Líquido Livre
                 </Checkbox>
                 <Select
-                  isDisabled={Disable || !LiquidoCheckBox}
+                  isDisabled={!LiquidoCheckBox}
                   w="auto"
                   onChange={(e) => {
-                    setPosicaoLiquidoSelect(e.target.value);
+                    setQuantidadeLiquidoSelect(e.target.value);
                   }}
-                  value={posicaoLiquidoSelect}
+                  value={QuantidadeLiquidoSelect}
                 >
                   <option value="" disabled selected>
-                    Posição
+                    quantidade
                   </option>
                   <option value="pequena">Pequena</option>
                   <option value="moderada">Moderada</option>
                   <option value="grande">Grande</option>
+                </Select>
+                <Select
+                  isDisabled={!LiquidoCheckBox}
+                  w="auto"
+                  onChange={(e) => {
+                    setPosicaoLiquidoSelect(e.target.value);
+                  }}
+                  value={PosicaoLiquidoSelect}
+                >
+                  <option value="" disabled selected>
+                    Posição
+                  </option>
+                  <option value="posterior">Posterior</option>
+                  <option value="anterior">Anterior</option>
                 </Select>
               </HStack>
             </Box>

@@ -144,7 +144,7 @@ function Extras({ Disable }) {
             <Box>
               <HStack>
                 <Checkbox
-                  isDisabled={Disable}
+
                   whiteSpace="nowrap"
                   onChange={() => {
                     setUteroBiCheckBox(!uteroBiCheckBox);
@@ -153,7 +153,7 @@ function Extras({ Disable }) {
                   Útero bicorno
                 </Checkbox>
                 <Checkbox
-                  isDisabled={Disable}
+
                   whiteSpace="nowrap"
                   onChange={() => {
                     setVarizesCheckBox(!varizesCheckBox);

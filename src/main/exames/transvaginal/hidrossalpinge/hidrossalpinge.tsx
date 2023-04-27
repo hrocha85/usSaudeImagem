@@ -103,7 +103,7 @@ function Hidrossalpinge({ Disable }) {
             <Box>
               <HStack>
                 <Checkbox
-                  isDisabled={Disable}
+
                   whiteSpace="nowrap"
                   onChange={() => {
                     setHidrossalpingeCheckBox(!HidrossalpingeCheckBox);
@@ -112,7 +112,7 @@ function Hidrossalpinge({ Disable }) {
                   Hidrossalpinge
                 </Checkbox>
                 <Select
-                  isDisabled={Disable || !HidrossalpingeCheckBox}
+                  isDisabled={!HidrossalpingeCheckBox}
                   w="auto"
                   onChange={(e) => {
                     setPosicaoHidrossalpingeSelect(e.target.value);
