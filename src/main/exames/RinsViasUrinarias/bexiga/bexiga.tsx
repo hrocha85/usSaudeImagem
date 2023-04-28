@@ -375,13 +375,19 @@ function Bexiga({ Disable }) {
   }, [Disable])
 
   const criaStringVolumePreMiccional = (dados1, dados2, dados3) => {
+    let medida1STR: string = dados1.toString().replace(',', '.');
+    let medida1: number = parseFloat(medida1STR);
+    let medida2STR: string = dados2.toString().replace(',', '.');
+    let medida2: number = parseFloat(medida2STR);
+    let medida3STR: string = dados3.toString().replace(',', '.');
+    let medida3: number = parseFloat(medida3STR);
     var string = 'Volume vesical pré-miccional estimado em'
     removeFraseVolumePreMiccional()
-    let volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
+    let volume = ((medida1) + (medida2) + (medida3)) / 1000
     setVolumePreMiccionalInput4(volume)
     if (!NaoCitarVolume) {
       if (dados1 != '' && dados2 != '' && dados3 != '' && VolumePreMiccionalInput4 != '') {
-        string = `${string} ${VolumePreMiccionalInput4} ml`
+        string = `${string} ${VolumePreMiccionalInput4.toFixed(2)} ml`
         setFraseBexiga((arr) => [...arr, string])
       } else if (dados1 != '' && dados2 != '' && dados3 != '') {
         string = `${string} ${dados1}x${dados2}x${dados3} cm`
@@ -414,13 +420,19 @@ function Bexiga({ Disable }) {
   }, [VolumePreMiccionalInput1, VolumePreMiccionalInput2, VolumePreMiccionalInput3, VolumePreMiccionalInput4, NaoCitarVolume])
 
   const criaStringResiduo = (dados1, dados2, dados3) => {
+    let medida1STR: string = dados1.toString().replace(',', '.');
+    let medida1: number = parseFloat(medida1STR);
+    let medida2STR: string = dados2.toString().replace(',', '.');
+    let medida2: number = parseFloat(medida2STR);
+    let medida3STR: string = dados3.toString().replace(',', '.');
+    let medida3: number = parseFloat(medida3STR);
     var string = 'Volume residuo estimado em'
     removeFraseResiduo()
-    let volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
+    let volume = ((medida1) + (medida2) + (medida3)) / 1000
     setResiduoInput4(volume)
     if (!NaoCitarResiduo) {
       if (dados1 != '' && dados2 != '' && dados3 != '' && ResiduoInput4 != '') {
-        string = `${string} ${ResiduoInput4} ml`
+        string = `${string} ${ResiduoInput4.toFixed(2)} ml`
         setFraseBexiga((arr) => [...arr, string])
       } else if (dados1 != '' && dados2 != '' && dados3 != '') {
         string = `${string}`

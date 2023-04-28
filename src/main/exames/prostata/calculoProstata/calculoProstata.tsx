@@ -91,16 +91,28 @@ function CalculoProstata() {
   };
 
   const calculoVolume = () => {
+    let medida1STR: string = medida1CalcProstata.toString().replace(',', '.');
+    let medida1: number = parseFloat(medida1STR);
+    let medida2STR: string = medida2CalcProstata.toString().replace(',', '.');
+    let medida2: number = parseFloat(medida2STR);
+    let medida3STR: string = medida3CalcProstata.toString().replace(',', '.');
+    let medida3: number = parseFloat(medida3STR);
     return (
-      Number(medida1CalcProstata) * Number(medida2CalcProstata) * Number(medida3CalcProstata) * 0.52
+      Number(medida1) * Number(medida2) * Number(medida3) * 0.52
     );
   };
 
   const criaStringCalcVolumePre = (medida1CalcVolumePre, medida2CalcVolumePre, medida3CalcVolumePre) => {
     removeCalcVolumePre();
+    let medida1STR: string = medida1CalcVolumePre.toString().replace(',', '.');
+    let medida1: number = parseFloat(medida1STR);
+    let medida2STR: string = medida2CalcVolumePre.toString().replace(',', '.');
+    let medida2: number = parseFloat(medida2STR);
+    let medida3STR: string = medida3CalcVolumePre.toString().replace(',', '.');
+    let medida3: number = parseFloat(medida3STR);
     if (CalcVolumePreCheckbox) {
       if (medida1CalcVolumePre != "" && medida2CalcVolumePre != "" && medida3CalcVolumePre != "") {
-        let conta = Number(medida1CalcVolumePre) * Number(medida2CalcVolumePre) * Number(medida3CalcVolumePre) * 0.52;
+        let conta = Number(medida1) * Number(medida2) * Number(medida3) * 0.52;
         let string = `Volume vesical pré-miccional de: ${conta.toFixed(2)} cm³`;
         setFrasesProstata((arr) => [...arr, string]);
       }
@@ -126,10 +138,15 @@ function CalculoProstata() {
 
   const criaStringCalcVolumePos = (medida1CalcVolumePos, medida2CalcVolumePos, medida3CalcVolumePos) => {
     removeCalcVolumePos();
-
+    let medida1STR: string = medida1CalcVolumePos.toString().replace(',', '.');
+    let medida1: number = parseFloat(medida1STR);
+    let medida2STR: string = medida2CalcVolumePos.toString().replace(',', '.');
+    let medida2: number = parseFloat(medida2STR);
+    let medida3STR: string = medida3CalcVolumePos.toString().replace(',', '.');
+    let medida3: number = parseFloat(medida3STR);
     if (
       medida1CalcVolumePos != "" && medida2CalcVolumePos != "" && medida3CalcVolumePos != "") {
-      let conta = Number(medida1CalcVolumePos) * Number(medida2CalcVolumePos) * Number(medida3CalcVolumePos) * 0.52;
+      let conta = Number(medida1) * Number(medida2) * Number(medida3) * 0.52;
       let string = `Volume residual pós-miccional de: ${conta.toFixed(1)} cm³`;
       setFrasesProstata((arr) => [...arr, string]);
     }

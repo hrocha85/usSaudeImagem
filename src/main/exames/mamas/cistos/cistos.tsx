@@ -76,7 +76,7 @@ function Cisto() {
       localizado !== "" &&
       ConteudoCistosMamaDireitoSelect !== ""
     ) {
-      var string = `Múltiplos Cistos no Mama direito, o maior conteúdo ${ConteudoCistosMamaDireitoSelect} ${localizado}n medindo ${tamanhoNoduloDireitoInput} mm `;
+      var string = `Múltiplos Cistos no Mama direito, o maior conteúdo ${ConteudoCistosMamaDireitoSelect} ${localizado}n medindo ${tamanhoNoduloDireitoInput} cm `;
       setFrasesCistos((arr) => [...arr, string]);
     }
   };
@@ -127,7 +127,7 @@ function Cisto() {
       localizado !== "" &&
       ConteudoCistosMamaEsquerdoSelect !== ""
     ) {
-      var string = `Múltiplos Cistos no Mama esquerdo, o maior conteúdo ${ConteudoCistosMamaEsquerdoSelect} ${localizado}n medindo ${tamanhoNoduloEsquerdoInput} mm `;
+      var string = `Múltiplos Cistos no Mama esquerdo, o maior conteúdo ${ConteudoCistosMamaEsquerdoSelect} ${localizado}n medindo ${tamanhoNoduloEsquerdoInput} cm `;
       setFrasesCistos((arr) => [...arr, string]);
     }
   };
@@ -236,12 +236,12 @@ function Cisto() {
               w="60px"
               h="77x"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 settamanhoCistoMamaDireitoInput(e.target.value);
               }}
-              placeholder={"mm"}
+              placeholder={"cm"}
             />
             <Select
               w="auto"
@@ -303,12 +303,12 @@ function Cisto() {
               w="60px"
               h="77x"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setTamanhoCistoMamaEsquerdoInput(e.target.value);
               }}
-              placeholder={"mm"}
+              placeholder={"cm"}
             />
             <Select
               w="auto"

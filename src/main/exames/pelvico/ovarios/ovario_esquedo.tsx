@@ -126,12 +126,19 @@ function Ovario_Esquerdo() {
 
   //Funcoes medidas ovario - Inicio
   const criaStringMedidasOvario = () => {
+    let medida1STR: string = medidaOvario1.toString().replace(',', '.');
+    let medida1: number = parseFloat(medida1STR);
+    let medida2STR: string = medidaOvario2.toString().replace(',', '.');
+    let medida2: number = parseFloat(medida2STR);
+    let medida3STR: string = medidaOvario3.toString().replace(',', '.');
+    let medida3: number = parseFloat(medida3STR);
+
     var string = 'Medida do ovário:'
     removeStringSelect(string)
     if (medidaOvario1 != "" && medidaOvario2 != "" && medidaOvario3 != "") {
-      var medida4 = (parseInt(medidaOvario1) * parseInt(medidaOvario2) * parseInt(medidaOvario3) / 1000) / 2
+      var medida4 = ((medida1) * (medida2) * (medida3) / 1000) / 2
       setmedidaOvario4(medida4)
-      string = `${string} ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm (${medida4} cm³)`;
+      string = `${string} ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm (${medida4.toFixed(2)} cm³)`;
       setFrasesOvarioesquerdo((arr) => [...arr, string]);
     } else {
       setmedidaOvario4(0)
@@ -410,7 +417,7 @@ function Ovario_Esquerdo() {
                 w="100px"
                 h="30px"
                 padding="0px"
-                value={medidaOvario4}
+                value={medidaOvario4.toFixed(2)}
                 textAlign="center"
               />
               <Text>cm³</Text>
