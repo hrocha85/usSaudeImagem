@@ -136,7 +136,13 @@ function Utero({ Disable }) {
   const [PosicaoSelect, setPosicaoSelect] = useState('');
 
   useEffect(() => {
-    var medida4 = (medidaUtero1 * (medidaUtero2) * (medidaUtero3) / 1000) / 2
+    let medida1STR: string = medidaUtero1.toString().replace(',', '.');
+    let medida1: number = parseFloat(medida1STR);
+    let medida2STR: string = medidaUtero2.toString().replace(',', '.');
+    let medida2: number = parseFloat(medida2STR);
+    let medida3STR: string = medidaUtero3.toString().replace(',', '.');
+    let medida3: number = parseFloat(medida3STR);
+    var medida4 = (medida1 * (medida2) * (medida3) / 1000) / 2
     setmedidaUtero4(medida4)
   }, [medidaUtero1, medidaUtero2, medidaUtero3])
 
@@ -145,7 +151,7 @@ function Utero({ Disable }) {
     let string = 'A forma é típica, com os limites precisos e contornos regulares, medindo'
     removeStringSelect(string)
     if (PosicaoSelect != '') {
-      string = `mediano, no ${PosicaoSelect}. ${string} ${medidaUtero1} x ${medidaUtero2} x ${medidaUtero3} mm (Vol = ${medidaUtero4} cm³).`;
+      string = `mediano, no ${PosicaoSelect}. ${string} ${medidaUtero1} x ${medidaUtero2} x ${medidaUtero3} mm (Vol = ${medidaUtero4.toFixed(2)} cm³).`;
       setFrasesUtero((arr) => [...arr, string]);
     }
   };
@@ -498,7 +504,7 @@ function Utero({ Disable }) {
             <Input
               w="100px"
               h="30px"
-              value={medidaUtero4}
+              value={medidaUtero4.toFixed(2)}
               padding="0px"
               textAlign="center"
 

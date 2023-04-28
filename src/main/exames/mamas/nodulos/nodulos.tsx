@@ -238,7 +238,6 @@ function Calculo() {
             }}
             placeholder={"cm"}
           />
-          <Text alignSelf="center">x</Text>
           <Select
             w="auto"
             isDisabled={!multiplosNoduloMamaCheckBox}

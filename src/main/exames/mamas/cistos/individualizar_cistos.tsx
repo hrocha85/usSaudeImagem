@@ -30,7 +30,7 @@ export default function IndividualizarCistos({ numCisto }) {
       ConteudoCistosSelect !== "" &&
       OrientacaoCistosSelect
     ) {
-      var string = `Nódulo ${numCisto} mede ${tamanhoCistoInput} mm ${CistosSelect} localizado ${localizado} no ${OrientacaoCistosSelect}.`;
+      var string = `Nódulo ${numCisto} mede ${tamanhoCistoInput} cm ${CistosSelect} localizado ${localizado} no ${OrientacaoCistosSelect}.`;
       setFrasesIndCis((arr) => [...arr, string]);
     }
   };
@@ -123,12 +123,12 @@ export default function IndividualizarCistos({ numCisto }) {
         w="60px"
         h="77x"
         padding="5px"
-        
+
         textAlign="center"
         onChange={(e) => {
           settamanhoCistoInput(e.target.value);
         }}
-        placeholder={"mm"}
+        placeholder={"cm"}
       />
       <Select
         w="auto"
