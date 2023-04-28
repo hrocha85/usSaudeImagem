@@ -6,29 +6,33 @@ import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarCistos({ numCisto }) {
   const [frasesIndCisto, setFrasesIndCisto] = useState<any>([]);
+  const [ConclusaoCisto, setConclusaoCisto] = useState<any>([]);
 
   const [tamanhoCistoInput, settamanhoCistoInput] = useState("");
   const [posicaoCistosSelect, setPosicaoCistosSelect] = useState("");
   const [localizacaoCistosSelect, setlocalizacaoCistosSelect] = useState("");
   const [multiplosCistosCheckBox, setmultiplosCistosCheckBox] = useState(false);
-  const [DisableSelect, setDisableSelect] = useState(true);
-
-  const criaStringMultiplosCistos = (
-    tamanhoCistoInput,
-    CistosSelect,
-    localizado
-  ) => {
+  const criaStringMultiplosCistos = () => {
+    var string = `Nota-se imagem anecóica, arredondada, de limites precisos e contornos regulares, com reforço acústico posterior: ${numCisto}º Cisto no`
+    let conclusao = 'Cisto renal.'
     removeMultiplosCistos();
-
-    if (tamanhoCistoInput !== "" && CistosSelect !== "" && localizado !== "") {
-      var string = `Cisto ${numCisto} mede ${tamanhoCistoInput} mm ${CistosSelect} localizado ${localizado} `;
-      setFrasesIndCisto((arr) => [...arr, string]);
+    removeItemConclusao(conclusao)
+    if (multiplosCistosCheckBox) {
+      if (tamanhoCistoInput !== "" && posicaoCistosSelect !== "" && localizacaoCistosSelect !== "") {
+        string = `${string} ${posicaoCistosSelect}, medindo ${tamanhoCistoInput} cm do ${localizacaoCistosSelect}.`;
+        setFrasesIndCisto((arr) => [...arr, string]);
+        setConclusaoCisto((arr) => [...arr, conclusao]);
+      }
+    } else {
+      settamanhoCistoInput("");
+      setPosicaoCistosSelect("");
+      setlocalizacaoCistosSelect("");
     }
   };
 
   const removeMultiplosCistos = () => {
     frasesIndCisto.map((e) => {
-      if (e.includes(`Cisto ${numCisto}`)) {
+      if (e.includes(` ${numCisto}º Cisto no`)) {
         var index = frasesIndCisto.indexOf(e);
 
         if (index > -1) {
@@ -38,22 +42,19 @@ export default function IndividualizarCistos({ numCisto }) {
       }
     });
   };
+  const removeItemConclusao = (value) => {
+    var index = ConclusaoCisto.indexOf(value);
+
+    if (index > -1) {
+      ConclusaoCisto.splice(index, 1);
+      setConclusaoCisto((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+    }
+  };
 
   useEffect(() => {
-    if (multiplosCistosCheckBox) {
-      setDisableSelect(false);
-      criaStringMultiplosCistos(
-        tamanhoCistoInput,
-        posicaoCistosSelect,
-        localizacaoCistosSelect
-      );
-    } else {
-      setDisableSelect(true);
-      removeMultiplosCistos();
-      settamanhoCistoInput("");
-      setPosicaoCistosSelect("");
-      setlocalizacaoCistosSelect("");
-    }
+
+    criaStringMultiplosCistos();
   }, [
     multiplosCistosCheckBox,
     posicaoCistosSelect,
@@ -61,7 +62,7 @@ export default function IndividualizarCistos({ numCisto }) {
     localizacaoCistosSelect,
   ]);
 
-  const subExame = "Individualizar Cistos";
+  const subExame = `${numCisto} Cisto`;
   const titulo_exame = "Rins e Vias Urinárias";
 
   useEffect(() => {
@@ -70,14 +71,16 @@ export default function IndividualizarCistos({ numCisto }) {
         titulo_exame,
         subExame,
         true,
-        frasesIndCisto
+        frasesIndCisto,
+        ConclusaoCisto
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesIndCisto
+        frasesIndCisto,
+        ConclusaoCisto
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesIndCisto]);
@@ -91,7 +94,7 @@ export default function IndividualizarCistos({ numCisto }) {
       </Checkbox>
 
       <Input
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosCistosCheckBox}
         value={tamanhoCistoInput}
         w="60px"
         h="77x"
@@ -104,7 +107,7 @@ export default function IndividualizarCistos({ numCisto }) {
       />
       <Select
         w="auto"
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosCistosCheckBox}
         onChange={(e) => {
           setPosicaoCistosSelect(e.target.value);
         }}
@@ -120,7 +123,7 @@ export default function IndividualizarCistos({ numCisto }) {
 
       <Select
         w="auto"
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosCistosCheckBox}
         onChange={(e) => {
           setlocalizacaoCistosSelect(e.target.value);
         }}

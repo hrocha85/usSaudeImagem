@@ -13,7 +13,7 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
   const [fraseTendaoInfraespinhalDireito, setFraseTendaoInfraespinhalDireito] = useState<any>([]);
   const [ConclusaoTendaoInfraespinhalDireito, setConclusaoTendaoInfraespinhalDireito] = useState<any>([]);
 
-  const subExame = 'Tendão Infraespinhal Direito'
+  const subExame = 'Ombro- Tendão Infraespinhal Direito'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -99,6 +99,18 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
     var string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox ? setFraseTendaoInfraespinhalDireito((arr) => [...arr, string]) : removeItemString(string);
   };
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+  }, [Normal])
+
+
   useEffect(() => {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
@@ -299,7 +311,7 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
 
       <Stack>
         <Checkbox
-          isDisabled={Disable}
+
           onChange={() => {
             setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
           }}
@@ -307,8 +319,10 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
           Pequenas calcificações junto à inserção
         </Checkbox>
         <Checkbox
-          isDisabled={Disable || disableAspectoNormal}
+          isChecked={Normal}
+          isDisabled={disableAspectoNormal}
           onChange={() => {
+            setNormal(!Normal)
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
         >
@@ -316,7 +330,6 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
         </Checkbox>
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={Disable || disableTendinopatiaSemRotura}
             onChange={() => {
               setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
             }}
@@ -347,7 +360,7 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setInputMedindoTendinopatiaSemRotura(e.target.value) }}
           />
@@ -356,7 +369,6 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
 
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={Disable || disableRoturaParcial}
             onChange={() => {
               setRoturaParcialCheckbox(!RoturaParcialCheckbox);
             }}
@@ -370,7 +382,7 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput(e.target.value) }}
             />
@@ -381,7 +393,7 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput2(e.target.value) }}
             />
@@ -392,7 +404,7 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput3(e.target.value) }}
             />
@@ -417,7 +429,6 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
         <Box display='flex' flexWrap='wrap' gap='5px'>
 
           <Checkbox
-            isDisabled={Disable || disableRoturaCompleta}
             onChange={() => {
               setRoturaCompletaCheckbox(!RoturaCompletaCheckbox);
             }}
@@ -431,7 +442,7 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setInputMedindoRoturaCompleta(e.target.value) }}
           />
@@ -451,7 +462,7 @@ function TendaoInfraespinhalOmbroDireito({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setInputRetracaoRoturaCompleta(e.target.value) }}
           />

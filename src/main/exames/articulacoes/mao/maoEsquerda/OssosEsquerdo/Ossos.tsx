@@ -73,6 +73,20 @@ function OssosEsquerda({ Disable }) {
     //criaStringAspectNormal()
   }, [AspectoNormal])
 
+  useEffect(() => {
+
+    var string = "Superfícies ósseas regulares."
+    AspectoNormal ? setAspectoNormal(!AspectoNormal) : removeItemString(string)
+
+  }, [AspectoNormal])
+
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
@@ -181,9 +195,13 @@ function OssosEsquerda({ Disable }) {
       <TituloNomeExame titulo="Ossos" />
       <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
         <Checkbox
+          isChecked={Normal}
           isDisabled={disableApectNormal}
-          onChange={() => setAspectoNormal(!AspectoNormal)}
-        >
+          onChange={() => {
+            setNormal(!Normal)
+            setAspectoNormal(!AspectoNormal)
+          }
+          }>
           Aspecto normal
         </Checkbox>
 

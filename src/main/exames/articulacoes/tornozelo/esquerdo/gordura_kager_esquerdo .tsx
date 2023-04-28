@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import { Box, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -28,6 +29,11 @@ export default function Gordura_Kager_Esquerdo({ Disable }) {
         break;
     }
   }, [value]);
+
+
+  useEffect(() => {
+    Disable ? setValue("Normal") : setValue('1')
+  }, [Disable])
 
   useEffect(() => {
     if (Object.keys(frasesTornozelo).length == 0) {
@@ -60,7 +66,7 @@ export default function Gordura_Kager_Esquerdo({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Gordura de Kager
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Normal">Normal</Radio>

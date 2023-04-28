@@ -46,6 +46,11 @@ export default function Bolsa_Direito({ Disable }) {
   }, [value]);
 
   useEffect(() => {
+    Disable ? setValue("Ausente") : setValue('1')
+  }, [Disable])
+
+
+  useEffect(() => {
     if (Object.keys(frasesTornozelo).length == 0) {
       new Format_Laudo(
         titulo_exame,
@@ -78,7 +83,7 @@ export default function Bolsa_Direito({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Bolsas
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Ausente">Ausência de Líquido</Radio>

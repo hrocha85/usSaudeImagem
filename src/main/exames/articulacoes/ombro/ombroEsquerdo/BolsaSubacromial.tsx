@@ -13,7 +13,7 @@ function BolsaSubacromial_SubdeltoideaEsquerdo({ Disable }) {
   const [fraseBolsaSubacromialSubdeltoidea, setFraseBolsaSubacromialSubdeltoidea] = useState<any>([]);
   const [ConclusaoBolsaSubacromialSubdeltoidea, setConclusaoBolsaSubacromialSubdeltoidea] = useState<any>([]);
 
-  const subExame = 'Bolsa Subacromial-subdeltoidea Esquerdo'
+  const subExame = 'Ombro- Bolsa Subacromial-subdeltoidea Esquerdo'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -94,6 +94,17 @@ function BolsaSubacromial_SubdeltoideaEsquerdo({ Disable }) {
     SemLiquidoCheckbox ? setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]) : removeItemString(string);
   };
 
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "Ausência de líquido na bolsa subacromial-subdeltoidea.";
+    Normal ? setSemLiquidoCheckbox(!SemLiquidoCheckbox) : removeItemString(string)
+  }, [Normal])
+
   useEffect(() => {
     criaStringSemLiquido()
   }, [SemLiquidoCheckbox])
@@ -154,8 +165,10 @@ function BolsaSubacromial_SubdeltoideaEsquerdo({ Disable }) {
       <Stack>
 
         <Checkbox
-          isDisabled={Disable || disableSemLiquido}
+          isChecked={Normal}
+          isDisabled={disableSemLiquido}
           onChange={() => {
+            setNormal(!Normal)
             setSemLiquidoCheckbox(!SemLiquidoCheckbox);
           }}
         >
@@ -164,7 +177,7 @@ function BolsaSubacromial_SubdeltoideaEsquerdo({ Disable }) {
 
         <Box display='flex' flexWrap='wrap' gap='10px'>
           <Checkbox
-            isDisabled={Disable || disableLiquido}
+            isDisabled={disableLiquido}
             onChange={() => {
               setLiquidoCheckbox(!LiquidoCheckbox);
             }}

@@ -12,7 +12,7 @@ function ArticulacaoAcromioclavicularEsquerdo({ Disable }) {
   const [fraseBolsaSubacromialSubdeltoidea, setFraseBolsaSubacromialSubdeltoidea] = useState<any>([]);
   const [ConclusaoBolsaSubacromialSubdeltoidea, setConclusaoBolsaSubacromialSubdeltoidea] = useState<any>([]);
 
-  const subExame = 'Articulação acromioclavicular ombro Esquerdo'
+  const subExame = 'Ombro- Articulação acromioclavicular ombro Esquerdo'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -94,6 +94,17 @@ function ArticulacaoAcromioclavicularEsquerdo({ Disable }) {
     NormalCheckbox ? setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]) : removeItemString(string);
 
   };
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "Articulação acromioclavicular de aspecto preservado.";
+    Normal ? setNormalCheckbox(!NormalCheckbox) : removeItemString(string)
+  }, [Normal])
+
 
   useEffect(() => {
     criaStringNormal()
@@ -148,8 +159,10 @@ function ArticulacaoAcromioclavicularEsquerdo({ Disable }) {
       <Stack>
 
         <Checkbox
-          isDisabled={Disable || disableNormal}
+          isChecked={Normal}
+          isDisabled={disableNormal}
           onChange={() => {
+            setNormal(!Normal)
             setNormalCheckbox(!NormalCheckbox);
           }}
         >
@@ -158,7 +171,7 @@ function ArticulacaoAcromioclavicularEsquerdo({ Disable }) {
 
         <Box display='flex' flexWrap='wrap' gap='10px'>
           <Checkbox
-            isDisabled={Disable || disableOsteofitos}
+            isDisabled={disableOsteofitos}
             onChange={() => {
               setOsteofitosCheckbox(!OsteofitosCheckbox);
             }}

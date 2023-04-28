@@ -136,7 +136,7 @@ function Utero({ Disable }) {
   const [PosicaoSelect, setPosicaoSelect] = useState('');
 
   useEffect(() => {
-    var medida4 = (medidaUtero1 * (medidaUtero2) * (medidaUtero3) / 1000) / 2
+    var medida4 = ((medidaUtero1) * (medidaUtero2) * (medidaUtero3) / 1000) / 2
     setmedidaUtero4(medida4)
   }, [medidaUtero1, medidaUtero2, medidaUtero3])
 

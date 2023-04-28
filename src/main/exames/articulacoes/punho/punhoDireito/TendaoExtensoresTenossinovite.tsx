@@ -10,7 +10,7 @@ function TendaoExtensoresTenossinoviteDireito({ Disable }) {
     const largura = "100%";
     const [fraseTendaoExtensoresTenossinoviteDireito, setFraseTendaoExtensoresTenossinoviteDireito] = useState<any>([]);
 
-    const subExame = "Tendões Extensores com tenossinovite Direito";
+    const subExame = "Punho- Tendões Extensores com tenossinovite Direito";
     const titulo_exame = "Articulações";
 
     useEffect(() => {
@@ -97,7 +97,7 @@ function TendaoExtensoresTenossinoviteDireito({ Disable }) {
 
 
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setICheckbox(!ICheckbox);
                     }}
@@ -105,7 +105,7 @@ function TendaoExtensoresTenossinoviteDireito({ Disable }) {
                     I = Abdoturo longo do polegar + extensor curto do polegar
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setIICheckbox(!IICheckbox);
                     }}
@@ -113,7 +113,7 @@ function TendaoExtensoresTenossinoviteDireito({ Disable }) {
                     II = Extensor longo radial do carpo + extensor curto radial do carpo
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setIIICheckbox(!IIICheckbox);
                     }}
@@ -121,7 +121,7 @@ function TendaoExtensoresTenossinoviteDireito({ Disable }) {
                     III = Extensor longo do polegar
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setIVCheckbox(!IVCheckbox);
                     }}
@@ -129,7 +129,7 @@ function TendaoExtensoresTenossinoviteDireito({ Disable }) {
                     IV = Extensor comum dos dedos e extensor do indicador
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setVCheckbox(!VCheckbox);
                     }}
@@ -137,7 +137,7 @@ function TendaoExtensoresTenossinoviteDireito({ Disable }) {
                     V = extensor do V dedo
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setVICheckbox(!VICheckbox);
                     }}

@@ -22,16 +22,14 @@ function TendaoPatelarEsquerdo({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        TendaoPatelarEsquerdo,
-        ConclusaoTendaoPatelarEsquerdo
+        TendaoPatelarEsquerdo
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        TendaoPatelarEsquerdo,
-        ConclusaoTendaoPatelarEsquerdo
+        TendaoPatelarEsquerdo
       ).Format_Laudo_Create_Storage();
     }
   }, [TendaoPatelarEsquerdo]);
@@ -113,6 +111,17 @@ function TendaoPatelarEsquerdo({ Disable }) {
     var string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox ? setTendaoPatelarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
   };
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+  }, [Normal])
+
 
   useEffect(() => {
     criaStringAspectoNormal()
@@ -267,15 +276,17 @@ function TendaoPatelarEsquerdo({ Disable }) {
 
       <Stack>
         <Checkbox
-          isDisabled={Disable || disableAspectoNormal}
+          isChecked={Normal}
+          isDisabled={disableAspectoNormal}
           onChange={() => {
+            setNormal(!Normal)
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
         >
           Aspecto Normal
         </Checkbox>
         <Checkbox
-          isDisabled={Disable || disableTendinopatiaSemRotura}
+          isDisabled={disableTendinopatiaSemRotura}
           onChange={() => {
             setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
           }}
@@ -285,7 +296,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
 
         <HStack>
           <Checkbox
-            isDisabled={Disable || disableLesaoParcial}
+            isDisabled={disableLesaoParcial}
             onChange={() => {
               setLesaoParcialCheckbox(!LesaoParcialCheckbox);
             }}
@@ -300,7 +311,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setLesaoParcialInput(e.target.value) }}
             />
@@ -311,7 +322,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setLesaoParcialInput2(e.target.value) }}
             />
@@ -322,7 +333,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setLesaoParcialInput3(e.target.value) }}
             />
@@ -330,7 +341,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
           </HStack>
         </HStack>
         <Checkbox
-          isDisabled={Disable || disableAspectoPosCirurgico}
+          isDisabled={disableAspectoPosCirurgico}
           onChange={() => {
             setAspectoPosCirurgicoCheckbox(!AspectoPosCirurgicoCheckbox);
           }}
@@ -366,7 +377,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setInputMedindoPresencaEntesofito(e.target.value) }}
           />

@@ -12,7 +12,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
 
   const [fraseTendaoSubescapularDireito, setFraseTendaoSubescapularDireito] = useState<any>([]);
 
-  const subExame = 'Tendão Subescapular Direito'
+  const subExame = 'Ombro- Tendão Subescapular Direito'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -96,6 +96,17 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
     var string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox ? setFraseTendaoSubescapularDireito((arr) => [...arr, string]) : removeItemString(string);
   }
+
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+  }, [Normal])
 
   useEffect(() => {
     criaStringAspectoNormal()
@@ -287,7 +298,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
 
       <Stack>
         <Checkbox
-          isDisabled={Disable}
+
           onChange={() => {
             setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
           }}
@@ -295,8 +306,10 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
           Pequenas calcificações junto à inserção
         </Checkbox>
         <Checkbox
-          isDisabled={Disable || disableAspectoNormal}
+          isChecked={Normal}
+          isDisabled={disableAspectoNormal}
           onChange={() => {
+            setNormal(!Normal)
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
         >
@@ -304,7 +317,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
         </Checkbox>
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={Disable || disableTendinopatiaSemRotura}
+            isDisabled={disableTendinopatiaSemRotura}
             onChange={() => {
               setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
             }}
@@ -335,7 +348,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setInputMedindoTendinopatiaSemRotura(e.target.value) }}
           />
@@ -344,7 +357,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
 
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={Disable || disableRoturaParcial}
+            isDisabled={disableRoturaParcial}
             onChange={() => {
               setRoturaParcialCheckbox(!RoturaParcialCheckbox);
             }}
@@ -358,7 +371,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput(e.target.value) }}
             />
@@ -369,7 +382,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput2(e.target.value) }}
             />
@@ -380,7 +393,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput3(e.target.value) }}
             />
@@ -405,7 +418,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
         <Box display='flex' flexWrap='wrap' gap='5px'>
 
           <Checkbox
-            isDisabled={Disable || disableRoturaCompleta}
+            isDisabled={disableRoturaCompleta}
             onChange={() => {
               setRoturaCompletaCheckbox(!RoturaCompletaCheckbox);
             }}
@@ -419,7 +432,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setInputMedindoRoturaCompleta(e.target.value) }}
           />
@@ -439,7 +452,7 @@ function TendaoSubescapularOmbroDireito({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setInputRetracaoRoturaCompleta(e.target.value) }}
           />

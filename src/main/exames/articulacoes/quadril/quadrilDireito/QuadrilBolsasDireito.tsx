@@ -115,7 +115,7 @@ function QuadrilBolsasDireito({ Disable }) {
 
 
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setSemLiuqidoCheckbox(!SemLiuqidoCheckbox);
                     }}
@@ -123,7 +123,7 @@ function QuadrilBolsasDireito({ Disable }) {
                     Sem líquido
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setLiquidoBolsaTrocantericaCheckbox(!LiquidoBolsaTrocantericaCheckbox);
                     }}
@@ -131,7 +131,7 @@ function QuadrilBolsasDireito({ Disable }) {
                     Líquido na bolsa trocantérica
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setLiquidoBolsaSubgluteaMediaCheckbox(!LiquidoBolsaSubgluteaMediaCheckbox);
                     }}
@@ -139,7 +139,7 @@ function QuadrilBolsasDireito({ Disable }) {
                     Líquido na bolsa subglútea média
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setLiquidoBolsaSubgluteaMinimaCheckbox(!LiquidoBolsaSubgluteaMinimaCheckbox);
                     }}
@@ -147,7 +147,7 @@ function QuadrilBolsasDireito({ Disable }) {
                     Líquido na bolsa subglútea mínima
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setLiquidoBolsaIlipsoasCheckbox(!LiquidoBolsaIlipsoasCheckbox);
                     }}

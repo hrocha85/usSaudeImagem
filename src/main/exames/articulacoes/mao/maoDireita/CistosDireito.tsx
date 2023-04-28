@@ -212,7 +212,7 @@ function MaoCistosDireito({ Disable }) {
                 <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
                     <Checkbox
-                        isDisabled={Disable}
+
                         onChange={() => {
                             setCistos1Checkbox(!Cistos1Checkbox);
                         }}
@@ -260,7 +260,7 @@ function MaoCistosDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            
+
                             textAlign="center"
                             onChange={(e) => { setCistos1Input(e.target.value) }}
                         />
@@ -271,7 +271,7 @@ function MaoCistosDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            
+
                             textAlign="center"
                             onChange={(e) => { setCistos1Input2(e.target.value) }}
                         />
@@ -285,7 +285,7 @@ function MaoCistosDireito({ Disable }) {
                 <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
                     <Checkbox
-                        isDisabled={Disable}
+
                         onChange={() => {
                             setCistos2Checkbox(!Cistos2Checkbox);
                         }}
@@ -333,7 +333,7 @@ function MaoCistosDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            
+
                             textAlign="center"
                             onChange={(e) => { setCistos2Input(e.target.value) }}
                         />
@@ -344,7 +344,7 @@ function MaoCistosDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            
+
                             textAlign="center"
                             onChange={(e) => { setCistos2Input2(e.target.value) }}
                         />

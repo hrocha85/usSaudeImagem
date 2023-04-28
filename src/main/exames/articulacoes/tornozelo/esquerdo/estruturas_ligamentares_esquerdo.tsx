@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import {
   Box,
   Flex,
@@ -136,6 +137,11 @@ export default function Estruturas_Ligamentares_Esquerdo({ Disable }) {
     }
   }, [value, valueSelect1, valueSelect2, valueSelect3]);
 
+
+  useEffect(() => {
+    Disable ? setValue("Normais") : setValue('1')
+  }, [Disable])
+
   useEffect(() => {
     if (Object.keys(frasesTornozelo).length == 0) {
       new Format_Laudo(
@@ -167,7 +173,7 @@ export default function Estruturas_Ligamentares_Esquerdo({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Estruturas Ligamentares{" "}
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
 
           <Stack direction="column">
             <Flex flexWrap='wrap' gap={1}>

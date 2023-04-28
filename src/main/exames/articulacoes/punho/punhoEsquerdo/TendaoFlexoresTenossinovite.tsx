@@ -12,7 +12,7 @@ function TendaoFlexoresTenossinoviteEsquerdo({ Disable }) {
 
     const [fraseTendaoFlexoreTenossinoviteEsquerdo, setFraseTendaoFlexoreTenossinoviteEsquerdo] = useState<any>([]);
 
-    const subExame = 'Tendões Flexores com tenossinovite Esquerdo'
+    const subExame = 'Punho- Tendões Flexores com tenossinovite Esquerdo'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -94,7 +94,7 @@ function TendaoFlexoresTenossinoviteEsquerdo({ Disable }) {
 
 
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setFlexorLongoPolegarCheckbox(!FlexorLongoPolegarCheckbox);
                     }}
@@ -102,7 +102,7 @@ function TendaoFlexoresTenossinoviteEsquerdo({ Disable }) {
                     Flexor longo do polegar
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setFlexorRadialCarpoCheckbox(!FlexorRadialCarpoCheckbox);
                     }}
@@ -110,7 +110,7 @@ function TendaoFlexoresTenossinoviteEsquerdo({ Disable }) {
                     Flexor radial do carpo
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setFlexoresSuperficiaisCheckbox(!FlexoresSuperficiaisCheckbox);
                     }}
@@ -118,7 +118,7 @@ function TendaoFlexoresTenossinoviteEsquerdo({ Disable }) {
                     Flexores superficiais dos dedos
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setFlexoresProfundosCheckbox(!FlexoresProfundosCheckbox);
                     }}
@@ -126,7 +126,7 @@ function TendaoFlexoresTenossinoviteEsquerdo({ Disable }) {
                     Flexores profundos dos dedos
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setFlexorPalmarLongoCheckbox(!FlexorPalmarLongoCheckbox);
                     }}

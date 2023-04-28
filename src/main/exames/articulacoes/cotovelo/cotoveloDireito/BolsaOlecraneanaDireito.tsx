@@ -12,7 +12,7 @@ function BolsaOlecreaneanaDireito({ Disable }) {
     const [fraseBolsaOlecreaneanaDireito, setFraseBolsaOlecreaneanaDireito] = useState<any>([]);
     const [ConclusaoBolsaOlecreaneanaDireito, setConclusaoBolsaOlecreaneanaDireito] = useState<any>([]);
 
-    const subExame = 'Tendão biceps braquial direito'
+    const subExame = 'Cotovelo- Tendão biceps braquial direito'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -111,7 +111,7 @@ function BolsaOlecreaneanaDireito({ Disable }) {
 
             <Stack>
                 <Checkbox
-                    isDisabled={Disable || disableSemLiquido}
+                    isDisabled={disableSemLiquido}
                     onChange={() => {
                         setSemLiquidoCheckbox(!SemLiquidoCheckbox);
                     }}
@@ -119,7 +119,7 @@ function BolsaOlecreaneanaDireito({ Disable }) {
                     Sem líquido
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable || disableComLiquidoEspessado}
+                    isDisabled={disableComLiquidoEspessado}
                     onChange={() => {
                         setComLiquidoEspessadoCheckbox(!ComLiquidoEspessadoCheckbox);
                     }}

@@ -10,7 +10,7 @@ function RetinaculoFlexoresDireito({ Disable }) {
     const [value, setValue] = useState("1");
     const [frasesPunhoRetinaculoFlexoresDireito, setFrasesPunhoRetinaculoFlexoresDireito] = useState<any>([]);
 
-    const subExame = "Retináculo dos flexores Direito";
+    const subExame = "Punho- Retináculo dos flexores Direito";
     const titulo_exame = "Articulações";
 
     useEffect(() => {
@@ -21,6 +21,10 @@ function RetinaculoFlexoresDireito({ Disable }) {
             setFrasesPunhoRetinaculoFlexoresDireito((arr) => [...arr, value]);
         }
     }, [value]);
+
+    useEffect(() => {
+        Disable ? setValue('Retináculo dos flexores de aspecto preservado.') : setValue('1')
+    }, [Disable])
 
     useEffect(() => {
         if (Object.keys(frasesPunhoRetinaculoFlexoresDireito).length == 0) {
@@ -54,7 +58,7 @@ function RetinaculoFlexoresDireito({ Disable }) {
         >
             <TituloNomeExame titulo="Retináculo dos flexores" />
 
-            <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+            <RadioGroup onChange={setValue} value={value} padding="10px">
                 <Stack direction="column">
                     <Radio value="1">Não citar</Radio>
                     <Radio value="Retináculo dos flexores de aspecto preservado.">Aspecto Normal</Radio>
