@@ -12,7 +12,7 @@ function PunhoCistosEsquerdo({ Disable }) {
 
   const [frasesPunhoCistosEsquerdo, setFrasesPunhoCistosEsquerdo] = useState<any>([]);
 
-  const subExame = 'Cistos Esquerdo'
+  const subExame = 'Punho- Cistos Esquerdo'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -172,7 +172,7 @@ function PunhoCistosEsquerdo({ Disable }) {
 
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={Disable}
+
             onChange={() => {
               setFaceDorsalCheckbox(!FaceDorsalCheckbox);
             }}
@@ -186,7 +186,7 @@ function PunhoCistosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setFaceDorsalInput(e.target.value) }}
             />
@@ -197,7 +197,7 @@ function PunhoCistosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setFaceDorsalInput2(e.target.value) }}
             />
@@ -208,7 +208,7 @@ function PunhoCistosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setFaceDorsalInput3(e.target.value) }}
             />
@@ -239,7 +239,7 @@ function PunhoCistosEsquerdo({ Disable }) {
         </Box>
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={Disable}
+
             onChange={() => {
               setFaceVolarCheckbox(!FaceVolarCheckbox);
             }}
@@ -253,7 +253,7 @@ function PunhoCistosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setFaceVolarInput(e.target.value) }}
             />
@@ -264,7 +264,7 @@ function PunhoCistosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setFaceVolarInput2(e.target.value) }}
             />
@@ -275,7 +275,7 @@ function PunhoCistosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setFaceVolarInput3(e.target.value) }}
             />

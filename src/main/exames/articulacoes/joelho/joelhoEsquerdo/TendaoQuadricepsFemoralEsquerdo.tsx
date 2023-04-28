@@ -79,6 +79,18 @@ function TendaoQuadricepsFemoralEsquerdo({ Disable }) {
 
     };
 
+
+    const [Normal, setNormal] = useState(false)
+
+    useEffect(() => {
+        Disable ? setNormal(true) : setNormal(false)
+    }, [Disable])
+
+    useEffect(() => {
+        var string = "FALTA";
+        Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+    }, [Normal])
+
     useEffect(() => {
         criaStringAspectoNormal()
     }, [AspectoNormalCheckbox])
@@ -202,15 +214,17 @@ function TendaoQuadricepsFemoralEsquerdo({ Disable }) {
 
             <Stack>
                 <Checkbox
-                    isDisabled={Disable || disableAspectoNormal}
+                    isChecked={Normal}
+                    isDisabled={disableAspectoNormal}
                     onChange={() => {
+                        setNormal(!Normal)
                         setAspectoNormalCheckbox(!AspectoNormalCheckbox);
                     }}
                 >
                     Aspecto Normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable || disableTendinopatiaSemRotura}
+                    isDisabled={disableTendinopatiaSemRotura}
                     onChange={() => {
                         setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
                     }}
@@ -220,7 +234,7 @@ function TendaoQuadricepsFemoralEsquerdo({ Disable }) {
 
                 <HStack>
                     <Checkbox
-                        isDisabled={Disable || disableLesaoParcial}
+                        isDisabled={disableLesaoParcial}
                         onChange={() => {
                             setLesaoParcialCheckbox(!LesaoParcialCheckbox);
                         }}
@@ -235,7 +249,7 @@ function TendaoQuadricepsFemoralEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            
+
                             textAlign="center"
                             onChange={(e) => { setLesaoParcialInput(e.target.value) }}
                         />
@@ -246,7 +260,7 @@ function TendaoQuadricepsFemoralEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            
+
                             textAlign="center"
                             onChange={(e) => { setLesaoParcialInput2(e.target.value) }}
                         />
@@ -257,7 +271,7 @@ function TendaoQuadricepsFemoralEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            
+
                             textAlign="center"
                             onChange={(e) => { setLesaoParcialInput3(e.target.value) }}
                         />
@@ -286,7 +300,7 @@ function TendaoQuadricepsFemoralEsquerdo({ Disable }) {
                                 w="45px"
                                 h="30px"
                                 padding="5px"
-                                
+
                                 textAlign="center"
                                 onChange={(e) => { setInputMedindoPresencaEntesofito(e.target.value) }}
                             />

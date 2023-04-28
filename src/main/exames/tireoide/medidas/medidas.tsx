@@ -62,7 +62,7 @@ function Medidas() {
       if (ValueInput1LoboDireito && ValueInput2LoboDireito && ValueInput3LoboDireito) {
         let medida4 = +(parseFloat(ValueInput1LoboDireito.replace(",", ".")) * parseFloat(ValueInput2LoboDireito.replace(",", ".")) * parseFloat(ValueInput3LoboDireito.replace(",", ".")))
         setValueInput4LoboDireito(parseFloat(medida4.toFixed(2)))
-        string = `${string} ${ValueInput1LoboDireito} x ${ValueInput2LoboDireito} x ${ValueInput3LoboDireito} cm (${medida4} cm³) `
+        string = `${string} ${ValueInput1LoboDireito} x ${ValueInput2LoboDireito} x ${ValueInput3LoboDireito} cm (${medida4.toFixed(2)} cm³) `
         setFrasesMedidas((arr) => [...arr, string]);
       }
     } else {
@@ -87,7 +87,7 @@ function Medidas() {
       if (ValueInput1LoboEsquerdo && ValueInput2LoboEsquerdo && ValueInput3LoboEsquerdo) {
         var medida4 = (parseFloat(ValueInput1LoboEsquerdo.replace(",", ".")) * parseFloat(ValueInput2LoboEsquerdo.replace(",", ".")) * parseFloat(ValueInput3LoboEsquerdo.replace(",", ".")))
         setValueInput4LoboEsquerdo(parseFloat(medida4.toFixed(2)))
-        string = `${string} ${ValueInput1LoboEsquerdo} x ${ValueInput2LoboEsquerdo} x ${ValueInput3LoboEsquerdo} cm (${medida4} cm³)`
+        string = `${string} ${ValueInput1LoboEsquerdo} x ${ValueInput2LoboEsquerdo} x ${ValueInput3LoboEsquerdo} cm (${medida4.toFixed(2)} cm³)`
         setFrasesMedidas((arr) => [...arr, string]);
       }
     } else {

@@ -33,6 +33,10 @@ function TendaoGluteoMedioDireito({ Disable }) {
     }, [value]);
 
     useEffect(() => {
+        Disable ? setValue('de espessura e contornos preservados e ecotextura característica.') : setValue('1');
+    }, [Disable])
+
+    useEffect(() => {
         if (Object.keys(frasesQuadrilTendaoGluteoMedioDireito).length == 0) {
             new Format_Laudo(
                 titulo_exame,
@@ -101,7 +105,7 @@ function TendaoGluteoMedioDireito({ Disable }) {
         >
             <TituloNomeExame titulo="Tendão do glúteo médio" />
 
-            <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+            <RadioGroup onChange={setValue} value={value} padding="10px">
                 <Stack direction="column">
                     <Radio value="1">Não citar</Radio>
                     <Radio value="de espessura e contornos preservados e ecotextura característica.">Aspecto Normal</Radio>
@@ -109,7 +113,7 @@ function TendaoGluteoMedioDireito({ Disable }) {
                 </Stack>
             </RadioGroup>
 
-            <Checkbox isDisabled={Disable}
+            <Checkbox
                 onChange={() => setPequenaCalcificacaoCheckbox(!PequenaCalcificacaoCheckbox)}>
                 pequena calcificação junto à inserção
             </Checkbox>

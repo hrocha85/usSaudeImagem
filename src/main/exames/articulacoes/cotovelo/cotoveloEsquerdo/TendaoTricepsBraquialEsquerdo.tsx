@@ -13,7 +13,7 @@ function TendaoTricepsBraquialEsquerdo({ Disable }) {
     const [fraseTendaoTricepsBraquialEsquerdo, setFraseTendaoTricepsBraquialEsquerdo] = useState<any>([]);
     const [ConclusaoTendaoTricepsBraquialEsquerdo, setConclusaoTendaoTricepsBraquialEsquerdo] = useState<any>([]);
 
-    const subExame = 'Tendão tríceps braquial Esquerdo'
+    const subExame = 'Cotovelo- Tendão tríceps braquial Esquerdo'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -93,6 +93,18 @@ function TendaoTricepsBraquialEsquerdo({ Disable }) {
         AspectoNormalCheckbox ? setFraseTendaoTricepsBraquialEsquerdo((arr) => [...arr, string]) :
             removeItemString(string);
     };
+
+    const [Normal, setNormal] = useState(false)
+
+    useEffect(() => {
+        Disable ? setNormal(true) : setNormal(false)
+    }, [Disable])
+
+    useEffect(() => {
+        var string = "com ecotextura e espessura preservadas e contornos normais.";
+        Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+    }, [Normal])
+
 
     useEffect(() => {
         criaStringAspectoNormal()
@@ -224,8 +236,9 @@ function TendaoTricepsBraquialEsquerdo({ Disable }) {
             <Stack>
                 <HStack>
                     <Checkbox
-                        isDisabled={Disable}
+
                         onChange={() => {
+
                             setEntesofitoCheckbox(!EntesofitoCheckbox);
                         }}
                     >
@@ -237,22 +250,24 @@ function TendaoTricepsBraquialEsquerdo({ Disable }) {
                         w="45px"
                         h="30px"
                         padding="5px"
-                        
+
                         textAlign="center"
                         onChange={(e) => { setEntesofitoInput(e.target.value) }}
                     />
                     <Text>mm</Text>
                 </HStack>
                 <Checkbox
-                    isDisabled={Disable || disableAspectoNormal}
+                    isChecked={Normal}
+                    isDisabled={disableAspectoNormal}
                     onChange={() => {
+                        setNormal(!Normal)
                         setAspectoNormalCheckbox(!AspectoNormalCheckbox);
                     }}
                 >
                     Aspecto Normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable || disableTendinopatiaSemRotura}
+                    isDisabled={disableTendinopatiaSemRotura}
                     onChange={() => {
                         setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
                     }}
@@ -261,7 +276,7 @@ function TendaoTricepsBraquialEsquerdo({ Disable }) {
                 </Checkbox>
                 <HStack>
                     <Checkbox
-                        isDisabled={Disable || disableRoturaParcial}
+                        isDisabled={disableRoturaParcial}
                         onChange={() => {
                             setRoturaParcialCheckbox(!RoturaParcialCheckbox);
                         }}
@@ -276,7 +291,7 @@ function TendaoTricepsBraquialEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            
+
                             textAlign="center"
                             onChange={(e) => { setRoturaParcialInput(e.target.value) }}
                         />
@@ -287,7 +302,7 @@ function TendaoTricepsBraquialEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            
+
                             textAlign="center"
                             onChange={(e) => { setRoturaParcialInput2(e.target.value) }}
                         />
@@ -298,7 +313,7 @@ function TendaoTricepsBraquialEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            
+
                             textAlign="center"
                             onChange={(e) => { setRoturaParcialInput3(e.target.value) }}
                         />

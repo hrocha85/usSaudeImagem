@@ -36,7 +36,7 @@ function Prostata() {
         <Box w='150px' >
           <Checkbox
             onChange={(e) => { SetDisable(!Disable) }}
-          >Abdômen normal</Checkbox>
+          >Próstata normal</Checkbox>
         </Box>
       </Box>
       <CalculoProstata />

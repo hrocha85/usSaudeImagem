@@ -98,7 +98,7 @@ export default function IndividualizarTenossinoviteFlexores({ numCalculo, Disabl
   return (
     <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
       <Checkbox
-        isDisabled={Disable}
+
         onChange={() => setmultiplosCalculosCheckbox(!multiplosCalculosCheckbox)}
       >
         {numCalculo}º dedo

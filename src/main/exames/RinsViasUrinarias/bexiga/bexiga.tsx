@@ -503,7 +503,7 @@ function Bexiga({ Disable }) {
               <Radio value="Bexiga com boa repleção, de conteúdo anecogênico, apresentando paredes difusamente espessadas e trabeculadas.">
                 Difusamente trabeculada (de esforço)
               </Radio>
-              <HStack>
+              <Box display='flex' flexWrap='wrap'>
                 <Radio value="contendo cálculo medindo">
                   Contendo cálculo medindo
                 </Radio>
@@ -528,8 +528,8 @@ function Bexiga({ Disable }) {
                   <option value="difusamente trabeculadas">difusamente trabeculadas</option>
                 </Select>
 
-              </HStack>
-              <HStack>
+              </Box>
+              <Box display='flex' flexWrap='wrap'>
                 <Radio value="Estudo ultrassonográfico">
                   Estudo ultrassonográfico
                 </Radio>
@@ -543,7 +543,7 @@ function Bexiga({ Disable }) {
                   <option value="repleção">Repleção</option>
                 </Select>
 
-              </HStack>
+              </Box>
             </Stack>
             <Spacer />
             <Stack>
@@ -558,7 +558,7 @@ function Bexiga({ Disable }) {
             </Stack>
           </Flex>
           <Box w='auto'>
-            <HStack >
+            <Box display='flex' flexWrap='wrap'>
               <Radio value="lesão vegetante">Lesão vegetante medindo</Radio>
               <Input
                 p='0'
@@ -578,7 +578,7 @@ function Bexiga({ Disable }) {
                 onChange={(e) => setValueInput2(e.target.value)}
               />
               <Text alignSelf='center'>cm</Text>
-            </HStack>
+            </Box>
             <Box display='flex' flexWrap='wrap' ml='30px'>
               <Text alignSelf='center'>situada</Text>
               <Select w='150px'
@@ -675,13 +675,13 @@ function Bexiga({ Disable }) {
         </Box >
       </Box >
 
-      <Box mb="20px" gap="10px" display="flex" flexWrap="wrap" mt="20px">
+      <Box mb="20px" gap="20px" display="flex" flexWrap="wrap" mt="20px">
 
 
         <Box display='flex' flexWrap='wrap' gap='10px'>
           <Box>
             <Text>Vol. pré-miccional:</Text>
-            <HStack>
+            <Box alignItems='center' display='flex' flexWrap='wrap'>
               <Input
                 p='0'
                 textAlign='center'
@@ -730,12 +730,12 @@ function Bexiga({ Disable }) {
                 onChange={() => setNaoCitarVolume(!NaoCitarVolume)}>
                 Não citar
               </Checkbox>
-            </HStack>
+            </Box>
           </Box>
         </Box>
         <Box>
           <Text>Resíduo:</Text>
-          <HStack>
+          <Box alignItems='center' display='flex' flexWrap='wrap'>
             <Input
               p='0'
               textAlign='center'
@@ -784,7 +784,7 @@ function Bexiga({ Disable }) {
               onChange={() => setNaoCitarResiduo(!NaoCitarResiduo)}>
               Não citar
             </Checkbox>
-          </HStack>
+          </Box>
         </Box>
       </Box>
     </Box >

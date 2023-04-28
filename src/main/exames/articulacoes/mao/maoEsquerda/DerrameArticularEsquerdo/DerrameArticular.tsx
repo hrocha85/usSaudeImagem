@@ -75,6 +75,17 @@ function MaoDerrameArticularEsquerda({ Disable }) {
   }, [AusenciaDerrame])
 
 
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "Ausência de derrame articular."
+    Normal ? setAusenciaDerrame(!AusenciaDerrame) : removeItemString(string)
+  }, [Normal])
+
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
     const conclusao = 'Derrame articular.'
@@ -182,8 +193,14 @@ function MaoDerrameArticularEsquerda({ Disable }) {
       <TituloNomeExame titulo="Derrame Articular" />
       <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
         <Checkbox
+          isChecked={Normal}
+
           isDisabled={disableAspectNormal}
-          onChange={() => setAusenciaDerrame(!AusenciaDerrame)}
+          onChange={() => {
+            setNormal(!Normal)
+            setAusenciaDerrame(!AusenciaDerrame)
+          }
+          }
         >
           Ausência de derrame articular
         </Checkbox>

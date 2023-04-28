@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
   Checkbox,
@@ -70,6 +71,10 @@ export default function Derrame_Articular_Esquerdo({ Disable }) {
   }, [value]);
 
   useEffect(() => {
+    Disable ? setValue("Ausência de derrame articular detectável.") : setValue('1')
+  }, [Disable])
+
+  useEffect(() => {
     var select = `Derrame articular ${valueSelect1} `;
     var select_checkbox = `Derrame articular ${valueSelect1} com espessamento sinovial`;
 
@@ -116,7 +121,7 @@ export default function Derrame_Articular_Esquerdo({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Derrame articular
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Ausência de derrame articular detectável.">

@@ -56,6 +56,18 @@ function LigColTibialMedialEsquerdo({ Disable }) {
       removeItemString(string);
     }
   };
+
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "Ligamento colateral tibial e ligamento colateral fibular com ecotextura e espessura preservadas e contornos normais.";
+    Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+  }, [Normal])
+
   useEffect(() => {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
@@ -136,8 +148,10 @@ function LigColTibialMedialEsquerdo({ Disable }) {
       <Stack>
 
         <Checkbox
-          isDisabled={Disable || disableAspectoNormal}
+          isChecked={Normal}
+          isDisabled={disableAspectoNormal}
           onChange={() => {
+            setNormal(!Normal)
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
         >
@@ -145,7 +159,7 @@ function LigColTibialMedialEsquerdo({ Disable }) {
         </Checkbox>
 
         <Checkbox
-          isDisabled={Disable || disableLesaoAfilamento}
+          isDisabled={disableLesaoAfilamento}
           onChange={() => {
             setLesaoAfilamentoCheckbox(!LesaoAfilamentoCheckbox);
           }}
@@ -153,7 +167,7 @@ function LigColTibialMedialEsquerdo({ Disable }) {
         </Checkbox>
 
         <Checkbox
-          isDisabled={Disable || disableLesaoEspessamento}
+          isDisabled={disableLesaoEspessamento}
           onChange={() => {
             setLesaoEspessamentoCheckbox(!LesaoEspessamentoCheckbox);
           }}

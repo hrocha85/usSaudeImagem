@@ -206,7 +206,7 @@ function Axila_esquerda() {
         <TituloNomeExame titulo="Axila esquerda" />
 
         <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
-          <Box display="flex">
+          <Box display="flex" flexWrap='wrap'>
             <Checkbox
               onChange={(e) => {
                 setCheckboxPeleTecido(
@@ -288,7 +288,7 @@ function Axila_esquerda() {
             </Checkbox>
           </Box>
 
-          <Box display="flex">
+          <Box display="flex" flexWrap='wrap'>
             <Checkbox
               onChange={(e) => {
                 setCheckboxHiperecogenicaContornos(

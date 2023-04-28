@@ -70,6 +70,17 @@ function Polias({ Disable }) {
 
   }, [AspectoNormal])
 
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "Polias dos tendões flexores dos dedos sem anormalidades identificáveis."
+    Normal ? setAspectoNormal(!AspectoNormal) : removeItemString(string)
+  }, [Normal])
+
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos()
     var string = 'Dedo 1 com descontinuidade das polias: '
@@ -134,9 +145,13 @@ function Polias({ Disable }) {
       <TituloNomeExame titulo="Polias" />
       <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
         <Checkbox
+          isChecked={Normal}
           isDisabled={disableApectNormal}
-          onChange={() => setAspectoNormal(!AspectoNormal)}
-        >
+          onChange={() => {
+            setNormal(!Normal)
+            setAspectoNormal(!AspectoNormal)
+          }
+          }>
           Aspecto normal
         </Checkbox>
 

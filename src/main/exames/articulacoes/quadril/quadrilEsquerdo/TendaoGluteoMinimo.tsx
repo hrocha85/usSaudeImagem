@@ -13,7 +13,7 @@ function TendaoGluteoMinimoEsquerdo({ Disable }) {
     const [frasesQuadrilTendaoGluteoMinimoEsquerdo, setFrasesQuadrilTendaoGluteoMinimoEsquerdo] = useState<any>([]);
     const [ConclusaoQuadrilTendaoGluteoMinimoEsquerdo, setConclusaoQuadrilTendaoGluteoMinimoEsquerdo] = useState<any>([]);
 
-    const subExame = "Tendão do glúteo mínimo Esquerdo";
+    const subExame = "Quadril- Tendão do glúteo mínimo Esquerdo";
     const titulo_exame = "Articulações";
 
     useEffect(() => {
@@ -51,7 +51,9 @@ function TendaoGluteoMinimoEsquerdo({ Disable }) {
         }
     }, [frasesQuadrilTendaoGluteoMinimoEsquerdo]);
 
-
+    useEffect(() => {
+        Disable ? setValue('de espessura e contornos preservados e ecotextura característica.') : setValue('1');
+    }, [Disable])
     const criaStringPequenaCalcificacao = () => {
         var string = `Pequena calcificação junto à inserção do glúteo mínimo.`;
         const conclusao = 'Pequenas calcificações junto às inserções do glúteo mínimo.'
@@ -101,7 +103,7 @@ function TendaoGluteoMinimoEsquerdo({ Disable }) {
         >
             <TituloNomeExame titulo="Tendão do glúteo mínimo" />
 
-            <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+            <RadioGroup onChange={setValue} value={value} padding="10px">
                 <Stack direction="column">
                     <Radio value="1">Não citar</Radio>
                     <Radio value="de espessura e contornos preservados e ecotextura característica.">Aspecto Normal</Radio>
@@ -109,7 +111,7 @@ function TendaoGluteoMinimoEsquerdo({ Disable }) {
                 </Stack>
             </RadioGroup>
 
-            <Checkbox isDisabled={Disable}
+            <Checkbox
                 onChange={() => setPequenaCalcificacaoCheckbox(!PequenaCalcificacaoCheckbox)}>
                 pequena calcificação junto à inserção
             </Checkbox>

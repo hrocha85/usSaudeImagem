@@ -160,6 +160,11 @@ export default function Tendao_Flexor_Dedos_Direito({ Disable }) {
   ]);
 
   useEffect(() => {
+    Disable ? setValue("Aspecto Normal") : setValue('1')
+  }, [Disable])
+
+
+  useEffect(() => {
     if (Object.keys(frasesTornozelo).length == 0) {
       new Format_Laudo(
         titulo_exame,
@@ -189,7 +194,7 @@ export default function Tendao_Flexor_Dedos_Direito({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Tendão Flexor Longo dos Dedos{" "}
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <HStack>
@@ -234,7 +239,7 @@ export default function Tendao_Flexor_Dedos_Direito({ Disable }) {
                     h="30px"
                     value={medida1Lesao}
                     padding="5px"
-                    
+
                     textAlign="center"
                     onChange={(e) => {
                       setMedida1Lesao(e.target.value);
@@ -247,7 +252,7 @@ export default function Tendao_Flexor_Dedos_Direito({ Disable }) {
                     h="30px"
                     value={medida2Lesao}
                     padding="5px"
-                    
+
                     textAlign="center"
                     onChange={(e) => {
                       setMedida2Lesao(e.target.value);
@@ -260,7 +265,7 @@ export default function Tendao_Flexor_Dedos_Direito({ Disable }) {
                     h="30px"
                     value={medida3Lesao}
                     padding="5px"
-                    
+
                     textAlign="center"
                     onChange={(e) => {
                       setMedida3Lesao(e.target.value);

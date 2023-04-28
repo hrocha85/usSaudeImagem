@@ -56,6 +56,19 @@ function LigColFibularLateralEsquerdo({ Disable }) {
       removeItemString(string);
     }
   };
+
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
+    Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+  }, [Normal])
+
+
   useEffect(() => {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
@@ -136,8 +149,10 @@ function LigColFibularLateralEsquerdo({ Disable }) {
       <Stack>
 
         <Checkbox
-          isDisabled={Disable || disableAspectoNormal}
+          isChecked={Normal}
+          isDisabled={disableAspectoNormal}
           onChange={() => {
+            setNormal(!Normal)
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
         >
@@ -145,7 +160,7 @@ function LigColFibularLateralEsquerdo({ Disable }) {
         </Checkbox>
 
         <Checkbox
-          isDisabled={Disable || disableLesaoAfilamento}
+          isDisabled={disableLesaoAfilamento}
           onChange={() => {
             setLesaoAfilamentoCheckbox(!LesaoAfilamentoCheckbox);
           }}
@@ -153,7 +168,7 @@ function LigColFibularLateralEsquerdo({ Disable }) {
         </Checkbox>
 
         <Checkbox
-          isDisabled={Disable || disableLesaoEspessamento}
+          isDisabled={disableLesaoEspessamento}
           onChange={() => {
             setLesaoEspessamentoCheckbox(!LesaoEspessamentoCheckbox);
           }}

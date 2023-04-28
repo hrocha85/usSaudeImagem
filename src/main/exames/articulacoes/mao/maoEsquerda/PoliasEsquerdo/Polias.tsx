@@ -39,8 +39,6 @@ function Polias({ Disable }) {
   const [DisableCheckbox, setDisableCheckbox] = useState(true);
   const [AspectoNormal, setAspectoNormal] = useState(false);
   const [PrimeiroDedo, setPrimeiroDedo] = useState(false);
-  const [disableDescontinuidade, setdisableDescontinuidade] = useState(false);
-  const [disableApectNormal, setdisableApectNormal] = useState(false);
 
   const [A1, setA1] = useState(false);
   const [A2, setA2] = useState(false);
@@ -57,18 +55,23 @@ function Polias({ Disable }) {
     }
   };
 
-  useEffect(() => {
-    !DisableCheckbox ?
-      setdisableApectNormal(true) :
-      setdisableApectNormal(false)
-  })
 
   useEffect(() => {
     var string = "Polias dos tendões flexores dos dedos sem anormalidades identificáveis."
-    AspectoNormal ? setdisableDescontinuidade(true) : setdisableDescontinuidade(false)
     AspectoNormal ? setFrasePoliasEsquerdo((arr) => [...arr, string]) : removeItemString(string)
 
   }, [AspectoNormal])
+
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "Polias dos tendões flexores dos dedos sem anormalidades identificáveis."
+    Normal ? setAspectoNormal(!AspectoNormal) : removeItemString(string)
+  }, [Normal])
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos()
@@ -134,14 +137,18 @@ function Polias({ Disable }) {
       <TituloNomeExame titulo="Polias" />
       <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
         <Checkbox
-          isDisabled={disableApectNormal}
-          onChange={() => setAspectoNormal(!AspectoNormal)}
+          isChecked={Normal}
+
+          onChange={() => {
+            setNormal(!Normal)
+            setAspectoNormal(!AspectoNormal)
+          }}
         >
           Aspecto normal
         </Checkbox>
 
         <Checkbox
-          isDisabled={disableDescontinuidade}
+
           onChange={() => setDisableCheckbox(!DisableCheckbox)}
         >
           Descontinuidade das seguintes polias

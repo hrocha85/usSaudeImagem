@@ -115,7 +115,7 @@ function AlteracaoPosCirurgiaDireito({ Disable }) {
       <Stack>
 
         <Checkbox
-          isDisabled={Disable}
+
           onChange={() => {
             setArtefatoCirurgicoCheckbox(!ArtefatoCirurgicoCheckbox);
           }}
@@ -125,7 +125,7 @@ function AlteracaoPosCirurgiaDireito({ Disable }) {
         <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
           <Checkbox
-            isDisabled={Disable}
+
             onChange={() => setArtefatoCirurgicoTransfixandoCheckbox(!ArtefatoCirurgicoTransfixandoCheckbox)}>
             Artefato cirúrgico (fixação) no metacarpo. transfixando
           </Checkbox>

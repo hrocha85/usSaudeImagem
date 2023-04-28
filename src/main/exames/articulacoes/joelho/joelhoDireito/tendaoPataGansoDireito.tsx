@@ -57,6 +57,18 @@ function TendaoPataGansoDireito({ Disable }) {
       removeItemString(string);
     }
   };
+
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = 'Inserção distal dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso) com aspecto conservado.';
+    Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+  }, [Normal])
+
   useEffect(() => {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
@@ -137,8 +149,10 @@ function TendaoPataGansoDireito({ Disable }) {
 
       <Stack>
         <Checkbox
-          isDisabled={Disable || disableAspectoNormal}
+          isChecked={Normal}
+          isDisabled={disableAspectoNormal}
           onChange={() => {
+            setNormal(!Normal)
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
         >
@@ -146,7 +160,7 @@ function TendaoPataGansoDireito({ Disable }) {
         </Checkbox>
 
         <Checkbox
-          isDisabled={Disable || disableTendinopatia}
+          isDisabled={disableTendinopatia}
           onChange={() => {
             setTendinopatiaCheckbox(!TendinopatiaCheckbox);
           }}
@@ -154,7 +168,7 @@ function TendaoPataGansoDireito({ Disable }) {
         </Checkbox>
 
         <Checkbox
-          isDisabled={Disable || disableLiquidoBolsaSinovial}
+          isDisabled={disableLiquidoBolsaSinovial}
           onChange={() => {
             setLiquidoBolsaSinovialCheckbox(!LiquidoBolsaSinovialCheckbox);
           }}

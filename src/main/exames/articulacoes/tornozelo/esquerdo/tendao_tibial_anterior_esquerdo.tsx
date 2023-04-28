@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import {
   Box,
   Checkbox,
@@ -135,6 +136,10 @@ export default function Tendao_Tibial_Anterior_Esquerdo({ Disable }) {
   ]);
 
   useEffect(() => {
+    Disable ? setValue("Aspecto Normal.") : setValue('1')
+  }, [Disable])
+
+  useEffect(() => {
     if (Object.keys(frasesTornozelo).length == 0) {
       new Format_Laudo(
         titulo_exame,
@@ -166,12 +171,12 @@ export default function Tendao_Tibial_Anterior_Esquerdo({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Tendão Tibial Anterior
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <HStack>
               <Flex flexWrap="wrap" gap={1}>
-                <Radio value="Aspecto Normal">Aspecto Normal</Radio>
+                <Radio value="Aspecto Normal.">Aspecto Normal</Radio>
                 <Checkbox
                   isDisabled={!disableCheckBox}
                   onChange={() => setValueCheckBox(!valueCheckBox)}
@@ -212,7 +217,7 @@ export default function Tendao_Tibial_Anterior_Esquerdo({ Disable }) {
                     h="30px"
                     value={medida1Lesao}
                     padding="5px"
-                    
+
                     textAlign="center"
                     onChange={(e) => {
                       setMedida1Lesao(e.target.value);
@@ -225,7 +230,7 @@ export default function Tendao_Tibial_Anterior_Esquerdo({ Disable }) {
                     h="30px"
                     value={medida2Lesao}
                     padding="5px"
-                    
+
                     textAlign="center"
                     onChange={(e) => {
                       setMedida2Lesao(e.target.value);
@@ -238,7 +243,7 @@ export default function Tendao_Tibial_Anterior_Esquerdo({ Disable }) {
                     h="30px"
                     value={medida3Lesao}
                     padding="5px"
-                    
+
                     textAlign="center"
                     onChange={(e) => {
                       setMedida3Lesao(e.target.value);

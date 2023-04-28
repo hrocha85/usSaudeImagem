@@ -43,14 +43,11 @@ function RinseViasUrinarias() {
         <Calculo />
         <Cisto />
         <Dilatacao />
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="400px" mb="15px">
-            <Nodulos />
-          </Box>
-          <Box w="370px" mb="15px">
-            <Bexiga Disable={Disable} />
-          </Box>
-        </Box>
+
+        <Nodulos />
+
+        <Bexiga Disable={Disable} />
+
       </Box>
     </>
   );

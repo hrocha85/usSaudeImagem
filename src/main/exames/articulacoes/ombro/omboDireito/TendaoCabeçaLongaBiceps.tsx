@@ -14,7 +14,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
   const [fraseTendaoCabecaLongaBicepsDireito, setFraseTendaoCabecaLongaBicepsDireito] = useState<any>([]);
   const [ConclusaoTendaoCabecaLongaBicepsDireito, setConclusaoTendaoCabecaLongaBicepsDireito] = useState<any>([]);
 
-  const subExame = 'Tendão da cabeça longa do Bíceps Direito'
+  const subExame = 'Ombro- Tendão da cabeça longa do Bíceps Direito'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -102,6 +102,18 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
     var string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox ? setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]) : removeItemString(string);
   };
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+  }, [Normal])
+
+
   useEffect(() => {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
@@ -414,7 +426,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
 
       <Stack>
         <Checkbox
-          isDisabled={Disable}
+
           onChange={() => {
             setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
           }}
@@ -422,8 +434,10 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
           Pequenas calcificações junto à inserção
         </Checkbox>
         <Checkbox
-          isDisabled={Disable || disableAspectoNormal}
+          isChecked={Normal}
+          isDisabled={disableAspectoNormal}
           onChange={() => {
+            setNormal(!Normal)
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
         >
@@ -431,7 +445,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
         </Checkbox>
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={Disable || disableTendinopatiaSemRotura}
+            isDisabled={disableTendinopatiaSemRotura}
             onChange={() => {
               setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
             }}
@@ -461,7 +475,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
 
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={Disable || disableRoturaParcial}
+            isDisabled={disableRoturaParcial}
             onChange={() => {
               setRoturaParcialCheckbox(!RoturaParcialCheckbox);
             }}
@@ -475,7 +489,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput(e.target.value) }}
             />
@@ -486,7 +500,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput2(e.target.value) }}
             />
@@ -497,7 +511,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput3(e.target.value) }}
             />
@@ -508,7 +522,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
         <Box display='flex' flexWrap='wrap' gap='5px'>
 
           <Checkbox
-            isDisabled={Disable || disableRoturaCompleta}
+            isDisabled={disableRoturaCompleta}
             onChange={() => {
               setRoturaCompletaCheckbox(!RoturaCompletaCheckbox);
             }}
@@ -522,7 +536,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setInputMedindoRoturaCompleta(e.target.value) }}
           />
@@ -542,13 +556,13 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setInputRetracaoRoturaCompleta(e.target.value) }}
           />
         </Box>
         <Checkbox
-          isDisabled={Disable || disableRoturaLongitudinal}
+          isDisabled={disableRoturaLongitudinal}
           onChange={() => {
             setRoturaLongitudinalCheckbox(!RoturaLongitudinalCheckbox);
           }}
@@ -557,7 +571,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
         </Checkbox>
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={Disable || DisableLuxacaoCheckbox}
+            isDisabled={DisableLuxacaoCheckbox}
             onChange={() => {
               setLuxacaoCheckbox(!LuxacaoCheckbox);
             }}

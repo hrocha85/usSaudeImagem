@@ -13,7 +13,7 @@ function TenComumExtensoresAntebracoDireito({ Disable }) {
     const [fraseTenComumExtensoresAntebracoDireito, setFraseTenComumExtensoresAntebracoDireito] = useState<any>([]);
     const [ConclusaoTenComumExtensoresAntebracoDireito, setConclusaoTenComumExtensoresAntebracoDireito] = useState<any>([]);
 
-    const subExame = 'Tendão comum extensores antebraço '
+    const subExame = 'Cotovelo- Tendão comum extensores antebraço direito'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -81,6 +81,18 @@ function TenComumExtensoresAntebracoDireito({ Disable }) {
         var string = "com ecotextura e espessura preservadas e contornos normais.";
         AspectoNormalCheckbox ? setFraseTenComumExtensoresAntebracoDireito((arr) => [...arr, string]) : removeItemString(string);
     };
+
+    const [Normal, setNormal] = useState(false)
+
+    useEffect(() => {
+        Disable ? setNormal(true) : setNormal(false)
+    }, [Disable])
+
+    useEffect(() => {
+        var string = "com ecotextura e espessura preservadas e contornos normais.";
+        Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+    }, [Normal])
+
 
     useEffect(() => {
         criaStringAspectoNormal()
@@ -186,7 +198,7 @@ function TenComumExtensoresAntebracoDireito({ Disable }) {
 
             <Stack>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
                     }}
@@ -194,15 +206,17 @@ function TenComumExtensoresAntebracoDireito({ Disable }) {
                     Pequenas calcificações junto à inserção
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable || disableAspectoNormal}
+                    isChecked={Normal}
+                    isDisabled={disableAspectoNormal}
                     onChange={() => {
+                        setNormal(!Normal)
                         setAspectoNormalCheckbox(!AspectoNormalCheckbox);
                     }}
                 >
                     Aspecto Normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable || disableTendinopatiaSemRotura}
+                    isDisabled={disableTendinopatiaSemRotura}
                     onChange={() => {
                         setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
 
@@ -212,7 +226,7 @@ function TenComumExtensoresAntebracoDireito({ Disable }) {
                 </Checkbox>
                 <HStack>
                     <Checkbox
-                        isDisabled={Disable || disableRoturaParcial}
+                        isDisabled={disableRoturaParcial}
                         onChange={() => {
                             setRoturaParcialCheckbox(!RoturaParcialCheckbox);
                         }}
@@ -227,7 +241,7 @@ function TenComumExtensoresAntebracoDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            
+
                             textAlign="center"
                             onChange={(e) => { setRoturaParcialInput(e.target.value) }}
                         />
@@ -238,7 +252,7 @@ function TenComumExtensoresAntebracoDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            
+
                             textAlign="center"
                             onChange={(e) => { setRoturaParcialInput2(e.target.value) }}
                         />
@@ -249,7 +263,7 @@ function TenComumExtensoresAntebracoDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            
+
                             textAlign="center"
                             onChange={(e) => { setRoturaParcialInput3(e.target.value) }}
                         />

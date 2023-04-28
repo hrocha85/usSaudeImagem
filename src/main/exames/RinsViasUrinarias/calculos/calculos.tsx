@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -39,7 +39,27 @@ function Calculo() {
   const [posicaoUreterSelect, setPosicaoUreterSelect] = useState("");
   const [tamanhoUreterInput, setTamanhoUreterInput] = useState("");
 
+  const [numberArray, setNumberArray] = useState([1]);
 
+  const [UpdateCalculos, setUpdateCalculos] = useState(false);
+
+  function Calculos() {
+    return (
+      <>
+        {numberArray.map((num, key) => {
+          return <IndividualizarCalculos key={key} numCalculo={num} />;
+        })}
+      </>
+    );
+  }
+
+  useEffect(() => {
+    if (UpdateCalculos) {
+      setUpdateCalculos(false);
+      setNumberArray([...numberArray, numberArray.length + 1]);
+      Calculos();
+    }
+  }, [UpdateCalculos]);
 
   const criaStringConclusao = () => {
     let conclusao = 'Litíase renal.'
@@ -433,221 +453,21 @@ function Calculo() {
           <Text fontWeight="semibold" fontSize="16px">
             Individualizar calculos
           </Text>
-          <HStack>
-            <Checkbox
-              onChange={() =>
-                setCalculo1CheckBox(!Calculo1CheckBox)
-              }
-            >
-              Cálculo 1
-            </Checkbox>
 
-            <Input
-              isDisabled={!Calculo1CheckBox}
-              value={tamanhoCalculo1Input}
-              w="60px"
-              h="77x"
-              padding="5px"
-              textAlign="center"
-              onChange={(e) => {
-                settamanhoCalculo1Input(e.target.value);
-              }}
-              placeholder={"mm"}
-            />
-            <Select
-              w="auto"
-              isDisabled={!Calculo1CheckBox}
-              onChange={(e) => {
-                setPosicaoCalculo1Select(e.target.value);
-              }}
-              value={posicaoCalculo1Select}
-            >
-              <option value="" disabled selected>
-                no
-              </option>
-              <option value="terço superior">terço superior</option>
-              <option value="terço médio">terço médio </option>
-              <option value="terço inferior">terço inferior</option>
-            </Select>
+          <Stack>
+            <Box gap="10px" display="flex" flexWrap="wrap">
+              {Calculos()}
+              <Button
+                colorScheme="blue"
+                onClick={() => {
+                  setUpdateCalculos(true);
+                }}
+              >
+                +1 Cálculo
+              </Button>
+            </Box>
 
-            <Select
-              w="auto"
-              isDisabled={!Calculo1CheckBox}
-              onChange={(e) => {
-                setlocalizacaoCalculo1Select(e.target.value);
-              }}
-              value={localizacaoCalculo1Select}
-            >
-              <option value="" disabled selected>
-                do
-              </option>
-              <option value="Rim direito">Rim direito</option>
-              <option value="Rim esquerdo">Rim esquerdo</option>
-            </Select>
-          </HStack>
-          <HStack>
-            <Checkbox
-              onChange={() =>
-                setCalculo2CheckBox(!Calculo2CheckBox)
-              }
-            >
-              Cálculo 2
-            </Checkbox>
-
-            <Input
-              isDisabled={!Calculo2CheckBox}
-              value={tamanhoCalculo2Input}
-              w="60px"
-              h="77x"
-              padding="5px"
-              textAlign="center"
-              onChange={(e) => {
-                settamanhoCalculo2Input(e.target.value);
-              }}
-              placeholder={"mm"}
-            />
-            <Select
-              w="auto"
-              isDisabled={!Calculo2CheckBox}
-              onChange={(e) => {
-                setPosicaoCalculo2Select(e.target.value);
-              }}
-              value={posicaoCalculo2Select}
-            >
-              <option value="" disabled selected>
-                no
-              </option>
-              <option value="terço superior">terço superior</option>
-              <option value="terço médio">terço médio </option>
-              <option value="terço inferior">terço inferior</option>
-            </Select>
-
-            <Select
-              w="auto"
-              isDisabled={!Calculo2CheckBox}
-              onChange={(e) => {
-                setlocalizacaoCalculo2Select(e.target.value);
-              }}
-              value={localizacaoCalculo2Select}
-            >
-              <option value="" disabled selected>
-                do
-              </option>
-              <option value="Rim direito">Rim direito</option>
-              <option value="Rim esquerdo">Rim esquerdo</option>
-            </Select>
-          </HStack>
-          <HStack>
-            <Checkbox
-              onChange={() =>
-                setCalculo3CheckBox(!Calculo3CheckBox)
-              }
-            >
-              Cálculo 3
-            </Checkbox>
-
-            <Input
-              isDisabled={!Calculo3CheckBox}
-              value={tamanhoCalculo3Input}
-              w="60px"
-              h="77x"
-              padding="5px"
-              textAlign="center"
-              onChange={(e) => {
-                settamanhoCalculo3Input(e.target.value);
-              }}
-              placeholder={"mm"}
-            />
-            <Select
-              w="auto"
-              isDisabled={!Calculo3CheckBox}
-              onChange={(e) => {
-                setPosicaoCalculo3Select(e.target.value);
-              }}
-              value={posicaoCalculo3Select}
-            >
-              <option value="" disabled selected>
-                no
-              </option>
-              <option value="terço superior">terço superior</option>
-              <option value="terço médio">terço médio </option>
-              <option value="terço inferior">terço inferior</option>
-            </Select>
-
-            <Select
-              w="auto"
-              isDisabled={!Calculo3CheckBox}
-              onChange={(e) => {
-                setlocalizacaoCalculo3Select(e.target.value);
-              }}
-              value={localizacaoCalculo3Select}
-            >
-              <option value="" disabled selected>
-                do
-              </option>
-              <option value="Rim direito">Rim direito</option>
-              <option value="Rim esquerdo">Rim esquerdo</option>
-            </Select>
-          </HStack>
-          <HStack>
-            <Checkbox
-              onChange={() =>
-                setCalculo4CheckBox(!Calculo4CheckBox)
-              }
-            >
-              Cálculo 4
-            </Checkbox>
-
-            <Input
-              isDisabled={!Calculo4CheckBox}
-              value={tamanhoCalculo4Input}
-              w="60px"
-              h="77x"
-              padding="5px"
-              textAlign="center"
-              onChange={(e) => {
-                settamanhoCalculo4Input(e.target.value);
-              }}
-              placeholder={"mm"}
-            />
-            <Select
-              w="auto"
-              isDisabled={!Calculo4CheckBox}
-              onChange={(e) => {
-                setPosicaoCalculo4Select(e.target.value);
-              }}
-              value={posicaoCalculo4Select}
-            >
-              <option value="" disabled selected>
-                no
-              </option>
-              <option value="terço superior">terço superior</option>
-              <option value="terço médio">terço médio </option>
-              <option value="terço inferior">terço inferior</option>
-            </Select>
-
-            <Select
-              w="auto"
-              isDisabled={!Calculo4CheckBox}
-              onChange={(e) => {
-                setlocalizacaoCalculo4Select(e.target.value);
-              }}
-              value={localizacaoCalculo4Select}
-            >
-              <option value="" disabled selected>
-                do
-              </option>
-              <option value="Rim direito">Rim direito</option>
-              <option value="Rim esquerdo">Rim esquerdo</option>
-            </Select>
-          </HStack>
-          {/* <Stack>
-            <>
-              {numberArray.map((num, key) => {
-                return <IndividualizarCalculos key={key} numCalculo={num} />;
-              })}
-            </>
-          </Stack> */}
+          </Stack>
         </Stack>
       </Box>
     </Box>

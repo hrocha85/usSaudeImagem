@@ -99,7 +99,7 @@ function RimEsquerdo({ Nefropatia, CheckboxNefropatia, RimPelvico, CheckboxRimPe
     removeFraseSelect(string);
     if (checkboxMedidas) {
       if (valueInput1Medida != '' && valueParenquima != '' && valueInput2Medida != '') {
-        const valorInput = `${string} ${valueInput1Medida}x${valueInput2Medida} mm. Espessura do parênquima: ${valueParenquima} mm.`;
+        const valorInput = `${string} ${valueInput1Medida}x${valueInput2Medida} cm. Espessura do parênquima: ${valueParenquima} cm.`;
         setFrasesRimD((arr) => [...arr, valorInput]);
       }
     } else {
@@ -257,7 +257,7 @@ function RimEsquerdo({ Nefropatia, CheckboxNefropatia, RimPelvico, CheckboxRimPe
                 h='35px'
                 placeholder="00"
               />
-              <Text>mm</Text>
+              <Text>cm</Text>
             </HStack>
             <Input
               p='0px'
@@ -271,7 +271,7 @@ function RimEsquerdo({ Nefropatia, CheckboxNefropatia, RimPelvico, CheckboxRimPe
               mt='0'
               h='35px'
               // maxWidth="173px"
-              placeholder="Parênquima(mm)"
+              placeholder="Parênquima(cm)"
             />
           </Stack>
 
