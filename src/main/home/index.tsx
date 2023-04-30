@@ -50,7 +50,7 @@ function Home() {
 
   useEffect(() => {
     setIsMounted(true);
-    MySwal.fire("Exames Doppler Desabilitados");
+    // MySwal.fire("Exames Doppler Desabilitados");
 
     return () => {
       setIsMounted(false);
