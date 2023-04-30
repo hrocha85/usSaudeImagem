@@ -354,7 +354,7 @@ function Veias_Superficiais_Refluxo_Esquerdo() {
             h="40px"
             w="50px"
             borderRadius="md"
-            maxLength={3}
+            
           />
           <Select
             borderColor="black"
@@ -438,7 +438,7 @@ function Veias_Superficiais_Refluxo_Esquerdo() {
             h="40px"
             w="50px"
             borderRadius="md"
-            maxLength={3}
+            
           />
           <Select
             borderColor="black"

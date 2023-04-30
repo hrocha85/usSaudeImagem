@@ -39,7 +39,11 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { IconContext } from "react-icons";
-import { AiOutlineClear, AiOutlineEdit } from "react-icons/ai";
+import {
+  AiOutlineClear,
+  AiOutlineEdit,
+  AiOutlineCloudUpload,
+} from "react-icons/ai";
 import { BiCamera } from "react-icons/bi";
 import { BsTrash } from "react-icons/bs";
 import { FaRegEdit, FaRegFolderOpen } from "react-icons/fa";
@@ -105,11 +109,13 @@ const Medicos = ({ medico, id }) => {
 
   const refCRM = useRef<HTMLInputElement | null>(null);
 
-  const [selectedFile, setSelectedFile] = useState<any>();
-
   const [defaultUserImage, setDefaultUserImage] = useState(medico.foto);
 
   const inputFile = useRef<HTMLInputElement | null>(null);
+
+  const [pngAssinatura, setpngAssinatura] = useState<string | null>();
+
+  const [pngAssinaturaCheck, setpngAssinaturaCheck] = useState(false);
 
   let padRef = React.useRef<SignatureCanvas>(null);
 
@@ -191,8 +197,17 @@ const Medicos = ({ medico, id }) => {
       localStorage.setItem("medicos", JSON.stringify(array));
       setFotoUpdate(false);
     }
+    if (pngAssinaturaCheck) {
+      var array = JSON.parse(localStorage.getItem("medicos")!);
+      var item = array[id];
+      lista_medicos[id].assinatura = pngAssinatura!;
+      item.assinatura = pngAssinatura!;
+      localStorage.setItem("medicos", JSON.stringify(array));
+      setpngAssinaturaCheck(false);
+      setpngAssinatura(null);
+      window.location.reload();
+    }
     window.dispatchEvent(new Event("update_medicos"));
-
   };
 
   const POPExcluirMedico = () => {
@@ -247,6 +262,8 @@ const Medicos = ({ medico, id }) => {
     setAssinaturaUpdate(false);
     setSelectedClinica(true);
     setcloseTooltip(false);
+    //setpngAssinatura(null);
+    setpngAssinaturaCheck(false);
   };
 
   const TAGS = () => {
@@ -314,7 +331,8 @@ const Medicos = ({ medico, id }) => {
   };
 
   window.addEventListener("update_clinicas", () => {
-    setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));  });
+    setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));
+  });
 
   useEffect(() => {
     setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));
@@ -351,6 +369,27 @@ const Medicos = ({ medico, id }) => {
     value = value.replace(/(\d{8})(\d)/, "$1-$2");
     value = value.replace(/(-\d{1})(\B)/, "$1/$2");
     return value;
+  };
+
+  const onChangeFilePNGAssinatura = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files![0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const result = event.target?.result;
+      if (typeof result === "string") {
+        setpngAssinatura(result);
+      }
+    };
+
+    reader.readAsDataURL(file);
+    setpngAssinaturaCheck(true);
+  };
+
+  const add_png_assinatura = () => {
+    openFiles();
   };
 
   return (
@@ -649,7 +688,7 @@ const Medicos = ({ medico, id }) => {
                               borderStartRadius={"md"}
                               borderEndRadius={"md"}
                               marginStart="5px"
-                              maxLength={13}
+                              
                               ref={refCRM}
                               defaultValue={crm}
                               fontSize="18px"
@@ -680,7 +719,7 @@ const Medicos = ({ medico, id }) => {
                               variant={"unstyled"}
                               isDisabled={CRMenable}
                               textAlign={"center"}
-                              maxLength={9}
+                              
                             />
                           </InputGroup>
                         </Center>
@@ -720,7 +759,7 @@ const Medicos = ({ medico, id }) => {
                   boxShadow="md"
                   borderRadius={"md"}
                 >
-                  {newAssinaturaEdit ? (
+                  {newAssinaturaEdit && pngAssinaturaCheck == false ? (
                     <SignatureCanvas
                       ref={padRef}
                       backgroundColor="#F7FAFC"
@@ -738,12 +777,30 @@ const Medicos = ({ medico, id }) => {
                       borderRadius={"md"}
                       width="400px"
                       height="200px"
-                      srcSet={assinatura}
+                      srcSet={
+                        pngAssinatura == null ? assinatura : pngAssinatura
+                      }
                       alt="Assinatura"
                     />
                   )}
 
                   <Flex justify="end">
+                    <input
+                      disabled={newAssinaturaEdit ? false : true}
+                      accept="image/png, image/jpeg"
+                      type="file"
+                      id="file"
+                      ref={inputFile}
+                      style={{ display: "none" }}
+                      onChange={onChangeFilePNGAssinatura.bind(this)}
+                    />
+                    <Icon
+                      as={AiOutlineCloudUpload}
+                      color="#4658fc"
+                      margin="5px"
+                      alignItems="end"
+                      onClick={add_png_assinatura}
+                    />
                     <Icon
                       as={AiOutlineClear}
                       color="#4658fc"
@@ -763,7 +820,7 @@ const Medicos = ({ medico, id }) => {
                   borderRadius={"md"}
                   width="400px"
                   height="200px"
-                  srcSet={assinatura}
+                  srcSet={pngAssinatura == null ? assinatura : pngAssinatura}
                   alt="Assinatura"
                 />
               )}

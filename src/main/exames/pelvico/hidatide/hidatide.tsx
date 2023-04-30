@@ -14,6 +14,7 @@ function Hidatide({ Disable }) {
 
   const subExame = "Hidátide";
   const titulo_exame = "Pélvico"
+
   useEffect(() => {
     if (Object.keys(frasesHidatide).length == 0) {
       new Format_Laudo(
@@ -107,7 +108,7 @@ function Hidatide({ Disable }) {
             <Box>
               <HStack>
                 <Checkbox
-                  isDisabled={Disable}
+
                   whiteSpace="nowrap"
                   onChange={() => {
                     setHidatideCheckBox(!hidatideCheckBox);
@@ -116,7 +117,7 @@ function Hidatide({ Disable }) {
                   Hidátide
                 </Checkbox>
                 <Select
-                  isDisabled={Disable || !hidatideCheckBox}
+                  isDisabled={!hidatideCheckBox}
                   w="auto"
                   onChange={(e) => {
                     setPosicaoHidatideSelect(e.target.value);
@@ -130,11 +131,11 @@ function Hidatide({ Disable }) {
                   <option value="esquerdo">Esquerda</option>
                 </Select>
                 <Input
-                  isDisabled={Disable || !hidatideCheckBox}
+                  isDisabled={!hidatideCheckBox}
                   w="60px"
                   h="77x"
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   placeholder={"mm"}
                   value={tamanhoHidatideInput}

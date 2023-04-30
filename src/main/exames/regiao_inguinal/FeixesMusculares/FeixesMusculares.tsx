@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function FeixesMusculares() {
+function FeixesMusculares({ Disable }) {
   const altura = "100%";
   const largura = "350px";
 

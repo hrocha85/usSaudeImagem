@@ -1,16 +1,35 @@
-import { Box, Checkbox, Input, Select } from "@chakra-ui/react";
+import { Box, Button, Checkbox, Input, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
-import Nodulo01 from "./Nodulos_Individualizados/Nodulo01";
+import Nodulo from "./Nodulos_Individualizados/Nodulo";
 
 function Nodulos() {
   const altura = "100%";
   const largura = "66%";
 
+  const [numberArray, setNumberArray] = useState([1]);
 
   const [frasesNodulos, setFrasesNodulos] = useState<any>([]);
+  const [UpdateCalculos, setUpdateCalculos] = useState(false);
 
+  function Calculos() {
+    return (
+      <>
+        {numberArray.map((num, key) => {
+          return <Nodulo key={key} numCalculo={num} />;
+        })}
+      </>
+    );
+  }
+
+  useEffect(() => {
+    if (UpdateCalculos) {
+      setUpdateCalculos(false);
+      setNumberArray([...numberArray, numberArray.length + 1]);
+      Calculos();
+    }
+  }, [UpdateCalculos]);
 
   const subExame = "Nódulos";
   const titulo_exame = "Tireóide";
@@ -49,8 +68,15 @@ function Nodulos() {
 
         <Box gap="25px" display="flex" flexWrap="wrap" mt="20px" mb="10px">
 
-          <Nodulo01 />
-
+          {Calculos()}
+          <Button
+            colorScheme="blue"
+            onClick={() => {
+              setUpdateCalculos(true);
+            }}
+          >
+            +1 Cálculo
+          </Button>
         </Box>
       </Box>
     </Box>

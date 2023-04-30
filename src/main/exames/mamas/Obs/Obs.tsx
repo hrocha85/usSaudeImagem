@@ -110,7 +110,7 @@ function Obs() {
             textAlign='center'
             w='30px'
             p='0px'
-            maxLength={2}
+            
             isDisabled={!MamografiaCheckbox}
             value={MamografiaInput1}
             onChange={(e) => setMamografiaInput1(e.target.value)} />
@@ -119,7 +119,7 @@ function Obs() {
             textAlign='center'
             w='30px'
             p='0px'
-            maxLength={2}
+            
             isDisabled={!MamografiaCheckbox}
             value={MamografiaInput2}
             onChange={(e) => setMamografiaInput2(e.target.value)} />
@@ -128,7 +128,7 @@ function Obs() {
             textAlign='center'
             w='60px'
             p='0px'
-            maxLength={4}
+            
             isDisabled={!MamografiaCheckbox}
             value={MamografiaInput3}
             onChange={(e) => setMamografiaInput3(e.target.value)} />

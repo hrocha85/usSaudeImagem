@@ -102,6 +102,7 @@ function Bexiga({ Disable }) {
 
   const subExame = "Bexiga";
   const titulo_exame = "Pélvico";
+
   useEffect(() => {
     if (Object.keys(FraseBexiga).length == 0) {
       new Format_Laudo(

@@ -509,7 +509,7 @@ function Partes_Moles() {
               h="30px"
               value={medida1Lipoma1}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida1Lipoma1(e.target.value);
@@ -522,7 +522,7 @@ function Partes_Moles() {
               h="30px"
               value={medida2Lipoma1}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida2Lipoma1(e.target.value);
@@ -535,7 +535,7 @@ function Partes_Moles() {
               h="30px"
               value={medida3Lipoma1}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida3Lipoma1(e.target.value);
@@ -554,7 +554,7 @@ function Partes_Moles() {
               h="30px"
               value={medida1Lipoma2}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida1Lipoma2(e.target.value);
@@ -567,7 +567,7 @@ function Partes_Moles() {
               h="30px"
               value={medida2Lipoma2}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida2Lipoma2(e.target.value);
@@ -580,7 +580,7 @@ function Partes_Moles() {
               h="30px"
               value={medida3Lipoma2}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida3Lipoma2(e.target.value);
@@ -599,7 +599,7 @@ function Partes_Moles() {
               h="30px"
               value={medida1Lipoma3}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida1Lipoma3(e.target.value);
@@ -612,7 +612,7 @@ function Partes_Moles() {
               h="30px"
               value={medida2Lipoma3}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida2Lipoma3(e.target.value);
@@ -625,7 +625,7 @@ function Partes_Moles() {
               h="30px"
               value={medida3Lipoma3}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida3Lipoma3(e.target.value);
@@ -644,7 +644,7 @@ function Partes_Moles() {
               h="30px"
               value={medida1Lipoma4}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida1Lipoma4(e.target.value);
@@ -657,7 +657,7 @@ function Partes_Moles() {
               h="30px"
               value={medida2Lipoma4}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida2Lipoma4(e.target.value);
@@ -670,7 +670,7 @@ function Partes_Moles() {
               h="30px"
               value={medida3Lipoma4}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida3Lipoma4(e.target.value);
@@ -693,7 +693,7 @@ function Partes_Moles() {
               h="30px"
               value={medida1LipomaMultiplos}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida1LipomaMultiplos(e.target.value);
@@ -706,7 +706,7 @@ function Partes_Moles() {
               h="30px"
               value={medida2LipomaMultiplos}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida2LipomaMultiplos(e.target.value);
@@ -719,7 +719,7 @@ function Partes_Moles() {
               h="30px"
               value={medida3LipomaMultiplos}
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setMedida3LipomaMultiplos(e.target.value);
@@ -790,7 +790,7 @@ function Partes_Moles() {
                 h="30px"
                 value={medida1Nodulo}
                 padding="5px"
-                maxLength={2}
+                
                 textAlign="center"
                 onChange={(e) => {
                   setMedida1Nodulo(e.target.value);
@@ -803,7 +803,7 @@ function Partes_Moles() {
                 h="30px"
                 value={medida2Nodulo}
                 padding="5px"
-                maxLength={2}
+                
                 textAlign="center"
                 onChange={(e) => {
                   setMedida2Nodulo(e.target.value);
@@ -816,7 +816,7 @@ function Partes_Moles() {
                 h="30px"
                 value={medida3Nodulo}
                 padding="5px"
-                maxLength={2}
+                
                 textAlign="center"
                 onChange={(e) => {
                   setMedida3Nodulo(e.target.value);

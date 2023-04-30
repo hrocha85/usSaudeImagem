@@ -90,6 +90,12 @@ export default function Neuroma_Morton_Esquerdo({ Disable }) {
     }
   }, [value, valueSelect1, medida1Morton, medida2Morton, medida3Morton]);
 
+
+  useEffect(() => {
+    Disable ? setValue("Ausente") : setValue('1')
+  }, [Disable])
+
+
   useEffect(() => {
     if (Object.keys(frasesTornozelo).length == 0) {
       new Format_Laudo(
@@ -122,7 +128,7 @@ export default function Neuroma_Morton_Esquerdo({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Neuroma de Morton
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Ausente">Ausente</Radio>
@@ -147,7 +153,7 @@ export default function Neuroma_Morton_Esquerdo({ Disable }) {
                   h="30px"
                   value={medida1Morton}
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   onChange={(e) => {
                     setMedida1Morton(e.target.value);
@@ -160,7 +166,7 @@ export default function Neuroma_Morton_Esquerdo({ Disable }) {
                   h="30px"
                   value={medida2Morton}
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   onChange={(e) => {
                     setMedida2Morton(e.target.value);
@@ -173,7 +179,7 @@ export default function Neuroma_Morton_Esquerdo({ Disable }) {
                   h="30px"
                   value={medida3Morton}
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   onChange={(e) => {
                     setMedida3Morton(e.target.value);

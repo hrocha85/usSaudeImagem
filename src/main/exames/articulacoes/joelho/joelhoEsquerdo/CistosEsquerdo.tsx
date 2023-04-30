@@ -186,7 +186,7 @@ function CistosEsquerdo({ Disable }) {
                 <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
                     <Checkbox
-                        isDisabled={Disable}
+
                         onChange={() => {
                             setCistosBakerCheckbox(!CistosBakerCheckbox);
                         }}
@@ -201,7 +201,7 @@ function CistosEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+
                             textAlign="center"
                             onChange={(e) => { setCistosBakerInput(e.target.value) }}
                         />
@@ -212,7 +212,7 @@ function CistosEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+
                             textAlign="center"
                             onChange={(e) => { setCistosBakerInput2(e.target.value) }}
                         />
@@ -223,7 +223,7 @@ function CistosEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+
                             textAlign="center"
                             onChange={(e) => { setCistosBakerInput3(e.target.value) }}
                         />
@@ -270,7 +270,7 @@ function CistosEsquerdo({ Disable }) {
                 <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
                     <Checkbox
-                        isDisabled={Disable}
+
                         onChange={() => {
                             setCistosParameniscalCheckbox(!CistosParameniscalCheckbox);
                         }}
@@ -285,7 +285,7 @@ function CistosEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+
                             textAlign="center"
                             onChange={(e) => { setCistosParameniscalInput(e.target.value) }}
                         />
@@ -296,7 +296,7 @@ function CistosEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+
                             textAlign="center"
                             onChange={(e) => { setCistosParameniscalInput2(e.target.value) }}
                         />
@@ -307,7 +307,7 @@ function CistosEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+
                             textAlign="center"
                             onChange={(e) => { setCistosParameniscalInput3(e.target.value) }}
                         />

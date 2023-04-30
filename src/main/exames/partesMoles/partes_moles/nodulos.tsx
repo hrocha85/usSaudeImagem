@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
+import { Box, Button, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import IndividualizarNodulos from "./individualizar_nodulos";
@@ -8,7 +8,10 @@ import IndividualizarNodulos from "./individualizar_nodulos";
 function Nodulos({ Disable }) {
   const altura = "100%";
   const largura = "66%";
-  var numberArray = [1, 2, 3, 4];
+  const [numberArray, setNumberArray] = useState([1]);
+
+
+  const [UpdateNodulos, setUpdateNodulos] = useState(false);
 
   const [noduloSelect, setNoduloSelect] = useState("");
   const [noduloSelect2, setNoduloSelect2] = useState("");
@@ -17,6 +20,28 @@ function Nodulos({ Disable }) {
   const [noduloSubcutaneoCheckbox, setNoduloSubcutaneoCheckbox] =
     useState(false);
 
+  function Nodulos() {
+    return (
+      <>
+        {numberArray.map((num, key) => {
+          return <IndividualizarNodulos
+            key={key}
+            selectNodulo1={noduloSelect}
+            selectNodulo2={noduloSelect2}
+            numNodulo={num}
+            disable={!noduloSubcutaneoCheckbox}
+          />
+        })}
+      </>
+    );
+  }
+  useEffect(() => {
+    if (UpdateNodulos) {
+      setUpdateNodulos(false);
+      setNumberArray([...numberArray, numberArray.length + 1]);
+      Nodulos();
+    }
+  })
   useEffect(() => {
     if (noduloSubcutaneoCheckbox) {
       setDisableNodulosSelect(false);
@@ -45,7 +70,7 @@ function Nodulos({ Disable }) {
         <Box w="100%">
           <HStack mb="10px">
             <Checkbox
-              isDisabled={Disable}
+
               onChange={(e) =>
                 setNoduloSubcutaneoCheckbox(!noduloSubcutaneoCheckbox)
               }
@@ -82,7 +107,7 @@ function Nodulos({ Disable }) {
                 Selecione
               </option>
               <option value="isoecogênico(s) em relação ao tecido adiposo ( lipoma(s) )">
-                isoecogênico(s) em relação ao tecido adiposo ( lipoma(s){" "}
+                isoecogênico(s) em relação ao tecido adiposo (lipoma(s))
               </option>
               <option value="hipoecogênico(s)">hipoecogênico(s)</option>
               <option value="hiperecogênico(s)">hiperecogênico(s)</option>
@@ -90,19 +115,17 @@ function Nodulos({ Disable }) {
             </Select>
           </HStack>
           <Stack w="100%">
-            <>
-              {numberArray.map((num, key) => {
-                return (
-                  <IndividualizarNodulos
-                    key={key}
-                    selectNodulo1={noduloSelect}
-                    selectNodulo2={noduloSelect2}
-                    numNodulo={num}
-                    disable={!noduloSubcutaneoCheckbox || Disable}
-                  />
-                );
-              })}
-            </>
+            <Box gap="10px" display="flex" flexWrap="wrap">
+              {Nodulos()}
+              <Button
+                colorScheme="blue"
+                onClick={() => {
+                  setUpdateNodulos(true);
+                }}
+              >
+                +1 Nódulo
+              </Button>
+            </Box>
           </Stack>
         </Box>
       </Box>

@@ -39,6 +39,7 @@ import { RiCloseLine } from "react-icons/ri";
 import LaudosJSON from "../../Data/Laudos.json";
 import { LaudosContext } from "../../context/LuadosContext";
 import "./Laudos.css";
+import SubMenu from "../menu/subMenu";
 
 function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -246,7 +247,7 @@ function Exames() {
               {sub.subExameNome}:
             </TextPDF>
             <ViewPDF style={styles.view_frases}>
-              {typeof sub.frases != "string" ? (
+              {typeof sub.frases != "string" && sub.frases != null ? (
                 sub.frases.map((frase, key) => {
                   return (
                     <TextPDF
@@ -264,6 +265,9 @@ function Exames() {
                 </TextPDF>
               )}
             </ViewPDF>
+            {sub.image != null && sub.image != "" ? (
+              <ImagePDF src={sub.image} />
+            ) : null}
           </ViewPDF>
         ) : null;
       });
@@ -329,7 +333,7 @@ function Exames() {
 
                 {exame.observacoes != null &&
                 exame.observacoes != undefined &&
-                exame.observacoes.lenght > 1 ? (
+                exame.observacoes.length > 1 ? (
                   <ViewPDF style={styles.inline}>
                     <TextPDF style={styles.textNomeSubExame}>
                       {`Observações ${exame.titulo_exame}:`}
@@ -340,11 +344,13 @@ function Exames() {
 
                 {exame.conclusoes != null &&
                 exame.conclusoes != undefined &&
-                exame.conclusoes.lenght > 1 ? (
+
+                exame.conclusoes.filter((c) => c !== "").length > 0 ? (
+
                   <ViewPDF style={styles.viewConclusoes}>
                     <ViewPDF style={styles.lineConclusoes} break={true} />
                     <TextPDF style={styles.textConclusao}>
-                      {`Conclusão ${exame.titulo_exame}`}
+                      {`Conclusão ${exame.titulo_exame} aasda`}
                     </TextPDF>
                     <ViewPDF>{renderConclusoes(exame)}</ViewPDF>
                     <ViewPDF style={styles.lineConclusoes} />
@@ -679,7 +685,8 @@ function Exames() {
                           {sub_exame.subExameNome}:
                         </Text>
                         <Box w="100%">
-                          {typeof sub_exame.frases != "string" ? (
+                          {typeof sub_exame.frases != "string" &&
+                          sub_exame.frases != null ? (
                             sub_exame.frases.map((frase, key) => {
                               return (
                                 <Stack key={key}>
@@ -701,6 +708,9 @@ function Exames() {
                           )}
                         </Box>
                       </HStack>
+                      {sub_exame.image != null && sub_exame.image != "" ? (
+                        <Image src={sub_exame.image} />
+                      ) : null}
                     </HStack>
                   ) : null;
                 })}

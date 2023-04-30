@@ -12,7 +12,7 @@ function NervoUlnarEsquerdo({ Disable }) {
     const [fraseNervoUlnarEsquerdo, setFraseNervoUlnarEsquerdo] = useState<any>([]);
     const [ConclusaoNervoUlnarEsquerdo, setConclusaoNervoUlnarEsquerdo] = useState<any>([]);
 
-    const subExame = 'Nervo ulnar Esquerdo'
+    const subExame = 'Cotovelo- Nervo ulnar Esquerdo'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -51,6 +51,17 @@ function NervoUlnarEsquerdo({ Disable }) {
         var string = "Nervo ulnar de espessura, contornos e ecotextura normais.";
         EspessuraNormalCheckbox ? setFraseNervoUlnarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
+    const [Normal, setNormal] = useState(false)
+
+    useEffect(() => {
+        Disable ? setNormal(true) : setNormal(false)
+    }, [Disable])
+
+    useEffect(() => {
+        var string = "Nervo ulnar de espessura, contornos e ecotextura normais.";
+        Normal ? setEspessuraNormalCheckbox(!EspessuraNormalCheckbox) : removeItemString(string)
+    }, [Normal])
+
 
     useEffect(() => {
         criaStringEspessuraNormal()
@@ -185,7 +196,7 @@ function NervoUlnarEsquerdo({ Disable }) {
             <Stack>
                 <HStack>
                     <Checkbox
-                        isDisabled={Disable}
+
                         onChange={() => {
                             setAreaSeccionalCheckbox(!AreaSeccionalCheckbox);
                         }}
@@ -198,22 +209,24 @@ function NervoUlnarEsquerdo({ Disable }) {
                         w="45px"
                         h="30px"
                         padding="5px"
-                        maxLength={2}
+
                         textAlign="center"
                         onChange={(e) => { setAreaSeccionalInput(e.target.value) }}
                     />
                     <Text>mm²</Text>
                 </HStack>
                 <Checkbox
-                    isDisabled={Disable || disableEspessuraNormal}
+                    isChecked={Normal}
+                    isDisabled={disableEspessuraNormal}
                     onChange={() => {
+                        setNormal(!Normal)
                         setEspessuraNormalCheckbox(!EspessuraNormalCheckbox);
                     }}
                 >
                     Espessura normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable || disableEspessuraAumentada}
+                    isDisabled={disableEspessuraAumentada}
                     onChange={() => {
                         setEspessuraAumentadaCheckbox(!EspessuraAumentadaCheckbox);
                     }}
@@ -221,7 +234,7 @@ function NervoUlnarEsquerdo({ Disable }) {
                     Espessura aumentada
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setSofreSubluxacaoCheckbox(!SofreSubluxacaoCheckbox);
                     }}
@@ -229,7 +242,7 @@ function NervoUlnarEsquerdo({ Disable }) {
                     Sofre subluxação durante manobra de flexão do cotovelo
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable}
+
                     onChange={() => {
                         setSofreLuxacaoCheckbox(!SofreLuxacaoCheckbox);
                     }}

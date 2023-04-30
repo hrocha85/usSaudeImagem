@@ -6,6 +6,7 @@ import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarCalculos({ numCalculo }) {
   const [frasesIndCalc, setFrasesIndCalc] = useState<any>([]);
+  const [ConclusaoCalc, setConclusaoCalc] = useState<any>([]);
 
   const [tamanhoCalculoInput, settamanhoCalculoInput] = useState("");
   const [posicaoCalculosSelect, setPosicaoCalculosSelect] = useState("");
@@ -13,28 +14,39 @@ export default function IndividualizarCalculos({ numCalculo }) {
     useState("");
   const [multiplosCalculosCheckBox, setmultiplosCalculosCheckBox] =
     useState(false);
-  const [DisableSelect, setDisableSelect] = useState(true);
 
-  const criaStringMultiplosCalculos = (
-    tamanhoCalculoInput,
-    CalculosSelect,
-    localizado
-  ) => {
+  const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
-
-    if (
-      tamanhoCalculoInput !== "" &&
-      CalculosSelect !== "" &&
-      localizado !== ""
-    ) {
-      var string = `Cálculo ${numCalculo} mede ${tamanhoCalculoInput} mm ${CalculosSelect} localizado ${localizado} `;
-      setFrasesIndCalc((arr) => [...arr, string]);
+    const conclusao = 'Litíase renal.'
+    removeItemConclusao(conclusao)
+    var string = `${numCalculo}º Cálculo- Presença de imagem hiperecogênica, com formação de sombra acústica posterior, de limites precisos e contornos regulares: `
+    if (multiplosCalculosCheckBox) {
+      if (tamanhoCalculoInput !== "" && tamanhoCalculoInput !== "" && localizacaoCalculosSelect !== "") {
+        string = `${string} ${posicaoCalculosSelect} medindo ${tamanhoCalculoInput} cm do  ${localizacaoCalculosSelect}`;
+        setFrasesIndCalc((arr) => [...arr, string]);
+        setConclusaoCalc((arr) => [...arr, conclusao])
+      }
+    } else {
+      settamanhoCalculoInput("");
+      setPosicaoCalculosSelect("");
+      setlocalizacaoCalculosSelect("");
     }
   };
 
+  const removeItemConclusao = (value) => {
+    var index = ConclusaoCalc.indexOf(value);
+
+    if (index > -1) {
+      ConclusaoCalc.splice(index, 1);
+      setConclusaoCalc((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+    }
+  };
+
+
   const removeMultiplosCalculos = () => {
     frasesIndCalc.map((e) => {
-      if (e.includes(`Cálculo ${numCalculo}`)) {
+      if (e.includes(`${numCalculo}º Cálculo-`)) {
         var index = frasesIndCalc.indexOf(e);
 
         if (index > -1) {
@@ -46,20 +58,8 @@ export default function IndividualizarCalculos({ numCalculo }) {
   };
 
   useEffect(() => {
-    if (multiplosCalculosCheckBox) {
-      setDisableSelect(false);
-      criaStringMultiplosCalculos(
-        tamanhoCalculoInput,
-        posicaoCalculosSelect,
-        localizacaoCalculosSelect
-      );
-    } else {
-      setDisableSelect(true);
-      removeMultiplosCalculos();
-      settamanhoCalculoInput("");
-      setPosicaoCalculosSelect("");
-      setlocalizacaoCalculosSelect("");
-    }
+    criaStringMultiplosCalculos()
+
   }, [
     multiplosCalculosCheckBox,
     posicaoCalculosSelect,
@@ -67,7 +67,7 @@ export default function IndividualizarCalculos({ numCalculo }) {
     localizacaoCalculosSelect,
   ]);
 
-  const subExame = "Individualizar Cálculo";
+  const subExame = `${numCalculo} Cálculo`;
   const titulo_exame = "Rins e Vias Urinárias";
 
   useEffect(() => {
@@ -76,14 +76,16 @@ export default function IndividualizarCalculos({ numCalculo }) {
         titulo_exame,
         subExame,
         true,
-        frasesIndCalc
+        frasesIndCalc,
+        ConclusaoCalc
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        frasesIndCalc
+        frasesIndCalc,
+        ConclusaoCalc
       ).Format_Laudo_Create_Storage();
     }
   }, [frasesIndCalc]);
@@ -99,7 +101,7 @@ export default function IndividualizarCalculos({ numCalculo }) {
       </Checkbox>
 
       <Input
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosCalculosCheckBox}
         value={tamanhoCalculoInput}
         w="60px"
         h="77x"
@@ -112,7 +114,7 @@ export default function IndividualizarCalculos({ numCalculo }) {
       />
       <Select
         w="auto"
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosCalculosCheckBox}
         onChange={(e) => {
           setPosicaoCalculosSelect(e.target.value);
         }}
@@ -128,7 +130,7 @@ export default function IndividualizarCalculos({ numCalculo }) {
 
       <Select
         w="auto"
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosCalculosCheckBox}
         onChange={(e) => {
           setlocalizacaoCalculosSelect(e.target.value);
         }}

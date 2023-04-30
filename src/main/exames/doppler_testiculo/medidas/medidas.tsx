@@ -343,7 +343,7 @@ function DopplerTesticulos() {
             w="30px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => setmedidaTesticuloDireito1(e.target.value)}
           />
@@ -352,7 +352,7 @@ function DopplerTesticulos() {
             w="30px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => setmedidaTesticuloDireito2(e.target.value)}
           />
@@ -361,7 +361,7 @@ function DopplerTesticulos() {
             w="30px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => {
               setmedidaTesticuloDireito3(e.target.value);
@@ -387,7 +387,7 @@ function DopplerTesticulos() {
             w="30px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => setmedidaTesticuloEsquerdo1(e.target.value)}
           />
@@ -396,7 +396,7 @@ function DopplerTesticulos() {
             w="30px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => setmedidaTesticuloEsquerdo2(e.target.value)}
           />
@@ -405,7 +405,7 @@ function DopplerTesticulos() {
             w="30px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => {
               setmedidaTesticuloEsquerdo3(e.target.value);

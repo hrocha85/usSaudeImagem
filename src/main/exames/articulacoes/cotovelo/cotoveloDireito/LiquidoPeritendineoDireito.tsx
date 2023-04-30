@@ -12,7 +12,7 @@ function LiquidoPeritendineoDireito(Disable) {
 
     const [fraseLiquidoPeritendineoDireito, setFraseLiquidoPeritendineoDireito] = useState<any>([]);
 
-    const subExame = 'Líquido Perintendineo direito'
+    const subExame = 'Cotovelo- Líquido Perintendineo direito'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -45,6 +45,7 @@ function LiquidoPeritendineoDireito(Disable) {
         var string = "Ausência de líquido peritendíneo.";
         AusenteCheckbox ? setFraseLiquidoPeritendineoDireito((arr) => [...arr, string]) : removeItemString(string);
     };
+
 
     useEffect(() => {
         criaStringAusente()
@@ -104,7 +105,7 @@ function LiquidoPeritendineoDireito(Disable) {
 
             <Stack>
                 <Checkbox
-                    isDisabled={Disable || disableAusente}
+                    isDisabled={disableAusente}
                     onChange={() => {
                         setAusenteCheckbox(!AusenteCheckbox);
                     }}
@@ -112,7 +113,8 @@ function LiquidoPeritendineoDireito(Disable) {
                     Ausente
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable || disablePresente}
+
+                    isDisabled={disablePresente}
                     onChange={() => {
                         setPresenteCheckbox(!PresenteCheckbox);
                     }}

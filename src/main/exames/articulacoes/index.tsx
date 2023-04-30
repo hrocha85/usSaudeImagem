@@ -171,7 +171,7 @@ function Articulacoes() {
         <Flex flex={1} flexDirection="column">
           <OmbroLadoEsquerdo />
 
-          <OmbroNormalEsquerdo />
+          {/* <OmbroNormalEsquerdo /> */}
 
           <OmbroTendaoSupraespinhalEsquerdo Disable={Disable} />
 
@@ -193,8 +193,8 @@ function Articulacoes() {
         {/*OMBRO DIREITO */}
         <Flex flex={1} flexDirection="column">
           <OmbroLadoDireito />
-
-          <OmbroNormalDireito />
+          {/* 
+          <OmbroNormalDireito /> */}
 
           <OmbroTendaoSupraespinhalDireito Disable={Disable} />
 
@@ -275,7 +275,7 @@ function Articulacoes() {
         <Flex flex={1} flexDirection="column">
           <PunhoLadoEsquerdo />
 
-          <PunhoNormalEsquerdo />
+          {/* <PunhoNormalEsquerdo /> */}
 
           <TendaoFlexoresTenossinoviteEsquerdo Disable={Disable} />
 
@@ -292,7 +292,7 @@ function Articulacoes() {
         <Flex flex={1} flexDirection="column">
           <PunhoLadoDireito />
 
-          <PunhoNormalDireito />
+          {/* <PunhoNormalDireito /> */}
 
           <TendaoFlexoresTenossinoviteDireito Disable={Disable} />
 
@@ -316,8 +316,8 @@ function Articulacoes() {
         {/*MAO ESQUERDO */}
         <Flex flex={1} flexDirection="column">
           <MaoLadoEsquerdo />
-
-          <MaoNormalEsquerdo />
+          {/* 
+          <MaoNormalEsquerdo /> */}
 
           <RoturaFlexoresEsquerdo Disable={Disable} />
 
@@ -350,7 +350,7 @@ function Articulacoes() {
         <Flex flex={1} flexDirection="column">
           <MaoLadoDireito />
 
-          <MaoNormalDireito />
+          {/* <MaoNormalDireito /> */}
 
           <RoturaFlexoresDireito Disable={Disable} />
 
@@ -391,7 +391,7 @@ function Articulacoes() {
         <Flex flex={1} flexDirection="column">
           <JoelhoLadoEsquerdo />
 
-          <JoelhoNormalEsquerdo />
+          {/* <JoelhoNormalEsquerdo /> */}
 
           <JoelhoDerrameArticularEsquerdo Disable={Disable} />
 
@@ -415,8 +415,8 @@ function Articulacoes() {
         {/*JOELHO DIREITO */}
         <Flex flex={1} flexDirection="column">
           <JoelhoLadoDireito />
-
-          <JoelhoNormalDireito />
+          {/* 
+          <JoelhoNormalDireito /> */}
 
           <JoelhoDerrameArticularDireito Disable={Disable} />
 
@@ -448,8 +448,8 @@ function Articulacoes() {
         {/*QUADRIL ESQUERDO */}
         <Flex flex={1} flexDirection="column">
           <QuadrilLadoEsquerdo />
-
-          <QuadrilNormalEsquerdo />
+          {/* 
+          <QuadrilNormalEsquerdo /> */}
 
           <QuadrilDerrameArticularEsquerdo Disable={Disable} />
 
@@ -466,7 +466,7 @@ function Articulacoes() {
         <Flex flex={1} flexDirection="column">
           <QuadrilLadoDireito />
 
-          <QuadrilNormalDireito />
+          {/* <QuadrilNormalDireito /> */}
 
           <QuadrilDerrameArticularDireito Disable={Disable} />
 

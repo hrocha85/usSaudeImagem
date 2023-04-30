@@ -29,7 +29,7 @@ function Hematoma() {
       tamanho2HematomaInput !== ""
     ) {
       conclusao = `${conclusao} ${posicaoHematomaSelect}. Considerar a possibilidade de hematoma.`
-      var string = `Observa-se em testículo ${posicaoHematomaSelect} imagem heterogênea, de contornos irregulares, sem fluxo ao Doppler, com septações e moderados debris de permeio, sugerindo conteúdo cístico-espesso, adjacente ao testículo, medindo cerca de ${tamanhoHematomaInput} x ${tamanho2HematomaInput} mm. `;
+      var string = `Observa-se em testículo ${posicaoHematomaSelect} imagem heterogênea, de contornos irregulares, sem fluxo ao Doppler, com septações e moderados debris de permeio, sugerindo conteúdo cístico-espesso, adjacente ao testículo, medindo cerca de ${tamanhoHematomaInput} x ${tamanho2HematomaInput} cm. `;
       setFrasesHematoma((arr) => [...arr, string]);
       setConclusaoHematoma((arr) => [...arr, conclusao]);
     }
@@ -146,10 +146,10 @@ function Hematoma() {
               isDisabled={DisableSelect}
               w="60px"
               h="77x"
-              padding="5px"
-              maxLength={2}
+              padding="0px"
+
               textAlign="center"
-              placeholder={"mm"}
+              placeholder={"cm"}
               value={tamanhoHematomaInput}
               onChange={(e) => settamanhoHematomaInput(e.target.value)}
             />
@@ -158,10 +158,10 @@ function Hematoma() {
               isDisabled={DisableSelect}
               w="60px"
               h="77x"
-              padding="5px"
-              maxLength={2}
+              padding="0px"
+
               textAlign="center"
-              placeholder={"mm"}
+              placeholder={"cm"}
               value={tamanho2HematomaInput}
               onChange={(e) => settamanho2HematomaInput(e.target.value)}
             />

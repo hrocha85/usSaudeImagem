@@ -12,7 +12,7 @@ function DerrameArticularDireito({ Disable }) {
     const [fraseDerrameArticularDireito, setFraseDerrameArticularDireito] = useState<any>([]);
     const [ConclusaoDerrameArticularDireito, setConclusaoDerrameArticularDireito] = useState<any>([]);
 
-    const subExame = 'Derrame articular direito'
+    const subExame = 'Cotovelo- Derrame articular direito'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -110,7 +110,7 @@ function DerrameArticularDireito({ Disable }) {
 
             <Stack>
                 <Checkbox
-                    isDisabled={Disable || disableAusente}
+                    isDisabled={disableAusente}
                     onChange={() => {
                         setAusenteCheckbox(!AusenteCheckbox);
                     }}
@@ -118,7 +118,7 @@ function DerrameArticularDireito({ Disable }) {
                     Ausente
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable || disablePresente}
+                    isDisabled={disablePresente}
                     onChange={() => {
                         setPresenteCheckbox(!PresenteCheckbox);
                     }}

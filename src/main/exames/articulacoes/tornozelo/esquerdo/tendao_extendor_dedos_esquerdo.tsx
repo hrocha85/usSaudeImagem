@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import {
   Box,
   Checkbox,
@@ -134,6 +135,11 @@ export default function Tendao_Extensor_Dedos_Esquerdo({ Disable }) {
     medida3Lesao,
   ]);
 
+
+  useEffect(() => {
+    Disable ? setValue("Aspecto Normal") : setValue('1')
+  }, [Disable])
+
   useEffect(() => {
     if (Object.keys(frasesTornozelo).length == 0) {
       new Format_Laudo(
@@ -166,7 +172,7 @@ export default function Tendao_Extensor_Dedos_Esquerdo({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Tendão Extensor Longo dos Dedos{" "}
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <HStack>
@@ -211,7 +217,7 @@ export default function Tendao_Extensor_Dedos_Esquerdo({ Disable }) {
                     h="30px"
                     value={medida1Lesao}
                     padding="5px"
-                    maxLength={2}
+
                     textAlign="center"
                     onChange={(e) => {
                       setMedida1Lesao(e.target.value);
@@ -224,7 +230,7 @@ export default function Tendao_Extensor_Dedos_Esquerdo({ Disable }) {
                     h="30px"
                     value={medida2Lesao}
                     padding="5px"
-                    maxLength={2}
+
                     textAlign="center"
                     onChange={(e) => {
                       setMedida2Lesao(e.target.value);
@@ -237,7 +243,7 @@ export default function Tendao_Extensor_Dedos_Esquerdo({ Disable }) {
                     h="30px"
                     value={medida3Lesao}
                     padding="5px"
-                    maxLength={2}
+
                     textAlign="center"
                     onChange={(e) => {
                       setMedida3Lesao(e.target.value);

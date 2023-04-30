@@ -77,7 +77,7 @@ export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) 
   return (
     <Box gap="10px" display="flex" flexWrap="wrap" mt="20px">
       <Checkbox
-        isDisabled={Disable}
+
         onChange={() => setmultiplosCalculosCheckBox(!multiplosCalculosCheckBox)}
       >
         {numCalculo}º dedo
@@ -91,7 +91,7 @@ export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) 
         w="60px"
         h="77x"
         padding="5px"
-        maxLength={2}
+
         textAlign="center"
         onChange={(e) => { settamanhoCalculoInput(e.target.value) }}
         placeholder={"mm"}

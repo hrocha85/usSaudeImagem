@@ -37,7 +37,11 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { memo, useEffect, useRef, useState } from "react";
-import { AiOutlineClear, AiOutlinePlusCircle } from "react-icons/ai";
+import {
+  AiOutlineClear,
+  AiOutlinePlusCircle,
+  AiOutlineCloudUpload,
+} from "react-icons/ai";
 import { BiCamera } from "react-icons/bi";
 import { FaRegFolderOpen } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
@@ -97,6 +101,8 @@ const Configuracoes = () => {
 
   const [defaultUserImage, setDefaultUserImage] = useState(DefaultImageClinica);
 
+  const [pngAssinatura, setpngAssinatura] = useState<string | null>();
+
   const inputFile = useRef<HTMLInputElement | null>(null);
 
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
@@ -115,8 +121,6 @@ const Configuracoes = () => {
 
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
 
-  console.log("clinicas", listaClinicas);
-
   useEffect(() => {
     setMedicos(getMedicos);
   }, [localStorage.getItem("medicos")!]);
@@ -125,7 +129,10 @@ const Configuracoes = () => {
     const obj = {
       nome: nome,
       crm: crm,
-      assinatura: padRef.current?.getTrimmedCanvas().toDataURL("image/png")!,
+      assinatura:
+        padRef.current?.getTrimmedCanvas().toDataURL("image/png") != null
+          ? padRef.current?.getTrimmedCanvas().toDataURL("image/png")
+          : pngAssinatura!,
       foto: defaultUserImage,
       clinica: clinicas,
       laudos: [{}],
@@ -298,13 +305,16 @@ const Configuracoes = () => {
     setImageAssinatura(true);
     setpropsBoxAssinatura(false);
     setClinica([]);
+    setpngAssinatura(null);
   };
 
   const openFiles = () => {
     inputFile.current?.click();
   };
 
-  const onChangeFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeFileAssinatura = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files![0];
     const reader = new FileReader();
 
@@ -312,6 +322,22 @@ const Configuracoes = () => {
       const result = event.target?.result;
       if (typeof result === "string") {
         setDefaultUserImage(result);
+      }
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  const onChangeFilePNGAssinatura = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files![0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const result = event.target?.result;
+      if (typeof result === "string") {
+        setpngAssinatura(result);
       }
     };
 
@@ -395,6 +421,10 @@ const Configuracoes = () => {
     ) : null;
   };
 
+  const add_png_assinatura = () => {
+    openFiles();
+  };
+
   const ModalAddMedico = () => {
     return (
       <Modal
@@ -466,7 +496,7 @@ const Configuracoes = () => {
                 id="file"
                 ref={inputFile}
                 style={{ display: "none" }}
-                onChange={onChangeFile.bind(this)}
+                onChange={onChangeFileAssinatura.bind(this)}
               />
               <Icon
                 as={BiCamera}
@@ -518,7 +548,7 @@ const Configuracoes = () => {
                   placeholder="00000000-0/BR"
                   fontSize="18px"
                   textAlign={"center"}
-                  maxLength={13}
+                  
                   onChange={(event) => {
                     handleCRM(event);
                     setCrm(event.target.value);
@@ -537,39 +567,72 @@ const Configuracoes = () => {
             Assinatura:
           </Text>
           <ModalFooter>
-            <Box
-              w="100%"
-              h="100%"
-              backgroundColor={"#F7FAFC"}
-              borderColor={propsBoxAssinatura === true ? "#3183cf" : "white"}
-              borderWidth={propsBoxAssinatura === true ? "2px" : "0px"}
-              boxShadow="md"
-              borderRadius={"md"}
-              onClick={() => setpropsBoxAssinatura(true)}
-            >
-              <SignatureCanvas
-                ref={padRef}
-                backgroundColor="transparent"
-                onBegin={() => setpropsBoxAssinatura(true)}
-                penColor="black"
-                canvasProps={{
-                  width: 390,
-                  height: 230,
-                  className: "sigCanvas",
-                }}
-              />
-
-              <Flex justify="end">
-                <Icon
-                  as={AiOutlineClear}
-                  color="#4658fc"
-                  margin="5px"
-                  alignItems="end"
-                  onClick={clearAssinatura}
+            {pngAssinatura == null || pngAssinatura == undefined ? (
+              <Box
+                w="100%"
+                h="100%"
+                backgroundColor={"#F7FAFC"}
+                borderColor={propsBoxAssinatura === true ? "#3183cf" : "white"}
+                borderWidth={propsBoxAssinatura === true ? "2px" : "0px"}
+                boxShadow="md"
+                borderRadius={"md"}
+                onClick={() => setpropsBoxAssinatura(true)}
+              >
+                <SignatureCanvas
+                  ref={padRef}
+                  backgroundColor="transparent"
+                  onBegin={() => setpropsBoxAssinatura(true)}
+                  penColor="black"
+                  canvasProps={{
+                    width: 390,
+                    height: 230,
+                    className: "sigCanvas",
+                  }}
                 />
-              </Flex>
-            </Box>
+
+                <Flex justify="end">
+                  <input
+                    accept="image/png, image/jpeg"
+                    type="file"
+                    id="file"
+                    ref={inputFile}
+                    style={{ display: "none" }}
+                    onChange={onChangeFilePNGAssinatura.bind(this)}
+                  />
+                  <Icon
+                    as={AiOutlineCloudUpload}
+                    color="#4658fc"
+                    margin="5px"
+                    alignItems="end"
+                    onClick={add_png_assinatura}
+                  />
+                  <Icon
+                    as={AiOutlineClear}
+                    color="#4658fc"
+                    margin="5px"
+                    alignItems="end"
+                    onClick={clearAssinatura}
+                  />
+                </Flex>
+              </Box>
+            ) : (
+              <Box
+                w="100%"
+                h="100%"
+                backgroundColor={"#F7FAFC"}
+                boxShadow="md"
+                borderRadius={"md"}
+              >
+                <Image
+                  w="100%"
+                  h="100%"
+                  srcSet={pngAssinatura}
+                  alt="Image DR"
+                />
+              </Box>
+            )}
           </ModalFooter>
+
           <Button
             alignSelf="center"
             width="400px"
@@ -637,7 +700,7 @@ const Configuracoes = () => {
 
       lista_medicos = JSON.parse(dados);
     } else lista_medicos = [];
-  }
+  };
 
   useEffect(() => {
     var item;
@@ -676,7 +739,7 @@ const Configuracoes = () => {
   }, [updateTAGS == true]);
 
   useEffect(() => {
-    checkMedicosLocalStorage()
+    checkMedicosLocalStorage();
   }, []);
 
   return (

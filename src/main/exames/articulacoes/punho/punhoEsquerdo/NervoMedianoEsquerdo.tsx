@@ -11,7 +11,7 @@ function NervoMedianoEsquerdo({ Disable }) {
 
     const [fraseNervoMedianoEsquerdo, setFraseNervoMedianoEsquerdo] = useState<any>([]);
 
-    const subExame = 'Nervo ulnar Esquerdo'
+    const subExame = 'Punho- Nervo ulnar Esquerdo'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -58,6 +58,18 @@ function NervoMedianoEsquerdo({ Disable }) {
         }
         EspessuraNormalCheckbox ? setFraseNervoMedianoEsquerdo((arr) => [...arr, string]) : removeFraseEspessuraNormal();
     };
+
+    const [Normal, setNormal] = useState(false)
+
+    useEffect(() => {
+        Disable ? setNormal(true) : setNormal(false)
+    }, [Disable])
+
+    useEffect(() => {
+        Normal ? setEspessuraNormalCheckbox(!EspessuraNormalCheckbox) : removeFraseEspessuraNormal()
+    }, [Normal])
+
+
     const removeFraseEspessuraNormal = () => {
         fraseNervoMedianoEsquerdo.map((e) => {
             if (e.includes("Nervo mediano de espessura, contornos e ecotextura normais")) {
@@ -171,7 +183,7 @@ function NervoMedianoEsquerdo({ Disable }) {
             <Stack>
                 <HStack>
                     <Checkbox
-                        isDisabled={Disable}
+
                         onChange={() => {
                             setAreaSeccionalCheckbox(!AreaSeccionalCheckbox);
                         }}
@@ -184,22 +196,24 @@ function NervoMedianoEsquerdo({ Disable }) {
                         w="45px"
                         h="30px"
                         padding="5px"
-                        maxLength={2}
+
                         textAlign="center"
                         onChange={(e) => { setAreaSeccionalInput(e.target.value) }}
                     />
                     <Text>mm²</Text>
                 </HStack>
                 <Checkbox
-                    isDisabled={Disable || disableEspessuraNormal}
+                    isChecked={Normal}
+                    isDisabled={disableEspessuraNormal}
                     onChange={() => {
+                        setNormal(!Normal)
                         setEspessuraNormalCheckbox(!EspessuraNormalCheckbox);
                     }}
                 >
                     Espessura normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable || disableEspessuraAumentada}
+                    isDisabled={disableEspessuraAumentada}
                     onChange={() => {
                         setEspessuraAumentadaCheckbox(!EspessuraAumentadaCheckbox);
                     }}
@@ -208,7 +222,7 @@ function NervoMedianoEsquerdo({ Disable }) {
                 </Checkbox>
                 <Box display='flex' flexWrap='wrap' gap='5px'>
                     <Checkbox
-                        isDisabled={Disable}
+
                         onChange={() => {
                             setNervoMedianoBifidoCheckbox(!NervoMedianoBifidoCheckbox);
                         }}

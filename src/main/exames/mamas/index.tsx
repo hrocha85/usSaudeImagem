@@ -2,10 +2,6 @@ import { Box, Text, Radio, RadioGroup, Stack, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 
 import Abscesso from "./abscesso/abscesso";
-import Assimetria from "./Assimetria/Assimetria";
-import Axila_direita from "./axilas/axila_direita";
-import Axila_esquerda from "./axilas/axila_esquerda";
-
 import Birads from "./birads/birads";
 import Cirurgia from "./cirurgia/cirurgia";
 import Cistos from "./cistos/cistos";
@@ -56,13 +52,6 @@ function Mamas() {
     <>
       <Box ml="10px" rowGap='20px' >
 
-
-        <Microcalcificacoes />
-        <Nodulo />
-        <Cistos />
-
-        <Cirurgia />
-
         <Box
           bg="#FAFAFA"
           w={largura}
@@ -85,18 +74,19 @@ function Mamas() {
 
         {MamaSexo()}
 
-        <Box display='flex' flexWrap='wrap' gap='15px'>
-          <Axila_esquerda />
-          <Axila_direita />
-        </Box >
-
         <Implantes />
-
-        <Birads />
 
         <Abscesso />
 
         <Extra />
+
+        <Microcalcificacoes />
+        <Nodulo />
+        <Cistos />
+
+        <Cirurgia />
+
+        <Birads />
 
         <Extra4 />
 

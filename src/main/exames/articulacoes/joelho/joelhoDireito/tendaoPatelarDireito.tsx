@@ -22,16 +22,14 @@ function TendaoPatelarDireito({ Disable }) {
         titulo_exame,
         subExame,
         true,
-        TendaoPatelarDireito,
-        ConclusaoTendaoPatelarDireito
+        TendaoPatelarDireito
       ).Format_Laudo_Create_Storage();
     } else {
       new Format_Laudo(
         titulo_exame,
         subExame,
         false,
-        TendaoPatelarDireito,
-        ConclusaoTendaoPatelarDireito
+        TendaoPatelarDireito
       ).Format_Laudo_Create_Storage();
     }
   }, [TendaoPatelarDireito]);
@@ -79,39 +77,24 @@ function TendaoPatelarDireito({ Disable }) {
     });
   };
 
-  const criaStringConclusao = () => {
-    removeItemStringConclusao()
-    var conclusao = 'Tendinopatia do bíceps femoral'
-    if (TendinopatiaSemRoturaCheckbox && (LesaoParcialInput !== '' && LesaoParcialInput2 !== '' && LesaoParcialInput3 !== '')) {
-      conclusao = `${conclusao} com lesão parcial.`
-    } else if (TendinopatiaSemRoturaCheckbox) {
-      conclusao = `${conclusao}.`
-    }
-    setConclusaoTendaoPatelarDireito(conclusao)
-  }
 
-  useEffect(() => {
-    criaStringConclusao()
-  }, [TendinopatiaSemRoturaCheckbox, LesaoParcialInput, LesaoParcialInput2, LesaoParcialInput3])
-
-  const removeItemStringConclusao = () => {
-    ConclusaoTendaoPatelarDireito.map((e) => {
-      if (e.includes("Tendinopatia do bíceps femoral")) {
-        var index = ConclusaoTendaoPatelarDireito.indexOf(e);
-
-        if (index > -1) {
-          ConclusaoTendaoPatelarDireito.splice(index, 1);
-          setConclusaoTendaoPatelarDireito((arr) => [...arr]);
-          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Tendinopatia do bíceps femoral')
-        }
-      }
-    });
-  };
 
   const criaStringAspectoNormal = () => {
     var string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox ? setTendaoPatelarDireito((arr) => [...arr, string]) : removeItemString(string);
   };
+
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+  }, [Normal])
+
 
   useEffect(() => {
     criaStringAspectoNormal()
@@ -266,15 +249,17 @@ function TendaoPatelarDireito({ Disable }) {
 
       <Stack>
         <Checkbox
-          isDisabled={Disable || disableAspectoNormal}
+          isChecked={Normal}
+          isDisabled={disableAspectoNormal}
           onChange={() => {
+            setNormal(!Normal)
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
         >
           Aspecto Normal
         </Checkbox>
         <Checkbox
-          isDisabled={Disable || disableTendinopatiaSemRotura}
+          isDisabled={disableTendinopatiaSemRotura}
           onChange={() => {
             setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
           }}
@@ -284,7 +269,7 @@ function TendaoPatelarDireito({ Disable }) {
 
         <HStack>
           <Checkbox
-            isDisabled={Disable || disableLesaoParcial}
+            isDisabled={disableLesaoParcial}
             onChange={() => {
               setLesaoParcialCheckbox(!LesaoParcialCheckbox);
             }}
@@ -299,7 +284,7 @@ function TendaoPatelarDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => { setLesaoParcialInput(e.target.value) }}
             />
@@ -310,7 +295,7 @@ function TendaoPatelarDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => { setLesaoParcialInput2(e.target.value) }}
             />
@@ -321,7 +306,7 @@ function TendaoPatelarDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => { setLesaoParcialInput3(e.target.value) }}
             />
@@ -329,7 +314,7 @@ function TendaoPatelarDireito({ Disable }) {
           </HStack>
         </HStack>
         <Checkbox
-          isDisabled={Disable || disableAspectoPosCirurgico}
+          isDisabled={disableAspectoPosCirurgico}
           onChange={() => {
             setAspectoPosCirurgicoCheckbox(!AspectoPosCirurgicoCheckbox);
           }}
@@ -365,7 +350,7 @@ function TendaoPatelarDireito({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+
             textAlign="center"
             onChange={(e) => { setInputMedindoPresencaEntesofito(e.target.value) }}
           />

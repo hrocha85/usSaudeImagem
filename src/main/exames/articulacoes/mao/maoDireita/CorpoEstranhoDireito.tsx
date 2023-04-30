@@ -106,7 +106,6 @@ function CorpoEstranhoDireito({ Disable }) {
                 <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
 
                     <Checkbox
-                        isDisabled={Disable}
                         onChange={() => {
                             setCorpoCheckbox(!CorpoCheckbox);
                         }}
@@ -162,7 +161,7 @@ function CorpoEstranhoDireito({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+
                             textAlign="center"
                             onChange={(e) => { setCorpoInput(e.target.value) }}
                         />

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useDebugValue, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -13,6 +13,7 @@ function Cirurgias({ Disable }) {
 
   const subExame = "Cirurgia";
   const titulo_exame = "Pélvico"
+
   useEffect(() => {
     if (Object.keys(frasesCirurgia).length == 0) {
       new Format_Laudo(
@@ -38,32 +39,26 @@ function Cirurgias({ Disable }) {
   const [medidaHisterectomia2, setmedidaHisterectomia2] = useState("");
   const [medidaHisterectomia3, setmedidaHisterectomia3] = useState("");
 
-  const [histerectomiaSubtotalCheckBox, setHisterectomiaSubTotalCheckBox] =
+  const [HisterectomiaSubtotalCheckbox, setHisterectomiaSubTotalCheckbox] =
     useState(false);
 
-  const [isCheckedHisterectomiaSubTotal, setisCheckedHisterectomiaSubTotal] =
-    useState(false);
-
-  const [histerectmoiaTotalCheckBox, sethisterectomiaTotalCheckBox] =
-    useState(true);
+  const [HisterectmiaTotalCheckbox, setHisterectomiaTotalCheckbox] = useState(false);
 
   const criaStringHisterectomiaTotal = () => {
     var string = "Histerectomia Total.";
     const conclusao = 'Histerectomia total.'
-    if (histerectmoiaTotalCheckBox) {
+    if (HisterectmiaTotalCheckbox) {
       setFrasesCirurgias((arr) => [...arr, string]);
       setConclusaoCirurgias((arr) => [...arr, conclusao]);
-      sethisterectomiaTotalCheckBox(false);
-      setisCheckedHisterectomiaSubTotal(false);
-      removeMedidaHisterectomiaSubtotal();
-      setmedidaHisterectomia1("");
-      setmedidaHisterectomia2("");
-      setmedidaHisterectomia3("");
     } else {
       removeItemString(string);
       removeItemStringConclusao(conclusao)
     }
   };
+
+  useEffect(() => {
+    criaStringHisterectomiaTotal()
+  }, [HisterectmiaTotalCheckbox])
 
   const criaStringMedidasHisterectomia = () => {
     const conclusao = 'Histerectomia subtotal.'
@@ -119,7 +114,7 @@ function Cirurgias({ Disable }) {
   };
 
   useEffect(() => {
-    if (histerectomiaSubtotalCheckBox) {
+    if (HisterectomiaSubtotalCheckbox) {
       criaStringMedidasHisterectomia();
     } else {
       removeMedidaHisterectomiaSubtotal();
@@ -131,7 +126,7 @@ function Cirurgias({ Disable }) {
     medidaHisterectomia1,
     medidaHisterectomia2,
     medidaHisterectomia3,
-    histerectomiaSubtotalCheckBox,
+    HisterectomiaSubtotalCheckbox,
   ]);
 
   return (
@@ -152,10 +147,9 @@ function Cirurgias({ Disable }) {
         <Stack>
           <Stack>
             <Checkbox
-              isDisabled={Disable}
+              isDisabled={HisterectomiaSubtotalCheckbox}
               onChange={() => {
-                sethisterectomiaTotalCheckBox(true);
-                criaStringHisterectomiaTotal();
+                setHisterectomiaTotalCheckbox(!HisterectmiaTotalCheckbox);
               }}
             >
               Histerectomia Total
@@ -163,48 +157,45 @@ function Cirurgias({ Disable }) {
             <Box>
               <HStack>
                 <Checkbox
-                  whiteSpace="nowrap"
-                  isDisabled={!histerectmoiaTotalCheckBox}
-                  isChecked={isCheckedHisterectomiaSubTotal}
+                  isDisabled={HisterectmiaTotalCheckbox}
                   onChange={() => {
-                    setHisterectomiaSubTotalCheckBox(
-                      !histerectomiaSubtotalCheckBox
+                    setHisterectomiaSubTotalCheckbox(
+                      !HisterectomiaSubtotalCheckbox
                     );
-                    setisCheckedHisterectomiaSubTotal(!isCheckedHisterectomiaSubTotal);
                   }}
                 >
                   Histerectomia Subtotal
                 </Checkbox>
 
                 <Input
-                  isDisabled={!histerectmoiaTotalCheckBox}
+                  isDisabled={!HisterectomiaSubtotalCheckbox}
                   value={medidaHisterectomia1}
                   w="35px"
                   h="30px"
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   onChange={(e) => setmedidaHisterectomia1(e.target.value)}
                 />
                 <Text>x</Text>
                 <Input
-                  isDisabled={!histerectmoiaTotalCheckBox}
+                  isDisabled={!HisterectomiaSubtotalCheckbox}
                   value={medidaHisterectomia2}
                   w="35px"
                   h="30px"
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   onChange={(e) => setmedidaHisterectomia2(e.target.value)}
                 />
                 <Text>x</Text>
                 <Input
-                  isDisabled={!histerectmoiaTotalCheckBox}
+                  isDisabled={!HisterectomiaSubtotalCheckbox}
                   value={medidaHisterectomia3}
                   w="35px"
                   h="30px"
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   onChange={(e) => setmedidaHisterectomia3(e.target.value)}
                 />

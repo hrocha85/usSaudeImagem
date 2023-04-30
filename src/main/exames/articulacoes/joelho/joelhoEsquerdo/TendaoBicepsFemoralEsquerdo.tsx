@@ -21,16 +21,14 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
                 titulo_exame,
                 subExame,
                 true,
-                TendaoBicepsFemoralEsquerdo,
-                ConclusaoTendaoBicepsFemoralEsquerdo
+                TendaoBicepsFemoralEsquerdo
             ).Format_Laudo_Create_Storage();
         } else {
             new Format_Laudo(
                 titulo_exame,
                 subExame,
                 false,
-                TendaoBicepsFemoralEsquerdo,
-                ConclusaoTendaoBicepsFemoralEsquerdo
+                TendaoBicepsFemoralEsquerdo
             ).Format_Laudo_Create_Storage();
         }
     }, [TendaoBicepsFemoralEsquerdo]);
@@ -76,6 +74,17 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
         var string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
         AspectoNormalCheckbox ? setTendaoBicepsFemoralEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
+    const [Normal, setNormal] = useState(false)
+
+    useEffect(() => {
+        Disable ? setNormal(true) : setNormal(false)
+    }, [Disable])
+
+    useEffect(() => {
+        var string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
+        Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+    }, [Normal])
+
 
     useEffect(() => {
         criaStringAspectoNormal()
@@ -197,15 +206,17 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
 
             <Stack>
                 <Checkbox
-                    isDisabled={Disable || disableAspectoNormal}
+                    isChecked={Normal}
+                    isDisabled={disableAspectoNormal}
                     onChange={() => {
+                        setNormal(!Normal)
                         setAspectoNormalCheckbox(!AspectoNormalCheckbox);
                     }}
                 >
                     Aspecto Normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable || disableTendinopatiaSemRotura}
+                    isDisabled={disableTendinopatiaSemRotura}
                     onChange={() => {
                         setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
                     }}
@@ -215,7 +226,7 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
 
                 <HStack>
                     <Checkbox
-                        isDisabled={Disable || disableLesaoParcial}
+                        isDisabled={disableLesaoParcial}
                         onChange={() => {
                             setLesaoParcialCheckbox(!LesaoParcialCheckbox);
                         }}
@@ -230,7 +241,7 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+
                             textAlign="center"
                             onChange={(e) => { setLesaoParcialInput(e.target.value) }}
                         />
@@ -241,7 +252,7 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+
                             textAlign="center"
                             onChange={(e) => { setLesaoParcialInput2(e.target.value) }}
                         />
@@ -252,7 +263,7 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
                             w="45px"
                             h="30px"
                             padding="5px"
-                            maxLength={2}
+
                             textAlign="center"
                             onChange={(e) => { setLesaoParcialInput3(e.target.value) }}
                         />

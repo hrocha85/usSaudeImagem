@@ -161,6 +161,8 @@ function Volume_vesical({ Disable }) {
                         <Text>Vol. pré-miccional:</Text>
                         <HStack>
                             <Input
+                                p='0'
+                                textAlign='center'
                                 isDisabled={Disable}
                                 w="60px"
                                 value={VolumePreMiccionalInput1}
@@ -171,6 +173,8 @@ function Volume_vesical({ Disable }) {
                             />
                             <Text>x</Text>
                             <Input
+                                p='0'
+                                textAlign='center'
                                 isDisabled={Disable}
                                 w="60px"
                                 value={VolumePreMiccionalInput2}
@@ -181,6 +185,8 @@ function Volume_vesical({ Disable }) {
                             />
                             <Text>x</Text>
                             <Input
+                                p='0'
+                                textAlign='center'
                                 isDisabled={Disable}
                                 w="60px"
                                 value={VolumePreMiccionalInput3}
@@ -189,8 +195,10 @@ function Volume_vesical({ Disable }) {
                                 }}
                                 placeholder="0"
                             />
-                            <Text>mm = </Text>
+                            <Text>cm = </Text>
                             <Input
+                                p='0'
+                                textAlign='center'
                                 isDisabled={Disable}
                                 w="60px"
                                 value={VolumePreMiccionalInput4}
@@ -212,6 +220,8 @@ function Volume_vesical({ Disable }) {
                     <Text>Resíduo:</Text>
                     <HStack>
                         <Input
+                            p='0'
+                            textAlign='center'
                             isDisabled={Disable}
                             w="60px"
                             value={ResiduoInput1}
@@ -222,6 +232,8 @@ function Volume_vesical({ Disable }) {
                         />
                         <Text>x</Text>
                         <Input
+                            p='0'
+                            textAlign='center'
                             isDisabled={Disable}
                             w="60px"
                             value={ResiduoInput2}
@@ -232,6 +244,8 @@ function Volume_vesical({ Disable }) {
                         />
                         <Text>x</Text>
                         <Input
+                            p='0'
+                            textAlign='center'
                             isDisabled={Disable}
                             w="60px"
                             value={ResiduoInput3}
@@ -240,8 +254,10 @@ function Volume_vesical({ Disable }) {
                             }}
                             placeholder="0"
                         />
-                        <Text>mm = </Text>
+                        <Text>cm = </Text>
                         <Input
+                            p='0'
+                            textAlign='center'
                             isDisabled={Disable}
                             w="60px"
                             value={ResiduoInput4}

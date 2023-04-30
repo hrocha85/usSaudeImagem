@@ -16,7 +16,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Colecao({ Disable }) {
   const altura = "auto";
-  const largura = "95%";
+  const largura = "380px";
 
   const [frasesColecao, setFrasesColecao] = useState<any>([]);
   const [ConclusaoColecao, setConclusaoColecao] = useState<any>([]);
@@ -35,7 +35,7 @@ function Colecao({ Disable }) {
   const [medida3Colecao, setMedida3Colecao] = useState("");
   const [MedidaDistanciaPele, setMedidaDistanciaPele] = useState("");
 
-
+  const [Volume, setVolume] = useState<number>(0);
   const criaStringLocalColecao = () => {
     removeLocalColecao();
     removeConclusao();
@@ -45,9 +45,10 @@ function Colecao({ Disable }) {
       medida2Colecao !== "" &&
       medida3Colecao !== ""
     ) {
-      var soma = (parseFloat(medida1Colecao) + parseFloat(medida2Colecao) + parseFloat(medida3Colecao)) / 1000
+      var soma = (parseFloat(medida1Colecao.replace(",", ".")) + parseFloat(medida2Colecao.replace(",", ".")) + parseFloat(medida3Colecao.replace(",", ".")))
       let conclusao = `Coleção líquida com volume estimado em ${soma} ml.`
       let string = `Presença de coleção bem delimitada medindo ${medida1Colecao} x ${medida2Colecao} x ${medida3Colecao} cm (volume estimado em ${soma} ml), contendo ${planoColecaoSelect}.`;
+      setVolume(soma)
       setFrasesColecao((arr) => [...arr, string]);
       setConclusaoColecao((arr) => [...arr, conclusao]);
     }
@@ -92,13 +93,14 @@ function Colecao({ Disable }) {
     setMedida2Colecao("");
     setMedida3Colecao("");
     setMedidaDistanciaPele("");
+    setVolume(0)
   }, [LocalColecaoCheckbox]);
 
   useEffect(() => {
     criaStringLocalColecao();
   }, [planoColecaoSelect, medida1Colecao, medida2Colecao, medida3Colecao]);
 
-  const subExame = "Parede Abdominal - Coleção";
+  const subExame = "Coleção";
   const titulo_exame = "Partes Moles";
 
   useEffect(() => {
@@ -133,84 +135,93 @@ function Colecao({ Disable }) {
       padding="15px 15px 20px 15px"
       mt="10px"
     >
-      <Text>Parede Abdominal</Text>
       <TituloNomeExame titulo="Coleção" />
 
-      <Box display="flex" flexWrap="wrap">
-        <Stack w="100%">
-          <HStack>
-            <Checkbox
-              isDisabled={Disable}
-              onChange={(e) => setCheckboxLocalColecao(!LocalColecaoCheckbox)}
-              mr="30px"
-            >
+      <Box gap='10px' display="flex" flexWrap="wrap">
+
+
+        <Checkbox
+          isDisabled={Disable}
+          onChange={(e) => setCheckboxLocalColecao(!LocalColecaoCheckbox)}
+          mr="30px"
+        >
+          Coleção
+        </Checkbox>
+        <HStack>
+          <Text>medindo</Text>
+          <Input
+            isDisabled={disableInputLocalColecao}
+            w="35px"
+            h="30px"
+            value={medida1Colecao}
+            padding="0px"
+
+            textAlign="center"
+            onChange={(e) => {
+              setMedida1Colecao(e.target.value);
+            }}
+          />
+          <Text>x</Text>
+          <Input
+            isDisabled={disableInputLocalColecao}
+            w="35px"
+            h="30px"
+            value={medida2Colecao}
+            padding="0px"
+
+            textAlign="center"
+            onChange={(e) => {
+              setMedida2Colecao(e.target.value);
+            }}
+          />
+          <Text>x</Text>
+          <Input
+            isDisabled={disableInputLocalColecao}
+            w="35px"
+            h="30px"
+            value={medida3Colecao}
+            padding="0px"
+
+            textAlign="center"
+            onChange={(e) => {
+              setMedida3Colecao(e.target.value);
+            }}
+          />
+          <Text>cm</Text>
+          <Text>vol</Text>
+          <Input
+            isDisabled={disableInputLocalColecao}
+            w="35px"
+            h="30px"
+            value={Volume}
+            padding="0px"
+            textAlign="center"
+
+          />
+        </HStack>
+
+        <Center>
+          <Select
+            isDisabled={disableInputLocalColecao}
+            value={planoColecaoSelect}
+            onChange={(e) => {
+              setPlanoColecaoSelect(e.target.value);
+            }}
+          >
+            <option value="" disabled selected>
               Coleção
-            </Checkbox>
-            <HStack>
-              <Text>medindo</Text>
-              <Input
-                isDisabled={disableInputLocalColecao}
-                w="35px"
-                h="30px"
-                value={medida1Colecao}
-                padding="5px"
-                maxLength={2}
-                textAlign="center"
-                onChange={(e) => {
-                  setMedida1Colecao(e.target.value);
-                }}
-              />
-              <Text>x</Text>
-              <Input
-                isDisabled={disableInputLocalColecao}
-                w="35px"
-                h="30px"
-                value={medida2Colecao}
-                padding="5px"
-                maxLength={2}
-                textAlign="center"
-                onChange={(e) => {
-                  setMedida2Colecao(e.target.value);
-                }}
-              />
-              <Text>x</Text>
-              <Input
-                isDisabled={disableInputLocalColecao}
-                w="35px"
-                h="30px"
-                value={medida3Colecao}
-                padding="5px"
-                maxLength={2}
-                textAlign="center"
-                onChange={(e) => {
-                  setMedida3Colecao(e.target.value);
-                }}
-              />
-              <Text>mm</Text>
-            </HStack>
-          </HStack>
-          <Center>
-            <Select
-              isDisabled={disableInputLocalColecao}
-              value={planoColecaoSelect}
-              onChange={(e) => {
-                setPlanoColecaoSelect(e.target.value);
-              }}
-            >
-              <option value="" disabled selected>
-                Coleção
-              </option>
-              <option value="líquido anecogênico com finos debris">
-                líquido anecogênico com finos debris
-              </option>
-              <option value="líquido anecogênico">líquido anecogênico</option>
-              <option value="líquido hipoecogênico">
-                líquido hipoecogênico
-              </option>
-              <option value="material heterogêneo">material heterogêneo</option>
-            </Select>
-          </Center>
-        </Stack>
+            </option>
+            <option value="líquido anecogênico com finos debris">
+              líquido anecogênico com finos debris
+            </option>
+            <option value="líquido anecogênico">líquido anecogênico</option>
+            <option value="líquido hipoecogênico">
+              líquido hipoecogênico
+            </option>
+            <option value="material heterogêneo">material heterogêneo</option>
+          </Select>
+        </Center>
+
       </Box>
     </Box>
   );

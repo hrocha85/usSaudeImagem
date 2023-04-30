@@ -23,7 +23,7 @@ export default function IndividualizarCistos({ numCisto, disable }) {
     removeItemConclusao('Cisto testicular.')
     removeMultiplosCistos();
     if (tamanhoCistoInput !== "" && CistosSelect !== "" && localizado !== "") {
-      var string = `Cisto Testícular ${numCisto}: mede ${tamanhoCistoInput} mm, conteúdo ${conteudoCistoSelect}, localizado no ${CistosSelect}, do  ${localizado} `;
+      var string = `Cisto Testícular ${numCisto}: mede ${tamanhoCistoInput} cm, conteúdo ${conteudoCistoSelect}, localizado no ${CistosSelect}, do  ${localizado} `;
       setFrasesCistos((arr) => [...arr, string]);
       setConclusaoCistos(['Cisto testicular.'])
     }
@@ -132,13 +132,13 @@ export default function IndividualizarCistos({ numCisto, disable }) {
           value={tamanhoCistoInput}
           w="60px"
           h="77x"
-          padding="5px"
-          maxLength={2}
+          padding="0px"
+
           textAlign="center"
           onChange={(e) => settamanhoCistoInput(e.target.value)}
-          placeholder={"mm"}
+          placeholder={"cm"}
         />
-        <Text fontSize="13px">mm</Text>
+        <Text fontSize="13px">cm</Text>
       </HStack>
       <HStack>
         <Text fontSize="13px">Local</Text>

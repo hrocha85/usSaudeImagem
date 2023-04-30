@@ -12,7 +12,7 @@ function VentreInfraespinhalDireito({ Disable }) {
 
     const [fraseVentreInfraespinhalDireito, setFraseVentreInfraespinhalDireito] = useState<any>([]);
 
-    const subExame = 'Ventre Infraespinhal Direito'
+    const subExame = 'Ombro- Ventre Infraespinhal Direito'
     const titulo_exame = 'Articulações'
 
     useEffect(() => {
@@ -47,6 +47,17 @@ function VentreInfraespinhalDireito({ Disable }) {
         var string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
         NormalCheckbox ? setFraseVentreInfraespinhalDireito((arr) => [...arr, string]) : removeItemString(string);
     };
+    const [Normal, setNormal] = useState(false)
+
+    useEffect(() => {
+        Disable ? setNormal(true) : setNormal(false)
+    }, [Disable])
+
+    useEffect(() => {
+        var string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
+        Normal ? setNormalCheckbox(!NormalCheckbox) : removeItemString(string)
+    }, [Normal])
+
 
     useEffect(() => {
         criaStringNormal()
@@ -98,15 +109,17 @@ function VentreInfraespinhalDireito({ Disable }) {
 
             <Box display="flex" flexWrap="wrap" gap='10px'>
                 <Checkbox
-                    isDisabled={Disable || disableNormal}
+                    isChecked={Normal}
+                    isDisabled={disableNormal}
                     onChange={() => {
+                        setNormal(!Normal)
                         setNormalCheckbox(!NormalCheckbox);
                     }}
                 >
                     Normal
                 </Checkbox>
                 <Checkbox
-                    isDisabled={Disable || disableSubstituicaoAdiposa}
+                    isDisabled={disableSubstituicaoAdiposa}
                     onChange={() => {
                         setSubstituicaoAdiposaCheckbox(!SubstituicaoAdiposaCheckbox);
                     }}

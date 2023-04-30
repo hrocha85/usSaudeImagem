@@ -11,7 +11,7 @@ function FasciaLataDireito({ Disable }) {
     const [value, setValue] = useState("1");
     const [frasesQuadrilFasciaLataDireito, setFrasesQuadrilFasciaLataDireito] = useState<any>([]);
 
-    const subExame = "Fáscia lata direito";
+    const subExame = "Quadril- Fáscia lata direito";
     const titulo_exame = "Articulações";
 
     useEffect(() => {
@@ -41,7 +41,9 @@ function FasciaLataDireito({ Disable }) {
         }
     }, [frasesQuadrilFasciaLataDireito]);
 
-
+    useEffect(() => {
+        Disable ? setValue('Fáscia lata com espessura preservada e ecotextura homogênea.') : setValue('1');
+    }, [Disable])
 
 
     return (
@@ -58,7 +60,7 @@ function FasciaLataDireito({ Disable }) {
         >
             <TituloNomeExame titulo="Fáscia lata" />
 
-            <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+            <RadioGroup onChange={setValue} value={value} padding="10px">
                 <Stack direction="column">
                     <Radio value="1">Não citar</Radio>
                     <Radio value="Fáscia lata com espessura preservada e ecotextura homogênea.">Aspecto Normal</Radio>

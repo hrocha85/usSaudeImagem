@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Grid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -170,6 +171,61 @@ export default function Achados_Normais({ Disable }) {
     }
   }, [Ausencia_Diastase_NormaisCheckbox]);
 
+  const [Normal1, setNormal1] = useState(false)
+  const [Normal2, setNormal2] = useState(false)
+  const [Normal3, setNormal3] = useState(false)
+  const [Normal4, setNormal4] = useState(false)
+  const [Normal5, setNormal5] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal1(true) : setNormal1(false)
+    Disable ? setNormal2(true) : setNormal2(false)
+    Disable ? setNormal3(true) : setNormal3(false)
+    Disable ? setNormal4(true) : setNormal4(false)
+    Disable ? setNormal5(true) : setNormal5(false)
+  }, [Disable])
+
+  useEffect(() => {
+    if (Normal1) {
+      setPele_Tecido_NormaisCheckBox(!Pele_Tecido_NormaisCheckbox)
+
+    } else {
+      removePele_Tecido_Normais();
+
+    }
+  }, [Normal1])
+
+  useEffect(() => {
+    if (Normal2) {
+      setPlanos_Musculares_NormaisCheckBox(!Planos_Musculates_NormaisCheckbox)
+    } else {
+      removePlanos_Muculates_Normais();
+    }
+  }, [Normal2])
+  useEffect(() => {
+    if (Normal3) {
+      setAusencia_Nodulos_Colecoes_NormaisCheckBox(!Ausencia_Nodulos_Colecoes_NormaisCheckbox)
+    } else {
+      removeAusencia_Nodulos_Colescoes_Normais();
+    }
+  }, [Normal3])
+  useEffect(() => {
+    if (Normal4) {
+      setAusencia_Herniacoes_NormaisCheckBox(!Ausencia_Herniacoes_NormaisCheckbox)
+    } else {
+      removeAusencia_Herniacoes_Normais();
+    }
+  }, [Normal4])
+  useEffect(() => {
+    if (Normal5) {
+      setAusencia_Diastase_NormaisCheckBox(!Ausencia_Diastase_NormaisCheckbox)
+    } else {
+
+      removeAusencia_Diastase_Normais();
+    }
+  }, [Normal5])
+
+
   const subExame = "Achados Normais";
   const titulo_exame = "Partes Moles";
 
@@ -208,50 +264,55 @@ export default function Achados_Normais({ Disable }) {
       <Box gap="15px" display="flex" flexWrap="wrap" flexDirection="column">
         <Grid templateColumns="repeat(5, 1fr)" gap={6}>
           <Checkbox
-            isDisabled={Disable}
-            onChange={() =>
+            isChecked={Normal1}
+            onChange={() => {
+              setNormal1(!Normal1)
               setPele_Tecido_NormaisCheckBox(!Pele_Tecido_NormaisCheckbox)
-            }
+            }}
           >
             Pele e tecido subcutâneo normais
           </Checkbox>
           <Checkbox
-            isDisabled={Disable}
-            onChange={() =>
+            isChecked={Normal2}
+            onChange={() => {
+              setNormal2(!Normal2)
               setPlanos_Musculares_NormaisCheckBox(
                 !Planos_Musculates_NormaisCheckbox
               )
-            }
+            }}
           >
             Planos Musculares
           </Checkbox>
           <Checkbox
-            isDisabled={Disable}
-            onChange={() =>
+            isChecked={Normal3}
+            onChange={() => {
+              setNormal3(!Normal3)
               setAusencia_Nodulos_Colecoes_NormaisCheckBox(
                 !Ausencia_Nodulos_Colecoes_NormaisCheckbox
               )
-            }
+            }}
           >
             Ausência de nódulos, massas ou coleções
           </Checkbox>
           <Checkbox
-            isDisabled={Disable}
-            onChange={() =>
+            isChecked={Normal4}
+            onChange={() => {
+              setNormal4(!Normal4)
               setAusencia_Herniacoes_NormaisCheckBox(
                 !Ausencia_Herniacoes_NormaisCheckbox
               )
-            }
+            }}
           >
             Ausência de herniações
           </Checkbox>
           <Checkbox
-            isDisabled={Disable}
-            onChange={() =>
+            isChecked={Normal5}
+            onChange={() => {
+              setNormal5(!Normal5)
               setAusencia_Diastase_NormaisCheckBox(
                 !Ausencia_Diastase_NormaisCheckbox
               )
-            }
+            }}
           >
             Ausência de diástase do músculo reto abdominal
           </Checkbox>

@@ -184,7 +184,7 @@ const CardPaciente = ({ altura }) => {
                 h="40px"
                 w="150px"
                 borderRadius="md"
-                maxLength={3}
+                
                 onChange={handleIdadePacienteInput}
               />
               <Select

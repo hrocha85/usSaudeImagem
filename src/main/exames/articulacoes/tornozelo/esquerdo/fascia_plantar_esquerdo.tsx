@@ -130,6 +130,11 @@ export default function Fascia_Plantar_Esquerdo({ Disable }) {
     medidaFascilite,
   ]);
 
+
+  useEffect(() => {
+    Disable ? setValue("Normal") : setValue('1')
+  }, [Disable])
+
   useEffect(() => {
     if (Object.keys(frasesTornozelo).length == 0) {
       new Format_Laudo(
@@ -162,7 +167,7 @@ export default function Fascia_Plantar_Esquerdo({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Fáscia Plantar
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Normal">Normal</Radio>
@@ -178,7 +183,7 @@ export default function Fascia_Plantar_Esquerdo({ Disable }) {
                   h="30px"
                   value={medidaFascilite}
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   onChange={(e) => {
                     setMedidaFascilite(e.target.value);
@@ -206,7 +211,7 @@ export default function Fascia_Plantar_Esquerdo({ Disable }) {
                   h="30px"
                   value={medida1Fibro}
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   onChange={(e) => {
                     setMedida1Fibro(e.target.value);
@@ -219,7 +224,7 @@ export default function Fascia_Plantar_Esquerdo({ Disable }) {
                   h="30px"
                   value={medida2Fibro}
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   onChange={(e) => {
                     setMedida2Fibro(e.target.value);
@@ -232,7 +237,7 @@ export default function Fascia_Plantar_Esquerdo({ Disable }) {
                   h="30px"
                   value={medida3Fibro}
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   onChange={(e) => {
                     setMedida3Fibro(e.target.value);

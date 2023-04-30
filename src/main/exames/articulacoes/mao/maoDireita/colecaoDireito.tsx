@@ -121,7 +121,7 @@ function ColecaoDireito({ Disable }) {
 
         <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
           <Checkbox
-            isDisabled={Disable}
+
             onChange={() => {
               setAlteracaoCheckbox(!AlteracaoCheckbox);
             }}
@@ -162,7 +162,7 @@ function ColecaoDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => { setAlteracaoInput(e.target.value) }}
             />
@@ -173,7 +173,7 @@ function ColecaoDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => { setAlteracaoInput2(e.target.value) }}
             />
@@ -184,7 +184,7 @@ function ColecaoDireito({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => { setAlteracaoInput3(e.target.value) }}
             />

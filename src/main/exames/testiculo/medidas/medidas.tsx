@@ -18,10 +18,8 @@ function Testiculos() {
 
   const stringPadrao =
     "Testículos com forma, dimensões e contornos normais, medindo:";
-  const stringPadrao2 =
-    "Exame realizado em modo bidimensional, com equipamento dinâmico linear multifrequêncial. Foram feitas varreduras nos sentidos transversal, longitudinal e oblíquos.";
 
-  const [frasesMedidas, setFrasesMedidas] = useState<any>([stringPadrao2]);
+  const [frasesMedidas, setFrasesMedidas] = useState<any>([]);
   const [ConclusoesTesticulos, setConclusoesTesticulos] = useState<any>([]);
 
   const [medidaTesticuloDireito1, setmedidaTesticuloDireito1] = useState("");
@@ -101,13 +99,13 @@ function Testiculos() {
   };
 
   const criaStringEpidimos = () => {
-    var string = "Epidídimos com configuração, diâmetros e textura normais.";
+    var string = "EPIDÍDIMOS com configuração, diâmetros e textura normais.";
     setFrasesMedidas((arr) => [...arr, string]);
   };
 
   const removeEpidimos = () => {
     frasesMedidas.map((e) => {
-      if (e.includes("Epidídimos")) {
+      if (e.includes("EPIDÍDIMOS")) {
         var index = frasesMedidas.indexOf(e);
 
         if (index > -1) {
@@ -211,7 +209,7 @@ function Testiculos() {
   }, [bolsaTesticularCheckBox]);
 
   useEffect(() => {
-    const conclusao = "Epidídimos dentro dos parâmetros da normalidade.";
+    const conclusao = "EPIDÍDIMOS dentro dos parâmetros da normalidade.";
     if (epidimosCheckBox) {
       criaStringEpidimos();
       setConclusoesTesticulos((arr) => [...arr, conclusao]);
@@ -277,6 +275,7 @@ function Testiculos() {
   const subExame = "Medidas";
   const titulo_exame = "Testículo";
 
+
   useEffect(() => {
     if (Object.keys(frasesMedidas).length == 0) {
       new Format_Laudo(
@@ -317,8 +316,8 @@ function Testiculos() {
           <Input
             w="30px"
             h="30px"
-            padding="5px"
-            maxLength={2}
+            padding="0px"
+
             textAlign="center"
             onChange={(e) => setmedidaTesticuloDireito1(e.target.value)}
           />
@@ -326,8 +325,8 @@ function Testiculos() {
           <Input
             w="30px"
             h="30px"
-            padding="5px"
-            maxLength={2}
+            padding="0px"
+
             textAlign="center"
             onChange={(e) => setmedidaTesticuloDireito2(e.target.value)}
           />
@@ -335,8 +334,8 @@ function Testiculos() {
           <Input
             w="30px"
             h="30px"
-            padding="5px"
-            maxLength={2}
+            padding="0px"
+
             textAlign="center"
             onChange={(e) => {
               setmedidaTesticuloDireito3(e.target.value);
@@ -361,8 +360,8 @@ function Testiculos() {
           <Input
             w="30px"
             h="30px"
-            padding="5px"
-            maxLength={2}
+            padding="0px"
+
             textAlign="center"
             onChange={(e) => setmedidaTesticuloEsquerdo1(e.target.value)}
           />
@@ -370,8 +369,8 @@ function Testiculos() {
           <Input
             w="30px"
             h="30px"
-            padding="5px"
-            maxLength={2}
+            padding="0px"
+
             textAlign="center"
             onChange={(e) => setmedidaTesticuloEsquerdo2(e.target.value)}
           />
@@ -379,8 +378,8 @@ function Testiculos() {
           <Input
             w="30px"
             h="30px"
-            padding="5px"
-            maxLength={2}
+            padding="0px"
+
             textAlign="center"
             onChange={(e) => {
               setmedidaTesticuloEsquerdo3(e.target.value);

@@ -1,8 +1,8 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+import { StyleSheet } from "@react-pdf/renderer";
 import { useEffect, useState } from "react";
-import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -12,7 +12,6 @@ function Medidas() {
 
   const [value, setValue] = useState("1");
   const [FrasesMedidas, setFrasesMedidas] = useState<any>([]);
-
 
   useEffect(() => {
     if (value == "1") {
@@ -27,85 +26,81 @@ function Medidas() {
   const [LoboEsquerdoCheckbox, setLoboEsquerdoCheckbox] = useState(false)
   const [IstmoCheckbox, setIstmoCheckbox] = useState(false)
 
-  const [DisableInputsLoboDireito, setDisableInputsLoboDireito] = useState(true)
   const [ValueInput1LoboDireito, setValueInput1LoboDireito] = useState('')
   const [ValueInput2LoboDireito, setValueInput2LoboDireito] = useState('')
   const [ValueInput3LoboDireito, setValueInput3LoboDireito] = useState('')
-  const [ValueInput4LoboDireito, setValueInput4LoboDireito] = useState(0)
+  const [ValueInput4LoboDireito, setValueInput4LoboDireito] = useState<number>(0)
 
-  const [DisableInputsLoboEsquerdo, setDisableInputsLoboEsquerdo] = useState(true)
   const [ValueInput1LoboEsquerdo, setValueInput1LoboEsquerdo] = useState('')
   const [ValueInput2LoboEsquerdo, setValueInput2LoboEsquerdo] = useState('')
   const [ValueInput3LoboEsquerdo, setValueInput3LoboEsquerdo] = useState('')
-  const [ValueInput4LoboEsquerdo, setValueInput4LoboEsquerdo] = useState(0)
+  const [ValueInput4LoboEsquerdo, setValueInput4LoboEsquerdo] = useState<number>(0)
 
-  const [DisableInputsIstmo, setDisableInputsIstmo] = useState(true)
-  const [DisableInputsIstmoFiliforme, setDisableInputsIstmoFiliforme] = useState(true)
+
   const [ValueInput1Istmo, setValueInput1Istmo] = useState('')
   const [ValueInput2Istmo, setValueInput2Istmo] = useState('')
   const [ValueInput3Istmo, setValueInput3Istmo] = useState('')
-  const [ValueInput4Istmo, setValueInput4Istmo] = useState(0)
-  const [IstmoFiliformeCheckbox, setIstmoFiliformeCheckbox] = useState(false)
+  const [ValueInput4Istmo, setValueInput4Istmo] = useState<number>(0)
+
+  const [IstmoDesprezivelCheckbox, setIstmoDesprezivelCheckbox] = useState(false)
 
   const [ValueSelectRADS, setValueSelectRADS] = useState('')
 
-  const criaStringLoboDireito = () => {
-    var string = 'Lobo Direito: '
-    removeFraseLoboDireito()
-    var medida1cm = new Convert_Medida(ValueInput1LoboDireito).Convert_Medida()
-    var medida2cm = new Convert_Medida(ValueInput2LoboDireito).Convert_Medida()
-    var medida3cm = new Convert_Medida(ValueInput3LoboDireito).Convert_Medida()
-    if (ValueInput1LoboDireito != '' && ValueInput2LoboDireito != '' && ValueInput3LoboDireito != '') {
-      var medida4 = (parseInt(ValueInput1LoboDireito) * parseInt(ValueInput2LoboDireito) * parseInt(ValueInput3LoboDireito)) / 1000
-      setValueInput4LoboDireito(medida4)
-      string = `${string} ${medida1cm} x ${medida2cm} x ${medida3cm} cm (${medida4} cm³) `
-      setFrasesMedidas((arr) => [...arr, string]);
-    }
-  }
 
-  const removeFraseLoboDireito = () => {
-    FrasesMedidas.map((e) => {
-      if (e.includes("Lobo Direito: ")) {
-        var index = FrasesMedidas.indexOf(e);
-        if (index > -1) {
-          FrasesMedidas.splice(index, 1);
-          setFrasesMedidas((arr) => [...arr]);
-        }
-      }
-    });
-  };
+  const [ValueInput4Soma, setValueInput4Soma] = useState<number>(0)
 
   useEffect(() => {
+
+    setValueInput4Soma(ValueInput4LoboDireito + ValueInput4LoboEsquerdo + ValueInput4Istmo)
+
+  }, [ValueInput4LoboDireito, ValueInput4LoboEsquerdo, ValueInput4Istmo])
+
+  const criaStringLoboDireito = () => {
+    var string = 'Lobo Direito: '
+    removeFraseLobo(string)
     if (LoboDireitoCheckbox) {
-      criaStringLoboDireito()
-      setDisableInputsLoboDireito(false)
+      if (ValueInput1LoboDireito && ValueInput2LoboDireito && ValueInput3LoboDireito) {
+        let medida4 = +(parseFloat(ValueInput1LoboDireito.replace(",", ".")) * parseFloat(ValueInput2LoboDireito.replace(",", ".")) * parseFloat(ValueInput3LoboDireito.replace(",", ".")))
+        setValueInput4LoboDireito(parseFloat(medida4.toFixed(2)))
+        string = `${string} ${ValueInput1LoboDireito} x ${ValueInput2LoboDireito} x ${ValueInput3LoboDireito} cm (${medida4.toFixed(2)} cm³) `
+        setFrasesMedidas((arr) => [...arr, string]);
+      }
     } else {
-      removeFraseLoboDireito()
-      setDisableInputsLoboDireito(true)
       setValueInput1LoboDireito('')
       setValueInput2LoboDireito('')
       setValueInput3LoboDireito('')
       setValueInput4LoboDireito(0)
     }
+  }
+
+
+  useEffect(() => {
+
+    criaStringLoboDireito()
+
   }, [LoboDireitoCheckbox, ValueInput1LoboDireito, ValueInput3LoboDireito, ValueInput2LoboDireito])
 
   const criaStringLoboEsquerdo = () => {
     var string = 'Lobo Esquerdo: '
-    removeFraseLoboEsquerdo()
-    var medida1cm = new Convert_Medida(ValueInput1LoboEsquerdo).Convert_Medida()
-    var medida2cm = new Convert_Medida(ValueInput2LoboEsquerdo).Convert_Medida()
-    var medida3cm = new Convert_Medida(ValueInput3LoboEsquerdo).Convert_Medida()
-    if (ValueInput1LoboEsquerdo != '' && ValueInput2LoboEsquerdo != '' && ValueInput3LoboEsquerdo != '') {
-      var medida4 = (parseInt(ValueInput1LoboEsquerdo) * parseInt(ValueInput2LoboEsquerdo) * parseInt(ValueInput3LoboEsquerdo)) / 1000
-      setValueInput4LoboEsquerdo(medida4)
-      string = `${string} ${medida1cm} x ${medida2cm} x ${medida3cm} cm (${medida4} cm³)`
-      setFrasesMedidas((arr) => [...arr, string]);
+    removeFraseLobo(string)
+    if (LoboEsquerdoCheckbox) {
+      if (ValueInput1LoboEsquerdo && ValueInput2LoboEsquerdo && ValueInput3LoboEsquerdo) {
+        var medida4 = (parseFloat(ValueInput1LoboEsquerdo.replace(",", ".")) * parseFloat(ValueInput2LoboEsquerdo.replace(",", ".")) * parseFloat(ValueInput3LoboEsquerdo.replace(",", ".")))
+        setValueInput4LoboEsquerdo(parseFloat(medida4.toFixed(2)))
+        string = `${string} ${ValueInput1LoboEsquerdo} x ${ValueInput2LoboEsquerdo} x ${ValueInput3LoboEsquerdo} cm (${medida4.toFixed(2)} cm³)`
+        setFrasesMedidas((arr) => [...arr, string]);
+      }
+    } else {
+      setValueInput1LoboEsquerdo('')
+      setValueInput2LoboEsquerdo('')
+      setValueInput3LoboEsquerdo('')
+      setValueInput4LoboEsquerdo(0)
     }
   }
 
-  const removeFraseLoboEsquerdo = () => {
+  const removeFraseLobo = (value) => {
     FrasesMedidas.map((e) => {
-      if (e.includes("Lobo Esquerdo: ")) {
+      if (e.includes(value)) {
         var index = FrasesMedidas.indexOf(e);
         if (index > -1) {
           FrasesMedidas.splice(index, 1);
@@ -116,31 +111,26 @@ function Medidas() {
   };
 
   useEffect(() => {
-    if (LoboEsquerdoCheckbox) {
-      criaStringLoboEsquerdo()
-      setDisableInputsLoboEsquerdo(false)
-    } else {
-      removeFraseLoboEsquerdo()
-      setDisableInputsLoboEsquerdo(true)
-      setValueInput1LoboEsquerdo('')
-      setValueInput2LoboEsquerdo('')
-      setValueInput3LoboEsquerdo('')
-      setValueInput4LoboEsquerdo(0)
-    }
+    criaStringLoboEsquerdo()
+
   }, [LoboEsquerdoCheckbox, ValueInput1LoboEsquerdo, ValueInput3LoboEsquerdo, ValueInput2LoboEsquerdo])
 
   const criaStringIstmo = () => {
-    var string = 'Lobo Istmo: '
-    removeFraseIstmo()
-    var medida1cm = new Convert_Medida(ValueInput1Istmo).Convert_Medida()
-    var medida2cm = new Convert_Medida(ValueInput2Istmo).Convert_Medida()
-    var medida3cm = new Convert_Medida(ValueInput3Istmo).Convert_Medida()
-    if (ValueInput1Istmo != '' && ValueInput2Istmo != '' && ValueInput3Istmo != '') {
-      setDisableInputsIstmoFiliforme(true)
-      var medida4 = (parseInt(ValueInput1Istmo) * parseInt(ValueInput2Istmo) * parseInt(ValueInput3Istmo)) / 1000
-      setValueInput4Istmo(medida4)
-      string = `${string} ${medida1cm} x ${medida2cm} x ${medida3cm} cm ${(medida4)} cm³`
-      setFrasesMedidas((arr) => [...arr, string]);
+    var string = 'Istmo: '
+    removeFraseLobo(string)
+
+    if (IstmoCheckbox) {
+      if (ValueInput1Istmo && ValueInput2Istmo && ValueInput3Istmo) {
+        var medida4 = (parseFloat(ValueInput1Istmo.replace(",", ".")) * parseFloat(ValueInput2Istmo.replace(",", ".")) * parseFloat(ValueInput3Istmo.replace(",", ".")))
+        setValueInput4Istmo(parseFloat(medida4.toFixed(2)))
+        string = `${string} ${ValueInput1Istmo} x ${ValueInput2Istmo} x ${ValueInput3Istmo} cm ${(parseFloat(medida4.toFixed(2)))} cm³`
+        setFrasesMedidas((arr) => [...arr, string]);
+      }
+    } else {
+      setValueInput1Istmo('')
+      setValueInput2Istmo('')
+      setValueInput3Istmo('')
+      setValueInput4Istmo(0)
     }
   }
   const removeString = (value) => {
@@ -151,54 +141,22 @@ function Medidas() {
     }
   };
 
-  const removeFraseIstmo = () => {
-    FrasesMedidas.map((e) => {
-      if (e.includes("Lobo Istmo: ")) {
-        var index = FrasesMedidas.indexOf(e);
-        if (index > -1) {
-          FrasesMedidas.splice(index, 1);
-          setFrasesMedidas((arr) => [...arr]);
-        }
-      }
-    });
-  };
-  const criaStringIstmoFiliforme = () => {
-    var string = 'Lobo Filoforme: '
-    removeFraseIstmo()
-    if (IstmoFiliformeCheckbox) {
-      setFrasesMedidas((arr) => [...arr, string]);
-    } else {
-      removeString(string)
-    }
-  }
+  useEffect(() => {
+    criaStringIstmo()
+  }, [ValueInput1Istmo, ValueInput2Istmo, ValueInput3Istmo, IstmoCheckbox])
 
   useEffect(() => {
-    var string = 'Lobo Filoforme: '
-    if (IstmoCheckbox) {
-      setDisableInputsIstmoFiliforme(false)
-      if (IstmoFiliformeCheckbox) {
-        criaStringIstmoFiliforme()
-        setDisableInputsIstmo(true)
-      } else {
-        removeString(string)
-        setDisableInputsIstmo(false)
-        criaStringIstmo()
-      }
-    } else {
-      removeFraseIstmo()
-      setDisableInputsIstmo(true)
-      setDisableInputsIstmoFiliforme(true)
-      setValueInput1Istmo('')
-      setValueInput2Istmo('')
-      setValueInput3Istmo('')
-      setValueInput4Istmo(0)
-    }
-  }, [IstmoCheckbox, ValueInput1Istmo, ValueInput3Istmo, ValueInput2Istmo, IstmoFiliformeCheckbox])
+    const string = 'Istmo desprezível.'
+    removeString(string)
+    IstmoDesprezivelCheckbox ? setFrasesMedidas((arr) => [...arr, string]) : removeString(string)
+  }, [IstmoDesprezivelCheckbox])
+
+
 
   const criaStringRADS = () => {
     let string = `TI-RADS global`
     removeFraseRADS()
-    if (ValueSelectRADS != '') {
+    if (ValueSelectRADS) {
       string = `${string} ${ValueSelectRADS}`
       setFrasesMedidas((arr) => [...arr, string]);
     }
@@ -217,12 +175,21 @@ function Medidas() {
   };
 
   useEffect(() => {
-    if (ValueSelectRADS != '') {
+    if (ValueSelectRADS) {
       criaStringRADS()
     } else {
       removeFraseRADS()
     }
   }, [ValueSelectRADS])
+
+  useEffect(() => {
+    var string = `VOLUME TOTAL:`
+    removeFraseLobo(string)
+    if (ValueInput4Soma) {
+      string = `${string} ${ValueInput4Soma.toFixed(2)} cm³ (normal 6 a 15cm³)`
+      setFrasesMedidas((arr) => [...arr, string])
+    }
+  }, [ValueInput4Soma])
 
   const subExame = "Medidas";
   const titulo_exame = "Tireóide";
@@ -272,35 +239,35 @@ function Medidas() {
             </Checkbox>
             <Box display='flex' flexWrap='wrap'>
               <Input
+                p='0'
+                textAlign='center'
                 w='60px'
                 value={ValueInput1LoboDireito}
-                isDisabled={DisableInputsLoboDireito}
-                onChange={(e) => {
-                  setValueInput1LoboDireito(e.target.value)
-                }}
+                isDisabled={!LoboDireitoCheckbox}
+                onChange={(e) => setValueInput1LoboDireito(e.target.value)}
                 placeholder="0"
               />
               <Text alignSelf='center'>x</Text>
               <Input
+                p='0'
+                textAlign='center'
                 w='60px'
-                isDisabled={DisableInputsLoboDireito}
                 value={ValueInput2LoboDireito}
-                onChange={(e) => {
-                  setValueInput2LoboDireito(e.target.value)
-                }}
+                isDisabled={!LoboDireitoCheckbox}
+                onChange={(e) => setValueInput2LoboDireito(e.target.value)}
                 placeholder="0"
               />
               <Text alignSelf='center'>x</Text>
               <Input
+                p='0'
+                textAlign='center'
                 w='60px'
                 value={ValueInput3LoboDireito}
-                isDisabled={DisableInputsLoboDireito}
-                onChange={(e) => {
-                  setValueInput3LoboDireito(e.target.value)
-                }}
+                isDisabled={!LoboDireitoCheckbox}
+                onChange={(e) => setValueInput3LoboDireito(e.target.value)}
                 placeholder="0"
               />
-              <Text alignSelf='center'>mm</Text>
+              <Text alignSelf='center'>cm</Text>
               <Text alignSelf='center'> ({ValueInput4LoboDireito} cm³)</Text>
             </Box>
           </Box>
@@ -315,91 +282,103 @@ function Medidas() {
             </Checkbox>
             <Box display='flex' flexWrap='wrap'>
               <Input
+                p='0'
+                textAlign='center'
                 w='60px'
                 value={ValueInput1LoboEsquerdo}
-                isDisabled={DisableInputsLoboEsquerdo}
-                onChange={(e) => {
-                  setValueInput1LoboEsquerdo(e.target.value)
-                }}
+                isDisabled={!LoboEsquerdoCheckbox}
+                onChange={(e) => setValueInput1LoboEsquerdo(e.target.value)}
                 placeholder="0"
               />
               <Text alignSelf='center'>x</Text>
               <Input
+                p='0'
+                textAlign='center'
                 w='60px'
-                isDisabled={DisableInputsLoboEsquerdo}
+                isDisabled={!LoboEsquerdoCheckbox}
                 value={ValueInput2LoboEsquerdo}
-                onChange={(e) => {
-                  setValueInput2LoboEsquerdo(e.target.value)
-                }}
+                onChange={(e) => setValueInput2LoboEsquerdo(e.target.value)}
                 placeholder="0"
               />
               <Text alignSelf='center'>x</Text>
               <Input
+                p='0'
+                textAlign='center'
                 w='60px'
                 value={ValueInput3LoboEsquerdo}
-                isDisabled={DisableInputsLoboEsquerdo}
-                onChange={(e) => {
-                  setValueInput3LoboEsquerdo(e.target.value)
-                }}
+                isDisabled={!LoboEsquerdoCheckbox}
+                onChange={(e) => setValueInput3LoboEsquerdo(e.target.value)}
                 placeholder="0"
               />
-              <Text alignSelf='center'>mm</Text>
+              <Text alignSelf='center'>cm</Text>
               <Text alignSelf='center'> ({ValueInput4LoboEsquerdo} cm³)</Text>
             </Box>
           </Box>
           <Box >
-            <Checkbox
-              id="Istmo"
-              onChange={() => {
-                setIstmoCheckbox(!IstmoCheckbox)
-              }}
-            >
-              Istmo
-            </Checkbox>
+            <HStack>
+              <Checkbox
+                isDisabled={IstmoDesprezivelCheckbox}
+                onChange={() => {
+                  setIstmoCheckbox(!IstmoCheckbox)
+                }}
+              >
+                Istmo
+              </Checkbox>
+              <Checkbox
+                isDisabled={IstmoCheckbox}
+                onChange={(e) => setIstmoDesprezivelCheckbox(!IstmoDesprezivelCheckbox)}
+              >
+                Istmo desprezível
+              </Checkbox>
+            </HStack>
             <Box display='flex' flexWrap='wrap'>
               <Input
+                p='0'
+                textAlign='center'
                 w='60px'
                 value={ValueInput1Istmo}
-                isDisabled={DisableInputsIstmo}
-                onChange={(e) => {
-                  setValueInput1Istmo(e.target.value)
-                }}
+                isDisabled={!IstmoCheckbox}
+                onChange={(e) => setValueInput1Istmo(e.target.value)}
                 placeholder="0"
               />
               <Text alignSelf='center'>x</Text>
               <Input
+                p='0'
+                textAlign='center'
                 w='60px'
-                isDisabled={DisableInputsIstmo}
+                isDisabled={!IstmoCheckbox}
                 value={ValueInput2Istmo}
-                onChange={(e) => {
-                  setValueInput2Istmo(e.target.value)
-                }}
+                onChange={(e) => setValueInput2Istmo(e.target.value)}
                 placeholder="0"
               />
               <Text alignSelf='center'>x</Text>
               <Input
+                p='0'
+                textAlign='center'
                 w='60px'
                 value={ValueInput3Istmo}
-                isDisabled={DisableInputsIstmo}
-                onChange={(e) => {
-                  setValueInput3Istmo(e.target.value)
-                }}
+                isDisabled={!IstmoCheckbox}
+                onChange={(e) => setValueInput3Istmo(e.target.value)}
                 placeholder="0"
               />
-              <Text alignSelf='center'>mm</Text>
+              <Text alignSelf='center'>cm</Text>
               <Text alignSelf='center'> ({ValueInput4Istmo} cm³)</Text>
             </Box>
 
-            <Checkbox
-              isDisabled={DisableInputsIstmoFiliforme}
-              onChange={(e) => {
-                setIstmoFiliformeCheckbox(!IstmoFiliformeCheckbox)
-              }}
-            >
-              o istmo é filiforme? (não mensurável)
-            </Checkbox>
           </Box>
         </Stack>
+        <Spacer />
+        <Stack>
+          <Box >
+            <Text alignSelf='center'>
+              Vol: Lobo Direito + Esquerdo + Istmo
+            </Text>
+
+            <Text fontWeight="bold" alignSelf='center'> ({ValueInput4Soma} cm³)</Text>
+
+          </Box>
+        </Stack>
+
         <Spacer />
         <Stack>
           <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" padding='5px' h='100%' w='100%'>

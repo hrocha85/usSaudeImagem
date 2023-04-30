@@ -109,7 +109,7 @@ export default function IndividualizarVeias({ numVeia, disable }) {
           w="60px"
           h="77x"
           padding="5px"
-          maxLength={2}
+          
           textAlign="center"
           onChange={(e) => {
             setDistanciaVeiaInput(e.target.value);

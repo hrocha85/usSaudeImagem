@@ -1,9 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Button, Checkbox, Flex, Input, Select, Text } from "@chakra-ui/react";
-import { useEffect, useState, useContext } from "react";
-import Conclusoes from "../../../../../component/conclusoes";
-import { Convert_Medida } from "../../../../../component/function_convert_medidas";
+import { Box, Button, Checkbox, Input, Select, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
 import IndividualizarCistos from "./individualizar_cistos";
 
@@ -13,7 +11,7 @@ export default function Cistos({ Disable }) {
 
     var ArrayConclusao = ['']
 
-    const [numberArray, setNumberArray] = useState([1, 2, 3]);
+    const [numberArray, setNumberArray] = useState([1]);
 
     const [VariosCheckbox, setVariosCheckbox] = useState(false)
     const [InputVarios, setInputVarios] = useState('')
@@ -79,166 +77,12 @@ export default function Cistos({ Disable }) {
         });
     };
 
-    // useEffect(() => {
-    //     criaStringConclusao()
-    // }, [FraseCisto])
-
-    // const criaStringCisto01 = () => {
-    //     let string = 'Cisto 01: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo'
-    //     removeCisto01()
-    //     var InputCisto01cm = new Convert_Medida(InputCisto01).Convert_Medida()
-    //     if (Select01Cisto01 != '' && Select02Cisto01 != '' && InputCisto01 != '') {
-    //         string = `${string}, medindo ${InputCisto01cm} cm, visível no ${Select01Cisto01} do ${Select02Cisto01}.`
-    //         setFraseCisto((arr) => [...arr, string]);
-    //     }
-    // }
-
-    // const removeCisto01 = () => {
-    //     FraseCisto.map((e) => {
-    //         if (e.includes("Cisto 01: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo")) {
-    //             var index = FraseCisto.indexOf(e);
-
-    //             if (index > -1) {
-    //                 FraseCisto.splice(index, 1);
-    //                 setFraseCisto((arr) => [...arr]);
-    //             }
-    //         }
-    //     });
-    // };
-
-    // useEffect(() => {
-    //     if (Cisto01Checkbox) {
-    //         criaStringCisto01()
-    //         setDisableOptionsCisto01(false)
-    //     } else {
-    //         removeCisto01()
-    //         setDisableOptionsCisto01(true)
-    //         setInputCisto01('')
-    //         setSelect01Cisto01('')
-    //         setSelect02Cisto01('')
-    //     }
-    // }, [Cisto01Checkbox, InputCisto01, Select01Cisto01, Select02Cisto01])
-
-    // const criaStringCisto02 = () => {
-    //     let string = 'Cisto 02: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo'
-    //     removeCisto02()
-    //     var InputCisto02cm = new Convert_Medida(InputCisto02).Convert_Medida()
-    //     if (Select01Cisto02 != '' && Select02Cisto02 != '' && InputCisto02 != '') {
-
-    //         string = `${string}, medindo ${InputCisto02cm} cm, visível no ${Select01Cisto02} do ${Select02Cisto02}.`
-    //         setFraseCisto((arr) => [...arr, string]);
-    //     }
-    // }
-
-    // const removeCisto02 = () => {
-    //     FraseCisto.map((e) => {
-    //         if (e.includes("Cisto 02: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo")) {
-    //             var index = FraseCisto.indexOf(e);
-
-    //             if (index > -1) {
-    //                 FraseCisto.splice(index, 1);
-    //                 setFraseCisto((arr) => [...arr]);
-    //             }
-    //         }
-    //     });
-    // };
-
-    // useEffect(() => {
-    //     if (Cisto02Checkbox) {
-    //         criaStringCisto02()
-    //         setDisableOptionsCisto02(false)
-    //     } else {
-    //         removeCisto02()
-    //         setDisableOptionsCisto02(true)
-    //         setInputCisto02('')
-    //         setSelect01Cisto02('')
-    //         setSelect02Cisto02('')
-    //     }
-    // }, [Cisto02Checkbox, InputCisto02, Select01Cisto02, Select02Cisto02])
-
-    // const criaStringCisto03 = () => {
-    //     let string = 'Cisto 03: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo'
-    //     removeCisto03()
-    //     var InputCisto03cm = new Convert_Medida(InputCisto03).Convert_Medida()
-    //     if (Select01Cisto03 != '' && Select02Cisto03 != '' && InputCisto03 != '') {
-
-    //         string = `${string}, medindo ${InputCisto03cm} cm, visível no ${Select01Cisto03} do ${Select02Cisto03}.`
-    //         setFraseCisto((arr) => [...arr, string]);
-    //     }
-    // }
-
-    // const removeCisto03 = () => {
-    //     FraseCisto.map((e) => {
-    //         if (e.includes("Cisto 03: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo")) {
-    //             var index = FraseCisto.indexOf(e);
-
-    //             if (index > -1) {
-    //                 FraseCisto.splice(index, 1);
-    //                 setFraseCisto((arr) => [...arr]);
-    //             }
-    //         }
-    //     });
-    // };
-
-    // useEffect(() => {
-    //     if (Cisto03Checkbox) {
-    //         criaStringCisto03()
-    //         setDisableOptionsCisto03(false)
-    //     } else {
-    //         removeCisto03()
-    //         setDisableOptionsCisto03(true)
-    //         setInputCisto03('')
-    //         setSelect01Cisto03('')
-    //         setSelect02Cisto03('')
-    //     }
-    // }, [Cisto03Checkbox, InputCisto03, Select01Cisto03, Select02Cisto03])
-
-    // const criaStringCisto04 = () => {
-    //     let string = 'Cisto 04: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo'
-    //     removeCisto04()
-    //     var InputCisto04cm = new Convert_Medida(InputCisto04).Convert_Medida()
-
-    //     if (Select01Cisto04 != '' && Select02Cisto04 != '' && InputCisto04 != '') {
-
-    //         string = `${string}, medindo ${InputCisto04cm} cm, visível no ${Select01Cisto04} do ${Select02Cisto04}.`
-    //         setFraseCisto((arr) => [...arr, string]);
-    //     }
-    // }
-
-    // const removeCisto04 = () => {
-    //     FraseCisto.map((e) => {
-    //         if (e.includes("Cisto 04: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo")) {
-    //             var index = FraseCisto.indexOf(e);
-
-    //             if (index > -1) {
-    //                 FraseCisto.splice(index, 1);
-    //                 setFraseCisto((arr) => [...arr]);
-    //             }
-    //         }
-    //     });
-    // };
-
-    // useEffect(() => {
-    //     if (Cisto04Checkbox) {
-    //         criaStringCisto04()
-    //         setDisableOptionsCisto04(false)
-    //     } else {
-    //         removeCisto04()
-    //         setDisableOptionsCisto04(true)
-    //         setInputCisto04('')
-    //         setSelect01Cisto04('')
-    //         setSelect02Cisto04('')
-    //     }
-    // }, [Cisto04Checkbox, InputCisto04, Select01Cisto04, Select02Cisto04])
-
     const criaStringVarios = () => {
         let string = 'Varios: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo'
         removeVarios()
-        var InputVarioscm = new Convert_Medida(InputVarios).Convert_Medida()
-
         if (Select01Varios != '' && Select02Varios != '' && InputVarios != '') {
 
-            string = `${string} ${Select01Varios} ${Select02Varios} ${InputVarioscm}`
+            string = `${string} ${Select01Varios} ${Select02Varios} ${InputVarios}`
             setFraseCisto((arr) => [...arr, string]);
         }
     }
@@ -297,29 +141,32 @@ export default function Cistos({ Disable }) {
                 <Box gap="25px" display="flex" flexWrap="wrap">
                     {Calculos()}
                     <Button
-                        isDisabled={Disable}
+
                         colorScheme="blue"
                         onClick={() => {
                             setUpdateCalculos(true);
                         }}
                     >
-                        +1 Nódulo
+                        +1 Cisto
                     </Button>
 
                 </Box>
                 <Box w='150px'>
-                    <Checkbox isDisabled={Disable} onChange={() => {
+                    <Checkbox onChange={() => {
                         setVariosCheckbox(!VariosCheckbox)
                     }}
                     >
                         Vários bilaterais, o maior
                     </Checkbox>
-                    <Input onChange={(e) => {
-                        setInputVarios(e.target.value)
-                    }}
+                    <Input
+                        p='0'
+                        textAlign='center'
+                        onChange={(e) => {
+                            setInputVarios(e.target.value)
+                        }}
                         value={InputVarios}
                         isDisabled={DisableOptionsVarios}
-                        placeholder="mm"
+                        placeholder="cm"
                     />
                     <Select onChange={(e) => {
                         setSelect01Varios(e.target.value)

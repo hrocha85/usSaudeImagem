@@ -260,7 +260,7 @@ function CarotidaExternaDireita() {
                 h="77x"
                 padding="5px"
                 value={MedidaDireitaVPS}
-                maxLength={2}
+                
                 textAlign="center"
                 onChange={(e) => {
                   setMedidaDireitaVPS(e.target.value);
@@ -277,7 +277,7 @@ function CarotidaExternaDireita() {
                 h="77x"
                 padding="5px"
                 value={MedidaDireitaVDF}
-                maxLength={2}
+                
                 textAlign="center"
                 onChange={(e) => {
                   setMedidaDireitaVDF(e.target.value);
@@ -310,7 +310,7 @@ function CarotidaExternaDireita() {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+              
               textAlign="center"
               onChange={(e) => {
                 setPlacaInput(e.target.value);

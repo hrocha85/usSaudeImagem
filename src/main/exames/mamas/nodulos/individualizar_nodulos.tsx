@@ -23,27 +23,12 @@ export default function IndividualizarNodulos({ numNodulo }) {
     useState("");
   const [multiplosNodulosCheckBox, setMultiplosNodulosCheckBox] =
     useState(false);
-  const [DisableSelect, setDisableSelect] = useState(true);
 
-  const criaStringMultiplosNodulos = (
-    efeitoAcusticoNodulosSelect,
-    orientacaoNodulosSelect,
-    ecogenicidadeNodulosSelect,
-    limitesNodulosSelect,
-    margensNodulosSelect,
-    formaNodulosSelect,
-    distanciaPeleInput,
-    distanciaMamiloInput,
-    mamaNodulosSelect,
-    localizacaoNodulosSelect,
-    tamanho2NoduloInput,
-    tamanhoNoduloInput
-  ) => {
+  const criaStringMultiplosNodulos = () => {
     removeMultiplosNodulos();
 
     if (
       tamanhoNoduloInput !== "" &&
-      tamanho2NoduloInput !== "" &&
       localizacaoNodulosSelect !== "" &&
       mamaNodulosSelect !== "" &&
       distanciaMamiloInput !== "" &&
@@ -56,8 +41,8 @@ export default function IndividualizarNodulos({ numNodulo }) {
       efeitoAcusticoNodulosSelect !== ""
     ) {
       var string = `Presença do Nódulo ${numNodulo} na ${mamaNodulosSelect} com as seguintes características: \n 
-        - ${localizacaoNodulosSelect}, medindo ${tamanhoNoduloInput} x ${tamanho2NoduloInput} mm, distando ${distanciaMamiloInput} mm
-        do mamilo e ${distanciaPeleInput} mm da pele, com forma ${formaNodulosSelect}, ${ecogenicidadeNodulosSelect},
+        - ${localizacaoNodulosSelect}, medindo ${tamanhoNoduloInput} cm, distando ${distanciaMamiloInput} cm
+        do mamilo e ${distanciaPeleInput} cm da pele, com forma ${formaNodulosSelect}, ${ecogenicidadeNodulosSelect},
         com margens ${margensNodulosSelect}, limites ${limitesNodulosSelect}, com seu eixo ${orientacaoNodulosSelect} e 
         apresentando ${efeitoAcusticoNodulosSelect}.`;
       setFrasesINDNodulos((arr) => [...arr, string]);
@@ -79,26 +64,10 @@ export default function IndividualizarNodulos({ numNodulo }) {
 
   useEffect(() => {
     if (multiplosNodulosCheckBox) {
-      setDisableSelect(false);
-      criaStringMultiplosNodulos(
-        efeitoAcusticoNodulosSelect,
-        orientacaoNodulosSelect,
-        ecogenicidadeNodulosSelect,
-        limitesNodulosSelect,
-        margensNodulosSelect,
-        formaNodulosSelect,
-        distanciaPeleInput,
-        distanciaMamiloInput,
-        mamaNodulosSelect,
-        localizacaoNodulosSelect,
-        tamanho2NoduloInput,
-        tamanhoNoduloInput
-      );
+      criaStringMultiplosNodulos();
     } else {
-      setDisableSelect(true);
       removeMultiplosNodulos();
       setTamanhoNoduloInput("");
-      setTamanho2NoduloInput("");
       setMamaNodulosSelect("");
       setDistanciaMamiloInput("");
       setDistanciaPeleInput("");
@@ -121,7 +90,6 @@ export default function IndividualizarNodulos({ numNodulo }) {
     distanciaMamiloInput,
     mamaNodulosSelect,
     localizacaoNodulosSelect,
-    tamanho2NoduloInput,
     tamanhoNoduloInput,
   ]);
 
@@ -155,35 +123,33 @@ export default function IndividualizarNodulos({ numNodulo }) {
       </Checkbox>
 
       <Input
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosNodulosCheckBox}
         value={tamanhoNoduloInput}
         w="60px"
         h="77x"
         padding="5px"
-        maxLength={2}
         textAlign="center"
         onChange={(e) => {
           setTamanhoNoduloInput(e.target.value);
         }}
-        placeholder={"mm"}
+        placeholder={"cm"}
       />
       <Text alignSelf="center">x</Text>
       <Input
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosNodulosCheckBox}
         value={tamanho2NoduloInput}
         w="60px"
         h="77x"
         padding="5px"
-        maxLength={2}
         textAlign="center"
         onChange={(e) => {
           setTamanho2NoduloInput(e.target.value);
         }}
-        placeholder={"mm"}
+        placeholder={"cm"}
       />
       <Select
         w="auto"
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosNodulosCheckBox}
         onChange={(e) => {
           setLocalizacaoNodulosSelect(e.target.value);
         }}
@@ -208,7 +174,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
       </Select>
       <Select
         w="auto"
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosNodulosCheckBox}
         onChange={(e) => {
           setMamaNodulosSelect(e.target.value);
         }}
@@ -223,37 +189,33 @@ export default function IndividualizarNodulos({ numNodulo }) {
       <HStack>
         <Text alignSelf="center">a</Text>
         <Input
-          isDisabled={DisableSelect}
+          isDisabled={!multiplosNodulosCheckBox}
           value={distanciaMamiloInput}
-          w="60px"
-          h="77x"
-          padding="5px"
-          maxLength={2}
+          w="50px"
+          padding="0px"
           textAlign="center"
           onChange={(e) => {
             setDistanciaMamiloInput(e.target.value);
           }}
-          placeholder={"mm"}
+          placeholder={"cm"}
         />
-        <Text alignSelf="center">mm do mamilo e </Text>
+        <Text alignSelf="center">cm do mamilo e </Text>
         <Input
-          isDisabled={DisableSelect}
+          isDisabled={!multiplosNodulosCheckBox}
           value={distanciaPeleInput}
-          w="60px"
-          h="77x"
-          padding="5px"
-          maxLength={2}
+          w="50px"
+          padding="0px"
           textAlign="center"
           onChange={(e) => {
             setDistanciaPeleInput(e.target.value);
           }}
-          placeholder={"mm"}
+          placeholder={"cm"}
         />
-        <Text alignSelf="center">mm da pele</Text>
+        <Text alignSelf="center">cm da pele</Text>
       </HStack>
       <Select
         w="auto"
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosNodulosCheckBox}
         onChange={(e) => {
           setFormaNodulosSelect(e.target.value);
         }}
@@ -268,7 +230,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
       </Select>
       <Select
         w="auto"
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosNodulosCheckBox}
         onChange={(e) => {
           setMargensNodulosSelect(e.target.value);
         }}
@@ -283,10 +245,11 @@ export default function IndividualizarNodulos({ numNodulo }) {
         <option value="angulares">angulares</option>
         <option value="microlobuladas">microlobuladas</option>
         <option value="espiculadas">espiculadas</option>
+        <option value="obscurecidas">obscurecidas</option>
       </Select>
       <Select
         w="auto"
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosNodulosCheckBox}
         onChange={(e) => {
           setLimitesNodulosSelect(e.target.value);
         }}
@@ -301,7 +264,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
       </Select>
       <Select
         w="auto"
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosNodulosCheckBox}
         onChange={(e) => {
           setEcogenicidadeNodulosSelect(e.target.value);
         }}
@@ -318,7 +281,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
       </Select>
       <Select
         w="auto"
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosNodulosCheckBox}
         onChange={(e) => {
           setOrientacaoNodulosSelect(e.target.value);
         }}
@@ -333,7 +296,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
       <Select
         mb="5px"
         w="auto"
-        isDisabled={DisableSelect}
+        isDisabled={!multiplosNodulosCheckBox}
         onChange={(e) => {
           setEfeitoAcusticoNodulosSelect(e.target.value);
         }}

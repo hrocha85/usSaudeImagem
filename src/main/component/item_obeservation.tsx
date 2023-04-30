@@ -166,6 +166,21 @@ const ItemObservation = () => {
       titulo_observacao: "Articulações",
       observacao: [""],
     },
+    {
+      id: 25,
+      titulo_observacao: "Axila",
+      observacao: [""],
+    },
+    {
+      id: 26,
+      titulo_observacao: "Torax",
+      observacao: [""],
+    },
+    {
+      id: 27,
+      titulo_observacao: "Parede Abdominal",
+      observacao: [""],
+    },
   ];
   const observacoesJSON = Observacoes.observacoes;
 
@@ -293,6 +308,7 @@ const ItemObservation = () => {
   };
 
   const ItensObservacao = () => {
+
     //Ajustar observacoes de configuracoes com a que aparece no exame
 
 
@@ -317,69 +333,33 @@ const ItemObservation = () => {
       <>
         {observacoes_localStorage != null
           ? observacoes_localStorage.map((e) => {
-              if (e.id == id) {
-                return e.observacao.map((item, key) => {
-                  return (
-                    <HStack>
-                      <Box
-                        w="98%"
-                        key={key}
-                        margin="20px"
-                        marginBottom="10px"
-                        marginTop="0px"
-                        borderWidth="2px"
-                        borderColor="#f0f2f6"
-                        h="48px"
-                        borderRadius="md"
-                        onClick={() => {
-                          onOpenObs();
-                          setCurrentOBS(item);
-                          setclickEditOBS(false);
-                        }}
-                      >
-                        <Flex justify="space-between">
-                          <Text
-                            margin="10px"
-                            fontWeight="medium"
-                            textOverflow="ellipsis"
-                            overflow="hidden"
-                            whiteSpace="nowrap"
-                            maxW="320px"
-                          >
-                            {item}
-                          </Text>
-                        </Flex>
-                      </Box>
-                      <Box>
-                        <Tooltip
-                          label="Remover Observação"
-                          backgroundColor="white"
-                          placement="top"
-                          hasArrow
-                          arrowSize={15}
-                          textColor="black"
-                          fontSize="20px"
-                          margin="20px"
-                          textAlign="center"
-                        >
-                          <Flex justify="end">
-                            <IconButton
-                              justifyContent="flex-end"
-                              aria-label="Remove Item"
-                              icon={<GrSubtractCircle size={30} />}
-                              variant="link"
-                              marginEnd="5px"
-                              textColor="blue"
-                              onClick={() => Apagar_Observacao(item)}
-                            />
-                          </Flex>
-                        </Tooltip>
-                      </Box>
-                    </HStack>
-                  );
-                });
-              }
-            })
+            if (e.id == id) {
+              return e.observacao.map((item, key) => {
+                return (
+                  <HStack>
+                    <Box
+                      w="98%"
+                      key={key}
+                      margin="20px"
+                      textAlign="center"
+                    >
+                      <Flex justify="end">
+                        <IconButton
+                          justifyContent="flex-end"
+                          aria-label="Remove Item"
+                          icon={<GrSubtractCircle size={30} />}
+                          variant="link"
+                          marginEnd="5px"
+                          textColor="blue"
+                          onClick={() => Apagar_Observacao(item)}
+                        />
+                      </Flex>
+                    </Box>
+                  </HStack>
+                );
+              });
+            }
+          })
           : null}
       </>
     );

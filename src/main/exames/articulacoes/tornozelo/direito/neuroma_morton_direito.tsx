@@ -27,6 +27,12 @@ export default function Neuroma_Morton_Direito({ Disable }) {
   const [medida2Morton, setMedida2Morton] = useState("");
   const [medida3Morton, setMedida3Morton] = useState("");
 
+  useEffect(() => {
+    Disable ? setValue("Ausente") : setValue('1')
+  }, [Disable])
+
+
+
   const subExame = "Neuroma de Morton Direito";
   const titulo_exame = "Articulações";
 
@@ -122,7 +128,7 @@ export default function Neuroma_Morton_Direito({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Neuroma de Morton
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Ausente">Ausente</Radio>
@@ -147,7 +153,7 @@ export default function Neuroma_Morton_Direito({ Disable }) {
                   h="30px"
                   value={medida1Morton}
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   onChange={(e) => {
                     setMedida1Morton(e.target.value);
@@ -160,7 +166,7 @@ export default function Neuroma_Morton_Direito({ Disable }) {
                   h="30px"
                   value={medida2Morton}
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   onChange={(e) => {
                     setMedida2Morton(e.target.value);
@@ -173,7 +179,7 @@ export default function Neuroma_Morton_Direito({ Disable }) {
                   h="30px"
                   value={medida3Morton}
                   padding="5px"
-                  maxLength={2}
+
                   textAlign="center"
                   onChange={(e) => {
                     setMedida3Morton(e.target.value);

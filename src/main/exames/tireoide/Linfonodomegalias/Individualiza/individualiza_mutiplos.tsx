@@ -199,6 +199,8 @@ export default function Individualiza_MultiplosLinfonodos() {
                 <Wrap>
                     <Text alignSelf='center'>Medindo até: </Text>
                     <Input
+                        p='0'
+                        textAlign='center'
                         isDisabled={DisableOptionsLinfonodomegalia}
                         value={valueInput01LinfonodomegaliaDireita}
                         onChange={(e) => {
@@ -209,6 +211,8 @@ export default function Individualiza_MultiplosLinfonodos() {
                     />
                     <Text alignSelf='center'>x</Text>
                     <Input
+                        p='0'
+                        textAlign='center'
                         isDisabled={DisableOptionsLinfonodomegalia}
                         value={valueInput02LinfonodomegaliaDireita}
                         onChange={(e) => {
@@ -217,7 +221,7 @@ export default function Individualiza_MultiplosLinfonodos() {
                         w="55px"
                         placeholder="00"
                     />
-                    <Text alignSelf='center'>mm á direita</Text>
+                    <Text alignSelf='center'>cm á direita</Text>
                     <Select
                         w='auto'
                         mt="5px"
@@ -245,6 +249,8 @@ export default function Individualiza_MultiplosLinfonodos() {
                 <Wrap>
                     <Text alignSelf='center'>Medindo até: </Text>
                     <Input
+                        p='0'
+                        textAlign='center'
                         isDisabled={DisableOptionsLinfonodomegalia}
                         value={valueInput01LinfonodomegaliaEsquerda}
                         onChange={(e) => {
@@ -255,6 +261,8 @@ export default function Individualiza_MultiplosLinfonodos() {
                     />
                     <Text alignSelf='center'>x</Text>
                     <Input
+                        p='0'
+                        textAlign='center'
                         isDisabled={DisableOptionsLinfonodomegalia}
                         value={valueInput02LinfonodomegaliaEsquerda}
                         onChange={(e) => {
@@ -263,7 +271,7 @@ export default function Individualiza_MultiplosLinfonodos() {
                         w="55px"
                         placeholder="00"
                     />
-                    <Text alignSelf='center'>mm á Esquerda</Text>
+                    <Text alignSelf='center'>cm á Esquerda</Text>
                     <Select
                         w='auto'
                         mt="5px"
@@ -358,6 +366,8 @@ export default function Individualiza_MultiplosLinfonodos() {
                             índice de resistividade:
                         </Checkbox>
                         <Input
+                            p='0'
+                            textAlign='center'
                             isDisabled={DisableInputResistividade}
                             onChange={(e) => setInputResistividade(e.target.value)}
                             value={InputResistividade}

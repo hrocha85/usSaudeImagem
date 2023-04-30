@@ -15,7 +15,7 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
   const [fraseTendaoInfraespinhalEsquerdo, setFraseTendaoInfraespinhalEsquerdo] = useState<any>([]);
   const [ConclusaoTendaoInfraespinhalEsquerdo, setConclusaoTendaoInfraespinhalEsquerdo] = useState<any>([]);
 
-  const subExame = 'Tendão Infraespinhal Esquerdo'
+  const subExame = 'Ombro- Tendão Infraespinhal Esquerdo'
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -281,6 +281,17 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
     }
   }, [RoturaCompletaRetracaoCheckbox])
 
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+  }, [Normal])
+
 
   return (
     <Box
@@ -302,7 +313,7 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
 
       <Stack>
         <Checkbox
-          isDisabled={Disable}
+
           onChange={() => {
             setPequenasCalcificacoesCheckbox(!PequenasCalcificacoesCheckbox);
           }}
@@ -310,8 +321,9 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
           Pequenas calcificações junto à inserção
         </Checkbox>
         <Checkbox
-          isDisabled={Disable || disableAspectoNormal}
+          isChecked={Normal}
           onChange={() => {
+            setNormal(!Normal)
             setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
         >
@@ -319,7 +331,6 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
         </Checkbox>
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={Disable || disableTendinopatiaSemRotura}
             onChange={() => {
               setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
             }}
@@ -350,7 +361,7 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+
             textAlign="center"
             onChange={(e) => { setInputMedindoTendinopatiaSemRotura(e.target.value) }}
           />
@@ -359,7 +370,7 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
 
         <Box display='flex' flexWrap='wrap' gap='5px'>
           <Checkbox
-            isDisabled={Disable || disableRoturaParcial}
+
             onChange={() => {
               setRoturaParcialCheckbox(!RoturaParcialCheckbox);
             }}
@@ -373,7 +384,7 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput(e.target.value) }}
             />
@@ -384,7 +395,7 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput2(e.target.value) }}
             />
@@ -395,7 +406,7 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => { setRoturaParcialInput3(e.target.value) }}
             />
@@ -420,7 +431,7 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
         <Box display='flex' flexWrap='wrap' gap='5px'>
 
           <Checkbox
-            isDisabled={Disable || disableRoturaCompleta}
+
             onChange={() => {
               setRoturaCompletaCheckbox(!RoturaCompletaCheckbox);
             }}
@@ -434,7 +445,7 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+
             textAlign="center"
             onChange={(e) => { setInputMedindoRoturaCompleta(e.target.value) }}
           />
@@ -454,7 +465,7 @@ function TendaoInfraespinhalOmbroEsquerdo({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+
             textAlign="center"
             onChange={(e) => { setInputRetracaoRoturaCompleta(e.target.value) }}
           />

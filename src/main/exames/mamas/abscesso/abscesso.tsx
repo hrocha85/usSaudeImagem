@@ -43,7 +43,7 @@ function Abscesso() {
         valueInputTamanho2AbscessoPresente !== ""
       ) {
         let string = `Abscesso presente ${valueSelectDistanciaAbscessoPresente}, na ${valueSelectLocalAbscessoPresente}
-                distando ${valueInputTamanhoAbscessoPresente} x ${valueInputTamanho2AbscessoPresente} mm`;
+                distando ${valueInputTamanhoAbscessoPresente} x ${valueInputTamanho2AbscessoPresente} cm`;
         setFrasesAbcesso((arr) => [...arr, string]);
       }
     } else {
@@ -171,12 +171,12 @@ function Abscesso() {
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => {
                 setValueInputTamanhoAbscessoPresente(e.target.value);
               }}
-              placeholder={"mm"}
+              placeholder={"cm"}
             />
             <Text alignSelf="center">x</Text>
             <Input
@@ -185,12 +185,12 @@ function Abscesso() {
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => {
                 setValueInputTamanho2AbscessoPresente(e.target.value);
               }}
-              placeholder={"mm"}
+              placeholder={"cm"}
             />
           </Box>
         </Box>

@@ -12,7 +12,7 @@ function FibromatosePalmarEsquerdo({ Disable }) {
 
   const [fraseFibrosePalmarSuperficial, setFraseFibrosePalmarSuperficial] = useState<any>([]);
 
-  const subExame = `Fibrose palmar superficial (contratura de dupuytren) Esquerdo`
+  const subExame = `Mão- Fibrose palmar superficial (contratura de dupuytren) Esquerdo`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -100,7 +100,7 @@ function FibromatosePalmarEsquerdo({ Disable }) {
 
       <Box display="flex" flexWrap="wrap" gap='5px'>
         <Checkbox
-          isDisabled={Disable}
+
           onChange={() => setNoduloCheckbox(!NoduloCheckbox)}>
           Nódulo palmar superficial aos tendões flexores do
         </Checkbox>
@@ -127,7 +127,7 @@ function FibromatosePalmarEsquerdo({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+
             textAlign="center"
             onChange={(e) => { setNoduloInput(e.target.value) }}
           />
@@ -138,7 +138,7 @@ function FibromatosePalmarEsquerdo({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+
             textAlign="center"
             onChange={(e) => { setNoduloInput2(e.target.value) }}
           />
@@ -149,7 +149,7 @@ function FibromatosePalmarEsquerdo({ Disable }) {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+
             textAlign="center"
             onChange={(e) => { setNoduloInput3(e.target.value) }}
           />

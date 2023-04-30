@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
   Checkbox,
@@ -22,18 +23,24 @@ function CalculoProstata() {
   const [medida1CalcProstata, setMedida1CalcProstata] = useState("");
   const [medida2CalcProstata, setMedida2CalcProstata] = useState("");
   const [medida3CalcProstata, setMedida3CalcProstata] = useState("");
+  const [VolumeCalcProstata, setVolumeCalcProstata] = useState("");
+  const [PesoCalcProstata, setPesoCalcProstata] = useState("");
 
   const [CalcVolumePosCheckbox, setCalcVolumePosCheckbox] = useState(false);
   const [disableVolumePosInput1, setDisableVolumePosInput1] = useState(true);
   const [medida1CalcVolumePos, setMedida1CalcVolumePos] = useState("");
   const [medida2CalcVolumePos, setMedida2CalcVolumePos] = useState("");
   const [medida3CalcVolumePos, setMedida3CalcVolumePos] = useState("");
+  const [VolumeCalcVolumePos, setVolumeCalcVolumePos] = useState("");
+  const [PesoCalcVolumePos, setPesoCalcVolumePos] = useState("");
 
   const [CalcVolumePreCheckbox, setCalcVolumePreCheckbox] = useState(false);
   const [disableVolumePreInput1, setDisableVolumePreInput1] = useState(true);
   const [medida1CalcVolumePre, setMedida1CalcVolumePre] = useState("");
   const [medida2CalcVolumePre, setMedida2CalcVolumePre] = useState("");
   const [medida3CalcVolumePre, setMedida3CalcVolumePre] = useState("");
+  const [VolumeCalcVolumePre, setVolumeCalcVolumePre] = useState("");
+  const [PesoCalcVolumePre, setPesoCalcVolumePre] = useState("");
 
   const [ProstataEcotexturaCheckBox, setProstataEcotexturaCheckBox] =
     useState(true);
@@ -84,17 +91,35 @@ function CalculoProstata() {
   };
 
   const calculoVolume = () => {
+    let medida1STR: string = medida1CalcProstata.toString().replace(',', '.');
+    let medida1: number = parseFloat(medida1STR);
+    let medida2STR: string = medida2CalcProstata.toString().replace(',', '.');
+    let medida2: number = parseFloat(medida2STR);
+    let medida3STR: string = medida3CalcProstata.toString().replace(',', '.');
+    let medida3: number = parseFloat(medida3STR);
     return (
-      Number(medida1CalcProstata) * Number(medida2CalcProstata) * Number(medida3CalcProstata) * 0.52
+      Number(medida1) * Number(medida2) * Number(medida3) * 0.52
     );
   };
 
   const criaStringCalcVolumePre = (medida1CalcVolumePre, medida2CalcVolumePre, medida3CalcVolumePre) => {
     removeCalcVolumePre();
-    if (medida1CalcVolumePre != "" && medida2CalcVolumePre != "" && medida3CalcVolumePre != "") {
-      let conta = Number(medida1CalcVolumePre) * Number(medida2CalcVolumePre) * Number(medida3CalcVolumePre) * 0.52;
-      let string = `Volume vesical pré-miccional de: ${conta.toFixed(2)} cm³`;
-      setFrasesProstata((arr) => [...arr, string]);
+    let medida1STR: string = medida1CalcVolumePre.toString().replace(',', '.');
+    let medida1: number = parseFloat(medida1STR);
+    let medida2STR: string = medida2CalcVolumePre.toString().replace(',', '.');
+    let medida2: number = parseFloat(medida2STR);
+    let medida3STR: string = medida3CalcVolumePre.toString().replace(',', '.');
+    let medida3: number = parseFloat(medida3STR);
+    if (CalcVolumePreCheckbox) {
+      if (medida1CalcVolumePre != "" && medida2CalcVolumePre != "" && medida3CalcVolumePre != "") {
+        let conta = Number(medida1) * Number(medida2) * Number(medida3) * 0.52;
+        let string = `Volume vesical pré-miccional de: ${conta.toFixed(2)} cm³`;
+        setFrasesProstata((arr) => [...arr, string]);
+      }
+    } else {
+      setMedida1CalcVolumePre('')
+      setMedida2CalcVolumePre('')
+      setMedida3CalcVolumePre('')
     }
   };
 
@@ -113,10 +138,15 @@ function CalculoProstata() {
 
   const criaStringCalcVolumePos = (medida1CalcVolumePos, medida2CalcVolumePos, medida3CalcVolumePos) => {
     removeCalcVolumePos();
-
+    let medida1STR: string = medida1CalcVolumePos.toString().replace(',', '.');
+    let medida1: number = parseFloat(medida1STR);
+    let medida2STR: string = medida2CalcVolumePos.toString().replace(',', '.');
+    let medida2: number = parseFloat(medida2STR);
+    let medida3STR: string = medida3CalcVolumePos.toString().replace(',', '.');
+    let medida3: number = parseFloat(medida3STR);
     if (
       medida1CalcVolumePos != "" && medida2CalcVolumePos != "" && medida3CalcVolumePos != "") {
-      let conta = Number(medida1CalcVolumePos) * Number(medida2CalcVolumePos) * Number(medida3CalcVolumePos) * 0.52;
+      let conta = Number(medida1) * Number(medida2) * Number(medida3) * 0.52;
       let string = `Volume residual pós-miccional de: ${conta.toFixed(1)} cm³`;
       setFrasesProstata((arr) => [...arr, string]);
     }
@@ -256,6 +286,8 @@ function CalculoProstata() {
   }, [VesiculaCheckBox]);
 
   useEffect(() => {
+    let conta = Number(medida1CalcVolumePos) * Number(medida2CalcVolumePos) * Number(medida3CalcVolumePos) * 0.52;
+    setVolumeCalcVolumePos(conta.toFixed(2))
     criaStringCalcVolumePos(
       medida1CalcVolumePos,
       medida2CalcVolumePos,
@@ -264,12 +296,14 @@ function CalculoProstata() {
   }, [medida1CalcVolumePos, medida2CalcVolumePos, medida3CalcVolumePos]);
 
   useEffect(() => {
+    let conta = Number(medida1CalcVolumePre) * Number(medida2CalcVolumePre) * Number(medida3CalcVolumePre) * 0.52;
+    setVolumeCalcVolumePre(conta.toFixed(2))
     criaStringCalcVolumePre(
       medida1CalcVolumePre,
       medida2CalcVolumePre,
       medida3CalcVolumePre
     );
-  }, [medida1CalcVolumePre, medida2CalcVolumePre, medida3CalcVolumePre]);
+  }, [CalcVolumePreCheckbox, medida1CalcVolumePre, medida2CalcVolumePre, medida3CalcVolumePre]);
 
   useEffect(() => {
     if (Ecotextura != "") {
@@ -286,6 +320,8 @@ function CalculoProstata() {
   }, [Textura]);
 
   useEffect(() => {
+    setVolumeCalcProstata(calculoVolume().toFixed(2))
+    setPesoCalcProstata(calculoGramas().toFixed(2))
     if (
       Dimensoes != "" &&
       medida1CalcProstata != "" &&
@@ -347,18 +383,60 @@ function CalculoProstata() {
       <Flex gap="15px" flexWrap="wrap" flex={1}>
         <HStack flexWrap="wrap">
           <Checkbox
+            onChange={() => {
+              setProstataEcotexturaCheckBox(!ProstataEcotexturaCheckBox);
+            }}
+          >
+            Próstata com ecotextura
+          </Checkbox>
+
+          <Select
+            isDisabled={ProstataEcotexturaCheckBox}
+            placeholder="Ecotextura"
+            value={Ecotextura}
+            borderColor="black"
+            w="200px"
+            onChange={(e) => setEcotextura(e.target.value)}
+          >
+            <option value="Homogênea">Homogênea</option>
+            <option value="Heterogênea">Heterogênea</option>
+          </Select>
+        </HStack>
+        <HStack flexWrap="wrap">
+          <Checkbox
+            onChange={() => {
+              setTexturaCheckBox(!TexturaCheckBox);
+            }}
+          >
+            Tecido Prostático
+          </Checkbox>
+          <Select
+            isDisabled={TexturaCheckBox}
+            placeholder="Textura"
+            value={Textura}
+            borderColor="black"
+            w="auto"
+            onChange={(e) => setTextura(e.target.value)}
+            flexShrink={1}
+          >
+            <option value="Uniforme">Uniforme</option>
+            <option value="Heterogênea">Heterogênea</option>
+          </Select>
+        </HStack>
+        <HStack flexWrap="wrap">
+          <Checkbox
             whiteSpace="nowrap"
             onChange={(e) => setCalcProstataCheckbox(!CalcProstataCheckbox)}
           >
             Dimensões Prostata
           </Checkbox>
           <Input
-            maxLength={2}
+
             isDisabled={disableProstataInput1}
             w="35px"
             h="30px"
             value={medida1CalcProstata}
-            padding="5px"
+            padding="0px"
             textAlign="center"
             onChange={(e) => {
               setMedida1CalcProstata(e.target.value);
@@ -366,12 +444,12 @@ function CalculoProstata() {
           />
           <Text>x</Text>
           <Input
-            maxLength={2}
+
             isDisabled={disableProstataInput1}
             w="35px"
             h="30px"
             value={medida2CalcProstata}
-            padding="5px"
+            padding="0px"
             textAlign="center"
             onChange={(e) => {
               setMedida2CalcProstata(e.target.value);
@@ -379,18 +457,36 @@ function CalculoProstata() {
           />
           <Text>x</Text>
           <Input
-            maxLength={2}
+
             isDisabled={disableProstataInput1}
             w="35px"
             h="30px"
             value={medida3CalcProstata}
-            padding="5px"
+            padding="0px"
             textAlign="center"
             onChange={(e) => {
               setMedida3CalcProstata(e.target.value);
             }}
           />
           <Text>cm³</Text>
+          <Text>vol</Text>
+          <Input
+            isDisabled={disableProstataInput1}
+            w="35px"
+            h="30px"
+            value={VolumeCalcProstata}
+            padding="0px"
+            textAlign="center"
+          />
+          <Text>peso</Text>
+          <Input
+            isDisabled={disableProstataInput1}
+            w="35px"
+            h="30px"
+            value={PesoCalcProstata}
+            padding="0px"
+            textAlign="center"
+          />
           <Select
             isDisabled={!CalcProstataCheckbox}
             placeholder="Dimensões"
@@ -412,11 +508,11 @@ function CalculoProstata() {
               <Text>Volume pré-miccional</Text>
             </Checkbox>
             <Input
-              isDisabled={disableVolumePreInput1}
+              isDisabled={!CalcVolumePreCheckbox}
               w="35px"
               h="30px"
               value={medida1CalcVolumePre}
-              padding="5px"
+              padding="0px"
               textAlign="center"
               onChange={(e) => {
                 setMedida1CalcVolumePre(e.target.value);
@@ -424,11 +520,11 @@ function CalculoProstata() {
             />
             <Text>x</Text>
             <Input
-              isDisabled={disableVolumePreInput1}
+              isDisabled={!CalcVolumePreCheckbox}
               w="35px"
               h="30px"
               value={medida2CalcVolumePre}
-              padding="5px"
+              padding="0px"
               textAlign="center"
               onChange={(e) => {
                 setMedida2CalcVolumePre(e.target.value);
@@ -436,11 +532,11 @@ function CalculoProstata() {
             />
             <Text>x</Text>
             <Input
-              isDisabled={disableVolumePreInput1}
+              isDisabled={!CalcVolumePreCheckbox}
               w="35px"
               h="30px"
               value={medida3CalcVolumePre}
-              padding="5px"
+              padding="0px"
               textAlign="center"
               onChange={(e) => {
                 setMedida3CalcVolumePre(e.target.value);
@@ -448,6 +544,15 @@ function CalculoProstata() {
             />
           </HStack>
           <Text>cm³</Text>
+          <Text>vol</Text>
+          <Input
+            isDisabled={!CalcVolumePreCheckbox}
+            w="35px"
+            h="30px"
+            value={VolumeCalcVolumePre}
+            padding="0px"
+            textAlign="center"
+          />
         </Box>
 
         <Box gap="15px" display="flex" flexWrap="wrap">
@@ -458,11 +563,11 @@ function CalculoProstata() {
               Volume pós-miccional
             </Checkbox>
             <Input
-              isDisabled={disableVolumePosInput1}
+              isDisabled={!CalcVolumePosCheckbox}
               w="35px"
               h="30px"
               value={medida1CalcVolumePos}
-              padding="5px"
+              padding="0px"
               textAlign="center"
               onChange={(e) => {
                 setMedida1CalcVolumePos(e.target.value);
@@ -470,11 +575,11 @@ function CalculoProstata() {
             />
             <Text>x</Text>
             <Input
-              isDisabled={disableVolumePosInput1}
+              isDisabled={!CalcVolumePosCheckbox}
               w="35px"
               h="30px"
               value={medida2CalcVolumePos}
-              padding="5px"
+              padding="0px"
               textAlign="center"
               onChange={(e) => {
                 setMedida2CalcVolumePos(e.target.value);
@@ -482,11 +587,11 @@ function CalculoProstata() {
             />
             <Text>x</Text>
             <Input
-              isDisabled={disableVolumePosInput1}
+              isDisabled={!CalcVolumePosCheckbox}
               w="35px"
               h="30px"
               value={medida3CalcVolumePos}
-              padding="5px"
+              padding="0px"
               textAlign="center"
               onChange={(e) => {
                 setMedida3CalcVolumePos(e.target.value);
@@ -494,48 +599,16 @@ function CalculoProstata() {
             />
           </HStack>
           <Text>cm³</Text>
-          <HStack flexWrap="wrap">
-            <Checkbox
-              onChange={() => {
-                setProstataEcotexturaCheckBox(!ProstataEcotexturaCheckBox);
-              }}
-            >
-              Próstata com ecotextura
-            </Checkbox>
+          <Text>vol</Text>
+          <Input
+            isDisabled={!CalcVolumePosCheckbox}
+            w="35px"
+            h="30px"
+            value={VolumeCalcVolumePos}
+            padding="0px"
+            textAlign="center"
+          />
 
-            <Select
-              isDisabled={ProstataEcotexturaCheckBox}
-              placeholder="Ecotextura"
-              value={Ecotextura}
-              borderColor="black"
-              w="200px"
-              onChange={(e) => setEcotextura(e.target.value)}
-            >
-              <option value="Homogênea">Homogênea</option>
-              <option value="Heterogênea">Heterogênea</option>
-            </Select>
-          </HStack>
-          <HStack flexWrap="wrap">
-            <Checkbox
-              onChange={() => {
-                setTexturaCheckBox(!TexturaCheckBox);
-              }}
-            >
-              Tecido Prostático
-            </Checkbox>
-            <Select
-              isDisabled={TexturaCheckBox}
-              placeholder="Textura"
-              value={Textura}
-              borderColor="black"
-              w="auto"
-              onChange={(e) => setTextura(e.target.value)}
-              flexShrink={1}
-            >
-              <option value="Uniforme">Uniforme</option>
-              <option value="Heterogênea">Heterogênea</option>
-            </Select>
-          </HStack>
         </Box>
         <Checkbox
           onChange={() => {

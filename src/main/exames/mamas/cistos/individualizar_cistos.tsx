@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Checkbox, HStack, Input, Select } from "@chakra-ui/react";
+import { Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 
@@ -11,6 +11,7 @@ export default function IndividualizarCistos({ numCisto }) {
   const [posicaoCistosSelect, setPosicaoCistosSelect] = useState("");
   const [ConteudoCistosSelect, setConteudoCistosSelect] = useState("");
   const [localizacaoCistosSelect, setlocalizacaoCistosSelect] = useState("");
+  const [OrientacaoCistosSelect, setOrientacaoCistosSelect] = useState("");
   const [multiplosCistosCheckBox, setmultiplosCistosCheckBox] = useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
@@ -26,9 +27,10 @@ export default function IndividualizarCistos({ numCisto }) {
       tamanhoCistoInput !== "" &&
       CistosSelect !== "" &&
       localizado !== "" &&
-      ConteudoCistosSelect !== ""
+      ConteudoCistosSelect !== "" &&
+      OrientacaoCistosSelect
     ) {
-      var string = `Nódulo ${numCisto} mede ${tamanhoCistoInput} mm ${CistosSelect} localizado ${localizado} `;
+      var string = `Nódulo ${numCisto} mede ${tamanhoCistoInput} cm ${CistosSelect} localizado ${localizado} no ${OrientacaoCistosSelect}.`;
       setFrasesIndCis((arr) => [...arr, string]);
     }
   };
@@ -70,7 +72,7 @@ export default function IndividualizarCistos({ numCisto }) {
     ConteudoCistosSelect,
   ]);
 
-  const subExame = "Individualizar Cisto";
+  const subExame = `Individualizar Cisto ${numCisto}`;
   const titulo_exame = "Mamas";
 
   useEffect(() => {
@@ -96,7 +98,7 @@ export default function IndividualizarCistos({ numCisto }) {
       <Checkbox
         onChange={() => setmultiplosCistosCheckBox(!multiplosCistosCheckBox)}
       >
-        Cisto {numCisto}
+        <Text textAlign='center'> Cisto {numCisto}</Text>
       </Checkbox>
 
       <Select
@@ -121,12 +123,12 @@ export default function IndividualizarCistos({ numCisto }) {
         w="60px"
         h="77x"
         padding="5px"
-        maxLength={2}
+
         textAlign="center"
         onChange={(e) => {
           settamanhoCistoInput(e.target.value);
         }}
-        placeholder={"mm"}
+        placeholder={"cm"}
       />
       <Select
         w="auto"
@@ -152,6 +154,22 @@ export default function IndividualizarCistos({ numCisto }) {
         <option value="às 11 horas">às 11 horas</option>
         <option value="às 12 horas">às 12 horas</option>
         <option value="na região retropapilar">na região retropapilar</option>
+      </Select>
+      <Select
+        w="auto"
+        isDisabled={DisableSelect}
+        onChange={(e) => {
+          setOrientacaoCistosSelect(e.target.value);
+        }}
+        value={OrientacaoCistosSelect}
+      >
+        <option value="" disabled selected>
+          no
+        </option>
+        <option value="QSL">QSL</option>
+        <option value="QSM">QSM</option>
+        <option value="QIL">QIL</option>
+        <option value="QIM">QIM</option>
       </Select>
 
       <Select

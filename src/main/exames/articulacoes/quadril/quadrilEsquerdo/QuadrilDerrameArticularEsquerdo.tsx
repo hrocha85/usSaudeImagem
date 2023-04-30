@@ -12,7 +12,7 @@ function QuadrilDerrameArticularEsquerdo({ Disable }) {
   const [QuadrilDerrameArticularEsquerdo, setQuadrilDerrameArticularEsquerdo] = useState<any>([]);
   const [ConclusaoQuadrilDerrameArticularEsquerdo, setConclusaoQuadrilDerrameArticularEsquerdo] = useState<any>([]);
 
-  const subExame = `Derrame articular no Quadril Esquerdo`
+  const subExame = `Quadril- Derrame articular no Quadril Esquerdo`
   const titulo_exame = 'Articulações'
 
   useEffect(() => {
@@ -148,7 +148,7 @@ function QuadrilDerrameArticularEsquerdo({ Disable }) {
       <Stack>
 
         <Checkbox
-          isDisabled={Disable || disableAusente}
+          isDisabled={disableAusente}
           onChange={() => {
             setAusenteCheckbox(true);
             criaStringAusente();
@@ -158,7 +158,7 @@ function QuadrilDerrameArticularEsquerdo({ Disable }) {
         </Checkbox>
         <HStack>
           <Checkbox
-            isDisabled={Disable || disablePresente}
+            isDisabled={disablePresente}
             onChange={() => setPresenteCheckbox(!PresenteCheckbox)}>
             Presente
           </Checkbox>

@@ -95,6 +95,13 @@ export default function Cisto_Direito({ Disable }) {
     }
   }, [value, valueSelect1, medida1Cisto, medida2Cisto]);
 
+
+  useEffect(() => {
+    Disable ? setValue("Ausente") : setValue('1')
+  }, [Disable])
+
+
+
   useEffect(() => {
     if (Object.keys(frasesTornozelo).length == 0) {
       new Format_Laudo(
@@ -125,7 +132,7 @@ export default function Cisto_Direito({ Disable }) {
         <Text fontWeight="semibold" padding="10px">
           Cisto
         </Text>
-        <RadioGroup isDisabled={Disable} onChange={setValue} value={value} padding="10px">
+        <RadioGroup onChange={setValue} value={value} padding="10px">
           <Stack direction="column">
             <Radio value="1">Não citar</Radio>
             <Radio value="Ausente">Ausente</Radio>
@@ -156,7 +163,7 @@ export default function Cisto_Direito({ Disable }) {
                     h="30px"
                     value={medida1Cisto}
                     padding="5px"
-                    maxLength={2}
+
                     textAlign="center"
                     onChange={(e) => {
                       setMedida1Cisto(e.target.value);
@@ -169,7 +176,7 @@ export default function Cisto_Direito({ Disable }) {
                     h="30px"
                     value={medida2Cisto}
                     padding="5px"
-                    maxLength={2}
+
                     textAlign="center"
                     onChange={(e) => {
                       setMedida2Cisto(e.target.value);

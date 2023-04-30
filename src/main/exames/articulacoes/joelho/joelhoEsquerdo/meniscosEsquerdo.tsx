@@ -147,6 +147,19 @@ function MeniscosEsquerdo({ Disable }) {
     SemAnomalidadesCheckbox ? setMeniscosEsquerdo((arr) => [...arr, string]) : removeItemString(string)
   }
 
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = `Meniscos medial e lateral sem anormalidades detectáveis pelo método.`;
+    Normal ? setSemAnomalidadesCheckbox(!SemAnomalidadesCheckbox) : removeItemString(string)
+  }, [Normal])
+
+
+
   useEffect(() => {
     criaStringSemAnomalidades()
   }, [SemAnomalidadesCheckbox])
@@ -418,8 +431,9 @@ function MeniscosEsquerdo({ Disable }) {
 
 
       <Checkbox
-        isDisabled={Disable}
+        isChecked={Normal}
         onChange={() => {
+          setNormal(!Normal)
           setSemAnomalidadesCheckbox(!SemAnomalidadesCheckbox)
         }}>
         Sem anomalidades detectáveis pelo método (normais)
@@ -439,7 +453,7 @@ function MeniscosEsquerdo({ Disable }) {
         <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
             <Checkbox
-              isDisabled={Disable}
+
               onChange={() => setAlteracaoDegenerativaLateral(!AlteracaoDegenerativaLateral)}>
               do menisco lateral
             </Checkbox>
@@ -462,7 +476,7 @@ function MeniscosEsquerdo({ Disable }) {
           </Box>
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
             <Checkbox
-              isDisabled={Disable}
+
               onChange={() => setAlteracaoDegenerativaMedial(!AlteracaoDegenerativaMedial)}>
               do menisco medial
             </Checkbox>
@@ -499,7 +513,7 @@ function MeniscosEsquerdo({ Disable }) {
         <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
             <Checkbox
-              isDisabled={Disable}
+
               onChange={() => setExtrusaoLateral(!ExtrusaoLateral)}>
               do menisco lateral
             </Checkbox>
@@ -530,7 +544,7 @@ function MeniscosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => { setUltrapassandoMargemLateralInput(e.target.value) }}
             />
@@ -538,7 +552,7 @@ function MeniscosEsquerdo({ Disable }) {
           </Box>
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
             <Checkbox
-              isDisabled={Disable}
+
               onChange={() => setExtrusaoMedial(!ExtrusaoMedial)}>
               do menisco medial
             </Checkbox>
@@ -569,7 +583,7 @@ function MeniscosEsquerdo({ Disable }) {
               w="45px"
               h="30px"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => { setUltrapassandoMargemMedialInput(e.target.value) }}
             />
@@ -591,7 +605,7 @@ function MeniscosEsquerdo({ Disable }) {
         <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
             <Checkbox
-              isDisabled={Disable}
+
               onChange={() => setLesaoLateral(!LesaoLateral)}>
               do menisco lateral
             </Checkbox>
@@ -634,7 +648,7 @@ function MeniscosEsquerdo({ Disable }) {
 
           <Box mt='5px' display="flex" flexWrap="wrap" rowGap='5px' columnGap='10px'>
             <Checkbox
-              isDisabled={Disable}
+
               onChange={() => setLesaoMedial(!LesaoMedial)}>
               do menisco medial
             </Checkbox>

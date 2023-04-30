@@ -7,7 +7,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function CistoSebaceo({ Disable }) {
   const altura = "100%";
-  const largura = "auto";
+  const largura = "380px";
 
   const [frasesCistoSeb, setFrasesCistoSeb] = useState<any>([]);
   const [ConclusaoCistoSeb, setConclusaoCistoSeb] = useState<any>([]);
@@ -84,7 +84,7 @@ function CistoSebaceo({ Disable }) {
       medida2CistoUnico !== "" &&
       medida3CistoUnico !== ""
     ) {
-      let string = `Cisto único mede ${medida1CistoUnico}x${medida2CistoUnico}x${medida3CistoUnico}mm`;
+      let string = `Cisto único mede ${medida1CistoUnico}x${medida2CistoUnico}x${medida3CistoUnico}cm`;
       const conclusao = 'Provável cisto sebáceo.'
       setConclusaoCistoSeb((arr) => [...arr, conclusao])
       setFrasesCistoSeb((arr) => [...arr, string]);
@@ -94,7 +94,7 @@ function CistoSebaceo({ Disable }) {
     removeMultiplosCistos();
     removeConclusaoCisto()
     if (medida1MultiplosCistos !== "" && medida2MultiplosCistos !== "" && medida3MultiplosCistos !== "") {
-      let string = `Múltiplos cistos o maior mede ${medida1MultiplosCistos} x ${medida2MultiplosCistos} x ${medida3MultiplosCistos} mm`;
+      let string = `Múltiplos cistos o maior mede ${medida1MultiplosCistos} x ${medida2MultiplosCistos} x ${medida3MultiplosCistos} cm`;
       const conclusao = 'Provável cisto sebáceo.'
       setConclusaoCistoSeb((arr) => [...arr, conclusao])
       setFrasesCistoSeb((arr) => [...arr, string]);
@@ -257,7 +257,7 @@ function CistoSebaceo({ Disable }) {
               h="30px"
               value={medida1CistoUnico}
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => {
                 setMedida1CistoUnico(e.target.value);
@@ -270,7 +270,7 @@ function CistoSebaceo({ Disable }) {
               h="30px"
               value={medida2CistoUnico}
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => {
                 setMedida2CistoUnico(e.target.value);
@@ -283,13 +283,13 @@ function CistoSebaceo({ Disable }) {
               h="30px"
               value={medida3CistoUnico}
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => {
                 setMedida3CistoUnico(e.target.value);
               }}
             />
-            <Text>mm</Text>
+            <Text>cm</Text>
           </HStack>
 
           <HStack>
@@ -307,7 +307,7 @@ function CistoSebaceo({ Disable }) {
               h="30px"
               value={medida1MultiplosCistos}
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => {
                 setMedida1MultiplosCistos(e.target.value);
@@ -320,7 +320,7 @@ function CistoSebaceo({ Disable }) {
               h="30px"
               value={medida2MultiplosCistos}
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => {
                 setMedida2MultiplosCistos(e.target.value);
@@ -333,13 +333,13 @@ function CistoSebaceo({ Disable }) {
               h="30px"
               value={medida3MultiplosCistos}
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => {
                 setMedida3MultiplosCistos(e.target.value);
               }}
             />
-            <Text>mm</Text>
+            <Text>cm</Text>
           </HStack>
         </Stack>
       </Box>

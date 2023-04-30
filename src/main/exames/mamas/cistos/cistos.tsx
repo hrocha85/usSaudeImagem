@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -12,7 +12,27 @@ function Cisto() {
 
   const [frasesCistos, setFrasesCistos] = useState<any>([]);
 
-  var numberArray = [1, 2, 3, 4];
+  const [UpdateCisto, setUpdateCisto] = useState(false);
+
+  const [numberArray, setNumberArray] = useState([1]);
+
+  function Cisto() {
+    return (
+      <>
+        {numberArray.map((num, key) => {
+          return <IndividualizarCistos key={key} numCisto={num} />;
+        })}
+      </>
+    );
+  }
+
+  useEffect(() => {
+    if (UpdateCisto) {
+      setUpdateCisto(false);
+      setNumberArray([...numberArray, numberArray.length + 1]);
+      Cisto();
+    }
+  }, [UpdateCisto]);
 
   const [
     multiplosCistosMamaDireitoCheckBox,
@@ -56,7 +76,7 @@ function Cisto() {
       localizado !== "" &&
       ConteudoCistosMamaDireitoSelect !== ""
     ) {
-      var string = `Múltiplos Cistos no Mama direito, o maior conteúdo ${ConteudoCistosMamaDireitoSelect} ${localizado}n medindo ${tamanhoNoduloDireitoInput} mm `;
+      var string = `Múltiplos Cistos no Mama direito, o maior conteúdo ${ConteudoCistosMamaDireitoSelect} ${localizado}n medindo ${tamanhoNoduloDireitoInput} cm `;
       setFrasesCistos((arr) => [...arr, string]);
     }
   };
@@ -107,7 +127,7 @@ function Cisto() {
       localizado !== "" &&
       ConteudoCistosMamaEsquerdoSelect !== ""
     ) {
-      var string = `Múltiplos Cistos no Mama esquerdo, o maior conteúdo ${ConteudoCistosMamaEsquerdoSelect} ${localizado}n medindo ${tamanhoNoduloEsquerdoInput} mm `;
+      var string = `Múltiplos Cistos no Mama esquerdo, o maior conteúdo ${ConteudoCistosMamaEsquerdoSelect} ${localizado}n medindo ${tamanhoNoduloEsquerdoInput} cm `;
       setFrasesCistos((arr) => [...arr, string]);
     }
   };
@@ -216,12 +236,12 @@ function Cisto() {
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => {
                 settamanhoCistoMamaDireitoInput(e.target.value);
               }}
-              placeholder={"mm"}
+              placeholder={"cm"}
             />
             <Select
               w="auto"
@@ -283,12 +303,12 @@ function Cisto() {
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
+
               textAlign="center"
               onChange={(e) => {
                 setTamanhoCistoMamaEsquerdoInput(e.target.value);
               }}
-              placeholder={"mm"}
+              placeholder={"cm"}
             />
             <Select
               w="auto"
@@ -323,13 +343,18 @@ function Cisto() {
           <Text fontWeight="semibold" fontSize="16px">
             Individualizar Cistos
           </Text>
-          <Stack>
-            <>
-              {numberArray.map((num, key) => {
-                return <IndividualizarCistos key={key} numCisto={num} />;
-              })}
-            </>
-          </Stack>
+          <Box gap="25px" display="flex" flexWrap="wrap">
+            {Cisto()}
+            <Button
+              colorScheme="blue"
+              onClick={() => {
+                setUpdateCisto(true);
+              }}
+            >
+              +1 Nódulo
+            </Button>
+
+          </Box>
         </Stack>
       </Box>
     </Box>

@@ -65,7 +65,7 @@ export default function Format_PDF() {
         <View style={styles.inline} wrap={false} key={key}>
           <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
           <View style={styles.view_frases}>
-            {typeof sub.frases != "string" ? (
+            {typeof sub.frases != "string" && sub.frases != null ? (
               sub.frases.map((frase, key) => {
                 return (
                   <Text style={styles.frasesSubExame} key={key}>
@@ -77,6 +77,9 @@ export default function Format_PDF() {
               <Text style={styles.frasesSubExame}>{sub.frases}</Text>
             )}
           </View>
+          {sub.image != null && sub.image != "" ? (
+            <Image src={sub.image} />
+          ) : null}
         </View>
       ) : null;
     });
