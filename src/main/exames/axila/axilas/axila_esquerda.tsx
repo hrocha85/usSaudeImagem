@@ -170,7 +170,7 @@ function Axila_esquerda() {
   };
 
   const subExame = "Axila esquerda";
-  const titulo_exame = "Mamas";
+  const titulo_exame = "Axila";
 
   useEffect(() => {
     if (Object.keys(frasesAxilas).length == 0) {

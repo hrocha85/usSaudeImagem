@@ -312,7 +312,7 @@ const FieldDefaultIcon = ({
                 _placeholder={{ fontWeight: "bold", color: "black" }}
                 fontWeight="bold"
                 variant={"filled"}
-                onClick={() => {}}
+                onClick={() => { }}
                 onChange={(e) => {
                   setNomeClinica(e.target.value);
                   setUpdateNome(e.target.value);
@@ -333,7 +333,7 @@ const FieldDefaultIcon = ({
                 textColor={"black"}
                 _placeholder={{ fontWeight: "bold", color: "black" }}
                 variant={"unstyled"}
-                onClick={() => {}}
+                onClick={() => { }}
                 isDisabled={disableNome}
               ></Input>
             )}
@@ -402,7 +402,7 @@ const FieldDefaultIcon = ({
                         variant={focusEdit}
                         borderStartRadius={"md"}
                         borderEndRadius={"md"}
-                        
+                        maxLength={15}
                         fontWeight={"bold"}
                         textColor={"black"}
                         onChange={(e) => {
@@ -431,7 +431,7 @@ const FieldDefaultIcon = ({
                         borderEndRadius={"md"}
                         fontWeight={"bold"}
                         textColor={"black"}
-                        
+
                         onChange={(e) => {
                           setUpdateCEP(e.target.value);
                           setCep(e.target.value);

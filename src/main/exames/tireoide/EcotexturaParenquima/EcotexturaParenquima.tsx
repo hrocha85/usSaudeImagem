@@ -22,12 +22,10 @@ function EcotexturaParenquima({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    const string = "Ecotextura normal";
     if (Normal) {
-      setNormalCheckbox(!NormalCheckbox)
+      setNormalCheckbox(true)
     } else {
-      removeItemString(string)
-      removeConclusao(string)
+      setNormalCheckbox(false)
     }
   }, [Normal])
 

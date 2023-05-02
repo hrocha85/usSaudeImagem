@@ -688,7 +688,7 @@ const Medicos = ({ medico, id }) => {
                               borderStartRadius={"md"}
                               borderEndRadius={"md"}
                               marginStart="5px"
-                              
+                              maxLength={13}
                               ref={refCRM}
                               defaultValue={crm}
                               fontSize="18px"
@@ -713,13 +713,14 @@ const Medicos = ({ medico, id }) => {
                               fontWeight="bold"
                             />
                             <Input
+                              maxLength={13}
                               ref={refCRM}
                               defaultValue={crm}
                               fontSize="18px"
                               variant={"unstyled"}
                               isDisabled={CRMenable}
                               textAlign={"center"}
-                              
+
                             />
                           </InputGroup>
                         </Center>

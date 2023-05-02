@@ -334,8 +334,7 @@ function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = 'Fígado com dimensões normais, contornos regulares, bordas finas e ecotextura homogênea.'
-    Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+    Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
   }, [Normal])
 
 

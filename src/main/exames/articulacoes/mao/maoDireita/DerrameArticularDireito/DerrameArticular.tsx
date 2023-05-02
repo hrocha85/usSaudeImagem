@@ -81,7 +81,7 @@ function MaoDerrameArticularDireita({ Disable }) {
 
   useEffect(() => {
     var string = "Ausência de derrame articular."
-    Normal ? setAusenciaDerrame(!AusenciaDerrame) : removeItemString(string)
+    Normal ? setAusenciaDerrame(true) : setAusenciaDerrame(false)
   }, [Normal])
 
 

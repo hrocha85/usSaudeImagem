@@ -444,8 +444,7 @@ function Figado({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = 'Fígado com dimensões normais, contornos regulares, bordas finas e ecotextura homogênea.'
-    Normal ? setHomogeneoCheckbox(!HomogeneoCheckbox) : removeItemString(string)
+    Normal ? setHomogeneoCheckbox(true) : setHomogeneoCheckbox(false)
   }, [Normal])
 
   return (

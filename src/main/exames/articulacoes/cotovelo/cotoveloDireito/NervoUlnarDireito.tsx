@@ -60,7 +60,7 @@ function NervoUlnarDireito({ Disable }) {
 
     useEffect(() => {
         var string = "Nervo ulnar de espessura, contornos e ecotextura normais.";
-        Normal ? setEspessuraNormalCheckbox(!EspessuraNormalCheckbox) : removeItemString(string)
+        Normal ? setEspessuraNormalCheckbox(true) : setEspessuraNormalCheckbox(false)
     }, [Normal])
 
 

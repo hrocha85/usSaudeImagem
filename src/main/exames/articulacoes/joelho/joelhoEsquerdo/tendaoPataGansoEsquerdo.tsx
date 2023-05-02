@@ -67,7 +67,7 @@ function TendaoPataGansoEsquerdo({ Disable }) {
 
   useEffect(() => {
     var string = 'Inserção distal dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso) com aspecto conservado.';
-    Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+    Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
   }, [Normal])
 
 

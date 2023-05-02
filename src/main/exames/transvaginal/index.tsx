@@ -20,7 +20,7 @@ function Transvaginal() {
   return (
     <>
       <Box ml="10px">
-        <Box
+        {/* <Box
           bg="#FAFAFA"
           w={largura}
           h={altura}
@@ -36,7 +36,7 @@ function Transvaginal() {
             onChange={(e) => { SetDisable(!Disable) }}
           >Transvaginal Normal</Checkbox>
 
-        </Box >
+        </Box > */}
         <Bexiga Disable={Disable} />
         <Vagina Disable={Disable} />
         <Utero Disable={Disable} />

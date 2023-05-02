@@ -1,8 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Spacer, Stack, Wrap, Text } from "@chakra-ui/react";
+import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import Individualiza_Linfonodomegalias from "./Individualiza/individualiza_Linfonodomegalia";
@@ -29,8 +28,7 @@ function Linfonodomegalias({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    const string = 'Linfonodomegalias normais'
-    Normal ? setNormalCheckbox(!NormalCheckbox) : removeFrase(string)
+    Normal ? setNormalCheckbox(true) : setNormalCheckbox(false)
   }, [Normal])
 
   const removeFrase = (value) => {

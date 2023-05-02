@@ -76,7 +76,7 @@ function OssosEsquerda({ Disable }) {
   useEffect(() => {
 
     var string = "Superfícies ósseas regulares."
-    AspectoNormal ? setAspectoNormal(!AspectoNormal) : removeItemString(string)
+    Normal ? setAspectoNormal(true) : setAspectoNormal(false)
 
   }, [AspectoNormal])
 

@@ -292,8 +292,7 @@ function VesiculaBiliar({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    const string = "Vesícula biliar com forma e dimensões normais, paredes finas e regulares, apresentando conteúdo anecogênico sem imagens calculosas.";
-    Normal ? setNormalCheckbox(!NormalCheckbox) : removeItemString(string)
+    Normal ? setNormalCheckbox(true) : setNormalCheckbox(false)
   }, [Normal])
 
   const subExame = "Vesícula Biliar";

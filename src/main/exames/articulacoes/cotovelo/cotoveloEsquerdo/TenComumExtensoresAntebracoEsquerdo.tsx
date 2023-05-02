@@ -90,7 +90,7 @@ function TenComumExtensoresAntebracoEsquerdo({ Disable }) {
 
     useEffect(() => {
         var string = "com ecotextura e espessura preservadas e contornos normais.";
-        Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+        Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
     }, [Normal])
 
     useEffect(() => {

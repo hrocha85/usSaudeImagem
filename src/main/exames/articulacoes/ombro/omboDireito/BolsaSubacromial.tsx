@@ -101,7 +101,7 @@ function BolsaSubacromial_SubdeltoideaDireito({ Disable }) {
 
   useEffect(() => {
     var string = "Ausência de líquido na bolsa subacromial-subdeltoidea.";
-    Normal ? setSemLiquidoCheckbox(!SemLiquidoCheckbox) : removeItemString(string)
+    Normal ? setSemLiquidoCheckbox(true) : setSemLiquidoCheckbox(false)
   }, [Normal])
 
 

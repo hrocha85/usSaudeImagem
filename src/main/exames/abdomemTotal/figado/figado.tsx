@@ -156,10 +156,7 @@ function Figado({ Disable }) {
     }
   };
 
-  useEffect(() => {
-    var string = 'Fígado com dimensões normais, contornos regulares, bordas finas e ecotextura homogênea.'
-    HomogeneoCheckbox ? setFrasesFigado((arr) => [...arr, string]) : removeItemString(string)
-  }, [HomogeneoCheckbox])
+
 
 
   const criaStringEsteatose = (select) => {
@@ -445,9 +442,17 @@ function Figado({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = 'Fígado com dimensões normais, contornos regulares, bordas finas e ecotextura homogênea.'
-    Normal ? setHomogeneoCheckbox(!HomogeneoCheckbox) : removeItemString(string)
+    if (Normal) {
+      setHomogeneoCheckbox(true)
+    } else {
+      setHomogeneoCheckbox(false)
+    }
   }, [Normal])
+
+  useEffect(() => {
+    var string = 'Fígado com dimensões normais, contornos regulares, bordas finas e ecotextura homogênea.'
+    HomogeneoCheckbox ? setFrasesFigado((arr) => [...arr, string]) : removeItemString(string)
+  }, [HomogeneoCheckbox])
 
   return (
     <Box
@@ -466,7 +471,7 @@ function Figado({ Disable }) {
         <Box gap="25px" display="flex" flexWrap="wrap" mb="10px">
           <Box>
             <Checkbox
-              isChecked={Normal}
+              isChecked={Normal || HomogeneoCheckbox}
               onChange={(e) => {
                 setNormal(!Normal)
                 setHomogeneoCheckbox(!HomogeneoCheckbox);

@@ -58,8 +58,7 @@ function Retroperineo({ Disable }) {
     }, [Disable])
 
     useEffect(() => {
-        const string = 'Não se constata adenopatia para aórtica ou ao redor dos demais grandes vasos abdominais.'
-        Normal ? setNormalCheckbox(!NormalCheckbox) : removeItemString(string)
+        Normal ? setNormalCheckbox(true) : setNormalCheckbox(false)
     }, [Normal])
 
 
