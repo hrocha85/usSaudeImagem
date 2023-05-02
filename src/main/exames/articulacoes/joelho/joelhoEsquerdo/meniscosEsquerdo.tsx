@@ -155,7 +155,7 @@ function MeniscosEsquerdo({ Disable }) {
 
   useEffect(() => {
     var string = `Meniscos medial e lateral sem anormalidades detectáveis pelo método.`;
-    Normal ? setSemAnomalidadesCheckbox(!SemAnomalidadesCheckbox) : removeItemString(string)
+    Normal ? setSemAnomalidadesCheckbox(true) : setSemAnomalidadesCheckbox(false)
   }, [Normal])
 
 

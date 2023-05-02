@@ -56,8 +56,7 @@ function RinsUreteres({ Disable }) {
     }, [Disable])
 
     useEffect(() => {
-        const string = 'Em situações tópicas, com formas, contornos e dimensões normais.\nComplexos ecogênicos centrais com distribuições e ecogenicidades normais.\nNão se notam imagens calculosas.'
-        Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+        Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
     }, [Normal])
 
     useEffect(() => {

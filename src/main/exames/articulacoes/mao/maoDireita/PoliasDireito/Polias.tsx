@@ -78,7 +78,7 @@ function Polias({ Disable }) {
 
   useEffect(() => {
     var string = "Polias dos tendões flexores dos dedos sem anormalidades identificáveis."
-    Normal ? setAspectoNormal(!AspectoNormal) : removeItemString(string)
+    Normal ? setAspectoNormal(true) : setAspectoNormal(false)
   }, [Normal])
 
   const criaStringMultiplosCalculos = () => {

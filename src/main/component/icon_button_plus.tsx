@@ -281,6 +281,7 @@ const IconButtonPlus = (props) => {
                             ref={refTelefone}
                             placeholder="(11) 0000-0000"
                             textAlign={"center"}
+                            maxLength={15}
                             onChange={(e) => {
                               handlePhone(e);
                               setTelefone(e.target.value);
@@ -288,14 +289,15 @@ const IconButtonPlus = (props) => {
                             variant="filled"
                             borderStartRadius={"md"}
                             borderEndRadius={"md"}
-                            
-                            onClick={() => {}}
+
+                            onClick={() => { }}
                           />
                         ) : (
                           <Input
                             ref={refTelefone}
                             placeholder="(11) 0000-0000"
                             textAlign={"center"}
+                            maxLength={15}
                             onChange={(e) => {
                               handlePhone(e);
                               setTelefone(e.target.value);
@@ -330,8 +332,8 @@ const IconButtonPlus = (props) => {
                             variant="filled"
                             borderStartRadius={"md"}
                             borderEndRadius={"md"}
-                            
-                            onClick={() => {}}
+
+                            onClick={() => { }}
                           />
                         ) : (
                           <Input

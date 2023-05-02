@@ -65,7 +65,7 @@ function LigColTibialMedialEsquerdo({ Disable }) {
 
   useEffect(() => {
     var string = "Ligamento colateral tibial e ligamento colateral fibular com ecotextura e espessura preservadas e contornos normais.";
-    Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+    Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
   }, [Normal])
 
   useEffect(() => {

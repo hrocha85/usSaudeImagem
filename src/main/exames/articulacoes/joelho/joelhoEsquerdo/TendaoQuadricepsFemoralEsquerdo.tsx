@@ -88,7 +88,7 @@ function TendaoQuadricepsFemoralEsquerdo({ Disable }) {
 
     useEffect(() => {
         var string = "FALTA";
-        Normal ? setAspectoNormalCheckbox(!AspectoNormalCheckbox) : removeItemString(string)
+        Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
     }, [Normal])
 
     useEffect(() => {

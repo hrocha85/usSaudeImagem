@@ -82,8 +82,7 @@ function VentreSupraespinhalEsquerdo({ Disable }) {
     }, [Disable])
 
     useEffect(() => {
-        var string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
-        Normal ? setNormalCheckbox(!NormalCheckbox) : removeItemString(string)
+        Normal ? setNormalCheckbox(true) : setNormalCheckbox(false)
     }, [Normal])
 
 

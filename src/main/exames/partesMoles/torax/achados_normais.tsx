@@ -187,41 +187,40 @@ export default function Achados_Normais({ Disable }) {
 
   useEffect(() => {
     if (Normal1) {
-      setPele_Tecido_NormaisCheckBox(!Pele_Tecido_NormaisCheckbox)
+      setPele_Tecido_NormaisCheckBox(true)
 
     } else {
-      removePele_Tecido_Normais();
+      setPele_Tecido_NormaisCheckBox(false)
 
     }
   }, [Normal1])
 
   useEffect(() => {
     if (Normal2) {
-      setPlanos_Musculares_NormaisCheckBox(!Planos_Musculates_NormaisCheckbox)
+      setPlanos_Musculares_NormaisCheckBox(true)
     } else {
-      removePlanos_Muculates_Normais();
+      setPlanos_Musculares_NormaisCheckBox(false)
     }
   }, [Normal2])
   useEffect(() => {
     if (Normal3) {
-      setAusencia_Nodulos_Colecoes_NormaisCheckBox(!Ausencia_Nodulos_Colecoes_NormaisCheckbox)
+      setAusencia_Nodulos_Colecoes_NormaisCheckBox(true)
     } else {
-      removeAusencia_Nodulos_Colescoes_Normais();
+      setAusencia_Nodulos_Colecoes_NormaisCheckBox(false)
     }
   }, [Normal3])
   useEffect(() => {
     if (Normal4) {
-      setAusencia_Herniacoes_NormaisCheckBox(!Ausencia_Herniacoes_NormaisCheckbox)
+      setAusencia_Herniacoes_NormaisCheckBox(true)
     } else {
-      removeAusencia_Herniacoes_Normais();
+      setAusencia_Herniacoes_NormaisCheckBox(false)
     }
   }, [Normal4])
   useEffect(() => {
     if (Normal5) {
-      setAusencia_Diastase_NormaisCheckBox(!Ausencia_Diastase_NormaisCheckbox)
+      setAusencia_Diastase_NormaisCheckBox(true)
     } else {
-
-      removeAusencia_Diastase_Normais();
+      setAusencia_Diastase_NormaisCheckBox(false)
     }
   }, [Normal5])
 

@@ -76,7 +76,7 @@ function NervoMedianoDireito({ Disable }) {
     }, [Disable])
 
     useEffect(() => {
-        Normal ? setEspessuraNormalCheckbox(!EspessuraNormalCheckbox) : removeFraseEspessuraNormal()
+        Normal ? setEspessuraNormalCheckbox(true) : setEspessuraNormalCheckbox(false)
     }, [Normal])
 
     useEffect(() => {

@@ -224,66 +224,66 @@ const Configuracoes = () => {
       <>
         {getUserMedico() != null
           ? getMedicos().map((medi) => {
-              if (medi.nome == getUserMedico().nome) {
-                return medi.laudos.map((laudos, key) => {
-                  if (
-                    laudos.laudo != null &&
-                    laudos.laudo != "" &&
-                    laudos != undefined
-                  ) {
-                    return (
-                      <Center>
-                        <List spacing={3} size="20px" key={key}>
-                          <ListItem
-                            padding="10px"
-                            onClick={() => {
-                              showSavedLaudo(laudos.laudo);
-                            }}
-                            cursor="pointer"
-                            _hover={{
-                              bg: "blue.100",
-                              fontWeight: "semibold",
-                              borderRadius: "10px",
-                            }}
-                          >
-                            <ListIcon
-                              as={VscFilePdf}
-                              color="blue.600"
-                              h="25px"
-                              w="25px"
-                              fontSize="xxx-large"
-                            />
-                            {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
-                          </ListItem>
-                          <Divider
-                            orientation="horizontal"
-                            marginBottom="10px"
+            if (medi.nome == getUserMedico().nome) {
+              return medi.laudos.map((laudos, key) => {
+                if (
+                  laudos.laudo != null &&
+                  laudos.laudo != "" &&
+                  laudos != undefined
+                ) {
+                  return (
+                    <Center>
+                      <List spacing={3} size="20px" key={key}>
+                        <ListItem
+                          padding="10px"
+                          onClick={() => {
+                            showSavedLaudo(laudos.laudo);
+                          }}
+                          cursor="pointer"
+                          _hover={{
+                            bg: "blue.100",
+                            fontWeight: "semibold",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          <ListIcon
+                            as={VscFilePdf}
+                            color="blue.600"
+                            h="25px"
+                            w="25px"
+                            fontSize="xxx-large"
                           />
-                        </List>
-                      </Center>
-                    );
-                  } else {
-                    return (
-                      <Center>
-                        <List size="20px">
-                          <ListItem
-                            fontSize="17px"
-                            textAlign="center"
-                            fontWeight="semibold"
-                          >
-                            Nenhum laudo encontrado
-                          </ListItem>
-                          <Divider
-                            orientation="horizontal"
-                            marginBottom="10px"
-                          />
-                        </List>
-                      </Center>
-                    );
-                  }
-                });
-              }
-            })
+                          {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
+                        </ListItem>
+                        <Divider
+                          orientation="horizontal"
+                          marginBottom="10px"
+                        />
+                      </List>
+                    </Center>
+                  );
+                } else {
+                  return (
+                    <Center>
+                      <List size="20px">
+                        <ListItem
+                          fontSize="17px"
+                          textAlign="center"
+                          fontWeight="semibold"
+                        >
+                          Nenhum laudo encontrado
+                        </ListItem>
+                        <Divider
+                          orientation="horizontal"
+                          marginBottom="10px"
+                        />
+                      </List>
+                    </Center>
+                  );
+                }
+              });
+            }
+          })
           : listaLaudosVazia()}
       </>
     );
@@ -548,7 +548,7 @@ const Configuracoes = () => {
                   placeholder="00000000-0/BR"
                   fontSize="18px"
                   textAlign={"center"}
-                  
+                  maxLength={13}
                   onChange={(event) => {
                     handleCRM(event);
                     setCrm(event.target.value);

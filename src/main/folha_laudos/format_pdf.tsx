@@ -41,9 +41,8 @@ export default function Format_PDF() {
   const getCurrentDate = () => {
     const timeStamp = new Date();
 
-    return `${timeStamp.getDate()}/${
-      timeStamp.getMonth() + 1
-    }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
+    return `${timeStamp.getDate()}/${timeStamp.getMonth() + 1
+      }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
   };
 
   const getUserMedico = () => {
@@ -347,8 +346,8 @@ export default function Format_PDF() {
                     <View>{renderFrases(exame)}</View>
 
                     {exame.observacoes != null &&
-                    exame.observacoes.length > 1 &&
-                    exame.observacoes != undefined ? (
+                      exame.observacoes.length > 1 &&
+                      exame.observacoes != undefined ? (
                       <View style={styles.inline}>
                         <Text style={styles.textNomeSubExame}>
                           {`Observações ${exame.titulo_exame}:`}
@@ -358,8 +357,8 @@ export default function Format_PDF() {
                     ) : null}
 
                     {exame.conclusoes != null &&
-                    exame.conclusoes != undefined &&
-                    exame.conclusoes.length > 1 ? (
+                      exame.conclusoes != undefined &&
+                      exame.conclusoes.length > 1 ? (
                       <View style={styles.viewConclusoes}>
                         <View style={styles.lineConclusoes} break={true} />
                         <Text style={styles.textConclusao}>

@@ -102,7 +102,7 @@ function ArticulacaoAcromioclavicularEsquerdo({ Disable }) {
 
   useEffect(() => {
     var string = "Articulação acromioclavicular de aspecto preservado.";
-    Normal ? setNormalCheckbox(!NormalCheckbox) : removeItemString(string)
+    Normal ? setNormalCheckbox(true) : setNormalCheckbox(false)
   }, [Normal])
 
 
