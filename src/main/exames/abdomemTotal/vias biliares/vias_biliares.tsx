@@ -180,6 +180,8 @@ function ViasBiliares({ Disable }) {
             </Box>
             <HStack>
               <Input
+                textAlign='center'
+                p='0px'
                 w='50px'
                 value={CitarCalibresInput1}
                 onChange={(e) => setCitarCalibresInput1(e.target.value)}
@@ -188,6 +190,8 @@ function ViasBiliares({ Disable }) {
               />
               <Text alignItems='center'>mm. Cálculo de </Text>
               <Input
+                textAlign='center'
+                p='0px'
                 w='50px'
                 value={CitarCalibresInput2}
                 onChange={(e) => setCitarCalibresInput2(e.target.value)}

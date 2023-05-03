@@ -246,7 +246,7 @@ function VesiculaBiliar({ Disable }) {
     removeFraseMultiplosPolipos();
     if (MultiplosPoliposCheckbox) {
       if (dados1 != "" && dados2 != "") {
-        string = `${string} ${dados1} a ${dados2} cm`;
+        string = `${string} ${dados1} a ${dados2} cm.`;
         setFrasesVesicula((arr) => [...arr, string]);
         setConclusoesVesicula((arr) => [...arr, conclusaoPolipos]);
       }
