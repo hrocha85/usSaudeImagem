@@ -8,9 +8,7 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
-import { exec } from "child_process";
-import { relative } from "path";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { LaudosContext } from "../../context/LuadosContext";
 
 export default function Format_PDF() {
@@ -156,16 +154,19 @@ export default function Format_PDF() {
     inline: {
       display: "flex",
       flexDirection: "row",
-      paddingTop: "10%",
+      paddingTop: "5px",
       marginLeft: 20,
+      marginBottom: '2px',
+
     },
     page: {
       backgroundColor: "white",
       color: "black",
+
     },
     section: {
-      margin: 10,
-      padding: 10,
+      margin: 2,
+      padding: 5,
       flexDirection: "row",
       width: "100%",
     },
@@ -174,14 +175,14 @@ export default function Format_PDF() {
       height: window.screen.availHeight,
     },
     imageClinica: {
-      width: 150,
-      height: 150,
+      width: 100,
+      height: 100,
       objectFit: "scale-down",
       alignContent: "center",
     },
     imageAssinatura: {
-      width: 100,
-      height: 100,
+      width: 150,
+      height: 40,
       alignContent: "center",
       justifyContent: "center",
       alignSelf: "center",
@@ -193,8 +194,9 @@ export default function Format_PDF() {
     sectionColuna: {
       flexDirection: "column",
       alignItems: "center",
-      marginTop: 30,
-      marginLeft: 80,
+      marginTop: 10,
+      marginLeft: 115,
+      gap: '5px'
     },
 
     line: {
@@ -206,8 +208,8 @@ export default function Format_PDF() {
       border: 1,
       marginLeft: 10,
       marginRight: 10,
-      marginBottom: 10,
-      marginTop: 10,
+      marginBottom: 5,
+      marginTop: 15,
     },
     laudo: {
       margin: 30,
@@ -220,10 +222,12 @@ export default function Format_PDF() {
     pageNumber: {
       position: "absolute",
       bottom: 1,
+      zIndex: 100,
+      paddingTop: "80px"
     },
     footer: {
       flexDirection: "row",
-      marginBottom: 20,
+      marginBottom: 10,
       width: "100%",
     },
     footerColuna: {
@@ -236,30 +240,33 @@ export default function Format_PDF() {
     },
     viewdadosMedico: {
       alignItems: "center",
-      margin: 20,
+      margin: 10,
     },
     textDadosMedico: {
       fontFamily: "MontserratBold",
-      fontSize: 16,
+      fontSize: 13,
       color: "black",
     },
     textSantaImagem: {
-      marginTop: "19vh",
+      marginTop: "10vh",
       marginLeft: 50,
       fontSize: "11",
       fontFamily: "Montserrat",
     },
     textDiagnostico: {
-      margin: 10,
+      marginTop: 5,
+      marginLeft: 10,
+      marginRigh: 10,
+      marginBottom: 10,
       fontSize: "10",
       fontFamily: "Montserrat2",
     },
     textTituloExame: {
       fontWeigh: "bold",
       textAlign: "center",
-      fontSize: "20",
+      fontSize: "17",
       fontFamily: "MontserratBold",
-      marginTop: "3%",
+      marginTop: "5px",
     },
     textConclusao: {
       fontWeigh: "bold",
@@ -267,7 +274,7 @@ export default function Format_PDF() {
       fontSize: "17",
       fontFamily: "MontserratBold",
       marginTop: "1%",
-      marginBottom: "3%",
+      marginBottom: "1%",
     },
     textNomeSubExame: {
       fontWeigh: "bold",
@@ -276,32 +283,39 @@ export default function Format_PDF() {
       fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
-      maxWidth: "35%",
+      maxWidth: "18%",
+
     },
     frasesSubExame: {
       textAlign: "justify",
       fontSize: "12",
       fontFamily: "MontserratRegular",
-      lineHeight: 3,
+      marginBottom: "5px",
+      justifyContent: "space-between",
+      lineHeight: 1.5,
     },
     frasesConclusoes: {
       textAlign: "justify",
       fontSize: "12",
       fontFamily: "MontserratRegular",
-      lineHeight: 3,
-      marginLeft: 20,
+      lineHeight: 1.5,
+      marginLeft: 4,
     },
     laudo_viewer: {
       margin: 10,
     },
     view_frases: {
-      marginLeft: "10px",
-      marginRight: "30px",
+      marginLeft: "1px",
+      marginRight: "20px",
+      marginBottom: '5px',
       flex: 1,
     },
+    box_view_frases: {
+      marginBottom: "130px"
+    },
     viewConclusoes: {
-      marginTop: "5%",
-      marginBottom: "33%",
+      marginTop: "10px",
+      // marginBottom: "150px",
     },
   });
 
@@ -312,6 +326,8 @@ export default function Format_PDF() {
           title={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
           author={`Dr.${medico.nome}`}
         >
+
+
           {JSON.parse(localStorage.getItem("format_laudo")!).map(
             (exame, key) => {
               return (
@@ -322,7 +338,8 @@ export default function Format_PDF() {
                   key={key}
                   break={false}
                 >
-                  <View style={styles.section}>
+
+                  <View fixed style={styles.section}>
                     <View style={styles.viewAssinatura}>
                       <Image
                         style={styles.imageClinica}
@@ -337,13 +354,17 @@ export default function Format_PDF() {
                       <Text>{`Dr. ${getMedicoSolicitante()}`}</Text>
                     </View>
                   </View>
-                  <View style={styles.line}></View>
+                  <View fixed style={styles.line}></View>
 
-                  <View style={styles.laudo_viewer} break={false}>
+                  <View wrap={true} style={styles.laudo_viewer} break={false}>
+
                     <Text style={styles.textTituloExame}>
                       {exame.titulo_exame.toUpperCase()}
                     </Text>
-                    <View>{renderFrases(exame)}</View>
+                    <View >
+                      <View >{renderFrases(exame)}</View>
+                    </View>
+
 
                     {exame.observacoes != null &&
                       exame.observacoes.length > 1 &&
@@ -352,7 +373,9 @@ export default function Format_PDF() {
                         <Text style={styles.textNomeSubExame}>
                           {`Observações ${exame.titulo_exame}:`}
                         </Text>
-                        <View>{renderObservacoes(exame)}</View>
+                        <View wrap={false} style={styles.view_frases}>
+                          <View>{renderObservacoes(exame)}</View>
+                        </View>
                       </View>
                     ) : null}
 
@@ -364,13 +387,14 @@ export default function Format_PDF() {
                         <Text style={styles.textConclusao}>
                           {`Conclusão ${exame.titulo_exame}`}
                         </Text>
-                        <View>{renderConclusoes(exame)}</View>
+                        <View wrap={false}>{renderConclusoes(exame)}</View>
                         <View style={styles.lineConclusoes} />
                       </View>
                     ) : null}
                   </View>
 
-                  <View style={styles.pageNumber}>
+                  <View fixed style={styles.box_view_frases} />
+                  <View fixed style={styles.pageNumber}>
                     <View style={styles.pageNumber}>
                       <View style={styles.footer}>
                         <View style={styles.footerColuna}>

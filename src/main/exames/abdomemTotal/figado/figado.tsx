@@ -228,9 +228,8 @@ function Figado({ Disable }) {
   const criaStringVariosCistos = (select, input) => {
     var string = 'Cistos de conteúdo anecogênico, com paredes finas e contornos regulares '
     removeFraseVariosCistos()
-    var medida = new Convert_Medida(input).Convert_Medida()
     if (select !== '' && input !== '') {
-      string = `${string}, medindo até ${medida} cm, o maior localizado no ${select}. Veia porta e veias hepáticas sem alterações.`;
+      string = `${string}, medindo até ${input} cm, o maior localizado no ${select}. Veia porta e veias hepáticas sem alterações.`;
       setFrasesFigado((arr) => [...arr, string]);
     }
   };
@@ -357,8 +356,7 @@ function Figado({ Disable }) {
     var string = 'Fígado com dimensões'
     removeFraseDimensoes()
     if (select !== '') {
-      string = `${string} ${select}, contornos regulares, bordas finas e ecotextura homogênea. Veia 
-      porta e veias hepáticas sem alterações`;
+      string = `${string} ${select}, contornos regulares, bordas finas e ecotextura homogênea. Veia porta e veias hepáticas sem alterações`;
       if (select == 'aumentadas') {
         setConclusoesFigado((arr) => [...arr, 'Hepatomegalia.'])
       } else {
@@ -379,7 +377,7 @@ function Figado({ Disable }) {
   };
   const removeFraseDimensoes = () => {
     frasesFigado.map((e) => {
-      if (e.includes("Fígado com dimensões")) {
+      if (e.includes("contornos regulares, bordas finas e ecotextura homogênea. Veia porta e veias hepáticas sem alterações")) {
         var index = frasesFigado.indexOf(e);
 
         if (index > -1) {
@@ -450,7 +448,7 @@ function Figado({ Disable }) {
   }, [Normal])
 
   useEffect(() => {
-    var string = 'Fígado com dimensões normais, contornos regulares, bordas finas e ecotextura homogênea.'
+    var string = 'Fígado com dimensões normais, contornos regulares, bordas finas e ecotextura homogênea.\n'
     HomogeneoCheckbox ? setFrasesFigado((arr) => [...arr, string]) : removeItemString(string)
   }, [HomogeneoCheckbox])
 
