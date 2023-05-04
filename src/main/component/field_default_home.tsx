@@ -84,21 +84,21 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
         nomeExame: "Abdômen total",
         link: `#/Home/${1}`,
       },
-      {
-        key: 2,
-        nomeExame: "Doppler Transvaginal",
-        link: `#/Home/${2}`,
-      },
+      // {
+      //   key: 2,
+      //   nomeExame: "Doppler Transvaginal",
+      //   link: `#/Home/${2}`,
+      // },
       {
         key: 3,
         nomeExame: "Mamas",
         link: `#/Home/${3}`,
       },
-      {
-        key: 4,
-        nomeExame: "Doppler Artrial do MMSS",
-        link: `#/Home/${4}`,
-      },
+      // {
+      //   key: 4,
+      //   nomeExame: "Doppler Artrial do MMSS",
+      //   link: `#/Home/${4}`,
+      // },
       {
         key: 5,
         nomeExame: "Abdomen Superior",
@@ -110,27 +110,27 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
         link: `#/Home/${6}`,
       },
 
-      {
-        key: 7,
-        nomeExame: "Doppler Venoso de MMII",
-        link: `#/Home/${7}`,
-      },
+      // {
+      //   key: 7,
+      //   nomeExame: "Doppler Venoso de MMII",
+      //   link: `#/Home/${7}`,
+      // },
       {
         key: 8,
         nomeExame: "Tireóide",
         link: `#/Home/${8}`,
       },
-      {
-        key: 9,
-        nomeExame: "Doppler das Carótidas",
-        link: `#/Home/${9}`,
-      },
+      // {
+      //   key: 9,
+      //   nomeExame: "Doppler das Carótidas",
+      //   link: `#/Home/${9}`,
+      // },
 
-      {
-        key: 10,
-        nomeExame: "Doppler Arterial de MMII",
-        link: `#/Home/${10}`,
-      },
+      // {
+      //   key: 10,
+      //   nomeExame: "Doppler Arterial de MMII",
+      //   link: `#/Home/${10}`,
+      // },
 
       {
         key: 11,
@@ -138,11 +138,11 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
         link: `#/Home/${11}`,
       },
 
-      {
-        key: 12,
-        nomeExame: "Doppler da Tireóide",
-        link: `#/Home/${12}`,
-      },
+      // {
+      //   key: 12,
+      //   nomeExame: "Doppler da Tireóide",
+      //   link: `#/Home/${12}`,
+      // },
       {
         key: 13,
         nomeExame: "Partes Moles",
@@ -153,11 +153,11 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
         nomeExame: "Testículo",
         link: `#/Home/${14}`,
       },
-      {
-        key: 15,
-        nomeExame: "Doppler de Bolsa Testicular",
-        link: `#/Home/${15}`,
-      },
+      // {
+      //   key: 15,
+      //   nomeExame: "Doppler de Bolsa Testicular",
+      //   link: `#/Home/${15}`,
+      // },
 
       {
         key: 16,

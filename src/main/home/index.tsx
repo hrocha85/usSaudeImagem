@@ -102,7 +102,7 @@ function Home() {
         <Center marginTop="1%">
           <LayoutExame item={<ItemExamesHome />} />
         </Center>
-        <Center marginTop="1%">
+        <Center marginTop="-130px">
           <HStack
             borderWidth="2px"
             padding="20px"
