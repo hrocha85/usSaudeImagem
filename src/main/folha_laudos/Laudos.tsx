@@ -44,21 +44,23 @@ import SubMenu from "../menu/subMenu";
 function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
   const laudos = LaudosJSON.laudo;
-
   const styles = StyleSheet.create({
     inline: {
       display: "flex",
       flexDirection: "row",
-      paddingTop: "10%",
+      paddingTop: "5px",
       marginLeft: 20,
+      marginBottom: '2px',
+
     },
     page: {
       backgroundColor: "white",
       color: "black",
+
     },
     section: {
-      margin: 10,
-      padding: 10,
+      margin: 2,
+      padding: 5,
       flexDirection: "row",
       width: "100%",
     },
@@ -67,14 +69,14 @@ function Exames() {
       height: window.screen.availHeight,
     },
     imageClinica: {
-      width: 150,
-      height: 150,
+      width: 100,
+      height: 100,
       objectFit: "scale-down",
       alignContent: "center",
     },
     imageAssinatura: {
-      width: 100,
-      height: 100,
+      width: 150,
+      height: 40,
       alignContent: "center",
       justifyContent: "center",
       alignSelf: "center",
@@ -86,8 +88,9 @@ function Exames() {
     sectionColuna: {
       flexDirection: "column",
       alignItems: "center",
-      marginTop: 30,
-      marginLeft: 80,
+      marginTop: 10,
+      marginLeft: 115,
+      gap: '5px'
     },
 
     line: {
@@ -99,8 +102,8 @@ function Exames() {
       border: 1,
       marginLeft: 10,
       marginRight: 10,
-      marginBottom: 10,
-      marginTop: 10,
+      marginBottom: 5,
+      marginTop: 15,
     },
     laudo: {
       margin: 30,
@@ -113,10 +116,12 @@ function Exames() {
     pageNumber: {
       position: "absolute",
       bottom: 1,
+      zIndex: 100,
+      paddingTop: "80px"
     },
     footer: {
       flexDirection: "row",
-      marginBottom: 20,
+      marginBottom: 10,
       width: "100%",
     },
     footerColuna: {
@@ -129,30 +134,33 @@ function Exames() {
     },
     viewdadosMedico: {
       alignItems: "center",
-      margin: 20,
+      margin: 10,
     },
     textDadosMedico: {
       fontFamily: "MontserratBold",
-      fontSize: 16,
+      fontSize: 13,
       color: "black",
     },
     textSantaImagem: {
-      marginTop: "19vh",
+      marginTop: "10vh",
       marginLeft: 50,
       fontSize: "11",
       fontFamily: "Montserrat",
     },
     textDiagnostico: {
-      margin: 10,
+      marginTop: 5,
+      marginLeft: 10,
+      marginRigh: 10,
+      marginBottom: 10,
       fontSize: "10",
       fontFamily: "Montserrat2",
     },
     textTituloExame: {
       fontWeigh: "bold",
       textAlign: "center",
-      fontSize: "20",
+      fontSize: "17",
       fontFamily: "MontserratBold",
-      marginTop: "3%",
+      marginTop: "5px",
     },
     textConclusao: {
       fontWeigh: "bold",
@@ -160,7 +168,7 @@ function Exames() {
       fontSize: "17",
       fontFamily: "MontserratBold",
       marginTop: "1%",
-      marginBottom: "3%",
+      marginBottom: "1%",
     },
     textNomeSubExame: {
       fontWeigh: "bold",
@@ -169,32 +177,39 @@ function Exames() {
       fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
-      maxWidth: "35%",
+      maxWidth: "18%",
+
     },
     frasesSubExame: {
       textAlign: "justify",
       fontSize: "12",
       fontFamily: "MontserratRegular",
-      lineHeight: 3,
+      marginBottom: "5px",
+      justifyContent: "space-between",
+      lineHeight: 1.5,
     },
     frasesConclusoes: {
       textAlign: "justify",
       fontSize: "12",
       fontFamily: "MontserratRegular",
-      lineHeight: 3,
-      marginLeft: 20,
+      lineHeight: 1.5,
+      marginLeft: 4,
     },
     laudo_viewer: {
       margin: 10,
     },
     view_frases: {
-      marginLeft: "10px",
-      marginRight: "30px",
+      marginLeft: "1px",
+      marginRight: "20px",
+      marginBottom: '5px',
       flex: 1,
     },
+    box_view_frases: {
+      marginBottom: "130px"
+    },
     viewConclusoes: {
-      marginTop: "5%",
-      marginBottom: "33%",
+      marginTop: "10px",
+      // marginBottom: "150px",
     },
   });
 
@@ -311,7 +326,7 @@ function Exames() {
               key={key}
               break={false}
             >
-              <ViewPDF style={styles.section}>
+              <ViewPDF fixed style={styles.section}>
                 <ViewPDF style={styles.viewAssinatura}>
                   <ImagePDF style={styles.imageClinica} src={clinicaSet.foto} />
                 </ViewPDF>
@@ -323,9 +338,9 @@ function Exames() {
                   <TextPDF>{`Dr. ${getMedicoSolicitante()}`}</TextPDF>
                 </ViewPDF>
               </ViewPDF>
-              <ViewPDF style={styles.line}></ViewPDF>
+              <ViewPDF fixed style={styles.line}></ViewPDF>
 
-              <ViewPDF style={styles.laudo_viewer} break={false}>
+              <ViewPDF wrap={true} style={styles.laudo_viewer} break={false}>
                 <TextPDF style={styles.textTituloExame}>
                   {exame.titulo_exame.toUpperCase()}
                 </TextPDF>
@@ -338,7 +353,10 @@ function Exames() {
                     <TextPDF style={styles.textNomeSubExame}>
                       {`Observações ${exame.titulo_exame}:`}
                     </TextPDF>
-                    <ViewPDF>{renderObservacoes(exame)}</ViewPDF>
+                    <ViewPDF wrap={false} style={styles.view_frases}>
+                      <ViewPDF>
+                        {renderObservacoes(exame)}</ViewPDF>
+                    </ViewPDF>
                   </ViewPDF>
                 ) : null}
 
@@ -352,13 +370,13 @@ function Exames() {
                     <TextPDF style={styles.textConclusao}>
                       {`Conclusão ${exame.titulo_exame} aasda`}
                     </TextPDF>
-                    <ViewPDF>{renderConclusoes(exame)}</ViewPDF>
+                    <ViewPDF wrap={false}>{renderConclusoes(exame)}</ViewPDF>
                     <ViewPDF style={styles.lineConclusoes} />
                   </ViewPDF>
                 ) : null}
               </ViewPDF>
-
-              <ViewPDF style={styles.pageNumber}>
+              <ViewPDF fixed style={styles.box_view_frases} />
+              <ViewPDF fixed style={styles.pageNumber}>
                 <ViewPDF style={styles.pageNumber}>
                   <ViewPDF style={styles.footer}>
                     <ViewPDF style={styles.footerColuna}>

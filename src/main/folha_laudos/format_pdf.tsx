@@ -357,7 +357,6 @@ export default function Format_PDF() {
                   <View fixed style={styles.line}></View>
 
                   <View wrap={true} style={styles.laudo_viewer} break={false}>
-
                     <Text style={styles.textTituloExame}>
                       {exame.titulo_exame.toUpperCase()}
                     </Text>
