@@ -104,6 +104,7 @@ const Configuracoes = () => {
   const [pngAssinatura, setpngAssinatura] = useState<string | null>();
 
   const inputFile = useRef<HTMLInputElement | null>(null);
+  const inputFileAssinatura = useRef<HTMLInputElement | null>(null);
 
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
@@ -311,8 +312,11 @@ const Configuracoes = () => {
   const openFiles = () => {
     inputFile.current?.click();
   };
+  const openFilesAssinatura = () => {
+    inputFileAssinatura.current?.click();
+  };
 
-  const onChangeFileAssinatura = async (
+  const onChangeFile = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files![0];
@@ -422,7 +426,7 @@ const Configuracoes = () => {
   };
 
   const add_png_assinatura = () => {
-    openFiles();
+    openFilesAssinatura();
   };
 
   const ModalAddMedico = () => {
@@ -496,7 +500,7 @@ const Configuracoes = () => {
                 id="file"
                 ref={inputFile}
                 style={{ display: "none" }}
-                onChange={onChangeFileAssinatura.bind(this)}
+                onChange={onChangeFile.bind(this)}
               />
               <Icon
                 as={BiCamera}
@@ -595,7 +599,7 @@ const Configuracoes = () => {
                     accept="image/png, image/jpeg"
                     type="file"
                     id="file"
-                    ref={inputFile}
+                    ref={inputFileAssinatura}
                     style={{ display: "none" }}
                     onChange={onChangeFilePNGAssinatura.bind(this)}
                   />
