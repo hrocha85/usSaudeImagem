@@ -326,6 +326,7 @@ const ItemObservation = () => {
       observacoes_localStorage = JSON.parse(
         localStorage.getItem("observacoes")!
       );
+      console.log(observacoes_localStorage)
     } else {
       /*if (
         observacaofind &&
@@ -347,19 +348,22 @@ const ItemObservation = () => {
                       w="98%"
                       key={key}
                       margin="20px"
-                      textAlign="center"
+                      textAlign="left"
                     >
-                      <Flex justify="end">
-                        <IconButton
-                          justifyContent="flex-end"
-                          aria-label="Remove Item"
-                          icon={<GrSubtractCircle size={30} />}
-                          variant="link"
-                          marginEnd="5px"
-                          textColor="blue"
-                          onClick={() => Apagar_Observacao(item)}
-                        />
-                      </Flex>
+                      <HStack>
+                        <Text w='80%'>{item}</Text>
+                        <Box >
+                          <IconButton
+                            justifyContent="flex-end"
+                            aria-label="Remove Item"
+                            icon={<GrSubtractCircle size={30} />}
+                            variant="link"
+                            marginEnd="5px"
+                            textColor="blue"
+                            onClick={() => Apagar_Observacao(item)}
+                          />
+                        </Box>
+                      </HStack>
                     </Box>
                   </HStack>
                 );

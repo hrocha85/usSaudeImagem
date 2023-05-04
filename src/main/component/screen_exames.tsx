@@ -305,8 +305,8 @@ export default function Box_Default_With_Sidebar() {
 
   useEffect(() => {
     const exame = tabExames.find((e) => e.nomeExame !== undefined);
+    console.log('EXAME', exame)
     if (exame !== undefined) {
-      console.log('EXAME', exame)
       console.log('tabExames', tabExames)
       setCurrentExame(exame);
       console.log(currentExame)
