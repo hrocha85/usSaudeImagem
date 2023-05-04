@@ -12,6 +12,7 @@ function createWindow() {
     height: 1000,
     webPreferences: {
       preload: ("./preload.js"),
+      webSecurity: false
     },
     width: 1200,
     show: false,

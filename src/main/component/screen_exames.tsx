@@ -302,16 +302,31 @@ export default function Box_Default_With_Sidebar() {
     return <Conclusoes exame={currentExame} clean={clean} />;
   };
 
+
   useEffect(() => {
     const exame = tabExames.find((e) => e.nomeExame !== undefined);
+    console.log('EXAME', exame)
     if (exame !== undefined) {
+      console.log('tabExames', tabExames)
       setCurrentExame(exame);
+      console.log(currentExame)
       setIsMounted(true);
     }
     return () => {
       setIsMounted(false);
     };
   }, []);
+
+  // useEffect(() => {
+  //   const exame = tabExames.find((e) => e.nomeExame !== undefined);
+  //   if (exame !== undefined) {
+  //     setCurrentExame(exame);
+  //     setIsMounted(true);
+  //   }
+  //   return () => {
+  //     setIsMounted(false);
+  //   };
+  // }, []);
 
   if (!isMounted) {
     return (

@@ -55,7 +55,13 @@ const ItemObservation = () => {
     {
       id: 1,
       titulo_observacao: "Abdômen total",
-      observacao: [""],
+      observacao: [
+        "Conviria controle ecográfico periódico, a critério clínico.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+        "A critério clínico, tendo-se em conta o aspecto liposubstituido do tecido mamário (normal para a pós-menopausa), estaria indicado para melhor avaliação, estudo radiológico digital bilateral (mamografia digital).",
+        "Exames anteriores não disponíveis para estudo comparativo.",
+      ],
     },
     // {
     //   id: 2,
@@ -320,6 +326,7 @@ const ItemObservation = () => {
       observacoes_localStorage = JSON.parse(
         localStorage.getItem("observacoes")!
       );
+      console.log(observacoes_localStorage)
     } else {
       /*if (
         observacaofind &&
@@ -341,19 +348,22 @@ const ItemObservation = () => {
                       w="98%"
                       key={key}
                       margin="20px"
-                      textAlign="center"
+                      textAlign="left"
                     >
-                      <Flex justify="end">
-                        <IconButton
-                          justifyContent="flex-end"
-                          aria-label="Remove Item"
-                          icon={<GrSubtractCircle size={30} />}
-                          variant="link"
-                          marginEnd="5px"
-                          textColor="blue"
-                          onClick={() => Apagar_Observacao(item)}
-                        />
-                      </Flex>
+                      <HStack>
+                        <Text w='80%'>{item}</Text>
+                        <Box >
+                          <IconButton
+                            justifyContent="flex-end"
+                            aria-label="Remove Item"
+                            icon={<GrSubtractCircle size={30} />}
+                            variant="link"
+                            marginEnd="5px"
+                            textColor="blue"
+                            onClick={() => Apagar_Observacao(item)}
+                          />
+                        </Box>
+                      </HStack>
                     </Box>
                   </HStack>
                 );
