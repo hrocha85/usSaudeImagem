@@ -16,7 +16,7 @@ import RinsUreteres from "./Rins_ureteres/rins_ureteres";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../component/function_format_laudo";
 import Retroperineo from "./Retroperineo/Retroperineo";
-import Aorta from "./Aorta/aorta";
+import Aorta from "./aorta/aorta";
 
 function AbdomemTotal() {
   const altura = '100%'
