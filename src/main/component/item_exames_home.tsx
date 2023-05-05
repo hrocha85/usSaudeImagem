@@ -1,7 +1,7 @@
 import FieldDefaultHome from "./field_default_home";
 
 const ItemExamesHome = () => {
-  const exames = [
+  let exames = [
     {
       key: 1,
       nomeExame: "Abdômen total",
@@ -10,7 +10,7 @@ const ItemExamesHome = () => {
         "Estaremos à disposição para a discussão do presente caso.",
         "Exames anteriores não disponíveis para estudo comparativo.",
         "JUP – Junção Uretero Piélica.",
-        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos."
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
       ],
     },
     // {
@@ -25,7 +25,7 @@ const ItemExamesHome = () => {
         "Estaremos à disposição para a discussão do presente caso.",
         "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
         "A critério clínico, tendo-se em conta o aspecto liposubstituido do tecido mamário (normal para a pós-menopausa), estaria indicado para melhor avaliação, estudo radiológico digital bilateral (mamografia digital).",
-        "Exames anteriores não disponíveis para estudo comparativo."
+        "Exames anteriores não disponíveis para estudo comparativo.",
       ],
     },
     // {
@@ -129,7 +129,7 @@ const ItemExamesHome = () => {
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
         "Estaremos à disposição para a discussão do presente caso.",
-        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos."
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos.",
       ],
     },
     {
@@ -138,7 +138,7 @@ const ItemExamesHome = () => {
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
         "Estaremos à disposição para a discussão do presente caso.",
-        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos."
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos.",
       ],
     },
     {
@@ -147,7 +147,7 @@ const ItemExamesHome = () => {
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
         "Estaremos à disposição para a discussão do presente caso.",
-        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos."
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos.",
       ],
     },
     {
@@ -156,7 +156,7 @@ const ItemExamesHome = () => {
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
         "Estaremos à disposição para a discussão do presente caso.",
-        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos."
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos.",
       ],
     },
     // {
@@ -170,15 +170,33 @@ const ItemExamesHome = () => {
     // },
   ];
 
+  function validaCampos(obj) {
+    for (let key in obj) {
+      if (obj[key] === null || obj[key] === undefined || obj[key] === "") {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  const examesOriginais = [...exames];
+
+  let examesFiltrados = examesOriginais.filter((exame) => validaCampos(exame));
+
+  while (examesFiltrados.length !== examesOriginais.length) {
+    exames = examesFiltrados;
+    examesFiltrados = exames.filter((exame) => validaCampos(exame));
+  }
+
   return (
     <>
-      {exames.map((exames, key) => (
+      {examesFiltrados.map((exame, key) => (
         <FieldDefaultHome
           key={key}
-          text={exames.nomeExame}
+          text={exame.nomeExame}
           textColor={"#1A202C"}
-          id={exames.key.toString()}
-          obs={exames.observacao}
+          id={exame.key.toString()}
+          obs={exame.observacao}
         />
       ))}
     </>
