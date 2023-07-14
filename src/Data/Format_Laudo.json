@@ -1,0 +1,17 @@
+{
+  "format_laudo": [
+    {
+      "titulo_exame": "",
+      "subExames": [
+        {
+          "subExameNome": "",
+          "frases": [""],
+          "image": ""
+
+        }
+      ],
+      "conclusoes": [""],
+      "observacoes": [""]
+    }
+  ]
+}

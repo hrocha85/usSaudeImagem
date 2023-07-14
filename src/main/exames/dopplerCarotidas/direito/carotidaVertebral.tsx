@@ -1,30 +1,37 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import {
+  Box,
+  Checkbox,
+  HStack,
+  Input,
+  Select,
+  Stack,
+  Text
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function CarotidaVertebralDireita() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "380px";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesCarotidaVertebral, setFrasesCarotidaVertebral] = useState<any>(
+    []
+  );
 
-  const [MedidasCheckBox, setMedidasCheckBox] =
-    useState(false);
+  const [MedidasCheckBox, setMedidasCheckBox] = useState(false);
   const [disableInputsMedidas, setDisableInputsMedidas] = useState(true);
 
-
-  const [MedidaDireitaVPS, setMedidaDireitaVPS] = useState("")
-  const [MedidaDireitaVDF, setMedidaDireitaVDF] = useState("")
-  const [MedidaDireitaEMI, setMedidaDireitaEMI] = useState("")
+  const [MedidaDireitaVPS, setMedidaDireitaVPS] = useState("");
+  const [MedidaDireitaVDF, setMedidaDireitaVDF] = useState("");
+  const [MedidaDireitaEMI, setMedidaDireitaEMI] = useState("");
   //States Placa - input,checkbox e select - Inicio
   const [PlacaInput, setPlacaInput] = useState("");
   const [disablePlacaInput, setdisablePlacaInput] = useState(true);
   const [PlacaCheckBox, setPlacaCheckBox] = useState(false);
   const [PlacaSelect, setPlacaSelect] = useState("");
-
 
   //States Placa - input,checkbox e select - Fim
 
@@ -34,8 +41,6 @@ function CarotidaVertebralDireita() {
   //State Nao Visibilizado
   const [FluxoAusenteCheckBox, setFluxoAusenteCheckBox] = useState(true);
 
-
-
   //Funcoes Padrao Micropolicistico - Fim
 
   //Funcoes Placa - Inicio
@@ -43,18 +48,18 @@ function CarotidaVertebralDireita() {
     removePlaca();
     if (medida !== "") {
       var string = `Carótida Vertebral direita com placa ${Placa} medindo ${medida} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCarotidaVertebral((arr) => [...arr, string]);
     }
   };
 
   const removePlaca = () => {
-    laudoPrin.map((e) => {
+    frasesCarotidaVertebral.map((e) => {
       if (e.includes("Carótida Vertebral direita")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCarotidaVertebral.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCarotidaVertebral.splice(index, 1);
+          setFrasesCarotidaVertebral((arr) => [...arr]);
         }
       }
     });
@@ -65,19 +70,18 @@ function CarotidaVertebralDireita() {
   const criaStringFluxoRetrogrado = () => {
     var string = "Carótida Vertebral com fluxo retrógrado";
     if (FluxoRetrogradoCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCarotidaVertebral((arr) => [...arr, string]);
       setFluxoRetrogradoCheckBox(false);
     } else {
       removeItemString(string);
     }
   };
 
-
   //Função Nao Visibilizado
   const criaStringFluxoAusente = () => {
     var string = "Carótida Vertebral direita com fluxo ausente";
     if (FluxoAusenteCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCarotidaVertebral((arr) => [...arr, string]);
       setFluxoAusenteCheckBox(false);
     } else {
       removeItemString(string);
@@ -85,86 +89,85 @@ function CarotidaVertebralDireita() {
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesCarotidaVertebral.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesCarotidaVertebral.splice(index, 1);
+      setFrasesCarotidaVertebral((arr) => [...arr]);
     }
   };
 
   const criaStringMedidaDireitaVPS = (medida) => {
-    removeStringMedidaDireitaVPS()
+    removeStringMedidaDireitaVPS();
     if (MedidaDireitaVPS !== "") {
       var string = `Carótida Vertebral direita medindo: VPS(ACCD)  ${medida} cm/s `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCarotidaVertebral((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaDireitaVPS = () => {
-    laudoPrin.map((e) => {
+    frasesCarotidaVertebral.map((e) => {
       if (e.includes(`Carótida Vertebral direita medindo: VPS(ACCD) `)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCarotidaVertebral.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCarotidaVertebral.splice(index, 1);
+          setFrasesCarotidaVertebral((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringMedidaDireitaVPS(MedidaDireitaVPS)
-  }, [MedidaDireitaVPS])
+    criaStringMedidaDireitaVPS(MedidaDireitaVPS);
+  }, [MedidaDireitaVPS]);
 
   const criaStringMedidaDireitaEMI = (medida) => {
-    removeStringMedidaDireitaEMI()
+    removeStringMedidaDireitaEMI();
     if (MedidaDireitaEMI !== "") {
       var string = `Carótida Vertebral direita medindo: EMI(ACCD)  ${medida} cm/s `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCarotidaVertebral((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaDireitaEMI = () => {
-    laudoPrin.map((e) => {
+    frasesCarotidaVertebral.map((e) => {
       if (e.includes(`Carótida Vertebral direita medindo: EMI(ACCD) `)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCarotidaVertebral.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCarotidaVertebral.splice(index, 1);
+          setFrasesCarotidaVertebral((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringMedidaDireitaEMI(MedidaDireitaEMI)
-  }, [MedidaDireitaEMI])
+    criaStringMedidaDireitaEMI(MedidaDireitaEMI);
+  }, [MedidaDireitaEMI]);
 
   const criaStringMedidaDireitaVDF = (medida) => {
-    removeStringMedidaDireitaVDF()
+    removeStringMedidaDireitaVDF();
     if (MedidaDireitaVDF !== "") {
       var string = `Carótida Vertebral direita medindo: VDF(ACCD) ${medida} cm/s `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesCarotidaVertebral((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaDireitaVDF = () => {
-    laudoPrin.map((e) => {
+    frasesCarotidaVertebral.map((e) => {
       if (e.includes(`Carótida Vertebral direita medindo: VDF(ACCD) `)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesCarotidaVertebral.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesCarotidaVertebral.splice(index, 1);
+          setFrasesCarotidaVertebral((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringMedidaDireitaVDF(MedidaDireitaVDF)
-  }, [MedidaDireitaVDF])
-
+    criaStringMedidaDireitaVDF(MedidaDireitaVDF);
+  }, [MedidaDireitaVDF]);
 
   useEffect(() => {
     if (PlacaCheckBox) {
@@ -182,18 +185,38 @@ function CarotidaVertebralDireita() {
 
   useEffect(() => {
     if (MedidasCheckBox) {
-      setDisableInputsMedidas(false)
+      setDisableInputsMedidas(false);
     } else {
-      setMedidaDireitaVPS('')
-      setMedidaDireitaVDF('')
-      setMedidaDireitaEMI('')
-      removeStringMedidaDireitaVPS()
-      removeStringMedidaDireitaVDF()
-      removeStringMedidaDireitaEMI()
-      setDisableInputsMedidas(true)
+      setMedidaDireitaVPS("");
+      setMedidaDireitaVDF("");
+      setMedidaDireitaEMI("");
+      removeStringMedidaDireitaVPS();
+      removeStringMedidaDireitaVDF();
+      removeStringMedidaDireitaEMI();
+      setDisableInputsMedidas(true);
     }
-  }, [MedidasCheckBox])
+  }, [MedidasCheckBox]);
 
+  const subExame = "Carótida Vertebral Direita";
+  const titulo_exame = "Doppler das Carótidas";
+
+  useEffect(() => {
+    if (Object.keys(frasesCarotidaVertebral).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesCarotidaVertebral
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesCarotidaVertebral
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesCarotidaVertebral]);
 
   return (
     <Box
@@ -210,66 +233,55 @@ function CarotidaVertebralDireita() {
       <TituloNomeExame titulo="Carótida Vertebral DIR." />
 
       <Box display="flex" flexWrap="wrap">
-        <Box
-          display='flex'
-          flexWrap='wrap'>
+        <Box display="flex" flexWrap="wrap">
           <Checkbox
-            mr='20px'
-            onChange={() => setMedidasCheckBox(!MedidasCheckBox)}>
+            mr="20px"
+            onChange={() => setMedidasCheckBox(!MedidasCheckBox)}
+          >
             Citar medidas
           </Checkbox>
 
-          <Box
-            mb='5px'
-            alignItems='center'
-          >
-            <Box
-              alignItems='center'
-              display='flex'
-              mb='5px'
-            >
-              <Text mr='10px'>VPS</Text>
+          <Box mb="5px" alignItems="center">
+            <Box alignItems="center" display="flex" mb="5px">
+              <Text mr="10px">VPS</Text>
               <Input
                 isDisabled={disableInputsMedidas}
-                w="60px"
-                h="77x"
-                padding="5px"
+                w="45px"
+                padding="0px"
                 value={MedidaDireitaVPS}
-                maxLength={2}
                 textAlign="center"
-                onChange={(e) => { setMedidaDireitaVPS(e.target.value) }}
+                onChange={(e) => {
+                  setMedidaDireitaVPS(e.target.value);
+                }}
                 placeholder={"00"}
               />
-              <Text mr='10px'>cm/s</Text>
+              <Text mr="10px">cm/s</Text>
             </Box>
-            <Box
-              alignItems='center'
-              display='flex'
-            >
-              <Text mr='10px'>VDF</Text>
+            <Box alignItems="center" display="flex">
+              <Text mr="10px">VDF</Text>
               <Input
                 isDisabled={disableInputsMedidas}
-                w="60px"
-                h="77x"
-                padding="5px"
+                w="45px"
+                padding="0px"
                 value={MedidaDireitaVDF}
-                maxLength={2}
                 textAlign="center"
-                onChange={(e) => { setMedidaDireitaVDF(e.target.value) }}
+                onChange={(e) => {
+                  setMedidaDireitaVDF(e.target.value);
+                }}
                 placeholder={"00"}
               />
-              <Text mr='10px'>cm/s</Text>
+              <Text mr="10px">cm/s</Text>
             </Box>
           </Box>
         </Box>
 
         <Stack>
-          <HStack>
+          <Box gap='5px' alignItems='center' display='flex' flexWrap='wrap'>
             <Checkbox onChange={() => setPlacaCheckBox(!PlacaCheckBox)}>
               Placa
             </Checkbox>
             <Select
-              w='170px'
+              w="170px"
               isDisabled={disablePlacaInput}
               onChange={(e) => {
                 setPlacaSelect(e.target.value);
@@ -282,14 +294,14 @@ function CarotidaVertebralDireita() {
               isDisabled={disablePlacaInput}
               value={PlacaInput}
               w="45px"
-              h="30px"
-              padding="5px"
-              maxLength={2}
+              padding="0px"
               textAlign="center"
-              onChange={(e) => { setPlacaInput(e.target.value) }}
+              onChange={(e) => {
+                setPlacaInput(e.target.value);
+              }}
             />
             <Text>mm</Text>
-          </HStack>
+          </Box>
           <Checkbox
             onChange={() => {
               setFluxoAusenteCheckBox(true);
@@ -309,7 +321,7 @@ function CarotidaVertebralDireita() {
           </Checkbox>
         </Stack>
       </Box>
-    </Box >
+    </Box>
   );
 }
 export default CarotidaVertebralDireita;

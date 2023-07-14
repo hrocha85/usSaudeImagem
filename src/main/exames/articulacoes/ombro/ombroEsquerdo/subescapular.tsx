@@ -8,7 +8,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function SubescapularOmbroEsquerdo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   let { OmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext)
@@ -165,7 +165,7 @@ function SubescapularOmbroEsquerdo() {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setTendiniteInput(e.target.value) }}
           />
@@ -193,7 +193,7 @@ function SubescapularOmbroEsquerdo() {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setRoturaInput(e.target.value) }}
           />

@@ -2,53 +2,153 @@ import {
   Box,
   Button,
   Center,
-  Grid,
+  HStack,
   Image,
   Link,
-  Stack
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Spinner,
+  Stack,
+  Text,
+  Tooltip,
+  useDisclosure,
 } from "@chakra-ui/react";
-import CardListaMedicos from "../component/card_paciente_home";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CardPaciente from "../component/card_paciente_home";
+import Default_Backgound from "../component/default_backgound";
 import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
-import BGImage from "../images/bg_img.png";
+import { Clear_Local_Storage } from "../component/remove_sub_exames_local_storage";
 import Configuracao from "../images/gear.webp";
 
-function Home() {
-  return (
-    <Box
-      w="100%"
-      h="100vh"
-      backgroundImage={BGImage}
-      backgroundSize="cover"
-      backgroundClip="padding-box"
-      backgroundRepeat="no-repeat"
-      paddingBottom="10px"
-      paddingTop="5%"
-      alignItems="center"
-    >
-      <Button position="absolute" right="1" variant="ghost">
-        <Link href={"#/Home/Configuracoes"}>
-          <Image
-            srcSet={Configuracao}
-            alt="Second Icon Plus"
-            h="30px"
-            w="30px"
-          />
-        </Link>
-      </Button>
-      <Center>
-        <Stack alignItems="center" mt="30px" mb="60px">
-          <CardListaMedicos altura="300px" />
-        </Stack>
-      </Center>
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
+function Home() {
+  const [isMounted, setIsMounted] = useState(false);
+  const navigate = useNavigate();
+  const MySwal = withReactContent(Swal);
+
+  var user = JSON.parse(localStorage.getItem("user")!);
+  var clinica = JSON.parse(user.clinica);
+  var medico = user.medico;
+
+  const LogoutButton = () => {
+    localStorage.removeItem("user");
+    navigate("/Login");
+  };
+
+  useEffect(() => {
+    new Clear_Local_Storage().Clear_Sub_Exames_Local_Storage();
+  }, []);
+
+  useEffect(() => {
+    setIsMounted(true);
+    // MySwal.fire("Exames Doppler Desabilitados");
+
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
+
+  useEffect(() => {
+    var totalSize = JSON.stringify(localStorage).length;
+    var locals = totalSize / 1024 / 1024;
+    console.log(`USO DO LOCALSTORAGE: ${locals.toFixed(2)} MB`);
+  }, []);
+
+  if (!isMounted) {
+    return (
       <Center>
-        <Grid>
-          <LayoutExame item={<ItemExamesHome />} />
-        </Grid>
+        <Box marginTop="20%">
+          <Center>
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+            />
+          </Center>
+        </Box>
       </Center>
-    </Box>
-  );
+    );
+  } else {
+    return (
+      <Default_Backgound>
+        <Button position="absolute" right="1" variant="ghost" top={0}>
+          <Link href={"#/Home/Configuracoes"}>
+            <Image
+              srcSet={Configuracao}
+              alt="Second Icon Plus"
+              h="30px"
+              w="30px"
+            />
+          </Link>
+        </Button>
+
+        <Center>
+          <Stack alignItems="center" marginTop="3%">
+            <CardPaciente altura="300px" />
+          </Stack>
+        </Center>
+
+        <Center marginTop="1%">
+          <LayoutExame item={<ItemExamesHome />} />
+        </Center>
+        <Center marginTop="-130px">
+          <HStack
+            borderWidth="2px"
+            padding="20px"
+            borderRadius="md"
+            borderColor="grey"
+            boxShadow="xl"
+          >
+            <Text fontWeight="semibold" fontSize="xl">
+              Médico:
+            </Text>
+            <Text fontSize="xl">{medico.nome}</Text>
+            <Text fontWeight="semibold" fontSize="xl">
+              CRM:
+            </Text>
+            <Text fontSize="xl">{medico.crm}</Text>
+            <Text fontWeight="semibold" fontSize="xl">
+              Clínica:
+            </Text>
+            <Text fontSize="xl">{clinica.nomeClinica}</Text>
+          </HStack>
+        </Center>
+        <Center marginTop="20px" paddingBottom="1%">
+          <Tooltip
+            label="Voltar para Login"
+            backgroundColor="white"
+            placement="bottom"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+            fontSize="20px"
+            margin="20px"
+            textAlign="center"
+          >
+            <Button
+              variant="solid"
+              fontSize="20px"
+              onClick={() => LogoutButton()}
+              colorScheme="blue"
+            >
+              Sair
+            </Button>
+          </Tooltip>
+        </Center>
+      </Default_Backgound>
+    );
+  }
 }
 
 export default Home;

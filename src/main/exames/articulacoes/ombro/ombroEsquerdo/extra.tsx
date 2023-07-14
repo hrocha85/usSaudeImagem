@@ -7,7 +7,7 @@ import { OmbroEsquerdoNormalContext } from "../../../../../context/OmbroEsquerdo
 
 function ExtraOmbroEsquerdo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   let { OmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext)

@@ -8,7 +8,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function ExtraDireito() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   let { PeDireitoLaudoNormal } = useContext(PeDireitoNormalContext)
@@ -276,7 +276,7 @@ function ExtraDireito() {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setFascitePlantarInput(e.target.value) }}
           />
@@ -295,7 +295,7 @@ function ExtraDireito() {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setNeuromaMortonInput(e.target.value) }}
           />
@@ -323,7 +323,7 @@ function ExtraDireito() {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setFibromatosePlantarInput(e.target.value) }}
           />

@@ -3,6 +3,7 @@ import {
   Button,
   Flex,
   GridItem,
+  HStack,
   IconButton,
   Modal,
   ModalBody,
@@ -13,15 +14,21 @@ import {
   ModalOverlay,
   Text,
   Textarea,
+  Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { GrSubtractCircle } from "react-icons/gr";
 import Observacoes from "../../Data/Observacoes.json";
-import PlusButton from "../images/button_plus.png";
 
 const ItemObservation = () => {
-  const button_plus = React.createElement("img", { src: PlusButton });
   const refText = useRef<HTMLTextAreaElement | null>(null);
+
+  const {
+    isOpen: isOpenObs,
+    onOpen: onOpenObs,
+    onClose: onCloseObs,
+  } = useDisclosure();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [titulo, setTitulo] = useState<string | null>("");
@@ -29,27 +36,57 @@ const ItemObservation = () => {
   const [id, setId] = useState<number | null>();
   const [value, setValue] = useState("");
   const [clickSave, setClickSave] = useState(false);
+  const [currentOBS, setCurrentOBS] = useState<string>();
+  const [FinalList, setFinalList] = useState<string[]>([]);
 
-  const observacoes = [
+  const [editOBS, setEditOBS] = useState<string>();
+
+  const [clickEditOBS, setclickEditOBS] = useState(false);
+
+  const [observacoesLista, setObservacoesLista] = useState(
+    JSON.parse(localStorage.getItem("observacoes")!) || []
+  );
+
+  const observacoesLocalStorage = JSON.parse(
+    localStorage.getItem("observacoes")!
+  );
+
+  const observacoesArray = [
     {
       id: 1,
-      titulo_observacao: "Abdomen Total",
-      observacao: [""],
+      titulo_observacao: "Abdômen total",
+      observacao: [
+        "Conviria controle ecográfico periódico, a critério clínico.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+        "A critério clínico, tendo-se em conta o aspecto liposubstituido do tecido mamário (normal para a pós-menopausa), estaria indicado para melhor avaliação, estudo radiológico digital bilateral (mamografia digital).",
+        "Exames anteriores não disponíveis para estudo comparativo.",
+      ],
     },
+    // {
+    //   id: 2,
+    //   titulo_observacao: "Doppler Transvaginal",
+    //   observacao: [""],
+    // },
     {
-      id: 2,
-      titulo_observacao: "Doppler Transvaginal",
-      observacao: [""],
+      id: 3,
+      titulo_observacao: "Mamas",
+      observacao: [
+        "Conviria controle ecográfico periódico, a critério clínico.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+        "A critério clínico, tendo-se em conta o aspecto liposubstituido do tecido mamário (normal para a pós-menopausa), estaria indicado para melhor avaliação, estudo radiológico digital bilateral (mamografia digital).",
+        "Exames anteriores não disponíveis para estudo comparativo.",
+      ],
     },
-    { id: 3, titulo_observacao: "Mamas", observacao: [""] },
-    {
-      id: 4,
-      titulo_observacao: "Doppler Artrial do MMSS",
-      observacao: [""],
-    },
+    // {
+    //   id: 4,
+    //   titulo_observacao: "Doppler Artrial do MMSS",
+    //   observacao: [""],
+    // },
     {
       id: 5,
-      titulo_observacao: "Abdomen Superior",
+      titulo_observacao: "Abdômen Superior",
       observacao: [""],
     },
     {
@@ -57,78 +94,97 @@ const ItemObservation = () => {
       titulo_observacao: "Transvaginal",
       observacao: [""],
     },
-    {
-      id: 7,
-      titulo_observacao: "Doppler Renal",
-      observacao: [""],
-    },
-    {
-      id: 8,
-      titulo_observacao: "Doppler Venoso de MMII",
-      observacao: [""],
-    },
+    // {
+    //   id: 7,
+    //   titulo_observacao: "Doppler Renal",
+    //   observacao: [""],
+    // },
+    // {
+    //   id: 8,
+    //   titulo_observacao: "Doppler Venoso de MMII",
+    //   observacao: [""],
+    // },
     { id: 9, titulo_observacao: "Tireóide", observacao: [""] },
-    {
-      id: 10,
-      titulo_observacao: "Doppler das Carótidas",
-      observacao: [""],
-    },
-    {
-      id: 11,
-      titulo_observacao: "Doppler Hepático",
-      observacao: [""],
-    },
-    {
-      id: 12,
-      titulo_observacao: "Doppler Arterial de MMII",
-      observacao: [""],
-    },
+    // {
+    //   id: 10,
+    //   titulo_observacao: "Doppler das Carótidas",
+    //   observacao: [""],
+    // },
+    // {
+    //   id: 11,
+    //   titulo_observacao: "Doppler Hepático",
+    //   observacao: [""],
+    // },
+    // {
+    //   id: 12,
+    //   titulo_observacao: "Doppler Arterial de MMII",
+    //   observacao: [""],
+    // },
     {
       id: 13,
       titulo_observacao: "Tireóide 2",
       observacao: [""],
     },
-    {
-      id: 14,
-      titulo_observacao: "Doppler das Carótidas 2",
-      observacao: [""],
-    },
+    // {
+    //   id: 14,
+    //   titulo_observacao: "Doppler das Carótidas 2",
+    //   observacao: [""],
+    // },
     {
       id: 15,
       titulo_observacao: "Rins e Vias Urinárias",
       observacao: [""],
     },
-    {
-      id: 16,
-      titulo_observacao: "Doppler Venoso de MMSS",
-      observacao: [""],
-    },
-    {
-      id: 17,
-      titulo_observacao: "Doppler da Tireóide",
-      observacao: [""],
-    },
+    // {
+    //   id: 16,
+    //   titulo_observacao: "Doppler Venoso de MMSS",
+    //   observacao: [""],
+    // },
+    // {
+    //   id: 17,
+    //   titulo_observacao: "Doppler da Tireóide",
+    //   observacao: [""],
+    // },
     {
       id: 18,
       titulo_observacao: "Partes Moles",
       observacao: [""],
     },
     { id: 19, titulo_observacao: "Testículo", observacao: [""] },
-    {
-      id: 20,
-      titulo_observacao: "Doppler de Bolsa Testicular",
-      observacao: [""],
-    },
-    {
-      id: 21,
-      titulo_observacao: "Doppler da Tireóide 2",
-      observacao: [""],
-    },
+    // {
+    //   id: 20,
+    //   titulo_observacao: "Doppler de Bolsa Testicular",
+    //   observacao: [""],
+    // },
+    // {
+    //   id: 21,
+    //   titulo_observacao: "Doppler da Tireóide 2",
+    //   observacao: [""],
+    // },
     { id: 22, titulo_observacao: "Pélvico", observacao: [""] },
-    { id: 23, titulo_observacao: "Próstata", observacao: [""] },
+    {
+      id: 23,
+      titulo_observacao: "Próstata",
+      observacao: [""],
+    },
     {
       id: 24,
       titulo_observacao: "Articulações",
+      observacao: [""],
+    },
+    {
+      id: 25,
+      titulo_observacao: "Axila",
+      observacao: [""],
+    },
+    {
+      id: 26,
+      titulo_observacao: "Torax",
+      observacao: [""],
+    },
+    {
+      id: 27,
+      titulo_observacao: "Parede Abdominal",
       observacao: [""],
     },
   ];
@@ -140,7 +196,7 @@ const ItemObservation = () => {
       if (!arrayObservacoes.includes(titulo!)) {
         addNewObsercao();
       } else {
-        updateListaObservacoes();
+        updateListaObservacoes(id, value);
       }
     } else {
       setListaObservacoes();
@@ -149,42 +205,41 @@ const ItemObservation = () => {
   };
 
   const setListaObservacoes = () => {
+    let observacoes = JSON.parse(localStorage.getItem("observacoes")!) || [];
     const obs = {
       id: id!,
       titulo_observacao: titulo!,
       observacao: inputObservacoes,
     };
-    observacoesJSON.push(obs);
-    observacoesJSON.map((e) => {
-      if (e.titulo_observacao == "") {
-        observacoesJSON.shift();
-      }
-    });
-    localStorage.setItem("observacoes", JSON.stringify(observacoesJSON));
+    observacoes = observacoes.filter((e) => e.titulo_observacao !== "");
+    observacoes.push(obs);
+    localStorage.setItem("observacoes", JSON.stringify(observacoes));
   };
 
   const addNewObsercao = () => {
+    let observacoes = JSON.parse(localStorage.getItem("observacoes")!) || [];
     const obs = {
       id: id!,
       titulo_observacao: titulo!,
       observacao: inputObservacoes,
     };
-    observacoesJSON.push(obs);
-    observacoesJSON.map((e) => {
-      if (e.titulo_observacao == "") {
-        observacoesJSON.shift();
-      }
-    });
-    localStorage.setItem("observacoes", JSON.stringify(observacoesJSON));
+    observacoes = observacoes.filter((e) => e.titulo_observacao !== "");
+    observacoes.push(obs);
+    localStorage.setItem("observacoes", JSON.stringify(observacoes));
   };
 
-  const updateListaObservacoes = () => {
-    observacoesJSON.map((e) => {
+  const updateListaObservacoes = (id, value) => {
+    var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
+    if (!observacoes) return;
+
+    var obs = observacoes.map((e) => {
       if (e.id == id) {
         e.observacao.push(value);
-        localStorage.setItem("observacoes", JSON.stringify(observacoesJSON));
       }
+      return e;
     });
+
+    localStorage.setItem("observacoes", JSON.stringify(obs));
   };
 
   const ResetStates = () => {
@@ -195,51 +250,127 @@ const ItemObservation = () => {
     setClickSave(false);
   };
 
-  const ItensObservacao = () => {
+  const changeOBS = () => {
+    var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
+    if (!observacoes) return;
+
+    observacoes.map((e) => {
+      if (e.id == id) {
+        e.observacao.map((i, index) => {
+          if (i == currentOBS) {
+            e.observacao.splice(index, 1, editOBS);
+          }
+        });
+      }
+    });
+
+    localStorage.setItem("observacoes", JSON.stringify(observacoes));
+    setObservacoesLista(observacoes);
+    onCloseObs();
+    setclickEditOBS(false);
+  };
+
+  const Render_Observacao_or_Text_Area = () => {
     return (
       <>
-        {observacoesJSON.map((e) => {
-          if (e.id == id) {
-            return e.observacao.map((item, key) => {
-              return (
-                <Box
-                  key={key}
-                  margin="20px"
-                  marginBottom="10px"
-                  marginTop="0px"
-                  borderWidth="2px"
-                  borderColor="#f0f2f6"
-                  h="48px"
-                  borderRadius="md"
-                >
-                  <Flex justify="space-between">
-                    <Text
-                      margin="10px"
-                      fontWeight="medium"
-                      textOverflow="ellipsis"
-                      overflow="hidden"
-                      whiteSpace="nowrap"
-                      maxW="320px"
-                    >
-                      {item}
-                    </Text>
-                    <IconButton
-                      justifyContent="flex-end"
-                      aria-label="Botao"
-                      icon={button_plus}
-                      variant="link"
-                      h="5"
-                      w="5"
-                      marginEnd="5px"
-                      size="xs"
-                      textColor="blue"
-                    />
-                  </Flex>
-                </Box>
-              );
-            });
+        {!clickEditOBS ? (
+          <Text fontSize="x-large" wordBreak="break-word">
+            {currentOBS}
+          </Text>
+        ) : (
+          <Textarea
+            borderColor="black"
+            maxH="300px"
+            h="200px"
+            defaultValue={currentOBS}
+            onChange={(e) => setEditOBS(e.target.value)}
+          />
+        )}
+      </>
+    );
+  };
+
+  const Apagar_Observacao = (observacao) => {
+    var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
+    if (!observacoes) return;
+
+    observacoes.map((e) => {
+      if (e.id == id) {
+        e.observacao.map((i) => {
+          console.log(i);
+          if (i == observacao) {
+            var index = e.observacao.indexOf(i);
+
+            if (index !== -1) {
+              e.observacao.splice(index, 1);
+            }
           }
-        })}
+        });
+      }
+    });
+
+    localStorage.setItem("observacoes", JSON.stringify(observacoes));
+    setObservacoesLista(observacoes);
+  };
+
+  const ItensObservacao = () => {
+
+    //Ajustar observacoes de configuracoes com a que aparece no exame
+
+
+    let observacoes_localStorage: any[] = [];
+
+    const observacaofind = observacoesArray.find((obs) => obs.id === id!);
+
+    if (localStorage.getItem("observacoes") != null) {
+      observacoes_localStorage = JSON.parse(
+        localStorage.getItem("observacoes")!
+      );
+      console.log(observacoes_localStorage)
+    } else {
+      /*if (
+        observacaofind &&
+        observacaofind.observacao &&
+        observacaofind.observacao.length > 1
+      ) {
+        observacoes_localStorage.push(observacaofind);
+      }*/
+    }
+    return (
+      <>
+        {observacoes_localStorage != null
+          ? observacoes_localStorage.map((e) => {
+            if (e.id == id) {
+              return e.observacao.map((item, key) => {
+                return (
+                  <HStack>
+                    <Box
+                      w="98%"
+                      key={key}
+                      margin="20px"
+                      textAlign="left"
+                    >
+                      <HStack>
+                        <Text w='80%'>{item}</Text>
+                        <Box >
+                          <IconButton
+                            justifyContent="flex-end"
+                            aria-label="Remove Item"
+                            icon={<GrSubtractCircle size={30} />}
+                            variant="link"
+                            marginEnd="5px"
+                            textColor="blue"
+                            onClick={() => Apagar_Observacao(item)}
+                          />
+                        </Box>
+                      </HStack>
+                    </Box>
+                  </HStack>
+                );
+              });
+            }
+          })
+          : null}
       </>
     );
   };
@@ -251,9 +382,13 @@ const ItemObservation = () => {
     }
   });
 
+  useEffect(() => {
+    setObservacoesLista(JSON.parse(localStorage.getItem("observacoes")!) || []);
+  }, []);
+
   return (
     <>
-      {observacoes.map((observacoes, key) => (
+      {observacoesArray.map((observacoes, key) => (
         <Flex key={key}>
           <GridItem
             key={key}
@@ -289,6 +424,7 @@ const ItemObservation = () => {
           </GridItem>
         </Flex>
       ))}
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent shadow="none">
@@ -306,7 +442,13 @@ const ItemObservation = () => {
             />
           </ModalBody>
           <ModalFooter>
-            <Button mr={3} onClick={onClose}>
+            <Button
+              mr={3}
+              onClick={() => {
+                onClose();
+                ResetStates();
+              }}
+            >
               Cancelar
             </Button>
             <Button
@@ -320,7 +462,67 @@ const ItemObservation = () => {
               Salvar
             </Button>
           </ModalFooter>
-          <ItensObservacao />
+          {ItensObservacao()}
+        </ModalContent>
+      </Modal>
+
+      {/**Open observacao */}
+      <Modal isOpen={isOpenObs} onClose={onCloseObs} size="xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader fontSize="x-large">Observação</ModalHeader>
+          <ModalCloseButton size="lg" />
+          <ModalBody maxW="98%">
+            <Box padding="3%">{Render_Observacao_or_Text_Area()}</Box>
+          </ModalBody>
+
+          <ModalFooter>
+            <Box width="100%">
+              {clickEditOBS ? null : (
+                <Button
+                  marginBottom="2%"
+                  fontSize="20px"
+                  width="100%"
+                  backgroundColor="#7FFFD4"
+                  onClick={() => {
+                    setclickEditOBS(true);
+                  }}
+                >
+                  Editar Observação
+                </Button>
+              )}
+
+              {clickEditOBS ? (
+                <Button
+                  marginBottom="2%"
+                  fontSize="20px"
+                  width="100%"
+                  colorScheme="blue"
+                  onClick={() => {
+                    changeOBS();
+                  }}
+                >
+                  Salvar
+                </Button>
+              ) : null}
+              <Button
+                marginBottom="2%"
+                fontSize="20px"
+                width="100%"
+                colorScheme="red"
+                onClick={() => {
+                  if (clickEditOBS) {
+                    onCloseObs();
+                  } else {
+                    Apagar_Observacao(currentOBS);
+                    onCloseObs();
+                  }
+                }}
+              >
+                {clickEditOBS ? "Cancelar Edição" : "Apagar Observação"}
+              </Button>
+            </Box>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

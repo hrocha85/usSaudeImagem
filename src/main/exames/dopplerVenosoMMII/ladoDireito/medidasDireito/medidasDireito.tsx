@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, HStack, Input, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
+import { Box, HStack, Input, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function MedidasDireito() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesMedidasD, setFrasesMedidasD] = useState<any>([]);
 
   //States Medidas Utero - Inicio
   const [medidaJSF, setMedidaJSF] = useState("");
@@ -21,18 +21,17 @@ function MedidasDireito() {
   const criaStringMedidasJSF = () => {
     var string = `Doppler Venoso MMII, JSF medindo: ${medidaJSF} mm `;
     if (medidaJSF !== "") {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMedidasD((arr) => [...arr, string]);
     }
   };
   const removeMedidasJSF = () => {
-
-    laudoPrin.map((e) => {
+    frasesMedidasD.map((e) => {
       if (e.includes("Doppler Venoso MMII, JSF medindo:")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesMedidasD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMedidasD.splice(index, 1);
+          setFrasesMedidasD((arr) => [...arr]);
         }
       }
     });
@@ -48,18 +47,17 @@ function MedidasDireito() {
   const criaStringMedidasCoxa = () => {
     var string = `Doppler Venoso MMII, Coxa medindo: ${medidaCoxa} mm `;
     if (medidaCoxa !== "") {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMedidasD((arr) => [...arr, string]);
     }
   };
   const removeMedidasCoxa = () => {
-
-    laudoPrin.map((e) => {
+    frasesMedidasD.map((e) => {
       if (e.includes("Doppler Venoso MMII, Coxa medindo:")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesMedidasD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMedidasD.splice(index, 1);
+          setFrasesMedidasD((arr) => [...arr]);
         }
       }
     });
@@ -75,18 +73,17 @@ function MedidasDireito() {
   const criaStringMedidasPerna = () => {
     var string = `Doppler Venoso MMII, Perna medindo: ${medidaPerna} mm `;
     if (medidaPerna !== "") {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMedidasD((arr) => [...arr, string]);
     }
   };
   const removeMedidasPerna = () => {
-
-    laudoPrin.map((e) => {
+    frasesMedidasD.map((e) => {
       if (e.includes("Doppler Venoso MMII, Perna medindo:")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesMedidasD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMedidasD.splice(index, 1);
+          setFrasesMedidasD((arr) => [...arr]);
         }
       }
     });
@@ -102,18 +99,17 @@ function MedidasDireito() {
   const criaStringMedidasParva = () => {
     var string = `Doppler Venoso MMII, Parva medindo: ${medidaParva} mm `;
     if (medidaParva !== "") {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMedidasD((arr) => [...arr, string]);
     }
   };
   const removeMedidasParva = () => {
-
-    laudoPrin.map((e) => {
+    frasesMedidasD.map((e) => {
       if (e.includes("Doppler Venoso MMII, Parva medindo:")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesMedidasD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMedidasD.splice(index, 1);
+          setFrasesMedidasD((arr) => [...arr]);
         }
       }
     });
@@ -126,6 +122,26 @@ function MedidasDireito() {
     criaStringMedidasParva();
   }, [medidaParva]);
 
+  const subExame = "Medidas Lado Direito";
+  const titulo_exame = "Doppler Venoso de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesMedidasD).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesMedidasD
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesMedidasD
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesMedidasD]);
 
   return (
     <Box
@@ -175,7 +191,9 @@ function MedidasDireito() {
             padding="5px"
             textAlign="center"
             value={medidaPerna}
-            onChange={(e) => { setMedidaPerna(e.target.value); }}
+            onChange={(e) => {
+              setMedidaPerna(e.target.value);
+            }}
           />
           <Text>mm</Text>
         </HStack>
@@ -187,7 +205,9 @@ function MedidasDireito() {
             padding="5px"
             textAlign="center"
             value={medidaParva}
-            onChange={(e) => { setMedidaParva(e.target.value); }}
+            onChange={(e) => {
+              setMedidaParva(e.target.value);
+            }}
           />
           <Text>mm</Text>
         </HStack>

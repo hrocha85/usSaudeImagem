@@ -1,18 +1,17 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { BracoDireitoNormalContext } from "../../../../../context/BracoDireitoNormalContext";
+import { Box, Checkbox } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function BracoDireito() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  let { BracoDireitoLaudoNormal } = useContext(BracoDireitoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
+  const [frasesBracoDireito, setFrasesBracoDireito] = useState<any>([]);
+
+  const [disableTudo, setDisableTudo] = useState(false);
 
   const [RoturaTendaoCheckBox, setRoturaTendaoCheckBox] = useState(true);
 
@@ -20,29 +19,42 @@ function BracoDireito() {
   const criaStringRoturaTendao = () => {
     var string = "Rotura do tendão do biceps direito";
     if (RoturaTendaoCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesBracoDireito((arr) => [...arr, string]);
       setRoturaTendaoCheckBox(false);
     } else {
       removeItemString(string);
     }
   };
 
-
-
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesBracoDireito.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesBracoDireito.splice(index, 1);
+      setFrasesBracoDireito((arr) => [...arr]);
     }
   };
 
+  const subExame = "Braço Direito";
+  const titulo_exame = "Articulações";
+
   useEffect(() => {
-    BracoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-
-  }, [BracoDireitoLaudoNormal])
-
+    if (Object.keys(frasesBracoDireito).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesBracoDireito
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesBracoDireito
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesBracoDireito]);
 
   return (
     <Box
@@ -58,9 +70,9 @@ function BracoDireito() {
     >
       <TituloNomeExame titulo="Braço" />
 
-      <Box columnGap='10px' display="flex" flexWrap="wrap">
-
-        <Checkbox isDisabled={disableTudo}
+      <Box columnGap="10px" display="flex" flexWrap="wrap">
+        <Checkbox
+          isDisabled={disableTudo}
           onChange={() => {
             setRoturaTendaoCheckBox(true);
             criaStringRoturaTendao();
@@ -70,7 +82,6 @@ function BracoDireito() {
         </Checkbox>
       </Box>
     </Box>
-
   );
 }
 export default BracoDireito;

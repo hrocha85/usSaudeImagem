@@ -1,11 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box } from "@chakra-ui/react";
+import { Box, Center } from "@chakra-ui/react";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function LadoDireito() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   return (
     <Box
@@ -16,11 +16,13 @@ function LadoDireito() {
       bgRepeat="no-repeat"
       borderRadius="10.85px"
       boxShadow="md"
-      padding="15px"
+      padding="24px 15px 20px 15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Joelho Direito" />
-    </Box >
+      <Center>
+        <TituloNomeExame titulo={'Joelho Direito'} />
+      </Center>
+    </Box>
   );
 }
 export default LadoDireito;

@@ -12,9 +12,11 @@ function createWindow() {
     height: 1000,
     webPreferences: {
       preload: ("./preload.js"),
+      webSecurity: false
     },
     width: 1200,
-    show: false
+    show: false,
+    autoHideMenuBar: true
   });
 
   mainWindow.loadURL(isDev ? "http://localhost:3000/" : `file://${path.join(__dirname, "../build/index.html")}`);
@@ -24,7 +26,7 @@ function createWindow() {
     mainWindow.show()
   })
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 }
 
 // This method will be called when Electron has finished

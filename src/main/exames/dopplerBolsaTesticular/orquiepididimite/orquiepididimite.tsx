@@ -1,16 +1,18 @@
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Orquiepididimite() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesOrquiepididimite, setFrasesOrquiepididimite] = useState<any>([]);
 
-  const [posicaoOrquiepididimiteSelect, setPosicaoOrquiepididimiteSelect] = useState("");
-  const [OrquiepididimiteCheckBox, setOrquiepididimiteCheckBox] = useState(false);
+  const [posicaoOrquiepididimiteSelect, setPosicaoOrquiepididimiteSelect] =
+    useState("");
+  const [OrquiepididimiteCheckBox, setOrquiepididimiteCheckBox] =
+    useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
   const criaStringOrquiepididimiteLivre = () => {
@@ -18,18 +20,18 @@ function Orquiepididimite() {
 
     if (OrquiepididimiteCheckBox && posicaoOrquiepididimiteSelect !== "") {
       var string = `Orquiepididimite no local: ${posicaoOrquiepididimiteSelect}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOrquiepididimite((arr) => [...arr, string]);
     }
   };
 
   const removeStringOrquiepididimiteLivre = () => {
-    laudoPrin.map((e) => {
+    frasesOrquiepididimite.map((e) => {
       if (e.includes("Orquiepididimite no local")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesOrquiepididimite.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOrquiepididimite.splice(index, 1);
+          setFrasesOrquiepididimite((arr) => [...arr]);
         }
       }
     });
@@ -37,14 +39,35 @@ function Orquiepididimite() {
 
   useEffect(() => {
     if (OrquiepididimiteCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringOrquiepididimiteLivre();
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeStringOrquiepididimiteLivre();
       setPosicaoOrquiepididimiteSelect("");
     }
   }, [OrquiepididimiteCheckBox, posicaoOrquiepididimiteSelect]);
+
+  const subExame = "Orquiepididimite";
+  const titulo_exame = "Doppler de Bolsa Testicular";
+
+  useEffect(() => {
+    if (Object.keys(frasesOrquiepididimite).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesOrquiepididimite
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesOrquiepididimite
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesOrquiepididimite]);
 
   return (
     <Box
@@ -88,7 +111,6 @@ function Orquiepididimite() {
                   <option value="à direita">à direita</option>
                   <option value="à esquerda">à esquerda</option>
                   <option value="bilateral">bilateral</option>
-
                 </Select>
               </HStack>
             </Box>

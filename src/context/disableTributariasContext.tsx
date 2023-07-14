@@ -11,7 +11,6 @@ export const DisableTributariasContext = createContext({} as IDisable);
 export function DisableTributariaProvider({ children }) {
 
     const [DisableTributaria, setDisableTributaria] = useState();
-    console.log(DisableTributaria)
     return (
         <DisableTributariasContext.Provider value={{ DisableTributaria, setDisableTributaria }}>
             {children}

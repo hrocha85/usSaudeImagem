@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Box,
+  Button,
   Checkbox,
   HStack,
   Input,
@@ -7,74 +9,147 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import IndividualizarNodulos from "./individualizar_nodulos";
 
-function Miometrio() {
+function Miometrio({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  var numberArray = [1, 2, 3, 4, 5];
+  const [frasesMiometrio, setFrasesMiometrio] = useState<any>([]);
+  const [ConclusaoMiometrio, setConclusaoMiometrio] = useState<any>([]);
+
+  const subExame = "Miométrio";
+  const titulo_exame = "Transvaginal";
+
+  useEffect(() => {
+    if (Object.keys(frasesMiometrio).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesMiometrio,
+        ConclusaoMiometrio
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesMiometrio,
+        ConclusaoMiometrio
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesMiometrio]);
+  const [UpdateNodulos, setUpdateNodulos] = useState(false);
+  const [numberArray, setNumberArray] = useState([1]);
+
+  function Nodulos() {
+    return (
+      <>
+        {numberArray.map((num, key) => {
+          return <IndividualizarNodulos
+            key={key}
+            numNodulo={num}
+            disable={!miometrioSemNodulosCheckBox || Disable}
+          />
+        })}
+      </>
+    );
+  }
+
+  useEffect(() => {
+    if (UpdateNodulos) {
+      setUpdateNodulos(false);
+      setNumberArray([...numberArray, numberArray.length + 1]);
+      Nodulos();
+    }
+  }, [UpdateNodulos]);
 
   const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
   const [posicaoNodulosSelect, setPosicaoNodulosSelect] = useState("");
   const [localizacaoNodulosSelect, setlocalizacaoNodulosSelect] = useState("");
-  
+
   const [multiplosNodulosCheckBox, setmultiplosNodulosCheckBox] =
     useState(false);
-  
-  const [miometrioSemNodulosCheckBox, setmiometrioSemNodulosCheckBox] =
-    useState(true);
+
+  const [miometrioSemNodulosCheckBox, setmiometrioSemNodulosCheckBox] = useState(true);
+
+  const [MiometrioHomogeneoSemNodulosCheckBox, setMiometrioHomogeneoSemNodulosCheckBox] = useState(false);
 
   const handleChangeNoduloInput = (event) => {
     settamanhoNoduloInput(event.target.value);
   };
 
-  const criaStringMultiplosNodulos = (
-    tamanhoNoduloInput,
-    nodulosSelect,
-    localizado
-  ) => {
+  const criaStringMultiplosNodulos = (tamanhoNoduloInput, nodulosSelect, localizado) => {
+    const conclusao = 'Miomatose uterina.'
     removeMultiplosNodulos();
-
-    if (tamanhoNoduloInput != "" && nodulosSelect != "" && localizado != "") {
-      var string = `Múltiplos nódulos de mioma, o maior mede ${tamanhoNoduloInput}mm ${nodulosSelect} localizado ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
+    removeItemStringConclusao(conclusao)
+    if (tamanhoNoduloInput !== "" && nodulosSelect !== "" && localizado !== "") {
+      var string = `O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma, o maior ${nodulosSelect}, localizado na parede ${localizado} e medindo ${tamanhoNoduloInput} mm.`;
+      setFrasesMiometrio((arr) => [...arr, string]);
+      setConclusaoMiometrio((arr) => [...arr, conclusao]);
     }
   };
 
   const removeMultiplosNodulos = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("mioma")) {
-        var index = laudoPrin.indexOf(e);
+    frasesMiometrio.map((e) => {
+      if (e.includes("O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma,")
+      ) {
+        var index = frasesMiometrio.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesMiometrio.splice(index, 1);
+          setFrasesMiometrio((arr) => [...arr]);
         }
       }
     });
   };
 
   const criaStringMiometrioSemNodulos = () => {
-    var string = "Miométrio heterogêneo sem nódulos ";
+    var string =
+      "O miométrio apresenta estratificação normal e ecotextura habitual.";
+    const conclusao = 'Alteração textural miometrial.'
     if (miometrioSemNodulosCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesMiometrio((arr) => [...arr, string]);
+      setConclusaoMiometrio((arr) => [...arr, conclusao]);
       setmiometrioSemNodulosCheckBox(false);
     } else {
       removeItemString(string);
+      removeItemStringConclusao(conclusao);
+    }
+  };
+  const criaStringMiometrioHomogeneoSemNodulos = () => {
+    var string = 'Miométrio homogêneo sem nódulos'
+    const conclusao = 'Miométrio homogêneo sem nódulos.'
+    if (MiometrioHomogeneoSemNodulosCheckBox) {
+      setFrasesMiometrio((arr) => [...arr, string]);
+      setConclusaoMiometrio((arr) => [...arr, conclusao]);
+    } else {
+      removeItemString(string);
+      removeItemStringConclusao(conclusao);
+    }
+  };
+  useEffect(() => {
+    criaStringMiometrioHomogeneoSemNodulos()
+  }, [MiometrioHomogeneoSemNodulosCheckBox])
+
+  const removeItemString = (value) => {
+    var index = frasesMiometrio.indexOf(value);
+    if (index > -1) {
+      frasesMiometrio.splice(index, 1);
+      setFrasesMiometrio((arr) => [...arr]);
     }
   };
 
-  const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
-
+  const removeItemStringConclusao = (value) => {
+    var index = ConclusaoMiometrio.indexOf(value);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      ConclusaoMiometrio.splice(index, 1);
+      setConclusaoMiometrio((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
   };
 
@@ -86,6 +161,7 @@ function Miometrio() {
         localizacaoNodulosSelect
       );
     } else {
+      removeItemStringConclusao('Miomatose uterina.')
       removeMultiplosNodulos();
       settamanhoNoduloInput("");
       setPosicaoNodulosSelect("");
@@ -115,7 +191,7 @@ function Miometrio() {
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <Stack>
           <Stack>
-            <Checkbox
+            <Checkbox isDisabled={Disable}
               onChange={() => {
                 setmiometrioSemNodulosCheckBox(true);
                 criaStringMiometrioSemNodulos();
@@ -123,11 +199,18 @@ function Miometrio() {
             >
               Miométrio heterogêneo sem nódulos
             </Checkbox>
+            <Checkbox isDisabled={Disable}
+              onChange={() => {
+                setMiometrioHomogeneoSemNodulosCheckBox(!MiometrioHomogeneoSemNodulosCheckBox);
+              }}
+            >
+              Miométrio homogêneo sem nódulos
+            </Checkbox>
             <Box>
               <HStack>
                 <Checkbox
                   whiteSpace="nowrap"
-                  isDisabled={!miometrioSemNodulosCheckBox}
+                  isDisabled={!miometrioSemNodulosCheckBox || Disable}
                   onChange={() =>
                     setmultiplosNodulosCheckBox(!multiplosNodulosCheckBox)
                   }
@@ -141,7 +224,6 @@ function Miometrio() {
                   w="60px"
                   h="77x"
                   padding="5px"
-                  maxLength={2}
                   textAlign="center"
                   onChange={handleChangeNoduloInput}
                   placeholder={"mm"}
@@ -160,6 +242,7 @@ function Miometrio() {
                   <option value="Intramural">Intramural</option>
                   <option value="Subseroso">Subseroso </option>
                   <option value="Submucoso">Submucoso</option>
+                  <option value="médio versão">Médio versão</option>
                 </Select>
 
                 <Select
@@ -188,17 +271,18 @@ function Miometrio() {
               Individualizar Nódulos
             </Text>
             <Stack>
-              <>
-                {numberArray.map((num, key) => {
-                  return (
-                    <IndividualizarNodulos
-                      key={key}
-                      numNodulo={num}
-                      disable={!miometrioSemNodulosCheckBox}
-                    />
-                  );
-                })}
-              </>
+              <Box gap="25px" display="flex" flexWrap="wrap">
+                {Nodulos()}
+                <Button
+
+                  colorScheme="blue"
+                  onClick={() => {
+                    setUpdateNodulos(true);
+                  }}
+                >
+                  +1 Nódulo
+                </Button>
+              </Box>
             </Stack>
           </Stack>
         </Stack>

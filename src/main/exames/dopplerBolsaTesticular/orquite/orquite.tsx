@@ -1,13 +1,13 @@
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Orquite() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "87%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesOrquite, setFrasesOrquite] = useState<any>([]);
 
   const [posicaoOrquiteSelect, setPosicaoOrquiteSelect] = useState("");
   const [OrquiteCheckBox, setOrquiteCheckBox] = useState(false);
@@ -18,18 +18,18 @@ function Orquite() {
 
     if (OrquiteCheckBox && posicaoOrquiteSelect !== "") {
       var string = `Orquite no local: ${posicaoOrquiteSelect}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOrquite((arr) => [...arr, string]);
     }
   };
 
   const removeStringOrquiteLivre = () => {
-    laudoPrin.map((e) => {
+    frasesOrquite.map((e) => {
       if (e.includes("Orquite no local")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesOrquite.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOrquite.splice(index, 1);
+          setFrasesOrquite((arr) => [...arr]);
         }
       }
     });
@@ -37,14 +37,35 @@ function Orquite() {
 
   useEffect(() => {
     if (OrquiteCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringOrquiteLivre();
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeStringOrquiteLivre();
       setPosicaoOrquiteSelect("");
     }
   }, [OrquiteCheckBox, posicaoOrquiteSelect]);
+
+  const subExame = "Orquite";
+  const titulo_exame = "Doppler de Bolsa Testicular";
+
+  useEffect(() => {
+    if (Object.keys(frasesOrquite).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesOrquite
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesOrquite
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesOrquite]);
 
   return (
     <Box

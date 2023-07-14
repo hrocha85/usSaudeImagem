@@ -1,7 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
-import Exames from "../../folha_laudos/Laudos";
+
 import BulboCarotideoDireito from "./direito/bulboCarotideo";
 import CarotidaComumDireita from "./direito/carotidaComum";
 import CarotidaExternaDireita from "./direito/carotidaExterna";
@@ -17,63 +15,38 @@ import LadoEsquerdo from "./esquerdo/ladoEsquerdo";
 
 function DopplerCarotidas() {
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="30px"
-        fontsize="19px"
-        tamanho="252px 67px"
-        titulo="Doppler da Carotidas"
-      />
-
-      <Exames></Exames>
-
+    <>
       <Box ml="10px">
         <Box textAlign="center">
           <LadoDireito />
         </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <CarotidaComumDireita />
-          </Box>
-          <Box w="450px" mb="15px">
-            <CarotidaInternaDireita />
-          </Box>
+
+        <Box gap='10px' display='flex' flexWrap='wrap'>
+          <CarotidaComumDireita />
+          <CarotidaInternaDireita />
+          <CarotidaExternaDireita />
+          <CarotidaVertebralDireita />
         </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <CarotidaExternaDireita />
-          </Box>
-          <Box w="450px" mb="15px">
-            <CarotidaVertebralDireita />
-          </Box>
-        </Box>
+
         <Box textAlign="center">
           <BulboCarotideoDireito />
         </Box>
         <Box textAlign="center">
           <LadoEsquerdo />
         </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <CarotidaComumEsquerda />
-          </Box>
-          <Box w="450px" mb="15px">
-            <CarotidaInternaEsquerda />
-          </Box>
+
+        <Box w='66%' gap='10px' display='flex' flexWrap='wrap'>
+          <CarotidaComumEsquerda />
+          <CarotidaInternaEsquerda />
+          <CarotidaExternaEsquerda />
+          <CarotidaVertebralEsquerda />
         </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <CarotidaExternaEsquerda />
-          </Box>
-          <Box w="450px" mb="15px">
-            <CarotidaVertebralEsquerda />
-          </Box>
-        </Box>
+
         <Box textAlign="center">
           <BulboCarotideoEsquerdo />
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

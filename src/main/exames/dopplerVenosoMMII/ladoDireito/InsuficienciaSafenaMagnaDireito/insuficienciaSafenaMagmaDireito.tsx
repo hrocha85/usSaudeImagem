@@ -1,47 +1,47 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
+import { Box, Checkbox, Select, Stack, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function InsuficienciaSafenaMangnaDireito() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesInsufSafena, setFrasesInsufSafena] = useState<any>([]);
 
-  const [DisableSelect, setDisableSelect] =
-    useState(true);
+  const [DisableSelect, setDisableSelect] = useState(true);
 
   const [DesdeSelect, setDesdeSelect] = useState("");
   const [LocalizacaoFinalSelect, setLocalizacaoFinalSelect] = useState("");
   const [DesdeCheckBox, setDesdeCheckBox] = useState(false);
   const [DisableDesdeCheckBox, setDisableDesdeCheckBox] = useState(false);
 
-  const [DisableEmTodoTrajetoCheckBox, setDisableEmTodoTrajetoCheckBox] = useState(false);
+  const [DisableEmTodoTrajetoCheckBox, setDisableEmTodoTrajetoCheckBox] =
+    useState(false);
   const [emTodoTrajetoCheckBox, setEmTodoTrajetoCheckBox] = useState(true);
 
   const removeDesde = () => {
-    laudoPrin.map((e) => {
+    frasesInsufSafena.map((e) => {
       if (e.includes("Desde")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesInsufSafena.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesInsufSafena.splice(index, 1);
+          setFrasesInsufSafena((arr) => [...arr]);
         }
       }
     });
   };
 
-  const criaStringDesde = (desdeSelect, localizado,) => {
+  const criaStringDesde = (desdeSelect, localizado) => {
     removeDesde();
     var string;
 
     if (desdeSelect !== "" && localizado !== "") {
       string = `Desde ${desdeSelect} até ${localizado}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesInsufSafena((arr) => [...arr, string]);
     } else {
       removeDesde();
     }
@@ -50,44 +50,58 @@ function InsuficienciaSafenaMangnaDireito() {
   const criaStringEmTodoTrajeto = () => {
     var string = "Em todo o trajeto ";
     if (emTodoTrajetoCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesInsufSafena((arr) => [...arr, string]);
       setEmTodoTrajetoCheckBox(false);
-      setDisableDesdeCheckBox(true)
+      setDisableDesdeCheckBox(true);
     } else {
-      setDisableDesdeCheckBox(false)
+      setDisableDesdeCheckBox(false);
       removeItemString(string);
     }
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesInsufSafena.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesInsufSafena.splice(index, 1);
+      setFrasesInsufSafena((arr) => [...arr]);
     }
   };
 
   useEffect(() => {
     if (DesdeCheckBox) {
-      criaStringDesde(
-        DesdeSelect,
-        LocalizacaoFinalSelect,
-      );
-      setDisableEmTodoTrajetoCheckBox(true)
-      setDisableSelect(false)
+      criaStringDesde(DesdeSelect, LocalizacaoFinalSelect);
+      setDisableEmTodoTrajetoCheckBox(true);
+      setDisableSelect(false);
     } else {
-      setDisableEmTodoTrajetoCheckBox(false)
-      setDisableSelect(true)
+      setDisableEmTodoTrajetoCheckBox(false);
+      setDisableSelect(true);
       removeDesde();
       setDesdeSelect("");
       setLocalizacaoFinalSelect("");
     }
-  }, [
-    DesdeCheckBox,
-    DesdeSelect,
-    LocalizacaoFinalSelect,
-  ]);
+  }, [DesdeCheckBox, DesdeSelect, LocalizacaoFinalSelect]);
+
+  const subExame = "Insuficiência Safena Magna Direita";
+  const titulo_exame = "Doppler Venoso de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesInsufSafena).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesInsufSafena
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesInsufSafena
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesInsufSafena]);
 
   return (
     <Box
@@ -116,13 +130,11 @@ function InsuficienciaSafenaMangnaDireito() {
       <Checkbox
         whiteSpace="nowrap"
         isDisabled={DisableDesdeCheckBox}
-        onChange={() =>
-          setDesdeCheckBox(!DesdeCheckBox)
-        }
+        onChange={() => setDesdeCheckBox(!DesdeCheckBox)}
       >
         Desde
       </Checkbox>
-      <Box       >
+      <Box>
         <Select
           w="200px"
           isDisabled={DisableSelect}
@@ -135,15 +147,20 @@ function InsuficienciaSafenaMangnaDireito() {
             Posição inicial
           </option>
           <option value="a crossa">a crossa</option>
-          <option value="o terço superior da coxa">o terço superior da coxa </option>
+          <option value="o terço superior da coxa">
+            o terço superior da coxa{" "}
+          </option>
           <option value="o terço médio da coxa">o terço médio da coxa</option>
-          <option value="o terço inferior da coxa">o terço inferior da coxa</option>
+          <option value="o terço inferior da coxa">
+            o terço inferior da coxa
+          </option>
           <option value="a interlinha do joelho">a interlinha do joelho</option>
-          <option value="o terço superior da perna">o terço superior da perna</option>
+          <option value="o terço superior da perna">
+            o terço superior da perna
+          </option>
           <option value="o terço médio da perna">o terço médio da perna</option>
         </Select>
-        <Text
-          alignSelf='center'>até</Text>
+        <Text alignSelf="center">até</Text>
         <Select
           w="200px"
           isDisabled={DisableSelect}
@@ -155,17 +172,25 @@ function InsuficienciaSafenaMangnaDireito() {
           <option value="" disabled selected>
             até
           </option>
-          <option value="o terço superior da coxa">o terço superior da coxa</option>
+          <option value="o terço superior da coxa">
+            o terço superior da coxa
+          </option>
           <option value="o terço médio da coxa">o terço médio da coxa</option>
-          <option value="o terço inferior da coxa">o terço inferior da coxa</option>
+          <option value="o terço inferior da coxa">
+            o terço inferior da coxa
+          </option>
           <option value="a interlinha do joelho">a interlinha do joelho</option>
-          <option value="o terço superior da perna">o terço superior da perna</option>
+          <option value="o terço superior da perna">
+            o terço superior da perna
+          </option>
           <option value="o terço médio da perna">o terço médio da perna</option>
-          <option value="o terço inferior da perna">o terço inferior da perna</option>
+          <option value="o terço inferior da perna">
+            o terço inferior da perna
+          </option>
           <option value="a face plantar">a face plantar</option>
         </Select>
       </Box>
-    </Box >
+    </Box>
   );
 }
 export default InsuficienciaSafenaMangnaDireito;

@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Text, HStack, Input, Select } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarNodulos({ numNodulo, disable }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [FrasesNodulos, setFrasesNodulos] = useState<any>([]);
+  const [ConclusaoNodulos, setConclusaoNodulos] = useState<any>([]);
 
   const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
   const [posicaoNoduloSelect, setPosicaoNoduloSelect] = useState("");
@@ -14,22 +15,38 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
-  const criaStringMultiplosNodulos = (conteudoNoduloselect, tamanhoNoduloInput, NoduloSelect, localizado) => {
+  const criaStringMultiplosNodulos = (
+    conteudoNoduloselect,
+    tamanhoNoduloInput,
+    NoduloSelect,
+    localizado
+  ) => {
+    const conclusao = 'Nódulo testicular.'
+    removeItemConclusao(conclusao)
     removeMultiplosNodulos();
     if (tamanhoNoduloInput !== "" && NoduloSelect !== "" && localizado !== "") {
-      var string = `Nódulo Testícular ${numNodulo}: mede ${tamanhoNoduloInput} mm, conteúdo ${conteudoNoduloselect}, localizado no ${NoduloSelect}, do  ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      var string = `Nódulo Testícular ${numNodulo}: mede ${tamanhoNoduloInput} cm, conteúdo ${conteudoNoduloselect}, localizado no ${NoduloSelect}, do  ${localizado} `;
+      setFrasesNodulos((arr) => [...arr, string]);
+      setConclusaoNodulos((arr) => [...arr, conclusao]);
     }
   };
+  const removeItemConclusao = (value) => {
+    var index = ConclusaoNodulos.indexOf(value);
 
+    if (index > -1) {
+      ConclusaoNodulos.splice(index, 1);
+      setConclusaoNodulos((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+    }
+  };
   const removeMultiplosNodulos = () => {
-    laudoPrin.map((e) => {
+    FrasesNodulos.map((e) => {
       if (e.includes(`Nódulo Testícular ${numNodulo}`)) {
-        var index = laudoPrin.indexOf(e);
+        var index = FrasesNodulos.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          FrasesNodulos.splice(index, 1);
+          setFrasesNodulos((arr) => [...arr]);
         }
       }
     });
@@ -37,15 +54,16 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
 
   useEffect(() => {
     if (multiplosNodulosCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringMultiplosNodulos(
         conteudoNoduloSelect,
         tamanhoNoduloInput,
         posicaoNoduloSelect,
-        localizacaoNoduloSelect,
+        localizacaoNoduloSelect
       );
     } else {
-      setDisableSelect(true)
+      removeItemConclusao('Nódulo testicular.')
+      setDisableSelect(true);
       removeMultiplosNodulos();
       settamanhoNoduloInput("");
       setPosicaoNoduloSelect("");
@@ -56,14 +74,34 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     conteudoNoduloSelect,
     posicaoNoduloSelect,
     tamanhoNoduloInput,
-    localizacaoNoduloSelect
+    localizacaoNoduloSelect,
   ]);
 
+  const subExame = `Nódulos Testiculares ${numNodulo}`;
+  const titulo_exame = "Testículo";
+
+  useEffect(() => {
+    if (Object.keys(FrasesNodulos).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        FrasesNodulos,
+        ConclusaoNodulos
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        FrasesNodulos,
+        ConclusaoNodulos
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [FrasesNodulos]);
+
   return (
-    <Box
-      gap='15px'
-      display='flex'
-      flexWrap="wrap">
+    <Box gap="15px" display="flex" flexWrap="wrap">
       <Checkbox
         whiteSpace="nowrap"
         isDisabled={disable}
@@ -89,22 +127,22 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
         </Select>
       </HStack>
       <HStack>
-        <Text fontSize='13px'>Mede</Text>
+        <Text fontSize="13px">Mede</Text>
         <Input
           isDisabled={DisableSelect}
           value={tamanhoNoduloInput}
           w="60px"
           h="77x"
-          padding="5px"
-          maxLength={2}
+          padding="0px"
+
           textAlign="center"
           onChange={(e) => settamanhoNoduloInput(e.target.value)}
-          placeholder={"mm"}
+          placeholder={"cm"}
         />
-        <Text fontSize='13px'>mm</Text>
+        <Text fontSize="13px">cm</Text>
       </HStack>
       <HStack>
-        <Text fontSize='13px'>Local</Text>
+        <Text fontSize="13px">Local</Text>
         <Select
           w="auto"
           isDisabled={DisableSelect}
@@ -122,7 +160,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
         </Select>
       </HStack>
       <HStack>
-        <Text fontSize='13px'>Do</Text>
+        <Text fontSize="13px">Do</Text>
         <Select
           w="auto"
           isDisabled={DisableSelect}
@@ -136,10 +174,8 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
           </option>
           <option value="testículo direito">Testículo direito</option>
           <option value="testículo esquerdo">Testículo esquerdo</option>
-
         </Select>
       </HStack>
     </Box>
-
   );
 }

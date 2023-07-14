@@ -1,10 +1,8 @@
 {
   "clinicas": [
     {
-      "nomeClinica": "clinica",
-      "enderecoRuaNumero": "",
-      "cidade": "",
-      "uf": "",
+      "nomeClinica": "",
+      "endereco": "",
       "cep": "",
       "foto": "",
       "teleFone": ""

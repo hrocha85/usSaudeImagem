@@ -1,13 +1,14 @@
 import { Box, Checkbox, HStack, Input, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidatide() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "300px";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesHidatide, setFrasesHidate] = useState<any>([]);
+  const [ConclusaoHidatide, setConclusaoHidatide] = useState<any>([]);
 
   const [tamanhoHidatideInput, settamanhoHidatideInput] = useState("");
   const [posicaoHidatideSelect, setPosicaoHidatideSelect] = useState("");
@@ -21,41 +22,73 @@ function Hidatide() {
   const criaStringHidatide = () => {
     removeStringHidatide();
 
-    if (
-      hidatideCheckBox &&
-      posicaoHidatideSelect != "" &&
-      tamanhoHidatideInput != ""
-    ) {
-      var string = `Hidátide lado ${posicaoHidatideSelect} mede ${tamanhoHidatideInput} mm `;
-
-      setLaudoPrin((arr) => [...arr, string]);
+    if (hidatideCheckBox && posicaoHidatideSelect != "" && tamanhoHidatideInput != "") {
+      var string = `Nota-se imagem em região anexial ${posicaoHidatideSelect} anecóica, arredondada, de limites precisos e contornos regulares, medindo ${tamanhoHidatideInput} mm.`;
+      var conclusao = `Cisto anexial à ${posicaoHidatideSelect} podendo corresponder a hidátide de Morgani.`
+      setFrasesHidate((arr) => [...arr, string]);
+      setConclusaoHidatide((arr) => [...arr, conclusao]);
     }
   };
 
   const removeStringHidatide = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Hidátide")) {
-        var index = laudoPrin.indexOf(e);
+    frasesHidatide.map((e) => {
+      if (e.includes("Nota-se imagem em região anexial")) {
+        var index = frasesHidatide.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesHidatide.splice(index, 1);
+          setFrasesHidate((arr) => [...arr]);
         }
       }
     });
+    ConclusaoHidatide.map((e) => {
+      if (e.includes('Cisto anexial à')) {
+        var index = ConclusaoHidatide.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoHidatide.splice(index, 1);
+          setConclusaoHidatide((arr) => [...arr]);
+        }
+      }
+      new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Cisto anexial à')
+    });
+
   };
 
   useEffect(() => {
     if (hidatideCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringHidatide();
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeStringHidatide();
       setPosicaoHidatideSelect("");
       settamanhoHidatideInput("");
     }
   }, [hidatideCheckBox, tamanhoHidatideInput, posicaoHidatideSelect]);
+
+  const subExame = "Hidátide";
+  const titulo_exame = "Doppler Transvaginal";
+
+  useEffect(() => {
+    if (Object.keys(frasesHidatide).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesHidatide,
+        ConclusaoHidatide
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesHidatide,
+        ConclusaoHidatide
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesHidatide]);
 
   return (
     <Box
@@ -101,9 +134,8 @@ function Hidatide() {
                 <Input
                   isDisabled={DisableSelect}
                   w="60px"
-                  h="77x"
-                  padding="5px"
-                  maxLength={2}
+
+                  padding="0px"
                   textAlign="center"
                   placeholder={"mm"}
                   value={tamanhoHidatideInput}

@@ -1,67 +1,50 @@
 /* eslint-disable react/jsx-pascal-case */
-import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
-import Exames from "../../folha_laudos/Laudos";
+import { Box, Checkbox } from "@chakra-ui/react";
+import { useState } from "react";
+
 import CistoAnecoico from "../partesMoles/cistoAnecoico/cistoAnecoico";
 import CistoSebaceo from "../partesMoles/cistoSebaceo/cistoSebaceo";
 import Colecao from "../partesMoles/paredeAbdominal/colecao";
-import HerniaIncisional from "../partesMoles/paredeAbdominal/herniaIncisional";
-import HerniaSupraUmbilical from "../partesMoles/paredeAbdominal/herniaSupra-Umbilical";
-import HerniaUmbilical from "../partesMoles/paredeAbdominal/herniaUmbilical";
-import ParedeAbdominalNormal from "../partesMoles/paredeAbdominal/normal";
-import Partes_Moles from "../partesMoles/partes_moles/partesMoles";
-import { default as Direita, default as Esquerda } from "../partesMoles/regiaoInguinal/direita";
+import Nodulos from "./partes_moles/nodulos";
+import Achados_Normais from "./torax/achados_normais";
+
 
 function PartesMoles() {
+  const altura = '100%'
+  const largura = '220px'
+  const [Disable, SetDisable] = useState(false)
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="20px"
-        fontsize="19px"
-        tamanho="180px"
-        titulo="Partes Moles"
-      />
-      <Exames></Exames>
-      <Box ml="10px">
-        <Partes_Moles></Partes_Moles>
+    <>
+      <Box
+        bg="#FAFAFA"
+        w={largura}
+        h={altura}
+        bgPosition="center"
+        bgRepeat="no-repeat"
+        borderRadius="10.85px"
+        boxShadow="md"
+        padding='10px 15px 10px 15px'
+        mt='2px'
+        mb='5px'>
 
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box mb="15px">
-            <CistoSebaceo></CistoSebaceo>
-          </Box>
-          <Box mb="15px">
-            <CistoAnecoico></CistoAnecoico>
-          </Box>
-        </Box>
+        <Checkbox
+          id="tudoNormal"
+          onChange={(e) => { SetDisable(!Disable) }}
+        >Partes moles normal</Checkbox>
 
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="100%" mb="15px">
-            <ParedeAbdominalNormal></ParedeAbdominalNormal>
-          </Box>
-          <Box w="400px" mb="15px">
-            <HerniaUmbilical></HerniaUmbilical>
-          </Box>
-          <Box w="400px" mb="15px">
-            <HerniaSupraUmbilical></HerniaSupraUmbilical>
-          </Box>
-          <Box w="400px" mb="15px">
-            <HerniaIncisional></HerniaIncisional>
-          </Box>
-          <Box w="400px" mb="15px">
-            <Colecao></Colecao>
-          </Box>
-        </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="400px" mb="15px">
-            <Direita></Direita>
-          </Box>
-          <Box w="400px" mb="15px">
-            <Esquerda></Esquerda>
-          </Box>
-        </Box>
+      </Box >
+
+      <Achados_Normais Disable={Disable} />
+      {/*<Partes_Moles Disable={Disable} />*/}
+      <Nodulos Disable={Disable} />
+      <Box gap='20px' display='flex' flexWrap='wrap'>
+        {/* <CistoSebaceo Disable={Disable} />
+        <CistoAnecoico Disable={Disable} /> */}
+
+        <Colecao Disable={Disable} />
+
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

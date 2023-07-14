@@ -1,11 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Text, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
+import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 export default function IndividualizarVeias({ numVeia, disable }) {
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesVeiasP, setFrasesVeiasP] = useState<any>([]);
 
   const [DistanciaVeiaInput, setDistanciaVeiaInput] = useState("");
   const [posicaoVeiasSelect, setPosicaoVeiasSelect] = useState("");
@@ -14,24 +14,33 @@ export default function IndividualizarVeias({ numVeia, disable }) {
   const [multiplosVeiasCheckBox, setmultiplosVeiasCheckBox] = useState(false);
   const [DisableSelect, setDisableSelect] = useState(true);
 
-
-  const criaStringMultiplosVeias = (DistanciaVeiaInput, VeiasSelect, localizado, MembroVeiasSelect) => {
+  const criaStringMultiplosVeias = (
+    DistanciaVeiaInput,
+    VeiasSelect,
+    localizado,
+    MembroVeiasSelect
+  ) => {
     removeMultiplosVeias();
     var string;
-    if (MembroVeiasSelect !== '' && DistanciaVeiaInput !== "" && VeiasSelect !== "" && localizado !== "") {
+    if (
+      MembroVeiasSelect !== "" &&
+      DistanciaVeiaInput !== "" &&
+      VeiasSelect !== "" &&
+      localizado !== ""
+    ) {
       string = `Veia perfurante ${numVeia} - a ${DistanciaVeiaInput} cm ${VeiasSelect}, na face ${localizado} ${MembroVeiasSelect} `;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesVeiasP((arr) => [...arr, string]);
     }
   };
 
   const removeMultiplosVeias = () => {
-    laudoPrin.map((e) => {
+    frasesVeiasP.map((e) => {
       if (e.includes(`Veia perfurante ${numVeia}`)) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesVeiasP.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesVeiasP.splice(index, 1);
+          setFrasesVeiasP((arr) => [...arr]);
         }
       }
     });
@@ -39,7 +48,7 @@ export default function IndividualizarVeias({ numVeia, disable }) {
 
   useEffect(() => {
     if (multiplosVeiasCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringMultiplosVeias(
         DistanciaVeiaInput,
         posicaoVeiasSelect,
@@ -47,7 +56,7 @@ export default function IndividualizarVeias({ numVeia, disable }) {
         MembroVeiasSelect
       );
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeMultiplosVeias();
       setDistanciaVeiaInput("");
       setPosicaoVeiasSelect("");
@@ -59,13 +68,32 @@ export default function IndividualizarVeias({ numVeia, disable }) {
     posicaoVeiasSelect,
     DistanciaVeiaInput,
     localizacaoVeiasSelect,
-    MembroVeiasSelect
+    MembroVeiasSelect,
   ]);
 
+  const subExame = "Veias Perfurantes Esquerda";
+  const titulo_exame = "Doppler Venoso de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesVeiasP).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesVeiasP
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesVeiasP
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesVeiasP]);
+
   return (
-    <Box
-      display='flex'
-      flexWrap="wrap">
+    <Box display="flex" flexWrap="wrap">
       <HStack>
         <Checkbox
           whiteSpace="nowrap"
@@ -81,9 +109,11 @@ export default function IndividualizarVeias({ numVeia, disable }) {
           w="60px"
           h="77x"
           padding="5px"
-          maxLength={2}
+          
           textAlign="center"
-          onChange={(e) => { setDistanciaVeiaInput(e.target.value); }}
+          onChange={(e) => {
+            setDistanciaVeiaInput(e.target.value);
+          }}
           placeholder={"cm"}
         />
         <Select
@@ -97,17 +127,14 @@ export default function IndividualizarVeias({ numVeia, disable }) {
           <option value="" disabled selected>
             Posição
           </option>
-          <option value="da interlinha do joelho">da interlinha do joelho</option>
+          <option value="da interlinha do joelho">
+            da interlinha do joelho
+          </option>
           <option value="da face plantar">da face plantar</option>
         </Select>
-
       </HStack>
-      <HStack
-        mt='5px'
-      >
-        <Text>
-          na face
-        </Text>
+      <HStack mt="5px">
+        <Text>na face</Text>
         <Select
           w="120px"
           isDisabled={DisableSelect}
@@ -139,8 +166,7 @@ export default function IndividualizarVeias({ numVeia, disable }) {
           <option value="da coxa">da coxa</option>
           <option value="do joelho">do joelho</option>
         </Select>
-
-      </HStack >
+      </HStack>
     </Box>
   );
 }

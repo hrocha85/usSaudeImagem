@@ -1,163 +1,156 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, Select } from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
-import { LaudosContext } from '../../../../context/LuadosContext';
-import { useContext, useState } from "react";
 
-function LiquidoLivre() {
-    const altura = '100%'
-    const largura = '66%'
+function LiquidoLivre({ Disable }) {
+  const altura = "100%";
+  const largura = "66%";
 
-    let selectLiquidoLivrePresente = document.querySelector('#selectLiquidoLivrePresente') as HTMLInputElement
+  const [frasesLiquidoLivre, setFrasesLiquidoLivre] = useState<any>([]);
+  const [ConclusoesLiquidoLivre, setConclusoesLiquidoLivre] = useState<any>([]);
 
-    const [checkValueNormal, setCheckvalueNormal] = useState({
-        normal: false,
-    })
+  const [LiquidoLivreCheckbox, setLiquidoLivreCheckbox] = useState(false)
+  const [DisableSelect, setDisableSelect] = useState(true)
+  const [Select1, setSelect1] = useState('')
+  const [Select2, setSelect2] = useState('')
 
-    const [checkValueLiquidoLivrePresente, setCheckvalueLiquidoLivrePresente] = useState({
-        LiquidoLivrePresente: false,
-        selectLiquidoLivrePresente: true,
-    })
-
-    const criarString = (value, valueId?, valueInput?) => {
-        //console.log("Valor cria string = ", value);
-        //arr => [...arr] captura os dados que já estavam e os mantem no array
-        setLaudoPrin(arr => [...arr, value])
-        //console.log("criaString = ", laudoPrin)
-
+  const criaStringLiquidoLivre = () => {
+    var string = "quantidade de líquido livre "
+    var conclusao = 'Presença de líquido em'
+    removeFraseLiquidoLivre()
+    if (Select1 != '' && Select2 != '') {
+      string = `Nota-se ${Select2} ${string} ${Select1} `
+      conclusao = `${conclusao} ${Select2} quantidade ${Select1}`
+      setFrasesLiquidoLivre((arr) => [...arr, string]);
+      setConclusoesLiquidoLivre((arr) => [...arr, conclusao]);
     }
+  }
 
-    const removeItemString = (value) => {
-        // console.log("valor remove = ", value);
-        var index = laudoPrin.indexOf(value);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+  const removeFraseLiquidoLivre = () => {
+    frasesLiquidoLivre.map((e) => {
+      if (e.includes("quantidade de líquido livre ")) {
+        var index = frasesLiquidoLivre.indexOf(e);
         if (index > -1) {
-            laudoPrin.splice(index, 1)
-            setLaudoPrin(arr => [...arr])
-
+          frasesLiquidoLivre.splice(index, 1);
+          setFrasesLiquidoLivre((arr) => [...arr]);
         }
-        // console.log('posicao', index)
-        // console.log("laudosPrin", laudoPrin)
-    }
-
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-
-    const verificaChecked = (value) => {
-        switch (value.id) {
-            case 'normal':
-                if (value.checked === true) {
-                    criarString(value.value)
-                    console.log('aqui')
-                    setCheckvalueLiquidoLivrePresente({
-                        LiquidoLivrePresente: true,
-                        selectLiquidoLivrePresente: true,
-                    })
-                } else {
-                    removeItemString(value.value)
-                    setCheckvalueLiquidoLivrePresente({
-                        LiquidoLivrePresente: false,
-                        selectLiquidoLivrePresente: true,
-                    })
-                }
-                break;
-            case 'LiquidoLivrePresente':
-                if (value.checked === true) {
-                    console.log(laudoPrin)
-                    setCheckvalueNormal({
-                        normal: true
-                    })
-                    setCheckvalueLiquidoLivrePresente({
-                        LiquidoLivrePresente: false,
-                        selectLiquidoLivrePresente: false,
-                    })
-                } else {
-                    removeItemString('Presente com quantidade pequena ')
-                    removeItemString('Presente com quantidade moderada ')
-                    removeItemString('Presente com quantidade grande ')
-                    setCheckvalueNormal({
-                        normal: false
-                    })
-                    setCheckvalueLiquidoLivrePresente({
-                        LiquidoLivrePresente: false,
-                        selectLiquidoLivrePresente: true,
-                    })
-                    selectLiquidoLivrePresente.value = ''
-                }
-                break;
-            case 'selectLiquidoLivrePresente':
-                if (value.value === 'Presente com quantidade pequena ') {
-                    removeItemString('Presente com quantidade moderada ')
-                    removeItemString('Presente com quantidade grande ')
-                    criarString(value.value)
-                } else if (value.value === 'Presente com quantidade moderada ') {
-                    removeItemString('Presente com quantidade pequena ')
-                    removeItemString('Presente com quantidade grande ')
-                    criarString(value.value)
-                } else {
-                    removeItemString('Presente com quantidade pequena ')
-                    removeItemString('Presente com quantidade moderada ')
-                    criarString(value.value)
-
-                }
-                break;
+      }
+    });
+    ConclusoesLiquidoLivre.map((e) => {
+      if (e.includes('Presença de líquido em')) {
+        var index = ConclusoesLiquidoLivre.indexOf(e);
+        if (index > -1) {
+          ConclusoesLiquidoLivre.splice(index, 1);
+          setConclusoesLiquidoLivre((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Presença de líquido em');
         }
+      }
+    });
+
+  };
+
+  useEffect(() => {
+    if (LiquidoLivreCheckbox) {
+      criaStringLiquidoLivre()
+      setDisableSelect(false)
+    } else {
+      setDisableSelect(true)
+      removeFraseLiquidoLivre()
+      setSelect1('')
+      setSelect2('')
     }
+  }, [LiquidoLivreCheckbox, Select1, Select2])
 
+  const subExame = "Líquido Livre";
+  const titulo_exame = "Abdômen total";
 
+  useEffect(() => {
+    if (Object.keys(frasesLiquidoLivre).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesLiquidoLivre,
+        ConclusoesLiquidoLivre
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesLiquidoLivre,
+        ConclusoesLiquidoLivre
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesLiquidoLivre]);
 
-    return (
+  return (
+    <Box
+      bg="#FAFAFA"
+      w={largura}
+      h={altura}
+      bgPosition="center"
+      bgRepeat="no-repeat"
+      borderRadius="10.85px"
+      boxShadow="md"
+      padding="24px 15px 20px 15px"
+      mt="15px"
+    >
+      <Box>
+        <TituloNomeExame titulo="Líquido Livre" />
 
-        <Box
-            bg="#FAFAFA"
-            w={largura}
-            h={altura}
-            bgPosition="center"
-            bgRepeat="no-repeat"
-            borderRadius="10.85px"
-            boxShadow="md"
-            padding='24px 15px 20px 15px'
-            mt='15px'
-        >
-            <Box
-            >
+        <Box gap="10px" display="flex" flexWrap="wrap" mb="10px">
 
-                <TituloNomeExame titulo='Líquido Livre' />
+          <Checkbox
+            onChange={() => {
+              setLiquidoLivreCheckbox(!LiquidoLivreCheckbox);
+            }}
+          >
+            Líquido livre
+          </Checkbox>
+          <Select
+            w='auto'
+            isDisabled={DisableSelect}
+            value={Select1}
+            onChange={(e) => {
+              setSelect1(e.target.value);
+            }}
+          >
+            <option value="" disabled selected>
+              Local
+            </option>
+            <option value="no abdome">no abdômen</option>
+            <option value="na pelve">na pelve</option>
+            <option value="na fossa hepatorrenal">na fossa hepatorrenal</option>
+            <option value="no flanco direito">no flanco direito</option>
+            <option value="no flanco esquerdo">no flanco esquerdo</option>
+            <option value="na fossa ilíaca direita">na fossa ilíaca direita</option>
+            <option value="na fossa ilíaca esquerda">na fossa ilíaca esquerda</option>
+          </Select>
+          <Select
+            isDisabled={DisableSelect}
+            w='auto'
+            value={Select2}
+            onChange={(e) => {
+              setSelect2(e.target.value);
+            }}
+          >
+            <option value="" disabled selected>
+              Quantidade
+            </option>
+            <option value="pequena">Pequena</option>
+            <option value="moderada">
+              Moderada
+            </option>
+            <option value="grande">Grande</option>
+          </Select>
 
-                <Box
-                    gap='30px'
-                    display='flex'
-                    flexWrap='wrap'
-                    mb='10px'
-                >
-                    <Box >
-                        <Checkbox
-                            disabled={checkValueNormal.normal}
-                            id="normal"
-                            value="Líquido Livre Ausente"
-                            onChange={(e) => { verificaChecked(e.target) }}
-                        >Ausente</Checkbox>
-                    </Box>
-
-                    <Box  >
-                        <Checkbox
-                            disabled={checkValueLiquidoLivrePresente.LiquidoLivrePresente}
-                            id='LiquidoLivrePresente'
-                            onChange={(e) => { verificaChecked(e.target) }}
-                        >Presente</Checkbox>
-                        <Select
-                            disabled={checkValueLiquidoLivrePresente.selectLiquidoLivrePresente}
-                            id="selectLiquidoLivrePresente"
-                            onChange={(e) => { verificaChecked(e.target) }}
-                        >
-                            <option value='' disabled selected>Quantidade</option>
-                            <option value='Presente com quantidade pequena '>Pequena</option>
-                            <option value='Presente com quantidade moderada '>Moderada</option>
-                            <option value='Presente com quantidade grande '>Grande</option>
-                        </Select>
-                    </Box>
-                </Box>
-            </Box >
-        </Box >
-    );
+        </Box>
+      </Box>
+    </Box>
+  );
 }
 
 export default LiquidoLivre;

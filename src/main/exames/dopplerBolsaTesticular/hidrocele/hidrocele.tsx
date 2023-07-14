@@ -1,13 +1,13 @@
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidrocele() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "87%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesHidrocelete, setFrasesHidrocelete] = useState<any>([]);
 
   const [posicaoHidroceleSelect, setPosicaoHidroceleSelect] = useState("");
   const [HidroceleCheckBox, setHidroceleCheckBox] = useState(false);
@@ -18,18 +18,18 @@ function Hidrocele() {
 
     if (HidroceleCheckBox && posicaoHidroceleSelect !== "") {
       var string = `Hidrocele no local: ${posicaoHidroceleSelect}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesHidrocelete((arr) => [...arr, string]);
     }
   };
 
   const removeStringHidroceleLivre = () => {
-    laudoPrin.map((e) => {
+    frasesHidrocelete.map((e) => {
       if (e.includes("Hidrocele no local")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesHidrocelete.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesHidrocelete.splice(index, 1);
+          setFrasesHidrocelete((arr) => [...arr]);
         }
       }
     });
@@ -37,14 +37,35 @@ function Hidrocele() {
 
   useEffect(() => {
     if (HidroceleCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringHidroceleLivre();
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeStringHidroceleLivre();
       setPosicaoHidroceleSelect("");
     }
   }, [HidroceleCheckBox, posicaoHidroceleSelect]);
+
+  const subExame = "Hidrocelete";
+  const titulo_exame = "Doppler de Bolsa Testicular";
+
+  useEffect(() => {
+    if (Object.keys(frasesHidrocelete).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesHidrocelete
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesHidrocelete
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesHidrocelete]);
 
   return (
     <Box

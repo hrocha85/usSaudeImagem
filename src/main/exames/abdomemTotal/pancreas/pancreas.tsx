@@ -1,371 +1,233 @@
-import { Box, Input, Checkbox } from "@chakra-ui/react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
-import { NormalContext } from "../../../../context/NormalContext";
+import { Convert_Medida } from "../../../component/function_convert_medidas";
 
-function Pancreas() {
-    const altura = '100%'
-    const largura = '66%'
+function Pancreas({ Disable }) {
+  const altura = "100%";
+  const largura = "66%";
 
-    let InputCisto = document.querySelector('#InputCisto') as HTMLInputElement
 
-    const { laudoNormal } = useContext(NormalContext);
-    const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-    const [ValueInputCisto, setValueInputCisto] = useState('')
+  const [value, setValue] = useState("1");
 
-    const [defaultValueNormal, setDefaultValueNormal] = useState({
-        defaultValueNormal: false,
-    })
-
-    const [checkValueNormal, setCheckValueNormal] = useState({
-        normal: false,
-    })
-
-    const [checkValueCisto, setCheckValueCisto] = useState({
-        cisto: false,
-        input: true
-    })
-    const [checkValueNaoVisibilizado, setCheckValueNaoVisibilizado] = useState({
-        NaoVisibilizado: false,
-    })
-    const [checkValuePancreatiteAguda, setCheckValuePancreatiteAguda] = useState({
-        PancreatiteAguda: false,
-    })
-    const [checkValuePancreatiteCronica, setCheckValuePancreatiteCronica] = useState({
-        PancreatiteCronica: false,
-    })
-    const criarString = (value, valueId?, valueInput?) => {
-        //console.log("Valor cria string = ", value);
-        //arr => [...arr] captura os dados que já estavam e os mantem no array
-        setLaudoPrin(arr => [...arr, value])
-        //console.log("criaString = ", laudoPrin)
-
+  useEffect(() => {
+    if (value == "1") {
+      setFrasesPancreas([]);
+    } else {
+      if (value == 'Pâncreas de aspecto heterogêneo, com espessura aumentada e ecogenicidade reduzida do parênquima.') {
+        setConclusoesPancreas((arr) => [...arr, 'Sinais compatíveis com pancreatite aguda.']);
+      } else {
+        removeItemConclusao('Sinais compatíveis com pancreatite aguda.')
+      }
+      setFrasesPancreas([]);
+      setFrasesPancreas((arr) => [...arr, value]);
     }
+  }, [value]);
+  const removeItemConclusao = (value) => {
+    var index = ConclusoesPancreas.indexOf(value);
+    if (index > -1) {
+      ConclusoesPancreas.splice(index, 1);
+      setConclusoesPancreas((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
+    }
+  };
 
-    const removeItemString = (value) => {
-        // console.log("valor remove = ", value);
-        var index = laudoPrin.indexOf(value);
-        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+  const [frasesPancreas, setFrasesPancreas] = useState<any>([]);
+  const [ConclusoesPancreas, setConclusoesPancreas] = useState<any>([]);
+
+  const [CabecaCheckbox, setCabecaCheckbox] = useState(false)
+  const [CabecaInput, setCabecaInput] = useState('')
+  const [DisableCabecaInput, setDisableCabecaInput] = useState(true)
+
+  const [CorpoCheckbox, setCorpoCheckbox] = useState(false)
+  const [CorpoInput, setCorpoInput] = useState('')
+  const [DisableCorpoInput, setDisableCorpoInput] = useState(true)
+
+  const [CaudaCheckbox, setCaudaCheckbox] = useState(false)
+  const [CaudaInput, setCaudaInput] = useState('')
+  const [DisableCaudaInput, setDisableCaudaInput] = useState(true)
+
+
+  const criaStringDimensoes = (dadosCabeca, dadosCorpo, dadosCauda) => {
+    var string = 'A espessura pancreática foi mensurada em '
+    removeFraseDimensoes()
+
+    if (dadosCabeca != '' || dadosCorpo != '' || dadosCorpo != '') {
+      if (dadosCabeca != '') {
+        string = `${string} ${dadosCabeca} cm na cabeça `
+      }
+      if (dadosCorpo != '') {
+        string = `${string} ${dadosCorpo} cm no corpo `
+      }
+      if (dadosCauda != '') {
+        string = `${string} ${dadosCauda} cm na cauda.`
+      }
+      setFrasesPancreas((arr) => [...arr, string])
+    }
+  }
+
+  const removeFraseDimensoes = () => {
+    frasesPancreas.map((e) => {
+      if (e.includes("A espessura pancreática foi mensurada em ")) {
+        var index = frasesPancreas.indexOf(e);
         if (index > -1) {
-            laudoPrin.splice(index, 1)
-            setLaudoPrin(arr => [...arr])
+          frasesPancreas.splice(index, 1);
+          setFrasesPancreas((arr) => [...arr]);
         }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (CabecaCheckbox) {
+      criaStringDimensoes(CabecaInput, CorpoInput, CaudaInput)
+      setDisableCabecaInput(false)
+    } else {
+      removeFraseDimensoes()
+      setDisableCabecaInput(true)
+      setCabecaInput('')
     }
+  }, [CabecaCheckbox, CabecaInput, CorpoInput, CaudaInput])
 
-    const criaStringInputCisto = (value) => {
-        const string = 'Pancreas com cisto de ' + value.value + 'mm '
-        setValueInputCisto(string)
-        setLaudoPrin(arr => [...arr, string])
+
+  useEffect(() => {
+    if (CorpoCheckbox) {
+      setDisableCorpoInput(false)
+    } else {
+
+      setDisableCorpoInput(true)
+      setCorpoInput('')
     }
+  }, [CorpoCheckbox])
 
-    const removeStringCisto = () => {
-        const index = laudoPrin.indexOf(ValueInputCisto)
-        if (index > -1) {
-            laudoPrin.splice(index, 1)
-            setLaudoPrin(arr => [...arr])
-        }
+  useEffect(() => {
+    if (CaudaCheckbox) {
+
+      setDisableCaudaInput(false)
+    } else {
+      setDisableCaudaInput(true)
+      setCaudaInput('')
     }
+  }, [CaudaCheckbox])
 
-    useEffect(() => {
-        if (laudoNormal === true) {
-            setDefaultValueNormal({ defaultValueNormal: true })
-            criarString('Pâncreas está está normal ')
-            setCheckValueCisto({
-                cisto: true,
-                input: true
-            })
-            setCheckValueNaoVisibilizado({
-                NaoVisibilizado: true,
-            })
-            setCheckValuePancreatiteAguda({
-                PancreatiteAguda: true
-            })
-            setCheckValuePancreatiteCronica({
-                PancreatiteCronica: true
-            })
-        } else {
-            setDefaultValueNormal({ defaultValueNormal: false })
-            //   removeNormal()
-            setCheckValueCisto({
-                cisto: false,
-                input: true
-            })
-            setCheckValueNaoVisibilizado({
-                NaoVisibilizado: false,
-            })
-            setCheckValuePancreatiteAguda({
-                PancreatiteAguda: false
-            })
-            setCheckValuePancreatiteCronica({
-                PancreatiteCronica: false
-            })
-        }
-    }, [laudoNormal])
+  useEffect(() => {
+    Disable ? setValue('Pâncreas de dimensões normais, contornos regulares e ecotextura homogênea. Não há dilatação do ducto pancreático.') : setValue('1')
+  }, [Disable])
 
-    const setValueFrasePancreas = (value) => {
-        switch (value.id) {
-            case 'PancreasNormal':
-                if (value.checked === true) {
-                    setDefaultValueNormal({ defaultValueNormal: true })
-                    setLaudoPrin(arr => [...arr, value.value])
-                    setCheckValueCisto({
-                        cisto: true,
-                        input: true
-                    })
-                    setCheckValueNaoVisibilizado({
-                        NaoVisibilizado: true,
-                    })
-                    setCheckValuePancreatiteAguda({
-                        PancreatiteAguda: true
-                    })
-                    setCheckValuePancreatiteCronica({
-                        PancreatiteCronica: true
-                    })
-                } else {
-                    setDefaultValueNormal({ defaultValueNormal: false })
-                    removeItemString(value.value)
-                    setCheckValueCisto({
-                        cisto: false,
-                        input: true
-                    })
-                    setCheckValueNaoVisibilizado({
-                        NaoVisibilizado: false,
-                    })
-                    setCheckValuePancreatiteAguda({
-                        PancreatiteAguda: false
-                    })
-                    setCheckValuePancreatiteCronica({
-                        PancreatiteCronica: false
-                    })
-                }
-                break
-            case 'NaoVisibilizado':
-                if (value.checked === true) {
-                    setLaudoPrin(arr => [...arr, value.value])
-                    setCheckValueCisto({
-                        cisto: true,
-                        input: true
-                    })
-                    setCheckValuePancreatiteAguda({
-                        PancreatiteAguda: true
-                    })
-                    setCheckValuePancreatiteCronica({
-                        PancreatiteCronica: true
-                    })
-                    setCheckValueNormal({
-                        normal: true
-                    })
-                } else {
-                    removeItemString(value.value)
-                    setCheckValueCisto({
-                        cisto: false,
-                        input: true
-                    })
-                    setCheckValuePancreatiteAguda({
-                        PancreatiteAguda: false
-                    })
-                    setCheckValuePancreatiteCronica({
-                        PancreatiteCronica: false
-                    })
-                    setCheckValueNormal({
-                        normal: false
-                    })
-                }
-                break
-            case 'PancreatiteAguda':
-                if (value.checked === true) {
-                    setLaudoPrin(arr => [...arr, value.value])
-                    setCheckValueCisto({
-                        cisto: true,
-                        input: true
-                    })
-                    setCheckValueNaoVisibilizado({
-                        NaoVisibilizado: true,
-                    })
-                    setCheckValuePancreatiteCronica({
-                        PancreatiteCronica: true
-                    })
-                    setCheckValueNormal({
-                        normal: true
-                    })
-                } else {
-                    removeItemString(value.value)
-                    setCheckValueCisto({
-                        cisto: false,
-                        input: true
-                    })
-                    setCheckValueNaoVisibilizado({
-                        NaoVisibilizado: false,
-                    })
-                    setCheckValuePancreatiteCronica({
-                        PancreatiteCronica: false
-                    })
-                    setCheckValueNormal({
-                        normal: false
-                    })
-                }
-                break
-            case 'PancreatiteCronica':
-                if (value.checked === true) {
-                    setLaudoPrin(arr => [...arr, value.value])
-                    setCheckValueCisto({
-                        cisto: true,
-                        input: true
-                    })
-                    setCheckValueNaoVisibilizado({
-                        NaoVisibilizado: true,
-                    })
-                    setCheckValuePancreatiteAguda({
-                        PancreatiteAguda: true
-                    })
-                    setCheckValueNormal({
-                        normal: true
-                    })
-                } else {
-                    removeItemString(value.value)
-                    setCheckValueCisto({
-                        cisto: false,
-                        input: true
-                    })
-                    setCheckValueNaoVisibilizado({
-                        NaoVisibilizado: false,
-                    })
-                    setCheckValuePancreatiteAguda({
-                        PancreatiteAguda: false
-                    })
-                    setCheckValueNormal({
-                        normal: false
-                    })
-                }
-                break
-            case 'cisto':
-                if (value.checked === true) {
-                    setCheckValueCisto({
-                        cisto: false,
-                        input: false
-                    })
-                    setCheckValueNaoVisibilizado({
-                        NaoVisibilizado: true,
-                    })
-                    setCheckValuePancreatiteAguda({
-                        PancreatiteAguda: true
-                    })
-                    setCheckValuePancreatiteCronica({
-                        PancreatiteCronica: true
-                    })
-                    setCheckValueNormal({
-                        normal: true
-                    })
-                } else {
-                    setCheckValueCisto({
-                        cisto: false,
-                        input: true
-                    })
-                    setCheckValueNaoVisibilizado({
-                        NaoVisibilizado: false,
-                    })
-                    setCheckValuePancreatiteAguda({
-                        PancreatiteAguda: false
-                    })
-                    setCheckValuePancreatiteCronica({
-                        PancreatiteCronica: false
-                    })
-                    setCheckValueNormal({
-                        normal: false
-                    })
-                    removeStringCisto()
-                    InputCisto.value = ''
-                }
-                break
-            case 'InputCisto':
-                criaStringInputCisto(value)
-                break
-        }
+  const subExame = "Pâncreas";
+  const titulo_exame = "Abdômen total";
+
+  useEffect(() => {
+    if (Object.keys(frasesPancreas).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesPancreas,
+        ConclusoesPancreas
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesPancreas,
+        ConclusoesPancreas
+      ).Format_Laudo_Create_Storage();
     }
+  }, [frasesPancreas]);
 
-
-    return (
-
-        <Box
-            bg="#FAFAFA"
-            w={largura}
-            h={altura}
-            bgPosition="center"
-            bgRepeat="no-repeat"
-            borderRadius="10.85px"
-            boxShadow="md"
-            padding='24px 15px 20px 15px'
-            mt='15px'
-        >
-            <Box
-            >
-
-                <TituloNomeExame titulo='Pâncreas' />
-
-
-                <Box
-                    gap='25px'
-                    display='flex'
-                    flexWrap='wrap'
-                    mb='10px'
-                >
-                    <Box>
-                        <Checkbox
-                            isChecked={defaultValueNormal.defaultValueNormal}
-                            disabled={checkValueNormal.normal}
-                            value='Pâncreas está está normal ' id='PancreasNormal'
-                            onChange={(e) => { setValueFrasePancreas(e.target) }}>
-                            Pancreas Normal
-                        </Checkbox>
-                    </Box>
-                    <Box w='100px'>
-                        <Checkbox
-                            disabled={checkValueCisto.cisto}
-                            id='cisto'
-                            onChange={(e) => { setValueFrasePancreas(e.target) }}>
-                            Cisto
-                        </Checkbox>
-                        <Input
-                            disabled={checkValueCisto.input}
-                            w='80px'
-                            id='InputCisto'
-                            onBlur={(e) => { setValueFrasePancreas(e.target) }}
-                            placeholder='mm' />
-                    </Box>
-                    <Box>
-                        <Checkbox
-                            disabled={checkValueNaoVisibilizado.NaoVisibilizado}
-                            value='Pancreas não visibilizado'
-                            id='NaoVisibilizado'
-                            onChange={(e) => { setValueFrasePancreas(e.target) }}>
-                            Não visibilizado
-                        </Checkbox>
-                    </Box>
-                    <Box>
-                        <Checkbox
-                            disabled={checkValuePancreatiteAguda.PancreatiteAguda}
-                            value='Pancreas com pancreatite aguda'
-                            id='PancreatiteAguda'
-                            onChange={(e) => { setValueFrasePancreas(e.target) }}>
-                            Pancreatite Aguda
-                        </Checkbox>
-                    </Box>
-                    <Box>
-                        <Checkbox
-                            disabled={checkValuePancreatiteCronica.PancreatiteCronica}
-                            value='Pancreas com pancreatite cronica'
-                            id='PancreatiteCronica'
-                            onChange={(e) => { setValueFrasePancreas(e.target) }}>
-                            Pancreatite Crônica
-                        </Checkbox>
-                    </Box>
-                </Box>
-
-            </Box >
-
-        </Box >
-    );
+  return (
+    <Box
+      bg="#FAFAFA"
+      w={largura}
+      h={altura}
+      bgPosition="center"
+      bgRepeat="no-repeat"
+      borderRadius="10.85px"
+      boxShadow="md"
+      padding="24px 15px 20px 15px"
+      mt="15px"
+    >
+      <Box>
+        <TituloNomeExame titulo="Pâncreas" />
+        <Box gap="25px" display="flex" flexWrap="wrap" >
+          <RadioGroup
+            onChange={setValue} value={value} padding="10px">
+            <Stack direction="column">
+              <Radio value="1">Não citar</Radio>
+              <Radio value="Pâncreas de dimensões normais, contornos regulares e ecotextura homogênea. Não há dilatação do ducto pancreático.">Normal</Radio>
+              <Radio value="Pâncreas parcialmente visibilizado devido à interposição de alças intestinais.">Parcialmente acessível</Radio>
+              <Radio value="Pâncreas inacessível devido à interposição gasosa de alças intestinais.">Inacessível</Radio>
+              <Radio value="Pâncreas de aspecto heterogêneo, com espessura aumentada e ecogenicidade reduzida do parênquima.">Sinais de pancreatite aguda</Radio>
+            </Stack>
+          </RadioGroup>
+          <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" padding='5px' h='100%'>
+            <Text fontWeight="bold" textAlign='center'>Dimensões (espessura)</Text>
+            <HStack>
+              <Checkbox
+                onChange={(e) => {
+                  setCabecaCheckbox(!CabecaCheckbox);
+                }}
+              >
+                Cabeça
+              </Checkbox>
+              <Input
+                p='0'
+                textAlign='center'
+                w='55px'
+                value={CabecaInput}
+                onChange={(e) => setCabecaInput(e.target.value)}
+                disabled={DisableCabecaInput}
+                placeholder="00"
+              />
+              <Text alignItems='center'>cm</Text>
+            </HStack>
+            <HStack>
+              <Checkbox
+                onChange={(e) => {
+                  setCorpoCheckbox(!CorpoCheckbox);
+                }}
+              >
+                Corpo
+              </Checkbox>
+              <Input
+                p='0'
+                textAlign='center'
+                w='55px'
+                value={CorpoInput}
+                onChange={(e) => setCorpoInput(e.target.value)}
+                disabled={DisableCorpoInput}
+                placeholder="00"
+              />
+              <Text alignItems='center'>cm</Text>
+            </HStack>
+            <HStack>
+              <Checkbox
+                onChange={(e) => {
+                  setCaudaCheckbox(!CaudaCheckbox);
+                }}
+              >
+                Cauda
+              </Checkbox>
+              <Input
+                p='0'
+                textAlign='center'
+                w='55px'
+                value={CaudaInput}
+                onChange={(e) => setCaudaInput(e.target.value)}
+                disabled={DisableCaudaInput}
+                placeholder="00"
+              />
+              <Text alignItems='center'>cm</Text>
+            </HStack>
+          </Box>
+        </Box>
+      </Box>
+    </Box >
+  );
 }
 
 export default Pancreas;

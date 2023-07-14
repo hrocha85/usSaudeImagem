@@ -1,17 +1,15 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
-import { DedoEsquerdoNormalContext } from "../../../../../context/DedoEsquerdoNormalContext"
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function DedoEsquerdo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  let { DedoEsquerdoLaudoNormal } = useContext(DedoEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
   //States TenossinoviteFlexor - input,checkbox e select - Inicio
@@ -125,10 +123,6 @@ function DedoEsquerdo() {
   useEffect(() => {
     criaStringDedoGatilho(DedoGatilhoSelect);
   }, [DedoGatilhoSelect]);
-
-  useEffect(() => {
-    DedoEsquerdoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
-  }, [DedoEsquerdoLaudoNormal])
 
   return (
     <Box

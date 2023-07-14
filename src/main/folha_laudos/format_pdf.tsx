@@ -2,16 +2,18 @@ import {
   Document,
   Font,
   Image,
-  Page, PDFViewer,
+  Page,
+  PDFViewer,
   StyleSheet,
   Text,
-  View
+  View,
 } from "@react-pdf/renderer";
 import { useContext, useState } from "react";
 import { LaudosContext } from "../../context/LuadosContext";
 
 export default function Format_PDF() {
-  
+  const [titulo_exame, setTitulo_Exame] = useState("TÍTULO EXAME");
+
   const getUserClinica = () => {
     if (localStorage.getItem("user") != null) {
       var clinica = JSON.parse(localStorage.getItem("user")!);
@@ -26,13 +28,19 @@ export default function Format_PDF() {
       return "Nome paciente";
     }
   };
+  const getMedicoSolicitante = () => {
+    if (localStorage.getItem("paciente") != null) {
+      return JSON.parse(localStorage.getItem("paciente")!).medico_solicitante;
+    } else {
+      return "Médico Solicitante";
+    }
+  };
 
   const getCurrentDate = () => {
     const timeStamp = new Date();
 
-    return `${timeStamp.getDate()}/${
-      timeStamp.getMonth() + 1
-    }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
+    return `${timeStamp.getDate()}/${timeStamp.getMonth() + 1
+      }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
   };
 
   const getUserMedico = () => {
@@ -40,6 +48,62 @@ export default function Format_PDF() {
       var medico = JSON.parse(localStorage.getItem("user")!);
     }
     return medico.medico;
+  };
+
+  const renderFrases = (exame) => {
+    var arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
+
+    arrayLocal.map((e) => {
+      setTitulo_Exame(e.titulo_exame);
+    });
+
+    return exame.subExames.map((sub, key) => {
+      return sub.subExameNome != null && sub.subExameNome != "" ? (
+        <View style={styles.inline} wrap={false} key={key}>
+          <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
+          <View style={styles.view_frases}>
+            {typeof sub.frases != "string" && sub.frases != null ? (
+              sub.frases.map((frase, key) => {
+                return (
+                  <Text style={styles.frasesSubExame} key={key}>
+                    {frase}
+                  </Text>
+                );
+              })
+            ) : (
+              <Text style={styles.frasesSubExame}>{sub.frases}</Text>
+            )}
+          </View>
+          {sub.image != null && sub.image != "" ? (
+            <Image src={sub.image} />
+          ) : null}
+        </View>
+      ) : null;
+    });
+  };
+
+  const renderConclusoes = (exame) => {
+    if (exame.conclusoes != null && exame.conclusoes != undefined) {
+      return exame.conclusoes.map((conclusao, key) => {
+        return conclusao != null && conclusao != "" ? (
+          <Text style={styles.frasesConclusoes} orphans={3} key={key}>
+            {conclusao}
+          </Text>
+        ) : null;
+      });
+    }
+  };
+
+  const renderObservacoes = (exame) => {
+    if (exame.observacoes != null && exame.observacoes != undefined) {
+      return exame.observacoes.map((observacao, key) => {
+        return observacao != null && observacao != "" ? (
+          <Text style={styles.frasesSubExame} orphans={3} key={key}>
+            {observacao}
+          </Text>
+        ) : null;
+      });
+    }
   };
 
   const { laudoPrin } = useContext(LaudosContext);
@@ -76,30 +140,49 @@ export default function Format_PDF() {
     ],
   });
 
+  Font.register({
+    family: "MontserratRegular",
+
+    fonts: [
+      {
+        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf",
+      },
+    ],
+  });
+
   const styles = StyleSheet.create({
+    inline: {
+      display: "flex",
+      flexDirection: "row",
+      paddingTop: "5px",
+      marginLeft: 20,
+      marginBottom: '2px',
+
+    },
     page: {
       backgroundColor: "white",
       color: "black",
+
     },
     section: {
-      margin: 10,
-      padding: 10,
+      margin: 2,
+      padding: 5,
       flexDirection: "row",
       width: "100%",
     },
     viewer: {
-      width: window.innerWidth, //the pdf viewer will take up all of the width and height
-      height: window.innerHeight,
+      width: window.screen.availWidth,
+      height: window.screen.availHeight,
     },
     imageClinica: {
-      width: 150,
-      height: 150,
+      width: 100,
+      height: 100,
       objectFit: "scale-down",
       alignContent: "center",
     },
     imageAssinatura: {
-      width: 100,
-      height: 100,
+      width: 150,
+      height: 40,
       alignContent: "center",
       justifyContent: "center",
       alignSelf: "center",
@@ -111,14 +194,22 @@ export default function Format_PDF() {
     sectionColuna: {
       flexDirection: "column",
       alignItems: "center",
-      marginTop: 30,
-      marginLeft: 80,
+      marginTop: 10,
+      marginLeft: 115,
+      gap: '5px'
     },
 
     line: {
       border: 1,
       marginLeft: 10,
       marginRight: 10,
+    },
+    lineConclusoes: {
+      border: 1,
+      marginLeft: 10,
+      marginRight: 10,
+      marginBottom: 5,
+      marginTop: 15,
     },
     laudo: {
       margin: 30,
@@ -131,10 +222,12 @@ export default function Format_PDF() {
     pageNumber: {
       position: "absolute",
       bottom: 1,
+      zIndex: 100,
+      paddingTop: "80px"
     },
     footer: {
       flexDirection: "row",
-      marginBottom: 20,
+      marginBottom: 10,
       width: "100%",
     },
     footerColuna: {
@@ -147,23 +240,82 @@ export default function Format_PDF() {
     },
     viewdadosMedico: {
       alignItems: "center",
-      margin: 20,
+      margin: 10,
     },
     textDadosMedico: {
       fontFamily: "MontserratBold",
-      fontSize: 16,
+      fontSize: 13,
       color: "black",
     },
     textSantaImagem: {
-      marginTop: "19vh",
+      marginTop: "10vh",
       marginLeft: 50,
       fontSize: "11",
       fontFamily: "Montserrat",
     },
     textDiagnostico: {
-      margin: 10,
+      marginTop: 5,
+      marginLeft: 10,
+      marginRigh: 10,
+      marginBottom: 10,
       fontSize: "10",
       fontFamily: "Montserrat2",
+    },
+    textTituloExame: {
+      fontWeigh: "bold",
+      textAlign: "center",
+      fontSize: "17",
+      fontFamily: "MontserratBold",
+      marginTop: "5px",
+    },
+    textConclusao: {
+      fontWeigh: "bold",
+      textAlign: "center",
+      fontSize: "17",
+      fontFamily: "MontserratBold",
+      marginTop: "1%",
+      marginBottom: "1%",
+    },
+    textNomeSubExame: {
+      fontWeigh: "bold",
+      textAlign: "center",
+      fontSize: "12",
+      fontFamily: "MontserratBold",
+      textDecoration: "underline",
+      marginRight: "20px",
+      maxWidth: "18%",
+
+    },
+    frasesSubExame: {
+      textAlign: "justify",
+      fontSize: "12",
+      fontFamily: "MontserratRegular",
+      marginBottom: "5px",
+      justifyContent: "space-between",
+      lineHeight: 1.5,
+    },
+    frasesConclusoes: {
+      textAlign: "justify",
+      fontSize: "12",
+      fontFamily: "MontserratRegular",
+      lineHeight: 1.5,
+      marginLeft: 4,
+    },
+    laudo_viewer: {
+      margin: 10,
+    },
+    view_frases: {
+      marginLeft: "1px",
+      marginRight: "20px",
+      marginBottom: '5px',
+      flex: 1,
+    },
+    box_view_frases: {
+      marginBottom: "130px"
+    },
+    viewConclusoes: {
+      marginTop: "10px",
+      // marginBottom: "150px",
     },
   });
 
@@ -174,54 +326,107 @@ export default function Format_PDF() {
           title={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
           author={`Dr.${medico.nome}`}
         >
-          <Page size="A4" style={styles.page}>
-            <View style={styles.section}>
-              <View style={styles.viewAssinatura}>
-                <Image style={styles.imageClinica} src={clinicaSet.foto} />
-              </View>
 
-              <View style={styles.sectionColuna}>
-                <Text>{clinicaSet.nomeClinica}</Text>
-                <Text>{getPaciente()}</Text>
-                <Text>{getCurrentDate()}</Text>
-                <Text>{`Dr. ${medico.nome}`}</Text>
-              </View>
-            </View>
-            <View style={styles.line}></View>
-            <View>
-              <Text style={styles.laudo}>{laudoPrin}</Text>
-            </View>
-            <View style={styles.pageNumber}>
-              <View style={styles.pageNumber}>
-                <View style={styles.footer}>
-                  <View style={styles.footerColuna}>
-                    <Image
-                      style={styles.imageAssinatura}
-                      src={medico.assinatura}
-                    />
-                    <span style={styles.borderFooter}></span>
-                    <View style={styles.viewdadosMedico}>
-                      <Text
-                        style={styles.textDadosMedico}
-                      >{`Dr. ${medico.nome}`}</Text>
-                      <Text
-                        style={styles.textDadosMedico}
-                      >{`CRM ${medico.crm}`}</Text>
+
+          {JSON.parse(localStorage.getItem("format_laudo")!).map(
+            (exame, key) => {
+              return (
+                <Page
+                  size="A4"
+                  style={styles.page}
+                  wrap={true}
+                  key={key}
+                  break={false}
+                >
+
+                  <View fixed style={styles.section}>
+                    <View style={styles.viewAssinatura}>
+                      <Image
+                        style={styles.imageClinica}
+                        src={clinicaSet.foto}
+                      />
+                    </View>
+
+                    <View style={styles.sectionColuna}>
+                      <Text>{clinicaSet.nomeClinica}</Text>
+                      <Text>{getPaciente()}</Text>
+                      <Text>{getCurrentDate()}</Text>
+                      <Text>{`Dr. ${getMedicoSolicitante()}`}</Text>
                     </View>
                   </View>
-                  <Text style={styles.textSantaImagem}>
-                    Santa Imagem Diagnósticos por imagem
-                  </Text>
-                </View>
-              </View>
+                  <View fixed style={styles.line}></View>
 
-              <Text style={styles.textDiagnostico}>
-                "A impressão diagnóstica em exames de imagem não é absoluta,
-                devendo ser correlacionada com dados clínicos, laboratorias e
-                outros métodos de imagem complementares"
-              </Text>
-            </View>
-          </Page>
+                  <View wrap={true} style={styles.laudo_viewer} break={false}>
+                    <Text style={styles.textTituloExame}>
+                      {exame.titulo_exame.toUpperCase()}
+                    </Text>
+                    <View >
+                      <View >{renderFrases(exame)}</View>
+                    </View>
+
+
+                    {exame.observacoes != null &&
+                      exame.observacoes.length > 1 &&
+                      exame.observacoes != undefined ? (
+                      <View style={styles.inline}>
+                        <Text style={styles.textNomeSubExame}>
+                          {`Observações ${exame.titulo_exame}:`}
+                        </Text>
+                        <View wrap={false} style={styles.view_frases}>
+                          <View>{renderObservacoes(exame)}</View>
+                        </View>
+                      </View>
+                    ) : null}
+
+                    {exame.conclusoes != null &&
+                      exame.conclusoes != undefined &&
+                      exame.conclusoes.length > 1 ? (
+                      <View style={styles.viewConclusoes}>
+                        <View style={styles.lineConclusoes} break={true} />
+                        <Text style={styles.textConclusao}>
+                          {`Conclusão ${exame.titulo_exame}`}
+                        </Text>
+                        <View wrap={false}>{renderConclusoes(exame)}</View>
+                        <View style={styles.lineConclusoes} />
+                      </View>
+                    ) : null}
+                  </View>
+
+                  <View fixed style={styles.box_view_frases} />
+                  <View fixed style={styles.pageNumber}>
+                    <View style={styles.pageNumber}>
+                      <View style={styles.footer}>
+                        <View style={styles.footerColuna}>
+                          <Image
+                            style={styles.imageAssinatura}
+                            src={medico.assinatura}
+                          />
+                          <span style={styles.borderFooter}></span>
+                          <View style={styles.viewdadosMedico}>
+                            <Text
+                              style={styles.textDadosMedico}
+                            >{`Dr. ${medico.nome}`}</Text>
+                            <Text
+                              style={styles.textDadosMedico}
+                            >{`CRM ${medico.crm}`}</Text>
+                          </View>
+                        </View>
+                        <Text style={styles.textSantaImagem}>
+                          Santa Imagem Diagnósticos por imagem
+                        </Text>
+                      </View>
+                    </View>
+
+                    <Text style={styles.textDiagnostico}>
+                      "A impressão diagnóstica em exames de imagem não é
+                      absoluta, devendo ser correlacionada com dados clínicos,
+                      laboratorias e outros métodos de imagem complementares"
+                    </Text>
+                  </View>
+                </Page>
+              );
+            }
+          )}
         </Document>
       </PDFViewer>
     );

@@ -1,64 +1,68 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Checkbox, HStack, Input, Select, Text, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import {
+  Box,
+  Checkbox,
+  HStack,
+  Input,
+  Select,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Direita() {
   const altura = "100%";
   const largura = "95%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesRegiaoIgn, setFrasesRegiaIgn] = useState<any>([]);
 
-  const [NormalCheckbox, setCheckboxNormal] = useState(false)
-  const [disableNormal, setDisableNormal] = useState(false)
+  const [NormalCheckbox, setCheckboxNormal] = useState(false);
+  const [disableNormal, setDisableNormal] = useState(false);
 
   const [tamanhoHerniaInput, setTamanhoHerniaInput] = useState("");
-  const [disableSelectInput, setDisableSelectInput] = useState(true)
+  const [disableSelectInput, setDisableSelectInput] = useState(true);
 
-  const [disableHernia, setDisableHernia] = useState(false)
+  const [disableHernia, setDisableHernia] = useState(false);
   const [HerniaSelect, setHerniaSelect] = useState("");
   const [HerniaCheckBox, setHerniaCheckBox] = useState(false);
-  const [HerniaChecked, setHerniaChecked] = useState(false)
-
+  const [HerniaChecked, setHerniaChecked] = useState(false);
 
   const criaStringNormal = () => {
-    let string = `Região inguinal Direita Normal`
-    setLaudoPrin((arr) => [...arr, string])
-  }
+    let string = `Região inguinal Direita Normal`;
+    setFrasesRegiaIgn((arr) => [...arr, string]);
+  };
   const removeNormal = () => {
-    laudoPrin.map((e) => {
+    frasesRegiaoIgn.map((e) => {
       if (e.includes("Região inguinal Direita Normal")) {
-        let index = laudoPrin.indexOf(e);
+        let index = frasesRegiaoIgn.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesRegiaoIgn.splice(index, 1);
+          setFrasesRegiaIgn((arr) => [...arr]);
         }
       }
     });
   };
   const criaStringHernia = (tamanhoHerniaInput) => {
     removeStringHernia();
-    if (
-      HerniaCheckBox &&
-      HerniaSelect !== "" && tamanhoHerniaInput !== ""
-    ) {
+    if (HerniaCheckBox && HerniaSelect !== "" && tamanhoHerniaInput !== "") {
       var string = `Hérnia direita ${HerniaSelect} com espessura de ${tamanhoHerniaInput} mm`;
 
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesRegiaIgn((arr) => [...arr, string]);
     }
   };
 
   const removeStringHernia = () => {
-    laudoPrin.map((e) => {
+    frasesRegiaoIgn.map((e) => {
       if (e.includes("Hérnia direita")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesRegiaoIgn.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesRegiaoIgn.splice(index, 1);
+          setFrasesRegiaIgn((arr) => [...arr]);
         }
       }
     });
@@ -68,31 +72,51 @@ function Direita() {
     if (NormalCheckbox) {
       removeStringHernia();
       setHerniaSelect("");
-      setHerniaChecked(false)
-      criaStringNormal()
-      setDisableHernia(true)
+      setHerniaChecked(false);
+      criaStringNormal();
+      setDisableHernia(true);
     } else {
-      setDisableHernia(false)
-      removeNormal()
+      setDisableHernia(false);
+      removeNormal();
     }
-  }, [NormalCheckbox])
+  }, [NormalCheckbox]);
 
   useEffect(() => {
     if (HerniaCheckBox) {
       criaStringHernia(tamanhoHerniaInput);
-      setHerniaChecked(true)
-      setDisableNormal(true)
-      setDisableSelectInput(false)
+      setHerniaChecked(true);
+      setDisableNormal(true);
+      setDisableSelectInput(false);
     } else {
-      setDisableSelectInput(true)
-      setDisableNormal(false)
-      setHerniaChecked(false)
+      setDisableSelectInput(true);
+      setDisableNormal(false);
+      setHerniaChecked(false);
       removeStringHernia();
       setHerniaSelect("");
       setTamanhoHerniaInput("");
     }
   }, [HerniaCheckBox, HerniaSelect, tamanhoHerniaInput]);
 
+  const subExame = "Região Inguinal Esquerda";
+  const titulo_exame = "Partes Moles";
+
+  useEffect(() => {
+    if (Object.keys(frasesRegiaoIgn).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesRegiaoIgn
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesRegiaoIgn
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesRegiaoIgn]);
 
   return (
     <Box
@@ -145,23 +169,21 @@ function Direita() {
                   <option value="inguinal">Inguinal</option>
                   <option value="inguino-escrotal">Inguino-escrotal</option>
                 </Select>
-
               </HStack>
-              <HStack
-                mt='5px'>
-                <Text                >
-                  Espessura do conteúdo
-                </Text>
+              <HStack mt="5px">
+                <Text>Espessura do conteúdo</Text>
                 <Input
                   isDisabled={disableSelectInput}
                   w="60px"
                   h="77x"
                   padding="5px"
-                  maxLength={2}
+                  
                   textAlign="center"
                   placeholder={"mm"}
                   value={tamanhoHerniaInput}
-                  onChange={(e) => { setTamanhoHerniaInput(e.target.value) }}
+                  onChange={(e) => {
+                    setTamanhoHerniaInput(e.target.value);
+                  }}
                 />
                 <Text>mm</Text>
               </HStack>
@@ -169,7 +191,7 @@ function Direita() {
           </Stack>
         </Stack>
       </Box>
-    </Box >
+    </Box>
   );
 }
 export default Direita;

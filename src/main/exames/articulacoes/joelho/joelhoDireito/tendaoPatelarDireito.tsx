@@ -1,65 +1,233 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
-import { JoelhoDireitoNormalContext } from "../../../../../context/JoelhoDireitoNormalContext"
+import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Convert_Medida } from "../../../../component/function_convert_medidas";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
-function TendaoPatelarDireito() {
+function TendaoPatelarDireito({ Disable }) {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "90%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  let { JoelhoDireitoLaudoNormal } = useContext(JoelhoDireitoNormalContext)
-  const [disableTudo, setDisableTudo] = useState(false)
+  const [TendaoPatelarDireito, setTendaoPatelarDireito] = useState<any>([]);
+  const [ConclusaoTendaoPatelarDireito, setConclusaoTendaoPatelarDireito] = useState<any>([]);
 
-  const [ArtroseCheckbox, setArtroseCheckbox] = useState(true);
-  const [CistoBakerCheckbox, setCistoBakerCheckbox] = useState(true);
-  const [RoturaCheckbox, setRoturaCheckbox] = useState(true);
+  const subExame = `Tendão patelar joelho direito`
+  const titulo_exame = 'Articulações'
 
-  //Funcoes Padrao Micropolicistico - Inicio
-  const criaStringArtrose = () => {
-    var string = "TendaoQuadriceps direito com Artrose";
-    if (ArtroseCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setArtroseCheckbox(false);
+  useEffect(() => {
+    if (Object.keys(TendaoPatelarDireito).length === 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        TendaoPatelarDireito
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        TendaoPatelarDireito
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [TendaoPatelarDireito]);
+
+  const [LesaoParcialInput, setLesaoParcialInput] = useState("");
+  const [LesaoParcialInput2, setLesaoParcialInput2] = useState("");
+  const [LesaoParcialInput3, setLesaoParcialInput3] = useState("");
+  const [disableLesaoParcialInput, setdisableLesaoParcialInput] = useState(true);
+  const [DisableInputPresencaEntesofito, setDisableInputPresencaEntesofito] = useState(true);
+
+  const [disableAspectoNormal, setdisableAspectoNormal] = useState(false);
+  const [disableLesaoParcial, setdisableLesaoParcial] = useState(false);
+  const [disableTendinopatiaSemRotura, setdisableTendinopatiaSemRotura] = useState(false);
+  const [disableAspectoPosCirurgico, setdisableAspectoPosCirurgico] = useState(false);
+
+  const [AspectoNormalCheckbox, setAspectoNormalCheckbox] = useState(false);
+  const [LesaoParcialCheckbox, setLesaoParcialCheckbox] = useState(false);
+  const [AspectoPosCirurgicoCheckbox, setAspectoPosCirurgicoCheckbox] = useState(false);
+
+  const [TendinopatiaSemRoturaCheckbox, setTendinopatiaSemRoturaCheckbox] = useState(false);
+
+  const [PresencaEntesofitoCheckbox, setPresencaEntesofitoCheckbox] = useState(false);
+  const [InputMedindoPresencaEntesofito, setInputMedindoPresencaEntesofito] = useState('');
+  const [EntesofitoSelect, setEntesofitoSelect] = useState('');
+
+
+  const criaStringLesaoParcial = (medida1, medida2, medida3) => {
+    removeLesaoParcial();
+    if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
+      var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
+      setTendaoPatelarDireito((arr) => [...arr, string]);
+    }
+  };
+
+  const removeLesaoParcial = () => {
+    TendaoPatelarDireito.map((e) => {
+      if (e.includes("Espessado, com alteração ecotextural,")) {
+        var index = TendaoPatelarDireito.indexOf(e);
+
+        if (index > -1) {
+          TendaoPatelarDireito.splice(index, 1);
+          setTendaoPatelarDireito((arr) => [...arr]);
+        }
+      }
+    });
+  };
+
+
+
+  const criaStringAspectoNormal = () => {
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    AspectoNormalCheckbox ? setTendaoPatelarDireito((arr) => [...arr, string]) : removeItemString(string);
+  };
+
+  const [Normal, setNormal] = useState(false)
+
+  useEffect(() => {
+    Disable ? setNormal(true) : setNormal(false)
+  }, [Disable])
+
+  useEffect(() => {
+    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
+  }, [Normal])
+
+
+  useEffect(() => {
+    criaStringAspectoNormal()
+  }, [AspectoNormalCheckbox])
+
+  const criaStringAspectoPosCirurgico = () => {
+    var string = "Tendão patelar espessado e com alteração ecotextural (aspecto pós cirúrgico).";
+    AspectoPosCirurgicoCheckbox ? setTendaoPatelarDireito((arr) => [...arr, string]) : removeItemString(string);
+  };
+
+  useEffect(() => {
+    criaStringAspectoPosCirurgico()
+  }, [AspectoPosCirurgicoCheckbox])
+
+  const criaStringTendinopatiaSemRotura = () => {
+    var string = "espessado, com alteração ecotextural, sem evidências de rotura.";
+    if (TendinopatiaSemRoturaCheckbox) {
+      setTendaoPatelarDireito((arr) => [...arr, string])
     } else {
       removeItemString(string);
     }
   };
-  const criaStringRotura = () => {
-    var string = "TendaoQuadriceps direito com Rotura";
-    if (RoturaCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setRoturaCheckbox(false);
-    } else {
-      removeItemString(string);
+  useEffect(() => {
+    criaStringTendinopatiaSemRotura()
+  }, [TendinopatiaSemRoturaCheckbox])
+
+  const criaStringPresencaEntesofito = (dadoscm) => {
+    removeFrasePresencaEntesofito()
+    var dados = new Convert_Medida(dadoscm).Convert_Medida()
+    var string;
+    if (PresencaEntesofitoCheckbox && dadoscm !== '' && EntesofitoSelect !== '') {
+      string = `Presença de entesófito ${EntesofitoSelect} do tendão patelar medindo ${dados} cm.`;
+      setTendaoPatelarDireito((arr) => [...arr, string]);
+    } else if (PresencaEntesofitoCheckbox && EntesofitoSelect !== '') {
+      string = `Presença de entesófito ${EntesofitoSelect} do tendão patelar.`;
+      setTendaoPatelarDireito((arr) => [...arr, string]);
+    } else if (PresencaEntesofitoCheckbox && EntesofitoSelect === '') {
+      string = `Presença de entesófito no tendão patelar.`;
+      setTendaoPatelarDireito((arr) => [...arr, string]);
     }
+    // setTendinopatiaSemRoturaCheckbox(false);
+  }
+  const removeFrasePresencaEntesofito = () => {
+    TendaoPatelarDireito.map((e) => {
+      if (e.includes("Presença de entesófito")) {
+        var index = TendaoPatelarDireito.indexOf(e);
+
+        if (index > -1) {
+          TendaoPatelarDireito.splice(index, 1);
+          setTendaoPatelarDireito((arr) => [...arr]);
+        }
+      }
+    });
   };
-  const criaStringCistoBaker = () => {
-    var string = "TendaoQuadriceps direito com CistoBaker";
-    if (CistoBakerCheckbox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setCistoBakerCheckbox(false);
+
+  useEffect(() => {
+    if (PresencaEntesofitoCheckbox) {
+      criaStringPresencaEntesofito(InputMedindoPresencaEntesofito)
+      setDisableInputPresencaEntesofito(false)
     } else {
-      removeItemString(string);
+      removeFrasePresencaEntesofito()
+      setDisableInputPresencaEntesofito(true)
+      setInputMedindoPresencaEntesofito('')
     }
-  };
+  }, [PresencaEntesofitoCheckbox, EntesofitoSelect, InputMedindoPresencaEntesofito])
+
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
-
+    var index = TendaoPatelarDireito.indexOf(value);
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      TendaoPatelarDireito.splice(index, 1);
+      setTendaoPatelarDireito((arr) => [...arr]);
     }
   };
 
   useEffect(() => {
-    JoelhoDireitoLaudoNormal ? setDisableTudo(true) : setDisableTudo(false)
+    if (AspectoNormalCheckbox) {
+      setdisableTendinopatiaSemRotura(true)
+      setdisableLesaoParcial(true)
+      setdisableAspectoPosCirurgico(true)
+    } else {
+      setdisableTendinopatiaSemRotura(false)
+      setdisableLesaoParcial(false)
+      setdisableAspectoPosCirurgico(false)
+    }
+  }, [AspectoNormalCheckbox])
 
-  }, [JoelhoDireitoLaudoNormal])
+  useEffect(() => {
+    if (TendinopatiaSemRoturaCheckbox) {
+      setdisableLesaoParcial(true)
+      setdisableAspectoNormal(true)
+      setdisableAspectoPosCirurgico(true)
+    } else {
+      setdisableLesaoParcial(false)
+      setdisableAspectoNormal(false)
+      setdisableAspectoPosCirurgico(false)
+
+    }
+  }, [TendinopatiaSemRoturaCheckbox])
+
+  useEffect(() => {
+    if (AspectoPosCirurgicoCheckbox) {
+      setdisableLesaoParcial(true)
+      setdisableAspectoNormal(true)
+      setdisableTendinopatiaSemRotura(true)
+    } else {
+      setdisableTendinopatiaSemRotura(false)
+      setdisableLesaoParcial(false)
+      setdisableAspectoNormal(false)
+    }
+  }, [AspectoPosCirurgicoCheckbox])
+
+  useEffect(() => {
+    if (LesaoParcialCheckbox) {
+      setdisableLesaoParcialInput(false);
+      setdisableAspectoNormal(true)
+      setdisableTendinopatiaSemRotura(true)
+      setdisableAspectoPosCirurgico(true)
+    } else {
+      removeLesaoParcial();
+      setdisableAspectoPosCirurgico(false)
+      setdisableLesaoParcialInput(true);
+      setdisableAspectoNormal(false)
+      setdisableTendinopatiaSemRotura(false)
+      setLesaoParcialInput("");
+      setLesaoParcialInput2("");
+      setLesaoParcialInput3("");
+    }
+  }, [LesaoParcialCheckbox]);
+
+  useEffect(() => {
+    criaStringLesaoParcial(LesaoParcialInput, LesaoParcialInput2, LesaoParcialInput3);
+  }, [LesaoParcialInput, LesaoParcialInput2, LesaoParcialInput3]);
 
   return (
     <Box
@@ -73,42 +241,125 @@ function TendaoPatelarDireito() {
       padding="15px"
       mt="15px"
     >
-      <TituloNomeExame titulo="Tendão patelar" />
+      <TituloNomeExame titulo="Tendão Patelar" />
 
       <Box display="flex" flexWrap="wrap">
 
       </Box>
 
       <Stack>
-
         <Checkbox
-          isDisabled={disableTudo}
+          isChecked={Normal}
+          isDisabled={disableAspectoNormal}
           onChange={() => {
-            setArtroseCheckbox(true);
-            criaStringArtrose();
+            setNormal(!Normal)
+            setAspectoNormalCheckbox(!AspectoNormalCheckbox);
           }}
         >
-          Artrose
+          Aspecto Normal
         </Checkbox>
         <Checkbox
-          isDisabled={disableTudo}
+          isDisabled={disableTendinopatiaSemRotura}
           onChange={() => {
-            setCistoBakerCheckbox(true);
-            criaStringCistoBaker();
+            setTendinopatiaSemRoturaCheckbox(!TendinopatiaSemRoturaCheckbox);
           }}
-        >Cisto de Baker
-        </Checkbox>
-        <Checkbox
-          isDisabled={disableTudo}
-          onChange={() => {
-            setRoturaCheckbox(true);
-            criaStringRotura();
-          }}
-        >Rotura
+        >
+          Tendinopatia sem rotura
         </Checkbox>
 
-      </Stack>
-    </Box>
+        <HStack>
+          <Checkbox
+            isDisabled={disableLesaoParcial}
+            onChange={() => {
+              setLesaoParcialCheckbox(!LesaoParcialCheckbox);
+            }}
+          >
+            Lesão parcial medindo
+          </Checkbox>
+
+          <HStack ml='15px'>
+            <Input
+              isDisabled={disableLesaoParcialInput}
+              value={LesaoParcialInput}
+              w="45px"
+              h="30px"
+              padding="5px"
+
+              textAlign="center"
+              onChange={(e) => { setLesaoParcialInput(e.target.value) }}
+            />
+            <Text>x</Text>
+            <Input
+              isDisabled={disableLesaoParcialInput}
+              value={LesaoParcialInput2}
+              w="45px"
+              h="30px"
+              padding="5px"
+
+              textAlign="center"
+              onChange={(e) => { setLesaoParcialInput2(e.target.value) }}
+            />
+            <Text>x</Text>
+            <Input
+              isDisabled={disableLesaoParcialInput}
+              value={LesaoParcialInput3}
+              w="45px"
+              h="30px"
+              padding="5px"
+
+              textAlign="center"
+              onChange={(e) => { setLesaoParcialInput3(e.target.value) }}
+            />
+            <Text>mm</Text>
+          </HStack>
+        </HStack>
+        <Checkbox
+          isDisabled={disableAspectoPosCirurgico}
+          onChange={() => {
+            setAspectoPosCirurgicoCheckbox(!AspectoPosCirurgicoCheckbox);
+          }}
+        >
+          Aspecto pós cirúrgico
+        </Checkbox>
+
+        <Box display='flex' flexWrap='wrap' gap='10px'>
+
+          <Checkbox
+            isDisabled={Disable}
+            onChange={() => {
+              setPresencaEntesofitoCheckbox(!PresencaEntesofitoCheckbox);
+            }}
+          >
+            Presença de entesófito
+          </Checkbox>
+          <Select
+            w='100px'
+            isDisabled={DisableInputPresencaEntesofito}
+            onChange={(e) => {
+              setEntesofitoSelect(e.target.value);
+            }}
+          >
+            <option value="">Não citar tipo</option>
+            <option value="na inserção proximal">proximal</option>
+            <option value="na inserção distal">distal</option>
+          </Select>
+          <Text alignSelf='center'>medindo </Text>
+          <Input
+            isDisabled={DisableInputPresencaEntesofito}
+            value={InputMedindoPresencaEntesofito}
+            w="45px"
+            h="30px"
+            padding="5px"
+
+            textAlign="center"
+            onChange={(e) => { setInputMedindoPresencaEntesofito(e.target.value) }}
+          />
+          <Text> mm</Text>
+
+        </Box>
+
+      </Stack >
+    </Box >
 
   );
 }

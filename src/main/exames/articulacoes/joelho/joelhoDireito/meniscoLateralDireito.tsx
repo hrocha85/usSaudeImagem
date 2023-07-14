@@ -8,7 +8,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function MeniscoLateralDireito() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   let { JoelhoDireitoLaudoNormal } = useContext(JoelhoDireitoNormalContext)
@@ -201,7 +201,7 @@ function MeniscoLateralDireito() {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setCistoInput(e.target.value) }}
           />
@@ -213,7 +213,7 @@ function MeniscoLateralDireito() {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setCistoInput2(e.target.value) }}
           />

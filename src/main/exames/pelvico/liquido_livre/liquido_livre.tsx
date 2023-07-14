@@ -1,35 +1,73 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function Liquido_Livre() {
+function Liquido_Livre({ Disable }) {
   const altura = "100%";
   const largura = "33%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesLiquidoLivre, setFrasesLiquidoLivre] = useState<any>([]);
+  const [ConclusaoLiquidoLivre, setConclusaoLiquidoLivre] = useState<any>([]);
 
-  const [posicaoLiquidoSelect, setPosicaoLiquidoSelect] = useState("");
+  const subExame = "Líquido Livre";
+  const titulo_exame = "Pélvico"
+
+  useEffect(() => {
+    if (Object.keys(frasesLiquidoLivre).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesLiquidoLivre,
+        ConclusaoLiquidoLivre
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesLiquidoLivre,
+        ConclusaoLiquidoLivre
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesLiquidoLivre]);
+
+  const [QuantidadeLiquidoSelect, setQuantidadeLiquidoSelect] = useState("");
+  const [PosicaoLiquidoSelect, setPosicaoLiquidoSelect] = useState("");
   const [LiquidoCheckBox, setLiquidoCheckBox] = useState(false);
-  const [DisableSelect, setDisableSelect] = useState(true);
 
   const criaStringLiquidoLivre = () => {
+    const conclusao = 'Líquido livre na pelve.'
     removeStringLiquidoLivre();
-
-    if (LiquidoCheckBox && posicaoLiquidoSelect != "") {
-      var string = `Líquido livre ${posicaoLiquidoSelect}`;
-      setLaudoPrin((arr) => [...arr, string]);
+    if (LiquidoCheckBox && QuantidadeLiquidoSelect !== "" && PosicaoLiquidoSelect !== '') {
+      var string = `Presença de ${QuantidadeLiquidoSelect} quantidade de líquido livre no fundo de saco ${PosicaoLiquidoSelect}.`;
+      setFrasesLiquidoLivre((arr) => [...arr, string]);
+      setConclusaoLiquidoLivre((arr) => [...arr, conclusao]);
     }
   };
 
   const removeStringLiquidoLivre = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Líquido")) {
-        var index = laudoPrin.indexOf(e);
+    frasesLiquidoLivre.map((e) => {
+      if (e.includes("Presença de ")) {
+        var index = frasesLiquidoLivre.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesLiquidoLivre.splice(index, 1);
+          setFrasesLiquidoLivre((arr) => [...arr]);
+        }
+      }
+    });
+    ConclusaoLiquidoLivre.map((e) => {
+      if (e.includes("Líquido livre na pelve.")) {
+        var index = ConclusaoLiquidoLivre.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoLiquidoLivre.splice(index, 1);
+          setConclusaoLiquidoLivre((arr) => [...arr]);
+          new Format_Laudo(titulo_exame).Remove_Conclusao('Líquido livre na pelve.');
         }
       }
     });
@@ -37,14 +75,13 @@ function Liquido_Livre() {
 
   useEffect(() => {
     if (LiquidoCheckBox) {
-      setDisableSelect(false)
       criaStringLiquidoLivre();
     } else {
-      setDisableSelect(true)
       removeStringLiquidoLivre();
-      setPosicaoLiquidoSelect("");
+      setQuantidadeLiquidoSelect("");
+      setPosicaoLiquidoSelect('')
     }
-  }, [LiquidoCheckBox, posicaoLiquidoSelect]);
+  }, [LiquidoCheckBox, QuantidadeLiquidoSelect, PosicaoLiquidoSelect]);
 
   return (
     <Box
@@ -66,6 +103,7 @@ function Liquido_Livre() {
             <Box>
               <HStack>
                 <Checkbox
+
                   whiteSpace="nowrap"
                   onChange={() => {
                     setLiquidoCheckBox(!LiquidoCheckBox);
@@ -74,19 +112,33 @@ function Liquido_Livre() {
                   Líquido Livre
                 </Checkbox>
                 <Select
-                  isDisabled={DisableSelect}
+                  isDisabled={!LiquidoCheckBox}
                   w="auto"
                   onChange={(e) => {
-                    setPosicaoLiquidoSelect(e.target.value);
+                    setQuantidadeLiquidoSelect(e.target.value);
                   }}
-                  value={posicaoLiquidoSelect}
+                  value={QuantidadeLiquidoSelect}
                 >
                   <option value="" disabled selected>
-                    Posição
+                    quantidade
                   </option>
                   <option value="pequena">Pequena</option>
                   <option value="moderada">Moderada</option>
                   <option value="grande">Grande</option>
+                </Select>
+                <Select
+                  isDisabled={!LiquidoCheckBox}
+                  w="auto"
+                  onChange={(e) => {
+                    setPosicaoLiquidoSelect(e.target.value);
+                  }}
+                  value={PosicaoLiquidoSelect}
+                >
+                  <option value="" disabled selected>
+                    Posição
+                  </option>
+                  <option value="posterior">Posterior</option>
+                  <option value="anterior">Anterior</option>
                 </Select>
               </HStack>
             </Box>

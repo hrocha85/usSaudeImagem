@@ -8,7 +8,7 @@ import TituloNomeExame from "../../../../component/titulo_nome_exame";
 
 function MaoDireito() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   let { MaoDireitoLaudoNormal } = useContext(MaoDireitoNormalContext)
@@ -272,7 +272,7 @@ function MaoDireito() {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setCistoInput(e.target.value) }}
           />
@@ -284,7 +284,7 @@ function MaoDireito() {
             w="45px"
             h="30px"
             padding="5px"
-            maxLength={2}
+            
             textAlign="center"
             onChange={(e) => { setCistoInput2(e.target.value) }}
           />

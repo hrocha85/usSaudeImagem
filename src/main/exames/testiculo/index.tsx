@@ -1,66 +1,70 @@
-import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
-import Exames from "../../folha_laudos/Laudos";
+import { Box, Grid } from "@chakra-ui/react";
+
 import CistoEpididimarios from "./cistosEpididimarios/cistoEpididimarios";
 import CistosTesticulares from "./cistosTesticulares/cistoTesticulares";
 import Hematoma from "./hematoma/hematoma";
 import Hidrocele from "./hidrocele/hidrocele";
-import Utero from "./medidas/medidas";
+import Testiculos from "./medidas/medidas";
 import Microlitiase from "./microlitiase/microlitiase";
 import NodulosTesticulares from "./nodulosTesticulares/nodulosTesticulares";
-import Orquiepididimite from "./orquiepididimite/orquiepididimite";
-import Orquite from "./orquite/orquite";
-import Torcao from "./torcao/torcao";
-import Virococele from "./varicocele/varicocele";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../component/function_format_laudo";
+import Doppler from "./Doppler/Doppler";
 
 function Testiculo() {
-  return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="40px"
-        fontsize="19px"
-        tamanho="180px"
-        titulo="Testículo"
-      />
-      <Exames></Exames>
 
-      <Box ml="10px">
-        <Utero />
+  const stringPadrao2 =
+    "Exame realizado em modo bidimensional, com equipamento dinâmico linear multifrequêncial. Foram feitas varreduras nos sentidos transversal, longitudinal e oblíquos.";
+
+  const [frasesMedidas, setFrasesMedidas] = useState<any>([stringPadrao2]);
+
+  // useEffect(()=>{
+  // setFrasesMedidas()
+  // },[])
+  const subExame = "testículos";
+  const titulo_exame = "Testículo";
+
+
+  useEffect(() => {
+    if (Object.keys(frasesMedidas).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesMedidas,
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesMedidas,
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesMedidas]);
+  return (
+    <>
+      <Box ml="10px" paddingBottom="1%">
+        <Testiculos />
         <CistosTesticulares />
         <CistoEpididimarios />
         <NodulosTesticulares />
-
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <Microlitiase />
-          </Box>
-          <Box w="450px" mb="15px">
-            <Hidrocele />
-          </Box>
-        </Box>
-
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <Hematoma />
-          </Box>
-          <Box w="450px" mb="15px">
-            <Orquite />
-          </Box>
-        </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <Orquiepididimite />
-          </Box>
-          <Box w="450px" mb="15px">
-            <Torcao />
-          </Box>
-        </Box>
-        <Box w="450px">
-          <Virococele />
-        </Box>
+        <Grid
+          templateColumns="repeat(2,1fr)"
+          gap={2}
+          maxW="69%"
+        >
+          <Microlitiase />
+          <Hematoma />
+          {/*<Orquite />*/}
+          {/*<Orquiepididimite />*/}
+          {/*<Torcao />*/}
+          {/*<Virococele />*/}
+        </Grid>
+        <Hidrocele />
+        <Doppler />
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

@@ -1,42 +1,55 @@
-import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
-import Exames from "../../folha_laudos/Laudos";
-import Bexiga from "./bexiga/bexiga";
+import { Box, Checkbox } from "@chakra-ui/react";
+
 import Calculo from "./calculos/calculos";
 import Cisto from "./cistos/cistos";
 import Dilatacao from "./dilatacao/dilatacao";
 import Nodulos from "./nodulos/nodulos";
 import RimDireito from "./rim_direito/rim_direito";
 import RimEsquerdo from "./rim_esquerdo/rim_esquerdo";
+import ExtraRins from "./ExtraRins/ExtraRins";
+import Bexiga from "./bexiga/bexiga";
+import { useState } from "react";
 function RinseViasUrinarias() {
-  return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="24px"
-        fontsize="19px"
-        tamanho="250px 64px"
-        titulo="Rins e vias Urinárias"
-      />
+  const altura = '100%'
+  const largura = '40%'
+  const [Disable, SetDisable] = useState(false)
 
-      <Exames></Exames>
+  return (
+    <>
 
       <Box ml="10px">
-        <RimDireito />
-        <RimEsquerdo />
+        <Box
+          bg="#FAFAFA"
+          w={largura}
+          h={altura}
+          bgPosition="center"
+          bgRepeat="no-repeat"
+          borderRadius="10.85px"
+          boxShadow="md"
+          padding='10px 15px 10px 15px'
+          mt='2px'
+          mb='5px'
+          display='flex'
+          flexWrap='wrap'
+          alignItems='center' gap='5px'>
+
+          <Box w='150px' >
+            <Checkbox
+              onChange={(e) => { SetDisable(!Disable) }}
+            >Rins e vias Urinarias normal</Checkbox>
+          </Box>
+        </Box>
+        <ExtraRins />
         <Calculo />
         <Cisto />
         <Dilatacao />
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="400px" mb="15px">
-            <Nodulos />
-          </Box>
-          <Box w="370px" mb="15px">
-            <Bexiga />
-          </Box>
-        </Box>
+
+        <Nodulos />
+
+        <Bexiga Disable={Disable} />
+
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 

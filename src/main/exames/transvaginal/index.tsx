@@ -1,10 +1,8 @@
-import { Box, HStack } from "@chakra-ui/react";
-import { useContext } from "react";
-import { MenuContext } from "../../../context/MenuContext";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
-import Exames from "../../folha_laudos/Laudos";
+import { Box, Checkbox, HStack } from "@chakra-ui/react";
+import { useState } from "react";
+
 import Extras from "./adicionais/extras";
+import Bexiga from "./bexiga/bexiga";
 import Cirurgias from "./cirurgias/cirurgias";
 import Hidatide from "./hidatide/hidatide";
 import Hidrossalpinge from "./hidrossalpinge/hidrossalpinge";
@@ -13,39 +11,51 @@ import Miometrio from "./miometrio/miometrio";
 import Ovario_Direito from "./ovarios/ovario_direito";
 import Ovario_Esquerdo from "./ovarios/ovario_esquedo";
 import Utero from "./utero/utero";
+import Vagina from "./vagina/vagina";
 
 function Transvaginal() {
-  let { menuOpen, setMenuOpen } = useContext(MenuContext);
-
+  const altura = '100%'
+  const largura = '230px'
+  const [Disable, SetDisable] = useState(false)
   return (
     <>
-      <Box_Default_With_Sidebar>
-        <BoxTitleBackground
-          PadLeft="20px"
-          fontsize="19px"
-          tamanho="180px"
-          titulo="Transvaginal"
-        />
-        <Exames></Exames>
+      <Box ml="10px">
+        {/* <Box
+          bg="#FAFAFA"
+          w={largura}
+          h={altura}
+          bgPosition="center"
+          bgRepeat="no-repeat"
+          borderRadius="10.85px"
+          boxShadow="md"
+          padding='10px 15px 10px 15px'
+          mt='2px'
+          mb='5px'>
 
-        <Box ml="10px">
-          <Utero />
-          <HStack alignItems="baseline">
-            <Ovario_Esquerdo />
-            <Ovario_Direito />
-          </HStack>
-          <Miometrio />
-          <Cirurgias />
-          <HStack alignItems="baseline">
-            <Hidatide />
-            <Hidrossalpinge />
-          </HStack>
-          <HStack alignItems="baseline">
-            <Liquido_Livre />
-            <Extras />
-          </HStack>
-        </Box>
-      </Box_Default_With_Sidebar>
+          <Checkbox
+            onChange={(e) => { SetDisable(!Disable) }}
+          >Transvaginal Normal</Checkbox>
+
+        </Box > */}
+        <Bexiga Disable={Disable} />
+        <Vagina Disable={Disable} />
+        <Utero Disable={Disable} />
+
+
+        <Ovario_Esquerdo />
+        <Ovario_Direito Disable={Disable} />
+
+
+        <HStack alignItems="baseline">
+          <Hidatide Disable={Disable} />
+          <Hidrossalpinge Disable={Disable} />
+        </HStack>
+        <HStack alignItems="baseline">
+          <Liquido_Livre Disable={Disable} />
+          <Extras Disable={Disable} />
+        </HStack>
+        <Cirurgias Disable={Disable} />
+      </Box>
     </>
   );
 }

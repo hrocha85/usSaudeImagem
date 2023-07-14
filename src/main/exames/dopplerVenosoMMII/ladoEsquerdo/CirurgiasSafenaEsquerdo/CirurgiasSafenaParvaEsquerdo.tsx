@@ -1,84 +1,94 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../../context/LuadosContext";
+import { Box, Checkbox, Select, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../../component/function_format_laudo";
 
 function CirurgiaSafenaParvaEsquerdo() {
+  const [frasesSafenaParva, setFrasesSafenaParva] = useState<any>([]);
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-
-  const [DisableSelect, setDisableSelect] =
-    useState(true);
+  const [DisableSelect, setDisableSelect] = useState(true);
 
   const [DisableSelectMaterialEcogenico, setDisableSelectMaterialEcogenico] =
     useState(true);
   const [DisableSelectRefluxoResidual, setDisableSelectRefluxoResidual] =
     useState(true);
 
-  const [LocalizacaoAusenciaParcialSelect, setLocalizacaoAusenciaParcialSelect] = useState("");
+  const [
+    LocalizacaoAusenciaParcialSelect,
+    setLocalizacaoAusenciaParcialSelect,
+  ] = useState("");
   const [LocalizacaoFinalSelect, setLocalizacaoFinalSelect] = useState("");
   const [AusenciaParcialCheckBox, setAusenciaParcialCheckBox] = useState(false);
-  const [DisableAusenciaParcialCheckBox, setDisableAusenciaParcialCheckBox] = useState(false);
+  const [DisableAusenciaParcialCheckBox, setDisableAusenciaParcialCheckBox] =
+    useState(false);
 
-  const [LocalizacaoMaterialEcogenicoSelect, setLocalizacaoMaterialEcogenicoSelect] = useState("");
+  const [
+    LocalizacaoMaterialEcogenicoSelect,
+    setLocalizacaoMaterialEcogenicoSelect,
+  ] = useState("");
   const [RefluxoResidualSelect, setRefluxoResidualSelect] = useState("");
-  const [MaterialEcogenicoCheckBox, setMaterialEcogenicoCheckBox] = useState(false);
-  const [DisableRefluxoResidualCheckBox, setDisableRefluxoResidualCheckBox] = useState(true);
+  const [MaterialEcogenicoCheckBox, setMaterialEcogenicoCheckBox] =
+    useState(false);
+  const [DisableRefluxoResidualCheckBox, setDisableRefluxoResidualCheckBox] =
+    useState(true);
   const [RefluxoResidualCheckBox, setRefluxoResidualCheckBox] = useState(false);
 
-  const [DisableAusenciaTotalCheckBox, setDisableAusenciaTotalCheckBox] = useState(false);
+  const [DisableAusenciaTotalCheckBox, setDisableAusenciaTotalCheckBox] =
+    useState(false);
   const [AusenciaTotalCheckBox, setAusenciaTotalCheckBox] = useState(true);
 
   const removeAusenciaParcial = () => {
-    laudoPrin.map((e) => {
+    frasesSafenaParva.map((e) => {
       if (e.includes("Ausencia Parcial")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesSafenaParva.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesSafenaParva.splice(index, 1);
+          setFrasesSafenaParva((arr) => [...arr]);
         }
       }
     });
   };
 
-  const criaStringAusenciaParcial = (LocalizacaoAusenciaParcialSelect, localizado,) => {
+  const criaStringAusenciaParcial = (
+    LocalizacaoAusenciaParcialSelect,
+    localizado
+  ) => {
     removeAusenciaParcial();
     var string;
     if (LocalizacaoAusenciaParcialSelect !== "" && localizado !== "") {
       string = `Ausencia Parcial ${LocalizacaoAusenciaParcialSelect} e ${localizado}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesSafenaParva((arr) => [...arr, string]);
     } else {
       removeAusenciaParcial();
     }
   };
 
-  const criaStringMaterialEcogenico = (valorInicial, valorResidual,) => {
+  const criaStringMaterialEcogenico = (valorInicial, valorResidual) => {
     removeMaterialEcogenico();
     var string;
     if (RefluxoResidualCheckBox) {
-
       if (valorInicial !== "") {
         string = `Material ecogênico na safena parva ${valorInicial} e ${valorResidual}`;
-        setLaudoPrin((arr) => [...arr, string]);
+        setFrasesSafenaParva((arr) => [...arr, string]);
       }
     } else {
       if (valorInicial !== "") {
         string = `Material ecogênico na safena parva ${valorInicial}`;
-        setLaudoPrin((arr) => [...arr, string]);
+        setFrasesSafenaParva((arr) => [...arr, string]);
       }
     }
   };
 
   const removeMaterialEcogenico = () => {
-    laudoPrin.map((e) => {
+    frasesSafenaParva.map((e) => {
       if (e.includes("Material ecogênico na safena parva")) {
-        var index = laudoPrin.indexOf(e);
+        var index = frasesSafenaParva.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesSafenaParva.splice(index, 1);
+          setFrasesSafenaParva((arr) => [...arr]);
         }
       }
     });
@@ -87,21 +97,21 @@ function CirurgiaSafenaParvaEsquerdo() {
   const criaStringAusenciaTotal = () => {
     var string = "Ausência total de cirurgias Safena Parva lado Esquerdo";
     if (AusenciaTotalCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesSafenaParva((arr) => [...arr, string]);
       setAusenciaTotalCheckBox(false);
-      setDisableAusenciaParcialCheckBox(true)
+      setDisableAusenciaParcialCheckBox(true);
     } else {
-      setDisableAusenciaParcialCheckBox(false)
+      setDisableAusenciaParcialCheckBox(false);
       removeItemString(string);
     }
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesSafenaParva.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesSafenaParva.splice(index, 1);
+      setFrasesSafenaParva((arr) => [...arr]);
     }
   };
 
@@ -109,11 +119,11 @@ function CirurgiaSafenaParvaEsquerdo() {
     if (AusenciaParcialCheckBox) {
       criaStringAusenciaParcial(
         LocalizacaoAusenciaParcialSelect,
-        LocalizacaoFinalSelect,
+        LocalizacaoFinalSelect
       );
-      setDisableSelect(false)
+      setDisableSelect(false);
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeAusenciaParcial();
       setLocalizacaoAusenciaParcialSelect("");
       setLocalizacaoFinalSelect("");
@@ -128,19 +138,19 @@ function CirurgiaSafenaParvaEsquerdo() {
     if (MaterialEcogenicoCheckBox) {
       criaStringMaterialEcogenico(
         LocalizacaoMaterialEcogenicoSelect,
-        RefluxoResidualSelect,
+        RefluxoResidualSelect
       );
-      setDisableRefluxoResidualCheckBox(false)
-      setDisableSelectMaterialEcogenico(false)
+      setDisableRefluxoResidualCheckBox(false);
+      setDisableSelectMaterialEcogenico(false);
       if (RefluxoResidualCheckBox) {
-        setDisableSelectRefluxoResidual(false)
+        setDisableSelectRefluxoResidual(false);
       } else {
-        setDisableSelectRefluxoResidual(true)
+        setDisableSelectRefluxoResidual(true);
       }
     } else {
-      setDisableSelectRefluxoResidual(true)
-      setDisableSelectMaterialEcogenico(true)
-      setDisableRefluxoResidualCheckBox(true)
+      setDisableSelectRefluxoResidual(true);
+      setDisableSelectMaterialEcogenico(true);
+      setDisableRefluxoResidualCheckBox(true);
       removeMaterialEcogenico();
       setLocalizacaoMaterialEcogenicoSelect("");
       setRefluxoResidualSelect("");
@@ -149,28 +159,46 @@ function CirurgiaSafenaParvaEsquerdo() {
     MaterialEcogenicoCheckBox,
     LocalizacaoMaterialEcogenicoSelect,
     RefluxoResidualSelect,
-    RefluxoResidualCheckBox
+    RefluxoResidualCheckBox,
   ]);
 
   useEffect(() => {
     if (MaterialEcogenicoCheckBox || AusenciaParcialCheckBox) {
-      setDisableAusenciaTotalCheckBox(true)
+      setDisableAusenciaTotalCheckBox(true);
     } else {
-      setDisableAusenciaTotalCheckBox(false)
-
+      setDisableAusenciaTotalCheckBox(false);
     }
-  }, [MaterialEcogenicoCheckBox, AusenciaParcialCheckBox])
+  }, [MaterialEcogenicoCheckBox, AusenciaParcialCheckBox]);
+
+  const subExame = "Cirurgias Safena Parva Esquerda";
+  const titulo_exame = "Doppler Venoso de MMII";
+
+  useEffect(() => {
+    if (Object.keys(frasesSafenaParva).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesSafenaParva
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesSafenaParva
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesSafenaParva]);
 
   return (
-
     <Box>
-      <Text
-        fontSize="17px"
-        fontWeight="bold">Safena Parva
+      <Text fontSize="17px" fontWeight="bold">
+        Safena Parva
       </Text>
 
       <Checkbox
-        mt='10px'
+        mt="10px"
         isDisabled={DisableAusenciaParcialCheckBox}
         onChange={() =>
           setMaterialEcogenicoCheckBox(!MaterialEcogenicoCheckBox)
@@ -193,21 +221,33 @@ function CirurgiaSafenaParvaEsquerdo() {
           </option>
           <option value="da coxa">da coxa</option>
           <option value="da perna">da perna</option>
-          <option value="dos terços superior e médio da coxa">dos terços superior e médio da coxa</option>
-          <option value="do terço superior da coxa">do terço superior da coxa</option>
+          <option value="dos terços superior e médio da coxa">
+            dos terços superior e médio da coxa
+          </option>
+          <option value="do terço superior da coxa">
+            do terço superior da coxa
+          </option>
           <option value="do terço médio da coxa">do terço médio da coxa</option>
-          <option value="do terço inferior da coxa">do terço inferior da coxa</option>
-          <option value="do terço superior da perna">do terço superior da perna</option>
-          <option value="do terço médio da perna">do terço médio da perna</option>
-          <option value="do terço inferior da perna">do terço inferior da perna</option>
-          <option value="do terços médio e inferior da perna">do terços médio e inferior da perna</option>
+          <option value="do terço inferior da coxa">
+            do terço inferior da coxa
+          </option>
+          <option value="do terço superior da perna">
+            do terço superior da perna
+          </option>
+          <option value="do terço médio da perna">
+            do terço médio da perna
+          </option>
+          <option value="do terço inferior da perna">
+            do terço inferior da perna
+          </option>
+          <option value="do terços médio e inferior da perna">
+            do terços médio e inferior da perna
+          </option>
         </Select>
         <Checkbox
           whiteSpace="nowrap"
           isDisabled={DisableRefluxoResidualCheckBox}
-          onChange={() =>
-            setRefluxoResidualCheckBox(!RefluxoResidualCheckBox)
-          }
+          onChange={() => setRefluxoResidualCheckBox(!RefluxoResidualCheckBox)}
         >
           com refluxo Residual
         </Checkbox>
@@ -222,20 +262,36 @@ function CirurgiaSafenaParvaEsquerdo() {
           <option value="" disabled selected>
             refluxo residual
           </option>
-          <option value="não há segundo segmento ausente">não há segundo segmento ausente</option>
+          <option value="não há segundo segmento ausente">
+            não há segundo segmento ausente
+          </option>
           <option value="da coxa">da coxa</option>
           <option value="da perna">da perna</option>
-          <option value="dos terços superior e médio da coxa">dos terços superior e médio da coxa</option>
-          <option value="do terço superior da coxa">do terço superior da coxa</option>
+          <option value="dos terços superior e médio da coxa">
+            dos terços superior e médio da coxa
+          </option>
+          <option value="do terço superior da coxa">
+            do terço superior da coxa
+          </option>
           <option value="do terço médio da coxa">do terço médio da coxa</option>
-          <option value="do terço inferior da coxa">do terço inferior da coxa</option>
-          <option value="do terço superior da perna">do terço superior da perna</option>
-          <option value="do terço médio da perna">do terço médio da perna</option>
-          <option value="do terço inferior da perna">do terço inferior da perna</option>
-          <option value="do terços médio e inferior da perna">do terços médio e inferior da perna</option>
+          <option value="do terço inferior da coxa">
+            do terço inferior da coxa
+          </option>
+          <option value="do terço superior da perna">
+            do terço superior da perna
+          </option>
+          <option value="do terço médio da perna">
+            do terço médio da perna
+          </option>
+          <option value="do terço inferior da perna">
+            do terço inferior da perna
+          </option>
+          <option value="do terços médio e inferior da perna">
+            do terços médio e inferior da perna
+          </option>
         </Select>
       </Box>
-    </Box >
+    </Box>
     // </Box >
   );
 }

@@ -21,6 +21,7 @@ import {
   Tooltip,
   useDisclosure,
   useOutsideClick,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { BiCamera } from "react-icons/bi";
@@ -31,9 +32,11 @@ import { AiOutlineClear, AiOutlinePlusCircle } from "react-icons/ai";
 
 const button = React.createElement("img", { src: PlusButton });
 
-export const minhasClinicas = infoClinicas.clinicas;
+var dados;
+export let minhasClinicas = infoClinicas.clinicas;
 
 const IconButtonPlus = (props) => {
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [nome, setClinica] = useState("");
@@ -64,12 +67,12 @@ const IconButtonPlus = (props) => {
 
   const refNomeClinica = useRef<HTMLInputElement | null>(null);
 
+  console.log("minhasClinicas", minhasClinicas);
+
   const AddClinica = () => {
     const obj = {
       nomeClinica: nome,
-      enderecoRuaNumero: endereco,
-      cidade: "santos",
-      uf: "sp",
+      endereco: endereco,
       cep: cep,
       foto: defaultUserImage,
       teleFone: telefone,
@@ -89,11 +92,18 @@ const IconButtonPlus = (props) => {
     inputFile.current?.click();
   };
 
-  const onChangeFile = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    var file = event.target.files[0];
-    setSelectedFile(file);
+  const onChangeFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files![0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const result = event.target?.result;
+      if (typeof result === "string") {
+        setDefaultUserImage(result);
+      }
+    };
+
+    reader.readAsDataURL(file);
   };
 
   const ResetDados = () => {
@@ -124,13 +134,39 @@ const IconButtonPlus = (props) => {
     },
   });
 
+  const handlePhone = (event) => {
+    let input = event.target;
+    input.value = phoneMask(input.value);
+  };
+
+  const phoneMask = (value) => {
+    if (!value) return "";
+    value = value.replace(/\D/g, "");
+    value = value.replace(/(\d{2})(\d)/, "($1) $2");
+    value = value.replace(/(\d)(\d{4})$/, "$1-$2");
+    return value;
+  };
+
+  const handleCep = (event) => {
+    let input = event.target;
+    input.value = cepMask(input.value);
+  };
+
+  const cepMask = (value) => {
+    if (!value) return "";
+    value = value.replace(/\D/g, "");
+    value = value.replace(/(\d{5})(\d)/, "$1-$2");
+    value = value.replace(/(-\d{3})\d+?$/, "$1");
+    return value;
+  };
+
   useEffect(() => {
-    if (selectedFile) {
-      URL.revokeObjectURL(defaultUserImage);
-      const objectURL = URL.createObjectURL(selectedFile);
-      setDefaultUserImage(objectURL);
-    }
-  }, [selectedFile]);
+    if (localStorage.getItem("minhasClinicas") != null) {
+      dados = localStorage.getItem("minhasClinicas");
+
+      minhasClinicas = JSON.parse(dados);
+    } else minhasClinicas = [];
+  }, []);
 
   return (
     <>
@@ -245,19 +281,27 @@ const IconButtonPlus = (props) => {
                             ref={refTelefone}
                             placeholder="(11) 0000-0000"
                             textAlign={"center"}
-                            onChange={(e) => setTelefone(e.target.value)}
+                            maxLength={15}
+                            onChange={(e) => {
+                              handlePhone(e);
+                              setTelefone(e.target.value);
+                            }}
                             variant="filled"
                             borderStartRadius={"md"}
                             borderEndRadius={"md"}
-                            maxLength={13}
-                            onClick={() => {}}
+
+                            onClick={() => { }}
                           />
                         ) : (
                           <Input
                             ref={refTelefone}
                             placeholder="(11) 0000-0000"
                             textAlign={"center"}
-                            onChange={(e) => setTelefone(e.target.value)}
+                            maxLength={15}
+                            onChange={(e) => {
+                              handlePhone(e);
+                              setTelefone(e.target.value);
+                            }}
                             variant={"unstyled"}
                             onClick={() => {
                               setInputTelefone(true);
@@ -281,19 +325,25 @@ const IconButtonPlus = (props) => {
                             ref={refCEP}
                             placeholder="13000-000"
                             textAlign={"center"}
-                            onChange={(e) => setCep(e.target.value)}
+                            onChange={(e) => {
+                              handleCep(e);
+                              setCep(e.target.value);
+                            }}
                             variant="filled"
                             borderStartRadius={"md"}
                             borderEndRadius={"md"}
-                            maxLength={9}
-                            onClick={() => {}}
+
+                            onClick={() => { }}
                           />
                         ) : (
                           <Input
                             ref={refCEP}
                             placeholder="13000-000"
                             textAlign={"center"}
-                            onChange={(e) => setCep(e.target.value)}
+                            onChange={(e) => {
+                              handleCep(e);
+                              setCep(e.target.value);
+                            }}
                             variant={"unstyled"}
                             onClick={() => {
                               setInputCEP(true);
@@ -321,8 +371,24 @@ const IconButtonPlus = (props) => {
               marginStart="23px"
               marginBottom="10px"
               onClick={() => {
-                AddClinica();
-                ResetDados();
+                if (nome !== "" && telefone !== "") {
+                  AddClinica();
+                  ResetDados();
+                  toast({
+                    duration: 3000,
+                    title: `Clínica cadastrado com sucesso!`,
+                    position: "bottom",
+                    isClosable: true,
+                  });
+                } else {
+                  toast({
+                    duration: 3000,
+                    title: `Preencha Nome e Telefone para cadastrar.`,
+                    status: "error",
+                    position: "bottom",
+                    isClosable: true,
+                  });
+                }
               }}
             >
               Salvar

@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { Box, Button, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import IndividualizarCistos from "./individualizar_cistos";
 
@@ -10,150 +10,148 @@ function Cisto() {
   const altura = "100%";
   const largura = "66%";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  var numberArray = [1, 2, 3, 4];
+  const [FrasesCisto, setFrasesCisto] = useState<any>([]);
+  const [ConclusaoCisto, setConclusaoCisto] = useState<any>([]);
+  var ArrayConclusao = ['']
 
-  const [tamanhoNoduloDireitoInput, settamanhoNoduloDireitoInput] = useState("");
-  const [posicaoCistosDireitoSelect, setPosicaoCistosDireitoSelect] = useState("");
+  const [numberArray, setNumberArray] = useState([1]);
 
-  const [multiplosCistosRimDireitoCheckBox, setmultiplosCistosRimDireitoCheckBox] =
-    useState(false);
+  const [UpdateCistos, setUpdateCistos] = useState(false);
 
-  const [DisableSelectDireito, setDisableSelectDireito] =
-    useState(true);
+  function Cistos() {
+    return (
+      <>
+        {numberArray.map((num, key) => {
+          return <IndividualizarCistos key={key} numCisto={num} />;
+        })}
+      </>
+    );
+  }
+
+  useEffect(() => {
+    if (UpdateCistos) {
+      setUpdateCistos(false);
+      setNumberArray([...numberArray, numberArray.length + 1]);
+      Cistos();
+    }
+  }, [UpdateCistos]);
+
+  const [tamanhoNoduloDireitoInput, settamanhoNoduloDireitoInput] =
+    useState("");
+  const [posicaoCistosDireitoSelect, setPosicaoCistosDireitoSelect] =
+    useState("");
+
+  const [
+    Cisto1RimDireitoCheckBox,
+    setCisto1RimDireitoCheckBox,
+  ] = useState(false);
 
   const [tamanhoNoduloEsquerdoInput, settamanhoNoduloEsquerdoInput] = useState("");
   const [posicaoCistosEsquerdoSelect, setPosicaoCistosEsquerdoSelect] = useState("");
 
-  const [multiplosCistosRimEsquerdoCheckBox, setmultiplosCistosRimEsquerdoCheckBox] =
-    useState(false);
-
-  const [DisableSelectEsquerdo, setDisableSelectEsquerdo] =
-    useState(true);
-
-  const [RimPolicisticoCheckBox, setRimPolicisticoCheckBox] =
-    useState(false);
-  const [DisableRimPolicisticoSelect, setDisableRimPolicisticoSelect] = useState(true);
-  const [RimPolicisticoSelect, setRimPolicisticoSelect] = useState("");
+  const [Cisto1RimEsquerdoCheckBox, setCisto1RimEsquerdoCheckBox,] = useState(false);
 
 
-  const criaStringMultiplosCistosRimDireito = (tamanhoNoduloDireitoInput, localizado) => {
-    removeMultiplosCistosRimDireito();
-
-    if (tamanhoNoduloDireitoInput !== "" && localizado !== "") {
-      var string = `Múltiplos Cistos no rim direito, o maior mede ${tamanhoNoduloDireitoInput}mm  localizado ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
-    }
-  };
-
-  const removeMultiplosCistosRimDireito = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Múltiplos Cistos no rim direito")) {
-        var index = laudoPrin.indexOf(e);
-
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
-        }
+  const criaStringCistoRimDireito = (tamanhoNoduloDireitoInput, localizado) => {
+    var string = 'Rim Direito: Notam-se múltiplas imagens anecóicas, arredondadas, de limites precisos e contornos regulares, com reforço acústico posterior bilateralmente, a maior no'
+    const conclusao = 'Cistos renais.'
+    removeItemConclusao(conclusao)
+    removeItemStringSelect(string)
+    if (Cisto1RimDireitoCheckBox) {
+      if (tamanhoNoduloDireitoInput !== "" && localizado !== "") {
+        string = `${string} ${localizado}, medindo ${tamanhoNoduloDireitoInput} mm.`;
+        setFrasesCisto((arr) => [...arr, string]);
+        setConclusaoCisto((arr) => [...arr, conclusao])
       }
-    });
-  };
-
-  useEffect(() => {
-    if (multiplosCistosRimDireitoCheckBox) {
-      setDisableSelectDireito(false)
-      criaStringMultiplosCistosRimDireito(
-        tamanhoNoduloDireitoInput,
-        posicaoCistosDireitoSelect,
-      );
     } else {
-      setDisableSelectDireito(true)
-      removeMultiplosCistosRimDireito();
       settamanhoNoduloDireitoInput("");
       setPosicaoCistosDireitoSelect("");
     }
-  }, [
-    multiplosCistosRimDireitoCheckBox,
-    posicaoCistosDireitoSelect,
-    tamanhoNoduloDireitoInput,
-  ]);
-  const criaStringMultiplosCistosRimEsquerdo = (tamanhoNoduloEsquerdoInput, localizado) => {
-    removeMultiplosCistosRimEsquerdo();
-
-    if (tamanhoNoduloEsquerdoInput !== "" && localizado !== "") {
-      var string = `Múltiplos Cistos no rim Esquerdo, o maior mede ${tamanhoNoduloEsquerdoInput}mm  localizado ${localizado} `;
-      setLaudoPrin((arr) => [...arr, string]);
-    }
-  };
-
-  const removeMultiplosCistosRimEsquerdo = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Múltiplos Cistos no rim Esquerdo")) {
-        var index = laudoPrin.indexOf(e);
-
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
-        }
-      }
-    });
   };
 
   useEffect(() => {
-    if (multiplosCistosRimEsquerdoCheckBox) {
-      setDisableSelectEsquerdo(false)
-      criaStringMultiplosCistosRimEsquerdo(
-        tamanhoNoduloEsquerdoInput,
-        posicaoCistosEsquerdoSelect,
-      );
+    criaStringCistoRimDireito(tamanhoNoduloDireitoInput, posicaoCistosDireitoSelect);
+  }, [
+    Cisto1RimDireitoCheckBox,
+    posicaoCistosDireitoSelect,
+    tamanhoNoduloDireitoInput,
+  ]);
+
+  const criaStringCistoRimEsquerdo = (tamanhoNoduloEsquerdoInput, localizado) => {
+    var string = 'Rim Esquerdo: Notam-se múltiplas imagens anecóicas, arredondadas, de limites precisos e contornos regulares, com reforço acústico posterior bilateralmente, a maior no'
+    const conclusao = 'Cistos renais.'
+    removeItemConclusao(conclusao)
+    removeItemStringSelect(string)
+    if (Cisto1RimEsquerdoCheckBox) {
+      if (tamanhoNoduloEsquerdoInput !== "" && localizado !== "") {
+        string = `${string} ${localizado}, medindo ${tamanhoNoduloEsquerdoInput} mm.`;
+        setFrasesCisto((arr) => [...arr, string]);
+        setConclusaoCisto((arr) => [...arr, conclusao])
+      }
     } else {
-      setDisableSelectEsquerdo(true)
-      removeMultiplosCistosRimEsquerdo();
       settamanhoNoduloEsquerdoInput("");
       setPosicaoCistosEsquerdoSelect("");
     }
+  };
+
+  useEffect(() => {
+    criaStringCistoRimEsquerdo(tamanhoNoduloEsquerdoInput, posicaoCistosEsquerdoSelect);
   }, [
-    multiplosCistosRimEsquerdoCheckBox,
+    Cisto1RimEsquerdoCheckBox,
     posicaoCistosEsquerdoSelect,
     tamanhoNoduloEsquerdoInput,
   ]);
 
-  const criaStringRimPolicistico = (RimPolicisticoSelect) => {
-    removeRimPolicistico();
-    if (RimPolicisticoSelect !== "") {
-      var string = `${RimPolicisticoSelect} policístico`;
-      setLaudoPrin((arr) => [...arr, string]);
-    }
-  };
 
-  const removeRimPolicistico = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("policístico")) {
-        var index = laudoPrin.indexOf(e);
-
+  const removeItemStringSelect = (value) => {
+    FrasesCisto.map((e) => {
+      if (
+        e.includes(value)
+      ) {
+        var index = FrasesCisto.indexOf(e);
+        //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          FrasesCisto.splice(index, 1);
+          setFrasesCisto((arr) => [...arr]);
         }
       }
     });
   };
 
-  useEffect(() => {
-    if (RimPolicisticoCheckBox) {
-      setDisableRimPolicisticoSelect(false)
-      criaStringRimPolicistico(
-        RimPolicisticoSelect
-      );
-    } else {
-      setDisableRimPolicisticoSelect(true)
-      removeRimPolicistico();
-      setRimPolicisticoSelect("")
+
+  const removeItemConclusao = (value) => {
+    var index = ConclusaoCisto.indexOf(value);
+
+    if (index > -1) {
+      ConclusaoCisto.splice(index, 1);
+      setConclusaoCisto((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value);
     }
-  }, [
-    RimPolicisticoCheckBox,
-    RimPolicisticoSelect
-  ]);
+  };
+
+
+  const subExame = "Cistos";
+  const titulo_exame = "Rins e Vias Urinárias";
+
+  useEffect(() => {
+    if (Object.keys(FrasesCisto).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        FrasesCisto,
+        ConclusaoCisto
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        FrasesCisto,
+        ConclusaoCisto
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [FrasesCisto]);
 
   return (
     <Box
@@ -171,33 +169,30 @@ function Cisto() {
 
       <Box gap="30px" display="flex" flexWrap="wrap" mt="20px">
         <Stack>
-
-          <Box
-            gap='5px'
-            display='flex'
-            flexWrap='wrap'>
+          <Box gap="5px" display="flex" flexWrap="wrap">
             <Checkbox
               onChange={() =>
-                setmultiplosCistosRimDireitoCheckBox(!multiplosCistosRimDireitoCheckBox)
+                setCisto1RimDireitoCheckBox(
+                  !Cisto1RimDireitoCheckBox
+                )
               }
             >
               Múltiplos Cistos no Rim Direito, o maior mede
             </Checkbox>
 
             <Input
-              isDisabled={DisableSelectDireito}
+              isDisabled={!Cisto1RimDireitoCheckBox}
               value={tamanhoNoduloDireitoInput}
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
               textAlign="center"
               onChange={(e) => settamanhoNoduloDireitoInput(e.target.value)}
               placeholder={"mm"}
             />
             <Select
               w="auto"
-              isDisabled={DisableSelectDireito}
+              isDisabled={!Cisto1RimDireitoCheckBox}
               onChange={(e) => {
                 setPosicaoCistosDireitoSelect(e.target.value);
               }}
@@ -207,32 +202,34 @@ function Cisto() {
                 Posição
               </option>
               <option value="Intramural">Intramural</option>
-              <option value="Subseroso">Subseroso </option>
+              <option value="Subseroso">Subseroso</option>
               <option value="Submucoso">Submucoso</option>
             </Select>
           </Box>
-          <Box
-            gap='5px'
-            display='flex'
-            flexWrap='wrap'>
-            <Checkbox onChange={() => setmultiplosCistosRimEsquerdoCheckBox(!multiplosCistosRimEsquerdoCheckBox)}>
+          <Box gap="5px" display="flex" flexWrap="wrap">
+            <Checkbox
+              onChange={() =>
+                setCisto1RimEsquerdoCheckBox(
+                  !Cisto1RimEsquerdoCheckBox
+                )
+              }
+            >
               Múltiplos Cistos no Rim Esquerdo, o maior mede
             </Checkbox>
 
             <Input
-              isDisabled={DisableSelectEsquerdo}
+              isDisabled={!Cisto1RimEsquerdoCheckBox}
               value={tamanhoNoduloEsquerdoInput}
               w="60px"
               h="77x"
               padding="5px"
-              maxLength={2}
               textAlign="center"
               onChange={(e) => settamanhoNoduloEsquerdoInput(e.target.value)}
               placeholder={"mm"}
             />
             <Select
               w="auto"
-              isDisabled={DisableSelectEsquerdo}
+              isDisabled={!Cisto1RimEsquerdoCheckBox}
               onChange={(e) => {
                 setPosicaoCistosEsquerdoSelect(e.target.value);
               }}
@@ -246,46 +243,24 @@ function Cisto() {
               <option value="Submucoso">Submucoso</option>
             </Select>
           </Box>
-          <Box
-            gap='5px'
-            display='flex'
-            flexWrap='wrap'>
-            <Checkbox onChange={() => setRimPolicisticoCheckBox(!RimPolicisticoCheckBox)}>
-              Rim Policístico
-            </Checkbox>
 
-            <Select
-              w="auto"
-              isDisabled={DisableRimPolicisticoSelect}
-              onChange={(e) => {
-                setRimPolicisticoSelect(e.target.value);
-              }}
-              value={RimPolicisticoSelect}
-            >
-              <option value="" disabled selected>
-                Rim
-              </option>
-              <option value="Rim Direito">Direito</option>
-              <option value="Rim Esquerdo">Esquerdo </option>
-            </Select>
-          </Box>
 
           <Box borderBottom="1px"></Box>
           <Text fontWeight="semibold" fontSize="16px">
             Individualizar Cistos
           </Text>
-          <Stack>
-            <>
-              {numberArray.map((num, key) => {
-                return (
-                  <IndividualizarCistos
-                    key={key}
-                    numCisto={num}
-                  />
-                );
-              })}
-            </>
-          </Stack>
+
+          <Box gap="10px" display="flex" flexWrap="wrap">
+            {Cistos()}
+            <Button
+              colorScheme="blue"
+              onClick={() => {
+                setUpdateCistos(true);
+              }}
+            >
+              +1 Cisto
+            </Button>
+          </Box>
         </Stack>
       </Box>
     </Box>

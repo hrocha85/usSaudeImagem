@@ -1,74 +1,89 @@
 import { Box, Checkbox, HStack, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Extras() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "300px";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesExtras, setFrasesExtras] = useState<any>([]);
+  const [ConclusaoExtras, setConclusaoExtras] = useState<any>([]);
 
   const [uteroBiCheckBox, setUteroBiCheckBox] = useState(false);
   const [varizesCheckBox, setVarizesCheckBox] = useState(false);
 
   const criaStringVarizes = () => {
-    removeStringVarizes();
-
+    const string = "Nota-se em regiões para-uterinas presença de várias imagens anecóicas, tubulares, tortuosas, de limites precisos e contornos regulares.";
+    const conclusao = "Varizes pélvicas.";
+    removeItemString(string);
+    removeItemConclusao(conclusao)
     if (varizesCheckBox) {
-      var string = "Varizes pélvicas ";
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesExtras((arr) => [...arr, string]);
+      setConclusaoExtras((arr) => [...arr, conclusao]);
     }
   };
   const criaStringUteroBi = () => {
-    removeStringUteroBi();
-
+    const string = "Nota-se em varredura transversal do fundo uterino, descontinuidade do eco apresentando duplicação da cavidade uterina com interposição de miométrio entre as mesmas."
+    const conclusao = "Achados ecográficos sugestivos de malformação mulleriana (útero septado ou bicorno).";
+    removeItemString(string);
+    removeItemConclusao(conclusao)
     if (uteroBiCheckBox) {
-      var string = "Útero bicorno ";
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesExtras((arr) => [...arr, string]);
+      setConclusaoExtras((arr) => [...arr, conclusao]);
+    }
+  };
+  const removeItemString = (value) => {
+    // console.log("valor remove = ", value);
+    var index = frasesExtras.indexOf(value);
+    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+    if (index > -1) {
+      frasesExtras.splice(index, 1);
+      setFrasesExtras((arr) => [...arr]);
+    }
+  };
+  const removeItemConclusao = (value) => {
+    // console.log("valor remove = ", value);
+    var index = ConclusaoExtras.indexOf(value);
+    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+    if (index > -1) {
+      ConclusaoExtras.splice(index, 1);
+      setConclusaoExtras((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value)
     }
   };
 
-  const removeStringVarizes = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Varizes")) {
-        var index = laudoPrin.indexOf(e);
-
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
-        }
-      }
-    });
-  };
-  const removeStringUteroBi = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Útero")) {
-        var index = laudoPrin.indexOf(e);
-
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
-        }
-      }
-    });
-  };
 
   useEffect(() => {
-    if (uteroBiCheckBox) {
-      criaStringUteroBi();
-    } else {
-      removeStringUteroBi();
-    }
+    criaStringUteroBi();
   }, [uteroBiCheckBox]);
 
   useEffect(() => {
-    if (varizesCheckBox) {
-      criaStringVarizes();
-    } else {
-      removeStringVarizes();
-    }
+    criaStringVarizes();
   }, [varizesCheckBox]);
+
+  const subExame = "Extras";
+  const titulo_exame = "Doppler Transvaginal";
+
+  useEffect(() => {
+    if (Object.keys(frasesExtras).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesExtras,
+        ConclusaoExtras
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesExtras,
+        ConclusaoExtras
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesExtras]);
 
   return (
     <Box

@@ -6,259 +6,297 @@ import {
   Input,
   Select,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Ovario_Esquerdo() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "400px";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesOVD, setFrasesOVD] = useState<any>([]);
+  const [ConclusaoOVD, setConclusaoOVD] = useState<any>([]);
 
-  const [dopplerMedidasCheckBox, setdopplerMedidasCheckBox] =
-    useState(false);
+  const [dopplerMedidasCheckbox, setdopplerMedidasCheckbox] = useState(false);
   const [disableInputsDoppler, setDisableInputsDoppler] = useState(true);
 
-
-  const [MedidaEsquerdaIR, setMedidaEsquerdaIR] = useState("")
-  const [MedidaEsquerdaIP, setMedidaEsquerdaIP] = useState("")
+  const [MedidaEsquerdaIR, setMedidaEsquerdaIR] = useState("");
+  const [MedidaEsquerdaIP, setMedidaEsquerdaIP] = useState("");
 
   //States medidas ovario - Inicio
-  const [medidaOvario1, setmedidaOvario1] = useState("");
-  const [medidaOvario2, setmedidaOvario2] = useState("");
-  const [medidaOvario3, setmedidaOvario3] = useState("");
+  const [medidaOvario1, setmedidaOvario1] = useState(5);
+  const [medidaOvario2, setmedidaOvario2] = useState(5);
+  const [medidaOvario3, setmedidaOvario3] = useState(5);
+  const [medidaOvario4, setmedidaOvario4] = useState(0);
+  const [CitarMedidaCheckbox, setCitarMedidaCheckbox] = useState(false);
   //States medidas ovario - Fim
 
   //States cisto - input,checkbox e select - Inicio
   const [cistoInput, setCistoInput] = useState("");
-  const [disableCistoInput, setdisableCistoInput] = useState(true);
-  const [cistoCheckBox, setCistoCheckBox] = useState(false);
+  const [cistoCheckbox, setCistoCheckbox] = useState(false);
   const [cistoSelect, setCistoSelect] = useState("");
 
   const handleChangeCistoInput = (event) => {
     setCistoInput(event.target.value);
   };
+  const handleChangeMedida1Input = (event) => {
+    setmedidaOvario1(event.target.value);
+  };
+  const handleChangeMedida2Input = (event) => {
+    setmedidaOvario2(event.target.value);
+  };
+  const handleChangeMedida3Input = (event) => {
+    setmedidaOvario3(event.target.value);
+  };
   //States cisto - input,checkbox e select - Fim
 
-  //State checkBox Padrao Micropolicistico
-  const [padraoMicropolicisticoCheckBox, setpadraoMicropolicisticoCheckBox] =
+  //State checkbox Padrao Micropolicistico
+  const [padraoMicropolicisticoCheckbox, setpadraoMicropolicisticoCheckbox] =
     useState(false);
 
   //State Padrao Folicular
-  const [padraoFolicularCheckBox, setpadraoFolicularCheckBox] = useState(false);
+  const [padraoFolicularCheckbox, setpadraoFolicularCheckbox] = useState(false);
 
   //State Nao Visibilizado
-  const [naoVisibilizadoCheckBox, setnaoVisibilizadoCheckBox] = useState(true);
+  const [naoVisibilizadoCheckbox, setnaoVisibilizadoCheckbox] = useState(false);
 
   //Funcoes medidas ovario - Inicio
+
+
+
   const criaStringMedidasOvario = () => {
-    if (medidaOvario1 != "" && medidaOvario2 != "" && medidaOvario3 != "") {
-      var string = `Ovário Esquerdo mede ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm `;
-      setLaudoPrin((arr) => [...arr, string]);
+    var string = 'Medida ovário'
+    removeItemSelect(string);
+    if (CitarMedidaCheckbox) {
+      if (medidaOvario1 != 0 && medidaOvario2 != 0 && medidaOvario3 != 0) {
+        var medida4 = (medidaOvario1 * (medidaOvario2) * (medidaOvario3) / 1000) / 2
+        setmedidaOvario4(medida4)
+        string = `${string} ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm (Vol= ${medida4}cm³).`;
+        setFrasesOVD((arr) => [...arr, string]);
+      }
     }
   };
 
-  const removeMedidasOvario = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Ovário Esquerdo")) {
-        var index = laudoPrin.indexOf(e);
+  useEffect(() => {
+    criaStringMedidasOvario();
+  }, [medidaOvario1, medidaOvario2, medidaOvario3, CitarMedidaCheckbox]);
 
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
-        }
-      }
-    });
-  };
-  //Funcoes medidas ovario - Fim
 
   //Funcoes Padrao Folicular - Inicio
   const criaStringPadraoFolicular = () => {
-    var string = "Ovário Esquerdo com padrão folicular ";
-    setLaudoPrin((arr) => [...arr, string]);
+    const conclusao = 'Ovário Esquerdo com padrão folicular'
+    var string = "O parênquima exibe em seu interior múltiplos folículos, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.";
+    removeItemString(string)
+    removeItemConclusao(conclusao)
+    if (padraoFolicularCheckbox) {
+      setFrasesOVD((arr) => [...arr, string]);
+      setConclusaoOVD((arr) => [...arr, conclusao]);
+    }
   };
 
-  const removePadraoFolicular = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("folicular")) {
-        var index = laudoPrin.indexOf(e);
+  useEffect(() => {
 
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
-        }
-      }
-    });
-  };
+    criaStringPadraoFolicular();
+
+  }, [padraoFolicularCheckbox]);
+
   //Funcoes Padrao Folicular - Fim
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringPadraoMicropolicistico = () => {
-    var string = "Ovário Esquerdo com padrão micropolicístico ";
-    setLaudoPrin((arr) => [...arr, string]);
-    return string;
+    const conclusao = 'Ovário Esquerdo com aspecto micropolicístico.'
+    var string = "O parênquima exibe em seu interior múltiplos folículos, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.";
+    removeItemString(string)
+    removeItemConclusao(conclusao)
+    if (padraoMicropolicisticoCheckbox) {
+      setFrasesOVD((arr) => [...arr, string]);
+      setConclusaoOVD((arr) => [...arr, conclusao]);
+    }
   };
-
-  const removePadraoMicropolicistico = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("micropolicístico")) {
-        var index = laudoPrin.indexOf(e);
+  const removeItemConclusao = (value) => {
+    // console.log("valor remove = ", value);
+    var index = ConclusaoOVD.indexOf(value);
+    //caso o valor enviado exista no array, vai remover com splice e setar array novamente
+    if (index > -1) {
+      ConclusaoOVD.splice(index, 1);
+      setConclusaoOVD((arr) => [...arr]);
+      new Format_Laudo(titulo_exame).Remove_Conclusao(value)
+    }
+  };
+  const removeItemConclusaoSelect = (value) => {
+    // console.log("valor remove = ", value);
+    ConclusaoOVD.map((e) => {
+      if (e.includes(value)) {
+        var index = ConclusaoOVD.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          ConclusaoOVD.splice(index, 1);
+          setConclusaoOVD((arr) => [...arr]);
+        }
+      }
+      new Format_Laudo(titulo_exame).Remove_Conclusao_Select(value)
+    });
+
+  };
+
+  const removeItemSelect = (value) => {
+    frasesOVD.map((e) => {
+      if (e.includes(value)) {
+        var index = frasesOVD.indexOf(e);
+
+        if (index > -1) {
+          frasesOVD.splice(index, 1);
+          setFrasesOVD((arr) => [...arr]);
         }
       }
     });
   };
+
+  useEffect(() => {
+    criaStringPadraoMicropolicistico();
+  }, [padraoMicropolicisticoCheckbox]);
   //Funcoes Padrao Micropolicistico - Fim
 
   //Funcoes Cisto - Inicio
   const criaStringCisto = (medida, cisto) => {
-    removeCisto();
-    if (medida != "") {
-      var string = `Cisto no ovário Esquerdo com ${medida}mm ${cisto} `;
-      setLaudoPrin((arr) => [...arr, string]);
+    var string = `O parênquima apresenta imagem arredondada, anecóica de limites precisos e contornos regulares, com finos debrís em seu interior, medindo`;
+    var conclusao = 'Imagem cística sugestiva de'
+    removeItemSelect(string);
+    removeItemConclusaoSelect(conclusao)
+    if (cistoCheckbox) {
+      if (medida != "" && cisto != '') {
+        string = `${string} ${medida} mm.`
+        conclusao = `${conclusao} ${cisto} no ovário Esquerdo.`
+        setFrasesOVD((arr) => [...arr, string]);
+        setConclusaoOVD((arr) => [...arr, conclusao]);
+      }
+    } else {
+      setCistoInput('')
+      setCistoSelect('')
+
     }
   };
 
-  const removeCisto = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Cisto")) {
-        var index = laudoPrin.indexOf(e);
+  useEffect(() => {
+    criaStringCisto(cistoInput, cistoSelect);
+  }, [cistoCheckbox, cistoInput, cistoSelect]);
 
-        if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
-        }
-      }
-    });
-  };
   //Funcoes Cisto - Fim
 
   //Função Nao Visibilizado
   const criaStringNaoVisibilizado = () => {
     var string = "Ovário Esquerdo não visibilizado ";
-    if (naoVisibilizadoCheckBox) {
-      setLaudoPrin((arr) => [...arr, string]);
-      setnaoVisibilizadoCheckBox(false);
-    } else {
-      removeItemString(string);
+    removeItemString(string);
+    if (naoVisibilizadoCheckbox) {
+      setFrasesOVD((arr) => [...arr, string]);
     }
   };
+  useEffect(() => {
+    criaStringNaoVisibilizado()
+  }, [naoVisibilizadoCheckbox])
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    var index = frasesOVD.indexOf(value);
 
     if (index > -1) {
-      laudoPrin.splice(index, 1);
-      setLaudoPrin((arr) => [...arr]);
+      frasesOVD.splice(index, 1);
+      setFrasesOVD((arr) => [...arr]);
     }
   };
 
-
   const criaStringArteriaEsquerdaIR = (medida) => {
-    removeStringArteriaEsquerdaIR()
+    removeStringArteriaEsquerdaIR();
     if (MedidaEsquerdaIR !== "") {
       var string = `Índice de resistência da artéria uterina 
       Esquerda: ${medida} (normal entre 0,6 e 0,9)`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOVD((arr) => [...arr, string]);
     }
   };
   const removeStringArteriaEsquerdaIR = () => {
-    laudoPrin.map((e) => {
-      if (e.includes(`Índice de resistência da artéria uterina 
-      Esquerda`)) {
-        var index = laudoPrin.indexOf(e);
+    frasesOVD.map((e) => {
+      if (
+        e.includes(`Índice de resistência da artéria uterina 
+      Esquerda`)
+      ) {
+        var index = frasesOVD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOVD.splice(index, 1);
+          setFrasesOVD((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringArteriaEsquerdaIR(MedidaEsquerdaIR)
-  }, [MedidaEsquerdaIR])
+    criaStringArteriaEsquerdaIR(MedidaEsquerdaIR);
+  }, [MedidaEsquerdaIR]);
 
   const criaStringArteriaEsquerdaIP = (medida) => {
-    removeStringArteriaEsquerdaIP()
+    removeStringArteriaEsquerdaIP();
     if (MedidaEsquerdaIP !== "") {
       var string = `Índice de pulsatilidade da artéria uterina 
       Esquerda: ${medida} (normal entre 1,5 e 3,0)`;
-      setLaudoPrin((arr) => [...arr, string]);
+      setFrasesOVD((arr) => [...arr, string]);
     }
   };
   const removeStringArteriaEsquerdaIP = () => {
-    laudoPrin.map((e) => {
-      if (e.includes(`Índice de pulsatilidade da artéria uterina 
-      Esquerda`)) {
-        var index = laudoPrin.indexOf(e);
+    frasesOVD.map((e) => {
+      if (
+        e.includes(`Índice de pulsatilidade da artéria uterina 
+      Esquerda`)
+      ) {
+        var index = frasesOVD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesOVD.splice(index, 1);
+          setFrasesOVD((arr) => [...arr]);
         }
       }
     });
   };
 
   useEffect(() => {
-    criaStringArteriaEsquerdaIP(MedidaEsquerdaIP)
-  }, [MedidaEsquerdaIP])
+    criaStringArteriaEsquerdaIP(MedidaEsquerdaIP);
+  }, [MedidaEsquerdaIP]);
+
 
   useEffect(() => {
-    removeMedidasOvario();
-    criaStringMedidasOvario();
-  }, [medidaOvario1, medidaOvario2, medidaOvario3]);
-
-  useEffect(() => {
-    if (padraoMicropolicisticoCheckBox) {
-      criaStringPadraoMicropolicistico();
+    if (dopplerMedidasCheckbox) {
+      setDisableInputsDoppler(false);
     } else {
-      removePadraoMicropolicistico();
+      setMedidaEsquerdaIR("");
+      setMedidaEsquerdaIP("");
+      removeStringArteriaEsquerdaIR();
+      removeStringArteriaEsquerdaIP();
+      setDisableInputsDoppler(true);
     }
-  }, [padraoMicropolicisticoCheckBox]);
+  }, [dopplerMedidasCheckbox]);
+
+  const subExame = "Ovário Esquerdo";
+  const titulo_exame = "Doppler Transvaginal";
 
   useEffect(() => {
-    if (padraoFolicularCheckBox) {
-      criaStringPadraoFolicular();
+    if (Object.keys(frasesOVD).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesOVD,
+        ConclusaoOVD
+      ).Format_Laudo_Create_Storage();
     } else {
-      removePadraoFolicular();
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesOVD,
+        ConclusaoOVD
+      ).Format_Laudo_Create_Storage();
     }
-  }, [padraoFolicularCheckBox]);
-
-  useEffect(() => {
-    if (cistoCheckBox) {
-      setdisableCistoInput(false);
-    } else {
-      removeCisto();
-      setdisableCistoInput(true);
-      setCistoInput("");
-    }
-  }, [cistoCheckBox]);
-
-  useEffect(() => {
-    criaStringCisto(cistoInput, cistoSelect);
-  }, [cistoInput, cistoSelect]);
-
-  useEffect(() => {
-    if (dopplerMedidasCheckBox) {
-      setDisableInputsDoppler(false)
-    } else {
-      setMedidaEsquerdaIR('')
-      setMedidaEsquerdaIP('')
-      removeStringArteriaEsquerdaIR()
-      removeStringArteriaEsquerdaIP()
-      setDisableInputsDoppler(true)
-    }
-  }, [dopplerMedidasCheckBox])
-
+  }, [frasesOVD]);
 
   return (
     <Box
@@ -275,57 +313,68 @@ function Ovario_Esquerdo() {
       <TituloNomeExame titulo="Ovário Esquerdo" />
 
       <Box display="flex" flexWrap="wrap" mt="20px">
-        <Stack
-          borderBottom='1px'>
-          <Box w="200px">
-            <Text>Medidas:</Text>
+        <Stack borderBottom="1px">
+          <Box w="250px">
+            <Checkbox
+              isDisabled={naoVisibilizadoCheckbox}
+              onChange={(e) => setCitarMedidaCheckbox(!CitarMedidaCheckbox)}>
+              Medidas:
+            </Checkbox>
             <HStack marginTop="5px">
               <Input
+                isDisabled={!CitarMedidaCheckbox}
                 w="80px"
                 h="30px"
-                padding="5px"
-                maxLength={2}
+                padding="0px"
+                value={medidaOvario1}
                 textAlign="center"
-                onChange={(e) => setmedidaOvario1(e.target.value)}
+                onChange={handleChangeMedida1Input}
               />
               <Text>x</Text>
               <Input
+                isDisabled={!CitarMedidaCheckbox}
                 w="80px"
                 h="30px"
-                padding="5px"
-                maxLength={2}
+                padding="0px"
+                value={medidaOvario2}
                 textAlign="center"
-                onChange={(e) => setmedidaOvario2(e.target.value)}
+                onChange={handleChangeMedida2Input}
               />
               <Text>x</Text>
               <Input
+                isDisabled={!CitarMedidaCheckbox}
                 w="80px"
                 h="30px"
-                padding="5px"
-                maxLength={2}
+                padding="0px"
+                value={medidaOvario3}
                 textAlign="center"
-                onChange={(e) => {
-                  setmedidaOvario3(e.target.value);
-                }}
+                onChange={handleChangeMedida3Input}
               />
               <Text>mm</Text>
+              <Input
+                w="100px"
+                h="30px"
+                value={medidaOvario4}
+                padding="0px"
+                textAlign="center"
+
+              />
+              <Text>cm³</Text>
             </HStack>
           </Box>
 
           <Stack>
             <Checkbox
-              onChange={() => {
-                setnaoVisibilizadoCheckBox(true);
-                criaStringNaoVisibilizado();
-              }}
+              isDisabled={CitarMedidaCheckbox}
+              onChange={() => setnaoVisibilizadoCheckbox(!naoVisibilizadoCheckbox)}
             >
               Não visibilizado
             </Checkbox>
 
             <Checkbox
               onChange={() =>
-                setpadraoMicropolicisticoCheckBox(
-                  !padraoMicropolicisticoCheckBox
+                setpadraoMicropolicisticoCheckbox(
+                  !padraoMicropolicisticoCheckbox
                 )
               }
             >
@@ -333,33 +382,34 @@ function Ovario_Esquerdo() {
             </Checkbox>
             <Checkbox
               onChange={() =>
-                setpadraoFolicularCheckBox(!padraoFolicularCheckBox)
+                setpadraoFolicularCheckbox(!padraoFolicularCheckbox)
               }
             >
               Padrão Folicular
             </Checkbox>
 
             <HStack>
-              <Checkbox onChange={() => setCistoCheckBox(!cistoCheckBox)}>
+              <Checkbox onChange={() => setCistoCheckbox(!cistoCheckbox)}>
                 Cisto
               </Checkbox>
               <Input
-                isDisabled={disableCistoInput}
+                isDisabled={!cistoCheckbox}
                 value={cistoInput}
                 w="45px"
                 h="30px"
                 padding="5px"
-                maxLength={2}
                 textAlign="center"
                 onChange={handleChangeCistoInput}
               />
               <Text>mm</Text>
               <Select
-                isDisabled={disableCistoInput}
+                isDisabled={!cistoCheckbox}
+                value={cistoSelect}
                 onChange={(e) => {
                   setCistoSelect(e.target.value);
                 }}
               >
+                <option value="" selected disabled>Selecione</option>
                 <option value="Cisto simples">Cisto Simples</option>
                 <option value="Cisto septação fina">Cisto septação fina</option>
                 <option value="Multiloculado">Multiloculado</option>
@@ -371,68 +421,54 @@ function Ovario_Esquerdo() {
             </HStack>
           </Stack>
         </Stack>
-        <Box
-          mt='5px'
-          color="red"
-        >
-          <Text
-            w='100%'
-            fontWeight="semibold" fontSize="16px">
+        <Box mt="5px" color="red">
+          <Text w="100%" fontWeight="semibold" fontSize="16px">
             Doppler
           </Text>
-          <Box
-            display='flex'
-            flexWrap='wrap'>
+          <Box display="flex" flexWrap="wrap">
             <Checkbox
-              onChange={() => setdopplerMedidasCheckBox(!dopplerMedidasCheckBox)}>
+              onChange={() =>
+                setdopplerMedidasCheckbox(!dopplerMedidasCheckbox)
+              }
+            >
               Citar medidas
             </Checkbox>
             <Box>
-              <Box
-                mb='5px'
-                alignItems='center'
-                display='flex'
-                gap='25px'
-              >
-                <Text>Artéria uterina esquerda</Text>
-                <Box
-                  alignItems='center'
-                  display='flex'
-                >
-                  <Text mr='10px'>IR</Text>
+              <Box mb="5px" alignItems="center" display="flex" gap="25px">
+                <Text mr="22px">Artéria uterina Esquerda</Text>
+                <Box alignItems="center" display="flex">
+                  <Text mr="10px">IR</Text>
                   <Input
                     isDisabled={disableInputsDoppler}
                     w="60px"
                     h="77x"
                     padding="5px"
                     value={MedidaEsquerdaIR}
-                    maxLength={2}
                     textAlign="center"
-                    onChange={(e) => { setMedidaEsquerdaIR(e.target.value) }}
+                    onChange={(e) => {
+                      setMedidaEsquerdaIR(e.target.value);
+                    }}
                     placeholder={"mm"}
                   />
                 </Box>
-                <Box
-                  alignItems='center'
-                  display='flex'
-                >
-                  <Text mr='10px'>IP</Text>
+                <Box alignItems="center" display="flex">
+                  <Text mr="10px">IP</Text>
                   <Input
                     isDisabled={disableInputsDoppler}
                     w="60px"
                     h="77x"
                     padding="5px"
                     value={MedidaEsquerdaIP}
-                    maxLength={2}
                     textAlign="center"
-                    onChange={(e) => { setMedidaEsquerdaIP(e.target.value) }}
+                    onChange={(e) => {
+                      setMedidaEsquerdaIP(e.target.value);
+                    }}
                     placeholder={"mm"}
                   />
                 </Box>
               </Box>
             </Box>
           </Box>
-
         </Box>
       </Box>
     </Box>

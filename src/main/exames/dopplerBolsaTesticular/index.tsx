@@ -1,7 +1,5 @@
-import { Box } from "@chakra-ui/react";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
-import BoxTitleBackground from "../../component/box_title_background";
-import Exames from "../../folha_laudos/Laudos";
+import { Box, Grid } from "@chakra-ui/react";
+
 import CistoEpididimarios from "./cistosEpididimarios/cistoEpididimarios";
 import CistosTesticulares from "./cistosTesticulares/cistoTesticulares";
 import Hematoma from "./hematoma/hematoma";
@@ -16,51 +14,27 @@ import Virococele from "./varicocele/varicocele";
 
 function DopplerBolsaTesticular() {
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="40px"
-        fontsize="19px"
-        tamanho="350px 70px"
-        titulo="Doppler da Bolsa Testicular"
-      />
-      <Exames></Exames>
+    <Box ml="10px" paddingBottom="1%">
+      <Utero />
+      <CistosTesticulares />
+      <CistoEpididimarios />
+      <NodulosTesticulares />
 
-      <Box ml="10px">
-        <Utero />
-        <CistosTesticulares />
-        <CistoEpididimarios />
-        <NodulosTesticulares />
-
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <Microlitiase />
-          </Box>
-          <Box w="450px" mb="15px">
-            <Hidrocele />
-          </Box>
-        </Box>
-
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <Hematoma />
-          </Box>
-          <Box w="450px" mb="15px">
-            <Orquite />
-          </Box>
-        </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <Orquiepididimite />
-          </Box>
-          <Box w="450px" mb="15px">
-            <Torcao />
-          </Box>
-        </Box>
-        <Box w="450px">
-          <Virococele />
-        </Box>
-      </Box>
-    </Box_Default_With_Sidebar>
+      <Grid
+        templateColumns="repeat(2,1fr)"
+        templateRows="repeat(2, 1fr)"
+        gap={2}
+        maxW="95%"
+      >
+        <Microlitiase />
+        <Hidrocele />
+        <Hematoma />
+        <Orquite />
+        <Orquiepididimite />
+        <Torcao />
+        <Virococele />
+      </Grid>
+    </Box>
   );
 }
 

@@ -1,13 +1,14 @@
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { LaudosContext } from "../../../../context/LuadosContext";
+import { useEffect, useState } from "react";
+import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidrossalpinge() {
   const altura = "100%";
-  const largura = "95%";
+  const largura = "300px";
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
+  const [frasesHidro, setFrasesHidro] = useState<any>([]);
+  const [ConclusaoHidro, setConclusaoHidro] = useState<any>([]);
 
   const [posicaoHidrossalpingeSelect, setPosicaoHidrossalpingeSelect] =
     useState("");
@@ -18,34 +19,70 @@ function Hidrossalpinge() {
     removeStringHidrossalpinge();
 
     if (HidrossalpingeCheckBox && posicaoHidrossalpingeSelect != "") {
-      var string = `Hidrossalpinge ${posicaoHidrossalpingeSelect}`;
-      setLaudoPrin((arr) => [...arr, string]);
+      var string = `Nota-se em região anexial ${posicaoHidrossalpingeSelect} imagem anecóica, tubular, tortuosa, de limites precisos e contornos regulares.`;
+      var conclusao = `Hidrossalpinge à ${posicaoHidrossalpingeSelect}.`
+      setFrasesHidro((arr) => [...arr, string]);
+      setConclusaoHidro((arr) => [...arr, conclusao]);
     }
   };
 
   const removeStringHidrossalpinge = () => {
-    laudoPrin.map((e) => {
-      if (e.includes("Hidrossalpinge")) {
-        var index = laudoPrin.indexOf(e);
+    frasesHidro.map((e) => {
+      if (e.includes("Nota-se em região anexial ")) {
+        var index = frasesHidro.indexOf(e);
 
         if (index > -1) {
-          laudoPrin.splice(index, 1);
-          setLaudoPrin((arr) => [...arr]);
+          frasesHidro.splice(index, 1);
+          setFrasesHidro((arr) => [...arr]);
         }
       }
+    });
+    ConclusaoHidro.map((e) => {
+      if (e.includes('Hidrossalpinge')) {
+        var index = ConclusaoHidro.indexOf(e);
+
+        if (index > -1) {
+          ConclusaoHidro.splice(index, 1);
+          setConclusaoHidro((arr) => [...arr]);
+        }
+      }
+      new Format_Laudo(titulo_exame).Remove_Conclusao_Select('Hidrossalpinge')
     });
   };
 
   useEffect(() => {
     if (HidrossalpingeCheckBox) {
-      setDisableSelect(false)
+      setDisableSelect(false);
       criaStringHidrossalpinge();
     } else {
-      setDisableSelect(true)
+      setDisableSelect(true);
       removeStringHidrossalpinge();
       setPosicaoHidrossalpingeSelect("");
     }
   }, [HidrossalpingeCheckBox, posicaoHidrossalpingeSelect]);
+
+  const subExame = "Hidrossalpinge";
+  const titulo_exame = "Doppler Transvaginal";
+
+  useEffect(() => {
+    if (Object.keys(frasesHidro).length == 0) {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        true,
+        frasesHidro,
+        ConclusaoHidro
+      ).Format_Laudo_Create_Storage();
+    } else {
+      new Format_Laudo(
+        titulo_exame,
+        subExame,
+        false,
+        frasesHidro,
+        ConclusaoHidro
+      ).Format_Laudo_Create_Storage();
+    }
+  }, [frasesHidro]);
 
   return (
     <Box
@@ -85,8 +122,8 @@ function Hidrossalpinge() {
                   <option value="" disabled selected>
                     Posição
                   </option>
-                  <option value="direita">Direita</option>
-                  <option value="esquerda">Esquerda</option>
+                  <option value="à direita">Direita</option>
+                  <option value="à esquerda">Esquerda</option>
                   <option value="bilateral">Bilateral</option>
                 </Select>
               </HStack>

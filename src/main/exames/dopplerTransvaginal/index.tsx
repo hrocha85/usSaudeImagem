@@ -1,8 +1,7 @@
-import { Box, HStack } from "@chakra-ui/react";
-import BoxTitleBackground from "../../component/box_title_background";
-import Exames from "../../folha_laudos/Laudos";
-import BGImage from "../../images/bg_img.png";
+import { Box } from "@chakra-ui/react";
+
 import Extras from "./adicionais/extras";
+import Bexiga from "./bexiga/bexiga";
 import Cirurgias from "./cirurgias/cirurgias";
 import Hidatide from "./hidatide/hidatide";
 import Hidrossalpinge from "./hidrossalpinge/hidrossalpinge";
@@ -11,51 +10,40 @@ import Miometrio from "./miometrio/miometrio";
 import Ovario_Direito from "./ovarios/ovario_direito";
 import Ovario_Esquerdo from "./ovarios/ovario_esquedo";
 import Utero from "./utero/utero";
-import Box_Default_With_Sidebar from "../../component/box_default_sidebar";
+import Vagina from "./vagina/vagina";
 
 function DopplerTransvaginal() {
   return (
-    <Box_Default_With_Sidebar>
-      <BoxTitleBackground
-        PadLeft="20px"
-        fontsize="16px"
-        tamanho="200px"
-        titulo="Doppler Transvaginal"
-      />
-      <Exames></Exames>
+    <>
+
 
       <Box ml="10px">
         <Utero />
         <Miometrio />
 
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <Ovario_Esquerdo />
-          </Box>
-          <Box w="450px" mb="15px">
-            <Ovario_Direito />
-          </Box>
-        </Box>
+        <Box gap='10px' w="70%" display="flex" flexWrap="wrap">
 
-        <Cirurgias />
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <Hidatide />
-          </Box>
-          <Box w="450px" mb="15px">
-            <Hidrossalpinge />
-          </Box>
+          <Ovario_Esquerdo />
+
+
+          <Ovario_Direito />
+
         </Box>
-        <Box w="70%" display="flex" flexWrap="wrap">
-          <Box w="450px" mb="15px">
-            <Liquido_Livre />
-          </Box>
-          <Box w="450px" mb="15px">
-            <Extras />
-          </Box>
+        <Bexiga />
+        <Box gap='10px' w="70%" display="flex" flexWrap="wrap">
+          <Vagina />
+          <Hidatide />
+
+
+          <Hidrossalpinge />
+
+          <Liquido_Livre />
+          <Extras />
+          <Cirurgias />
+
         </Box>
       </Box>
-    </Box_Default_With_Sidebar>
+    </>
   );
 }
 
