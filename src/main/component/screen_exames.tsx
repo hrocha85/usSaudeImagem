@@ -207,9 +207,6 @@ export default function Box_Default_With_Sidebar() {
 
   ];
 
-  useEffect(() => {
-    console.log('tabExames', tabExames)
-  }, [])
 
   const handleSliderChange = (event) => {
     if (event == 1 && Object.keys(tabExames).length >= 2) {
@@ -225,7 +222,7 @@ export default function Box_Default_With_Sidebar() {
   };
 
   const RemoveTabExame = () => {
-    if (Object.keys(tabExames).length == 2) {
+    if (Object.keys(tabExames).length == 1) {
       SairExames();
     } else {
       tabExames.map((i) => {
@@ -313,7 +310,6 @@ export default function Box_Default_With_Sidebar() {
     if (exame !== undefined) {
       console.log('tabExames', tabExames)
       setCurrentExame(exame);
-      console.log(currentExame)
       setIsMounted(true);
     }
     return () => {
@@ -571,14 +567,14 @@ export default function Box_Default_With_Sidebar() {
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>
-              {Object.keys(tabExames).length == 2
+              {Object.keys(tabExames).length == 1
                 ? "Sair de exames ?"
                 : "Deseja fechar o exame ?"}
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <Text fontSize="20px">
-                {Object.keys(tabExames).length == 2
+                {Object.keys(tabExames).length == 1
                   ? "Deseja realmente sair ?"
                   : "Fechar exame ?"}
               </Text>
@@ -599,7 +595,7 @@ export default function Box_Default_With_Sidebar() {
                 fontSize="20px"
                 onClick={() => RemoveTabExame()}
               >
-                {Object.keys(tabExames).length == 2 ? "Sair" : "Fechar"}
+                {Object.keys(tabExames).length == 1 ? "Sair" : "Fechar"}
               </Button>
             </ModalFooter>
           </ModalContent>
