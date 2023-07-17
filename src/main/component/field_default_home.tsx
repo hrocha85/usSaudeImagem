@@ -280,7 +280,6 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
                 whiteSpace: "normal",
                 wordWrap: "break-word",
               }}
-              // onClick={() => console.log(id)}
               onClick={() => {
                 // AddExameID(id)
               }}
@@ -292,82 +291,6 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
         </Tooltip>
       </Box>
     </GridItem>
-
-    // <Navigate to="/Exames/" />) :
-    // (
-    //   <GridItem
-    //     w="200px"
-    //     h="70px"
-    //     display="flex"
-    //     flexWrap="wrap"
-    //     onClick={() => AddTituloLaudo()}
-    //   >
-    //     <Box
-    //       display="flex"
-    //       flexWrap="wrap"
-    //       h="100%"
-    //       w="100%"
-    //       margin="5px"
-    //       alignItems="center"
-    //     >
-    //       <Image
-    //         position="absolute"
-    //         h="100px"
-    //         width="220px"
-    //         z-index="-1"
-    //         src={reghd_2}
-    //         alt=""
-    //       />
-    //       {/* <Link
-    //       href={`#/Exames/`}
-    //       fontWeight="bold"
-    //       fontSize="14px"
-    //       position="relative"
-    //       pl="80px"
-    //       z-index="1"
-    //     /> */}
-
-    //       <Tooltip
-    //         isDisabled={enableExames}
-    //         label="Insira os dados do paciente"
-    //         backgroundColor="white"
-    //         placement="top"
-    //         hasArrow
-    //         arrowSize={15}
-    //         textColor="black"
-    //         fontSize="20px"
-    //         margin="20px"
-    //         textAlign="center"
-    //       >
-    //         {/* <Link
-    //         href={`#/Exames/`}
-    //         fontWeight="bold"
-    //         position="absolute"
-    //         pl="80px"
-    //         z-index="1"
-    //       > */}
-    //         <Button
-    //           _hover={{ bg: "blue.100", padding: "3px" }}
-    //           isDisabled={!enableExames}
-    //           fontSize="13.9px"
-    //           variant="link"
-    //           textAlign="center"
-    //           textColor="black"
-    //           w="110px"
-    //           h="100%"
-    //           style={{
-    //             whiteSpace: "normal",
-    //             wordWrap: "break-word",
-    //           }}
-    //           // onClick={() => console.log(id)}
-    //           onClick={() => AddExameID(id)}
-    //         >
-    //           {text}
-    //         </Button>
-    //         {/* </Link> */}
-    //       </Tooltip>
-    //     </Box>
-    //   </GridItem>
 
   )
 };
