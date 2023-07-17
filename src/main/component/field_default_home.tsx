@@ -1,20 +1,141 @@
 import { Box, Button, GridItem, Image, Link, Tooltip } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
 import { useContext } from "react";
+import FormatLaudo from "../../Data/Format_Laudo.json";
+import Observacoes from "../../Data/Observacoes.json";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
 import { TabExamesContext } from "../../context/TabExameContext";
-import FormatLaudo from "../../Data/Format_Laudo.json";
 import reghd_2 from "../images/reghd_2.png";
-import Observacoes from "../../Data/Observacoes.json";
 
-const FieldDefaultHome = ({ text, textColor, id, obs }) => {
+const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
   const { tabExames, setTabExames } = useContext(TabExamesContext);
 
   const format_laudo = FormatLaudo.format_laudo;
   const observacoes = Observacoes.observacoes;
 
+
+  const exames = [
+    {
+      key: 1,
+      nomeExame: "Abdômen total",
+      link: `#/Exames/${1}`,
+    },
+    // {
+    //   key: 2,
+    //   nomeExame: "Doppler Transvaginal",
+    //   link: `#/Home/${2}`,
+    // },
+    {
+      key: 3,
+      nomeExame: "Mamas",
+      link: `#/Exames/${3}`,
+    },
+    // {
+    //   key: 4,
+    //   nomeExame: "Doppler Artrial do MMSS",
+    //   link: `#/Exames/${4}`,
+    // },
+    {
+      key: 5,
+      nomeExame: "Abdomen Superior",
+      link: `#/Exames/${5}`,
+    },
+    {
+      key: 6,
+      nomeExame: "Transvaginal",
+      link: `#/Exames/${6}`,
+    },
+
+    // {
+    //   key: 7,
+    //   nomeExame: "Doppler Venoso de MMII",
+    //   link: `#/Exames/${7}`,
+    // },
+    {
+      key: 8,
+      nomeExame: "Tireóide",
+      link: `#/Exames/${8}`,
+    },
+    // {
+    //   key: 9,
+    //   nomeExame: "Doppler das Carótidas",
+    //   link: `#/Exames/${9}`,
+    // },
+
+    // {
+    //   key: 10,
+    //   nomeExame: "Doppler Arterial de MMII",
+    //   link: `#/Exames/${10}`,
+    // },
+
+    {
+      key: 11,
+      nomeExame: "Rins e Vias Urinárias",
+      link: `#/Exames/${11}`,
+    },
+
+    // {
+    //   key: 12,
+    //   nomeExame: "Doppler da Tireóide",
+    //   link: `#/Exames/${12}`,
+    // },
+    {
+      key: 13,
+      nomeExame: "Partes Moles",
+      link: `#/Exames/${13}`,
+    },
+    {
+      key: 14,
+      nomeExame: "Testículo",
+      link: `#/Exames/${14}`,
+    },
+    // {
+    //   key: 15,
+    //   nomeExame: "Doppler de Bolsa Testicular",
+    //   link: `#/Exames/${15}`,
+    // },
+
+    {
+      key: 16,
+      nomeExame: "Pélvico",
+      link: `#/Exames/${16}`,
+    },
+    {
+      key: 17,
+      nomeExame: "Próstata",
+      link: `#/Exames/${17}`,
+    },
+    {
+      key: 18,
+      nomeExame: "Articulações",
+      link: `#/Exames/${18}`,
+    },
+    {
+      key: 19,
+      nomeExame: "Região Inguinal",
+      link: `#/Exames/${19}`,
+    },
+    {
+      key: 20,
+      nomeExame: "Axila",
+      link: `#/Exames/${20}`,
+    },
+    {
+      key: 21,
+      nomeExame: "Torax",
+      link: `#/Exames/${21}`,
+    },
+    {
+      key: 22,
+      nomeExame: "Parede Abdominal",
+      link: `#/Exames/${21}`,
+    },
+  ];
+
   const AddTituloLaudo = () => {
+
+
     const existingFormatLaudo = localStorage.getItem("format_laudo");
 
     const newFormatLaudo = {
@@ -77,140 +198,30 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
     }
   };
 
-  const AddExameID = () => {
-    const exames = [
-      {
-        key: 1,
-        nomeExame: "Abdômen total",
-        link: `#/Home/${1}`,
-      },
-      // {
-      //   key: 2,
-      //   nomeExame: "Doppler Transvaginal",
-      //   link: `#/Home/${2}`,
-      // },
-      {
-        key: 3,
-        nomeExame: "Mamas",
-        link: `#/Home/${3}`,
-      },
-      // {
-      //   key: 4,
-      //   nomeExame: "Doppler Artrial do MMSS",
-      //   link: `#/Home/${4}`,
-      // },
-      {
-        key: 5,
-        nomeExame: "Abdomen Superior",
-        link: `#/Home/${5}`,
-      },
-      {
-        key: 6,
-        nomeExame: "Transvaginal",
-        link: `#/Home/${6}`,
-      },
+  const AddExameID = (idExame) => {
 
-      // {
-      //   key: 7,
-      //   nomeExame: "Doppler Venoso de MMII",
-      //   link: `#/Home/${7}`,
-      // },
-      {
-        key: 8,
-        nomeExame: "Tireóide",
-        link: `#/Home/${8}`,
-      },
-      // {
-      //   key: 9,
-      //   nomeExame: "Doppler das Carótidas",
-      //   link: `#/Home/${9}`,
-      // },
+    // const exameEncontrado = exames.find(
+    //   (e) => e.key.toString() === id.toString()
+    // );
 
-      // {
-      //   key: 10,
-      //   nomeExame: "Doppler Arterial de MMII",
-      //   link: `#/Home/${10}`,
-      // },
+    const exameEncontrado = exames.filter((e) => e.key == idExame)
 
-      {
-        key: 11,
-        nomeExame: "Rins e Vias Urinárias",
-        link: `#/Home/${11}`,
-      },
-
-      // {
-      //   key: 12,
-      //   nomeExame: "Doppler da Tireóide",
-      //   link: `#/Home/${12}`,
-      // },
-      {
-        key: 13,
-        nomeExame: "Partes Moles",
-        link: `#/Home/${13}`,
-      },
-      {
-        key: 14,
-        nomeExame: "Testículo",
-        link: `#/Home/${14}`,
-      },
-      // {
-      //   key: 15,
-      //   nomeExame: "Doppler de Bolsa Testicular",
-      //   link: `#/Home/${15}`,
-      // },
-
-      {
-        key: 16,
-        nomeExame: "Pélvico",
-        link: `#/Home/${16}`,
-      },
-      {
-        key: 17,
-        nomeExame: "Próstata",
-        link: `#/Home/${17}`,
-      },
-      {
-        key: 18,
-        nomeExame: "Articulações",
-        link: `#/Home/${18}`,
-      },
-      {
-        key: 19,
-        nomeExame: "Região Inguinal",
-        link: `#/Home/${19}`,
-      },
-      {
-        key: 20,
-        nomeExame: "Axila",
-        link: `#/Home/${20}`,
-      },
-      {
-        key: 21,
-        nomeExame: "Torax",
-        link: `#/Home/${21}`,
-      },
-      {
-        key: 22,
-        nomeExame: "Parede Abdominal",
-        link: `#/Home/${21}`,
-      },
-    ];
-
-    const exameEncontrado = exames.find(
-      (e) => e.key.toString() === id.toString()
-    );
 
     if (exameEncontrado) {
-      setTabExames((tabExames) => [...tabExames, exameEncontrado]);
+      setTabExames(exameEncontrado);
     }
   };
+
   return (
     <GridItem
       w="200px"
       h="70px"
       display="flex"
       flexWrap="wrap"
-      onClick={() => AddTituloLaudo()}
+      onClick={() => {
+        AddTituloLaudo()
+        AddExameID(id)
+      }}
     >
       <Box
         display="flex"
@@ -228,14 +239,14 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
           src={reghd_2}
           alt=""
         />
-        <Link
+        {/* <Link
           href={`#/Exames/`}
           fontWeight="bold"
           fontSize="14px"
           position="relative"
           pl="80px"
           z-index="1"
-        />
+        /> */}
 
         <Tooltip
           isDisabled={enableExames}
@@ -269,15 +280,96 @@ const FieldDefaultHome = ({ text, textColor, id, obs }) => {
                 whiteSpace: "normal",
                 wordWrap: "break-word",
               }}
-              onClick={() => AddExameID()}
+              // onClick={() => console.log(id)}
+              onClick={() => {
+                // AddExameID(id)
+              }}
             >
+
               {text}
             </Button>
           </Link>
         </Tooltip>
       </Box>
     </GridItem>
-  );
+
+    // <Navigate to="/Exames/" />) :
+    // (
+    //   <GridItem
+    //     w="200px"
+    //     h="70px"
+    //     display="flex"
+    //     flexWrap="wrap"
+    //     onClick={() => AddTituloLaudo()}
+    //   >
+    //     <Box
+    //       display="flex"
+    //       flexWrap="wrap"
+    //       h="100%"
+    //       w="100%"
+    //       margin="5px"
+    //       alignItems="center"
+    //     >
+    //       <Image
+    //         position="absolute"
+    //         h="100px"
+    //         width="220px"
+    //         z-index="-1"
+    //         src={reghd_2}
+    //         alt=""
+    //       />
+    //       {/* <Link
+    //       href={`#/Exames/`}
+    //       fontWeight="bold"
+    //       fontSize="14px"
+    //       position="relative"
+    //       pl="80px"
+    //       z-index="1"
+    //     /> */}
+
+    //       <Tooltip
+    //         isDisabled={enableExames}
+    //         label="Insira os dados do paciente"
+    //         backgroundColor="white"
+    //         placement="top"
+    //         hasArrow
+    //         arrowSize={15}
+    //         textColor="black"
+    //         fontSize="20px"
+    //         margin="20px"
+    //         textAlign="center"
+    //       >
+    //         {/* <Link
+    //         href={`#/Exames/`}
+    //         fontWeight="bold"
+    //         position="absolute"
+    //         pl="80px"
+    //         z-index="1"
+    //       > */}
+    //         <Button
+    //           _hover={{ bg: "blue.100", padding: "3px" }}
+    //           isDisabled={!enableExames}
+    //           fontSize="13.9px"
+    //           variant="link"
+    //           textAlign="center"
+    //           textColor="black"
+    //           w="110px"
+    //           h="100%"
+    //           style={{
+    //             whiteSpace: "normal",
+    //             wordWrap: "break-word",
+    //           }}
+    //           // onClick={() => console.log(id)}
+    //           onClick={() => AddExameID(id)}
+    //         >
+    //           {text}
+    //         </Button>
+    //         {/* </Link> */}
+    //       </Tooltip>
+    //     </Box>
+    //   </GridItem>
+
+  )
 };
 
 FieldDefaultHome.protoTypes = {
