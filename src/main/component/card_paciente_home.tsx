@@ -1,10 +1,12 @@
 import {
+  background,
   Box,
   Button,
   Center,
   HStack,
   Input,
   Select,
+  styled,
   Text,
   useToast,
   Wrap,
@@ -121,6 +123,8 @@ const CardPaciente = ({ altura }) => {
     }
   };
 
+  
+
   let options: Array<{ value: string; label: string }> = [];
 
   const storedMedicos = localStorage.getItem("medicos_solicitantes");
@@ -156,51 +160,67 @@ const CardPaciente = ({ altura }) => {
           bg="#FAFAFA"
           w="597px"
           h="100%"
-          color="white"
           borderRadius="10.85px"
-          boxShadow="dark-lg"
+          mr={60}
         >
-          <Box color="blackAlpha.700" fontWeight="bold" w="100%">
-            <Text textAlign="center" mt="10px" mb="10px">
-              Insira os dados do paciente:
+          <Box 
+          fontWeight="bold" w="100vw" 
+          bg="#0050ff" 
+          borderRadius={10}
+          
+          >
+            <Text textAlign="start" mt="10px"
+             mb="10px" pl={3}
+              fontSize={30}
+              textColor={'white'}>
+              Insira os dados do paciente
             </Text>
 
             <HStack display="flex" margin="20px" spacing="10px">
               <Input
-                borderColor="black"
-                placeholder="Nome"
+                placeholder="Nome do Paciente"
+                bg={'#2e4ad4'}
+                border={1}
                 value={nomePaciente}
-                size="sm"
-                h="40px"
-                w="250px"
-                borderRadius="md"
+                textColor={'white'}
+                size="lg"
+                h="50px"
+                w="400px"
                 onChange={handleNomePacienteInput}
               />
               <Input
-                borderColor="black"
                 placeholder="Idade"
+                bg={'#2e4ad4'}
+                border={1}
                 value={idadePaciente}
-                size="sm"
-                h="40px"
+                textColor={'white'}
+                size="lg"
+                h="50px"
                 w="150px"
-                borderRadius="md"
+                borderBottomColor={'whiteAlpha.900'}
                 
                 onChange={handleIdadePacienteInput}
               />
               <Select
-                placeholder="Sexo"
+                placeholder="Gênero"
                 value={sexoPaciente}
-                borderColor="black"
+                textColor={'black'}
+                bg={'#2e4ad4'}
+                border={1}               
+                size="lg"
+                h="50px"
                 w="200px"
                 onChange={handleSexoPacienteInput}
+                
               >
                 <option value="Masculino">Masculino</option>
                 <option value="Feminino">Feminino</option>
               </Select>
             </HStack>
 
-            <HStack display="flex" margin="20px" justify="center">
+            <HStack  display="flex" margin="20px" justify="start">
               <CreatableSelect
+                
                 isClearable={true}
                 onChange={handleSelectChange}
                 onCreateOption={(inputValue: string) => {
@@ -222,8 +242,10 @@ const CardPaciente = ({ altura }) => {
                 <WrapItem>
                   <Button
                     isDisabled={isDisable}
-                    colorScheme="blue"
+                    color={'#2e4ad4'}
+                    bg={'white'}
                     padding="20px"
+                    w={"12rem"}
                     onClick={() => {
                       addPaciente();
                       addMedicosSolicitantes();
@@ -245,7 +267,10 @@ const CardPaciente = ({ altura }) => {
               </Wrap>
               <Button
                 colorScheme="black"
+                borderColor={'white'}
+                textColor={'white'}
                 variant="outline"
+                w={"12rem"}
                 onClick={() => resetDados()}
               >
                 Limpar

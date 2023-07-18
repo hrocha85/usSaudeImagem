@@ -250,7 +250,13 @@ function Home() {
     );
   } else {
     return (
-      <Default_Backgound>
+      <>
+        <Text
+          textAlign="start" 
+          mt="10px" mb="10px" ml={10}
+          fontSize={48}
+          fontWeight="thin"
+        >Emissão dos Laudos</Text>
         <Button position="absolute" right="1" variant="ghost" top={0}>
           <Link href={"#/Home/Configuracoes"}>
             <Image
@@ -267,6 +273,14 @@ function Home() {
             <CardPaciente altura="300px" />
           </Stack>
         </Center>
+
+        <Text
+         textAlign="center" 
+         mt="10px" mb="10px"
+         fontSize={30}
+         fontWeight="thin">
+              Insira um ou mais tipos de laudo
+            </Text>
 
         <Center marginTop="1%">
           <LayoutExame item={<ItemExamesHome />} />
@@ -315,7 +329,7 @@ function Home() {
             </Button>
           </Tooltip>
         </Center>
-      </Default_Backgound>
+      </>
     );
   }
 }

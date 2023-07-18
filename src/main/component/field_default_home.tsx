@@ -214,7 +214,7 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
 
   return (
     <GridItem
-      w="200px"
+      w="100%"
       h="70px"
       display="flex"
       flexWrap="wrap"
@@ -225,20 +225,14 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
     >
       <Box
         display="flex"
-        flexWrap="wrap"
-        h="100%"
+        h="70%"
         w="100%"
         margin="5px"
-        alignItems="center"
+        alignItems={'center'}
+        borderRadius={10}
+        border={'1px'}
+        borderColor={'gray'}
       >
-        <Image
-          position="absolute"
-          h="100px"
-          width="220px"
-          z-index="-1"
-          src={reghd_2}
-          alt=""
-        />
         {/* <Link
           href={`#/Exames/`}
           fontWeight="bold"
@@ -251,31 +245,31 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
         <Tooltip
           isDisabled={enableExames}
           label="Insira os dados do paciente"
-          backgroundColor="white"
           placement="top"
+          bg={'whiteAlpha.700'}
           hasArrow
           arrowSize={15}
           textColor="black"
           fontSize="20px"
+          fontWeight={'semibold'}
           margin="20px"
           textAlign="center"
         >
           <Link
             href={`#/Exames/`}
             fontWeight="bold"
-            position="absolute"
-            pl="80px"
             z-index="1"
+            padding={19.9}
           >
             <Button
-              _hover={{ bg: "blue.100", padding: "3px" }}
+              _hover={{ padding: "3px" }}
               isDisabled={!enableExames}
-              fontSize="13.9px"
+              fontSize="15.9px"
               variant="link"
-              textAlign="center"
-              textColor="black"
-              w="110px"
-              h="100%"
+              alignContent={'center'}
+              textAlign={'center'}
+              w="130px"
+              h="30px"
               style={{
                 whiteSpace: "normal",
                 wordWrap: "break-word",
