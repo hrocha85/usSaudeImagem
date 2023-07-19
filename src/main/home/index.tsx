@@ -251,7 +251,7 @@ function Home() {
     );
   } else {
     return (
-      <>
+      < Box height={'100vh'}bgGradient='linear(to-b, blue.100, #fff)'>
 
         <Flex
           justifyContent="space-between">
@@ -335,7 +335,7 @@ function Home() {
         </Center>
         <Center marginTop="20px" paddingBottom="1%">
         </Center>
-      </>
+      </Box>
     );
   }
 }
