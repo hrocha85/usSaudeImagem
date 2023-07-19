@@ -1,0 +1,16 @@
+Revert "Merge pull request #6 from hrocha85/featHom"
+
+This reverts commit c82bbdde96066c7fcc3233d17d600955e7950cd7, reversing
+changes made to 1d0b3ba1288a277cd7eb85fdfa1a06a8777bbd63.
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# No ramo main
+# Your branch is up to date with 'origin/main'.
+#
+# Mudanças a serem submetidas:
+#	modified:   src/main/component/card_paciente_home.tsx
+#	modified:   src/main/component/field_default_home.tsx
+#	modified:   src/main/home/index.tsx
+#
