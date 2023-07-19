@@ -71,7 +71,7 @@ export default function Box_Default_With_Sidebar() {
     {
       key: 1,
       nomeExame: "Abdômen total",
-      link: `#/Home/${1}`,
+      link: `#/Exames/${1}`,
       observacao: [
         "Exame prejudicado devido grande presença de gases intestinais.",
         "Estaremos à disposição para a discussão do presente caso.",
@@ -84,7 +84,7 @@ export default function Box_Default_With_Sidebar() {
     {
       key: 3,
       nomeExame: "Mamas",
-      link: `#/Home/${3}`,
+      link: `#/Exames/${3}`,
       observacao: [
         "Conviria controle ecográfico periódico, a critério clínico.",
         "Estaremos à disposição para a discussão do presente caso.",
@@ -97,35 +97,35 @@ export default function Box_Default_With_Sidebar() {
     {
       key: 5,
       nomeExame: "Abdomen Superior",
-      link: `#/Home/${5}`,
+      link: `#/Exames/${5}`,
     },
     {
       key: 6,
       nomeExame: "Transvaginal",
-      link: `#/Home/${6}`,
+      link: `#/Exames/${6}`,
     },
 
     {
       key: 8,
       nomeExame: "Tireóide",
-      link: `#/Home/${8}`,
+      link: `#/Exames/${8}`,
     },
 
     {
       key: 11,
       nomeExame: "Rins e Vias Urinárias",
-      link: `#/Home/${11}`,
+      link: `#/Exames/${11}`,
     },
 
     {
       key: 13,
       nomeExame: "Partes Moles",
-      link: `#/Home/${13}`,
+      link: `#/Exames/${13}`,
     },
     {
       key: 14,
       nomeExame: "Testículo",
-      link: `#/Home/${14}`,
+      link: `#/Exames/${14}`,
       observacao: [
         "Conviria controle ecográfico periódico, a critério clínico.",
         "Estaremos à disposição para a discussão do presente caso.",
@@ -136,12 +136,12 @@ export default function Box_Default_With_Sidebar() {
     {
       key: 16,
       nomeExame: "Pélvico",
-      link: `#/Home/${16}`,
+      link: `#/Exames/${16}`,
     },
     {
       key: 17,
       nomeExame: "Próstata",
-      link: `#/Home/${17}`,
+      link: `#/Exames/${17}`,
       observacao: [
         "Exame restrito para avaliação do volume prostático, devendo ser correlacionado com os dados clínicos e exames laboratoriais específicos para pesquisa de neoplasia.",
         "Exames anteriores não disponíveis para estudo comparativo.",
@@ -152,12 +152,12 @@ export default function Box_Default_With_Sidebar() {
     {
       key: 18,
       nomeExame: "Articulações",
-      link: `#/Home/${18}`,
+      link: `#/Exames/${18}`,
     },
     {
       key: 19,
       nomeExame: "Região Inguinal",
-      link: `#/Home/${19}`,
+      link: `#/Exames/${19}`,
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
         "Estaremos à disposição para a discussão do presente caso.",
@@ -167,7 +167,7 @@ export default function Box_Default_With_Sidebar() {
     {
       key: 20,
       nomeExame: "Axila",
-      link: `#/Home/${20}`,
+      link: `#/Exames/${20}`,
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
         "Estaremos à disposição para a discussão do presente caso.",
@@ -177,7 +177,7 @@ export default function Box_Default_With_Sidebar() {
     {
       key: 21,
       nomeExame: "Torax",
-      link: `#/Home/${21}`,
+      link: `#/Exames/${21}`,
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
         "Estaremos à disposição para a discussão do presente caso.",
@@ -187,7 +187,7 @@ export default function Box_Default_With_Sidebar() {
     {
       key: 22,
       nomeExame: "Parede Abdominal",
-      link: `#/Home/${22}`,
+      link: `#/Exames/${22}`,
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
         "Estaremos à disposição para a discussão do presente caso.",
@@ -207,6 +207,7 @@ export default function Box_Default_With_Sidebar() {
 
   ];
 
+
   const handleSliderChange = (event) => {
     if (event == 1 && Object.keys(tabExames).length >= 2) {
       setTabIndex(0);
@@ -221,7 +222,7 @@ export default function Box_Default_With_Sidebar() {
   };
 
   const RemoveTabExame = () => {
-    if (Object.keys(tabExames).length == 2) {
+    if (Object.keys(tabExames).length == 1) {
       SairExames();
     } else {
       tabExames.map((i) => {
@@ -309,7 +310,6 @@ export default function Box_Default_With_Sidebar() {
     if (exame !== undefined) {
       console.log('tabExames', tabExames)
       setCurrentExame(exame);
-      console.log(currentExame)
       setIsMounted(true);
     }
     return () => {
@@ -567,14 +567,14 @@ export default function Box_Default_With_Sidebar() {
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>
-              {Object.keys(tabExames).length == 2
+              {Object.keys(tabExames).length == 1
                 ? "Sair de exames ?"
                 : "Deseja fechar o exame ?"}
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <Text fontSize="20px">
-                {Object.keys(tabExames).length == 2
+                {Object.keys(tabExames).length == 1
                   ? "Deseja realmente sair ?"
                   : "Fechar exame ?"}
               </Text>
@@ -595,7 +595,7 @@ export default function Box_Default_With_Sidebar() {
                 fontSize="20px"
                 onClick={() => RemoveTabExame()}
               >
-                {Object.keys(tabExames).length == 2 ? "Sair" : "Fechar"}
+                {Object.keys(tabExames).length == 1 ? "Sair" : "Fechar"}
               </Button>
             </ModalFooter>
           </ModalContent>
