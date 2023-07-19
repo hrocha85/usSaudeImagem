@@ -1,9 +1,111 @@
 {
   "observacoes": [
     {
-      "id": 0,
-      "titulo_observacao":"",
-      "observacao":[""]
+      "id": 1,
+      "observacao": [
+        "obs id 01"
+      ]
+    },
+    {
+      "id": 3,
+      "observacao": [
+        "Conviria controle ecográfico periódico, a critério clínico.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+        "A critério clínico, tendo-se em conta o aspecto liposubstituido do tecido mamário (normal para a pós-menopausa), estaria indicado para melhor avaliação, estudo radiológico digital bilateral (mamografia digital).",
+        "Exames anteriores não disponíveis para estudo comparativo."
+      ]
+    },
+    {
+      "id": 5,
+      "observacao": [
+        "obs id 05"
+      ]
+    },
+    {
+      "id": 6,
+      "observacao": [
+        "obs id 06"
+      ]
+    },
+    {
+      "id": 8,
+      "observacao": [
+        "obs id 08"
+      ]
+    },
+    {
+      "id": 11,
+      "observacao": [
+        "obs id 11"
+      ]
+    },
+    {
+      "id": 13,
+      "observacao": [
+        "obs id 13"
+      ]
+    },
+    {
+      "id": 14,
+      "observacao": [
+        "Conviria controle ecográfico periódico, a critério clínico.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos."
+      ]
+    },
+    {
+      "id": 16,
+      "observacao": [
+        "id obs 16"
+      ]
+    },
+    {
+      "id": 17,
+      "observacao": [
+        "Exame restrito para avaliação do volume prostático, devendo ser correlacionado com os dados clínicos e exames laboratoriais específicos para pesquisa de neoplasia.",
+        "Exames anteriores não disponíveis para estudo comparativo.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos."
+      ]
+    },
+    {
+      "id": 18,
+      "observacao": [
+        "obs id 18"
+      ]
+    },
+    {
+      "id": 19,
+      "observacao": [
+        "Exames anteriores não disponíveis para estudo comparativo.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos."
+      ]
+    },
+    {
+      "id": 20,
+      "observacao": [
+        "Exames anteriores não disponíveis para estudo comparativo.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos."
+      ]
+    },
+    {
+      "id": 21,
+      "observacao": [
+        "Exames anteriores não disponíveis para estudo comparativo.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos."
+      ]
+    },
+    {
+      "id": 22,
+      "observacao": [
+        "Exames anteriores não disponíveis para estudo comparativo.",
+        "Estaremos à disposição para a discussão do presente caso.",
+        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos."
+      ]
     }
   ]
 }

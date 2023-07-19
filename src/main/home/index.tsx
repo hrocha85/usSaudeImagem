@@ -45,6 +45,7 @@ function Home() {
         "Exames anteriores não disponíveis para estudo comparativo.",
         "JUP – Junção Uretero Piélica.",
         "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
+
       ],
     },
     // {
@@ -252,7 +253,7 @@ function Home() {
     return (
       <>
         <Text
-          textAlign="start" 
+          textAlign="start"
           mt="10px" mb="10px" ml={10}
           fontSize={48}
           fontWeight="thin"
@@ -275,12 +276,12 @@ function Home() {
         </Center>
 
         <Text
-         textAlign="center" 
-         mt="10px" mb="10px"
-         fontSize={30}
-         fontWeight="thin">
-              Insira um ou mais tipos de laudo
-            </Text>
+          textAlign="center"
+          mt="10px" mb="10px"
+          fontSize={30}
+          fontWeight="thin">
+          Insira um ou mais tipos de laudo
+        </Text>
 
         <Center marginTop="1%">
           <LayoutExame item={<ItemExamesHome />} />

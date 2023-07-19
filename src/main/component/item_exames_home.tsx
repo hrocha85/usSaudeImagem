@@ -1,17 +1,21 @@
 import FieldDefaultHome from "./field_default_home";
+import Observacoes from "../../Data/Observacoes.json";
+import { useEffect } from "react";
+
 
 const ItemExamesHome = () => {
+
+  const procuraObs = (key) => {
+    let obs = Observacoes.observacoes.filter((e) => e.id === key)
+    console.log(obs[0].observacao)
+    // return obs[0].observacao
+  }
+
   let exames = [
     {
       key: 1,
       nomeExame: "Abdômen total",
-      observacao: [
-        "Exame prejudicado devido grande presença de gases intestinais.",
-        "Estaremos à disposição para a discussão do presente caso.",
-        "Exames anteriores não disponíveis para estudo comparativo.",
-        "JUP – Junção Uretero Piélica.",
-        "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a investigação na presença de dados clínicos positivos.",
-      ],
+
     },
     // {
     //   key: 2,
@@ -157,6 +161,7 @@ const ItemExamesHome = () => {
         "Exames anteriores não disponíveis para estudo comparativo.",
         "Estaremos à disposição para a discussão do presente caso.",
         "Achados negativos na ultrassonografia não excluem a necessidade de prosseguir a	investigação na presença de dados clínicos positivos.",
+        'parede'
       ],
     },
     // {
@@ -188,6 +193,10 @@ const ItemExamesHome = () => {
     examesFiltrados = exames.filter((exame) => validaCampos(exame));
   }
 
+  // useEffect(() => {
+  //   procuraObs(2)
+  // }, [])
+
   return (
     <>
       {examesFiltrados.map((exame, key) => (
@@ -196,7 +205,7 @@ const ItemExamesHome = () => {
           text={exame.nomeExame}
           textColor={"#1A202C"}
           id={exame.key.toString()}
-          obs={exame.observacao}
+          obs={procuraObs(exame.key)}
           exame={exame}
         />
       ))}
