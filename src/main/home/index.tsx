@@ -266,8 +266,6 @@ function Home() {
           </Button>
 
           <Text
-          textAlign="start" 
-          mt="5px" mb="5px" ml={10}
           fontSize={'32px'}
           fontWeight="thin"
         >Emissão dos Laudos</Text>
