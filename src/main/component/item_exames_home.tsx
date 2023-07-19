@@ -7,8 +7,8 @@ const ItemExamesHome = () => {
 
   const procuraObs = (key) => {
     let obs = Observacoes.observacoes.filter((e) => e.id === key)
-    console.log(obs[0].observacao)
-    // return obs[0].observacao
+    // console.log(obs[0].observacao)
+    return obs[0].observacao
   }
 
   let exames = [
