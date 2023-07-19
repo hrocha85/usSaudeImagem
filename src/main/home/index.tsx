@@ -252,8 +252,9 @@ function Home() {
   } else {
     return (
       <>
-        
-        <Flex justifyContent="space-between">
+
+        <Flex
+          justifyContent="space-between">
           <Button right="1" variant="ghost" top={0}>
             <Link href={"#/Home/Configuracoes"}>
               <Image
@@ -266,9 +267,9 @@ function Home() {
           </Button>
 
           <Text
-          fontSize={'32px'}
-          fontWeight="thin"
-        >Emissão dos Laudos</Text>
+            fontSize={'32px'}
+            fontWeight="thin"
+          >Emissão dos Laudos</Text>
 
           <Tooltip
             label="Voltar para Login"
@@ -292,22 +293,22 @@ function Home() {
               Sair
             </Button>
           </Tooltip>
-    </Flex>
+        </Flex>
         <Center>
-          <Stack alignItems="center" marginTop="3%">
+          <Stack alignItems="center">
             <CardPaciente altura="300px" />
           </Stack>
         </Center>
 
         <Text
-         textAlign="center" 
-         mt="10px" mb="10px"
-         fontSize={23}
-         fontWeight="thin">
-              Insira um ou mais tipos de laudo
-            </Text>
+          textAlign="center"
+          mt="5px" mb="5px"
+          fontSize={23}
+          fontWeight="thin">
+          Selecione um laudo para iniciar
+        </Text>
 
-        <Center marginTop="1%">
+        <Center >
           <LayoutExame item={<ItemExamesHome />} />
         </Center>
         <Center marginTop="-130px">
