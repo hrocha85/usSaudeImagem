@@ -6,35 +6,35 @@ import {
   HStack,
   Image,
   Link,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
+  // Modal,
+  // ModalBody,
+  // ModalCloseButton,
+  // ModalContent,
+  // ModalFooter,
+  // ModalHeader,
+  // ModalOverlay,
   Spinner,
   Stack,
   Text,
   Tooltip,
-  useDisclosure,
+  //useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardPaciente from "../component/card_paciente_home";
-import Default_Backgound from "../component/default_backgound";
+//import Default_Backgound from "../component/default_backgound";
 import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
 import { Clear_Local_Storage } from "../component/remove_sub_exames_local_storage";
 import Configuracao from "../images/gear.webp";
 
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+//import Swal from "sweetalert2";
+//import withReactContent from "sweetalert2-react-content";
 
 function Home() {
   const [isMounted, setIsMounted] = useState(false);
   const navigate = useNavigate();
-  const MySwal = withReactContent(Swal);
+  //const MySwal = withReactContent(Swal);
 
   let exames = [
     {
@@ -254,48 +254,45 @@ function Home() {
       <>
         
         <Flex justifyContent="space-between">
-      {/* Botão ao lado do botão "Sair" */}
-      <Button right="1" variant="ghost" top={0}>
-        <Link href={"#/Home/Configuracoes"}>
-          <Image
-            srcSet={Configuracao}
-            alt="Second Icon Plus"
-            h="30px"
-            w="30px"
-          />
-        </Link>
-      </Button>
+          <Button right="1" variant="ghost" top={0}>
+            <Link href={"#/Home/Configuracoes"}>
+              <Image
+                srcSet={Configuracao}
+                alt="Second Icon Plus"
+                h="30px"
+                w="30px"
+              />
+            </Link>
+          </Button>
 
-      <Tooltip
-        label="Voltar para Login"
-        backgroundColor="white"
-        placement="bottom"
-        hasArrow
-        arrowSize={15}
-        textColor="black"
-        fontSize="20px"
-        margin="20px"
-        textAlign="center"
-      >
-        <Button
-          variant="solid"
-          fontSize="20px"
-          onClick={() => LogoutButton()}
-          colorScheme="blue"
-          top={1}
-          right={3}
-        >
-          Sair
-        </Button>
-      </Tooltip>
-    </Flex>
-        <Text
-          textAlign="start" 
-          mt="5px" mb="5px" ml={10}
+          <Text
           fontSize={'32px'}
           fontWeight="thin"
         >Emissão dos Laudos</Text>
 
+          <Tooltip
+            label="Voltar para Login"
+            backgroundColor="white"
+            placement="bottom"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+            fontSize="20px"
+            margin="20px"
+            textAlign="center"
+          >
+            <Button
+              variant="solid"
+              fontSize="20px"
+              onClick={() => LogoutButton()}
+              colorScheme="blue"
+              top={1}
+              right={3}
+            >
+              Sair
+            </Button>
+          </Tooltip>
+    </Flex>
         <Center>
           <Stack alignItems="center" marginTop="3%">
             <CardPaciente altura="300px" />
