@@ -169,9 +169,9 @@ const CardPaciente = ({ altura }) => {
           borderRadius={10}
           
           >
-            <Text textAlign="start" mt="5px"
-             mb="5px" pl={3}
-              fontSize={20}
+            <Text textAlign="start" mt="10px"
+             mb="10px" pl={3}
+              fontSize={30}
               textColor={'white'}>
               Insira os dados do paciente
             </Text>

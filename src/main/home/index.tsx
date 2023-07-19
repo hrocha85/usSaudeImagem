@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Center,
-  Flex,
   HStack,
   Image,
   Link,
@@ -252,49 +251,22 @@ function Home() {
   } else {
     return (
       <>
-        
-        <Flex justifyContent="space-between">
-      {/* Botão ao lado do botão "Sair" */}
-      <Button right="1" variant="ghost" top={0}>
-        <Link href={"#/Home/Configuracoes"}>
-          <Image
-            srcSet={Configuracao}
-            alt="Second Icon Plus"
-            h="30px"
-            w="30px"
-          />
-        </Link>
-      </Button>
-
-      <Tooltip
-        label="Voltar para Login"
-        backgroundColor="white"
-        placement="bottom"
-        hasArrow
-        arrowSize={15}
-        textColor="black"
-        fontSize="20px"
-        margin="20px"
-        textAlign="center"
-      >
-        <Button
-          variant="solid"
-          fontSize="20px"
-          onClick={() => LogoutButton()}
-          colorScheme="blue"
-          top={1}
-          right={3}
-        >
-          Sair
-        </Button>
-      </Tooltip>
-    </Flex>
         <Text
           textAlign="start" 
-          mt="5px" mb="5px" ml={10}
-          fontSize={'32px'}
+          mt="10px" mb="10px" ml={10}
+          fontSize={48}
           fontWeight="thin"
         >Emissão dos Laudos</Text>
+        <Button position="absolute" right="1" variant="ghost" top={0}>
+          <Link href={"#/Home/Configuracoes"}>
+            <Image
+              srcSet={Configuracao}
+              alt="Second Icon Plus"
+              h="30px"
+              w="30px"
+            />
+          </Link>
+        </Button>
 
         <Center>
           <Stack alignItems="center" marginTop="3%">
@@ -305,7 +277,7 @@ function Home() {
         <Text
          textAlign="center" 
          mt="10px" mb="10px"
-         fontSize={23}
+         fontSize={30}
          fontWeight="thin">
               Insira um ou mais tipos de laudo
             </Text>
@@ -336,6 +308,26 @@ function Home() {
           </HStack>
         </Center>
         <Center marginTop="20px" paddingBottom="1%">
+          <Tooltip
+            label="Voltar para Login"
+            backgroundColor="white"
+            placement="bottom"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+            fontSize="20px"
+            margin="20px"
+            textAlign="center"
+          >
+            <Button
+              variant="solid"
+              fontSize="20px"
+              onClick={() => LogoutButton()}
+              colorScheme="blue"
+            >
+              Sair
+            </Button>
+          </Tooltip>
         </Center>
       </>
     );
