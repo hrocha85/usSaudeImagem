@@ -179,10 +179,10 @@ const CardPaciente = ({ altura }) => {
             <HStack display="flex" margin="20px" spacing="10px">
               <Input
                 placeholder="Nome do Paciente"
-                bg={'#2e4ad4'}
                 border={1}
                 value={nomePaciente}
-                textColor={'white'}
+                textColor={'black'}
+                bg={'white'}
                 size="lg"
                 h="50px"
                 w="400px"
@@ -190,10 +190,10 @@ const CardPaciente = ({ altura }) => {
               />
               <Input
                 placeholder="Idade"
-                bg={'#2e4ad4'}
                 border={1}
                 value={idadePaciente}
-                textColor={'white'}
+                textColor={'black'}
+                bg={'white'}
                 size="lg"
                 h="50px"
                 w="150px"
@@ -205,7 +205,7 @@ const CardPaciente = ({ altura }) => {
                 placeholder="Gênero"
                 value={sexoPaciente}
                 textColor={'black'}
-                bg={'#2e4ad4'}
+                bg={'white'}
                 border={1}               
                 size="lg"
                 h="50px"
@@ -267,8 +267,9 @@ const CardPaciente = ({ altura }) => {
               </Wrap>
               <Button
                 colorScheme="black"
-                borderColor={'white'}
-                textColor={'white'}
+                borderColor={'gray'}
+                bg={'#d5edfb'}
+                textColor={'#2e4ad4'}
                 variant="outline"
                 w={"12rem"}
                 onClick={() => resetDados()}
