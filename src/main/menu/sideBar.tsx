@@ -93,26 +93,26 @@ const Sidebar = () => {
                 <NavIcon to="#">
                   <FaIcons.FaBars onClick={showSidebar} />
                 </NavIcon>
-                <Image
+                {/* <Image
                   src={logo}
                   w="180.66px"
                   h="60.73px"
                   marginLeft="18px"
                   marginTop="10px"
-                />
+                /> */}
               </Center>
             </HStack>
           </Nav>
           <SidebarNav sidebar={sidebar}>
             <SidebarWrap>
               <HStack>
-                <Image
+                {/* <Image
                   src={logo}
                   w="175px"
                   h="90px"
                   marginLeft="30px"
                   marginTop="10px"
-                />
+                /> */}
 
                 <NavIcon to="#">
                   <IoIosArrowBack onClick={showSidebar} />
