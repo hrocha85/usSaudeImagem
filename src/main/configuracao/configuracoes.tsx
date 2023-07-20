@@ -751,7 +751,7 @@ const Configuracoes = () => {
       w="100vh auto"
       h="100% auto"
       minH="100vh"
-      backgroundImage={BGImage}
+      bgGradient='linear(to-b, blue.100, #fff)'
       backgroundSize="cover"
       backgroundClip="padding-box"
       backgroundRepeat="no-repeat"
@@ -765,17 +765,17 @@ const Configuracoes = () => {
         align="center"
         padding="0px 20px 20px 20px"
       >
-        <BoxTitleBackground
+        {/* <BoxTitleBackground
           PadLeft="20px"
           fontsize="19px"
           tamanho="180px"
           titulo="Configurações"
-        />
+        /> */}
 
         {returnPOPoverLaudos()}
       </Stack>
       <Stack direction="row" flexWrap="wrap" gap="5px">
-        <MainCard titulo="Clínicas" icon={true} clinica={null} medicos={null} />
+        <MainCard titulo="Clínicas" icon={true} clinica={null} medicos={null}/>
 
         {medicos.map((medico, key) => {
           return <Medicos key={key} medico={medico} id={key} />;
