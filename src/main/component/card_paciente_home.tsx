@@ -1,5 +1,5 @@
 import {
-  background,
+  //background,
   Box,
   Button,
   Center,
@@ -154,73 +154,65 @@ const CardPaciente = ({ altura }) => {
 
   return (
     <Center>
-      <Box w="100%" display="flex">
+      <Box w="100vw" display="flex" justifyContent={'center'} marginTop={5}>
         <Box
           display="flex"
-          bg="#FAFAFA"
-          w="597px"
-          h="100%"
-          borderRadius="10.85px"
-          mr={60}
+          bgGradient='linear(to-b, blue.100, #fff)'
+          w="50rem"
+          h="11.8rem"
+          borderRadius="1rem"
         >
           <Box 
-          fontWeight="bold" w="100vw" 
-          bg="#0050ff" 
+          fontWeight="bold" w="50rem" 
           borderRadius={10}
+          border={'2px'}
           
           >
             <Text textAlign="start" mt="5px"
              mb="5px" pl={3}
-              fontSize={20}
-              textColor={'white'}>
+              fontSize={22}
+              textColor={'black'}>
               Insira os dados do paciente
             </Text>
 
             <HStack display="flex" margin="20px" spacing="10px">
               <Input
                 placeholder="Nome do Paciente"
-                border={1}
                 value={nomePaciente}
-                textColor={'black'}
-                bg={'white'}
                 size="lg"
-                h="50px"
-                w="400px"
+                h="3.1rem"
+                w="31rem"
+                borderColor="#444"
                 onChange={handleNomePacienteInput}
               />
               <Input
                 placeholder="Idade"
-                border={1}
                 value={idadePaciente}
-                textColor={'black'}
-                bg={'white'}
+                bgGradient='linear(to-b, blue.100, #fff)'
                 size="lg"
-                h="50px"
-                w="150px"
-                borderBottomColor={'whiteAlpha.900'}
-                
+                h="3.1rem"
+                w="6rem"
+                borderColor="#444"
                 onChange={handleIdadePacienteInput}
               />
               <Select
                 placeholder="Gênero"
                 value={sexoPaciente}
-                textColor={'black'}
-                bg={'white'}
-                border={1}               
+                bgGradient='linear(to-b, blue.100, #fff)'               
                 size="lg"
-                h="50px"
-                w="200px"
+                h="3.1rem"
+                w="8.7rem"
+                borderColor="#444"
                 onChange={handleSexoPacienteInput}
                 
               >
-                <option value="Masculino">Masculino</option>
+                <option  value="Masculino">Masculino</option>
                 <option value="Feminino">Feminino</option>
               </Select>
             </HStack>
 
             <HStack  display="flex" margin="20px" justify="start">
               <CreatableSelect
-                
                 isClearable={true}
                 onChange={handleSelectChange}
                 onCreateOption={(inputValue: string) => {
@@ -242,10 +234,12 @@ const CardPaciente = ({ altura }) => {
                 <WrapItem>
                   <Button
                     isDisabled={isDisable}
-                    color={'#2e4ad4'}
-                    bg={'white'}
-                    padding="20px"
-                    w={"12rem"}
+                    color={'white'}
+                    padding="1.3rem"
+                    border={'2px'}
+                    borderColor="#444"
+                    textColor={'black'}
+                    w='10rem'
                     onClick={() => {
                       addPaciente();
                       addMedicosSolicitantes();
@@ -268,10 +262,11 @@ const CardPaciente = ({ altura }) => {
               <Button
                 colorScheme="black"
                 borderColor={'gray'}
-                bg={'#d5edfb'}
+                bg={'#ccc'}
                 textColor={'#2e4ad4'}
                 variant="outline"
-                w={"12rem"}
+                w={"8rem"}
+                h={'2.7rem'}
                 onClick={() => resetDados()}
               >
                 Limpar
