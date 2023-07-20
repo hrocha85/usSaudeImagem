@@ -268,7 +268,7 @@ const CardPaciente = ({ altura }) => {
               <Button
                 colorScheme="black"
                 borderColor={'gray'}
-                bg={'#d5edfb'}
+                bg={'#ccc'}
                 textColor={'#2e4ad4'}
                 variant="outline"
                 w={"12rem"}

@@ -79,8 +79,8 @@ function Login() {
           <Stack>
             <Select
               defaultValue=""
-              w="100%"
-              borderColor="black"
+              w="60vw"
+              borderColor="#ccc"
               textAlign="center"
               onChange={(event) => setmedicoString(event.currentTarget.value)}
             >
@@ -99,8 +99,8 @@ function Login() {
             {medicoSelecionado != null || undefined ? (
               <Select
                 defaultValue=""
-                w="200px"
-                borderColor="black"
+                w="60vw"
+                borderColor="#ccc"
                 textAlign="center"
                 onChange={(e) => setclinicaString(e.currentTarget.value)}
               >
@@ -173,7 +173,7 @@ function Login() {
     <Box
       w="100%"
       h="100vh"
-      backgroundImage={BGImage}
+      height={'100vh'}bgGradient='linear(to-b, blue.100, #fff)'
       backgroundSize="cover"
       backgroundClip="padding-box"
       backgroundRepeat="no-repeat"
