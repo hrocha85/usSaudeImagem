@@ -264,31 +264,31 @@ export default function Box_Default_With_Sidebar() {
       observacoes: [""],
     };
 
-    if (exame.observacao != null) {
-      const existingObservacoes = localStorage.getItem("observacoes");
+    // if (exame.observacao != null) {
+    //   const existingObservacoes = localStorage.getItem("observacoes");
 
-      const newObservacao = {
-        id: exame.key,
-        titulo_observacao: exame.nomeExame,
-        observacao: exame.observacao!,
-      };
+    //   const newObservacao = {
+    //     id: exame.key,
+    //     titulo_observacao: exame.nomeExame,
+    //     observacao: exame.observacao!,
+    //   };
 
-      if (existingObservacoes !== null) {
-        const parsedObservacoes = JSON.parse(existingObservacoes);
-        const existingObservacaoIndex = parsedObservacoes.findIndex(
-          (obs) => obs.titulo_observacao === exame.nomeExame
-        );
-        if (existingObservacaoIndex !== -1) {
-          parsedObservacoes[existingObservacaoIndex].observacao =
-            exame.observacao!;
-        } else {
-          parsedObservacoes.push(newObservacao);
-        }
-        localStorage.setItem("observacoes", JSON.stringify(parsedObservacoes));
-      } else {
-        localStorage.setItem("observacoes", JSON.stringify([newObservacao]));
-      }
-    }
+    //   if (existingObservacoes !== null) {
+    //     const parsedObservacoes = JSON.parse(existingObservacoes);
+    //     const existingObservacaoIndex = parsedObservacoes.findIndex(
+    //       (obs) => obs.titulo_observacao === exame.nomeExame
+    //     );
+    //     if (existingObservacaoIndex !== -1) {
+    //       parsedObservacoes[existingObservacaoIndex].observacao =
+    //         exame.observacao!;
+    //     } else {
+    //       parsedObservacoes.push(newObservacao);
+    //     }
+    //     localStorage.setItem("observacoes", JSON.stringify(parsedObservacoes));
+    //   } else {
+    //     localStorage.setItem("observacoes", JSON.stringify([newObservacao]));
+    //   }
+    // }
 
     if (existingFormatLaudo !== null) {
       const parsedFormatLaudo = JSON.parse(existingFormatLaudo);

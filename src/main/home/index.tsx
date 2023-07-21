@@ -36,6 +36,7 @@ function Home() {
   const navigate = useNavigate();
   //const MySwal = withReactContent(Swal);
 
+
   let exames = [
     {
       key: 1,
@@ -209,6 +210,13 @@ function Home() {
   var clinica = JSON.parse(user.clinica);
   var medico = user.medico;
 
+  useEffect(() => {
+    const existingObservacoes = localStorage.getItem("observacoes");
+    if (!existingObservacoes) {
+      localStorage.setItem("observacoes", JSON.stringify(exames));
+    }
+  }, [])
+
   const LogoutButton = () => {
     localStorage.removeItem("user");
     navigate("/Login");
@@ -251,7 +259,7 @@ function Home() {
     );
   } else {
     return (
-      < Box height={'100vh'}bgGradient='linear(to-b, blue.100, #fff)'>
+      < Box height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'>
 
         <Flex
           justifyContent="space-between">
