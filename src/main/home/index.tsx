@@ -36,6 +36,7 @@ function Home() {
   const navigate = useNavigate();
   //const MySwal = withReactContent(Swal);
 
+
   let exames = [
     {
       key: 1,
@@ -70,10 +71,12 @@ function Home() {
     {
       key: 5,
       nomeExame: "Abdomen Superior",
+      observacao: []
     },
     {
       key: 6,
       nomeExame: "Transvaginal",
+      observacao: []
     },
     // {
     //   key: 7,
@@ -86,6 +89,7 @@ function Home() {
     {
       key: 8,
       nomeExame: "Tireóide",
+      observacao: []
     },
     // {
     //   key: 9,
@@ -110,6 +114,7 @@ function Home() {
     {
       key: 11,
       nomeExame: "Rins e Vias Urinárias",
+      observacao: []
     },
     // {
     //   key: 16,
@@ -122,6 +127,7 @@ function Home() {
     {
       key: 13,
       nomeExame: "Partes Moles",
+      observacao: []
     },
     {
       key: 14,
@@ -143,6 +149,7 @@ function Home() {
     {
       key: 16,
       nomeExame: "Pélvico",
+      observacao: []
     },
     {
       key: 17,
@@ -157,6 +164,7 @@ function Home() {
     {
       key: 18,
       nomeExame: "Articulações",
+      observacao: []
     },
     {
       key: 19,
@@ -209,6 +217,13 @@ function Home() {
   var clinica = JSON.parse(user.clinica);
   var medico = user.medico;
 
+  useEffect(() => {
+    const existingObservacoes = localStorage.getItem("observacoes");
+    if (!existingObservacoes) {
+      localStorage.setItem("observacoes", JSON.stringify(exames));
+    }
+  }, [])
+
   const LogoutButton = () => {
     localStorage.removeItem("user");
     navigate("/Login");
@@ -251,7 +266,7 @@ function Home() {
     );
   } else {
     return (
-      < Box height={'100vh'}bgGradient='linear(to-b, blue.100, #fff)'>
+      < Box height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'>
 
         <Flex
           justifyContent="space-between">

@@ -1,6 +1,6 @@
 import { Box, Button, GridItem, Image, Link, Tooltip } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import FormatLaudo from "../../Data/Format_Laudo.json";
 import Observacoes from "../../Data/Observacoes.json";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
@@ -10,9 +10,8 @@ import reghd_2 from "../images/reghd_2.png";
 const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
   const { tabExames, setTabExames } = useContext(TabExamesContext);
+  const [observacoes, SetObservacoes] = useState([])
 
-  const format_laudo = FormatLaudo.format_laudo;
-  const observacoes = Observacoes.observacoes;
 
 
   const exames = [
@@ -165,37 +164,36 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
 
     localStorage.setItem("format_laudo", JSON.stringify(updatedFormatLaudo));
 
-    const existingObservacoes = localStorage.getItem("observacoes");
 
-    if (obs != null) {
-      const newObservacao = {
-        id: id,
-        titulo_observacao: text,
-        observacao: obs!,
-      };
+    // if (obs != null) {
+    //   const newObservacao = {
+    //     id: id,
+    //     titulo_observacao: text,
+    //     observacao: obs!,
+    //   };
 
-      if (existingObservacoes !== null) {
-        const parsedObservacoes = JSON.parse(existingObservacoes);
-        const existingObservacao = parsedObservacoes.find(
-          (obs) => obs.titulo_observacao === text
-        );
-        if (existingObservacao) {
-          existingObservacao.observacao = obs!;
-          localStorage.setItem(
-            "observacoes",
-            JSON.stringify(parsedObservacoes)
-          );
-        } else {
-          const mergedObservacoes = [...parsedObservacoes, newObservacao];
-          localStorage.setItem(
-            "observacoes",
-            JSON.stringify(mergedObservacoes)
-          );
-        }
-      } else {
-        localStorage.setItem("observacoes", JSON.stringify([newObservacao]));
-      }
-    }
+    //   if (existingObservacoes !== null) {
+    //     const parsedObservacoes = JSON.parse(existingObservacoes);
+    //     const existingObservacao = parsedObservacoes.find(
+    //       (obs) => obs.titulo_observacao === text
+    //     );
+    //     if (existingObservacao) {
+    //       existingObservacao.observacao = obs!;
+    //       localStorage.setItem(
+    //         "observacoes",
+    //         JSON.stringify(parsedObservacoes)
+    //       );
+    //     } else {
+    //       const mergedObservacoes = [...parsedObservacoes, newObservacao];
+    //       localStorage.setItem(
+    //         "observacoes",
+    //         JSON.stringify(mergedObservacoes)
+    //       );
+    //     }
+    //   } else {
+    //     localStorage.setItem("observacoes", JSON.stringify([newObservacao]));
+    //   }
+    // }
   };
 
   const AddExameID = (idExame) => {
@@ -288,83 +286,6 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
         </Tooltip>
       </Box>
     </GridItem>
-
-    // <Navigate to="/Exames/" />) :
-    // (
-    //   <GridItem
-    //     w="200px"
-    //     h="70px"
-    //     display="flex"
-    //     flexWrap="wrap"
-    //     onClick={() => AddTituloLaudo()}
-    //   >
-    //     <Box
-    //       display="flex"
-    //       flexWrap="wrap"
-    //       h="100%"
-    //       w="100%"
-    //       margin="5px"
-    //       alignItems="center"
-    //     >
-    //       <Image
-    //         position="absolute"
-    //         h="100px"
-    //         width="220px"
-    //         z-index="-1"
-    //         src={reghd_2}
-    //         alt=""
-    //       />
-    //       {/* <Link
-    //       href={`#/Exames/`}
-    //       fontWeight="bold"
-    //       fontSize="14px"
-    //       position="relative"
-    //       pl="80px"
-    //       z-index="1"
-    //     /> */}
-
-    //       <Tooltip
-    //         isDisabled={enableExames}
-    //         label="Insira os dados do paciente"
-    //         backgroundColor="white"
-    //         placement="top"
-    //         hasArrow
-    //         arrowSize={15}
-    //         textColor="black"
-    //         fontSize="20px"
-    //         margin="20px"
-    //         textAlign="center"
-    //       >
-    //         {/* <Link
-    //         href={`#/Exames/`}
-    //         fontWeight="bold"
-    //         position="absolute"
-    //         pl="80px"
-    //         z-index="1"
-    //       > */}
-    //         <Button
-    //           _hover={{ bg: "blue.100", padding: "3px" }}
-    //           isDisabled={!enableExames}
-    //           fontSize="13.9px"
-    //           variant="link"
-    //           textAlign="center"
-    //           textColor="black"
-    //           w="110px"
-    //           h="100%"
-    //           style={{
-    //             whiteSpace: "normal",
-    //             wordWrap: "break-word",
-    //           }}
-    //           // onClick={() => console.log(id)}
-    //           onClick={() => AddExameID(id)}
-    //         >
-    //           {text}
-    //         </Button>
-    //         {/* </Link> */}
-    //       </Tooltip>
-    //     </Box>
-    //   </GridItem>
-
   )
 };
 
