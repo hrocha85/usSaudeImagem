@@ -71,10 +71,12 @@ function Home() {
     {
       key: 5,
       nomeExame: "Abdomen Superior",
+      observacao: []
     },
     {
       key: 6,
       nomeExame: "Transvaginal",
+      observacao: []
     },
     // {
     //   key: 7,
@@ -87,6 +89,7 @@ function Home() {
     {
       key: 8,
       nomeExame: "Tireóide",
+      observacao: []
     },
     // {
     //   key: 9,
@@ -111,6 +114,7 @@ function Home() {
     {
       key: 11,
       nomeExame: "Rins e Vias Urinárias",
+      observacao: []
     },
     // {
     //   key: 16,
@@ -123,6 +127,7 @@ function Home() {
     {
       key: 13,
       nomeExame: "Partes Moles",
+      observacao: []
     },
     {
       key: 14,
@@ -144,6 +149,7 @@ function Home() {
     {
       key: 16,
       nomeExame: "Pélvico",
+      observacao: []
     },
     {
       key: 17,
@@ -158,6 +164,7 @@ function Home() {
     {
       key: 18,
       nomeExame: "Articulações",
+      observacao: []
     },
     {
       key: 19,
