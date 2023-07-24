@@ -31,7 +31,6 @@ export default function Field_Observacoes({ exame }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const get_format_laudo = JSON.parse(localStorage.getItem("format_laudo")!);
   const observacao: any[] = get_format_laudo.map((e) => {
-    console.log(exame)
     if (e.titulo_exame == exame.nomeExame) {
       return e.observacoes;
     }
@@ -46,10 +45,6 @@ export default function Field_Observacoes({ exame }) {
   var ExameObservacoes = observacoesLocalStorage.filter((e) => e.key === exame.key)
 
   var observacoes = ExameObservacoes[0]
-
-  useEffect(() => {
-    console.log("exame recebido", observacoes)
-  }, [])
 
   const [items, setItems] = useState<{ id: string; values: string[] }>({
     id: exame.nomeExame,
@@ -311,30 +306,26 @@ export default function Field_Observacoes({ exame }) {
 
   const Render_Button_add_all_obs = () => {
     const adicionarTodasObservacoes = () => {
-      if (observacoes != null && observacoes != undefined) {
-        observacoes.forEach((observacao) => {
-          if (observacao.nomeExame === exame.nomeExame) {
-            observacao.observacao.forEach((currentOBS) => {
-              setCurrentOBS(currentOBS);
-              setItems((prevItem) => ({
-                id: prevItem.id,
-                values: [...prevItem.values, currentOBS!],
-              }));
-              setAllObs(true);
-            });
+      if (observacoes.observacao != null && observacoes.observacao != undefined) {
+        observacoes.observacao.forEach((observacao) => {
+          if (observacoes.nomeExame === exame.nomeExame) {
+            setCurrentOBS(observacao);
+            setItems((prevItem) => ({
+              id: prevItem.id,
+              values: [...prevItem.values, observacao!],
+            }));
+            setAllObs(true);
           }
         });
       }
     };
 
     const removeAllObs = () => {
-      if (observacoes != null && observacoes != undefined) {
-        observacoes.forEach((observacao) => {
-          if (observacao.nomeExame === exame.nomeExame) {
-            observacao.observacao.forEach((currentOBS) => {
-              setCurrentOBS(currentOBS);
-              new Format_Laudo(exame.nomeExame).Remove_Observacao(currentOBS);
-            });
+      if (observacoes.observacao != null && observacoes.observacao != undefined) {
+        observacoes.observacao.forEach((observacao) => {
+          if (observacoes.nomeExame === exame.nomeExame) {
+            setCurrentOBS(observacao);
+            new Format_Laudo(exame.nomeExame).Remove_Observacao(observacao);
             setAllObs(false);
             setItems({ id: items.id, values: [""] });
           }
