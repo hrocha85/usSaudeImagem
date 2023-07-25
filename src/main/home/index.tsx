@@ -5,6 +5,7 @@ import {
   Flex,
   HStack,
   Image,
+  Input,
   Link,
   // Modal,
   // ModalBody,
@@ -17,6 +18,7 @@ import {
   Stack,
   Text,
   Tooltip,
+  VStack,
   //useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -27,6 +29,7 @@ import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
 import { Clear_Local_Storage } from "../component/remove_sub_exames_local_storage";
 import Configuracao from "../images/gear.webp";
+import { getLocalData, setLocalData } from "../../database/localDatabase";
 
 //import Swal from "sweetalert2";
 //import withReactContent from "sweetalert2-react-content";
@@ -224,9 +227,53 @@ function Home() {
     }
   }, [])
 
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+
+  useEffect(() => {
+    loadLocalData();
+  }, []);
+
+  const loadLocalData = async () => {
+    const data = await getLocalData();
+    if (data) {
+      setName(data.name);
+      setAge(data.age.toString());
+    }
+  };
+
+  const handleSave = async () => {
+    const data = { name, age: parseInt(age, 10) };
+    await setLocalData(data);
+  };
+  // const saveDataToFile = (data: string, fileName: string) => {
+  //   // Cria um Blob com os dados
+  //   const blob = new Blob([data], { type: 'text/plain' });
+
+  //   // Cria uma URL para o Blob
+  //   const url = URL.createObjectURL(blob);
+
+  //   // Cria um link para disponibilizar o download do arquivo
+  //   const link = document.createElement('a');
+  //   link.href = url;
+  //   link.download = fileName;
+
+  //   // Simula um clique no link para iniciar o download
+  //   link.click();
+
+  //   // Libera a URL do Blob após o download
+  //   URL.revokeObjectURL(url);
+  // };
+
   const LogoutButton = () => {
-    localStorage.removeItem("user");
-    navigate("/Login");
+
+
+    // const dataToSave = 'Este é um exemplo de dados a serem gravados em um arquivo.';
+    // const fileName = 'dados.txt';
+    // saveDataToFile(dataToSave, fileName);
+
+    // localStorage.removeItem("user");
+    // navigate("/Login");
   };
 
   useEffect(() => {
@@ -267,6 +314,13 @@ function Home() {
   } else {
     return (
       < Box height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'>
+        <Box backgroundColor='red'>
+          <VStack>
+            <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
+            <Input value={age} onChange={(e) => setAge(e.target.value)} placeholder="Age" />
+            <Button onClick={handleSave}>Save</Button>
+          </VStack>
+        </Box>
 
         <Flex
           justifyContent="space-between">

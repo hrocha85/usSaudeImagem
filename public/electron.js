@@ -16,7 +16,11 @@ function createWindow() {
     },
     width: 1200,
     show: false,
-    autoHideMenuBar: true
+    autoHideMenuBar: true,
+    resolve: {
+      fallback: { 'path': require.resolve('path-browserify') },
+      extensions: ['.jsx', '.js', 'ts'],
+    },
   });
 
   mainWindow.loadURL(isDev ? "http://localhost:3000/" : `file://${path.join(__dirname, "../build/index.html")}`);
