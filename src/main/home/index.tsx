@@ -266,7 +266,7 @@ function Home() {
     );
   } else {
     return (
-      < Box height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'>
+      < Box overflowX={"hidden"} height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'>
 
         <Flex
           justifyContent="space-between">
@@ -310,9 +310,7 @@ function Home() {
           </Tooltip>
         </Flex>
         <Center>
-          <Stack alignItems="center">
-            <CardPaciente altura="300px" />
-          </Stack>
+          <CardPaciente />
         </Center>
 
         <Text
@@ -323,30 +321,38 @@ function Home() {
           Selecione um laudo para iniciar
         </Text>
 
-        <Center >
+        <Center>
           <LayoutExame item={<ItemExamesHome />} />
         </Center>
-        <Center marginTop="-130px">
-          <HStack
+        <Center >
+          <Box
+            justifyContent='center'
+            gap='10px' display="flex" flexWrap='wrap'
             borderWidth="2px"
             padding="20px"
             borderRadius="md"
             borderColor="grey"
             boxShadow="xl"
           >
-            <Text fontWeight="semibold" fontSize="xl">
-              Médico:
-            </Text>
-            <Text fontSize="xl">{medico.nome}</Text>
-            <Text fontWeight="semibold" fontSize="xl">
-              CRM:
-            </Text>
-            <Text fontSize="xl">{medico.crm}</Text>
-            <Text fontWeight="semibold" fontSize="xl">
-              Clínica:
-            </Text>
-            <Text fontSize="xl">{clinica.nomeClinica}</Text>
-          </HStack>
+            <HStack>
+              <Text fontWeight="semibold" fontSize="xl">
+                Médico:
+              </Text>
+              <Text fontSize="xl">{medico.nome}</Text>
+            </HStack>
+            <HStack>
+              <Text fontWeight="semibold" fontSize="xl">
+                CRM:
+              </Text>
+              <Text fontSize="xl">{medico.crm}</Text>
+            </HStack>
+            <HStack>
+              <Text fontWeight="semibold" fontSize="xl">
+                Clínica:
+              </Text>
+              <Text fontSize="xl">{clinica.nomeClinica}</Text>
+            </HStack>
+          </Box>
         </Center>
         <Center marginTop="20px" paddingBottom="1%">
         </Center>

@@ -395,7 +395,7 @@ function Exames() {
                       </ViewPDF>
                     </ViewPDF>
                     <TextPDF style={styles.textSantaImagem}>
-                      Santa Imagem Diagnósticos por imagem
+                      USG Diagnósticos por imagem
                     </TextPDF>
                   </ViewPDF>
                 </ViewPDF>
@@ -1027,7 +1027,7 @@ function Exames() {
               paddingTop="12%"
               paddingEnd="10px"
             >
-              Santa Imagem Diagnósticos por imagem
+              USG Diagnósticos por imagem
             </Text>
           </HStack>
           <Text fontSize="10" overflowWrap="break-word" margin="10px">

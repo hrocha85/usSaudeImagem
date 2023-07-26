@@ -418,7 +418,6 @@ const Configuracoes = () => {
       <Stack direction="row" justify="center">
         <RectangularCard
           titulo="Observações"
-          altura="282px"
           item={<ItemObservation />}
         />
       </Stack>
@@ -775,7 +774,7 @@ const Configuracoes = () => {
         {returnPOPoverLaudos()}
       </Stack>
       <Stack direction="row" flexWrap="wrap" gap="5px">
-        <MainCard titulo="Clínicas" icon={true} clinica={null} medicos={null}/>
+        <MainCard titulo="Clínicas" icon={true} clinica={null} medicos={null} />
 
         {medicos.map((medico, key) => {
           return <Medicos key={key} medico={medico} id={key} />;
