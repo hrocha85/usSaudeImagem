@@ -1,11 +1,8 @@
-import { Box, Button, GridItem, Image, Link, Tooltip } from "@chakra-ui/react";
+import { Box, Button, GridItem, Link, Tooltip } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
-import { useContext, useEffect, useState } from "react";
-import FormatLaudo from "../../Data/Format_Laudo.json";
-import Observacoes from "../../Data/Observacoes.json";
+import { useContext, useState } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
 import { TabExamesContext } from "../../context/TabExameContext";
-import reghd_2 from "../images/reghd_2.png";
 
 const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);

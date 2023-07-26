@@ -33,23 +33,23 @@ import RinseViasUrinarias from "../exames/RinsViasUrinarias";
 import AbdomemTotal from "../exames/abdomemTotal";
 import AbdomemSuperior from "../exames/abdomenSuperior";
 import Articulacoes from "../exames/articulacoes";
+import Axila from "../exames/axila";
 import DopplerTransvaginal from "../exames/dopplerTransvaginal";
 import Mamas from "../exames/mamas";
+import ParedeAbdominal from "../exames/paredeAbdominal";
 import PartesMoles from "../exames/partesMoles";
 import Pelvico from "../exames/pelvico";
 import Prostata from "../exames/prostata";
 import Regiao_Inguinal from "../exames/regiao_inguinal";
 import Testiculo from "../exames/testiculo";
 import Tireoide from "../exames/tireoide";
+import Torax from "../exames/torax";
 import Transvaginal from "../exames/transvaginal";
 import Exames from "../folha_laudos/Laudos";
 import BGImage from "../images/bg_img.png";
 import Sidebar from "../menu/sideBar";
 import Conclusoes from "./conclusoes";
 import Field_Observacoes from "./field_observacoes";
-import Axila from "../exames/axila";
-import Torax from "../exames/torax";
-import ParedeAbdominal from "../exames/paredeAbdominal";
 
 export default function Box_Default_With_Sidebar() {
   const {
@@ -355,7 +355,8 @@ export default function Box_Default_With_Sidebar() {
         w="100%"
         h="100%"
         minH="100vh"
-        backgroundImage={BGImage}
+        bgGradient='linear(to-r, blue.100, #fff)'
+        // backgroundImage={BGImage}
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
         alignItems="center"
