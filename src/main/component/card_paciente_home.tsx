@@ -6,6 +6,7 @@ import {
   HStack,
   Input,
   Select,
+  Stack,
   styled,
   Text,
   useToast,
@@ -19,7 +20,7 @@ import React from "react";
 import CreatableSelect from "react-select/creatable";
 import Medicos_Solicitantes from "../../Data/Medicos_Solicitantes.json";
 
-const CardPaciente = ({ altura }) => {
+const CardPaciente = () => {
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
 
   const toast = useToast();
@@ -123,7 +124,7 @@ const CardPaciente = ({ altura }) => {
     }
   };
 
-  
+
 
   let options: Array<{ value: string; label: string }> = [];
 
@@ -153,129 +154,114 @@ const CardPaciente = ({ altura }) => {
   }, [nomePaciente, idadePaciente, sexoPaciente, medico_solicitante]);
 
   return (
-    <Center>
-      <Box w="100vw" display="flex" justifyContent={'center'} marginTop={5}>
-        <Box
-          display="flex"
-          bgGradient='linear(to-b, blue.100, #fff)'
-          w="50rem"
-          h="11.8rem"
-          borderRadius="1rem"
-        >
-          <Box 
-          fontWeight="bold" w="50rem" 
-          borderRadius={10}
-          border={'2px'}
-          
+    <Box borderRadius="1rem" border={'2px'} w="60vw" display="flex" flexWrap='wrap' justifyContent={'center'} marginTop={5}>
+      <Stack>
+        <Text
+          textAlign="center" mt="5px"
+          mb="5px" pl={3}
+          fontSize={22}
+          textColor={'black'}>
+          Insira os dados do paciente
+        </Text>
+        <Box justifyContent={'center'} display="flex" flexWrap='wrap' gap='10px' padding='10px' >
+
+
+          <Input
+            placeholder="Nome do Paciente"
+            value={nomePaciente}
+            size="lg"
+            h="3.1rem"
+            w="30vw"
+            borderColor="#444"
+            onChange={handleNomePacienteInput}
+          />
+          <Input
+            placeholder="Idade"
+            value={idadePaciente}
+            bgGradient='linear(to-b, blue.100, #fff)'
+            size="lg"
+            h="3.1rem"
+            w="6rem"
+            borderColor="#444"
+            onChange={handleIdadePacienteInput}
+          />
+          <Select
+            placeholder="Gênero"
+            value={sexoPaciente}
+            bgGradient='linear(to-b, blue.100, #fff)'
+            size="lg"
+            h="3.1rem"
+            w="8.7rem"
+            borderColor="#444"
+            onChange={handleSexoPacienteInput}
+
           >
-            <Text textAlign="start" mt="5px"
-             mb="5px" pl={3}
-              fontSize={22}
-              textColor={'black'}>
-              Insira os dados do paciente
-            </Text>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+          </Select>
 
-            <HStack display="flex" margin="20px" spacing="10px">
-              <Input
-                placeholder="Nome do Paciente"
-                value={nomePaciente}
-                size="lg"
-                h="3.1rem"
-                w="31rem"
-                borderColor="#444"
-                onChange={handleNomePacienteInput}
-              />
-              <Input
-                placeholder="Idade"
-                value={idadePaciente}
-                bgGradient='linear(to-b, blue.100, #fff)'
-                size="lg"
-                h="3.1rem"
-                w="6rem"
-                borderColor="#444"
-                onChange={handleIdadePacienteInput}
-              />
-              <Select
-                placeholder="Gênero"
-                value={sexoPaciente}
-                bgGradient='linear(to-b, blue.100, #fff)'               
-                size="lg"
-                h="3.1rem"
-                w="8.7rem"
-                borderColor="#444"
-                onChange={handleSexoPacienteInput}
-                
-              >
-                <option  value="Masculino">Masculino</option>
-                <option value="Feminino">Feminino</option>
-              </Select>
-            </HStack>
-
-            <HStack  display="flex" margin="20px" justify="start">
-              <CreatableSelect
-                isClearable={true}
-                onChange={handleSelectChange}
-                onCreateOption={(inputValue: string) => {
-                  setMedicoSolicitante(inputValue);
-                }}
-                options={options}
-                value={{
-                  value:
-                    medico_solicitante != null && medico_solicitante != ""
-                      ? medico_solicitante
-                      : null,
-                  label:
-                    medico_solicitante != null && medico_solicitante != ""
-                      ? medico_solicitante
-                      : "Insira Médico Solicitante",
-                }}
-              />
-              <Wrap>
-                <WrapItem>
-                  <Button
-                    isDisabled={isDisable}
-                    color={'white'}
-                    padding="1.3rem"
-                    border={'2px'}
-                    borderColor="#444"
-                    textColor={'black'}
-                    w='10rem'
-                    onClick={() => {
-                      addPaciente();
-                      addMedicosSolicitantes();
-
-                      setTimeout(() => {
-                        toast({
-                          duration: 3000,
-                          title: `Paciente adicionado com sucesso`,
-                          position: "bottom",
-                          isClosable: true,
-                        });
-                        setEnableExames(true);
-                      }, 500);
-                    }}
-                  >
-                    Confirmar
-                  </Button>
-                </WrapItem>
-              </Wrap>
+          <CreatableSelect
+            isClearable={true}
+            onChange={handleSelectChange}
+            onCreateOption={(inputValue: string) => {
+              setMedicoSolicitante(inputValue);
+            }}
+            options={options}
+            value={{
+              value:
+                medico_solicitante != null && medico_solicitante != ""
+                  ? medico_solicitante
+                  : null,
+              label:
+                medico_solicitante != null && medico_solicitante != ""
+                  ? medico_solicitante
+                  : "Insira Médico Solicitante",
+            }}
+          />
+          <Wrap>
+            <WrapItem>
               <Button
-                colorScheme="black"
-                borderColor={'gray'}
-                bg={'#ccc'}
-                textColor={'#2e4ad4'}
-                variant="outline"
-                w={"8rem"}
-                h={'2.7rem'}
-                onClick={() => resetDados()}
+                isDisabled={isDisable}
+                color={'white'}
+                padding="1.3rem"
+                border={'2px'}
+                borderColor="#444"
+                textColor={'black'}
+                w='10rem'
+                onClick={() => {
+                  addPaciente();
+                  addMedicosSolicitantes();
+
+                  setTimeout(() => {
+                    toast({
+                      duration: 3000,
+                      title: `Paciente adicionado com sucesso`,
+                      position: "bottom",
+                      isClosable: true,
+                    });
+                    setEnableExames(true);
+                  }, 500);
+                }}
               >
-                Limpar
+                Confirmar
               </Button>
-            </HStack>
-          </Box>
+            </WrapItem>
+          </Wrap>
+          <Button
+            colorScheme="black"
+            borderColor={'gray'}
+            bg={'#ccc'}
+            textColor={'#2e4ad4'}
+            variant="outline"
+            w={"8rem"}
+            h={'2.7rem'}
+            onClick={() => resetDados()}
+          >
+            Limpar
+          </Button>
         </Box>
-      </Box>
-    </Center>
+      </Stack>
+    </Box>
   );
 };
 
