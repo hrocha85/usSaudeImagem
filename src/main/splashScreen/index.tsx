@@ -16,32 +16,21 @@ const SplashScreen = () => {
   //tempo de 5 segundos para sair da pagina
   setTimeout(() => setRedirectNow(true), 5000);
   //está sendo jogado para abdomen total pqe nao temos a pagina principal, ajustar isso futuramente
-  // return (
-
-
-  //     <Box
-  //       w="100%"
-  //       h="100vh"
-  //       minH="80vh"
-  //       // bgGradient='linear(to-r, blue.100, #fff)'
-  //       backgroundImage={Splash_Screen}
-  //       backgroundSize="cover"
-  //       backgroundRepeat="no-repeat"
-  //     >
-  //     </Box>
-  //   );
   // };
   return redirectNow ? (
-    <Navigate to="/Login" />
+     <Navigate to="/Login" />
   ) : (
-    <div className="body">
-      <div className="container">
-        <div className="box">
-          <img src={logo} alt="logo" />
-        </div>
-      </div>
-    </div>
-  );
+    <Box
+    w="100vw"
+    h="100vh"
+   //bgGradient='linear(to-r, blue.100, #fff)'
+    backgroundImage={Splash_Screen}
+    backgroundSize="cover"
+    backgroundRepeat="no-repeat"
+    backgroundPosition={'center'}
+  >
+  </Box>
+   );
 };
 
 export default SplashScreen;
