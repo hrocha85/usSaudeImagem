@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { FaRegFolderOpen } from "react-icons/fa";
-import FieldDefaultIconCardClinicas from "../component/field_default_icon_card_clinicas";
+import FieldDefaultIcon from "../component/field_default_icon";
+import { Box, Text } from "@chakra-ui/react";
 
-const Clinica = (props) => {
+const ClinicaNew = (props) => {
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
   const pegarClinicas = () => {
@@ -23,20 +24,12 @@ const Clinica = (props) => {
   return (
     <>
       {listaClinicas.map((item, key) => (
-        <FieldDefaultIconCardClinicas
-          key={key}
-          text={item.nomeClinica}
-          textColor="#4A5568"
-          icon={FaRegFolderOpen}
-          clinica={item}
-          clinicas={listaClinicas}
-          onClickModal={true}
-          id={key}
-          isMedic={false}
-        />
+        <Box>
+          <Text>{item.nomeClinica}</Text>
+        </Box>
       ))}
     </>
   );
 };
 
-export default Clinica;
+export default ClinicaNew;

@@ -28,14 +28,15 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
 
   return (
     <Box
-      bg="#FAFAFA"
+      // bg="#FAFAFA"
       w="358px"
       h="62vh"
       color="white"
       borderRadius="10.85px"
-      boxShadow="md"
+
       marginStart='20px'
       overflow='auto'
+
     //minW="218px"
     >
       <Box margin="10px">
