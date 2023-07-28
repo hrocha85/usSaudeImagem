@@ -270,16 +270,17 @@ function Home() {
 
         <Flex
           justifyContent="space-between">
-          <Button right="1" variant="ghost" top={0}>
             <Link href={"#/Home/Configuracoes"}>
-              <Image
-                srcSet={Configuracao}
-                alt="Second Icon Plus"
-                h="30px"
-                w="30px"
-              />
-            </Link>
-          </Button>
+              <Button right="1" variant="ghost" top={0}>
+                
+                  <Image
+                    srcSet={Configuracao}
+                    alt="Second Icon Plus"
+                    h="30px"
+                    w="30px"
+                  />
+              </Button>
+          </Link>
 
           <Text
             fontSize={'32px'}
