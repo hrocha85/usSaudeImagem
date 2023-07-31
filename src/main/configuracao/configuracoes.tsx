@@ -683,6 +683,7 @@ const Configuracoes = () => {
             h="42"
             boxShadow="md"
             fontSize="20px"
+            mt={5}
           >
             <Icon as={FaRegFolderOpen} margin="5px" />
             Laudos
