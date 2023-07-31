@@ -396,7 +396,7 @@ const Medicos = ({ medico, id }) => {
     <Box
       bg="#FAFAFA"
       w="358px"
-      h="62vh"
+      h="32vh"
       color="white"
       borderRadius="10.85px"
       boxShadow="2xl"
@@ -517,10 +517,10 @@ const Medicos = ({ medico, id }) => {
         </Box>
       </Center>
       <Box onClick={onOpen}>
-        <Box overflow="auto" maxH="240px">
+        <Box overflow="auto" >
           <RenderFieldDefault />
         </Box>
-        <Box>
+        {/* <Box>
           {assinatura != "" ? (
             <Box
               flexGrow={1}
@@ -541,7 +541,7 @@ const Medicos = ({ medico, id }) => {
               />
             </Box>
           ) : null}
-        </Box>
+        </Box> */}
 
         <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
           <ModalOverlay />
