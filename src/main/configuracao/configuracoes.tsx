@@ -777,9 +777,10 @@ const Configuracoes = () => {
       <Stack direction="row" flexWrap="wrap" gap="5px">
         <MainCard titulo="Clínicas" icon={true} clinica={null} medicos={null} />
 
-        {medicos.map((medico, key) => {
-          return <Medicos key={key} medico={medico} id={key} />;
-        })}
+        <MainCard titulo="Medicos" icon={true} clinica={null} medicos={null} />
+        {/* {medicos.map((medico, key) => {
+          return <Medicos />;
+        })} */}
 
         <Tooltip
           label="Adicionar Médico"

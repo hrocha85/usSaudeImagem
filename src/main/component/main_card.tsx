@@ -2,11 +2,15 @@ import { Box, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Clinica from "../configuracao/clinicas";
 import IconButtonPlus from "./icon_button_plus";
+import Medicos from '../configuracao/medicos'
+
 
 const MainCard = ({ titulo, icon, clinica, medicos }) => {
   const [atualizar, setAtualizar] = useState(true);
 
   useEffect(() => { }, [atualizar]);
+
+
 
   function ShowIcon(icon: boolean) {
     if (icon) {
@@ -16,13 +20,30 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
     }
   }
 
+  const getMedicos = () => {
+    var medicos;
+    var item;
+    if (localStorage.getItem("medicos") != null) {
+      item = localStorage.getItem("medicos");
+
+      medicos = JSON.parse(item);
+    } else medicos = [];
+    return medicos;
+  };
+
+  const [medicoss, setMedicoss] = useState<any[]>(getMedicos);
+
+
+
   function Cards(titulo) {
     switch (titulo) {
       case "Clínicas":
         return <Clinica atualizar={atualizar} />;
-
+      case "Medicos":
+        return <Medicos />;
+      // break
+      //   break;
       default:
-        break;
     }
   }
 

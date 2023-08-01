@@ -51,10 +51,22 @@ import SignatureCanvas from "react-signature-canvas";
 import FieldDefaultIcon from "../component/field_default_icon";
 import { lista_medicos } from "./configuracoes";
 
-const Medicos = ({ medico, id }) => {
-  let medicos: any[] = [];
+const Medicos = () => {
+  // let medicos: any[] = [];
 
-  medicos.push(medico);
+  // medicos.push(medico);
+
+  const getMedicos = () => {
+    var medicos;
+    var item;
+    if (localStorage.getItem("medicos") != null) {
+      item = localStorage.getItem("medicos");
+
+      medicos = JSON.parse(item);
+    } else medicos = [];
+    return medicos;
+  };
+
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -73,7 +85,7 @@ const Medicos = ({ medico, id }) => {
 
   const [enableSelectedClinica, setSelectedClinica] = useState(true);
 
-  const [crm, setCRM] = useState(medico.crm);
+  // const [crm, setCRM] = useState(medico.crm);
 
   const [CRMenable, setCRMEnable] = useState(true);
 
@@ -83,9 +95,9 @@ const Medicos = ({ medico, id }) => {
 
   const [updateNome, setUpdateNome] = useState<string | null>(null);
 
-  const [nomeMedico, setNomeMedico] = useState(medico.nome);
+  // const [nomeMedico, setNomeMedico] = useState(medico.nome);
 
-  const [clinica, setClinica] = useState(medico.clinica);
+  // const [clinica, setClinica] = useState(medico.clinica);
 
   const [updateClinica, setUpdateClinica] = useState<string | null>(null);
 
@@ -103,13 +115,13 @@ const Medicos = ({ medico, id }) => {
 
   const [FotoUpdate, setFotoUpdate] = useState(false);
 
-  const [assinatura, setAssinatura] = useState(medico.assinatura);
+  // const [assinatura, setAssinatura] = useState(medico.assinatura);
 
   const refNomeMedico = useRef<HTMLInputElement | null>(null);
 
   const refCRM = useRef<HTMLInputElement | null>(null);
 
-  const [defaultUserImage, setDefaultUserImage] = useState(medico.foto);
+  // const [defaultUserImage, setDefaultUserImage] = useState(medico.foto);
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
@@ -117,13 +129,27 @@ const Medicos = ({ medico, id }) => {
 
   const [pngAssinaturaCheck, setpngAssinaturaCheck] = useState(false);
 
+  const [mediicos, setMedicos] = useState<any[]>(getMedicos);
+
+  useEffect(() => {
+    setMedicos(getMedicos);
+  }, [localStorage.getItem("medicos")!]);
+
+  useEffect(() => {
+    console.log('aquitestando',
+      mediicos.map((medico) => {
+        console.log(medico.nome)
+      })
+    )
+  }, [])
+
   let padRef = React.useRef<SignatureCanvas>(null);
 
   const [listaClinicas, setListaClinicas] = useState(
     JSON.parse(localStorage.getItem("minhasClinicas")!)
   );
 
-  const [ClinicasMedico, setClinicaMedico] = useState<any[]>(medico.clinica);
+  // const [ClinicasMedico, setClinicaMedico] = useState<any[]>(medico.clinica);
 
   const openFiles = () => {
     inputFile.current?.click();
@@ -136,7 +162,7 @@ const Medicos = ({ medico, id }) => {
     reader.onload = (event) => {
       const result = event.target?.result;
       if (typeof result === "string") {
-        setDefaultUserImage(result);
+        // setDefaultUserImage(result);
         setFotoUpdate(true);
       }
     };
@@ -144,71 +170,71 @@ const Medicos = ({ medico, id }) => {
     reader.readAsDataURL(file);
   };
 
-  const UpdateLocalStorage = (nomeUpdate, CRMupdate, clinicaUpdate) => {
-    if (nomeUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
-      lista_medicos[id].nome = nomeUpdate;
+  // const UpdateLocalStorage = (nomeUpdate, CRMupdate, clinicaUpdate) => {
+  //   if (nomeUpdate != null) {
+  //     var array = JSON.parse(localStorage.getItem("medicos")!);
+  //     var item = array[id];
+  //     lista_medicos[id].nome = nomeUpdate;
 
-      item.nome = nomeUpdate;
-      localStorage.setItem("medicos", JSON.stringify(array));
-      setNomeMedico(nomeUpdate);
-      setUpdateNome(null);
-    }
-    if (CRMupdate != null) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
-      lista_medicos[id].crm = CRMupdate;
+  //     item.nome = nomeUpdate;
+  //     localStorage.setItem("medicos", JSON.stringify(array));
+  //     setNomeMedico(nomeUpdate);
+  //     setUpdateNome(null);
+  //   }
+  //   if (CRMupdate != null) {
+  //     var array = JSON.parse(localStorage.getItem("medicos")!);
+  //     var item = array[id];
+  //     lista_medicos[id].crm = CRMupdate;
 
-      item.crm = CRMupdate;
-      localStorage.setItem("medicos", JSON.stringify(array));
-      setCRM(CRMupdate);
-      setUpdateCRM(null);
-    }
-    if (clinicaUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
-      lista_medicos[id].clinica = ClinicasMedico;
+  //     item.crm = CRMupdate;
+  //     localStorage.setItem("medicos", JSON.stringify(array));
+  //     setCRM(CRMupdate);
+  //     setUpdateCRM(null);
+  //   }
+  //   if (clinicaUpdate != null) {
+  //     var array = JSON.parse(localStorage.getItem("medicos")!);
+  //     var item = array[id];
+  //     lista_medicos[id].clinica = ClinicasMedico;
 
-      item.clinica = ClinicasMedico;
-      localStorage.setItem("medicos", JSON.stringify(array));
-      setClinica(updateClinica);
-      setUpdateClinica(null);
-    }
-    if (AssinaturaUpdate) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
-      lista_medicos[id].assinatura = padRef.current
-        ?.getTrimmedCanvas()
-        .toDataURL("image/png")!;
+  //     item.clinica = ClinicasMedico;
+  //     localStorage.setItem("medicos", JSON.stringify(array));
+  //     setClinica(updateClinica);
+  //     setUpdateClinica(null);
+  //   }
+  //   if (AssinaturaUpdate) {
+  //     var array = JSON.parse(localStorage.getItem("medicos")!);
+  //     var item = array[id];
+  //     lista_medicos[id].assinatura = padRef.current
+  //       ?.getTrimmedCanvas()
+  //       .toDataURL("image/png")!;
 
-      item.assinatura = padRef.current
-        ?.getTrimmedCanvas()
-        .toDataURL("image/png")!;
-      localStorage.setItem("medicos", JSON.stringify(array));
-      setAssinatura(padRef.current?.getTrimmedCanvas().toDataURL("image/png")!);
-      setAssinaturaUpdate(false);
-    }
-    if (FotoUpdate) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
-      lista_medicos[id].foto = defaultUserImage;
-      item.foto = defaultUserImage;
-      localStorage.setItem("medicos", JSON.stringify(array));
-      setFotoUpdate(false);
-    }
-    if (pngAssinaturaCheck) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
-      lista_medicos[id].assinatura = pngAssinatura!;
-      item.assinatura = pngAssinatura!;
-      localStorage.setItem("medicos", JSON.stringify(array));
-      setpngAssinaturaCheck(false);
-      setpngAssinatura(null);
-      window.location.reload();
-    }
-    window.dispatchEvent(new Event("update_medicos"));
-  };
+  //     item.assinatura = padRef.current
+  //       ?.getTrimmedCanvas()
+  //       .toDataURL("image/png")!;
+  //     localStorage.setItem("medicos", JSON.stringify(array));
+  //     setAssinatura(padRef.current?.getTrimmedCanvas().toDataURL("image/png")!);
+  //     setAssinaturaUpdate(false);
+  //   }
+  //   if (FotoUpdate) {
+  //     var array = JSON.parse(localStorage.getItem("medicos")!);
+  //     var item = array[id];
+  //     lista_medicos[id].foto = defaultUserImage;
+  //     item.foto = defaultUserImage;
+  //     localStorage.setItem("medicos", JSON.stringify(array));
+  //     setFotoUpdate(false);
+  //   }
+  //   if (pngAssinaturaCheck) {
+  //     var array = JSON.parse(localStorage.getItem("medicos")!);
+  //     var item = array[id];
+  //     lista_medicos[id].assinatura = pngAssinatura!;
+  //     item.assinatura = pngAssinatura!;
+  //     localStorage.setItem("medicos", JSON.stringify(array));
+  //     setpngAssinaturaCheck(false);
+  //     setpngAssinatura(null);
+  //     window.location.reload();
+  //   }
+  //   window.dispatchEvent(new Event("update_medicos"));
+  // };
 
   const POPExcluirMedico = () => {
     return (
@@ -232,22 +258,22 @@ const Medicos = ({ medico, id }) => {
     );
   };
 
-  const RemoveItem = () => {
-    var array = JSON.parse(localStorage.getItem("medicos")!);
-    array.splice(id, 1);
+  // const RemoveItem = () => {
+  //   var array = JSON.parse(localStorage.getItem("medicos")!);
+  //   array.splice(id, 1);
 
-    localStorage.setItem("medicos", JSON.stringify(array));
-    window.location.reload();
-  };
+  //   localStorage.setItem("medicos", JSON.stringify(array));
+  //   window.location.reload();
+  // };
 
-  const RemoveTAG = () => {
-    var array = JSON.parse(localStorage.getItem("medicos")!);
-    var item = array[id];
-    lista_medicos[id].clinica = ClinicasMedico;
+  // const RemoveTAG = () => {
+  //   var array = JSON.parse(localStorage.getItem("medicos")!);
+  //   var item = array[id];
+  //   lista_medicos[id].clinica = ClinicasMedico;
 
-    item.clinica = ClinicasMedico;
-    localStorage.setItem("medicos", JSON.stringify(array));
-  };
+  //   item.clinica = ClinicasMedico;
+  //   localStorage.setItem("medicos", JSON.stringify(array));
+  // };
 
   const clearAssinatura = () => {
     padRef.current?.clear();
@@ -266,69 +292,69 @@ const Medicos = ({ medico, id }) => {
     setpngAssinaturaCheck(false);
   };
 
-  const TAGS = () => {
-    return (
-      <Center margin="25px">
-        <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
-          {ClinicasMedico.map((clinica, key) => {
-            var parseClinica = JSON.parse(clinica);
-            return (
-              <Tooltip
-                key={key}
-                label={parseClinica.nomeClinica}
-                size="md"
-                backgroundColor="white"
-                placement="top"
-                hasArrow
-                arrowSize={15}
-                textColor="black"
-              >
-                <Tag
-                  key={key}
-                  size="md"
-                  borderRadius="full"
-                  variant="solid"
-                  colorScheme="twitter"
-                >
-                  <TagLabel key={key}>{parseClinica.nomeClinica}</TagLabel>
-                  <TagCloseButton
-                    onClick={() => {
-                      ClinicasMedico.splice(key, 1);
-                      setUpdateTAGS(true);
-                      RemoveTAG();
-                    }}
-                  />
-                </Tag>
-              </Tooltip>
-            );
-          })}
-        </Flex>
-      </Center>
-    );
-  };
+  // const TAGS = () => {
+  //   return (
+  //     <Center margin="25px">
+  //       <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
+  //         {ClinicasMedico.map((clinica, key) => {
+  //           var parseClinica = JSON.parse(clinica);
+  //           return (
+  //             <Tooltip
+  //               key={key}
+  //               label={parseClinica.nomeClinica}
+  //               size="md"
+  //               backgroundColor="white"
+  //               placement="top"
+  //               hasArrow
+  //               arrowSize={15}
+  //               textColor="black"
+  //             >
+  //               <Tag
+  //                 key={key}
+  //                 size="md"
+  //                 borderRadius="full"
+  //                 variant="solid"
+  //                 colorScheme="twitter"
+  //               >
+  //                 <TagLabel key={key}>{parseClinica.nomeClinica}</TagLabel>
+  //                 <TagCloseButton
+  //                   onClick={() => {
+  //                     ClinicasMedico.splice(key, 1);
+  //                     setUpdateTAGS(true);
+  //                     RemoveTAG();
+  //                   }}
+  //                 />
+  //               </Tag>
+  //             </Tooltip>
+  //           );
+  //         })}
+  //       </Flex>
+  //     </Center>
+  //   );
+  // };
 
-  const RenderFieldDefault = () => {
-    return (
-      <>
-        {ClinicasMedico.map((clinica, key) => {
-          var parseClinica = JSON.parse(clinica);
-          return (
-            <FieldDefaultIcon
-              key={key}
-              text={parseClinica.nomeClinica}
-              textColor="#4A5568"
-              icon={FaRegFolderOpen}
-              clinica={medicos}
-              clinicas={null}
-              onClickModal={false}
-              id={key}
-              isMedic={true}
-            />
-          );
-        })}
-      </>
-    );
-  };
+  // const RenderFieldDefault = () => {
+  //   return (
+  //     <>
+  //       {ClinicasMedico.map((clinica, key) => {
+  //         var parseClinica = JSON.parse(clinica);
+  //         return (
+  //           <FieldDefaultIcon
+  //             key={key}
+  //             text={parseClinica.nomeClinica}
+  //             textColor="#4A5568"
+  //             icon={FaRegFolderOpen}
+  //             clinica={medicos}
+  //             clinicas={null}
+  //             onClickModal={false}
+  //             id={key}
+  //             isMedic={true}
+  //           />
+  //         );
+  //       })}
+  //     </>
+  //   );
+  // };
 
   window.addEventListener("update_clinicas", () => {
     setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));
@@ -338,12 +364,12 @@ const Medicos = ({ medico, id }) => {
     setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));
   }, [localStorage.getItem("minhasClinicas")!]);
 
-  useEffect(() => {
-    RenderFieldDefault();
-  }, [ClinicasMedico]);
+  // useEffect(() => {
+  //   RenderFieldDefault();
+  // }, [ClinicasMedico]);
 
   useEffect(() => {
-    TAGS();
+    // TAGS();
     setUpdateTAGS(false);
   }, [updateTAGS == true]);
 
@@ -393,478 +419,492 @@ const Medicos = ({ medico, id }) => {
   };
 
   return (
-    <Box
-      bg="#FAFAFA"
-      w="358px"
-      h="32vh"
-      color="white"
-      borderRadius="10.85px"
-      boxShadow="2xl"
-      dropShadow="dark-lg"
-      display="inline-block"
-    >
-      <HStack margin="10px" direction="row" spacing={4} justify="space-between">
-        <Image
-          borderRadius="full"
-          boxSize="80px"
-          src={defaultUserImage}
-          alt="Foto médico"
-          justifySelf="flex-start"
-          marginEnd="10px"
-          marginTop="5px"
-          marginStart="10px"
-        />
-        <Text
-          color="#1A202C"
-          fontSize="20px"
-          align="center"
-          //onClick={onOpen}
-          //_hover={{ cursor: "pointer" }}
-          fontWeight="semibold"
-          overflowWrap="break-word"
-          display="inline-block"
-          whiteSpace="nowrap"
-          overflow="hidden"
-          textOverflow="ellipsis"
-        >
-          {nomeMedico}
-        </Text>
-        <Tooltip
-          isDisabled={closeTooltip}
-          label="Opções"
-          backgroundColor="white"
-          placement="top"
-          hasArrow
-          arrowSize={15}
-          textColor="black"
-          fontSize="xl"
-        >
-          <Box>
-            <Popover>
-              <PopoverTrigger>
-                <Button
-                  display="flex"
-                  justifySelf="flex-end"
-                  onClick={() => setcloseTooltip(true)}
-                  size="auto"
-                  backgroundColor="transparent"
-                  variant="ghost"
-                  _hover={{ bg: "transparent" }}
-                >
-                  <IconContext.Provider value={{ color: "#0dc7e2" }}>
-                    <Icon
-                      onMouseOver={() => setcloseTooltip(false)}
-                      margin="5px"
-                      as={FaRegEdit}
-                      w={8}
-                      h={6}
-                      marginStart="15px"
-                    />
-                  </IconContext.Provider>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent borderRadius="20px" w="auto">
-                <PopoverArrow />
-                <Button
-                  onClick={() => onOpen()}
-                  size="auto"
-                  fontWeight="normal"
-                  backgroundColor="transparent"
-                  variant="ghost"
-                  cursor="pointer"
-                  _hover={{
-                    bg: "blue.100",
-                    fontWeight: "semibold",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <PopoverBody>{POPEditarMedico()}</PopoverBody>
-                </Button>
-                <Divider orientation="horizontal" margin="5px" />
+    <>
 
-                <Button
-                  onClick={() => onOpenLongModal()}
-                  size="auto"
-                  fontWeight="normal"
-                  backgroundColor="transparent"
-                  variant="ghost"
-                  cursor="pointer"
-                  _hover={{
-                    bg: "blue.100",
-                    fontWeight: "semibold",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <PopoverBody>{POPExcluirMedico()}</PopoverBody>
-                </Button>
-              </PopoverContent>
-            </Popover>
-          </Box>
-        </Tooltip>
-      </HStack>
-      <Center>
-        <Box marginTop="5%" marginBottom="5%">
-          <Center>
-            <Stack align="center">
-              <Text textColor="black" fontSize="23px">
-                CRM/UF
-              </Text>
-              <Text textColor="black" fontSize="19px" fontWeight="semibold">
-                {crm}
-              </Text>
-            </Stack>
-          </Center>
-        </Box>
-      </Center>
-      <Box onClick={onOpen}>
-        <Box overflow="auto" >
-          <RenderFieldDefault />
-        </Box>
-        {/* <Box>
-          {assinatura != "" ? (
-            <Box
-              flexGrow={1}
-              margin="10% 3% 3% 3%"
-              justifyContent="center"
-              boxShadow="xl"
-              h="100px"
-              backgroundColor={"#F7FAFC"}
-              borderRadius="10px"
-            >
-              <Image
-                w="100%"
-                h="100%"
-                src={assinatura}
-                alt="Assinatura Médico"
-                backgroundImage="none"
-                fit="scale-down"
-              />
-            </Box>
-          ) : null}
-        </Box> */}
+      {mediicos ? mediicos.map((medico, key) => {
+        <Text>{medico.nome}</Text>
+      }) : <Text>caiu</Text>
+      }
 
-        <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader></ModalHeader>
-            <Divider orientation="horizontal" marginTop="10px" />
-            <ModalCloseButton
-              onClick={() => {
-                ResetStates();
-              }}
-            />
-
-            <Stack direction="row" justify="center" margin="10px">
-              <Box sx={{ flexGrow: 1 }}>
-                {InputNomeMedico ? (
-                  <Input
-                    ref={refNomeMedico}
-                    textAlign="center"
-                    paddingStart="60px"
-                    fontWeight="bold"
-                    fontSize="20px"
-                    defaultValue={nomeMedico}
-                    isDisabled={enable}
-                    variant={"filled"}
-                    onChange={(e) => {
-                      setUpdateNome(e.target.value);
-                    }}
-                  ></Input>
-                ) : (
-                  <Input
-                    ref={refNomeMedico}
-                    textAlign="center"
-                    paddingStart="60px"
-                    fontWeight="bold"
-                    fontSize="20px"
-                    defaultValue={nomeMedico}
-                    isDisabled={enable}
-                    variant="unstyled"
-                  ></Input>
-                )}
-              </Box>
-
-              <Box sx={{ alignSelf: "flex-end" }}>
-                <Button
-                  color="#4759FC"
-                  paddingEnd="5px"
-                  fontSize="16px"
-                  fontWeight="bold"
-                  backgroundColor="transparent"
-                  alignItems="center"
-                  onClick={() => {
-                    setEnable(false);
-                    setInputNomeMedico(true);
-                  }}
-                >
-                  Editar
-                </Button>
-              </Box>
-            </Stack>
-
-            <Divider orientation="horizontal" />
-
-            <Container centerContent h="100%" w="100%" marginTop="5px">
-              <ModalBody>
-                <Center>
-                  <Image
-                    borderRadius="full"
-                    boxSize="150px"
-                    srcSet={defaultUserImage}
-                    alt="Image DR"
-                    onClick={openFiles}
-                  />
-                </Center>
-                <Center>
-                  <input
-                    type="file"
-                    id="file"
-                    ref={inputFile}
-                    style={{ display: "none" }}
-                    onChange={onChangeFile.bind(this)}
-                  />
-                  <Icon
-                    as={BiCamera}
-                    marginTop="2px"
-                    color="#4658fc"
-                    onClick={openFiles}
-                  />
-                </Center>
-                <TAGS />
-                {listaClinicas ? (
-                  <Center>
-                    <HStack margin="10px">
-                      <Text marginEnd="5px" fontWeight="bold" fontSize="17px">
-                        Clínicas:
-                      </Text>
-                      <Select
-                        placeholder={
-                          listaClinicas.length > 0
-                            ? "Clínicas Cadastradas"
-                            : "Nenhuma Clínica Cadastrada"
-                        }
-                        width="220px"
-                        variant="filled"
-                        isDisabled={enableSelectedClinica}
-                        textAlign="center"
-                        onChange={(e) => {
-                          setUpdateClinica(e.target.value);
-                          setClinicaMedico((prevClinicas) => [
-                            ...prevClinicas,
-                            e.target.value,
-                          ]);
-                        }}
-                      >
-                        {listaClinicas.map((clinica, key) => {
-                          return (
-                            <option key={key} value={JSON.stringify(clinica)}>
-                              {clinica.nomeClinica}
-                            </option>
-                          );
-                        })}
-                      </Select>
-                    </HStack>
-                  </Center>
-                ) : null}
-
-                <Center>
-                  <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
-                    <Center>
-                      {InputCRM ? (
-                        <Center paddingTop={"5px"}>
-                          <InputGroup
-                            width={"250px"}
-                            marginEnd="55px"
-                            variant={"unstyled"}
-                          >
-                            <InputLeftAddon
-                              children="CRM/UF:"
-                              paddingEnd={"5px"}
-                              fontWeight="bold"
-                            />
-                            <Input
-                              isDisabled={CRMenable}
-                              variant={"filled"}
-                              borderStartRadius={"md"}
-                              borderEndRadius={"md"}
-                              marginStart="5px"
-                              maxLength={13}
-                              ref={refCRM}
-                              defaultValue={crm}
-                              fontSize="18px"
-                              textAlign={"center"}
-                              onChange={(e) => {
-                                handleCRM(e);
-                                setUpdateCRM(e.target.value);
-                              }}
-                            />
-                          </InputGroup>
-                        </Center>
-                      ) : (
-                        <Center paddingTop={"5px"}>
-                          <InputGroup
-                            variant={"unstyled"}
-                            width={"250px"}
-                            marginEnd="55px"
-                          >
-                            <InputLeftAddon
-                              children="CRM/UF:"
-                              paddingEnd={"5px"}
-                              fontWeight="bold"
-                            />
-                            <Input
-                              maxLength={13}
-                              ref={refCRM}
-                              defaultValue={crm}
-                              fontSize="18px"
-                              variant={"unstyled"}
-                              isDisabled={CRMenable}
-                              textAlign={"center"}
-
-                            />
-                          </InputGroup>
-                        </Center>
-                      )}
-                    </Center>
-
-                    <Center>
-                      <Button
-                        color="#4759FC"
-                        fontSize="16px"
-                        fontWeight="bold"
-                        backgroundColor="transparent"
-                        alignItems="center"
-                        onClick={() => {
-                          setCRMEnable(false);
-                          setInputCRM(true);
-                          setInputAssinatura(true);
-                          setSelectedClinica(false);
-                        }}
-                      >
-                        Editar
-                      </Button>
-                    </Center>
-                  </Grid>
-                </Center>
-              </ModalBody>
-            </Container>
-
-            <ModalFooter>
-              {InputAssinatura ? (
-                <Box
-                  w="100%"
-                  h="100%"
-                  backgroundColor={"#F7FAFC"}
-                  borderColor="#3183cf"
-                  borderWidth="2px"
-                  boxShadow="md"
-                  borderRadius={"md"}
-                >
-                  {newAssinaturaEdit && pngAssinaturaCheck == false ? (
-                    <SignatureCanvas
-                      ref={padRef}
-                      backgroundColor="#F7FAFC"
-                      penColor="black"
-                      onEnd={() => UpdateLocalStorage(null, null, null)}
-                      canvasProps={{
-                        width: 390,
-                        height: 230,
-                        className: "sigCanvas",
-                      }}
-                    />
-                  ) : (
-                    <Image
-                      backgroundColor={"#F7FAFC"}
-                      borderRadius={"md"}
-                      width="400px"
-                      height="200px"
-                      srcSet={
-                        pngAssinatura == null ? assinatura : pngAssinatura
-                      }
-                      alt="Assinatura"
-                    />
-                  )}
-
-                  <Flex justify="end">
-                    <input
-                      disabled={newAssinaturaEdit ? false : true}
-                      accept="image/png, image/jpeg"
-                      type="file"
-                      id="file"
-                      ref={inputFile}
-                      style={{ display: "none" }}
-                      onChange={onChangeFilePNGAssinatura.bind(this)}
-                    />
-                    <Icon
-                      as={AiOutlineCloudUpload}
-                      color="#4658fc"
-                      margin="5px"
-                      alignItems="end"
-                      onClick={add_png_assinatura}
-                    />
-                    <Icon
-                      as={AiOutlineClear}
-                      color="#4658fc"
-                      margin="5px"
-                      alignItems="end"
-                      onClick={() => {
-                        clearAssinatura();
-                        setnewAssinaturaEdit(true);
-                      }}
-                    />
-                  </Flex>
-                </Box>
-              ) : (
-                <Image
-                  boxShadow="lg"
-                  backgroundColor={"#F7FAFC"}
-                  borderRadius={"md"}
-                  width="400px"
-                  height="200px"
-                  srcSet={pngAssinatura == null ? assinatura : pngAssinatura}
-                  alt="Assinatura"
-                />
-              )}
-            </ModalFooter>
-            <Button
-              marginTop="5px"
-              textColor="white"
-              backgroundColor="#0e63fe"
-              marginEnd="20px"
-              marginStart="23px"
-              marginBottom="10px"
-              onClick={() => {
-                UpdateLocalStorage(updateNome, updateCRM, updateClinica);
-                ResetStates();
-                onClose();
-              }}
-            >
-              Salvar
-            </Button>
-          </ModalContent>
-        </Modal>
-        <Modal isOpen={isOpenLongModal} onClose={onCloseLongModal}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Excluir Doutor(a) {nomeMedico} ?</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <Text> Deseja excluir Doutor(a) {nomeMedico} ?</Text>
-            </ModalBody>
-
-            <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onCloseLongModal}>
-                Cancelar
-              </Button>
-              <Button variant="ghost" onClick={() => RemoveItem()}>
-                Excluir{" "}
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </Box>
-    </Box>
+    </>
   );
 };
 
 export default Medicos;
+
+
+
+// < Box
+// bg="#FAFAFA"
+// w="358px"
+// h="32vh"
+// color="white"
+// borderRadius="10.85px"
+// boxShadow="2xl"
+// dropShadow="dark-lg"
+// display="inline-block"
+// >
+// <Text>Aqyudasd</Text>
+// <HStack margin="10px" direction="row" spacing={4} justify="space-between">
+//   <Image
+//     borderRadius="full"
+//     boxSize="80px"
+//     src={medico.foto}
+//     alt="Foto médico"
+//     justifySelf="flex-start"
+//     marginEnd="10px"
+//     marginTop="5px"
+//     marginStart="10px"
+//   />
+//   <Text
+//     color="#1A202C"
+//     fontSize="20px"
+//     align="center"
+//     //onClick={onOpen}
+//     //_hover={{ cursor: "pointer" }}
+//     fontWeight="semibold"
+//     overflowWrap="break-word"
+//     display="inline-block"
+//     whiteSpace="nowrap"
+//     overflow="hidden"
+//     textOverflow="ellipsis"
+//   >
+//     {medico.nome}
+//   </Text>
+//   <Tooltip
+//     isDisabled={closeTooltip}
+//     label="Opções"
+//     backgroundColor="white"
+//     placement="top"
+//     hasArrow
+//     arrowSize={15}
+//     textColor="black"
+//     fontSize="xl"
+//   >
+//     <Box>
+//       <Popover>
+//         <PopoverTrigger>
+//           <Button
+//             display="flex"
+//             justifySelf="flex-end"
+//             onClick={() => setcloseTooltip(true)}
+//             size="auto"
+//             backgroundColor="transparent"
+//             variant="ghost"
+//             _hover={{ bg: "transparent" }}
+//           >
+//             <IconContext.Provider value={{ color: "#0dc7e2" }}>
+//               <Icon
+//                 onMouseOver={() => setcloseTooltip(false)}
+//                 margin="5px"
+//                 as={FaRegEdit}
+//                 w={8}
+//                 h={6}
+//                 marginStart="15px"
+//               />
+//             </IconContext.Provider>
+//           </Button>
+//         </PopoverTrigger>
+//         <PopoverContent borderRadius="20px" w="auto">
+//           <PopoverArrow />
+//           <Button
+//             onClick={() => onOpen()}
+//             size="auto"
+//             fontWeight="normal"
+//             backgroundColor="transparent"
+//             variant="ghost"
+//             cursor="pointer"
+//             _hover={{
+//               bg: "blue.100",
+//               fontWeight: "semibold",
+//               borderRadius: "10px",
+//             }}
+//           >
+//             <PopoverBody>{POPEditarMedico()}</PopoverBody>
+//           </Button>
+//           <Divider orientation="horizontal" margin="5px" />
+
+//           <Button
+//             onClick={() => onOpenLongModal()}
+//             size="auto"
+//             fontWeight="normal"
+//             backgroundColor="transparent"
+//             variant="ghost"
+//             cursor="pointer"
+//             _hover={{
+//               bg: "blue.100",
+//               fontWeight: "semibold",
+//               borderRadius: "10px",
+//             }}
+//           >
+//             <PopoverBody>{POPExcluirMedico()}</PopoverBody>
+//           </Button>
+//         </PopoverContent>
+//       </Popover>
+//     </Box>
+//   </Tooltip>
+// </HStack>
+// <Center>
+//   <Box marginTop="5%" marginBottom="5%">
+//     <Center>
+//       <Stack align="center">
+//         <Text textColor="black" fontSize="23px">
+//           CRM/UF
+//         </Text>
+//         <Text textColor="black" fontSize="19px" fontWeight="semibold">
+//           {medico.crm}
+//         </Text>
+//       </Stack>
+//     </Center>
+//   </Box>
+// </Center>
+// <Box onClick={onOpen}>
+//   {/* <Box overflow="auto" >
+//       <RenderFieldDefault />
+//     </Box> */}
+//   {/* <Box>
+// {assinatura != "" ? (
+//   <Box
+//     flexGrow={1}
+//     margin="10% 3% 3% 3%"
+//     justifyContent="center"
+//     boxShadow="xl"
+//     h="100px"
+//     backgroundColor={"#F7FAFC"}
+//     borderRadius="10px"
+//   >
+//     <Image
+//       w="100%"
+//       h="100%"
+//       src={assinatura}
+//       alt="Assinatura Médico"
+//       backgroundImage="none"
+//       fit="scale-down"
+//     />
+//   </Box>
+// ) : null}
+// </Box> */}
+
+//   <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
+//     <ModalOverlay />
+//     <ModalContent>
+//       <ModalHeader></ModalHeader>
+//       <Divider orientation="horizontal" marginTop="10px" />
+//       <ModalCloseButton
+//         onClick={() => {
+//           ResetStates();
+//         }}
+//       />
+
+//       <Stack direction="row" justify="center" margin="10px">
+//         <Box sx={{ flexGrow: 1 }}>
+//           {InputNomeMedico ? (
+//             <Input
+//               ref={refNomeMedico}
+//               textAlign="center"
+//               paddingStart="60px"
+//               fontWeight="bold"
+//               fontSize="20px"
+//               defaultValue={medico.nome}
+//               isDisabled={enable}
+//               variant={"filled"}
+//               onChange={(e) => {
+//                 setUpdateNome(e.target.value);
+//               }}
+//             ></Input>
+//           ) : (
+//             <Input
+//               ref={refNomeMedico}
+//               textAlign="center"
+//               paddingStart="60px"
+//               fontWeight="bold"
+//               fontSize="20px"
+//               defaultValue={medico.nome}
+//               isDisabled={enable}
+//               variant="unstyled"
+//             ></Input>
+//           )}
+//         </Box>
+
+//         <Box sx={{ alignSelf: "flex-end" }}>
+//           <Button
+//             color="#4759FC"
+//             paddingEnd="5px"
+//             fontSize="16px"
+//             fontWeight="bold"
+//             backgroundColor="transparent"
+//             alignItems="center"
+//             onClick={() => {
+//               setEnable(false);
+//               setInputNomeMedico(true);
+//             }}
+//           >
+//             Editar
+//           </Button>
+//         </Box>
+//       </Stack>
+
+//       <Divider orientation="horizontal" />
+
+//       <Container centerContent h="100%" w="100%" marginTop="5px">
+//         <ModalBody>
+//           <Center>
+//             <Image
+//               borderRadius="full"
+//               boxSize="150px"
+//               srcSet={medico.foto}
+//               alt="Image DR"
+//               onClick={openFiles}
+//             />
+//           </Center>
+//           <Center>
+//             <input
+//               type="file"
+//               id="file"
+//               ref={inputFile}
+//               style={{ display: "none" }}
+//               onChange={onChangeFile.bind(this)}
+//             />
+//             <Icon
+//               as={BiCamera}
+//               marginTop="2px"
+//               color="#4658fc"
+//               onClick={openFiles}
+//             />
+//           </Center>
+//           {/* <TAGS /> */}
+//           {listaClinicas ? (
+//             <Center>
+//               <HStack margin="10px">
+//                 <Text marginEnd="5px" fontWeight="bold" fontSize="17px">
+//                   Clínicas:
+//                 </Text>
+//                 <Select
+//                   placeholder={
+//                     listaClinicas.length > 0
+//                       ? "Clínicas Cadastradas"
+//                       : "Nenhuma Clínica Cadastrada"
+//                   }
+//                   width="220px"
+//                   variant="filled"
+//                   isDisabled={enableSelectedClinica}
+//                   textAlign="center"
+//                   onChange={(e) => {
+//                     setUpdateClinica(e.target.value);
+//                     // setClinicaMedico((prevClinicas) => [
+//                     //   ...prevClinicas,
+//                     //   e.target.value,
+//                     // ]);
+//                   }}
+//                 >
+//                   {listaClinicas.map((clinica, key) => {
+//                     return (
+//                       <option key={key} value={JSON.stringify(clinica)}>
+//                         {clinica.nomeClinica}
+//                       </option>
+//                     );
+//                   })}
+//                 </Select>
+//               </HStack>
+//             </Center>
+//           ) : null}
+
+//           <Center>
+//             <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
+//               <Center>
+//                 {InputCRM ? (
+//                   <Center paddingTop={"5px"}>
+//                     <InputGroup
+//                       width={"250px"}
+//                       marginEnd="55px"
+//                       variant={"unstyled"}
+//                     >
+//                       <InputLeftAddon
+//                         children="CRM/UF:"
+//                         paddingEnd={"5px"}
+//                         fontWeight="bold"
+//                       />
+//                       <Input
+//                         isDisabled={CRMenable}
+//                         variant={"filled"}
+//                         borderStartRadius={"md"}
+//                         borderEndRadius={"md"}
+//                         marginStart="5px"
+//                         maxLength={13}
+//                         ref={refCRM}
+//                         defaultValue={medico.crm}
+//                         fontSize="18px"
+//                         textAlign={"center"}
+//                         onChange={(e) => {
+//                           handleCRM(e);
+//                           setUpdateCRM(e.target.value);
+//                         }}
+//                       />
+//                     </InputGroup>
+//                   </Center>
+//                 ) : (
+//                   <Center paddingTop={"5px"}>
+//                     <InputGroup
+//                       variant={"unstyled"}
+//                       width={"250px"}
+//                       marginEnd="55px"
+//                     >
+//                       <InputLeftAddon
+//                         children="CRM/UF:"
+//                         paddingEnd={"5px"}
+//                         fontWeight="bold"
+//                       />
+//                       <Input
+//                         maxLength={13}
+//                         ref={refCRM}
+//                         defaultValue={medico.crm}
+//                         fontSize="18px"
+//                         variant={"unstyled"}
+//                         isDisabled={CRMenable}
+//                         textAlign={"center"}
+
+//                       />
+//                     </InputGroup>
+//                   </Center>
+//                 )}
+//               </Center>
+
+//               <Center>
+//                 <Button
+//                   color="#4759FC"
+//                   fontSize="16px"
+//                   fontWeight="bold"
+//                   backgroundColor="transparent"
+//                   alignItems="center"
+//                   onClick={() => {
+//                     setCRMEnable(false);
+//                     setInputCRM(true);
+//                     setInputAssinatura(true);
+//                     setSelectedClinica(false);
+//                   }}
+//                 >
+//                   Editar
+//                 </Button>
+//               </Center>
+//             </Grid>
+//           </Center>
+//         </ModalBody>
+//       </Container>
+
+//       <ModalFooter>
+//         {InputAssinatura ? (
+//           <Box
+//             w="100%"
+//             h="100%"
+//             backgroundColor={"#F7FAFC"}
+//             borderColor="#3183cf"
+//             borderWidth="2px"
+//             boxShadow="md"
+//             borderRadius={"md"}
+//           >
+//             {newAssinaturaEdit && pngAssinaturaCheck == false ? (
+//               <SignatureCanvas
+//                 ref={padRef}
+//                 backgroundColor="#F7FAFC"
+//                 penColor="black"
+//                 // onEnd={() => UpdateLocalStorage(null, null, null)}
+//                 canvasProps={{
+//                   width: 390,
+//                   height: 230,
+//                   className: "sigCanvas",
+//                 }}
+//               />
+//             ) : (
+//               <Image
+//                 backgroundColor={"#F7FAFC"}
+//                 borderRadius={"md"}
+//                 width="400px"
+//                 height="200px"
+//                 srcSet={
+//                   pngAssinatura == null ? medico.assinatura : pngAssinatura
+//                 }
+//                 alt="Assinatura"
+//               />
+//             )}
+
+//             <Flex justify="end">
+//               <input
+//                 disabled={newAssinaturaEdit ? false : true}
+//                 accept="image/png, image/jpeg"
+//                 type="file"
+//                 id="file"
+//                 ref={inputFile}
+//                 style={{ display: "none" }}
+//                 onChange={onChangeFilePNGAssinatura.bind(this)}
+//               />
+//               <Icon
+//                 as={AiOutlineCloudUpload}
+//                 color="#4658fc"
+//                 margin="5px"
+//                 alignItems="end"
+//                 onClick={add_png_assinatura}
+//               />
+//               <Icon
+//                 as={AiOutlineClear}
+//                 color="#4658fc"
+//                 margin="5px"
+//                 alignItems="end"
+//                 onClick={() => {
+//                   clearAssinatura();
+//                   setnewAssinaturaEdit(true);
+//                 }}
+//               />
+//             </Flex>
+//           </Box>
+//         ) : (
+//           <Image
+//             boxShadow="lg"
+//             backgroundColor={"#F7FAFC"}
+//             borderRadius={"md"}
+//             width="400px"
+//             height="200px"
+//             srcSet={pngAssinatura == null ? medico.assinatura : pngAssinatura}
+//             alt="Assinatura"
+//           />
+//         )}
+//       </ModalFooter>
+//       <Button
+//         marginTop="5px"
+//         textColor="white"
+//         backgroundColor="#0e63fe"
+//         marginEnd="20px"
+//         marginStart="23px"
+//         marginBottom="10px"
+//         onClick={() => {
+//           // UpdateLocalStorage(updateNome, updateCRM, updateClinica);
+//           ResetStates();
+//           onClose();
+//         }}
+//       >
+//         Salvar
+//       </Button>
+//     </ModalContent>
+//   </Modal>
+//   <Modal isOpen={isOpenLongModal} onClose={onCloseLongModal}>
+//     <ModalOverlay />
+//     <ModalContent>
+//       <ModalHeader>Excluir Doutor(a) {medico.nome} ?</ModalHeader>
+//       <ModalCloseButton />
+//       <ModalBody>
+//         <Text> Deseja excluir Doutor(a) {medico.nome} ?</Text>
+//       </ModalBody>
+
+//       <ModalFooter>
+//         <Button colorScheme="blue" mr={3} onClick={onCloseLongModal}>
+//           Cancelar
+//         </Button>
+//         <Button variant="ghost"
+//         // onClick={() => RemoveItem()}
+//         >
+//           Excluir{" "}
+//         </Button>
+//       </ModalFooter>
+//     </ModalContent>
+//   </Modal>
+// </Box>
+// </Box >
