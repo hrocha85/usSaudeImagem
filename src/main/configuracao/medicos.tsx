@@ -455,7 +455,9 @@ const Medicos = ({ medico, id }) => {
                     onClick={() => setcloseTooltip(true)}
                     size="auto"
                     variant="ghost"
-                    textColor={'blue.400'}
+                    color='blue'
+                    border='1px'
+                    padding={2}
                     _hover={{ bg: "transparent" }}
                   >Visualizar cadastro
                     {/* <IconContext.Provider value={{ color: "#0dc7e2" }}>

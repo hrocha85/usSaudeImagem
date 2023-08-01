@@ -108,8 +108,8 @@ const Sidebar = () => {
               <HStack>
                 {<Image
                   src={logo}
-                  w="175px"
-                  h="90px"
+                  w="10rem"
+                  h="4rem"
                   marginLeft="30px"
                   marginTop="10px"
                 /> }

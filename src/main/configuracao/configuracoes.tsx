@@ -760,24 +760,14 @@ const Configuracoes = () => {
       alignItems="center"
     >
       <Sidebar/>
-      <Stack
-        direction="row"
-        justify="space-between"
-        align="center"
-        padding="0px 20px 20px 20px"
-      >
-        {/* <BoxTitleBackground
-          PadLeft="20px"
-          fontsize="19px"
-          tamanho="180px"
-          titulo="Configurações"
-        /> */}
 
+      <Stack direction="row" flexWrap="wrap" gap="5px" justifyContent={'center'}>
+        <Box display={'flex'} flexWrap={'wrap'} gap={5}>
         {returnPOPoverLaudos()}
-      </Stack>
-      <Stack direction="row" flexWrap="wrap" gap="5px">
-        <MainCardClinica titulo="Clínicas" icon={true} clinica={null} medicos={null} />
-        <MainCard titulo="Médicos" icon={true} clinica={null} medicos={null} />
+          <MainCardClinica titulo="Clínicas" icon={true} clinica={null} medicos={null} />
+          <MainCard titulo="Médicos" icon={true} clinica={null} medicos={null} />
+          
+        </Box>
 
         {/* {medicos.map((medico, key) => {
           return <Medicos key={key} medico={medico} id={key} />;

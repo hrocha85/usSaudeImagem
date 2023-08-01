@@ -33,8 +33,8 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
     <Box
       // bg="#FAFAFA"
-      w="45rem"
-      h="100vh"
+      w="23rem"
+      h="50vh"
       color="white"
       
       borderRadius="10.85px"
