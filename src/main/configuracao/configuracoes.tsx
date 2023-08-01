@@ -55,6 +55,7 @@ import BGImage from "../images/bg_img.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import Sidebar from "../menu/sideBar";
 import Medicos from "./medicos";
+import MainCardClinica from "../component/main_cardClinica";
 
 var dados;
 export let lista_medicos = MedicosJSON.medicos;
@@ -758,7 +759,7 @@ const Configuracoes = () => {
       // paddingBottom="10px"
       alignItems="center"
     >
-      <Sidebar />
+      <Sidebar/>
       <Stack
         direction="row"
         justify="space-between"
@@ -775,14 +776,14 @@ const Configuracoes = () => {
         {returnPOPoverLaudos()}
       </Stack>
       <Stack direction="row" flexWrap="wrap" gap="5px">
-        <MainCard titulo="Clínicas" icon={true} clinica={null} medicos={null} />
+        <MainCardClinica titulo="Clínicas" icon={true} clinica={null} medicos={null} />
         <MainCard titulo="Médicos" icon={true} clinica={null} medicos={null} />
 
         {/* {medicos.map((medico, key) => {
           return <Medicos key={key} medico={medico} id={key} />;
         })} */}
 
-        <Tooltip
+        {/* <Tooltip
           label="Adicionar Médico"
           backgroundColor="white"
           placement="top"
@@ -795,8 +796,8 @@ const Configuracoes = () => {
           <Button
             borderRadius="xl"
             backgroundColor="white"
-            w="42"
-            h="42"
+            w="30"
+            h="30"
             boxShadow="md"
             textColor="#4CBFF0"
             fontSize="19px"
@@ -814,7 +815,7 @@ const Configuracoes = () => {
             />
             Adicionar
           </Button>
-        </Tooltip>
+        </Tooltip> */}
       </Stack>
       {ModalAddMedico()}
       {returnObservacoes()}

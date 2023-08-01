@@ -496,36 +496,38 @@ const FieldDefaultIcon = ({
         <GridItem
           w="100%"
           h="100%"
-          borderRadius="4px"
+          borderRadius="10px"
           marginBottom="8px"
-          marginEnd="10px"
-          marginStart="16px"
+          // marginEnd="10px"
+          // marginStart="16px"
           bg="white"
           borderStyle="solid"
           borderWidth="2px"
           borderColor="#e2e8f0"
-          padding="5px"
+          padding="1px 2px"
           onClick={() => {
             return onClickModal ? onOpen() : null;
           }}
         >
           <Stack direction="row" alignItems="center">
-            <IconContext.Provider value={{ color: "#4A5568" }}>
+            {/* <IconContext.Provider value={{ color: "#4A5568" }}>
               <Icon
                 as={icon}
                 w={6}
                 h={6}
                 alignSelf="center"
-                marginStart="15px"
-                marginEnd="10px"
+                bg={'red'}
+                // marginStart="15px"
+                // marginEnd="10px"
               />
-            </IconContext.Provider>
+            </IconContext.Provider> */}
 
             <Text
-              alignSelf="center"
+              textAlign={'center'}
               textColor={textColor}
               textStyle="solid"
               fontSize="18px"
+              padding={1}
               fontWeight="medium"
               paddingTop="4.5"
               whiteSpace="nowrap"

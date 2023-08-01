@@ -4,7 +4,7 @@ import Clinica from "../configuracao/clinicas";
 import IconButtonPlus from "./icon_button_plus";
 import Medico from "../configuracao/medicosNew";
 
-const MainCard = ({ titulo, icon, clinica, medicos }) => {
+const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
   const [atualizar, setAtualizar] = useState(true);
 
   useEffect(() => { }, [atualizar]);
@@ -30,14 +30,13 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
     <Box
       // bg="#FAFAFA"
-      w="45rem"
+      w="21rem"
       h="100vh"
       color="white"
-      
       borderRadius="10.85px"
+
       marginStart='20px'
       overflow='auto'
 
@@ -60,8 +59,7 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
 
       <Box>{Cards(titulo)}</Box>
     </Box>
-    </div>
   );
 };
 
-export default MainCard;
+export default MainCardClinica;
