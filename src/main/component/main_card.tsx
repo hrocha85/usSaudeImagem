@@ -2,6 +2,7 @@ import { Box, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Clinica from "../configuracao/clinicas";
 import IconButtonPlus from "./icon_button_plus";
+import Medico from "../configuracao/medicosNew";
 
 const MainCard = ({ titulo, icon, clinica, medicos }) => {
   const [atualizar, setAtualizar] = useState(true);
@@ -20,6 +21,8 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
     switch (titulo) {
       case "Clínicas":
         return <Clinica atualizar={atualizar} />;
+      case "Médicos":
+        return <Medico atualizar={atualizar} />;
 
       default:
         break;

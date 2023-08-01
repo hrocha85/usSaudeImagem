@@ -414,95 +414,101 @@ const Medicos = ({ medico, id }) => {
           marginTop="5px"
           marginStart="10px"
         />
-        <Text
-          color="#1A202C"
-          fontSize="20px"
-          align="center"
-          //onClick={onOpen}
-          //_hover={{ cursor: "pointer" }}
-          fontWeight="semibold"
-          overflowWrap="break-word"
-          display="inline-block"
-          whiteSpace="nowrap"
-          overflow="hidden"
-          textOverflow="ellipsis"
-        >
-          {nomeMedico}
-        </Text>
-        <Tooltip
-          isDisabled={closeTooltip}
-          label="Opções"
-          backgroundColor="white"
-          placement="top"
-          hasArrow
-          arrowSize={15}
-          textColor="black"
-          fontSize="xl"
-        >
-          <Box>
-            <Popover>
-              <PopoverTrigger>
-                <Button
-                  display="flex"
-                  justifySelf="flex-end"
-                  onClick={() => setcloseTooltip(true)}
-                  size="auto"
-                  backgroundColor="transparent"
-                  variant="ghost"
-                  _hover={{ bg: "transparent" }}
-                >
-                  <IconContext.Provider value={{ color: "#0dc7e2" }}>
-                    <Icon
-                      onMouseOver={() => setcloseTooltip(false)}
-                      margin="5px"
-                      as={FaRegEdit}
-                      w={8}
-                      h={6}
-                      marginStart="15px"
-                    />
-                  </IconContext.Provider>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent borderRadius="20px" w="auto">
-                <PopoverArrow />
-                <Button
-                  onClick={() => onOpen()}
-                  size="auto"
-                  fontWeight="normal"
-                  backgroundColor="transparent"
-                  variant="ghost"
-                  cursor="pointer"
-                  _hover={{
-                    bg: "blue.100",
-                    fontWeight: "semibold",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <PopoverBody>{POPEditarMedico()}</PopoverBody>
-                </Button>
-                <Divider orientation="horizontal" margin="5px" />
+        <Stack>
+          <Text
+            color="#1A202C"
+            fontSize="20px"
+            align="center"
+            //onClick={onOpen}
+            //_hover={{ cursor: "pointer" }}
+            fontWeight="semibold"
+            overflowWrap="break-word"
+            display="inline-block"
+            whiteSpace="nowrap"
+            overflow="hidden"
+            textOverflow="ellipsis"
+          >
+            {nomeMedico}
+          </Text>
 
-                <Button
-                  onClick={() => onOpenLongModal()}
-                  size="auto"
-                  fontWeight="normal"
-                  backgroundColor="transparent"
-                  variant="ghost"
-                  cursor="pointer"
-                  _hover={{
-                    bg: "blue.100",
-                    fontWeight: "semibold",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <PopoverBody>{POPExcluirMedico()}</PopoverBody>
-                </Button>
-              </PopoverContent>
-            </Popover>
+          <Box overflow="auto" >
+            <RenderFieldDefault />
           </Box>
-        </Tooltip>
+          <Tooltip
+            isDisabled={closeTooltip}
+            label="Opções"
+            backgroundColor="white"
+            placement="top"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+            fontSize="xl"
+          >
+            <Box>
+              <Popover>
+                <PopoverTrigger>
+                  <Button
+                    display="flex"
+                    justifySelf="flex-end"
+                    onClick={() => setcloseTooltip(true)}
+                    size="auto"
+                    backgroundColor="transparent"
+                    variant="ghost"
+                    _hover={{ bg: "transparent" }}
+                  >
+                    <IconContext.Provider value={{ color: "#0dc7e2" }}>
+                      <Icon
+                        onMouseOver={() => setcloseTooltip(false)}
+                        margin="5px"
+                        as={FaRegEdit}
+                        w={8}
+                        h={6}
+                        marginStart="15px"
+                      />
+                    </IconContext.Provider>
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent borderRadius="20px" w="auto">
+                  <PopoverArrow />
+                  <Button
+                    onClick={() => onOpen()}
+                    size="auto"
+                    fontWeight="normal"
+                    backgroundColor="transparent"
+                    variant="ghost"
+                    cursor="pointer"
+                    _hover={{
+                      bg: "blue.100",
+                      fontWeight: "semibold",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <PopoverBody>{POPEditarMedico()}</PopoverBody>
+                  </Button>
+                  <Divider orientation="horizontal" margin="5px" />
+
+                  <Button
+                    onClick={() => onOpenLongModal()}
+                    size="auto"
+                    fontWeight="normal"
+                    backgroundColor="transparent"
+                    variant="ghost"
+                    cursor="pointer"
+                    _hover={{
+                      bg: "blue.100",
+                      fontWeight: "semibold",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <PopoverBody>{POPExcluirMedico()}</PopoverBody>
+                  </Button>
+                </PopoverContent>
+              </Popover>
+            </Box>
+          </Tooltip>
+        </Stack>
       </HStack>
-      <Center>
+      {/* <Center>
         <Box marginTop="5%" marginBottom="5%">
           <Center>
             <Stack align="center">
@@ -515,11 +521,9 @@ const Medicos = ({ medico, id }) => {
             </Stack>
           </Center>
         </Box>
-      </Center>
+      </Center> */}
       <Box onClick={onOpen}>
-        <Box overflow="auto" >
-          <RenderFieldDefault />
-        </Box>
+
         {/* <Box>
           {assinatura != "" ? (
             <Box
