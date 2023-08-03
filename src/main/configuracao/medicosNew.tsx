@@ -3,7 +3,7 @@ import { FaRegFolderOpen } from "react-icons/fa";
 import Medicos from "./medicos";
 
 
-const Medico = (props) => {
+const Medico = (props, clinica) => {
   const [medicos, setmedicos] = useState<any[]>([]);
 
   const pegarMedicos = () => {
@@ -17,6 +17,9 @@ const Medico = (props) => {
     }
   };
 
+  useEffect(() => {
+    console.log('clinicamedicos', clinica)
+  }, [])
   useEffect(() => {
     pegarMedicos();
   }, [props.atualizar]);

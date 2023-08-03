@@ -10,24 +10,18 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
 
   useEffect(() => { }, [atualizar]);
 
-  function ShowIcon(icon: boolean) {
-    console.log('icon', icon)
-
-    if (titulo === "Clínicas") {
+  function ShowIcon(icon: boolean, clinca) {
+    if (icon) {
       return (
-        <IconButtonPlus atualizar={atualizar} setAtualizar={setAtualizar} />
-      );
-    } else {
-      return (
-        <IconButtonPlusMedicos atualizar={atualizar} setAtualizar={setAtualizar} />
+        <IconButtonPlusMedicos atualizar={atualizar} setAtualizar={setAtualizar} clinica={clinica} />
       );
     }
   }
 
+
   function Cards(titulo) {
     switch (titulo) {
-      case "Clínicas":
-        return <Clinica atualizar={atualizar} />;
+
       case "Médicos":
         return <Medico atualizar={atualizar} />;
 
@@ -61,7 +55,7 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
             >
               {medicos ? medicos.nome : titulo}
             </Text>
-            {ShowIcon(icon)}
+            {ShowIcon(icon, clinica)}
           </Stack>
         </Box>
 

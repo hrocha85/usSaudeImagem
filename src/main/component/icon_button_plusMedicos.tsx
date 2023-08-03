@@ -56,10 +56,12 @@ export let minhasClinicas = infoClinicas.clinicas;
 export let lista_medicos = MedicosJSON.medicos;
 
 
-const IconButtonPlusMedicos = (props) => {
+const IconButtonPlusMedicos = (props, clinica) => {
   const toast = useToast();
 
   let padRef = React.useRef<SignatureCanvas>(null);
+
+
 
   const getMedicos = () => {
     var medicos;
@@ -102,6 +104,7 @@ const IconButtonPlusMedicos = (props) => {
 
   const [imageAssinatura, setImageAssinatura] = useState(true);
 
+
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
   const {
     isOpen: isOpenModalAddMedico,
@@ -117,6 +120,19 @@ const IconButtonPlusMedicos = (props) => {
     if (user != null) return user.isLogged;
   };
   const [userLogged, setuserLogged] = useState(getUser());
+
+  const PegaClinicas = () => {
+
+    var item;
+    var item_parse;
+    if (localStorage.getItem("minhasClinicas") != null) {
+      item = localStorage.getItem("minhasClinicas");
+      item_parse = JSON.parse(item);
+      setListaClinicas(item_parse);
+    }
+
+    onOpenModalAddMedico()
+  }
 
   const ResetDados = () => {
     setNome("");
@@ -182,6 +198,7 @@ const IconButtonPlusMedicos = (props) => {
     }
   };
 
+
   const AddMedico = () => {
     const obj = {
       nome: nome,
@@ -194,25 +211,18 @@ const IconButtonPlusMedicos = (props) => {
       clinica: clinicas,
       laudos: [{}],
     };
-    lista_medicos.push(obj);
 
-    lista_medicos.map((e) => {
+    medicos.push(obj)
+
+    medicos.map((e) => {
       if (e.nome == "NOME") {
-        lista_medicos.shift();
+        medicos.shift();
       }
     });
-    // lista_medicos.map((e) => {
-    //   if (padRef.current?.isEmpty()) {
-    //     e.assinatura = "";
-    //   } else {
-    //     e.assinatura = padRef.current
-    //       ?.getTrimmedCanvas()
-    //       .toDataURL("image/png")!;
-    //   }
-    // });
 
-    localStorage.setItem("medicos", JSON.stringify(lista_medicos));
-    setMedicos(lista_medicos);
+    localStorage.setItem("medicos", JSON.stringify(medicos));
+    props.setAtualizar(!props.atualizar);
+    setMedicos(medicos);
   };
 
   const TAGS = () => {
@@ -296,12 +306,14 @@ const IconButtonPlusMedicos = (props) => {
           textColor="#4CBFF0"
           fontSize="19px"
           fontWeight="semibold"
-          onClick={onOpenModalAddMedico}
+          onClick={() => {
+            PegaClinicas()
+          }}
           variant="ghost"
         >
           <Icon as={AiOutlinePlusCircle} w="30px" h="30px" />
         </Button>
-      </Tooltip>
+      </Tooltip >
       <>
         <Modal
           isOpen={isOpenModalAddMedico}

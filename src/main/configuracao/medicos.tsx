@@ -54,6 +54,10 @@ import { lista_medicos } from "./configuracoes";
 const Medicos = ({ medico, id }) => {
   let medicos: any[] = [];
 
+  useEffect(() => {
+    console.log('entrou')
+  }, [])
+
   medicos.push(medico);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -309,7 +313,7 @@ const Medicos = ({ medico, id }) => {
 
   const RenderFieldDefault = () => {
     return (
-      <div style={{ textAlign: 'center' , borderRadius: '50rem' }}>
+      <div style={{ textAlign: 'center', borderRadius: '50rem' }}>
         {ClinicasMedico.map((clinica, key) => {
           var parseClinica = JSON.parse(clinica);
           return (

@@ -21,8 +21,7 @@ const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
     switch (titulo) {
       case "Clínicas":
         return <Clinica atualizar={atualizar} />;
-      case "Médicos":
-        return <Medico atualizar={atualizar} />;
+
 
       default:
         break;
