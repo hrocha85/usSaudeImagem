@@ -520,7 +520,6 @@ const Configuracoes = () => {
                   variant="filled"
                   textAlign="center"
                   onChange={(e) => {
-                    console.log("eVALUE", e.target.value);
                     setClinica((prevClin) => [...prevClin, e.target.value]);
                     TAGS();
                   }}
@@ -759,21 +758,21 @@ const Configuracoes = () => {
       // paddingBottom="10px"
       alignItems="center"
     >
-      <Sidebar/>
+      <Sidebar />
 
       <Stack direction="row" flexWrap="wrap" gap="5px" justifyContent={'center'}>
         <Box display={'flex'} flexWrap={'wrap'} gap={5}>
-        {returnPOPoverLaudos()}
+          {returnPOPoverLaudos()}
           <MainCardClinica titulo="Clínicas" icon={true} clinica={null} medicos={null} />
-          <MainCard titulo="Médicos" icon={true} clinica={null} medicos={null} />
-          
+          <MainCard titulo="Médicos" icon={true} clinica={listaClinicas} medicos={null} />
+
         </Box>
 
         {/* {medicos.map((medico, key) => {
           return <Medicos key={key} medico={medico} id={key} />;
         })} */}
 
-        {/* <Tooltip
+        <Tooltip
           label="Adicionar Médico"
           backgroundColor="white"
           placement="top"
@@ -805,7 +804,7 @@ const Configuracoes = () => {
             />
             Adicionar
           </Button>
-        </Tooltip> */}
+        </Tooltip>
       </Stack>
       {ModalAddMedico()}
       {returnObservacoes()}
