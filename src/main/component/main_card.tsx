@@ -1,4 +1,4 @@
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, Stack, Text, background } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Clinica from "../configuracao/clinicas";
 import IconButtonPlus from "./icon_button_plus";
@@ -31,7 +31,7 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop:'4rem'}}>
       <Box
         // bg="#FAFAFA"
         w="23rem"
@@ -41,21 +41,24 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
         borderRadius="10.85px"
         marginStart='20px'
         overflow='auto'
+        css={{ '&::-webkit-scrollbar': { width: '0.4em' }, '&::-webkit-scrollbar-thumb': { backgroundColor: 'transparent' } }}
 
       //minW="218px"
       >
-        <Box margin="10px">
-          <Stack direction="row" spacing="200px">
+        <Box 
+        position="absolute" bg={'#c1e4f9'}pl={'1rem'} zIndex={90} w={'25rem'} h={'3.4rem'} top={'5.0rem'}>
+          <Stack direction="row" spacing="8.4rem">
             <Text
               color="#1A202C"
               fontSize="20px"
-              paddingStart="8px"
+              paddingStart="10px"
               alignSelf="center"
               fontWeight='semibold'
             >
               {medicos ? medicos.nome : titulo}
             </Text>
-            {ShowIcon(icon, clinica)}
+            <Box pt={3}> {ShowIcon(icon, clinica)}</Box>
+           
           </Stack>
         </Box>
 
