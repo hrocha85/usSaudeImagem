@@ -32,7 +32,7 @@ import {
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
-import { BsEye } from "react-icons/bs";
+import { BsEye, BsFillCheckCircleFill } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { GoDesktopDownload } from "react-icons/go";
 import { RiCloseLine } from "react-icons/ri";
@@ -848,7 +848,7 @@ function Exames() {
   }, [])
 
   const verificaForm = () => {
-    formPreenchido ? console.log('funcionou') : navigate("/Form")
+    formPreenchido ? alert('funcionou') : navigate("/Form")
   }
 
   return (
@@ -979,7 +979,7 @@ function Exames() {
             </Tooltip>
           )}
           <Tooltip
-            label="Concluir laudo"
+            label="Salvar laudo"
             fontSize="xl"
             backgroundColor="white"
             placement="top"
@@ -991,7 +991,7 @@ function Exames() {
               <Icon
                 w={30}
                 h={30}
-                as={BsEye}
+                as={BsFillCheckCircleFill}
                 color="twitter.600"
                 size="30px"
                 onClick={() => {
