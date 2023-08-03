@@ -772,7 +772,7 @@ const Configuracoes = () => {
           return <Medicos key={key} medico={medico} id={key} />;
         })} */}
 
-        <Tooltip
+        {/* <Tooltip
           label="Adicionar Médico"
           backgroundColor="white"
           placement="top"
@@ -804,7 +804,7 @@ const Configuracoes = () => {
             />
             Adicionar
           </Button>
-        </Tooltip>
+        </Tooltip> */}
       </Stack>
       {ModalAddMedico()}
       {returnObservacoes()}
