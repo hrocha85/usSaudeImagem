@@ -31,6 +31,7 @@ import Articulacoes from "../main/exames/articulacoes";
 import DopplerVenosoMMII from "../main/exames/dopplerVenosoMMII";
 import Format_PDF from "../main/folha_laudos/format_pdf";
 import Box_Default_With_Sidebar from "../main/component/screen_exames";
+import Form from "../main/form/form";
 
 function Rotas() {
   return (
@@ -38,6 +39,7 @@ function Rotas() {
       <Route path="/" element={<SplashScreen />} />
       <Route path="/Home" element={<Home />} />
       <Route path="/Login" element={<Login />} />
+      <Route path="/Form" element={<Form />} />
       {/* <Route path="/Home/1" element={<AbdomemTotal />} />
       <Route path="/Home/2" element={<DopplerTransvaginal />} />
       <Route path="/Home/3" element={<Mamas />} />

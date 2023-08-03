@@ -38,6 +38,7 @@ import { GoDesktopDownload } from "react-icons/go";
 import { RiCloseLine } from "react-icons/ri";
 import LaudosJSON from "../../Data/Laudos.json";
 import { LaudosContext } from "../../context/LuadosContext";
+import { useNavigate } from "react-router-dom";
 import "./Laudos.css";
 import SubMenu from "../menu/subMenu";
 
@@ -252,8 +253,10 @@ function Exames() {
       },
     ],
   });
-
+  const navigate = useNavigate();
   const Laudo = () => {
+
+
     const renderFrases = (exame) => {
       return exame.subExames.map((sub, key) => {
         return sub.subExameNome != null && sub.subExameNome != "" ? (
@@ -832,6 +835,22 @@ function Exames() {
     }
   }, [edit, localStorage.getItem("format_laudo")!]);*/
 
+  const [formPreenchido, setFormPreenchido] = useState(true)
+
+  useEffect(() => {
+    if (localStorage.getItem("formPreenchido")) {
+      console.log('aqui')
+      setFormPreenchido(true)
+    } else {
+      console.log('fora')
+      setFormPreenchido(false)
+    }
+  }, [])
+
+  const verificaForm = () => {
+    formPreenchido ? console.log('funcionou') : navigate("/Form")
+  }
+
   return (
     <Box
       w="32%"
@@ -959,6 +978,28 @@ function Exames() {
               </Circle>
             </Tooltip>
           )}
+          <Tooltip
+            label="Concluir laudo"
+            fontSize="xl"
+            backgroundColor="white"
+            placement="top"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+          >
+            <Circle size="50px" bg="gray.200">
+              <Icon
+                w={30}
+                h={30}
+                as={BsEye}
+                color="twitter.600"
+                size="30px"
+                onClick={() => {
+                  verificaForm()
+                }}
+              />
+            </Circle>
+          </Tooltip>
         </Stack>
       </Center>
 
