@@ -494,8 +494,8 @@ const FieldDefaultIcon = ({
 
       <Flex>
         <GridItem
-          w="100%"
-          h="100%"
+          w="9rem"
+          h="1.6rem"
           borderRadius="10px"
           marginBottom="8px"
           // marginEnd="10px"
@@ -526,10 +526,9 @@ const FieldDefaultIcon = ({
               textAlign={'center'}
               textColor={textColor}
               textStyle="solid"
-              fontSize="18px"
-              padding={1}
+              fontSize="14px"
+              pl={4}
               fontWeight="medium"
-              paddingTop="4.5"
               whiteSpace="nowrap"
               overflow="hidden"
               textOverflow="ellipsis"

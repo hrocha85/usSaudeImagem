@@ -399,7 +399,7 @@ const Medicos = ({ medico, id }) => {
   return (
     <Box
       bg="#FAFAFA"
-      w="21rem"
+      w="19rem"
       h="12rem"
       marginBottom={'0.4rem'}
       color="white"
@@ -407,12 +407,13 @@ const Medicos = ({ medico, id }) => {
       boxShadow="2xl"
       dropShadow="dark-lg"
       display="flex"
+      //marginTop={'4rem'}
       alignItems={'center'}
     >
       <HStack margin="10px" direction="row" spacing={4} justify="space-between">
         <Image
           borderRadius="full"
-          boxSize="80px"
+          boxSize="60px"
           src={defaultUserImage}
           alt="Foto médico"
           justifySelf="flex-start"
@@ -423,7 +424,7 @@ const Medicos = ({ medico, id }) => {
         <Stack>
           <Text
             color="#1A202C"
-            fontSize="20px"
+            fontSize="16px"
             align="center"
             //onClick={onOpen}
             //_hover={{ cursor: "pointer" }}
@@ -437,7 +438,7 @@ const Medicos = ({ medico, id }) => {
             {nomeMedico}
           </Text>
 
-          <Box overflow="auto" >
+          <Box overflow="auto" maxHeight={'6.4rem'} css={{ '&::-webkit-scrollbar': { width: '0.4em' }, '&::-webkit-scrollbar-thumb': { backgroundColor: 'transparent' } }}>
             <RenderFieldDefault />
           </Box>
           <Tooltip
@@ -448,7 +449,7 @@ const Medicos = ({ medico, id }) => {
             hasArrow
             arrowSize={15}
             textColor="black"
-            fontSize="xl"
+            fontSize="md"
           >
             <Box>
               <Popover>
@@ -461,7 +462,7 @@ const Medicos = ({ medico, id }) => {
                     variant="ghost"
                     color='blue'
                     border='1px'
-                    padding={2}
+                    padding={1}
                     _hover={{ bg: "transparent" }}
                   >Visualizar cadastro
                     {/* <IconContext.Provider value={{ color: "#0dc7e2" }}>
