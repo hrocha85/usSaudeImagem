@@ -41,8 +41,9 @@ const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
 
     //minW="218px"
     >
-      <Box margin="10px">
-        <Stack direction="row" spacing="200px">
+      <Box position="fixed" margin="10px">
+        <Stack
+          direction="row" spacing="200px">
           <Text
             color="#1A202C"
             fontSize="20px"
@@ -56,7 +57,7 @@ const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
         </Stack>
       </Box>
 
-      <Box>{Cards(titulo)}</Box>
+      <Box mt='60px' >{Cards(titulo)}</Box>
     </Box>
   );
 };
