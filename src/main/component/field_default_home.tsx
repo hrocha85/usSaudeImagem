@@ -229,14 +229,6 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
         bg={'#2e4ad4'}
         borderColor={'gray'}
       >
-        {/* <Link
-          href={`#/Exames/`}
-          fontWeight="bold"
-          fontSize="14px"
-          position="relative"
-          pl="80px"
-          z-index="1"
-        /> */}
 
         <Tooltip
           isDisabled={enableExames}
