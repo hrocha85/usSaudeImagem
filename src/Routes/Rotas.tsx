@@ -1,36 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 import Configuracoes from "../main/configuracao/configuracoes";
-import AbdomemTotal from "../main/exames/abdomemTotal";
-import AbdomemSuperior from "../main/exames/abdomenSuperior";
-import DopplerTireoide from "../main/exames/dopplerTireoide";
-import DopplerTireoide2 from "../main/exames/dopplerTireoide2";
-import Tireoide from "../main/exames/tireoide";
-import Tireoide2 from "../main/exames/tireoide2";
-import Transvaginal from "../main/exames/transvaginal";
 import Home from "../main/home/index";
 import SplashScreen from "../main/splashScreen";
 
-import PartesMoles from "../main/exames/partesMoles";
 
-import DopplerBolsaTesticular from "../main/exames/dopplerBolsaTesticular";
-import DopplerCarotidas from "../main/exames/dopplerCarotidas";
-import DopplerCarotidas2 from "../main/exames/dopplerCarotidas2";
-import DopplerRenal from "../main/exames/dopplerRenal";
-import DopplerTransvaginal from "../main/exames/dopplerTransvaginal";
-import Doppler_Arterial_MMII from "../main/exames/doppler_arterial_MMII";
-import Mamas from "../main/exames/mamas";
-import Pelvico from "../main/exames/pelvico";
-import Prostata from "../main/exames/prostata";
-import RinseViasUrinarias from "../main/exames/RinsViasUrinarias";
-import Testiculo from "../main/exames/testiculo";
-import Regiao_Inguinal from "../main/exames/regiao_inguinal";
 
 import Login from "../main/login/login";
 
-import Articulacoes from "../main/exames/articulacoes";
-import DopplerVenosoMMII from "../main/exames/dopplerVenosoMMII";
-import Format_PDF from "../main/folha_laudos/format_pdf";
 import Box_Default_With_Sidebar from "../main/component/screen_exames";
+import Format_PDF from "../main/folha_laudos/format_pdf";
 
 function Rotas() {
   return (

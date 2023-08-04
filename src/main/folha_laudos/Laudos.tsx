@@ -1,6 +1,7 @@
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Button,
   ButtonGroup,
   Center,
   Circle,
@@ -15,9 +16,13 @@ import {
   Image,
   Input,
   Link,
+  Modal,
+  ModalContent,
+  ModalOverlay,
   Stack,
   Text,
   Tooltip,
+  useDisclosure,
   useEditableControls,
 } from "@chakra-ui/react";
 import {
@@ -32,13 +37,15 @@ import {
 } from "@react-pdf/renderer";
 import { useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
-import { BsEye } from "react-icons/bs";
+import { BsEye, BsFillCheckCircleFill } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { GoDesktopDownload } from "react-icons/go";
 import { RiCloseLine } from "react-icons/ri";
 import LaudosJSON from "../../Data/Laudos.json";
 import { LaudosContext } from "../../context/LuadosContext";
+import { useNavigate } from "react-router-dom";
 import "./Laudos.css";
+import emailjs from '@emailjs/browser';
 import SubMenu from "../menu/subMenu";
 
 function Exames() {
@@ -252,8 +259,10 @@ function Exames() {
       },
     ],
   });
-
+  const navigate = useNavigate();
   const Laudo = () => {
+
+
     const renderFrases = (exame) => {
       return exame.subExames.map((sub, key) => {
         return sub.subExameNome != null && sub.subExameNome != "" ? (
@@ -832,6 +841,85 @@ function Exames() {
     }
   }, [edit, localStorage.getItem("format_laudo")!]);*/
 
+  const [formPreenchido, setFormPreenchido] = useState(true)
+  const [dadoTeste, setDadoteste] = useState('verdade')
+
+  const {
+    isOpen,
+    onOpen,
+    onClose,
+  } = useDisclosure();
+
+  useEffect(() => {
+    if (localStorage.getItem("formPreenchido")) {
+      setFormPreenchido(true)
+    } else {
+      setFormPreenchido(false)
+    }
+  }, [])
+
+  const verificaForm = () => {
+    formPreenchido ? alert('funcionou') : onOpen()
+  }
+  const [Input1, setInput1] = useState('')
+  const [Input2, setInput2] = useState('')
+
+  const finalizaForm = (e) => {
+    console.log(Input1)
+    console.log(Input2)
+
+    emailjs.send('outlookMessage', 'template_6j5xp3j',
+      {
+        to_email: 'barbozagarcia@yahoo.com.br',
+        message: `Resposta 1: ${Input1}
+        Resposta 2: ${Input2}`
+      }, 'qNFyg3V_FW8DLmNjL')
+      .then((result) => {
+        console.log(result.text);
+      }, (error) => {
+        console.log(error.text);
+      });
+
+    setInput1('')
+    setInput2('')
+
+    localStorage.setItem("formPreenchido", dadoTeste)
+    setFormPreenchido(true)
+    onClose()
+  }
+
+  const ModalForm = () => {
+    return (
+      <Modal
+        isOpen={isOpen}
+        onClose={onOpen}
+        colorScheme="blackAlpha"
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <Box>
+            <Input
+              placeholder="Input1"
+              value={Input1}
+              onChange={(e) => setInput1(e.target.value)}
+            />
+            <Input
+              placeholder="Input2"
+              value={Input2}
+              onChange={(e) => setInput2(e.target.value)}
+            />
+            <Button
+              onClick={(e) => finalizaForm(e)}>
+              Finaliza
+            </Button>
+
+          </Box>
+
+        </ModalContent>
+      </Modal>
+    );
+  }
+
   return (
     <Box
       w="32%"
@@ -959,6 +1047,28 @@ function Exames() {
               </Circle>
             </Tooltip>
           )}
+          <Tooltip
+            label="Salvar laudo"
+            fontSize="xl"
+            backgroundColor="white"
+            placement="top"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+          >
+            <Circle size="50px" bg="gray.200">
+              <Icon
+                w={30}
+                h={30}
+                as={BsFillCheckCircleFill}
+                color="twitter.600"
+                size="30px"
+                onClick={() => {
+                  verificaForm()
+                }}
+              />
+            </Circle>
+          </Tooltip>
         </Stack>
       </Center>
 
@@ -1037,6 +1147,7 @@ function Exames() {
           </Text>
         </Box>
       </Box>
+      {ModalForm()}
     </Box>
   );
 }
