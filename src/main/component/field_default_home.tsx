@@ -226,7 +226,6 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
         alignItems={'center'}
         borderRadius={10}
         border={'1px'}
-        bg={'#2e4ad4'}
         borderColor={'gray'}
       >
         {/* <Link
@@ -266,12 +265,10 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
               textAlign={'center'}
               w="130px"
               h="30px"
-              textColor={'white'}
               style={{
                 whiteSpace: "normal",
                 wordWrap: "break-word",
               }}
-              // onClick={() => console.log(id)}
               onClick={() => {
                 // AddExameID(id)
               }}
@@ -283,6 +280,7 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
         </Tooltip>
       </Box>
     </GridItem>
+
   )
 };
 

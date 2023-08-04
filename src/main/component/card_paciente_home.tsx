@@ -196,6 +196,7 @@ const CardPaciente = () => {
             onChange={handleSexoPacienteInput}
 
           >
+
             <option value="Masculino">Masculino</option>
             <option value="Feminino">Feminino</option>
           </Select>
