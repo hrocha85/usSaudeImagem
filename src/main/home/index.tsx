@@ -2,17 +2,10 @@ import {
   Box,
   Button,
   Center,
-  Flex,
   HStack,
   Image,
   Link,
-  // Modal,
-  // ModalBody,
-  // ModalCloseButton,
-  // ModalContent,
-  // ModalFooter,
-  // ModalHeader,
-  // ModalOverlay,
+  Flex,
   Spinner,
   Stack,
   Text,
@@ -270,16 +263,16 @@ function Home() {
 
         <Flex
           justifyContent="space-between">
-            <Link href={"#/Home/Configuracoes"}>
-              <Button right="1" variant="ghost" top={0}>
-                
-                  <Image
-                    srcSet={Configuracao}
-                    alt="Second Icon Plus"
-                    h="30px"
-                    w="30px"
-                  />
-              </Button>
+          <Link href={"#/Home/Configuracoes"}>
+            <Button right="1" variant="ghost" top={0}>
+
+              <Image
+                srcSet={Configuracao}
+                alt="Second Icon Plus"
+                h="30px"
+                w="30px"
+              />
+            </Button>
           </Link>
 
           <Text
