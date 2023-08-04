@@ -32,7 +32,7 @@ const ItemObservation = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [titulo, setTitulo] = useState<string | null>("");
-  const [inputObservacoes, setInputObservacoes] = useState<string[]>([]);
+  const [inputObservacoes, setInputObservacoes] = useState<string>('');
   const [id, setId] = useState<number | null>();
   const [value, setValue] = useState("");
   const [clickSave, setClickSave] = useState(false);
@@ -54,7 +54,7 @@ const ItemObservation = () => {
   const observacoesArray = [
     {
       id: 1,
-      titulo_observacao: "Abdômen total",
+      nomeExame: "Abdômen total",
       observacao: [
         "Conviria controle ecográfico periódico, a critério clínico.",
         "Estaremos à disposição para a discussão do presente caso.",
@@ -65,12 +65,12 @@ const ItemObservation = () => {
     },
     // {
     //   id: 2,
-    //   titulo_observacao: "Doppler Transvaginal",
+    //   nomeExame: "Doppler Transvaginal",
     //   observacao: [""],
     // },
     {
       id: 3,
-      titulo_observacao: "Mamas",
+      nomeExame: "Mamas",
       observacao: [
         "Conviria controle ecográfico periódico, a critério clínico.",
         "Estaremos à disposição para a discussão do presente caso.",
@@ -81,119 +81,123 @@ const ItemObservation = () => {
     },
     // {
     //   id: 4,
-    //   titulo_observacao: "Doppler Artrial do MMSS",
+    //   nomeExame: "Doppler Artrial do MMSS",
     //   observacao: [""],
     // },
     {
       id: 5,
-      titulo_observacao: "Abdômen Superior",
+      nomeExame: "Abdômen Superior",
       observacao: [""],
     },
     {
       id: 6,
-      titulo_observacao: "Transvaginal",
+      nomeExame: "Transvaginal",
       observacao: [""],
     },
     // {
     //   id: 7,
-    //   titulo_observacao: "Doppler Renal",
+    //   nomeExame: "Doppler Renal",
     //   observacao: [""],
     // },
     // {
     //   id: 8,
-    //   titulo_observacao: "Doppler Venoso de MMII",
+    //   nomeExame: "Doppler Venoso de MMII",
     //   observacao: [""],
     // },
-    { id: 9, titulo_observacao: "Tireóide", observacao: [""] },
+    { id: 9, nomeExame: "Tireóide", observacao: [""] },
     // {
     //   id: 10,
-    //   titulo_observacao: "Doppler das Carótidas",
+    //   nomeExame: "Doppler das Carótidas",
     //   observacao: [""],
     // },
     // {
     //   id: 11,
-    //   titulo_observacao: "Doppler Hepático",
+    //   nomeExame: "Doppler Hepático",
     //   observacao: [""],
     // },
     // {
     //   id: 12,
-    //   titulo_observacao: "Doppler Arterial de MMII",
+    //   nomeExame: "Doppler Arterial de MMII",
     //   observacao: [""],
     // },
     {
       id: 13,
-      titulo_observacao: "Tireóide 2",
+      nomeExame: "Tireóide 2",
       observacao: [""],
     },
     // {
     //   id: 14,
-    //   titulo_observacao: "Doppler das Carótidas 2",
+    //   nomeExame: "Doppler das Carótidas 2",
     //   observacao: [""],
     // },
     {
       id: 15,
-      titulo_observacao: "Rins e Vias Urinárias",
+      nomeExame: "Rins e Vias Urinárias",
       observacao: [""],
     },
     // {
     //   id: 16,
-    //   titulo_observacao: "Doppler Venoso de MMSS",
+    //   nomeExame: "Doppler Venoso de MMSS",
     //   observacao: [""],
     // },
     // {
     //   id: 17,
-    //   titulo_observacao: "Doppler da Tireóide",
+    //   nomeExame: "Doppler da Tireóide",
     //   observacao: [""],
     // },
     {
       id: 18,
-      titulo_observacao: "Partes Moles",
+      nomeExame: "Partes Moles",
       observacao: [""],
     },
-    { id: 19, titulo_observacao: "Testículo", observacao: [""] },
+    { id: 19, nomeExame: "Testículo", observacao: [""] },
     // {
     //   id: 20,
-    //   titulo_observacao: "Doppler de Bolsa Testicular",
+    //   nomeExame: "Doppler de Bolsa Testicular",
     //   observacao: [""],
     // },
     // {
     //   id: 21,
-    //   titulo_observacao: "Doppler da Tireóide 2",
+    //   nomeExame: "Doppler da Tireóide 2",
     //   observacao: [""],
     // },
-    { id: 22, titulo_observacao: "Pélvico", observacao: [""] },
+    { id: 22, nomeExame: "Pélvico", observacao: [""] },
     {
       id: 23,
-      titulo_observacao: "Próstata",
+      nomeExame: "Próstata",
       observacao: [""],
     },
     {
       id: 24,
-      titulo_observacao: "Articulações",
+      nomeExame: "Articulações",
       observacao: [""],
     },
     {
       id: 25,
-      titulo_observacao: "Axila",
+      nomeExame: "Axila",
       observacao: [""],
     },
     {
       id: 26,
-      titulo_observacao: "Torax",
+      nomeExame: "Torax",
       observacao: [""],
     },
     {
       id: 27,
-      titulo_observacao: "Parede Abdominal",
+      nomeExame: "Parede Abdominal",
       observacao: [""],
     },
   ];
-  const observacoesJSON = Observacoes.observacoes;
+  const observacoesJSON = observacoesLocalStorage;
+
+
 
   const checkListaObservacao = () => {
     var arrayObservacoes = localStorage.getItem("observacoes")!;
+    console.log('titulo', titulo)
     if (arrayObservacoes != null) {
-      if (!arrayObservacoes.includes(titulo!)) {
+      if (arrayObservacoes.includes(titulo!)) {
+        console.log('aqui')
         addNewObsercao();
       } else {
         updateListaObservacoes(id, value);
@@ -207,25 +211,25 @@ const ItemObservation = () => {
   const setListaObservacoes = () => {
     let observacoes = JSON.parse(localStorage.getItem("observacoes")!) || [];
     const obs = {
-      id: id!,
-      titulo_observacao: titulo!,
+      key: id!,
+      nomeExame: titulo!,
       observacao: inputObservacoes,
     };
-    observacoes = observacoes.filter((e) => e.titulo_observacao !== "");
+    observacoes = observacoes.filter((e) => e.nomeExame !== "");
     observacoes.push(obs);
     localStorage.setItem("observacoes", JSON.stringify(observacoes));
   };
 
   const addNewObsercao = () => {
-    let observacoes = JSON.parse(localStorage.getItem("observacoes")!) || [];
-    const obs = {
-      id: id!,
-      titulo_observacao: titulo!,
-      observacao: inputObservacoes,
-    };
-    observacoes = observacoes.filter((e) => e.titulo_observacao !== "");
-    observacoes.push(obs);
-    localStorage.setItem("observacoes", JSON.stringify(observacoes));
+    let TodasObservacoes = JSON.parse(localStorage.getItem("observacoes")!) || [];
+    console.log(id)
+    let observacoes = TodasObservacoes.filter((e) => e.key === id)
+    observacoes[0].observacao.push(inputObservacoes);
+    const index = TodasObservacoes.indexOf(observacoes[0])
+    if (index !== -1) {
+      TodasObservacoes[index] = observacoes[0]
+    }
+    localStorage.setItem("observacoes", JSON.stringify(TodasObservacoes));
   };
 
   const updateListaObservacoes = (id, value) => {
@@ -233,7 +237,7 @@ const ItemObservation = () => {
     if (!observacoes) return;
 
     var obs = observacoes.map((e) => {
-      if (e.id == id) {
+      if (e.key == id) {
         e.observacao.push(value);
       }
       return e;
@@ -245,7 +249,7 @@ const ItemObservation = () => {
   const ResetStates = () => {
     setId(null);
     setTitulo(null);
-    setInputObservacoes([]);
+    setInputObservacoes('');
     setValue("");
     setClickSave(false);
   };
@@ -295,7 +299,7 @@ const ItemObservation = () => {
     if (!observacoes) return;
 
     observacoes.map((e) => {
-      if (e.id == id) {
+      if (e.key == id) {
         e.observacao.map((i) => {
           console.log(i);
           if (i == observacao) {
@@ -320,13 +324,11 @@ const ItemObservation = () => {
 
     let observacoes_localStorage: any[] = [];
 
-    const observacaofind = observacoesArray.find((obs) => obs.id === id!);
 
     if (localStorage.getItem("observacoes") != null) {
       observacoes_localStorage = JSON.parse(
         localStorage.getItem("observacoes")!
       );
-      console.log(observacoes_localStorage)
     } else {
       /*if (
         observacaofind &&
@@ -340,7 +342,8 @@ const ItemObservation = () => {
       <>
         {observacoes_localStorage != null
           ? observacoes_localStorage.map((e) => {
-            if (e.id == id) {
+
+            if (e.key == id) {
               return e.observacao.map((item, key) => {
                 return (
                   <HStack>
@@ -388,7 +391,7 @@ const ItemObservation = () => {
 
   return (
     <>
-      {observacoesArray.map((observacoes, key) => (
+      {observacoesLocalStorage.map((observacoes, key) => (
         <Flex key={key}>
           <GridItem
             key={key}
@@ -406,8 +409,10 @@ const ItemObservation = () => {
             borderStartColor="#47AFFC"
             onClick={() => {
               onOpen();
-              setTitulo(observacoes.titulo_observacao);
-              setId(observacoes.id);
+              setTitulo(observacoes.nomeExame);
+              setId(observacoes.key);
+              console.log('obs412', observacoes.key)
+              console.log('obs412', observacoes)
             }}
           >
             <Text
@@ -419,7 +424,7 @@ const ItemObservation = () => {
               paddingTop="4.5"
               paddingStart="12px"
             >
-              {observacoes.titulo_observacao}
+              {observacoes.nomeExame}
             </Text>
           </GridItem>
         </Flex>
@@ -455,7 +460,7 @@ const ItemObservation = () => {
               colorScheme="blue"
               onClick={() => {
                 setClickSave(true);
-                setInputObservacoes((prevObs) => [...prevObs, value]);
+                setInputObservacoes(value);
                 refText.current!.value = "";
               }}
             >

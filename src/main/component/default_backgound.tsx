@@ -10,7 +10,7 @@ export default function Default_Backgound({ children }) {
       minH="100vh"
       minW="100vw"
       flexDirection="column"
-      backgroundImage={BGImage}
+      // backgroundImage={BGImage}
       backgroundSize="cover"
       backgroundRepeat="no-repeat"
       backgroundPosition="center"

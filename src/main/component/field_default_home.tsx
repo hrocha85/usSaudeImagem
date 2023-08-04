@@ -1,18 +1,14 @@
-import { Box, Button, GridItem, Image, Link, Tooltip } from "@chakra-ui/react";
+import { Box, Button, GridItem, Link, Tooltip } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
-import { useContext } from "react";
-import FormatLaudo from "../../Data/Format_Laudo.json";
-import Observacoes from "../../Data/Observacoes.json";
+import { useContext, useState } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
 import { TabExamesContext } from "../../context/TabExameContext";
-import reghd_2 from "../images/reghd_2.png";
 
 const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
   let { enableExames, setEnableExames } = useContext(EnableExamesContext);
   const { tabExames, setTabExames } = useContext(TabExamesContext);
+  const [observacoes, SetObservacoes] = useState([])
 
-  const format_laudo = FormatLaudo.format_laudo;
-  const observacoes = Observacoes.observacoes;
 
 
   const exames = [
@@ -165,37 +161,36 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
 
     localStorage.setItem("format_laudo", JSON.stringify(updatedFormatLaudo));
 
-    const existingObservacoes = localStorage.getItem("observacoes");
 
-    if (obs != null) {
-      const newObservacao = {
-        id: id,
-        titulo_observacao: text,
-        observacao: obs!,
-      };
+    // if (obs != null) {
+    //   const newObservacao = {
+    //     id: id,
+    //     titulo_observacao: text,
+    //     observacao: obs!,
+    //   };
 
-      if (existingObservacoes !== null) {
-        const parsedObservacoes = JSON.parse(existingObservacoes);
-        const existingObservacao = parsedObservacoes.find(
-          (obs) => obs.titulo_observacao === text
-        );
-        if (existingObservacao) {
-          existingObservacao.observacao = obs!;
-          localStorage.setItem(
-            "observacoes",
-            JSON.stringify(parsedObservacoes)
-          );
-        } else {
-          const mergedObservacoes = [...parsedObservacoes, newObservacao];
-          localStorage.setItem(
-            "observacoes",
-            JSON.stringify(mergedObservacoes)
-          );
-        }
-      } else {
-        localStorage.setItem("observacoes", JSON.stringify([newObservacao]));
-      }
-    }
+    //   if (existingObservacoes !== null) {
+    //     const parsedObservacoes = JSON.parse(existingObservacoes);
+    //     const existingObservacao = parsedObservacoes.find(
+    //       (obs) => obs.titulo_observacao === text
+    //     );
+    //     if (existingObservacao) {
+    //       existingObservacao.observacao = obs!;
+    //       localStorage.setItem(
+    //         "observacoes",
+    //         JSON.stringify(parsedObservacoes)
+    //       );
+    //     } else {
+    //       const mergedObservacoes = [...parsedObservacoes, newObservacao];
+    //       localStorage.setItem(
+    //         "observacoes",
+    //         JSON.stringify(mergedObservacoes)
+    //       );
+    //     }
+    //   } else {
+    //     localStorage.setItem("observacoes", JSON.stringify([newObservacao]));
+    //   }
+    // }
   };
 
   const AddExameID = (idExame) => {

@@ -6,7 +6,8 @@ import { IconContext } from "react-icons/lib";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { MenuContext } from "../../context/MenuContext";
-import logo from "../splashScreen/logo.png";
+import logo from "../splashScreen/logoUsg2.png";
+import logo2 from "../images/logousbl.png";
 import { SidebarDataNaoLogado } from "./sideBarDataNaoLogado";
 import { SidebarDataLogado } from "./sideBarDataLogado";
 import SubMenu from "./subMenu";
@@ -78,41 +79,39 @@ const Sidebar = () => {
   return (
     <>
       <Box
-        style={{
-          position: "relative",
-
-        }}
         w="100%"
         filter="none"
         blur="none"
-      >
+        >
         <IconContext.Provider value={{ color: "black" }}>
+                <Image
+                  src={logo2}
+                  w="12rem"
+                  h="3rem"
+                  marginLeft="18px"
+                  marginTop="1.1rem"
+                  mr={'2rem'}
+                  float={'right'}
+                /> 
           <Nav>
             <HStack>
               <Center>
                 <NavIcon to="#">
                   <FaIcons.FaBars onClick={showSidebar} />
                 </NavIcon>
-                <Image
-                  src={logo}
-                  w="180.66px"
-                  h="60.73px"
-                  marginLeft="18px"
-                  marginTop="10px"
-                />
               </Center>
             </HStack>
           </Nav>
           <SidebarNav sidebar={sidebar}>
             <SidebarWrap>
               <HStack>
-                <Image
+                {<Image
                   src={logo}
-                  w="175px"
-                  h="90px"
+                  w="10rem"
+                  h="4rem"
                   marginLeft="30px"
                   marginTop="10px"
-                />
+                /> }
 
                 <NavIcon to="#">
                   <IoIosArrowBack onClick={showSidebar} />

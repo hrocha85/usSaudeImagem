@@ -7,6 +7,7 @@ import {
   Flex,
   Grid,
   GridItem,
+  HStack,
   Icon,
   Image,
   Input,
@@ -41,7 +42,7 @@ import { BiCamera } from "react-icons/bi";
 import { BsThreeDotsVertical, BsTrash } from "react-icons/bs";
 import { minhasClinicas } from "./icon_button_plus";
 
-const FieldDefaultIcon = ({
+const FieldDefaultIconCardClinicas = ({
   text,
   textColor,
   icon,
@@ -271,7 +272,7 @@ const FieldDefaultIcon = ({
                       <IconContext.Provider value={{ color: "#4A5568" }}>
                         <Icon
                           onMouseOver={() => setcloseTooltip(false)}
-                          as={BsThreeDotsVertical}
+                          as={BsTrash}
                           w={5}
                           h={4}
                           marginStart="5px"
@@ -494,47 +495,57 @@ const FieldDefaultIcon = ({
 
       <Flex>
         <GridItem
-          w="9rem"
-          h="1.6rem"
-          borderRadius="10px"
+          w="100%"
+          h="100%"
           marginBottom="8px"
-          // marginEnd="10px"
-          // marginStart="16px"
+          marginEnd="10px"
+          marginStart="16px"
           bg="white"
           borderStyle="solid"
           borderWidth="2px"
           borderColor="#e2e8f0"
-          padding="1px 2px"
-          onClick={() => {
-            return onClickModal ? onOpen() : null;
-          }}
+          padding="5px"
+          borderRadius="10.85px"
+          boxShadow="2xl"
+
         >
           <Stack direction="row" alignItems="center">
-            {/* <IconContext.Provider value={{ color: "#4A5568" }}>
-              <Icon
-                as={icon}
-                w={6}
-                h={6}
-                alignSelf="center"
-                bg={'red'}
-                // marginStart="15px"
-                // marginEnd="10px"
+            <IconContext.Provider value={{ color: "#4A5568" }}>
+              <Image
+                borderRadius="full"
+                boxSize="75px"
+                srcSet={defaultUserImage}
+                alt="Image Clinica"
+                onClick={openFiles}
               />
-            </IconContext.Provider> */}
+            </IconContext.Provider>
+            <Stack>
+              <Text
+                alignSelf="center"
+                textColor={textColor}
+                textStyle="solid"
+                fontSize="18px"
 
-            <Text
-              textAlign={'center'}
-              textColor={textColor}
-              textStyle="solid"
-              fontSize="14px"
-              pl={4}
-              fontWeight="medium"
-              whiteSpace="nowrap"
-              overflow="hidden"
-              textOverflow="ellipsis"
-            >
-              {isMedic == true ? text : nome}
-            </Text>
+                fontWeight="bold"
+                paddingTop="4.5"
+                whiteSpace="nowrap"
+                overflow="hidden"
+                textOverflow="ellipsis"
+              >
+                {isMedic == true ? text : nome}
+              </Text>
+              <Button
+                background='white'
+                color='blue'
+                border='2px'
+                borderColor='blue'
+                onClick={() => {
+                  return onClickModal ? onOpen() : null;
+                }}
+              >
+                Visualizar cadastro
+              </Button>
+            </Stack>
           </Stack>
         </GridItem>
       </Flex>
@@ -564,16 +575,16 @@ const FieldDefaultIcon = ({
   );
 };
 
-FieldDefaultIcon.protoTypes = {
+FieldDefaultIconCardClinicas.protoTypes = {
   text: PropsTypes.string,
   textColor: PropsTypes.string,
   icon: PropsTypes.any,
 };
 
-FieldDefaultIcon.defaultProps = {
+FieldDefaultIconCardClinicas.defaultProps = {
   text: "Título",
   textColor: "FFFFFF",
   icon: null,
 };
 
-export default FieldDefaultIcon;
+export default FieldDefaultIconCardClinicas;

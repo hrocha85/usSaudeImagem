@@ -1,25 +1,29 @@
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, Stack, Text, background } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Clinica from "../configuracao/clinicas";
 import IconButtonPlus from "./icon_button_plus";
+import Medico from "../configuracao/medicosNew";
+import IconButtonPlusMedicos from "./icon_button_plusMedicos";
 
 const MainCard = ({ titulo, icon, clinica, medicos }) => {
   const [atualizar, setAtualizar] = useState(true);
 
   useEffect(() => { }, [atualizar]);
 
-  function ShowIcon(icon: boolean) {
+  function ShowIcon(icon: boolean, clinca) {
     if (icon) {
       return (
-        <IconButtonPlus atualizar={atualizar} setAtualizar={setAtualizar} />
+        <IconButtonPlusMedicos atualizar={atualizar} setAtualizar={setAtualizar} clinica={clinica} />
       );
     }
   }
 
+
   function Cards(titulo) {
     switch (titulo) {
-      case "Clínicas":
-        return <Clinica atualizar={atualizar} />;
+
+      case "Médicos":
+        return <Medico atualizar={atualizar} />;
 
       default:
         break;
@@ -27,34 +31,40 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
   }
 
   return (
-    <Box
-      bg="#FAFAFA"
-      w="358px"
-      h="62vh"
-      color="white"
-      borderRadius="10.85px"
-      boxShadow="md"
-      marginStart='20px'
-      overflow='auto'
-    //minW="218px"
-    >
-      <Box margin="10px">
-        <Stack direction="row" spacing="200px">
-          <Text
-            color="#1A202C"
-            fontSize="20px"
-            paddingStart="8px"
-            alignSelf="center"
-            fontWeight='semibold'
-          >
-            {medicos ? medicos.nome : titulo}
-          </Text>
-          {ShowIcon(icon)}
-        </Stack>
-      </Box>
+    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop:'4rem'}}>
+      <Box
+        // bg="#FAFAFA"
+        w="23rem"
+        h="50vh"
+        color="white"
 
-      <Box>{Cards(titulo)}</Box>
-    </Box>
+        borderRadius="10.85px"
+        marginStart='20px'
+        overflow='auto'
+        css={{ '&::-webkit-scrollbar': { width: '0.4em' }, '&::-webkit-scrollbar-thumb': { backgroundColor: 'transparent' } }}
+
+      //minW="218px"
+      >
+        <Box 
+        position="absolute" bg={'#c1e4f9'}pl={'1rem'} zIndex={90} w={'25rem'} h={'3.4rem'} top={'5.0rem'}>
+          <Stack direction="row" spacing="8.4rem">
+            <Text
+              color="#1A202C"
+              fontSize="20px"
+              paddingStart="10px"
+              alignSelf="center"
+              fontWeight='semibold'
+            >
+              {medicos ? medicos.nome : titulo}
+            </Text>
+            <Box pt={3}> {ShowIcon(icon, clinica)}</Box>
+           
+          </Stack>
+        </Box>
+
+        <Box>{Cards(titulo)}</Box>
+      </Box>
+    </div>
   );
 };
 

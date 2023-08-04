@@ -55,6 +55,7 @@ import BGImage from "../images/bg_img.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import Sidebar from "../menu/sideBar";
 import Medicos from "./medicos";
+import MainCardClinica from "../component/main_cardClinica";
 
 var dados;
 export let lista_medicos = MedicosJSON.medicos;
@@ -418,7 +419,6 @@ const Configuracoes = () => {
       <Stack direction="row" justify="center">
         <RectangularCard
           titulo="Observações"
-          altura="282px"
           item={<ItemObservation />}
         />
       </Stack>
@@ -520,7 +520,6 @@ const Configuracoes = () => {
                   variant="filled"
                   textAlign="center"
                   onChange={(e) => {
-                    console.log("eVALUE", e.target.value);
                     setClinica((prevClin) => [...prevClin, e.target.value]);
                     TAGS();
                   }}
@@ -684,6 +683,7 @@ const Configuracoes = () => {
             h="42"
             boxShadow="md"
             fontSize="20px"
+            mt={5}
           >
             <Icon as={FaRegFolderOpen} margin="5px" />
             Laudos
@@ -751,7 +751,7 @@ const Configuracoes = () => {
       w="100vh auto"
       h="100% auto"
       minH="100vh"
-      backgroundImage={BGImage}
+      bgGradient='linear(to-b, blue.100, #fff)'
       backgroundSize="cover"
       backgroundClip="padding-box"
       backgroundRepeat="no-repeat"
@@ -759,29 +759,20 @@ const Configuracoes = () => {
       alignItems="center"
     >
       <Sidebar />
-      <Stack
-        direction="row"
-        justify="space-between"
-        align="center"
-        padding="0px 20px 20px 20px"
-      >
-        <BoxTitleBackground
-          PadLeft="20px"
-          fontsize="19px"
-          tamanho="180px"
-          titulo="Configurações"
-        />
 
-        {returnPOPoverLaudos()}
-      </Stack>
-      <Stack direction="row" flexWrap="wrap" gap="5px">
-        <MainCard titulo="Clínicas" icon={true} clinica={null} medicos={null} />
+      <Stack direction="row" flexWrap="wrap" gap="5px" justifyContent={'center'}>
+        <Box display={'flex'} flexWrap={'wrap'} gap={5}>
+          {returnPOPoverLaudos()}
+          <MainCardClinica titulo="Clínicas" icon={true} clinica={null} medicos={null} />
+          <MainCard titulo="Médicos" icon={true} clinica={listaClinicas} medicos={null} />
 
-        {medicos.map((medico, key) => {
+        </Box>
+
+        {/* {medicos.map((medico, key) => {
           return <Medicos key={key} medico={medico} id={key} />;
-        })}
+        })} */}
 
-        <Tooltip
+        {/* <Tooltip
           label="Adicionar Médico"
           backgroundColor="white"
           placement="top"
@@ -794,8 +785,8 @@ const Configuracoes = () => {
           <Button
             borderRadius="xl"
             backgroundColor="white"
-            w="42"
-            h="42"
+            w="30"
+            h="30"
             boxShadow="md"
             textColor="#4CBFF0"
             fontSize="19px"
@@ -813,7 +804,7 @@ const Configuracoes = () => {
             />
             Adicionar
           </Button>
-        </Tooltip>
+        </Tooltip> */}
       </Stack>
       {ModalAddMedico()}
       {returnObservacoes()}

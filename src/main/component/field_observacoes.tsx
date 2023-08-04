@@ -31,7 +31,6 @@ export default function Field_Observacoes({ exame }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const get_format_laudo = JSON.parse(localStorage.getItem("format_laudo")!);
   const observacao: any[] = get_format_laudo.map((e) => {
-    console.log(exame)
     if (e.titulo_exame == exame.nomeExame) {
       return e.observacoes;
     }
@@ -41,7 +40,11 @@ export default function Field_Observacoes({ exame }) {
   if (exame && exame.nomeExame) {
     titulo = `Observações ${exame.nomeExame}`;
   }
-  var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
+  var observacoesLocalStorage = JSON.parse(localStorage.getItem("observacoes")!);
+
+  var ExameObservacoes = observacoesLocalStorage.filter((e) => e.key === exame.key)
+
+  var observacoes = ExameObservacoes[0]
 
   const [items, setItems] = useState<{ id: string; values: string[] }>({
     id: exame.nomeExame,
@@ -119,123 +122,122 @@ export default function Field_Observacoes({ exame }) {
   const Render_Box_Observacoes = () => {
     return (
       <Box>
-        {observacoes != null && observacoes != undefined
-          ? observacoes.map((e) => {
-            let output;
-            if (e.titulo_observacao == exame.nomeExame) {
-              output = e.observacao.map((i, key) => {
-                return (
-                  <HStack
-                    isInline={true}
-                    alignItems="center"
-                    justify="space-between"
+        {observacoes.observacao != null && observacoes.observacao != undefined
+          ? observacoes.observacao.map((e) => {
+
+            if (observacoes.nomeExame == exame.nomeExame) {
+              return (
+                <HStack
+                  isInline={true}
+                  alignItems="center"
+                  justify="space-between"
+                >
+                  <Tooltip
+                    label="Abrir Observação"
+                    backgroundColor="white"
+                    placement="top"
+                    hasArrow
+                    arrowSize={15}
+                    textColor="black"
+                    fontSize="20px"
+                    margin="20px"
+                    textAlign="center"
                   >
-                    <Tooltip
-                      label="Abrir Observação"
-                      backgroundColor="white"
-                      placement="top"
-                      hasArrow
-                      arrowSize={15}
-                      textColor="black"
-                      fontSize="20px"
-                      margin="20px"
-                      textAlign="center"
+                    <Box
+                      w="88%"
+                      maxW="88%"
+                      borderWidth="2px"
+                      borderColor="#f0f2f6"
+                      h="48px"
+                      borderRadius="md"
+                      _hover={{
+                        borderColor: "#47AEFC",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        onOpen();
+                        setCurrentOBS(e);
+                        setclickEditOBS(false);
+                      }}
                     >
-                      <Box
-                        w="88%"
-                        maxW="88%"
-                        borderWidth="2px"
-                        borderColor="#f0f2f6"
-                        h="48px"
-                        borderRadius="md"
-                        _hover={{
-                          borderColor: "#47AEFC",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => {
-                          onOpen();
-                          setCurrentOBS(i);
-                          setclickEditOBS(false);
-                        }}
+                      <Text
+                        margin="10px"
+                        fontWeight="medium"
+                        textOverflow="ellipsis"
+                        overflow="hidden"
+                        whiteSpace="nowrap"
+                        textColor="black"
+                        fontSize="18px"
                       >
-                        <Text
-                          margin="10px"
-                          fontWeight="medium"
-                          textOverflow="ellipsis"
-                          overflow="hidden"
-                          whiteSpace="nowrap"
-                          textColor="black"
-                          fontSize="18px"
-                        >
-                          {i}
-                        </Text>
-                      </Box>
-                    </Tooltip>
+                        {e}
+                      </Text>
+                    </Box>
+                  </Tooltip>
 
-                    <Tooltip
-                      label={
-                        checkObservacoes(i)
-                          ? "Remover Observação"
-                          : "Inserir Observação"
-                      }
-                      backgroundColor="white"
-                      placement="top"
-                      hasArrow
-                      arrowSize={15}
-                      textColor="black"
-                      fontSize="20px"
-                      margin="20px"
-                      textAlign="center"
-                    >
-                      <Flex justify="end">
-                        <IconButton
-                          justifyContent="flex-end"
-                          aria-label="Add Item"
-                          icon={
-                            checkObservacoes(i) ? (
-                              <GrSubtractCircle size={30} />
-                            ) : (
-                              <AiOutlinePlusCircle size={30} />
-                            )
+                  <Tooltip
+                    label={
+                      checkObservacoes(e)
+                        ? "Remover Observação"
+                        : "Inserir Observação"
+                    }
+                    backgroundColor="white"
+                    placement="top"
+                    hasArrow
+                    arrowSize={15}
+                    textColor="black"
+                    fontSize="20px"
+                    margin="20px"
+                    textAlign="center"
+                  >
+                    <Flex justify="end">
+                      <IconButton
+                        justifyContent="flex-end"
+                        aria-label="Add Item"
+                        icon={
+                          checkObservacoes(e) ? (
+                            <GrSubtractCircle size={30} />
+                          ) : (
+                            <AiOutlinePlusCircle size={30} />
+                          )
+                        }
+                        variant="link"
+                        marginEnd="5px"
+                        textColor="blue"
+                        onClick={() => {
+                          if (checkObservacoes(e)) {
+                            new Format_Laudo(
+                              exame.nomeExame
+                            ).Remove_Observacao(e);
+
+                            setItems((prevItems) => ({
+                              ...prevItems,
+                              values: prevItems.values.map((value) =>
+                                value !== e ? value : ""
+                              ),
+                            }));
+                          } else {
+                            setItems((prevItems) => {
+                              if (prevItems.id === exame.nomeExame) {
+                                const newValues = [...prevItems.values, e];
+                                const updatedItem = Object.assign(
+                                  {},
+                                  prevItems,
+                                  { values: newValues }
+                                );
+                                return updatedItem;
+                              }
+                              return prevItems;
+                            });
                           }
-                          variant="link"
-                          marginEnd="5px"
-                          textColor="blue"
-                          onClick={() => {
-                            if (checkObservacoes(i)) {
-                              new Format_Laudo(
-                                exame.nomeExame
-                              ).Remove_Observacao(i);
+                        }}
+                      />
+                    </Flex>
+                  </Tooltip>
+                </HStack>
+              );
 
-                              setItems((prevItems) => ({
-                                ...prevItems,
-                                values: prevItems.values.map((value) =>
-                                  value !== i ? value : ""
-                                ),
-                              }));
-                            } else {
-                              setItems((prevItems) => {
-                                if (prevItems.id === exame.nomeExame) {
-                                  const newValues = [...prevItems.values, i];
-                                  const updatedItem = Object.assign(
-                                    {},
-                                    prevItems,
-                                    { values: newValues }
-                                  );
-                                  return updatedItem;
-                                }
-                                return prevItems;
-                              });
-                            }
-                          }}
-                        />
-                      </Flex>
-                    </Tooltip>
-                  </HStack>
-                );
-              });
             }
-            return output;
+
           })
           : null}
       </Box>
@@ -291,11 +293,11 @@ export default function Field_Observacoes({ exame }) {
 
   const updateLocalStorage = (editOBS, currentOBS) => {
     const updatedObservacoes = observacoes.map((e) => {
-      const updatedObservacao = e.observacao.map((i) => {
-        if (i === currentOBS) {
+      const updatedObservacao = e.observacao.map((e) => {
+        if (e === currentOBS) {
           return editOBS;
         }
-        return i;
+        return e;
       });
       return { ...e, observacao: updatedObservacao };
     });
@@ -304,30 +306,26 @@ export default function Field_Observacoes({ exame }) {
 
   const Render_Button_add_all_obs = () => {
     const adicionarTodasObservacoes = () => {
-      if (observacoes != null && observacoes != undefined) {
-        observacoes.forEach((observacao) => {
-          if (observacao.titulo_observacao === exame.nomeExame) {
-            observacao.observacao.forEach((currentOBS) => {
-              setCurrentOBS(currentOBS);
-              setItems((prevItem) => ({
-                id: prevItem.id,
-                values: [...prevItem.values, currentOBS!],
-              }));
-              setAllObs(true);
-            });
+      if (observacoes.observacao != null && observacoes.observacao != undefined) {
+        observacoes.observacao.forEach((observacao) => {
+          if (observacoes.nomeExame === exame.nomeExame) {
+            setCurrentOBS(observacao);
+            setItems((prevItem) => ({
+              id: prevItem.id,
+              values: [...prevItem.values, observacao!],
+            }));
+            setAllObs(true);
           }
         });
       }
     };
 
     const removeAllObs = () => {
-      if (observacoes != null && observacoes != undefined) {
-        observacoes.forEach((observacao) => {
-          if (observacao.titulo_observacao === exame.nomeExame) {
-            observacao.observacao.forEach((currentOBS) => {
-              setCurrentOBS(currentOBS);
-              new Format_Laudo(exame.nomeExame).Remove_Observacao(currentOBS);
-            });
+      if (observacoes.observacao != null && observacoes.observacao != undefined) {
+        observacoes.observacao.forEach((observacao) => {
+          if (observacoes.nomeExame === exame.nomeExame) {
+            setCurrentOBS(observacao);
+            new Format_Laudo(exame.nomeExame).Remove_Observacao(observacao);
             setAllObs(false);
             setItems({ id: items.id, values: [""] });
           }

@@ -5,35 +5,36 @@ import {
   HStack,
   Image,
   Link,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
+  // Modal,
+  // ModalBody,
+  // ModalCloseButton,
+  // ModalContent,
+  // ModalFooter,
+  // ModalHeader,
+  // ModalOverlay,
   Spinner,
   Stack,
   Text,
   Tooltip,
-  useDisclosure,
+  //useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardPaciente from "../component/card_paciente_home";
-import Default_Backgound from "../component/default_backgound";
+//import Default_Backgound from "../component/default_backgound";
 import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
 import { Clear_Local_Storage } from "../component/remove_sub_exames_local_storage";
 import Configuracao from "../images/gear.webp";
 
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+//import Swal from "sweetalert2";
+//import withReactContent from "sweetalert2-react-content";
 
 function Home() {
   const [isMounted, setIsMounted] = useState(false);
   const navigate = useNavigate();
-  const MySwal = withReactContent(Swal);
+  //const MySwal = withReactContent(Swal);
+
 
   let exames = [
     {
@@ -69,10 +70,12 @@ function Home() {
     {
       key: 5,
       nomeExame: "Abdomen Superior",
+      observacao: []
     },
     {
       key: 6,
       nomeExame: "Transvaginal",
+      observacao: []
     },
     // {
     //   key: 7,
@@ -85,6 +88,7 @@ function Home() {
     {
       key: 8,
       nomeExame: "Tireóide",
+      observacao: []
     },
     // {
     //   key: 9,
@@ -109,6 +113,7 @@ function Home() {
     {
       key: 11,
       nomeExame: "Rins e Vias Urinárias",
+      observacao: []
     },
     // {
     //   key: 16,
@@ -121,6 +126,7 @@ function Home() {
     {
       key: 13,
       nomeExame: "Partes Moles",
+      observacao: []
     },
     {
       key: 14,
@@ -142,6 +148,7 @@ function Home() {
     {
       key: 16,
       nomeExame: "Pélvico",
+      observacao: []
     },
     {
       key: 17,
@@ -156,6 +163,7 @@ function Home() {
     {
       key: 18,
       nomeExame: "Articulações",
+      observacao: []
     },
     {
       key: 19,
@@ -208,6 +216,13 @@ function Home() {
   var clinica = JSON.parse(user.clinica);
   var medico = user.medico;
 
+  useEffect(() => {
+    const existingObservacoes = localStorage.getItem("observacoes");
+    if (!existingObservacoes) {
+      localStorage.setItem("observacoes", JSON.stringify(exames));
+    }
+  }, [])
+
   const LogoutButton = () => {
     localStorage.removeItem("user");
     navigate("/Login");
@@ -250,62 +265,98 @@ function Home() {
     );
   } else {
     return (
-      <>
-        <Text
-          textAlign="start" 
-          mt="10px" mb="10px" ml={10}
-          fontSize={48}
-          fontWeight="thin"
-        >Emissão dos Laudos</Text>
-        <Button position="absolute" right="1" variant="ghost" top={0}>
-          <Link href={"#/Home/Configuracoes"}>
-            <Image
-              srcSet={Configuracao}
-              alt="Second Icon Plus"
-              h="30px"
-              w="30px"
-            />
+
+      < Box overflowX={"hidden"} height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'>
+
+        <Flex
+          justifyContent="space-between">
+            <Link href={"#/Home/Configuracoes"}>
+              <Button right="1" variant="ghost" top={0}>
+                
+                  <Image
+                    srcSet={Configuracao}
+                    alt="Second Icon Plus"
+                    h="30px"
+                    w="30px"
+                  />
+              </Button>
           </Link>
-        </Button>
+
+
+          <Text
+            fontSize={'32px'}
+            fontWeight="thin"
+          >Emissão dos Laudos</Text>
+
+          <Tooltip
+            label="Voltar para Login"
+            backgroundColor="white"
+            placement="bottom"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+            fontSize="20px"
+            margin="20px"
+            textAlign="center"
+          >
+            <Button
+              variant="solid"
+              fontSize="20px"
+              onClick={() => LogoutButton()}
+              colorScheme="blue"
+              top={1}
+              right={3}
+            >
+              Sair
+            </Button>
+          </Tooltip>
+        </Flex>
+        <Center>
+          <CardPaciente />
+        </Center>
+
+        <Text
+
+          textAlign="center"
+          mt="5px" mb="5px"
+          fontSize={23}
+          fontWeight="thin">
+          Selecione um laudo para iniciar
+        </Text>
+
 
         <Center>
-          <Stack alignItems="center" marginTop="3%">
-            <CardPaciente altura="300px" />
-          </Stack>
-        </Center>
-
-        <Text
-         textAlign="center" 
-         mt="10px" mb="10px"
-         fontSize={30}
-         fontWeight="thin">
-              Insira um ou mais tipos de laudo
-            </Text>
-
-        <Center marginTop="1%">
           <LayoutExame item={<ItemExamesHome />} />
         </Center>
-        <Center marginTop="-130px">
-          <HStack
+        <Center >
+          <Box
+            justifyContent='center'
+            gap='10px' display="flex" flexWrap='wrap'
             borderWidth="2px"
             padding="20px"
             borderRadius="md"
             borderColor="grey"
             boxShadow="xl"
           >
-            <Text fontWeight="semibold" fontSize="xl">
-              Médico:
-            </Text>
-            <Text fontSize="xl">{medico.nome}</Text>
-            <Text fontWeight="semibold" fontSize="xl">
-              CRM:
-            </Text>
-            <Text fontSize="xl">{medico.crm}</Text>
-            <Text fontWeight="semibold" fontSize="xl">
-              Clínica:
-            </Text>
-            <Text fontSize="xl">{clinica.nomeClinica}</Text>
-          </HStack>
+            <HStack>
+              <Text fontWeight="semibold" fontSize="xl">
+                Médico:
+              </Text>
+              <Text fontSize="xl">{medico.nome}</Text>
+            </HStack>
+            <HStack>
+              <Text fontWeight="semibold" fontSize="xl">
+                CRM:
+              </Text>
+              <Text fontSize="xl">{medico.crm}</Text>
+            </HStack>
+            <HStack>
+              <Text fontWeight="semibold" fontSize="xl">
+                Clínica:
+              </Text>
+              <Text fontSize="xl">{clinica.nomeClinica}</Text>
+            </HStack>
+          </Box>
         </Center>
         <Center marginTop="20px" paddingBottom="1%">
           <Tooltip
@@ -329,7 +380,7 @@ function Home() {
             </Button>
           </Tooltip>
         </Center>
-      </>
+      </Box>
     );
   }
 }

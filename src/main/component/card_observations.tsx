@@ -1,6 +1,6 @@
 import { Box, Flex, Grid, Text } from "@chakra-ui/react";
 
-const RectangularCard = ({ titulo, altura, item }) => {
+const RectangularCard = ({ titulo, item }) => {
   return (
     <Flex w="100%" h="100%">
       <Box
@@ -33,7 +33,7 @@ const RectangularCard = ({ titulo, altura, item }) => {
             "repeat(4, 1fr)",
             "repeat(5, 1fr)",
           ]}
-          templateRows="repeat(6, 1fr)"
+          templateRows="repeat(3, 1fr)"
           gap={1}
         >
           {item}

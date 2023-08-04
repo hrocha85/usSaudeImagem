@@ -412,7 +412,7 @@ export default function Format_PDF() {
                           </View>
                         </View>
                         <Text style={styles.textSantaImagem}>
-                          Santa Imagem Diagnósticos por imagem
+                          USG Diagnósticos por imagem
                         </Text>
                       </View>
                     </View>
