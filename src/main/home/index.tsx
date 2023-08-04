@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Center,
-  Flex,
   HStack,
   Image,
   Link,
@@ -266,6 +265,7 @@ function Home() {
     );
   } else {
     return (
+
       < Box overflowX={"hidden"} height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'>
 
         <Flex
@@ -281,6 +281,7 @@ function Home() {
                   />
               </Button>
           </Link>
+
 
           <Text
             fontSize={'32px'}
@@ -315,12 +316,14 @@ function Home() {
         </Center>
 
         <Text
+
           textAlign="center"
           mt="5px" mb="5px"
           fontSize={23}
           fontWeight="thin">
           Selecione um laudo para iniciar
         </Text>
+
 
         <Center>
           <LayoutExame item={<ItemExamesHome />} />
@@ -356,6 +359,26 @@ function Home() {
           </Box>
         </Center>
         <Center marginTop="20px" paddingBottom="1%">
+          <Tooltip
+            label="Voltar para Login"
+            backgroundColor="white"
+            placement="bottom"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+            fontSize="20px"
+            margin="20px"
+            textAlign="center"
+          >
+            <Button
+              variant="solid"
+              fontSize="20px"
+              onClick={() => LogoutButton()}
+              colorScheme="blue"
+            >
+              Sair
+            </Button>
+          </Tooltip>
         </Center>
       </Box>
     );
