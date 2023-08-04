@@ -226,6 +226,7 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
         alignItems={'center'}
         borderRadius={10}
         border={'1px'}
+        bg={'#2e4ad4'}
         borderColor={'gray'}
       >
 
