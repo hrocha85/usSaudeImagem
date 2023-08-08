@@ -20,6 +20,7 @@ import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
 import { Clear_Local_Storage } from "../component/remove_sub_exames_local_storage";
 import Configuracao from "../images/gear.webp";
+import FooterUpbase from "../component/FooterUpbase";
 
 //import Swal from "sweetalert2";
 //import withReactContent from "sweetalert2-react-content";
@@ -374,6 +375,7 @@ function Home() {
             </Button>
           </Tooltip>
         </Center>
+        <FooterUpbase/>
       </Box>
     );
   }
