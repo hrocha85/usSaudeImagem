@@ -19,6 +19,7 @@ import { TabExamesProvider } from "./context/TabExameContext";
 import tema from "./main/Theme/Tema";
 import Rotas from "./Routes/Rotas";
 import { DerramePleuralEsquerdaProvider } from "./context/DerramePleuralEsquerdaContext";
+import FooterUpbase from "./main/component/FooterUpbase";
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
                                   <LaudosProvider>
                                     <ChakraProvider theme={tema}>
                                       <Rotas />
+                                      <FooterUpbase/>
                                     </ChakraProvider>
                                   </LaudosProvider>
                                 </StringNormalProvider>
