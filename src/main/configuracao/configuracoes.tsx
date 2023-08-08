@@ -56,6 +56,7 @@ import DefaultImageClinica from "../images/clinica_default.png";
 import Sidebar from "../menu/sideBar";
 import Medicos from "./medicos";
 import MainCardClinica from "../component/main_cardClinica";
+import FooterUpbase from "../component/FooterUpbase";
 
 var dados;
 export let lista_medicos = MedicosJSON.medicos;
@@ -808,6 +809,7 @@ const Configuracoes = () => {
       </Stack>
       {ModalAddMedico()}
       {returnObservacoes()}
+      <FooterUpbase/>
     </Box>
   );
 };

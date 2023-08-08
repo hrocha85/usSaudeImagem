@@ -42,7 +42,6 @@ function App() {
                                   <LaudosProvider>
                                     <ChakraProvider theme={tema}>
                                       <Rotas />
-                                      <FooterUpbase/>
                                     </ChakraProvider>
                                   </LaudosProvider>
                                 </StringNormalProvider>
