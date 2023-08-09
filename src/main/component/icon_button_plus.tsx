@@ -187,9 +187,9 @@ const IconButtonPlus = (props) => {
           fontSize="19px"
           fontWeight="semibold"
           onClick={onOpen}
-          variant="ghost"
         >
           <Icon as={AiOutlinePlusCircle} w="30px" h="30px" />
+          Adicionar
         </Button>
       </Tooltip>
 

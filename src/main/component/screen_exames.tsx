@@ -50,6 +50,7 @@ import BGImage from "../images/bg_img.png";
 import Sidebar from "../menu/sideBar";
 import Conclusoes from "./conclusoes";
 import Field_Observacoes from "./field_observacoes";
+import FooterUpbase from "./FooterUpbase";
 
 export default function Box_Default_With_Sidebar() {
   const {
@@ -601,6 +602,7 @@ export default function Box_Default_With_Sidebar() {
             </ModalFooter>
           </ModalContent>
         </Modal>
+        <FooterUpbase/>
       </Box>
     );
   }
