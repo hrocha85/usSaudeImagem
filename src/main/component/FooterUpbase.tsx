@@ -4,19 +4,11 @@ import upLogo from "../images/logoUpbaRec.png";
 
 const FooterUpbase = () => {
   return (
-    <Box bg={'#eaebeb'}>
-      <Flex alignItems="center" justifyContent={'space-around'} borderTop={'1px solid #6d7a78'}>
-        <Image
-          src={upLogo}
-          alt="Logomarca Upbase"
-          objectFit="contain"
-          h="6rem"
-          w="10rem"
-          margin={0}
+    <Box bg={'#eaebeb'} mt={'1rem'} >
+      <Flex pt={2} justifyItems="center" justifyContent={'space-around'} borderTop={'1px solid #6d7a78'}>
 
-        />
-
-        <Text fontWeight={600}>Todos os direitos reservados</Text>
+        <Text fontWeight={600} color={'gray.500'}>Todos os direitos reservados</Text>
+        <Text fontWeight={600} color={'gray.500'}>Upbase Consultoria</Text>
       </Flex>
     </Box>
   );
