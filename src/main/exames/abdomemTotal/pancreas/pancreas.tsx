@@ -7,7 +7,7 @@ import { Convert_Medida } from "../../../component/function_convert_medidas";
 
 function Pancreas({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  const largura = "60%";
 
 
   const [value, setValue] = useState("1");

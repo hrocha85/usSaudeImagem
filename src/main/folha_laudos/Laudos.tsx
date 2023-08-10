@@ -1108,19 +1108,20 @@ function Exames() {
             <Image
               src={clinicaSet.foto}
               alt="Imagem Clínica"
-              boxSize="130px"
+              boxSize="6.5rem"
               objectFit="scale-down"
               borderRadius="full"
               padding="5px"
-              marginStart="20px"
+              ml={2}
+              mt={'1rem'}
             />
           </Box>
 
           <Grid
             templateColumns="repeat(1, 1fr)"
-            marginStart="50px"
             justifyItems="center"
             justifySelf="center"
+            pl={'7rem'}
           >
             <Text fontWeight="bold">{clinicaSet.nomeClinica}</Text>
             <Text>{getPaciente()}</Text>
@@ -1133,7 +1134,7 @@ function Exames() {
             inlineSize="95%"
             margin="5px"
             borderColor="black"
-            marginTop="15px"
+            marginTop="18px"
           />
         </Center>
         <Box margin="20px" key={+edit}>
@@ -1149,7 +1150,7 @@ function Exames() {
                 backgroundImage="none"
               />
               <Divider
-                inlineSize="30vh"
+                inlineSize="10rem"
                 margin="5px"
                 marginTop="0px"
                 borderColor="black"

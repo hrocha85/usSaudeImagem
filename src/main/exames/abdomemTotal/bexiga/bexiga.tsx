@@ -8,7 +8,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Bexiga({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  const largura = "60%";
 
   const [value, setValue] = useState("1");
   const [FraseBexiga, setFraseBexiga] = useState<any>([]);
@@ -492,18 +492,18 @@ function Bexiga({ Disable }) {
 
       <RadioGroup
 
-        w='auto' onChange={setValue} value={value} padding="10px">
+        onChange={setValue} value={value} padding="10px">
         <Stack direction="column">
-          <Flex>
+          
             <Stack>
-              <Radio w='auto' value="1">Não citar Bexiga</Radio>
-              <Radio w='auto' value="Bexiga com boa repleção, paredes finas e regulares, conteúdo anecogênico.">
+              <Radio value="1">Não citar Bexiga</Radio>
+              <Radio  value="Bexiga com boa repleção, paredes finas e regulares, conteúdo anecogênico.">
                 Normal
               </Radio>
               <Radio value="Bexiga com boa repleção, de conteúdo anecogênico, apresentando paredes difusamente espessadas e trabeculadas.">
                 Difusamente trabeculada (de esforço)
               </Radio>
-              <HStack>
+              <Flex flexWrap={'wrap'}>
                 <Radio value="contendo cálculo medindo">
                   Contendo cálculo medindo
                 </Radio>
@@ -518,7 +518,7 @@ function Bexiga({ Disable }) {
                   onChange={(e) => setValueInputCalculo(e.target.value)}
                 />
                 <Text alignSelf='center'>cm com paredes</Text>
-                <Select w='150px'
+                <Select w={'90px'}
                   isDisabled={DisableInputCalculo}
                   value={valueSelectCalculo}
                   onChange={(e) => setValueSelectCalculo(e.target.value)}
@@ -528,7 +528,7 @@ function Bexiga({ Disable }) {
                   <option value="difusamente trabeculadas">difusamente trabeculadas</option>
                 </Select>
 
-              </HStack>
+              </Flex>
               <HStack>
                 <Radio value="Estudo ultrassonográfico">
                   Estudo ultrassonográfico
@@ -544,20 +544,8 @@ function Bexiga({ Disable }) {
                 </Select>
 
               </HStack>
-            </Stack>
-            <Spacer />
-            <Stack>
-              <Stack>
-                <Checkbox
-
-                  onChange={() => setSondaFoleyCheckbox(!SondaFoleyCheckbox)}>
-                  Presença de sonda Foley
-                </Checkbox>
-
-              </Stack>
-            </Stack>
-          </Flex>
-          <Box w='auto'>
+            </Stack>         
+          <Box>
             <HStack >
               <Radio value="lesão vegetante">Lesão vegetante medindo</Radio>
               <Input
@@ -598,6 +586,12 @@ function Bexiga({ Disable }) {
         </Stack>
       </RadioGroup>
       <Box gap='25px' display='flex' flexWrap='wrap'>
+
+        <Checkbox w={'100%'}
+          onChange={() => setSondaFoleyCheckbox(!SondaFoleyCheckbox)}>
+          Presença de sonda Foley
+        </Checkbox>
+
         <Checkbox
           disabled={DisableCheia}
           onChange={() => {
@@ -678,14 +672,14 @@ function Bexiga({ Disable }) {
       <Box mb="20px" gap="10px" display="flex" flexWrap="wrap" mt="20px">
 
 
-        <Box display='flex' flexWrap='wrap' gap='10px'>
+        <Box>
           <Box>
             <Text>Vol. pré-miccional:</Text>
-            <HStack>
+            <HStack flexWrap="wrap" alignItems="center" gap={1}>
               <Input
                 p='0'
                 textAlign='center'
-                w="60px"
+                w="50px"
                 value={VolumePreMiccionalInput1}
                 onChange={(e) => {
                   setVolumePreMiccionalInput1(e.target.value);
@@ -696,7 +690,7 @@ function Bexiga({ Disable }) {
               <Input
                 p='0'
                 textAlign='center'
-                w="60px"
+                w="50px"
                 value={VolumePreMiccionalInput2}
                 onChange={(e) => {
                   setVolumePreMiccionalInput2(e.target.value);
@@ -707,7 +701,7 @@ function Bexiga({ Disable }) {
               <Input
                 p='0'
                 textAlign='center'
-                w="60px"
+                w="50px"
                 value={VolumePreMiccionalInput3}
                 onChange={(e) => {
                   setVolumePreMiccionalInput3(e.target.value);
@@ -718,7 +712,7 @@ function Bexiga({ Disable }) {
               <Input
                 p='0'
                 textAlign='center'
-                w="60px"
+                w="50px"
                 value={VolumePreMiccionalInput4}
                 onChange={(e) => {
                   setVolumePreMiccionalInput4(e.target.value);
@@ -735,11 +729,11 @@ function Bexiga({ Disable }) {
         </Box>
         <Box>
           <Text>Resíduo:</Text>
-          <HStack>
+          <HStack flexWrap="wrap" alignItems="center" gap={1}>
             <Input
               p='0'
               textAlign='center'
-              w="60px"
+              w="50px"
               value={ResiduoInput1}
               onChange={(e) => {
                 setResiduoInput1(e.target.value);
@@ -750,7 +744,7 @@ function Bexiga({ Disable }) {
             <Input
               p='0'
               textAlign='center'
-              w="60px"
+              w="50px"
               value={ResiduoInput2}
               onChange={(e) => {
                 setResiduoInput2(e.target.value);
@@ -761,7 +755,7 @@ function Bexiga({ Disable }) {
             <Input
               p='0'
               textAlign='center'
-              w="60px"
+              w="50px"
               value={ResiduoInput3}
               onChange={(e) => {
                 setResiduoInput3(e.target.value);
@@ -772,7 +766,7 @@ function Bexiga({ Disable }) {
             <Input
               p='0'
               textAlign='center'
-              w="60px"
+              w="50px"
               value={ResiduoInput4}
               onChange={(e) => {
                 setResiduoInput4(e.target.value);

@@ -10,7 +10,7 @@ import IndividualizarPolipo from "./IndividualizaPolipo";
 
 function VesiculaBiliar({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  const largura = "60%";
 
   const [numberArray, setNumberArray] = useState([1]);
 
