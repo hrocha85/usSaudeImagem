@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Select, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, HStack, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
@@ -196,8 +196,8 @@ export default function DilatacaoPielocalicinal({ Disable }) {
                     <Checkbox onChange={() => setDireitaCheckbox(!DireitaCheckbox)}>
                         DIREITA:
                     </Checkbox>
-                    <Stack>
-                        <Select w='150px'
+                    <Flex flexWrap={'wrap'}  gap={3}>
+                        <Select w='100%'
                             isDisabled={DisableSelectDireita}
                             value={ValueSelectDireita}
                             onChange={(e) => setValueSelectDireita(e.target.value)}
@@ -214,15 +214,15 @@ export default function DilatacaoPielocalicinal({ Disable }) {
                             onChange={() => setUreteralDireitaCheckbox(!UreteralDireitaCheckbox)}>
                             +Uretal
                         </Checkbox>
-                    </Stack>
+                    </Flex>
                 </HStack >
                 <HStack gap='10px'>
                     <Checkbox
                         onChange={() => setEsquerdaCheckbox(!EsquerdaCheckbox)}>
                         Esquerda:
                     </Checkbox>
-                    <Stack>
-                        <Select w='150px'
+                    <Flex display={'flex'} flexWrap={'wrap'} gap={3}>
+                        <Select w='100%'
                             isDisabled={DisableSelectEsquerda}
                             value={ValueSelectEsquerda}
                             onChange={(e) => setValueSelectEsquerda(e.target.value)}
@@ -239,7 +239,7 @@ export default function DilatacaoPielocalicinal({ Disable }) {
                             onChange={() => setUreteralEsquerdaCheckbox(!UreteralEsquerdaCheckbox)}>
                             +Uretal
                         </Checkbox>
-                    </Stack>
+                    </Flex>
                 </HStack >
             </Box>
         </Box>

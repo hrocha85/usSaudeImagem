@@ -6,7 +6,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function LiquidoLivre({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  const largura = "60%";
 
   const [frasesLiquidoLivre, setFrasesLiquidoLivre] = useState<any>([]);
   const [ConclusoesLiquidoLivre, setConclusoesLiquidoLivre] = useState<any>([]);

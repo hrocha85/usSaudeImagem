@@ -91,12 +91,12 @@ export default function Nefropatia({ Disable }) {
     return (
         <Box borderWidth="2px" borderColor="blue.100" borderRadius="lg" p='5px' mt='5px' >
             <Text fontWeight="bold" >Nefropatia parenquimatosa crônica</Text>
-            <Flex gap='10px'>
+            <Flex gap='10px' flexWrap={'wrap'}>
                 <Checkbox
                     onChange={() => setAfilamentoParenquimatosoCheckbox(!AfilamentoParenquimatosoCheckbox)}>
                     Afilamento parenquimatoso e alteração ecotextural
                 </Checkbox>
-                <Select w='150px'
+                <Select w={'120px'}
                     isDisabled={DisableSelectAfilamento}
                     value={ValueSelectAfilamento}
                     onChange={(e) => setValueSelectAfilamento(e.target.value)}

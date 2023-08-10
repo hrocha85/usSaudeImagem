@@ -481,7 +481,7 @@ export default function Box_Default_With_Sidebar() {
           paddingBottom="3%"
           marginStart="5px"
         >
-          <Flex flex={1} flexDirection="column" maxW="60%">
+          <Flex flex={1} flexDirection="column" maxW="89%">
             <Field_Observacoes exame={currentExame} key={tabIndex} />
           </Flex>
 
