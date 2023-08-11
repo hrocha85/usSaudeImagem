@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   HStack,
   Image,
   Link,
