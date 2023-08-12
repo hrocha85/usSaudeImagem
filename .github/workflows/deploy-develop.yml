@@ -1,0 +1,25 @@
+name: Push-to-EC2
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the files
+      uses: actions/checkou@v3
+
+    - name: Copy files with SSH
+      uses: easingthemes/ssh-deploy@develop
+      env:
+        SSH_PRIVATE_KEY: ${{secrets.REMOTE_HOST}}
+        ARGS: "-rltgoDzv0 --delete"
+        SOURCE: "./"
+        REMOTE_HOST: ${{secrets.REMOTE_HOST}}
+        REMOTE_USER: ${{secrets.REMOTE_USER}}
+        TARGET: "/home/ec2-user"
+        EXCLUDE: "/dist/, /node_modules/, **.env, rebuild_app.sh, watcher.sh"
