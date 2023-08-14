@@ -9,13 +9,15 @@ import Login from "../main/login/login";
 
 import Box_Default_With_Sidebar from "../main/component/screen_exames";
 import Format_PDF from "../main/folha_laudos/format_pdf";
+import LoginForm from "../main/login/loginForm";
 
 function Rotas() {
   return (
     <Routes>
       <Route path="/" element={<SplashScreen />} />
-      <Route path="/Home" element={<Home />} />
       <Route path="/Login" element={<Login />} />
+      <Route path="/LoginForm" element={<LoginForm />} />
+      <Route path="/Home" element={<Home />} />
       {/* <Route path="/Home/1" element={<AbdomemTotal />} />
       <Route path="/Home/2" element={<DopplerTransvaginal />} />
       <Route path="/Home/3" element={<Mamas />} />
