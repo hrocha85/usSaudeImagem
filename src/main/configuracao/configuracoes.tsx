@@ -35,6 +35,7 @@ import {
   useDisclosure,
   useOutsideClick,
   useToast,
+  useMediaQuery
 } from "@chakra-ui/react";
 import React, { memo, useEffect, useRef, useState } from "react";
 import {
@@ -420,7 +421,7 @@ const Configuracoes = () => {
 
   const returnObservacoes = () => {
     return userLogged ? (
-      <Stack direction="row" justify="center">
+      <Stack display={'flex'} flexDirection="row" justifyContent="center" w={'99%'}>
         <RectangularCard
           titulo="Observações"
           item={<ItemObservation />}
@@ -432,6 +433,9 @@ const Configuracoes = () => {
   const add_png_assinatura = () => {
     openFilesAssinatura();
   };
+
+  const [isLargerThan500] = useMediaQuery('(min-width: 500px)')
+  let width = "100%"
 
   const ModalAddMedico = () => {
     return (
@@ -752,8 +756,8 @@ const Configuracoes = () => {
 
   return (
     <Box
-      w="100vw"
-      h="100vh"
+      w="100%"
+      h="100%"
       bgGradient='linear(to-b, blue.100, #fff)'
       backgroundSize="cover"
       backgroundClip="padding-box"
@@ -763,12 +767,20 @@ const Configuracoes = () => {
     >
       <Sidebar />
 
-      <Stack direction="row" flexWrap="wrap" gap="5px" justifyItems={'center'}>
-        <Box display={'flex'} flexWrap={'wrap'} gap={5} marginTop={'2rem'}>
-          {returnPOPoverLaudos()}
+      <Stack>
+        <Box display={'flex'} flexWrap={'wrap'} gap={5} marginTop={'2rem'} justifyContent={'space-around'}>
 
-          <Box>
-            <Box bg={'#c1e4f9'} zIndex={90}  h={'3.4rem'} justifyContent={'space-around'}>
+          {isLargerThan500 ? 
+          <Box>{returnPOPoverLaudos()}</Box>: <Box width={width}>{returnPOPoverLaudos()}</Box> 
+          }
+          
+          
+          
+
+          <Box w={'30%'}>
+            <Box  h={'3.4rem'}>
+
+            
               <Stack direction="row" justifyContent={'center'}>
                 <Text
                   color="#1A202C"
@@ -787,9 +799,9 @@ const Configuracoes = () => {
           </Box>
         
 
-          <Box pl={'10rem'}>
-          <Box h={'3.4rem'} pl={5}>
-            <Stack direction="row">
+          <Box pl={3}>
+          <Box h={'3.4rem'}>
+            <Stack direction="row" justifyContent={'center'}>
               <Text
                 color="#1A202C"
                 fontSize="20px"
@@ -831,7 +843,7 @@ const Configuracoes = () => {
               Adicionar
             </Button>
           </Tooltip>     
-        </Stack>
+          </Stack>
           </Box>
             <MainCard titulo="Médicos" icon={true} clinica={listaClinicas} medicos={null} />
           </Box>

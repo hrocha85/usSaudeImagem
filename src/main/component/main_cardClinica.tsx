@@ -31,7 +31,7 @@ const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
   return (
     <Box
       // bg="#FAFAFA"
-      w="20rem"
+      w="100%"
       h="60vh"
       color="white"
       borderRadius="10.85px"
