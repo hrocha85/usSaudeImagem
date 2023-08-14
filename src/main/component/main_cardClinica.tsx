@@ -31,18 +31,16 @@ const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
   return (
     <Box
       // bg="#FAFAFA"
-      w="24rem"
+      w="100%"
       h="60vh"
       color="white"
       borderRadius="10.85px"
-
-      marginStart='20px'
       overflow='auto'
       css={{ '&::-webkit-scrollbar': { width: '0.4em' }, '&::-webkit-scrollbar-thumb': { backgroundColor: 'transparent' } }}
 
     //minW="218px"
     >
-      <Box position="absolute" bg={'#c1e4f9'}pl={'1rem'} zIndex={90} w={'25rem'} h={'2.8rem'}>
+      {/* <Box bg={'#c1e4f9'}pl={'1rem'} zIndex={90} w={'25rem'} h={'2.8rem'}>
         <Stack
           direction="row" spacing="200px">
           <Text
@@ -56,9 +54,9 @@ const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
           </Text>
           {ShowIcon(icon)}
         </Stack>
-      </Box>
+      </Box> */}
 
-      <Box mt='60px' >{Cards(titulo)}</Box>
+      <Box>{Cards(titulo)}</Box>
     </Box>
   );
 };

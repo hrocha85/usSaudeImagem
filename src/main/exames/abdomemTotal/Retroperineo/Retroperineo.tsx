@@ -8,7 +8,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Retroperineo({ Disable }) {
     const altura = "100%";
-    const largura = "66%";
+    const largura = "60%";
 
     const [FraseRetroperineo, setFraseRetroperineo] = useState<any>([]);
     const [ConclusoesRetroperineo, setConclusoesRetroperineo] = useState<any>([]);

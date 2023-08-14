@@ -6,13 +6,6 @@ import {
   HStack,
   Image,
   Link,
-  // Modal,
-  // ModalBody,
-  // ModalCloseButton,
-  // ModalContent,
-  // ModalFooter,
-  // ModalHeader,
-  // ModalOverlay,
   Spinner,
   Stack,
   Text,
@@ -27,6 +20,7 @@ import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
 import { Clear_Local_Storage } from "../component/remove_sub_exames_local_storage";
 import Configuracao from "../images/gear.webp";
+import FooterUpbase from "../component/FooterUpbase";
 
 //import Swal from "sweetalert2";
 //import withReactContent from "sweetalert2-react-content";
@@ -271,16 +265,16 @@ function Home() {
 
         <Flex
           justifyContent="space-between">
-            <Link href={"#/Home/Configuracoes"}>
-              <Button right="1" variant="ghost" top={0}>
-                
-                  <Image
-                    srcSet={Configuracao}
-                    alt="Second Icon Plus"
-                    h="30px"
-                    w="30px"
-                  />
-              </Button>
+          <Link href={"#/Home/Configuracoes"}>
+            <Button right="1" variant="ghost" top={0}>
+
+              <Image
+                srcSet={Configuracao}
+                alt="Second Icon Plus"
+                h="30px"
+                w="30px"
+              />
+            </Button>
           </Link>
 
 
@@ -381,6 +375,7 @@ function Home() {
             </Button>
           </Tooltip>
         </Center>
+        <FooterUpbase/>
       </Box>
     );
   }

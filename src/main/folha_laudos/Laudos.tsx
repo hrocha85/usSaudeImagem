@@ -9,6 +9,7 @@ import {
   Editable,
   EditableInput,
   EditablePreview,
+  Flex,
   Grid,
   HStack,
   Icon,
@@ -19,6 +20,9 @@ import {
   Modal,
   ModalContent,
   ModalOverlay,
+  Radio,
+  RadioGroup,
+  Select,
   Stack,
   Text,
   Tooltip,
@@ -861,27 +865,27 @@ function Exames() {
   const verificaForm = () => {
     formPreenchido ? alert('funcionou') : onOpen()
   }
-  const [Input1, setInput1] = useState('')
-  const [Input2, setInput2] = useState('')
+  const [opiniaoSoftware, setOpiniaoSoftware] = useState('');
+  const [notaSoftware, setNotaSoftware] = useState('');
 
   const finalizaForm = (e) => {
-    console.log(Input1)
-    console.log(Input2)
+    console.log(opiniaoSoftware)
+    console.log(notaSoftware)
 
-    emailjs.send('outlookMessage', 'template_6j5xp3j',
-      {
-        to_email: 'barbozagarcia@yahoo.com.br',
-        message: `Resposta 1: ${Input1}
-        Resposta 2: ${Input2}`
-      }, 'qNFyg3V_FW8DLmNjL')
-      .then((result) => {
-        console.log(result.text);
-      }, (error) => {
-        console.log(error.text);
-      });
+     emailjs.send('outlookMessage', 'template_6j5xp3j',
+       {
+         to_email: 'barbozagarcia@yahoo.com.br',
+         message: `Escolha a palavra que melhor identifica nosso Aplicativo: ${opiniaoSoftware}
+         De 1(ruim) a 5(excelente), qual seria a nota que você dá ao nosso Aplicativo?: ${notaSoftware}`
+       }, 'qNFyg3V_FW8DLmNjL')
+       .then((result) => {
+         console.log(result.text);
+       }, (error) => {
+       console.log(error.text);
+       });
 
-    setInput1('')
-    setInput2('')
+    setOpiniaoSoftware('')
+    setNotaSoftware('')
 
     localStorage.setItem("formPreenchido", dadoTeste)
     setFormPreenchido(true)
@@ -897,24 +901,50 @@ function Exames() {
       >
         <ModalOverlay />
         <ModalContent>
-          <Box>
-            <Input
-              placeholder="Input1"
-              value={Input1}
-              onChange={(e) => setInput1(e.target.value)}
-            />
-            <Input
-              placeholder="Input2"
-              value={Input2}
-              onChange={(e) => setInput2(e.target.value)}
-            />
-            <Button
-              onClick={(e) => finalizaForm(e)}>
-              Finaliza
-            </Button>
+        <Text textAlign={'center'} fontSize={'2rem'} fontWeight={'bold'}>Pesquisa de Satisfação</Text>
+        <Box p={3} borderWidth="1px" borderRadius="md" boxShadow="md" justifyContent={'center'}>
+        <RadioGroup onChange={(value) => setOpiniaoSoftware(value)} value={opiniaoSoftware} mb={4}>
+        <Text mb={4}>1 -Escolha a palavra que melhor identifica nosso Aplicativo:</Text>
+        <Flex justifyContent="center">
+          <Radio value="bom" mx={2}>
+            Bom
+          </Radio>
+          <Radio value="regular" mx={2}>
+            Regular
+          </Radio>
+          <Radio value="ruim" mx={2}>
+            Ruim
+          </Radio>
+        </Flex>
+      </RadioGroup>
 
-          </Box>
+      <RadioGroup onChange={(value) => setNotaSoftware(value)} value={notaSoftware} mb={4}>
+        <Text mb={4}>2 - De 1 a 5, qual seria a nota que você dá ao Aplicativo:</Text>
+        <Flex justifyContent="center">
+          <Radio value="1" mx={2}>
+            1
+          </Radio>
+          <Radio value="2" mx={2}>
+            2
+          </Radio>
+          <Radio value="3" mx={2}>
+            3
+          </Radio>
+          <Radio value="4" mx={2}>
+            4
+          </Radio>
+          <Radio value="5" mx={2}>
+            5
+          </Radio>
+        </Flex>
+      </RadioGroup>
 
+      <Box textAlign="center">
+        <Button onClick={(e) => finalizaForm(e)} color="white" bg={'#2e4ad4'} mt={4} w={'11rem'}>
+          Enviar
+        </Button>
+      </Box>
+    </Box>
         </ModalContent>
       </Modal>
     );
@@ -1056,12 +1086,12 @@ function Exames() {
             arrowSize={15}
             textColor="black"
           >
-            <Circle size="50px" bg="gray.200">
+            <Circle size="50px" bg="yellow.400">
               <Icon
                 w={30}
                 h={30}
                 as={BsFillCheckCircleFill}
-                color="twitter.600"
+                color="green"
                 size="30px"
                 onClick={() => {
                   verificaForm()
@@ -1078,19 +1108,20 @@ function Exames() {
             <Image
               src={clinicaSet.foto}
               alt="Imagem Clínica"
-              boxSize="130px"
+              boxSize="6.5rem"
               objectFit="scale-down"
               borderRadius="full"
               padding="5px"
-              marginStart="20px"
+              ml={2}
+              mt={'1rem'}
             />
           </Box>
 
           <Grid
             templateColumns="repeat(1, 1fr)"
-            marginStart="50px"
             justifyItems="center"
             justifySelf="center"
+            pl={'7rem'}
           >
             <Text fontWeight="bold">{clinicaSet.nomeClinica}</Text>
             <Text>{getPaciente()}</Text>
@@ -1103,7 +1134,7 @@ function Exames() {
             inlineSize="95%"
             margin="5px"
             borderColor="black"
-            marginTop="15px"
+            marginTop="18px"
           />
         </Center>
         <Box margin="20px" key={+edit}>
@@ -1119,7 +1150,7 @@ function Exames() {
                 backgroundImage="none"
               />
               <Divider
-                inlineSize="30vh"
+                inlineSize="10rem"
                 margin="5px"
                 marginTop="0px"
                 borderColor="black"

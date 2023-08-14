@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-pascal-case */
-import { Box, Checkbox, Select } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Select, Stack, VStack } from "@chakra-ui/react";
 
 
 import Baco from "./baco/baco";
@@ -19,8 +19,8 @@ import Retroperineo from "./Retroperineo/Retroperineo";
 import Aorta from "./aorta/aorta";
 
 function AbdomemTotal() {
-  const altura = '100%'
-  const largura = '40%'
+  const altura = '100vh'
+  const largura = '40vw'
 
   const [frasesAdomenTotal, setFrasesAdomenTotal] = useState<any>([]);
 
@@ -81,8 +81,8 @@ function AbdomemTotal() {
     <Box>
       <Box
         bg="#FAFAFA"
-        w={largura}
-        h={altura}
+        w='60%'
+        h='8rem'
         bgPosition="center"
         bgRepeat="no-repeat"
         borderRadius="10.85px"
@@ -92,16 +92,19 @@ function AbdomemTotal() {
         mb='5px'
         display='flex'
         flexWrap='wrap'
-        alignItems='center' gap='5px'>
+        justifyContent={'center'}
+        alignItems='center' gap='5px'
+        >
 
-        <Box w='150px' >
+        <Box textAlign={'center'} p={4}>
           <Checkbox
             onChange={(e) => { SetDisable(!Disable) }}
           >Abdômen normal</Checkbox>
         </Box>
+        <HStack align="center" spacing={4}>
         <Select
           borderColor='black'
-          w='150px'
+          w='45%'
           isDisabled={!Disable}
           value={NormalSelect}
           onChange={(e) => {
@@ -117,7 +120,7 @@ function AbdomemTotal() {
         </Select>
         <Select
           borderColor='black'
-          w='150px'
+          w='45%'
           isDisabled={!Disable}
           value={NormalEstruturasSelect}
           onChange={(e) => {
@@ -130,6 +133,7 @@ function AbdomemTotal() {
           <option value="normais">Normais</option>
           <option value="não visibilizados">Não visibilizados</option>
         </Select>
+        </HStack>
       </Box >
 
       <Figado Disable={Disable} />

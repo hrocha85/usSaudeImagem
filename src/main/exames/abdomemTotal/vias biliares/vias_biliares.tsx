@@ -8,7 +8,7 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function ViasBiliares({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  const largura = "60%";
 
   const [frasesVias, setFrasesVias] = useState<any>([]);
   const [ConclusoesVias, setConclusoesVias] = useState<any>([]);
@@ -168,8 +168,8 @@ function ViasBiliares({ Disable }) {
               Dilatação de vias biliares intra-hepáticas
             </Checkbox>
           </Box>
-          <HStack >
-            <Box>
+          <Stack >
+            <Box textAlign={'center'}>
               <Checkbox
                 onChange={(e) => {
                   setCitarCalibresCheckbox(!CitarCalibresCheckbox);
@@ -178,21 +178,21 @@ function ViasBiliares({ Disable }) {
                 Citar calibres:
               </Checkbox>
             </Box>
-            <HStack>
+            <HStack justifyContent={'center'}>
               <Input
                 textAlign='center'
                 p='0px'
-                w='50px'
+                w='20px'
                 value={CitarCalibresInput1}
                 onChange={(e) => setCitarCalibresInput1(e.target.value)}
                 disabled={DisableCitarCalibresInput}
                 placeholder="00"
               />
-              <Text alignItems='center'>mm. Cálculo de </Text>
+              { <Text alignItems='center'>mm. Cálculo de </Text> }
               <Input
                 textAlign='center'
                 p='0px'
-                w='50px'
+                w='20px'
                 value={CitarCalibresInput2}
                 onChange={(e) => setCitarCalibresInput2(e.target.value)}
                 disabled={DisableCitarCalibresInput}
@@ -200,7 +200,7 @@ function ViasBiliares({ Disable }) {
               />
               <Text alignItems='center'>mm</Text>
             </HStack>
-          </HStack>
+          </Stack>
         </Stack>
       </Box >
     </Box >

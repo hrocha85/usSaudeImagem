@@ -50,6 +50,7 @@ import BGImage from "../images/bg_img.png";
 import Sidebar from "../menu/sideBar";
 import Conclusoes from "./conclusoes";
 import Field_Observacoes from "./field_observacoes";
+import FooterUpbase from "./FooterUpbase";
 
 export default function Box_Default_With_Sidebar() {
   const {
@@ -480,7 +481,7 @@ export default function Box_Default_With_Sidebar() {
           paddingBottom="3%"
           marginStart="5px"
         >
-          <Flex flex={1} flexDirection="column" maxW="60%">
+          <Flex flex={1} flexDirection="column" maxW="89%">
             <Field_Observacoes exame={currentExame} key={tabIndex} />
           </Flex>
 
@@ -601,6 +602,7 @@ export default function Box_Default_With_Sidebar() {
             </ModalFooter>
           </ModalContent>
         </Modal>
+        <FooterUpbase/>
       </Box>
     );
   }

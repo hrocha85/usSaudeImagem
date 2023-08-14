@@ -13,7 +13,7 @@ import NoduloSolido from "./componentes/NoduloSolido/NoduloSolido";
 
 function RinsUreteres({ Disable }) {
     const altura = "100%";
-    const largura = "66%";
+    const largura = "60%";
     const [FraseRinsUreteres, setFraseRinsUreteres] = useState<any>([]);
     const [ConclusoesRinsUreteres, setConclusoesRinsUreteres] = useState<any>([]);
 

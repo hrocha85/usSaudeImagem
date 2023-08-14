@@ -226,6 +226,7 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
         alignItems={'center'}
         borderRadius={10}
         border={'1px'}
+        bg={'#2e4ad4'}
         borderColor={'gray'}
       >
 
@@ -255,6 +256,7 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
               variant="link"
               alignContent={'center'}
               textAlign={'center'}
+              textColor={'white'}
               w="130px"
               h="30px"
               style={{
@@ -283,7 +285,7 @@ FieldDefaultHome.protoTypes = {
 
 FieldDefaultHome.defaultProps = {
   text: "Título",
-  textColor: "FFFFFF",
+  textColor: "#FFF",
 };
 
 export default FieldDefaultHome;
