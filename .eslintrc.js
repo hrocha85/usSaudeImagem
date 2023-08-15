@@ -19,5 +19,8 @@ module.exports = {
         Atomics: 'readonly',
         SharedArrayBuffer: 'readonly',
     },
-    rules: {},
+    rules: {
+        'no-var': 'error',
+        'no-import-assign': 'error'
+    },
 };
