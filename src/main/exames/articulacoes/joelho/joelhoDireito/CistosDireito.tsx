@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -62,7 +62,7 @@ function CistosDireito({ Disable }) {
 
 
     const removeItemString = (value) => {
-        var index = CistosDireito.indexOf(value);
+        const index = CistosDireito.indexOf(value);
         if (index > -1) {
             CistosDireito.splice(index, 1);
             setCistosDireito((arr) => [...arr]);
@@ -71,9 +71,9 @@ function CistosDireito({ Disable }) {
 
 
     const criaStringCistosBaker = (medida1, medida2, medida3) => {
-        var string = 'Cisto e Baker medindo'
+        const string = 'Cisto e Baker medindo'
         const conclusao = 'Cisto de Baker.'
-        var StringFinal;
+        let StringFinal;
         removeCistoBaker()
         if (medida1 !== "" && medida2 !== "" && medida3 !== "" && CistosBakerSelect1 !== '' && CistosBakerSelect2 !== '' && CistosBakerSelect3 !== '') {
             StringFinal = `${string} ${medida1} x ${medida2} x ${medida3} mm, ${CistosBakerSelect1} ${CistosBakerSelect2} ${CistosBakerSelect3}`;
@@ -85,7 +85,7 @@ function CistosDireito({ Disable }) {
     const removeCistoBaker = () => {
         CistosDireito.map((e) => {
             if (e.includes("Cisto e Baker medindo")) {
-                var index = CistosDireito.indexOf(e);
+                const index = CistosDireito.indexOf(e);
 
                 if (index > -1) {
                     CistosDireito.splice(index, 1);
@@ -95,7 +95,7 @@ function CistosDireito({ Disable }) {
         });
         ConclusaoCistosDireito.map((e) => {
             if (e.includes("Cisto de Baker.")) {
-                var index = ConclusaoCistosDireito.indexOf(e);
+                const index = ConclusaoCistosDireito.indexOf(e);
 
                 if (index > -1) {
                     ConclusaoCistosDireito.splice(index, 1);
@@ -123,11 +123,11 @@ function CistosDireito({ Disable }) {
     }, [CistosBakerCheckbox, CistosBakerInput, CistosBakerInput2, CistosBakerInput3, CistosBakerSelect1, CistosBakerSelect2, CistosBakerSelect3]);
 
     const criaStringCistosParameniscal = (medida1cm, medida2cm, medida3cm) => {
-        var string = 'Presença de cisto parameniscal com '
-        var StringFinal;
-        var medida1 = new Convert_Medida(medida1cm).Convert_Medida()
-        var medida2 = new Convert_Medida(medida2cm).Convert_Medida()
-        var medida3 = new Convert_Medida(medida3cm).Convert_Medida()
+        const string = 'Presença de cisto parameniscal com '
+        let StringFinal;
+        const medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+        const medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+        const medida3 = new Convert_Medida(medida3cm).Convert_Medida()
         removeCistoParameniscal()
         if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && CistosParameniscalSelect1 !== '' && CistosParameniscalSelect2 !== '' && CistosParameniscalSelect3 !== '') {
             StringFinal = `${string} ${CistosParameniscalSelect1}, situado junto ao ${CistosParameniscalSelect2} do ${CistosParameniscalSelect3}, medindo ${medida1} x ${medida2} x ${medida3} cm`;
@@ -137,7 +137,7 @@ function CistosDireito({ Disable }) {
     const removeCistoParameniscal = () => {
         CistosDireito.map((e) => {
             if (e.includes('Presença de cisto parameniscal com ')) {
-                var index = CistosDireito.indexOf(e);
+                const index = CistosDireito.indexOf(e);
 
                 if (index > -1) {
                     CistosDireito.splice(index, 1);

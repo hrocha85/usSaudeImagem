@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -65,7 +65,7 @@ function Axilas() {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesAxilas.indexOf(value);
+    const index = frasesAxilas.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesAxilas.splice(index, 1);
@@ -105,7 +105,7 @@ function Axilas() {
 
   const criaStringPerpendicularPele = () => {
     removeFrasePerpedicularPele()
-    var string = 'Perpendicular a pele, medindo cerca de'
+    let string = 'Perpendicular a pele, medindo cerca de'
     if (PerpendicularPeleCheckbox && PerpendicularPeleInput != '') {
       string = `${string} ${PerpendicularPeleInput} cm.`
       setFrasesAxilas((arr) => [...arr, string]);
@@ -118,7 +118,7 @@ function Axilas() {
   const removeFrasePerpedicularPele = () => {
     frasesAxilas.map((e) => {
       if (e.includes("Perpendicular a pele, medindo cerca de")) {
-        let index = frasesAxilas.indexOf(e);
+        const index = frasesAxilas.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesAxilas.splice(index, 1);
@@ -132,7 +132,7 @@ function Axilas() {
     removeFrasePeleTecido();
     if (CheckboxPeleTecido) {
       if (valueSelectPeleTecido !== "") {
-        let string = `Pele e tecido subcutâneo de espessura  ${valueSelectPeleTecido}`;
+        const string = `Pele e tecido subcutâneo de espessura  ${valueSelectPeleTecido}`;
         setFrasesAxilas((arr) => [...arr, string]);
       }
     } else {
@@ -142,7 +142,7 @@ function Axilas() {
   const removeFrasePeleTecido = () => {
     frasesAxilas.map((e) => {
       if (e.includes("Pele e tecido subcutâneo de espessura ")) {
-        let index = frasesAxilas.indexOf(e);
+        const index = frasesAxilas.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesAxilas.splice(index, 1);
@@ -157,7 +157,7 @@ function Axilas() {
   }, [valueSelectPeleTecido, CheckboxPeleTecido]);
 
   const criaStringAxilasLinfadenomegalia = () => {
-    var string = 'Linfadenomegalia'
+    let string = 'Linfadenomegalia'
     removeFraseSelect(string);
     if (CheckboxAxilasLinfadenomegalia) {
       if (valueSelectAxilasLinfadenomegalia !== "") {
@@ -174,7 +174,7 @@ function Axilas() {
   }, [valueSelectAxilasLinfadenomegalia, CheckboxAxilasLinfadenomegalia]);
 
   const criaStringAxilaAcessoria = () => {
-    var string = 'Axila acessória'
+    let string = 'Axila acessória'
     removeFraseSelect(string);
     if (CheckboxAxilaAcessoria) {
       if (valueSelectAxilaAcessoria !== "") {
@@ -191,7 +191,7 @@ function Axilas() {
   }, [valueSelectAxilaAcessoria, CheckboxAxilaAcessoria]);
 
   const criaStringTecidoFibrograndular = () => {
-    var string = 'Presença de tecido fibroglandular'
+    let string = 'Presença de tecido fibroglandular'
     removeFraseSelect(string);
     if (CheckboxTecidoFibrograndular) {
       if (ValueSelectTecidoFibrograndular !== "") {
@@ -208,7 +208,7 @@ function Axilas() {
   }, [ValueSelectTecidoFibrograndular, CheckboxTecidoFibrograndular]);
 
   const criaStringPresencaImagemSolida = () => {
-    var string = 'Presença de imagem sólida'
+    let string = 'Presença de imagem sólida'
     removeFraseSelect(string);
     if (CheckboxPresencaImagemSolida) {
       if (ValueSelectPresencaImagemSolida !== "") {
@@ -225,7 +225,7 @@ function Axilas() {
   }, [ValueSelectPresencaImagemSolida, CheckboxPresencaImagemSolida]);
 
   const criaStringIsoecogenica = () => {
-    var string = 'Presença de imagem isoecogênica'
+    let string = 'Presença de imagem isoecogênica'
     removeFraseSelect(string);
     if (CheckboxIsoecogenica) {
       if (ValueSelectIsoecogenica !== "") {
@@ -242,7 +242,7 @@ function Axilas() {
   }, [ValueSelectIsoecogenica, CheckboxIsoecogenica]);
 
   const criaStringHipoecogenica = () => {
-    var string = 'Imagem sugestiva de Hipoecogênica'
+    let string = 'Imagem sugestiva de Hipoecogênica'
     removeFraseSelect(string);
     if (CheckboxHipoecogenica) {
       if (ValueSelectHipoecogenica !== "") {
@@ -259,7 +259,7 @@ function Axilas() {
   }, [ValueSelectHipoecogenica, CheckboxHipoecogenica]);
 
   const criaStringHiperecogenicaContornos = () => {
-    var string = 'Imagem sugestiva de Hiperecogênica de contornos '
+    let string = 'Imagem sugestiva de Hiperecogênica de contornos '
     removeFraseSelect(string);
     if (CheckboxHiperecogenicaContornos) {
       if (ValueSelectHiperecogenicaContornos !== "") {
@@ -276,7 +276,7 @@ function Axilas() {
   }, [ValueSelectHiperecogenicaContornos, CheckboxHiperecogenicaContornos]);
 
   const criaStringRegulares = () => {
-    var string = 'regular.'
+    let string = 'regular.'
     removeFraseSelect(string);
     if (RegularesCheckbox) {
       if (ValueSelectRegulares !== "") {
@@ -293,7 +293,7 @@ function Axilas() {
   }, [ValueSelectRegulares, RegularesCheckbox]);
 
   const criaStringIrregulares = () => {
-    var string = 'irregular.'
+    let string = 'irregular.'
     removeFraseSelect(string);
     if (IrregularesCheckbox) {
       if (ValueSelectIrregulares !== "") {
@@ -313,7 +313,7 @@ function Axilas() {
   const removeFraseSelect = (value) => {
     frasesAxilas.map((e) => {
       if (e.includes(value)) {
-        let index = frasesAxilas.indexOf(e);
+        const index = frasesAxilas.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesAxilas.splice(index, 1);

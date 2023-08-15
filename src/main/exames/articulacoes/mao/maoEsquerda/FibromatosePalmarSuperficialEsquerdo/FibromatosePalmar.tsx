@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { MaoEsquerdoNormalContext } from "../../../../../../context/MaoEsquerdoNormalContext";
@@ -44,11 +44,11 @@ function FibromatosePalmarEsquerdo({ Disable }) {
 
   const criaStringNodulo = (medida1mm, medida2mm, medida3mm, Nodulo) => {
     removeNodulo();
-    var medida1 = medida1mm / 10
-    var medida2 = medida2mm / 10
-    var medida3 = medida3mm / 10
+    const medida1 = medida1mm / 10
+    const medida2 = medida2mm / 10
+    const medida3 = medida3mm / 10
     if (medida1 !== 0 && medida2 !== 0 && medida3 !== 0 && Nodulo !== "") {
-      var string = `Presença de nódulo hipoecogênico na região palmar em localização superficial aos tendões flexores do ${Nodulo}, medindo ${medida1} x ${medida2} x ${medida3} cm `;
+      const string = `Presença de nódulo hipoecogênico na região palmar em localização superficial aos tendões flexores do ${Nodulo}, medindo ${medida1} x ${medida2} x ${medida3} cm `;
       setFraseFibrosePalmarSuperficial((arr) => [...arr, string]);
     }
   };
@@ -56,7 +56,7 @@ function FibromatosePalmarEsquerdo({ Disable }) {
   const removeNodulo = () => {
     fraseFibrosePalmarSuperficial.map((e) => {
       if (e.includes("Presença de nódulo hipoecogênico na região palmar em localização superficial aos tendões flexores do ")) {
-        var index = fraseFibrosePalmarSuperficial.indexOf(e);
+        const index = fraseFibrosePalmarSuperficial.indexOf(e);
 
         if (index > -1) {
           fraseFibrosePalmarSuperficial.splice(index, 1);

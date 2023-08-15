@@ -17,7 +17,7 @@ function Varicocele() {
     removeStringVaricoceleLivre();
 
     if (VaricoceleCheckBox && posicaoVaricoceleSelect !== "") {
-      var string = `Varicocele no local: ${posicaoVaricoceleSelect}`;
+      const string = `Varicocele no local: ${posicaoVaricoceleSelect}`;
       setFrasesVaricocele((arr) => [...arr, string]);
     }
   };
@@ -25,7 +25,7 @@ function Varicocele() {
   const removeStringVaricoceleLivre = () => {
     frasesVaricocele.map((e) => {
       if (e.includes("Varicocele no local")) {
-        var index = frasesVaricocele.indexOf(e);
+        const index = frasesVaricocele.indexOf(e);
 
         if (index > -1) {
           frasesVaricocele.splice(index, 1);

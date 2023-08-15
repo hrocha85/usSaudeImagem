@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -40,7 +40,7 @@ function Doppler() {
   }, [Inflamacao])
 
   const criaStringDilatacao = () => {
-    var string = 'Dilatação e discreta tortuosidade de vasos do plexo pampiniforme, medindo no repouso'
+    let string = 'Dilatação e discreta tortuosidade de vasos do plexo pampiniforme, medindo no repouso'
     removeSelect(string)
     if (Dilatacao) {
       if (DilatacaoInput1 && CalibreInput1) {
@@ -60,7 +60,7 @@ function Doppler() {
   const removeSelect = (value) => {
     FrasesDoppler.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesDoppler.indexOf(e);
+        const index = FrasesDoppler.indexOf(e);
 
         if (index > -1) {
           FrasesDoppler.splice(index, 1);
@@ -73,7 +73,7 @@ function Doppler() {
   const removeItemString = (value) => {
     FrasesDoppler.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesDoppler.indexOf(e);
+        const index = FrasesDoppler.indexOf(e);
 
         if (index > -1) {
           FrasesDoppler.splice(index, 1);
@@ -91,7 +91,7 @@ function Doppler() {
   }, [DescreverDoppler]);
 
   const subExame = "Doppler";
-  var titulo_exame = "Testículo com doppler";
+  lettitulo_exame = "Testículo com doppler";
 
   useEffect(() => {
     if (Object.keys(FrasesDoppler).length == 0) {

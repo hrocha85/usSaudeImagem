@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -28,7 +28,7 @@ function ExtraRins() {
 
 
   const criaStringNefropatiaCronica = () => {
-    let string = "de morfologia e topografia habitual, com dimensões reduzidas, contornos lobulados, aumento da ecogenicidade e perda da diferenciação corticomedular.";
+    const string = "de morfologia e topografia habitual, com dimensões reduzidas, contornos lobulados, aumento da ecogenicidade e perda da diferenciação corticomedular.";
     let conclusao = "Sinais de nefropatia parenquimatosa crônica";
     removeItemString(string);
     removeConclusaoSelect(conclusao);
@@ -66,8 +66,8 @@ function ExtraRins() {
   }, [checkboxRimPelvico, SelectRimPelvico]);
 
   const criaStringRimFerradura = () => {
-    let string = "Rim topografia ectópica, na fossa ilíaca direita, de morfologia, contornos e ecotextura normais.";
-    let conclusao = "Sinais ecográfico compatíveis com rins em ferradura.";
+    const string = "Rim topografia ectópica, na fossa ilíaca direita, de morfologia, contornos e ecotextura normais.";
+    const conclusao = "Sinais ecográfico compatíveis com rins em ferradura.";
     removeItemString(string);
     removeItemConclusao(conclusao);
     if (checkboxRimFerradura) {
@@ -82,7 +82,7 @@ function ExtraRins() {
 
 
   const removeItemString = (value) => {
-    var index = FrasesExtraRins.indexOf(value);
+    const index = FrasesExtraRins.indexOf(value);
 
     if (index > -1) {
       FrasesExtraRins.splice(index, 1);
@@ -90,7 +90,7 @@ function ExtraRins() {
     }
   };
   const removeItemConclusao = (value) => {
-    var index = ConclusaoExtraRins.indexOf(value);
+    const index = ConclusaoExtraRins.indexOf(value);
 
     if (index > -1) {
       ConclusaoExtraRins.splice(index, 1);
@@ -102,7 +102,7 @@ function ExtraRins() {
   const removeConclusaoSelect = (value) => {
     ConclusaoExtraRins.map((e) => {
       if (e.includes(value)) {
-        let index = ConclusaoExtraRins.indexOf(e);
+        const index = ConclusaoExtraRins.indexOf(e);
 
         if (index > -1) {
           ConclusaoExtraRins.splice(index, 1);

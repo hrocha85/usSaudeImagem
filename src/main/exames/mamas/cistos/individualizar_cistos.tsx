@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -30,7 +30,7 @@ export default function IndividualizarCistos({ numCisto }) {
       ConteudoCistosSelect !== "" &&
       OrientacaoCistosSelect
     ) {
-      var string = `Nódulo ${numCisto} mede ${tamanhoCistoInput} cm ${CistosSelect} localizado ${localizado} no ${OrientacaoCistosSelect}.`;
+      const string = `Nódulo ${numCisto} mede ${tamanhoCistoInput} cm ${CistosSelect} localizado ${localizado} no ${OrientacaoCistosSelect}.`;
       setFrasesIndCis((arr) => [...arr, string]);
     }
   };
@@ -38,7 +38,7 @@ export default function IndividualizarCistos({ numCisto }) {
   const removeMultiplosCistos = () => {
     frasesIndCis.map((e) => {
       if (e.includes(`Nódulo ${numCisto}`)) {
-        var index = frasesIndCis.indexOf(e);
+        const index = frasesIndCis.indexOf(e);
 
         if (index > -1) {
           frasesIndCis.splice(index, 1);

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Center, Checkbox, HStack, Input, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -55,7 +55,7 @@ function TendaoQuadricepsFemoralDireito({ Disable }) {
     const criaStringLesaoParcial = (medida1, medida2, medida3) => {
         removeLesaoParcial();
         if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
-            var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
+            const string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
             setTendaoQuadricepsFemoralDireito((arr) => [...arr, string]);
         }
     };
@@ -63,7 +63,7 @@ function TendaoQuadricepsFemoralDireito({ Disable }) {
     const removeLesaoParcial = () => {
         TendaoQuadricepsFemoralDireito.map((e) => {
             if (e.includes("Espessado, com alteração ecotextural,")) {
-                var index = TendaoQuadricepsFemoralDireito.indexOf(e);
+                const index = TendaoQuadricepsFemoralDireito.indexOf(e);
 
                 if (index > -1) {
                     TendaoQuadricepsFemoralDireito.splice(index, 1);
@@ -74,7 +74,7 @@ function TendaoQuadricepsFemoralDireito({ Disable }) {
     };
 
     const criaStringAspectoNormal = () => {
-        var string = "FALTA";
+        const string = "FALTA";
         AspectoNormalCheckbox ? setTendaoQuadricepsFemoralDireito((arr) => [...arr, string]) : removeItemString(string);
 
     };
@@ -87,7 +87,7 @@ function TendaoQuadricepsFemoralDireito({ Disable }) {
     }, [Disable])
 
     useEffect(() => {
-        var string = "FALTA";
+        const string = "FALTA";
         Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
     }, [Normal])
 
@@ -97,7 +97,7 @@ function TendaoQuadricepsFemoralDireito({ Disable }) {
     }, [AspectoNormalCheckbox])
 
     const criaStringTendinopatiaSemRotura = () => {
-        var string = "FALTA";
+        const string = "FALTA";
         TendinopatiaSemRoturaCheckbox ? setTendaoQuadricepsFemoralDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
@@ -107,7 +107,7 @@ function TendaoQuadricepsFemoralDireito({ Disable }) {
 
     const criaStringPresencaEntesofito = (dados) => {
         removeFrasePresencaEntesofito()
-        var string;
+        let string;
 
         if (PresencaEntesofitoCheckbox && dados !== '') {
             string = `Presença de entesófito medindo ${dados}`;
@@ -120,7 +120,7 @@ function TendaoQuadricepsFemoralDireito({ Disable }) {
     const removeFrasePresencaEntesofito = () => {
         TendaoQuadricepsFemoralDireito.map((e) => {
             if (e.includes("Presença de entesófito")) {
-                var index = TendaoQuadricepsFemoralDireito.indexOf(e);
+                const index = TendaoQuadricepsFemoralDireito.indexOf(e);
 
                 if (index > -1) {
                     TendaoQuadricepsFemoralDireito.splice(index, 1);
@@ -143,7 +143,7 @@ function TendaoQuadricepsFemoralDireito({ Disable }) {
 
 
     const removeItemString = (value) => {
-        var index = TendaoQuadricepsFemoralDireito.indexOf(value);
+        const index = TendaoQuadricepsFemoralDireito.indexOf(value);
         if (index > -1) {
             TendaoQuadricepsFemoralDireito.splice(index, 1);
             setTendaoQuadricepsFemoralDireito((arr) => [...arr]);

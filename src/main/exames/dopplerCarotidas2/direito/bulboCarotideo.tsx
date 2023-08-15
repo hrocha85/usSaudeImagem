@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -19,7 +19,7 @@ function BulboCarotideoDireito() {
   const criaStringPlaca = (medida) => {
     removePlaca();
     if (medida !== "") {
-      var string = `Bulbo carotídeo direita  medindo ${medida} mm `;
+      const string = `Bulbo carotídeo direita  medindo ${medida} mm `;
       setFrasesBulbo((arr) => [...arr, string]);
     }
   };
@@ -27,7 +27,7 @@ function BulboCarotideoDireito() {
   const removePlaca = () => {
     frasesBulbo.map((e) => {
       if (e.includes("Bulbo carotídeo direita")) {
-        var index = frasesBulbo.indexOf(e);
+        const index = frasesBulbo.indexOf(e);
 
         if (index > -1) {
           frasesBulbo.splice(index, 1);
@@ -101,7 +101,7 @@ function BulboCarotideoDireito() {
           w="45px"
           h="30px"
           padding="5px"
-          
+
           textAlign="center"
           onChange={(e) => {
             setPlacaInput(e.target.value);

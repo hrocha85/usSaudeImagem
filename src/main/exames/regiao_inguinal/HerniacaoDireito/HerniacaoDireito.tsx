@@ -1,10 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
-function HerniacaoDireito({Disable}) {
+function HerniacaoDireito({ Disable }) {
   const altura = "100%";
   const largura = "380px";
 
@@ -44,7 +44,7 @@ function HerniacaoDireito({Disable}) {
     const conclusao = 'Herniação.'
     removeMedidaHernia();
     if (medidaHernia !== "") {
-      var string = `Herniação de conteúdo omental através do canal inguinal direito medindo ${medidaHernia} cm de espessura, observado à manobra de valsalva`;
+      const string = `Herniação de conteúdo omental através do canal inguinal direito medindo ${medidaHernia} cm de espessura, observado à manobra de valsalva`;
       setFrasesHerniacaoDireito((arr) => [...arr, string]);
       setConclusaoHerniacaoDireito((arr) => [...arr, conclusao]);
     }
@@ -54,7 +54,7 @@ function HerniacaoDireito({Disable}) {
     // console.log("valor remove = ", value);
     frasesHernia.map((e) => {
       if (e.includes("Herniação de conteúdo omental através do canal inguinal direito medindo")) {
-        var index = frasesHernia.indexOf(e);
+        const index = frasesHernia.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesHernia.splice(index, 1);
@@ -64,7 +64,7 @@ function HerniacaoDireito({Disable}) {
     });
     ConclusaoHernia.map((e) => {
       if (e.includes("Herniação.")) {
-        var index = ConclusaoHernia.indexOf(e);
+        const index = ConclusaoHernia.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           ConclusaoHernia.splice(index, 1);
@@ -91,7 +91,7 @@ function HerniacaoDireito({Disable}) {
     const conclusao = 'Herniação.'
     removeMedidaHerniaIntestinal();
     if (medidaHerniaIntestinal !== "") {
-      var string = `Herniação de conteúdo omental e intestinal através do canal inguinal direito até a bolsa escrotal, com pouca mobilidade às manobras de compressão e Valsalva. 
+      const string = `Herniação de conteúdo omental e intestinal através do canal inguinal direito até a bolsa escrotal, com pouca mobilidade às manobras de compressão e Valsalva. 
       Conteúdo herniário intra-escrotal medindo cerca de ${medidaHerniaIntestinal} cm.  `;
       setFrasesHerniacaoDireito((arr) => [...arr, string]);
       setConclusaoHerniacaoDireito((arr) => [...arr, conclusao]);
@@ -102,7 +102,7 @@ function HerniacaoDireito({Disable}) {
     // console.log("valor remove = ", value);
     frasesHernia.map((e) => {
       if (e.includes("Herniação de conteúdo omental e intestinal através do canal inguinal direito até a bolsa escrotal, com pouca mobilidade às manobras de compressão e Valsalva.")) {
-        var index = frasesHernia.indexOf(e);
+        const index = frasesHernia.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesHernia.splice(index, 1);
@@ -112,7 +112,7 @@ function HerniacaoDireito({Disable}) {
     });
     ConclusaoHernia.map((e) => {
       if (e.includes("Herniação.")) {
-        var index = ConclusaoHernia.indexOf(e);
+        const index = ConclusaoHernia.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           ConclusaoHernia.splice(index, 1);

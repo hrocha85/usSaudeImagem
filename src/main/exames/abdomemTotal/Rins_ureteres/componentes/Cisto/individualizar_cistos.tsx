@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -21,7 +21,7 @@ export default function IndividualizarCistos({ numCisto }) {
     let string = `Cisto ${numCisto}: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo`
     removeCisto()
     removeItemStringConclusao()
-    var InputCistocm = new Convert_Medida(InputCisto).Convert_Medida()
+    const InputCistocm = new Convert_Medida(InputCisto).Convert_Medida()
     if (Select01Cisto != '' && Select02Cisto != '' && InputCisto != '') {
       string = `${string} ${InputCistocm} cm, visível no ${Select01Cisto} do ${Select02Cisto}`
       setFraseCisto((arr) => [...arr, string]);
@@ -32,7 +32,7 @@ export default function IndividualizarCistos({ numCisto }) {
   const removeCisto = () => {
     FraseCisto.map((e) => {
       if (e.includes(`Cisto ${numCisto}: Cisto de`)) {
-        var index = FraseCisto.indexOf(e);
+        const index = FraseCisto.indexOf(e);
 
         if (index > -1) {
           FraseCisto.splice(index, 1);
@@ -45,7 +45,7 @@ export default function IndividualizarCistos({ numCisto }) {
 
   const removeItemStringConclusao = () => {
     // console.log("valor remove = ", value);
-    var index = ConclusoesCisto.indexOf('Cisto renal.');
+    const index = ConclusoesCisto.indexOf('Cisto renal.');
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       ConclusoesCisto.splice(index, 1);

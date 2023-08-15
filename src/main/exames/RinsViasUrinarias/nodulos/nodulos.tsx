@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";

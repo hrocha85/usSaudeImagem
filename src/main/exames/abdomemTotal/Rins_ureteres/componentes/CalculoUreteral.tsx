@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -31,7 +31,7 @@ export default function CalculoUreteral({ Disable }) {
     const removeCalculo = () => {
         FraseCalculoUreteral.map((e) => {
             if (e.includes("Cálculo de ")) {
-                var index = FraseCalculoUreteral.indexOf(e);
+                const index = FraseCalculoUreteral.indexOf(e);
 
                 if (index > -1) {
                     FraseCalculoUreteral.splice(index, 1);

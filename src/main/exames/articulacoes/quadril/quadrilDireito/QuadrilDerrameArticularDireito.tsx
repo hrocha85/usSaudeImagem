@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -49,7 +49,7 @@ function QuadrilDerrameArticularDireito({ Disable }) {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAusente = () => {
-    var string = "Ausência de derrame articular.";
+    const string = "Ausência de derrame articular.";
     if (AusenteCheckbox) {
       setQuadrilDerrameArticularDireito((arr) => [...arr, string]);
       setDisablePresente(true)
@@ -62,8 +62,8 @@ function QuadrilDerrameArticularDireito({ Disable }) {
 
   const criaStringPresente = (Presente) => {
     removePresente();
-    var conclusao = 'Derrame articular'
-    var string;
+    let conclusao = 'Derrame articular'
+    let string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
       string = `Presença de derrame articular ${Presente}, associado a espessamento sinovial. `;
       conclusao = `${conclusao} associado a sinovite`
@@ -81,7 +81,7 @@ function QuadrilDerrameArticularDireito({ Disable }) {
   const removePresente = () => {
     QuadrilDerrameArticularDireito.map((e) => {
       if (e.includes("Presença de derrame articular")) {
-        var index = QuadrilDerrameArticularDireito.indexOf(e);
+        const index = QuadrilDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {
           QuadrilDerrameArticularDireito.splice(index, 1);
@@ -91,7 +91,7 @@ function QuadrilDerrameArticularDireito({ Disable }) {
     });
     ConclusaoQuadrilDerrameArticularDireito.map((e) => {
       if (e.includes("Derrame articular")) {
-        var index = ConclusaoQuadrilDerrameArticularDireito.indexOf(e);
+        const index = ConclusaoQuadrilDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {
           ConclusaoQuadrilDerrameArticularDireito.splice(index, 1);
@@ -103,7 +103,7 @@ function QuadrilDerrameArticularDireito({ Disable }) {
   };
 
   const removeItemString = (value) => {
-    var index = QuadrilDerrameArticularDireito.indexOf(value);
+    const index = QuadrilDerrameArticularDireito.indexOf(value);
 
     if (index > -1) {
       QuadrilDerrameArticularDireito.splice(index, 1);

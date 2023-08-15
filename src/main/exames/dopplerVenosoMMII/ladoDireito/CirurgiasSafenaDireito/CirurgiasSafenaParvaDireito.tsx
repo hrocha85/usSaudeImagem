@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -41,7 +41,7 @@ function CirurgiaSafenaParvaDireito() {
   const removeAusenciaParcial = () => {
     frasesSafenaParva.map((e) => {
       if (e.includes("Ausencia Parcial")) {
-        var index = frasesSafenaParva.indexOf(e);
+        const index = frasesSafenaParva.indexOf(e);
 
         if (index > -1) {
           frasesSafenaParva.splice(index, 1);
@@ -56,7 +56,7 @@ function CirurgiaSafenaParvaDireito() {
     localizado
   ) => {
     removeAusenciaParcial();
-    var string;
+    let string;
     if (LocalizacaoAusenciaParcialSelect !== "" && localizado !== "") {
       string = `Ausencia Parcial ${LocalizacaoAusenciaParcialSelect} e ${localizado}`;
       setFrasesSafenaParva((arr) => [...arr, string]);
@@ -67,7 +67,7 @@ function CirurgiaSafenaParvaDireito() {
 
   const criaStringMaterialEcogenico = (valorInicial, valorResidual) => {
     removeMaterialEcogenico();
-    var string;
+    let string;
     if (RefluxoResidualCheckBox) {
       if (valorInicial !== "") {
         string = `Material ecogênico na safena parva ${valorInicial} e ${valorResidual}`;
@@ -84,7 +84,7 @@ function CirurgiaSafenaParvaDireito() {
   const removeMaterialEcogenico = () => {
     frasesSafenaParva.map((e) => {
       if (e.includes("Material ecogênico na safena parva")) {
-        var index = frasesSafenaParva.indexOf(e);
+        const index = frasesSafenaParva.indexOf(e);
 
         if (index > -1) {
           frasesSafenaParva.splice(index, 1);
@@ -95,7 +95,7 @@ function CirurgiaSafenaParvaDireito() {
   };
 
   const criaStringAusenciaTotal = () => {
-    var string = "Ausência total de cirurgias Safena Parva lado direito";
+    const string = "Ausência total de cirurgias Safena Parva lado direito";
     if (AusenciaTotalCheckBox) {
       setFrasesSafenaParva((arr) => [...arr, string]);
       setAusenciaTotalCheckBox(false);
@@ -107,7 +107,7 @@ function CirurgiaSafenaParvaDireito() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesSafenaParva.indexOf(value);
+    const index = frasesSafenaParva.indexOf(value);
 
     if (index > -1) {
       frasesSafenaParva.splice(index, 1);

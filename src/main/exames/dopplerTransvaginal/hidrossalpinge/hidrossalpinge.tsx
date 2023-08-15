@@ -19,8 +19,8 @@ function Hidrossalpinge() {
     removeStringHidrossalpinge();
 
     if (HidrossalpingeCheckBox && posicaoHidrossalpingeSelect != "") {
-      var string = `Nota-se em região anexial ${posicaoHidrossalpingeSelect} imagem anecóica, tubular, tortuosa, de limites precisos e contornos regulares.`;
-      var conclusao = `Hidrossalpinge à ${posicaoHidrossalpingeSelect}.`
+      const string = `Nota-se em região anexial ${posicaoHidrossalpingeSelect} imagem anecóica, tubular, tortuosa, de limites precisos e contornos regulares.`;
+      const conclusao = `Hidrossalpinge à ${posicaoHidrossalpingeSelect}.`
       setFrasesHidro((arr) => [...arr, string]);
       setConclusaoHidro((arr) => [...arr, conclusao]);
     }
@@ -29,7 +29,7 @@ function Hidrossalpinge() {
   const removeStringHidrossalpinge = () => {
     frasesHidro.map((e) => {
       if (e.includes("Nota-se em região anexial ")) {
-        var index = frasesHidro.indexOf(e);
+        const index = frasesHidro.indexOf(e);
 
         if (index > -1) {
           frasesHidro.splice(index, 1);
@@ -39,7 +39,7 @@ function Hidrossalpinge() {
     });
     ConclusaoHidro.map((e) => {
       if (e.includes('Hidrossalpinge')) {
-        var index = ConclusaoHidro.indexOf(e);
+        const index = ConclusaoHidro.indexOf(e);
 
         if (index > -1) {
           ConclusaoHidro.splice(index, 1);

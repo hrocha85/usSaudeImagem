@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -23,7 +23,7 @@ function Microcalcificacoes() {
   const [DistribuicaoDifusaCheckbox, setDistribuicaoDifusaCheckbox] = useState(false);
 
   const removeItemString = (value) => {
-    var index = FraseMicrocalcificacoes.indexOf(value);
+    const index = FraseMicrocalcificacoes.indexOf(value);
     if (index > -1) {
       FraseMicrocalcificacoes.splice(index, 1);
       setFraseMicrocalcificacoes((arr) => [...arr]);

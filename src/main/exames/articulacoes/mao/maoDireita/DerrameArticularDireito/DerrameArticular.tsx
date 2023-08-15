@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -51,10 +51,10 @@ function MaoDerrameArticularDireita({ Disable }) {
   const [Dedo5, setDedo5] = useState(false);
 
 
-  var numberArray = [1, 2, 3, 4];
+  const numberArray = [1, 2, 3, 4];
 
   const removeItemString = (value) => {
-    var index = FraseDerrameArticularDireito.indexOf(value);
+    const index = FraseDerrameArticularDireito.indexOf(value);
 
     if (index > -1) {
       FraseDerrameArticularDireito.splice(index, 1);
@@ -69,7 +69,7 @@ function MaoDerrameArticularDireita({ Disable }) {
   })
 
   useEffect(() => {
-    var string = "Ausência de derrame articular."
+    const string = "Ausência de derrame articular."
     AusenciaDerrame ? setdisableDerrameArticularLocais(true) : setdisableDerrameArticularLocais(false)
     AusenciaDerrame ? setFraseDerrameArticularDireito((arr) => [...arr, string]) : removeItemString(string)
   }, [AusenciaDerrame])
@@ -80,7 +80,7 @@ function MaoDerrameArticularDireita({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = "Ausência de derrame articular."
+    const string = "Ausência de derrame articular."
     Normal ? setAusenciaDerrame(true) : setAusenciaDerrame(false)
   }, [Normal])
 
@@ -88,7 +88,7 @@ function MaoDerrameArticularDireita({ Disable }) {
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
     const conclusao = 'Derrame articular.'
-    var string = `Dedo 1 com presença de derrame articular: `
+    let string = `Dedo 1 com presença de derrame articular: `
     if (PrimeiroDedo) {
       if (Proximal) {
         string = `${string} proximal`
@@ -103,7 +103,7 @@ function MaoDerrameArticularDireita({ Disable }) {
   const removeMultiplosCalculos = () => {
     FraseDerrameArticularDireito.map((e) => {
       if (e.includes(`Dedo 1 com presença de derrame articular: `)) {
-        var index = FraseDerrameArticularDireito.indexOf(e);
+        const index = FraseDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {
           FraseDerrameArticularDireito.splice(index, 1);
@@ -113,7 +113,7 @@ function MaoDerrameArticularDireita({ Disable }) {
     });
     ConclusaoDerrameArticularDireito.map((e) => {
       if (e.includes(`Derrame articular.`)) {
-        var index = ConclusaoDerrameArticularDireito.indexOf(e);
+        const index = ConclusaoDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {
           ConclusaoDerrameArticularDireito.splice(index, 1);
@@ -136,7 +136,7 @@ function MaoDerrameArticularDireita({ Disable }) {
 
   const criaStringMetacarpo = () => {
     removeMetacarpo();
-    var string = `Presença de derrame articular nas metacarpofalangeanas do`
+    let string = `Presença de derrame articular nas metacarpofalangeanas do`
     if (!DisableCheckbox) {
       if (Dedo1 || Dedo2 || Dedo3 || Dedo4 || Dedo5) {
         if (Dedo1) {
@@ -164,7 +164,7 @@ function MaoDerrameArticularDireita({ Disable }) {
   const removeMetacarpo = () => {
     FraseDerrameArticularDireito.map((e) => {
       if (e.includes(`Presença de derrame articular nas metacarpofalangeanas do`)) {
-        var index = FraseDerrameArticularDireito.indexOf(e);
+        const index = FraseDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {
           FraseDerrameArticularDireito.splice(index, 1);

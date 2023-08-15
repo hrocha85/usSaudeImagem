@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -54,11 +54,11 @@ function PunhoCistosEsquerdo({ Disable }) {
 
   const criaStringFaceDorsal = (medida1cm, medida2cm, medida3cm, selectFaceDorsal) => {
     removeFaceDorsal();
-    var medida1 = new Convert_Medida(medida1cm).Convert_Medida()
-    var medida2 = new Convert_Medida(medida2cm).Convert_Medida()
-    var medida3 = new Convert_Medida(medida3cm).Convert_Medida()
+    const medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+    const medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+    const medida3 = new Convert_Medida(medida3cm).Convert_Medida()
 
-    var string;
+    let string;
     if (FaceDorsalCheckbox) {
       if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectFaceDorsal !== '' && ComunicandoDorsal) {
         string = `Cisto de contornos regulares com finas septações em seu interior, localizado na face dorsal do punho, entre o ${selectFaceDorsal} compartimentos sinoviais dos extensores,medindo ${medida1} x ${medida2} x ${medida3} cm, comunicando-se com a articulação radiocárpica`;
@@ -75,7 +75,7 @@ function PunhoCistosEsquerdo({ Disable }) {
   const removeFaceDorsal = () => {
     frasesPunhoCistosEsquerdo.map((e) => {
       if (e.includes("Cisto de contornos regulares com finas septações em seu interior, localizado na face dorsal do punho, entre o ")) {
-        var index = frasesPunhoCistosEsquerdo.indexOf(e);
+        const index = frasesPunhoCistosEsquerdo.indexOf(e);
         if (index > -1) {
           frasesPunhoCistosEsquerdo.splice(index, 1);
           setFrasesPunhoCistosEsquerdo((arr) => [...arr]);
@@ -104,11 +104,11 @@ function PunhoCistosEsquerdo({ Disable }) {
 
   const criaStringFaceVolar = (medida1cm, medida2cm, medida3cm) => {
     removeFaceVolar();
-    var medida1 = new Convert_Medida(medida1cm).Convert_Medida()
-    var medida2 = new Convert_Medida(medida2cm).Convert_Medida()
-    var medida3 = new Convert_Medida(medida3cm).Convert_Medida()
+    const medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+    const medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+    const medida3 = new Convert_Medida(medida3cm).Convert_Medida()
 
-    var string;
+    let string;
     if (FaceVolarCheckbox) {
       if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && ComunicandoVolar) {
         string = `Cisto de contornos regulares com finas septações em seu interior, localizado na face volar do punho, situado adjacente à artéria radial, próximo ao escafoide, medindo ${medida1} x ${medida2} x ${medida3} mm, comunicando-se com a articulação radiocárpica.`;
@@ -126,7 +126,7 @@ function PunhoCistosEsquerdo({ Disable }) {
   const removeFaceVolar = () => {
     frasesPunhoCistosEsquerdo.map((e) => {
       if (e.includes("Cisto de contornos regulares com finas septações em seu interior, localizado na face volar do punho, situado adjacente à artéria radial, próximo ao escafoide, medindo ")) {
-        var index = frasesPunhoCistosEsquerdo.indexOf(e);
+        const index = frasesPunhoCistosEsquerdo.indexOf(e);
         if (index > -1) {
           frasesPunhoCistosEsquerdo.splice(index, 1);
           setFrasesPunhoCistosEsquerdo((arr) => [...arr]);

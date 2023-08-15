@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Input, HStack, Text, useStatStyles, Stack, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -18,7 +18,7 @@ function Extra3() {
   const [FraseExtra3, setFraseExtra3] = useState<any>([]);
 
   const removeItemString = (value) => {
-    var index = FraseExtra3.indexOf(value);
+    const index = FraseExtra3.indexOf(value);
     if (index > -1) {
       FraseExtra3.splice(index, 1);
       setFraseExtra3((arr) => [...arr]);
@@ -66,7 +66,7 @@ function Extra3() {
     removeFraseNaoObservado();
     if (checkedItems[7]) {
       if (valueSelectNaoObservado !== "") {
-        let string = `Não foi visibilizado o nódulo na ${valueSelectNaoObservado} descrito no exame anterior. Sugerimos controle ultra-sonográfico.`;
+        const string = `Não foi visibilizado o nódulo na ${valueSelectNaoObservado} descrito no exame anterior. Sugerimos controle ultra-sonográfico.`;
         setFraseExtra3((arr) => [...arr, string]);
       }
     } else {
@@ -76,7 +76,7 @@ function Extra3() {
   const removeFraseNaoObservado = () => {
     FraseExtra3.map((e) => {
       if (e.includes("Não foi visibilizado o nódulo")) {
-        let index = FraseExtra3.indexOf(e);
+        const index = FraseExtra3.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           FraseExtra3.splice(index, 1);

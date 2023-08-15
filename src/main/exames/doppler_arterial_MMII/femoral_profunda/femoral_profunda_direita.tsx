@@ -15,14 +15,14 @@ function Femoral_Profunda_Direita() {
   const [EstenoseCheckBox, setEstenoseCheckBox] = useState(false);
 
   const criaStringFluxoAusente = () => {
-    var string = "Fluxo ausente femoral profunda direita ";
+    const string = "Fluxo ausente femoral profunda direita ";
     setFrasesFemoralProfundaDireita((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
     frasesFemoralProfundaDireita.map((e) => {
       if (e.includes("Fluxo ausente femoral profunda direita ")) {
-        var index = frasesFemoralProfundaDireita.indexOf(e);
+        const index = frasesFemoralProfundaDireita.indexOf(e);
 
         if (index > -1) {
           frasesFemoralProfundaDireita.splice(index, 1);
@@ -33,14 +33,14 @@ function Femoral_Profunda_Direita() {
   };
 
   const criaStringPosEstenotico = () => {
-    var string = "Pós estenótico femoral profunda direita ";
+    const string = "Pós estenótico femoral profunda direita ";
     setFrasesFemoralProfundaDireita((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
     frasesFemoralProfundaDireita.map((e) => {
       if (e.includes("Pós estenótico femoral profunda direita ")) {
-        var index = frasesFemoralProfundaDireita.indexOf(e);
+        const index = frasesFemoralProfundaDireita.indexOf(e);
 
         if (index > -1) {
           frasesFemoralProfundaDireita.splice(index, 1);
@@ -51,14 +51,14 @@ function Femoral_Profunda_Direita() {
   };
 
   const criaStringEstenose = () => {
-    var string = "Estenose femoral profunda direita acima de 50% ";
+    const string = "Estenose femoral profunda direita acima de 50% ";
     setFrasesFemoralProfundaDireita((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
     frasesFemoralProfundaDireita.map((e) => {
       if (e.includes("Estenose femoral profunda direita acima de 50% ")) {
-        var index = frasesFemoralProfundaDireita.indexOf(e);
+        const index = frasesFemoralProfundaDireita.indexOf(e);
 
         if (index > -1) {
           frasesFemoralProfundaDireita.splice(index, 1);

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -59,7 +59,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
   const criaStringLesaoParcial = (medida1, medida2, medida3) => {
     removeLesaoParcial();
     if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
-      var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
+      const string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
       setTendaoPatelarEsquerdo((arr) => [...arr, string]);
     }
   };
@@ -67,7 +67,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
   const removeLesaoParcial = () => {
     TendaoPatelarEsquerdo.map((e) => {
       if (e.includes("Espessado, com alteração ecotextural,")) {
-        var index = TendaoPatelarEsquerdo.indexOf(e);
+        const index = TendaoPatelarEsquerdo.indexOf(e);
 
         if (index > -1) {
           TendaoPatelarEsquerdo.splice(index, 1);
@@ -79,7 +79,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
 
   const criaStringConclusao = () => {
     removeItemStringConclusao()
-    var conclusao = 'Tendinopatia do bíceps femoral'
+    let conclusao = 'Tendinopatia do bíceps femoral'
     if (TendinopatiaSemRoturaCheckbox && (LesaoParcialInput !== '' && LesaoParcialInput2 !== '' && LesaoParcialInput3 !== '')) {
       conclusao = `${conclusao} com lesão parcial.`
     } else if (TendinopatiaSemRoturaCheckbox) {
@@ -95,7 +95,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
   const removeItemStringConclusao = () => {
     ConclusaoTendaoPatelarEsquerdo.map((e) => {
       if (e.includes("Tendinopatia do bíceps femoral")) {
-        var index = ConclusaoTendaoPatelarEsquerdo.indexOf(e);
+        const index = ConclusaoTendaoPatelarEsquerdo.indexOf(e);
 
         if (index > -1) {
           ConclusaoTendaoPatelarEsquerdo.splice(index, 1);
@@ -108,7 +108,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
 
 
   const criaStringAspectoNormal = () => {
-    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    const string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox ? setTendaoPatelarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
   };
   const [Normal, setNormal] = useState(false)
@@ -118,7 +118,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    const string = "com ecotextura e espessura preservadas e contornos normais.";
     Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
   }, [Normal])
 
@@ -128,7 +128,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
   }, [AspectoNormalCheckbox])
 
   const criaStringAspectoPosCirurgico = () => {
-    var string = "Tendão patelar espessado e com alteração ecotextural (aspecto pós cirúrgico).";
+    const string = "Tendão patelar espessado e com alteração ecotextural (aspecto pós cirúrgico).";
     AspectoPosCirurgicoCheckbox ? setTendaoPatelarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
   };
 
@@ -137,7 +137,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
   }, [AspectoPosCirurgicoCheckbox])
 
   const criaStringTendinopatiaSemRotura = () => {
-    var string = "espessado, com alteração ecotextural, sem evidências de rotura.";
+    const string = "espessado, com alteração ecotextural, sem evidências de rotura.";
     if (TendinopatiaSemRoturaCheckbox) {
       setTendaoPatelarEsquerdo((arr) => [...arr, string])
     } else {
@@ -150,8 +150,8 @@ function TendaoPatelarEsquerdo({ Disable }) {
 
   const criaStringPresencaEntesofito = (dadoscm) => {
     removeFrasePresencaEntesofito()
-    var dados = new Convert_Medida(dadoscm).Convert_Medida()
-    var string;
+    const dados = new Convert_Medida(dadoscm).Convert_Medida()
+    let string;
     if (PresencaEntesofitoCheckbox && dadoscm !== '' && EntesofitoSelect !== '') {
       string = `Presença de entesófito ${EntesofitoSelect} do tendão patelar medindo ${dados} cm.`;
       setTendaoPatelarEsquerdo((arr) => [...arr, string]);
@@ -167,7 +167,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
   const removeFrasePresencaEntesofito = () => {
     TendaoPatelarEsquerdo.map((e) => {
       if (e.includes("Presença de entesófito")) {
-        var index = TendaoPatelarEsquerdo.indexOf(e);
+        const index = TendaoPatelarEsquerdo.indexOf(e);
 
         if (index > -1) {
           TendaoPatelarEsquerdo.splice(index, 1);
@@ -190,7 +190,7 @@ function TendaoPatelarEsquerdo({ Disable }) {
 
 
   const removeItemString = (value) => {
-    var index = TendaoPatelarEsquerdo.indexOf(value);
+    const index = TendaoPatelarEsquerdo.indexOf(value);
     if (index > -1) {
       TendaoPatelarEsquerdo.splice(index, 1);
       setTendaoPatelarEsquerdo((arr) => [...arr]);

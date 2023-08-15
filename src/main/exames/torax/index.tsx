@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-pascal-case */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useState } from "react";
 

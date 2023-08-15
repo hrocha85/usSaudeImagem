@@ -7,8 +7,8 @@ const Medico = (props, clinica) => {
   const [medicos, setmedicos] = useState<any[]>([]);
 
   const pegarMedicos = () => {
-    var item;
-    var item_parse;
+    let item;
+    let item_parse;
     if (localStorage.getItem("medicos") != null) {
       item = localStorage.getItem("medicos");
 

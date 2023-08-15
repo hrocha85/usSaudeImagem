@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ export default function IndividualizarCalculo({ numCalculo }) {
         useState(false);
 
     const criaStringCalculoUnico = (dados) => {
-        var string = `${numCalculo}: Vesícula biliar`;
+        let string = `${numCalculo}: Vesícula biliar`;
         removeFraseCalculoUnico();
         if (dados != "" && CalculoUnicoColecisiteCheckbox) {
             string = `${string} distendida, com paredes espessadas, apresentando uma imagem calculosa fixa no infundíbulo, medindo ${dados} cm.`;
@@ -30,7 +30,7 @@ export default function IndividualizarCalculo({ numCalculo }) {
 
     const removeFraseCalculoUnico = () => {
         FrasesVesicula.map((e) => {
-            var index;
+            let index;
             if (
                 e.includes(
                     `${numCalculo}: Vesícula biliar`

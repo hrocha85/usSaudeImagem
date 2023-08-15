@@ -21,15 +21,15 @@ function Login() {
   const [isDisabledEntrar, setisDisabledEntrar] = useState(true);
 
   const getMedicos = () => {
-    var medicos;
-    var item;
+    let medicos;
+    let item;
     if (localStorage.getItem("medicos") != null) {
       item = localStorage.getItem("medicos");
       medicos = JSON.parse(item);
     } else medicos = [];
     return medicos;
   };
-  var lista_medico = getMedicos();
+  const lista_medico = getMedicos();
 
   const loginUser = () => {
     const user = {
@@ -108,7 +108,7 @@ function Login() {
                   Clínicas
                 </option>
                 {clinicasMedSelect.map((clinica, key) => {
-                  var parseClinica = JSON.parse(clinica);
+                  const parseClinica = JSON.parse(clinica);
                   return (
                     <option value={JSON.stringify(clinica)} key={key}>
                       {parseClinica.nomeClinica}

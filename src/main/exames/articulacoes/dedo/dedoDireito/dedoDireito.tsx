@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
@@ -28,7 +28,7 @@ function DedoDireito() {
   const criaStringTenossinoviteFlexor = (TenossinoviteFlexor) => {
     removeTenossinoviteFlexor();
     if (TenossinoviteFlexor !== "") {
-      var string = `Dedo direito com TenossinoviteFlexor ${TenossinoviteFlexor}. `;
+      const string = `Dedo direito com TenossinoviteFlexor ${TenossinoviteFlexor}. `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -36,7 +36,7 @@ function DedoDireito() {
   const removeTenossinoviteFlexor = () => {
     laudoPrin.map((e) => {
       if (e.includes("Dedo direito com TenossinoviteFlexor")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
         if (index > -1) {
           laudoPrin.splice(index, 1);
           setLaudoPrin((arr) => [...arr]);
@@ -47,7 +47,7 @@ function DedoDireito() {
   const criaStringTenossinoviteExtensor = (TenossinoviteExtensor) => {
     removeTenossinoviteExtensor();
     if (TenossinoviteExtensor !== "") {
-      var string = `Dedo direito com TenossinoviteExtensor ${TenossinoviteExtensor}. `;
+      const string = `Dedo direito com TenossinoviteExtensor ${TenossinoviteExtensor}. `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -55,7 +55,7 @@ function DedoDireito() {
   const removeTenossinoviteExtensor = () => {
     laudoPrin.map((e) => {
       if (e.includes("Dedo direito com TenossinoviteExtensor")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
         if (index > -1) {
           laudoPrin.splice(index, 1);
           setLaudoPrin((arr) => [...arr]);
@@ -67,7 +67,7 @@ function DedoDireito() {
   const criaStringDedoGatilho = (DedoGatilho) => {
     removeDedoGatilho();
     if (DedoGatilho !== "") {
-      var string = `Dedo direito com DedoGatilho ${DedoGatilho}. `;
+      const string = `Dedo direito com DedoGatilho ${DedoGatilho}. `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -75,7 +75,7 @@ function DedoDireito() {
   const removeDedoGatilho = () => {
     laudoPrin.map((e) => {
       if (e.includes("Dedo direito com DedoGatilho")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);

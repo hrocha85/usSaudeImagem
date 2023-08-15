@@ -6,7 +6,7 @@ export function NormalEsquerdo() {
   const altura = "100%";
   const largura = "100%";
 
-  let { setPunhoEsquerdoLaudoNormal } = useContext(PunhoEsquerdoNormalContext);
+  const { setPunhoEsquerdoLaudoNormal } = useContext(PunhoEsquerdoNormalContext);
 
   const verificaChecked = (value) => {
     value.checked === true

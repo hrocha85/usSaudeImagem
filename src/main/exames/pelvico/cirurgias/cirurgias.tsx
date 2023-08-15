@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useDebugValue, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -45,7 +45,7 @@ function Cirurgias({ Disable }) {
   const [HisterectmiaTotalCheckbox, setHisterectomiaTotalCheckbox] = useState(false);
 
   const criaStringHisterectomiaTotal = () => {
-    var string = "Histerectomia Total.";
+    const string = "Histerectomia Total.";
     const conclusao = 'Histerectomia total.'
     if (HisterectmiaTotalCheckbox) {
       setFrasesCirurgias((arr) => [...arr, string]);
@@ -64,7 +64,7 @@ function Cirurgias({ Disable }) {
     const conclusao = 'Histerectomia subtotal.'
     removeMedidaHisterectomiaSubtotal();
     if (medidaHisterectomia1 !== "" && medidaHisterectomia2 !== "" && medidaHisterectomia3 !== "") {
-      var string = `Presença do colo uterino medindo ${medidaHisterectomia1} x ${medidaHisterectomia2} x ${medidaHisterectomia3} mm `;
+      const string = `Presença do colo uterino medindo ${medidaHisterectomia1} x ${medidaHisterectomia2} x ${medidaHisterectomia3} mm `;
       setFrasesCirurgias((arr) => [...arr, string]);
       setConclusaoCirurgias((arr) => [...arr, conclusao]);
     }
@@ -74,7 +74,7 @@ function Cirurgias({ Disable }) {
     // console.log("valor remove = ", value);
     frasesCirurgia.map((e) => {
       if (e.includes("Presença do colo uterino medindo")) {
-        var index = frasesCirurgia.indexOf(e);
+        const index = frasesCirurgia.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCirurgia.splice(index, 1);
@@ -84,7 +84,7 @@ function Cirurgias({ Disable }) {
     });
     ConclusaoCirurgia.map((e) => {
       if (e.includes("Histerectomia subtotal.")) {
-        var index = ConclusaoCirurgia.indexOf(e);
+        const index = ConclusaoCirurgia.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           ConclusaoCirurgia.splice(index, 1);
@@ -96,7 +96,7 @@ function Cirurgias({ Disable }) {
   };
 
   const removeItemString = (value) => {
-    var index = frasesCirurgia.indexOf(value);
+    const index = frasesCirurgia.indexOf(value);
 
     if (index > -1) {
       frasesCirurgia.splice(index, 1);
@@ -104,7 +104,7 @@ function Cirurgias({ Disable }) {
     }
   };
   const removeItemStringConclusao = (value) => {
-    var index = ConclusaoCirurgia.indexOf(value);
+    const index = ConclusaoCirurgia.indexOf(value);
 
     if (index > -1) {
       ConclusaoCirurgia.splice(index, 1);

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -21,7 +21,7 @@ function Miometrio() {
   const [frasesMiometrio, setFrasesMiometrio] = useState<any>([]);
   const [ConclusaoMiometrio, setConclusaoMiometrio] = useState<any>([]);
 
-  var numberArray = [1, 2, 3, 4, 5];
+  const numberArray = [1, 2, 3, 4, 5];
 
   const [VerificaConclusaoEsquerda, setVerificaConclusaoEsquerda] = useState(false)
   const [VerificaConclusaoDireita, setVerificaConclusaoDireita] = useState(false)
@@ -90,7 +90,7 @@ function Miometrio() {
   };
 
   const criaStringMultiplosNodulos = (tamanhoNoduloInput, nodulosSelect, localizado, DopplerNodulosSelect) => {
-    var string = 'O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma, o maior'
+    let string = 'O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma, o maior'
     removeMultiplosNodulos(string);
     if (DopplerNodulosSelect !== "" && tamanhoNoduloInput !== "" && nodulosSelect !== "" && localizado !== "") {
       string = `${string} ${localizado}, localizado na ${nodulosSelect} medindo ${tamanhoNoduloInput} mm com vasculazição ${DopplerNodulosSelect}.`;
@@ -99,7 +99,7 @@ function Miometrio() {
   };
 
   useEffect(() => {
-    var string = "Ao estudo doppler observamos vascularização normal do miométrio.";
+    const string = "Ao estudo doppler observamos vascularização normal do miométrio.";
     if (VascularizacaoNormalCheckBox) {
       setFrasesMiometrio((arr) => [...arr, string]);
     } else {
@@ -122,7 +122,7 @@ function Miometrio() {
   const removeMultiplosNodulos = (value) => {
     frasesMiometrio.map((e) => {
       if (e.includes(value)) {
-        var index = frasesMiometrio.indexOf(e);
+        const index = frasesMiometrio.indexOf(e);
 
         if (index > -1) {
           frasesMiometrio.splice(index, 1);
@@ -133,7 +133,7 @@ function Miometrio() {
   };
 
   const criaStringMiometrioSemNodulos = () => {
-    var string = "Miométrio heterogêneo sem nódulos ";
+    const string = "Miométrio heterogêneo sem nódulos ";
     if (miometrioSemNodulosCheckBox) {
       setFrasesMiometrio((arr) => [...arr, string]);
       setmiometrioSemNodulosCheckBox(false);
@@ -143,7 +143,7 @@ function Miometrio() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesMiometrio.indexOf(value);
+    const index = frasesMiometrio.indexOf(value);
 
     if (index > -1) {
       frasesMiometrio.splice(index, 1);
@@ -152,7 +152,7 @@ function Miometrio() {
   };
   const removeItemConclusao = (value) => {
     // console.log("valor remove = ", value);
-    var index = ConclusaoMiometrio.indexOf(value);
+    const index = ConclusaoMiometrio.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       ConclusaoMiometrio.splice(index, 1);
@@ -161,7 +161,7 @@ function Miometrio() {
     }
   };
   const criaStringArteriaDireitaIR = () => {
-    var string = 'Índice de resistência da artéria uterina direita'
+    let string = 'Índice de resistência da artéria uterina direita'
     const conclusao = 'Artéria uterina direita com aumento da resistência vascular.'
     removeItemConclusao(conclusao)
     removeStringArteriaUterina(string);
@@ -181,7 +181,7 @@ function Miometrio() {
   }, [MedidaDireitaIR, dopplerMedidasCheckBox]);
 
   const criaStringArteriaDireitaIP = () => {
-    var string = 'Índice de pulsatilidade da artéria uterina direita'
+    let string = 'Índice de pulsatilidade da artéria uterina direita'
     const conclusao = 'Artéria uterina direita com aumento da resistência vascular.'
     removeItemConclusao(conclusao)
     removeStringArteriaUterina(string);
@@ -202,7 +202,7 @@ function Miometrio() {
   }, [MedidaDireitaIP, dopplerMedidasCheckBox]);
 
   const criaStringArteriaEsquerdaIR = () => {
-    var string = 'Índice de resistência da artéria uterina esquerda'
+    let string = 'Índice de resistência da artéria uterina esquerda'
     const conclusao = 'Artéria uterina esquerda com aumento da resistência vascular.'
     removeItemConclusao(conclusao)
     removeStringArteriaUterina(string);
@@ -222,7 +222,7 @@ function Miometrio() {
   }, [MedidaEsquerdaIR, dopplerMedidasCheckBox]);
 
   const criaStringArteriaEsquerdaIP = () => {
-    var string = 'Índice de pulsatilidade da artéria uterina esquerda'
+    let string = 'Índice de pulsatilidade da artéria uterina esquerda'
     const conclusao = 'Artéria uterina esquerda com aumento da resistência vascular.'
     removeItemConclusao(conclusao)
     removeStringArteriaUterina(string);
@@ -245,7 +245,7 @@ function Miometrio() {
   // const CriaStringConclusaoArterias = () => {
   //   setVerificaConclusaoEsquerda(false)
   //   setVerificaConclusaoDireita(false)
-  //   var conclusao;
+  //   letconclusao;
   //   removeItemConclusao('Artéria uterina direita e esquerda com aumento da resistência vascular.')
   //   removeItemConclusao('Artéria uterina direita com aumento da resistência vascular.')
   //   removeItemConclusao('Artéria uterina esquerda com aumento da resistência vascular.')
@@ -273,7 +273,7 @@ function Miometrio() {
       if (
         e.includes(value)
       ) {
-        var index = frasesMiometrio.indexOf(e);
+        const index = frasesMiometrio.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesMiometrio.splice(index, 1);

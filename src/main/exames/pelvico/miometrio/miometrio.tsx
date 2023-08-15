@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -42,7 +42,7 @@ function Miometrio({ Disable }) {
     }
   }, [frasesMiometrio]);
 
-  var numberArray = [1, 2, 3, 4, 5];
+  const numberArray = [1, 2, 3, 4, 5];
 
   const [tamanhoNoduloInput, settamanhoNoduloInput] = useState("");
   const [posicaoNodulosSelect, setPosicaoNodulosSelect] = useState("");
@@ -64,7 +64,7 @@ function Miometrio({ Disable }) {
     removeMultiplosNodulos();
     removeItemStringConclusao(conclusao)
     if (tamanhoNoduloInput !== "" && nodulosSelect !== "" && localizado !== "") {
-      var string = `O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma, o maior ${nodulosSelect}, localizado na parede ${localizado} e medindo ${tamanhoNoduloInput} mm.`;
+      const string = `O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma, o maior ${nodulosSelect}, localizado na parede ${localizado} e medindo ${tamanhoNoduloInput} mm.`;
       setFrasesMiometrio((arr) => [...arr, string]);
       setConclusaoMiometrio((arr) => [...arr, conclusao]);
     }
@@ -74,7 +74,7 @@ function Miometrio({ Disable }) {
     frasesMiometrio.map((e) => {
       if (e.includes("O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma,")
       ) {
-        var index = frasesMiometrio.indexOf(e);
+        const index = frasesMiometrio.indexOf(e);
 
         if (index > -1) {
           frasesMiometrio.splice(index, 1);
@@ -85,7 +85,7 @@ function Miometrio({ Disable }) {
   };
 
   const criaStringMiometrioSemNodulos = () => {
-    var string =
+    const string =
       "O miométrio apresenta estratificação normal e ecotextura habitual.";
     const conclusao = 'Alteração textural miometrial.'
     if (miometrioSemNodulosCheckBox) {
@@ -98,7 +98,7 @@ function Miometrio({ Disable }) {
     }
   };
   const criaStringMiometrioHomogeneoSemNodulos = () => {
-    var string =
+    const string =
       'falta'
     const conclusao = 'falta.'
     if (MiometrioHomogeneoSemNodulosCheckBox) {
@@ -114,7 +114,7 @@ function Miometrio({ Disable }) {
   }, [MiometrioHomogeneoSemNodulosCheckBox])
 
   const removeItemString = (value) => {
-    var index = frasesMiometrio.indexOf(value);
+    const index = frasesMiometrio.indexOf(value);
     if (index > -1) {
       frasesMiometrio.splice(index, 1);
       setFrasesMiometrio((arr) => [...arr]);
@@ -122,7 +122,7 @@ function Miometrio({ Disable }) {
   };
 
   const removeItemStringConclusao = (value) => {
-    var index = ConclusaoMiometrio.indexOf(value);
+    const index = ConclusaoMiometrio.indexOf(value);
     if (index > -1) {
       ConclusaoMiometrio.splice(index, 1);
       setConclusaoMiometrio((arr) => [...arr]);

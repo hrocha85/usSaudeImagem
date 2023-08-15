@@ -24,7 +24,7 @@ function Regiao_Inguinal() {
     }, [Disable])
 
     const removeItemString = (value) => {
-        var index = FraseRegInguinal.indexOf(value);
+        const index = FraseRegInguinal.indexOf(value);
 
         if (index > -1) {
             FraseRegInguinal.splice(index, 1);

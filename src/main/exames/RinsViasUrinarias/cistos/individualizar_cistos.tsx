@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Checkbox, HStack, Input, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -13,8 +13,8 @@ export default function IndividualizarCistos({ numCisto }) {
   const [localizacaoCistosSelect, setlocalizacaoCistosSelect] = useState("");
   const [multiplosCistosCheckBox, setmultiplosCistosCheckBox] = useState(false);
   const criaStringMultiplosCistos = () => {
-    var string = `Nota-se imagem anecóica, arredondada, de limites precisos e contornos regulares, com reforço acústico posterior: ${numCisto}º Cisto no`
-    let conclusao = 'Cisto renal.'
+    let string = `Nota-se imagem anecóica, arredondada, de limites precisos e contornos regulares, com reforço acústico posterior: ${numCisto}º Cisto no`
+    const conclusao = 'Cisto renal.'
     removeMultiplosCistos();
     removeItemConclusao(conclusao)
     if (multiplosCistosCheckBox) {
@@ -33,7 +33,7 @@ export default function IndividualizarCistos({ numCisto }) {
   const removeMultiplosCistos = () => {
     frasesIndCisto.map((e) => {
       if (e.includes(` ${numCisto}º Cisto no`)) {
-        var index = frasesIndCisto.indexOf(e);
+        const index = frasesIndCisto.indexOf(e);
 
         if (index > -1) {
           frasesIndCisto.splice(index, 1);
@@ -43,7 +43,7 @@ export default function IndividualizarCistos({ numCisto }) {
     });
   };
   const removeItemConclusao = (value) => {
-    var index = ConclusaoCisto.indexOf(value);
+    const index = ConclusaoCisto.indexOf(value);
 
     if (index > -1) {
       ConclusaoCisto.splice(index, 1);

@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Radio, RadioGroup, Select, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { DerramePleuralDireitaContext } from "../../../../../context/DerramePleuralDireitaContext";
@@ -26,7 +26,7 @@ export default function Derrame_Pleural_Direito({ Disable }) {
   const removeSelectString = () => {
     frasesTorax.map((e) => {
       if (e.includes("Derrame Pleural ")) {
-        var index = frasesTorax.indexOf(e);
+        const index = frasesTorax.indexOf(e);
 
         if (index > -1) {
           frasesTorax.splice(index, 1);
@@ -36,7 +36,7 @@ export default function Derrame_Pleural_Direito({ Disable }) {
     });
     frasesTorax.map((e) => {
       if (e.includes("Ausência de derrame ")) {
-        var index = frasesTorax.indexOf(e);
+        const index = frasesTorax.indexOf(e);
 
         if (index > -1) {
           frasesTorax.splice(index, 1);
@@ -49,7 +49,7 @@ export default function Derrame_Pleural_Direito({ Disable }) {
   const removeSelectConclusao = () => {
     ConclusaoTorax.map((e) => {
       if (e.includes("Derrame pleural")) {
-        var index = ConclusaoTorax.indexOf(e);
+        const index = ConclusaoTorax.indexOf(e);
 
         if (index > -1) {
           ConclusaoTorax.splice(index, 1);
@@ -63,7 +63,7 @@ export default function Derrame_Pleural_Direito({ Disable }) {
   const removeSelectStringMobilidade = () => {
     frasesTorax.map((e) => {
       if (e.includes("Mobilidade da cúpula frênica ")) {
-        var index = frasesTorax.indexOf(e);
+        const index = frasesTorax.indexOf(e);
 
         if (index > -1) {
           frasesTorax.splice(index, 1);
@@ -94,10 +94,10 @@ export default function Derrame_Pleural_Direito({ Disable }) {
 
   useEffect(() => {
     removeSelectConclusao()
-    var conclusao = 'Derrame pleural direita.'
-    var conclusaoBilateral = 'Derrame pleural Bilateral.'
-    var select = `Derrame Pleural ${valueSelect1} ${valueSelect2}`;
-    var mobilidade = valueSelect3 != "1" ? `Mobilidade da cúpula frênica ${valueSelect3}` : "";
+    const conclusao = 'Derrame pleural direita.'
+    const conclusaoBilateral = 'Derrame pleural Bilateral.'
+    const select = `Derrame Pleural ${valueSelect1} ${valueSelect2}`;
+    const mobilidade = valueSelect3 != "1" ? `Mobilidade da cúpula frênica ${valueSelect3}` : "";
     if (valueSelect1 != "" && valueSelect2 != "") {
       if (DerramePleuralEsquerda) {
         setConclusaoTorax((arr) => [...arr, conclusaoBilateral]);

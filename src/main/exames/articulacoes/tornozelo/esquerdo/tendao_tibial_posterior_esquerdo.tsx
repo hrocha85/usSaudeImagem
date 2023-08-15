@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable no-lone-blocks */
 import {
   Box,
@@ -44,7 +44,7 @@ export default function Tendao_Tibial_Posterior_Esquerdo({ Disable }) {
   const removeConclusao = () => {
     ConclusoesTornozelo.map((e) => {
       if (e.includes("Sinais de tendinopatia do tibial posterior esquerdo")) {
-        var index = ConclusoesTornozelo.indexOf(e);
+        const index = ConclusoesTornozelo.indexOf(e);
 
         if (index > -1) {
           ConclusoesTornozelo.splice(index, 1);
@@ -55,7 +55,7 @@ export default function Tendao_Tibial_Posterior_Esquerdo({ Disable }) {
     });
     ConclusoesTornozelo.map((e) => {
       if (e.includes("Osso navicular acessório")) {
-        var index = ConclusoesTornozelo.indexOf(e);
+        const index = ConclusoesTornozelo.indexOf(e);
 
         if (index > -1) {
           ConclusoesTornozelo.splice(index, 1);

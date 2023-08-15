@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -41,7 +41,7 @@ export default function IndividualizarDerrameArticular({ numCalculo, desabilita 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
     const conclusao = 'Derrame articular.'
-    var string = `Dedo ${numCalculo + 1} com presença de derrame articular: `
+    let string = `Dedo ${numCalculo + 1} com presença de derrame articular: `
     if (multiplosDedosCheckbox) {
       if (Proximal) {
         string = `${string} Proximal`
@@ -61,7 +61,7 @@ export default function IndividualizarDerrameArticular({ numCalculo, desabilita 
   const removeMultiplosCalculos = () => {
     FraseDerrameArticularDireito.map((e) => {
       if (e.includes(`Dedo ${numCalculo + 1} com presença de derrame articular: `)) {
-        var index = FraseDerrameArticularDireito.indexOf(e);
+        const index = FraseDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {
           FraseDerrameArticularDireito.splice(index, 1);
@@ -71,7 +71,7 @@ export default function IndividualizarDerrameArticular({ numCalculo, desabilita 
     });
     ConclusaoDerrameArticularDireito.map((e) => {
       if (e.includes(`Derrame articular.`)) {
-        var index = ConclusaoDerrameArticularDireito.indexOf(e);
+        const index = ConclusaoDerrameArticularDireito.indexOf(e);
 
         if (index > -1) {
           ConclusaoDerrameArticularDireito.splice(index, 1);

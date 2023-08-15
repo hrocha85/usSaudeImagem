@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select, Textarea } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -50,7 +50,7 @@ function ObservacoesDireito() {
   const removeEdema = () => {
     frasesOBSD.map((e) => {
       if (e.includes("Edema")) {
-        var index = frasesOBSD.indexOf(e);
+        const index = frasesOBSD.indexOf(e);
 
         if (index > -1) {
           frasesOBSD.splice(index, 1);
@@ -62,7 +62,7 @@ function ObservacoesDireito() {
 
   const criaStringEdema = (EdemaSelect, localizado) => {
     removeEdema();
-    var string;
+    let string;
 
     if (EdemaSelect !== "" && localizado !== "") {
       string = `Edema ${EdemaSelect} na ${localizado}`;
@@ -74,7 +74,7 @@ function ObservacoesDireito() {
   const removeLinfedema = () => {
     frasesOBSD.map((e) => {
       if (e.includes("Linfedema")) {
-        var index = frasesOBSD.indexOf(e);
+        const index = frasesOBSD.indexOf(e);
 
         if (index > -1) {
           frasesOBSD.splice(index, 1);
@@ -86,7 +86,7 @@ function ObservacoesDireito() {
 
   const criaStringLinfedema = (LinfedemaSelect, localizado) => {
     removeLinfedema();
-    var string;
+    let string;
 
     if (LinfedemaSelect !== "" && localizado !== "") {
       string = `Linfedema ${LinfedemaSelect} na ${localizado}`;
@@ -99,7 +99,7 @@ function ObservacoesDireito() {
   const removeSegmentoNaoAvaliado = () => {
     frasesOBSD.map((e) => {
       if (e.includes("Segmento não avaliado")) {
-        var index = frasesOBSD.indexOf(e);
+        const index = frasesOBSD.indexOf(e);
 
         if (index > -1) {
           frasesOBSD.splice(index, 1);
@@ -111,7 +111,7 @@ function ObservacoesDireito() {
 
   const criaStringSegmentoNaoAvaliado = (SegmentoNaoAvaliadoSelect) => {
     removeSegmentoNaoAvaliado();
-    var string;
+    let string;
     if (SegmentoNaoAvaliadoSelect !== "") {
       string = `Segmento não avaliado ${SegmentoNaoAvaliadoSelect}`;
       setFrasesOBSD((arr) => [...arr, string]);
@@ -121,7 +121,7 @@ function ObservacoesDireito() {
   };
 
   const criaStringCistoBaker = () => {
-    var string = "Cisto de Baker ";
+    const string = "Cisto de Baker ";
     if (CistoBakerCheckbox) {
       setFrasesOBSD((arr) => [...arr, string]);
       setCistoBakerCheckbox(false);
@@ -131,7 +131,7 @@ function ObservacoesDireito() {
   };
 
   const criaStringDorsalHorizontal = () => {
-    var string = "Exame realizado em decúmbito dorsal horizontal";
+    const string = "Exame realizado em decúmbito dorsal horizontal";
     if (DorsalHorizontalCheckbox) {
       setFrasesOBSD((arr) => [...arr, string]);
       setDorsalHorizontalCheckbox(false);
@@ -141,7 +141,7 @@ function ObservacoesDireito() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesOBSD.indexOf(value);
+    const index = frasesOBSD.indexOf(value);
 
     if (index > -1) {
       frasesOBSD.splice(index, 1);
@@ -186,7 +186,7 @@ function ObservacoesDireito() {
   }, [SegmentoNaoAvaliadoCheckbox, SegmentoNaoAvaliadoSelect]);
   const criaStringOutrasObservacoes = () => {
     removeOutrasObservacoes();
-    var string = `Outras observações: ${OutrasObservacoesValueText}`;
+    const string = `Outras observações: ${OutrasObservacoesValueText}`;
     if (OutrasObservacoesValueText !== "") {
       setFrasesOBSD((arr) => [...arr, string]);
     }
@@ -194,7 +194,7 @@ function ObservacoesDireito() {
   const removeOutrasObservacoes = () => {
     frasesOBSD.map((e) => {
       if (e.includes("Outras observações:")) {
-        var index = frasesOBSD.indexOf(e);
+        const index = frasesOBSD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesOBSD.splice(index, 1);

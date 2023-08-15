@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
@@ -26,9 +26,9 @@ function Volume_vesical({ Disable }) {
     const [NaoCitarResiduo, setNaoCitarResiduo] = useState(false)
 
     const criaStringVolumePreMiccional = (dados1, dados2, dados3) => {
-        var string = 'Volume vesical pré-miccional estimado em'
+        let string = 'Volume vesical pré-miccional estimado em'
         removeFraseVolumePreMiccional()
-        let volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
+        const volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
         setVolumePreMiccionalInput4(volume)
         if (!NaoCitarVolume) {
             if (dados1 != '' && dados2 != '' && dados3 != '' && VolumePreMiccionalInput4 != '') {
@@ -46,7 +46,7 @@ function Volume_vesical({ Disable }) {
     const removeFraseVolumePreMiccional = () => {
         VolumeVesical.map((e) => {
             if (e.includes("Volume vesical pré-miccional estimado em")) {
-                var index = VolumeVesical.indexOf(e);
+                const index = VolumeVesical.indexOf(e);
                 if (index > -1) {
                     VolumeVesical.splice(index, 1);
                     setVolumeVesical((arr) => [...arr]);
@@ -65,9 +65,9 @@ function Volume_vesical({ Disable }) {
     }, [VolumePreMiccionalInput1, VolumePreMiccionalInput2, VolumePreMiccionalInput3, VolumePreMiccionalInput4, NaoCitarVolume])
 
     const criaStringResiduo = (dados1, dados2, dados3) => {
-        var string = 'Volume residuo estimado em'
+        let string = 'Volume residuo estimado em'
         removeFraseResiduo()
-        let volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
+        const volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
         setResiduoInput4(volume)
         if (!NaoCitarResiduo) {
             if (dados1 != '' && dados2 != '' && dados3 != '' && ResiduoInput4 != '') {
@@ -85,7 +85,7 @@ function Volume_vesical({ Disable }) {
     const removeFraseResiduo = () => {
         VolumeVesical.map((e) => {
             if (e.includes("Volume residuo estimado em")) {
-                var index = VolumeVesical.indexOf(e);
+                const index = VolumeVesical.indexOf(e);
                 if (index > -1) {
                     VolumeVesical.splice(index, 1);
                     setVolumeVesical((arr) => [...arr]);
@@ -106,7 +106,7 @@ function Volume_vesical({ Disable }) {
 
     const removeItemString = (value) => {
         // console.log("valor remove = ", value);
-        var index = VolumeVesical.indexOf(value);
+        const index = VolumeVesical.indexOf(value);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
             VolumeVesical.splice(index, 1);

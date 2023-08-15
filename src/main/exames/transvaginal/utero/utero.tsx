@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Button,
@@ -136,13 +136,13 @@ function Utero({ Disable }) {
   const [PosicaoSelect, setPosicaoSelect] = useState('');
 
   useEffect(() => {
-    let medida1STR: string = medidaUtero1.toString().replace(',', '.');
-    let medida1: number = parseFloat(medida1STR);
-    let medida2STR: string = medidaUtero2.toString().replace(',', '.');
-    let medida2: number = parseFloat(medida2STR);
-    let medida3STR: string = medidaUtero3.toString().replace(',', '.');
-    let medida3: number = parseFloat(medida3STR);
-    var medida4 = (medida1 * (medida2) * (medida3) / 1000) / 2
+    const medida1STR: string = medidaUtero1.toString().replace(',', '.');
+    const medida1: number = parseFloat(medida1STR);
+    const medida2STR: string = medidaUtero2.toString().replace(',', '.');
+    const medida2: number = parseFloat(medida2STR);
+    const medida3STR: string = medidaUtero3.toString().replace(',', '.');
+    const medida3: number = parseFloat(medida3STR);
+    const medida4 = (medida1 * (medida2) * (medida3) / 1000) / 2
     setmedidaUtero4(medida4)
   }, [medidaUtero1, medidaUtero2, medidaUtero3])
 
@@ -163,7 +163,7 @@ function Utero({ Disable }) {
 
   //Funcoes medida Endometrio - Inicio
   const criaStringEndometrio = () => {
-    var string = 'O eco endometrial'
+    let string = 'O eco endometrial'
     removeStringSelect(string)
     if (endometrio != 0) {
       if (endometrioCheckBox) {
@@ -182,7 +182,7 @@ function Utero({ Disable }) {
   //Funcoes Polipo endometrial - Inicio
   const criaStringPolipoEndometrial = (medida1, medida2) => {
     const conclusao = 'Imagem nodular sugestiva de pólipo endometrial.'
-    var string = 'Nota-se no interior da cavidade, imagem ovalada hiperecóica , de limites precisos e contornos regulares, medindo:'
+    let string = 'Nota-se no interior da cavidade, imagem ovalada hiperecóica , de limites precisos e contornos regulares, medindo:'
     removeStringSelect(string);
     removeItemConclusao(conclusao);
     if (polipoCheckBox) {
@@ -203,8 +203,8 @@ function Utero({ Disable }) {
 
 
   const criaStringDIUBemPosicionado = () => {
-    var string = "Observa-se imagem linear,ecogênica, com reverberação acústica posterior, de geometria compatível com DIU.";
-    var conclusao = 'DIU normoposicionado.'
+    const string = "Observa-se imagem linear,ecogênica, com reverberação acústica posterior, de geometria compatível com DIU.";
+    const conclusao = 'DIU normoposicionado.'
     if (DIUBemPosicionadoCheckBox) {
       setFrasesUtero((arr) => [...arr, string]);
       setConclusaoUtero((arr) => [...arr, conclusao]);
@@ -220,7 +220,7 @@ function Utero({ Disable }) {
 
   //Funcoes Distancia DIU - Inicio
   const criaStringDIUDistancia = (distancia) => {
-    var string = 'A distância entre o DIU e o fundo da cavidade uterina mediu'
+    let string = 'A distância entre o DIU e o fundo da cavidade uterina mediu'
     const conclusao = 'DIU de inserção baixa.'
     removeStringSelect(string);
     removeItemConclusao(conclusao);
@@ -240,8 +240,8 @@ function Utero({ Disable }) {
   }, [DIUDistanciaCheckBox, distanciaDIUInput]);
 
   const criaStringLiquidoEndometrial = () => {
-    var string = "Presença de pequena quantidade de líquido na cavidade endometrial.";
-    var conclusao = "Pequena quantidade de líquido na cavidade endometrial."
+    const string = "Presença de pequena quantidade de líquido na cavidade endometrial.";
+    const conclusao = "Pequena quantidade de líquido na cavidade endometrial."
     removeItemConclusao(conclusao)
     removeStringSelect(string)
     if (liquidoEndometrialCheckBox) {
@@ -256,8 +256,8 @@ function Utero({ Disable }) {
 
   //Funcoes Cisto Naboth - Incio
   const criaStringCistoNaboth = (medida) => {
-    let conclusao = 'Cistos de Naboth'
-    var string = 'Presença de algumas imagens císticas, anecóicas, na topografia do colo uterino, a maior medindo'
+    const conclusao = 'Cistos de Naboth'
+    let string = 'Presença de algumas imagens císticas, anecóicas, na topografia do colo uterino, a maior medindo'
     removeStringSelect(string)
     removeItemConclusao(conclusao)
     if (cistoNabothCheckBox) {
@@ -280,7 +280,7 @@ function Utero({ Disable }) {
   //Remove string generico
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = FrasesUtero.indexOf(value);
+    const index = FrasesUtero.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       FrasesUtero.splice(index, 1);
@@ -289,7 +289,7 @@ function Utero({ Disable }) {
   };
   const removeItemConclusao = (value) => {
     // console.log("valor remove = ", value);
-    var index = ConclusaoUtero.indexOf(value);
+    const index = ConclusaoUtero.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       ConclusaoUtero.splice(index, 1);
@@ -302,7 +302,7 @@ function Utero({ Disable }) {
     // console.log("valor remove = ", value);
     FrasesUtero.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesUtero.indexOf(e);
+        const index = FrasesUtero.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           FrasesUtero.splice(index, 1);
@@ -360,7 +360,7 @@ function Utero({ Disable }) {
     removeMultiplosNodulos();
     removeItemStringConclusao(conclusao)
     if (tamanhoNoduloInput !== "" && nodulosSelect !== "" && localizado !== "") {
-      var string = `O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma, o maior ${nodulosSelect}, localizado na parede ${localizado} e medindo ${tamanhoNoduloInput} mm.`;
+      const string = `O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma, o maior ${nodulosSelect}, localizado na parede ${localizado} e medindo ${tamanhoNoduloInput} mm.`;
       setFrasesUtero((arr) => [...arr, string]);
       setConclusaoUtero((arr) => [...arr, conclusao]);
     }
@@ -370,7 +370,7 @@ function Utero({ Disable }) {
     FrasesUtero.map((e) => {
       if (e.includes("O miométrio encontra-se heterogêneo, apresentando de múltiplos nódulos de mioma,")
       ) {
-        var index = FrasesUtero.indexOf(e);
+        const index = FrasesUtero.indexOf(e);
 
         if (index > -1) {
           FrasesUtero.splice(index, 1);
@@ -381,7 +381,7 @@ function Utero({ Disable }) {
   };
 
   const criaStringMiometrioSemNodulos = () => {
-    var string =
+    const string =
       "O miométrio apresenta estratificação normal e ecotextura habitual.";
     const conclusao = 'Alteração textural miometrial.'
     if (miometrioSemNodulosCheckBox) {
@@ -394,7 +394,7 @@ function Utero({ Disable }) {
     }
   };
   const criaStringMiometrioHomogeneoSemNodulos = () => {
-    var string = 'Miométrio homogêneo sem nódulos'
+    const string = 'Miométrio homogêneo sem nódulos'
     const conclusao = 'Miométrio homogêneo sem nódulos.'
     if (MiometrioHomogeneoSemNodulosCheckBox) {
       setFrasesUtero((arr) => [...arr, string]);
@@ -410,7 +410,7 @@ function Utero({ Disable }) {
 
 
   const removeItemStringConclusao = (value) => {
-    var index = ConclusaoUtero.indexOf(value);
+    const index = ConclusaoUtero.indexOf(value);
     if (index > -1) {
       ConclusaoUtero.splice(index, 1);
       setConclusaoUtero((arr) => [...arr]);

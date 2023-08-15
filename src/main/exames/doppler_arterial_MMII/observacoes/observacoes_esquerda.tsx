@@ -41,14 +41,14 @@ export default function Observacoes_Esquerda() {
   };
 
   const criaStringCistoBaker = () => {
-    var string = `Cisto Baker lado esquerdo `;
+    const string = `Cisto Baker lado esquerdo `;
     setFrasesObsEsquerda((arr) => [...arr, string]);
   };
 
   const removeCistoBaker = () => {
     frasesObsEsquerda.map((e) => {
       if (e.includes("Baker")) {
-        var index = frasesObsEsquerda.indexOf(e);
+        const index = frasesObsEsquerda.indexOf(e);
 
         if (index > -1) {
           frasesObsEsquerda.splice(index, 1);
@@ -62,7 +62,7 @@ export default function Observacoes_Esquerda() {
     removeEdema();
 
     if (TipoEdemaSelect != "" && LocalEdemaSelect != "") {
-      var stringEdema = `Edema ${TipoEdemaSelect} na ${LocalEdemaSelect} esquerda `;
+      const stringEdema = `Edema ${TipoEdemaSelect} na ${LocalEdemaSelect} esquerda `;
       setFrasesObsEsquerda((arr) => [...arr, stringEdema]);
       console.log(frasesObsEsquerda);
     }
@@ -71,7 +71,7 @@ export default function Observacoes_Esquerda() {
   const removeEdema = () => {
     frasesObsEsquerda.some((e) => {
       if (e.includes("Edema") && e.includes("esquerda")) {
-        var index = frasesObsEsquerda.indexOf(e);
+        const index = frasesObsEsquerda.indexOf(e);
 
         if (index > -1) {
           frasesObsEsquerda.splice(index, 1);
@@ -85,7 +85,7 @@ export default function Observacoes_Esquerda() {
     removeLinfedema();
 
     if (TipoLinfedemaSelect != "" && LocalLinfedemaSelect != "") {
-      var stringLinfedema = `Linfedema ${TipoLinfedemaSelect} na ${LocalLinfedemaSelect} esquerda `;
+      const stringLinfedema = `Linfedema ${TipoLinfedemaSelect} na ${LocalLinfedemaSelect} esquerda `;
 
       setFrasesObsEsquerda((arr) => [...arr, stringLinfedema]);
     }
@@ -94,7 +94,7 @@ export default function Observacoes_Esquerda() {
   const removeLinfedema = () => {
     frasesObsEsquerda.some((e) => {
       if (e.includes("Linfedema") && e.includes("esquerda")) {
-        var index = frasesObsEsquerda.indexOf(e);
+        const index = frasesObsEsquerda.indexOf(e);
 
         if (index > -1) {
           frasesObsEsquerda.splice(index, 1);
@@ -108,7 +108,7 @@ export default function Observacoes_Esquerda() {
     removeSegmento();
 
     if (SegmentoSelect != "") {
-      var stringSegmento = `Segmento não avaliado devido à presença de curativo oclusivo no ${SegmentoSelect} esquerda `;
+      const stringSegmento = `Segmento não avaliado devido à presença de curativo oclusivo no ${SegmentoSelect} esquerda `;
 
       setFrasesObsEsquerda((arr) => [...arr, stringSegmento]);
     }
@@ -117,7 +117,7 @@ export default function Observacoes_Esquerda() {
   const removeSegmento = () => {
     frasesObsEsquerda.some((e) => {
       if (e.includes("Segmento") && e.includes("esquerda")) {
-        var index = frasesObsEsquerda.indexOf(e);
+        const index = frasesObsEsquerda.indexOf(e);
 
         if (index > -1) {
           frasesObsEsquerda.splice(index, 1);
@@ -138,7 +138,7 @@ export default function Observacoes_Esquerda() {
     frasesObsEsquerda.map((e) => {
       if (OutrasObservacoesInput != "") {
         if (e.includes(OutrasObservacoesInput)) {
-          var index = frasesObsEsquerda.indexOf(e);
+          const index = frasesObsEsquerda.indexOf(e);
 
           if (index > -1) {
             frasesObsEsquerda.splice(index, 1);

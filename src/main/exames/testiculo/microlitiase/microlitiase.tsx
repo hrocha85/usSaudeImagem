@@ -16,9 +16,9 @@ function Microlitiase() {
   const [DisableSelect, setDisableSelect] = useState(true);
 
   const criaStringMicrolitiaseLivre = () => {
-    var string = 'posicionado normalmente, com ecotextura homogênea, exceto por pequenos focos hiperecogênicos, desprovidos de sombra acústica posterior, distribuídos esparsamente, medindo de 0,1 a 0,3 cm, sugerindo microlitíase.'
+    let string = 'posicionado normalmente, com ecotextura homogênea, exceto por pequenos focos hiperecogênicos, desprovidos de sombra acústica posterior, distribuídos esparsamente, medindo de 0,1 a 0,3 cm, sugerindo microlitíase.'
     removeStringMicrolitiaseLivre(string);
-    var conclusao = 'Microlitíase testicular'
+    let conclusao = 'Microlitíase testicular'
     removeItemConclusao(conclusao)
     if (MicrolitiaseCheckBox && posicaoMicrolitiaseSelect !== "") {
       if (posicaoMicrolitiaseSelect === 'bilateral') {
@@ -35,7 +35,7 @@ function Microlitiase() {
   const removeStringMicrolitiaseLivre = (value) => {
     FrasesMicrolitiase.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesMicrolitiase.indexOf(e);
+        const index = FrasesMicrolitiase.indexOf(e);
 
         if (index > -1) {
           FrasesMicrolitiase.splice(index, 1);
@@ -47,7 +47,7 @@ function Microlitiase() {
   const removeItemConclusao = (value) => {
     ConclusaoMicrolitiase.map((e) => {
       if (e.includes(value)) {
-        var index = ConclusaoMicrolitiase.indexOf(e);
+        const index = ConclusaoMicrolitiase.indexOf(e);
 
         if (index > -1) {
           ConclusaoMicrolitiase.splice(index, 1);

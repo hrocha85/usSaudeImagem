@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -21,7 +21,7 @@ export default function IndividualizarCalculos({ numCalculo }) {
     let string = `Cálculo ${numCalculo}: Cálculo de`
     removeCalculo()
     removeItemStringConclusao()
-    var InputCalculocm = new Convert_Medida(InputCalculo).Convert_Medida()
+    const InputCalculocm = new Convert_Medida(InputCalculo).Convert_Medida()
     if (Select01Calculo != '' && Select02Calculo != '' && InputCalculo != '') {
       string = `${string} ${InputCalculocm} cm no grupamento calicinal ${Select01Calculo} do ${Select02Calculo}`
       setFraseCalculo((arr) => [...arr, string]);
@@ -32,7 +32,7 @@ export default function IndividualizarCalculos({ numCalculo }) {
   const removeCalculo = () => {
     FraseCalculo.map((e) => {
       if (e.includes(`Cálculo ${numCalculo}: Cálculo de`)) {
-        var index = FraseCalculo.indexOf(e);
+        const index = FraseCalculo.indexOf(e);
 
         if (index > -1) {
           FraseCalculo.splice(index, 1);
@@ -45,7 +45,7 @@ export default function IndividualizarCalculos({ numCalculo }) {
 
   const removeItemStringConclusao = () => {
     // console.log("valor remove = ", value);
-    var index = ConclusoesCalculo.indexOf('Litíase ureteral');
+    const index = ConclusoesCalculo.indexOf('Litíase ureteral');
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       ConclusoesCalculo.splice(index, 1);

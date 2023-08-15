@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Box, Stack, Text, background } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Clinica from "../configuracao/clinicas";
@@ -7,8 +8,6 @@ import IconButtonPlusMedicos from "./icon_button_plusMedicos";
 
 const MainCard = ({ titulo, icon, clinica, medicos }) => {
   const [atualizar, setAtualizar] = useState(true);
-
-  useEffect(() => { }, [atualizar]);
 
   function ShowIcon(icon: boolean, clinca) {
     if (icon) {

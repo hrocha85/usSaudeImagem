@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -23,7 +23,7 @@ function Cirurgias() {
   const [FrasesCirurgias, setFrasesCirurgias] = useState<any>([]);
 
   const removeItemString = (value) => {
-    var index = FrasesCirurgias.indexOf(value);
+    const index = FrasesCirurgias.indexOf(value);
     if (index > -1) {
       FrasesCirurgias.splice(index, 1);
       setFrasesCirurgias((arr) => [...arr]);
@@ -44,7 +44,7 @@ function Cirurgias() {
   const removeHemitireoidectomia = () => {
     FrasesCirurgias.map((e) => {
       if (e.includes("FALTA Hemitireoidectomia")) {
-        var index = FrasesCirurgias.indexOf(e);
+        const index = FrasesCirurgias.indexOf(e);
 
         if (index > -1) {
           FrasesCirurgias.splice(index, 1);
@@ -57,7 +57,7 @@ function Cirurgias() {
   const removeConclusao = (value) => {
     ConclusaoCirurgia.map((e) => {
       if (e.includes(value)) {
-        var index = ConclusaoCirurgia.indexOf(e);
+        const index = ConclusaoCirurgia.indexOf(e);
 
         if (index > -1) {
           ConclusaoCirurgia.splice(index, 1);

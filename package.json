@@ -55,9 +55,8 @@
     "electron:package:mac": "npm run build:web && electron-builder -m -c.extraMetadata.main=build/electron.js",
     "electron:package:linux": "npm run build:web && electron-builder -l -c.extraMetadata.main=build/electron.js",
     "start:desktop": "electron ./public/electron.js",
-    "lint": "eslint --fix --ext .ts,tsx",
-    "lint:full": "eslint \"src/**/*.{js,jsx}\"",
-    "lint-staged": "lint-staged"
+    "lint:fix": "eslint --fix \"src/**/*.{js,jsx,tsx}\"",
+    "lint:full": "eslint \"src/**/*.{js,jsx,tsx}\""
   },
   "build": {
     "appId": "com.exemple.electron",

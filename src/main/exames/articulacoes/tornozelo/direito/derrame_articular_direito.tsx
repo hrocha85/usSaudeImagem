@@ -31,7 +31,7 @@ export default function Derrame_Articular_Direito({ Disable }) {
   const removeSelectString = () => {
     frasesTornozelo.map((e) => {
       if (e.includes("Derrame articular ")) {
-        var index = frasesTornozelo.indexOf(e);
+        const index = frasesTornozelo.indexOf(e);
 
         if (index > -1) {
           frasesTornozelo.splice(index, 1);
@@ -41,7 +41,7 @@ export default function Derrame_Articular_Direito({ Disable }) {
     });
     frasesTornozelo.map((e) => {
       if (e.includes("Ausência de derrame ")) {
-        var index = frasesTornozelo.indexOf(e);
+        const index = frasesTornozelo.indexOf(e);
 
         if (index > -1) {
           frasesTornozelo.splice(index, 1);
@@ -69,8 +69,8 @@ export default function Derrame_Articular_Direito({ Disable }) {
   }, [value]);
 
   useEffect(() => {
-    var select = `Derrame articular ${valueSelect1} `;
-    var select_checkbox = `Derrame articular ${valueSelect1} com espessamento sinovial`;
+    const select = `Derrame articular ${valueSelect1} `;
+    const select_checkbox = `Derrame articular ${valueSelect1} com espessamento sinovial`;
 
     if (valueSelect1 != "") {
       removeSelectString();

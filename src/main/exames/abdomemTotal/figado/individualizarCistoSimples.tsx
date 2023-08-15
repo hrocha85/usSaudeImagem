@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ export default function IndividualizarCistos({ numCalculo }) {
     const [CistoSimplesSelect, setCistoSimplesSelect] = useState('')
     const [CistoSimplesInput, setCistoSimplesInput] = useState('')
     const criaStringCistoSimples = (select, input) => {
-        var string = `${numCalculo}º Cisto de conteúdo anecogênico, com paredes finas e contornos regulares`
+        let string = `${numCalculo}º Cisto de conteúdo anecogênico, com paredes finas e contornos regulares`
         removeFraseCistoSimples()
         if (select !== '' && input !== '') {
             string = `${string}, medindo ${input} cm, localizado no ${select}. Veia porta e veias hepáticas sem alterações `;
@@ -23,7 +23,7 @@ export default function IndividualizarCistos({ numCalculo }) {
     const removeFraseCistoSimples = () => {
         FrasesFigado.map((e) => {
             if (e.includes(`${numCalculo}º Cisto de conteúdo anecogênico, com paredes finas e contornos regulares`)) {
-                var index = FrasesFigado.indexOf(e);
+                const index = FrasesFigado.indexOf(e);
 
                 if (index > -1) {
                     FrasesFigado.splice(index, 1);

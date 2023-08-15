@@ -51,21 +51,21 @@ import SignatureCanvas from "react-signature-canvas";
 import MedicosJSON from "../../Data/Medicos.json";
 const button = React.createElement("img", { src: PlusButton });
 
-var dados;
-export let minhasClinicas = infoClinicas.clinicas;
-export let lista_medicos = MedicosJSON.medicos;
+let dados;
+export const minhasClinicas = infoClinicas.clinicas;
+export const lista_medicos = MedicosJSON.medicos;
 
 
 const IconButtonPlusMedicos = (props, clinica) => {
   const toast = useToast();
 
-  let padRef = React.useRef<SignatureCanvas>(null);
+  const padRef = React.useRef<SignatureCanvas>(null);
 
 
 
   const getMedicos = () => {
-    var medicos;
-    var item;
+    let medicos;
+    let item;
     if (localStorage.getItem("medicos") != null) {
       item = localStorage.getItem("medicos");
 
@@ -114,7 +114,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
 
   const getUser = () => {
     if (localStorage.getItem("user") != null) {
-      var user = JSON.parse(localStorage.getItem("user")!);
+      letuser = JSON.parse(localStorage.getItem("user")!);
     }
 
     if (user != null) return user.isLogged;
@@ -123,8 +123,8 @@ const IconButtonPlusMedicos = (props, clinica) => {
 
   const PegaClinicas = () => {
 
-    var item;
-    var item_parse;
+    let item;
+    let item_parse;
     if (localStorage.getItem("minhasClinicas") != null) {
       item = localStorage.getItem("minhasClinicas");
       item_parse = JSON.parse(item);
@@ -230,7 +230,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
       <Center margin="25px">
         <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
           {clinicas.map((clinica, key) => {
-            var clinicaParse = JSON.parse(clinica);
+            const clinicaParse = JSON.parse(clinica);
             return (
               <Tooltip
                 key={key}
@@ -266,7 +266,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
   };
 
   const handleCRM = (event) => {
-    let input = event.target;
+    const input = event.target;
     input.value = CrmMask(input.value);
   };
 

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
@@ -19,7 +19,7 @@ function CotoveloDireito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringEpicondiliteLatera = () => {
-    var string = "Cotovelo direito com Epicondilite Latera";
+    const string = "Cotovelo direito com Epicondilite Latera";
     if (EpicondiliteLateraCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setEpicondiliteLateraCheckBox(false);
@@ -28,7 +28,7 @@ function CotoveloDireito() {
     }
   };
   const criaStringTendiniteTriciptal = () => {
-    var string = "Cotovelo direito com Tendinite triciptal";
+    const string = "Cotovelo direito com Tendinite triciptal";
     if (TendiniteTriciptalCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setTendiniteTriciptalCheckBox(false);
@@ -37,7 +37,7 @@ function CotoveloDireito() {
     }
   };
   const criaStringEpicondiliteMedial = () => {
-    var string = "Cotovelo direito com Epicondilite Medial";
+    const string = "Cotovelo direito com Epicondilite Medial";
     if (EpicondiliteMedialCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setEpicondiliteMedialCheckBox(false);
@@ -46,7 +46,7 @@ function CotoveloDireito() {
     }
   };
   const criaStringBursiteOlecraniana = () => {
-    var string = "Cotovelo direito com Bursite olecraniana";
+    const string = "Cotovelo direito com Bursite olecraniana";
     if (BursiteOlecranianaCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setBursiteOlecranianaCheckBox(false);
@@ -55,7 +55,7 @@ function CotoveloDireito() {
     }
   };
   const criaStringInstabilidadeDerrameArticular = () => {
-    var string = "Cotovelo direito com Derrame articular";
+    const string = "Cotovelo direito com Derrame articular";
     if (InstabilidadeDerrameArticularCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setInstabilidadeDerrameArticularCheckBox(false);
@@ -67,7 +67,7 @@ function CotoveloDireito() {
 
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    const index = laudoPrin.indexOf(value);
 
     if (index > -1) {
       laudoPrin.splice(index, 1);

@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/jsx-pascal-case */
+
+
 import { Box, Checkbox, Select } from "@chakra-ui/react";
 
 
@@ -28,7 +28,7 @@ function AbdomemSuperior() {
   const removeStringSelect = (value) => {
     frasesAdomenSuperior.map((e) => {
       if (e.includes(value)) {
-        var index = frasesAdomenSuperior.indexOf(e);
+        const index = frasesAdomenSuperior.indexOf(e);
         if (index > -1) {
           frasesAdomenSuperior.splice(index, 1);
           setFrasesAdomenSuperior((arr) => [...arr]);
@@ -37,7 +37,7 @@ function AbdomemSuperior() {
     });
   };
   useEffect(() => {
-    var frase = 'Com situação, forma, contornos e dimensões'
+    let frase = 'Com situação, forma, contornos e dimensões'
     removeStringSelect(frase)
     if (Disable) {
       if (NormalSelect && NormalEstruturasSelect) {

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ export default function IndividualizarNodulos({ numCalculo }) {
     const removeFraseConclusaoNodulo = () => {
         ConclusoesFigado.map((e) => {
             if (e.includes("Nódulo hepático.")) {
-                var index = ConclusoesFigado.indexOf(e);
+                const index = ConclusoesFigado.indexOf(e);
 
                 if (index > -1) {
                     ConclusoesFigado.splice(index, 1);
@@ -31,7 +31,7 @@ export default function IndividualizarNodulos({ numCalculo }) {
     };
 
     const criaStringNodulo = (select1, select2, select3, input1) => {
-        var string = `${numCalculo} Nódulo`
+        let string = `${numCalculo} Nódulo`
         const conclusaoNodulos = 'Nódulo hepático.'
 
         removeFraseNodulo()
@@ -45,7 +45,7 @@ export default function IndividualizarNodulos({ numCalculo }) {
     const removeFraseNodulo = () => {
         FrasesFigado.map((e) => {
             if (e.includes(`${numCalculo} Nódulo`)) {
-                var index = FrasesFigado.indexOf(e);
+                const index = FrasesFigado.indexOf(e);
 
                 if (index > -1) {
                     FrasesFigado.splice(index, 1);

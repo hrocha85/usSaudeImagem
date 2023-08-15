@@ -40,11 +40,11 @@ export default function Field_Observacoes({ exame }) {
   if (exame && exame.nomeExame) {
     titulo = `Observações ${exame.nomeExame}`;
   }
-  var observacoesLocalStorage = JSON.parse(localStorage.getItem("observacoes")!);
+  const observacoesLocalStorage = JSON.parse(localStorage.getItem("observacoes")!);
 
-  var ExameObservacoes = observacoesLocalStorage.filter((e) => e.key === exame.key)
+  const ExameObservacoes = observacoesLocalStorage.filter((e) => e.key === exame.key)
 
-  var observacoes = ExameObservacoes[0]
+  const observacoes = ExameObservacoes[0]
 
   const [items, setItems] = useState<{ id: string; values: string[] }>({
     id: exame.nomeExame,

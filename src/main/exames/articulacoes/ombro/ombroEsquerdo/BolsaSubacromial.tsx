@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -52,7 +52,7 @@ function BolsaSubacromial_SubdeltoideaEsquerdo({ Disable }) {
 
   const criaStringLiquido = (selectLiquido) => {
     removeLiquido();
-    var string;
+    let string;
     const conclusao = 'Líquido na bolsa subacromial-subdeltoidea.'
     if (selectLiquido !== '' && EspessamentoSinoviaCheckbox) {
       string = `Presença de líquido em pequena quantidade na bolsa ${selectLiquido}, com espessamento sinovial associado.`;
@@ -68,7 +68,7 @@ function BolsaSubacromial_SubdeltoideaEsquerdo({ Disable }) {
   const removeLiquido = () => {
     fraseBolsaSubacromialSubdeltoidea.map((e) => {
       if (e.includes("Presença de líquido em pequena quantidade na bolsa")) {
-        var index = fraseBolsaSubacromialSubdeltoidea.indexOf(e);
+        const index = fraseBolsaSubacromialSubdeltoidea.indexOf(e);
 
         if (index > -1) {
           fraseBolsaSubacromialSubdeltoidea.splice(index, 1);
@@ -78,7 +78,7 @@ function BolsaSubacromial_SubdeltoideaEsquerdo({ Disable }) {
     });
     ConclusaoBolsaSubacromialSubdeltoidea.map((e) => {
       if (e.includes("Líquido na bolsa subacromial-subdeltoidea.")) {
-        var index = ConclusaoBolsaSubacromialSubdeltoidea.indexOf(e);
+        const index = ConclusaoBolsaSubacromialSubdeltoidea.indexOf(e);
 
         if (index > -1) {
           ConclusaoBolsaSubacromialSubdeltoidea.splice(index, 1);
@@ -90,7 +90,7 @@ function BolsaSubacromial_SubdeltoideaEsquerdo({ Disable }) {
   };
 
   const criaStringSemLiquido = () => {
-    var string = "Ausência de líquido na bolsa subacromial-subdeltoidea.";
+    const string = "Ausência de líquido na bolsa subacromial-subdeltoidea.";
     SemLiquidoCheckbox ? setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]) : removeItemString(string);
   };
 
@@ -101,7 +101,7 @@ function BolsaSubacromial_SubdeltoideaEsquerdo({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = "Ausência de líquido na bolsa subacromial-subdeltoidea.";
+    const string = "Ausência de líquido na bolsa subacromial-subdeltoidea.";
     Normal ? setSemLiquidoCheckbox(true) : setSemLiquidoCheckbox(false)
   }, [Normal])
 
@@ -110,7 +110,7 @@ function BolsaSubacromial_SubdeltoideaEsquerdo({ Disable }) {
   }, [SemLiquidoCheckbox])
 
   const removeItemString = (value) => {
-    var index = fraseBolsaSubacromialSubdeltoidea.indexOf(value);
+    const index = fraseBolsaSubacromialSubdeltoidea.indexOf(value);
     if (index > -1) {
       fraseBolsaSubacromialSubdeltoidea.splice(index, 1);
       setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr]);

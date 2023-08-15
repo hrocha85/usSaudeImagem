@@ -23,8 +23,8 @@ function Hidatide() {
     removeStringHidatide();
 
     if (hidatideCheckBox && posicaoHidatideSelect != "" && tamanhoHidatideInput != "") {
-      var string = `Nota-se imagem em região anexial ${posicaoHidatideSelect} anecóica, arredondada, de limites precisos e contornos regulares, medindo ${tamanhoHidatideInput} mm.`;
-      var conclusao = `Cisto anexial à ${posicaoHidatideSelect} podendo corresponder a hidátide de Morgani.`
+      const string = `Nota-se imagem em região anexial ${posicaoHidatideSelect} anecóica, arredondada, de limites precisos e contornos regulares, medindo ${tamanhoHidatideInput} mm.`;
+      const conclusao = `Cisto anexial à ${posicaoHidatideSelect} podendo corresponder a hidátide de Morgani.`
       setFrasesHidate((arr) => [...arr, string]);
       setConclusaoHidatide((arr) => [...arr, conclusao]);
     }
@@ -33,7 +33,7 @@ function Hidatide() {
   const removeStringHidatide = () => {
     frasesHidatide.map((e) => {
       if (e.includes("Nota-se imagem em região anexial")) {
-        var index = frasesHidatide.indexOf(e);
+        const index = frasesHidatide.indexOf(e);
 
         if (index > -1) {
           frasesHidatide.splice(index, 1);
@@ -43,7 +43,7 @@ function Hidatide() {
     });
     ConclusaoHidatide.map((e) => {
       if (e.includes('Cisto anexial à')) {
-        var index = ConclusaoHidatide.indexOf(e);
+        const index = ConclusaoHidatide.indexOf(e);
 
         if (index > -1) {
           ConclusaoHidatide.splice(index, 1);

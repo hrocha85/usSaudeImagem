@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -40,7 +40,7 @@ export default function IndividualizarPolias({ numCalculo, desabilita }) {
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
-    var string = `Dedo ${numCalculo + 1} com descontinuidade das polias:`
+    let string = `Dedo ${numCalculo + 1} com descontinuidade das polias:`
     if (multiplosDedosCheckbox) {
       if (A1 || A2 || A3 || A4 || A5) {
         if (A1) {
@@ -70,7 +70,7 @@ export default function IndividualizarPolias({ numCalculo, desabilita }) {
   const removeMultiplosCalculos = () => {
     FrasePoliasDireito.map((e) => {
       if (e.includes(`Dedo ${numCalculo + 1} com descontinuidade das polias: `)) {
-        var index = FrasePoliasDireito.indexOf(e);
+        const index = FrasePoliasDireito.indexOf(e);
 
         if (index > -1) {
           FrasePoliasDireito.splice(index, 1);

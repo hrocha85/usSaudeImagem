@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -14,7 +14,7 @@ export default function IndividualizarPolipo({ numCalculo }) {
     const [PolipoUnicoInput, setPolipoUnicoInput] = useState("");
 
     const criaStringPolipoUnico = (dados1) => {
-        var string =
+        let string =
             "Imagem polipoide hiperecogênica aderida à parede da vesícula, medindo";
         const conclusao = "Imagem compatível com pólipo na vesícula biliar."
         removeFrasePolipoUnico();
@@ -37,7 +37,7 @@ export default function IndividualizarPolipo({ numCalculo }) {
                     "Imagem polipoide hiperecogênica aderida à parede da vesícula, medindo"
                 )
             ) {
-                var index = FrasesVesicula.indexOf(e);
+                const index = FrasesVesicula.indexOf(e);
                 if (index > -1) {
                     FrasesVesicula.splice(index, 1);
                     setFrasesVesicula((arr) => [...arr]);
@@ -54,7 +54,7 @@ export default function IndividualizarPolipo({ numCalculo }) {
     }, [PolipoUnicoCheckbox, PolipoUnicoInput]);
 
     const removeItemConclusao = (value) => {
-        var index = ConclusoesVesicula.indexOf(value);
+        const index = ConclusoesVesicula.indexOf(value);
         if (index > -1) {
             ConclusoesVesicula.splice(index, 1);
             setConclusoesVesicula((arr) => [...arr]);

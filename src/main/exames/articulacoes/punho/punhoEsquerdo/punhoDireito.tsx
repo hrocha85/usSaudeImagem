@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
@@ -11,7 +11,7 @@ function PunhoEsquerdo() {
   const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  let { PunhoEsquerdoLaudoNormal } = useContext(PunhoEsquerdoNormalContext)
+  const { PunhoEsquerdoLaudoNormal } = useContext(PunhoEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
   //States TenossinoviteExtensores - input,checkbox e select - Inicio
@@ -28,7 +28,7 @@ function PunhoEsquerdo() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringTenossinoviteFlexores = () => {
-    var string = "Punho Esquerdo com TenossinoviteFlexores";
+    const string = "Punho Esquerdo com TenossinoviteFlexores";
     if (TenossinoviteFlexoresCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
       setTenossinoviteFlexoresCheckbox(false);
@@ -42,7 +42,7 @@ function PunhoEsquerdo() {
   const criaStringTenossinoviteExtensores = (TenossinoviteExtensores) => {
     removeTenossinoviteExtensores();
     if (TenossinoviteExtensores !== "") {
-      var string = `Punho Esquerdo com TenossinoviteExtensores Supraespinhal ${TenossinoviteExtensores}. `;
+      const string = `Punho Esquerdo com TenossinoviteExtensores Supraespinhal ${TenossinoviteExtensores}. `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -50,7 +50,7 @@ function PunhoEsquerdo() {
   const removeTenossinoviteExtensores = () => {
     laudoPrin.map((e) => {
       if (e.includes("Punho Esquerdo com TenossinoviteExtensores Supraespinhal")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -63,7 +63,7 @@ function PunhoEsquerdo() {
   const criaStringCisto = (medida1, medida2, Cisto) => {
     removeCisto();
     if (medida1 !== "" && medida2 !== "") {
-      var string = `Punho Esquerdo com Cisto Supraespinhal ${Cisto} com intervalo de ${medida1}x${medida2} mm `;
+      const string = `Punho Esquerdo com Cisto Supraespinhal ${Cisto} com intervalo de ${medida1}x${medida2} mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -71,7 +71,7 @@ function PunhoEsquerdo() {
   const removeCisto = () => {
     laudoPrin.map((e) => {
       if (e.includes("Punho Esquerdo com Cisto Supraespinhal")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -82,7 +82,7 @@ function PunhoEsquerdo() {
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    const index = laudoPrin.indexOf(value);
 
     if (index > -1) {
       laudoPrin.splice(index, 1);
@@ -198,7 +198,7 @@ function PunhoEsquerdo() {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setCistoInput(e.target.value) }}
           />
@@ -210,7 +210,7 @@ function PunhoEsquerdo() {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setCistoInput2(e.target.value) }}
           />

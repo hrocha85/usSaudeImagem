@@ -40,7 +40,7 @@ function DopplerTesticulos() {
   const [epidimosCheckBox, setEpidimosCheckBox] = useState(false);
 
   const criaStringMedidasTesticuloDireito = () => {
-    var string = `TESTÍCULO D.: ${medidaTesticuloDireito1} x ${medidaTesticuloDireito2} x ${medidaTesticuloDireito3} cm. Vol ${volumeTesticulo(
+    const string = `TESTÍCULO D.: ${medidaTesticuloDireito1} x ${medidaTesticuloDireito2} x ${medidaTesticuloDireito3} cm. Vol ${volumeTesticulo(
       "direito"
     )} cm³. ${parenquimaDireito(tecidoDireito)}`;
     if (!frasesMedidasDoppler.includes(stringPadrao)) {
@@ -53,7 +53,7 @@ function DopplerTesticulos() {
   const removeMedidasDireito = () => {
     frasesMedidasDoppler.map((e) => {
       if (e.includes("TESTÍCULO D.:")) {
-        var index = frasesMedidasDoppler.indexOf(e);
+        const index = frasesMedidasDoppler.indexOf(e);
 
         if (index > -1) {
           frasesMedidasDoppler.splice(index, 1);
@@ -64,7 +64,7 @@ function DopplerTesticulos() {
   };
 
   const criaStringMedidasTesticuloEsquerdo = () => {
-    var string = `TESTÍCULO E.: ${medidaTesticuloEsquerdo1} x ${medidaTesticuloEsquerdo2} x ${medidaTesticuloEsquerdo3} cm. Vol ${volumeTesticulo(
+    const string = `TESTÍCULO E.: ${medidaTesticuloEsquerdo1} x ${medidaTesticuloEsquerdo2} x ${medidaTesticuloEsquerdo3} cm. Vol ${volumeTesticulo(
       "esquerdo"
     )} cm³. ${parenquimaEsquerdo(tecidoEsquerdo)}`;
     if (!frasesMedidasDoppler.includes(stringPadrao)) {
@@ -77,7 +77,7 @@ function DopplerTesticulos() {
   const removeMedidasEsquerdo = () => {
     frasesMedidasDoppler.map((e) => {
       if (e.includes("TESTÍCULO E.: ")) {
-        var index = frasesMedidasDoppler.indexOf(e);
+        const index = frasesMedidasDoppler.indexOf(e);
 
         if (index > -1) {
           frasesMedidasDoppler.splice(index, 1);
@@ -88,14 +88,14 @@ function DopplerTesticulos() {
   };
 
   const criaStringBolsaTesticular = () => {
-    var string = "Bolsa testicular com paredes regulares e de espessura normal";
+    const string = "Bolsa testicular com paredes regulares e de espessura normal";
     setFrasesMedidasDoppler((arr) => [...arr, string]);
   };
 
   const removeBolsaTesticular = () => {
     frasesMedidasDoppler.map((e) => {
       if (e.includes("Bolsa testicular ")) {
-        var index = frasesMedidasDoppler.indexOf(e);
+        const index = frasesMedidasDoppler.indexOf(e);
 
         if (index > -1) {
           frasesMedidasDoppler.splice(index, 1);
@@ -106,14 +106,14 @@ function DopplerTesticulos() {
   };
 
   const criaStringEpidimos = () => {
-    var string = "Epidídimos com configuração, diâmetros e textura normais.";
+    const string = "Epidídimos com configuração, diâmetros e textura normais.";
     setFrasesMedidasDoppler((arr) => [...arr, string]);
   };
 
   const removeEpidimos = () => {
     frasesMedidasDoppler.map((e) => {
       if (e.includes("Epidídimos")) {
-        var index = frasesMedidasDoppler.indexOf(e);
+        const index = frasesMedidasDoppler.indexOf(e);
 
         if (index > -1) {
           frasesMedidasDoppler.splice(index, 1);
@@ -174,7 +174,7 @@ function DopplerTesticulos() {
   };
 
   const removeItemConclusao = (value) => {
-    var index = ConclusoesTesticulosDoppler.indexOf(value);
+    const index = ConclusoesTesticulosDoppler.indexOf(value);
 
     if (index > -1) {
       ConclusoesTesticulosDoppler.splice(index, 1);

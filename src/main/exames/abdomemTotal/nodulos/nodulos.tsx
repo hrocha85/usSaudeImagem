@@ -7,41 +7,41 @@ function Nodulos() {
   const altura = "100%";
   const largura = "66%";
 
-  let input01Nodulo01 = document.querySelector(
+  const input01Nodulo01 = document.querySelector(
     "#Input01Nodulo01"
   ) as HTMLInputElement;
-  let input02Nodulo01 = document.querySelector(
+  const input02Nodulo01 = document.querySelector(
     "#Input02Nodulo01"
   ) as HTMLInputElement;
-  let select01Nodulo01 = document.querySelector(
+  const select01Nodulo01 = document.querySelector(
     "#Select01Nodulo01"
   ) as HTMLInputElement;
-  let select02Nodulo01 = document.querySelector(
+  const select02Nodulo01 = document.querySelector(
     "#Select02Nodulo01"
   ) as HTMLInputElement;
-  let select03Nodulo01 = document.querySelector(
+  const select03Nodulo01 = document.querySelector(
     "#Select03Nodulo01"
   ) as HTMLInputElement;
-  let select04Nodulo01 = document.querySelector(
+  const select04Nodulo01 = document.querySelector(
     "#Select04Nodulo01"
   ) as HTMLInputElement;
 
-  let input01Nodulo02 = document.querySelector(
+  const input01Nodulo02 = document.querySelector(
     "#Input01Nodulo02"
   ) as HTMLInputElement;
-  let input02Nodulo02 = document.querySelector(
+  const input02Nodulo02 = document.querySelector(
     "#Input02Nodulo02"
   ) as HTMLInputElement;
-  let select01Nodulo02 = document.querySelector(
+  const select01Nodulo02 = document.querySelector(
     "#Select01Nodulo02"
   ) as HTMLInputElement;
-  let select02Nodulo02 = document.querySelector(
+  const select02Nodulo02 = document.querySelector(
     "#Select02Nodulo02"
   ) as HTMLInputElement;
-  let select03Nodulo02 = document.querySelector(
+  const select03Nodulo02 = document.querySelector(
     "#Select03Nodulo02"
   ) as HTMLInputElement;
-  let select04Nodulo02 = document.querySelector(
+  const select04Nodulo02 = document.querySelector(
     "#Select04Nodulo02"
   ) as HTMLInputElement;
 
@@ -75,7 +75,7 @@ function Nodulos() {
   });
 
   const removeItemString = (value) => {
-    var index = frasesNodulos.indexOf(value);
+    const index = frasesNodulos.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesNodulos.splice(index, 1);
@@ -84,7 +84,7 @@ function Nodulos() {
   };
 
   const criaStringNodulo01 = (value) => {
-    let dadoSelect04Nodulo01 = value;
+    const dadoSelect04Nodulo01 = value;
     const Frase =
       "Nódulo 01 com" +
       valueInput01Nodulo01 +
@@ -118,7 +118,7 @@ function Nodulos() {
   };
 
   const criaStringNodulo02 = (value) => {
-    let dadoSelect04Nodulo02 = value;
+    const dadoSelect04Nodulo02 = value;
     const Frase =
       "Nódulo 01 com" +
       valueInput01Nodulo02 +

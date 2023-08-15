@@ -17,14 +17,14 @@ function Femoral_Superficial_Esquerda() {
   const [EstenoseCheckBox, setEstenoseCheckBox] = useState(false);
 
   const criaStringFluxoAusente = () => {
-    var string = "Fluxo ausente femoral superficial esquerda ";
+    const string = "Fluxo ausente femoral superficial esquerda ";
     setFrasesFemoralSuperficialEsquerda((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
     frasesFemoralSuperficialEsquerda.map((e) => {
       if (e.includes("Fluxo ausente femoral superficial esquerda ")) {
-        var index = frasesFemoralSuperficialEsquerda.indexOf(e);
+        const index = frasesFemoralSuperficialEsquerda.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesFemoralSuperficialEsquerda.splice(index, 1);
@@ -35,14 +35,14 @@ function Femoral_Superficial_Esquerda() {
   };
 
   const criaStringPosEstenotico = () => {
-    var string = "Pós estenótico femoral superficial esquerda ";
+    const string = "Pós estenótico femoral superficial esquerda ";
     setFrasesFemoralSuperficialEsquerda((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
     frasesFemoralSuperficialEsquerda.map((e) => {
       if (e.includes("Pós estenótico femoral superficial esquerda ")) {
-        var index = frasesFemoralSuperficialEsquerda.indexOf(e);
+        const index = frasesFemoralSuperficialEsquerda.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesFemoralSuperficialEsquerda.splice(index, 1);
@@ -53,14 +53,14 @@ function Femoral_Superficial_Esquerda() {
   };
 
   const criaStringEstenose = () => {
-    var string = "Estenose femoral superficial esquerda acima de 50% ";
+    const string = "Estenose femoral superficial esquerda acima de 50% ";
     setFrasesFemoralSuperficialEsquerda((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
     frasesFemoralSuperficialEsquerda.map((e) => {
       if (e.includes("Estenose femoral superficial esquerda acima de 50% ")) {
-        var index = frasesFemoralSuperficialEsquerda.indexOf(e);
+        const index = frasesFemoralSuperficialEsquerda.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesFemoralSuperficialEsquerda.splice(index, 1);

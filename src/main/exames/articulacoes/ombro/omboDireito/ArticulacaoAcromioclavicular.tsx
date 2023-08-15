@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -49,7 +49,7 @@ function ArticulacaoAcromioclavicularDireito({ Disable }) {
   const criaStringOsteofitos = () => {
     const conclusao = 'Sinais de osteoartrose acromioclavicular.'
     removeOsteofitos();
-    var string = 'Presença de osteófitos marginais na articulação acromioclavicular '
+    let string = 'Presença de osteófitos marginais na articulação acromioclavicular '
     if (OsteofitosCheckbox) {
       if (EspessamentoCapsulosinovialCheckbox) {
         string = `${string} com espessamento Capsulosinovial`;
@@ -67,7 +67,7 @@ function ArticulacaoAcromioclavicularDireito({ Disable }) {
   const removeOsteofitos = () => {
     fraseBolsaSubacromialSubdeltoidea.map((e) => {
       if (e.includes("Presença de osteófitos marginais na articulação acromioclavicular")) {
-        var index = fraseBolsaSubacromialSubdeltoidea.indexOf(e);
+        const index = fraseBolsaSubacromialSubdeltoidea.indexOf(e);
 
         if (index > -1) {
           fraseBolsaSubacromialSubdeltoidea.splice(index, 1);
@@ -77,7 +77,7 @@ function ArticulacaoAcromioclavicularDireito({ Disable }) {
     });
     ConclusaoBolsaSubacromialSubdeltoidea.map((e) => {
       if (e.includes("Sinais de osteoartrose acromioclavicular")) {
-        var index = ConclusaoBolsaSubacromialSubdeltoidea.indexOf(e);
+        const index = ConclusaoBolsaSubacromialSubdeltoidea.indexOf(e);
 
         if (index > -1) {
           ConclusaoBolsaSubacromialSubdeltoidea.splice(index, 1);
@@ -89,7 +89,7 @@ function ArticulacaoAcromioclavicularDireito({ Disable }) {
   };
 
   const criaStringNormal = () => {
-    var string = "Articulação acromioclavicular de aspecto preservado.";
+    const string = "Articulação acromioclavicular de aspecto preservado.";
     NormalCheckbox ? setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr, string]) : removeItemString(string);
 
   };
@@ -102,7 +102,7 @@ function ArticulacaoAcromioclavicularDireito({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = "Articulação acromioclavicular de aspecto preservado.";
+    const string = "Articulação acromioclavicular de aspecto preservado.";
     Normal ? setNormalCheckbox(true) : setNormalCheckbox(false)
   }, [Normal])
 
@@ -111,7 +111,7 @@ function ArticulacaoAcromioclavicularDireito({ Disable }) {
   }, [NormalCheckbox])
 
   const removeItemString = (value) => {
-    var index = fraseBolsaSubacromialSubdeltoidea.indexOf(value);
+    const index = fraseBolsaSubacromialSubdeltoidea.indexOf(value);
     if (index > -1) {
       fraseBolsaSubacromialSubdeltoidea.splice(index, 1);
       setFraseBolsaSubacromialSubdeltoidea((arr) => [...arr]);

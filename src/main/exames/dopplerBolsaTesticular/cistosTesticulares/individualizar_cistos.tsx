@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -21,7 +21,7 @@ export default function IndividualizarCistos({ numCisto, disable }) {
   ) => {
     removeMultiplosCistos();
     if (tamanhoCistoInput !== "" && CistosSelect !== "" && localizado !== "") {
-      var string = `Cisto Testícular ${numCisto}: mede ${tamanhoCistoInput} mm, conteúdo ${conteudoCistoSelect}, localizado no ${CistosSelect}, do  ${localizado} `;
+      const string = `Cisto Testícular ${numCisto}: mede ${tamanhoCistoInput} mm, conteúdo ${conteudoCistoSelect}, localizado no ${CistosSelect}, do  ${localizado} `;
       setFrasesCistos((arr) => [...arr, string]);
     }
   };
@@ -29,7 +29,7 @@ export default function IndividualizarCistos({ numCisto, disable }) {
   const removeMultiplosCistos = () => {
     frasesCistos.map((e) => {
       if (e.includes(`Cisto Testícular ${numCisto}`)) {
-        var index = frasesCistos.indexOf(e);
+        const index = frasesCistos.indexOf(e);
 
         if (index > -1) {
           frasesCistos.splice(index, 1);
@@ -116,7 +116,7 @@ export default function IndividualizarCistos({ numCisto, disable }) {
           w="60px"
           h="77x"
           padding="5px"
-          
+
           textAlign="center"
           onChange={(e) => settamanhoCistoInput(e.target.value)}
           placeholder={"mm"}

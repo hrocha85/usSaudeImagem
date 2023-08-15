@@ -7,7 +7,7 @@ function LiquidoLivre({ Disable }) {
   const altura = "100%";
   const largura = "66%";
 
-  let selectTireoidectomiaParcial = document.querySelector(
+  const selectTireoidectomiaParcial = document.querySelector(
     "#selectTireoidectomiaParcial"
   ) as HTMLInputElement;
 
@@ -31,7 +31,7 @@ function LiquidoLivre({ Disable }) {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesCirurgias.indexOf(value);
+    const index = frasesCirurgias.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesCirurgias.splice(index, 1);

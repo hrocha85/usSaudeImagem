@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -26,7 +26,7 @@ function TromboflebiteEsquerdo() {
   const criaStringTromboflebiteMagma = () => {
     removeStringTromboflebiteMagma();
     if (posicaoTromboflebiteMagmaSelect !== "") {
-      var string = `Tromboflebite Magma ${posicaoTromboflebiteMagmaSelect}`;
+      const string = `Tromboflebite Magma ${posicaoTromboflebiteMagmaSelect}`;
       setFrasesTrombo((arr) => [...arr, string]);
     }
   };
@@ -34,7 +34,7 @@ function TromboflebiteEsquerdo() {
   const removeStringTromboflebiteMagma = () => {
     frasesTrombo.map((e) => {
       if (e.includes("Tromboflebite Magma")) {
-        var index = frasesTrombo.indexOf(e);
+        const index = frasesTrombo.indexOf(e);
 
         if (index > -1) {
           frasesTrombo.splice(index, 1);
@@ -58,7 +58,7 @@ function TromboflebiteEsquerdo() {
   const criaStringTromboflebiteParva = () => {
     removeStringTromboflebiteParva();
     if (posicaoTromboflebiteParvaSelect !== "") {
-      var string = `Tromboflebite Parva ${posicaoTromboflebiteParvaSelect}`;
+      const string = `Tromboflebite Parva ${posicaoTromboflebiteParvaSelect}`;
       setFrasesTrombo((arr) => [...arr, string]);
     }
   };
@@ -66,7 +66,7 @@ function TromboflebiteEsquerdo() {
   const removeStringTromboflebiteParva = () => {
     frasesTrombo.map((e) => {
       if (e.includes("Tromboflebite Parva")) {
-        var index = frasesTrombo.indexOf(e);
+        const index = frasesTrombo.indexOf(e);
 
         if (index > -1) {
           frasesTrombo.splice(index, 1);

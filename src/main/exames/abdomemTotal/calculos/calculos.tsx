@@ -7,73 +7,73 @@ function Calculos() {
   const altura = "100%";
   const largura = "66%";
 
-  let inputCalculo01 = document.querySelector(
+  const inputCalculo01 = document.querySelector(
     "#InputCalculo01"
   ) as HTMLInputElement;
-  let selectCalculo01 = document.querySelector(
+  const selectCalculo01 = document.querySelector(
     "#SelectCalculo01"
   ) as HTMLInputElement;
-  let select2Calculo01 = document.querySelector(
+  const select2Calculo01 = document.querySelector(
     "#Select2Calculo01"
   ) as HTMLInputElement;
 
-  let inputCalculo02 = document.querySelector(
+  const inputCalculo02 = document.querySelector(
     "#InputCalculo02"
   ) as HTMLInputElement;
-  let selectCalculo02 = document.querySelector(
+  const selectCalculo02 = document.querySelector(
     "#SelectCalculo02"
   ) as HTMLInputElement;
-  let select2Calculo02 = document.querySelector(
+  const select2Calculo02 = document.querySelector(
     "#Select2Calculo02"
   ) as HTMLInputElement;
 
-  let inputCalculo03 = document.querySelector(
+  const inputCalculo03 = document.querySelector(
     "#InputCalculo03"
   ) as HTMLInputElement;
-  let selectCalculo03 = document.querySelector(
+  const selectCalculo03 = document.querySelector(
     "#SelectCalculo03"
   ) as HTMLInputElement;
-  let select2Calculo03 = document.querySelector(
+  const select2Calculo03 = document.querySelector(
     "#Select2Calculo03"
   ) as HTMLInputElement;
 
-  let inputCalculo04 = document.querySelector(
+  const inputCalculo04 = document.querySelector(
     "#InputCalculo04"
   ) as HTMLInputElement;
-  let selectCalculo04 = document.querySelector(
+  const selectCalculo04 = document.querySelector(
     "#SelectCalculo04"
   ) as HTMLInputElement;
-  let select2Calculo04 = document.querySelector(
+  const select2Calculo04 = document.querySelector(
     "#Select2Calculo04"
   ) as HTMLInputElement;
 
-  let inputMultiplosDireito = document.querySelector(
+  const inputMultiplosDireito = document.querySelector(
     "#InputMultiplosDireito"
   ) as HTMLInputElement;
-  let selectMultiplosDireito = document.querySelector(
+  const selectMultiplosDireito = document.querySelector(
     "#SelectMultiplosDireito"
   ) as HTMLInputElement;
-  let select2MultiplosDireito = document.querySelector(
+  const select2MultiplosDireito = document.querySelector(
     "#Select2MultiplosDireito"
   ) as HTMLInputElement;
 
-  let inputMultiplosEsquerdo = document.querySelector(
+  const inputMultiplosEsquerdo = document.querySelector(
     "#InputMultiplosEsquerdo"
   ) as HTMLInputElement;
-  let selectMultiplosEsquerdo = document.querySelector(
+  const selectMultiplosEsquerdo = document.querySelector(
     "#SelectMultiplosEsquerdo"
   ) as HTMLInputElement;
-  let select2MultiplosEsquerdo = document.querySelector(
+  const select2MultiplosEsquerdo = document.querySelector(
     "#Select2MultiplosEsquerdo"
   ) as HTMLInputElement;
 
-  let inputCalculoUreteral = document.querySelector(
+  const inputCalculoUreteral = document.querySelector(
     "#InputCalculoUreteral"
   ) as HTMLInputElement;
-  let selectCalculoUreteral = document.querySelector(
+  const selectCalculoUreteral = document.querySelector(
     "#SelectCalculoUreteral"
   ) as HTMLInputElement;
-  let select2CalculoUreteral = document.querySelector(
+  const select2CalculoUreteral = document.querySelector(
     "#Select2CalculoUreteral"
   ) as HTMLInputElement;
 
@@ -152,7 +152,7 @@ function Calculos() {
   });
 
   const criaValorCalculo01 = (value) => {
-    let dadoSelect3Calculo01 = value;
+    const dadoSelect3Calculo01 = value;
     const frase =
       "Cálculo 01 com " +
       valueInputCalculo01 +
@@ -175,7 +175,7 @@ function Calculos() {
     select2Calculo01.value = "";
   };
   const criaValorCalculo02 = (value) => {
-    let dadoSelect3Calculo02 = value;
+    const dadoSelect3Calculo02 = value;
     const frase =
       "Cálculo 02 com " +
       valueInputCalculo02 +
@@ -198,7 +198,7 @@ function Calculos() {
     select2Calculo02.value = "";
   };
   const criaValorCalculo03 = (value) => {
-    let dadoSelect3Calculo03 = value;
+    const dadoSelect3Calculo03 = value;
     const frase =
       "Cálculo 03 com " +
       valueInputCalculo03 +
@@ -221,7 +221,7 @@ function Calculos() {
   };
 
   const criaValorCalculo04 = (value) => {
-    let dadoSelect3Calculo04 = value;
+    const dadoSelect3Calculo04 = value;
     const frase =
       "Cálculo 04 com " +
       valueInputCalculo04 +
@@ -243,7 +243,7 @@ function Calculos() {
     select2Calculo04.value = "";
   };
   const criaValorMultiplosDireito = (value) => {
-    let dadoSelect3MultiplosDireito = value;
+    const dadoSelect3MultiplosDireito = value;
     const frase =
       "Multiplos Calculos com " +
       valueInputMultiplosDireito +
@@ -265,7 +265,7 @@ function Calculos() {
     select2MultiplosDireito.value = "";
   };
   const criaValorMultiplosEsquerdo = (value) => {
-    let dadoSelect3MultiplosEsquerdo = value;
+    const dadoSelect3MultiplosEsquerdo = value;
     const frase =
       "Multiplos Calculos com " +
       valueInputMultiplosEsquerdo +
@@ -287,7 +287,7 @@ function Calculos() {
     select2MultiplosEsquerdo.value = "";
   };
   const criaValorCalculoUreteral = (value) => {
-    let dadoSelect3CalculoUreteral = value;
+    const dadoSelect3CalculoUreteral = value;
     const frase =
       "Multiplos Calculos com " +
       valueInputCalculoUreteral +

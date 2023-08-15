@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Select, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { DisableTributariasContext } from "../../../../../context/disableTributariasContext";
@@ -20,7 +20,7 @@ export default function IndividualizarVeias({ numVeia, disable }) {
 
   const criaStringMultiplosVeias = (localizado, MembroVeiasSelect) => {
     removeMultiplosVeias();
-    var string;
+    let string;
     if (TremboflebiteCheckBox) {
       if (MembroVeiasSelect !== "" && localizado !== "") {
         string = `Veia tributária ${numVeia} - na face ${localizado} ${MembroVeiasSelect}, com sinais de Tremboflebite `;
@@ -37,7 +37,7 @@ export default function IndividualizarVeias({ numVeia, disable }) {
   const removeMultiplosVeias = () => {
     frasesVeiasT.map((e) => {
       if (e.includes(`Veia tributária ${numVeia}`)) {
-        var index = frasesVeiasT.indexOf(e);
+        const index = frasesVeiasT.indexOf(e);
 
         if (index > -1) {
           frasesVeiasT.splice(index, 1);

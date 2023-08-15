@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Stack, } from "@chakra-ui/react";
 import { useState } from "react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -9,7 +9,7 @@ function NodulosTesticulares() {
   const altura = "100%";
   const largura = "66%";
 
-  var numberArray = [1, 2];
+  const numberArray = [1, 2];
 
   const [TesticuloSemNodulosCheckBox] = useState(true);
 

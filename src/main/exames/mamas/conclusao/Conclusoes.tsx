@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -25,7 +25,7 @@ function Conclusoes() {
 
 
   const removeItemString = (value) => {
-    var index = FraseConclu.indexOf(value);
+    const index = FraseConclu.indexOf(value);
     if (index > -1) {
       FraseConclu.splice(index, 1);
       setFraseConclu((arr) => [...arr]);

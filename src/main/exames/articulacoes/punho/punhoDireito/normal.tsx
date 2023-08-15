@@ -6,7 +6,7 @@ export function NormalDireito() {
   const altura = "100%";
   const largura = "100%";
 
-  let { setPunhoDireitoLaudoNormal } = useContext(PunhoDireitoNormalContext);
+  const { setPunhoDireitoLaudoNormal } = useContext(PunhoDireitoNormalContext);
 
   const verificaChecked = (value) => {
     value.checked === true

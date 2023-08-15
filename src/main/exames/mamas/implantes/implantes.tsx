@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -30,7 +30,7 @@ function Implantes() {
   const [valueSelectRotura, setValueSelectRotura] = useState("");
 
   const criaStringPresenteSemAlteracoes = () => {
-    let string = `Presente sem alterações`;
+    const string = `Presente sem alterações`;
     if (checkboxPresenteSemAlteracoes) {
       setDisabledCheckboxDobradura(true);
       setDisabledCheckboxRotura(true);
@@ -44,7 +44,7 @@ function Implantes() {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesIMP.indexOf(value);
+    const index = frasesIMP.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesIMP.splice(index, 1);
@@ -57,7 +57,7 @@ function Implantes() {
     if (checkboxDobradura) {
       setDisableSelectDobradura(false);
       if (valueSelectDobradura !== "") {
-        let string = `Dobradura ${valueSelectDobradura}`;
+        const string = `Dobradura ${valueSelectDobradura}`;
         setFrasesIMP((arr) => [...arr, string]);
       }
     } else {
@@ -68,7 +68,7 @@ function Implantes() {
   const removeFraseDobradura = () => {
     frasesIMP.map((e) => {
       if (e.includes("Dobradura")) {
-        let index = frasesIMP.indexOf(e);
+        const index = frasesIMP.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesIMP.splice(index, 1);
@@ -88,7 +88,7 @@ function Implantes() {
       console.log(valueSelectRotura);
       setDisableSelectRotura(false);
       if (valueSelectRotura !== "") {
-        let string = `Rotura ${valueSelectRotura}`;
+        const string = `Rotura ${valueSelectRotura}`;
         setFrasesIMP((arr) => [...arr, string]);
       }
     } else {
@@ -99,7 +99,7 @@ function Implantes() {
   const removeFraseRotura = () => {
     frasesIMP.map((e) => {
       if (e.includes("Rotura ")) {
-        let index = frasesIMP.indexOf(e);
+        const index = frasesIMP.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesIMP.splice(index, 1);

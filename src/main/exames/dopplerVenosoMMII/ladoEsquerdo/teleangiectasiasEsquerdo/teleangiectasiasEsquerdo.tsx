@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -24,7 +24,7 @@ function TeleangiectasiasEsquerdo() {
   const removeNaFace = () => {
     frasesTele.map((e) => {
       if (e.includes("Presença de Teleangiectasias na Face")) {
-        var index = frasesTele.indexOf(e);
+        const index = frasesTele.indexOf(e);
 
         if (index > -1) {
           frasesTele.splice(index, 1);
@@ -36,7 +36,7 @@ function TeleangiectasiasEsquerdo() {
 
   const criaStringNaFace = (NaFaceSelect, NaFaceSelect2) => {
     removeNaFace();
-    var string;
+    let string;
     if (NaFaceSelect != "" && NaFaceSelect2 != "") {
       string = `Presença de Teleangiectasias na Face ${NaFaceSelect} ${NaFaceSelect2} `;
       setFrasesTele((arr) => [...arr, string]);
@@ -46,7 +46,7 @@ function TeleangiectasiasEsquerdo() {
   };
 
   const criaStringDifusas = () => {
-    var string = "Teleangiectasias Difusas ";
+    const string = "Teleangiectasias Difusas ";
     if (DifusasCheckBox) {
       setFrasesTele((arr) => [...arr, string]);
       setDifusasCheckBox(false);
@@ -58,7 +58,7 @@ function TeleangiectasiasEsquerdo() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesTele.indexOf(value);
+    const index = frasesTele.indexOf(value);
 
     if (index > -1) {
       frasesTele.splice(index, 1);

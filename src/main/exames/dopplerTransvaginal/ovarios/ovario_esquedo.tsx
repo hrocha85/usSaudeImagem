@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -67,11 +67,11 @@ function Ovario_Esquerdo() {
 
 
   const criaStringMedidasOvario = () => {
-    var string = 'Medida ovário'
+    let string = 'Medida ovário'
     removeItemSelect(string);
     if (CitarMedidaCheckbox) {
       if (medidaOvario1 != 0 && medidaOvario2 != 0 && medidaOvario3 != 0) {
-        var medida4 = (medidaOvario1 * (medidaOvario2) * (medidaOvario3) / 1000) / 2
+        const medida4 = (medidaOvario1 * (medidaOvario2) * (medidaOvario3) / 1000) / 2
         setmedidaOvario4(medida4)
         string = `${string} ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm (Vol= ${medida4}cm³).`;
         setFrasesOVD((arr) => [...arr, string]);
@@ -87,7 +87,7 @@ function Ovario_Esquerdo() {
   //Funcoes Padrao Folicular - Inicio
   const criaStringPadraoFolicular = () => {
     const conclusao = 'Ovário Esquerdo com padrão folicular'
-    var string = "O parênquima exibe em seu interior múltiplos folículos, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.";
+    const string = "O parênquima exibe em seu interior múltiplos folículos, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.";
     removeItemString(string)
     removeItemConclusao(conclusao)
     if (padraoFolicularCheckbox) {
@@ -107,7 +107,7 @@ function Ovario_Esquerdo() {
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringPadraoMicropolicistico = () => {
     const conclusao = 'Ovário Esquerdo com aspecto micropolicístico.'
-    var string = "O parênquima exibe em seu interior múltiplos folículos, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.";
+    const string = "O parênquima exibe em seu interior múltiplos folículos, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.";
     removeItemString(string)
     removeItemConclusao(conclusao)
     if (padraoMicropolicisticoCheckbox) {
@@ -117,7 +117,7 @@ function Ovario_Esquerdo() {
   };
   const removeItemConclusao = (value) => {
     // console.log("valor remove = ", value);
-    var index = ConclusaoOVD.indexOf(value);
+    const index = ConclusaoOVD.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       ConclusaoOVD.splice(index, 1);
@@ -129,7 +129,7 @@ function Ovario_Esquerdo() {
     // console.log("valor remove = ", value);
     ConclusaoOVD.map((e) => {
       if (e.includes(value)) {
-        var index = ConclusaoOVD.indexOf(e);
+        const index = ConclusaoOVD.indexOf(e);
 
         if (index > -1) {
           ConclusaoOVD.splice(index, 1);
@@ -144,7 +144,7 @@ function Ovario_Esquerdo() {
   const removeItemSelect = (value) => {
     frasesOVD.map((e) => {
       if (e.includes(value)) {
-        var index = frasesOVD.indexOf(e);
+        const index = frasesOVD.indexOf(e);
 
         if (index > -1) {
           frasesOVD.splice(index, 1);
@@ -161,8 +161,8 @@ function Ovario_Esquerdo() {
 
   //Funcoes Cisto - Inicio
   const criaStringCisto = (medida, cisto) => {
-    var string = `O parênquima apresenta imagem arredondada, anecóica de limites precisos e contornos regulares, com finos debrís em seu interior, medindo`;
-    var conclusao = 'Imagem cística sugestiva de'
+    let string = `O parênquima apresenta imagem arredondada, anecóica de limites precisos e contornos regulares, com finos debrís em seu interior, medindo`;
+    let conclusao = 'Imagem cística sugestiva de'
     removeItemSelect(string);
     removeItemConclusaoSelect(conclusao)
     if (cistoCheckbox) {
@@ -187,7 +187,7 @@ function Ovario_Esquerdo() {
 
   //Função Nao Visibilizado
   const criaStringNaoVisibilizado = () => {
-    var string = "Ovário Esquerdo não visibilizado ";
+    const string = "Ovário Esquerdo não visibilizado ";
     removeItemString(string);
     if (naoVisibilizadoCheckbox) {
       setFrasesOVD((arr) => [...arr, string]);
@@ -198,7 +198,7 @@ function Ovario_Esquerdo() {
   }, [naoVisibilizadoCheckbox])
 
   const removeItemString = (value) => {
-    var index = frasesOVD.indexOf(value);
+    const index = frasesOVD.indexOf(value);
 
     if (index > -1) {
       frasesOVD.splice(index, 1);
@@ -209,7 +209,7 @@ function Ovario_Esquerdo() {
   const criaStringArteriaEsquerdaIR = (medida) => {
     removeStringArteriaEsquerdaIR();
     if (MedidaEsquerdaIR !== "") {
-      var string = `Índice de resistência da artéria uterina 
+      const string = `Índice de resistência da artéria uterina 
       Esquerda: ${medida} (normal entre 0,6 e 0,9)`;
       setFrasesOVD((arr) => [...arr, string]);
     }
@@ -220,7 +220,7 @@ function Ovario_Esquerdo() {
         e.includes(`Índice de resistência da artéria uterina 
       Esquerda`)
       ) {
-        var index = frasesOVD.indexOf(e);
+        const index = frasesOVD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesOVD.splice(index, 1);
@@ -237,7 +237,7 @@ function Ovario_Esquerdo() {
   const criaStringArteriaEsquerdaIP = (medida) => {
     removeStringArteriaEsquerdaIP();
     if (MedidaEsquerdaIP !== "") {
-      var string = `Índice de pulsatilidade da artéria uterina 
+      const string = `Índice de pulsatilidade da artéria uterina 
       Esquerda: ${medida} (normal entre 1,5 e 3,0)`;
       setFrasesOVD((arr) => [...arr, string]);
     }
@@ -248,7 +248,7 @@ function Ovario_Esquerdo() {
         e.includes(`Índice de pulsatilidade da artéria uterina 
       Esquerda`)
       ) {
-        var index = frasesOVD.indexOf(e);
+        const index = frasesOVD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesOVD.splice(index, 1);

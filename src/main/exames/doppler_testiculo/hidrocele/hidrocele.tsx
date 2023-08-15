@@ -17,7 +17,7 @@ function Hidrocele() {
     removeStringHidroceleLivre();
 
     if (HidroceleCheckBox && posicaoHidroceleSelect !== "") {
-      var string = `Hidrocele : ${posicaoHidroceleSelect}`;
+      const string = `Hidrocele : ${posicaoHidroceleSelect}`;
       setFrasesHidrocelete((arr) => [...arr, string]);
     }
   };
@@ -25,7 +25,7 @@ function Hidrocele() {
   const removeStringHidroceleLivre = () => {
     frasesHidrocelete.map((e) => {
       if (e.includes("Hidrocele :")) {
-        var index = frasesHidrocelete.indexOf(e);
+        const index = frasesHidrocelete.indexOf(e);
 
         if (index > -1) {
           frasesHidrocelete.splice(index, 1);

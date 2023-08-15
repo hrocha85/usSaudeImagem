@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -25,7 +25,7 @@ function InsuficienciaSafenaMangnaEsquerdo() {
   const removeDesde = () => {
     frasesInsufSafena.map((e) => {
       if (e.includes("Desde")) {
-        var index = frasesInsufSafena.indexOf(e);
+        const index = frasesInsufSafena.indexOf(e);
 
         if (index > -1) {
           frasesInsufSafena.splice(index, 1);
@@ -37,7 +37,7 @@ function InsuficienciaSafenaMangnaEsquerdo() {
 
   const criaStringDesde = (desdeSelect, localizado) => {
     removeDesde();
-    var string;
+    let string;
 
     if (desdeSelect !== "" && localizado !== "") {
       string = `Desde ${desdeSelect} até ${localizado}`;
@@ -48,7 +48,7 @@ function InsuficienciaSafenaMangnaEsquerdo() {
   };
 
   const criaStringEmTodoTrajeto = () => {
-    var string = "Em todo o trajeto ";
+    const string = "Em todo o trajeto ";
     if (emTodoTrajetoCheckBox) {
       setFrasesInsufSafena((arr) => [...arr, string]);
       setEmTodoTrajetoCheckBox(false);
@@ -60,7 +60,7 @@ function InsuficienciaSafenaMangnaEsquerdo() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesInsufSafena.indexOf(value);
+    const index = frasesInsufSafena.indexOf(value);
 
     if (index > -1) {
       frasesInsufSafena.splice(index, 1);

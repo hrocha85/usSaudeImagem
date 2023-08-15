@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -40,7 +40,7 @@ export default function IndividualizarCistosEsquerdo({ numCisto }) {
   const removeCistoFrase = () => {
     FrasesOvarioEsquerdo.map((e) => {
       if (e.includes(`Cisto ${numCisto}:`)) {
-        var index = FrasesOvarioEsquerdo.indexOf(e);
+        const index = FrasesOvarioEsquerdo.indexOf(e);
 
         if (index > -1) {
           FrasesOvarioEsquerdo.splice(index, 1);
@@ -53,7 +53,7 @@ export default function IndividualizarCistosEsquerdo({ numCisto }) {
   const removeCistoConclusao = () => {
     ConclusaoOvarioEsquerdo.map((e) => {
       if (e.includes(`${numCisto}º Cisto Ovário esquerdo:`)) {
-        var index = ConclusaoOvarioEsquerdo.indexOf(e);
+        const index = ConclusaoOvarioEsquerdo.indexOf(e);
 
         if (index > -1) {
           ConclusaoOvarioEsquerdo.splice(index, 1);
@@ -66,8 +66,8 @@ export default function IndividualizarCistosEsquerdo({ numCisto }) {
   };
 
   const criaStringCisto = (medida, cisto) => {
-    var conclusao = ' no ovário Esquerdo.'
-    var SelectConclusao;
+    let conclusao = ' no ovário Esquerdo.'
+    let SelectConclusao;
     removeCistoFrase();
     removeCistoConclusao()
 
@@ -89,7 +89,7 @@ export default function IndividualizarCistosEsquerdo({ numCisto }) {
 
     if (cistoCheckBox) {
       if (medida !== "" && cisto !== "") {
-        var string = `Cisto ${numCisto}: ${cisto}, medindo ${medida} mm `;
+        const string = `Cisto ${numCisto}: ${cisto}, medindo ${medida} mm `;
         conclusao = `${SelectConclusao} ${conclusao}`
         setFrasesOvarioEsquerdo((arr) => [...arr, string]);
         setConclusaoOvarioEsquerdo((arr) => [...arr, conclusao]);

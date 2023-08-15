@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ export default function IndividualizarNodulo({ numCalculo }) {
 
     const criaStringNodulo = () => {
         let string = `Presença do ${numCalculo}º nódulo`
-        var conclusao = 'Imagem sugestiva a presença de nódulo sólido.'
+        const conclusao = 'Imagem sugestiva a presença de nódulo sólido.'
         removeNodulo()
         if (NoduloCheckbox) {
             if (ValueSelectNodulo1 != '' && ValueSelectNodulo2 != '' && ValueSelectNodulo3 != '' && ValueSelectNodulo4 != '' &&
@@ -41,7 +41,7 @@ export default function IndividualizarNodulo({ numCalculo }) {
     const removeNodulo = () => {
         FraseNoduloSolido.map((e) => {
             if (e.includes(`Presença do ${numCalculo}º nódulo`)) {
-                var index = FraseNoduloSolido.indexOf(e);
+                const index = FraseNoduloSolido.indexOf(e);
                 if (index > -1) {
                     FraseNoduloSolido.splice(index, 1);
                     setFraseNoduloSolido((arr) => [...arr]);
@@ -50,7 +50,7 @@ export default function IndividualizarNodulo({ numCalculo }) {
         });
         ConclusoesNoduloSolido.map((e) => {
             if (e.includes("Imagem sugestiva a presença de nódulo sólido.")) {
-                var index = ConclusoesNoduloSolido.indexOf(e);
+                const index = ConclusoesNoduloSolido.indexOf(e);
                 if (index > -1) {
                     ConclusoesNoduloSolido.splice(index, 1);
                     setConclusoesNoduloSolido((arr) => [...arr]);

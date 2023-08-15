@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Button, Center, Checkbox, HStack, Input, Select, Stack, Text, Wrap } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
@@ -54,7 +54,7 @@ function CistosColoides() {
   const removeCistosEsparsos = () => {
     FrasesCistosColoides.map((e) => {
       if (e.includes("FALTA CistosEsparsos")) {
-        var index = FrasesCistosColoides.indexOf(e);
+        const index = FrasesCistosColoides.indexOf(e);
 
         if (index > -1) {
           FrasesCistosColoides.splice(index, 1);

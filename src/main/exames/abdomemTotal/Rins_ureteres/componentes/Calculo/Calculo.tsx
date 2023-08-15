@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Button, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
@@ -55,7 +55,7 @@ export default function Calculo({ Disable }) {
     const removeVarios = () => {
         FraseCalculo.map((e) => {
             if (e.includes("Imagens calculosas bilaterais, medindo até")) {
-                var index = FraseCalculo.indexOf(e);
+                const index = FraseCalculo.indexOf(e);
 
                 if (index > -1) {
                     FraseCalculo.splice(index, 1);
@@ -80,7 +80,7 @@ export default function Calculo({ Disable }) {
 
     const removeItemString = (value) => {
         // console.log("valor remove = ", value);
-        var index = FraseCalculo.indexOf(value);
+        const index = FraseCalculo.indexOf(value);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
             FraseCalculo.splice(index, 1);
@@ -89,7 +89,7 @@ export default function Calculo({ Disable }) {
     };
     const removeItemStringConclusao = (value) => {
         // console.log("valor remove = ", value);
-        var index = ConclusoesCalculo.indexOf(value);
+        const index = ConclusoesCalculo.indexOf(value);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
             ConclusoesCalculo.splice(index, 1);
@@ -98,7 +98,7 @@ export default function Calculo({ Disable }) {
         }
     };
     useEffect(() => {
-        var string = 'Nos seios renais são observados focos hiperecogênicos puntiformes sem sombra acústica definida, podendo corresponder a microcálculos calicinais ou calcificações vasculares.'
+        const string = 'Nos seios renais são observados focos hiperecogênicos puntiformes sem sombra acústica definida, podendo corresponder a microcálculos calicinais ou calcificações vasculares.'
         MicrocalculosCheckbox ? setFraseCalculo((arr) => [...arr, string]) : removeItemString(string)
     }, [MicrocalculosCheckbox])
 

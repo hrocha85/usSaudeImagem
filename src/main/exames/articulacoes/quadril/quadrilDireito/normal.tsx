@@ -6,7 +6,7 @@ export function NormalDireito() {
   const altura = "100%";
   const largura = "100%";
 
-  let { setQuadrilDireitoLaudoNormal } = useContext(
+  const { setQuadrilDireitoLaudoNormal } = useContext(
     QuadrilDireitoNormalContext
   );
 

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -44,7 +44,7 @@ function VentreInfraespinhalDireito({ Disable }) {
 
 
     const criaStringNormal = () => {
-        var string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
+        const string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
         NormalCheckbox ? setFraseVentreInfraespinhalDireito((arr) => [...arr, string]) : removeItemString(string);
     };
     const [Normal, setNormal] = useState(false)
@@ -54,7 +54,7 @@ function VentreInfraespinhalDireito({ Disable }) {
     }, [Disable])
 
     useEffect(() => {
-        var string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
+        const string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
         Normal ? setNormalCheckbox(true) : setNormalCheckbox(false)
     }, [Normal])
 
@@ -64,7 +64,7 @@ function VentreInfraespinhalDireito({ Disable }) {
     }, [NormalCheckbox])
 
     const criaStringSubstituicaoAdiposa = () => {
-        var string = "Há sinais de infiltração adiposa do ventre muscular do infraespinhal.";
+        const string = "Há sinais de infiltração adiposa do ventre muscular do infraespinhal.";
         SubstituicaoAdiposaCheckbox ? setFraseVentreInfraespinhalDireito((arr) => [...arr, string]) : removeItemString(string);
     };
 
@@ -74,7 +74,7 @@ function VentreInfraespinhalDireito({ Disable }) {
 
 
     const removeItemString = (value) => {
-        var index = fraseVentreInfraespinhalDireito.indexOf(value);
+        const index = fraseVentreInfraespinhalDireito.indexOf(value);
         if (index > -1) {
             fraseVentreInfraespinhalDireito.splice(index, 1);
             setFraseVentreInfraespinhalDireito((arr) => [...arr]);

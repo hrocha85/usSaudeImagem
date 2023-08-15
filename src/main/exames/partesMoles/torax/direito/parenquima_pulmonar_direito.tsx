@@ -16,7 +16,7 @@ export default function Parenquima_Pulmonar_Direito({ Disable }) {
   const removeSelectString = () => {
     frasesTorax.map((e) => {
       if (e.includes("Consolidação com broncogramas ")) {
-        var index = frasesTorax.indexOf(e);
+        const index = frasesTorax.indexOf(e);
 
         if (index > -1) {
           frasesTorax.splice(index, 1);
@@ -44,7 +44,7 @@ export default function Parenquima_Pulmonar_Direito({ Disable }) {
   useEffect(() => {
     if (valueSelect != "") {
       removeSelectString();
-      var select = `Consolidação com broncogramas ${valueSelect}`;
+      const select = `Consolidação com broncogramas ${valueSelect}`;
       setFrasesTorax((arr) => [...arr, select]);
     }
   }, [valueSelect]);

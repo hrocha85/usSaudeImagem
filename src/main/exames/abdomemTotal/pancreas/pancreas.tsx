@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -28,7 +27,7 @@ function Pancreas({ Disable }) {
     }
   }, [value]);
   const removeItemConclusao = (value) => {
-    var index = ConclusoesPancreas.indexOf(value);
+    const index = ConclusoesPancreas.indexOf(value);
     if (index > -1) {
       ConclusoesPancreas.splice(index, 1);
       setConclusoesPancreas((arr) => [...arr]);
@@ -53,7 +52,7 @@ function Pancreas({ Disable }) {
 
 
   const criaStringDimensoes = (dadosCabeca, dadosCorpo, dadosCauda) => {
-    var string = 'A espessura pancreática foi mensurada em '
+    let string = 'A espessura pancreática foi mensurada em '
     removeFraseDimensoes()
 
     if (dadosCabeca != '' || dadosCorpo != '' || dadosCorpo != '') {
@@ -73,7 +72,7 @@ function Pancreas({ Disable }) {
   const removeFraseDimensoes = () => {
     frasesPancreas.map((e) => {
       if (e.includes("A espessura pancreática foi mensurada em ")) {
-        var index = frasesPancreas.indexOf(e);
+        const index = frasesPancreas.indexOf(e);
         if (index > -1) {
           frasesPancreas.splice(index, 1);
           setFrasesPancreas((arr) => [...arr]);

@@ -17,7 +17,7 @@ function Orquite() {
     removeStringOrquiteLivre();
 
     if (OrquiteCheckBox && posicaoOrquiteSelect !== "") {
-      var string = `Orquite no local: ${posicaoOrquiteSelect}`;
+      const string = `Orquite no local: ${posicaoOrquiteSelect}`;
       setFrasesOrquite((arr) => [...arr, string]);
     }
   };
@@ -25,7 +25,7 @@ function Orquite() {
   const removeStringOrquiteLivre = () => {
     frasesOrquite.map((e) => {
       if (e.includes("Orquite no local")) {
-        var index = frasesOrquite.indexOf(e);
+        const index = frasesOrquite.indexOf(e);
 
         if (index > -1) {
           frasesOrquite.splice(index, 1);

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import {
   Box,
@@ -45,9 +45,9 @@ function Colecao({ Disable }) {
       medida2Colecao !== "" &&
       medida3Colecao !== ""
     ) {
-      var soma = (parseFloat(medida1Colecao.replace(",", ".")) + parseFloat(medida2Colecao.replace(",", ".")) + parseFloat(medida3Colecao.replace(",", ".")))
-      let conclusao = `Coleção líquida com volume estimado em ${soma} ml.`
-      let string = `Presença de coleção bem delimitada medindo ${medida1Colecao} x ${medida2Colecao} x ${medida3Colecao} cm (volume estimado em ${soma} ml), contendo ${planoColecaoSelect}.`;
+      const soma = (parseFloat(medida1Colecao.replace(",", ".")) + parseFloat(medida2Colecao.replace(",", ".")) + parseFloat(medida3Colecao.replace(",", ".")))
+      const conclusao = `Coleção líquida com volume estimado em ${soma} ml.`
+      const string = `Presença de coleção bem delimitada medindo ${medida1Colecao} x ${medida2Colecao} x ${medida3Colecao} cm (volume estimado em ${soma} ml), contendo ${planoColecaoSelect}.`;
       setVolume(soma)
       setFrasesColecao((arr) => [...arr, string]);
       setConclusaoColecao((arr) => [...arr, conclusao]);
@@ -57,7 +57,7 @@ function Colecao({ Disable }) {
   const removeLocalColecao = () => {
     frasesColecao.map((e) => {
       if (e.includes("Presença de coleção bem delimitada medindo ")) {
-        let index = frasesColecao.indexOf(e);
+        const index = frasesColecao.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesColecao.splice(index, 1);
@@ -70,7 +70,7 @@ function Colecao({ Disable }) {
   const removeConclusao = () => {
     ConclusaoColecao.map((e) => {
       if (e.includes("Coleção líquida com volume estimado em ")) {
-        let index = ConclusaoColecao.indexOf(e);
+        const index = ConclusaoColecao.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           ConclusaoColecao.splice(index, 1);

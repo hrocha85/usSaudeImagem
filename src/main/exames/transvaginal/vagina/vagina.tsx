@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
@@ -19,7 +19,7 @@ function Vagina({ Disable }) {
 
 
   const removeItemString = (value) => {
-    var index = FraseVagina.indexOf(value);
+    const index = FraseVagina.indexOf(value);
     if (index > -1) {
       FraseVagina.splice(index, 1);
       setFraseVagina((arr) => [...arr]);

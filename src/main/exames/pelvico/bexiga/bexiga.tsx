@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
@@ -29,7 +29,7 @@ function Bexiga({ Disable }) {
   const [DisableParedes, setDisableParedes] = useState(true)
 
   const removeItemString = (value) => {
-    var index = FraseBexiga.indexOf(value);
+    const index = FraseBexiga.indexOf(value);
     if (index > -1) {
       FraseBexiga.splice(index, 1);
       setFraseBexiga((arr) => [...arr]);
@@ -38,7 +38,7 @@ function Bexiga({ Disable }) {
 
 
   useEffect(() => {
-    var string = `${StringParedes} de paredes normo-espessas.`
+    const string = `${StringParedes} de paredes normo-espessas.`
     if (NormoEspessasCheckbox) {
       setFraseBexiga((arr) => [...arr, string]);
       setDisableEspessadas(true)
@@ -49,7 +49,7 @@ function Bexiga({ Disable }) {
   }, [NormoEspessasCheckbox])
 
   useEffect(() => {
-    var string = `${StringParedes} de paredes espessadas.`
+    const string = `${StringParedes} de paredes espessadas.`
     if (EspessadasCheckbox) {
       setFraseBexiga((arr) => [...arr, string]);
       setDisableNormoEspessadas(true)

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -75,12 +75,12 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
 
   const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm) => {
     removeRoturaParcial();
-    var medida1 = new Convert_Medida(medida1cm).Convert_Medida()
-    var medida2 = new Convert_Medida(medida2cm).Convert_Medida()
-    var medida3 = new Convert_Medida(medida3cm).Convert_Medida()
+    const medida1 = new Convert_Medida(medida1cm).Convert_Medida()
+    const medida2 = new Convert_Medida(medida2cm).Convert_Medida()
+    const medida3 = new Convert_Medida(medida3cm).Convert_Medida()
 
     if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "") {
-      var string = `Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} cm`;
+      const string = `Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} cm`;
       setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]);
     }
   };
@@ -88,7 +88,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
   const removeRoturaParcial = () => {
     fraseTendaoCabecaLongaBicepsDireito.map((e) => {
       if (e.includes("Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo")) {
-        var index = fraseTendaoCabecaLongaBicepsDireito.indexOf(e);
+        const index = fraseTendaoCabecaLongaBicepsDireito.indexOf(e);
 
         if (index > -1) {
           fraseTendaoCabecaLongaBicepsDireito.splice(index, 1);
@@ -99,7 +99,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    const string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox ? setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]) : removeItemString(string);
   };
   const [Normal, setNormal] = useState(false)
@@ -109,7 +109,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    const string = "com ecotextura e espessura preservadas e contornos normais.";
     Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
   }, [Normal])
 
@@ -120,7 +120,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
 
 
   const criaStringPequenasCalcificacoes = () => {
-    var string = "Há pequenas calcificações junto à inserção do subescapular.";
+    const string = "Há pequenas calcificações junto à inserção do subescapular.";
     if (PequenasCalcificacoesCheckbox) {
       setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]);
     } else {
@@ -134,7 +134,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
 
   const criaStringTendinopatiaSemRotura = () => {
     removeFraseTendinopatiaSemRotura()
-    var string = 'Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, sem evidências de rotura. '
+    let string = 'Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, sem evidências de rotura. '
     if (TendinopatiaSemRoturaCheckbox) {
 
       if (LiquidoPeritendineoCheckbox) {
@@ -155,7 +155,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
   const removeFraseTendinopatiaSemRotura = () => {
     fraseTendaoCabecaLongaBicepsDireito.map((e) => {
       if (e.includes("Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, sem evidências de rotura.")) {
-        var index = fraseTendaoCabecaLongaBicepsDireito.indexOf(e);
+        const index = fraseTendaoCabecaLongaBicepsDireito.indexOf(e);
 
         if (index > -1) {
           fraseTendaoCabecaLongaBicepsDireito.splice(index, 1);
@@ -168,9 +168,9 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
   const criaStringRoturaCompleta = (dadosCm, medidaRetracaoCm) => {
     const conclusao = 'Tendinopatia da cabeça longa do bíceps, com sinais de rotura completa.'
     removeFraseRoturaCompleta()
-    var string;
-    var dados = new Convert_Medida(dadosCm).Convert_Medida()
-    var medidaRetracao = new Convert_Medida(medidaRetracaoCm).Convert_Medida()
+    let string;
+    const dados = new Convert_Medida(dadosCm).Convert_Medida()
+    const medidaRetracao = new Convert_Medida(medidaRetracaoCm).Convert_Medida()
     if (dadosCm !== '' && medidaRetracaoCm !== '') {
       string = `Tendão da cabeça longa do bíceps hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} cm de intervalo e ${medidaRetracao} cm de retração. Ausência de líquido na bainha.`;
       setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]);
@@ -189,7 +189,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
   const removeFraseRoturaCompleta = () => {
     fraseTendaoCabecaLongaBicepsDireito.map((e) => {
       if (e.includes("Tendão da cabeça longa do bíceps hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ")) {
-        var index = fraseTendaoCabecaLongaBicepsDireito.indexOf(e);
+        const index = fraseTendaoCabecaLongaBicepsDireito.indexOf(e);
 
         if (index > -1) {
           fraseTendaoCabecaLongaBicepsDireito.splice(index, 1);
@@ -199,7 +199,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
     });
     ConclusaoTendaoCabecaLongaBicepsDireito.map((e) => {
       if (e.includes("Tendinopatia da cabeça longa do bíceps, com sinais de rotura completa.")) {
-        var index = ConclusaoTendaoCabecaLongaBicepsDireito.indexOf(e);
+        const index = ConclusaoTendaoCabecaLongaBicepsDireito.indexOf(e);
 
         if (index > -1) {
           ConclusaoTendaoCabecaLongaBicepsDireito.splice(index, 1);
@@ -233,7 +233,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
 
 
   const criaStringRoturaLongitudinal = () => {
-    var string = "Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, apresentando imagem linear hipoecogênica longitudinal.";
+    const string = "Tendão da cabeça longa do bíceps espessado, com alteração ecotextural, apresentando imagem linear hipoecogênica longitudinal.";
     RoturaLongitudinalCheckbox ? setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr, string]) : removeItemString(string);
 
   };
@@ -242,8 +242,8 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
   }, [RoturaLongitudinalCheckbox])
 
   const criaStringLuxacao = (select) => {
-    var string;
-    var conclusao;
+    let string;
+    let conclusao;
     removeFraseLuxacao();
     if (LuxacaoCheckbox) {
       if (select !== '') {
@@ -259,7 +259,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
   const removeFraseLuxacao = () => {
     fraseTendaoCabecaLongaBicepsDireito.map((e) => {
       if (e.includes("Tendão da cabeça longa do bíceps não caracterizado no sulco bicipital, apresentando-se luxado")) {
-        var index = fraseTendaoCabecaLongaBicepsDireito.indexOf(e);
+        const index = fraseTendaoCabecaLongaBicepsDireito.indexOf(e);
 
         if (index > -1) {
           fraseTendaoCabecaLongaBicepsDireito.splice(index, 1);
@@ -269,7 +269,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
     });
     ConclusaoTendaoCabecaLongaBicepsDireito.map((e) => {
       if (e.includes("do tendão da cabeça longa do bíceps")) {
-        var index = ConclusaoTendaoCabecaLongaBicepsDireito.indexOf(e);
+        const index = ConclusaoTendaoCabecaLongaBicepsDireito.indexOf(e);
 
         if (index > -1) {
           ConclusaoTendaoCabecaLongaBicepsDireito.splice(index, 1);
@@ -293,7 +293,7 @@ function TendaoCabeçaLongaBicepsDireito({ Disable }) {
   }, [SelectLuxacao, LuxacaoCheckbox])
 
   const removeItemString = (value) => {
-    var index = fraseTendaoCabecaLongaBicepsDireito.indexOf(value);
+    const index = fraseTendaoCabecaLongaBicepsDireito.indexOf(value);
     if (index > -1) {
       fraseTendaoCabecaLongaBicepsDireito.splice(index, 1);
       setFraseTendaoCabecaLongaBicepsDireito((arr) => [...arr]);

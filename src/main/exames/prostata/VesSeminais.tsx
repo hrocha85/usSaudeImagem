@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -22,7 +22,7 @@ function VesSeminais() {
   const [VesiculaCheckBox, setVesiculaCheckBox] = useState(false);
 
   const removeItemString = (value) => {
-    var index = frasesProstata.indexOf(value);
+    const index = frasesProstata.indexOf(value);
 
     if (index > -1) {
       frasesProstata.splice(index, 1);
@@ -33,7 +33,7 @@ function VesSeminais() {
 
 
   useEffect(() => {
-    var string =
+    const string =
       "Vesícula Seminais: Bem individualizadas, com curso, configuração, diâmetros e ecotextura compatíveis com o normal.";
     VesiculaCheckBox ? setFrasesProstata((arr) => [...arr, string]) : removeItemString(string);
 
