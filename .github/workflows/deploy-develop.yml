@@ -13,13 +13,24 @@ jobs:
     - name: Checkout the files
       uses: actions/checkou@v3
 
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm Install
+
+    - name: Build React App
+      run: npm run build
+
     - name: Copy files with SSH
       uses: easingthemes/ssh-deploy@develop
       env:
-        SSH_PRIVATE_KEY: ${{secrets.REMOTE_HOST}}
+        SSH_PRIVATE_KEY: ${{secrets.EC2_SSH_KEY}}
         ARGS: "-rltgoDzv0 --delete"
         SOURCE: "./"
-        REMOTE_HOST: ${{secrets.REMOTE_HOST}}
-        REMOTE_USER: ${{secrets.REMOTE_USER}}
-        TARGET: "/home/ec2-user"
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        TARGET: ${{ secrets.TARGET_DIR }}
         EXCLUDE: "/dist/, /node_modules/, **.env, rebuild_app.sh, watcher.sh"
