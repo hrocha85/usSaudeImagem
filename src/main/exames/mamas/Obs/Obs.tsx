@@ -1,12 +1,14 @@
 /* eslint-disable array-callback-return */
 
-import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 
 function Obs() {
   const altura = "100%";
-  const largura = "350px";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "57.5%": largura = "100%"
 
   const [items, setItems] = useState<{ id: string; values: string[] }>({
     id: 'Mamas',

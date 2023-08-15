@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
 
-import { Box, Checkbox, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Microcalcificacoes() {
   const altura = "100%";
-  const largura = "500px";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "57.5%": largura = "100%"
 
   const [FraseMicrocalcificacoes, setFraseMicrocalcificacoes] = useState<any>([]);
   const [PresencaMicrocalcificacoesCheckbox, setPresencaMicrocalcificacoesCheckbox] = useState(false);
