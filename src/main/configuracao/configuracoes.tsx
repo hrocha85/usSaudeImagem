@@ -773,10 +773,8 @@ const Configuracoes = () => {
 
 
 
-
-          <Box w={'30%'}>
-            <Box h={'3.4rem'}>
-
+          <Box>
+            <Box  h={'3.4rem'} w={'30rem'}>
 
               <Stack direction="row" justifyContent={'center'}>
                 <Text
