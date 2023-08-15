@@ -8,7 +8,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import BGImage from "../images/bg_img.png";
 
 function Login() {
   const [medicoString, setmedicoString] = useState<any>();
