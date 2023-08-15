@@ -47,7 +47,7 @@
   },
   "scripts": {
     "start:web": "react-scripts start",
-    "build:web": "react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron:package:win": "npm run build:web && electron-builder -w -c.extraMetadata.main=build/electron.js",
