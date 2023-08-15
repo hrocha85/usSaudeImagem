@@ -91,7 +91,7 @@ function Doppler() {
   }, [DescreverDoppler]);
 
   const subExame = "Doppler";
-  lettitulo_exame = "Testículo com doppler";
+  const titulo_exame = "Testículo com doppler";
 
   useEffect(() => {
     if (Object.keys(FrasesDoppler).length == 0) {

@@ -101,7 +101,7 @@ function DopplerParenquima() {
   }, [DescreverDoppler]);
 
   const subExame = "Doppler Parênquima";
-  lettitulo_exame = "Tireóide com doppler";
+  const titulo_exame = "Tireóide com doppler";
 
   useEffect(() => {
     if (Object.keys(FrasesDopplerParenquima).length == 0) {
