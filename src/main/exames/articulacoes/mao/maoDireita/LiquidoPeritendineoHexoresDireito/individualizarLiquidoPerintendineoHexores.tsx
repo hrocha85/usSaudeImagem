@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -37,7 +37,7 @@ export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo, 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
     removeStringConclusao();
-    var string;
+    let string;
     const conclusao = `Líquido peritendíneo junto aos flexores do ${numCalculo} dedo.`;
     if (multiplosCalculosCheckbox) {
       string = `Dedo ${numCalculo} com presença de líquido adjacente aos tendões `;
@@ -49,7 +49,7 @@ export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo, 
   const removeStringConclusao = () => {
     ConclusaoLiquidoPerintendineoHexoresDireito.map((e) => {
       if (e.includes(`${numCalculo}`)) {
-        var index = ConclusaoLiquidoPerintendineoHexoresDireito.indexOf(e);
+        const index = ConclusaoLiquidoPerintendineoHexoresDireito.indexOf(e);
         if (index > -1) {
           ConclusaoLiquidoPerintendineoHexoresDireito.splice(index, 1);
           setConclusaoLiquidoPerintendineoHexoresDireito((arr) => [...arr]);
@@ -62,7 +62,7 @@ export default function IndividualizarLiquidoPerintendineoHexores({ numCalculo, 
   const removeMultiplosCalculos = () => {
     fraseLiquidoPerintendineoHexoresDireito.map((e) => {
       if (e.includes(`Dedo ${numCalculo}`)) {
-        var index = fraseLiquidoPerintendineoHexoresDireito.indexOf(e);
+        const index = fraseLiquidoPerintendineoHexoresDireito.indexOf(e);
 
         if (index > -1) {
           fraseLiquidoPerintendineoHexoresDireito.splice(index, 1);

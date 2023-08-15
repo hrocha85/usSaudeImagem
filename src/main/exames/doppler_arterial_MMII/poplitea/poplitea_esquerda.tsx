@@ -14,14 +14,14 @@ function Poplitea_Esquerda() {
   const [EstenoseCheckBox, setEstenoseCheckBox] = useState(false);
 
   const criaStringFluxoAusente = () => {
-    var string = "Poplítea esquerda fluxo ausente ";
+    const string = "Poplítea esquerda fluxo ausente ";
     setFrasesPopliteaEsquerda((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
     frasesPopliteaEsquerda.map((e) => {
       if (e.includes("Poplítea esquerda fluxo ausente ")) {
-        var index = frasesPopliteaEsquerda.indexOf(e);
+        const index = frasesPopliteaEsquerda.indexOf(e);
 
         if (index > -1) {
           frasesPopliteaEsquerda.splice(index, 1);
@@ -32,14 +32,14 @@ function Poplitea_Esquerda() {
   };
 
   const criaStringPosEstenotico = () => {
-    var string = "Pós estenótico poplítea esquerda ";
+    const string = "Pós estenótico poplítea esquerda ";
     setFrasesPopliteaEsquerda((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
     frasesPopliteaEsquerda.map((e) => {
       if (e.includes("Pós estenótico poplítea esquerda ")) {
-        var index = frasesPopliteaEsquerda.indexOf(e);
+        const index = frasesPopliteaEsquerda.indexOf(e);
 
         if (index > -1) {
           frasesPopliteaEsquerda.splice(index, 1);
@@ -50,14 +50,14 @@ function Poplitea_Esquerda() {
   };
 
   const criaStringEstenose = () => {
-    var string = "Estenose poplítea esquerda acima de 50% ";
+    const string = "Estenose poplítea esquerda acima de 50% ";
     setFrasesPopliteaEsquerda((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
     frasesPopliteaEsquerda.map((e) => {
       if (e.includes("Estenose poplítea esquerda acima de 50% ")) {
-        var index = frasesPopliteaEsquerda.indexOf(e);
+        const index = frasesPopliteaEsquerda.indexOf(e);
 
         if (index > -1) {
           frasesPopliteaEsquerda.splice(index, 1);

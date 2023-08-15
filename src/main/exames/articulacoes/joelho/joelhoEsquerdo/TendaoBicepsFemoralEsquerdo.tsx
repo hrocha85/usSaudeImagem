@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -52,7 +52,7 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
     const criaStringLesaoParcial = (medida1, medida2, medida3) => {
         removeLesaoParcial();
         if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
-            var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
+            const string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
             setTendaoBicepsFemoralEsquerdo((arr) => [...arr, string]);
         }
     };
@@ -60,7 +60,7 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
     const removeLesaoParcial = () => {
         TendaoBicepsFemoralEsquerdo.map((e) => {
             if (e.includes("Espessado, com alteração ecotextural,")) {
-                var index = TendaoBicepsFemoralEsquerdo.indexOf(e);
+                const index = TendaoBicepsFemoralEsquerdo.indexOf(e);
 
                 if (index > -1) {
                     TendaoBicepsFemoralEsquerdo.splice(index, 1);
@@ -71,7 +71,7 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
     };
 
     const criaStringAspectoNormal = () => {
-        var string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
+        const string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
         AspectoNormalCheckbox ? setTendaoBicepsFemoralEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
     const [Normal, setNormal] = useState(false)
@@ -81,7 +81,7 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
     }, [Disable])
 
     useEffect(() => {
-        var string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
+        const string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
         Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
     }, [Normal])
 
@@ -92,7 +92,7 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
 
     const criaStringConclusao = () => {
         removeItemStringConclusao()
-        var conclusao = 'Tendinopatia do bíceps femoral'
+        let conclusao = 'Tendinopatia do bíceps femoral'
         if (TendinopatiaSemRoturaCheckbox && (LesaoParcialInput !== '' && LesaoParcialInput2 !== '' && LesaoParcialInput3 !== '')) {
             conclusao = `${conclusao} com lesão parcial.`
         } else if (TendinopatiaSemRoturaCheckbox) {
@@ -108,7 +108,7 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
     const removeItemStringConclusao = () => {
         ConclusaoTendaoBicepsFemoralEsquerdo.map((e) => {
             if (e.includes("Tendinopatia do bíceps femoral")) {
-                var index = ConclusaoTendaoBicepsFemoralEsquerdo.indexOf(e);
+                const index = ConclusaoTendaoBicepsFemoralEsquerdo.indexOf(e);
 
                 if (index > -1) {
                     ConclusaoTendaoBicepsFemoralEsquerdo.splice(index, 1);
@@ -120,7 +120,7 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
     };
 
     const criaStringTendinopatiaSemRotura = () => {
-        var string = "Tendão do bíceps femoral espessado, com alteração ecotextural, sem evidências de rotura.";
+        const string = "Tendão do bíceps femoral espessado, com alteração ecotextural, sem evidências de rotura.";
 
         if (TendinopatiaSemRoturaCheckbox) {
             setTendaoBicepsFemoralEsquerdo((arr) => [...arr, string])
@@ -133,7 +133,7 @@ function TendaoBicepsFemoralEsquerdo({ Disable }) {
     }, [TendinopatiaSemRoturaCheckbox])
 
     const removeItemString = (value) => {
-        var index = TendaoBicepsFemoralEsquerdo.indexOf(value);
+        const index = TendaoBicepsFemoralEsquerdo.indexOf(value);
         if (index > -1) {
             TendaoBicepsFemoralEsquerdo.splice(index, 1);
             setTendaoBicepsFemoralEsquerdo((arr) => [...arr]);

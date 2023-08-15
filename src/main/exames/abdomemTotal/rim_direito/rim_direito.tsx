@@ -7,17 +7,17 @@ function RimDireito() {
   const altura = "100%";
   const largura = "66%";
 
-  let selectAusente = document.querySelector(
+  const selectAusente = document.querySelector(
     "#SelectAusente"
   ) as HTMLInputElement;
 
-  let inputPrimeiraMedida = document.querySelector(
+  const inputPrimeiraMedida = document.querySelector(
     "#InputPrimeiraMedida"
   ) as HTMLInputElement;
-  let inputSegundaMedida = document.querySelector(
+  const inputSegundaMedida = document.querySelector(
     "#InputSegundaMedida"
   ) as HTMLInputElement;
-  let inputParenquima = document.querySelector(
+  const inputParenquima = document.querySelector(
     "#InputParenquima"
   ) as HTMLInputElement;
 
@@ -48,7 +48,7 @@ function RimDireito() {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesRimDireito.indexOf(value);
+    const index = frasesRimDireito.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesRimDireito.splice(index, 1);
@@ -59,7 +59,7 @@ function RimDireito() {
   };
 
   const CriaStringMedidas = (value) => {
-    let dadoInputParenquima = value;
+    const dadoInputParenquima = value;
     const valorInput =
       "Rim Direito com " +
       valueInput1Medida +

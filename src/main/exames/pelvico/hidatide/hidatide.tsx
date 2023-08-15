@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -45,9 +45,9 @@ function Hidatide({ Disable }) {
 
   const criaStringHidatide = () => {
     removeStringHidatide();
-    var conclusao = 'Cisto anexial'
+    let conclusao = 'Cisto anexial'
     if (hidatideCheckBox && posicaoHidatideSelect !== "" && tamanhoHidatideInput !== "") {
-      var string = `Nota-se imagem em região anexial ${posicaoHidatideSelect} anecóica, arredondada, de limites precisos e contornos regulares, medindo ${tamanhoHidatideInput} mm. `;
+      const string = `Nota-se imagem em região anexial ${posicaoHidatideSelect} anecóica, arredondada, de limites precisos e contornos regulares, medindo ${tamanhoHidatideInput} mm. `;
       conclusao = `${conclusao} ${posicaoHidatideSelect} podendo corresponder a hidátide de Morgani.`;
       setFrasesHidatide((arr) => [...arr, string]);
       setConclusaoHidatide((arr) => [...arr, conclusao]);
@@ -57,7 +57,7 @@ function Hidatide({ Disable }) {
   const removeStringHidatide = () => {
     frasesHidatide.map((e) => {
       if (e.includes("Nota-se imagem em região anexial ")) {
-        var index = frasesHidatide.indexOf(e);
+        const index = frasesHidatide.indexOf(e);
 
         if (index > -1) {
           frasesHidatide.splice(index, 1);
@@ -67,7 +67,7 @@ function Hidatide({ Disable }) {
     });
     ConclusaoHidatide.map((e) => {
       if (e.includes("Cisto anexial")) {
-        var index = ConclusaoHidatide.indexOf(e);
+        const index = ConclusaoHidatide.indexOf(e);
 
         if (index > -1) {
           ConclusaoHidatide.splice(index, 1);

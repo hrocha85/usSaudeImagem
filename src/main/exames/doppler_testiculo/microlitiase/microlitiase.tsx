@@ -18,7 +18,7 @@ function Microlitiase() {
     removeStringMicrolitiaseLivre();
 
     if (MicrolitiaseCheckBox && posicaoMicrolitiaseSelect !== "") {
-      var string = `Microlitíase no local: ${posicaoMicrolitiaseSelect}`;
+      const string = `Microlitíase no local: ${posicaoMicrolitiaseSelect}`;
       setFrasesMicrolitiase((arr) => [...arr, string]);
     }
   };
@@ -26,7 +26,7 @@ function Microlitiase() {
   const removeStringMicrolitiaseLivre = () => {
     frasesMicrolitiase.map((e) => {
       if (e.includes("Microlitíase no local")) {
-        var index = frasesMicrolitiase.indexOf(e);
+        const index = frasesMicrolitiase.indexOf(e);
 
         if (index > -1) {
           frasesMicrolitiase.splice(index, 1);

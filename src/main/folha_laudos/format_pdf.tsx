@@ -16,7 +16,7 @@ export default function Format_PDF() {
 
   const getUserClinica = () => {
     if (localStorage.getItem("user") != null) {
-      var clinica = JSON.parse(localStorage.getItem("user")!);
+      letclinica = JSON.parse(localStorage.getItem("user")!);
     }
     return clinica.clinica;
   };
@@ -45,13 +45,13 @@ export default function Format_PDF() {
 
   const getUserMedico = () => {
     if (localStorage.getItem("user") != null) {
-      var medico = JSON.parse(localStorage.getItem("user")!);
+      letmedico = JSON.parse(localStorage.getItem("user")!);
     }
     return medico.medico;
   };
 
   const renderFrases = (exame) => {
-    var arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
+    const arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
 
     arrayLocal.map((e) => {
       setTitulo_Exame(e.titulo_exame);

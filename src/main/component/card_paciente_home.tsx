@@ -21,7 +21,7 @@ import CreatableSelect from "react-select/creatable";
 import Medicos_Solicitantes from "../../Data/Medicos_Solicitantes.json";
 
 const CardPaciente = () => {
-  let { enableExames, setEnableExames } = useContext(EnableExamesContext);
+  const { enableExames, setEnableExames } = useContext(EnableExamesContext);
 
   const toast = useToast();
 
@@ -33,8 +33,8 @@ const CardPaciente = () => {
   const [isDisable, setisDisable] = useState(true);
 
   const getMedicos = () => {
-    var medicos;
-    var item;
+    let medicos;
+    let item;
     if (localStorage.getItem("medicos") != null) {
       item = localStorage.getItem("medicos");
       medicos = JSON.parse(item);
@@ -42,10 +42,10 @@ const CardPaciente = () => {
     return medicos;
   };
 
-  var lista_medico = getMedicos();
+  let lista_medico = getMedicos();
 
   const getPaciente = () => {
-    var paciente = JSON.parse(localStorage.getItem("paciente")!);
+    const paciente = JSON.parse(localStorage.getItem("paciente")!);
     if (paciente != null) {
       setNomePaciente(paciente.nome);
       setIdadePaciente(paciente.idadePaciente);
@@ -87,7 +87,7 @@ const CardPaciente = () => {
   };
 
   const addMedicosSolicitantes = () => {
-    let medicos_solicitantes =
+    const medicos_solicitantes =
       JSON.parse(localStorage.getItem("medicos_solicitantes")!) || [];
 
     const index = medicos_solicitantes.findIndex((medico) => {

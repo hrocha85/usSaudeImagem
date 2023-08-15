@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -18,7 +18,7 @@ function Veias_Superficiais_Refluxo_Esquerdo() {
   const removeString = (string) => {
     frasesMedidasE.map((e) => {
       if (e.includes("Veia safena magna direita insuficiente desde")) {
-        let index = frasesMedidasE.indexOf(e);
+        const index = frasesMedidasE.indexOf(e);
         if (index > -1) {
           frasesMedidasE.splice(index, 1);
           setFrasesMedidasE((arr) => [...arr]);
@@ -354,7 +354,7 @@ function Veias_Superficiais_Refluxo_Esquerdo() {
             h="40px"
             w="50px"
             borderRadius="md"
-            
+
           />
           <Select
             borderColor="black"
@@ -438,7 +438,7 @@ function Veias_Superficiais_Refluxo_Esquerdo() {
             h="40px"
             w="50px"
             borderRadius="md"
-            
+
           />
           <Select
             borderColor="black"

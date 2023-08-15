@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -37,7 +37,7 @@ export default function IndividualizarTenossinoviteExtensores({ numCalculo, Disa
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
-    var string;
+    let string;
     if (EspessamentoSinovialCheckbox && EspassamentoTendineoCheckbox) {
       string = `Dedo ${numCalculo} com espessamento dos tendões e da bainha sinovial.`;
       setTenossinoviteExtensoresDireito((arr) => [...arr, string]);
@@ -51,7 +51,7 @@ export default function IndividualizarTenossinoviteExtensores({ numCalculo, Disa
   const removeMultiplosCalculos = () => {
     TenossinoviteExtensoresDireito.map((e) => {
       if (e.includes(`Dedo ${numCalculo}`)) {
-        var index = TenossinoviteExtensoresDireito.indexOf(e);
+        const index = TenossinoviteExtensoresDireito.indexOf(e);
 
         if (index > -1) {
           TenossinoviteExtensoresDireito.splice(index, 1);

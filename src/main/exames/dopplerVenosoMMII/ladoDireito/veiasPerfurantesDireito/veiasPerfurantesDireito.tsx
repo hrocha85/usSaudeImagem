@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Stack } from "@chakra-ui/react";
 import { useState } from "react";
 import TituloNomeExame from "../../../../component/titulo_nome_exame";
@@ -9,7 +9,7 @@ function VeiasPerfurantesDireito() {
   const altura = "100%";
   const largura = "95%";
 
-  var numberArray = [1, 2, 3, 4];
+  const numberArray = [1, 2, 3, 4];
 
   const [
     VeiasPerfurantesSemNodulosCheckBox,

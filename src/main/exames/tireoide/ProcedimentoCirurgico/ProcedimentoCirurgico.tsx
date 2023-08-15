@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -36,7 +36,7 @@ function Procedimentos() {
     const removeProcedimentos = () => {
         FraseProcedimentos.map((e) => {
             if (e.includes("FALTA Punção aspiratica")) {
-                var index = FraseProcedimentos.indexOf(e);
+                const index = FraseProcedimentos.indexOf(e);
 
                 if (index > -1) {
                     FraseProcedimentos.splice(index, 1);

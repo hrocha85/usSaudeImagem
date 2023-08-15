@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -48,7 +48,7 @@ function NervoMedianoDireito({ Disable }) {
 
 
     const criaStringEspessuraNormal = () => {
-        var string = "Nervo mediano de espessura, contornos e ecotextura normais";
+        let string = "Nervo mediano de espessura, contornos e ecotextura normais";
         removeFraseEspessuraNormal()
         if (EspessuraNormalCheckbox && AreaSeccionalInput !== '') {
             string = `${string}, com área seccional de ${AreaSeccionalInput} mm² (normal até 10 mm²). `
@@ -60,7 +60,7 @@ function NervoMedianoDireito({ Disable }) {
     const removeFraseEspessuraNormal = () => {
         fraseNervoMedianoDireito.map((e) => {
             if (e.includes("Nervo mediano de espessura, contornos e ecotextura normais")) {
-                var index = fraseNervoMedianoDireito.indexOf(e);
+                const index = fraseNervoMedianoDireito.indexOf(e);
                 if (index > -1) {
                     fraseNervoMedianoDireito.splice(index, 1);
                     setFraseNervoMedianoDireito((arr) => [...arr]);
@@ -84,7 +84,7 @@ function NervoMedianoDireito({ Disable }) {
     }, [EspessuraNormalCheckbox])
 
     const criaStringNervoMedianoBifido = (select) => {
-        var string = `Nota-se bifidez do nervo mediano (variação anatômica)`
+        let string = `Nota-se bifidez do nervo mediano (variação anatômica)`
         removeFraseNervoMedianoBifino()
         if (NervoMedianoBifidoCheckbox) {
             if (select !== '') {
@@ -101,7 +101,7 @@ function NervoMedianoDireito({ Disable }) {
     const removeFraseNervoMedianoBifino = () => {
         fraseNervoMedianoDireito.map((e) => {
             if (e.includes("Nota-se bifidez do nervo mediano (variação anatômica)")) {
-                var index = fraseNervoMedianoDireito.indexOf(e);
+                const index = fraseNervoMedianoDireito.indexOf(e);
                 if (index > -1) {
                     fraseNervoMedianoDireito.splice(index, 1);
                     setFraseNervoMedianoDireito((arr) => [...arr]);
@@ -119,7 +119,7 @@ function NervoMedianoDireito({ Disable }) {
     }, [SelectNervoMedianoBifido, NervoMedianoBifidoCheckbox])
 
     const criaStringEspessuraAumentada = () => {
-        var string = "Nervo mediano espessado e heterogêneo";
+        let string = "Nervo mediano espessado e heterogêneo";
         removeFraseEspessuraAumentada()
         if (EspessuraAumentadaCheckbox && AreaSeccionalInput !== '') {
             string = `${string}, com área seccional de ${AreaSeccionalInput} mm² (normal até 10 mm²). `
@@ -132,7 +132,7 @@ function NervoMedianoDireito({ Disable }) {
     const removeFraseEspessuraAumentada = () => {
         fraseNervoMedianoDireito.map((e) => {
             if (e.includes("Nervo mediano espessado e heterogêneo")) {
-                var index = fraseNervoMedianoDireito.indexOf(e);
+                const index = fraseNervoMedianoDireito.indexOf(e);
                 if (index > -1) {
                     fraseNervoMedianoDireito.splice(index, 1);
                     setFraseNervoMedianoDireito((arr) => [...arr]);

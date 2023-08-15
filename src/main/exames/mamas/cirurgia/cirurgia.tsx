@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -36,7 +36,7 @@ function Cirurgia() {
     if (checkboxCirurgiaMastectomia) {
       setDisableSelectCirurgiaMastectomia(false);
       if (valueSelectCirurgiaMastectomia !== "") {
-        let string = `Mastectomia ${valueSelectCirurgiaMastectomia}`;
+        const string = `Mastectomia ${valueSelectCirurgiaMastectomia}`;
         setFrasesCirurgia((arr) => [...arr, string]);
       }
     } else {
@@ -47,7 +47,7 @@ function Cirurgia() {
   const removeFraseCirurgiaMastectomia = () => {
     frasesCirurgia.map((e) => {
       if (e.includes("Mastectomia")) {
-        let index = frasesCirurgia.indexOf(e);
+        const index = frasesCirurgia.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCirurgia.splice(index, 1);
@@ -66,7 +66,7 @@ function Cirurgia() {
     if (checkboxCirurgiaQuadrantectomia) {
       setDisableSelectCirurgiaQuadrantectomia(false);
       if (valueSelectCirurgiaQuadrantectomia !== "") {
-        let string = `Quadrantectomia  ${valueSelectCirurgiaQuadrantectomia}`;
+        const string = `Quadrantectomia  ${valueSelectCirurgiaQuadrantectomia}`;
         setFrasesCirurgia((arr) => [...arr, string]);
       }
     } else {
@@ -77,7 +77,7 @@ function Cirurgia() {
   const removeFraseCirurgiaQuadrantectomia = () => {
     frasesCirurgia.map((e) => {
       if (e.includes("Quadrantectomia ")) {
-        let index = frasesCirurgia.indexOf(e);
+        const index = frasesCirurgia.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCirurgia.splice(index, 1);

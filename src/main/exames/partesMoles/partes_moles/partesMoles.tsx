@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import {
   Box,
@@ -149,7 +149,7 @@ function Partes_Moles() {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesPartesMoles.indexOf(value);
+    const index = frasesPartesMoles.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesPartesMoles.splice(index, 1);
@@ -160,7 +160,7 @@ function Partes_Moles() {
   const criaStringLocalNormal = (local) => {
     removeLocalNormal();
     if (local !== "") {
-      let string = `Normal local ${local} `;
+      const string = `Normal local ${local} `;
       setFrasesPartesMoles((arr) => [...arr, string]);
     }
   };
@@ -168,7 +168,7 @@ function Partes_Moles() {
   const criaStringLocalLipoma = (local) => {
     removeLocalLipoma();
     if (local !== "") {
-      let string = `Lipoma local ${local} `;
+      const string = `Lipoma local ${local} `;
       setFrasesPartesMoles((arr) => [...arr, string]);
     }
   };
@@ -183,14 +183,14 @@ function Partes_Moles() {
   ) => {
     removeLocalNodulo();
     if (local !== "") {
-      let string = `Nódulo localizado no ${local}, com ecogenicidade ${ecogenicidade}, no plano ${plano},
+      const string = `Nódulo localizado no ${local}, com ecogenicidade ${ecogenicidade}, no plano ${plano},
       medindo ${medida1} x ${medida2} x ${medida3} mm`;
       setFrasesPartesMoles((arr) => [...arr, string]);
     }
   };
 
   const criaStringCheckBoxLinfonodo = (value) => {
-    var string = ", com características ecográficas de linfonodo.";
+    const string = ", com características ecográficas de linfonodo.";
     if (value.checked === true) {
       setFrasesPartesMoles((arr) => [...arr, string]);
     } else {
@@ -209,7 +209,7 @@ function Partes_Moles() {
       medida2Lipoma1 !== "" &&
       medida3Lipoma1 !== ""
     ) {
-      let string = `Lipoma 1 mede ${medida1Lipoma1}x${medida2Lipoma1}x${medida3Lipoma1}mm`;
+      const string = `Lipoma 1 mede ${medida1Lipoma1}x${medida2Lipoma1}x${medida3Lipoma1}mm`;
       setFrasesPartesMoles((arr) => [...arr, string]);
     }
   };
@@ -224,7 +224,7 @@ function Partes_Moles() {
       medida2Lipoma2 !== "" &&
       medida3Lipoma2 !== ""
     ) {
-      let string = `Lipoma 2 mede ${medida1Lipoma2}x${medida2Lipoma2}x${medida3Lipoma2}mm`;
+      const string = `Lipoma 2 mede ${medida1Lipoma2}x${medida2Lipoma2}x${medida3Lipoma2}mm`;
       setFrasesPartesMoles((arr) => [...arr, string]);
     }
   };
@@ -239,7 +239,7 @@ function Partes_Moles() {
       medida2Lipoma3 !== "" &&
       medida3Lipoma3 !== ""
     ) {
-      let string = `Lipoma 3 mede ${medida1Lipoma3}x${medida2Lipoma3}x${medida3Lipoma3}mm`;
+      const string = `Lipoma 3 mede ${medida1Lipoma3}x${medida2Lipoma3}x${medida3Lipoma3}mm`;
       setFrasesPartesMoles((arr) => [...arr, string]);
     }
   };
@@ -255,7 +255,7 @@ function Partes_Moles() {
       medida2Lipoma4 !== "" &&
       medida3Lipoma4 !== ""
     ) {
-      let string = `Lipoma 4 mede ${medida1Lipoma4}x${medida2Lipoma4}x${medida3Lipoma4}mm`;
+      const string = `Lipoma 4 mede ${medida1Lipoma4}x${medida2Lipoma4}x${medida3Lipoma4}mm`;
       setFrasesPartesMoles((arr) => [...arr, string]);
     }
   };
@@ -270,14 +270,14 @@ function Partes_Moles() {
       medida2MultiplosLipomas !== "" &&
       medida3MultiplosLipomas !== ""
     ) {
-      let string = `Multiplos Lipomas o maior mede ${medida1MultiplosLipomas}x${medida2MultiplosLipomas}x${medida3MultiplosLipomas}mm`;
+      const string = `Multiplos Lipomas o maior mede ${medida1MultiplosLipomas}x${medida2MultiplosLipomas}x${medida3MultiplosLipomas}mm`;
       setFrasesPartesMoles((arr) => [...arr, string]);
     }
   };
   const removeLocalNormal = () => {
     frasesPartesMoles.map((e) => {
       if (e.includes("Normal local")) {
-        let index = frasesPartesMoles.indexOf(e);
+        const index = frasesPartesMoles.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesPartesMoles.splice(index, 1);
@@ -289,7 +289,7 @@ function Partes_Moles() {
   const removeLocalLipoma = () => {
     frasesPartesMoles.map((e) => {
       if (e.includes("Lipoma local")) {
-        let index = frasesPartesMoles.indexOf(e);
+        const index = frasesPartesMoles.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesPartesMoles.splice(index, 1);
@@ -301,7 +301,7 @@ function Partes_Moles() {
   const removeLocalNodulo = () => {
     frasesPartesMoles.map((e) => {
       if (e.includes("Nódulo localizado no ")) {
-        let index = frasesPartesMoles.indexOf(e);
+        const index = frasesPartesMoles.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesPartesMoles.splice(index, 1);
@@ -313,7 +313,7 @@ function Partes_Moles() {
   const removeLipoma1 = () => {
     frasesPartesMoles.map((e) => {
       if (e.includes("Lipoma 1")) {
-        let index = frasesPartesMoles.indexOf(e);
+        const index = frasesPartesMoles.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesPartesMoles.splice(index, 1);
@@ -325,7 +325,7 @@ function Partes_Moles() {
   const removeLipoma2 = () => {
     frasesPartesMoles.map((e) => {
       if (e.includes("Lipoma 2")) {
-        let index = frasesPartesMoles.indexOf(e);
+        const index = frasesPartesMoles.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesPartesMoles.splice(index, 1);
@@ -337,7 +337,7 @@ function Partes_Moles() {
   const removeLipoma3 = () => {
     frasesPartesMoles.map((e) => {
       if (e.includes("Lipoma 3")) {
-        let index = frasesPartesMoles.indexOf(e);
+        const index = frasesPartesMoles.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesPartesMoles.splice(index, 1);
@@ -349,7 +349,7 @@ function Partes_Moles() {
   const removeLipoma4 = () => {
     frasesPartesMoles.map((e) => {
       if (e.includes("Lipoma 4")) {
-        let index = frasesPartesMoles.indexOf(e);
+        const index = frasesPartesMoles.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesPartesMoles.splice(index, 1);
@@ -361,7 +361,7 @@ function Partes_Moles() {
   const removeMultiplosLipomas = () => {
     frasesPartesMoles.map((e) => {
       if (e.includes("Multiplos Lipomas ")) {
-        let index = frasesPartesMoles.indexOf(e);
+        const index = frasesPartesMoles.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesPartesMoles.splice(index, 1);
@@ -509,7 +509,7 @@ function Partes_Moles() {
               h="30px"
               value={medida1Lipoma1}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida1Lipoma1(e.target.value);
@@ -522,7 +522,7 @@ function Partes_Moles() {
               h="30px"
               value={medida2Lipoma1}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida2Lipoma1(e.target.value);
@@ -535,7 +535,7 @@ function Partes_Moles() {
               h="30px"
               value={medida3Lipoma1}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida3Lipoma1(e.target.value);
@@ -554,7 +554,7 @@ function Partes_Moles() {
               h="30px"
               value={medida1Lipoma2}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida1Lipoma2(e.target.value);
@@ -567,7 +567,7 @@ function Partes_Moles() {
               h="30px"
               value={medida2Lipoma2}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida2Lipoma2(e.target.value);
@@ -580,7 +580,7 @@ function Partes_Moles() {
               h="30px"
               value={medida3Lipoma2}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida3Lipoma2(e.target.value);
@@ -599,7 +599,7 @@ function Partes_Moles() {
               h="30px"
               value={medida1Lipoma3}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida1Lipoma3(e.target.value);
@@ -612,7 +612,7 @@ function Partes_Moles() {
               h="30px"
               value={medida2Lipoma3}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida2Lipoma3(e.target.value);
@@ -625,7 +625,7 @@ function Partes_Moles() {
               h="30px"
               value={medida3Lipoma3}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida3Lipoma3(e.target.value);
@@ -644,7 +644,7 @@ function Partes_Moles() {
               h="30px"
               value={medida1Lipoma4}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida1Lipoma4(e.target.value);
@@ -657,7 +657,7 @@ function Partes_Moles() {
               h="30px"
               value={medida2Lipoma4}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida2Lipoma4(e.target.value);
@@ -670,7 +670,7 @@ function Partes_Moles() {
               h="30px"
               value={medida3Lipoma4}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida3Lipoma4(e.target.value);
@@ -693,7 +693,7 @@ function Partes_Moles() {
               h="30px"
               value={medida1LipomaMultiplos}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida1LipomaMultiplos(e.target.value);
@@ -706,7 +706,7 @@ function Partes_Moles() {
               h="30px"
               value={medida2LipomaMultiplos}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida2LipomaMultiplos(e.target.value);
@@ -719,7 +719,7 @@ function Partes_Moles() {
               h="30px"
               value={medida3LipomaMultiplos}
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setMedida3LipomaMultiplos(e.target.value);
@@ -790,7 +790,7 @@ function Partes_Moles() {
                 h="30px"
                 value={medida1Nodulo}
                 padding="5px"
-                
+
                 textAlign="center"
                 onChange={(e) => {
                   setMedida1Nodulo(e.target.value);
@@ -803,7 +803,7 @@ function Partes_Moles() {
                 h="30px"
                 value={medida2Nodulo}
                 padding="5px"
-                
+
                 textAlign="center"
                 onChange={(e) => {
                   setMedida2Nodulo(e.target.value);
@@ -816,7 +816,7 @@ function Partes_Moles() {
                 h="30px"
                 value={medida3Nodulo}
                 padding="5px"
-                
+
                 textAlign="center"
                 onChange={(e) => {
                   setMedida3Nodulo(e.target.value);

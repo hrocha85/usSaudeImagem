@@ -7,26 +7,26 @@ function Medidas() {
   const altura = "100%";
   const largura = "66%";
 
-  let inputPrimeiraMedidaLoboDireito = document.querySelector(
+  const inputPrimeiraMedidaLoboDireito = document.querySelector(
     "#InputPrimeiraMedidaLoboDireito"
   ) as HTMLInputElement;
-  let inputSegundaMedidaLoboDireito = document.querySelector(
+  const inputSegundaMedidaLoboDireito = document.querySelector(
     "#InputSegundaMedidaLoboDireito"
   ) as HTMLInputElement;
-  let inputTerceiraMedidaLoboDireito = document.querySelector(
+  const inputTerceiraMedidaLoboDireito = document.querySelector(
     "#InputTerceiraMedidaLoboDireito"
   ) as HTMLInputElement;
 
-  let inputPrimeiraMedidaLoboEsquerdo = document.querySelector(
+  const inputPrimeiraMedidaLoboEsquerdo = document.querySelector(
     "#InputPrimeiraMedidaLoboEsquerdo"
   ) as HTMLInputElement;
-  let inputSegundaMedidaLoboEsquerdo = document.querySelector(
+  const inputSegundaMedidaLoboEsquerdo = document.querySelector(
     "#InputSegundaMedidaLoboEsquerdo"
   ) as HTMLInputElement;
-  let inputTerceiraMedidaLoboEsquerdo = document.querySelector(
+  const inputTerceiraMedidaLoboEsquerdo = document.querySelector(
     "#InputTerceiraMedidaLoboEsquerdo"
   ) as HTMLInputElement;
-  let inputIstmo = document.querySelector("#InputIstmo") as HTMLInputElement;
+  const inputIstmo = document.querySelector("#InputIstmo") as HTMLInputElement;
 
   const [frasesMedidas, setFrasesMedidas] = useState<any>([]);
 
@@ -52,7 +52,7 @@ function Medidas() {
   });
 
   const CriaStringMedidaLoboDireito = (value) => {
-    let dadoInputTerceiraMedidaLoboDireito = value;
+    const dadoInputTerceiraMedidaLoboDireito = value;
     const valorInput =
       "Lobo Direito com " +
       valueInput1Medida +
@@ -77,7 +77,7 @@ function Medidas() {
   };
 
   const CriaStringMedidaLoboEsquerdo = (value) => {
-    let dadoInputTerceiraMedidaLoboEsquerdo = value;
+    const dadoInputTerceiraMedidaLoboEsquerdo = value;
     const valorInput =
       "Lobo Esquerdo com " +
       valueInput1Medida +
@@ -102,7 +102,7 @@ function Medidas() {
   };
 
   const pegaValorInputIstmo = (value) => {
-    let dadoInputIstmo = value;
+    const dadoInputIstmo = value;
     const valorInput = "Istmo com " + dadoInputIstmo + "mm ";
     setFrasesMedidas((arr) => [...arr, valorInput]);
     setValueFraseIstmo(valorInput);

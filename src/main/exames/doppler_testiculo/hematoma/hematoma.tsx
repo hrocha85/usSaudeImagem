@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -25,7 +25,7 @@ function Hematoma() {
       tamanhoHematomaInput !== "" &&
       tamanho2HematomaInput !== ""
     ) {
-      var string = `Hematoma lado ${posicaoHematomaSelect} medindo ${tamanhoHematomaInput}x${tamanho2HematomaInput} mm `;
+      const string = `Hematoma lado ${posicaoHematomaSelect} medindo ${tamanhoHematomaInput}x${tamanho2HematomaInput} mm `;
       setFrasesHematoma((arr) => [...arr, string]);
     }
   };
@@ -33,7 +33,7 @@ function Hematoma() {
   const removeStringHematoma = () => {
     frasesHematoma.map((e) => {
       if (e.includes("Hematoma")) {
-        var index = frasesHematoma.indexOf(e);
+        const index = frasesHematoma.indexOf(e);
 
         if (index > -1) {
           frasesHematoma.splice(index, 1);
@@ -61,7 +61,7 @@ function Hematoma() {
     tamanho2HematomaInput,
   ]);
 
-const subExame = "Hematoma";
+  const subExame = "Hematoma";
   const titulo_exame = "Doppler Testículo";
 
 
@@ -128,7 +128,7 @@ const subExame = "Hematoma";
               w="60px"
               h="77x"
               padding="5px"
-              
+
               textAlign="center"
               placeholder={"mm"}
               value={tamanhoHematomaInput}
@@ -140,7 +140,7 @@ const subExame = "Hematoma";
               w="60px"
               h="77x"
               padding="5px"
-              
+
               textAlign="center"
               placeholder={"mm"}
               value={tamanho2HematomaInput}

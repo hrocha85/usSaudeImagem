@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
@@ -34,7 +34,7 @@ function Aorta({ Disable }) {
     const [DisableCitarVPSCheckbox, setDisableCitarVPSCheckbox] = useState(true);
 
     const removeSelectString = () => {
-        var index;
+        let index;
         FraseAorta.map((e) => {
             if (e.includes("Aneurisma")) {
                 index = FraseAorta.indexOf(e);
@@ -54,7 +54,7 @@ function Aorta({ Disable }) {
         });
     };
     const removeConclusaoString = () => {
-        var index;
+        let index;
         ConclusoesAorta.map((e) => {
             if (e.includes("Aneurisma aórtico.")) {
                 index = ConclusoesAorta.indexOf(e);
@@ -75,9 +75,9 @@ function Aorta({ Disable }) {
             setEnableSelects(true);
         } else if (value.includes("Aorta ateromatosa e ectasiada")) {
             setDisableCitarCalibreCheckbox(false)
-            var string;
+            let string;
             if (valueInputCitarCalibre != '') {
-                var medida = new Convert_Medida(valueInputCitarCalibre).Convert_Medida()
+                const medida = new Convert_Medida(valueInputCitarCalibre).Convert_Medida()
                 string = `Aorta com paredes hiperecogênicas e irregulares, com calibre transverso máximo ${medida} cm nos segmentos acessíveis.`
                 setFraseAorta([]);
                 setFraseAorta((arr) => [...arr, string]);
@@ -106,7 +106,7 @@ function Aorta({ Disable }) {
         const conclusao = 'Aneurisma aórtico.'
         removeSelectString()
         removeConclusaoString()
-        var select;
+        let select;
         if (valueInput1 != '' && valueInput2 != '' && valueInput1 != '' && valueInput2 != '' && TromboPerietalCheckbox) {
             select = `Aorta com paredes irregulares, apresentando dilatação aneurismática ${valueSelect1} ${valueSelect2} com calibre máximo de  ${valueInput1} cm e extensão de ${valueInput2} cm, com trombo parietal.`;
             setFraseAorta((arr) => [...arr, select]);
@@ -128,7 +128,7 @@ function Aorta({ Disable }) {
     }, [CitarCalibreCheckbox])
 
     const criaStringCitarFluxo = () => {
-        var string = 'A avaliação da aorta com Doppler demonstra fluxo de padrão trifásico normal e velocidades preservadas'
+        let string = 'A avaliação da aorta com Doppler demonstra fluxo de padrão trifásico normal e velocidades preservadas'
         removeFraseCitarFluxo()
         const medida = new Convert_Medida(valueInputVPS).Convert_Medida()
         if (valueInputVPS != '' && CitarFluxoCheckbox) {
@@ -143,7 +143,7 @@ function Aorta({ Disable }) {
     const removeFraseCitarFluxo = () => {
         FraseAorta.map((e) => {
             if (e.includes("A avaliação da aorta com Doppler demonstra fluxo de padrão trifásico normal e velocidades preservadas")) {
-                var index = FraseAorta.indexOf(e);
+                const index = FraseAorta.indexOf(e);
                 if (index > -1) {
                     FraseAorta.splice(index, 1);
                     setFraseAorta((arr) => [...arr]);
@@ -222,7 +222,7 @@ function Aorta({ Disable }) {
                             <Radio value={'De diâmetro preservado. \n Paredes aórticas com espessura e a ecogenicidade normais, regulares.'}>
                                 Aorta Normal
                             </Radio>
-                            <Radio  value="Presença de adenopatia para aórtica ou ao redor dos demais grandes vasos abdominais.">
+                            <Radio value="Presença de adenopatia para aórtica ou ao redor dos demais grandes vasos abdominais.">
                                 Aorta Alterada
                             </Radio>
                             <Radio value="Aorta com paredes hiperecogênicas e discretamente irregulares, conservando calibre normal.">

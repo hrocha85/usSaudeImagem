@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -43,7 +43,7 @@ function BolsaOlecreaneanaEsquerdo({ Disable }) {
 
 
     const criaStringComLiquidoEspessado = () => {
-        var string = "Pequena quantidade de líquido no interior da bolsa sinovial subcutânea do olécrano, associada a espessamento parietal.";
+        const string = "Pequena quantidade de líquido no interior da bolsa sinovial subcutânea do olécrano, associada a espessamento parietal.";
         const conclusao = 'Bursite olecraniana.'
         if (ComLiquidoEspessadoCheckbox) {
             setFraseBolsaOlecreaneanaEsquerdo((arr) => [...arr, string])
@@ -58,7 +58,7 @@ function BolsaOlecreaneanaEsquerdo({ Disable }) {
         criaStringComLiquidoEspessado()
     }, [ComLiquidoEspessadoCheckbox])
     const removeItemConclusao = (value) => {
-        var index = ConclusaoBolsaOlecreaneanaEsquerdo.indexOf(value);
+        const index = ConclusaoBolsaOlecreaneanaEsquerdo.indexOf(value);
         if (index > -1) {
             ConclusaoBolsaOlecreaneanaEsquerdo.splice(index, 1);
             setConclusaoBolsaOlecreaneanaEsquerdo((arr) => [...arr]);
@@ -67,7 +67,7 @@ function BolsaOlecreaneanaEsquerdo({ Disable }) {
     };
 
     const removeItemString = (value) => {
-        var index = fraseBolsaOlecreaneanaEsquerdo.indexOf(value);
+        const index = fraseBolsaOlecreaneanaEsquerdo.indexOf(value);
         if (index > -1) {
             fraseBolsaOlecreaneanaEsquerdo.splice(index, 1);
             setFraseBolsaOlecreaneanaEsquerdo((arr) => [...arr]);

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -31,7 +31,7 @@ function EcotexturaParenquima({ Disable }) {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = FrasesECO.indexOf(value);
+    const index = FrasesECO.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       FrasesECO.splice(index, 1);
@@ -42,7 +42,7 @@ function EcotexturaParenquima({ Disable }) {
   const removeConclusao = (value) => {
     ConclusaoECO.map((e) => {
       if (e.includes(value)) {
-        var index = ConclusaoECO.indexOf(e);
+        const index = ConclusaoECO.indexOf(e);
 
         if (index > -1) {
           ConclusaoECO.splice(index, 1);

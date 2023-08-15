@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -22,7 +22,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
   ) => {
     removeMultiplosNodulos();
     if (tamanhoNoduloInput !== "" && NoduloSelect !== "" && localizado !== "") {
-      var string = `Nódulo Testícular ${numNodulo}: mede ${tamanhoNoduloInput} mm, conteúdo ${conteudoNoduloselect}, localizado no ${NoduloSelect}, do  ${localizado} `;
+      const string = `Nódulo Testícular ${numNodulo}: mede ${tamanhoNoduloInput} mm, conteúdo ${conteudoNoduloselect}, localizado no ${NoduloSelect}, do  ${localizado} `;
       setFrasesNodulos((arr) => [...arr, string]);
     }
   };
@@ -30,7 +30,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
   const removeMultiplosNodulos = () => {
     frasesNodulos.map((e) => {
       if (e.includes(`Nódulo Testícular ${numNodulo}`)) {
-        var index = frasesNodulos.indexOf(e);
+        const index = frasesNodulos.indexOf(e);
 
         if (index > -1) {
           frasesNodulos.splice(index, 1);
@@ -120,7 +120,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
           w="60px"
           h="77x"
           padding="5px"
-          
+
           textAlign="center"
           onChange={(e) => settamanhoNoduloInput(e.target.value)}
           placeholder={"mm"}

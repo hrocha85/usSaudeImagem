@@ -14,14 +14,14 @@ function Tibial_Posterior_Esquerda() {
   const [EstenoseCheckBox, setEstenoseCheckBox] = useState(false);
 
   const criaStringFluxoAusente = () => {
-    var string = "Tibial posterior esquerda fluxo ausente ";
+    const string = "Tibial posterior esquerda fluxo ausente ";
     setFrasesTibialPEsquerda((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
     frasesTibialPEsquerda.map((e) => {
       if (e.includes("Tibial posterior esquerda fluxo ausente ")) {
-        var index = frasesTibialPEsquerda.indexOf(e);
+        const index = frasesTibialPEsquerda.indexOf(e);
 
         if (index > -1) {
           frasesTibialPEsquerda.splice(index, 1);
@@ -32,14 +32,14 @@ function Tibial_Posterior_Esquerda() {
   };
 
   const criaStringPosEstenotico = () => {
-    var string = "Pós estenótico tibial posterior esquerda ";
+    const string = "Pós estenótico tibial posterior esquerda ";
     setFrasesTibialPEsquerda((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
     frasesTibialPEsquerda.map((e) => {
       if (e.includes("Pós estenótico tibial posterior esquerda ")) {
-        var index = frasesTibialPEsquerda.indexOf(e);
+        const index = frasesTibialPEsquerda.indexOf(e);
 
         if (index > -1) {
           frasesTibialPEsquerda.splice(index, 1);
@@ -50,14 +50,14 @@ function Tibial_Posterior_Esquerda() {
   };
 
   const criaStringEstenose = () => {
-    var string = "Estenose tibial posterior esquerda acima de 50% ";
+    const string = "Estenose tibial posterior esquerda acima de 50% ";
     setFrasesTibialPEsquerda((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
     frasesTibialPEsquerda.map((e) => {
       if (e.includes("Estenose tibial posterior esquerda acima de 50% ")) {
-        var index = frasesTibialPEsquerda.indexOf(e);
+        const index = frasesTibialPEsquerda.indexOf(e);
 
         if (index > -1) {
           frasesTibialPEsquerda.splice(index, 1);

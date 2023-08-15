@@ -33,7 +33,7 @@ function Baco({ Disable }) {
   const [DisableCalcificacaoInput, setDisableCalcificacaoInput] = useState(true)
 
   const removeSelectString = () => {
-    var index;
+    let index;
     frasesBaco.map((e) => {
       if (e.includes("ecotextura")) {
         index = frasesBaco.indexOf(e);
@@ -80,7 +80,7 @@ function Baco({ Disable }) {
     const conclusao = 'Esplenomegalia.'
     if (valueSelect != "") {
       removeSelectString();
-      var select = ` ${valueSelect}`;
+      const select = ` ${valueSelect}`;
       setFrasesBaco((arr) => [...arr, select]);
       setConclusoesBaco((arr) => [...arr, conclusao]);
     } else {
@@ -89,7 +89,7 @@ function Baco({ Disable }) {
   }, [valueSelect]);
 
   const criaStringBacoAcessorio = (dados1, dados2) => {
-    var string = 'Presença de baço acessório (variação anatômica) medindo'
+    let string = 'Presença de baço acessório (variação anatômica) medindo'
     removeFraseBacoAcessorio()
     if (dados1 != '' && dados2 != '') {
       string = `${string} ${dados1} x ${dados2} cm.`
@@ -100,7 +100,7 @@ function Baco({ Disable }) {
   const removeFraseBacoAcessorio = () => {
     frasesBaco.map((e) => {
       if (e.includes("Presença de baço acessório (variação anatômica) medindo")) {
-        var index = frasesBaco.indexOf(e);
+        const index = frasesBaco.indexOf(e);
         if (index > -1) {
           frasesBaco.splice(index, 1);
           setFrasesBaco((arr) => [...arr]);
@@ -123,7 +123,7 @@ function Baco({ Disable }) {
   }, [BacoAcessorioCheckbox, BacoAcessorioInput1, BacoAcessorioInput2])
 
   const criaStringCalcificacao = (dados1) => {
-    var string = 'Nota-se calcificação parenquimatosa medindo'
+    let string = 'Nota-se calcificação parenquimatosa medindo'
     removeFraseCalcificacao()
     if (dados1 != '') {
       string = `${string} ${dados1} cm, de provável natureza sequelar.`
@@ -134,7 +134,7 @@ function Baco({ Disable }) {
   const removeFraseCalcificacao = () => {
     frasesBaco.map((e) => {
       if (e.includes("Nota-se calcificação parenquimatosa medindo")) {
-        var index = frasesBaco.indexOf(e);
+        const index = frasesBaco.indexOf(e);
         if (index > -1) {
           frasesBaco.splice(index, 1);
           setFrasesBaco((arr) => [...arr]);
@@ -157,7 +157,7 @@ function Baco({ Disable }) {
 
   const removeItemConclusao = (value) => {
 
-    var index = ConclusoesBaco.indexOf(value);
+    const index = ConclusoesBaco.indexOf(value);
 
     if (index > -1) {
       ConclusoesBaco.splice(index, 1);
@@ -170,7 +170,7 @@ function Baco({ Disable }) {
 
 
   const criaStringDimensoes = (dados1, dados2) => {
-    var string = 'Mede'
+    let string = 'Mede'
     removeFraseDimensoes()
     if (dados1 != '' && dados2 != '' && CitarIndiceCheckbox) {
       string = `${string} ${dados1} x ${dados2} cm em seu maior e menor eixo (índice esplênico uniplanar).`
@@ -186,7 +186,7 @@ function Baco({ Disable }) {
   const removeFraseDimensoes = () => {
     frasesBaco.map((e) => {
       if (e.includes("Mede")) {
-        var index = frasesBaco.indexOf(e);
+        const index = frasesBaco.indexOf(e);
         if (index > -1) {
           frasesBaco.splice(index, 1);
           setFrasesBaco((arr) => [...arr]);

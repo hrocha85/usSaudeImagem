@@ -6,7 +6,7 @@ export function NormalEsquerdo() {
   const altura = "100%";
   const largura = "100%";
 
-  let { setQuadrilEsquerdoLaudoNormal } = useContext(
+  const { setQuadrilEsquerdoLaudoNormal } = useContext(
     QuadrilEsquerdoNormalContext
   );
 

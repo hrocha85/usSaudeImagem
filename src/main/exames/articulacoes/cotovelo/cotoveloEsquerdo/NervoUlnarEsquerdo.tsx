@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -48,7 +48,7 @@ function NervoUlnarEsquerdo({ Disable }) {
     const [SofreLuxacaoCheckbox, setSofreLuxacaoCheckbox] = useState(false);
 
     const criaStringEspessuraNormal = () => {
-        var string = "Nervo ulnar de espessura, contornos e ecotextura normais.";
+        const string = "Nervo ulnar de espessura, contornos e ecotextura normais.";
         EspessuraNormalCheckbox ? setFraseNervoUlnarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
     const [Normal, setNormal] = useState(false)
@@ -58,7 +58,7 @@ function NervoUlnarEsquerdo({ Disable }) {
     }, [Disable])
 
     useEffect(() => {
-        var string = "Nervo ulnar de espessura, contornos e ecotextura normais.";
+        const string = "Nervo ulnar de espessura, contornos e ecotextura normais.";
         Normal ? setEspessuraNormalCheckbox(true) : setEspessuraNormalCheckbox(false)
     }, [Normal])
 
@@ -68,7 +68,7 @@ function NervoUlnarEsquerdo({ Disable }) {
     }, [EspessuraNormalCheckbox])
 
     const criaStringSofreSubluxacao = () => {
-        var string = "Observa-se subluxação do nervo ulnar durante a manobra de flexão do cotovelo.";
+        const string = "Observa-se subluxação do nervo ulnar durante a manobra de flexão do cotovelo.";
         SofreSubluxacaoCheckbox ? setFraseNervoUlnarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
@@ -77,7 +77,7 @@ function NervoUlnarEsquerdo({ Disable }) {
     }, [SofreSubluxacaoCheckbox])
 
     const criaStringSofreLuxacao = () => {
-        var string = "Observa-se luxação do nervo ulnar durante a manobra de flexão do cotovelo.";
+        const string = "Observa-se luxação do nervo ulnar durante a manobra de flexão do cotovelo.";
         SofreLuxacaoCheckbox ? setFraseNervoUlnarEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
@@ -96,7 +96,7 @@ function NervoUlnarEsquerdo({ Disable }) {
 
 
     const criaStringEspessuraAumentada = () => {
-        var string = "Nervo ulnar espessado e heterogêneo";
+        let string = "Nervo ulnar espessado e heterogêneo";
 
         removeFraseAreaSeccional()
         if (AreaSeccionalInput !== '') {
@@ -114,7 +114,7 @@ function NervoUlnarEsquerdo({ Disable }) {
     const removeFraseAreaSeccional = () => {
         fraseNervoUlnarEsquerdo.map((e) => {
             if (e.includes("Nervo ulnar espessado e heterogêneo")) {
-                var index = fraseNervoUlnarEsquerdo.indexOf(e);
+                const index = fraseNervoUlnarEsquerdo.indexOf(e);
                 if (index > -1) {
                     fraseNervoUlnarEsquerdo.splice(index, 1);
                     setFraseNervoUlnarEsquerdo((arr) => [...arr]);
@@ -124,7 +124,7 @@ function NervoUlnarEsquerdo({ Disable }) {
     };
 
     const criaStringConclusao = () => {
-        var conclusao;
+        let conclusao;
         removeFraseConclusaoEspessamento()
         if (EspessuraAumentadaCheckbox && (SofreSubluxacaoCheckbox || SofreLuxacaoCheckbox)) {
             conclusao = 'Luxação do nervo ulnar, com espessamento do nervo.'
@@ -142,7 +142,7 @@ function NervoUlnarEsquerdo({ Disable }) {
     const removeFraseConclusaoEspessamento = () => {
         ConclusaoNervoUlnarEsquerdo.map((e) => {
             if (e.includes(" do nervo")) {
-                var index = ConclusaoNervoUlnarEsquerdo.indexOf(e);
+                const index = ConclusaoNervoUlnarEsquerdo.indexOf(e);
                 if (index > -1) {
                     ConclusaoNervoUlnarEsquerdo.splice(index, 1);
                     setConclusaoNervoUlnarEsquerdo((arr) => [...arr]);
@@ -153,7 +153,7 @@ function NervoUlnarEsquerdo({ Disable }) {
     };
 
     const removeItemString = (value) => {
-        var index = fraseNervoUlnarEsquerdo.indexOf(value);
+        const index = fraseNervoUlnarEsquerdo.indexOf(value);
         if (index > -1) {
             fraseNervoUlnarEsquerdo.splice(index, 1);
             setFraseNervoUlnarEsquerdo((arr) => [...arr]);

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -49,7 +49,7 @@ function ColecaoDireito({ Disable }) {
   const removeColecaoMao = () => {
     ColecaoMaoDireito.map((e) => {
       if (e.includes('Presença de coleção')) {
-        var index = ColecaoMaoDireito.indexOf(e);
+        const index = ColecaoMaoDireito.indexOf(e);
 
         if (index > -1) {
           ColecaoMaoDireito.splice(index, 1);
@@ -59,7 +59,7 @@ function ColecaoDireito({ Disable }) {
     });
     ConclusaoColecaoMaoDireito.map((e) => {
       if (e.includes('Coleção na')) {
-        var index = ConclusaoColecaoMaoDireito.indexOf(e);
+        const index = ConclusaoColecaoMaoDireito.indexOf(e);
 
         if (index > -1) {
           ConclusaoColecaoMaoDireito.splice(index, 1);
@@ -70,10 +70,10 @@ function ColecaoDireito({ Disable }) {
     });
   };
   const criaStringAlteracao = (medida1, medida2, medida3) => {
-    var string = 'Presença de coleção'
-    var conclusao = 'Coleção na'
-    var StringFinal;
-    var calcVolume = (medida1 * medida2 * medida3) / 10
+    const string = 'Presença de coleção'
+    let conclusao = 'Coleção na'
+    let StringFinal;
+    const calcVolume = (medida1 * medida2 * medida3) / 10
     removeColecaoMao()
     if (medida1 !== "" && medida2 !== "" && medida3 !== "" && AlteracaoSelect1 !== '' && AlteracaoSelect !== '') {
       StringFinal = `${string} ${AlteracaoSelect} na face ${AlteracaoSelect1},medindo ${medida1} x ${medida2} x ${medida3} mm (volume = ${calcVolume} ml)`;

@@ -7,7 +7,6 @@ import Medico from "../configuracao/medicosNew";
 const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
   const [atualizar, setAtualizar] = useState(true);
 
-  useEffect(() => { }, [atualizar]);
 
   function ShowIcon(icon: boolean) {
     if (icon) {

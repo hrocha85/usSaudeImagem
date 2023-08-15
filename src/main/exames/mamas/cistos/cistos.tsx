@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Button, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -76,7 +76,7 @@ function Cisto() {
       localizado !== "" &&
       ConteudoCistosMamaDireitoSelect !== ""
     ) {
-      var string = `Múltiplos Cistos no Mama direito, o maior conteúdo ${ConteudoCistosMamaDireitoSelect} ${localizado}n medindo ${tamanhoNoduloDireitoInput} cm `;
+      const string = `Múltiplos Cistos no Mama direito, o maior conteúdo ${ConteudoCistosMamaDireitoSelect} ${localizado}n medindo ${tamanhoNoduloDireitoInput} cm `;
       setFrasesCistos((arr) => [...arr, string]);
     }
   };
@@ -84,7 +84,7 @@ function Cisto() {
   const removeMultiplosCistosMamaDireito = () => {
     frasesCistos.map((e) => {
       if (e.includes("Múltiplos Cistos no Mama direito")) {
-        var index = frasesCistos.indexOf(e);
+        const index = frasesCistos.indexOf(e);
 
         if (index > -1) {
           frasesCistos.splice(index, 1);
@@ -127,7 +127,7 @@ function Cisto() {
       localizado !== "" &&
       ConteudoCistosMamaEsquerdoSelect !== ""
     ) {
-      var string = `Múltiplos Cistos no Mama esquerdo, o maior conteúdo ${ConteudoCistosMamaEsquerdoSelect} ${localizado}n medindo ${tamanhoNoduloEsquerdoInput} cm `;
+      const string = `Múltiplos Cistos no Mama esquerdo, o maior conteúdo ${ConteudoCistosMamaEsquerdoSelect} ${localizado}n medindo ${tamanhoNoduloEsquerdoInput} cm `;
       setFrasesCistos((arr) => [...arr, string]);
     }
   };
@@ -135,7 +135,7 @@ function Cisto() {
   const removeMultiplosCistosMamaEsquerdo = () => {
     frasesCistos.map((e) => {
       if (e.includes("Múltiplos Cistos no Mama Esquerdo")) {
-        var index = frasesCistos.indexOf(e);
+        const index = frasesCistos.indexOf(e);
 
         if (index > -1) {
           frasesCistos.splice(index, 1);

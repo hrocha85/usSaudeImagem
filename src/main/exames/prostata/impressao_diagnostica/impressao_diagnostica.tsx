@@ -26,7 +26,7 @@ function ImpressaoDiagnostica() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesProstata.indexOf(value);
+    const index = frasesProstata.indexOf(value);
 
     if (index > -1) {
       frasesProstata.splice(index, 1);

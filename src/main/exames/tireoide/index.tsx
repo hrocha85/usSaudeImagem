@@ -30,7 +30,7 @@ function Tireoide() {
 
 
   const removeItemString = (value) => {
-    var index = FrasesTireoide.indexOf(value);
+    const index = FrasesTireoide.indexOf(value);
 
     if (index > -1) {
       FrasesTireoide.splice(index, 1);

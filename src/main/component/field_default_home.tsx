@@ -5,7 +5,7 @@ import { EnableExamesContext } from "../../context/ExamesEnableContext";
 import { TabExamesContext } from "../../context/TabExameContext";
 
 const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
-  let { enableExames, setEnableExames } = useContext(EnableExamesContext);
+  const { enableExames, setEnableExames } = useContext(EnableExamesContext);
   const { tabExames, setTabExames } = useContext(TabExamesContext);
   const [observacoes, SetObservacoes] = useState([])
 

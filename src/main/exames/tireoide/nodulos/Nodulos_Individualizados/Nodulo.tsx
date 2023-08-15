@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Input, Select, Wrap, Text, Stack, HStack, Spacer } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -99,7 +99,7 @@ export default function Nodulo({ numCalculo }) {
     const removeStringNodulo = () => {
         FrasesNodulos.map((e) => {
             if (e.includes(`Nódulo ${numCalculo}`)) {
-                var index = FrasesNodulos.indexOf(e);
+                const index = FrasesNodulos.indexOf(e);
                 if (index > -1) {
                     FrasesNodulos.splice(index, 1);
                     setFrasesNodulos((arr) => [...arr]);
@@ -109,7 +109,7 @@ export default function Nodulo({ numCalculo }) {
     };
 
     const removeConclusaoString = (value) => {
-        var index;
+        let index;
         ConclusaoNodulos.map((e) => {
             if (e.includes(value)) {
                 index = ConclusaoNodulos.indexOf(e);

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
@@ -11,7 +11,7 @@ function SubescapularOmbroDireito() {
   const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  let { OmbroDireitoLaudoNormal } = useContext(OmbroDireitoNormalContext)
+  const { OmbroDireitoLaudoNormal } = useContext(OmbroDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
   //States Tendinite - input,checkbox e select - Inicio
@@ -29,7 +29,7 @@ function SubescapularOmbroDireito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringTendinose = () => {
-    var string = "Ombro direito com Tendinose";
+    const string = "Ombro direito com Tendinose";
     if (TendinoseCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setTendinoseCheckBox(false);
@@ -43,7 +43,7 @@ function SubescapularOmbroDireito() {
   const criaStringTendinite = (medida, Tendinite) => {
     removeTendinite();
     if (medida !== "") {
-      var string = `Ombro direito com Tendinite Subescapular ${Tendinite} com calcificação de ${medida} mm `;
+      const string = `Ombro direito com Tendinite Subescapular ${Tendinite} com calcificação de ${medida} mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -51,7 +51,7 @@ function SubescapularOmbroDireito() {
   const removeTendinite = () => {
     laudoPrin.map((e) => {
       if (e.includes("Ombro direito com Tendinite Subescapular")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -64,7 +64,7 @@ function SubescapularOmbroDireito() {
   const criaStringRotura = (medida, Rotura) => {
     removeRotura();
     if (medida !== "") {
-      var string = `Ombro direito com Rotura Subescapular ${Rotura} com intervalo de ${medida} mm `;
+      const string = `Ombro direito com Rotura Subescapular ${Rotura} com intervalo de ${medida} mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -72,7 +72,7 @@ function SubescapularOmbroDireito() {
   const removeRotura = () => {
     laudoPrin.map((e) => {
       if (e.includes("Ombro direito com Rotura Subescapular")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -83,7 +83,7 @@ function SubescapularOmbroDireito() {
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    const index = laudoPrin.indexOf(value);
 
     if (index > -1) {
       laudoPrin.splice(index, 1);
@@ -167,7 +167,7 @@ function SubescapularOmbroDireito() {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setTendiniteInput(e.target.value) }}
           />
@@ -196,7 +196,7 @@ function SubescapularOmbroDireito() {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setRoturaInput(e.target.value) }}
           />

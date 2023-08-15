@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -47,7 +47,7 @@ function CarotidaInternaDireita() {
   const criaStringPlaca = (medida, Placa) => {
     removePlaca();
     if (medida !== "") {
-      var string = `Carótida Interna direita com placa ${Placa} medindo ${medida} mm `;
+      const string = `Carótida Interna direita com placa ${Placa} medindo ${medida} mm `;
       setFrasesCarotidaID((arr) => [...arr, string]);
     }
   };
@@ -55,7 +55,7 @@ function CarotidaInternaDireita() {
   const removePlaca = () => {
     frasesCarotidaID.map((e) => {
       if (e.includes("Carótida Interna direita")) {
-        var index = frasesCarotidaID.indexOf(e);
+        const index = frasesCarotidaID.indexOf(e);
 
         if (index > -1) {
           frasesCarotidaID.splice(index, 1);
@@ -68,7 +68,7 @@ function CarotidaInternaDireita() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringSubOclusao = () => {
-    var string = "Carótida Interna direita com SubOclusão";
+    const string = "Carótida Interna direita com SubOclusão";
     if (SubOclusaoCheckBox) {
       setFrasesCarotidaID((arr) => [...arr, string]);
       setSubOclusaoCheckBox(false);
@@ -79,7 +79,7 @@ function CarotidaInternaDireita() {
 
   //Função Nao Visibilizado
   const criaStringOclusao = () => {
-    var string = "Carótida Interna direita com oclusão";
+    const string = "Carótida Interna direita com oclusão";
     if (OclusaoCheckBox) {
       setFrasesCarotidaID((arr) => [...arr, string]);
       setOclusaoCheckBox(false);
@@ -89,7 +89,7 @@ function CarotidaInternaDireita() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesCarotidaID.indexOf(value);
+    const index = frasesCarotidaID.indexOf(value);
 
     if (index > -1) {
       frasesCarotidaID.splice(index, 1);
@@ -98,7 +98,7 @@ function CarotidaInternaDireita() {
   };
 
   const criaStringAcotovelamento = () => {
-    var string = "Carótida Interna direita com Acotovelamento";
+    const string = "Carótida Interna direita com Acotovelamento";
     if (AcotovelamentoCheckBox) {
       setFrasesCarotidaID((arr) => [...arr, string]);
       setAcotovelamentoCheckBox(false);
@@ -110,14 +110,14 @@ function CarotidaInternaDireita() {
   const criaStringMedidaDireitaVPS = (medida) => {
     removeStringMedidaDireitaVPS();
     if (MedidaDireitaVPS !== "") {
-      var string = `Carótida Interna direita medindo: VPS(ACCD)  ${medida} cm/s `;
+      const string = `Carótida Interna direita medindo: VPS(ACCD)  ${medida} cm/s `;
       setFrasesCarotidaID((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaDireitaVPS = () => {
     frasesCarotidaID.map((e) => {
       if (e.includes(`Carótida Interna direita medindo: VPS(ACCD) `)) {
-        var index = frasesCarotidaID.indexOf(e);
+        const index = frasesCarotidaID.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCarotidaID.splice(index, 1);
@@ -134,14 +134,14 @@ function CarotidaInternaDireita() {
   const criaStringMedidaDireitaEMI = (medida) => {
     removeStringMedidaDireitaEMI();
     if (MedidaDireitaEMI !== "") {
-      var string = `Carótida Interna direita medindo: EMI(ACCD)  ${medida} cm/s `;
+      const string = `Carótida Interna direita medindo: EMI(ACCD)  ${medida} cm/s `;
       setFrasesCarotidaID((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaDireitaEMI = () => {
     frasesCarotidaID.map((e) => {
       if (e.includes(`Carótida Interna direita medindo: EMI(ACCD) `)) {
-        var index = frasesCarotidaID.indexOf(e);
+        const index = frasesCarotidaID.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCarotidaID.splice(index, 1);
@@ -158,14 +158,14 @@ function CarotidaInternaDireita() {
   const criaStringMedidaDireitaVDF = (medida) => {
     removeStringMedidaDireitaVDF();
     if (MedidaDireitaVDF !== "") {
-      var string = `Carótida Interna direita medindo: VDF(ACCD) ${medida} cm/s `;
+      const string = `Carótida Interna direita medindo: VDF(ACCD) ${medida} cm/s `;
       setFrasesCarotidaID((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaDireitaVDF = () => {
     frasesCarotidaID.map((e) => {
       if (e.includes(`Carótida Interna direita medindo: VDF(ACCD) `)) {
-        var index = frasesCarotidaID.indexOf(e);
+        const index = frasesCarotidaID.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCarotidaID.splice(index, 1);

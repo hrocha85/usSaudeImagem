@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Flex, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -24,7 +24,7 @@ export default function Cateter({ Disable }) {
     const removePresente = () => {
         FraseRinsUreteres.map((e) => {
             if (e.includes('Presença de cateter "duplo J"')) {
-                var index = FraseRinsUreteres.indexOf(e);
+                const index = FraseRinsUreteres.indexOf(e);
 
                 if (index > -1) {
                     FraseRinsUreteres.splice(index, 1);

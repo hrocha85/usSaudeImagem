@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, HStack, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ function MedidasDireito() {
   //States Medidas Utero - Fim
 
   const criaStringMedidasJSF = () => {
-    var string = `Doppler Venoso MMII, JSF medindo: ${medidaJSF} mm `;
+    const string = `Doppler Venoso MMII, JSF medindo: ${medidaJSF} mm `;
     if (medidaJSF !== "") {
       setFrasesMedidasD((arr) => [...arr, string]);
     }
@@ -27,7 +27,7 @@ function MedidasDireito() {
   const removeMedidasJSF = () => {
     frasesMedidasD.map((e) => {
       if (e.includes("Doppler Venoso MMII, JSF medindo:")) {
-        var index = frasesMedidasD.indexOf(e);
+        const index = frasesMedidasD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesMedidasD.splice(index, 1);
@@ -45,7 +45,7 @@ function MedidasDireito() {
   }, [medidaJSF]);
 
   const criaStringMedidasCoxa = () => {
-    var string = `Doppler Venoso MMII, Coxa medindo: ${medidaCoxa} mm `;
+    const string = `Doppler Venoso MMII, Coxa medindo: ${medidaCoxa} mm `;
     if (medidaCoxa !== "") {
       setFrasesMedidasD((arr) => [...arr, string]);
     }
@@ -53,7 +53,7 @@ function MedidasDireito() {
   const removeMedidasCoxa = () => {
     frasesMedidasD.map((e) => {
       if (e.includes("Doppler Venoso MMII, Coxa medindo:")) {
-        var index = frasesMedidasD.indexOf(e);
+        const index = frasesMedidasD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesMedidasD.splice(index, 1);
@@ -71,7 +71,7 @@ function MedidasDireito() {
   }, [medidaCoxa]);
 
   const criaStringMedidasPerna = () => {
-    var string = `Doppler Venoso MMII, Perna medindo: ${medidaPerna} mm `;
+    const string = `Doppler Venoso MMII, Perna medindo: ${medidaPerna} mm `;
     if (medidaPerna !== "") {
       setFrasesMedidasD((arr) => [...arr, string]);
     }
@@ -79,7 +79,7 @@ function MedidasDireito() {
   const removeMedidasPerna = () => {
     frasesMedidasD.map((e) => {
       if (e.includes("Doppler Venoso MMII, Perna medindo:")) {
-        var index = frasesMedidasD.indexOf(e);
+        const index = frasesMedidasD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesMedidasD.splice(index, 1);
@@ -97,7 +97,7 @@ function MedidasDireito() {
   }, [medidaPerna]);
 
   const criaStringMedidasParva = () => {
-    var string = `Doppler Venoso MMII, Parva medindo: ${medidaParva} mm `;
+    const string = `Doppler Venoso MMII, Parva medindo: ${medidaParva} mm `;
     if (medidaParva !== "") {
       setFrasesMedidasD((arr) => [...arr, string]);
     }
@@ -105,7 +105,7 @@ function MedidasDireito() {
   const removeMedidasParva = () => {
     frasesMedidasD.map((e) => {
       if (e.includes("Doppler Venoso MMII, Parva medindo:")) {
-        var index = frasesMedidasD.indexOf(e);
+        const index = frasesMedidasD.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesMedidasD.splice(index, 1);

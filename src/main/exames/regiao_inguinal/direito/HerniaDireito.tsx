@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Radio, RadioGroup, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -43,7 +43,7 @@ function HerniaDireito({ Disable }) {
   const removeSelectString = () => {
     FraseHerniaDireito.map((e) => {
       if (e.includes("Derrame Pleural ")) {
-        var index = FraseHerniaDireito.indexOf(e);
+        const index = FraseHerniaDireito.indexOf(e);
 
         if (index > -1) {
           FraseHerniaDireito.splice(index, 1);
@@ -53,7 +53,7 @@ function HerniaDireito({ Disable }) {
     });
     FraseHerniaDireito.map((e) => {
       if (e.includes("Ausência de derrame ")) {
-        var index = FraseHerniaDireito.indexOf(e);
+        const index = FraseHerniaDireito.indexOf(e);
 
         if (index > -1) {
           FraseHerniaDireito.splice(index, 1);
@@ -65,7 +65,7 @@ function HerniaDireito({ Disable }) {
   const removeSelectStringMobilidade = () => {
     FraseHerniaDireito.map((e) => {
       if (e.includes("Mobilidade da cúpula frênica ")) {
-        var index = FraseHerniaDireito.indexOf(e);
+        const index = FraseHerniaDireito.indexOf(e);
 
         if (index > -1) {
           FraseHerniaDireito.splice(index, 1);
@@ -94,7 +94,7 @@ function HerniaDireito({ Disable }) {
   }, [value]);
 
   useEffect(() => {
-    var select = `Derrame Pleural ${valueSelect1} ${valueSelect2}`;
+    const select = `Derrame Pleural ${valueSelect1} ${valueSelect2}`;
 
 
     if (valueSelect1 != "" && valueSelect2 != "") {
@@ -104,7 +104,7 @@ function HerniaDireito({ Disable }) {
 
     removeSelectStringMobilidade();
     if (valueSelect3 != "") {
-      var mobilidade =
+      const mobilidade =
         `Mobilidade da cúpula frênica ${valueSelect3}`
       setFraseHerniaDireito((arr) => [...arr, mobilidade]);
     } else {

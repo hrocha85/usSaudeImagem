@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -20,7 +20,7 @@ function Hematoma() {
 
   const criaStringHematoma = () => {
     removeStringHematoma();
-    var conclusao = 'Imagem heterogênea adjacente ao testículo à'
+    let conclusao = 'Imagem heterogênea adjacente ao testículo à'
     removeItemConclusao(conclusao)
     if (
       HematomaCheckBox &&
@@ -29,7 +29,7 @@ function Hematoma() {
       tamanho2HematomaInput !== ""
     ) {
       conclusao = `${conclusao} ${posicaoHematomaSelect}. Considerar a possibilidade de hematoma.`
-      var string = `Observa-se em testículo ${posicaoHematomaSelect} imagem heterogênea, de contornos irregulares, sem fluxo ao Doppler, com septações e moderados debris de permeio, sugerindo conteúdo cístico-espesso, adjacente ao testículo, medindo cerca de ${tamanhoHematomaInput} x ${tamanho2HematomaInput} cm. `;
+      const string = `Observa-se em testículo ${posicaoHematomaSelect} imagem heterogênea, de contornos irregulares, sem fluxo ao Doppler, com septações e moderados debris de permeio, sugerindo conteúdo cístico-espesso, adjacente ao testículo, medindo cerca de ${tamanhoHematomaInput} x ${tamanho2HematomaInput} cm. `;
       setFrasesHematoma((arr) => [...arr, string]);
       setConclusaoHematoma((arr) => [...arr, conclusao]);
     }
@@ -37,7 +37,7 @@ function Hematoma() {
   const removeItemConclusao = (value) => {
     ConclusaoHematoma.map((e) => {
       if (e.includes(value)) {
-        var index = ConclusaoHematoma.indexOf(e);
+        const index = ConclusaoHematoma.indexOf(e);
 
         if (index > -1) {
           ConclusaoHematoma.splice(index, 1);
@@ -50,7 +50,7 @@ function Hematoma() {
   const removeStringHematoma = () => {
     frasesHematoma.map((e) => {
       if (e.includes("Observa-se em testículo")) {
-        var index = frasesHematoma.indexOf(e);
+        const index = frasesHematoma.indexOf(e);
 
         if (index > -1) {
           frasesHematoma.splice(index, 1);

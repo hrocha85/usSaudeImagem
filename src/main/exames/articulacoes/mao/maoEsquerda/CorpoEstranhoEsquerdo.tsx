@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -45,7 +45,7 @@ function CorpoEstranhoEsquerdo({ Disable }) {
     const removeFraseCorpoEstranho = () => {
         CorpoEstranhoMaoEsquerdo.map((e) => {
             if (e.includes("Imagem linear hiperecogênica situada")) {
-                var index = CorpoEstranhoMaoEsquerdo.indexOf(e);
+                const index = CorpoEstranhoMaoEsquerdo.indexOf(e);
 
                 if (index > -1) {
                     CorpoEstranhoMaoEsquerdo.splice(index, 1);
@@ -56,8 +56,8 @@ function CorpoEstranhoEsquerdo({ Disable }) {
     };
 
     const criaStringCorpo = (medida1) => {
-        var string = 'Imagem linear hiperecogênica situada'
-        var StringFinal;
+        const string = 'Imagem linear hiperecogênica situada'
+        let StringFinal;
         removeFraseCorpoEstranho()
         if (CorpoCheckbox) {
             if (medida1 !== "" && CorpoSelect1 !== '' && CorpoSelect2 !== '' && CorpoSelect3 !== '') {

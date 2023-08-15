@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -45,7 +45,7 @@ function VeiasReticularesEsquerdo() {
 
   const criaStringReticular1 = (localizado, MembroVeiasReticular1Select) => {
     removeReticular1();
-    var string;
+    let string;
     if (MembroVeiasReticular1Select !== "" && localizado !== "") {
       string = `Veia Reticular 1 - na face ${localizado} ${MembroVeiasReticular1Select} `;
       setFrasesVeiasR((arr) => [...arr, string]);
@@ -55,7 +55,7 @@ function VeiasReticularesEsquerdo() {
   const removeReticular1 = () => {
     frasesVeiasR.map((e) => {
       if (e.includes(`Veia Reticular 1`)) {
-        var index = frasesVeiasR.indexOf(e);
+        const index = frasesVeiasR.indexOf(e);
 
         if (index > -1) {
           frasesVeiasR.splice(index, 1);
@@ -86,7 +86,7 @@ function VeiasReticularesEsquerdo() {
 
   const criaStringReticular2 = (localizado, MembroVeiasReticular2Select) => {
     removeReticular2();
-    var string;
+    let string;
     if (MembroVeiasReticular2Select !== "" && localizado !== "") {
       string = `Veia Reticular 2 - na face ${localizado} ${MembroVeiasReticular2Select} `;
       setFrasesVeiasR((arr) => [...arr, string]);
@@ -96,7 +96,7 @@ function VeiasReticularesEsquerdo() {
   const removeReticular2 = () => {
     frasesVeiasR.map((e) => {
       if (e.includes(`Veia Reticular 2`)) {
-        var index = frasesVeiasR.indexOf(e);
+        const index = frasesVeiasR.indexOf(e);
 
         if (index > -1) {
           frasesVeiasR.splice(index, 1);
@@ -128,7 +128,7 @@ function VeiasReticularesEsquerdo() {
 
   const criaStringReticular3 = (localizado, MembroVeiasReticular3Select) => {
     removeReticular3();
-    var string;
+    let string;
     if (MembroVeiasReticular3Select !== "" && localizado !== "") {
       string = `Veia Reticular 3 - na face ${localizado} ${MembroVeiasReticular3Select} `;
       setFrasesVeiasR((arr) => [...arr, string]);
@@ -138,7 +138,7 @@ function VeiasReticularesEsquerdo() {
   const removeReticular3 = () => {
     frasesVeiasR.map((e) => {
       if (e.includes(`Veia Reticular 3`)) {
-        var index = frasesVeiasR.indexOf(e);
+        const index = frasesVeiasR.indexOf(e);
 
         if (index > -1) {
           frasesVeiasR.splice(index, 1);
@@ -176,7 +176,7 @@ function VeiasReticularesEsquerdo() {
   const removeDifusas = () => {
     frasesVeiasR.map((e) => {
       if (e.includes(`Veias Reticulares difusas`)) {
-        var index = frasesVeiasR.indexOf(e);
+        const index = frasesVeiasR.indexOf(e);
 
         if (index > -1) {
           frasesVeiasR.splice(index, 1);

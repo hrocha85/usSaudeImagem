@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import {
   Button,
   Center,
@@ -32,7 +33,7 @@ import { AiOutlineClear, AiOutlinePlusCircle } from "react-icons/ai";
 
 const button = React.createElement("img", { src: PlusButton });
 
-var dados;
+let dados;
 export let minhasClinicas = infoClinicas.clinicas;
 
 const IconButtonPlus = (props) => {
@@ -135,7 +136,7 @@ const IconButtonPlus = (props) => {
   });
 
   const handlePhone = (event) => {
-    let input = event.target;
+    const input = event.target;
     input.value = phoneMask(input.value);
   };
 
@@ -148,7 +149,7 @@ const IconButtonPlus = (props) => {
   };
 
   const handleCep = (event) => {
-    let input = event.target;
+    const input = event.target;
     input.value = cepMask(input.value);
   };
 

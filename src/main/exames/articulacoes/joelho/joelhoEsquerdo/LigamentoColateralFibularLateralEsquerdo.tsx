@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -45,7 +45,7 @@ function LigColFibularLateralEsquerdo({ Disable }) {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAspectoNormal = () => {
-    var string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
+    const string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
     if (AspectoNormalCheckbox) {
       setLigamentoFibularLateral((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)
@@ -64,7 +64,7 @@ function LigColFibularLateralEsquerdo({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
+    const string = "Tendões do quadríceps femoral, do bíceps femoral e patelar com ecotextura e espessura preservadas e contornos normais.";
     Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
   }, [Normal])
 
@@ -73,7 +73,7 @@ function LigColFibularLateralEsquerdo({ Disable }) {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
   const criaStringLesaoAfilamento = () => {
-    var string = "Ligamento colateral fibular afilado e com alteração ecotextural, com aspecto sugestivo de lesão parcial.";
+    const string = "Ligamento colateral fibular afilado e com alteração ecotextural, com aspecto sugestivo de lesão parcial.";
     if (LesaoAfilamentoCheckbox) {
       setLigamentoFibularLateral((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)
@@ -91,7 +91,7 @@ function LigColFibularLateralEsquerdo({ Disable }) {
 
   const criaStringLesaoEspessamento = () => {
     const conclusao = 'Sinais de lesão parcial/estiramento do ligamento colateral fibular.'
-    var string = "Ligamento colateral fibular espessado e com alteração ecotextural, com aspecto compatível com lesão parcial/estiramento.";
+    const string = "Ligamento colateral fibular espessado e com alteração ecotextural, com aspecto compatível com lesão parcial/estiramento.";
     if (LesaoEspessamentoCheckbox) {
       setLigamentoFibularLateral((arr) => [...arr, string]);
       setConclusaoLigamentoFibularLateral((arr) => [...arr, conclusao]);
@@ -110,7 +110,7 @@ function LigColFibularLateralEsquerdo({ Disable }) {
   }, [LesaoEspessamentoCheckbox])
 
   const removeItemString = (value) => {
-    var index = LigamentoFibularLateral.indexOf(value);
+    const index = LigamentoFibularLateral.indexOf(value);
 
     if (index > -1) {
       LigamentoFibularLateral.splice(index, 1);
@@ -119,7 +119,7 @@ function LigColFibularLateralEsquerdo({ Disable }) {
   };
 
   const removeItemStringConclusao = (value) => {
-    var index = ConclusaoLigamentoFibularLateral.indexOf(value);
+    const index = ConclusaoLigamentoFibularLateral.indexOf(value);
 
     if (index > -1) {
       ConclusaoLigamentoFibularLateral.splice(index, 1);

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -28,20 +28,20 @@ function Calcificacao({ Disable }) {
     }, [NormalCheckbox])
 
     useEffect(() => {
-        var string = 'Ausência de calcificações patológicas, bem como de adenopatia cervical não habitual.'
+        const string = 'Ausência de calcificações patológicas, bem como de adenopatia cervical não habitual.'
         CalcificacaoPatologica ? setFraseCalcificacao((arr) => [...arr, string]) : removeFraseString(string)
     }, [CalcificacaoPatologica])
 
 
     useEffect(() => {
-        var string = 'Presença de calcificações patológicas, bem como de adenopatia cervical não habitual.'
+        const string = 'Presença de calcificações patológicas, bem como de adenopatia cervical não habitual.'
         PresencaCalcificacaoPatologica ? setFraseCalcificacao((arr) => [...arr, string]) : removeFraseString(string)
     }, [PresencaCalcificacaoPatologica])
 
     const removeFraseString = (value) => {
         FraseCalcificacao.map((e) => {
             if (e.includes(value)) {
-                var index = FraseCalcificacao.indexOf(e);
+                const index = FraseCalcificacao.indexOf(e);
                 if (index > -1) {
                     FraseCalcificacao.splice(index, 1);
                     setFraseCalcificacao((arr) => [...arr]);

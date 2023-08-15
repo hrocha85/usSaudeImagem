@@ -35,7 +35,7 @@ function Extras() {
   };
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesExtras.indexOf(value);
+    const index = frasesExtras.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesExtras.splice(index, 1);
@@ -44,7 +44,7 @@ function Extras() {
   };
   const removeItemConclusao = (value) => {
     // console.log("valor remove = ", value);
-    var index = ConclusaoExtras.indexOf(value);
+    const index = ConclusaoExtras.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       ConclusaoExtras.splice(index, 1);

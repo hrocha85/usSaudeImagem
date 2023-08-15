@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
@@ -11,7 +11,7 @@ function ExtraEsquerdo() {
   const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  let { PeEsquerdoLaudoNormal } = useContext(PeEsquerdoNormalContext)
+  const { PeEsquerdoLaudoNormal } = useContext(PeEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
   //States CistoArtrossinovial - input,checkbox e select - Inicio
@@ -38,7 +38,7 @@ function ExtraEsquerdo() {
   const criaStringCistoArtrossinovial = (CistoArtrossinovial) => {
     removeCistoArtrossinovial();
     if (CistoArtrossinovial !== "") {
-      var string = `Cisto Artrossinovial Esquerdo ${CistoArtrossinovial}. `;
+      const string = `Cisto Artrossinovial Esquerdo ${CistoArtrossinovial}. `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -46,7 +46,7 @@ function ExtraEsquerdo() {
   const removeCistoArtrossinovial = () => {
     laudoPrin.map((e) => {
       if (e.includes("Cisto Artrossinovial Esquerdo")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -59,7 +59,7 @@ function ExtraEsquerdo() {
   const criaStringFascitePlantar = (medida1) => {
     removeFascitePlantar();
     if (medida1 !== "") {
-      var string = `Fascite plantar Esquerdo de ${medida1} mm `;
+      const string = `Fascite plantar Esquerdo de ${medida1} mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -67,7 +67,7 @@ function ExtraEsquerdo() {
   const removeFascitePlantar = () => {
     laudoPrin.map((e) => {
       if (e.includes("Fascite plantar Esquerdo")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -80,7 +80,7 @@ function ExtraEsquerdo() {
   const criaStringFibromatosePlantar = (medida1) => {
     removeFibromatosePlantar();
     if (medida1 !== "") {
-      var string = `Fibromatose plantar Esquerdo de ${medida1} mm `;
+      const string = `Fibromatose plantar Esquerdo de ${medida1} mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -88,7 +88,7 @@ function ExtraEsquerdo() {
   const removeFibromatosePlantar = () => {
     laudoPrin.map((e) => {
       if (e.includes("Fibromatose plantar Esquerdo")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -100,7 +100,7 @@ function ExtraEsquerdo() {
   const criaStringNeuromaMorton = (medida1) => {
     removeNeuromaMorton();
     if (medida1 !== "") {
-      var string = `Neuroma de Morton Esquerdo de ${medida1} mm `;
+      const string = `Neuroma de Morton Esquerdo de ${medida1} mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -108,7 +108,7 @@ function ExtraEsquerdo() {
   const removeNeuromaMorton = () => {
     laudoPrin.map((e) => {
       if (e.includes("Neuroma de Morton Esquerdo")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -119,7 +119,7 @@ function ExtraEsquerdo() {
   };
 
   const criaStringArtrose = () => {
-    var string = "Fibulares Esquerdo com Artrose";
+    const string = "Fibulares Esquerdo com Artrose";
     if (ArtroseCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
       setArtroseCheckbox(false);
@@ -129,7 +129,7 @@ function ExtraEsquerdo() {
   };
 
   const criaStringDerrameTibioTalar = () => {
-    var string = "Fibulares Esquerdo com Derrame Tíbio-Talar";
+    const string = "Fibulares Esquerdo com Derrame Tíbio-Talar";
     if (DerrameTibioTalarCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
       setDerrameTibioTalarCheckbox(false);
@@ -138,7 +138,7 @@ function ExtraEsquerdo() {
     }
   };
   const criaStringTalalgiaImpacto = () => {
-    var string = "Fibulares Esquerdo com TalalgiaImpacto";
+    const string = "Fibulares Esquerdo com TalalgiaImpacto";
     if (TalalgiaImpactoCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
       setTalalgiaImpactoCheckbox(false);
@@ -147,7 +147,7 @@ function ExtraEsquerdo() {
     }
   };
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    const index = laudoPrin.indexOf(value);
 
     if (index > -1) {
       laudoPrin.splice(index, 1);
@@ -276,7 +276,7 @@ function ExtraEsquerdo() {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setFascitePlantarInput(e.target.value) }}
           />
@@ -295,7 +295,7 @@ function ExtraEsquerdo() {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setNeuromaMortonInput(e.target.value) }}
           />
@@ -323,7 +323,7 @@ function ExtraEsquerdo() {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setFibromatosePlantarInput(e.target.value) }}
           />

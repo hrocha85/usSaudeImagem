@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -17,8 +17,8 @@ function LiquidoLivre({ Disable }) {
   const [Select2, setSelect2] = useState('')
 
   const criaStringLiquidoLivre = () => {
-    var string = "quantidade de líquido livre "
-    var conclusao = 'Presença de líquido em'
+    let string = "quantidade de líquido livre "
+    let conclusao = 'Presença de líquido em'
     removeFraseLiquidoLivre()
     if (Select1 != '' && Select2 != '') {
       string = `Nota-se ${Select2} ${string} ${Select1} `
@@ -31,7 +31,7 @@ function LiquidoLivre({ Disable }) {
   const removeFraseLiquidoLivre = () => {
     frasesLiquidoLivre.map((e) => {
       if (e.includes("quantidade de líquido livre ")) {
-        var index = frasesLiquidoLivre.indexOf(e);
+        const index = frasesLiquidoLivre.indexOf(e);
         if (index > -1) {
           frasesLiquidoLivre.splice(index, 1);
           setFrasesLiquidoLivre((arr) => [...arr]);
@@ -40,7 +40,7 @@ function LiquidoLivre({ Disable }) {
     });
     ConclusoesLiquidoLivre.map((e) => {
       if (e.includes('Presença de líquido em')) {
-        var index = ConclusoesLiquidoLivre.indexOf(e);
+        const index = ConclusoesLiquidoLivre.indexOf(e);
         if (index > -1) {
           ConclusoesLiquidoLivre.splice(index, 1);
           setConclusoesLiquidoLivre((arr) => [...arr]);

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Center, Checkbox, HStack, Input, Select, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -66,11 +66,11 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
 
     const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm) => {
         removeRoturaParcial();
-        var medida1 = new Convert_Medida(medida1cm).Convert_Medida();
-        var medida2 = new Convert_Medida(medida2cm).Convert_Medida();
-        var medida3 = new Convert_Medida(medida3cm).Convert_Medida();
+        const medida1 = new Convert_Medida(medida1cm).Convert_Medida();
+        const medida2 = new Convert_Medida(medida2cm).Convert_Medida();
+        const medida3 = new Convert_Medida(medida3cm).Convert_Medida();
         if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "") {
-            var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
+            const string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
             setFraseTendaoBicepsBraquialEsquerdo((arr) => [...arr, string]);
         }
     };
@@ -78,7 +78,7 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
     const removeRoturaParcial = () => {
         fraseTendaoBicepsBraquialEsquerdo.map((e) => {
             if (e.includes("Espessado, com alteração ecotextural, observando-se sinais de rotura parcial")) {
-                var index = fraseTendaoBicepsBraquialEsquerdo.indexOf(e);
+                const index = fraseTendaoBicepsBraquialEsquerdo.indexOf(e);
 
                 if (index > -1) {
                     fraseTendaoBicepsBraquialEsquerdo.splice(index, 1);
@@ -89,7 +89,7 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
     };
 
     const criaStringAspectoNormal = () => {
-        var string = "com ecotextura e espessura preservadas e contornos normais.";
+        const string = "com ecotextura e espessura preservadas e contornos normais.";
         AspectoNormalCheckbox ? setFraseTendaoBicepsBraquialEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
@@ -100,7 +100,7 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
     }, [Disable])
 
     useEffect(() => {
-        var string = "com ecotextura e espessura preservadas e contornos normais.";
+        const string = "com ecotextura e espessura preservadas e contornos normais.";
         Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
     }, [Normal])
 
@@ -110,7 +110,7 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
     }, [AspectoNormalCheckbox])
 
     const criaStringPequenasCalcificacoes = () => {
-        var string = "FALTA";
+        const string = "FALTA";
         if (PequenasCalcificacoesCheckbox) {
             setFraseTendaoBicepsBraquialEsquerdo((arr) => [...arr, string]);
         } else {
@@ -123,7 +123,7 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
 
     const criaStringTendinopatiaSemRotura = (dados, medida) => {
         removeFraseTendinopatiaSemRotura()
-        var string;
+        let string;
         if (dados !== '') {
             if (TendinopatiaSemRoturaCheckboxMedida && medida !== '') {
                 string = `Tendinopatia sem rotura ${dados} medindo ${medida} mm`;
@@ -139,7 +139,7 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
     const removeFraseTendinopatiaSemRotura = () => {
         fraseTendaoBicepsBraquialEsquerdo.map((e) => {
             if (e.includes("Tendinopatia sem rotura")) {
-                var index = fraseTendaoBicepsBraquialEsquerdo.indexOf(e);
+                const index = fraseTendaoBicepsBraquialEsquerdo.indexOf(e);
 
                 if (index > -1) {
                     fraseTendaoBicepsBraquialEsquerdo.splice(index, 1);
@@ -150,7 +150,7 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
     };
 
     const criaStringConclusaoTendinopatia = () => {
-        var string = 'Tendinopatia do bíceps braquial'
+        let string = 'Tendinopatia do bíceps braquial'
         removeFraseConclusaoTendinopatia()
         if (TendinopatiaSemRoturaCheckbox && RoturaParcialInput !== '' && RoturaParcialInput2 !== '' && RoturaParcialInput3 !== '') {
             string = `${string} com sinais de rotura parcial.`
@@ -164,7 +164,7 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
     const removeFraseConclusaoTendinopatia = () => {
         ConclusaoTendaoBicepsBraquialEsquerdo.map((e) => {
             if (e.includes("Tendinopatia do bíceps braquial")) {
-                var index = ConclusaoTendaoBicepsBraquialEsquerdo.indexOf(e);
+                const index = ConclusaoTendaoBicepsBraquialEsquerdo.indexOf(e);
 
                 if (index > -1) {
                     ConclusaoTendaoBicepsBraquialEsquerdo.splice(index, 1);
@@ -180,7 +180,7 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
 
     const criaStringRoturaCompleta = (dados) => {
         removeFraseRoturaCompleta()
-        var string;
+        let string;
         if (dados !== '' && RoturaCompletaComCotoCheckbox) {
             string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo com Relacação Coto`;
             setFraseTendaoBicepsBraquialEsquerdo((arr) => [...arr, string]);
@@ -192,7 +192,7 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
     const removeFraseRoturaCompleta = () => {
         fraseTendaoBicepsBraquialEsquerdo.map((e) => {
             if (e.includes("Hipoecogênico, heterogêneo, observando-se sinais de rotura completa")) {
-                var index = fraseTendaoBicepsBraquialEsquerdo.indexOf(e);
+                const index = fraseTendaoBicepsBraquialEsquerdo.indexOf(e);
 
                 if (index > -1) {
                     fraseTendaoBicepsBraquialEsquerdo.splice(index, 1);
@@ -223,7 +223,7 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
 
 
     const removeItemString = (value) => {
-        var index = fraseTendaoBicepsBraquialEsquerdo.indexOf(value);
+        const index = fraseTendaoBicepsBraquialEsquerdo.indexOf(value);
         if (index > -1) {
             fraseTendaoBicepsBraquialEsquerdo.splice(index, 1);
             setFraseTendaoBicepsBraquialEsquerdo((arr) => [...arr]);

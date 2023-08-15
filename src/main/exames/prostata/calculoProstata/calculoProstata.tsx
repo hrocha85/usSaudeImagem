@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -66,7 +66,7 @@ function CalculoProstata() {
         break;
     }
 
-    let string = `${dimensao}\r\nVolume próstata: ${calculoVolume().toFixed(
+    const string = `${dimensao}\r\nVolume próstata: ${calculoVolume().toFixed(
       2
     )} cm³.\r\nPeso Aproximado: ${calculoGramas().toFixed(2)} gramas`;
 
@@ -76,7 +76,7 @@ function CalculoProstata() {
   const removeCalcProstata = () => {
     frasesProstata.map((e) => {
       if (e.includes("Com configuração cônica característica")) {
-        let index = frasesProstata.indexOf(e);
+        const index = frasesProstata.indexOf(e);
 
         if (index > -1) {
           frasesProstata.splice(index, 1);
@@ -91,12 +91,12 @@ function CalculoProstata() {
   };
 
   const calculoVolume = () => {
-    let medida1STR: string = medida1CalcProstata.toString().replace(',', '.');
-    let medida1: number = parseFloat(medida1STR);
-    let medida2STR: string = medida2CalcProstata.toString().replace(',', '.');
-    let medida2: number = parseFloat(medida2STR);
-    let medida3STR: string = medida3CalcProstata.toString().replace(',', '.');
-    let medida3: number = parseFloat(medida3STR);
+    const medida1STR: string = medida1CalcProstata.toString().replace(',', '.');
+    const medida1: number = parseFloat(medida1STR);
+    const medida2STR: string = medida2CalcProstata.toString().replace(',', '.');
+    const medida2: number = parseFloat(medida2STR);
+    const medida3STR: string = medida3CalcProstata.toString().replace(',', '.');
+    const medida3: number = parseFloat(medida3STR);
     return (
       Number(medida1) * Number(medida2) * Number(medida3) * 0.52
     );
@@ -104,16 +104,16 @@ function CalculoProstata() {
 
   const criaStringCalcVolumePre = (medida1CalcVolumePre, medida2CalcVolumePre, medida3CalcVolumePre) => {
     removeCalcVolumePre();
-    let medida1STR: string = medida1CalcVolumePre.toString().replace(',', '.');
-    let medida1: number = parseFloat(medida1STR);
-    let medida2STR: string = medida2CalcVolumePre.toString().replace(',', '.');
-    let medida2: number = parseFloat(medida2STR);
-    let medida3STR: string = medida3CalcVolumePre.toString().replace(',', '.');
-    let medida3: number = parseFloat(medida3STR);
+    const medida1STR: string = medida1CalcVolumePre.toString().replace(',', '.');
+    const medida1: number = parseFloat(medida1STR);
+    const medida2STR: string = medida2CalcVolumePre.toString().replace(',', '.');
+    const medida2: number = parseFloat(medida2STR);
+    const medida3STR: string = medida3CalcVolumePre.toString().replace(',', '.');
+    const medida3: number = parseFloat(medida3STR);
     if (CalcVolumePreCheckbox) {
       if (medida1CalcVolumePre != "" && medida2CalcVolumePre != "" && medida3CalcVolumePre != "") {
-        let conta = Number(medida1) * Number(medida2) * Number(medida3) * 0.52;
-        let string = `Volume vesical pré-miccional de: ${conta.toFixed(2)} cm³`;
+        const conta = Number(medida1) * Number(medida2) * Number(medida3) * 0.52;
+        const string = `Volume vesical pré-miccional de: ${conta.toFixed(2)} cm³`;
         setFrasesProstata((arr) => [...arr, string]);
       }
     } else {
@@ -126,7 +126,7 @@ function CalculoProstata() {
   const removeCalcVolumePre = () => {
     frasesProstata.map((e) => {
       if (e.includes("Volume vesical pré-miccional de:")) {
-        let index = frasesProstata.indexOf(e);
+        const index = frasesProstata.indexOf(e);
 
         if (index > -1) {
           frasesProstata.splice(index, 1);
@@ -138,16 +138,16 @@ function CalculoProstata() {
 
   const criaStringCalcVolumePos = (medida1CalcVolumePos, medida2CalcVolumePos, medida3CalcVolumePos) => {
     removeCalcVolumePos();
-    let medida1STR: string = medida1CalcVolumePos.toString().replace(',', '.');
-    let medida1: number = parseFloat(medida1STR);
-    let medida2STR: string = medida2CalcVolumePos.toString().replace(',', '.');
-    let medida2: number = parseFloat(medida2STR);
-    let medida3STR: string = medida3CalcVolumePos.toString().replace(',', '.');
-    let medida3: number = parseFloat(medida3STR);
+    const medida1STR: string = medida1CalcVolumePos.toString().replace(',', '.');
+    const medida1: number = parseFloat(medida1STR);
+    const medida2STR: string = medida2CalcVolumePos.toString().replace(',', '.');
+    const medida2: number = parseFloat(medida2STR);
+    const medida3STR: string = medida3CalcVolumePos.toString().replace(',', '.');
+    const medida3: number = parseFloat(medida3STR);
     if (
       medida1CalcVolumePos != "" && medida2CalcVolumePos != "" && medida3CalcVolumePos != "") {
-      let conta = Number(medida1) * Number(medida2) * Number(medida3) * 0.52;
-      let string = `Volume residual pós-miccional de: ${conta.toFixed(1)} cm³`;
+      const conta = Number(medida1) * Number(medida2) * Number(medida3) * 0.52;
+      const string = `Volume residual pós-miccional de: ${conta.toFixed(1)} cm³`;
       setFrasesProstata((arr) => [...arr, string]);
     }
   };
@@ -155,7 +155,7 @@ function CalculoProstata() {
   const removeCalcVolumePos = () => {
     frasesProstata.map((e) => {
       if (e.includes("Volume residual pós-miccional de:")) {
-        let index = frasesProstata.indexOf(e);
+        const index = frasesProstata.indexOf(e);
         if (index > -1) {
           frasesProstata.splice(index, 1);
           setFrasesProstata((arr) => [...arr]);
@@ -167,7 +167,7 @@ function CalculoProstata() {
   const removeEcotextura = () => {
     frasesProstata.map((e) => {
       if (e.includes("Próstata com ecotextura ")) {
-        let index = frasesProstata.indexOf(e);
+        const index = frasesProstata.indexOf(e);
         if (index > -1) {
           frasesProstata.splice(index, 1);
           setFrasesProstata((arr) => [...arr]);
@@ -179,7 +179,7 @@ function CalculoProstata() {
   const removeTextura = () => {
     frasesProstata.map((e) => {
       if (e.includes("Tecido prostático com textura")) {
-        let index = frasesProstata.indexOf(e);
+        const index = frasesProstata.indexOf(e);
         if (index > -1) {
           frasesProstata.splice(index, 1);
           setFrasesProstata((arr) => [...arr]);
@@ -189,7 +189,7 @@ function CalculoProstata() {
   };
 
   const criaStringProstataEcotextura = () => {
-    var string = `Próstata com ecotextura ${Ecotextura}`;
+    const string = `Próstata com ecotextura ${Ecotextura}`;
     if (!ProstataEcotexturaCheckBox) {
       setFrasesProstata((arr) => [...arr, string]);
     } else {
@@ -198,7 +198,7 @@ function CalculoProstata() {
   };
 
   const criaStringTextura = () => {
-    var string = "";
+    let string = "";
 
     switch (Textura) {
       case "Uniforme":
@@ -219,7 +219,7 @@ function CalculoProstata() {
   };
 
   const criaStringVesicula = () => {
-    var string =
+    const string =
       "Vesícula Seminais: Bem individualizadas, com curso, configuração, diâmetros e ecotextura compatíveis com o normal.";
 
     setFrasesProstata((arr) => [...arr, string]);
@@ -228,7 +228,7 @@ function CalculoProstata() {
   const removeVesicula = () => {
     frasesProstata.map((e) => {
       if (e.includes("Vesícula Seminais: Bem individualizadas, ")) {
-        let index = frasesProstata.indexOf(e);
+        const index = frasesProstata.indexOf(e);
         if (index > -1) {
           frasesProstata.splice(index, 1);
           setFrasesProstata((arr) => [...arr]);
@@ -238,7 +238,7 @@ function CalculoProstata() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesProstata.indexOf(value);
+    const index = frasesProstata.indexOf(value);
 
     if (index > -1) {
       frasesProstata.splice(index, 1);
@@ -286,7 +286,7 @@ function CalculoProstata() {
   }, [VesiculaCheckBox]);
 
   useEffect(() => {
-    let conta = Number(medida1CalcVolumePos) * Number(medida2CalcVolumePos) * Number(medida3CalcVolumePos) * 0.52;
+    const conta = Number(medida1CalcVolumePos) * Number(medida2CalcVolumePos) * Number(medida3CalcVolumePos) * 0.52;
     setVolumeCalcVolumePos(conta.toFixed(2))
     criaStringCalcVolumePos(
       medida1CalcVolumePos,
@@ -296,7 +296,7 @@ function CalculoProstata() {
   }, [medida1CalcVolumePos, medida2CalcVolumePos, medida3CalcVolumePos]);
 
   useEffect(() => {
-    let conta = Number(medida1CalcVolumePre) * Number(medida2CalcVolumePre) * Number(medida3CalcVolumePre) * 0.52;
+    const conta = Number(medida1CalcVolumePre) * Number(medida2CalcVolumePre) * Number(medida3CalcVolumePre) * 0.52;
     setVolumeCalcVolumePre(conta.toFixed(2))
     criaStringCalcVolumePre(
       medida1CalcVolumePre,

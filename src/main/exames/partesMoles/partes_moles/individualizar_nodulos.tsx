@@ -58,7 +58,7 @@ export default function IndividualizarNodulos({
       medida2NoduloInput != "" &&
       medida3NoduloInput != ""
     ) {
-      var string = `Nódulo ${numNodulo}. Presença de nódulo sólido de ${selectNodulo1}, ${selectNodulo2}, medindo ${medida1NoduloInput}x${medida2NoduloInput}x${medida3NoduloInput}, situado em meio à gordura subcutânea.`;
+      const string = `Nódulo ${numNodulo}. Presença de nódulo sólido de ${selectNodulo1}, ${selectNodulo2}, medindo ${medida1NoduloInput}x${medida2NoduloInput}x${medida3NoduloInput}, situado em meio à gordura subcutânea.`;
       setFrasesNodulos((arr) => [...arr, string]);
     }
   };
@@ -66,7 +66,7 @@ export default function IndividualizarNodulos({
   const removeMultiplosNodulos = () => {
     frasesNodulos.map((e) => {
       if (e.includes(`Nódulo ${numNodulo}. `)) {
-        var index = frasesNodulos.indexOf(e);
+        const index = frasesNodulos.indexOf(e);
 
         if (index > -1) {
           frasesNodulos.splice(index, 1);

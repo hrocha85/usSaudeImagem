@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
@@ -11,7 +11,7 @@ function QuadrilDireito() {
   const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  let { QuadrilDireitoLaudoNormal } = useContext(QuadrilDireitoNormalContext)
+  const { QuadrilDireitoLaudoNormal } = useContext(QuadrilDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
   const [ArtroseCheckbox, setArtroseCheckbox] = useState(true);
@@ -20,7 +20,7 @@ function QuadrilDireito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringArtrose = () => {
-    var string = "Quadril direito com Artrose";
+    const string = "Quadril direito com Artrose";
     if (ArtroseCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
       setArtroseCheckbox(false);
@@ -29,7 +29,7 @@ function QuadrilDireito() {
     }
   };
   const criaStringDerrameArticular = () => {
-    var string = "Quadril direito com DerrameArticular";
+    const string = "Quadril direito com DerrameArticular";
     if (DerrameArticularCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
       setDerrameArticularCheckbox(false);
@@ -38,7 +38,7 @@ function QuadrilDireito() {
     }
   };
   const criaStringBursite = () => {
-    var string = "Quadril direito com Bursite";
+    const string = "Quadril direito com Bursite";
     if (BursiteCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
       setBursiteCheckbox(false);
@@ -48,7 +48,7 @@ function QuadrilDireito() {
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    const index = laudoPrin.indexOf(value);
 
     if (index > -1) {
       laudoPrin.splice(index, 1);

@@ -57,15 +57,15 @@ import MainCardClinica from "../component/main_cardClinica";
 import DefaultImageClinica from "../images/clinica_default.png";
 import Sidebar from "../menu/sideBar";
 
-var dados;
+let dados;
 export let lista_medicos = MedicosJSON.medicos;
 
 const Configuracoes = () => {
   const toast = useToast();
 
   const getMedicos = () => {
-    var medicos;
-    var item;
+    let medicos;
+    let item;
     if (localStorage.getItem("medicos") != null) {
       item = localStorage.getItem("medicos");
 
@@ -76,7 +76,7 @@ const Configuracoes = () => {
 
   const getUser = () => {
     if (localStorage.getItem("user") != null) {
-      var user = JSON.parse(localStorage.getItem("user")!);
+      letuser = JSON.parse(localStorage.getItem("user")!);
     }
 
     if (user != null) return user.isLogged;
@@ -84,7 +84,7 @@ const Configuracoes = () => {
 
   const [userLogged, setuserLogged] = useState(getUser());
 
-  let padRef = React.useRef<SignatureCanvas>(null);
+  const padRef = React.useRef<SignatureCanvas>(null);
 
   const {
     isOpen: isOpenModalAddMedico,
@@ -205,7 +205,7 @@ const Configuracoes = () => {
 
   const getUserMedico = () => {
     if (localStorage.getItem("user") != null) {
-      var medico = JSON.parse(localStorage.getItem("user")!);
+      const medico = JSON.parse(localStorage.getItem("user")!);
       return medico.medico;
     } else return null;
   };
@@ -356,7 +356,7 @@ const Configuracoes = () => {
       <Center margin="25px">
         <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
           {clinicas.map((clinica, key) => {
-            var clinicaParse = JSON.parse(clinica);
+            const clinicaParse = JSON.parse(clinica);
             return (
               <Tooltip
                 key={key}
@@ -392,7 +392,7 @@ const Configuracoes = () => {
   };
 
   const handleCRM = (event) => {
-    let input = event.target;
+    const input = event.target;
     input.value = CrmMask(input.value);
   };
 
@@ -432,7 +432,7 @@ const Configuracoes = () => {
   };
 
   const [isLargerThan500] = useMediaQuery('(min-width: 500px)')
-  let width = "100%"
+  const width = "100%"
 
   const ModalAddMedico = () => {
     return (
@@ -712,8 +712,8 @@ const Configuracoes = () => {
   };
 
   useEffect(() => {
-    var item;
-    var item_parse;
+    let item;
+    let item_parse;
     if (localStorage.getItem("minhasClinicas") != null) {
       item = localStorage.getItem("minhasClinicas");
       item_parse = JSON.parse(item);

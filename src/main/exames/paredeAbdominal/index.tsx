@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/jsx-pascal-case */
+
+
 import { Box, Checkbox, Grid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import HerniaUmbilical from "./SubparedeAbdominal/herniaUmbilical";
@@ -24,7 +24,7 @@ function ParedeAbdominal() {
   const removeFrase = (value) => {
     FraseNormal.map((e) => {
       if (e.includes(value)) {
-        let index = FraseNormal.indexOf(e);
+        const index = FraseNormal.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           FraseNormal.splice(index, 1);

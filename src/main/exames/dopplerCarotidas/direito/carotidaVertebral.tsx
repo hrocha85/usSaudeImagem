@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -47,7 +47,7 @@ function CarotidaVertebralDireita() {
   const criaStringPlaca = (medida, Placa) => {
     removePlaca();
     if (medida !== "") {
-      var string = `Carótida Vertebral direita com placa ${Placa} medindo ${medida} mm `;
+      const string = `Carótida Vertebral direita com placa ${Placa} medindo ${medida} mm `;
       setFrasesCarotidaVertebral((arr) => [...arr, string]);
     }
   };
@@ -55,7 +55,7 @@ function CarotidaVertebralDireita() {
   const removePlaca = () => {
     frasesCarotidaVertebral.map((e) => {
       if (e.includes("Carótida Vertebral direita")) {
-        var index = frasesCarotidaVertebral.indexOf(e);
+        const index = frasesCarotidaVertebral.indexOf(e);
 
         if (index > -1) {
           frasesCarotidaVertebral.splice(index, 1);
@@ -68,7 +68,7 @@ function CarotidaVertebralDireita() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringFluxoRetrogrado = () => {
-    var string = "Carótida Vertebral com fluxo retrógrado";
+    const string = "Carótida Vertebral com fluxo retrógrado";
     if (FluxoRetrogradoCheckBox) {
       setFrasesCarotidaVertebral((arr) => [...arr, string]);
       setFluxoRetrogradoCheckBox(false);
@@ -79,7 +79,7 @@ function CarotidaVertebralDireita() {
 
   //Função Nao Visibilizado
   const criaStringFluxoAusente = () => {
-    var string = "Carótida Vertebral direita com fluxo ausente";
+    const string = "Carótida Vertebral direita com fluxo ausente";
     if (FluxoAusenteCheckBox) {
       setFrasesCarotidaVertebral((arr) => [...arr, string]);
       setFluxoAusenteCheckBox(false);
@@ -89,7 +89,7 @@ function CarotidaVertebralDireita() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesCarotidaVertebral.indexOf(value);
+    const index = frasesCarotidaVertebral.indexOf(value);
 
     if (index > -1) {
       frasesCarotidaVertebral.splice(index, 1);
@@ -100,14 +100,14 @@ function CarotidaVertebralDireita() {
   const criaStringMedidaDireitaVPS = (medida) => {
     removeStringMedidaDireitaVPS();
     if (MedidaDireitaVPS !== "") {
-      var string = `Carótida Vertebral direita medindo: VPS(ACCD)  ${medida} cm/s `;
+      const string = `Carótida Vertebral direita medindo: VPS(ACCD)  ${medida} cm/s `;
       setFrasesCarotidaVertebral((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaDireitaVPS = () => {
     frasesCarotidaVertebral.map((e) => {
       if (e.includes(`Carótida Vertebral direita medindo: VPS(ACCD) `)) {
-        var index = frasesCarotidaVertebral.indexOf(e);
+        const index = frasesCarotidaVertebral.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCarotidaVertebral.splice(index, 1);
@@ -124,14 +124,14 @@ function CarotidaVertebralDireita() {
   const criaStringMedidaDireitaEMI = (medida) => {
     removeStringMedidaDireitaEMI();
     if (MedidaDireitaEMI !== "") {
-      var string = `Carótida Vertebral direita medindo: EMI(ACCD)  ${medida} cm/s `;
+      const string = `Carótida Vertebral direita medindo: EMI(ACCD)  ${medida} cm/s `;
       setFrasesCarotidaVertebral((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaDireitaEMI = () => {
     frasesCarotidaVertebral.map((e) => {
       if (e.includes(`Carótida Vertebral direita medindo: EMI(ACCD) `)) {
-        var index = frasesCarotidaVertebral.indexOf(e);
+        const index = frasesCarotidaVertebral.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCarotidaVertebral.splice(index, 1);
@@ -148,14 +148,14 @@ function CarotidaVertebralDireita() {
   const criaStringMedidaDireitaVDF = (medida) => {
     removeStringMedidaDireitaVDF();
     if (MedidaDireitaVDF !== "") {
-      var string = `Carótida Vertebral direita medindo: VDF(ACCD) ${medida} cm/s `;
+      const string = `Carótida Vertebral direita medindo: VDF(ACCD) ${medida} cm/s `;
       setFrasesCarotidaVertebral((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaDireitaVDF = () => {
     frasesCarotidaVertebral.map((e) => {
       if (e.includes(`Carótida Vertebral direita medindo: VDF(ACCD) `)) {
-        var index = frasesCarotidaVertebral.indexOf(e);
+        const index = frasesCarotidaVertebral.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCarotidaVertebral.splice(index, 1);

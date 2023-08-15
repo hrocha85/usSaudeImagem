@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import {
   Box,
@@ -45,7 +45,7 @@ function Calculo() {
   const [AusenciaNodulosCheckbox, setAusenciaNodulosCheckbox] = useState(false);
 
   const removeItemString = (value) => {
-    var index = FrasesNodulos.indexOf(value);
+    const index = FrasesNodulos.indexOf(value);
     if (index > -1) {
       FrasesNodulos.splice(index, 1);
       setFrasesNodulos((arr) => [...arr]);
@@ -121,7 +121,7 @@ function Calculo() {
   const removeMultiplosNodulosMama = (value) => {
     FrasesNodulos.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesNodulos.indexOf(e);
+        const index = FrasesNodulos.indexOf(e);
 
         if (index > -1) {
           FrasesNodulos.splice(index, 1);

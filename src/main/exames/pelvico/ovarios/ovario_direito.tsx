@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -119,17 +119,17 @@ function Ovario_Direito({ Disable }) {
 
   //Funcoes medidas ovario - Inicio
   const criaStringMedidasOvario = () => {
-    let medida1STR: string = medidaOvario1.toString().replace(',', '.');
-    let medida1: number = parseFloat(medida1STR);
-    let medida2STR: string = medidaOvario2.toString().replace(',', '.');
-    let medida2: number = parseFloat(medida2STR);
-    let medida3STR: string = medidaOvario3.toString().replace(',', '.');
-    let medida3: number = parseFloat(medida3STR);
+    const medida1STR: string = medidaOvario1.toString().replace(',', '.');
+    const medida1: number = parseFloat(medida1STR);
+    const medida2STR: string = medidaOvario2.toString().replace(',', '.');
+    const medida2: number = parseFloat(medida2STR);
+    const medida3STR: string = medidaOvario3.toString().replace(',', '.');
+    const medida3: number = parseFloat(medida3STR);
 
-    var string = 'Medida do ovário:'
+    let string = 'Medida do ovário:'
     removeStringSelect(string)
     if (medidaOvario1 != "" && medidaOvario2 != "" && medidaOvario3 != "") {
-      var medida4 = ((medida1) * (medida2) * (medida3) / 1000) / 2
+      const medida4 = ((medida1) * (medida2) * (medida3) / 1000) / 2
       setmedidaOvario4(medida4)
       string = `${string} ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm (${medida4.toFixed(2)} cm³)`;
       setFrasesOvarioDireito((arr) => [...arr, string]);
@@ -141,7 +141,7 @@ function Ovario_Direito({ Disable }) {
   const removeStringSelect = (value) => {
     frasesOvarioDireito.map((e) => {
       if (e.includes(value)) {
-        var index = frasesOvarioDireito.indexOf(e);
+        const index = frasesOvarioDireito.indexOf(e);
 
         if (index > -1) {
           frasesOvarioDireito.splice(index, 1);
@@ -160,7 +160,7 @@ function Ovario_Direito({ Disable }) {
   //Funcoes Padrao Folicular - Inicio
   const criaStringPadraoFolicular = () => {
     const conclusao = 'Ovário direito com padrão folicular.'
-    var string = "Ovário direito com padrão folicular ";
+    const string = "Ovário direito com padrão folicular ";
     setFrasesOvarioDireito((arr) => [...arr, string]);
     setConclusaoOvarioDireito((arr) => [...arr, conclusao]);
   };
@@ -168,7 +168,7 @@ function Ovario_Direito({ Disable }) {
   const removePadraoFolicular = () => {
     frasesOvarioDireito.map((e) => {
       if (e.includes("folicular")) {
-        var index = frasesOvarioDireito.indexOf(e);
+        const index = frasesOvarioDireito.indexOf(e);
 
         if (index > -1) {
           frasesOvarioDireito.splice(index, 1);
@@ -178,7 +178,7 @@ function Ovario_Direito({ Disable }) {
     });
     ConclusaoOvarioDireito.map((e) => {
       if (e.includes("Ovário direito com padrão folicular.")) {
-        var index = ConclusaoOvarioDireito.indexOf(e);
+        const index = ConclusaoOvarioDireito.indexOf(e);
 
         if (index > -1) {
           ConclusaoOvarioDireito.splice(index, 1);
@@ -192,7 +192,7 @@ function Ovario_Direito({ Disable }) {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringPadraoMicropolicistico = () => {
-    var string =
+    const string =
       "Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe em seu interior múltiplas imagens císticas, distribuídas predominantemente na periferia, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.";
     const conclusao = 'Ovário direito com aspecto micropolicístico.'
     setFrasesOvarioDireito((arr) => [...arr, string]);
@@ -207,7 +207,7 @@ function Ovario_Direito({ Disable }) {
           "Ovário direito: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe em seu interior múltiplas imagens císticas, distribuídas predominantemente na periferia, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris."
         )
       ) {
-        var index = frasesOvarioDireito.indexOf(e);
+        const index = frasesOvarioDireito.indexOf(e);
 
         if (index > -1) {
           frasesOvarioDireito.splice(index, 1);
@@ -220,7 +220,7 @@ function Ovario_Direito({ Disable }) {
         "Ovário direito com aspecto micropolicístico."
       )
       ) {
-        var index = ConclusaoOvarioDireito.indexOf(e);
+        const index = ConclusaoOvarioDireito.indexOf(e);
         if (index > -1) {
           ConclusaoOvarioDireito.splice(index, 1);
           setConclusaoOvarioDireito((arr) => [...arr]);
@@ -235,7 +235,7 @@ function Ovario_Direito({ Disable }) {
 
   //Função Nao Visibilizado
   useEffect(() => {
-    var string = "Ovário direito não visibilizado.";
+    const string = "Ovário direito não visibilizado.";
     if (NaoVisibilizadoCheckBox) {
       setFrasesOvarioDireito((arr) => [...arr, string])
       setmedidaOvario1('')
@@ -248,7 +248,7 @@ function Ovario_Direito({ Disable }) {
   }, [NaoVisibilizadoCheckBox])
 
   const removeItemString = (value) => {
-    var index = frasesOvarioDireito.indexOf(value);
+    const index = frasesOvarioDireito.indexOf(value);
 
     if (index > -1) {
       frasesOvarioDireito.splice(index, 1);

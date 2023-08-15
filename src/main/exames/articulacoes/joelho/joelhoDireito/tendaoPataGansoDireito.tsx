@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -46,7 +46,7 @@ function TendaoPataGansoDireito({ Disable }) {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAspectoNormal = () => {
-    var string = 'Inserção distal dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso) com aspecto conservado.';
+    const string = 'Inserção distal dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso) com aspecto conservado.';
     if (AspectoNormalCheckbox) {
       setTendaoPataGansoDireito((arr) => [...arr, string]);
       setdisableLiquidoBolsaSinovial(true)
@@ -65,7 +65,7 @@ function TendaoPataGansoDireito({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = 'Inserção distal dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso) com aspecto conservado.';
+    const string = 'Inserção distal dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso) com aspecto conservado.';
     Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
   }, [Normal])
 
@@ -74,7 +74,7 @@ function TendaoPataGansoDireito({ Disable }) {
   }, [AspectoNormalCheckbox])
 
   const criaStringLTendinopatia = () => {
-    var string = 'Espessamento e alteração ecotextural dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso) adjacente à sua inserção distal, compatível com tendinopatia.';
+    const string = 'Espessamento e alteração ecotextural dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso) adjacente à sua inserção distal, compatível com tendinopatia.';
     const conclusao = 'Tendinopatia da "pata de ganso".'
     if (TendinopatiaCheckbox) {
       setTendaoPataGansoDireito((arr) => [...arr, string]);
@@ -93,7 +93,7 @@ function TendaoPataGansoDireito({ Disable }) {
     criaStringLTendinopatia()
   }, [TendinopatiaCheckbox])
   const criaStringLiquidoBolsaSinovial = () => {
-    var string = 'Presença de líquido na topografia da bolsa sinovial dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso), compatível com bursite';
+    const string = 'Presença de líquido na topografia da bolsa sinovial dos tendões que compõem a "pata de ganso" (sartório, grácil e semitendinoso), compatível com bursite';
     if (LiquidoBolsaSinovialCheckbox) {
       setTendaoPataGansoDireito((arr) => [...arr, string]);
       setdisableTendinopatia(true)
@@ -110,7 +110,7 @@ function TendaoPataGansoDireito({ Disable }) {
   }, [LiquidoBolsaSinovialCheckbox])
 
   const removeItemString = (value) => {
-    var index = TendaoPataGansoDireito.indexOf(value);
+    const index = TendaoPataGansoDireito.indexOf(value);
 
     if (index > -1) {
       TendaoPataGansoDireito.splice(index, 1);
@@ -118,7 +118,7 @@ function TendaoPataGansoDireito({ Disable }) {
     }
   };
   const removeItemStringConclusao = (value) => {
-    var index = ConclusaoTendaoPataGansoDireito.indexOf(value);
+    const index = ConclusaoTendaoPataGansoDireito.indexOf(value);
 
     if (index > -1) {
       ConclusaoTendaoPataGansoDireito.splice(index, 1);

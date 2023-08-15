@@ -48,7 +48,7 @@ const SidebarWrap = styled.div`
 const Sidebar = () => {
 
 
-  let { menuOpen, setMenuOpen } = useContext(MenuContext);
+  const { menuOpen, setMenuOpen } = useContext(MenuContext);
 
   const [sidebar, setSidebar] = useState(false);
 
@@ -56,7 +56,7 @@ const Sidebar = () => {
 
   const getUser = () => {
     if (localStorage.getItem("user") != null) {
-      var user = JSON.parse(localStorage.getItem("user")!);
+      letuser = JSON.parse(localStorage.getItem("user")!);
     }
 
     if (user != null) return user.isLogged;
@@ -82,17 +82,17 @@ const Sidebar = () => {
         w="100%"
         filter="none"
         blur="none"
-        >
+      >
         <IconContext.Provider value={{ color: "black" }}>
-                <Image
-                  src={logo2}
-                  w="12rem"
-                  h="3rem"
-                  marginLeft="18px"
-                  marginTop="1.1rem"
-                  mr={'2rem'}
-                  float={'right'}
-                /> 
+          <Image
+            src={logo2}
+            w="12rem"
+            h="3rem"
+            marginLeft="18px"
+            marginTop="1.1rem"
+            mr={'2rem'}
+            float={'right'}
+          />
           <Nav>
             <HStack>
               <Center>
@@ -111,7 +111,7 @@ const Sidebar = () => {
                   h="4rem"
                   marginLeft="30px"
                   marginTop="10px"
-                /> }
+                />}
 
                 <NavIcon to="#">
                   <IoIosArrowBack onClick={showSidebar} />

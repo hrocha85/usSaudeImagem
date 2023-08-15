@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -41,7 +41,7 @@ function RinsUreteres({ Disable }) {
 
     const removeItemString = (value) => {
         // console.log("valor remove = ", value);
-        var index = FraseRinsUreteres.indexOf(value);
+        const index = FraseRinsUreteres.indexOf(value);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
             FraseRinsUreteres.splice(index, 1);

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, Input, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import { Format_Laudo } from "../../../component/function_format_laudo";
 
 export default function IndividualizarNodulos({ numCalculo }) {
   const [FraseNodulosDireito, setFraseNodulosDireito] = useState<any>([]);
-  
+
   const [ConclusaoNodulosDireito, setConclusaoNodulosDireito] = useState<any>(
     []
   );
@@ -63,7 +63,7 @@ export default function IndividualizarNodulos({ numCalculo }) {
   const criaStringMultiplosNodulos = () => {
     removeMultiplosCalculos();
     removeConclusao();
-    var conclusao = `Falta conclusao ${numCalculo}`;
+    const conclusao = `Falta conclusao ${numCalculo}`;
     if (
       TamanhoInput1 !== "" &&
       TamanhoInput2 !== "" &&
@@ -88,12 +88,12 @@ export default function IndividualizarNodulos({ numCalculo }) {
       const medida = new Convert_Medida(TamanhoInput1).Convert_Medida();
       const medida2 = new Convert_Medida(TamanhoInput2).Convert_Medida();
 
-      var fluxo =
+      const fluxo =
         SelectFluxo !== "não apresentando fluxo"
           ? `apresentando fluxo ${SelectFluxo}`
           : SelectFluxo;
 
-      var string = `Formação nodular ${medida} x ${medida2} ${SelectEcogenicidade} de contornos ${SelectContornos}
+      const string = `Formação nodular ${medida} x ${medida2} ${SelectEcogenicidade} de contornos ${SelectContornos}
        e bordos finos e limites parcialmente ${SelectPrecisos}  medindo ${TamanhoParciais} cm no seu maior eixo,
        relacionada ao ${SelectLocalizado} do ${SelectDo} ${fluxo}, com margens 
       ${SelectMargens} ${SelectOrientacao} ${SelectCalcificacoes}
@@ -106,7 +106,7 @@ export default function IndividualizarNodulos({ numCalculo }) {
   const removeMultiplosCalculos = () => {
     FraseNodulosDireito.map((e) => {
       if (e.includes(`Formação nodular `)) {
-        var index = FraseNodulosDireito.indexOf(e);
+        const index = FraseNodulosDireito.indexOf(e);
 
         if (index > -1) {
           FraseNodulosDireito.splice(index, 1);
@@ -119,7 +119,7 @@ export default function IndividualizarNodulos({ numCalculo }) {
   const removeConclusao = () => {
     ConclusaoNodulosDireito.map((e) => {
       if (e.includes(`Falta conclusao ${numCalculo}`)) {
-        var index = ConclusaoNodulosDireito.indexOf(e);
+        const index = ConclusaoNodulosDireito.indexOf(e);
 
         if (index > -1) {
           ConclusaoNodulosDireito.splice(index, 1);
@@ -233,7 +233,7 @@ export default function IndividualizarNodulos({ numCalculo }) {
           <option value="Imprecisos">Imprecisos</option>
         </Select>
         <Input
-          
+
           isDisabled={DisableSelect}
           onChange={(e) => setTamanhoParciais(e.target.value)}
           value={TamanhoParciais}
@@ -432,7 +432,7 @@ export default function IndividualizarNodulos({ numCalculo }) {
             tipo II (vascularização perinodular)
           </option>
           <option value="Tipo III (vascularização peri e intranodular)">
-            tipo III (vascularização peri e intranodular) 
+            tipo III (vascularização peri e intranodular)
           </option>
         </Select>
         <Select

@@ -6,7 +6,7 @@ export function NormalEsquerdo() {
   const altura = "100%";
   const largura = "100%";
 
-  let { setMaoEsquerdoLaudoNormal } = useContext(MaoEsquerdoNormalContext);
+  const { setMaoEsquerdoLaudoNormal } = useContext(MaoEsquerdoNormalContext);
 
   const verificaChecked = (value) => {
     value.checked === true

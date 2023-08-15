@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable eqeqeq */
 import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
@@ -38,14 +38,14 @@ function ViasBiliares({ Disable }) {
 
 
   useEffect(() => {
-    var string = 'Observa-se dilatação de vias biliares intra-hepáticas.'
-    var conclusao = 'Dilatação de vias biliares intra-hepáticas.'
+    const string = 'Observa-se dilatação de vias biliares intra-hepáticas.'
+    const conclusao = 'Dilatação de vias biliares intra-hepáticas.'
     DilatacaoCheckbox ? setFrasesVias((arr) => [...arr, string]) : removeItemString(string)
     DilatacaoCheckbox ? setConclusoesVias((arr) => [...arr, conclusao]) : removeItemConclusoes(conclusao)
   }, [DilatacaoCheckbox])
 
   const criaStringCitarCalibre = (dados, calculo) => {
-    var string = 'Colédoco ectasiado, com calibre de'
+    let string = 'Colédoco ectasiado, com calibre de'
     removeFraseCitarCalibre()
     const medida = new Convert_Medida(dados).Convert_Medida()
     const medida2 = new Convert_Medida(calculo).Convert_Medida()
@@ -62,7 +62,7 @@ function ViasBiliares({ Disable }) {
   const removeFraseCitarCalibre = () => {
     frasesVias.map((e) => {
       if (e.includes("Colédoco ectasiado, com calibre de")) {
-        var index = frasesVias.indexOf(e);
+        const index = frasesVias.indexOf(e);
         if (index > -1) {
           frasesVias.splice(index, 1);
           setFrasesVias((arr) => [...arr]);
@@ -85,7 +85,7 @@ function ViasBiliares({ Disable }) {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesVias.indexOf(value);
+    const index = frasesVias.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesVias.splice(index, 1);
@@ -95,7 +95,7 @@ function ViasBiliares({ Disable }) {
 
   const removeItemConclusoes = (value) => {
     // console.log("valor remove = ", value);
-    var index = ConclusoesVias.indexOf(value);
+    const index = ConclusoesVias.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       ConclusoesVias.splice(index, 1);

@@ -133,8 +133,8 @@ const FieldDefaultIconCardClinicas = ({
     enderecoUpdate
   ) => {
     if (nomeUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const item = array[id];
       minhasClinicas[id].nomeClinica = nomeUpdate;
 
       item.nomeClinica = nomeUpdate;
@@ -144,8 +144,8 @@ const FieldDefaultIconCardClinicas = ({
     }
 
     if (cepUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const item = array[id];
       minhasClinicas[id].cep = cepUpdate;
 
       item.cep = cepUpdate;
@@ -154,8 +154,8 @@ const FieldDefaultIconCardClinicas = ({
       setUpdateCEP(null);
     }
     if (telefoneUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const item = array[id];
       minhasClinicas[id].teleFone = telefoneUpdate;
 
       item.teleFone = telefoneUpdate;
@@ -164,8 +164,8 @@ const FieldDefaultIconCardClinicas = ({
       setUpdateTelefone(null);
     }
     if (enderecoUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const item = array[id];
       minhasClinicas[id].endereco = enderecoUpdate;
 
       item.endereco = enderecoUpdate;
@@ -174,8 +174,8 @@ const FieldDefaultIconCardClinicas = ({
       setUpdateEndereco(null);
     }
     if (FotoUpdate) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const item = array[id];
       minhasClinicas[id].foto = defaultUserImage;
       item.foto = defaultUserImage;
       localStorage.setItem("minhasClinicas", JSON.stringify(array));
@@ -225,14 +225,14 @@ const FieldDefaultIconCardClinicas = ({
   };
 
   const RemoveItem = () => {
-    var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+    const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
     array.splice(id, 1);
     localStorage.setItem("minhasClinicas", JSON.stringify(array));
     window.location.reload();
   };
 
   const handlePhone = (event) => {
-    let input = event.target;
+    const input = event.target;
     input.value = phoneMask(input.value);
   };
 
@@ -313,7 +313,6 @@ const FieldDefaultIconCardClinicas = ({
                 _placeholder={{ fontWeight: "bold", color: "black" }}
                 fontWeight="bold"
                 variant={"filled"}
-                onClick={() => { }}
                 onChange={(e) => {
                   setNomeClinica(e.target.value);
                   setUpdateNome(e.target.value);
@@ -334,7 +333,6 @@ const FieldDefaultIconCardClinicas = ({
                 textColor={"black"}
                 _placeholder={{ fontWeight: "bold", color: "black" }}
                 variant={"unstyled"}
-                onClick={() => { }}
                 isDisabled={disableNome}
               ></Input>
             )}

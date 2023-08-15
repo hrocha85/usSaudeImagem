@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -42,7 +42,7 @@ function AlteracaoPosCirurgiaEsquerdo({ Disable }) {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringArtefatoCirurgico = () => {
-    var string = "Imagem linear hiperecogênica no metacarpo compatível com artefato cirúrgico (fixação), sem alterações significativas das estruturas adjacentes.";
+    const string = "Imagem linear hiperecogênica no metacarpo compatível com artefato cirúrgico (fixação), sem alterações significativas das estruturas adjacentes.";
     ArtefatoCirurgicoCheckbox ? setAlteracaoPosCirurgiaEsquerdo((arr) => [...arr, string]) : removeItemString(string);
   };
 
@@ -52,7 +52,7 @@ function AlteracaoPosCirurgiaEsquerdo({ Disable }) {
 
   const criaStringArtefatoCirurgicoTransfixando = (ArtefatoCirurgicoTransfixando) => {
     removeArtefatoCirurgicoTransfixando();
-    var string;
+    let string;
     if (ArtefatoCirurgicoTransfixando !== "") {
       string = `Imagem linear hiperecogênica no metacarpo compatível com artefato cirúrgico (fixação), transfixando o tendão extensor do ${ArtefatoCirurgicoTransfixando} dedo.`;
       setAlteracaoPosCirurgiaEsquerdo((arr) => [...arr, string]);
@@ -62,7 +62,7 @@ function AlteracaoPosCirurgiaEsquerdo({ Disable }) {
   const removeArtefatoCirurgicoTransfixando = () => {
     AlteracaoPosCirurgiaEsquerdo.map((e) => {
       if (e.includes("Imagem linear hiperecogênica no metacarpo compatível com artefato cirúrgico (fixação), transfixando o tendão extensor do ")) {
-        var index = AlteracaoPosCirurgiaEsquerdo.indexOf(e);
+        const index = AlteracaoPosCirurgiaEsquerdo.indexOf(e);
 
         if (index > -1) {
           AlteracaoPosCirurgiaEsquerdo.splice(index, 1);
@@ -73,7 +73,7 @@ function AlteracaoPosCirurgiaEsquerdo({ Disable }) {
   };
 
   const removeItemString = (value) => {
-    var index = AlteracaoPosCirurgiaEsquerdo.indexOf(value);
+    const index = AlteracaoPosCirurgiaEsquerdo.indexOf(value);
 
     if (index > -1) {
       AlteracaoPosCirurgiaEsquerdo.splice(index, 1);

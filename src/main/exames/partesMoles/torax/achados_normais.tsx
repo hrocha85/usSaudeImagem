@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Grid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -32,7 +32,7 @@ export default function Achados_Normais({ Disable }) {
   const criaString_Pele_Tecido_Normais = () => {
     removePele_Tecido_Normais();
 
-    let string = `Pele e tecido adiposo subcutâneo de aspecto ecográfico preservado.`;
+    const string = `Pele e tecido adiposo subcutâneo de aspecto ecográfico preservado.`;
     setFrasesAchadosNormais((arr) => [...arr, string]);
   };
 
@@ -43,7 +43,7 @@ export default function Achados_Normais({ Disable }) {
           "Pele e tecido adiposo subcutâneo de aspecto ecográfico preservado."
         )
       ) {
-        let index = frasesAchadosNormais.indexOf(e);
+        const index = frasesAchadosNormais.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesAchadosNormais.splice(index, 1);
@@ -56,14 +56,14 @@ export default function Achados_Normais({ Disable }) {
   const criaString_Plano_Musculates_Normais = () => {
     removePlanos_Muculates_Normais();
 
-    let string = `Planos musculares de aspecto preservado.`;
+    const string = `Planos musculares de aspecto preservado.`;
     setFrasesAchadosNormais((arr) => [...arr, string]);
   };
 
   const removePlanos_Muculates_Normais = () => {
     frasesAchadosNormais.map((e) => {
       if (e.includes("Planos musculares de aspecto preservado.")) {
-        let index = frasesAchadosNormais.indexOf(e);
+        const index = frasesAchadosNormais.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesAchadosNormais.splice(index, 1);
@@ -76,14 +76,14 @@ export default function Achados_Normais({ Disable }) {
   const criaString_Ausencia_Nodulos_Colecoes_Normais = () => {
     removeAusencia_Nodulos_Colescoes_Normais();
 
-    let string = `Ausência de nódulos, massas ou coleções.`;
+    const string = `Ausência de nódulos, massas ou coleções.`;
     setFrasesAchadosNormais((arr) => [...arr, string]);
   };
 
   const removeAusencia_Nodulos_Colescoes_Normais = () => {
     frasesAchadosNormais.map((e) => {
       if (e.includes("Ausência de nódulos, massas ou coleções.")) {
-        let index = frasesAchadosNormais.indexOf(e);
+        const index = frasesAchadosNormais.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesAchadosNormais.splice(index, 1);
@@ -95,14 +95,14 @@ export default function Achados_Normais({ Disable }) {
 
   const criaString_Ausencia_Herniacoes_Normais = () => {
     removeAusencia_Herniacoes_Normais();
-    let string = `Ausência de herniações na região examinada.`;
+    const string = `Ausência de herniações na região examinada.`;
     setFrasesAchadosNormais((arr) => [...arr, string]);
   };
 
   const removeAusencia_Herniacoes_Normais = () => {
     frasesAchadosNormais.map((e) => {
       if (e.includes("Ausência de herniações na região examinada.")) {
-        let index = frasesAchadosNormais.indexOf(e);
+        const index = frasesAchadosNormais.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesAchadosNormais.splice(index, 1);
@@ -114,14 +114,14 @@ export default function Achados_Normais({ Disable }) {
 
   const criaString_Ausencia_Diastase_Normais = () => {
     removeAusencia_Diastase_Normais();
-    let string = `Não há diástase do músculo reto abdominal.`;
+    const string = `Não há diástase do músculo reto abdominal.`;
     setFrasesAchadosNormais((arr) => [...arr, string]);
   };
 
   const removeAusencia_Diastase_Normais = () => {
     frasesAchadosNormais.map((e) => {
       if (e.includes("Não há diástase do músculo reto abdominal.")) {
-        let index = frasesAchadosNormais.indexOf(e);
+        const index = frasesAchadosNormais.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesAchadosNormais.splice(index, 1);

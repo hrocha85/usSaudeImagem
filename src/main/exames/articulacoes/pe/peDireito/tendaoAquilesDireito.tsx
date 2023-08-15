@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
@@ -11,7 +11,7 @@ function TendaoAquilesDireito() {
   const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  let { PeDireitoLaudoNormal } = useContext(PeDireitoNormalContext)
+  const { PeDireitoLaudoNormal } = useContext(PeDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
   //States Rotura - input,checkbox e select - Inicio
@@ -26,7 +26,7 @@ function TendaoAquilesDireito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringTenossinovite = () => {
-    var string = "Pe direito com Tenossinovite";
+    const string = "Pe direito com Tenossinovite";
     if (TenossinoviteCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
       setTenossinoviteCheckbox(false);
@@ -35,7 +35,7 @@ function TendaoAquilesDireito() {
     }
   };
   const criaStringEntesofitos = () => {
-    var string = "Pe direito com Entesofitos";
+    const string = "Pe direito com Entesofitos";
     if (EntesofitosCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
       setEntesofitosCheckbox(false);
@@ -44,7 +44,7 @@ function TendaoAquilesDireito() {
     }
   };
   const criaStringTendinose = () => {
-    var string = "Pe direito com Tendinose";
+    const string = "Pe direito com Tendinose";
     if (TendinoseCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
       setTendinoseCheckbox(false);
@@ -57,7 +57,7 @@ function TendaoAquilesDireito() {
   const criaStringRotura = (Rotura) => {
     removeRotura();
     if (Rotura !== "") {
-      var string = `Tendão de aquiles direito com Rotura ${Rotura}. `;
+      const string = `Tendão de aquiles direito com Rotura ${Rotura}. `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -65,7 +65,7 @@ function TendaoAquilesDireito() {
   const removeRotura = () => {
     laudoPrin.map((e) => {
       if (e.includes("Tendão de aquiles direito com Rotura ")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -76,7 +76,7 @@ function TendaoAquilesDireito() {
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    const index = laudoPrin.indexOf(value);
 
     if (index > -1) {
       laudoPrin.splice(index, 1);

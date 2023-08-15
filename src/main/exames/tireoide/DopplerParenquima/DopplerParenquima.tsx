@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -101,7 +101,7 @@ function DopplerParenquima() {
   }, [DescreverDoppler]);
 
   const subExame = "Doppler Parênquima";
-  var titulo_exame = "Tireóide com doppler";
+  lettitulo_exame = "Tireóide com doppler";
 
   useEffect(() => {
     if (Object.keys(FrasesDopplerParenquima).length == 0) {
@@ -149,7 +149,7 @@ function DopplerParenquima() {
   const removeVelSistolicaSuperiorDir = () => {
     FrasesDopplerParenquima.map((e) => {
       if (e.includes("Artéria tiredoideana Superior Direita")) {
-        var index = FrasesDopplerParenquima.indexOf(e);
+        const index = FrasesDopplerParenquima.indexOf(e);
         if (index > -1) {
           FrasesDopplerParenquima.splice(index, 1);
           setFrasesDopplerParenquima((arr) => [...arr]);
@@ -202,7 +202,7 @@ function DopplerParenquima() {
   const removeVelSistolicaInferiorDir = () => {
     FrasesDopplerParenquima.map((e) => {
       if (e.includes("Artéria tiredoideana Inferior Direita")) {
-        var index = FrasesDopplerParenquima.indexOf(e);
+        const index = FrasesDopplerParenquima.indexOf(e);
         if (index > -1) {
           FrasesDopplerParenquima.splice(index, 1);
           setFrasesDopplerParenquima((arr) => [...arr]);
@@ -255,7 +255,7 @@ function DopplerParenquima() {
   const removeVelSistolicaSuperiorEsq = () => {
     FrasesDopplerParenquima.map((e) => {
       if (e.includes("Artéria tiredoideana Superior Esqeita")) {
-        var index = FrasesDopplerParenquima.indexOf(e);
+        const index = FrasesDopplerParenquima.indexOf(e);
         if (index > -1) {
           FrasesDopplerParenquima.splice(index, 1);
           setFrasesDopplerParenquima((arr) => [...arr]);
@@ -308,7 +308,7 @@ function DopplerParenquima() {
   const removeVelSistolicaInferiorEsq = () => {
     FrasesDopplerParenquima.map((e) => {
       if (e.includes("Artéria tiredoideana Inferior Esqeita")) {
-        var index = FrasesDopplerParenquima.indexOf(e);
+        const index = FrasesDopplerParenquima.indexOf(e);
         if (index > -1) {
           FrasesDopplerParenquima.splice(index, 1);
           setFrasesDopplerParenquima((arr) => [...arr]);

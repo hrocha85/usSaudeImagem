@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -39,7 +39,7 @@ export default function IndividualizarOssos({ numCalculo, desabilita }) {
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
-    var string = `Dedo ${numCalculo + 1} FALTA: `
+    let string = `Dedo ${numCalculo + 1} FALTA: `
     if (multiplosDedosCheckbox) {
       if (FalangeProximal) {
         string = `${string} falange Proximal`
@@ -59,7 +59,7 @@ export default function IndividualizarOssos({ numCalculo, desabilita }) {
   const removeMultiplosCalculos = () => {
     OssosMaoEsquerda.map((e) => {
       if (e.includes(`Dedo ${numCalculo + 1} FALTA: `)) {
-        var index = OssosMaoEsquerda.indexOf(e);
+        const index = OssosMaoEsquerda.indexOf(e);
 
         if (index > -1) {
           OssosMaoEsquerda.splice(index, 1);

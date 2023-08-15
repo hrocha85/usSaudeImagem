@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -41,9 +41,9 @@ function Hidrossalpinge({ Disable }) {
 
   const criaStringHidrossalpinge = () => {
     removeStringHidrossalpinge();
-    var conclusao = 'Hidrossalpinge'
+    let conclusao = 'Hidrossalpinge'
     if (HidrossalpingeCheckBox && posicaoHidrossalpingeSelect !== "") {
-      var string = `Nota-se em região anexial ${posicaoHidrossalpingeSelect} imagem anecóica, tubular, tortuosa, de limites precisos e contornos regulares.`;
+      const string = `Nota-se em região anexial ${posicaoHidrossalpingeSelect} imagem anecóica, tubular, tortuosa, de limites precisos e contornos regulares.`;
       conclusao = `${conclusao} ${posicaoHidrossalpingeSelect}.`
       setFrasesHidrossalpinge((arr) => [...arr, string]);
       setConclusaoHidrossalpinge((arr) => [...arr, conclusao]);
@@ -53,7 +53,7 @@ function Hidrossalpinge({ Disable }) {
   const removeStringHidrossalpinge = () => {
     frasesHidrossalpinge.map((e) => {
       if (e.includes("Nota-se em região anexial")) {
-        var index = frasesHidrossalpinge.indexOf(e);
+        const index = frasesHidrossalpinge.indexOf(e);
 
         if (index > -1) {
           frasesHidrossalpinge.splice(index, 1);
@@ -63,7 +63,7 @@ function Hidrossalpinge({ Disable }) {
     });
     ConclusaoHidrossalpinge.map((e) => {
       if (e.includes("Hidrossalpinge")) {
-        var index = ConclusaoHidrossalpinge.indexOf(e);
+        const index = ConclusaoHidrossalpinge.indexOf(e);
 
         if (index > -1) {
           ConclusaoHidrossalpinge.splice(index, 1);

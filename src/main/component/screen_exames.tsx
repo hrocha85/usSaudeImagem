@@ -228,7 +228,7 @@ export default function Box_Default_With_Sidebar() {
     } else {
       tabExames.map((i) => {
         if (i.key == currentExame!.key) {
-          var index = tabExames.indexOf(i);
+          const index = tabExames.indexOf(i);
           if (index > -1) {
             tabExames.splice(index, 1);
             setTabExames((arr) => [...arr]);
@@ -236,7 +236,7 @@ export default function Box_Default_With_Sidebar() {
         }
       });
 
-      var array = JSON.parse(localStorage.getItem("format_laudo")!);
+      const array = JSON.parse(localStorage.getItem("format_laudo")!);
       array.map((i, key) => {
         if (i.titulo_exame == currentExame!.nomeExame) {
           array.splice(key, 1);

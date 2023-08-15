@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Checkbox, HStack, Input, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ export default function IndividualizarCalculos({ numCalculo }) {
     removeMultiplosCalculos();
     const conclusao = 'Litíase renal.'
     removeItemConclusao(conclusao)
-    var string = `${numCalculo}º Cálculo- Presença de imagem hiperecogênica, com formação de sombra acústica posterior, de limites precisos e contornos regulares: `
+    let string = `${numCalculo}º Cálculo- Presença de imagem hiperecogênica, com formação de sombra acústica posterior, de limites precisos e contornos regulares: `
     if (multiplosCalculosCheckBox) {
       if (tamanhoCalculoInput !== "" && tamanhoCalculoInput !== "" && localizacaoCalculosSelect !== "") {
         string = `${string} ${posicaoCalculosSelect} medindo ${tamanhoCalculoInput} cm do  ${localizacaoCalculosSelect}`;
@@ -34,7 +34,7 @@ export default function IndividualizarCalculos({ numCalculo }) {
   };
 
   const removeItemConclusao = (value) => {
-    var index = ConclusaoCalc.indexOf(value);
+    const index = ConclusaoCalc.indexOf(value);
 
     if (index > -1) {
       ConclusaoCalc.splice(index, 1);
@@ -47,7 +47,7 @@ export default function IndividualizarCalculos({ numCalculo }) {
   const removeMultiplosCalculos = () => {
     frasesIndCalc.map((e) => {
       if (e.includes(`${numCalculo}º Cálculo-`)) {
-        var index = frasesIndCalc.indexOf(e);
+        const index = frasesIndCalc.indexOf(e);
 
         if (index > -1) {
           frasesIndCalc.splice(index, 1);

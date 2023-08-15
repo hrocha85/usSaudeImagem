@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -18,7 +18,7 @@ function FeixesMusculares({ Disable }) {
   const [DisableAtopica, setDisableAtopica] = useState(false);
 
   const removeItemString = (value) => {
-    var index = FraseVagina.indexOf(value);
+    const index = FraseVagina.indexOf(value);
 
     if (index > -1) {
       FraseVagina.splice(index, 1);

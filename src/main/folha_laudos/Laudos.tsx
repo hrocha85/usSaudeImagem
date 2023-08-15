@@ -428,14 +428,14 @@ function Exames() {
 
   const getUserClinica = () => {
     if (localStorage.getItem("user") != null) {
-      var clinica = JSON.parse(localStorage.getItem("user")!);
+      letclinica = JSON.parse(localStorage.getItem("user")!);
     }
     return clinica.clinica;
   };
 
   const getUserMedico = () => {
     if (localStorage.getItem("user") != null) {
-      var medico = JSON.parse(localStorage.getItem("user")!);
+      letmedico = JSON.parse(localStorage.getItem("user")!);
     }
     return medico.medico;
   };
@@ -483,7 +483,7 @@ function Exames() {
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
   const update = (laudos) => {
-    var array = JSON.parse(localStorage.getItem("medicos")!);
+    const array = JSON.parse(localStorage.getItem("medicos")!);
     array.map((medi) => {
       if (medi.nome == getUserMedico().nome) {
         medi.laudos = laudos;
@@ -508,8 +508,8 @@ function Exames() {
   };
 
   const convertBlob = (blob) => {
-    var file = new Blob([blob], { type: "application/pdf" });
-    var fileURL = URL.createObjectURL(file);
+    const file = new Blob([blob], { type: "application/pdf" });
+    const fileURL = URL.createObjectURL(file);
     setUrlLaudo(fileURL);
   };
 
@@ -606,7 +606,7 @@ function Exames() {
     Index_Sub_Exame,
     Index_Frase
   ) => {
-    var array = JSON.parse(localStorage.getItem("format_laudo")!);
+    const array = JSON.parse(localStorage.getItem("format_laudo")!);
 
     array.map((Exames) => {
       Exames.subExames[Index_Sub_Exame].frases[Index_Frase] = event;
@@ -872,17 +872,17 @@ function Exames() {
     console.log(opiniaoSoftware)
     console.log(notaSoftware)
 
-     emailjs.send('outlookMessage', 'template_6j5xp3j',
-       {
-         to_email: 'barbozagarcia@yahoo.com.br',
-         message: `Escolha a palavra que melhor identifica nosso Aplicativo: ${opiniaoSoftware}
+    emailjs.send('outlookMessage', 'template_6j5xp3j',
+      {
+        to_email: 'barbozagarcia@yahoo.com.br',
+        message: `Escolha a palavra que melhor identifica nosso Aplicativo: ${opiniaoSoftware}
          De 1(ruim) a 5(excelente), qual seria a nota que você dá ao nosso Aplicativo?: ${notaSoftware}`
-       }, 'qNFyg3V_FW8DLmNjL')
-       .then((result) => {
-         console.log(result.text);
-       }, (error) => {
-       console.log(error.text);
-       });
+      }, 'qNFyg3V_FW8DLmNjL')
+      .then((result) => {
+        console.log(result.text);
+      }, (error) => {
+        console.log(error.text);
+      });
 
     setOpiniaoSoftware('')
     setNotaSoftware('')
@@ -901,50 +901,50 @@ function Exames() {
       >
         <ModalOverlay />
         <ModalContent>
-        <Text textAlign={'center'} fontSize={'2rem'} fontWeight={'bold'}>Pesquisa de Satisfação</Text>
-        <Box p={3} borderWidth="1px" borderRadius="md" boxShadow="md" justifyContent={'center'}>
-        <RadioGroup onChange={(value) => setOpiniaoSoftware(value)} value={opiniaoSoftware} mb={4}>
-        <Text mb={4}>1 -Escolha a palavra que melhor identifica nosso Aplicativo:</Text>
-        <Flex justifyContent="center">
-          <Radio value="bom" mx={2}>
-            Bom
-          </Radio>
-          <Radio value="regular" mx={2}>
-            Regular
-          </Radio>
-          <Radio value="ruim" mx={2}>
-            Ruim
-          </Radio>
-        </Flex>
-      </RadioGroup>
+          <Text textAlign={'center'} fontSize={'2rem'} fontWeight={'bold'}>Pesquisa de Satisfação</Text>
+          <Box p={3} borderWidth="1px" borderRadius="md" boxShadow="md" justifyContent={'center'}>
+            <RadioGroup onChange={(value) => setOpiniaoSoftware(value)} value={opiniaoSoftware} mb={4}>
+              <Text mb={4}>1 -Escolha a palavra que melhor identifica nosso Aplicativo:</Text>
+              <Flex justifyContent="center">
+                <Radio value="bom" mx={2}>
+                  Bom
+                </Radio>
+                <Radio value="regular" mx={2}>
+                  Regular
+                </Radio>
+                <Radio value="ruim" mx={2}>
+                  Ruim
+                </Radio>
+              </Flex>
+            </RadioGroup>
 
-      <RadioGroup onChange={(value) => setNotaSoftware(value)} value={notaSoftware} mb={4}>
-        <Text mb={4}>2 - De 1 a 5, qual seria a nota que você dá ao Aplicativo:</Text>
-        <Flex justifyContent="center">
-          <Radio value="1" mx={2}>
-            1
-          </Radio>
-          <Radio value="2" mx={2}>
-            2
-          </Radio>
-          <Radio value="3" mx={2}>
-            3
-          </Radio>
-          <Radio value="4" mx={2}>
-            4
-          </Radio>
-          <Radio value="5" mx={2}>
-            5
-          </Radio>
-        </Flex>
-      </RadioGroup>
+            <RadioGroup onChange={(value) => setNotaSoftware(value)} value={notaSoftware} mb={4}>
+              <Text mb={4}>2 - De 1 a 5, qual seria a nota que você dá ao Aplicativo:</Text>
+              <Flex justifyContent="center">
+                <Radio value="1" mx={2}>
+                  1
+                </Radio>
+                <Radio value="2" mx={2}>
+                  2
+                </Radio>
+                <Radio value="3" mx={2}>
+                  3
+                </Radio>
+                <Radio value="4" mx={2}>
+                  4
+                </Radio>
+                <Radio value="5" mx={2}>
+                  5
+                </Radio>
+              </Flex>
+            </RadioGroup>
 
-      <Box textAlign="center">
-        <Button onClick={(e) => finalizaForm(e)} color="white" bg={'#2e4ad4'} mt={4} w={'11rem'}>
-          Enviar
-        </Button>
-      </Box>
-    </Box>
+            <Box textAlign="center">
+              <Button onClick={(e) => finalizaForm(e)} color="white" bg={'#2e4ad4'} mt={4} w={'11rem'}>
+                Enviar
+              </Button>
+            </Box>
+          </Box>
         </ModalContent>
       </Modal>
     );
@@ -1078,7 +1078,7 @@ function Exames() {
             </Tooltip>
           )}
           <Tooltip
-            label="Salvar laudo"
+            label="Salletlaudo"
             fontSize="xl"
             backgroundColor="white"
             placement="top"

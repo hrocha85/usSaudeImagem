@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Stack, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 
@@ -11,7 +11,7 @@ function VeiasTributariasDireito() {
   const altura = "100%";
   const largura = "95%";
 
-  var numberArray = [1, 2, 3, 4];
+  const numberArray = [1, 2, 3, 4];
 
   const [DisableVeiasTributariasCheckBox, setDisableVeiasTributariasCheckBox] = useState(false);
   const [DifusasCheckBox, setDifusasCheckBox] = useState(false);

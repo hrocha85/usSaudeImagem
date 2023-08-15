@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Center, Checkbox, Input } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -42,10 +42,10 @@ export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) 
   const criaStringMultiplosCalculos = (tamanhoCalculoInput) => {
     removeMultiplosCalculos();
     removeConclusao()
-    var conclusao = `Rotura do tendõe extensor do ${numCalculo} dedo`
+    const conclusao = `Rotura do tendõe extensor do ${numCalculo} dedo`
     if (tamanhoCalculoInput !== "") {
       const medida = new Convert_Medida(tamanhoCalculoInput).Convert_Medida()
-      var string = `Descontinuidade completa das fibras do tendão extensor do ${numCalculo} dedo com intervalor de ${medida} cm `;
+      const string = `Descontinuidade completa das fibras do tendão extensor do ${numCalculo} dedo com intervalor de ${medida} cm `;
       setFraseRoturaExtensoresEsquerdo((arr) => [...arr, string]);
       setConclusaoRoturaExtensoresEsquerdo((arr) => [...arr, conclusao]);
     }
@@ -54,7 +54,7 @@ export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) 
   const removeConclusao = () => {
     ConclusaoRoturaExtensoresEsquerdo.map((e) => {
       if (e.includes(`${numCalculo}`)) {
-        var index = ConclusaoRoturaExtensoresEsquerdo.indexOf(e);
+        const index = ConclusaoRoturaExtensoresEsquerdo.indexOf(e);
 
         if (index > -1) {
           ConclusaoRoturaExtensoresEsquerdo.splice(index, 1);
@@ -68,7 +68,7 @@ export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) 
   const removeMultiplosCalculos = () => {
     FraseRoturaExtensoresEsquerdo.map((e) => {
       if (e.includes(`Descontinuidade completa das fibras do tendão extensor do ${numCalculo}`)) {
-        var index = FraseRoturaExtensoresEsquerdo.indexOf(e);
+        const index = FraseRoturaExtensoresEsquerdo.indexOf(e);
 
         if (index > -1) {
           FraseRoturaExtensoresEsquerdo.splice(index, 1);

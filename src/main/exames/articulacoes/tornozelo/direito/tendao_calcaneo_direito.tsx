@@ -46,7 +46,7 @@ export default function Tendao_Calcaneo_Direito({ Disable }) {
   const removeSelectString = () => {
     frasesTornozelo.map((e) => {
       if (e.includes("Derrame articular ")) {
-        var index = frasesTornozelo.indexOf(e);
+        const index = frasesTornozelo.indexOf(e);
 
         if (index > -1) {
           frasesTornozelo.splice(index, 1);
@@ -56,7 +56,7 @@ export default function Tendao_Calcaneo_Direito({ Disable }) {
     });
     frasesTornozelo.map((e) => {
       if (e.includes("Ausência de derrame ")) {
-        var index = frasesTornozelo.indexOf(e);
+        const index = frasesTornozelo.indexOf(e);
 
         if (index > -1) {
           frasesTornozelo.splice(index, 1);
@@ -68,7 +68,7 @@ export default function Tendao_Calcaneo_Direito({ Disable }) {
   const removeConclusoes = () => {
     ConclusoesFrasesTornozelo.map((e) => {
       if (e.includes("Sinais de tendinopatia do calcâneo")) {
-        var index = ConclusoesFrasesTornozelo.indexOf(e);
+        const index = ConclusoesFrasesTornozelo.indexOf(e);
 
         if (index > -1) {
           ConclusoesFrasesTornozelo.splice(index, 1);
@@ -78,7 +78,7 @@ export default function Tendao_Calcaneo_Direito({ Disable }) {
     });
     ConclusoesFrasesTornozelo.map((e) => {
       if (e.includes("Entesófito na inserção do tendão calcâneo")) {
-        var index = ConclusoesFrasesTornozelo.indexOf(e);
+        const index = ConclusoesFrasesTornozelo.indexOf(e);
 
         if (index > -1) {
           ConclusoesFrasesTornozelo.splice(index, 1);

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -52,11 +52,11 @@ function TenComumFlexoresAntebracoEsquerdo({ Disable }) {
 
     const criaStringRoturaParcial = (medida1cm, medida2cm, medida3cm) => {
         removeRoturaParcial();
-        var medida1 = new Convert_Medida(medida1cm).Convert_Medida();
-        var medida2 = new Convert_Medida(medida2cm).Convert_Medida();
-        var medida3 = new Convert_Medida(medida3cm).Convert_Medida();
+        const medida1 = new Convert_Medida(medida1cm).Convert_Medida();
+        const medida2 = new Convert_Medida(medida2cm).Convert_Medida();
+        const medida3 = new Convert_Medida(medida3cm).Convert_Medida();
         if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "") {
-            var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
+            const string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
             setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string]);
         }
     };
@@ -64,7 +64,7 @@ function TenComumFlexoresAntebracoEsquerdo({ Disable }) {
     const removeRoturaParcial = () => {
         fraseTenComumFlexoresAntebracoEsquerdo.map((e) => {
             if (e.includes("Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo")) {
-                var index = fraseTenComumFlexoresAntebracoEsquerdo.indexOf(e);
+                const index = fraseTenComumFlexoresAntebracoEsquerdo.indexOf(e);
                 if (index > -1) {
                     fraseTenComumFlexoresAntebracoEsquerdo.splice(index, 1);
                     setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr]);
@@ -74,7 +74,7 @@ function TenComumFlexoresAntebracoEsquerdo({ Disable }) {
     };
 
     const criaStringAspectoNormal = () => {
-        var string = "com ecotextura e espessura preservadas e contornos normais.";
+        const string = "com ecotextura e espessura preservadas e contornos normais.";
         AspectoNormalCheckbox ? setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
@@ -85,7 +85,7 @@ function TenComumFlexoresAntebracoEsquerdo({ Disable }) {
     }, [Disable])
 
     useEffect(() => {
-        var string = "com ecotextura e espessura preservadas e contornos normais.";
+        const string = "com ecotextura e espessura preservadas e contornos normais.";
         Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
     }, [Normal])
 
@@ -95,7 +95,7 @@ function TenComumFlexoresAntebracoEsquerdo({ Disable }) {
     }, [AspectoNormalCheckbox])
 
     const criaStringPequenasCalcificacoes = () => {
-        var string = "Pequenas calcificações junto à inserção do tendão comum dos flexores.";
+        const string = "Pequenas calcificações junto à inserção do tendão comum dos flexores.";
         const conclusao = 'Pequenas calcificações junto à inserção do tendão comum dos flexores.'
         if (PequenasCalcificacoesCheckbox) {
             setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string])
@@ -111,7 +111,7 @@ function TenComumFlexoresAntebracoEsquerdo({ Disable }) {
     }, [PequenasCalcificacoesCheckbox])
 
     const criaStringTendinopatiaSemRotura = () => {
-        var string = "espessado, com alteração ecotextural, mas sem evidências de rotura.";
+        const string = "espessado, com alteração ecotextural, mas sem evidências de rotura.";
         const conclusao = 'Tendinopatia dos flexores.'
         if (TendinopatiaSemRoturaCheckbox) {
             setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr, string])
@@ -127,7 +127,7 @@ function TenComumFlexoresAntebracoEsquerdo({ Disable }) {
     }, [TendinopatiaSemRoturaCheckbox])
 
     const removeItemString = (value) => {
-        var index = fraseTenComumFlexoresAntebracoEsquerdo.indexOf(value);
+        const index = fraseTenComumFlexoresAntebracoEsquerdo.indexOf(value);
         if (index > -1) {
             fraseTenComumFlexoresAntebracoEsquerdo.splice(index, 1);
             setFraseTenComumFlexoresAntebracoEsquerdo((arr) => [...arr]);
@@ -135,7 +135,7 @@ function TenComumFlexoresAntebracoEsquerdo({ Disable }) {
     };
 
     const removeItemConclusao = (value) => {
-        var index = ConclusaoTenComumFlexoresAntebracoEsquerdo.indexOf(value);
+        const index = ConclusaoTenComumFlexoresAntebracoEsquerdo.indexOf(value);
         if (index > -1) {
             ConclusaoTenComumFlexoresAntebracoEsquerdo.splice(index, 1);
             setConclusaoTenComumFlexoresAntebracoEsquerdo((arr) => [...arr]);

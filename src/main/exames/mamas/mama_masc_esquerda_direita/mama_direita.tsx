@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -28,7 +28,7 @@ function Mama_direita() {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesMamas.indexOf(value);
+    const index = frasesMamas.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesMamas.splice(index, 1);
@@ -60,7 +60,7 @@ function Mama_direita() {
 
 
   const criaStringParcialmentePrecisos = () => {
-    var string = 'parcialmente precisos e bordos finos, bem circunscrito, de orientação'
+    let string = 'parcialmente precisos e bordos finos, bem circunscrito, de orientação'
     removeFraseSelect(string)
     if (checkedItems[3]) {
       if (PerpendicularPeleInput != '' && PerpendicularPeleSelect != '' && PerpendicularPeleInput2 != '') {
@@ -87,7 +87,7 @@ function Mama_direita() {
   }, [checkedItems[3], PerpendicularPeleInput, PerpendicularPeleInput2, PerpendicularPeleSelect, QSLCheckbox, QSMCheckbox, QILCheckbox, QIMCheckbox])
 
   useEffect(() => {
-    let conclusao = 'Exame mamario dentro dos padrões da normalidade.'
+    const conclusao = 'Exame mamario dentro dos padrões da normalidade.'
     removeConclusao(conclusao)
     if (checkedItems[0] && checkedItems[2] && checkedItems[4]) {
       setConclusaoMamas([conclusao])
@@ -97,7 +97,7 @@ function Mama_direita() {
   const removeConclusao = (value) => {
     ConclusaoMamas.map((e) => {
       if (e.includes(value)) {
-        var index = ConclusaoMamas.indexOf(e);
+        const index = ConclusaoMamas.indexOf(e);
 
         if (index > -1) {
           ConclusaoMamas.splice(index, 1);
@@ -110,7 +110,7 @@ function Mama_direita() {
   const removeFraseSelect = (value) => {
     frasesMamas.map((e) => {
       if (e.includes(value)) {
-        let index = frasesMamas.indexOf(e);
+        const index = frasesMamas.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesMamas.splice(index, 1);

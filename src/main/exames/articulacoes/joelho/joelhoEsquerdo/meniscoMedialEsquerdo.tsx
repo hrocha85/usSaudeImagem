@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
@@ -11,7 +11,7 @@ function MeniscoMedialEsquerdo() {
   const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  let { JoelhoEsquerdoLaudoNormal } = useContext(JoelhoEsquerdoNormalContext)
+  const { JoelhoEsquerdoLaudoNormal } = useContext(JoelhoEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
   //States Protrusao - input,checkbox e select - Inicio
@@ -30,7 +30,7 @@ function MeniscoMedialEsquerdo() {
   const criaStringProtrusao = (Protrusao) => {
     removeProtrusao();
     if (Protrusao !== "") {
-      var string = `Menisco medial Esquerdo com Protrusao  ${Protrusao}. `;
+      const string = `Menisco medial Esquerdo com Protrusao  ${Protrusao}. `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -38,7 +38,7 @@ function MeniscoMedialEsquerdo() {
   const removeProtrusao = () => {
     laudoPrin.map((e) => {
       if (e.includes("Menisco medial Esquerdo com Protrusao ")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -50,7 +50,7 @@ function MeniscoMedialEsquerdo() {
   const criaStringRotura = (Rotura) => {
     removeRotura();
     if (Rotura !== "") {
-      var string = `Menisco medial Esquerdo com Rotura  ${Rotura}. `;
+      const string = `Menisco medial Esquerdo com Rotura  ${Rotura}. `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -58,7 +58,7 @@ function MeniscoMedialEsquerdo() {
   const removeRotura = () => {
     laudoPrin.map((e) => {
       if (e.includes("Menisco medial Esquerdo com Rotura ")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -71,7 +71,7 @@ function MeniscoMedialEsquerdo() {
   const criaStringCisto = (medida1, medida2) => {
     removeCisto();
     if (medida1 !== "" && medida2 !== "") {
-      var string = `Menisco medial Esquerdo com Cisto e intervalo de ${medida1}x${medida2} mm `;
+      const string = `Menisco medial Esquerdo com Cisto e intervalo de ${medida1}x${medida2} mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -79,7 +79,7 @@ function MeniscoMedialEsquerdo() {
   const removeCisto = () => {
     laudoPrin.map((e) => {
       if (e.includes("Menisco medial Esquerdo com Cisto ")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -201,7 +201,7 @@ function MeniscoMedialEsquerdo() {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setCistoInput(e.target.value) }}
           />
@@ -213,7 +213,7 @@ function MeniscoMedialEsquerdo() {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setCistoInput2(e.target.value) }}
           />

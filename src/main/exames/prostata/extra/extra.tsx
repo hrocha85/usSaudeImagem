@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -17,7 +17,7 @@ function Utero() {
 
   //Funcoes DIU Posicionado - Inicio
   const criaStringContornosIrregulares = () => {
-    var string = "Contornos prostáticos irregulares";
+    const string = "Contornos prostáticos irregulares";
     if (ContornosIrregularesCheckBox) {
       setFrasesExtras((arr) => [...arr, string]);
     } else {
@@ -26,7 +26,7 @@ function Utero() {
   };
 
   const criaStringProstataEcotextura = () => {
-    var string = "Próstata com ecotextura heterogênea";
+    const string = "Próstata com ecotextura heterogênea";
     if (ProstataEcotexturaCheckBox) {
       setFrasesExtras((arr) => [...arr, string]);
     } else {
@@ -35,7 +35,7 @@ function Utero() {
   };
 
   const criaStringBexigaEsforco = () => {
-    var string = "Bexiga com esforço";
+    const string = "Bexiga com esforço";
     if (BexigaEsforcoCheckBox) {
       setFrasesExtras((arr) => [...arr, string]);
     } else {
@@ -45,7 +45,7 @@ function Utero() {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesExtras.indexOf(value);
+    const index = frasesExtras.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesExtras.splice(index, 1);

@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable no-lone-blocks */
 import {
   Box,
@@ -44,7 +44,7 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
   const removeConclusao = () => {
     ConclusoesTornozelo.map((e) => {
       if (e.includes("Sinais de tendinopatia do tibial posterior direito")) {
-        var index = ConclusoesTornozelo.indexOf(e);
+        const index = ConclusoesTornozelo.indexOf(e);
 
         if (index > -1) {
           ConclusoesTornozelo.splice(index, 1);
@@ -56,7 +56,7 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
     });
     ConclusoesTornozelo.map((e) => {
       if (e.includes("Osso navicular acessório")) {
-        var index = ConclusoesTornozelo.indexOf(e);
+        const index = ConclusoesTornozelo.indexOf(e);
 
         if (index > -1) {
           ConclusoesTornozelo.splice(index, 1);
@@ -131,8 +131,8 @@ export default function Tendao_Tibial_Posterior_Direito({ Disable }) {
         break;
       case "Lesão parcial medindo": {
         removeConclusao()
-        var conclusao = 'Sinais de tendinopatia do tibial posterior direito com lesão parcial.'
-        var conclusaoOssoNavicular = 'Osso navicular acessório'
+        const conclusao = 'Sinais de tendinopatia do tibial posterior direito com lesão parcial.'
+        let conclusaoOssoNavicular = 'Osso navicular acessório'
         setdisableCheckBoxOsso(false);
         setFrasesTornozelo([]);
         setdisableInputs(false);

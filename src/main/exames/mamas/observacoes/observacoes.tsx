@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -19,7 +19,7 @@ function Observacoes() {
   const [valueSelectNaoObservado, setValueSelectNaoObservado] = useState("");
 
   const criaStringPresenteSemAlteracoes = () => {
-    let string = `Sem exame anterior para comparação`;
+    const string = `Sem exame anterior para comparação`;
     if (semExameAnterior) {
       setFrasesOBS((arr) => [...arr, string]);
     } else {
@@ -29,7 +29,7 @@ function Observacoes() {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesOBS.indexOf(value);
+    const index = frasesOBS.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesOBS.splice(index, 1);
@@ -42,7 +42,7 @@ function Observacoes() {
     if (checkboxNaoObservado) {
       setDisableSelectNaoObservado(false);
       if (valueSelectNaoObservado !== "") {
-        let string = `Não foi visibilizado o nódulo na ${valueSelectNaoObservado} descrito no exame anterior. Sugerimos controle ultra-sonográfico.`;
+        const string = `Não foi visibilizado o nódulo na ${valueSelectNaoObservado} descrito no exame anterior. Sugerimos controle ultra-sonográfico.`;
         setFrasesOBS((arr) => [...arr, string]);
       }
     } else {
@@ -53,7 +53,7 @@ function Observacoes() {
   const removeFraseNaoObservado = () => {
     frasesOBS.map((e) => {
       if (e.includes("Não foi visibilizado o nódulo")) {
-        let index = frasesOBS.indexOf(e);
+        const index = frasesOBS.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesOBS.splice(index, 1);

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -116,7 +116,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
     const medida3 = new Convert_Medida(medida3cm).Convert_Medida();
     if (RoturaParcialCheckbox) {
       if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectRoturaParcial !== "") {
-        var string = `${selectRoturaParcial} espessado, com alteração ecotextural, observando-se sinais de rotura parcial ${medida1} x ${medida2} x ${medida3} cm`;
+        const string = `${selectRoturaParcial} espessado, com alteração ecotextural, observando-se sinais de rotura parcial ${medida1} x ${medida2} x ${medida3} cm`;
         setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
         setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr, conclusao]);
       }
@@ -132,7 +132,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
           "espessado, com alteração ecotextural, observando-se sinais de rotura parcial "
         )
       ) {
-        var index = frasesOmbroTendaoSupraespinhalDireito.indexOf(e);
+        const index = frasesOmbroTendaoSupraespinhalDireito.indexOf(e);
         if (index > -1) {
           frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);
           setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
@@ -141,7 +141,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
     });
     ConclusaoOmbroTendaoSupraespinhalDireito.map((e) => {
       if (e.includes("Tendinopatia do supraespinhal, com sinais de rotura parcial.")) {
-        var index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(e);
+        const index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(e);
         if (index > -1) {
           ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
           setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
@@ -152,7 +152,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    const string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox
       ? setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string])
       : removeItemString(string);
@@ -163,7 +163,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
   }, [AspectoNormalCheckbox]);
 
   const criaStringPequenasCalcificacoes = () => {
-    var string = "Há pequenas calcificações junto à inserção do supraespinhal.";
+    const string = "Há pequenas calcificações junto à inserção do supraespinhal.";
     const conclusao = 'Pequenas calcificações na inserção do supraespinhal.'
     if (PequenasCalcificacoesCheckbox) {
       setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string])
@@ -179,12 +179,12 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
   }, [PequenasCalcificacoesCheckbox]);
 
   const criaStringTendinopatiaSemRotura = (select, medidacm) => {
-    var string =
+    let string =
       "Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura.";
     const conclusao = 'Tendinopatia do supraespinhal.'
     removeFraseTendinopatiaSemRotura();
 
-    var medida = new Convert_Medida(medidacm).Convert_Medida();
+    const medida = new Convert_Medida(medidacm).Convert_Medida();
 
     if (TendinopatiaSemRoturaCheckbox) {
       if (select !== "" && medidacm !== "") {
@@ -240,7 +240,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
     frasesOmbroTendaoSupraespinhalDireito.map((e) => {
       if (
         e.includes("Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura")) {
-        var index = frasesOmbroTendaoSupraespinhalDireito.indexOf(e);
+        const index = frasesOmbroTendaoSupraespinhalDireito.indexOf(e);
 
         if (index > -1) {
           frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);
@@ -251,7 +251,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
     ConclusaoOmbroTendaoSupraespinhalDireito.map((e) => {
       if (
         e.includes("Tendinopatia do supraespinhal.")) {
-        var index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(e);
+        const index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(e);
 
         if (index > -1) {
           ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
@@ -265,7 +265,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
   const criaStringRoturaCompleta = (dados, medidaRetracao) => {
     const conclusao = 'Tendinopatia do supraespinhal, com sinais de rotura completa.'
     removeFraseRoturaCompleta();
-    var string;
+    let string;
     if (dados !== "" && medidaRetracao !== "") {
       string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo com retração de ${medidaRetracao} mm`;
       setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr, string]);
@@ -283,7 +283,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
           "Hipoecogênico, heterogêneo, observando-se sinais de rotura completa"
         )
       ) {
-        var index = frasesOmbroTendaoSupraespinhalDireito.indexOf(e);
+        const index = frasesOmbroTendaoSupraespinhalDireito.indexOf(e);
         if (index > -1) {
           frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);
           setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
@@ -296,7 +296,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
           "Tendinopatia do supraespinhal, com sinais de rotura completa."
         )
       ) {
-        var index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(e);
+        const index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(e);
         if (index > -1) {
           ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
           setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
@@ -331,14 +331,14 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
   }, [InputMedindoRoturaCompleta, InputRetracaoRoturaCompleta]);
 
   const removeItemString = (value) => {
-    var index = frasesOmbroTendaoSupraespinhalDireito.indexOf(value);
+    const index = frasesOmbroTendaoSupraespinhalDireito.indexOf(value);
     if (index > -1) {
       frasesOmbroTendaoSupraespinhalDireito.splice(index, 1);
       setFrasesOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
     }
   }
   const removeItemConclusao = (value) => {
-    var index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(value);
+    const index = ConclusaoOmbroTendaoSupraespinhalDireito.indexOf(value);
     if (index > -1) {
       ConclusaoOmbroTendaoSupraespinhalDireito.splice(index, 1);
       setConclusaoOmbroTendaoSupraespinhalDireito((arr) => [...arr]);
@@ -406,7 +406,7 @@ function OmbroTendaoSupraespinhalDireito({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    const string = "com ecotextura e espessura preservadas e contornos normais.";
     Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
   }, [Normal])
 

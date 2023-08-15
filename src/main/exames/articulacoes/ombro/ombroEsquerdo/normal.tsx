@@ -6,7 +6,7 @@ export function NormalEsquerdo() {
   const altura = "100%";
   const largura = "100%";
 
-  let { setOmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext);
+  const { setOmbroEsquerdoLaudoNormal } = useContext(OmbroEsquerdoNormalContext);
 
   const verificaChecked = (value) => {
     value.checked === true

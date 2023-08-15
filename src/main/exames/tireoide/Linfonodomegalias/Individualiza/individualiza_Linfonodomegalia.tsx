@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Spacer, Stack, Wrap, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -34,7 +34,7 @@ export default function Individualiza_Linfonodomegalias() {
     const [IndiceResistividade, setIndiceResistividade] = useState(false);
 
     const removeItemString = (value) => {
-        var index = FrasesLinfonodomegalias.indexOf(value);
+        const index = FrasesLinfonodomegalias.indexOf(value);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
             FrasesLinfonodomegalias.splice(index, 1);
@@ -65,9 +65,9 @@ export default function Individualiza_Linfonodomegalias() {
     const criaStringLinfonodomegalia = () => {
         let string = 'Lindonodomegalias falta'
         removeStringLinfonodomegalia()
-        let medida1cm = new Convert_Medida(valueInput01Linfonodomegalia).Convert_Medida()
-        let medida2cm = new Convert_Medida(valueInput02Linfonodomegalia).Convert_Medida()
-        let medida3cm = new Convert_Medida(valueInput03Linfonodomegalia).Convert_Medida()
+        const medida1cm = new Convert_Medida(valueInput01Linfonodomegalia).Convert_Medida()
+        const medida2cm = new Convert_Medida(valueInput02Linfonodomegalia).Convert_Medida()
+        const medida3cm = new Convert_Medida(valueInput03Linfonodomegalia).Convert_Medida()
         if (valueInput01Linfonodomegalia != '' && valueInput02Linfonodomegalia != '' && valueInput03Linfonodomegalia != '' &&
             valueSelect01Linfonodomegalia != '' && valueSelect02Linfonodomegalia != '' && valueSelect03Linfonodomegalia != '' && valueSelect04Linfonodomegalia != '') {
 
@@ -81,7 +81,7 @@ export default function Individualiza_Linfonodomegalias() {
     const removeStringLinfonodomegalia = () => {
         FrasesLinfonodomegalias.map((e) => {
             if (e.includes("Lindonodomegalias falta")) {
-                var index = FrasesLinfonodomegalias.indexOf(e);
+                const index = FrasesLinfonodomegalias.indexOf(e);
                 if (index > -1) {
                     FrasesLinfonodomegalias.splice(index, 1);
                     setFrasesLinfonodomegalias((arr) => [...arr]);
@@ -93,7 +93,7 @@ export default function Individualiza_Linfonodomegalias() {
     const removeStringVascularizacao = () => {
         FrasesLinfonodomegalias.map((e) => {
             if (e.includes("Vascularização falta")) {
-                var index = FrasesLinfonodomegalias.indexOf(e);
+                const index = FrasesLinfonodomegalias.indexOf(e);
                 if (index > -1) {
                     FrasesLinfonodomegalias.splice(index, 1);
                     setFrasesLinfonodomegalias((arr) => [...arr]);
@@ -102,7 +102,7 @@ export default function Individualiza_Linfonodomegalias() {
         });
     };
     const criaStringVascularizacao = () => {
-        var string = 'Vascularização falta'
+        let string = 'Vascularização falta'
         removeStringVascularizacao()
         if (VascularizacaoSelect != '') {
             string = `${string} ${VascularizacaoSelect}`
@@ -124,7 +124,7 @@ export default function Individualiza_Linfonodomegalias() {
     const removeStringResistividade = () => {
         FrasesLinfonodomegalias.map((e) => {
             if (e.includes("Vascularização falta")) {
-                var index = FrasesLinfonodomegalias.indexOf(e);
+                const index = FrasesLinfonodomegalias.indexOf(e);
                 if (index > -1) {
                     FrasesLinfonodomegalias.splice(index, 1);
                     setFrasesLinfonodomegalias((arr) => [...arr]);
@@ -133,7 +133,7 @@ export default function Individualiza_Linfonodomegalias() {
         });
     };
     const criaStringResistividade = () => {
-        var string = 'Vascularização falta'
+        let string = 'Vascularização falta'
         removeStringResistividade()
         if (InputResistividade != '') {
             string = `${string} ${InputResistividade}`
@@ -153,7 +153,7 @@ export default function Individualiza_Linfonodomegalias() {
     }, [IndiceResistividade, InputResistividade])
 
     useEffect(() => {
-        var string = 'Calcificações falta'
+        let string = 'Calcificações falta'
         if (CalcificacoesSelect != '') {
             removeStringCalcificacoes()
             string = `${string} ${CalcificacoesSelect}.`
@@ -165,7 +165,7 @@ export default function Individualiza_Linfonodomegalias() {
     const removeStringCalcificacoes = () => {
         FrasesLinfonodomegalias.map((e) => {
             if (e.includes("Calcificações falta")) {
-                var index = FrasesLinfonodomegalias.indexOf(e);
+                const index = FrasesLinfonodomegalias.indexOf(e);
                 if (index > -1) {
                     FrasesLinfonodomegalias.splice(index, 1);
                     setFrasesLinfonodomegalias((arr) => [...arr]);

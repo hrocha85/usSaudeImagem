@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -18,7 +18,7 @@ export default function IndividualizarPolipo({ numCisto }) {
   //Funcoes Polipo endometrial - Inicio
   const criaStringPolipoEndometrial = (medida1) => {
     const conclusao = 'Imagem nodular sugestiva de pólipo endometrial.'
-    var string = `${numCisto}º Pólipo: Nota-se no interior da cavidade, imagem ovalada hiperecóica , de limites precisos e contornos regulares, medindo:`
+    let string = `${numCisto}º Pólipo: Nota-se no interior da cavidade, imagem ovalada hiperecóica , de limites precisos e contornos regulares, medindo:`
     removeMultiplosPolipo()
     removeItemConclusao(conclusao);
     if (polipoCheckBox) {
@@ -38,7 +38,7 @@ export default function IndividualizarPolipo({ numCisto }) {
 
 
   const removeItemConclusao = (value) => {
-    var index = ConclusaoPolipo.indexOf(value);
+    const index = ConclusaoPolipo.indexOf(value);
 
     if (index > -1) {
       ConclusaoPolipo.splice(index, 1);
@@ -49,7 +49,7 @@ export default function IndividualizarPolipo({ numCisto }) {
   const removeMultiplosPolipo = () => {
     FrasesPolipo.map((e) => {
       if (e.includes(`${numCisto}º Pólipo:`)) {
-        var index = FrasesPolipo.indexOf(e);
+        const index = FrasesPolipo.indexOf(e);
 
         if (index > -1) {
           FrasesPolipo.splice(index, 1);

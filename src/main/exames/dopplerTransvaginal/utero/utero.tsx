@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -111,7 +111,7 @@ function Utero() {
   const [PosicaoSelect, setPosicaoSelect] = useState('');
 
   useEffect(() => {
-    var medida4 = (medidaUtero1 * (medidaUtero2) * (medidaUtero3) / 1000) / 2
+    const medida4 = (medidaUtero1 * (medidaUtero2) * (medidaUtero3) / 1000) / 2
     setmedidaUtero4(medida4)
   }, [medidaUtero1, medidaUtero2, medidaUtero3])
 
@@ -132,7 +132,7 @@ function Utero() {
 
   //Funcoes medida Endometrio - Inicio
   const criaStringEndometrio = () => {
-    var string = 'O eco endometrial'
+    let string = 'O eco endometrial'
     removeStringSelect(string)
     if (endometrio != 0) {
       if (endometrioCheckBox) {
@@ -151,7 +151,7 @@ function Utero() {
   //Funcoes Polipo endometrial - Inicio
   const criaStringPolipoEndometrial = (medida1, medida2) => {
     const conclusao = 'Imagem nodular sugestiva de pólipo endometrial.'
-    var string = 'Nota-se no interior da cavidade, imagem ovalada hiperecóica , de limites precisos e contornos regulares, medindo:'
+    let string = 'Nota-se no interior da cavidade, imagem ovalada hiperecóica , de limites precisos e contornos regulares, medindo:'
     removeStringSelect(string);
     removeItemConclusao(conclusao);
     if (polipoCheckBox) {
@@ -172,8 +172,8 @@ function Utero() {
 
 
   const criaStringDIUBemPosicionado = () => {
-    var string = "Observa-se imagem linear,ecogênica, com reverberação acústica posterior, de geometria compatível com DIU.";
-    var conclusao = 'DIU normoposicionado.'
+    const string = "Observa-se imagem linear,ecogênica, com reverberação acústica posterior, de geometria compatível com DIU.";
+    const conclusao = 'DIU normoposicionado.'
     if (DIUBemPosicionadoCheckBox) {
       setFrasesUtero((arr) => [...arr, string]);
       setConclusaoUtero((arr) => [...arr, conclusao]);
@@ -189,7 +189,7 @@ function Utero() {
 
   //Funcoes Distancia DIU - Inicio
   const criaStringDIUDistancia = (distancia) => {
-    var string = 'A distância entre o DIU e o fundo da cavidade uterina mediu'
+    let string = 'A distância entre o DIU e o fundo da cavidade uterina mediu'
     const conclusao = 'DIU de inserção baixa.'
     removeStringSelect(string);
     removeItemConclusao(conclusao);
@@ -209,8 +209,8 @@ function Utero() {
   }, [DIUDistanciaCheckBox, distanciaDIUInput]);
 
   const criaStringLiquidoEndometrial = () => {
-    var string = "Presença de pequena quantidade de líquido na cavidade endometrial.";
-    var conclusao = "Pequena quantidade de líquido na cavidade endometrial."
+    const string = "Presença de pequena quantidade de líquido na cavidade endometrial.";
+    const conclusao = "Pequena quantidade de líquido na cavidade endometrial."
     removeItemConclusao(conclusao)
     removeStringSelect(string)
     if (liquidoEndometrialCheckBox) {
@@ -225,8 +225,8 @@ function Utero() {
 
   //Funcoes Cisto Naboth - Incio
   const criaStringCistoNaboth = (medida) => {
-    let conclusao = 'Cistos de Naboth'
-    var string = 'Presença de algumas imagens císticas, anecóicas, na topografia do colo uterino, a maior medindo'
+    const conclusao = 'Cistos de Naboth'
+    let string = 'Presença de algumas imagens císticas, anecóicas, na topografia do colo uterino, a maior medindo'
     removeStringSelect(string)
     removeItemConclusao(conclusao)
     if (cistoNabothCheckBox) {
@@ -249,7 +249,7 @@ function Utero() {
   //Remove string generico
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesUtero.indexOf(value);
+    const index = frasesUtero.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesUtero.splice(index, 1);
@@ -258,7 +258,7 @@ function Utero() {
   };
   const removeItemConclusao = (value) => {
     // console.log("valor remove = ", value);
-    var index = ConclusaoUtero.indexOf(value);
+    const index = ConclusaoUtero.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       ConclusaoUtero.splice(index, 1);
@@ -271,7 +271,7 @@ function Utero() {
     // console.log("valor remove = ", value);
     frasesUtero.map((e) => {
       if (e.includes(value)) {
-        var index = frasesUtero.indexOf(e);
+        const index = frasesUtero.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesUtero.splice(index, 1);

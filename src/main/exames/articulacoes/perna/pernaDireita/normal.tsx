@@ -8,7 +8,7 @@ export function NormalDireito() {
     const altura = '100%'
     const largura = '250px'
 
-    let { setPernaDireitoLaudoNormal } = useContext(PernaDireitoNormalContext)
+    const { setPernaDireitoLaudoNormal } = useContext(PernaDireitoNormalContext)
 
     const verificaChecked = (value) => {
         value.checked === true ? setPernaDireitoLaudoNormal(true) : setPernaDireitoLaudoNormal(false);

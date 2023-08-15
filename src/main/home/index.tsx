@@ -31,7 +31,7 @@ function Home() {
   //const MySwal = withReactContent(Swal);
 
 
-  let exames = [
+  const exames = [
     {
       key: 1,
       nomeExame: "Abdômen total",
@@ -207,9 +207,9 @@ function Home() {
     // },
   ];
 
-  var user = JSON.parse(localStorage.getItem("user")!);
-  var clinica = JSON.parse(user.clinica);
-  var medico = user.medico;
+  const user = JSON.parse(localStorage.getItem("user")!);
+  const clinica = JSON.parse(user.clinica);
+  const medico = user.medico;
 
   useEffect(() => {
     const existingObservacoes = localStorage.getItem("observacoes");
@@ -237,8 +237,8 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    var totalSize = JSON.stringify(localStorage).length;
-    var locals = totalSize / 1024 / 1024;
+    const totalSize = JSON.stringify(localStorage).length;
+    const locals = totalSize / 1024 / 1024;
     console.log(`USO DO LOCALSTORAGE: ${locals.toFixed(2)} MB`);
   }, []);
 

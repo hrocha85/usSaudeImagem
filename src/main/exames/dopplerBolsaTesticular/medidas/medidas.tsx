@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, HStack, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -27,7 +27,7 @@ function Testiculo() {
       medidaTesticuloDireito2 !== "" &&
       medidaTesticuloDireito3 !== ""
     ) {
-      var string = `Testículo direito medindo ${medidaTesticuloDireito1} x ${medidaTesticuloDireito2} x ${medidaTesticuloDireito3} mm `;
+      const string = `Testículo direito medindo ${medidaTesticuloDireito1} x ${medidaTesticuloDireito2} x ${medidaTesticuloDireito3} mm `;
       setFrasesMedidas((arr) => [...arr, string]);
     }
   };
@@ -35,7 +35,7 @@ function Testiculo() {
     // console.log("valor remove = ", value);
     frasesMedidas.map((e) => {
       if (e.includes("Testículo direito medindo")) {
-        var index = frasesMedidas.indexOf(e);
+        const index = frasesMedidas.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesMedidas.splice(index, 1);
@@ -62,7 +62,7 @@ function Testiculo() {
       medidaTesticuloEsquerdo2 !== "" &&
       medidaTesticuloEsquerdo3 !== ""
     ) {
-      var string = `Testículo esquerdo medindo ${medidaTesticuloEsquerdo1} x ${medidaTesticuloEsquerdo2} x ${medidaTesticuloEsquerdo3} mm `;
+      const string = `Testículo esquerdo medindo ${medidaTesticuloEsquerdo1} x ${medidaTesticuloEsquerdo2} x ${medidaTesticuloEsquerdo3} mm `;
       setFrasesMedidas((arr) => [...arr, string]);
     }
   };
@@ -70,7 +70,7 @@ function Testiculo() {
     // console.log("valor remove = ", value);
     frasesMedidas.map((e) => {
       if (e.includes("Testículo esquerdo medindo")) {
-        var index = frasesMedidas.indexOf(e);
+        const index = frasesMedidas.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesMedidas.splice(index, 1);
@@ -133,7 +133,7 @@ function Testiculo() {
             w="30px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => setmedidaTesticuloDireito1(e.target.value)}
           />
@@ -142,7 +142,7 @@ function Testiculo() {
             w="30px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => setmedidaTesticuloDireito2(e.target.value)}
           />
@@ -151,7 +151,7 @@ function Testiculo() {
             w="30px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => {
               setmedidaTesticuloDireito3(e.target.value);
@@ -165,7 +165,7 @@ function Testiculo() {
             w="30px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => setmedidaTesticuloEsquerdo1(e.target.value)}
           />
@@ -174,7 +174,7 @@ function Testiculo() {
             w="30px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => setmedidaTesticuloEsquerdo2(e.target.value)}
           />
@@ -183,7 +183,7 @@ function Testiculo() {
             w="30px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => {
               setmedidaTesticuloEsquerdo3(e.target.value);

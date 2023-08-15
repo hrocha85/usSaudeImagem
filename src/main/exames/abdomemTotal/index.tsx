@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/jsx-pascal-case */
+
+
 import { Box, Checkbox, HStack, Select, Stack, VStack } from "@chakra-ui/react";
 
 
@@ -33,7 +33,7 @@ function AbdomemTotal() {
   const removeStringSelect = (value) => {
     frasesAdomenTotal.map((e) => {
       if (e.includes(value)) {
-        var index = frasesAdomenTotal.indexOf(e);
+        const index = frasesAdomenTotal.indexOf(e);
         if (index > -1) {
           frasesAdomenTotal.splice(index, 1);
           setFrasesAdomenTotal((arr) => [...arr]);
@@ -42,7 +42,7 @@ function AbdomemTotal() {
     });
   };
   useEffect(() => {
-    var frase = 'Com situação, forma, contornos e dimensões'
+    let frase = 'Com situação, forma, contornos e dimensões'
     removeStringSelect(frase)
     if (Disable) {
       if (NormalSelect && NormalEstruturasSelect) {
@@ -94,7 +94,7 @@ function AbdomemTotal() {
         flexWrap='wrap'
         justifyContent={'center'}
         alignItems='center' gap='5px'
-        >
+      >
 
         <Box textAlign={'center'} p={4}>
           <Checkbox
@@ -102,37 +102,37 @@ function AbdomemTotal() {
           >Abdômen normal</Checkbox>
         </Box>
         <HStack align="center" spacing={4}>
-        <Select
-          borderColor='black'
-          w='45%'
-          isDisabled={!Disable}
-          value={NormalSelect}
-          onChange={(e) => {
-            SetNormalSelect(e.target.value);
-          }}
-        >
-          <option value="" disabled selected>
-            Dimensões
-          </option>
-          <option value="normais">Normais</option>
-          <option value="aumentado">Aumentado</option>
-          <option value="diminuído">Diminuído</option>
-        </Select>
-        <Select
-          borderColor='black'
-          w='45%'
-          isDisabled={!Disable}
-          value={NormalEstruturasSelect}
-          onChange={(e) => {
-            SetNormalEstruturasSelect(e.target.value);
-          }}
-        >
-          <option value="" disabled selected>
-            Estruturas vasculares
-          </option>
-          <option value="normais">Normais</option>
-          <option value="não visibilizados">Não visibilizados</option>
-        </Select>
+          <Select
+            borderColor='black'
+            w='45%'
+            isDisabled={!Disable}
+            value={NormalSelect}
+            onChange={(e) => {
+              SetNormalSelect(e.target.value);
+            }}
+          >
+            <option value="" disabled selected>
+              Dimensões
+            </option>
+            <option value="normais">Normais</option>
+            <option value="aumentado">Aumentado</option>
+            <option value="diminuído">Diminuído</option>
+          </Select>
+          <Select
+            borderColor='black'
+            w='45%'
+            isDisabled={!Disable}
+            value={NormalEstruturasSelect}
+            onChange={(e) => {
+              SetNormalEstruturasSelect(e.target.value);
+            }}
+          >
+            <option value="" disabled selected>
+              Estruturas vasculares
+            </option>
+            <option value="normais">Normais</option>
+            <option value="não visibilizados">Não visibilizados</option>
+          </Select>
         </HStack>
       </Box >
 

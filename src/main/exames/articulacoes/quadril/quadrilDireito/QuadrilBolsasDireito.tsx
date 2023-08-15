@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -44,12 +44,12 @@ function QuadrilBolsasDireito({ Disable }) {
 
 
     useEffect(() => {
-        var string = "Ausência de líquido nas bolsas trocantérica, subglútea média, subglútea mínima e do iliopsoas.";
+        const string = "Ausência de líquido nas bolsas trocantérica, subglútea média, subglútea mínima e do iliopsoas.";
         SemLiuqidoCheckbox ? setQuadrilBolsasDireito((arr) => [...arr, string]) : removeItemString(string);
     }, [SemLiuqidoCheckbox])
 
     const criaStringLiquidoBolsaTrocanterica = () => {
-        var string = "Presença de líquido de aspecto anecoico na bolsa: ";
+        let string = "Presença de líquido de aspecto anecoico na bolsa: ";
         removeLiquido()
         if (LiquidoBolsaTrocantericaCheckbox || LiquidoBolsaSubgluteaMediaCheckbox || LiquidoBolsaSubgluteaMinimaCheckbox || LiquidoBolsaIlipsoasCheckbox) {
             if (LiquidoBolsaTrocantericaCheckbox) {
@@ -76,7 +76,7 @@ function QuadrilBolsasDireito({ Disable }) {
     const removeLiquido = () => {
         QuadrilBolsasDireito.map((e) => {
             if (e.includes("Presença de líquido de aspecto anecoico na bolsa:")) {
-                var index = QuadrilBolsasDireito.indexOf(e);
+                const index = QuadrilBolsasDireito.indexOf(e);
 
                 if (index > -1) {
                     QuadrilBolsasDireito.splice(index, 1);
@@ -88,7 +88,7 @@ function QuadrilBolsasDireito({ Disable }) {
 
 
     const removeItemString = (value) => {
-        var index = QuadrilBolsasDireito.indexOf(value);
+        const index = QuadrilBolsasDireito.indexOf(value);
 
         if (index > -1) {
             QuadrilBolsasDireito.splice(index, 1);

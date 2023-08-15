@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -43,8 +43,8 @@ function CalculoVolume() {
     const medida2 = parseInt(medida2CalcVolumePos);
     const medida3 = parseInt(medida3CalcVolumePos);
     if (medida1 > 0 && medida2 > 0 && medida3 > 0) {
-      let conta = (medida1 * medida2 * medida3 * 0.52) / 1000;
-      let string = `Volume pós-miccional: ${conta.toFixed(1)} cm³`;
+      const conta = (medida1 * medida2 * medida3 * 0.52) / 1000;
+      const string = `Volume pós-miccional: ${conta.toFixed(1)} cm³`;
       setFrasesVolPros((arr) => [...arr, string]);
     }
   };
@@ -52,7 +52,7 @@ function CalculoVolume() {
   const removeCalcVolumePos = () => {
     frasesVolPros.map((e) => {
       if (e.includes("Volume pós-miccional:")) {
-        let index = frasesVolPros.indexOf(e);
+        const index = frasesVolPros.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesVolPros.splice(index, 1);
@@ -90,8 +90,8 @@ function CalculoVolume() {
     const medida2 = parseInt(medida2CalcVolumePre);
     const medida3 = parseInt(medida3CalcVolumePre);
     if (medida1 > 0 && medida2 > 0 && medida3 > 0) {
-      let conta = (medida1 * medida2 * medida3 * 0.52) / 1000;
-      let string = `Volume pré-miccional: ${conta.toFixed(1)} cm³`;
+      const conta = (medida1 * medida2 * medida3 * 0.52) / 1000;
+      const string = `Volume pré-miccional: ${conta.toFixed(1)} cm³`;
       setFrasesVolPros((arr) => [...arr, string]);
     }
   };
@@ -99,7 +99,7 @@ function CalculoVolume() {
   const removeCalcVolumePre = () => {
     frasesVolPros.map((e) => {
       if (e.includes("Volume pré-miccional:")) {
-        let index = frasesVolPros.indexOf(e);
+        const index = frasesVolPros.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesVolPros.splice(index, 1);

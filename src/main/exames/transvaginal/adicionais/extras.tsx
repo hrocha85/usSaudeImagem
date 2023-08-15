@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -42,7 +42,7 @@ function Extras({ Disable }) {
     const conclusao = 'Varizes pélvicas.'
     removeStringVarizes();
     if (varizesCheckBox) {
-      var string =
+      const string =
         "Nota-se em regiões para-uterinas presença de várias imagens anecóicas, tubulares, tortuosas, de limites precisos e contornos regulares.";
       setFrasesAdicionais((arr) => [...arr, string]);
       setConclusaoAdicionais((arr) => [...arr, conclusao]);
@@ -52,7 +52,7 @@ function Extras({ Disable }) {
     const conclusao = 'Achados ecográficos sugestivos de malformação mulleriana (útero septado ou bicorno).'
     removeStringUteroBi();
     if (uteroBiCheckBox) {
-      var string =
+      const string =
         "Achados ecográficos sugestivos de malformação mulleriana (útero septado ou bicorno).";
       setFrasesAdicionais((arr) => [...arr, string]);
       setConclusaoAdicionais((arr) => [...arr, conclusao]);
@@ -63,7 +63,7 @@ function Extras({ Disable }) {
     frasesAdicionais.map((e) => {
       if (e.includes(
         "Nota-se em regiões para-uterinas presença de várias imagens anecóicas, tubulares, tortuosas, de limites precisos e contornos regulares.")) {
-        var index = frasesAdicionais.indexOf(e);
+        const index = frasesAdicionais.indexOf(e);
 
         if (index > -1) {
           frasesAdicionais.splice(index, 1);
@@ -74,7 +74,7 @@ function Extras({ Disable }) {
     ConclusaoAdicionais.map((e) => {
       if (e.includes(
         "Varizes pélvicas.")) {
-        var index = ConclusaoAdicionais.indexOf(e);
+        const index = ConclusaoAdicionais.indexOf(e);
 
         if (index > -1) {
           ConclusaoAdicionais.splice(index, 1);
@@ -87,7 +87,7 @@ function Extras({ Disable }) {
   const removeStringUteroBi = () => {
     frasesAdicionais.map((e) => {
       if (e.includes("Achados ecográficos sugestivos de malformação mulleriana (útero septado ou bicorno).")) {
-        var index = frasesAdicionais.indexOf(e);
+        const index = frasesAdicionais.indexOf(e);
 
         if (index > -1) {
           frasesAdicionais.splice(index, 1);
@@ -97,7 +97,7 @@ function Extras({ Disable }) {
     });
     ConclusaoAdicionais.map((e) => {
       if (e.includes("Achados ecográficos sugestivos de malformação mulleriana (útero septado ou bicorno).")) {
-        var index = ConclusaoAdicionais.indexOf(e);
+        const index = ConclusaoAdicionais.indexOf(e);
 
         if (index > -1) {
           ConclusaoAdicionais.splice(index, 1);

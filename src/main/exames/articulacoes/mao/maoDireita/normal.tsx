@@ -6,7 +6,7 @@ export function NormalDireito() {
   const altura = "100%";
   const largura = "100%";
 
-  let { setMaoDireitoLaudoNormal } = useContext(MaoDireitoNormalContext);
+  const { setMaoDireitoLaudoNormal } = useContext(MaoDireitoNormalContext);
 
   const verificaChecked = (value) => {
     value.checked === true

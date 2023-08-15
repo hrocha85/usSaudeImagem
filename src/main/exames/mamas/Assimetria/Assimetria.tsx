@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -20,7 +20,7 @@ function Assimetria() {
   const [AssimetriaDesenvolvimentoCheckbox, setAssimetriaDesenvolvimentoCheckbox] = useState(false);
 
   const removeItemString = (value) => {
-    var index = FraseAssimetria.indexOf(value);
+    const index = FraseAssimetria.indexOf(value);
     if (index > -1) {
       FraseAssimetria.splice(index, 1);
       setFraseAssimetria((arr) => [...arr]);

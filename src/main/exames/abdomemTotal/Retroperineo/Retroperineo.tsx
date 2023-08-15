@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
@@ -17,7 +17,7 @@ function Retroperineo({ Disable }) {
     const [PresenteCheckbox, setPresenteCheckbox] = useState(false);
 
     const removeItemString = (value) => {
-        var index = FraseRetroperineo.indexOf(value);
+        const index = FraseRetroperineo.indexOf(value);
         if (index > -1) {
             FraseRetroperineo.splice(index, 1);
             setFraseRetroperineo((arr) => [...arr]);
@@ -36,7 +36,7 @@ function Retroperineo({ Disable }) {
 
 
     const removeConclusaoString = (value) => {
-        var index;
+        let index;
         ConclusoesRetroperineo.map((e) => {
             if (e.includes(value)) {
                 index = ConclusoesRetroperineo.indexOf(e);

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -47,7 +47,7 @@ function CarotidaExternaEsquerda() {
   const criaStringPlaca = (medida, Placa) => {
     removePlaca();
     if (medida !== "") {
-      var string = `Carótida Externa Esquerda com placa ${Placa} medindo ${medida} mm `;
+      const string = `Carótida Externa Esquerda com placa ${Placa} medindo ${medida} mm `;
       setFrasesCarotidaExterna((arr) => [...arr, string]);
     }
   };
@@ -55,7 +55,7 @@ function CarotidaExternaEsquerda() {
   const removePlaca = () => {
     frasesCarotidaExterna.map((e) => {
       if (e.includes("Carótida Externa Esquerda")) {
-        var index = frasesCarotidaExterna.indexOf(e);
+        const index = frasesCarotidaExterna.indexOf(e);
 
         if (index > -1) {
           frasesCarotidaExterna.splice(index, 1);
@@ -68,7 +68,7 @@ function CarotidaExternaEsquerda() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringSubOclusao = () => {
-    var string = "Carótida Externa Esquerda com SubOclusão";
+    const string = "Carótida Externa Esquerda com SubOclusão";
     if (SubOclusaoCheckBox) {
       setFrasesCarotidaExterna((arr) => [...arr, string]);
       setSubOclusaoCheckBox(false);
@@ -79,7 +79,7 @@ function CarotidaExternaEsquerda() {
 
   //Função Nao Visibilizado
   const criaStringOclusao = () => {
-    var string = "Carótida Externa Esquerda com oclusão";
+    const string = "Carótida Externa Esquerda com oclusão";
     if (OclusaoCheckBox) {
       setFrasesCarotidaExterna((arr) => [...arr, string]);
       setOclusaoCheckBox(false);
@@ -89,7 +89,7 @@ function CarotidaExternaEsquerda() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesCarotidaExterna.indexOf(value);
+    const index = frasesCarotidaExterna.indexOf(value);
 
     if (index > -1) {
       frasesCarotidaExterna.splice(index, 1);
@@ -98,7 +98,7 @@ function CarotidaExternaEsquerda() {
   };
 
   const criaStringNaoVisibilizada = () => {
-    var string = "Carótida Externa Esquerda não visibilizada (intra-craniana)";
+    const string = "Carótida Externa Esquerda não visibilizada (intra-craniana)";
     if (NaoVisibilizadaCheckBox) {
       setFrasesCarotidaExterna((arr) => [...arr, string]);
       setNaoVisibilizadaCheckBox(false);
@@ -110,14 +110,14 @@ function CarotidaExternaEsquerda() {
   const criaStringMedidaEsquerdaVPS = (medida) => {
     removeStringMedidaEsquerdaVPS();
     if (MedidaEsquerdaVPS !== "") {
-      var string = `Carótida Externa Esquerda medindo: VPS(ACCD)  ${medida} cm/s `;
+      const string = `Carótida Externa Esquerda medindo: VPS(ACCD)  ${medida} cm/s `;
       setFrasesCarotidaExterna((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaEsquerdaVPS = () => {
     frasesCarotidaExterna.map((e) => {
       if (e.includes(`Carótida Externa Esquerda medindo: VPS(ACCD) `)) {
-        var index = frasesCarotidaExterna.indexOf(e);
+        const index = frasesCarotidaExterna.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCarotidaExterna.splice(index, 1);
@@ -134,14 +134,14 @@ function CarotidaExternaEsquerda() {
   const criaStringMedidaEsquerdaEMI = (medida) => {
     removeStringMedidaEsquerdaEMI();
     if (MedidaEsquerdaEMI !== "") {
-      var string = `Carótida Externa Esquerda medindo: EMI(ACCD)  ${medida} cm/s `;
+      const string = `Carótida Externa Esquerda medindo: EMI(ACCD)  ${medida} cm/s `;
       setFrasesCarotidaExterna((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaEsquerdaEMI = () => {
     frasesCarotidaExterna.map((e) => {
       if (e.includes(`Carótida Externa Esquerda medindo: EMI(ACCD) `)) {
-        var index = frasesCarotidaExterna.indexOf(e);
+        const index = frasesCarotidaExterna.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCarotidaExterna.splice(index, 1);
@@ -158,14 +158,14 @@ function CarotidaExternaEsquerda() {
   const criaStringMedidaEsquerdaVDF = (medida) => {
     removeStringMedidaEsquerdaVDF();
     if (MedidaEsquerdaVDF !== "") {
-      var string = `Carótida Externa Esquerda medindo: VDF(ACCD) ${medida} cm/s `;
+      const string = `Carótida Externa Esquerda medindo: VDF(ACCD) ${medida} cm/s `;
       setFrasesCarotidaExterna((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaEsquerdaVDF = () => {
     frasesCarotidaExterna.map((e) => {
       if (e.includes(`Carótida Externa Esquerda medindo: VDF(ACCD) `)) {
-        var index = frasesCarotidaExterna.indexOf(e);
+        const index = frasesCarotidaExterna.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCarotidaExterna.splice(index, 1);
@@ -260,7 +260,7 @@ function CarotidaExternaEsquerda() {
                 h="77x"
                 padding="5px"
                 value={MedidaEsquerdaVPS}
-                
+
                 textAlign="center"
                 onChange={(e) => {
                   setMedidaEsquerdaVPS(e.target.value);
@@ -277,7 +277,7 @@ function CarotidaExternaEsquerda() {
                 h="77x"
                 padding="5px"
                 value={MedidaEsquerdaVDF}
-                
+
                 textAlign="center"
                 onChange={(e) => {
                   setMedidaEsquerdaVDF(e.target.value);
@@ -310,7 +310,7 @@ function CarotidaExternaEsquerda() {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setPlacaInput(e.target.value);

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable no-lone-blocks */
 import {
   Box,
@@ -40,7 +40,7 @@ export default function Tendao_Flexor_Halux_Direito({ Disable }) {
   const removeConclusao = () => {
     ConclusoesTornozelo.map((e) => {
       if (e.includes("Sinais de tendinopatia do extensor longo do hálux")) {
-        var index = ConclusoesTornozelo.indexOf(e);
+        const index = ConclusoesTornozelo.indexOf(e);
 
         if (index > -1) {
           ConclusoesTornozelo.splice(index, 1);
@@ -89,7 +89,7 @@ export default function Tendao_Flexor_Halux_Direito({ Disable }) {
         break;
       case "Tendinopatia sem rotura":
         {
-          var conclusao = 'Sinais de tendinopatia do extensor longo do hálux.'
+          const conclusao = 'Sinais de tendinopatia do extensor longo do hálux.'
           removeConclusao()
           setFrasesTornozelo([]);
           setEnableSelects(true);

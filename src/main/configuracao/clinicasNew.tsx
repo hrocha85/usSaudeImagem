@@ -7,8 +7,8 @@ const ClinicaNew = (props) => {
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
   const pegarClinicas = () => {
-    var item;
-    var item_parse;
+    let item;
+    let item_parse;
     if (localStorage.getItem("minhasClinicas") != null) {
       item = localStorage.getItem("minhasClinicas");
 

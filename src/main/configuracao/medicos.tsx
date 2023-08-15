@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   Box,
   Button,
@@ -52,7 +54,7 @@ import FieldDefaultIcon from "../component/field_default_icon";
 import { lista_medicos } from "./configuracoes";
 
 const Medicos = ({ medico, id }) => {
-  let medicos: any[] = [];
+  const medicos: any[] = [];
 
   useEffect(() => {
     console.log('entrou')
@@ -121,7 +123,7 @@ const Medicos = ({ medico, id }) => {
 
   const [pngAssinaturaCheck, setpngAssinaturaCheck] = useState(false);
 
-  let padRef = React.useRef<SignatureCanvas>(null);
+  const padRef = React.useRef<SignatureCanvas>(null);
 
   const [listaClinicas, setListaClinicas] = useState(
     JSON.parse(localStorage.getItem("minhasClinicas")!)
@@ -150,8 +152,8 @@ const Medicos = ({ medico, id }) => {
 
   const UpdateLocalStorage = (nomeUpdate, CRMupdate, clinicaUpdate) => {
     if (nomeUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      const item = array[id];
       lista_medicos[id].nome = nomeUpdate;
 
       item.nome = nomeUpdate;
@@ -160,8 +162,8 @@ const Medicos = ({ medico, id }) => {
       setUpdateNome(null);
     }
     if (CRMupdate != null) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      const item = array[id];
       lista_medicos[id].crm = CRMupdate;
 
       item.crm = CRMupdate;
@@ -170,8 +172,8 @@ const Medicos = ({ medico, id }) => {
       setUpdateCRM(null);
     }
     if (clinicaUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      const item = array[id];
       lista_medicos[id].clinica = ClinicasMedico;
 
       item.clinica = ClinicasMedico;
@@ -180,8 +182,8 @@ const Medicos = ({ medico, id }) => {
       setUpdateClinica(null);
     }
     if (AssinaturaUpdate) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      const item = array[id];
       lista_medicos[id].assinatura = padRef.current
         ?.getTrimmedCanvas()
         .toDataURL("image/png")!;
@@ -194,16 +196,16 @@ const Medicos = ({ medico, id }) => {
       setAssinaturaUpdate(false);
     }
     if (FotoUpdate) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      const item = array[id];
       lista_medicos[id].foto = defaultUserImage;
       item.foto = defaultUserImage;
       localStorage.setItem("medicos", JSON.stringify(array));
       setFotoUpdate(false);
     }
     if (pngAssinaturaCheck) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      const item = array[id];
       lista_medicos[id].assinatura = pngAssinatura!;
       item.assinatura = pngAssinatura!;
       localStorage.setItem("medicos", JSON.stringify(array));
@@ -237,7 +239,7 @@ const Medicos = ({ medico, id }) => {
   };
 
   const RemoveItem = () => {
-    var array = JSON.parse(localStorage.getItem("medicos")!);
+    const array = JSON.parse(localStorage.getItem("medicos")!);
     array.splice(id, 1);
 
     localStorage.setItem("medicos", JSON.stringify(array));
@@ -245,8 +247,8 @@ const Medicos = ({ medico, id }) => {
   };
 
   const RemoveTAG = () => {
-    var array = JSON.parse(localStorage.getItem("medicos")!);
-    var item = array[id];
+    const array = JSON.parse(localStorage.getItem("medicos")!);
+    const item = array[id];
     lista_medicos[id].clinica = ClinicasMedico;
 
     item.clinica = ClinicasMedico;
@@ -275,7 +277,7 @@ const Medicos = ({ medico, id }) => {
       <Center margin="25px">
         <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
           {ClinicasMedico.map((clinica, key) => {
-            var parseClinica = JSON.parse(clinica);
+            const parseClinica = JSON.parse(clinica);
             return (
               <Tooltip
                 key={key}
@@ -315,7 +317,7 @@ const Medicos = ({ medico, id }) => {
     return (
       <div style={{ textAlign: 'center', borderRadius: '50rem' }}>
         {ClinicasMedico.map((clinica, key) => {
-          var parseClinica = JSON.parse(clinica);
+          const parseClinica = JSON.parse(clinica);
           return (
             <FieldDefaultIcon
               key={key}
@@ -364,7 +366,7 @@ const Medicos = ({ medico, id }) => {
   });
 
   const handleCRM = (event) => {
-    let input = event.target;
+    const input = event.target;
     input.value = CrmMask(input.value);
   };
 

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Flex, Select, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -36,7 +36,7 @@ export default function Nefropatia({ Disable }) {
     const removeAfilamentoParenquimatoso = () => {
         FraseRinsUreteres.map((e) => {
             if (e.includes("Rins tópicos,")) {
-                var index = FraseRinsUreteres.indexOf(e);
+                const index = FraseRinsUreteres.indexOf(e);
 
                 if (index > -1) {
                     FraseRinsUreteres.splice(index, 1);
@@ -46,7 +46,7 @@ export default function Nefropatia({ Disable }) {
         });
         ConclusoesRinsUreteres.map((e) => {
             if (e.includes("Nefrolitíase")) {
-                var index = ConclusoesRinsUreteres.indexOf(e);
+                const index = ConclusoesRinsUreteres.indexOf(e);
 
                 if (index > -1) {
                     ConclusoesRinsUreteres.splice(index, 1);

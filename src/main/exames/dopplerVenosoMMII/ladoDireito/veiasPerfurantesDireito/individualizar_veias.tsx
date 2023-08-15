@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -21,7 +21,7 @@ export default function IndividualizarVeias({ numVeia, disable }) {
     MembroVeiasSelect
   ) => {
     removeMultiplosVeias();
-    var string;
+    let string;
     if (
       MembroVeiasSelect !== "" &&
       DistanciaVeiaInput !== "" &&
@@ -36,7 +36,7 @@ export default function IndividualizarVeias({ numVeia, disable }) {
   const removeMultiplosVeias = () => {
     frasesVeiasP.map((e) => {
       if (e.includes(`Veia perfurante ${numVeia}`)) {
-        var index = frasesVeiasP.indexOf(e);
+        const index = frasesVeiasP.indexOf(e);
 
         if (index > -1) {
           frasesVeiasP.splice(index, 1);
@@ -109,7 +109,7 @@ export default function IndividualizarVeias({ numVeia, disable }) {
           w="60px"
           h="77x"
           padding="5px"
-          
+
           textAlign="center"
           onChange={(e) => {
             setDistanciaVeiaInput(e.target.value);

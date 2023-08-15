@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -24,14 +24,14 @@ export default function IndividualizarCistos({ numCisto, disable }) {
     removeItemConclusao('Cisto epididimário.')
     removeMultiplosCistos();
     if (tamanhoCistoInput !== "" && CistosSelect !== "" && localizado !== "") {
-      var string = `Cisto Epididimários ${numCisto}: mede ${tamanhoCistoInput} cm, conteúdo ${conteudoCistoSelect}, localizado no ${CistosSelect}, do  ${localizado} `;
+      const string = `Cisto Epididimários ${numCisto}: mede ${tamanhoCistoInput} cm, conteúdo ${conteudoCistoSelect}, localizado no ${CistosSelect}, do  ${localizado} `;
       setFrasesCistos((arr) => [...arr, string]);
       setConclusaoCistos((arr) => [...arr, conclusao]);
     }
   };
 
   const removeItemConclusao = (value) => {
-    var index = ConclusaoCistos.indexOf(value);
+    const index = ConclusaoCistos.indexOf(value);
 
     if (index > -1) {
       ConclusaoCistos.splice(index, 1);
@@ -43,7 +43,7 @@ export default function IndividualizarCistos({ numCisto, disable }) {
   const removeMultiplosCistos = () => {
     FrasesCistos.map((e) => {
       if (e.includes(`Cisto Epididimários ${numCisto}`)) {
-        var index = FrasesCistos.indexOf(e);
+        const index = FrasesCistos.indexOf(e);
 
         if (index > -1) {
           FrasesCistos.splice(index, 1);

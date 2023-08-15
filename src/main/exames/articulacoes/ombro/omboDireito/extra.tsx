@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Select, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
@@ -10,7 +10,7 @@ function ExtraOmbroDireito() {
   const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  let { OmbroDireitoLaudoNormal } = useContext(OmbroDireitoNormalContext)
+  const { OmbroDireitoLaudoNormal } = useContext(OmbroDireitoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
   const [disableDerrameSelect, setdisableDerrameSelect] = useState(true);
@@ -25,7 +25,7 @@ function ExtraOmbroDireito() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringBursite = () => {
-    var string = "Ombro direito com Bursite";
+    const string = "Ombro direito com Bursite";
     if (BursiteCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setBursiteCheckBox(false);
@@ -34,7 +34,7 @@ function ExtraOmbroDireito() {
     }
   };
   const criaStringHillSachs = () => {
-    var string = "Ombro direito com Hill Sachs";
+    const string = "Ombro direito com Hill Sachs";
     if (HillSachsCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setHillSachsCheckBox(false);
@@ -43,7 +43,7 @@ function ExtraOmbroDireito() {
     }
   };
   const criaStringArtrose = () => {
-    var string = "Ombro direito com Artrose";
+    const string = "Ombro direito com Artrose";
     if (ArtroseCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setArtroseCheckBox(false);
@@ -52,7 +52,7 @@ function ExtraOmbroDireito() {
     }
   };
   const criaStringCapsuliteAdesiva = () => {
-    var string = "Ombro direito com Capsulite Adesiva";
+    const string = "Ombro direito com Capsulite Adesiva";
     if (CapsuliteAdesivaCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setCapsuliteAdesivaCheckBox(false);
@@ -61,7 +61,7 @@ function ExtraOmbroDireito() {
     }
   };
   const criaStringInstabilidadeGlenoUmeral = () => {
-    var string = "Ombro direito com Instabilidade gleno-umeral";
+    const string = "Ombro direito com Instabilidade gleno-umeral";
     if (InstabilidadeGlenoUmeralCheckBox) {
       setLaudoPrin((arr) => [...arr, string]);
       setInstabilidadeGlenoUmeralCheckBox(false);
@@ -75,7 +75,7 @@ function ExtraOmbroDireito() {
   const criaStringDerrame = (Derrame) => {
     removeDerrame();
     if (Derrame !== "") {
-      var string = `Ombro direito com Derrame ${Derrame}  `;
+      const string = `Ombro direito com Derrame ${Derrame}  `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -83,7 +83,7 @@ function ExtraOmbroDireito() {
   const removeDerrame = () => {
     laudoPrin.map((e) => {
       if (e.includes("Ombro direito com Derrame")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -94,7 +94,7 @@ function ExtraOmbroDireito() {
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    const index = laudoPrin.indexOf(value);
 
     if (index > -1) {
       laudoPrin.splice(index, 1);

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Button, Stack, } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";

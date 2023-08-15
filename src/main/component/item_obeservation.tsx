@@ -193,7 +193,7 @@ const ItemObservation = () => {
 
 
   const checkListaObservacao = () => {
-    var arrayObservacoes = localStorage.getItem("observacoes")!;
+    const arrayObservacoes = localStorage.getItem("observacoes")!;
     console.log('titulo', titulo)
     if (arrayObservacoes != null) {
       if (arrayObservacoes.includes(titulo!)) {
@@ -221,9 +221,9 @@ const ItemObservation = () => {
   };
 
   const addNewObsercao = () => {
-    let TodasObservacoes = JSON.parse(localStorage.getItem("observacoes")!) || [];
+    const TodasObservacoes = JSON.parse(localStorage.getItem("observacoes")!) || [];
     console.log(id)
-    let observacoes = TodasObservacoes.filter((e) => e.key === id)
+    const observacoes = TodasObservacoes.filter((e) => e.key === id)
     observacoes[0].observacao.push(inputObservacoes);
     const index = TodasObservacoes.indexOf(observacoes[0])
     if (index !== -1) {
@@ -233,10 +233,10 @@ const ItemObservation = () => {
   };
 
   const updateListaObservacoes = (id, value) => {
-    var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
+    const observacoes = JSON.parse(localStorage.getItem("observacoes")!);
     if (!observacoes) return;
 
-    var obs = observacoes.map((e) => {
+    const obs = observacoes.map((e) => {
       if (e.key == id) {
         e.observacao.push(value);
       }
@@ -255,7 +255,7 @@ const ItemObservation = () => {
   };
 
   const changeOBS = () => {
-    var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
+    const observacoes = JSON.parse(localStorage.getItem("observacoes")!);
     if (!observacoes) return;
 
     observacoes.map((e) => {
@@ -295,7 +295,7 @@ const ItemObservation = () => {
   };
 
   const Apagar_Observacao = (observacao) => {
-    var observacoes = JSON.parse(localStorage.getItem("observacoes")!);
+    const observacoes = JSON.parse(localStorage.getItem("observacoes")!);
     if (!observacoes) return;
 
     observacoes.map((e) => {
@@ -303,7 +303,7 @@ const ItemObservation = () => {
         e.observacao.map((i) => {
           console.log(i);
           if (i == observacao) {
-            var index = e.observacao.indexOf(i);
+            const index = e.observacao.indexOf(i);
 
             if (index !== -1) {
               e.observacao.splice(index, 1);

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -17,7 +17,7 @@ function OutrasPatologicas() {
   const [CavosAxilaresCheckbox, setCavosAxilaresCheckbox] = useState(false);
 
   const removeItemString = (value) => {
-    var index = FrasePatologicas.indexOf(value);
+    const index = FrasePatologicas.indexOf(value);
     if (index > -1) {
       FrasePatologicas.splice(index, 1);
       setFrasePatologicas((arr) => [...arr]);

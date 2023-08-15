@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -25,8 +25,8 @@ function Dilatacao() {
     useState("");
 
   const criaStringDilatacaoDireito = () => {
-    var string = 'Presença de dilatação pielo-calicial'
-    var conclusao = 'Dilatação pielo-calicial'
+    let string = 'Presença de dilatação pielo-calicial'
+    let conclusao = 'Dilatação pielo-calicial'
     removeStringSelect(string)
     removeConclusaoSelect(conclusao)
     if (checkboxDilatacaoDireito) {
@@ -46,8 +46,8 @@ function Dilatacao() {
   }, [valueSelectDilatacaoDireito, checkboxDilatacaoDireito]);
 
   const criaStringDilatacaoEsquerdo = () => {
-    var string = 'Presença de dilatação pielo-calicial'
-    var conclusao = 'Dilatação pielo-calicial'
+    let string = 'Presença de dilatação pielo-calicial'
+    let conclusao = 'Dilatação pielo-calicial'
     removeStringSelect(string)
     removeConclusaoSelect(conclusao)
     if (checkboxDilatacaoEsquerdo) {
@@ -69,7 +69,7 @@ function Dilatacao() {
   const removeStringSelect = (value) => {
     FraseDilatacao.map((e) => {
       if (e.includes(value)) {
-        var index = FraseDilatacao.indexOf(e);
+        const index = FraseDilatacao.indexOf(e);
 
         if (index > -1) {
           FraseDilatacao.splice(index, 1);
@@ -82,7 +82,7 @@ function Dilatacao() {
 
     ConclusaoDilatacao.map((e) => {
       if (e.includes(value)) {
-        var index = ConclusaoDilatacao.indexOf(e);
+        const index = ConclusaoDilatacao.indexOf(e);
 
         if (index > -1) {
           ConclusaoDilatacao.splice(index, 1);

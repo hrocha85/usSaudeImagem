@@ -14,9 +14,9 @@ function Hidrocele() {
   const [HidroceleCheckBox, setHidroceleCheckBox] = useState(false);
 
   const criaStringHidroceleLivre = () => {
-    var conclusao = 'Sinais ecográficos de hidrocele'
+    let conclusao = 'Sinais ecográficos de hidrocele'
     removeItemConclusao(conclusao)
-    var string = 'Observa-se presença de líquido aumentado entre as túnicas vaginais em cavidades escrotais'
+    let string = 'Observa-se presença de líquido aumentado entre as túnicas vaginais em cavidades escrotais'
     removeStringHidroceleLivre(string);
     if (HidroceleCheckBox) {
       if (posicaoHidroceleSelect !== "") {
@@ -33,7 +33,7 @@ function Hidrocele() {
   const removeStringHidroceleLivre = (value) => {
     FrasesHidrocelete.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesHidrocelete.indexOf(e);
+        const index = FrasesHidrocelete.indexOf(e);
 
         if (index > -1) {
           FrasesHidrocelete.splice(index, 1);
@@ -46,7 +46,7 @@ function Hidrocele() {
   const removeItemConclusao = (value) => {
     ConclusaoHidrocelete.map((e) => {
       if (e.includes(value)) {
-        var index = ConclusaoHidrocelete.indexOf(e);
+        const index = ConclusaoHidrocelete.indexOf(e);
 
         if (index > -1) {
           ConclusaoHidrocelete.splice(index, 1);
