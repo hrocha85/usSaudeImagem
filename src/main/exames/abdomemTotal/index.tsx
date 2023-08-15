@@ -1,8 +1,4 @@
-
-/* eslint-disable react/jsx-pascal-case */
-import { Box, Checkbox, HStack, Select, Stack, VStack,  useMediaQuery } from "@chakra-ui/react";
-
-
+import { Box, Checkbox, HStack, Select, useMediaQuery } from "@chakra-ui/react";
 import Baco from "./baco/baco";
 import Bexiga from "./bexiga/bexiga";
 import Figado from "./figado/figado";
@@ -10,12 +6,11 @@ import LiquidoLivre from "./liquido_livre/liquido_livre";
 import Pancreas from "./pancreas/pancreas";
 import VesiculaBiliar from "./vesicula_bliar/vesicula_biliar";
 import ViasBiliares from "./vias biliares/vias_biliares";
-import Volume_vesical from "./volume_vesical/volume_vesical";
 
-import RinsUreteres from "./Rins_ureteres/rins_ureteres";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../component/function_format_laudo";
 import Retroperineo from "./Retroperineo/Retroperineo";
+import RinsUreteres from "./Rins_ureteres/rins_ureteres";
 import Aorta from "./aorta/aorta";
 
 function AbdomemTotal() {
@@ -33,8 +28,8 @@ function AbdomemTotal() {
 
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
 
-  isLargerThan600 ? largura = "60%": largura = "100%"
-  
+  isLargerThan600 ? largura = "60%" : largura = "100%"
+
   const removeStringSelect = (value) => {
     frasesAdomenTotal.map((e) => {
       if (e.includes(value)) {
@@ -83,7 +78,7 @@ function AbdomemTotal() {
 
   return (
     <Box>
-      
+
       <Box
         bg="#FAFAFA"
         w={largura}
