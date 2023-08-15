@@ -21,6 +21,8 @@ module.exports = {
     },
     rules: {
         'no-var': 'error',
-        'no-import-assign': 'error'
+        'no-import-assign': 'error',
+        'no-unused-expressions': 'off',
+        'no-unused-vars': 'off'
     },
 };
