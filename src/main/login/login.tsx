@@ -37,6 +37,7 @@ function Login() {
       clinica: clinicaSelecionada,
     };
     localStorage.setItem("user", JSON.stringify(user));
+    console.log('deletar')
   };
 
   const parseMedicoSelecionado = () => {
