@@ -6,7 +6,7 @@ export class Convert_Medida {
   }
 
   Convert_Medida(): string {
-    letparse = Number(this.medida);
+    const parse = Number(this.medida);
     return (parse / 10).toString()
   }
 }

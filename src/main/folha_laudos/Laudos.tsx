@@ -267,7 +267,7 @@ function Exames() {
   const navigate = useNavigate();
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
   let display = "block";
-  isLargerThan600 ? display = "flex": display = "none"
+  isLargerThan600 ? display = "flex" : display = "none"
   const Laudo = () => {
 
 
@@ -431,15 +431,17 @@ function Exames() {
   };
 
   const getUserClinica = () => {
+    let clinica;
     if (localStorage.getItem("user") != null) {
-      letclinica = JSON.parse(localStorage.getItem("user")!);
+      clinica = JSON.parse(localStorage.getItem("user")!);
     }
     return clinica.clinica;
   };
 
   const getUserMedico = () => {
+    let medico;
     if (localStorage.getItem("user") != null) {
-      letmedico = JSON.parse(localStorage.getItem("user")!);
+      medico = JSON.parse(localStorage.getItem("user")!);
     }
     return medico.medico;
   };
