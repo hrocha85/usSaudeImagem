@@ -25,7 +25,7 @@ jobs:
       run: npm run build
 
     - name: Copy files with SSH
-      uses: easingthemes/ssh-deploy@develop
+      uses: easingthemes/ssh-deploy@v2
       env:
         SSH_PRIVATE_KEY: ${{secrets.EC2_SSH_KEY}}
         ARGS: "-rltgoDzv0 --delete"
