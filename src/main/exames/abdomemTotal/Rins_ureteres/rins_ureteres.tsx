@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox } from "@chakra-ui/react";
+import { Box, Checkbox, useMediaQuery } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -13,7 +13,10 @@ import NoduloSolido from "./componentes/NoduloSolido/NoduloSolido";
 
 function RinsUreteres({ Disable }) {
     const altura = "100%";
-    const largura = "60%";
+    let largura = "60%";
+    const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+    isLargerThan600 ? largura = "60%": largura = "100%"
+    
     const [FraseRinsUreteres, setFraseRinsUreteres] = useState<any>([]);
     const [ConclusoesRinsUreteres, setConclusoesRinsUreteres] = useState<any>([]);
 

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-pascal-case */
-import { Box, Checkbox, HStack, Select, Stack, VStack } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Select, Stack, VStack,  useMediaQuery } from "@chakra-ui/react";
 
 
 import Baco from "./baco/baco";
@@ -20,7 +20,7 @@ import Aorta from "./aorta/aorta";
 
 function AbdomemTotal() {
   const altura = '100vh'
-  const largura = '40vw'
+  let largura = '10rem'
 
   const [frasesAdomenTotal, setFrasesAdomenTotal] = useState<any>([]);
 
@@ -30,6 +30,11 @@ function AbdomemTotal() {
 
   const subExame = "Abdômen total";
   const titulo_exame = "Abdômen total";
+
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+
+  isLargerThan600 ? largura = "60%": largura = "100%"
+  
   const removeStringSelect = (value) => {
     frasesAdomenTotal.map((e) => {
       if (e.includes(value)) {
@@ -77,11 +82,11 @@ function AbdomemTotal() {
   }, [frasesAdomenTotal]);
 
   return (
-
     <Box>
+      
       <Box
         bg="#FAFAFA"
-        w='60%'
+        w={largura}
         h='8rem'
         bgPosition="center"
         bgRepeat="no-repeat"

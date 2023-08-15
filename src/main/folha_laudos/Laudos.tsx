@@ -28,6 +28,7 @@ import {
   Tooltip,
   useDisclosure,
   useEditableControls,
+  useMediaQuery
 } from "@chakra-ui/react";
 import {
   Document,
@@ -264,6 +265,9 @@ function Exames() {
     ],
   });
   const navigate = useNavigate();
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  let display = "block";
+  isLargerThan600 ? display = "flex": display = "none"
   const Laudo = () => {
 
 
@@ -1042,7 +1046,7 @@ function Exames() {
               arrowSize={15}
               textColor="black"
             >
-              <Circle size="50px" bg="gray.200">
+              <Circle size="50px" bg="gray.200" display={display}>
                 <Icon
                   w={30}
                   h={30}
@@ -1102,7 +1106,7 @@ function Exames() {
         </Stack>
       </Center>
 
-      <Box className="zoom" boxShadow="xl" ref={ref} height="75vh">
+      <Box className="zoom" boxShadow="xl" ref={ref} height="75vh" display={display}>
         <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
           <Box>
             <Image

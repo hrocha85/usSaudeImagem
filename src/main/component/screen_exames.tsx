@@ -26,6 +26,9 @@ import {
   Tooltip,
   useDisclosure,
   useToast,
+  useMediaQuery,
+  HStack,
+  VStack
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { TabExamesContext } from "../../context/TabExameContext";
@@ -67,6 +70,10 @@ export default function Box_Default_With_Sidebar() {
   const [cleanConclusoes, setCleanConclusoes] = useState(false);
 
   const toast = useToast();
+
+  let maxLargura = "58%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? maxLargura = "58%": maxLargura = "94%"
 
   const exames = [
     {
@@ -304,6 +311,8 @@ export default function Box_Default_With_Sidebar() {
     return <Conclusoes exame={currentExame} clean={clean} />;
   };
 
+ 
+
 
   useEffect(() => {
     const exame = tabExames.find((e) => e.nomeExame !== undefined);
@@ -364,7 +373,9 @@ export default function Box_Default_With_Sidebar() {
         backgroundClip="padding-box"
       >
         <Sidebar />
-        <Exames />
+        {isLargerThan600 ? 
+           <Exames /> :   <Box display={'none'}><Exames /></Box>
+          }
         <Tabs
           size="lg"
           variant="soft-rounded"
@@ -477,11 +488,11 @@ export default function Box_Default_With_Sidebar() {
           alignItems="start"
           justifyItems="center"
           flexWrap="wrap"
-          w="65%"
+          w={"97%"}
           paddingBottom="3%"
           marginStart="5px"
         >
-          <Flex flex={1} flexDirection="column" maxW="89%">
+          <Flex flex={1} flexDirection="column" maxW={maxLargura} >
             <Field_Observacoes exame={currentExame} key={tabIndex} />
           </Flex>
 
@@ -602,7 +613,11 @@ export default function Box_Default_With_Sidebar() {
             </ModalFooter>
           </ModalContent>
         </Modal>
-        <FooterUpbase/>
+        <VStack w={'60vw'}>
+          {isLargerThan600 ? 
+              <Box display={'none'}><Exames /></Box>: <Box display={'block'}><Exames /></Box>
+            }
+        </VStack>        <FooterUpbase/>
       </Box>
     );
   }
