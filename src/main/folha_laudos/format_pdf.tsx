@@ -15,8 +15,9 @@ export default function Format_PDF() {
   const [titulo_exame, setTitulo_Exame] = useState("TÍTULO EXAME");
 
   const getUserClinica = () => {
+    let clinica
     if (localStorage.getItem("user") != null) {
-      letclinica = JSON.parse(localStorage.getItem("user")!);
+      clinica = JSON.parse(localStorage.getItem("user")!);
     }
     return clinica.clinica;
   };
@@ -44,8 +45,9 @@ export default function Format_PDF() {
   };
 
   const getUserMedico = () => {
+    let medico
     if (localStorage.getItem("user") != null) {
-      letmedico = JSON.parse(localStorage.getItem("user")!);
+      medico = JSON.parse(localStorage.getItem("user")!);
     }
     return medico.medico;
   };

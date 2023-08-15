@@ -75,8 +75,9 @@ const Configuracoes = () => {
   };
 
   const getUser = () => {
+    let user;
     if (localStorage.getItem("user") != null) {
-      letuser = JSON.parse(localStorage.getItem("user")!);
+      user = JSON.parse(localStorage.getItem("user")!);
     }
 
     if (user != null) return user.isLogged;
@@ -774,7 +775,7 @@ const Configuracoes = () => {
 
 
           <Box>
-            <Box  h={'3.4rem'} w={'30rem'}>
+            <Box h={'3.4rem'} w={'30rem'}>
 
               <Stack direction="row" justifyContent={'center'}>
                 <Text

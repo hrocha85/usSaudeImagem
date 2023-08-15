@@ -113,8 +113,9 @@ const IconButtonPlusMedicos = (props, clinica) => {
   } = useDisclosure();
 
   const getUser = () => {
+    let user
     if (localStorage.getItem("user") != null) {
-      letuser = JSON.parse(localStorage.getItem("user")!);
+      user = JSON.parse(localStorage.getItem("user")!);
     }
 
     if (user != null) return user.isLogged;
