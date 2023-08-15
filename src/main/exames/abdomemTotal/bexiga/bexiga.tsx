@@ -1,14 +1,16 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Bexiga({ Disable }) {
   const altura = "100%";
-  const largura = "60%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [value, setValue] = useState("1");
   const [FraseBexiga, setFraseBexiga] = useState<any>([]);
