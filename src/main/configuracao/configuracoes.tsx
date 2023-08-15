@@ -33,32 +33,29 @@ import {
   Text,
   Tooltip,
   useDisclosure,
+  useMediaQuery,
   useOutsideClick,
-  useToast,
-  useMediaQuery
+  useToast
 } from "@chakra-ui/react";
 import React, { memo, useEffect, useRef, useState } from "react";
 import {
   AiOutlineClear,
-  AiOutlinePlusCircle,
   AiOutlineCloudUpload,
+  AiOutlinePlusCircle,
 } from "react-icons/ai";
 import { BiCamera } from "react-icons/bi";
 import { FaRegFolderOpen } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import SignatureCanvas from "react-signature-canvas";
 import MedicosJSON from "../../Data/Medicos.json";
-import BoxTitleBackground from "../component/box_title_background";
+import FooterUpbase from "../component/FooterUpbase";
 import RectangularCard from "../component/card_observations";
+import IconButtonPlus from "../component/icon_button_plus";
 import ItemObservation from "../component/item_obeservation";
 import MainCard from "../component/main_card";
-import BGImage from "../images/bg_img.png";
+import MainCardClinica from "../component/main_cardClinica";
 import DefaultImageClinica from "../images/clinica_default.png";
 import Sidebar from "../menu/sideBar";
-import Medicos from "./medicos";
-import MainCardClinica from "../component/main_cardClinica";
-import FooterUpbase from "../component/FooterUpbase";
-import IconButtonPlus from "../component/icon_button_plus";
 
 var dados;
 export let lista_medicos = MedicosJSON.medicos;
@@ -770,17 +767,15 @@ const Configuracoes = () => {
       <Stack>
         <Box display={'flex'} flexWrap={'wrap'} gap={5} marginTop={'2rem'} justifyContent={'space-around'}>
 
-          {isLargerThan500 ? 
-          <Box>{returnPOPoverLaudos()}</Box>: <Box width={width}>{returnPOPoverLaudos()}</Box> 
+          {isLargerThan500 ?
+            <Box>{returnPOPoverLaudos()}</Box> : <Box width={width}>{returnPOPoverLaudos()}</Box>
           }
-          
-          
-          
+
+
 
           <Box>
             <Box  h={'3.4rem'} w={'30rem'}>
 
-            
               <Stack direction="row" justifyContent={'center'}>
                 <Text
                   color="#1A202C"
@@ -792,59 +787,59 @@ const Configuracoes = () => {
                   Clínicas
                 </Text>
                 <IconButtonPlus atualizar={false} setAtualizar={false} />
-              
+
               </Stack>
             </Box>
-              <MainCardClinica titulo="Clínicas" icon={true} clinica={null} medicos={null} />
+            <MainCardClinica titulo="Clínicas" icon={true} clinica={null} medicos={null} />
           </Box>
-        
+
 
           <Box pl={3}>
-          <Box h={'3.4rem'}>
-            <Stack direction="row" justifyContent={'center'}>
-              <Text
-                color="#1A202C"
-                fontSize="20px"
-                alignSelf="center"
-                fontWeight='semibold'
-                mr={2}
-              >
-                Médicos
-              </Text>
-              <Tooltip
-                label="Adicionar Médico"
-                backgroundColor="white"
-                defaultIsOpen={false}
-                hasArrow
-                arrowSize={15}
-                textColor="black"
-                fontSize="14px"
-              >
-              <Button
-                borderRadius="xl"
-                backgroundColor="white"
-                w="10rem"
-                h="2.4rem"
-                top={1}
-                boxShadow="md"
-                textColor="#4CBFF0"
-                fontSize="19px"
-                fontWeight="semibold"
-                onClick={() => {
-                  onOpenModalAddMedico();
-                  setStateClickAddMedico(true);
-                }}
-              >
-              <Icon
-                as={AiOutlinePlusCircle}
-                w="2rem"
-                h="4.4rem"
-              />
-              Adicionar
-            </Button>
-          </Tooltip>     
-          </Stack>
-          </Box>
+            <Box h={'3.4rem'}>
+              <Stack direction="row" justifyContent={'center'}>
+                <Text
+                  color="#1A202C"
+                  fontSize="20px"
+                  alignSelf="center"
+                  fontWeight='semibold'
+                  mr={2}
+                >
+                  Médicos
+                </Text>
+                <Tooltip
+                  label="Adicionar Médico"
+                  backgroundColor="white"
+                  defaultIsOpen={false}
+                  hasArrow
+                  arrowSize={15}
+                  textColor="black"
+                  fontSize="14px"
+                >
+                  <Button
+                    borderRadius="xl"
+                    backgroundColor="white"
+                    w="10rem"
+                    h="2.4rem"
+                    top={1}
+                    boxShadow="md"
+                    textColor="#4CBFF0"
+                    fontSize="19px"
+                    fontWeight="semibold"
+                    onClick={() => {
+                      onOpenModalAddMedico();
+                      setStateClickAddMedico(true);
+                    }}
+                  >
+                    <Icon
+                      as={AiOutlinePlusCircle}
+                      w="2rem"
+                      h="4.4rem"
+                    />
+                    Adicionar
+                  </Button>
+                </Tooltip>
+              </Stack>
+            </Box>
             <MainCard titulo="Médicos" icon={true} clinica={listaClinicas} medicos={null} />
           </Box>
 
@@ -890,7 +885,7 @@ const Configuracoes = () => {
       </Stack>
       {ModalAddMedico()}
       {returnObservacoes()}
-      <FooterUpbase/>
+      <FooterUpbase />
     </Box>
   );
 };
