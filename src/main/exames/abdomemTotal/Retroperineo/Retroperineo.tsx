@@ -1,7 +1,6 @@
 /* eslint-disable eqeqeq */
-import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text, useMediaQuery } from "@chakra-ui/react";
-import { useEffect, puseState } from "react";
-import { Convert_Medida } from "../../../component/function_convert_medidas";
+import { Box, Checkbox, useMediaQuery } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
@@ -9,7 +8,7 @@ function Retroperineo({ Disable }) {
     const altura = "100%";
     let largura = "60%";
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
-    isLargerThan600 ? largura = "60%": largura = "100%"
+    isLargerThan600 ? largura = "60%" : largura = "100%"
 
     const [FraseRetroperineo, setFraseRetroperineo] = useState<any>([]);
     const [ConclusoesRetroperineo, setConclusoesRetroperineo] = useState<any>([]);
