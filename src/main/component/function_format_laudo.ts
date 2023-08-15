@@ -23,7 +23,7 @@ export class Format_Laudo {
   }
 
   Format_Laudo_Create_Storage(): void {
-    letarray = JSON.parse(localStorage.getItem("format_laudo")!);
+    const array = JSON.parse(localStorage.getItem("format_laudo")!);
 
     array.map((Exames) => {
       if (Exames.titulo_exame == this.titulo_exame) {
@@ -80,8 +80,8 @@ export class Format_Laudo {
   }
 
   Add_Observacao(observacoes, titulo_exame): void {
-    letobs: { id: string; values: string[] } = observacoes;
-    letarray = JSON.parse(localStorage.getItem("format_laudo")!);
+    const obs: { id: string; values: string[] } = observacoes;
+    const array = JSON.parse(localStorage.getItem("format_laudo")!);
 
     array.map((Exames) => {
       if (Exames.titulo_exame == titulo_exame) {
@@ -106,7 +106,7 @@ export class Format_Laudo {
    *
    */
   Remove_Conclusao(conclusao): void {
-    letarray = JSON.parse(localStorage.getItem("format_laudo")!);
+    const array = JSON.parse(localStorage.getItem("format_laudo")!);
     array.map((Exames) => {
       if (Exames.titulo_exame == this.titulo_exame) {
         Exames.conclusoes.map((e, index) => {
@@ -122,7 +122,7 @@ export class Format_Laudo {
 
   Remove_Observacao(observacao): void {
     console.log("obs", observacao);
-    letarray = JSON.parse(localStorage.getItem("format_laudo")!);
+    const array = JSON.parse(localStorage.getItem("format_laudo")!);
 
     array.map((Exames) => {
       if (Exames.titulo_exame == this.titulo_exame) {
@@ -139,12 +139,12 @@ export class Format_Laudo {
 
   Remove_Observacao_Select(observacao): void {
     console.log("caindo aqui");
-    letarray = JSON.parse(localStorage.getItem("format_laudo")!);
+    const array = JSON.parse(localStorage.getItem("format_laudo")!);
     array.map((Exames) => {
       if (Exames.titulo_exame == this.titulo_exame) {
         Exames.observacoes.map((e, index) => {
           if (e.includes(observacao)) {
-            letposicao = e.indexOf(observacao);
+            const posicao = e.indexOf(observacao);
             if (posicao > -1) {
               Exames.observacoes.splice(index, 1);
               localStorage.setItem("format_laudo", JSON.stringify(array));
@@ -157,12 +157,12 @@ export class Format_Laudo {
   }
 
   Remove_Conclusao_Select(conclusao): void {
-    letarray = JSON.parse(localStorage.getItem("format_laudo")!);
+    const array = JSON.parse(localStorage.getItem("format_laudo")!);
     array.map((Exames) => {
       if (Exames.titulo_exame == this.titulo_exame) {
         Exames.conclusoes.map((e, index) => {
           if (e.includes(conclusao)) {
-            letposicao = e.indexOf(conclusao);
+            const posicao = e.indexOf(conclusao);
             if (posicao > -1) {
               Exames.conclusoes.splice(index, 1);
               localStorage.setItem("format_laudo", JSON.stringify(array));
@@ -174,7 +174,7 @@ export class Format_Laudo {
   }
 
   Remove_Image(): void {
-    letarray = JSON.parse(localStorage.getItem("format_laudo")!);
+    const array = JSON.parse(localStorage.getItem("format_laudo")!);
     array.map((Exames) => {
       if (Exames.titulo_exame == this.titulo_exame) {
         Exames.subExames.map((subExame, indexS) => {
@@ -190,7 +190,7 @@ export class Format_Laudo {
   }
 
   Change_Title(titulo_original, titulo_novo, change): void {
-    letarray = JSON.parse(localStorage.getItem("format_laudo")!);
+    const array = JSON.parse(localStorage.getItem("format_laudo")!);
 
     if (change) {
       array.map((Exames) => {
