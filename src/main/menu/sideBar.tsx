@@ -1,4 +1,6 @@
-import { Box, Button, Center, HStack, Image } from "@chakra-ui/react";
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Box, Center, HStack, Image } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
@@ -6,10 +8,10 @@ import { IconContext } from "react-icons/lib";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { MenuContext } from "../../context/MenuContext";
-import logo from "../splashScreen/logoUsg2.png";
 import logo2 from "../images/logousbl.png";
-import { SidebarDataNaoLogado } from "./sideBarDataNaoLogado";
+import logo from "../splashScreen/logoUsg2.png";
 import { SidebarDataLogado } from "./sideBarDataLogado";
+import { SidebarDataNaoLogado } from "./sideBarDataNaoLogado";
 import SubMenu from "./subMenu";
 
 const Nav = styled.div`

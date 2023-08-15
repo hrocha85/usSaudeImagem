@@ -22,7 +22,9 @@ module.exports = {
     rules: {
         'no-var': 'error',
         'no-import-assign': 'error',
-        'no-unused-expressions': 'off',
-        'no-unused-vars': 'off'
+        '@typescript-eslint/no-unused-expressions': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off'
     },
 };
