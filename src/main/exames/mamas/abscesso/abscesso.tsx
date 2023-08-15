@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
 
-import { Box, Checkbox, Input, Select, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Input, Select, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Abscesso() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "57.5%": largura = "100%"
 
   const [frasesAbcesso, setFrasesAbcesso] = useState<any>([]);
 

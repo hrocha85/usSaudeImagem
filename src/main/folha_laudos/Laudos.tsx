@@ -266,8 +266,12 @@ function Exames() {
   });
   const navigate = useNavigate();
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  const [isLargerThan6001] = useMediaQuery('(min-width: 600px)')
   let display = "block";
-  isLargerThan600 ? display = "flex" : display = "none"
+   let display1 = "flex";
+  isLargerThan600 ? display = "block" : display = "none"
+  isLargerThan6001 ? display1 = "flex": display1 = "none"  
+
   const Laudo = () => {
 
 
@@ -1048,7 +1052,7 @@ function Exames() {
               arrowSize={15}
               textColor="black"
             >
-              <Circle size="50px" bg="gray.200" display={display}>
+              <Circle size="50px" bg="gray.200" display={display1}>
                 <Icon
                   w={30}
                   h={30}

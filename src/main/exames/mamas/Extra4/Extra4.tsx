@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 
-import { Box, Button, Heading, Image, Tab, TabList, TabPanel, TabPanels, Table, Tabs, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, Button, Heading, Image, Tab, TabList, TabPanel, TabPanels, Table, Tabs, Tbody, Td, Tfoot, Th, Thead, Tr, useMediaQuery } from "@chakra-ui/react";
 import React, { useState } from "react";
 import ObsBIRADS from "../../../images/ObsBIRADS.png";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -8,7 +8,9 @@ import { TableContainer } from "@mui/material";
 
 function Extra4() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "57.5%": largura = "100%"
   const subExame = "Sugestão de Referência";
   const titulo_exame = "Mamas";
   const [imageAdded, setImageAdded] = useState(false);
@@ -53,7 +55,7 @@ function Extra4() {
         Tabela 1.Categorias do BI-RADS, recomendações e risco de câncer
       </Heading>
       <TableContainer>
-        <Table variant="striped" size="md" bg={'gray.300'}>
+        <Table variant="striped" size={'100%'} bg={'gray.300'}>
           <Thead>
             <Tr bg={'#306eee'}>
               <Th border="1px solid white" textAlign="center" fontSize={'md'} color={'white'}>CATEGORIA</Th>
