@@ -1,12 +1,14 @@
 
-import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Baco({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [frasesBaco, setFrasesBaco] = useState<any>([]);
   const [ConclusoesBaco, setConclusoesBaco] = useState<any>([]);

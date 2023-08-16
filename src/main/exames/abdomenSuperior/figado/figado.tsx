@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 
-import { Box, Button, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Checkbox, HStack, Input, Select, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -10,7 +10,9 @@ import IndividualizarNodulos from "./individualizarNodulos";
 
 function Figado({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [numberArray, setNumberArray] = useState([1]);
 

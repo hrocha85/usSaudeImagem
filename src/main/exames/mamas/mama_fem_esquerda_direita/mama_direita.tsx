@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
 
-import { Box, Checkbox, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Input, Select, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Mama_direita() {
   const altura = "100%";
-  const largura = "33%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "41%": largura = "100%"
 
   const [frasesMamas, setFrasesMamas] = useState<any>([]);
   const [ConclusaoMamas, setConclusaoMamas] = useState<any>([]);

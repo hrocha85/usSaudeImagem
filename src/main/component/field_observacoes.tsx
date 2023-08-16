@@ -417,7 +417,7 @@ export default function Field_Observacoes({ exame }) {
 
   return (
     <>
-      <Flex w="100%" h="327px" paddingStart="20px">
+      <Flex w={'100%'} h="327px" paddingStart="10px">
         <Box
           bg="#FAFAFA"
           w={largura}
@@ -427,7 +427,6 @@ export default function Field_Observacoes({ exame }) {
           borderRadius="10.85px"
           boxShadow="md"
           padding="24px 15px 20px 15px"
-          overflow="auto"
         >
           <HStack width="100%">
             <TituloNomeExame titulo={titulo} />
