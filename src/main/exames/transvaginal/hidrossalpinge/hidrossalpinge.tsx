@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
 
-import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Select, Stack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidrossalpinge({ Disable }) {
   const altura = "100%";
-  const largura = "33%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [frasesHidrossalpinge, setFrasesHidrossalpinge] = useState<any>([]);
   const [ConclusaoHidrossalpinge, setConclusaoHidrossalpinge] = useState<any>([]);
@@ -94,6 +96,7 @@ function Hidrossalpinge({ Disable }) {
       boxShadow="md"
       padding="24px 15px 20px 15px"
       mt="15px"
+      ml={5}
     >
       <TituloNomeExame titulo="Hidrossalpinge" />
 

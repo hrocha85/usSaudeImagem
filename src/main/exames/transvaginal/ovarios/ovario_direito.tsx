@@ -8,7 +8,8 @@ import {
   Select,
   Stack,
   Button,
-  Text
+  Text, 
+  useMediaQuery
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -18,7 +19,9 @@ import IndividualizarCistosDireito from "./individualizar_CistoDireita";
 
 function Ovario_Direito({ Disable }) {
   const altura = "100%";
-  const largura = "40%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [frasesOvarioDireito, setFrasesOvarioDireito] = useState<any>([]);
   const [ConclusaoOvarioDireito, setConclusaoOvarioDireito] = useState<any>([]);
