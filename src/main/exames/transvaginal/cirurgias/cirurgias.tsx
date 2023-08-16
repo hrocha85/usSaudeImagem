@@ -1,12 +1,14 @@
 
-import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useDebugValue, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Cirurgias({ Disable }) {
   const altura = "100%";
-  const largura = "520px";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [frasesCirurgia, setFrasesCirurgias] = useState<any>([]);
   const [ConclusaoCirurgia, setConclusaoCirurgias] = useState<any>([]);

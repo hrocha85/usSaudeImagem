@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
 
-import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -9,7 +9,9 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Vagina({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [FraseVagina, setFraseVagina] = useState<any>([]);
 

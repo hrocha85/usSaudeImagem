@@ -417,7 +417,7 @@ export default function Field_Observacoes({ exame }) {
 
   return (
     <>
-      <Flex w={'100%'} h="327px" paddingStart="10px">
+      <Flex w={'100%'} h="327px" marginStart="22px">
         <Box
           bg="#FAFAFA"
           w={largura}
