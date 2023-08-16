@@ -17,6 +17,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 18  # Use a versão de Node.js adequada
+          
+      - name: set private key permissions
+        run: chmod 600 /home/runner/.ssh/usgkeys.pem
 
       - name: Install dependencies
         run: npm install
