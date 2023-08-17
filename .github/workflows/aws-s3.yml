@@ -1,4 +1,4 @@
-name: AWS_S3
+name: AWS S3
 
 on:
   pull_request:
