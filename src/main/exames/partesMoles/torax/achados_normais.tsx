@@ -1,12 +1,14 @@
 
-import { Box, Checkbox, Grid } from "@chakra-ui/react";
+import { Box, Checkbox, Grid, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 export default function Achados_Normais({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [frasesAchadosNormais, setFrasesAchadosNormais] = useState<any>([]);
 
@@ -260,8 +262,8 @@ export default function Achados_Normais({ Disable }) {
     >
       <TituloNomeExame titulo="Achados Normais" />
 
-      <Box gap="15px" display="flex" flexWrap="wrap" flexDirection="column">
-        <Grid templateColumns="repeat(5, 1fr)" gap={6}>
+      <Box gap="15px">
+        <Grid templateColumns="repeat(3, 1fr)" gap={6}>
           <Checkbox
             isChecked={Normal1}
             onChange={() => {

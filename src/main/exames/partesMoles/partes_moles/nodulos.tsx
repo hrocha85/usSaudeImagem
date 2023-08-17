@@ -1,13 +1,15 @@
 
 /* eslint-disable array-callback-return */
-import { Box, Button, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
+import { Box, Button, Checkbox, HStack, Select, Stack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import IndividualizarNodulos from "./individualizar_nodulos";
 
 function Nodulos({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
   const [numberArray, setNumberArray] = useState([1]);
 
 
@@ -68,19 +70,18 @@ function Nodulos({ Disable }) {
 
       <Box gap="15px" display="flex" flexWrap="wrap">
         <Box w="100%">
-          <HStack mb="10px">
+          <Stack mb="10px">
             <Checkbox
 
               onChange={(e) =>
                 setNoduloSubcutaneoCheckbox(!noduloSubcutaneoCheckbox)
               }
               mr="30px"
-              whiteSpace="nowrap"
             >
               Nódulo{"(s)"} na gordura subcutânea, de
             </Checkbox>
             <Select
-              w="auto"
+              w={'80%'}
               isDisabled={disableNoduloSelect}
               value={noduloSelect}
               onChange={(e) => {
@@ -96,7 +97,7 @@ function Nodulos({ Disable }) {
               </option>
             </Select>
             <Select
-              w="20%"
+              w="80%"
               isDisabled={disableNoduloSelect}
               value={noduloSelect2}
               onChange={(e) => {
@@ -113,7 +114,7 @@ function Nodulos({ Disable }) {
               <option value="hiperecogênico(s)">hiperecogênico(s)</option>
               <option value="calcificado(s)">calcificado(s)</option>
             </Select>
-          </HStack>
+          </Stack>
           <Stack w="100%">
             <Box gap="10px" display="flex" flexWrap="wrap">
               {Nodulos()}
