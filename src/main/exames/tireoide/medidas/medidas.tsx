@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
 
-import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { StyleSheet } from "@react-pdf/renderer";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -8,7 +8,9 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Medidas() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [value, setValue] = useState("1");
   const [FrasesMedidas, setFrasesMedidas] = useState<any>([]);
@@ -221,7 +223,7 @@ function Medidas() {
       bgRepeat="no-repeat"
       borderRadius="10.85px"
       boxShadow="md"
-      padding="24px 15px 10px 15px"
+      padding="24px 8px 10px 8px"
       mt="20px"
     >
       <TituloNomeExame titulo="Medidas" />
