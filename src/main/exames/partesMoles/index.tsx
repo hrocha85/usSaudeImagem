@@ -1,5 +1,5 @@
 
-import { Box, Checkbox } from "@chakra-ui/react";
+import { Box, Checkbox, useMediaQuery } from "@chakra-ui/react";
 import { useState } from "react";
 
 import CistoAnecoico from "../partesMoles/cistoAnecoico/cistoAnecoico";
@@ -11,7 +11,9 @@ import Achados_Normais from "./torax/achados_normais";
 
 function PartesMoles() {
   const altura = '100%'
-  const largura = '220px'
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
   const [Disable, SetDisable] = useState(false)
   return (
     <>
