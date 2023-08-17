@@ -14,24 +14,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Wait for owner's approval
-      id: wait-for-approval
-      uses: actions/github-script@v6
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const { data: reviews } = await github.pulls.listReviews({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: context.payload.pull_request.number
-          });
-          const approved = reviews.some(review => review.user.login === 'seu-usuario' && review.state === 'APPROVED');
-          if (!approved) {
-            core.setFailed('Pull request requires owner approval.');
-          }
-
     - name: Deploy to S3
-      if: steps.wait-for-approval.outputs.result == 'success'
       uses: jakejarvis/s3-sync-action@v0.5.0
       with:
         args: --acl public-read --follow-symlinks --delete
@@ -39,5 +22,6 @@ jobs:
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        
     - name: Build App
       run: npm run build
