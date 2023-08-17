@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
 
-import { Box, Checkbox, Select } from "@chakra-ui/react";
+import { Box, Checkbox, Select, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Dilatacao() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [FraseDilatacao, setFraseDilatacao] = useState<any>([]);
   const [ConclusaoDilatacao, setConclusaoDilatacao] = useState<any>([]);

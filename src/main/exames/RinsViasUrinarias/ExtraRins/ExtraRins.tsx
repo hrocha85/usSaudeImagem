@@ -2,7 +2,7 @@
 import {
   Box,
   Checkbox,
-  Select
+  Select, useMediaQuery
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -11,7 +11,9 @@ import RimEsquerdo from "../rim_esquerdo/rim_esquerdo";
 
 function ExtraRins() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [FrasesExtraRins, setFrasesExtraRins] = useState<any>([]);
   const [ConclusaoExtraRins, setConclusaoExtraRins] = useState<any>([]);
