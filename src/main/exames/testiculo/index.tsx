@@ -50,9 +50,8 @@ function Testiculo() {
         <CistoEpididimarios />
         <NodulosTesticulares />
         <Grid
-          templateColumns="repeat(2,1fr)"
+          templateColumns="repeat(1,1fr)"
           gap={2}
-          maxW="69%"
         >
           <Microlitiase />
           <Hematoma />
