@@ -1,4 +1,4 @@
-import { Box, Checkbox } from "@chakra-ui/react";
+import { Box, Checkbox, useMediaQuery } from "@chakra-ui/react";
 
 import Calculo from "./calculos/calculos";
 import Cisto from "./cistos/cistos";
@@ -10,8 +10,10 @@ import ExtraRins from "./ExtraRins/ExtraRins";
 import Bexiga from "./bexiga/bexiga";
 import { useState } from "react";
 function RinseViasUrinarias() {
-  const altura = '100%'
-  const largura = '40%'
+  const altura = "100%"
+	let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
   const [Disable, SetDisable] = useState(false)
 
   return (
@@ -33,7 +35,7 @@ function RinseViasUrinarias() {
           flexWrap='wrap'
           alignItems='center' gap='5px'>
 
-          <Box w='150px' >
+          <Box w='100%' >
             <Checkbox
               onChange={(e) => { SetDisable(!Disable) }}
             >Rins e vias Urinarias normal</Checkbox>
