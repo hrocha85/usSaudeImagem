@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
 
-import { Box, Button, Center, Checkbox, HStack, Input, Select, Stack, Text, Wrap } from "@chakra-ui/react";
+import { Box, Button, Center, Checkbox, HStack, Input, Select, Stack, Text, Wrap, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -9,7 +9,9 @@ import Cisto from "./individualiza_cisto";
 
 function CistosColoides() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [numberArray, setNumberArray] = useState([1]);
 

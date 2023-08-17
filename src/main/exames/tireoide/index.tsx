@@ -1,4 +1,4 @@
-import { Box, Checkbox } from "@chakra-ui/react";
+import { Box, Checkbox, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 import { Format_Laudo } from "../../component/function_format_laudo";
@@ -14,7 +14,9 @@ import Calcificacao from "./Calcificacao/Calcificacao";
 
 function Tireoide() {
   const altura = "100%";
-  const largura = "180px";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "59.5%": largura = "97%"
 
   const fraseInicial = 'Exame realizado com equipamento dinâmico, transdutor linear de alta resolução, com frequência de 7.5 MHz.'
 
@@ -73,6 +75,7 @@ function Tireoide() {
         bgRepeat="no-repeat"
         borderRadius="10.85px"
         boxShadow="md"
+        ms={3}
         padding="10px 15px 10px 15px"
         mt="2px"
         mb="5px"
