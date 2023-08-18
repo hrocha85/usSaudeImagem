@@ -7,7 +7,7 @@ import {
   Input,
   Select,
   Stack,
-  Text
+  Text, useMediaQuery
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -43,7 +43,9 @@ function Utero({ Disable }) {
   }, [FrasesUtero]);
 
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   //States Medidas Utero - Inicio
   const [medidaUtero1, setmedidaUtero1] = useState<number>(10);
@@ -615,7 +617,7 @@ function Utero({ Disable }) {
               Miométrio homogêneo sem nódulos
             </Checkbox>
             <Box>
-              <HStack>
+              <Stack>
                 <Checkbox
                   whiteSpace="nowrap"
                   isDisabled={!miometrioSemNodulosCheckBox}
@@ -629,7 +631,7 @@ function Utero({ Disable }) {
                 <Input
                   isDisabled={!miometrioSemNodulosCheckBox}
                   value={tamanhoNoduloInput}
-                  w="60px"
+                  w="20%"
                   h="77x"
                   padding="5px"
                   textAlign="center"
@@ -637,7 +639,7 @@ function Utero({ Disable }) {
                   placeholder={"mm"}
                 />
                 <Select
-                  w="auto"
+                  w={'80%'}
                   isDisabled={!miometrioSemNodulosCheckBox}
                   onChange={(e) => {
                     setPosicaoNodulosSelect(e.target.value);
@@ -654,7 +656,7 @@ function Utero({ Disable }) {
                 </Select>
 
                 <Select
-                  w="auto"
+                  w={'80%'}
                   isDisabled={!miometrioSemNodulosCheckBox}
                   onChange={(e) => {
                     setlocalizacaoNodulosSelect(e.target.value);
@@ -671,7 +673,7 @@ function Utero({ Disable }) {
                   <option value="lateral esquerda">Lateral esquerda</option>
                   <option value="cervical">Cervical</option>
                 </Select>
-              </HStack>
+              </Stack>
             </Box>
 
             <Box borderBottom="1px"></Box>
