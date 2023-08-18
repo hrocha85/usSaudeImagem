@@ -261,7 +261,7 @@ function Home() {
   } else {
     return (
 
-      < Box overflowX={"hidden"} height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'>
+      <><Box overflowX={"hidden"} height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'>
 
         <Flex
           justifyContent="space-between">
@@ -272,8 +272,7 @@ function Home() {
                 srcSet={Configuracao}
                 alt="Second Icon Plus"
                 h="30px"
-                w="30px"
-              />
+                w="30px" />
             </Button>
           </Link>
 
@@ -323,7 +322,7 @@ function Home() {
         <Center>
           <LayoutExame item={<ItemExamesHome />} />
         </Center>
-        <Center >
+        <Center>
           <Box
             justifyContent='center'
             gap='10px' display="flex" flexWrap='wrap'
@@ -375,8 +374,12 @@ function Home() {
             </Button>
           </Tooltip>
         </Center>
-        <FooterUpbase/>
+
       </Box>
+      <Box> 
+        <FooterUpbase />
+      </Box>
+      </>  
     );
   }
 }
