@@ -1,5 +1,5 @@
 
-import { Box, Checkbox, HStack } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Stack, useMediaQuery } from "@chakra-ui/react";
 import { useState } from "react";
 
 import Miometrio from "./miometrio/miometrio";
@@ -16,7 +16,9 @@ import Ovario_Esquerdo from "./ovarios/ovario_esquedo";
 
 function Pelvico() {
   const altura = '100%'
-  const largura = '230px'
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
   const [Disable, SetDisable] = useState(false)
   return (
     <>
@@ -46,14 +48,14 @@ function Pelvico() {
         <Ovario_Direito Disable={Disable} />
 
 
-        <HStack alignItems="baseline">
+        <Stack alignItems="baseline">
           <Hidatide Disable={Disable} />
           <Hidrossalpinge Disable={Disable} />
-        </HStack>
-        <HStack alignItems="baseline">
+        </Stack>
+        <Stack alignItems="baseline">
           <Liquido_Livre Disable={Disable} />
           <Extras Disable={Disable} />
-        </HStack>
+        </Stack>
         <Cirurgias Disable={Disable} />
       </Box>
     </>
