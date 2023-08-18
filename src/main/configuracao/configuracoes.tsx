@@ -753,7 +753,7 @@ const Configuracoes = () => {
   }, []);
 
   return (
-    <Box
+    <><Box
       w="100%"
       h="100%"
       bgGradient='linear(to-b, blue.100, #fff)'
@@ -769,8 +769,7 @@ const Configuracoes = () => {
         <Box display={'flex'} flexWrap={'wrap'} gap={5} marginTop={'2rem'} justifyContent={'space-around'}>
 
           {isLargerThan500 ?
-            <Box>{returnPOPoverLaudos()}</Box> : <Box width={width}>{returnPOPoverLaudos()}</Box>
-          }
+            <Box>{returnPOPoverLaudos()}</Box> : <Box width={width}>{returnPOPoverLaudos()}</Box>}
 
 
 
@@ -829,13 +828,12 @@ const Configuracoes = () => {
                     onClick={() => {
                       onOpenModalAddMedico();
                       setStateClickAddMedico(true);
-                    }}
+                    } }
                   >
                     <Icon
                       as={AiOutlinePlusCircle}
                       w="2rem"
-                      h="4.4rem"
-                    />
+                      h="4.4rem" />
                     Adicionar
                   </Button>
                 </Tooltip>
@@ -847,47 +845,48 @@ const Configuracoes = () => {
         </Box>
 
         {/* {medicos.map((medico, key) => {
-          return <Medicos key={key} medico={medico} id={key} />;
-        })} */}
+      return <Medicos key={key} medico={medico} id={key} />;
+    })} */}
 
         {/* <Tooltip
-          label="Adicionar Médico"
-          backgroundColor="white"
-          placement="top"
-          defaultIsOpen={false}
-          hasArrow
-          arrowSize={15}
-          textColor="black"
-          fontSize="20px"
-        >
-          <Button
-            borderRadius="xl"
-            backgroundColor="white"
-            w="30"
-            h="30"
-            boxShadow="md"
-            textColor="#4CBFF0"
-            fontSize="19px"
-            fontWeight="semibold"
-            onClick={() => {
-              onOpenModalAddMedico();
-              setStateClickAddMedico(true);
-            }}
-          >
-            <Icon
-              as={AiOutlinePlusCircle}
-              marginRight="8px"
-              w="30px"
-              h="30px"
-            />
-            Adicionar
-          </Button>
-        </Tooltip> */}
+      label="Adicionar Médico"
+      backgroundColor="white"
+      placement="top"
+      defaultIsOpen={false}
+      hasArrow
+      arrowSize={15}
+      textColor="black"
+      fontSize="20px"
+    >
+      <Button
+        borderRadius="xl"
+        backgroundColor="white"
+        w="30"
+        h="30"
+        boxShadow="md"
+        textColor="#4CBFF0"
+        fontSize="19px"
+        fontWeight="semibold"
+        onClick={() => {
+          onOpenModalAddMedico();
+          setStateClickAddMedico(true);
+        }}
+      >
+        <Icon
+          as={AiOutlinePlusCircle}
+          marginRight="8px"
+          w="30px"
+          h="30px"
+        />
+        Adicionar
+      </Button>
+    </Tooltip> */}
       </Stack>
       {ModalAddMedico()}
       {returnObservacoes()}
-      <FooterUpbase />
     </Box>
+    <Box mt={"20%"}><FooterUpbase /></Box>
+    </>
   );
 };
 

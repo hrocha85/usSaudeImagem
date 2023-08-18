@@ -376,7 +376,7 @@ function Home() {
         </Center>
 
       </Box>
-      <Box> 
+      <Box mt={'2%'}> 
         <FooterUpbase />
       </Box>
       </>  
