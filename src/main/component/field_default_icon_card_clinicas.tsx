@@ -507,7 +507,7 @@ const FieldDefaultIconCardClinicas = ({
           boxShadow="2xl"
 
         >
-          <Stack direction="row" alignItems="center">
+          <Stack justifyContent={'center'} direction="row" alignItems="center">
             <IconContext.Provider value={{ color: "#4A5568" }}>
               <Image
                 borderRadius="full"

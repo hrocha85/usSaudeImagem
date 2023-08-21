@@ -777,8 +777,8 @@ const Configuracoes = () => {
 
 
           <Box pl={3}>
-            <Box h={'3.4rem'}>
-              <Stack direction="row" justifyContent={'center'}>
+            {/*<Box h={'3.4rem'}>
+               <Stack direction="row" justifyContent={'center'}>
                 <Text
                   color="#1A202C"
                   fontSize="20px"
@@ -821,7 +821,7 @@ const Configuracoes = () => {
                   </Button>
                 </Tooltip>
               </Stack>
-            </Box>
+            </Box> */}
             <MainCard titulo="Médicos" icon={true} clinica={listaClinicas} medicos={null} />
           </Box>
 

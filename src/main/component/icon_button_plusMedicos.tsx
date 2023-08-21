@@ -294,15 +294,19 @@ const IconButtonPlusMedicos = (props, clinica) => {
       <Tooltip
         label="Adicionar Médicos"
         backgroundColor="white"
-        placement="top"
+        // placement="top"
         defaultIsOpen={false}
         hasArrow
         arrowSize={15}
         textColor="black"
-        fontSize="20px"
+        fontSize="14px"
       >
         <Button
           borderRadius="xl"
+          backgroundColor="white"
+          w="10rem"
+          h="2.4rem"
+          top={1}
           boxShadow="md"
           textColor="#4CBFF0"
           fontSize="19px"
@@ -310,9 +314,9 @@ const IconButtonPlusMedicos = (props, clinica) => {
           onClick={() => {
             PegaClinicas()
           }}
-          variant="ghost"
         >
           <Icon as={AiOutlinePlusCircle} w="30px" h="30px" />
+          Adicionar
         </Button>
       </Tooltip >
       <>
