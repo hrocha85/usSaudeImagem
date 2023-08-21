@@ -56,10 +56,6 @@ import { lista_medicos } from "./configuracoes";
 const Medicos = ({ medico, id }) => {
   const medicos: any[] = [];
 
-  useEffect(() => {
-    console.log('entrou')
-  }, [])
-
   medicos.push(medico);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -400,6 +396,7 @@ const Medicos = ({ medico, id }) => {
 
   return (
     <Box
+      justifyContent={'center'}
       bg="#FAFAFA"
       w="19rem"
       h="12rem"

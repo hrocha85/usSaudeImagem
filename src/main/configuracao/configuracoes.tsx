@@ -769,34 +769,16 @@ const Configuracoes = () => {
         <Box display={'flex'} flexWrap={'wrap'} gap={5} marginTop={'2rem'} justifyContent={'space-around'}>
 
           {isLargerThan500 ?
-            <Box>{returnPOPoverLaudos()}</Box> : <Box width={width}>{returnPOPoverLaudos()}</Box>}
-
-
-
+            <Box>{returnPOPoverLaudos()}</Box> : <Box width={width}>{returnPOPoverLaudos()}</Box>
+          }
           <Box>
-            <Box h={'3.4rem'} w={'30rem'}>
-
-              <Stack direction="row" justifyContent={'center'}>
-                <Text
-                  color="#1A202C"
-                  fontSize="20px"
-                  alignSelf="center"
-                  fontWeight='semibold'
-                  mr={2}
-                >
-                  Clínicas
-                </Text>
-                <IconButtonPlus atualizar={false} setAtualizar={false} />
-
-              </Stack>
-            </Box>
             <MainCardClinica titulo="Clínicas" icon={true} clinica={null} medicos={null} />
           </Box>
 
 
           <Box pl={3}>
-            <Box h={'3.4rem'}>
-              <Stack direction="row" justifyContent={'center'}>
+            {/*<Box h={'3.4rem'}>
+               <Stack direction="row" justifyContent={'center'}>
                 <Text
                   color="#1A202C"
                   fontSize="20px"
@@ -838,7 +820,7 @@ const Configuracoes = () => {
                   </Button>
                 </Tooltip>
               </Stack>
-            </Box>
+            </Box> */}
             <MainCard titulo="Médicos" icon={true} clinica={listaClinicas} medicos={null} />
           </Box>
 

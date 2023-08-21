@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Box, Stack, Text, background } from "@chakra-ui/react";
+import { Box, HStack, Stack, Text, background } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Clinica from "../configuracao/clinicas";
 import IconButtonPlus from "./icon_button_plus";
@@ -36,28 +36,30 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
         h="60vh"
         color="white"
         borderRadius="10.85px"
-        overflow='auto'
-        css={{ '&::-webkit-scrollbar': { width: '0.4em' }, '&::-webkit-scrollbar-thumb': { backgroundColor: 'transparent' } }}
-
-      //minW="218px"
       >
-        {/* <Box bg={'#c1e4f9'}pl={'1rem'} zIndex={90} w={'25rem'} h={'3.4rem'} top={'5.0rem'}>
-          <Stack direction="row" spacing="8.4rem">
+        <Box h={'3.4rem'} w={'30rem'}>
+
+          <Stack direction="row">
             <Text
               color="#1A202C"
               fontSize="20px"
-              paddingStart="10px"
               alignSelf="center"
               fontWeight='semibold'
+              mr={2}
             >
-              {medicos ? medicos.nome : titulo}
+              Médicos
             </Text>
-            <Box pt={3}> {ShowIcon(icon, clinica)}</Box>
-           
-          </Stack>
-        </Box> */}
+            {ShowIcon(icon, clinica)}
 
-        <Box>{Cards(titulo)}</Box>
+          </Stack>
+        </Box>
+
+        <Box
+          h='50vh'
+          overflow='auto'
+          css={{ '&::-webkit-scrollbar': { width: '0.4em' }, '&::-webkit-scrollbar-thumb': { backgroundColor: 'transparent' } }}
+        >{Cards(titulo)}
+        </Box>
       </Box>
     </div>
   );

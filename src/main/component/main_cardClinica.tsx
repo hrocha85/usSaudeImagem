@@ -20,8 +20,6 @@ const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
     switch (titulo) {
       case "Clínicas":
         return <Clinica atualizar={atualizar} />;
-
-
       default:
         break;
     }
@@ -29,33 +27,33 @@ const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
 
   return (
     <Box
-      // bg="#FAFAFA"
       w="100%"
       h="60vh"
       color="white"
       borderRadius="10.85px"
-      overflow='auto'
-      css={{ '&::-webkit-scrollbar': { width: '0.4em' }, '&::-webkit-scrollbar-thumb': { backgroundColor: 'transparent' } }}
-
-    //minW="218px"
     >
-      {/* <Box bg={'#c1e4f9'}pl={'1rem'} zIndex={90} w={'25rem'} h={'2.8rem'}>
-        <Stack
-          direction="row" spacing="200px">
+      <Box h={'3.4rem'} w={'30rem'}>
+
+        <Stack direction="row" justifyContent={'center'}>
           <Text
             color="#1A202C"
             fontSize="20px"
-            paddingStart="8px"
             alignSelf="center"
             fontWeight='semibold'
+            mr={2}
           >
-            {medicos ? medicos.nome : titulo}
+            Clínicas
           </Text>
           {ShowIcon(icon)}
-        </Stack>
-      </Box> */}
 
-      <Box>{Cards(titulo)}</Box>
+        </Stack>
+      </Box>
+
+      <Box
+        h={'50vh'}
+        overflow='auto'
+        css={{ '&::-webkit-scrollbar': { width: '0.4em' }, '&::-webkit-scrollbar-thumb': { backgroundColor: 'transparent' } }}
+      >{Cards(titulo)}</Box>
     </Box>
   );
 };

@@ -183,6 +183,10 @@ const IconButtonPlus = (props) => {
       >
         <Button
           borderRadius="xl"
+          backgroundColor="white"
+          w="10rem"
+          h="2.4rem"
+          top={1}
           boxShadow="md"
           textColor="#4CBFF0"
           fontSize="19px"
