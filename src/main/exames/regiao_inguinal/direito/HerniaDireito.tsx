@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
 
-import { Box, Radio, RadioGroup, Select, Stack, Text } from "@chakra-ui/react";
+import { Box, Radio, RadioGroup, Select, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function HerniaDireito({ Disable }) {
   const altura = "100%";
-  const largura = "400px";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "98.5%": largura = "100%"
 
   const [FraseHerniaDireito, setFraseHerniaDireito] = useState<any>([]);
 
@@ -119,8 +121,6 @@ function HerniaDireito({ Disable }) {
       bg="#FAFAFA"
       w={largura}
       h={altura}
-      bgPosition="center"
-      bgRepeat="no-repeat"
       borderRadius="10.85px"
       boxShadow="md"
       padding="15px"
