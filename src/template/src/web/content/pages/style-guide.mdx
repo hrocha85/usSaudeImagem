@@ -1,0 +1,167 @@
+---
+  title: Style Guide
+  slug: style-guide
+  cover: "./style-guide.png"
+  publishedAt: "2023-02-04"
+---
+
+<Box layerStyle="pageTitle">
+  <Container maxW="container.xl">
+    <Stack align="start" direction={["column","column","column"]}>
+      <Heading as="h1" size="xl">Style guide</Heading>
+
+      This guide serves as a reference for all design and content creation, ensuring a cohesive and professional representation of your brand. By following the guidelines outlined in the Style Guide, your brand will have a consistent look and feel, making it easily recognizable and trustworthy to your audience.
+    </Stack>
+  </Container>
+</Box>
+
+<Container maxW="container.xl" mb={[10,14,20]}>
+  <Stack spacing={[10,14,20]} fontSize="lg">
+
+    <Stack direction={["column","column","row"]}>
+      <Box flex="1" maxW={["full","full","300"]} mb={[4,4,0]} pb={[4,4,0]} borderBottomWidth={["1px","1px", 0]}>
+        ## Colors
+      </Box>
+      <Stack spacing={4} flex="3">
+        ### Brand
+        <Wrap spacing={1}>
+          <Box bg="brand.50" color="blackAlpha.800" layerStyle="colorBox">50</Box>
+          <Box bg="brand.100" layerStyle="colorBox">100</Box>
+          <Box bg="brand.200" layerStyle="colorBox">200</Box>
+          <Box bg="brand.300" layerStyle="colorBox">300</Box>
+          <Box bg="brand.400" layerStyle="colorBox">400</Box>
+          <Box bg="brand.500" layerStyle="colorBox">500</Box>
+          <Box bg="brand.600" layerStyle="colorBox">600</Box>
+          <Box bg="brand.700" layerStyle="colorBox">700</Box>
+          <Box bg="brand.800" layerStyle="colorBox">800</Box>
+          <Box bg="brand.900" layerStyle="colorBox">900</Box>
+        </Wrap>
+        ### Primary
+        <Wrap spacing={1}>
+          <Box bg="primary.50" color="blackAlpha.800" layerStyle="colorBox">50</Box>
+          <Box bg="primary.100" layerStyle="colorBox">100</Box>
+          <Box bg="primary.200" layerStyle="colorBox">200</Box>
+          <Box bg="primary.300" layerStyle="colorBox">300</Box>
+          <Box bg="primary.400" layerStyle="colorBox">400</Box>
+          <Box bg="primary.500" layerStyle="colorBox">500</Box>
+          <Box bg="primary.600" layerStyle="colorBox">600</Box>
+          <Box bg="primary.700" layerStyle="colorBox">700</Box>
+          <Box bg="primary.800" layerStyle="colorBox">800</Box>
+          <Box bg="primary.900" layerStyle="colorBox">900</Box>
+        </Wrap>
+        ### Secondary
+        <Wrap spacing={1}>
+          <Box bg="secondary.50" color="blackAlpha.800" layerStyle="colorBox">50</Box>
+          <Box bg="secondary.100" layerStyle="colorBox">100</Box>
+          <Box bg="secondary.200" layerStyle="colorBox">200</Box>
+          <Box bg="secondary.300" layerStyle="colorBox">300</Box>
+          <Box bg="secondary.400" layerStyle="colorBox">400</Box>
+          <Box bg="secondary.500" layerStyle="colorBox">500</Box>
+          <Box bg="secondary.600" layerStyle="colorBox">600</Box>
+          <Box bg="secondary.700" layerStyle="colorBox">700</Box>
+          <Box bg="secondary.800" layerStyle="colorBox">800</Box>
+          <Box bg="secondary.900" layerStyle="colorBox">900</Box>
+        </Wrap>
+        ### Natural
+        <Wrap overlay="visible" spacing={1}>
+          <Box borderWidth="1px" borderColor="gray.200" bg="white" color="blackAlpha.800" layerStyle="colorBox">white</Box>
+          <Box bg="gray.100" layerStyle="colorBox">100</Box>
+          <Box bg="gray.200" layerStyle="colorBox">200</Box>
+          <Box bg="gray.300" layerStyle="colorBox">300</Box>
+          <Box bg="gray.400" layerStyle="colorBox">400</Box>
+          <Box bg="gray.500" layerStyle="colorBox">500</Box>
+          <Box bg="gray.600" layerStyle="colorBox">600</Box>
+          <Box bg="gray.700" layerStyle="colorBox">700</Box>
+          <Box bg="gray.800" layerStyle="colorBox">800</Box>
+          <Box bg="gray.900" layerStyle="colorBox">900</Box>
+        </Wrap>
+      </Stack>
+    </Stack>
+
+    <Stack direction={["column","column","row"]}>
+      <Box flex="1" maxW={["full","full","300"]} mb={[4,4,0]} pb={[4,4,0]} borderBottomWidth={["1px","1px", 0]}>
+        ## Typography
+      </Box>
+      <Stack spacing={4} flex="3">
+         ### Heading
+        <Wrap align="baseline" spacing={4}>
+          <Heading size="4xl">4XL</Heading>
+          <Heading size="3xl">3XL</Heading>
+          <Heading size="2xl">2XL</Heading>
+          # H1
+          ## H2
+          ### H3
+          #### H4
+          ##### H5
+          ###### H6
+        </Wrap>
+
+        ### Paragraph
+        Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Quisque placerat facilisis egestas cillum dolore. Magna pars studiorum, prodita quaerimus. Morbi fringilla convallis sapien, id pulvinar odio volutpat. Paullum deliquit, ponderibus modulisque suis ratio utitur.
+      </Stack>
+    </Stack>
+
+    <Stack direction={["column","column","row"]}>
+      <Box flex="1" maxW={["full","full","300"]} mb={[4,4,0]} pb={[4,4,0]} borderBottomWidth={["1px","1px", 0]}>
+        ## List
+      </Box>
+      <Stack spacing={4} flex="3">
+        ### Unorderlist
+        - Streamline your workflow with multi-level parallelism.
+        - Maximize efficiency with high-performing concurrent solutions.
+        - Stay driven and productive with task-focused solutions.
+
+        ### Orderlist
+        1. Streamline your workflow with multi-level parallelism.
+        1. Maximize efficiency with high-performing concurrent solutions.
+        1. Stay driven and productive with task-focused solutions.
+
+      </Stack>
+    </Stack>
+
+    <Stack direction={["column","column","row"]}>
+      <Box flex="1" maxW={["full","full","300"]} mb={[4,4,0]} pb={[4,4,0]} borderBottomWidth={["1px","1px", 0]}>
+        ## Button
+      </Box>
+      <Stack spacing={4} flex="3">
+        **Solid**
+        <Stack direction={["column","column","row"]}>
+          <Button width="full" colorScheme="brand">Brand</Button>
+          <Button width="full" colorScheme="primary">Primary</Button>
+          <Button width="full" colorScheme="secondary">Secondary</Button>
+          <Button width="full" colorScheme="white">White</Button>
+          <Button width="full" colorScheme="gray">Default</Button>
+          <Button width="full" colorScheme="black">Black</Button>
+        </Stack>
+        **Outline**
+        <Stack direction={["column","column","row"]}>
+          <Button width="full" variant="outline" colorScheme="brand">Brand</Button>
+          <Button width="full" variant="outline" colorScheme="primary">Primary</Button>
+          <Button width="full" variant="outline" colorScheme="secondary">Secondary</Button>
+          <Button width="full" variant="outline" colorScheme="white">White</Button>
+          <Button width="full" variant="outline" colorScheme="gray">Default</Button>
+          <Button width="full" variant="outline" colorScheme="black">Black</Button>
+        </Stack>
+        **Ghost**
+        <Stack direction={["column","column","row"]}>
+          <Button width="full" variant="ghost" colorScheme="brand">Brand</Button>
+          <Button width="full" variant="ghost" colorScheme="primary">Primary</Button>
+          <Button width="full" variant="ghost" colorScheme="secondary">Secondary</Button>
+          <Button width="full" variant="ghost" colorScheme="white">White</Button>
+          <Button width="full" variant="ghost" colorScheme="gray">Default</Button>
+          <Button width="full" variant="ghost" colorScheme="black">Black</Button>
+        </Stack>
+        **Sizes**
+        <Stack align="center" direction={["column","column","row"]}>
+          <Button width="full" size="xs" colorScheme="brand">XSmall</Button>
+          <Button width="full" size="sm" colorScheme="primary">Small</Button>
+          <Button width="full" size="md" colorScheme="secondary">Normal</Button>
+          <Button width="full" size="lg" colorScheme="gray">Large</Button>
+          {/* <Button width="full" size="xl" colorScheme="gray">XLarge</Button> */}
+          <Button width="full" size="jumbo" colorScheme="black">Jumbo</Button>
+        </Stack>
+      </Stack>
+    </Stack>
+
+  </Stack>
+</Container>

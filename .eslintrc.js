@@ -28,4 +28,29 @@ module.exports = {
         // '@typescript-eslint/no-non-null-assertion': 'off',
 
     },
+    settings: {
+        react: {
+            version: "detect",
+        },
+        "import/extensions": [".js", ".jsx"],
+        "import/resolver": {
+            alias: {
+                map: [
+                    [
+                        "@themebiotic/gatsby-theme-mentor",
+                        "@themebiotic/gatsby-theme-mentor/src/",
+                    ],
+                    [
+                        "@themebiotic/gatsby-mentor-core",
+                        "@themebiotic/gatsby-mentor-core/src/",
+                    ],
+                ],
+                extensions: [".js", ".jsx"],
+            },
+            node: {
+                extensions: [".js", ".jsx"],
+                paths: ["./src"],
+            },
+        },
+    },
 };

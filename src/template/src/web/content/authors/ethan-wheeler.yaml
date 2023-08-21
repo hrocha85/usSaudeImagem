@@ -1,0 +1,31 @@
+name: Ethan Wheeler
+image: ethan-wheeler.jpg
+title: Creative Web Designer
+occupation: Full-stack Developer
+company: Freelance
+description:  "Ethan Wheeler is a skilled software developer with over 10 years of experience. He leads a team at a large tech firm and has a Bachelor's degree in Computer Science. He enjoys hiking and traveling in her free time."
+bio: "Ethan Wheeler is a highly skilled software developer with over 10 years of experience in the field. She began her career as a junior developer at a small tech company, where she quickly proved her aptitude for coding and problem-solving. She was quickly promoted to a senior developer role, where she played a key role in developing several successful software products.
+
+In her current position at a large tech firm, Jane is responsible for leading a team of developers in the creation of cutting-edge software applications. She is known for her ability to effectively communicate with both technical and non-technical team members, and for her ability to mentor and guide junior developers.
+
+Jane holds a Bachelor's degree in Computer Science from a top-tier university, and is an active member of the local software development community. She regularly attends industry conferences and events, and is always looking for ways to stay up-to-date on the latest developments in the field.
+
+In her free time, Jane enjoys hiking, traveling, and trying out new recipes in the kitchen. She is
+also an avid reader and loves to spend time with her family and friends."
+social:
+- name: Github
+  url: https://github.com/github
+- name: Twitter
+  url: https://twitter.com/twitter
+- name: Youtube
+  url: https://youtube.com
+- name: Instagram
+  url: https://instagram.com
+- name: LinkedIn
+  url: https://linkedin.com
+- name: Google
+  url: https://gmail.com
+skills:
+- UI/UX
+- Javascript
+- Graphic Design

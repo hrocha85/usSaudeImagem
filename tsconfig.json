@@ -21,7 +21,16 @@
     "jsx": "react-jsx",
     "noImplicitAny": false,
     "strictPropertyInitialization": false,
-    "outDir": "./build"
+    "outDir": "./build",
+    "baseUrl": "./",
+    "paths": {
+      "@themebiotic/gatsby-mentor-core": [
+        "src/template/packages/gatsby-mentor-core/src"
+      ],
+      "@themebiotic/gatsby-theme-mentor": [
+        "src/template/packages/gatsby-theme-mentor/src"
+      ]
+    }
   },
   "include": [
     "src",

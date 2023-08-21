@@ -16,35 +16,35 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import { BlogBlock } from "../packages/gatsby-theme-mentor/src/blocks/Blog";
+import { BlogBlock } from "../../packages/gatsby-theme-mentor/src/blocks/Blog";
 // import { BlogBlock } from "@themebiotic/gatsby-theme-mentor/blocks/Blog";
 import {
   ClientFour,
   ClientOne,
   ClientThree,
   ClientTwo,
-} from "../packages/gatsby-theme-mentor/src/blocks/Clients";
+} from "../../packages/gatsby-theme-mentor/src/blocks/Clients";
 // import {
 //   ClientFour,
 //   ClientOne,
 //   ClientThree,
 //   ClientTwo,
 // } from "@themebiotic/gatsby-theme-mentor/blocks/Clients";
-import { ExpertisesBlock } from "../packages/gatsby-theme-mentor/src/blocks/Expertises";
+import { ExpertisesBlock } from "../../packages/gatsby-theme-mentor/src/blocks/Expertises";
 // import { ExpertisesBlock } from "@themebiotic/gatsby-theme-mentor/blocks/Expertises";
-import { ServicesBlock } from "../packages/gatsby-theme-mentor/src/blocks/Services";
+import { ServicesBlock } from "../../packages/gatsby-theme-mentor/src/blocks/Services";
 // import { ServicesBlock } from "@themebiotic/gatsby-theme-mentor/blocks/Services";
-import { TestimonialsCarouselBlock } from "../packages/gatsby-theme-mentor/src/blocks/Testimonials";
+import { TestimonialsCarouselBlock } from "../../packages/gatsby-theme-mentor/src/blocks/Testimonials";
 // import { TestimonialsCarouselBlock } from "@themebiotic/gatsby-theme-mentor/blocks/Testimonials";
-import { WorksBlock } from "../packages/gatsby-theme-mentor/src/blocks/Works";
+import { WorksBlock } from "../../packages/gatsby-theme-mentor/src/blocks/Works";
 // import { WorksBlock } from "@themebiotic/gatsby-theme-mentor/blocks/Works";
-import Marquee from "../packages/gatsby-theme-mentor/src/components/Marquee";
+import Marquee from "../../packages/gatsby-theme-mentor/src/components/Marquee";
 // import Marquee from "@themebiotic/gatsby-theme-mentor/components/Marquee";
-import Seo from "../packages/gatsby-theme-mentor/src/components/Seo";
+import Seo from "../../packages/gatsby-theme-mentor/src/components/Seo";
 // import Seo from "@themebiotic/gatsby-theme-mentor/components/Seo";
-import { StatsContent } from "../packages/gatsby-theme-mentor/src/components/Stats";
+import { StatsContent } from "../../packages/gatsby-theme-mentor/src/components/Stats";
 // import { StatsContent } from "@themebiotic/gatsby-theme-mentor/components/Stats";
-import Layout from "../packages/gatsby-theme-mentor/src/layouts";
+import Layout from "../../packages/gatsby-theme-mentor/src/layouts";
 // import Layout from "@themebiotic/gatsby-theme-mentor/layouts";
 
 const IndexPage = (props) => {

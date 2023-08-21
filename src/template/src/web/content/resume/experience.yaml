@@ -1,0 +1,25 @@
+---
+- startDate: 2018
+  endDate: 2019
+  company: XYZ Corp.
+  role:  Creative Director
+  description: "Collaborating with clients to understand their goals and objectives, and developing creative strategies to help them achieve their desired results"
+  workTitle: null
+- startDate: 2019
+  endDate: 2020
+  company: ACME Inc.
+  role: Project Management
+  description: "Leading brainstorming sessions and developing concepts for marketing materials, such as websites, brochures, social media content, and advertisements"
+  workTitle: null
+- startDate: 2020
+  endDate: 2021
+  company: ABC Studios
+  role: Sr. Motion Designer
+  description: "Collaborating with producers and directors to understand the creative vision for each project, and developing detailed storyboards and animatics to bring those ideas to life"
+  workTitle: null
+- startDate: 2022
+  endDate:
+  company: Pixar Studios
+  role: Head of Character Effects (CFX)
+  description: "Leading a team of CFX artists, including supervising their work, providing feedback and guidance, and managing their schedules and workloads"
+  workTitle: Comprehensive Brand Identity Strategy

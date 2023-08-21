@@ -1,0 +1,28 @@
+---
+  title: Changelog
+  slug: changelog
+  cover: "./changelog.png"
+  publishedAt: "2023-02-20"
+---
+
+<Box layerStyle="pageTitle">
+  <Container maxW="container.lg">
+    <Stack align="center" justify="space-between" direction={["column","column","row"]} mb={2}>
+      <Heading as="h1" size="xl">Changelog</Heading>
+      <Text>Version 1.0.1</Text>
+    </Stack>
+    <Lead maxW={{ base: "full", md: "540px" }} textAlign={{ base: "center", md: "start" }}>
+      All notable changes to this project will be documented in this file. Visit [Themebiotic Profile](https://themeforest.net/user/themebiotic) for more details.
+    </Lead>
+  </Container>
+</Box>
+
+<Container mb={[10,14,20]} sx={{ "*": { fontFamily: "mono" } }}>
+  <Stack layerStyle="changelog">
+    ## 1.0.1 ``(2023-04-26)``
+    ### Bug Fixes
+    * set siteUrl as an environment variable for improved functionality
+    ## 1.0.0 ``(2023-02-20)``
+    Initial release published
+  </Stack>
+</Container>

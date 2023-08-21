@@ -1,0 +1,25 @@
+---
+- startDate: 2012
+  endDate: 2016
+  collegeName: "University of California, LA"
+  department: "Bachelor of Fine Arts, Graphic Design"
+  description: "A Bachelor of Fine Arts (BFA) in Graphic Design is a professional degree program
+  that prepares students for careers in the field of graphic design"
+- startDate: 2017
+  endDate: 2019
+  collegeName: "Berlin University of the Arts"
+  department: "Master in Motion Graphics and Animation"
+  description: "Motion Graphics Design Master’s degree focuses its contents on a pragmatic approach
+  to this emerging profession."
+- startDate: 2020
+  endDate: 2021
+  collegeName: "Gobelins, l’École de l’image"
+  department: "Motion Graphics & Animation Course"
+  description: "This course is designed to introduce students to the professional world of graphics
+  and animation, training them to become professionals in the field."
+- startDate: 2021
+  endDate:
+  collegeName: "Humboldt University of Berlin"
+  department: "Design & Visual Communication Program"
+  description: "Students apply and deepen their acquiread skills by completing a bachelor thesis and
+  a bachelor design project with a topic of their own choice."
