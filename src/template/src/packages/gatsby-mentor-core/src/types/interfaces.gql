@@ -1,0 +1,329 @@
+## -------------------------------------------------------------------------- ##
+##                                    Page                                    ##
+## -------------------------------------------------------------------------- ##
+
+interface Page implements Node {
+  id: ID!
+  publishedAt: Date @dateformat
+  slug: String!
+  defer: Boolean @defaultFalse
+  title: String!
+  cover: File! @fileByRelativePath
+  excerpt(pruneLength: Int = 160): String!
+  tableOfContents(maxDepth: Int = 6): JSON
+  contentFilePath: String!
+}
+
+type MdxPage implements Node & Page {
+  slug: String!
+  publishedAt: Date @dateformat
+  defer: Boolean @defaultFalse
+  title: String!
+  cover: File! @fileByRelativePath
+  excerpt(pruneLength: Int = 140): String! @mdxpassthrough(fieldName: "excerpt")
+  tableOfContents(maxDepth: Int = 6): JSON
+    @link(from: "parent", on: "Mdx")
+    @proxyResolver(on: "Mdx")
+  contentFilePath: String!
+}
+
+## -------------------------------------------------------------------------- ##
+##                                    Posts                                   ##
+## -------------------------------------------------------------------------- ##
+
+interface Post implements Node {
+  id: ID!
+  title: String!
+  slug: String! @slugify(prefix: "posts")
+  date: Date @dateformat
+  cover: File! @fileByRelativePath
+
+  featured: Boolean @defaultFalse
+  draft: Boolean @defaultFalse
+
+  props: Props
+
+  timeToRead: ReadingTime
+
+  author: Authors
+  tags: [Taxonomy]
+
+  defer: Boolean @defaultFalse
+  excerpt(pruneLength: Int = 160): String!
+
+  tableOfContents(maxDepth: Int = 6): JSON
+
+  contentFilePath: String!
+}
+
+type MdxPost implements Node & Post @dontInfer @childOf(type: ["Mdx"]) @proxyOf(type: "Mdx") {
+  # publishedAt: Date @dateformat
+  title: String!
+  slug: String! @slugify(prefix: "posts")
+  date: Date @dateformat
+  cover: File! @fileByRelativePath
+
+  featured: Boolean @defaultFalse
+    # @mdxpassthrough(fieldName: "featured")
+    # @proxyField(from: "parent.frontmatter.featured")
+
+  props: Props
+    @proxyField(from: "parent.frontmatter.props")
+
+  draft: Boolean @defaultFalse
+
+  timeToRead: ReadingTime
+    @proxyField(from: "parent.fields.timeToRead")
+
+  author: Authors
+    # @mdxpassthrough(fieldName: "author")
+    # @proxy(from: "parent.frontmatter.author")
+    @proxyField(from: "parent.frontmatter.author")
+    @link(by: "name")
+
+  tags: [Taxonomy]
+    # @mdxpassthrough(fieldName: "tags")
+    @proxyField(from: "parent.frontmatter.tags")
+    @link(by: "title")
+
+  defer: Boolean @defaultFalse
+    # @mdxpassthrough(fieldName: "defer")
+    @proxyField(from: "parent.frontmatter.defer")
+
+  excerpt(pruneLength: Int = 140): String! @mdxpassthrough(fieldName: "excerpt")
+
+  tableOfContents(maxDepth: Int = 6): JSON
+    @link(from: "parent", on: "Mdx")
+    @proxyResolver(on: "Mdx")
+
+  contentFilePath: String!
+}
+
+
+## -------------------------------------------------------------------------- ##
+##                                Testimonials                                ##
+## -------------------------------------------------------------------------- ##
+
+type TestimonialsYaml implements Node {
+  id: ID!
+  date: Date @dateformat
+  name: String!
+  rating: Float
+  title: String
+  job: String
+  avatar: File! @fileByRelativePath
+  body: String!
+  company: String
+}
+
+## -------------------------------------------------------------------------- ##
+##                                  Services                                  ##
+## -------------------------------------------------------------------------- ##
+
+interface Services implements Node {
+  id: ID!
+  date: Date @dateformat
+  order: Int
+  icon: File @fileByRelativePath
+  name: String!
+  title: String!
+  body: String!
+}
+
+type ServicesYaml implements Node & Services @dontInfer {
+  id: ID!
+  date: Date @dateformat
+  order: Int
+  icon: File @fileByRelativePath
+  name: String!
+  title: String!
+  body: String!
+}
+
+
+## -------------------------------------------------------------------------- ##
+##                                    Works                                   ##
+## -------------------------------------------------------------------------- ##
+
+interface Work implements Node {
+  id: ID!
+  date: Date @dateformat
+  title: String!
+
+  cover: File! @fileByRelativePath
+
+  slug: String! @slugify(prefix: "works")
+
+  description: String
+  # body: String
+
+  hideSidebar: Boolean @defaultFalse
+
+  client: String
+  details: [workDetails]
+
+  defer: Boolean @defaultFalse
+  excerpt(pruneLength: Int = 160): String!
+
+  tableOfContents(maxDepth: Int = 6): JSON
+
+  contentFilePath: String!
+}
+
+type MdxWork implements Node & Work @dontInfer @childOf(type: ["Mdx"]) @proxyOf(type: "Mdx") {
+  id: ID!
+  date: Date @dateformat
+
+  cover: File! @fileByRelativePath
+
+  title: String!
+
+  slug: String! @slugify(prefix: "work")
+
+  description: String @proxyField(from: "parent.frontmatter.description")
+
+  hideSidebar: Boolean
+    @proxyField(from: "parent.frontmatter.hideSidebar")
+
+  client: String @proxyField(from: "parent.frontmatter.client")
+  details: [workDetails]
+    @proxyField(from: "parent.frontmatter.details")
+
+  defer: Boolean @defaultFalse
+
+  excerpt(pruneLength: Int = 140): String! @mdxpassthrough(fieldName: "excerpt")
+
+  tableOfContents(maxDepth: Int = 6): JSON
+    @link(from: "parent", on: "Mdx")
+    @proxyResolver(on: "Mdx")
+
+  contentFilePath: String!
+}
+
+type workDetails {
+  title: String!
+  items: [String]
+}
+
+## -------------------------------------------------------------------------- ##
+##                                 Expertises                                 ##
+## -------------------------------------------------------------------------- ##
+
+type ExpertisesYaml implements Node {
+  # id: ID!
+  date: Date @dateformat
+  order: Int
+  icon: File @fileByRelativePath
+  title: String!
+  description: String!
+  body: String
+}
+
+## -------------------------------------------------------------------------- ##
+##                                   Author                                   ##
+## -------------------------------------------------------------------------- ##
+interface Authors implements Node {
+  id: ID!
+  name: String!
+  title: String
+  description: String
+  slug: String! @slugify(prefix: "author" field: "name")
+  bio: String
+  occupation: String
+  company: String
+  social: [SocialMedia]
+  skills: [String]
+  image: File @fileByRelativePath
+  # thumbnail: ImageAsset
+}
+
+type AuthorsYaml implements Node & Authors @dontInfer {
+  name: String!
+  title: String
+  description: String
+  slug: String! @slugify(prefix: "author" field: "name")
+  bio: String
+  occupation: String
+  company: String
+  social: [SocialMedia]
+  skills: [String]
+  image: File @fileByRelativePath
+}
+
+type SocialMedia {
+  name: String
+  url: String!
+}
+
+
+## -------------------------------------------------------------------------- ##
+##                                  Taxonomy                                  ##
+## -------------------------------------------------------------------------- ##
+
+interface Taxonomy implements Node {
+  id: ID!
+  title: String!
+  description: String
+  icon: File @fileByRelativePath
+  slug: String! @slugify(prefix: "taxonomy")
+}
+
+type TaxonomyYaml implements Node & Taxonomy @dontInfer {
+  id: ID!
+  title: String!
+  description: String
+  icon: File @fileByRelativePath
+  slug: String! @slugify(prefix: "taxonomy")
+}
+
+
+## -------------------------------------------------------------------------- ##
+##                                   Resume                                   ##
+## -------------------------------------------------------------------------- ##
+
+type EducationYaml implements Node @dontInfer {
+   startDate: Date! @dateformat
+   endDate: Date @dateformat
+   collegeName: String!
+   faculty: String
+   department: String
+   courseName: String
+   description: String
+}
+
+type ExperienceYaml implements Node @dontInfer {
+   startDate: Date! @dateformat
+   endDate: Date @dateformat
+   company: String!
+   role: String!
+   product: String
+   description: String
+   body: String
+   workTitle: Work
+    @link(by: "title")
+
+}
+
+
+## -------------------------------------------------------------------------- ##
+##                                 ReadingTime                                ##
+## -------------------------------------------------------------------------- ##
+type ReadingTime @dontInfer {
+  text: String,
+  minutes: Float,
+  time: Int,
+  words: Int
+}
+
+
+type Props @dontInfer {
+  bg: [String]
+  color: [String]
+}
+
+type PropsMdx @dontInfer {
+  bg: [String]
+    @proxyField(from: "parent.frontmatter.props.bg")
+  color: [String]
+    @proxyField(from: "parent.frontmatter.props.color")
+}
