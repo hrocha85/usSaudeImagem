@@ -1,12 +1,14 @@
 
-import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function HerniacaoEsquerdo({ Disable }) {
   const altura = "100%";
-  const largura = "380px";
+  let largura = '';
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "98.5%": largura = "100%"
 
   const [frasesHernia, setFrasesHerniacaoEsquerdo] = useState<any>([]);
   const [ConclusaoHernia, setConclusaoHerniacaoEsquerdo] = useState<any>([]);
@@ -145,6 +147,7 @@ function HerniacaoEsquerdo({ Disable }) {
       borderRadius="10.85px"
       boxShadow="md"
       padding="24px 15px 20px 15px"
+      mt={'1rem'}
 
     >
       <TituloNomeExame titulo="Herniação Esquerda" />

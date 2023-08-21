@@ -1,4 +1,4 @@
-import { Box, Checkbox, Flex } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, useMediaQuery } from "@chakra-ui/react";
 import CotoveloLadoDireito from "./cotovelo/cotoveloDireito/ladoDireito";
 import CotoveloLadoEsquerdo from "./cotovelo/cotoveloEsquerdo/ladoEsquerdo";
 import OmbroLadoDireito from "./ombro/omboDireito/ladoDireito";
@@ -124,7 +124,9 @@ import { useState } from "react";
 
 function Articulacoes() {
   const altura = '100%'
-  const largura = '180px'
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
   const [Disable, SetDisable] = useState(false)
 
   return (
@@ -133,8 +135,7 @@ function Articulacoes() {
       flex={1}
       gap={4}
       h="100%"
-      w="65%"
-      maxW="65%"
+      w={largura}
       alignItems="start"
       justifyItems="center"
       flexWrap="wrap"

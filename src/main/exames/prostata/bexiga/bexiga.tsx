@@ -1,14 +1,16 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
 
-import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text, VStack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Bexiga({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [value, setValue] = useState("1");
   const [FraseBexiga, setFraseBexiga] = useState<any>([]);
@@ -494,7 +496,7 @@ function Bexiga({ Disable }) {
 
         w='auto' onChange={setValue} value={value} padding="10px">
         <Stack direction="column">
-          <Flex>
+
             <Stack>
               <Radio w='auto' value="1">Não citar Bexiga</Radio>
               <Radio w='auto' value="Bexiga com boa repleção, paredes finas e regulares, conteúdo anecogênico.">
@@ -503,7 +505,7 @@ function Bexiga({ Disable }) {
               <Radio value="Bexiga com boa repleção, de conteúdo anecogênico, apresentando paredes difusamente espessadas e trabeculadas.">
                 Difusamente trabeculada (de esforço)
               </Radio>
-              <HStack>
+              <Stack display={'flex'} flexDirection={'row'}>
                 <Radio value="contendo cálculo medindo">
                   Contendo cálculo medindo
                 </Radio>
@@ -528,8 +530,8 @@ function Bexiga({ Disable }) {
                   <option value="difusamente trabeculadas">difusamente trabeculadas</option>
                 </Select>
 
-              </HStack>
-              <HStack>
+              </Stack>
+              <Stack>
                 <Radio value="Estudo ultrassonográfico">
                   Estudo ultrassonográfico
                 </Radio>
@@ -543,7 +545,7 @@ function Bexiga({ Disable }) {
                   <option value="repleção">Repleção</option>
                 </Select>
 
-              </HStack>
+              </Stack>
             </Stack>
             <Spacer />
             <Stack>
@@ -556,8 +558,8 @@ function Bexiga({ Disable }) {
 
               </Stack>
             </Stack>
-          </Flex>
-          <Box w='auto'>
+ 
+          <Box>
             <HStack >
               <Radio value="lesão vegetante">Lesão vegetante medindo</Radio>
               <Input
