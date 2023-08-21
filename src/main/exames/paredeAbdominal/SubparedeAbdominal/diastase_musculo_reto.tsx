@@ -25,6 +25,7 @@ import {
   Thead,
   Tr,
   useDisclosure,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
@@ -34,7 +35,9 @@ import SugestaoRef from "../../../images/ref_partes_moles.png";
 
 function Diastase_Musculo_Reto({ Disable }) {
   const altura = "auto";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [imageAdded, setImageAdded] = useState(false);
 
@@ -266,9 +269,7 @@ function Diastase_Musculo_Reto({ Disable }) {
               value={medidaAfastamento}
               w="35px"
               h="30px"
-              marginEnd="10px"
               padding="5px"
-
               textAlign="center"
               onChange={(e) => {
                 setMedidaAfastamento(e.target.value);
