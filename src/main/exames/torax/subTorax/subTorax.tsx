@@ -1,4 +1,4 @@
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import Derrame_Pleural_Direito from "./direito/derrame_pleural_direito";
 import Linha_Pleural_Direito from "./direito/linha_pleural_direito";
@@ -9,7 +9,9 @@ import Parenquima_Pulmonar_Esquedo from "./esquerdo/parenquima_pulmonar_esquedo"
 
 export default function SubTorax({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
   return (
     <Box
       bg="#FAFAFA"

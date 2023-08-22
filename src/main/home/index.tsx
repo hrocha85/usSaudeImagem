@@ -261,26 +261,21 @@ function Home() {
   } else {
     return (
 
-      <><Box overflowX={"hidden"} height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'>
+      <><Box overflowX={"hidden"} height={'100%'} bgGradient='linear(to-b, blue.100, #fff)'>
 
         <Flex
+          mt={1}
           justifyContent="space-between">
           <Link href={"#/Home/Configuracoes"}>
-            <Button right="1" variant="ghost" top={0}>
+            <Button variant="ghost">
 
               <Image
                 srcSet={Configuracao}
                 alt="Second Icon Plus"
-                h="30px"
-                w="30px" />
+                h="100%"
+                w="100%"/>
             </Button>
           </Link>
-
-
-          <Text
-            fontSize={'32px'}
-            fontWeight="thin"
-          >Emissão dos Laudos</Text>
 
           <Tooltip
             label="Voltar para Login"
@@ -298,13 +293,19 @@ function Home() {
               fontSize="20px"
               onClick={() => LogoutButton()}
               colorScheme="blue"
-              top={1}
-              right={3}
+              right={1}
             >
               Sair
             </Button>
           </Tooltip>
         </Flex>
+        <Text
+            w={'100%'}
+            fontSize={'32px'}
+            fontWeight="thin"
+            mt={1}
+            textAlign={'center'}
+          >Emissão dos Laudos</Text>
         <Center>
           <CardPaciente />
         </Center>

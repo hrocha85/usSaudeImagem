@@ -12,6 +12,7 @@ import {
   useToast,
   Wrap,
   WrapItem,
+  useMediaQuery
 } from "@chakra-ui/react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
@@ -124,6 +125,14 @@ const CardPaciente = () => {
     }
   };
 
+  let largura = "";
+  let largura2 = "";
+  let largura3 = "";
+  const [isLargerThan600] = useMediaQuery('(min-width: 800px)')
+  isLargerThan600 ? largura = "25%": largura = "100%"
+  isLargerThan600 ? largura2 = "50%": largura = "100%"
+  isLargerThan600 ? largura3 = "15%": largura = "100%"
+
 
 
   let options: Array<{ value: string; label: string }> = [];
@@ -154,9 +163,10 @@ const CardPaciente = () => {
   }, [nomePaciente, idadePaciente, sexoPaciente, medico_solicitante]);
 
   return (
-    <Box borderRadius="1rem" border={'2px'} w="60vw" display="flex" flexWrap='wrap' justifyContent={'center'} marginTop={5}>
+    <Box borderRadius="1rem" border={'2px'} w="50%"  justifyContent={'center'} marginTop={5}>
       <Stack>
         <Text
+          pt={'1rem'}
           textAlign="center" mt="5px"
           mb="5px" pl={3}
           fontSize={22}
@@ -171,7 +181,7 @@ const CardPaciente = () => {
             value={nomePaciente}
             size="lg"
             h="3.1rem"
-            w="30vw"
+            w={largura2}
             borderColor="#444"
             onChange={handleNomePacienteInput}
           />
@@ -181,7 +191,7 @@ const CardPaciente = () => {
             bgGradient='linear(to-b, blue.100, #fff)'
             size="lg"
             h="3.1rem"
-            w="6rem"
+            w={largura3}
             borderColor="#444"
             onChange={handleIdadePacienteInput}
           />
@@ -191,7 +201,7 @@ const CardPaciente = () => {
             bgGradient='linear(to-b, blue.100, #fff)'
             size="lg"
             h="3.1rem"
-            w="8.7rem"
+            w={largura}
             borderColor="#444"
             onChange={handleSexoPacienteInput}
 
