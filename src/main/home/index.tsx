@@ -10,6 +10,7 @@ import {
   Stack,
   Text,
   Tooltip,
+  useMediaQuery
   //useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -29,6 +30,10 @@ function Home() {
   const [isMounted, setIsMounted] = useState(false);
   const navigate = useNavigate();
   //const MySwal = withReactContent(Swal);
+
+  let flex = "";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? flex = "flex-end": flex = "space-between"
 
 
   const exames = [
@@ -264,17 +269,29 @@ function Home() {
       <><Box overflowX={"hidden"} height={'100%'} bgGradient='linear(to-b, blue.100, #fff)'>
 
         <Flex
-          mt={1}
-          justifyContent="space-between">
+          mt={3}
+          justifyContent={flex}>
           <Link href={"#/Home/Configuracoes"}>
-            <Button variant="ghost">
-
-              <Image
-                srcSet={Configuracao}
-                alt="Second Icon Plus"
-                h="100%"
-                w="100%"/>
+          <Tooltip
+            label="Configurações gerais"
+            backgroundColor="white"
+            placement="bottom"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+            fontSize="20px"
+            margin="20px"
+            textAlign="center"
+          >
+            <Button
+              variant="solid"
+              fontSize="20px"
+              colorScheme="blue"
+              m={"0 20px"}
+            >
+              Configurações
             </Button>
+          </Tooltip>
           </Link>
 
           <Tooltip
@@ -303,7 +320,7 @@ function Home() {
             w={'100%'}
             fontSize={'32px'}
             fontWeight="thin"
-            mt={1}
+            mt={4}
             textAlign={'center'}
           >Emissão dos Laudos</Text>
         <Center>

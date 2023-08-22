@@ -4,11 +4,11 @@ import upLogo from "../images/logoUpbaRec.png";
 
 const FooterUpbase = () => {
   return (
-    <Box bg={'#eaebeb'} mt={'1rem'} h={'100%'} >
+    <Box bg={'#eee'} opacity={0.3} mt={'1rem'} h={'100%'} >
       <HStack pt={2} justifyItems="center" justifyContent={'space-evenly'} >
 
-        <Text fontWeight={600} color={'gray.300'}>Todos os direitos reservados</Text>
-        <Text fontWeight={600} color={'gray.300'}>Upbase Consultoria</Text>
+        <Text fontWeight={600} color={'black'}>Todos os direitos reservados</Text>
+        <Text fontWeight={600} color={'black'}>Upbase Consultoria</Text>
       </HStack>
     </Box>
   );
