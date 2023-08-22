@@ -9,7 +9,7 @@ import Login from "../main/login/login";
 
 import Box_Default_With_Sidebar from "../main/component/screen_exames";
 import Format_PDF from "../main/folha_laudos/format_pdf";
-import IndexPage from "../template/src/web/pages";
+import IndexPage from "../../web/src/pages/index"
 
 function Rotas() {
   return (
