@@ -345,12 +345,13 @@ function Home() {
             justifyContent='center'
             gap='10px' display="flex" flexWrap='wrap'
             borderWidth="2px"
-            padding="20px"
+            margin="20px"
             borderRadius="md"
             borderColor="grey"
             boxShadow="xl"
+            p={10}
           >
-            <HStack>
+            <HStack textAlign={'center'}>
               <Text fontWeight="semibold" fontSize="xl">
                 Médico:
               </Text>
