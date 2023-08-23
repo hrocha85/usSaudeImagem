@@ -28,11 +28,11 @@ const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
   return (
     <Box
       w="100%"
-      h="60vh"
+      h="95%"
       color="white"
       borderRadius="10.85px"
     >
-      <Box h={'3.4rem'} w={'30rem'}>
+      <Box h={'3.4rem'} w={'100%'}>
 
         <Stack direction="row" justifyContent={'center'}>
           <Text

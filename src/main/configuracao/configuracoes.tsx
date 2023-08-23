@@ -753,23 +753,23 @@ const Configuracoes = () => {
   }, []);
 
   return (
-    <><Box
+    <>
+    <Box
       w="100%"
-      h="100%"
+      h={'100%'}
       bgGradient='linear(to-b, blue.100, #fff)'
-      backgroundSize="cover"
-      backgroundClip="padding-box"
-      backgroundRepeat="no-repeat"
       // paddingBottom="10px"
-      alignItems="center"
+      alignItems="center"  
     >
       <Sidebar />
 
       <Stack>
-        <Box display={'flex'} flexWrap={'wrap'} gap={5} marginTop={'2rem'} justifyContent={'space-around'}>
+        <Box display={'flex'} flexWrap={'wrap'} gap={5}  justifyContent={'space-around'}>
 
           {isLargerThan500 ?
-            <Box>{returnPOPoverLaudos()}</Box> : <Box width={width}>{returnPOPoverLaudos()}</Box>
+            <Box w={'100%'} display={'flex'} justifyContent={'flex-end'} pr={'3rem'}>{returnPOPoverLaudos()}</Box> 
+            : 
+            <Box width={width}>{returnPOPoverLaudos()}</Box>
           }
           <Box>
             <MainCardClinica titulo="Clínicas" icon={true} clinica={null} medicos={null} />
@@ -863,11 +863,13 @@ const Configuracoes = () => {
         Adicionar
       </Button>
     </Tooltip> */}
+     {returnObservacoes()} 
       </Stack>
       {ModalAddMedico()}
-      {returnObservacoes()}
+      {/* {returnObservacoes()} */}
+      <Box><FooterUpbase /></Box>
     </Box>
-    <Box mt={"20%"}><FooterUpbase /></Box>
+    
     </>
   );
 };

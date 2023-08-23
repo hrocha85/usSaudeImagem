@@ -130,7 +130,7 @@ const IconButtonPlus = (props) => {
       if (nome.length != 0) {
         setplaceHolderAddClinica(nome);
       } else {
-        setplaceHolderAddClinica("Nome");
+        setplaceHolderAddClinica("Nome da Clínica");
       }
     },
   });
@@ -232,7 +232,7 @@ const IconButtonPlus = (props) => {
                 fontSize="20px"
                 placeholder={placeHolderAddClinica}
                 fontWeight="bold"
-                _placeholder={{ fontWeight: "bold", color: "black" }}
+                _placeholder={{ fontWeight: "bold", color: "#b8bfca", opacity:0.7 }}
                 onChange={(e) => setClinica(e.target.value)}
                 variant={"unstyled"}
                 onClick={() => {

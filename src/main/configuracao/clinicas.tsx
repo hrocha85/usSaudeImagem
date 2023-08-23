@@ -26,7 +26,7 @@ const Clinica = (props) => {
         <FieldDefaultIconCardClinicas
           key={key}
           text={item.nomeClinica}
-          textColor="#4A5568"
+          textColor="black"
           icon={FaRegFolderOpen}
           clinica={item}
           clinicas={listaClinicas}
