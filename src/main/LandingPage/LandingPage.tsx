@@ -37,17 +37,23 @@ function LandingPage() {
           <Text fontSize={'100px'}
             fontWeight={'bold'}
           >Landing page</Text>
+          <Text>
+            Já tem tem seu acesso? clique aqui
+          </Text>
           <Link
             href={`#/Login`}
           >
-            Já tem tem seu acesso? clique aqui
             <Button>
               Logina
             </Button>
           </Link>
+          <Text>
+            Faça um teste free
+          </Text>
           <Link
             href={`#/Cadastro`}
           >
+
             <Button>
               Teste Free
             </Button>
