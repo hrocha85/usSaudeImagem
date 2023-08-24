@@ -10,6 +10,7 @@ import Format_PDF from "../main/folha_laudos/format_pdf";
 import LandingPage from "../main/LandingPage/LandingPage";
 import LoginForm from "../main/login/loginForm";
 import CadastroUsuario from "../main/CadastroFree/Cadastro";
+import LoginFormFree from "../main/login/loginFormFree";
 
 
 
@@ -21,6 +22,7 @@ function Rotas() {
       <Route path="/Cadastro" element={<CadastroUsuario />} />
       <Route path="/Home" element={<Home />} />
       <Route path="/Login" element={<LoginForm />} />
+      <Route path="/LoginFree" element={<LoginFormFree />} />
       <Route path="/SelectMedicos" element={<SelectMedicos />} />
       {/* <Route path="/Home/1" element={<AbdomemTotal />} />
       <Route path="/Home/2" element={<DopplerTransvaginal />} />

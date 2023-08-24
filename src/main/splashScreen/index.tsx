@@ -6,11 +6,6 @@ import { Box } from "@chakra-ui/react";
 import Splash_Screen from '../images/SplashOnly.png'
 
 const SplashScreen = () => {
-  const isFirstTime = localStorage.getItem("isFirstTime");
-  if (!isFirstTime) {
-    localStorage.clear();
-    localStorage.setItem("isFirstTime", "false");
-  }
 
   const [redirectNow, setRedirectNow] = useState(false);
   //tempo de 5 segundos para sair da pagina

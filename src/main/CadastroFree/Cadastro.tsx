@@ -43,6 +43,10 @@ function CadastroUsuario() {
 
     };
 
+    const CheckRegistered = () => {
+        localStorage.setItem("AlreadyRegistered", 'salvo');
+    }
+
     return (
         <Container maxW="container.lg" centerContent>
             <Box p={6} shadow="md" borderRadius="md" w="100%" maxW="auto">
@@ -157,8 +161,10 @@ function CadastroUsuario() {
                         </FormLabel>
                     </FormControl>
                     <Link
-                        href='#/Splash'>
-                        <Button colorScheme="blue" isDisabled={!aceitouTermo}>
+                        href='#/LoginFree'>
+                        <Button colorScheme="blue" isDisabled={!aceitouTermo}
+                            onClick={() => CheckRegistered()}
+                        >
                             Cadastrar
                         </Button>
                     </Link>

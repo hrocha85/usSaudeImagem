@@ -11,6 +11,35 @@ import { useEffect, useState } from "react";
 
 function LandingPage() {
 
+  const AlreadyRegistered = localStorage.getItem("AlreadyRegistered");
+
+  const VerifyRegistered = () => {
+    if (AlreadyRegistered) {
+      return (
+        <Link
+          href={`#/Splash`}
+        >
+
+          <Button>
+            Teste Free
+          </Button>
+        </Link>
+      );
+    }
+    if (!AlreadyRegistered) {
+      return (
+        <Link
+          href={`#/Cadastro`}
+        >
+
+          <Button>
+            Login Teste Free
+          </Button>
+        </Link>
+      );
+    }
+  }
+
 
   return (
     <Box
@@ -51,11 +80,11 @@ function LandingPage() {
             Faça um teste free
           </Text>
           <Link
-            href={`#/Cadastro`}
+            href={`#/LoginFree`}
           >
 
             <Button>
-              Teste Free
+              Login Teste Free
             </Button>
           </Link>
         </Box>
