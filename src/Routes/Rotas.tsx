@@ -3,19 +3,23 @@ import Configuracoes from "../main/configuracao/configuracoes";
 import Home from "../main/home/index";
 import SplashScreen from "../main/splashScreen";
 
-
-
-import Login from "../main/login/login";
+import SelectMedicos from "../main/login/select_medicos";
 
 import Box_Default_With_Sidebar from "../main/component/screen_exames";
 import Format_PDF from "../main/folha_laudos/format_pdf";
+import LandingPage from "../main/LandingPage/LandingPage";
+import LoginForm from "../main/login/loginForm";
+import Cadastro from "../main/Cadastro/Cadastro";
 
 function Rotas() {
   return (
     <Routes>
-      <Route path="/" element={<SplashScreen />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/Splash" element={<SplashScreen />} />
+      <Route path="/Cadastro" element={<Cadastro />} />
       <Route path="/Home" element={<Home />} />
-      <Route path="/Login" element={<Login />} />
+      <Route path="/Login" element={<LoginForm />} />
+      <Route path="/SelectMedicos" element={<SelectMedicos />} />
       {/* <Route path="/Home/1" element={<AbdomemTotal />} />
       <Route path="/Home/2" element={<DopplerTransvaginal />} />
       <Route path="/Home/3" element={<Mamas />} />
