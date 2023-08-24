@@ -156,10 +156,12 @@ function CadastroUsuario() {
                             antes de prosseguir.
                         </FormLabel>
                     </FormControl>
-
-                    <Button colorScheme="blue" isDisabled={!aceitouTermo}>
-                        Cadastrar
-                    </Button>
+                    <Link
+                        href='#/Splash'>
+                        <Button colorScheme="blue" isDisabled={!aceitouTermo}>
+                            Cadastrar
+                        </Button>
+                    </Link>
                 </VStack>
             </Box>
         </Container>
