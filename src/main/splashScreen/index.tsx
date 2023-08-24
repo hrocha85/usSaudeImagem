@@ -18,32 +18,32 @@ const SplashScreen = () => {
   //está sendo jogado para abdomen total pqe nao temos a pagina principal, ajustar isso futuramente
   // };
   return redirectNow ? (
-     <Navigate to="/Login" />
+    <Navigate to="/SelectMedicos" />
   ) : (
-<Box
-  w="100vw"
-  h="100vh"
-  //bgGradient='linear(to-r, blue.100, #fff)'
-  backgroundImage={Splash_Screen}
-  backgroundSize="cover"
-  backgroundRepeat="no-repeat"
-  backgroundPosition={'center'}
-  display="flex"
-  justifyContent="center" 
-  alignItems="center" 
-> 
-  <Box 
-    w={'40rem'}
-    h={'12rem'}
-    display={'flex'}
-    justifyContent={'center'}
-    padding="1rem"
-  >
-    <img src={logo} alt="logo"/>
-  </Box>
-</Box>
+    <Box
+      w="100vw"
+      h="100vh"
+      //bgGradient='linear(to-r, blue.100, #fff)'
+      backgroundImage={Splash_Screen}
+      backgroundSize="cover"
+      backgroundRepeat="no-repeat"
+      backgroundPosition={'center'}
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Box
+        w={'40rem'}
+        h={'12rem'}
+        display={'flex'}
+        justifyContent={'center'}
+        padding="1rem"
+      >
+        <img src={logo} alt="logo" />
+      </Box>
+    </Box>
 
-   );
+  );
 };
 
 export default SplashScreen;

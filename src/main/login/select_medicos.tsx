@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
-function Login() {
+function SelectMedicos() {
   const [medicoString, setmedicoString] = useState<any>();
   const [medicoSelecionado, setmedicoSelecionado] = useState<any | null>(null);
 
@@ -30,7 +30,7 @@ function Login() {
   };
   const lista_medico = getMedicos();
 
-  const loginUser = () => {
+  const SelectMedicosUser = () => {
     const user = {
       isLogged: true,
       medico: medicoSelecionado,
@@ -129,7 +129,7 @@ function Login() {
                 w="100%"
                 isDisabled={isDisabledEntrar}
                 onClick={() => {
-                  loginUser();
+                  SelectMedicosUser();
                 }}
               >
                 Entrar
@@ -198,4 +198,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SelectMedicos;
