@@ -4,7 +4,7 @@ import upLogo from "../images/logoUpbaRec.png";
 
 const FooterUpbase = () => {
   return (
-    <Box bg={'#eee'} opacity={0.3} mt={'1rem'} h={'100%'} >
+    <Box bg={'#fff'} opacity={0.4} position={'fixed'} bottom={0} width={'100%'}>
       <HStack pt={2} justifyItems="center" justifyContent={'space-evenly'} >
 
         <Text fontWeight={600} color={'black'}>Todos os direitos reservados</Text>

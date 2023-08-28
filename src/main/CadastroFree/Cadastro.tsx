@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
     Box,
     Container,
@@ -16,7 +17,6 @@ import {
 
 function CadastroUsuario() {
     const [nome, setNome] = useState('');
-    const [sobrenome, setSobrenome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [telefone, setTelefone] = useState('');
@@ -24,28 +24,101 @@ function CadastroUsuario() {
     const [estado, setEstado] = useState('');
     const [cep, setCep] = useState('');
     const [rua, setRua] = useState('');
-    const [numero, setNumero] = useState('');
     const [clinicaOuMedico, setClinicaOuMedico] = useState('');
     const [aceitouTermo, setAceitouTermo] = useState(false);
+    const [isDisabledCadastro, setIsDisabledCadastro] = useState(true);
+    const [ipInfo, setIpInfo] = useState(null);
+
+    // useEffect(() => {
+    //     fetch('https://ipinfo.io/json?token=YOUR_IPINFO_API_TOKEN')
+    //       .then((response) => response.json())
+    //       .then((data) => {
+    //         setIpInfo(data);
+    //       })
+    //       .catch((error) => {
+    //         console.error('Error fetching IP info:', error);
+    //       });
+    //   }, []);
+
+    const getUserIp = async () => {
+        const ip = await axios.get('https://ipapi.co/json')
+        console.log("mostrar IP:" ,ip.data)
+      }
 
     const handleCadastro = () => {
         console.log('Nome:', nome);
-        console.log('Sobrenome:', sobrenome);
-        console.log('Email:', email);
+         console.log('email: ', email)
         console.log('Senha:', senha);
         console.log('Cidade:', cidade);
         console.log('Estado:', estado);
         console.log('CEP:', cep);
         console.log('Rua:', rua);
-        console.log('Número:', numero);
+        console.log('Aceito o  termo:', aceitouTermo);
         console.log('Telefone:', telefone);
         console.log('Clinica ou Médico:', clinicaOuMedico);
+        getUserIp()
+
 
     };
+      
+
+    const consultarCEP = async (cep) => {
+        try {
+          const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+          const data = response.data;
+      
+          if (!data.erro) {
+            setRua(data.logradouro);
+            setCidade(data.localidade);
+            setEstado(data.uf);
+          } else {
+            // CEP inválido ou não encontrado
+            console.log('CEP inválido ou não encontrado');
+          }
+        } catch (error) {
+          console.error('Erro ao consultar o CEP', error);
+        }
+      };
+
+      
+
+      const formatPhoneNumber = (value) => {
+        const cleanedValue = value.replace(/\D/g, '');
+        const match = cleanedValue.match(/^(\d{2})(\d{5})(\d{4})$/);
+        if (match) {
+          return `(${match[1]}) ${match[2]} -${match[3]}`;
+        }
+      
+        return cleanedValue;
+      };
+
+      
+      const formatCEP = (value) => {
+
+        const cleanedValue = value.replace(/\D/g, '');
+      
+
+        if (cleanedValue.length == 8) {
+
+          return `${cleanedValue.substring(0, 5)}-${cleanedValue.substring(5, 8)}`;
+        }
+      
+        return cleanedValue;
+      };
+      
 
     const CheckRegistered = () => {
         localStorage.setItem("AlreadyRegistered", 'salvo');
     }
+
+    useEffect(() => {
+        if (nome && senha && email && telefone && rua && cidade
+            && cep && estado && clinicaOuMedico) {
+            setIsDisabledCadastro(false);
+        } else {
+            setIsDisabledCadastro(true);
+        }
+      }, [nome, senha, email, telefone, rua, cidade, cep, estado, clinicaOuMedico]);
 
     return (
         <Container maxW="container.lg" centerContent>
@@ -55,117 +128,125 @@ function CadastroUsuario() {
                         Cadastro:
                     </Heading>
 
-                    <FormControl>
-                        <FormLabel>Nome</FormLabel>
-                        <Input
-                            placeholder="Digite seu nome"
-                            value={nome}
-                            onChange={(e) => setNome(e.target.value)}
-                        />
+                    <FormControl isRequired>
+                    <FormLabel>Nome</FormLabel>
+                    <Input
+                        placeholder="Digite seu nome"
+                        value={nome}
+                        onChange={(e) => setNome(e.target.value)}
+                    />
                     </FormControl>
 
-                    <FormControl>
-                        <FormLabel>Email</FormLabel>
-                        <Input
-                            type="email"
-                            placeholder="Digite seu email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
+                    <FormControl isRequired>
+                    <FormLabel>Email</FormLabel>
+                    <Input
+                        type="email"
+                        placeholder="Digite seu email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
                     </FormControl>
 
-                    <FormControl>
-                        <FormLabel>Senha</FormLabel>
-                        <Input
-                            type="password"
-                            placeholder="Digite sua senha"
-                            value={senha}
-                            onChange={(e) => setSenha(e.target.value)}
-                        />
+                    <FormControl isRequired>
+                    <FormLabel>Senha</FormLabel>
+                    <Input
+                        type="password"
+                        placeholder="Digite sua senha"
+                        value={senha}
+                        onChange={(e) => setSenha(e.target.value)}
+                    />
                     </FormControl>
 
-                    <FormControl>
-                        <FormLabel>Telefone</FormLabel>
-                        <Input
-                            type="text"
-                            placeholder="Digite seu número"
-                            value={telefone}
-                            onChange={(e) => setTelefone(e.target.value)}
-                        />
+                    <FormControl isRequired>
+                    <FormLabel>Telefone</FormLabel>
+                    <Input
+                        type="text"
+                        placeholder="(99)99999-9999"
+                        value={telefone}
+                        onChange={(e) => setTelefone(formatPhoneNumber(e.target.value))}
+                        maxLength={14}
+                    />
                     </FormControl>
 
                     <HStack>
-                        <FormControl>
-                            <FormLabel>Rua</FormLabel>
-                            <Input
-                                placeholder="Digite sua rua"
-                                value={rua}
-                                onChange={(e) => setRua(e.target.value)}
-                            />
-                        </FormControl>
 
-                        <FormControl>
-                            <FormLabel>Cidade</FormLabel>
-                            <Input
-                                placeholder="Digite sua cidade"
-                                value={cidade}
-                                onChange={(e) => setCidade(e.target.value)}
-                            />
-                        </FormControl>
+                    <FormControl isRequired>
+                        <FormLabel>CEP</FormLabel>
+                        <Input
+                        type='text'
+                        placeholder="00000-000"
+                        value={cep}
+                        onChange={(e) => setCep(formatCEP(e.target.value))}
+                        onBlur={(e) => consultarCEP(e.target.value)}
+                        maxLength={9}
+                        />
+                    </FormControl>
+
+                    <FormControl isRequired>
+                        <FormLabel>Rua</FormLabel>
+                        <Input
+                        placeholder="Digite sua rua"
+                        value={rua}
+                        onChange={(e) => setRua(e.target.value)}
+                        />
+                    </FormControl>
                     </HStack>
+
                     <HStack>
-                        <FormControl>
-                            <FormLabel>CEP</FormLabel>
-                            <Input
-                                placeholder="Digite seu CEP"
-                                value={cep}
-                                onChange={(e) => setCep(e.target.value)}
-                            />
-                        </FormControl>
+                    <FormControl isRequired>
+                        <FormLabel>Cidade</FormLabel>
+                        <Input
+                        placeholder="Digite sua cidade"
+                        value={cidade}
+                        onChange={(e) => setCidade(e.target.value)}
+                        />
+                    </FormControl>
 
-                        <FormControl>
-                            <FormLabel>Estado</FormLabel>
-                            <Input
-                                placeholder="Digite seu estado"
-                                value={estado}
-                                onChange={(e) => setEstado(e.target.value)}
-                            />
-                        </FormControl>
+                    <FormControl isRequired>
+                        <FormLabel>Estado</FormLabel>
+                        <Input
+                        placeholder="Digite seu estado"
+                        value={estado}
+                        onChange={(e) => setEstado(e.target.value)}
+                        />
+                    </FormControl>
                     </HStack>
 
-                    <FormControl>
-                        <FormLabel>Clinica ou Médico independente</FormLabel>
-                        <Select
-                            placeholder="Selecione"
-                            value={clinicaOuMedico}
-                            onChange={(e) => setClinicaOuMedico(e.target.value)}
-                        >
-                            <option value="clinica">Clínica</option>
-                            <option value="medico">Médico Independente</option>
-                        </Select>
+                    <FormControl isRequired>
+                    <FormLabel>Clinica ou Médico independente</FormLabel>
+                    <Select
+                        placeholder="Selecione"
+                        value={clinicaOuMedico}
+                        onChange={(e) => setClinicaOuMedico(e.target.value)}
+                    >
+                        <option value="clinica">Clínica</option>
+                        <option value="medico">Médico Independente</option>
+                    </Select>
                     </FormControl>
 
-                    <FormControl>
-                        <Checkbox
-                            isChecked={aceitouTermo}
-                            onChange={() => setAceitouTermo(!aceitouTermo)}
-                        >
-                            Aceito os termos de uso
-                        </Checkbox>
-                        <FormLabel>
-                            Leia os{' '}
-                            <Link color="blue.500" href="/pagina-do-contrato" isExternal>
-                                termos de uso
-                            </Link>{' '}
-                            antes de prosseguir.
-                        </FormLabel>
+                    <FormControl isRequired>
+                    <Checkbox
+                        isChecked={aceitouTermo}
+                        onChange={() => setAceitouTermo(!aceitouTermo)}
+                    >
+                        Aceito os termos de uso
+                    </Checkbox>
+                    <FormLabel>
+                        Leia os{' '}
+                        <Link color="blue.500" href="/pagina-do-contrato" isExternal>
+                        termos de uso
+                        </Link>{' '}
+                        antes de prosseguir.
+                    </FormLabel>
                     </FormControl>
-                    <Link
-                        href='#/LoginFree'>
-                        <Button colorScheme="blue" isDisabled={!aceitouTermo}
-                            onClick={() => CheckRegistered()}
+
+                    <Link>
+                        <Button
+                        colorScheme="blue"
+                        isDisabled={isDisabledCadastro || !aceitouTermo}
+                        onClick={() => handleCadastro()}
                         >
-                            Cadastrar
+                        Cadastrar
                         </Button>
                     </Link>
                 </VStack>
