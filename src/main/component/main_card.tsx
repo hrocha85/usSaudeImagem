@@ -36,6 +36,7 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
         h="100%"
         color="white"
         borderRadius="10.85px"
+        mt={'5%'}
       >
         <Box h={'3.4rem'} w={'100%'}>
 
