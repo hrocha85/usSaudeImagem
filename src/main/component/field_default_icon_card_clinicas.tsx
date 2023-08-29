@@ -41,6 +41,7 @@ import { IconContext } from "react-icons";
 import { BiCamera } from "react-icons/bi";
 import { BsThreeDotsVertical, BsTrash } from "react-icons/bs";
 import { minhasClinicas } from "./icon_button_plus";
+import axios from "axios";
 
 const FieldDefaultIconCardClinicas = ({
   text,
@@ -79,6 +80,8 @@ const FieldDefaultIconCardClinicas = ({
   const [endereco, setEndereco] = useState(clinica.endereco);
 
   const [cep, setCep] = useState(clinica.cep);
+  const [NumeroEndereco, setNumeroEndereco] = useState(clinica.NumeroEndereco);
+  const [DisableButton, setDisableButton] = useState(true);
 
   const [telefone, setTelefone] = useState(clinica.teleFone);
 
@@ -99,6 +102,28 @@ const FieldDefaultIconCardClinicas = ({
   const refCEP = useRef<HTMLInputElement | null>(null);
 
   const refNomeClinica = useRef<HTMLInputElement | null>(null);
+
+
+  const buscarEndereco = async () => {
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = response.data;
+      const enderecoCompleto = `${data.logradouro}, ${NumeroEndereco} - ${data.bairro}, ${data.localidade} - ${data.uf}, ${data.cep}`
+
+      setEndereco(enderecoCompleto);
+    } catch (error) {
+      console.log(error);
+      setEndereco('Endereço não encontrado.');
+    }
+  };
+
+  useEffect(() => {
+    if (cep !== '' && NumeroEndereco !== '') {
+      setDisableButton(false)
+    } else {
+      setDisableButton(true)
+    }
+  }, [NumeroEndereco, cep])
 
   const openFiles = () => {
     inputFile.current?.click();
@@ -259,7 +284,7 @@ const FieldDefaultIconCardClinicas = ({
               arrowSize={15}
               textColor="black"
             >
-              <span style={{ position: "fixed", marginBottom: "20px" }}>
+              <span style={{ marginBottom: "20px" }}>
                 <Popover>
                   <PopoverTrigger>
                     <Button
@@ -437,6 +462,39 @@ const FieldDefaultIconCardClinicas = ({
                         }}
                       />
                     </InputGroup>
+                  </Center>
+                  <Center paddingTop={"5px"}>
+                    <InputGroup variant={"unstyled"} width={"100px"}>
+                      <InputLeftAddon
+                        children="Nº:"
+                        paddingEnd={"5px"}
+                        marginEnd={"5px"}
+                        fontWeight={"bold"}
+                      />
+
+                      <InputGroup>
+                        <Input
+                          textAlign={"center"}
+                          justifySelf={"center"}
+                          borderStartRadius={"md"}
+                          borderEndRadius={"md"}
+                          fontWeight={"bold"}
+                          textColor={"black"}
+                          defaultValue={NumeroEndereco}
+                          placeholder="Nº"
+                          isDisabled={disable}
+                          variant={focusEdit}
+                          onChange={(e) => {
+                            setNumeroEndereco(e.target.value);
+                          }}
+                          borderRadius="md"
+                        />
+                      </InputGroup>
+
+                    </InputGroup>
+                    <Button isDisabled={DisableButton} ml='5px' size="sm" backgroundColor={'#3d82ff'} color='white' onClick={buscarEndereco}>
+                      Buscar
+                    </Button>
                   </Center>
 
                   <Center>
