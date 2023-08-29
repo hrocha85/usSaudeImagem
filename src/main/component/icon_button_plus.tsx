@@ -11,6 +11,7 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  InputRightElement,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -30,6 +31,7 @@ import infoClinicas from "../../Data/Clinicas.json";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import { AiOutlineClear, AiOutlinePlusCircle } from "react-icons/ai";
+import axios from "axios";
 
 const button = React.createElement("img", { src: PlusButton });
 
@@ -45,6 +47,7 @@ const IconButtonPlus = (props) => {
   const [endereco, setEndereco] = useState("");
 
   const [cep, setCep] = useState("");
+  const [NumeroEndereco, setNumeroEndereco] = useState("");
 
   const [telefone, setTelefone] = useState("");
 
@@ -61,6 +64,7 @@ const IconButtonPlus = (props) => {
   const [InputTelefone, setInputTelefone] = useState(false);
 
   const [InputCEP, setInputCEP] = useState(false);
+  const [DisableButton, setDisableButton] = useState(true);
 
   const refTelefone = useRef<HTMLInputElement | null>(null);
 
@@ -68,13 +72,19 @@ const IconButtonPlus = (props) => {
 
   const refNomeClinica = useRef<HTMLInputElement | null>(null);
 
-  console.log("minhasClinicas", minhasClinicas);
-
+  useEffect(() => {
+    if (cep !== '' && NumeroEndereco !== '') {
+      setDisableButton(false)
+    } else {
+      setDisableButton(true)
+    }
+  }, [NumeroEndereco, cep])
   const AddClinica = () => {
     const obj = {
       nomeClinica: nome,
       endereco: endereco,
       cep: cep,
+      NumeroEndereco: NumeroEndereco,
       foto: defaultUserImage,
       teleFone: telefone,
     };
@@ -168,6 +178,19 @@ const IconButtonPlus = (props) => {
       minhasClinicas = JSON.parse(dados);
     } else minhasClinicas = [];
   }, []);
+
+  const buscarEndereco = async () => {
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = response.data;
+      const enderecoCompleto = `${data.logradouro}, ${NumeroEndereco} - ${data.bairro}, ${data.localidade} - ${data.uf}, ${data.cep}`
+
+      setEndereco(enderecoCompleto);
+    } catch (error) {
+      console.log(error);
+      setEndereco('Endereço não encontrado.');
+    }
+  };
 
   return (
     <>
@@ -274,7 +297,7 @@ const IconButtonPlus = (props) => {
                 <Center>
                   <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
                     <Center paddingTop={"5px"}>
-                      <InputGroup variant={"unstyled"} width={"210px"}>
+                      <InputGroup variant={"unstyled"} width={"200px"}>
                         <InputLeftAddon
                           children="TEL:"
                           paddingEnd={"5px"}
@@ -317,7 +340,7 @@ const IconButtonPlus = (props) => {
                     </Center>
 
                     <Center paddingTop={"5px"}>
-                      <InputGroup variant={"unstyled"} width={"210px"}>
+                      <InputGroup variant={"unstyled"} width={"200px"}>
                         <InputLeftAddon
                           children="CEP:"
                           paddingEnd={"5px"}
@@ -326,36 +349,74 @@ const IconButtonPlus = (props) => {
                         />
 
                         {InputCEP ? (
-                          <Input
-                            ref={refCEP}
-                            placeholder="13000-000"
-                            textAlign={"center"}
-                            onChange={(e) => {
-                              handleCep(e);
-                              setCep(e.target.value);
-                            }}
-                            variant="filled"
-                            borderStartRadius={"md"}
-                            borderEndRadius={"md"}
-
-                            onClick={() => { }}
-                          />
+                          <InputGroup>
+                            <Input
+                              ref={refCEP}
+                              placeholder="13000-000"
+                              textAlign="center"
+                              onChange={(e) => {
+                                handleCep(e);
+                                setCep(e.target.value);
+                              }}
+                              variant="filled"
+                              borderRadius="md"// Remove o raio de borda na extremidade direita
+                            />
+                          </InputGroup>
                         ) : (
-                          <Input
-                            ref={refCEP}
-                            placeholder="13000-000"
-                            textAlign={"center"}
-                            onChange={(e) => {
-                              handleCep(e);
-                              setCep(e.target.value);
-                            }}
-                            variant={"unstyled"}
-                            onClick={() => {
-                              setInputCEP(true);
-                            }}
-                          />
+                          <InputGroup>
+                            <Input
+                              ref={refCEP}
+                              placeholder="13000-000"
+                              textAlign={"center"}
+                              onChange={(e) => {
+                                handleCep(e);
+                                setCep(e.target.value);
+                              }}
+                              variant={"unstyled"}
+                              onClick={() => {
+                                setInputCEP(true);
+                              }}
+                            />
+                          </InputGroup>
                         )}
                       </InputGroup>
+                    </Center>
+                    <Center paddingTop={"5px"}>
+                      <InputGroup variant={"unstyled"} width={"100px"}>
+                        <InputLeftAddon
+                          children="Nº:"
+                          paddingEnd={"5px"}
+                          marginEnd={"5px"}
+                          fontWeight={"bold"}
+                        />
+
+                        {NumeroEndereco ? (
+                          <InputGroup>
+                            <Input
+                              placeholder="Nº"
+                              textAlign="center"
+                              onChange={(e) => {
+                                setNumeroEndereco(e.target.value);
+                              }}
+                              borderRadius="md"
+                            />
+                          </InputGroup>
+                        ) : (
+                          <InputGroup>
+                            <Input
+                              placeholder="Nº"
+                              textAlign={"center"}
+                              onChange={(e) => {
+                                setNumeroEndereco(e.target.value);
+                              }}
+
+                            />
+                          </InputGroup>
+                        )}
+                      </InputGroup>
+                      <Button isDisabled={DisableButton} ml='5px' size="sm" backgroundColor={'#3d82ff'} color='white' onClick={buscarEndereco}>
+                        Buscar
+                      </Button>
                     </Center>
                   </Grid>
                 </Center>
