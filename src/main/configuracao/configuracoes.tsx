@@ -867,9 +867,9 @@ const Configuracoes = () => {
       </Stack>
       {ModalAddMedico()}
       {/* {returnObservacoes()} */}
-      <Box><FooterUpbase /></Box>
+     
     </Box>
-    
+     <Box bottom={0}><FooterUpbase /></Box>
     </>
   );
 };
