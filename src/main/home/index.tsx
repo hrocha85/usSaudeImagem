@@ -33,7 +33,7 @@ function Home() {
 
   let flex = "";
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
-  isLargerThan600 ? flex = "flex-end": flex = "space-between"
+  isLargerThan600 ? flex = "flex-end" : flex = "space-between"
 
 
   const exames = [
@@ -266,139 +266,101 @@ function Home() {
   } else {
     return (
 
-      <><Box overflowX={"hidden"} height={'100%'} bgGradient='linear(to-b, blue.100, #fff)'>
+      <>
+        <Box overflowX="hidden" minHeight="100vh" bgGradient="linear(to-b, blue.100, #fff)">
+          <Flex mt={3} justifyContent={flex}>
+            <Link href="#/Home/Configuracoes">
+              <Tooltip
+                label="Configurações gerais"
+                backgroundColor="white"
+                placement="bottom"
+                hasArrow
+                arrowSize={15}
+                textColor="black"
+                fontSize="20px"
+                margin="20px"
+                textAlign="center"
+              >
+                <Button variant="solid" fontSize="20px" colorScheme="blue" m="0 20px">
+                  Configurações
+                </Button>
+              </Tooltip>
+            </Link>
 
-        <Flex
-          mt={3}
-          justifyContent={flex}>
-          <Link href={"#/Home/Configuracoes"}>
-          <Tooltip
-            label="Configurações gerais"
-            backgroundColor="white"
-            placement="bottom"
-            hasArrow
-            arrowSize={15}
-            textColor="black"
-            fontSize="20px"
-            margin="20px"
-            textAlign="center"
-          >
-            <Button
-              variant="solid"
+            <Tooltip
+              label="Voltar para Login"
+              backgroundColor="white"
+              placement="bottom"
+              hasArrow
+              arrowSize={15}
+              textColor="black"
               fontSize="20px"
-              colorScheme="blue"
-              m={"0 20px"}
+              margin="20px"
+              textAlign="center"
             >
-              Configurações
-            </Button>
-          </Tooltip>
-          </Link>
+              <Button
+                variant="solid"
+                fontSize="20px"
+                onClick={() => LogoutButton()}
+                colorScheme="blue"
+                right={1}
+              >
+                Sair
+              </Button>
+            </Tooltip>
+          </Flex>
+          <Text w="100%" fontSize="32px" fontWeight="thin" mt={1} textAlign="center">
+            Emissão dos Laudos
+          </Text>
+          <Center>
+            <CardPaciente />
+          </Center>
 
-          <Tooltip
-            label="Voltar para Login"
-            backgroundColor="white"
-            placement="bottom"
-            hasArrow
-            arrowSize={15}
-            textColor="black"
-            fontSize="20px"
-            margin="20px"
-            textAlign="center"
-          >
-            <Button
-              variant="solid"
-              fontSize="20px"
-              onClick={() => LogoutButton()}
-              colorScheme="blue"
-              right={1}
+          <Text textAlign="center" mt="5px" mb="5px" fontSize={23} fontWeight="thin">
+            Selecione um laudo para iniciar
+          </Text>
+
+          <Center>
+            <LayoutExame item={<ItemExamesHome />} />
+          </Center>
+          <Center>
+            <Box
+              justifyContent="center"
+              gap="10px"
+              display="flex"
+              flexWrap="wrap"
+              borderWidth="2px"
+              margin="10px 0px 5px 0px"
+              borderRadius="md"
+              borderColor="gray"
+              boxShadow="xl"
+              p={2}
             >
-              Sair
-            </Button>
-          </Tooltip>
-        </Flex>
-        <Text
-            w={'100%'}
-            fontSize={'32px'}
-            fontWeight="thin"
-            mt={4}
-            textAlign={'center'}
-          >Emissão dos Laudos</Text>
-        <Center>
-          <CardPaciente />
-        </Center>
-
-        <Text
-
-          textAlign="center"
-          mt="5px" mb="5px"
-          fontSize={23}
-          fontWeight="thin">
-          Selecione um laudo para iniciar
-        </Text>
-
-
-        <Center>
-          <LayoutExame item={<ItemExamesHome />} />
-        </Center>
-        <Center>
-          <Box
-            justifyContent='center'
-            gap='10px' display="flex" flexWrap='wrap'
-            borderWidth="2px"
-            margin="20px"
-            borderRadius="md"
-            borderColor="grey"
-            boxShadow="xl"
-            p={10}
-          >
-            <HStack textAlign={'center'}>
-              <Text fontWeight="semibold" fontSize="xl">
-                Médico:
-              </Text>
-              <Text fontSize="xl">{medico.nome}</Text>
-            </HStack>
-            <HStack>
-              <Text fontWeight="semibold" fontSize="xl">
-                CRM:
-              </Text>
-              <Text fontSize="xl">{medico.crm}</Text>
-            </HStack>
-            <HStack>
-              <Text fontWeight="semibold" fontSize="xl">
-                Clínica:
-              </Text>
-              <Text fontSize="xl">{clinica.nomeClinica}</Text>
-            </HStack>
-          </Box>
-        </Center>
-        <Center marginTop="20px" paddingBottom="1%">
-          <Tooltip
-            label="Voltar para Login"
-            backgroundColor="white"
-            placement="bottom"
-            hasArrow
-            arrowSize={15}
-            textColor="black"
-            fontSize="20px"
-            margin="20px"
-            textAlign="center"
-          >
-            <Button
-              variant="solid"
-              fontSize="20px"
-              onClick={() => LogoutButton()}
-              colorScheme="blue"
-            >
-              Sair
-            </Button>
-          </Tooltip>
-        </Center>
-
-      </Box>
-      <Box mt={'2%'} display={'block'}> 
-        <FooterUpbase />
-      </Box>
-      </>  
+              <HStack textAlign="center">
+                <Text fontWeight="semibold" fontSize="xl">
+                  Médico:
+                </Text>
+                <Text fontSize="xl">{medico.nome}</Text>
+              </HStack>
+              <HStack>
+                <Text fontWeight="semibold" fontSize="xl">
+                  CRM:
+                </Text>
+                <Text fontSize="xl">{medico.crm}</Text>
+              </HStack>
+              <HStack>
+                <Text fontWeight="semibold" fontSize="xl">
+                  Clínica:
+                </Text>
+                <Text fontSize="xl">{clinica.nomeClinica}</Text>
+              </HStack>
+            </Box>
+          </Center>
+        </Box>
+        <Box >
+          <FooterUpbase />
+        </Box>
+      </>
     );
   }
 }
