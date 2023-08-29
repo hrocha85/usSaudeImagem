@@ -11,7 +11,7 @@ function CistosColoides() {
   const altura = "100%";
   let largura = "60%";
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
-  isLargerThan600 ? largura = "60%": largura = "100%"
+  isLargerThan600 ? largura = "60%" : largura = "100%"
 
   const [numberArray, setNumberArray] = useState([1]);
 
@@ -44,10 +44,10 @@ function CistosColoides() {
 
   const criaStringCistosEsparsos = () => {
     removeCistosEsparsos()
-    let string = 'FALTA CistosEsparsos'
+    let string = 'Presença de cistos coloides de '
 
     if (ValueCistosEsparsosSelect != '' && ValueCistosEsparsosInput != '') {
-      string = `${string} ${ValueCistosEsparsosSelect} ${ValueCistosEsparsosInput} cm`
+      string = `${string} ${ValueCistosEsparsosInput} cm, o maior deles situado no ${ValueCistosEsparsosSelect}.`
       setFrasesCistosColoides((arr) => [...arr, string]);
     }
 
@@ -55,7 +55,7 @@ function CistosColoides() {
 
   const removeCistosEsparsos = () => {
     FrasesCistosColoides.map((e) => {
-      if (e.includes("FALTA CistosEsparsos")) {
+      if (e.includes("Presença de cistos coloides de ")) {
         const index = FrasesCistosColoides.indexOf(e);
 
         if (index > -1) {

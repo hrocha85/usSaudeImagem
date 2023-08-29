@@ -59,7 +59,10 @@ const CardPaciente = () => {
   };
 
   const handleIdadePacienteInput = (event) => {
-    setIdadePaciente(event.target.value);
+    const inputValue = event.target.value;
+
+    const MaskInputIdade = inputValue.replace(/\s+/g, '').slice(0, 3);
+    setIdadePaciente(MaskInputIdade);
   };
 
   const handleSexoPacienteInput = (event) => {
@@ -105,7 +108,7 @@ const CardPaciente = () => {
   };
   const resetDados = () => {
     setNomePaciente("");
-    setIdadePaciente("");
+    setIdadePaciente('');
     setSexoPaciente("");
     setMedicoSolicitante("");
     setEnableExames(false);
@@ -129,9 +132,9 @@ const CardPaciente = () => {
   let largura2 = "";
   let largura3 = "";
   const [isLargerThan600] = useMediaQuery('(min-width: 800px)')
-  isLargerThan600 ? largura = "25%": largura = "100%"
-  isLargerThan600 ? largura2 = "50%": largura = "100%"
-  isLargerThan600 ? largura3 = "15%": largura = "100%"
+  isLargerThan600 ? largura = "25%" : largura = "100%"
+  isLargerThan600 ? largura2 = "50%" : largura = "100%"
+  isLargerThan600 ? largura3 = "15%" : largura = "100%"
 
 
 
@@ -162,12 +165,13 @@ const CardPaciente = () => {
     checkDisable();
   }, [nomePaciente, idadePaciente, sexoPaciente, medico_solicitante]);
 
+
   return (
-    <Box borderRadius="1rem" border={'2px'} w="50%"  justifyContent={'center'} marginTop={5}>
+    <Box borderRadius="1rem" border={'2px'} w="50%" justifyContent={'center'} marginTop={2}>
       <Stack>
         <Text
           pt={'1rem'}
-          textAlign="center" mt="5px"
+          textAlign="center"
           mb="5px" pl={3}
           fontSize={22}
           textColor={'black'}>
@@ -191,6 +195,7 @@ const CardPaciente = () => {
             bgGradient='linear(to-b, blue.100, #fff)'
             size="lg"
             h="3.1rem"
+            type="number"
             w={largura3}
             borderColor="#444"
             onChange={handleIdadePacienteInput}
