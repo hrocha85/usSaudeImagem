@@ -395,7 +395,7 @@ function Home() {
         </Center>
 
       </Box>
-      <Box mt={'2%'}> 
+      <Box mt={'2%'} display={'block'}> 
         <FooterUpbase />
       </Box>
       </>  

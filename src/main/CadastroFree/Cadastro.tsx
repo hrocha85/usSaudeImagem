@@ -12,7 +12,8 @@ import {
     Select,
     HStack,
     Checkbox,
-    Link
+    Link,
+    Text
 } from '@chakra-ui/react';
 
 function CadastroUsuario() {
@@ -27,18 +28,9 @@ function CadastroUsuario() {
     const [clinicaOuMedico, setClinicaOuMedico] = useState('');
     const [aceitouTermo, setAceitouTermo] = useState(false);
     const [isDisabledCadastro, setIsDisabledCadastro] = useState(true);
-    const [ipInfo, setIpInfo] = useState(null);
+    const [senhaValida, setSenhaValida] = useState(false);
+    const [emailValido, setEmailValido] = useState(false);
 
-    // useEffect(() => {
-    //     fetch('https://ipinfo.io/json?token=YOUR_IPINFO_API_TOKEN')
-    //       .then((response) => response.json())
-    //       .then((data) => {
-    //         setIpInfo(data);
-    //       })
-    //       .catch((error) => {
-    //         console.error('Error fetching IP info:', error);
-    //       });
-    //   }, []);
 
     const getUserIp = async () => {
         const ip = await axios.get('https://ipapi.co/json')
@@ -61,6 +53,28 @@ function CadastroUsuario() {
 
     };
       
+    const handleSenhaChange = (event) => {
+        const newSenha = event.target.value;
+        setSenha(newSenha);
+    
+
+        if (newSenha.length >= 8) {
+          setSenhaValida(true);
+        } else {
+          setSenhaValida(false);
+        }
+      };
+
+      const validarEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+      };
+
+      const handleEmailChange = (event) => {
+        const newEmail = event.target.value;
+        setEmail(newEmail);
+        setEmailValido(validarEmail(newEmail));
+      };
 
     const consultarCEP = async (cep) => {
         try {
@@ -78,7 +92,7 @@ function CadastroUsuario() {
         } catch (error) {
           console.error('Erro ao consultar o CEP', error);
         }
-      };
+    };
 
       
 
@@ -105,6 +119,8 @@ function CadastroUsuario() {
       
         return cleanedValue;
       };
+
+
       
 
     const CheckRegistered = () => {
@@ -138,22 +154,22 @@ function CadastroUsuario() {
                     </FormControl>
 
                     <FormControl isRequired>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel display={'flex'}>Email <Text opacity={0.6}pl={2}> (name@dominio.com)</Text></FormLabel>
                     <Input
                         type="email"
                         placeholder="Digite seu email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleEmailChange}
                     />
                     </FormControl>
 
                     <FormControl isRequired>
-                    <FormLabel>Senha</FormLabel>
+                    <FormLabel display={'flex'}>Senha <Text opacity={0.6}pl={2}> (Conter no mínimo 8 caracteres)</Text></FormLabel>
                     <Input
                         type="password"
                         placeholder="Digite sua senha"
                         value={senha}
-                        onChange={(e) => setSenha(e.target.value)}
+                        onChange={handleSenhaChange}
                     />
                     </FormControl>
 
@@ -240,10 +256,10 @@ function CadastroUsuario() {
                     </FormLabel>
                     </FormControl>
 
-                    <Link>
+                    <Link href='#/LoginFree'>
                         <Button
                         colorScheme="blue"
-                        isDisabled={isDisabledCadastro || !aceitouTermo}
+                        isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
                         onClick={() => handleCadastro()}
                         >
                         Cadastrar
