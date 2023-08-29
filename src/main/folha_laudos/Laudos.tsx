@@ -268,9 +268,9 @@ function Exames() {
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
   const [isLargerThan6001] = useMediaQuery('(min-width: 600px)')
   let display = "block";
-   let display1 = "flex";
+  let display1 = "flex";
   isLargerThan600 ? display = "block" : display = "none"
-  isLargerThan6001 ? display1 = "flex": display1 = "none"  
+  isLargerThan6001 ? display1 = "flex" : display1 = "none"
 
   const Laudo = () => {
 
@@ -1088,7 +1088,7 @@ function Exames() {
             </Tooltip>
           )}
           <Tooltip
-            label="Salletlaudo"
+            label="Concluir laudo"
             fontSize="xl"
             backgroundColor="white"
             placement="top"

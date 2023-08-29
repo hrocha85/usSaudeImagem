@@ -74,11 +74,10 @@ function TendaoQuadricepsFemoralEsquerdo({ Disable }) {
     };
 
     const criaStringAspectoNormal = () => {
-        const string = "FALTA";
+        const string = "Tendão do quadríceps femoral direito apresenta-se normalidade.";
         AspectoNormalCheckbox ? setTendaoQuadricepsFemoralEsquerdo((arr) => [...arr, string]) : removeItemString(string);
 
     };
-
 
     const [Normal, setNormal] = useState(false)
 
@@ -87,7 +86,6 @@ function TendaoQuadricepsFemoralEsquerdo({ Disable }) {
     }, [Disable])
 
     useEffect(() => {
-        const string = "FALTA";
         Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
     }, [Normal])
 
@@ -96,7 +94,7 @@ function TendaoQuadricepsFemoralEsquerdo({ Disable }) {
     }, [AspectoNormalCheckbox])
 
     const criaStringTendinopatiaSemRotura = () => {
-        const string = "FALTA";
+        const string = "Tendinopatia não apresenta sinais de rotura.";
         TendinopatiaSemRoturaCheckbox ? setTendaoQuadricepsFemoralEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 

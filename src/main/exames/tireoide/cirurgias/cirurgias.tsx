@@ -8,7 +8,7 @@ function Cirurgias() {
   const altura = "100%";
   let largura = "60%";
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
-  isLargerThan600 ? largura = "60%": largura = "100%"
+  isLargerThan600 ? largura = "60%" : largura = "100%"
 
   const [TireoidectomiaTotalCheckbox, setTireoidectomiaTotalCheckbox] =
     useState(false);
@@ -34,18 +34,18 @@ function Cirurgias() {
 
   const criaStringHemitireoidectomia = () => {
     removeHemitireoidectomia();
-    let string = "FALTA Hemitireoidectomia";
+    let string = "Hemitireoidectomia";
     if (HemitireoidectomiaCheckbox) {
       if (ValueHemitireoidectomiaSelect != "") {
-        string = `${string} ${ValueHemitireoidectomiaSelect}`;
+        string = `${string} ${ValueHemitireoidectomiaSelect} aumentada.`;
+        setFrasesCirurgias((arr) => [...arr, string]);
       }
-      setFrasesCirurgias((arr) => [...arr, string]);
     }
   };
 
   const removeHemitireoidectomia = () => {
     FrasesCirurgias.map((e) => {
-      if (e.includes("FALTA Hemitireoidectomia")) {
+      if (e.includes("Hemitireoidectomia")) {
         const index = FrasesCirurgias.indexOf(e);
 
         if (index > -1) {

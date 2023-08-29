@@ -110,7 +110,7 @@ function TendaoBicepsBraquialEsquerdo({ Disable }) {
     }, [AspectoNormalCheckbox])
 
     const criaStringPequenasCalcificacoes = () => {
-        const string = "FALTA";
+        const string = "Pequenas calcificalções a esquerda junto a inserção";
         if (PequenasCalcificacoesCheckbox) {
             setFraseTendaoBicepsBraquialEsquerdo((arr) => [...arr, string]);
         } else {

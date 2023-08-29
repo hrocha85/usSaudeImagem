@@ -100,7 +100,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
 
   const [propsBoxAssinatura, setpropsBoxAssinatura] = useState(false);
 
-  const [placeHolderAddDoutor, setplaceHolderDoutor] = useState("Nome do Médico");
+  const [placeHolderAddDoutor, setplaceHolderDoutor] = useState("Insira o nome do Médico");
 
   const [imageAssinatura, setImageAssinatura] = useState(true);
 
@@ -362,10 +362,10 @@ const IconButtonPlusMedicos = (props, clinica) => {
                 isDisabled={false}
                 variant={"unstyled"}
                 onChange={(e) => setNome(e.target.value)}
-                _placeholder={{ fontWeight: "bold", color: "#b8bfca", opacity:0.7 }}
+                _placeholder={{ fontWeight: "bold", color: "#b8bfca", opacity: 0.7 }}
                 onClick={() => {
                   setInputNomeDoutor(true);
-                  setplaceHolderDoutor("");
+                  setplaceHolderDoutor("Insira o nome do Médico");
                 }}
               ></Input>
             )}

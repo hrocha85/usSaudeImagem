@@ -9,8 +9,8 @@ function Procedimentos() {
     const altura = "100%";
     let largura = "60%";
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
-    isLargerThan600 ? largura = "60%": largura = "100%"
-  
+    isLargerThan600 ? largura = "60%" : largura = "100%"
+
     const [FraseProcedimentos, setFraseProcedimentos] = useState<any>([]);
 
     const [PuncaoAspirativaCheckbox, setPuncaoAspirativaCheckbox] = useState(false)
@@ -18,7 +18,7 @@ function Procedimentos() {
     const [DisableNodulosCheckbox, setDisableNodulosCheckbox] = useState(false)
 
     const criaStringPuncaoAspirativa = () => {
-        let string = 'FALTA Punção aspiratica'
+        let string = 'Feito com punção aspiractica'
         removeProcedimentos()
         if (PuncaoAspirativaCheckbox) {
             if (NodulosCheckbox) {
@@ -38,7 +38,7 @@ function Procedimentos() {
 
     const removeProcedimentos = () => {
         FraseProcedimentos.map((e) => {
-            if (e.includes("FALTA Punção aspiratica")) {
+            if (e.includes("Feito com punção aspiractica")) {
                 const index = FraseProcedimentos.indexOf(e);
 
                 if (index > -1) {
