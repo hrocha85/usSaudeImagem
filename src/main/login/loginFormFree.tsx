@@ -1,6 +1,25 @@
 import { Box, Button, Checkbox, FormControl, FormLabel, HStack, Heading, Input, Link, Text, VStack } from "@chakra-ui/react";
+import { useState } from "react";
 
 export default function LoginFormFree() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState(false);
+
+  const handleLogin = () => {
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+        const userData = JSON.parse(storedUserData);
+
+    if (email === userData.email && password === userData.senha) {
+       window.location.href = '#/Splash';
+    } else {
+      setLoginError(true);
+    }
+
+
+  }
+  };
   return (
     <Box
       w={['full', 'md']}
@@ -22,20 +41,32 @@ export default function LoginFormFree() {
         </VStack>
         <FormControl>
           <FormLabel>Email</FormLabel>
-          <Input rounded='none' variant='filled' />
+          <Input rounded='none' variant='filled'
+          type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </FormControl>
         <FormControl>
           <FormLabel>Senha</FormLabel>
-          <Input rounded='none' variant='filled' />
+          <Input rounded='none' variant='filled'
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </FormControl>
         <HStack w='full' justify='space-between'>
           <Checkbox>Remember me.</Checkbox>
           <Button variant='link' colorScheme="blue"> Forgot Password</Button>
         </HStack>
+
+        {loginError && (
+                    <Text color="red.500">Email ou senha incorretos. Por favor, tente novamente.</Text>
+                )}
         <Link
-          href={`#/Splash`}
+          // href={`#/Splash`}
         >
-          <Button rounded='none' colorScheme="blue" w={['full', 'auto']}>Login</Button>
+          <Button rounded='none' colorScheme="blue" w={['full', 'auto']} onClick={handleLogin}>Login</Button>
         </Link>
       </VStack>
 
