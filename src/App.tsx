@@ -20,45 +20,48 @@ import tema from "./main/Theme/Tema";
 import Rotas from "./Routes/Rotas";
 import { DerramePleuralEsquerdaProvider } from "./context/DerramePleuralEsquerdaContext";
 import FooterUpbase from "./main/component/FooterUpbase";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
 
   return (
-    <TabExamesProvider>
-      <EnableExamesProvider>
-        <DerramePleuralDireitaProvider>
-          <DerramePleuralEsquerdaProvider>
-            <JoelhoEsquerdoNormalProvider>
-              <JoelhoDireitoNormalProvider>
-                <MenuProvider>
-                  <MaoDireitoNormalProvider>
-                    <MaoEsquerdoNormalProvider>
-                      <PunhoEsquerdoNormalProvider>
-                        <PunhoDireitoNormalProvider>
-                          <OmbroEsquerdoNormalProvider>
-                            <OmbroDireitoNormalProvider>
-                              <DisableTributariaProvider>
-                                <StringNormalProvider>
-                                  <LaudosProvider>
-                                    <ChakraProvider theme={tema}>
-                                      <Rotas />
-                                    </ChakraProvider>
-                                  </LaudosProvider>
-                                </StringNormalProvider>
-                              </DisableTributariaProvider>
-                            </OmbroDireitoNormalProvider>
-                          </OmbroEsquerdoNormalProvider>
-                        </PunhoDireitoNormalProvider>
-                      </PunhoEsquerdoNormalProvider>
-                    </MaoEsquerdoNormalProvider>
-                  </MaoDireitoNormalProvider>
-                </MenuProvider>
-              </JoelhoDireitoNormalProvider>
-            </JoelhoEsquerdoNormalProvider>
-          </DerramePleuralEsquerdaProvider>
-        </DerramePleuralDireitaProvider>
-      </EnableExamesProvider>
-    </TabExamesProvider>
+    <AuthProvider>
+      <TabExamesProvider>
+        <EnableExamesProvider>
+          <DerramePleuralDireitaProvider>
+            <DerramePleuralEsquerdaProvider>
+              <JoelhoEsquerdoNormalProvider>
+                <JoelhoDireitoNormalProvider>
+                  <MenuProvider>
+                    <MaoDireitoNormalProvider>
+                      <MaoEsquerdoNormalProvider>
+                        <PunhoEsquerdoNormalProvider>
+                          <PunhoDireitoNormalProvider>
+                            <OmbroEsquerdoNormalProvider>
+                              <OmbroDireitoNormalProvider>
+                                <DisableTributariaProvider>
+                                  <StringNormalProvider>
+                                    <LaudosProvider>
+                                      <ChakraProvider theme={tema}>
+                                        <Rotas />
+                                      </ChakraProvider>
+                                    </LaudosProvider>
+                                  </StringNormalProvider>
+                                </DisableTributariaProvider>
+                              </OmbroDireitoNormalProvider>
+                            </OmbroEsquerdoNormalProvider>
+                          </PunhoDireitoNormalProvider>
+                        </PunhoEsquerdoNormalProvider>
+                      </MaoEsquerdoNormalProvider>
+                    </MaoDireitoNormalProvider>
+                  </MenuProvider>
+                </JoelhoDireitoNormalProvider>
+              </JoelhoEsquerdoNormalProvider>
+            </DerramePleuralEsquerdaProvider>
+          </DerramePleuralDireitaProvider>
+        </EnableExamesProvider>
+      </TabExamesProvider>
+    </AuthProvider>
   );
 }
 
