@@ -51,10 +51,26 @@ export default function LoginForm() {
           setUserRole(response.data.roles[0].name)
         })
         usenavigate("/Splash")
+      } else {
+        setTimeout(() => {
+          toast({
+            duration: 3000,
+            title: `${User.name}, Seja bem vindo!`,
+            position: "top",
+            isClosable: true,
+          });
+        }, 500);
       }
     }).catch((e) => {
-      // toast.error('Email ou senha inválidos.')
-      console.log(e.response.data);
+      setTimeout(() => {
+        toast({
+          duration: 3000,
+          title: `${User.name}, Seja bem vindo!`,
+          position: "top",
+          isClosable: true,
+        });
+      }, 500);
+
     })
   }
 
@@ -93,7 +109,11 @@ export default function LoginForm() {
           <Button variant='link' colorScheme="blue"> Forgot Password</Button>
         </HStack> */}
 
-        <Button rounded='9px' colorScheme="blue" w={['full', 'auto']} onClick={() => login()}>Login</Button>
+        <Button rounded='9px' colorScheme="blue" w={['full', 'auto']}
+          //Descomentar onClick do login quando API estiver online
+          // onClick={() => login()}
+          onClick={() => usenavigate('/Splash')}
+        >Login</Button>
 
       </VStack>
 
