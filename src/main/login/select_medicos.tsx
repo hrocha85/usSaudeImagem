@@ -7,9 +7,12 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 function SelectMedicos() {
+
+  const { UserRole } = useContext(AuthContext);
   const [medicoString, setmedicoString] = useState<any>();
   const [medicoSelecionado, setmedicoSelecionado] = useState<any | null>(null);
 
@@ -18,6 +21,10 @@ function SelectMedicos() {
   const [clinicasMedSelect, setClinicaMedSelect] = useState<any[]>([]);
 
   const [isDisabledEntrar, setisDisabledEntrar] = useState(true);
+
+  useEffect(() => {
+    console.log(UserRole)
+  }, [])
 
   const getMedicos = () => {
     let medicos;
