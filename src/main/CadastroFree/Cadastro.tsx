@@ -38,17 +38,21 @@ function CadastroUsuario() {
       }
 
     const handleCadastro = () => {
-        console.log('Nome:', nome);
-         console.log('email: ', email)
-        console.log('Senha:', senha);
-        console.log('Cidade:', cidade);
-        console.log('Estado:', estado);
-        console.log('CEP:', cep);
-        console.log('Rua:', rua);
-        console.log('Aceito o  termo:', aceitouTermo);
-        console.log('Telefone:', telefone);
-        console.log('Clinica ou Médico:', clinicaOuMedico);
-        getUserIp()
+      const userData = {
+        nome,
+        email,
+        senha,
+        telefone,
+        cidade,
+        estado,
+        cep,
+        rua,
+        clinicaOuMedico
+      };
+      localStorage.setItem('userData', JSON.stringify(userData));
+      console.log(userData)
+
+          getUserIp()
 
 
     };
@@ -260,7 +264,7 @@ function CadastroUsuario() {
                         <Button
                         colorScheme="blue"
                         isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
-                        onClick={() => handleCadastro()}
+                        onClick={handleCadastro}
                         >
                         Cadastrar
                         </Button>

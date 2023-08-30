@@ -869,7 +869,7 @@ const Configuracoes = () => {
       {/* {returnObservacoes()} */}
      
     </Box>
-     <Box bottom={0}><FooterUpbase /></Box>
+     {/* <Box bottom={0}><FooterUpbase /></Box> */}
     </>
   );
 };

@@ -214,7 +214,9 @@ function Home() {
 
   const user = JSON.parse(localStorage.getItem("user")!);
   const clinica = JSON.parse(user.clinica);
+  const userData = JSON.parse(localStorage.getItem('userData')!);
   const medico = user.medico;
+
 
   useEffect(() => {
     const existingObservacoes = localStorage.getItem("observacoes");
@@ -225,7 +227,7 @@ function Home() {
 
   const LogoutButton = () => {
     localStorage.removeItem("user");
-    navigate("/Login");
+    navigate("/LoginFree");
   };
 
   useEffect(() => {
@@ -268,9 +270,13 @@ function Home() {
 
       <>
         <Box overflowX="hidden" minHeight="100vh" bgGradient="linear(to-b, blue.100, #fff)">
-          <Flex mt={3} justifyContent={flex}>
-            <Link href="#/Home/Configuracoes">
-              <Tooltip
+        <Flex mt={3} justifyContent="space-between" alignItems="center">
+        <Text textColor={'black'} fontSize={"20px"} fontWeight={700} pl={4}>
+            Bem-vindo, {userData.nome}
+          </Text>
+    <Flex justifyContent="flex-end">
+        <Link href="#/Home/Configuracoes" pr={4}>
+            <Tooltip
                 label="Configurações gerais"
                 backgroundColor="white"
                 placement="bottom"
@@ -280,35 +286,29 @@ function Home() {
                 fontSize="20px"
                 margin="20px"
                 textAlign="center"
-              >
-                <Button variant="solid" fontSize="20px" colorScheme="blue" m="0 20px">
-                  Configurações
-                </Button>
-              </Tooltip>
-            </Link>
-
-            <Tooltip
-              label="Voltar para Login"
-              backgroundColor="white"
-              placement="bottom"
-              hasArrow
-              arrowSize={15}
-              textColor="black"
-              fontSize="20px"
-              margin="20px"
-              textAlign="center"
             >
-              <Button
-                variant="solid"
-                fontSize="20px"
-                onClick={() => LogoutButton()}
-                colorScheme="blue"
-                right={1}
-              >
-                Sair
-              </Button>
+                <Button variant="solid" fontSize="20px" colorScheme="blue">
+                    Configurações
+                </Button>
             </Tooltip>
-          </Flex>
+        </Link>
+        <Tooltip
+            label="Voltar para Login"
+            backgroundColor="white"
+            placement="bottom"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+            fontSize="20px"
+            margin="20px"
+            textAlign="center"
+        >
+            <Button variant="solid" fontSize="20px" onClick={LogoutButton} colorScheme="blue" mr={3}>
+                Sair
+            </Button>
+        </Tooltip>
+    </Flex>
+</Flex>
           <Text w="100%" fontSize="32px" fontWeight="thin" mt={1} textAlign="center">
             Emissão dos Laudos
           </Text>
@@ -357,9 +357,9 @@ function Home() {
             </Box>
           </Center>
         </Box>
-        <Box >
+        {/* <Box >
           <FooterUpbase />
-        </Box>
+        </Box> */}
       </>
     );
   }
