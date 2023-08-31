@@ -64,7 +64,7 @@ export default function LoginFormFree() {
                     <Text color="red.500">Email ou senha incorretos. Por favor, tente novamente.</Text>
                 )}
         <Link
-          // href={`#/Splash`}
+           href={`#/Splash`}
         >
           <Button rounded='none' colorScheme="blue" w={['full', 'auto']} onClick={handleLogin}>Login</Button>
         </Link>

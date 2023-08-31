@@ -35,6 +35,7 @@ import {
   useDisclosure,
   useOutsideClick,
   useToast,
+  Link
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { BiCamera } from "react-icons/bi";
@@ -49,6 +50,7 @@ import DefaultImageClinica from "../images/clinica_default.png";
 import SignatureCanvas from "react-signature-canvas";
 
 import MedicosJSON from "../../Data/Medicos.json";
+import {Link as ReactRouterLink, useNavigate } from "react-router-dom";
 const button = React.createElement("img", { src: PlusButton });
 
 let dados;
@@ -103,6 +105,8 @@ const IconButtonPlusMedicos = (props, clinica) => {
   const [placeHolderAddDoutor, setplaceHolderDoutor] = useState("Insira o nome do Médico");
 
   const [imageAssinatura, setImageAssinatura] = useState(true);
+
+  const usenavigate = useNavigate()
 
 
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
@@ -189,11 +193,29 @@ const IconButtonPlusMedicos = (props, clinica) => {
   const authParaLogar = () => {
     if (!userLogged && lista_medicos.length > 0 && clinicas.length > 0) {
       const loginCriado = toast({
-        duration: 3000,
-        title: `Retorne para Página inicial para logar.`,
+        duration: 300000,
         status: "success",
-        position: "bottom",
-        isClosable: true,
+        position: "top",
+        render: ()=>(
+          <Flex flexWrap={"wrap"} bg={"green.500"} p={4} alignItems="center" rounded={5}>
+          <Text color="white" mr={4}>
+            Cadastro concluido! clique no botão para iniciar a sessão
+          </Text>
+          <Link href="#/LoginFree" _hover={{ textDecoration: "underline" }}>
+            <Button
+              colorScheme="whiteAlpha"
+              _focus={{ boxShadow: "none" }}
+              _active={{ bgColor: "transparent" }}
+              onClick={() => {
+                toast.close(loginCriado); // Fechar o Toast ao clicar no botão
+                usenavigate('/Splash');
+              }}
+            >
+              Login
+            </Button>
+          </Link>
+        </Flex>
+        )
       });
       return loginCriado;
     }
@@ -525,6 +547,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
                 </Box>
               )}
             </ModalFooter>
+
 
             <Button
               alignSelf="center"

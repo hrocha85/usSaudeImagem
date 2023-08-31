@@ -164,7 +164,7 @@ export default function LoginForm() {
           <Button variant='link' colorScheme="blue"> Forgot Password</Button>
         </HStack> */}
 
-        <Button rounded='9px' colorScheme="blue" w={"380px"}
+        <Button rounded='9px' colorScheme="blue" w={"100%"}
           //Descomentar onClick do login quando API estiver online
           // onClick={() => login()}
           onClick={() => usenavigate('/Splash')}
