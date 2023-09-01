@@ -4,6 +4,7 @@ import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import api from "../../../src/api";
 import { IoEye, IoEyeOff, IoEyeOffSharp } from "react-icons/io5";
+import Cookies from 'js-cookie';
 
 type data = {
   name?: string,
@@ -15,7 +16,7 @@ export default function LoginForm() {
   const toast = useToast();
 
 
-  const { setUserRole } = useContext(AuthContext);
+  const { setIsAdmin } = useContext(AuthContext);
   const [Email, setEmail] = useState('medico1@hotmail.com')
   const [Senha, setSenha] = useState('123456')
   const [show, setShow] = useState(false)
@@ -44,11 +45,11 @@ export default function LoginForm() {
             isClosable: true,
           });
         }, 500);
-        localStorage.setItem("sipToken", response.data.token);
-        localStorage.setItem("sipUser", JSON.stringify(User));
-        localStorage.setItem("sipID", response.data.user.id);
+        Cookies.set('token', JSON.stringify(response.data.token));
+        Cookies.set('user', JSON.stringify(response.data.user));
         await api.get(`usuario/${response.data.user.id}`).then((response) => {
-          setUserRole(response.data.roles[0].name)
+          setIsAdmin(response.data.roles[0].name === 'admin' ? true : false)
+          Cookies.set('role', JSON.stringify(response.data.roles[0].name));
         })
         usenavigate("/Splash")
       } else {
@@ -111,8 +112,8 @@ export default function LoginForm() {
 
         <Button rounded='9px' colorScheme="blue" w={['full', 'auto']}
           //Descomentar onClick do login quando API estiver online
-          // onClick={() => login()}
-          onClick={() => usenavigate('/Splash')}
+          onClick={() => login()}
+        // onClick={() => usenavigate('/Splash')}
         >Login</Button>
 
       </VStack>
