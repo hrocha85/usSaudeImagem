@@ -271,30 +271,16 @@ function Home() {
 
       <>
         <Box overflowX="hidden" minHeight="100vh" bgGradient="linear(to-b, blue.100, #fff)">
-          <Flex mt={3} justifyContent="space-between" alignItems="center">
-            <Text textColor={'black'} fontSize={"20px"} fontWeight={700} pl={4}>
-              Bem-vindo, {userData.nome}
-            </Text>
-            <Flex justifyContent="flex-end">
-              <Link href="#/Home/Configuracoes" pr={4}>
-                <Tooltip
-                  label="Configurações gerais"
-                  backgroundColor="white"
-                  placement="bottom"
-                  hasArrow
-                  arrowSize={15}
-                  textColor="black"
-                  fontSize="20px"
-                  margin="20px"
-                  textAlign="center"
-                >
-                  <Button variant="solid" fontSize="20px" colorScheme="blue">
-                    Configurações
-                  </Button>
-                </Tooltip>
-              </Link>
-              <Tooltip
-                label="Voltar para Login"
+
+        <Flex mt={3} justifyContent="space-between" alignItems="center">
+        <Text textColor={'black'} fontSize={"20px"} fontWeight={700} pl={4}>
+            Bem-vindo, Usuario Logado
+          </Text>
+    <Flex justifyContent="flex-end">
+        <Link href="#/Home/Configuracoes" pr={4}>
+            <Tooltip
+                label="Configurações gerais"
+
                 backgroundColor="white"
                 placement="bottom"
                 hasArrow
