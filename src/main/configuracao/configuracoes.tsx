@@ -37,7 +37,7 @@ import {
   useOutsideClick,
   useToast
 } from "@chakra-ui/react";
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useContext, useEffect, useRef, useState } from "react";
 import {
   AiOutlineClear,
   AiOutlineCloudUpload,
@@ -56,11 +56,16 @@ import MainCard from "../component/main_card";
 import MainCardClinica from "../component/main_cardClinica";
 import DefaultImageClinica from "../images/clinica_default.png";
 import Sidebar from "../menu/sideBar";
+import Cookies from 'js-cookie';
+import { AuthContext } from "../../context/AuthContext";
 
 let dados;
 export let lista_medicos = MedicosJSON.medicos;
 
 const Configuracoes = () => {
+
+  const { isAdmin } = useContext(AuthContext);
+
   const toast = useToast();
 
   const getMedicos = () => {
@@ -754,30 +759,30 @@ const Configuracoes = () => {
 
   return (
     <>
-    <Box
-      w="100%"
-      h={'100%'}
-      bgGradient='linear(to-b, blue.100, #fff)'
-      // paddingBottom="10px"
-      alignItems="center"  
-    >
-      <Sidebar />
+      <Box
+        w="100%"
+        h={'100%'}
+        bgGradient='linear(to-b, blue.100, #fff)'
+        // paddingBottom="10px"
+        alignItems="center"
+      >
+        <Sidebar />
 
-      <Stack>
-        <Box display={'flex'} flexWrap={'wrap'} gap={5}  justifyContent={'space-around'}>
+        <Stack>
+          <Box display={'flex'} flexWrap={'wrap'} gap={5} justifyContent={'space-around'}>
 
-          {isLargerThan500 ?
-            <Box w={'100%'} display={'flex'} justifyContent={'flex-end'} pr={'3rem'}>{returnPOPoverLaudos()}</Box> 
-            : 
-            <Box width={width}>{returnPOPoverLaudos()}</Box>
-          }
-          <Box>
-            <MainCardClinica titulo="Clínicas" icon={true} clinica={null} medicos={null} />
-          </Box>
+            {isLargerThan500 ?
+              <Box w={'100%'} display={'flex'} justifyContent={'flex-end'} pr={'3rem'}>{returnPOPoverLaudos()}</Box>
+              :
+              <Box width={width}>{returnPOPoverLaudos()}</Box>
+            }
+            <Box>
+              <MainCardClinica titulo="Clínicas" icon={true} clinica={null} medicos={null} />
+            </Box>
 
 
-          <Box pl={3}>
-            {/*<Box h={'3.4rem'}>
+            <Box pl={3}>
+              {/*<Box h={'3.4rem'}>
                <Stack direction="row" justifyContent={'center'}>
                 <Text
                   color="#1A202C"
@@ -821,16 +826,16 @@ const Configuracoes = () => {
                 </Tooltip>
               </Stack>
             </Box> */}
-            <MainCard titulo="Médicos" icon={true} clinica={listaClinicas} medicos={null} />
+              <MainCard titulo="Médicos" icon={true} clinica={listaClinicas} medicos={null} />
+            </Box>
+
           </Box>
 
-        </Box>
-
-        {/* {medicos.map((medico, key) => {
+          {/* {medicos.map((medico, key) => {
       return <Medicos key={key} medico={medico} id={key} />;
     })} */}
 
-        {/* <Tooltip
+          {/* <Tooltip
       label="Adicionar Médico"
       backgroundColor="white"
       placement="top"
@@ -863,13 +868,13 @@ const Configuracoes = () => {
         Adicionar
       </Button>
     </Tooltip> */}
-     {returnObservacoes()} 
-      </Stack>
-      {ModalAddMedico()}
-      {/* {returnObservacoes()} */}
-     
-    </Box>
-     {/* <Box bottom={0}><FooterUpbase /></Box> */}
+          {returnObservacoes()}
+        </Stack>
+        {ModalAddMedico()}
+        {/* {returnObservacoes()} */}
+
+      </Box>
+      {/* <Box bottom={0}><FooterUpbase /></Box> */}
     </>
   );
 };

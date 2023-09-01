@@ -13,6 +13,8 @@ function LandingPage() {
 
   const AlreadyRegistered = localStorage.getItem("AlreadyRegistered");
 
+
+
   const VerifyRegistered = () => {
     if (AlreadyRegistered) {
       return (

@@ -25,13 +25,15 @@ import {
   useOutsideClick,
   useToast,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { BiCamera } from "react-icons/bi";
 import infoClinicas from "../../Data/Clinicas.json";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import { AiOutlineClear, AiOutlinePlusCircle } from "react-icons/ai";
 import axios from "axios";
+import Cookies from 'js-cookie';
+import { AuthContext } from "../../context/AuthContext";
 
 const button = React.createElement("img", { src: PlusButton });
 
@@ -71,7 +73,7 @@ const IconButtonPlus = (props) => {
   const refCEP = useRef<HTMLInputElement | null>(null);
 
   const refNomeClinica = useRef<HTMLInputElement | null>(null);
-
+  const { isAdmin } = useContext(AuthContext);
   useEffect(() => {
     if (cep !== '' && NumeroEndereco !== '') {
       setDisableButton(false)
@@ -96,6 +98,9 @@ const IconButtonPlus = (props) => {
     });
     localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
     props.setAtualizar(!props.atualizar);
+    if (!isAdmin && minhasClinicas.length >= 2) {
+      setLimiteClinicas(true)
+    }
     onClose();
   };
 
@@ -192,10 +197,22 @@ const IconButtonPlus = (props) => {
     }
   };
 
+  const [LimiteClinicas, setLimiteClinicas] = useState<boolean>(false)
+
+  const CheckClinicasGratuito = () => {
+    if (!isAdmin && minhasClinicas.length >= 2) {
+      setLimiteClinicas(true)
+    }
+  }
+
+  useEffect(() => {
+    CheckClinicasGratuito()
+  }, [])
+
   return (
     <>
       <Tooltip
-        label="Adicionar Clínica"
+        label={!LimiteClinicas ? "Adicionar Clínica" : "Limite de clinicas do plano gratuito atingido"}
         backgroundColor="white"
         placement="top"
         defaultIsOpen={false}
@@ -203,8 +220,11 @@ const IconButtonPlus = (props) => {
         arrowSize={15}
         textColor="black"
         fontSize="20px"
+        borderRadius={8}
+        textAlign={'center'}
       >
         <Button
+          isDisabled={LimiteClinicas}
           borderRadius="xl"
           backgroundColor="white"
           w="10rem"

@@ -249,6 +249,7 @@ function Home() {
     console.log(`USO DO LOCALSTORAGE: ${locals.toFixed(2)} MB`);
   }, []);
 
+
   if (!isMounted) {
     return (
       <Center>
@@ -270,6 +271,7 @@ function Home() {
 
       <>
         <Box overflowX="hidden" minHeight="100vh" bgGradient="linear(to-b, blue.100, #fff)">
+
         <Flex mt={3} justifyContent="space-between" alignItems="center">
         <Text textColor={'black'} fontSize={"20px"} fontWeight={700} pl={4}>
             Bem-vindo, Usuario Logado
@@ -278,6 +280,7 @@ function Home() {
         <Link href="#/Home/Configuracoes" pr={4}>
             <Tooltip
                 label="Configurações gerais"
+
                 backgroundColor="white"
                 placement="bottom"
                 hasArrow
@@ -286,29 +289,13 @@ function Home() {
                 fontSize="20px"
                 margin="20px"
                 textAlign="center"
-            >
-                <Button variant="solid" fontSize="20px" colorScheme="blue">
-                    Configurações
+              >
+                <Button variant="solid" fontSize="20px" onClick={LogoutButton} colorScheme="blue" mr={3}>
+                  Sair
                 </Button>
-            </Tooltip>
-        </Link>
-        <Tooltip
-            label="Voltar para Login"
-            backgroundColor="white"
-            placement="bottom"
-            hasArrow
-            arrowSize={15}
-            textColor="black"
-            fontSize="20px"
-            margin="20px"
-            textAlign="center"
-        >
-            <Button variant="solid" fontSize="20px" onClick={LogoutButton} colorScheme="blue" mr={3}>
-                Sair
-            </Button>
-        </Tooltip>
-    </Flex>
-</Flex>
+              </Tooltip>
+            </Flex>
+          </Flex>
           <Text w="100%" fontSize="32px" fontWeight="thin" mt={1} textAlign="center">
             Emissão dos Laudos
           </Text>

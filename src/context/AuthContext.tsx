@@ -1,17 +1,17 @@
 import React, { createContext, useState } from 'react';
 
 type IRole = {
-    UserRole?: any;
-    setUserRole?: any;
+    isAdmin?: any;
+    setIsAdmin?: any;
 }
 
 export const AuthContext = createContext({} as IRole);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [UserRole, setUserRole] = useState('');
+    const [isAdmin, setIsAdmin] = useState('');
 
     return (
-        <AuthContext.Provider value={{ UserRole, setUserRole }}>
+        <AuthContext.Provider value={{ isAdmin, setIsAdmin }}>
             {children}
         </AuthContext.Provider>
     );

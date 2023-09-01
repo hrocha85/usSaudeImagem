@@ -12,7 +12,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 function SelectMedicos() {
 
-  const { UserRole } = useContext(AuthContext);
+  const { isAdmin } = useContext(AuthContext);
   const [medicoString, setmedicoString] = useState<any>();
   const [medicoSelecionado, setmedicoSelecionado] = useState<any | null>(null);
 
@@ -22,9 +22,6 @@ function SelectMedicos() {
 
   const [isDisabledEntrar, setisDisabledEntrar] = useState(true);
 
-  useEffect(() => {
-    console.log(UserRole)
-  }, [])
 
   const getMedicos = () => {
     let medicos;
