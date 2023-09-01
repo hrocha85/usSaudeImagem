@@ -101,7 +101,6 @@ const IconButtonPlus = (props) => {
     if (!isAdmin && minhasClinicas.length >= 2) {
       setLimiteClinicas(true)
     }
-    console.log(isAdmin, minhasClinicas.length)
     onClose();
   };
 
@@ -479,18 +478,6 @@ const IconButtonPlus = (props) => {
               }}
             >
               Salvar
-            </Button>
-            <Button
-              textColor="white"
-              backgroundColor="#0e63fe"
-              marginEnd="20px"
-              marginStart="23px"
-              marginBottom="10px"
-              onClick={() => {
-                setLimiteClinicas(!LimiteClinicas)
-              }}
-            >
-              Salaaa
             </Button>
           </ModalContent>
         </Modal>

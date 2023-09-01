@@ -36,7 +36,7 @@ import {
   useOutsideClick,
   useToast,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { BiCamera } from "react-icons/bi";
 import {
   AiOutlineClear,
@@ -49,6 +49,7 @@ import DefaultImageClinica from "../images/clinica_default.png";
 import SignatureCanvas from "react-signature-canvas";
 
 import MedicosJSON from "../../Data/Medicos.json";
+import { AuthContext } from "../../context/AuthContext";
 const button = React.createElement("img", { src: PlusButton });
 
 let dados;
@@ -104,6 +105,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
 
   const [imageAssinatura, setImageAssinatura] = useState(true);
 
+  const { isAdmin } = useContext(AuthContext);
 
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
   const {
@@ -198,7 +200,11 @@ const IconButtonPlusMedicos = (props, clinica) => {
       return loginCriado;
     }
   };
+  const [LimiteMedicos, setLimiteMedicos] = useState<boolean>(false)
 
+  useEffect(() => {
+    console.log(lista_medicos.length)
+  }, [])
 
   const AddMedico = () => {
     const obj = {
@@ -224,7 +230,22 @@ const IconButtonPlusMedicos = (props, clinica) => {
     localStorage.setItem("medicos", JSON.stringify(medicos));
     props.setAtualizar(!props.atualizar);
     setMedicos(medicos);
+    if (!isAdmin && lista_medicos.length >= 2) {
+      setLimiteMedicos(true)
+    }
+
   };
+
+
+  const CheckClinicasGratuito = () => {
+    if (!isAdmin && lista_medicos.length >= 2) {
+      setLimiteMedicos(true)
+    }
+  }
+
+  useEffect(() => {
+    CheckClinicasGratuito()
+  }, [])
 
   const TAGS = () => {
     return (
@@ -292,16 +313,19 @@ const IconButtonPlusMedicos = (props, clinica) => {
   return (
     <>
       <Tooltip
-        label="Adicionar Médicos"
+        label={!LimiteMedicos ? "Adicionar Médico" : "Limite de médicos do plano gratuito atingido"}
         backgroundColor="white"
         // placement="top"
         defaultIsOpen={false}
         hasArrow
         arrowSize={15}
         textColor="black"
-        fontSize="14px"
+        fontSize="20px"
+        borderRadius={8}
+        textAlign={'center'}
       >
         <Button
+          isDisabled={LimiteMedicos}
           borderRadius="xl"
           backgroundColor="white"
           w="10rem"
