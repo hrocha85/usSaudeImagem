@@ -419,9 +419,9 @@ const Configuracoes = () => {
 
   const returnObservacoes = () => {
     return userLogged ? (
-      <Stack display={'flex'} flexDirection="row" justifyContent="center" w={'99%'}>
+      <Stack display={'flex'} flexDirection="row" justifyContent="center" w={'99%'} p={3}>
         <RectangularCard
-          titulo="Observações"
+          titulo="Observações: Adicione novas observações aos Laudos aqui."
           item={<ItemObservation />}
         />
       </Stack>

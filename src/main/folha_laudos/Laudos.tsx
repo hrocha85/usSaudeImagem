@@ -40,7 +40,7 @@ import {
   Text as TextPDF,
   View as ViewPDF,
 } from "@react-pdf/renderer";
-import { useContext, useEffect, useRef, useState } from "react";
+import { Dispatch, useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
 import { BsEye, BsFillCheckCircleFill } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
@@ -52,6 +52,9 @@ import { useNavigate } from "react-router-dom";
 import "./Laudos.css";
 import emailjs from '@emailjs/browser';
 import SubMenu from "../menu/subMenu";
+import { AiOutlineShareAlt } from "react-icons/ai";
+import { blob } from "stream/consumers";
+import { url } from "inspector";
 
 function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -517,11 +520,36 @@ function Exames() {
     update(laudos);
   };
 
+  const sharePdf = async (title, url) => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: title,
+          url: url,
+        });
+      } catch (error) {
+        console.error("Erro ao compartilhar:", error);
+      }
+    } else {
+      console.log("A API de compartilhamento não é suportada neste navegador.");
+    }
+  };
+
   const convertBlob = (blob) => {
     const file = new Blob([blob], { type: "application/pdf" });
     const fileURL = URL.createObjectURL(file);
     setUrlLaudo(fileURL);
   };
+  
+
+  const handleShareButtonClick = () => {
+    const pdfUrl = `http://localhost:3000/eafec451-398a-4bc5-a1b5-d24c0c92958d`
+    sharePdf("Emaxes" , pdfUrl);
+    console.log(pdfUrl)
+  };
+  
+
+  
 
   const getFormatLaudo = () => {
     setArrayLocal(JSON.parse(localStorage.getItem("format_laudo")!));
@@ -1088,6 +1116,28 @@ function Exames() {
             </Tooltip>
           )}
           <Tooltip
+            label="Compartilhar"
+            fontSize="xl"
+            backgroundColor="white"
+            placement="top"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+          >
+            <Circle size="50px" bg="#e2e8f0">
+              <Icon
+                w={30}
+                h={30}
+                as={AiOutlineShareAlt}
+                color="twitter.600"
+                size="30px"
+                onClick={() => {
+                  handleShareButtonClick()
+                }}
+              />
+            </Circle>
+          </Tooltip>
+          <Tooltip
             label="Concluir laudo"
             fontSize="xl"
             backgroundColor="white"
@@ -1108,7 +1158,7 @@ function Exames() {
                 }}
               />
             </Circle>
-          </Tooltip>
+          </Tooltip>        
         </Stack>
       </Center>
 
@@ -1194,3 +1244,5 @@ function Exames() {
 }
 
 export default Exames;
+
+
