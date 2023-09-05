@@ -73,7 +73,8 @@ const IconButtonPlus = (props) => {
   const refCEP = useRef<HTMLInputElement | null>(null);
 
   const refNomeClinica = useRef<HTMLInputElement | null>(null);
-  const { isAdmin } = useContext(AuthContext);
+
+
   useEffect(() => {
     if (cep !== '' && NumeroEndereco !== '') {
       setDisableButton(false)
@@ -98,6 +99,12 @@ const IconButtonPlus = (props) => {
     });
     localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
     props.setAtualizar(!props.atualizar);
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
     if (!isAdmin && minhasClinicas.length >= 2) {
       setLimiteClinicas(true)
     }
@@ -200,6 +207,12 @@ const IconButtonPlus = (props) => {
   const [LimiteClinicas, setLimiteClinicas] = useState<boolean>(false)
 
   const CheckClinicasGratuito = () => {
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
     if (!isAdmin && minhasClinicas.length >= 2) {
       setLimiteClinicas(true)
     }

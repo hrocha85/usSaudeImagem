@@ -7,9 +7,17 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import Cookies from 'js-cookie';
+
 import { useEffect, useState } from "react";
 
 function LandingPage() {
+
+  useEffect(() => {
+    Cookies.remove('USGImage_role')
+    Cookies.remove('USGImage_token')
+    Cookies.remove('USGImage_user')
+  }, [])
 
   const AlreadyRegistered = localStorage.getItem("AlreadyRegistered");
 

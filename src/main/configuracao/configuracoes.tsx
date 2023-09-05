@@ -56,15 +56,12 @@ import MainCard from "../component/main_card";
 import MainCardClinica from "../component/main_cardClinica";
 import DefaultImageClinica from "../images/clinica_default.png";
 import Sidebar from "../menu/sideBar";
-import Cookies from 'js-cookie';
 import { AuthContext } from "../../context/AuthContext";
 
 let dados;
 export let lista_medicos = MedicosJSON.medicos;
 
 const Configuracoes = () => {
-
-  const { isAdmin } = useContext(AuthContext);
 
   const toast = useToast();
 
@@ -757,6 +754,8 @@ const Configuracoes = () => {
     checkMedicosLocalStorage();
   }, []);
 
+
+
   return (
     <>
       <Box
@@ -767,7 +766,6 @@ const Configuracoes = () => {
         alignItems="center"
       >
         <Sidebar />
-
         <Stack>
           <Box display={'flex'} flexWrap={'wrap'} gap={5} justifyContent={'space-around'}>
 
@@ -782,92 +780,11 @@ const Configuracoes = () => {
 
 
             <Box pl={3}>
-              {/*<Box h={'3.4rem'}>
-               <Stack direction="row" justifyContent={'center'}>
-                <Text
-                  color="#1A202C"
-                  fontSize="20px"
-                  alignSelf="center"
-                  fontWeight='semibold'
-                  mr={2}
-                >
-                  Médicos
-                </Text>
-                <Tooltip
-                  label="Adicionar Médico"
-                  backgroundColor="white"
-                  defaultIsOpen={false}
-                  hasArrow
-                  arrowSize={15}
-                  textColor="black"
-                  fontSize="14px"
-                >
-                  <Button
-                    borderRadius="xl"
-                    backgroundColor="white"
-                    w="10rem"
-                    h="2.4rem"
-                    top={1}
-                    boxShadow="md"
-                    textColor="#4CBFF0"
-                    fontSize="19px"
-                    fontWeight="semibold"
-                    onClick={() => {
-                      onOpenModalAddMedico();
-                      setStateClickAddMedico(true);
-                    } }
-                  >
-                    <Icon
-                      as={AiOutlinePlusCircle}
-                      w="2rem"
-                      h="4.4rem" />
-                    Adicionar
-                  </Button>
-                </Tooltip>
-              </Stack>
-            </Box> */}
               <MainCard titulo="Médicos" icon={true} clinica={listaClinicas} medicos={null} />
             </Box>
 
           </Box>
 
-          {/* {medicos.map((medico, key) => {
-      return <Medicos key={key} medico={medico} id={key} />;
-    })} */}
-
-          {/* <Tooltip
-      label="Adicionar Médico"
-      backgroundColor="white"
-      placement="top"
-      defaultIsOpen={false}
-      hasArrow
-      arrowSize={15}
-      textColor="black"
-      fontSize="20px"
-    >
-      <Button
-        borderRadius="xl"
-        backgroundColor="white"
-        w="30"
-        h="30"
-        boxShadow="md"
-        textColor="#4CBFF0"
-        fontSize="19px"
-        fontWeight="semibold"
-        onClick={() => {
-          onOpenModalAddMedico();
-          setStateClickAddMedico(true);
-        }}
-      >
-        <Icon
-          as={AiOutlinePlusCircle}
-          marginRight="8px"
-          w="30px"
-          h="30px"
-        />
-        Adicionar
-      </Button>
-    </Tooltip> */}
           {returnObservacoes()}
         </Stack>
         {ModalAddMedico()}

@@ -50,7 +50,8 @@ import DefaultImageClinica from "../images/clinica_default.png";
 import SignatureCanvas from "react-signature-canvas";
 import MedicosJSON from "../../Data/Medicos.json";
 import { AuthContext } from "../../context/AuthContext";
-import {Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 const button = React.createElement("img", { src: PlusButton });
 
 let dados;
@@ -62,8 +63,6 @@ const IconButtonPlusMedicos = (props, clinica) => {
   const toast = useToast();
 
   const padRef = React.useRef<SignatureCanvas>(null);
-
-
 
   const getMedicos = () => {
     let medicos;
@@ -105,8 +104,6 @@ const IconButtonPlusMedicos = (props, clinica) => {
   const [placeHolderAddDoutor, setplaceHolderDoutor] = useState("Insira o nome do Médico");
 
   const [imageAssinatura, setImageAssinatura] = useState(true);
-
-  const { isAdmin } = useContext(AuthContext);
 
   const usenavigate = useNavigate()
 
@@ -198,35 +195,31 @@ const IconButtonPlusMedicos = (props, clinica) => {
         duration: 300000,
         status: "success",
         position: "top",
-        render: ()=>(
+        render: () => (
           <Flex flexWrap={"wrap"} bg={"green.500"} p={4} alignItems="center" rounded={5}>
-          <Text color="white" mr={4}>
-            Cadastro concluido! clique no botão para iniciar a sessão
-          </Text>
-          <Link href="#/LoginFree" _hover={{ textDecoration: "underline" }}>
-            <Button
-              colorScheme="whiteAlpha"
-              _focus={{ boxShadow: "none" }}
-              _active={{ bgColor: "transparent" }}
-              onClick={() => {
-                toast.close(loginCriado); // Fechar o Toast ao clicar no botão
-                usenavigate('/Splash');
-              }}
-            >
-              Login
-            </Button>
-          </Link>
-        </Flex>
+            <Text color="white" mr={4}>
+              Cadastro concluido! clique no botão para iniciar a sessão
+            </Text>
+            <Link href="#/LoginFree" _hover={{ textDecoration: "underline" }}>
+              <Button
+                colorScheme="whiteAlpha"
+                _focus={{ boxShadow: "none" }}
+                _active={{ bgColor: "transparent" }}
+                onClick={() => {
+                  toast.close(loginCriado); // Fechar o Toast ao clicar no botão
+                  usenavigate('/Splash');
+                }}
+              >
+                Login
+              </Button>
+            </Link>
+          </Flex>
         )
       });
       return loginCriado;
     }
   };
   const [LimiteMedicos, setLimiteMedicos] = useState<boolean>(false)
-
-  useEffect(() => {
-    console.log(lista_medicos.length)
-  }, [])
 
   const AddMedico = () => {
     const obj = {
@@ -252,7 +245,15 @@ const IconButtonPlusMedicos = (props, clinica) => {
     localStorage.setItem("medicos", JSON.stringify(medicos));
     props.setAtualizar(!props.atualizar);
     setMedicos(medicos);
-    if (!isAdmin && lista_medicos.length >= 2) {
+
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+
+    if (!isAdmin && medicos.length >= 2) {
       setLimiteMedicos(true)
     }
 
@@ -260,9 +261,16 @@ const IconButtonPlusMedicos = (props, clinica) => {
 
 
   const CheckClinicasGratuito = () => {
-    if (!isAdmin && lista_medicos.length >= 2) {
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin && medicos.length >= 2) {
       setLimiteMedicos(true)
     }
+    console.log(medicos)
   }
 
   useEffect(() => {
