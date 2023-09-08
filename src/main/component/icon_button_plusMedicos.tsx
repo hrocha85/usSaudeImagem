@@ -52,6 +52,8 @@ import MedicosJSON from "../../Data/Medicos.json";
 import { AuthContext } from "../../context/AuthContext";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
+import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
+import GetMedicosFree from "../Helpers/UserFree/GetMedicos";
 const button = React.createElement("img", { src: PlusButton });
 
 let dados;
@@ -82,7 +84,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
 
   const [clinicas, setClinica] = useState<string[] | any[]>([]);
 
-  const [medicos, setMedicos] = useState<any[]>(getMedicos);
+  const [medicos, setMedicos] = useState<any[]>(GetMedicosFree());
 
   const [defaultUserImage, setDefaultUserImage] = useState(DefaultImageClinica);
 
@@ -127,13 +129,16 @@ const IconButtonPlusMedicos = (props, clinica) => {
 
   const PegaClinicas = () => {
 
-    let item;
-    let item_parse;
-    if (localStorage.getItem("minhasClinicas") != null) {
-      item = localStorage.getItem("minhasClinicas");
-      item_parse = JSON.parse(item);
-      setListaClinicas(item_parse);
-    }
+    const clinicas = GetClinicaFree()
+    setListaClinicas(clinicas);
+
+    // let item;
+    // let item_parse;
+    // if (localStorage.getItem("minhasClinicas") != null) {
+    //   item = localStorage.getItem("minhasClinicas");
+    //   item_parse = JSON.parse(item);
+    //   setListaClinicas(item_parse);
+    // }
 
     onOpenModalAddMedico()
   }
@@ -200,7 +205,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
             <Text color="white" mr={4}>
               Cadastro concluido! clique no botão para iniciar a sessão
             </Text>
-            <Link href="#/LoginFree" _hover={{ textDecoration: "underline" }}>
+            <Link href="#/Splash" _hover={{ textDecoration: "underline" }}>
               <Button
                 colorScheme="whiteAlpha"
                 _focus={{ boxShadow: "none" }}
@@ -222,7 +227,14 @@ const IconButtonPlusMedicos = (props, clinica) => {
   const [LimiteMedicos, setLimiteMedicos] = useState<boolean>(false)
 
   const AddMedico = () => {
+    const TodosMedicosString = localStorage.getItem("medicos")
+    const TodosMedicos = TodosMedicosString ? JSON.parse(TodosMedicosString) : []
+    const id = TodosMedicos.length + 1
+    const userString = Cookies.get('USGImage_user')
+    const user = JSON.parse(userString)
     const obj = {
+      id: id,
+      userID: user.id,
       nome: nome,
       crm: crm,
       assinatura:
@@ -233,18 +245,17 @@ const IconButtonPlusMedicos = (props, clinica) => {
       clinica: clinicas,
       laudos: [{}],
     };
+    TodosMedicos.push(obj);
 
-    medicos.push(obj)
-
-    medicos.map((e) => {
+    TodosMedicos.map((e) => {
       if (e.nome == "NOME") {
-        medicos.shift();
+        TodosMedicos.shift();
       }
     });
 
-    localStorage.setItem("medicos", JSON.stringify(medicos));
+    localStorage.setItem("medicos", JSON.stringify(TodosMedicos));
     props.setAtualizar(!props.atualizar);
-    setMedicos(medicos);
+    setMedicos(TodosMedicos);
 
     let isAdmin;
     const roleString = Cookies.get('USGImage_role');
@@ -252,8 +263,13 @@ const IconButtonPlusMedicos = (props, clinica) => {
       const role = JSON.parse(roleString);
       role == 'admin' ? isAdmin = true : isAdmin = false
     }
-
-    if (!isAdmin && medicos.length >= 2) {
+    const MedicosUser: any = []
+    TodosMedicos.map((medico) => {
+      if (medico.userID === user.id) {
+        MedicosUser.push(medico)
+      }
+    })
+    if (!isAdmin && MedicosUser.length >= 2) {
       setLimiteMedicos(true)
     }
 

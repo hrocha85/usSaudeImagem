@@ -274,7 +274,7 @@ function Home() {
 
           <Flex mt={3} justifyContent="space-between" alignItems="center">
             <Text textColor={'black'} fontSize={"20px"} fontWeight={700} pl={4}>
-              Bem-vindo, {userData.nome}
+              Bem-vindo, médico logado
             </Text>
             <Flex justifyContent="flex-end">
               <Link href="#/Home/Configuracoes" pr={4}>

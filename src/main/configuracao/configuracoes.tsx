@@ -37,31 +37,52 @@ import {
   useOutsideClick,
   useToast
 } from "@chakra-ui/react";
-import React, { memo, useContext, useEffect, useRef, useState } from "react";
+import Cookies from 'js-cookie';
+import React, { memo, useEffect, useRef, useState } from "react";
 import {
   AiOutlineClear,
-  AiOutlineCloudUpload,
-  AiOutlinePlusCircle,
+  AiOutlineCloudUpload
 } from "react-icons/ai";
 import { BiCamera } from "react-icons/bi";
 import { FaRegFolderOpen } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import SignatureCanvas from "react-signature-canvas";
 import MedicosJSON from "../../Data/Medicos.json";
-import FooterUpbase from "../component/FooterUpbase";
 import RectangularCard from "../component/card_observations";
-import IconButtonPlus from "../component/icon_button_plus";
 import ItemObservation from "../component/item_obeservation";
 import MainCard from "../component/main_card";
 import MainCardClinica from "../component/main_cardClinica";
 import DefaultImageClinica from "../images/clinica_default.png";
 import Sidebar from "../menu/sideBar";
-import { AuthContext } from "../../context/AuthContext";
+import GetMedicosFree from "../Helpers/UserFree/GetMedicos";
+import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
+
 
 let dados;
-export let lista_medicos = MedicosJSON.medicos;
+export const lista_medicos = MedicosJSON.medicos;
 
 const Configuracoes = () => {
+
+
+  const CheckRoleUser = () => {
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin) {
+      console.log('Não admin')
+      console.log('medicos', GetMedicosFree())
+    } else {
+      console.log('É admin')
+    }
+  }
+
+  useEffect(() => {
+    CheckRoleUser()
+  }, [])
+
 
   const toast = useToast();
 
@@ -101,7 +122,7 @@ const Configuracoes = () => {
 
   const [clinicas, setClinica] = useState<string[] | any[]>([]);
 
-  const [medicos, setMedicos] = useState<any[]>(getMedicos);
+  const [medicos, setMedicos] = useState<any[]>(GetMedicosFree());
 
   const [defaultUserImage, setDefaultUserImage] = useState(DefaultImageClinica);
 
@@ -129,11 +150,19 @@ const Configuracoes = () => {
 
 
   useEffect(() => {
-    setMedicos(getMedicos);
+    setMedicos(GetMedicosFree());
   }, [localStorage.getItem("medicos")!]);
 
+  const [LimiteMedicos, setLimiteMedicos] = useState<boolean>(false)
   const AddMedico = () => {
+    const TodosMedicosString = localStorage.getItem("medicos")
+    const TodosMedicos = TodosMedicosString ? JSON.parse(TodosMedicosString) : []
+    const id = TodosMedicos.length + 1
+    const userString = Cookies.get('USGImage_user')
+    const user = JSON.parse(userString)
     const obj = {
+      id: id,
+      userID: user.id,
       nome: nome,
       crm: crm,
       assinatura:
@@ -144,25 +173,32 @@ const Configuracoes = () => {
       clinica: clinicas,
       laudos: [{}],
     };
-    lista_medicos.push(obj);
+    TodosMedicos.push(obj);
 
-    lista_medicos.map((e) => {
+    TodosMedicos.map((e) => {
       if (e.nome == "NOME") {
-        lista_medicos.shift();
+        TodosMedicos.shift();
       }
     });
-    // lista_medicos.map((e) => {
-    //   if (padRef.current?.isEmpty()) {
-    //     e.assinatura = "";
-    //   } else {
-    //     e.assinatura = padRef.current
-    //       ?.getTrimmedCanvas()
-    //       .toDataURL("image/png")!;
-    //   }
-    // });
 
-    localStorage.setItem("medicos", JSON.stringify(lista_medicos));
-    setMedicos(lista_medicos);
+    localStorage.setItem("medicos", JSON.stringify(TodosMedicos));
+    setMedicos(TodosMedicos);
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    const MedicosUser: any = []
+    TodosMedicos.map((clinica) => {
+      if (clinica.userID === user.id) {
+        MedicosUser.push(clinica)
+      }
+    })
+    if (!isAdmin && MedicosUser.length >= 2) {
+      setLimiteMedicos(true)
+    }
+
   };
 
   const showImageAssinatura = () => {
@@ -707,21 +743,23 @@ const Configuracoes = () => {
   };
 
   const checkMedicosLocalStorage = () => {
-    if (localStorage.getItem("medicos") != null) {
-      dados = localStorage.getItem("medicos");
+    GetMedicosFree()
+    // if (localStorage.getItem("medicos") != null) {
+    //   dados = localStorage.getItem("medicos");
 
-      lista_medicos = JSON.parse(dados);
-    } else lista_medicos = [];
+    //   lista_medicos = JSON.parse(dados);
+    // } else lista_medicos = [];
   };
 
   useEffect(() => {
-    let item;
-    let item_parse;
-    if (localStorage.getItem("minhasClinicas") != null) {
-      item = localStorage.getItem("minhasClinicas");
-      item_parse = JSON.parse(item);
-      setListaClinicas(item_parse);
-    }
+    // let item;
+    // let item_parse;
+    // if (localStorage.getItem("minhasClinicas") != null) {
+    //   item = localStorage.getItem("minhasClinicas");
+    //   item_parse = JSON.parse(item);
+    //   setListaClinicas(item_parse);
+    // }
+    setListaClinicas(GetClinicaFree());
   }, [stateClickAddMedico]);
 
   useEffect(() => {

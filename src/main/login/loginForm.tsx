@@ -31,16 +31,17 @@ export default function LoginForm() {
       password: Senha
     }
     await api.post("login", User).then(async (response) => {
+      console.log(response.data)
       if (response.status === 200) {
         User = {
-          name: response.data.user.name,
+          // name: response.data.user.name,
           email: Email,
           password: Senha
         }
         setTimeout(() => {
           toast({
             duration: 3000,
-            title: `${User.name}, Seja bem vindo!`,
+            title: `lucas Seja bem vindo!`,
             position: "top",
             isClosable: true,
           });

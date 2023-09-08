@@ -6,12 +6,10 @@ import {
   Divider,
   Grid,
   Icon,
-  IconButton,
   Image,
   Input,
   InputGroup,
   InputLeftAddon,
-  InputRightElement,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -23,17 +21,17 @@ import {
   Tooltip,
   useDisclosure,
   useOutsideClick,
-  useToast,
+  useToast
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState, useContext } from "react";
+import axios from "axios";
+import Cookies from 'js-cookie';
+import React, { useEffect, useRef, useState } from "react";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 import { BiCamera } from "react-icons/bi";
 import infoClinicas from "../../Data/Clinicas.json";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
-import { AiOutlineClear, AiOutlinePlusCircle } from "react-icons/ai";
-import axios from "axios";
-import Cookies from 'js-cookie';
-import { AuthContext } from "../../context/AuthContext";
+import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
 
 const button = React.createElement("img", { src: PlusButton });
 
@@ -41,6 +39,11 @@ let dados;
 export let minhasClinicas = infoClinicas.clinicas;
 
 const IconButtonPlus = (props) => {
+  // useEffect(() => {
+  //   const clinicas = GetClinicaFree()
+  //   minhasClinicas.push(clinicas)
+  // }, [])
+
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -82,8 +85,17 @@ const IconButtonPlus = (props) => {
       setDisableButton(true)
     }
   }, [NumeroEndereco, cep])
+
+
   const AddClinica = () => {
+    const TodasClinicasString = localStorage.getItem("minhasClinicas")
+    const TodasClinicas = TodasClinicasString ? JSON.parse(TodasClinicasString) : []
+    const id = TodasClinicas.length + 1
+    const userString = Cookies.get('USGImage_user')
+    const user = JSON.parse(userString)
     const obj = {
+      id: id,
+      userID: user.id,
       nomeClinica: nome,
       endereco: endereco,
       cep: cep,
@@ -91,13 +103,13 @@ const IconButtonPlus = (props) => {
       foto: defaultUserImage,
       teleFone: telefone,
     };
-    minhasClinicas.push(obj);
-    minhasClinicas.map((e) => {
+    TodasClinicas.push(obj);
+    TodasClinicas.map((e) => {
       if (e.nomeClinica == "clinica") {
         minhasClinicas.shift();
       }
     });
-    localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
+    localStorage.setItem("minhasClinicas", JSON.stringify(TodasClinicas));
     props.setAtualizar(!props.atualizar);
     let isAdmin;
     const roleString = Cookies.get('USGImage_role');
@@ -105,7 +117,13 @@ const IconButtonPlus = (props) => {
       const role = JSON.parse(roleString);
       role == 'admin' ? isAdmin = true : isAdmin = false
     }
-    if (!isAdmin && minhasClinicas.length >= 2) {
+    const clinicasUser: any = []
+    TodasClinicas.map((clinica) => {
+      if (clinica.userID === user.id) {
+        clinicasUser.push(clinica)
+      }
+    })
+    if (!isAdmin && clinicasUser.length >= 2) {
       setLimiteClinicas(true)
     }
     onClose();
@@ -184,11 +202,13 @@ const IconButtonPlus = (props) => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("minhasClinicas") != null) {
-      dados = localStorage.getItem("minhasClinicas");
+    const clinicas = GetClinicaFree()
+    if (clinicas) {
+      minhasClinicas = clinicas
+    } else {
+      minhasClinicas = []
+    }
 
-      minhasClinicas = JSON.parse(dados);
-    } else minhasClinicas = [];
   }, []);
 
   const buscarEndereco = async () => {

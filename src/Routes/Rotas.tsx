@@ -23,7 +23,7 @@ function Rotas() {
       <Route path="/Login" element={<LoginForm />} />
       <Route path="/LoginFree" element={<LoginFormFree />} />
       <Route path="/SelectMedicos" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<SelectMedicos />} />} />
-      <Route path="/Home/Configuracoes" element={<PrivateRoute RouteRoles={['userFree']} element={<Configuracoes />} />} />
+      <Route path="/Home/Configuracoes" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Configuracoes />} />} />
       <Route path="/Format_PDF" element={<Format_PDF />} />
       <Route path="/Exames" element={<Box_Default_With_Sidebar />}
       />

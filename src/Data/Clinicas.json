@@ -1,6 +1,7 @@
 {
   "clinicas": [
     {
+      "userID": 0,
       "nomeClinica": "",
       "endereco": "",
       "cep": "",
