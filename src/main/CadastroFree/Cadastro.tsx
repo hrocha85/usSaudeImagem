@@ -41,7 +41,7 @@ function CadastroUsuario() {
   const [telefone, setTelefone] = useState('');
   const [cidade, setCidade] = useState('');
   const [estado, setEstado] = useState('');
-  const [cep, setCep] = useState('');
+  const [CEP, setCep] = useState('');
   const [rua, setRua] = useState('');
   const [Numero, setNumero] = useState('');
   const [Bairro, setBairro] = useState('');
@@ -55,7 +55,7 @@ function CadastroUsuario() {
     try {
       const ip = await axios.get('https://ipapi.co/json')
 
-      const endereco = `${rua}, ${Numero}- ${Bairro}, ${cidade}- ${estado}, ${cep}`
+      const endereco = `${rua}, ${Numero}- ${Bairro}, ${cidade}- ${estado}, ${CEP}`
       const enderecoIP = `${ip.data.city}, ${ip.data.country}, ${ip.data.region}`
 
       const userData: data = {
@@ -111,9 +111,9 @@ function CadastroUsuario() {
     setEmailValido(validarEmail(newEmail));
   };
 
-  const consultarCEP = async (cep) => {
+  const consultarCEP = async (CEP) => {
     try {
-      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const response = await axios.get(`https://viacep.com.br/ws/${CEP}/json/`);
       const data = response.data;
 
       if (!data.erro) {
@@ -122,10 +122,10 @@ function CadastroUsuario() {
         setEstado(data.uf);
         setBairro(data.bairro);
       } else {
-        console.log('CEP inválido ou não encontrado');
+        console.log('  CEP inválido ou não encontrado');
       }
     } catch (error) {
-      console.error('Erro ao consultar o CEP', error);
+      console.error('Erro ao consultar o   CEP', error);
     }
   };
 
@@ -149,12 +149,12 @@ function CadastroUsuario() {
 
   useEffect(() => {
     if (nome && senha && email && telefone && rua && cidade
-      && cep && estado && clinicaOuMedico && Numero) {
+      && CEP && estado && clinicaOuMedico && Numero) {
       setIsDisabledCadastro(false);
     } else {
       setIsDisabledCadastro(true);
     }
-  }, [nome, senha, email, telefone, rua, cidade, cep, estado, clinicaOuMedico, Numero]);
+  }, [nome, senha, email, telefone, rua, cidade, CEP, estado, clinicaOuMedico, Numero]);
 
   return (
     <Container maxW="container.lg" centerContent>
@@ -207,11 +207,11 @@ function CadastroUsuario() {
           <HStack>
 
             <FormControl isRequired>
-              <FormLabel>CEP</FormLabel>
+              <FormLabel>  CEP</FormLabel>
               <Input
                 type='text'
                 placeholder="00000-000"
-                value={cep}
+                value={CEP}
                 onChange={(e) => setCep(formatCEP(e.target.value))}
                 onBlur={(e) => consultarCEP(e.target.value)}
                 maxLength={9}

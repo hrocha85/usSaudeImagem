@@ -302,7 +302,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
             return (
               <Tooltip
                 key={key}
-                label={clinicaParse.nomeClinica}
+                label={clinicaParse.nome}
                 size="md"
                 backgroundColor="white"
                 placement="top"
@@ -317,7 +317,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
                   variant="solid"
                   colorScheme="twitter"
                 >
-                  <TagLabel key={key}>{clinicaParse.nomeClinica}</TagLabel>
+                  <TagLabel key={key}>{clinicaParse.nome}</TagLabel>
                   <TagCloseButton
                     onClick={() => {
                       clinicas.splice(key, 1);
@@ -492,7 +492,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
                     {listaClinicas.map((e, key) => {
                       return (
                         <option key={key} value={JSON.stringify(e)}>
-                          {e.nomeClinica}
+                          {e.nome}
                         </option>
                       );
                     })}

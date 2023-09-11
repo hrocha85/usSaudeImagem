@@ -115,7 +115,7 @@ function SelectMedicos() {
                   const parseClinica = JSON.parse(clinica);
                   return (
                     <option value={JSON.stringify(clinica)} key={key}>
-                      {parseClinica.nomeClinica}
+                      {parseClinica.nome}
                     </option>
                   );
                 })}

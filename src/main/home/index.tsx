@@ -354,7 +354,7 @@ function Home() {
                 <Text fontWeight="semibold" fontSize="xl">
                   Clínica:
                 </Text>
-                <Text fontSize="xl">{clinica.nomeClinica}</Text>
+                <Text fontSize="xl">{clinica.nome}</Text>
               </HStack>
             </Box>
           </Center>

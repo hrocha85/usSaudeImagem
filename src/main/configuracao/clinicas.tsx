@@ -41,7 +41,7 @@ const Clinica = (props) => {
       {listaClinicas.map((item, key) => (
         <FieldDefaultIconCardClinicas
           key={key}
-          text={item.nomeClinica}
+          text={item.nome}
           textColor="black"
           icon={FaRegFolderOpen}
           clinica={item}

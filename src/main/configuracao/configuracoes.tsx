@@ -277,7 +277,7 @@ const Configuracoes = () => {
             return (
               <Tooltip
                 key={key}
-                label={clinicaParse.nomeClinica}
+                label={clinicaParse.nome}
                 size="md"
                 backgroundColor="white"
                 placement="top"
@@ -292,7 +292,7 @@ const Configuracoes = () => {
                   variant="solid"
                   colorScheme="twitter"
                 >
-                  <TagLabel key={key}>{clinicaParse.nomeClinica}</TagLabel>
+                  <TagLabel key={key}>{clinicaParse.nome}</TagLabel>
                   <TagCloseButton
                     onClick={() => {
                       clinicas.splice(key, 1);

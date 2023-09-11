@@ -25,7 +25,7 @@ const ClinicaNew = (props) => {
     <>
       {listaClinicas.map((item, key) => (
         <Box>
-          <Text>{item.nomeClinica}</Text>
+          <Text>{item.nome}</Text>
         </Box>
       ))}
     </>

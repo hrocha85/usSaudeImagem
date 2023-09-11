@@ -350,7 +350,7 @@ export default function Format_PDF() {
                     </View>
 
                     <View style={styles.sectionColuna}>
-                      <Text>{clinicaSet.nomeClinica}</Text>
+                      <Text>{clinicaSet.nome}</Text>
                       <Text>{getPaciente()}</Text>
                       <Text>{getCurrentDate()}</Text>
                       <Text>{`Dr. ${getMedicoSolicitante()}`}</Text>

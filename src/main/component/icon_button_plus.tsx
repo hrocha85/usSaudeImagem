@@ -32,6 +32,7 @@ import infoClinicas from "../../Data/Clinicas.json";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
 import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
+import api from "../../api";
 
 const button = React.createElement("img", { src: PlusButton });
 
@@ -51,7 +52,7 @@ const IconButtonPlus = (props) => {
 
   const [endereco, setEndereco] = useState("");
 
-  const [cep, setCep] = useState("");
+  const [CEP, setCep] = useState("");
   const [NumeroEndereco, setNumeroEndereco] = useState("");
 
   const [telefone, setTelefone] = useState("");
@@ -79,53 +80,76 @@ const IconButtonPlus = (props) => {
 
 
   useEffect(() => {
-    if (cep !== '' && NumeroEndereco !== '') {
+    if (CEP !== '' && NumeroEndereco !== '') {
       setDisableButton(false)
     } else {
       setDisableButton(true)
     }
-  }, [NumeroEndereco, cep])
+  }, [NumeroEndereco, CEP])
 
 
-  const AddClinica = () => {
-    const TodasClinicasString = localStorage.getItem("minhasClinicas")
-    const TodasClinicas = TodasClinicasString ? JSON.parse(TodasClinicasString) : []
-    const id = TodasClinicas.length + 1
-    const userString = Cookies.get('USGImage_user')
-    const user = JSON.parse(userString)
-    const obj = {
-      id: id,
-      userID: user.id,
-      nomeClinica: nome,
-      endereco: endereco,
-      cep: cep,
-      NumeroEndereco: NumeroEndereco,
-      foto: defaultUserImage,
-      teleFone: telefone,
-    };
-    TodasClinicas.push(obj);
-    TodasClinicas.map((e) => {
-      if (e.nomeClinica == "clinica") {
-        minhasClinicas.shift();
-      }
-    });
-    localStorage.setItem("minhasClinicas", JSON.stringify(TodasClinicas));
-    props.setAtualizar(!props.atualizar);
+  const AddClinica = async () => {
+
     let isAdmin;
     const roleString = Cookies.get('USGImage_role');
     if (roleString) {
       const role = JSON.parse(roleString);
       role == 'admin' ? isAdmin = true : isAdmin = false
     }
-    const clinicasUser: any = []
-    TodasClinicas.map((clinica) => {
-      if (clinica.userID === user.id) {
-        clinicasUser.push(clinica)
+    const userString = Cookies.get('USGImage_user')
+    const user = JSON.parse(userString)
+    if (!isAdmin) {
+      const TodasClinicasString = localStorage.getItem("minhasClinicas")
+      const TodasClinicas = TodasClinicasString ? JSON.parse(TodasClinicasString) : []
+      const id = TodasClinicas.length + 1
+      const obj = {
+        id: id,
+        userID: user.id,
+        nome: nome,
+        endereco: endereco,
+        CEP: CEP,
+        NumeroEndereco: NumeroEndereco,
+        foto: defaultUserImage,
+        telefone: telefone,
+      };
+      TodasClinicas.push(obj);
+      TodasClinicas.map((e) => {
+        if (e.nome == "clinica") {
+          minhasClinicas.shift();
+        }
+      });
+      localStorage.setItem("minhasClinicas", JSON.stringify(TodasClinicas));
+      props.setAtualizar(!props.atualizar);
+
+      const clinicasUser: any = []
+      TodasClinicas.map((clinica) => {
+        if (clinica.userID === user.id) {
+          clinicasUser.push(clinica)
+        }
+      })
+      if (!isAdmin && clinicasUser.length >= 2) {
+        setLimiteClinicas(true)
       }
-    })
-    if (!isAdmin && clinicasUser.length >= 2) {
-      setLimiteClinicas(true)
+    } else {
+      try {
+        const obj = {
+          userID: user.id,
+          nome: nome,
+          endereco: endereco,
+          CEP: CEP,
+          NumeroEndereco: NumeroEndereco,
+          foto: defaultUserImage,
+          telefone: telefone,
+        };
+
+        const response = await api.post("/clinica", obj)
+
+      } catch (error) {
+        console.log('error', error)
+      }
     }
+
+
     onClose();
   };
 
@@ -213,9 +237,9 @@ const IconButtonPlus = (props) => {
 
   const buscarEndereco = async () => {
     try {
-      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const response = await axios.get(`https://viacep.com.br/ws/${CEP}/json/`);
       const data = response.data;
-      const enderecoCompleto = `${data.logradouro}, ${NumeroEndereco} - ${data.bairro}, ${data.localidade} - ${data.uf}, ${data.cep}`
+      const enderecoCompleto = `${data.logradouro}, ${NumeroEndereco} - ${data.bairro}, ${data.localidade} - ${data.uf}, ${data.CEP}`
 
       setEndereco(enderecoCompleto);
     } catch (error) {
@@ -395,7 +419,7 @@ const IconButtonPlus = (props) => {
                     <Center paddingTop={"5px"}>
                       <InputGroup variant={"unstyled"} width={"200px"}>
                         <InputLeftAddon
-                          children="CEP:"
+                          children="  CEP:"
                           paddingEnd={"5px"}
                           marginEnd={"5px"}
                           fontWeight={"bold"}

@@ -353,7 +353,7 @@ function Exames() {
                 </ViewPDF>
 
                 <ViewPDF style={styles.sectionColuna}>
-                  <TextPDF>{clinicaSet.nomeClinica}</TextPDF>
+                  <TextPDF>{clinicaSet.nome}</TextPDF>
                   <TextPDF>{getPaciente()}</TextPDF>
                   <TextPDF>{getCurrentDate()}</TextPDF>
                   <TextPDF>{`Dr. ${getMedicoSolicitante()}`}</TextPDF>
@@ -1133,7 +1133,7 @@ function Exames() {
             justifySelf="center"
             pl={'7rem'}
           >
-            <Text fontWeight="bold">{clinicaSet.nomeClinica}</Text>
+            <Text fontWeight="bold">{clinicaSet.nome}</Text>
             <Text>{getPaciente()}</Text>
             <Text>{getCurrentDate()}</Text>
             <Text>{`Dr. ${getMedicoSolicitante()}`}</Text>

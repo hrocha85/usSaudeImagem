@@ -277,7 +277,7 @@ const Medicos = ({ medico, id }) => {
             return (
               <Tooltip
                 key={key}
-                label={parseClinica.nomeClinica}
+                label={parseClinica.nome}
                 size="md"
                 backgroundColor="white"
                 placement="top"
@@ -292,7 +292,7 @@ const Medicos = ({ medico, id }) => {
                   variant="solid"
                   colorScheme="twitter"
                 >
-                  <TagLabel key={key}>{parseClinica.nomeClinica}</TagLabel>
+                  <TagLabel key={key}>{parseClinica.nome}</TagLabel>
                   <TagCloseButton
                     onClick={() => {
                       ClinicasMedico.splice(key, 1);
@@ -317,7 +317,7 @@ const Medicos = ({ medico, id }) => {
           return (
             <FieldDefaultIcon
               key={key}
-              text={parseClinica.nomeClinica}
+              text={parseClinica.nome}
               textColor="#4A5568"
               //icon={FaRegFolderOpen}
               clinica={medicos}
@@ -670,7 +670,7 @@ const Medicos = ({ medico, id }) => {
                         {listaClinicas.map((clinica, key) => {
                           return (
                             <option key={key} value={JSON.stringify(clinica)}>
-                              {clinica.nomeClinica}
+                              {clinica.nome}
                             </option>
                           );
                         })}
