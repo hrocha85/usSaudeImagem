@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { FaRegFolderOpen } from "react-icons/fa";
 import Medicos from "./medicos";
+import Cookies from 'js-cookie';
 import GetMedicosFree from "../Helpers/UserFree/GetMedicos";
+import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
 
 
 const Medico = (props, clinica) => {
@@ -26,6 +28,28 @@ const Medico = (props, clinica) => {
     setmedicos(medicos);
     // pegarMedicos();
   }, [props.atualizar]);
+
+  useEffect(() => {
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin) {
+      console.log('Não admin')
+    } else {
+      getClinicaAdmin()
+        .then(clinicas => {
+          console.log(clinicas);
+        })
+        .catch(error => {
+          console.error('Erro ao obter clínicas:', error);
+        });
+    }
+
+  }, [])
+
 
   return (
     <>
