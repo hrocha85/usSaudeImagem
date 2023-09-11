@@ -1,6 +1,5 @@
 {
   "name": "laudos",
-  "main": "public/electron.js",
   "homepage": "./",
   "author": {
     "name": "UpBase",
@@ -58,26 +57,6 @@
     "start:desktop": "electron ./public/electron.js",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,tsx,ts}\"",
     "lint:full": "eslint \"src/**/*.{js,jsx,tsx,ts}\""
-  },
-  "build": {
-    "appId": "com.exemple.electron",
-    "productName": "Santa Imagem",
-    "files": [
-      "build/**/*",
-      "node_modules/**/*"
-    ],
-    "directories": {
-      "buildResources": "public"
-    },
-    "win": {
-      "icon": "public/logo_sem_background.ico"
-    },
-    "linux": {
-      "icon": "public/logo_sem_background.png"
-    },
-    "mac": {
-      "icon": "public/logo.icns"
-    }
   },
   "eslintConfig": {
     "extends": [
