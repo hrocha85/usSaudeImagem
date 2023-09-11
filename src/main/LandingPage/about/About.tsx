@@ -20,7 +20,7 @@ function About (){
   isLargerThan600 ? display1 = "flex": display1 = "block"
 
     return(
-        <Box w={'100%'} >
+        <Box w={'100%'} px={4}>
           <Box   mt={10} px={{ base: '0rem', md: '15rem' }}>
         <Text
         fontSize={"35px"}
