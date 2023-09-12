@@ -148,7 +148,7 @@ function ExamesLp() {
                         alignItems={['center', 'stretch']}
                         pt={['10%', '2%']}
                     >
-                        <Box w={['100%', '50%']} mr={'5%'} px={'8%'} order={[1, 1]} pt={['10%', '0%']}>
+                        <Box w={['100%', '50%']} mr={'5%'} px={'8%'} order={[1, 1]} pt={['10%', '0%']} pb={'10%'}>
                             <Text
                                 fontSize={"25px"}
                                 fontFamily={'Inter, sans-serif'}
