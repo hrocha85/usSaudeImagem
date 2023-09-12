@@ -142,8 +142,8 @@ const IconButtonPlus = (props) => {
           telefone: telefone,
         };
 
-        const response = await api.post("/clinica", obj)
-
+        const response = await api.post(`/clinica/${user.id}`, obj)
+        console.log(response.data)
       } catch (error) {
         console.log('error', error)
       }

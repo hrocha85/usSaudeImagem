@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, FormControl, FormLabel, HStack, Heading, Input, Link, useToast, Text, VStack, InputGroup, InputRightElement, Image } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import api from "../../../src/api";
@@ -17,8 +17,8 @@ export default function LoginForm() {
   const toast = useToast();
 
   const { setIsAdmin } = useContext(AuthContext);
-  const [Email, setEmail] = useState('medico1@hotmail.com')
-  const [Senha, setSenha] = useState('123456')
+  const [Email, setEmail] = useState('admin@hotmail.com')
+  const [Senha, setSenha] = useState('12345678')
   const [show, setShow] = useState(false)
   const handleClickShow = () => setShow(!show)
   const [focusedInput, setFocusedInput] = useState('');
@@ -48,11 +48,17 @@ export default function LoginForm() {
         }, 500);
         Cookies.set('USGImage_token', JSON.stringify(response.data.token));
         Cookies.set('USGImage_user', JSON.stringify(response.data.user));
-        await api.get(`usuario/${response.data.user.id}`).then((response) => {
-          setIsAdmin(response.data.roles[0].name === 'admin' ? true : false)
-          Cookies.set('USGImage_role', JSON.stringify(response.data.roles[0].name));
-        })
-        usenavigate("/Splash")
+        try {
+          await api.get(`usuario/${response.data.user.id}`).then((response) => {
+            console.log('role', response.data)
+            setIsAdmin(response.data.roles[0].name === 'admin' ? true : false)
+            Cookies.set('USGImage_role', JSON.stringify(response.data.roles[0].name));
+          })
+          usenavigate("/Splash")
+
+        } catch (error) {
+          console.log('erro no role', error)
+        }
       } else {
         setTimeout(() => {
           toast({
@@ -84,10 +90,6 @@ export default function LoginForm() {
     setFocusedInput(inputName);
   };
 
-  // const handleInputBlur = () => {
-  //   setFocusedInput('');
-  // };
-
   return (
     <Box
       w={['full', 'md']}
@@ -98,6 +100,12 @@ export default function LoginForm() {
       borderColor={['', 'gray.300']}
       borderRadius={10}
     >
+      <Text>
+        admin: admin@hotmail.com 12345678
+      </Text>
+      <Text>
+        userFree: user@hotmail.com 12345678
+      </Text>
       <VStack spacing={4} align={['flex-start', 'center']} w='full' mb={3}>
         <VStack>
           <Image
