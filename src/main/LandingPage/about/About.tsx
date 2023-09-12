@@ -12,16 +12,18 @@ function About() {
   let display1 = ""
   let width = ""
   let width1 = ""
-  let flexCol = ''
-  isLargerThan600 ? flexCol = "row" : width = "column"
-  isLargerThan600 ? width = "50%" : width = "100%"
-  isLargerThan600 ? width1 = "20rem" : width1 = "100%"
-  isLargerThan600 ? display = "" : display = "none"
-  isLargerThan600 ? display1 = "flex" : display1 = "block"
 
-  return (
-    <Box w={'100%'} px={4} >
-      <Box mt={10} px={{ base: '0rem', md: '15rem' }}>
+  let flexCol=''
+  isLargerThan600 ? flexCol = "row": width = "column"  
+  isLargerThan600 ? width = "50%": width = "100%"
+  isLargerThan600 ? width1 = "20rem": width1 = "100%"
+  isLargerThan600 ? display = "": display = "none"
+  isLargerThan600 ? display1 = "flex": display1 = "block"
+
+    return(
+        <Box w={'100%'} px={4}>
+          <Box   mt={10} px={{ base: '0rem', md: '15rem' }}>
+
         <Text
           fontSize={"35px"}
           fontFamily={'Rubik, sans-serif'}
