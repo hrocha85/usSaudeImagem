@@ -41,10 +41,12 @@ build/Release
 # Dependency directories
 ./node_modules/
 ./jspm_packages/
-./package-lock.json
+./package-lock.json/
 
 # TypeScript v1 declaration files
 typings/
+
+
 
 # TypeScript cache
 *.tsbuildinfo
@@ -84,7 +86,7 @@ yarn.lock
 # Nuxt.js build / generate output
 .nuxt
 dist
-
+publicElectron
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and *not* Next.js

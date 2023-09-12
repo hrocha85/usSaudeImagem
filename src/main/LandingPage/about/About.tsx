@@ -5,13 +5,14 @@ import phone from '../../images/landing/Group.svg'
 import print from '../../images/landing/print.svg'
 
 
-function About (){
+function About() {
 
-  const [isLargerThan600] = useMediaQuery('(min-width: 600px)') 
-  let display =""
-  let display1 =""
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  let display = ""
+  let display1 = ""
   let width = ""
   let width1 = ""
+
   let flexCol=''
   isLargerThan600 ? flexCol = "row": width = "column"  
   isLargerThan600 ? width = "50%": width = "100%"
@@ -22,16 +23,17 @@ function About (){
     return(
         <Box w={'100%'} px={4}>
           <Box   mt={10} px={{ base: '0rem', md: '15rem' }}>
+
         <Text
-        fontSize={"35px"}
-        fontFamily={'Rubik, sans-serif'}
-        fontStyle={'normal'}
-        fontWeight={'700'}
-        lineHeight={'normal'}
-        textColor={'#101E40'}
-        alignSelf={'stretch'}
-        textAlign={'center'}
-        w={'100%'}
+          fontSize={"35px"}
+          fontFamily={'Rubik, sans-serif'}
+          fontStyle={'normal'}
+          fontWeight={'700'}
+          lineHeight={'normal'}
+          textColor={'#101E40'}
+          alignSelf={'stretch'}
+          textAlign={'center'}
+          w={'100%'}
         >
           O que é a USG Imagem?
         </Text>
@@ -47,136 +49,136 @@ function About (){
           pt={10}
 
         >
-            Nosso software oferece uma abordagem inovadora, permitindo que os médicos gerem 
-            laudos de maneira rápida e fácil, ao mesmo tempo em que fornecem uma visualização prévia dos 
-            resultados. Esse recurso único permite que os médicos façam ajustes conforme necessário, garantindo 
-            que os laudos finais sejam personalizados e detalhados antes mesmo de serem finalizados.
+          Nosso software oferece uma abordagem inovadora, permitindo que os médicos gerem
+          laudos de maneira rápida e fácil, ao mesmo tempo em que fornecem uma visualização prévia dos
+          resultados. Esse recurso único permite que os médicos façam ajustes conforme necessário, garantindo
+          que os laudos finais sejam personalizados e detalhados antes mesmo de serem finalizados.
         </Text>
         <Text
-        fontSize={"25px"}
-        fontFamily={'Inter, sans-serif'}
-        fontStyle={'normal'}
-        fontWeight={'700'}
-        lineHeight={'normal'}
-        textColor={'#101E40'}
-        alignSelf={'stretch'}
-        textAlign={'center'}
-        w={'100%'}
-        pt={'5%'}
+          fontSize={"25px"}
+          fontFamily={'Inter, sans-serif'}
+          fontStyle={'normal'}
+          fontWeight={'700'}
+          lineHeight={'normal'}
+          textColor={'#101E40'}
+          alignSelf={'stretch'}
+          textAlign={'center'}
+          w={'100%'}
+          pt={'5%'}
         >
-            A USGImagem tem como base a comodidade, a tranqulidade e a precisao no dia a dia da medicina
+          A USGImagem tem como base a comodidade, a tranqulidade e a precisao no dia a dia da medicina
         </Text>
-        </Box>
-
-        <Flex justifyContent={'space-around'} flexDir={{ base: 'column', md: 'row' }} mt={'5%'} alignItems={'center'}  textAlign={'center'} px={5}>
-        <Card maxW='sm'>
-                <CardBody  display={'flex'} flexDir={'column'} alignItems={'center'} fontFamily={'Inter, sans-serifInter, sans-serif'}>
-                    <Image
-                    src={offline}
-                    alt='Sistema rapido'
-                    borderRadius='sm'
-                    />
-                    <Stack mt='6' spacing='3'>
-                    <Heading size='md'  textColor={'#1C49B0'}>Online e Offline</Heading>
-                    <Text fontWeight={'400'}>
-                    Com seu login, acessede qualquer lugar
-                    </Text>
-                    </Stack>
-                </CardBody>
-            </Card>
-            <Card maxW='sm'>
-                <CardBody display={'flex'} flexDir={'column'} alignItems={'center'}>
-                    <Image
-                    src={fast}
-                    alt='Sistema rapido'
-                    borderRadius='sm'
-                    />
-                    <Stack mt='6' spacing='3'>
-                    <Heading size='md'  textColor={'#1C49B0'}>Rápido e Prático</Heading>
-                    <Text fontWeight={'400'}>
-                    Gere os laudos com apenas alguns clique.
-                    </Text>
-                    </Stack>
-                </CardBody>
-            </Card>
-
-            <Card maxW='sm'>
-                <CardBody display={'flex'} flexDir={'column'} alignItems={'center'}>
-                    <Image
-                    src={phone}
-                    alt='mobile'
-                    borderRadius='sm'
-                    />
-                    <Stack mt='6' spacing='3'>
-                    <Heading size='md'  textColor={'#1C49B0'}>Na palma da sua mão</Heading>
-                    <Text fontWeight={'400'}>
-                     Seus laudos ficaram salvos para vizualização
-                    </Text>
-                    </Stack>
-                </CardBody>
-            </Card>
-
-            <Card maxW='sm'>
-                <CardBody display={'flex'} flexDir={'column'} alignItems={'center'}>
-                    <Image
-                    src={print}
-                    alt='compartilhar'
-                    borderRadius='sm'
-                    />
-                    <Stack mt='6' spacing='3'>
-                    <Heading size='md'  textColor={'#1C49B0'}>Pronto p/ Compartilhar</Heading>
-                    <Text fontWeight={'400'}>
-                    Envie o laudo para o WhatsApp ou e-mail.
-                    </Text>
-                    </Stack>
-                </CardBody>
-            </Card>
-
-        </Flex>
-
-        <Flex display={display1}  gap={10} justifyContent={'center'} mt={10} fontFamily={"Sora, sans-serif"} fontWeight={'600'}>
-            <Link href={`#/`}>
-            <Button
-              border="1px solid #1C49B0"
-              color="#1C49B0"
-              bg="transparent"
-              height="50px"
-              fontSize={'16px'}
-              _hover={{ 
-                background: 'transparent',
-                color: '#1C49B0',
-              }}
-              width={width1}
-
-              my={3}
-            >
-                Entrar em contato
-
-            </Button>
-          </Link>
-
-          <Link href={`#/`}>
-            <Button
-              border="1px solid #1C49B0"
-              color="#FFF"
-              bg="#1C49B0"
-              height="50px"
-              fontSize={'16px'}
-              _hover={{ 
-                background: '#1C49B0',
-                color: '#FFF',
-              }}
-              w={width1}
-              my={3}
-            >
-                Seja um parceiro USGImagem
-
-            </Button>
-          </Link>  
-          </Flex>
       </Box>
-    )
+
+      <Flex justifyContent={'space-around'} flexDir={{ base: 'column', md: 'row' }} mt={'5%'} alignItems={'center'} textAlign={'center'} px={5}>
+        <Card maxW='sm'>
+          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'} fontFamily={'Inter, sans-serifInter, sans-serif'}>
+            <Image
+              src={offline}
+              alt='Sistema rapido'
+              borderRadius='sm'
+            />
+            <Stack mt='6' spacing='3'>
+              <Heading size='md' textColor={'#1C49B0'}>Online e Offline</Heading>
+              <Text fontWeight={'400'}>
+                Com seu login, acessede qualquer lugar
+              </Text>
+            </Stack>
+          </CardBody>
+        </Card>
+        <Card maxW='sm'>
+          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'}>
+            <Image
+              src={fast}
+              alt='Sistema rapido'
+              borderRadius='sm'
+            />
+            <Stack mt='6' spacing='3'>
+              <Heading size='md' textColor={'#1C49B0'}>Rápido e Prático</Heading>
+              <Text fontWeight={'400'}>
+                Gere os laudos com apenas alguns clique.
+              </Text>
+            </Stack>
+          </CardBody>
+        </Card>
+
+        <Card maxW='sm'>
+          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'}>
+            <Image
+              src={phone}
+              alt='mobile'
+              borderRadius='sm'
+            />
+            <Stack mt='6' spacing='3'>
+              <Heading size='md' textColor={'#1C49B0'}>Na palma da sua mão</Heading>
+              <Text fontWeight={'400'}>
+                Seus laudos ficaram salvos para vizualização
+              </Text>
+            </Stack>
+          </CardBody>
+        </Card>
+
+        <Card maxW='sm'>
+          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'}>
+            <Image
+              src={print}
+              alt='compartilhar'
+              borderRadius='sm'
+            />
+            <Stack mt='6' spacing='3'>
+              <Heading size='md' textColor={'#1C49B0'}>Pronto p/ Compartilhar</Heading>
+              <Text fontWeight={'400'}>
+                Envie o laudo para o WhatsApp ou e-mail.
+              </Text>
+            </Stack>
+          </CardBody>
+        </Card>
+
+      </Flex>
+
+      <Flex display={display1} gap={10} justifyContent={'center'} mt={10} fontFamily={"Sora, sans-serif"} fontWeight={'600'}>
+        <Link href={`#/`}>
+          <Button
+            border="1px solid #1C49B0"
+            color="#1C49B0"
+            bg="transparent"
+            height="50px"
+            fontSize={'16px'}
+            _hover={{
+              background: 'transparent',
+              color: '#1C49B0',
+            }}
+            width={width1}
+
+            my={3}
+          >
+            Entrar em contato
+
+          </Button>
+        </Link>
+
+        <Link href={`#/`}>
+          <Button
+            border="1px solid #1C49B0"
+            color="#FFF"
+            bg="#1C49B0"
+            height="50px"
+            fontSize={'16px'}
+            _hover={{
+              background: '#1C49B0',
+              color: '#FFF',
+            }}
+            w={width1}
+            my={3}
+          >
+            Seja um parceiro USGImagem
+
+          </Button>
+        </Link>
+      </Flex>
+    </Box>
+  )
 
 }
 
-export {About}
+export { About }
