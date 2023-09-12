@@ -3,6 +3,7 @@ import { Body } from "./body/Body";
 import {  Box, Stack, VStack } from "@chakra-ui/react";
 import { About } from "./about/About";
 import { ExamesLp } from "./exames/ExamesLP";
+import { System } from "./system/System";
 
 
 function LandingPage() {
@@ -12,6 +13,7 @@ function LandingPage() {
     <Body />
     <About/>
     <ExamesLp/>
+    <System/>
     </Box>
  
   );
