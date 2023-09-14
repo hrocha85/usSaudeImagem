@@ -27,7 +27,6 @@ const Clinica = (props) => {
       getClinicaAdmin()
         .then(clinicas => {
           setListaClinicas(clinicas);
-          console.log(clinicas);
         })
         .catch(error => {
           console.error('Erro ao obter clínicas:', error);

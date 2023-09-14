@@ -56,6 +56,7 @@ const IconButtonPlus = (props) => {
   const [NumeroEndereco, setNumeroEndereco] = useState("");
 
   const [telefone, setTelefone] = useState("");
+  const [CNPJ, setCNPJ] = useState("");
 
   const [placeHolderAddClinica, setplaceHolderAddClinica] = useState("Insira o nome da Clínica");
 
@@ -68,10 +69,12 @@ const IconButtonPlus = (props) => {
   const [InputNomeClinica, setInputNomeClinica] = useState(false);
 
   const [InputTelefone, setInputTelefone] = useState(false);
+  const [InputCNPJ, setInputCNPJ] = useState(false);
 
   const [InputCEP, setInputCEP] = useState(false);
   const [DisableButton, setDisableButton] = useState(true);
 
+  const refCNPJ = useRef<HTMLInputElement | null>(null);
   const refTelefone = useRef<HTMLInputElement | null>(null);
 
   const refCEP = useRef<HTMLInputElement | null>(null);
@@ -134,6 +137,7 @@ const IconButtonPlus = (props) => {
       try {
         const obj = {
           userID: user.id,
+          CNPJ: CNPJ,
           nome: nome,
           endereco: endereco,
           CEP: CEP,
@@ -143,7 +147,25 @@ const IconButtonPlus = (props) => {
         };
 
         const response = await api.post(`/clinica/${user.id}`, obj)
-        console.log(response.data)
+        if (response.status === 201) {
+          toast({
+            duration: 3000,
+            title: `Clínica cadastrado com sucesso!`,
+            position: "bottom",
+            isClosable: true,
+          });
+          ResetDados();
+          props.setAtualizar(!props.atualizar);
+
+        } else {
+          toast({
+            duration: 3000,
+            title: `Preencha todos os campos corretamente para cadastrar.`,
+            status: "error",
+            position: "bottom",
+            isClosable: true,
+          });
+        }
       } catch (error) {
         console.log('error', error)
       }
@@ -211,6 +233,31 @@ const IconButtonPlus = (props) => {
     value = value.replace(/(\d)(\d{4})$/, "$1-$2");
     return value;
   };
+  const handleCnpj = (event) => {
+    const input = event.target;
+    input.value = cnpjMask(input.value);
+  };
+
+  const cnpjMask = (value) => {
+    if (!value) return "";
+    // Remove qualquer caractere não numérico
+    value = value.replace(/\D/g, "");
+    // Adicione a máscara: 00.000.000/0000-00
+    if (value.length <= 2) {
+      value = value.replace(/^(\d{0,2})/, "$1");
+    } else if (value.length <= 5) {
+      value = value.replace(/^(\d{2})(\d{0,3})/, "$1.$2");
+    } else if (value.length <= 8) {
+      value = value.replace(/^(\d{2})(\d{3})(\d{0,3})/, "$1.$2.$3");
+    } else if (value.length <= 12) {
+      value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,4})/, "$1.$2.$3/$4");
+    } else {
+      value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2})/, "$1.$2.$3/$4-$5");
+    }
+
+    return value;
+  };
+
 
   const handleCep = (event) => {
     const input = event.target;
@@ -239,7 +286,7 @@ const IconButtonPlus = (props) => {
     try {
       const response = await axios.get(`https://viacep.com.br/ws/${CEP}/json/`);
       const data = response.data;
-      const enderecoCompleto = `${data.logradouro}, ${NumeroEndereco} - ${data.bairro}, ${data.localidade} - ${data.uf}, ${data.CEP}`
+      const enderecoCompleto = `${data.logradouro}, ${NumeroEndereco} - ${data.bairro}, ${data.localidade} - ${data.uf}, ${data.cep}`
 
       setEndereco(enderecoCompleto);
     } catch (error) {
@@ -373,6 +420,50 @@ const IconButtonPlus = (props) => {
                 </Center>
                 <Center>
                   <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
+                    <Center paddingTop={"5px"}>
+                      <InputGroup variant={"unstyled"} width={"220px"}>
+                        <InputLeftAddon
+                          children="CNPJ:"
+                          paddingEnd={"5px"}
+                          fontWeight={"bold"}
+                        />
+
+                        {InputCNPJ ? (
+                          <Input
+                            p='0'
+                            ref={refCNPJ}
+                            placeholder="00.000.000/0000-00"
+                            textAlign={"center"}
+                            maxLength={18}
+                            onChange={(e) => {
+                              handleCnpj(e);
+                              setCNPJ(e.target.value);
+                            }}
+                            variant="filled"
+                            borderStartRadius={"md"}
+                            borderEndRadius={"md"}
+
+                            onClick={() => { }}
+                          />
+                        ) : (
+                          <Input
+                            p='0'
+                            ref={refCNPJ}
+                            placeholder="00.000.000/0000-00"
+                            textAlign={"center"}
+                            maxLength={18}
+                            onChange={(e) => {
+                              handleCnpj(e);
+                              setCNPJ(e.target.value);
+                            }}
+                            variant={"unstyled"}
+                            onClick={() => {
+                              setInputCNPJ(true);
+                            }}
+                          />
+                        )}
+                      </InputGroup>
+                    </Center>
                     <Center paddingTop={"5px"}>
                       <InputGroup variant={"unstyled"} width={"200px"}>
                         <InputLeftAddon
@@ -514,15 +605,10 @@ const IconButtonPlus = (props) => {
               marginStart="23px"
               marginBottom="10px"
               onClick={() => {
-                if (nome !== "" && telefone !== "") {
+                if (nome !== "" && telefone !== "" && CNPJ !== "") {
                   AddClinica();
                   ResetDados();
-                  toast({
-                    duration: 3000,
-                    title: `Clínica cadastrado com sucesso!`,
-                    position: "bottom",
-                    isClosable: true,
-                  });
+
                 } else {
                   toast({
                     duration: 3000,

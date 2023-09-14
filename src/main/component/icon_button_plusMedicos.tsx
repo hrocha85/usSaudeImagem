@@ -54,6 +54,8 @@ import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
 import GetMedicosFree from "../Helpers/UserFree/GetMedicos";
+import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
+import api from "../../api";
 const button = React.createElement("img", { src: PlusButton });
 
 let dados;
@@ -129,17 +131,28 @@ const IconButtonPlusMedicos = (props, clinica) => {
 
   const PegaClinicas = () => {
 
+
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin) {
+      const clinicas = GetClinicaFree()
+      setListaClinicas(clinicas);
+
+    } else {
+      getClinicaAdmin()
+        .then(clinicas => {
+          setListaClinicas(clinicas);
+        })
+        .catch(error => {
+          console.error('Erro ao obter clínicas:', error);
+        });
+    }
     const clinicas = GetClinicaFree()
     setListaClinicas(clinicas);
-
-    // let item;
-    // let item_parse;
-    // if (localStorage.getItem("minhasClinicas") != null) {
-    //   item = localStorage.getItem("minhasClinicas");
-    //   item_parse = JSON.parse(item);
-    //   setListaClinicas(item_parse);
-    // }
-
     onOpenModalAddMedico()
   }
 
@@ -226,53 +239,126 @@ const IconButtonPlusMedicos = (props, clinica) => {
   };
   const [LimiteMedicos, setLimiteMedicos] = useState<boolean>(false)
 
-  const AddMedico = () => {
-    const TodosMedicosString = localStorage.getItem("medicos")
-    const TodosMedicos = TodosMedicosString ? JSON.parse(TodosMedicosString) : []
-    const id = TodosMedicos.length + 1
+  const AddMedico = async () => {
     const userString = Cookies.get('USGImage_user')
     const user = JSON.parse(userString)
-    const obj = {
-      id: id,
-      userID: user.id,
-      nome: nome,
-      crm: crm,
-      assinatura:
-        padRef.current?.getTrimmedCanvas().toDataURL("image/png") != null
-          ? padRef.current?.getTrimmedCanvas().toDataURL("image/png")
-          : pngAssinatura!,
-      foto: defaultUserImage,
-      clinica: clinicas,
-      laudos: [{}],
-    };
-    TodosMedicos.push(obj);
-
-    TodosMedicos.map((e) => {
-      if (e.nome == "NOME") {
-        TodosMedicos.shift();
-      }
-    });
-
-    localStorage.setItem("medicos", JSON.stringify(TodosMedicos));
-    props.setAtualizar(!props.atualizar);
-    setMedicos(TodosMedicos);
-
     let isAdmin;
     const roleString = Cookies.get('USGImage_role');
     if (roleString) {
       const role = JSON.parse(roleString);
       role == 'admin' ? isAdmin = true : isAdmin = false
     }
-    const MedicosUser: any = []
-    TodosMedicos.map((medico) => {
-      if (medico.userID === user.id) {
-        MedicosUser.push(medico)
-      }
-    })
-    if (!isAdmin && MedicosUser.length >= 2) {
-      setLimiteMedicos(true)
-    }
+    if (!isAdmin) {
+      const TodosMedicosString = localStorage.getItem("medicos")
+      const TodosMedicos = TodosMedicosString ? JSON.parse(TodosMedicosString) : []
+      const id = TodosMedicos.length + 1
 
+      const obj = {
+        id: id,
+        userID: user.id,
+        nome: nome,
+        crm: crm,
+        assinatura:
+          padRef.current?.getTrimmedCanvas().toDataURL("image/png") != null
+            ? padRef.current?.getTrimmedCanvas().toDataURL("image/png")
+            : pngAssinatura!,
+        foto: defaultUserImage,
+        clinica: clinicas,
+        laudos: [{}],
+      };
+      TodosMedicos.push(obj);
+
+      TodosMedicos.map((e) => {
+        if (e.nome == "NOME") {
+          TodosMedicos.shift();
+        }
+      });
+
+      localStorage.setItem("medicos", JSON.stringify(TodosMedicos));
+      props.setAtualizar(!props.atualizar);
+      setMedicos(TodosMedicos);
+
+      let isAdmin;
+      const roleString = Cookies.get('USGImage_role');
+      if (roleString) {
+        const role = JSON.parse(roleString);
+        role == 'admin' ? isAdmin = true : isAdmin = false
+      }
+      const MedicosUser: any = []
+      TodosMedicos.map((medico) => {
+        if (medico.userID === user.id) {
+          MedicosUser.push(medico)
+        }
+      })
+      if (!isAdmin && MedicosUser.length >= 2) {
+        setLimiteMedicos(true)
+      }
+      ResetDados();
+      onCloseModalAddMedico();
+      authParaLogar();
+      toast({
+        duration: 3000,
+        title: `Médico cadastrado com sucesso!`,
+        position: "bottom",
+        isClosable: true,
+      });
+    } else {
+      try {
+        const idClinicas: any = []
+        let clinicaParse
+        clinicas.map((clinica) => {
+          clinicaParse = JSON.parse(clinica)
+          idClinicas.push(clinicaParse.id)
+        })
+
+        const obj = {
+
+          id: user.id,
+          nome: nome,
+          CRMUF: crm,
+          assinatura:
+            padRef.current?.getTrimmedCanvas().toDataURL("image/png") != null
+              ? padRef.current?.getTrimmedCanvas().toDataURL("image/png")
+              : pngAssinatura!,
+          foto: defaultUserImage,
+          clinica_id: idClinicas,
+          laudos: [{}],
+        };
+        const response = await api.post(`/medico/${user.id}`, obj)
+        if (response.status === 201) {
+          toast({
+            duration: 3000,
+            title: `Clínica cadastrado com sucesso!`,
+            position: "bottom",
+            isClosable: true,
+          });
+          ResetDados();
+          props.setAtualizar(!props.atualizar);
+          ResetDados();
+          onCloseModalAddMedico();
+          authParaLogar();
+          toast({
+            duration: 3000,
+            title: `Médico cadastrado com sucesso!`,
+            position: "bottom",
+            isClosable: true,
+          });
+
+        } else {
+          toast({
+            duration: 3000,
+            title: `Preencha todos os campos corretamente para cadastrar.`,
+            status: "error",
+            position: "bottom",
+            isClosable: true,
+          });
+        }
+
+
+      } catch (error) {
+        console.log('error', error)
+      }
+    }
   };
 
 
@@ -606,15 +692,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
               onClick={() => {
                 if (nome !== "" && crm !== "" && clinicas.length >= 1) {
                   AddMedico();
-                  ResetDados();
-                  onCloseModalAddMedico();
-                  authParaLogar();
-                  toast({
-                    duration: 3000,
-                    title: `Médico cadastrado com sucesso!`,
-                    position: "bottom",
-                    isClosable: true,
-                  });
+
                 } else {
                   toast({
                     duration: 3000,

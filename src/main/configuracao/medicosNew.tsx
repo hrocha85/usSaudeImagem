@@ -1,33 +1,27 @@
-import { useEffect, useState } from "react";
-import { FaRegFolderOpen } from "react-icons/fa";
-import Medicos from "./medicos";
 import Cookies from 'js-cookie';
+import { useEffect, useState } from "react";
+import GetMedicosAdmin from "../Helpers/UserAdmin/GetMedicos";
 import GetMedicosFree from "../Helpers/UserFree/GetMedicos";
-import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
-
+import Medicos from "./medicos";
 
 const Medico = (props, clinica) => {
   const [medicos, setmedicos] = useState<any[]>([]);
+  // const pegarMedicos = () => {
+  //   let item;
+  //   let item_parse;
+  //   if (localStorage.getItem("medicos") != null) {
+  //     item = localStorage.getItem("medicos");
 
-  const pegarMedicos = () => {
-    let item;
-    let item_parse;
-    if (localStorage.getItem("medicos") != null) {
-      item = localStorage.getItem("medicos");
+  //     item_parse = JSON.parse(item);
+  //     setmedicos(item_parse);
+  //   }
+  // };
 
-      item_parse = JSON.parse(item);
-      setmedicos(item_parse);
-    }
-  };
-
-  useEffect(() => {
-    console.log('clinicamedicos', clinica)
-  }, [])
-  useEffect(() => {
-    const medicos = GetMedicosFree()
-    setmedicos(medicos);
-    // pegarMedicos();
-  }, [props.atualizar]);
+  // useEffect(() => {
+  //   const medicos = GetMedicosFree()
+  //   setmedicos(medicos);
+  //   // pegarMedicos();
+  // }, [props.atualizar]);
 
   useEffect(() => {
     let isAdmin;
@@ -37,18 +31,19 @@ const Medico = (props, clinica) => {
       role == 'admin' ? isAdmin = true : isAdmin = false
     }
     if (!isAdmin) {
-      console.log('Não admin')
+      const medicos = GetMedicosFree()
+      setmedicos(medicos);
     } else {
-      getClinicaAdmin()
-        .then(clinicas => {
-          console.log(clinicas);
+      GetMedicosAdmin()
+        .then(medicos => {
+          setmedicos(medicos);
         })
         .catch(error => {
-          console.error('Erro ao obter clínicas:', error);
+          console.error('Erro ao obter medicos:', error);
         });
     }
 
-  }, [])
+  }, [props.atualizar])
 
 
   return (

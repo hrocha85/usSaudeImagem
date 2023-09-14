@@ -45,27 +45,6 @@ export const lista_medicos = MedicosJSON.medicos;
 
 const Configuracoes = () => {
 
-
-  const CheckRoleUser = () => {
-    let isAdmin;
-    const roleString = Cookies.get('USGImage_role');
-    if (roleString) {
-      const role = JSON.parse(roleString);
-      role == 'admin' ? isAdmin = true : isAdmin = false
-    }
-    if (!isAdmin) {
-      console.log('Não admin')
-      console.log('medicos')
-    } else {
-      console.log('É admin')
-    }
-  }
-
-  useEffect(() => {
-    CheckRoleUser()
-  }, [])
-
-
   const getMedicos = () => {
     let medicos;
     let item;
@@ -114,15 +93,6 @@ const Configuracoes = () => {
 
   const refNomeDoutor = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    getClinicaAdmin()
-      .then(clinicas => {
-        console.log(clinicas);
-      })
-      .catch(error => {
-        console.error('Erro ao obter clínicas:', error);
-      });
-  }, [])
 
   useEffect(() => {
     setMedicos(GetMedicosFree());
