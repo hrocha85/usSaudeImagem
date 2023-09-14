@@ -4,6 +4,7 @@ import {  Box, Stack, VStack } from "@chakra-ui/react";
 import { About } from "./about/About";
 import { ExamesLp } from "./exames/ExamesLP";
 import { System } from "./system/System";
+import { Planos } from "./planos/Planos";
 
 
 function LandingPage() {
@@ -14,6 +15,7 @@ function LandingPage() {
     <About/>
     <ExamesLp/>
     <System/>
+    <Planos/>
     </Box>
  
   );

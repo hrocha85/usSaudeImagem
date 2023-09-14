@@ -57,7 +57,7 @@ import { FaApple } from 'react-icons/fa';
             fontSize={"18px"}
             fontFamily={'Lato, sans-serif'}
             fontStyle={'normal'}
-            fontWeight={'400'}
+            fontWeight={'600'}
             lineHeight={'normal'}
             textColor={'#B4CAFF'}
             textAlign={{ base: 'center', md: 'left' }}        
