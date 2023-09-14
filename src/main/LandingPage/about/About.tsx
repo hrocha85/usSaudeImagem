@@ -41,7 +41,7 @@ function About() {
           fontSize={"14px"}
           fontFamily={'Inter, sans-serif'}
           fontStyle={'normal'}
-          fontWeight={'400'}
+          fontWeight={'600'}
           textAlign={'center'}
           lineHeight={'normal'}
           textColor={'#000'}
@@ -72,7 +72,7 @@ function About() {
 
       <Flex justifyContent={'space-around'} flexDir={{ base: 'column', md: 'row' }} mt={'5%'} alignItems={'center'} textAlign={'center'} px={5}>
         <Card maxW='sm'>
-          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'} fontFamily={'Inter, sans-serifInter, sans-serif'}>
+          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'} fontFamily={'Inter, sans-serif'}>
             <Image
               src={offline}
               alt='Sistema rapido'
@@ -80,14 +80,14 @@ function About() {
             />
             <Stack mt='6' spacing='3'>
               <Heading size='md' textColor={'#1C49B0'}>Online e Offline</Heading>
-              <Text fontWeight={'400'}>
+              <Text fontWeight={'600'}>
                 Com seu login, acessede qualquer lugar
               </Text>
             </Stack>
           </CardBody>
         </Card>
         <Card maxW='sm'>
-          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'}>
+          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'} fontFamily={'Inter, sans-serif'}>
             <Image
               src={fast}
               alt='Sistema rapido'
@@ -95,7 +95,7 @@ function About() {
             />
             <Stack mt='6' spacing='3'>
               <Heading size='md' textColor={'#1C49B0'}>Rápido e Prático</Heading>
-              <Text fontWeight={'400'}>
+              <Text fontWeight={'600'}>
                 Gere os laudos com apenas alguns clique.
               </Text>
             </Stack>
@@ -103,7 +103,7 @@ function About() {
         </Card>
 
         <Card maxW='sm'>
-          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'}>
+          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'} fontFamily={'Inter, sans-serif'}>
             <Image
               src={phone}
               alt='mobile'
@@ -111,7 +111,7 @@ function About() {
             />
             <Stack mt='6' spacing='3'>
               <Heading size='md' textColor={'#1C49B0'}>Na palma da sua mão</Heading>
-              <Text fontWeight={'400'}>
+              <Text fontWeight={'600'}>
                 Seus laudos ficaram salvos para vizualização
               </Text>
             </Stack>
@@ -119,7 +119,7 @@ function About() {
         </Card>
 
         <Card maxW='sm'>
-          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'}>
+          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'} fontFamily={'Inter, sans-serif'}>
             <Image
               src={print}
               alt='compartilhar'
@@ -127,7 +127,7 @@ function About() {
             />
             <Stack mt='6' spacing='3'>
               <Heading size='md' textColor={'#1C49B0'}>Pronto p/ Compartilhar</Heading>
-              <Text fontWeight={'400'}>
+              <Text fontWeight={'600'}>
                 Envie o laudo para o WhatsApp ou e-mail.
               </Text>
             </Stack>

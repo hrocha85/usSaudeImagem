@@ -17,22 +17,9 @@ function ExamesLp() {
                         textAlign={'center'}
                         w={'100%'}
                     >
-                        Lorem ipsum sit amet
+                       Conheça alguns dos exames inclusos no sistema
                     </Text>
 
-                    <Text
-                        fontSize={"35px"}
-                        fontFamily={'Inter, sans-serif'}
-                        fontStyle={'normal'}
-                        fontWeight={'400'}
-                        lineHeight={'normal'}
-                        textColor={'#1C49B0'}
-                        alignSelf={'stretch'}
-                        textAlign={'center'}
-                        w={'100%'}
-                    >
-                        dolor ensenctun amet oilorem
-                    </Text>
                 </Box>
                 <Box pt={'8%'}>
                     <Flex
@@ -56,7 +43,7 @@ function ExamesLp() {
                                 fontSize={"18px"}
                                 fontFamily={'Inter, sans-serif'}
                                 fontStyle={'normal'}
-                                fontWeight={'400'}
+                                fontWeight={'600'}
                                 lineHeight={'normal'}
                                 textColor={'#101010'}
                                 alignSelf={['center', 'stretch']}
@@ -93,7 +80,7 @@ function ExamesLp() {
                                 fontSize={"18px"}
                                 fontFamily={'Inter, sans-serif'}
                                 fontStyle={'normal'}
-                                fontWeight={'400'}
+                                fontWeight={'600'}
                                 lineHeight={'normal'}
                                 textColor={'#101010'}
                                 alignSelf={['left', 'stretch']}
@@ -128,7 +115,7 @@ function ExamesLp() {
                                 fontSize={"18px"}
                                 fontFamily={'Inter, sans-serif'}
                                 fontStyle={'normal'}
-                                fontWeight={'400'}
+                                fontWeight={'600'}
                                 lineHeight={'normal'}
                                 textColor={'#101010'}
                                 alignSelf={['center', 'stretch']}
@@ -165,7 +152,7 @@ function ExamesLp() {
                                 fontSize={"18px"}
                                 fontFamily={'Inter, sans-serif'}
                                 fontStyle={'normal'}
-                                fontWeight={'400'}
+                                fontWeight={'600'}
                                 lineHeight={'normal'}
                                 textColor={'#101010'}
                                 alignSelf={['left', 'stretch']}
