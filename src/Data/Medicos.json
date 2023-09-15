@@ -2,11 +2,15 @@
   "medicos": [
     {
       "nome": "",
-      "crm": "",
+      "CRMUF": "",
       "assinatura": "",
       "foto": "",
-      "clinica": [{}],
-      "laudos": [{}]
+      "clinicas": [
+        {}
+      ],
+      "laudos": [
+        {}
+      ]
     }
   ]
 }

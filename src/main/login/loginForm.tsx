@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, FormControl, FormLabel, HStack, Heading, Input, Link, useToast, Text, VStack, InputGroup, InputRightElement, Image } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import api from "../../../src/api";
@@ -7,21 +7,18 @@ import Cookies from 'js-cookie';
 import { IoEye, IoEyeOff, IoEyeOffSharp, IoArrowForward } from "react-icons/io5";
 import marca from "../images/Marca.png"
 
-
 type data = {
   name?: string,
   email: string,
   password: string
 }
 
-
 export default function LoginForm() {
   const toast = useToast();
 
-
   const { setIsAdmin } = useContext(AuthContext);
-  const [Email, setEmail] = useState('medico1@hotmail.com')
-  const [Senha, setSenha] = useState('123456')
+  const [Email, setEmail] = useState('user@hotmail.com')
+  const [Senha, setSenha] = useState('12345678')
   const [show, setShow] = useState(false)
   const handleClickShow = () => setShow(!show)
   const [focusedInput, setFocusedInput] = useState('');
@@ -29,54 +26,83 @@ export default function LoginForm() {
   const usenavigate = useNavigate()
 
   const login = async () => {
-    let User: data = {
-      email: Email,
-      password: Senha
+    // let User: data = {
+    //   email: Email,
+    //   password: Senha
+    // }
+    const user = {
+      address: "address",
+      created_at: "2023-09-12T21:21:03.263Z",
+      email: "user@hotmail.com",
+      id: 8,
+      ip: "ip",
+      ip_address: null,
+      name: "user",
+      telefone: null,
+      timesLaudos: null,
+      timesLogin: 17,
+      tipo: "Médico",
+      updated_at: "2023-09-15T21:56:04.297Z"
     }
-    await api.post("login", User).then(async (response) => {
-      if (response.status === 200) {
-        User = {
-          name: response.data.user.name,
-          email: Email,
-          password: Senha
-        }
-        console.log(response.data)
-        setTimeout(() => {
-          toast({
-            duration: 3000,
-            title: `${User.name}, Seja bem vindo!`,
-            position: "top",
-            isClosable: true,
-          });
-        }, 500);
-        Cookies.set('token', JSON.stringify(response.data.token));
-        Cookies.set('user', JSON.stringify(response.data.user));
-        await api.get(`usuario/${response.data.user.id}`).then((response) => {
-          setIsAdmin(response.data.roles[0].name === 'admin' ? true : false)
-          Cookies.set('role', JSON.stringify(response.data.roles[0].name));
-        })
-        usenavigate("/Splash")
-      } else {
-        setTimeout(() => {
-          toast({
-            duration: 3000,
-            title: `${User.name}, Seja bem vindo!`,
-            position: "top",
-            isClosable: true,
-          });
-        }, 500);
-      }
-    }).catch((e) => {
-      setTimeout(() => {
-        toast({
-          duration: 3000,
-          title: `${User.name}, Seja bem vindo!`,
-          position: "top",
-          isClosable: true,
-        });
-      }, 500);
+    const role = 'userFree'
 
-    })
+    Cookies.set('USGImage_user', JSON.stringify(user));
+    Cookies.set('USGImage_role', JSON.stringify(role));
+    usenavigate("/Splash")
+    // await api.post("login", User).then(async (response) => {
+    //   console.log(response.data)
+    //   if (response.status === 200) {
+    //     User = {
+    //       // name: response.data.user.name,
+    //       email: Email,
+    //       password: Senha
+    //     }
+    //     setTimeout(() => {
+    //       toast({
+    //         duration: 3000,
+    //         title: `lucas Seja bem vindo!`,
+    //         position: "top",
+    //         isClosable: true,
+    //       });
+    //     }, 500);
+    //     Cookies.set('USGImage_token', JSON.stringify(response.data.token));
+    //     Cookies.set('USGImage_user', JSON.stringify(response.data.user));
+
+    //     console.log('token', (response.data.token));
+    //     console.log('user', (response.data.user))
+    //     console.log('usere', user)
+    //     try {
+    //       await api.get(`usuario/${response.data.user.id}`).then((response) => {
+    //         setIsAdmin(response.data.roles[0].name === 'admin' ? true : false)
+    //         console.log('role', (response.data.roles[0].name))
+    //         Cookies.set('USGImage_role', JSON.stringify(response.data.roles[0].name));
+    //       })
+    //       // usenavigate("/Splash")
+
+    //     } catch (error) {
+    //       console.log('erro no role', error)
+    //     }
+    //   } else {
+    //     setTimeout(() => {
+    //       toast({
+    //         duration: 3000,
+    //         title: `Email ou senha inválido`,
+    //         position: "top",
+    //         isClosable: true,
+    //       });
+    //     }, 500);
+    //   }
+    // }).catch((e) => {
+    //   setTimeout(() => {
+    //     toast({
+    //       duration: 3000,
+    //       title: `Email ou senha inválido`,
+    //       position: "top",
+    //       isClosable: true,
+    //     });
+    //   }, 500);
+    //   console.log(e);
+    // })
   }
 
   const handleInputChange = (event, setter) => {
@@ -86,10 +112,6 @@ export default function LoginForm() {
   const handleInputFocus = (inputName) => {
     setFocusedInput(inputName);
   };
-
-  // const handleInputBlur = () => {
-  //   setFocusedInput('');
-  // };
 
   return (
     <Box
@@ -101,9 +123,16 @@ export default function LoginForm() {
       borderColor={['', 'gray.300']}
       borderRadius={10}
     >
+      <Text>
+        admin: admin@hotmail.com 12345678
+      </Text>
+      <Text>
+        UNICO FUNCIONANDO POR ENQUANTO
+        userFree: user@hotmail.com 12345678
+      </Text>
       <VStack spacing={4} align={['flex-start', 'center']} w='full' mb={3}>
         <VStack>
-        <Image
+          <Image
             src={marca}
             w="12rem"
             h="3rem"
@@ -112,48 +141,48 @@ export default function LoginForm() {
         </VStack>
         <FormControl pos={'relative'}>
           <FormLabel
-          pos={(Email || focusedInput === 'email') ? 'relative' : 'absolute'}
-          top={(Email || focusedInput === 'email') ? '-10px' : '0'}
-          fontSize={(Email || focusedInput === 'email') ?'16px' : '14px' }
-          color={(Email || focusedInput === 'email') ?  'black' : 'gray.400'}
-          transition="top 0.3s, font-size 0.3s, color 0.3s"
-        >
-          Email
-        </FormLabel>
+            pos={(Email || focusedInput === 'email') ? 'relative' : 'absolute'}
+            top={(Email || focusedInput === 'email') ? '-10px' : '0'}
+            fontSize={(Email || focusedInput === 'email') ? '16px' : '14px'}
+            color={(Email || focusedInput === 'email') ? 'black' : 'gray.400'}
+            transition="top 0.3s, font-size 0.3s, color 0.3s"
+          >
+            Email
+          </FormLabel>
           <Input
             border={0}
-            borderBottom={'2px solid rgb(200,200,200)'} 
-            outline={0} 
+            borderBottom={'2px solid rgb(200,200,200)'}
+            outline={0}
             rounded='none'
             focusBorderColor="#306eee"
-            _hover={{ bg: "none" }} 
+            _hover={{ bg: "none" }}
             bg={'transparent'}
-            variant='filled' 
-            value={Email} 
+            variant='filled'
+            value={Email}
             onChange={(e) => handleInputChange(e, setEmail)}
-            // onBlur={() => handleInputBlur()}
-            />
+          // onBlur={() => handleInputBlur()}
+          />
         </FormControl>
         <FormControl pos={'relative'}>
           <FormLabel
             pos={(Senha || focusedInput === 'senha') ? 'relative' : 'absolute'}
             top={(Senha || focusedInput === 'senha') ? '-1px' : '0'}
-            fontSize={(Senha || focusedInput === 'senha') ?'16px' : '14px' }
+            fontSize={(Senha || focusedInput === 'senha') ? '16px' : '14px'}
             color={(Senha || focusedInput === 'senha') ? 'black' : 'gray.400'}
           >Senha</FormLabel>
           <InputGroup>
             <Input
-             border={0}
-             borderBottom={'2px solid rgb(200,200,200)'} 
-             outline={0} 
-             focusBorderColor="#306eee"
-             _hover={{ bg: "none" }} 
-             bg={'transparent'} 
-             rounded='none' 
-             variant='filled' 
-             type={show ? 'text' : 'password'} 
-             value={Senha} 
-             onChange={(e) => setSenha(e.target.value)} />
+              border={0}
+              borderBottom={'2px solid rgb(200,200,200)'}
+              outline={0}
+              focusBorderColor="#306eee"
+              _hover={{ bg: "none" }}
+              bg={'transparent'}
+              rounded='none'
+              variant='filled'
+              type={show ? 'text' : 'password'}
+              value={Senha}
+              onChange={(e) => setSenha(e.target.value)} />
             <InputRightElement>
               <Button h='1.75rem' size='sm' onClick={() => setShow(!show)} bg={'transparent'}>
                 {show ? <IoEyeOff size={40} /> : <IoEye size={40} />}
@@ -168,8 +197,8 @@ export default function LoginForm() {
 
         <Button rounded='9px' colorScheme="blue" w={"100%"}
           //Descomentar onClick do login quando API estiver online
-           onClick={() => login()}
-          //onClick={() => usenavigate('/Splash')}
+          onClick={() => login()}
+        //onClick={() => usenavigate('/Splash')}
         >Acessar meu painel <Box display={'flex'} alignItems={'center'}><IoArrowForward size={25} style={{ marginLeft: '10px' }} /></Box>
         </Button>
 
