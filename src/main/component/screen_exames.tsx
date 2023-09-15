@@ -617,7 +617,7 @@ export default function Box_Default_With_Sidebar() {
           {isLargerThan600 ? 
               <Box display={'none'}><Exames /></Box>: <Box display={'block'}><Exames /></Box>
             }
-        </VStack>        <FooterUpbase/>
+        </VStack>
       </Box>
     );
   }

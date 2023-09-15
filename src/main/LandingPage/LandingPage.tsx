@@ -1,106 +1,25 @@
-import {
-  Box,
-  Button,
-  Center,
-  Link,
-  Select,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import Cookies from 'js-cookie';
+import { Header } from "./header/Header";
+import { Body } from "./body/Body";
+import { Box, Stack, VStack } from "@chakra-ui/react";
+import { About } from "./about/About";
+import { ExamesLp } from "./exames/ExamesLP";
+import { System } from "./system/System";
+import { Planos } from "./planos/Planos";
+import { Footer } from "./footer/Footer";
 
-import { useEffect, useState } from "react";
 
 function LandingPage() {
-
-  useEffect(() => {
-    Cookies.remove('USGImage_role')
-    Cookies.remove('USGImage_token')
-    Cookies.remove('USGImage_user')
-  }, [])
-
-  const AlreadyRegistered = localStorage.getItem("AlreadyRegistered");
-
-
-
-  const VerifyRegistered = () => {
-    if (AlreadyRegistered) {
-      return (
-        <Link
-          href={`#/Splash`}
-        >
-
-          <Button>
-            Teste Free
-          </Button>
-        </Link>
-      );
-    }
-    if (!AlreadyRegistered) {
-      return (
-        <Link
-          href={`#/Cadastro`}
-        >
-
-          <Button>
-            Login Teste Free
-          </Button>
-        </Link>
-      );
-    }
-  }
-
-
   return (
-    <Box
-      w="100%"
-      h="100vh"
-      height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'
-      backgroundSize="cover"
-      backgroundClip="padding-box"
-      backgroundRepeat="no-repeat"
-      paddingBottom="10px"
-      alignItems="center"
-    >
-      <Center>
-        <Box
-          position="absolute"
-          top="30%"
-          bg="#FAFAFA"
-          w="auto"
-          h="auto"
-          borderRadius="10.85px"
-          boxShadow="md"
-          padding="30px"
-        >
-          <Text fontSize={'100px'}
-            fontWeight={'bold'}
-          >Landing page</Text>
-          <Text>
-            Já tem tem seu acesso? clique aqui
-          </Text>
-          <Link
-            href={`#/Login`}
-          >
-            <Button>
-              Logina
-            </Button>
-          </Link>
-          <Text>
-            Faça um teste free
-          </Text>
-          <Link
-            href={`#/LoginFree`}
-          >
-
-            <Button>
-              Login Teste Free
-            </Button>
-          </Link>
-        </Box>
-      </Center>
+    <Box overflow="hidden">
+      <Header />
+      <Body />
+      <About />
+      <ExamesLp />
+      <System />
+      <Planos />
+      <Footer />
     </Box>
+
   );
 }
-
 export default LandingPage;
