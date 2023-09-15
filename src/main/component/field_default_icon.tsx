@@ -63,7 +63,7 @@ const FieldDefaultIcon = ({
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
-  const [nome, setNomeClinica] = useState(clinica.nomeClinica);
+  const [nome, setNomeClinica] = useState(clinica.nome);
 
   const [updateNome, setUpdateNome] = useState<string | null>(null);
 
@@ -77,9 +77,9 @@ const FieldDefaultIcon = ({
 
   const [endereco, setEndereco] = useState(clinica.endereco);
 
-  const [cep, setCep] = useState(clinica.cep);
+  const [CEP, setCep] = useState(clinica.CEP);
 
-  const [telefone, setTelefone] = useState(clinica.teleFone);
+  const [telefone, setTelefone] = useState(clinica.telefone);
 
   const [InputNomeClinica, setInputNomeClinica] = useState(false);
 
@@ -134,9 +134,9 @@ const FieldDefaultIcon = ({
     if (nomeUpdate != null) {
       const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
       const item = array[id];
-      minhasClinicas[id].nomeClinica = nomeUpdate;
+      minhasClinicas[id].nome = nomeUpdate;
 
-      item.nomeClinica = nomeUpdate;
+      item.nome = nomeUpdate;
       localStorage.setItem("minhasClinicas", JSON.stringify(array));
       setNomeClinica(nomeUpdate);
       setUpdateNome(null);
@@ -145,9 +145,9 @@ const FieldDefaultIcon = ({
     if (cepUpdate != null) {
       const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
       const item = array[id];
-      minhasClinicas[id].cep = cepUpdate;
+      minhasClinicas[id].CEP = cepUpdate;
 
-      item.cep = cepUpdate;
+      item.CEP = cepUpdate;
       localStorage.setItem("minhasClinicas", JSON.stringify(array));
       setCep(cepUpdate);
       setUpdateCEP(null);
@@ -155,9 +155,9 @@ const FieldDefaultIcon = ({
     if (telefoneUpdate != null) {
       const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
       const item = array[id];
-      minhasClinicas[id].teleFone = telefoneUpdate;
+      minhasClinicas[id].telefone = telefoneUpdate;
 
-      item.teleFone = telefoneUpdate;
+      item.telefone = telefoneUpdate;
       localStorage.setItem("minhasClinicas", JSON.stringify(array));
       setTelefone(telefoneUpdate);
       setUpdateTelefone(null);
@@ -415,14 +415,14 @@ const FieldDefaultIcon = ({
                   <Center paddingTop={"5px"}>
                     <InputGroup variant={"unstyled"} width={"215px"}>
                       <InputLeftAddon
-                        children="CEP:"
+                        children="  CEP:"
                         paddingEnd={"5px"}
                         fontWeight={"bold"}
                       />
                       <Input
                         textAlign={"center"}
                         justifySelf={"center"}
-                        defaultValue={cep}
+                        defaultValue={CEP}
                         isDisabled={disable}
                         variant={focusEdit}
                         borderStartRadius={"md"}

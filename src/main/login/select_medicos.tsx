@@ -9,11 +9,16 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import Cookies from 'js-cookie';
+import GetMedicosFree from "../Helpers/UserFree/GetMedicos";
+import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
+import GetMedicosAdmin from "../Helpers/UserAdmin/GetMedicos";
 
 function SelectMedicos() {
 
   const { isAdmin } = useContext(AuthContext);
   const [medicoString, setmedicoString] = useState<any>();
+  const [medicoAdm, setMedicoAdm] = useState<any>();
   const [medicoSelecionado, setmedicoSelecionado] = useState<any | null>(null);
 
   const [clinicaString, setclinicaString] = useState<any>();
@@ -22,26 +27,74 @@ function SelectMedicos() {
 
   const [isDisabledEntrar, setisDisabledEntrar] = useState(true);
 
+  const [lista_medico, setlista_medico] = useState<any[]>([]);
+
+  useEffect(() => {
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin) {
+      setlista_medico(GetMedicosFree())
+    } else {
+      GetMedicosAdmin()
+        .then(medicos => {
+          setlista_medico(medicos)
+        })
+        .catch(error => {
+          console.error('Erro ao obter clínicas:', error);
+        });
+    }
+  }, [])
 
   const getMedicos = () => {
-    let medicos;
-    let item;
-    if (localStorage.getItem("medicos") != null) {
-      item = localStorage.getItem("medicos");
-      medicos = JSON.parse(item);
-    } else medicos = [];
-    return medicos;
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin) {
+      setlista_medico(GetMedicosFree())
+    } else {
+      GetMedicosAdmin()
+        .then(medicos => {
+          setlista_medico(medicos)
+        })
+        .catch(error => {
+          console.error('Erro ao obter clínicas:', error);
+        });
+    }
   };
-  const lista_medico = getMedicos();
 
   const SelectMedicosUser = () => {
-    const user = {
-      isLogged: true,
-      medico: medicoSelecionado,
-      clinica: clinicaSelecionada,
-    };
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    let user;
+    if (!isAdmin) {
+      user = {
+        isLogged: true,
+        medico: medicoSelecionado,
+        clinica: JSON.parse(clinicaSelecionada)
+      };
+
+    } else {
+      user = {
+        isLogged: true,
+        medico: medicoSelecionado,
+        clinica: clinicaSelecionada
+      };
+    }
+
+
     localStorage.setItem("user", JSON.stringify(user));
-    console.log('deletar')
+    // console.log('deletar')
   };
 
   const parseMedicoSelecionado = () => {
@@ -64,7 +117,10 @@ function SelectMedicos() {
 
   useEffect(() => {
     if (medicoSelecionado != null && medicoSelecionado != undefined)
-      setClinicaMedSelect(medicoSelecionado.clinica);
+      // console.log(medicoSelecionado)
+      setClinicaMedSelect(medicoSelecionado.clinicas);
+
+    // console.log('medico', medicoSelecionado.clinicas)
   }, [medicoSelecionado]);
 
   useEffect(() => {
@@ -77,100 +133,207 @@ function SelectMedicos() {
   });
 
   const verificaMedico = () => {
-    if (lista_medico.length > 0) {
-      return (
-        <Center>
-          <Stack>
-            <Select
-              defaultValue=""
-              w="30vw"
-              borderColor="#ccc"
-              textAlign="center"
-              onChange={(event) => setmedicoString(event.currentTarget.value)}
-            >
-              <option value="" disabled>
-                Médicos
-              </option>
 
-              {lista_medico.map((medico, key) => {
-                return (
-                  <option value={JSON.stringify(medico)} key={key}>
-                    {medico.nome}
-                  </option>
-                );
-              })}
-            </Select>
-            {medicoSelecionado != null || undefined ? (
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin) {
+      if (lista_medico.length > 0) {
+        return (
+          <Center>
+            <Stack>
               <Select
                 defaultValue=""
                 w="30vw"
                 borderColor="#ccc"
                 textAlign="center"
-                onChange={(e) => setclinicaString(e.currentTarget.value)}
+                onChange={(event) => setmedicoString(event.currentTarget.value)}
               >
                 <option value="" disabled>
-                  Clínicas
+                  Médicos
                 </option>
-                {clinicasMedSelect.map((clinica, key) => {
-                  const parseClinica = JSON.parse(clinica);
+
+                {lista_medico.map((medico, key) => {
                   return (
-                    <option value={JSON.stringify(clinica)} key={key}>
-                      {parseClinica.nomeClinica}
+                    <option value={JSON.stringify(medico)} key={key}>
+                      {medico.nome}
                     </option>
                   );
                 })}
               </Select>
-            ) : null}
+              {medicoSelecionado != null || undefined ? (
+                <Select
+                  defaultValue=""
+                  w="30vw"
+                  borderColor="#ccc"
+                  textAlign="center"
+                  onChange={(e) => setclinicaString(e.currentTarget.value)}
+                >
+                  <option value="" disabled>
+                    Clínicas
+                  </option>
+                  {clinicasMedSelect.map((clinica, key) => {
+                    const parseClinica = JSON.parse(clinica);
+                    return (
+                      <option value={JSON.stringify(clinica)} key={key}>
+                        {parseClinica.nome}
+                      </option>
+                    );
+                  })}
+                </Select>
+              ) : null}
 
-            <Link
-              display="block"
-              href={`#/Home`}
-              style={{ textDecoration: "none" }}
-            >
-              <Button
-                colorScheme="blue"
+              <Link
                 display="block"
-                w="100%"
-                isDisabled={isDisabledEntrar}
-                onClick={() => {
-                  SelectMedicosUser();
-                }}
+                href={`#/Home`}
+                style={{ textDecoration: "none" }}
               >
-                Entrar
-              </Button>
-            </Link>
+                <Button
+                  colorScheme="blue"
+                  display="block"
+                  w="100%"
+                  isDisabled={isDisabledEntrar}
+                  onClick={() => {
+                    SelectMedicosUser();
+                  }}
+                >
+                  Entrar
+                </Button>
+              </Link>
 
-            <Link
-              display="block"
-              href={`#/Home/Configuracoes`}
-              style={{ textDecoration: "none" }}
-            >
-              <Button colorScheme="blue" display="block" w="100%">
-                Adicionar médico
-              </Button>
-            </Link>
-          </Stack>
-        </Center>
-      );
+              <Link
+                display="block"
+                href={`#/Home/Configuracoes`}
+                style={{ textDecoration: "none" }}
+              >
+                <Button colorScheme="blue" display="block" w="100%">
+                  Adicionar médico
+                </Button>
+              </Link>
+            </Stack>
+          </Center>
+        );
+      } else {
+        return (
+          <Center>
+            <Stack>
+              <Text fontWeight="bold">Adicione um médico para prosseguir.</Text>
+
+              <Link
+                display="block"
+                href={`#/Home/Configuracoes`}
+                style={{ textDecoration: "none" }}
+              >
+                <Button colorScheme="blue" display="block" w="100%">
+                  Adicionar médico
+                </Button>
+              </Link>
+            </Stack>
+          </Center>
+        );
+      }
     } else {
-      return (
-        <Center>
-          <Stack>
-            <Text fontWeight="bold">Adicione um médico para prosseguir.</Text>
+      if (lista_medico.length > 0) {
+        return (
+          <Center>
+            <Stack>
+              <Select
+                defaultValue=""
+                w="30vw"
+                borderColor="#ccc"
+                textAlign="center"
+                onChange={(event) => setmedicoString(event.currentTarget.value)}
+              // onChange={(event) => console.log(JSON.parse(event.currentTarget.value))}
+              >
+                <option value="" disabled>
+                  Médicos
+                </option>
 
-            <Link
-              display="block"
-              href={`#/Home/Configuracoes`}
-              style={{ textDecoration: "none" }}
-            >
-              <Button colorScheme="blue" display="block" w="100%">
-                Adicionar médico
-              </Button>
-            </Link>
-          </Stack>
-        </Center>
-      );
+                {lista_medico.map((medico, key) => {
+                  return (
+                    <option value={JSON.stringify(medico)} key={key}>
+                      {medico.nome}
+                    </option>
+                  );
+                })}
+              </Select>
+              {medicoSelecionado != null || undefined ? (
+                <Select
+                  defaultValue=""
+                  w="30vw"
+                  borderColor="#ccc"
+                  textAlign="center"
+                  onChange={(e) => setclinicaString(e.currentTarget.value)}
+                >
+                  <option value="" disabled>
+                    Clínicas
+                  </option>
+                  {clinicasMedSelect.map((clinica, key) => {
+                    return (
+                      <option value={JSON.stringify(clinica)} key={key}>
+                        {clinica.nome}
+                      </option>
+                    );
+                  })}
+                </Select>
+              ) : null}
+
+              <Link
+                display="block"
+                href={`#/Home`}
+                style={{ textDecoration: "none" }}
+              >
+                <Button
+                  colorScheme="blue"
+                  display="block"
+                  w="100%"
+                  isDisabled={isDisabledEntrar}
+                  onClick={() => {
+                    SelectMedicosUser();
+                  }}
+                >
+                  Entrar
+                </Button>
+              </Link>
+
+              <Link
+                display="block"
+                href={`#/Home/Configuracoes`}
+                style={{ textDecoration: "none" }}
+              >
+                <Button colorScheme="blue" display="block" w="100%">
+                  Adicionar médico
+                </Button>
+              </Link>
+            </Stack>
+          </Center>
+        );
+      } else {
+        return (
+          <Center>
+            <Stack>
+              <Text fontWeight="bold">Adicione um médico para prosseguir.</Text>
+
+              <Link
+                display="block"
+                href={`#/Home/Configuracoes`}
+                style={{ textDecoration: "none" }}
+              >
+                <Button colorScheme="blue" display="block" w="100%">
+                  Adicionar médico
+                </Button>
+              </Link>
+            </Stack>
+          </Center>
+        );
+      }
     }
+
+
+
   };
 
   return (

@@ -1,11 +1,12 @@
 {
   "clinicas": [
     {
-      "nomeClinica": "",
+      "userID": 0,
+      "nome": "",
       "endereco": "",
-      "cep": "",
+      "CEP": "",
       "foto": "",
-      "teleFone": ""
+      "telefone": ""
     }
   ]
 }

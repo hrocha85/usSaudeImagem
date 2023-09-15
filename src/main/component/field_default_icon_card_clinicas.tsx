@@ -42,6 +42,7 @@ import { BiCamera } from "react-icons/bi";
 import { BsThreeDotsVertical, BsTrash } from "react-icons/bs";
 import { minhasClinicas } from "./icon_button_plus";
 import axios from "axios";
+import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
 
 const FieldDefaultIconCardClinicas = ({
   text,
@@ -53,6 +54,7 @@ const FieldDefaultIconCardClinicas = ({
   id,
   isMedic,
 }) => {
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [focus, setFocus] = useState("unstyled");
@@ -65,7 +67,7 @@ const FieldDefaultIconCardClinicas = ({
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
-  const [nome, setNomeClinica] = useState(clinica.nomeClinica);
+  const [nome, setNomeClinica] = useState(clinica.nome);
 
   const [updateNome, setUpdateNome] = useState<string | null>(null);
 
@@ -79,11 +81,11 @@ const FieldDefaultIconCardClinicas = ({
 
   const [endereco, setEndereco] = useState(clinica.endereco);
 
-  const [cep, setCep] = useState(clinica.cep);
+  const [CEP, setCep] = useState(clinica.CEP);
   const [NumeroEndereco, setNumeroEndereco] = useState(clinica.NumeroEndereco);
   const [DisableButton, setDisableButton] = useState(true);
 
-  const [telefone, setTelefone] = useState(clinica.teleFone);
+  const [telefone, setTelefone] = useState(clinica.telefone);
 
   const [InputNomeClinica, setInputNomeClinica] = useState(false);
 
@@ -103,12 +105,11 @@ const FieldDefaultIconCardClinicas = ({
 
   const refNomeClinica = useRef<HTMLInputElement | null>(null);
 
-
   const buscarEndereco = async () => {
     try {
-      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const response = await axios.get(`https://viacep.com.br/ws/${CEP}/json/`);
       const data = response.data;
-      const enderecoCompleto = `${data.logradouro}, ${NumeroEndereco} - ${data.bairro}, ${data.localidade} - ${data.uf}, ${data.cep}`
+      const enderecoCompleto = `${data.logradouro}, ${NumeroEndereco} - ${data.bairro}, ${data.localidade} - ${data.uf}, ${data.CEP}`
 
       setEndereco(enderecoCompleto);
     } catch (error) {
@@ -118,12 +119,12 @@ const FieldDefaultIconCardClinicas = ({
   };
 
   useEffect(() => {
-    if (cep !== '' && NumeroEndereco !== '') {
+    if (CEP !== '' && NumeroEndereco !== '') {
       setDisableButton(false)
     } else {
       setDisableButton(true)
     }
-  }, [NumeroEndereco, cep])
+  }, [NumeroEndereco, CEP])
 
   const openFiles = () => {
     inputFile.current?.click();
@@ -151,6 +152,7 @@ const FieldDefaultIconCardClinicas = ({
     setcloseTooltip(true);
   };
 
+
   const UpdateLocalStorage = (
     nomeUpdate,
     telefoneUpdate,
@@ -158,56 +160,80 @@ const FieldDefaultIconCardClinicas = ({
     enderecoUpdate
   ) => {
     if (nomeUpdate != null) {
-      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      const item = array[id];
-      minhasClinicas[id].nomeClinica = nomeUpdate;
-
-      item.nomeClinica = nomeUpdate;
-      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      const TodasClinicas = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const clinicas = GetClinicaFree();
+      const item = clinicas[id];
+      const novasClinicas = TodasClinicas.filter(objeto => objeto.id !== item.id);
+      console.log('novas clinicas', novasClinicas)
+      console.log('item.id', item.id)
+      // minhasClinicas[id].nome = nomeUpdate;
+      item.nome = nomeUpdate;
+      novasClinicas.push(item)
+      localStorage.setItem("minhasClinicas", JSON.stringify(novasClinicas));
       setNomeClinica(nomeUpdate);
       setUpdateNome(null);
     }
 
     if (cepUpdate != null) {
-      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      const item = array[id];
-      minhasClinicas[id].cep = cepUpdate;
 
-      item.cep = cepUpdate;
-      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      const TodasClinicas = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const clinicas = GetClinicaFree();
+      const item = clinicas[id];
+      // const novasClinicas = TodasClinicas.filter(objeto => objeto.id !== item.id);
+      let novasClinicas;
+      TodasClinicas.map((clinica) => {
+        if (clinica.id !== item.id) {
+          novasClinicas.push(clinica);
+        }
+      })
+      item.CEP = cepUpdate;
+      novasClinicas.push(item)
+      localStorage.setItem("minhasClinicas", JSON.stringify(novasClinicas));
       setCep(cepUpdate);
       setUpdateCEP(null);
+
+      // const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      // const item = array[id];
+      // minhasClinicas[id].  CEP = cepUpdate;
+
+      // item.  CEP = cepUpdate;
+      // localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      // setCep(cepUpdate);
+      // setUpdateCEP(null);
     }
     if (telefoneUpdate != null) {
-      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      const item = array[id];
-      minhasClinicas[id].teleFone = telefoneUpdate;
-
-      item.teleFone = telefoneUpdate;
-      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      const TodasClinicas = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const clinicas = GetClinicaFree();
+      const item = clinicas[id];
+      const novasClinicas = TodasClinicas.filter(objeto => objeto.id !== item.id);
+      item.telefone = telefoneUpdate;
+      novasClinicas.push(item)
+      localStorage.setItem("minhasClinicas", JSON.stringify(novasClinicas));
       setTelefone(telefoneUpdate);
       setUpdateTelefone(null);
     }
     if (enderecoUpdate != null) {
-      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      const item = array[id];
-      minhasClinicas[id].endereco = enderecoUpdate;
-
+      const TodasClinicas = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const clinicas = GetClinicaFree();
+      const item = clinicas[id];
+      const novasClinicas = TodasClinicas.filter(objeto => objeto.id !== item.id);
       item.endereco = enderecoUpdate;
-      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      novasClinicas.push(item)
+      localStorage.setItem("minhasClinicas", JSON.stringify(novasClinicas));
       setEndereco(enderecoUpdate);
       setUpdateEndereco(null);
     }
     if (FotoUpdate) {
-      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      const item = array[id];
-      minhasClinicas[id].foto = defaultUserImage;
+      const TodasClinicas = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const clinicas = GetClinicaFree();
+      const item = clinicas[id];
+      const novasClinicas = TodasClinicas.filter(objeto => objeto.id !== item.id);
       item.foto = defaultUserImage;
-      localStorage.setItem("minhasClinicas", JSON.stringify(array));
+      novasClinicas.push(item)
+      localStorage.setItem("minhasClinicas", JSON.stringify(novasClinicas));
       setFotoUpdate(false);
     }
     window.dispatchEvent(new Event("update_clinicas"));
-
   };
 
   useEffect(() => {
@@ -250,9 +276,12 @@ const FieldDefaultIconCardClinicas = ({
   };
 
   const RemoveItem = () => {
-    const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-    array.splice(id, 1);
-    localStorage.setItem("minhasClinicas", JSON.stringify(array));
+    const TodasClinicas = JSON.parse(localStorage.getItem("minhasClinicas")!);
+    const clinicas = GetClinicaFree();
+    const item = clinicas[id];
+    const novasClinicas = TodasClinicas.filter(objeto => objeto.id !== item.id);
+
+    localStorage.setItem("minhasClinicas", JSON.stringify(novasClinicas));
     window.location.reload();
   };
 
@@ -441,14 +470,14 @@ const FieldDefaultIconCardClinicas = ({
                   <Center paddingTop={"5px"}>
                     <InputGroup variant={"unstyled"} width={"215px"}>
                       <InputLeftAddon
-                        children="CEP:"
+                        children="  CEP:"
                         paddingEnd={"5px"}
                         fontWeight={"bold"}
                       />
                       <Input
                         textAlign={"center"}
                         justifySelf={"center"}
-                        defaultValue={cep}
+                        defaultValue={CEP}
                         isDisabled={disable}
                         variant={focusEdit}
                         borderStartRadius={"md"}
