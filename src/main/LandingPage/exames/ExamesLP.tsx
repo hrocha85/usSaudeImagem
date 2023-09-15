@@ -123,7 +123,7 @@ function ExamesLp() {
                             >
                                 Dentro de Tireóide sera possível encontrar diversos exames, dentre eles estão, Ecotextura do Parênquima, Cirurgias, Linfonodomegalias...                            </Text>
                         </Box>
-                        <Box w={['90%', '50%']} pl={['0', '6%']} pb={'5%'} order={[0, 1]}>
+                        <Box w={['90%', '50%']} pl={['0', '6%']} pt={['5%', 0]} pb={['0', '5%']} order={[0, 1]}>
                             <Image src={photoExam} />
                         </Box>
                     </Flex>
