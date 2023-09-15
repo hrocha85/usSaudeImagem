@@ -213,7 +213,11 @@ function Home() {
   ];
 
   const user = JSON.parse(localStorage.getItem("user")!);
-  const clinica = JSON.parse(user.clinica);
+  useEffect(() => {
+    console.log('user', user)
+  }, [])
+
+  const clinica = user.clinica;
   const userData = JSON.parse(localStorage.getItem('userData')!);
   const medico = user.medico;
 
@@ -227,7 +231,7 @@ function Home() {
 
   const LogoutButton = () => {
     localStorage.removeItem("user");
-    navigate("/LoginFree");
+    navigate("/");
   };
 
   useEffect(() => {
@@ -249,6 +253,13 @@ function Home() {
     console.log(`USO DO LOCALSTORAGE: ${locals.toFixed(2)} MB`);
   }, []);
 
+  const now = new Date();
+  const formatDate = (date: Date) => {
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'long' });
+    const year = date.getFullYear();
+    return `${day} de ${month} de ${year}`;
+  };
 
   if (!isMounted) {
     return (
@@ -274,7 +285,10 @@ function Home() {
 
           <Flex mt={3} justifyContent="space-between" alignItems="center">
             <Text textColor={'black'} fontSize={"20px"} fontWeight={700} pl={4}>
-              Bem-vindo, médico logado
+              Bem-vindo, {medico.nome}
+            </Text>
+            <Text textColor={'rgba(0, 0, 0, 0.64)'} fontSize={"16px"} fontWeight={400}>
+              {formatDate(now)}
             </Text>
             <Flex justifyContent="flex-end">
               <Link href="#/Home/Configuracoes" pr={4}>
@@ -348,7 +362,7 @@ function Home() {
                 <Text fontWeight="semibold" fontSize="xl">
                   CRM:
                 </Text>
-                <Text fontSize="xl">{medico.crm}</Text>
+                <Text fontSize="xl">{medico.CRMUF}</Text>
               </HStack>
               <HStack>
                 <Text fontWeight="semibold" fontSize="xl">

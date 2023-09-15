@@ -257,13 +257,13 @@ const IconButtonPlusMedicos = (props, clinica) => {
         id: id,
         userID: user.id,
         nome: nome,
-        crm: crm,
+        CRMUF: crm,
         assinatura:
           padRef.current?.getTrimmedCanvas().toDataURL("image/png") != null
             ? padRef.current?.getTrimmedCanvas().toDataURL("image/png")
             : pngAssinatura!,
         foto: defaultUserImage,
-        clinica: clinicas,
+        clinicas: clinicas,
         laudos: [{}],
       };
       TodosMedicos.push(obj);
@@ -384,6 +384,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
       <Center margin="25px">
         <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
           {clinicas.map((clinica, key) => {
+            console.log('clinicas', clinica)
             const clinicaParse = JSON.parse(clinica);
             return (
               <Tooltip

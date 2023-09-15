@@ -401,7 +401,7 @@ const Configuracoes = () => {
 
           </Box>
 
-          {returnObservacoes()}
+          {/* {returnObservacoes()} */}
         </Stack>
         {/* {returnObservacoes()} */}
 

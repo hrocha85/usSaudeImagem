@@ -136,7 +136,7 @@ const Medicos = ({ medico, id }) => {
     }
     if (!isAdmin) {
       setListaClinicas(GetClinicaFree())
-      setClinicaMedico([JSON.parse(medico.clinica)])
+      setClinicaMedico([JSON.parse(medico.clinicas)])
     } else {
       getClinicaAdmin()
         .then(clinicas => {
@@ -218,7 +218,7 @@ const Medicos = ({ medico, id }) => {
     if (CRMupdate != null) {
       const array = JSON.parse(localStorage.getItem("medicos")!);
       const item = array[id];
-      lista_medicos[id].crm = CRMupdate;
+      lista_medicos[id].CRMUF = CRMupdate;
 
       item.crm = CRMupdate;
       localStorage.setItem("medicos", JSON.stringify(array));
@@ -228,7 +228,7 @@ const Medicos = ({ medico, id }) => {
     if (clinicaUpdate != null) {
       const array = JSON.parse(localStorage.getItem("medicos")!);
       const item = array[id];
-      lista_medicos[id].clinica = ClinicasMedico;
+      lista_medicos[id].clinicas = ClinicasMedico;
 
       item.clinica = ClinicasMedico;
       localStorage.setItem("medicos", JSON.stringify(array));
@@ -321,7 +321,7 @@ const Medicos = ({ medico, id }) => {
   const RemoveTAG = () => {
     const array = JSON.parse(localStorage.getItem("medicos")!);
     const item = array[id];
-    lista_medicos[id].clinica = ClinicasMedico;
+    lista_medicos[id].clinicas = ClinicasMedico;
 
     item.clinica = ClinicasMedico;
     localStorage.setItem("medicos", JSON.stringify(array));
