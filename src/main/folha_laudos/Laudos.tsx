@@ -437,9 +437,10 @@ function Exames() {
   const getUserClinica = () => {
     let clinica;
     if (localStorage.getItem("user") != null) {
-      clinica = JSON.parse(localStorage.getItem("user")!);
+      clinica = localStorage.getItem("user");
     }
-    return clinica.clinica;
+    console.log('clinica', clinica)
+    return clinica;
   };
 
   const getUserMedico = () => {
@@ -481,7 +482,7 @@ function Exames() {
   };
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
+  const [clinicaSet, setClinica] = useState<any>(getUserClinica());
   const [medico, setMedico] = useState(getUserMedico());
   const [urlLaudo, setUrlLaudo] = useState<any>();
   const [edit, setEdit] = useState(false);
@@ -1167,7 +1168,7 @@ function Exames() {
               />
 
               <Text fontWeight="bold">{`Dr. ${medico.nome}`}</Text>
-              <Text fontWeight="bold">{`CRM ${medico.crm}`}</Text>
+              <Text fontWeight="bold">{`CRM ${medico.CRMUF}`}</Text>
             </Grid>
 
             <Text
