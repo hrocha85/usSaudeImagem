@@ -70,13 +70,15 @@ function About() {
         </Text>
       </Box>
 
-      <Flex justifyContent={'space-around'} flexDir={{ base: 'column', md: 'row' }} mt={'5%'} alignItems={'center'} textAlign={'center'} px={5}>
+      <Flex justifyContent={'space-around'} flexDir={{ base: 'column', md: 'row' }} mt={'5%'} alignItems={'center'} px={5}>
         <Card maxW='sm'>
-          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'} fontFamily={'Inter, sans-serif'}>
+          <CardBody  alignItems={'center'} fontFamily={'Inter, sans-serif'}>
             <Image
               src={offline}
               alt='Sistema rapido'
-              borderRadius='sm'
+              bg={'#edf2ff'}
+              p={'4%'}
+              rounded={'15%'}
             />
             <Stack mt='6' spacing='3'>
               <Heading size='md' textColor={'#1C49B0'}>Online e Offline</Heading>
@@ -87,11 +89,13 @@ function About() {
           </CardBody>
         </Card>
         <Card maxW='sm'>
-          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'} fontFamily={'Inter, sans-serif'}>
+          <CardBody alignItems={'center'} fontFamily={'Inter, sans-serif'}>
             <Image
               src={fast}
               alt='Sistema rapido'
-              borderRadius='sm'
+              bg={'#edf2ff'}
+              p={'4%'}
+              rounded={'15%'}
             />
             <Stack mt='6' spacing='3'>
               <Heading size='md' textColor={'#1C49B0'}>Rápido e Prático</Heading>
@@ -103,11 +107,13 @@ function About() {
         </Card>
 
         <Card maxW='sm'>
-          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'} fontFamily={'Inter, sans-serif'}>
+          <CardBody alignItems={'center'} fontFamily={'Inter, sans-serif'}>
             <Image
               src={phone}
               alt='mobile'
-              borderRadius='sm'
+              bg={'#edf2ff'}
+              p={'4%'}
+              rounded={'15%'}
             />
             <Stack mt='6' spacing='3'>
               <Heading size='md' textColor={'#1C49B0'}>Na palma da sua mão</Heading>
@@ -119,11 +125,13 @@ function About() {
         </Card>
 
         <Card maxW='sm'>
-          <CardBody display={'flex'} flexDir={'column'} alignItems={'center'} fontFamily={'Inter, sans-serif'}>
+          <CardBody alignItems={'center'} fontFamily={'Inter, sans-serif'}>
             <Image
               src={print}
               alt='compartilhar'
-              borderRadius='sm'
+              bg={'#edf2ff'}
+              p={'4%'}
+              rounded={'15%'}
             />
             <Stack mt='6' spacing='3'>
               <Heading size='md' textColor={'#1C49B0'}>Pronto p/ Compartilhar</Heading>
