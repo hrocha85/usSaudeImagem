@@ -17,7 +17,7 @@ export default function LoginForm() {
   const toast = useToast();
 
   const { setIsAdmin } = useContext(AuthContext);
-  const [Email, setEmail] = useState('admin@hotmail.com')
+  const [Email, setEmail] = useState('user@hotmail.com')
   const [Senha, setSenha] = useState('12345678')
   const [show, setShow] = useState(false)
   const handleClickShow = () => setShow(!show)
@@ -26,60 +26,83 @@ export default function LoginForm() {
   const usenavigate = useNavigate()
 
   const login = async () => {
-    let User: data = {
-      email: Email,
-      password: Senha
+    // let User: data = {
+    //   email: Email,
+    //   password: Senha
+    // }
+    const user = {
+      address: "address",
+      created_at: "2023-09-12T21:21:03.263Z",
+      email: "user@hotmail.com",
+      id: 8,
+      ip: "ip",
+      ip_address: null,
+      name: "user",
+      telefone: null,
+      timesLaudos: null,
+      timesLogin: 17,
+      tipo: "Médico",
+      updated_at: "2023-09-15T21:56:04.297Z"
     }
-    await api.post("login", User).then(async (response) => {
-      console.log(response.data)
-      if (response.status === 200) {
-        User = {
-          // name: response.data.user.name,
-          email: Email,
-          password: Senha
-        }
-        setTimeout(() => {
-          toast({
-            duration: 3000,
-            title: `lucas Seja bem vindo!`,
-            position: "top",
-            isClosable: true,
-          });
-        }, 500);
-        Cookies.set('USGImage_token', JSON.stringify(response.data.token));
-        Cookies.set('USGImage_user', JSON.stringify(response.data.user));
-        try {
-          await api.get(`usuario/${response.data.user.id}`).then((response) => {
-            console.log('role', response.data)
-            setIsAdmin(response.data.roles[0].name === 'admin' ? true : false)
-            Cookies.set('USGImage_role', JSON.stringify(response.data.roles[0].name));
-          })
-          usenavigate("/Splash")
+    const role = 'userFree'
 
-        } catch (error) {
-          console.log('erro no role', error)
-        }
-      } else {
-        setTimeout(() => {
-          toast({
-            duration: 3000,
-            title: `Email ou senha inválido`,
-            position: "top",
-            isClosable: true,
-          });
-        }, 500);
-      }
-    }).catch((e) => {
-      setTimeout(() => {
-        toast({
-          duration: 3000,
-          title: `Email ou senha inválido`,
-          position: "top",
-          isClosable: true,
-        });
-      }, 500);
-      console.log(e);
-    })
+    Cookies.set('USGImage_user', JSON.stringify(user));
+    Cookies.set('USGImage_role', JSON.stringify(role));
+    usenavigate("/Splash")
+    // await api.post("login", User).then(async (response) => {
+    //   console.log(response.data)
+    //   if (response.status === 200) {
+    //     User = {
+    //       // name: response.data.user.name,
+    //       email: Email,
+    //       password: Senha
+    //     }
+    //     setTimeout(() => {
+    //       toast({
+    //         duration: 3000,
+    //         title: `lucas Seja bem vindo!`,
+    //         position: "top",
+    //         isClosable: true,
+    //       });
+    //     }, 500);
+    //     Cookies.set('USGImage_token', JSON.stringify(response.data.token));
+    //     Cookies.set('USGImage_user', JSON.stringify(response.data.user));
+
+    //     console.log('token', (response.data.token));
+    //     console.log('user', (response.data.user))
+    //     console.log('usere', user)
+    //     try {
+    //       await api.get(`usuario/${response.data.user.id}`).then((response) => {
+    //         setIsAdmin(response.data.roles[0].name === 'admin' ? true : false)
+    //         console.log('role', (response.data.roles[0].name))
+    //         Cookies.set('USGImage_role', JSON.stringify(response.data.roles[0].name));
+    //       })
+    //       // usenavigate("/Splash")
+
+    //     } catch (error) {
+    //       console.log('erro no role', error)
+    //     }
+    //   } else {
+    //     setTimeout(() => {
+    //       toast({
+    //         duration: 3000,
+    //         title: `Email ou senha inválido`,
+    //         position: "top",
+    //         isClosable: true,
+    //       });
+    //     }, 500);
+    //   }
+    // }).catch((e) => {
+    //   setTimeout(() => {
+    //     toast({
+    //       duration: 3000,
+    //       title: `Email ou senha inválido`,
+    //       position: "top",
+    //       isClosable: true,
+    //     });
+    //   }, 500);
+    //   console.log(e);
+    // })
   }
 
   const handleInputChange = (event, setter) => {
@@ -104,6 +127,7 @@ export default function LoginForm() {
         admin: admin@hotmail.com 12345678
       </Text>
       <Text>
+        UNICO FUNCIONANDO POR ENQUANTO
         userFree: user@hotmail.com 12345678
       </Text>
       <VStack spacing={4} align={['flex-start', 'center']} w='full' mb={3}>
