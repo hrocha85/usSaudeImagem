@@ -5,17 +5,19 @@ import { About } from "./about/About";
 import { ExamesLp } from "./exames/ExamesLP";
 import { System } from "./system/System";
 import { Planos } from "./planos/Planos";
+import { Footer } from "./footer/Footer";
 
 
 function LandingPage() {
   return (
-    <Box overflow="hidden" >
+    <Box overflow="hidden">
     <Header />
     <Body />
     <About/>
     <ExamesLp/>
     <System/>
     <Planos/>
+    <Footer/>
     </Box>
  
   );

@@ -17,7 +17,7 @@ function ExamesLp() {
                         textAlign={'center'}
                         w={'100%'}
                     >
-                       Conheça alguns dos exames inclusos no sistema
+                        Conheça alguns dos exames inclusos no sistema
                     </Text>
 
                 </Box>
@@ -50,7 +50,7 @@ function ExamesLp() {
                                 textAlign={'justify'}
                                 pt={'6%'}
                             >
-                                Lorem ipsum dolor sit amet consectetur. Eget sed varius nec quis eros convallis fermentum gravida diam. Natoque iaculis a sed risus. Laoreet odio augue donec aliquam et tortor. Risus diam pellentesque donec morbi tincidunt nulla consectetur. Neque eu semper augue vestibulum sodales blandit
+                                Dentro de Abdmômen total sera possível encontrar diversos exames, dentre eles estão, Fígado, Vesícula biliar, Vias Biliares...
                             </Text>
                         </Box>
                         <Box w={['90%', '50%']} pl={['0', '6%']} pb={'5%'} order={[0, 1]}>
@@ -87,8 +87,7 @@ function ExamesLp() {
                                 textAlign={'justify'}
                                 pt={'6%'}
                             >
-                                Lorem ipsum dolor sit amet consectetur. Eget sed varius nec quis eros convallis fermentum gravida diam. Natoque iaculis a sed risus. Laoreet odio augue donec aliquam et tortor. Risus diam pellentesque donec morbi tincidunt nulla consectetur. Neque eu semper augue vestibulum sodales blandit
-                            </Text>
+                                Dentro de Transvaginal sera possível encontrar diversos exames, dentre eles estão, Bexiga, Vagina, Útero...                            </Text>
                         </Box>
                         <Box w={['90%', '50%']} pl={['0', '6%']} pb={['0', '5%']} order={[0, 0]}>
                             <Image src={photoExam} />
@@ -122,8 +121,7 @@ function ExamesLp() {
                                 textAlign={'justify'}
                                 pt={'6%'}
                             >
-                                Lorem ipsum dolor sit amet consectetur. Eget sed varius nec quis eros convallis fermentum gravida diam. Natoque iaculis a sed risus. Laoreet odio augue donec aliquam et tortor. Risus diam pellentesque donec morbi tincidunt nulla consectetur. Neque eu semper augue vestibulum sodales blandit
-                            </Text>
+                                Dentro de Tireóide sera possível encontrar diversos exames, dentre eles estão, Ecotextura do Parênquima, Cirurgias, Linfonodomegalias...                            </Text>
                         </Box>
                         <Box w={['90%', '50%']} pl={['0', '6%']} pb={'5%'} order={[0, 1]}>
                             <Image src={photoExam} />
@@ -159,8 +157,7 @@ function ExamesLp() {
                                 textAlign={'justify'}
                                 pt={'6%'}
                             >
-                                Lorem ipsum dolor sit amet consectetur. Eget sed varius nec quis eros convallis fermentum gravida diam. Natoque iaculis a sed risus. Laoreet odio augue donec aliquam et tortor. Risus diam pellentesque donec morbi tincidunt nulla consectetur. Neque eu semper augue vestibulum sodales blandit
-                            </Text>
+                                Dentro de Mamas sera possível encontrar diversos exames, dentre eles estão, Cistos, Nódulos, Microcalcificações...                            </Text>
                         </Box>
                         <Box w={['90%', '50%']} pl={['0', '6%']} pb={['0', '5%']} order={[0, 0]}>
                             <Image src={photoExam} />

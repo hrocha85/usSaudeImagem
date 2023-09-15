@@ -23,9 +23,9 @@ import { FaApple } from 'react-icons/fa';
       backgroundRepeat="no-repeat"
       px={'2%'}
       pt={'5%'}
-      pl={'10%'}
+      pl={[0,'10%']}
     >
-      <Flex alignItems={'center'} display={display1}>
+      <Flex alignItems={'center'} display={display1} px={'2%'}>
        <Box w={width}>
           <Text
           fontSize={"46px"}
@@ -64,9 +64,7 @@ import { FaApple } from 'react-icons/fa';
             pt={'5%'}
             pb={'7%'}
           >
-          Lorem ipsum dolor sit amet consectetur. Egestas 
-          sed augue ullamcorper vitae. Bibendum cursus magna mauris 
-          arcu lectus viverra et.
+Um sistema de inovação de ultrassom, o futuro da medicina transformando vidas, aqui a tecnologia e a medicina se unem para cuidar de pessoas com precisão em tempo real, laudos feitos com qualidade de ponta.
           </Text>
             <Link href={`#/Cadastro`} ml={5}>
               <Button
