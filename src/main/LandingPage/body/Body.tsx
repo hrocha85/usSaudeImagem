@@ -4,6 +4,8 @@ import doctor from '../../images/landing/doctor 1.png'
 import { AiFillWindows } from "react-icons/ai";
 import { FaLinux } from 'react-icons/fa';
 import { FaApple } from 'react-icons/fa';
+import { Link as ScrollLink } from "react-scroll";
+
   function Body() { 
     const [isLargerThan600] = useMediaQuery('(min-width: 600px)') 
     let display =""
@@ -66,7 +68,7 @@ import { FaApple } from 'react-icons/fa';
           >
 Um sistema de inovação de ultrassom, o futuro da medicina transformando vidas, aqui a tecnologia e a medicina se unem para cuidar de pessoas com precisão em tempo real, laudos feitos com qualidade de ponta.
           </Text>
-            <Link href={`#/Cadastro`} ml={5}>
+            <ScrollLink to="planos" smooth={true} duration={500} ml={5}>
               <Button
                 border="1px solid #1C49B0"
                 color="#1C49B0"
@@ -78,9 +80,9 @@ Um sistema de inovação de ultrassom, o futuro da medicina transformando vidas,
                 fontFamily={"Sora, sans-serif"}
                 fontWeight={'600'}
                 >
-                Conheça nosso sistema
+                Conheça nossos planos
               </Button>
-            </Link>
+            </ScrollLink>
             <Box pt={'5%'} display={display}>
             <Text
                fontSize={"18px"}
