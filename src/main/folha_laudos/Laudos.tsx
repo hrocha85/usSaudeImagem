@@ -437,12 +437,17 @@ function Exames() {
     );
   };
 
+  const [clinicaFoto, setClinicaFoto] = useState('')
+
   const getUserClinica = () => {
     let clinica;
     if (localStorage.getItem("user") != null) {
       clinica = localStorage.getItem("user");
     }
     console.log('clinica', clinica)
+    // const clinicaParse = JSON.parse(clinica)
+    // setClinicaFoto(clinicaParse.foto)
+    // console.log(clinicaParse)
     return clinica;
   };
 
@@ -541,16 +546,16 @@ function Exames() {
     const fileURL = URL.createObjectURL(file);
     setUrlLaudo(fileURL);
   };
-  
+
 
   const handleShareButtonClick = () => {
     const pdfUrl = `http://localhost:3000/eafec451-398a-4bc5-a1b5-d24c0c92958d`
-    sharePdf("Emaxes" , pdfUrl);
+    sharePdf("Emaxes", pdfUrl);
     console.log(pdfUrl)
   };
-  
 
-  
+
+
 
   const getFormatLaudo = () => {
     setArrayLocal(JSON.parse(localStorage.getItem("format_laudo")!));
@@ -1159,7 +1164,7 @@ function Exames() {
                 }}
               />
             </Circle>
-          </Tooltip>        
+          </Tooltip>
         </Stack>
       </Center>
 

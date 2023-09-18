@@ -26,83 +26,78 @@ export default function LoginForm() {
   const usenavigate = useNavigate()
 
   const login = async () => {
-    // let User: data = {
-    //   email: Email,
-    //   password: Senha
-    // }
-    const user = {
-      address: "address",
-      created_at: "2023-09-12T21:21:03.263Z",
-      email: "user@hotmail.com",
-      id: 8,
-      ip: "ip",
-      ip_address: null,
-      name: "user",
-      telefone: null,
-      timesLaudos: null,
-      timesLogin: 17,
-      tipo: "Médico",
-      updated_at: "2023-09-15T21:56:04.297Z"
+    let User: data = {
+      email: Email,
+      password: Senha
     }
-    const role = 'userFree'
+    // const user = {
+    //   address: "address",
+    //   created_at: "2023-09-12T21:21:03.263Z",
+    //   email: "user@hotmail.com",
+    //   id: 8,
+    //   ip: "ip",
+    //   ip_address: null,
+    //   name: "user",
+    //   telefone: null,
+    //   timesLaudos: null,
+    //   timesLogin: 17,
+    //   tipo: "Médico",
+    //   updated_at: "2023-09-15T21:56:04.297Z"
+    // }
+    // const role = 'userFree'
 
-    Cookies.set('USGImage_user', JSON.stringify(user));
-    Cookies.set('USGImage_role', JSON.stringify(role));
-    usenavigate("/Splash")
-    // await api.post("login", User).then(async (response) => {
-    //   console.log(response.data)
-    //   if (response.status === 200) {
-    //     User = {
-    //       // name: response.data.user.name,
-    //       email: Email,
-    //       password: Senha
-    //     }
-    //     setTimeout(() => {
-    //       toast({
-    //         duration: 3000,
-    //         title: `lucas Seja bem vindo!`,
-    //         position: "top",
-    //         isClosable: true,
-    //       });
-    //     }, 500);
-    //     Cookies.set('USGImage_token', JSON.stringify(response.data.token));
-    //     Cookies.set('USGImage_user', JSON.stringify(response.data.user));
+    // Cookies.set('USGImage_user', JSON.stringify(user));
+    // Cookies.set('USGImage_role', JSON.stringify(role));
+    // usenavigate("/Splash")
+    await api.post("login", User).then(async (response) => {
+      if (response.status === 200) {
+        User = {
+          // name: response.data.user.name,
+          email: Email,
+          password: Senha
+        }
+        setTimeout(() => {
+          toast({
+            duration: 3000,
+            title: `lucas Seja bem vindo!`,
+            position: "top",
+            isClosable: true,
+          });
+        }, 500);
+        Cookies.set('USGImage_token', JSON.stringify(response.data.token));
+        Cookies.set('USGImage_user', JSON.stringify(response.data.user));
 
-    //     console.log('token', (response.data.token));
-    //     console.log('user', (response.data.user))
-    //     console.log('usere', user)
-    //     try {
-    //       await api.get(`usuario/${response.data.user.id}`).then((response) => {
-    //         setIsAdmin(response.data.roles[0].name === 'admin' ? true : false)
-    //         console.log('role', (response.data.roles[0].name))
-    //         Cookies.set('USGImage_role', JSON.stringify(response.data.roles[0].name));
-    //       })
-    //       // usenavigate("/Splash")
+        try {
+          await api.get(`usuario/${response.data.user.id}`).then((response) => {
+            setIsAdmin(response.data.roles[0].name === 'admin' ? true : false)
+            Cookies.set('USGImage_role', JSON.stringify(response.data.roles[0].name));
+          })
+          usenavigate("/Splash")
 
-    //     } catch (error) {
-    //       console.log('erro no role', error)
-    //     }
-    //   } else {
-    //     setTimeout(() => {
-    //       toast({
-    //         duration: 3000,
-    //         title: `Email ou senha inválido`,
-    //         position: "top",
-    //         isClosable: true,
-    //       });
-    //     }, 500);
-    //   }
-    // }).catch((e) => {
-    //   setTimeout(() => {
-    //     toast({
-    //       duration: 3000,
-    //       title: `Email ou senha inválido`,
-    //       position: "top",
-    //       isClosable: true,
-    //     });
-    //   }, 500);
-    //   console.log(e);
-    // })
+        } catch (error) {
+          console.log('erro no role', error)
+        }
+      } else {
+        setTimeout(() => {
+          toast({
+            duration: 3000,
+            title: `Email ou senha inválido`,
+            position: "top",
+            isClosable: true,
+          });
+        }, 500);
+      }
+    }).catch((e) => {
+      setTimeout(() => {
+        toast({
+          duration: 3000,
+          title: `Email ou senha inválido`,
+          position: "top",
+          isClosable: true,
+        });
+      }, 500);
+      console.log(e);
+    })
   }
 
   const handleInputChange = (event, setter) => {
