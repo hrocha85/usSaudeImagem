@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
-import { Box, Button, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Checkbox, HStack, Input, Select, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -8,11 +8,13 @@ import IndividualizarCistos from "./individualizar_cistos";
 
 function Cisto() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [FrasesCisto, setFrasesCisto] = useState<any>([]);
   const [ConclusaoCisto, setConclusaoCisto] = useState<any>([]);
-  var ArrayConclusao = ['']
+  const ArrayConclusao = ['']
 
   const [numberArray, setNumberArray] = useState([1]);
 
@@ -53,7 +55,7 @@ function Cisto() {
 
 
   const criaStringCistoRimDireito = (tamanhoNoduloDireitoInput, localizado) => {
-    var string = 'Rim Direito: Notam-se múltiplas imagens anecóicas, arredondadas, de limites precisos e contornos regulares, com reforço acústico posterior bilateralmente, a maior no'
+    let string = 'Rim Direito: Notam-se múltiplas imagens anecóicas, arredondadas, de limites precisos e contornos regulares, com reforço acústico posterior bilateralmente, a maior no'
     const conclusao = 'Cistos renais.'
     removeItemConclusao(conclusao)
     removeItemStringSelect(string)
@@ -78,7 +80,7 @@ function Cisto() {
   ]);
 
   const criaStringCistoRimEsquerdo = (tamanhoNoduloEsquerdoInput, localizado) => {
-    var string = 'Rim Esquerdo: Notam-se múltiplas imagens anecóicas, arredondadas, de limites precisos e contornos regulares, com reforço acústico posterior bilateralmente, a maior no'
+    let string = 'Rim Esquerdo: Notam-se múltiplas imagens anecóicas, arredondadas, de limites precisos e contornos regulares, com reforço acústico posterior bilateralmente, a maior no'
     const conclusao = 'Cistos renais.'
     removeItemConclusao(conclusao)
     removeItemStringSelect(string)
@@ -108,7 +110,7 @@ function Cisto() {
       if (
         e.includes(value)
       ) {
-        var index = FrasesCisto.indexOf(e);
+        const index = FrasesCisto.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           FrasesCisto.splice(index, 1);
@@ -120,7 +122,7 @@ function Cisto() {
 
 
   const removeItemConclusao = (value) => {
-    var index = ConclusaoCisto.indexOf(value);
+    const index = ConclusaoCisto.indexOf(value);
 
     if (index > -1) {
       ConclusaoCisto.splice(index, 1);

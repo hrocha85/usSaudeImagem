@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -41,7 +41,7 @@ function LiquidoPeritendineoEsquerdo({ Disable }) {
 
 
     const criaStringAusente = () => {
-        var string = "Ausência de líquido peritendíneo.";
+        const string = "Ausência de líquido peritendíneo.";
         AusenteCheckbox ? setFraseLiquidoPeritendineoEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
@@ -52,7 +52,7 @@ function LiquidoPeritendineoEsquerdo({ Disable }) {
     }, [AusenteCheckbox])
 
     const criaStringPresente = () => {
-        var string = "Presença de líquido peritendíneo.";
+        const string = "Presença de líquido peritendíneo.";
         PresenteCheckbox ? setFraseLiquidoPeritendineoEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
@@ -61,7 +61,7 @@ function LiquidoPeritendineoEsquerdo({ Disable }) {
     }, [PresenteCheckbox])
 
     const removeItemString = (value) => {
-        var index = fraseLiquidoPeritendineoEsquerdo.indexOf(value);
+        const index = fraseLiquidoPeritendineoEsquerdo.indexOf(value);
         if (index > -1) {
             fraseLiquidoPeritendineoEsquerdo.splice(index, 1);
             setFraseLiquidoPeritendineoEsquerdo((arr) => [...arr]);

@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/jsx-pascal-case */
-import { Box, Checkbox, Grid } from "@chakra-ui/react";
+
+
+import { Box, Checkbox, Grid, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import HerniaUmbilical from "./SubparedeAbdominal/herniaUmbilical";
 import Colecao from "./SubparedeAbdominal/colecao";
@@ -12,7 +12,9 @@ import Diastase_Musculo_Reto from "./SubparedeAbdominal/diastase_musculo_reto";
 
 function ParedeAbdominal() {
   const altura = '100%'
-  const largura = '220px'
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
   const [Disable, SetDisable] = useState(false)
   const [FraseNormal, setFraseNormal] = useState<any>([]);
 
@@ -24,7 +26,7 @@ function ParedeAbdominal() {
   const removeFrase = (value) => {
     FraseNormal.map((e) => {
       if (e.includes(value)) {
-        let index = FraseNormal.indexOf(e);
+        const index = FraseNormal.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           FraseNormal.splice(index, 1);
@@ -63,7 +65,6 @@ function ParedeAbdominal() {
         w={largura}
         h={altura}
         bgPosition="center"
-        bgRepeat="no-repeat"
         borderRadius="10.85px"
         boxShadow="md"
         padding='10px 15px 10px 15px'

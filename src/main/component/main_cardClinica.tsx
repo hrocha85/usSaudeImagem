@@ -7,7 +7,6 @@ import Medico from "../configuracao/medicosNew";
 const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
   const [atualizar, setAtualizar] = useState(true);
 
-  useEffect(() => { }, [atualizar]);
 
   function ShowIcon(icon: boolean) {
     if (icon) {
@@ -21,8 +20,6 @@ const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
     switch (titulo) {
       case "Clínicas":
         return <Clinica atualizar={atualizar} />;
-
-
       default:
         break;
     }
@@ -30,35 +27,34 @@ const MainCardClinica = ({ titulo, icon, clinica, medicos }) => {
 
   return (
     <Box
-      // bg="#FAFAFA"
-      w="24rem"
-      h="60vh"
+      w="100%"
+      h="95%"
       color="white"
       borderRadius="10.85px"
-
-      marginStart='20px'
-      overflow='auto'
-      css={{ '&::-webkit-scrollbar': { width: '0.4em' }, '&::-webkit-scrollbar-thumb': { backgroundColor: 'transparent' } }}
-
-    //minW="218px"
+      mt={'5%'}
     >
-      <Box position="absolute" bg={'#c1e4f9'}pl={'1rem'} zIndex={90} w={'25rem'} h={'2.8rem'}>
-        <Stack
-          direction="row" spacing="200px">
+      <Box h={'3.4rem'} w={'100%'}>
+
+        <Stack direction="row" justifyContent={'center'}>
           <Text
             color="#1A202C"
             fontSize="20px"
-            paddingStart="8px"
             alignSelf="center"
             fontWeight='semibold'
+            mr={2}
           >
-            {medicos ? medicos.nome : titulo}
+            Clínicas
           </Text>
           {ShowIcon(icon)}
+
         </Stack>
       </Box>
 
-      <Box mt='60px' >{Cards(titulo)}</Box>
+      <Box
+        h={'100%'}
+        overflow='auto'
+        css={{ '&::-webkit-scrollbar': { width: '0.4em' }, '&::-webkit-scrollbar-thumb': { backgroundColor: 'transparent' } }}
+      >{Cards(titulo)}</Box>
     </Box>
   );
 };

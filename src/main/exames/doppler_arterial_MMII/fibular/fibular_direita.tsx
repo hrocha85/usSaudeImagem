@@ -14,14 +14,14 @@ function Fibular_Direita() {
   const [EstenoseCheckBox, setEstenoseCheckBox] = useState(false);
 
   const criaStringFluxoAusente = () => {
-    var string = "Fibular direita fluxo ausente ";
+    const string = "Fibular direita fluxo ausente ";
     setFrasesFibularDireita((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
     frasesFibularDireita.map((e) => {
       if (e.includes("Fibular direita fluxo ausente ")) {
-        var index = frasesFibularDireita.indexOf(e);
+        const index = frasesFibularDireita.indexOf(e);
 
         if (index > -1) {
           frasesFibularDireita.splice(index, 1);
@@ -32,14 +32,14 @@ function Fibular_Direita() {
   };
 
   const criaStringPosEstenotico = () => {
-    var string = "Pós estenótico fibular direita ";
+    const string = "Pós estenótico fibular direita ";
     setFrasesFibularDireita((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
     frasesFibularDireita.map((e) => {
       if (e.includes("Pós estenótico fibular direita ")) {
-        var index = frasesFibularDireita.indexOf(e);
+        const index = frasesFibularDireita.indexOf(e);
 
         if (index > -1) {
           frasesFibularDireita.splice(index, 1);
@@ -50,14 +50,14 @@ function Fibular_Direita() {
   };
 
   const criaStringEstenose = () => {
-    var string = "Estenose fibular direita acima de 50% ";
+    const string = "Estenose fibular direita acima de 50% ";
     setFrasesFibularDireita((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
     frasesFibularDireita.map((e) => {
       if (e.includes("Estenose fibular direita acima de 50% ")) {
-        var index = frasesFibularDireita.indexOf(e);
+        const index = frasesFibularDireita.indexOf(e);
 
         if (index > -1) {
           frasesFibularDireita.splice(index, 1);

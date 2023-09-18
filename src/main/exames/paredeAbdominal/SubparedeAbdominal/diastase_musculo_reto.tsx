@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import {
   Box,
@@ -25,6 +25,7 @@ import {
   Thead,
   Tr,
   useDisclosure,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
@@ -34,7 +35,9 @@ import SugestaoRef from "../../../images/ref_partes_moles.png";
 
 function Diastase_Musculo_Reto({ Disable }) {
   const altura = "auto";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [imageAdded, setImageAdded] = useState(false);
 
@@ -56,7 +59,7 @@ function Diastase_Musculo_Reto({ Disable }) {
 
   const criaStringDiastase_SEM_Medida = () => {
     removeDiastase_SEM_Medida();
-    let string = `Nota-se afastamento patológico dos ventres do músculo reto abdominal ao nível do ${selectNivel}`;
+    const string = `Nota-se afastamento patológico dos ventres do músculo reto abdominal ao nível do ${selectNivel}`;
     setFrasesDiastase((arr) => [...arr, string]);
   };
 
@@ -67,7 +70,7 @@ function Diastase_Musculo_Reto({ Disable }) {
           "Nota-se afastamento patológico dos ventres do músculo reto abdominal "
         )
       ) {
-        let index = frasesDiastase.indexOf(e);
+        const index = frasesDiastase.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesDiastase.splice(index, 1);
@@ -80,7 +83,7 @@ function Diastase_Musculo_Reto({ Disable }) {
   const criaStringDiastase_COM_Medida = () => {
     removeDiastase_COM_Medida();
     if (selectNivel != "") {
-      let string = `Com distância transversa máxima de ${medidaAfastamento} cm entre as bordas mediais.`;
+      const string = `Com distância transversa máxima de ${medidaAfastamento} cm entre as bordas mediais.`;
       setFrasesDiastase((arr) => [...arr, string]);
     }
   };
@@ -88,7 +91,7 @@ function Diastase_Musculo_Reto({ Disable }) {
   const removeDiastase_COM_Medida = () => {
     frasesDiastase.map((e) => {
       if (e.includes(`Com distância transversa máxima de `)) {
-        let index = frasesDiastase.indexOf(e);
+        const index = frasesDiastase.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesDiastase.splice(index, 1);
@@ -101,7 +104,7 @@ function Diastase_Musculo_Reto({ Disable }) {
   const removeConclusao = () => {
     ConclusaoDiastase.map((e) => {
       if (e.includes(`Diástase do músculo reto abdominal.`)) {
-        let index = ConclusaoDiastase.indexOf(e);
+        const index = ConclusaoDiastase.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           ConclusaoDiastase.splice(index, 1);
@@ -117,7 +120,7 @@ function Diastase_Musculo_Reto({ Disable }) {
   const removeAll = () => {
     while (Object.keys(frasesDiastase).length != 0) {
       frasesDiastase.map((e) => {
-        let index = frasesDiastase.indexOf(e);
+        const index = frasesDiastase.indexOf(e);
         frasesDiastase.splice(index, 1);
       });
     }
@@ -266,9 +269,7 @@ function Diastase_Musculo_Reto({ Disable }) {
               value={medidaAfastamento}
               w="35px"
               h="30px"
-              marginEnd="10px"
               padding="5px"
-
               textAlign="center"
               onChange={(e) => {
                 setMedidaAfastamento(e.target.value);

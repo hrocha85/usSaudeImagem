@@ -1,4 +1,4 @@
-import { Box, Text, Radio, RadioGroup, Stack, Flex } from "@chakra-ui/react";
+import { Box, Text, Radio, RadioGroup, Stack, Flex, useMediaQuery } from "@chakra-ui/react";
 import { useState } from "react";
 
 import Abscesso from "./abscesso/abscesso";
@@ -26,7 +26,9 @@ import Simetria from "./simetria/Simetria";
 
 function Mamas() {
   const altura = '100%'
-  const largura = '220px'
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "57.5%": largura = "100%"
   const [Sexo, SetSexo] = useState('1')
 
   const MamaSexo = () => {

@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Button, Checkbox, HStack, Input, Text } from "@chakra-ui/react";
+
+import { Box, Button, Checkbox, HStack, Input, Text, useMediaQuery } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -10,7 +10,9 @@ import IndividualizarPolipo from "./IndividualizaPolipo";
 
 function VesiculaBiliar({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [numberArray, setNumberArray] = useState([1]);
 
@@ -90,14 +92,14 @@ function VesiculaBiliar({ Disable }) {
   const [MultiplosPoliposInput2, setMultiplosPoliposInput2] = useState("");
 
   const removeItemString = (value) => {
-    var index = frasesVesicula.indexOf(value);
+    const index = frasesVesicula.indexOf(value);
     if (index > -1) {
       frasesVesicula.splice(index, 1);
       setFrasesVesicula((arr) => [...arr]);
     }
   };
   const removeItemConclusao = (value) => {
-    var index = ConclusoesVesicula.indexOf(value);
+    const index = ConclusoesVesicula.indexOf(value);
     if (index > -1) {
       ConclusoesVesicula.splice(index, 1);
       setConclusoesVesicula((arr) => [...arr]);
@@ -143,7 +145,7 @@ function VesiculaBiliar({ Disable }) {
   }, [AusenteCheckbox]);
 
   const criaStringCitarEspessura = (dados) => {
-    var string = "Espessura da parede vesicular";
+    let string = "Espessura da parede vesicular";
     removeFraseCitarEspessura();
 
     if (dados != "") {
@@ -155,7 +157,7 @@ function VesiculaBiliar({ Disable }) {
   const removeFraseCitarEspessura = () => {
     frasesVesicula.map((e) => {
       if (e.includes("Espessura da parede vesicular")) {
-        var index = frasesVesicula.indexOf(e);
+        const index = frasesVesicula.indexOf(e);
         if (index > -1) {
           frasesVesicula.splice(index, 1);
           setFrasesVesicula((arr) => [...arr]);
@@ -178,7 +180,7 @@ function VesiculaBiliar({ Disable }) {
 
 
   const criaStringMultiplosCalculos = (dados1, dados2) => {
-    var string = "Vesícula biliar";
+    let string = "Vesícula biliar";
     removeFraseMultiplosCalculos();
     if (dados1 != "" && dados2 != "" && MultiplosCalculosColecisiteCheckbox) {
       string = `${string} distendida, com paredes espessadas, apresentando múltiplas imagens calculosas em seu interior, medindo de ${dados1} a ${dados2} cm.`;
@@ -191,7 +193,7 @@ function VesiculaBiliar({ Disable }) {
 
   const removeFraseMultiplosCalculos = () => {
     frasesVesicula.map((e) => {
-      var index;
+      let index;
       if (
         e.includes(
           "distendida, com paredes espessadas, apresentando múltiplas imagens calculosas em seu interior, medindo de"
@@ -239,7 +241,7 @@ function VesiculaBiliar({ Disable }) {
 
 
   const criaStringMultiplosPolipos = (dados1, dados2) => {
-    var string =
+    let string =
       "Imagens polipoides hiperecogênicas aderidas às paredes da vesícula, medindo de";
     const conclusaoPolipos = "Imagem compatível com pólipo na vesícula biliar.";
     removeItemConclusao(conclusaoPolipos);
@@ -263,7 +265,7 @@ function VesiculaBiliar({ Disable }) {
           "Imagens polipoides hiperecogênicas aderidas às paredes da vesícula, medindo de"
         )
       ) {
-        var index = frasesVesicula.indexOf(e);
+        const index = frasesVesicula.indexOf(e);
         if (index > -1) {
           frasesVesicula.splice(index, 1);
           setFrasesVesicula((arr) => [...arr]);

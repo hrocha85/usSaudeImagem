@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, Input, Select, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -22,7 +22,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
     removeMultiplosNodulos();
     const conclusao = 'Nódulos renais.'
     removeItemConclusao(conclusao)
-    var string = `${numNodulo}º Nódulo- Nota-se imagens nodulares sólidas,corticais, sem alterara a arquitetura vascular e pielo-calicinal.\n`
+    let string = `${numNodulo}º Nódulo- Nota-se imagens nodulares sólidas,corticais, sem alterara a arquitetura vascular e pielo-calicinal.\n`
     if (checkboxNodulo) {
       if (valueInput01Nodulo && valueInput02Nodulo && valueSelect01Nodulo && valueSelect02Nodulo !== '' && valueSelect03Nodulo && valueSelect04Nodulo) {
         string = `${string} ${valueSelect02Nodulo}: Conteúdo  ${valueSelect04Nodulo}, no ${valueSelect01Nodulo}, homogêneo, contornos ${valueSelect03Nodulo}, medindo ${valueInput01Nodulo} x ${valueInput02Nodulo} cm.`;
@@ -40,7 +40,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
   };
 
   const removeItemConclusao = (value) => {
-    var index = ConclusaoCalc.indexOf(value);
+    const index = ConclusaoCalc.indexOf(value);
 
     if (index > -1) {
       ConclusaoCalc.splice(index, 1);
@@ -53,7 +53,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
   const removeMultiplosNodulos = () => {
     frasesIndCalc.map((e) => {
       if (e.includes(`${numNodulo}º Nódulo-`)) {
-        var index = frasesIndCalc.indexOf(e);
+        const index = frasesIndCalc.indexOf(e);
 
         if (index > -1) {
           frasesIndCalc.splice(index, 1);

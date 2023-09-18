@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Center, Checkbox, Input } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -40,7 +40,7 @@ export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) 
 
     if (tamanhoCalculoInput !== "") {
       const medida = new Convert_Medida(tamanhoCalculoInput).Convert_Medida()
-      var string = `Descontinuidade completa das fibras do tendão flexores do ${numCalculo} dedo com intervalo de ${medida} cm.`;
+      const string = `Descontinuidade completa das fibras do tendão flexores do ${numCalculo} dedo com intervalo de ${medida} cm.`;
       setFraseRoturaFlexoresDireito((arr) => [...arr, string]);
     }
   };
@@ -48,7 +48,7 @@ export default function IndividualizarRoturaExtensores({ numCalculo, Disable }) 
   const removeMultiplosCalculos = () => {
     fraseRoturaFlexoresDireito.map((e) => {
       if (e.includes(`Descontinuidade completa das fibras do tendão flexores do ${numCalculo}`)) {
-        var index = fraseRoturaFlexoresDireito.indexOf(e);
+        const index = fraseRoturaFlexoresDireito.indexOf(e);
 
         if (index > -1) {
           fraseRoturaFlexoresDireito.splice(index, 1);

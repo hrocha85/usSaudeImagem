@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -42,33 +42,33 @@ function TendaoFlexoresTenossinoviteEsquerdo({ Disable }) {
 
 
     useEffect(() => {
-        var string = "Tendão flexor longo do polegar com alteração ecotextural, espessado e com líquido na bainha sinovial.";
+        const string = "Tendão flexor longo do polegar com alteração ecotextural, espessado e com líquido na bainha sinovial.";
         FlexorLongoPolegarCheckbox ? setFraseTendaoFlexoreTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     }, [FlexorLongoPolegarCheckbox])
 
 
     useEffect(() => {
-        var string = "Tendão flexor radial do carpo com alteração ecotextural, espessado e com líquido na bainha sinovial.";
+        const string = "Tendão flexor radial do carpo com alteração ecotextural, espessado e com líquido na bainha sinovial.";
         FlexorRadialCarpoCheckbox ? setFraseTendaoFlexoreTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     }, [FlexorRadialCarpoCheckbox])
 
     useEffect(() => {
-        var string = "Tendões flexores superficiais dos dedos com alteração ecotextural, espessados e com líquido na bainha sinovial.";
+        const string = "Tendões flexores superficiais dos dedos com alteração ecotextural, espessados e com líquido na bainha sinovial.";
         FlexoresSuperficiaisCheckbox ? setFraseTendaoFlexoreTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     }, [FlexoresSuperficiaisCheckbox])
 
     useEffect(() => {
-        var string = "Tendões flexores profundos dos dedos com alteração ecotextural, espessados e com líquido na bainha sinovial.";
+        const string = "Tendões flexores profundos dos dedos com alteração ecotextural, espessados e com líquido na bainha sinovial.";
         FlexoresProfundosCheckbox ? setFraseTendaoFlexoreTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     }, [FlexoresProfundosCheckbox])
 
     useEffect(() => {
-        var string = "Tendão flexor palmar longo com alteração ecotextural, espessado e com líquido na bainha sinovial.";
+        const string = "Tendão flexor palmar longo com alteração ecotextural, espessado e com líquido na bainha sinovial.";
         FlexorPalmarLongoCheckbox ? setFraseTendaoFlexoreTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     }, [FlexorPalmarLongoCheckbox])
 
     const removeItemString = (value) => {
-        var index = fraseTendaoFlexoreTenossinoviteEsquerdo.indexOf(value);
+        const index = fraseTendaoFlexoreTenossinoviteEsquerdo.indexOf(value);
 
         if (index > -1) {
             fraseTendaoFlexoreTenossinoviteEsquerdo.splice(index, 1);

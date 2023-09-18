@@ -1,11 +1,13 @@
-import { Checkbox, Flex } from "@chakra-ui/react";
+import { Checkbox, Flex, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function ImpressaoDiagnostica() {
   const altura = "100%";
-  const largura = "45%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [frasesProstata, setFrasesProstata] = useState<any>([]);
 
@@ -26,7 +28,7 @@ function ImpressaoDiagnostica() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesProstata.indexOf(value);
+    const index = frasesProstata.indexOf(value);
 
     if (index > -1) {
       frasesProstata.splice(index, 1);

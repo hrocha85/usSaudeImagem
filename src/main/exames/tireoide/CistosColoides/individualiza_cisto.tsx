@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Input, Select, Wrap, Text, Stack, HStack, Spacer } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -36,7 +36,7 @@ export default function Cisto({ numCalculo }) {
     const removeStringNodulo = () => {
         FrasesCistos.map((e) => {
             if (e.includes(`Cisto coloide ${numCalculo}`)) {
-                var index = FrasesCistos.indexOf(e);
+                const index = FrasesCistos.indexOf(e);
                 if (index > -1) {
                     FrasesCistos.splice(index, 1);
                     setFrasesCistos((arr) => [...arr]);
@@ -45,7 +45,7 @@ export default function Cisto({ numCalculo }) {
         });
     };
     const removeConclusaoString = (value) => {
-        var index;
+        let index;
         ConclusaoCistos.map((e) => {
             if (e.includes(value)) {
                 index = ConclusaoCistos.indexOf(e);

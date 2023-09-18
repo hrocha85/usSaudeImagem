@@ -1,11 +1,13 @@
-import { Box, Checkbox } from "@chakra-ui/react";
+import { Box, Checkbox, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function EcotexturaParenquima() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [frasesECO, setFrasesECO] = useState<any>([]);
 
@@ -22,7 +24,7 @@ function EcotexturaParenquima() {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesECO.indexOf(value);
+    const index = frasesECO.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesECO.splice(index, 1);

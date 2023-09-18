@@ -61,8 +61,9 @@ const SubMenu = ({ item }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const Logout = () => {
-    window.location.href = "/Login";
-    localStorage.removeItem("user");
+    // window.location.href = "/Login";
+    // localStorage.removeItem("user");
+    console.log('arrumar depois')
   };
 
   return (
@@ -84,8 +85,8 @@ const SubMenu = ({ item }) => {
             {item.subNav && subnav
               ? item.iconOpened
               : item.subNav
-              ? item.iconClosed
-              : null}
+                ? item.iconClosed
+                : null}
           </div>
         </SidebarLink>
       </Button>

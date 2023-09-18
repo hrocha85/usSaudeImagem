@@ -1,14 +1,15 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Bexiga({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [value, setValue] = useState("1");
   const [FraseBexiga, setFraseBexiga] = useState<any>([]);
@@ -65,7 +66,7 @@ function Bexiga({ Disable }) {
 
   const criaStringColecaoPelvica = () => {
     removeStringColecaoPelvica()
-    var string = `de massa ou de coleção pélvica de qualquer natureza.`
+    let string = `de massa ou de coleção pélvica de qualquer natureza.`
     if (ColecaoPelvicaCheckbox) {
       if (ColecaoPelvicaSelect != '') {
         string = `${ColecaoPelvicaSelect} ${string}`;
@@ -76,7 +77,7 @@ function Bexiga({ Disable }) {
     }
   }
   const removeStringColecaoPelvica = () => {
-    var index;
+    let index;
     FraseBexiga.map((e) => {
       if (e.includes("massa ou de coleção pélvica de qualquer natureza.")) {
         index = FraseBexiga.indexOf(e);
@@ -95,7 +96,7 @@ function Bexiga({ Disable }) {
 
   const criaStringImagensCalculosas = () => {
     removeStringImagensCalculosas()
-    var string = `${ImagensCalculosasSelect}`
+    const string = `${ImagensCalculosasSelect}`
     if (ImagensCalculosasCheckbox) {
       if (ImagensCalculosasSelect != '') {
         setFraseBexiga((arr) => [...arr, string])
@@ -105,7 +106,7 @@ function Bexiga({ Disable }) {
     }
   }
   const removeStringImagensCalculosas = () => {
-    var index;
+    let index;
     FraseBexiga.map((e) => {
       if (e.includes("Não se notam imagens calculosas.")) {
         index = FraseBexiga.indexOf(e);
@@ -131,7 +132,7 @@ function Bexiga({ Disable }) {
   }, [ImagensCalculosasCheckbox, ImagensCalculosasSelect])
 
   const removeSelectString = () => {
-    var index;
+    let index;
     FraseBexiga.map((e) => {
       if (e.includes("Bexiga")) {
         index = FraseBexiga.indexOf(e);
@@ -143,7 +144,7 @@ function Bexiga({ Disable }) {
     });
   };
   const removeStringConclusao = () => {
-    var index;
+    let index;
     ConclusoesBexiga.map((e) => {
       if (e.includes("Bexiga com trabeculações.")) {
         index = ConclusoesBexiga.indexOf(e);
@@ -156,7 +157,7 @@ function Bexiga({ Disable }) {
     });
   };
   const removeStringLesaoVegetanteConclusao = () => {
-    var index;
+    let index;
     ConclusoesBexiga.map((e) => {
       if (e.includes("Lesão vegetante na parede vesical.")) {
         index = ConclusoesBexiga.indexOf(e);
@@ -221,7 +222,7 @@ function Bexiga({ Disable }) {
 
   useEffect(() => {
     removeSelectString()
-    var frase;
+    let frase;
     if (valueSelect1EstudoUltrassonográfico != '') {
       frase = `Bexiga Apresentando ${valueSelect1EstudoUltrassonográfico} de caracterização limitada ao estudo ultrassonográfico.`;
       setFraseBexiga((arr) => [...arr, frase]);
@@ -231,7 +232,7 @@ function Bexiga({ Disable }) {
   useEffect(() => {
     removeSelectString()
     const conclusaoLesaoVegetante = 'Lesão vegetante na parede vesical.'
-    var select;
+    let select;
     if (valueInput1 != '' && valueInput2 != '' && valueSelect1 != '') {
       select = `Bexiga com boa repleção, notando-se lesão polipoide de superfície irregular medindo 
       ${valueInput1} x ${valueInput2} cm, fixa ${valueSelect1}.`;
@@ -243,14 +244,14 @@ function Bexiga({ Disable }) {
   }, [valueSelect1, valueInput1, valueInput2]);
 
   const removeItemStringConclusao = (value) => {
-    var index = ConclusoesBexiga.indexOf(value);
+    const index = ConclusoesBexiga.indexOf(value);
     if (index > -1) {
       ConclusoesBexiga.splice(index, 1);
       setConclusoesBexiga((arr) => [...arr]);
     }
   };
   const removeItemString = (value) => {
-    var index = FraseBexiga.indexOf(value);
+    const index = FraseBexiga.indexOf(value);
     if (index > -1) {
       FraseBexiga.splice(index, 1);
       setFraseBexiga((arr) => [...arr]);
@@ -259,7 +260,7 @@ function Bexiga({ Disable }) {
 
   useEffect(() => {
     removeSelectString()
-    var string;
+    let string;
     if (valueInputCalculo != '' && valueSelectCalculo != '') {
       string = `Bexiga com boa repleção, com paredes ${valueSelectCalculo}, notando-se no lúmen vesical imagem 
       hiperecogênica com sombra acústica posterior, móvel com as mudanças de decúbito, medindo ${valueInputCalculo} cm.`
@@ -283,7 +284,7 @@ function Bexiga({ Disable }) {
   const removeFraseSondaFoley = () => {
     FraseBexiga.map((e) => {
       if (e.includes("Presença de sonda com balão visível no lúmen vesical.")) {
-        var index = FraseBexiga.indexOf(e);
+        const index = FraseBexiga.indexOf(e);
         if (index > -1) {
           FraseBexiga.splice(index, 1);
           setFraseBexiga((arr) => [...arr]);
@@ -302,7 +303,7 @@ function Bexiga({ Disable }) {
 
 
   useEffect(() => {
-    var string = `${StringParedes} de paredes normo-espessas.`
+    const string = `${StringParedes} de paredes normo-espessas.`
     if (CheiaCheckbox || VaziaCheckbox || NaoVisibilizadaCheckbox) {
       if (NormoEspessasCheckbox) {
         setFraseBexiga((arr) => [...arr, string]);
@@ -317,7 +318,7 @@ function Bexiga({ Disable }) {
   }, [NormoEspessasCheckbox, CheiaCheckbox, VaziaCheckbox, NaoVisibilizadaCheckbox])
 
   useEffect(() => {
-    var string = `${StringParedes} de paredes espessadas.`
+    const string = `${StringParedes} de paredes espessadas.`
     if (CheiaCheckbox || VaziaCheckbox || NaoVisibilizadaCheckbox) {
       if (EspessadasCheckbox) {
         setFraseBexiga((arr) => [...arr, string]);
@@ -375,9 +376,9 @@ function Bexiga({ Disable }) {
   }, [Disable])
 
   const criaStringVolumePreMiccional = (dados1, dados2, dados3) => {
-    var string = 'Volume vesical pré-miccional estimado em'
+    let string = 'Volume vesical pré-miccional estimado em'
     removeFraseVolumePreMiccional()
-    let volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
+    const volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
     setVolumePreMiccionalInput4(volume)
     if (!NaoCitarVolume) {
       if (dados1 != '' && dados2 != '' && dados3 != '' && VolumePreMiccionalInput4 != '') {
@@ -395,7 +396,7 @@ function Bexiga({ Disable }) {
   const removeFraseVolumePreMiccional = () => {
     FraseBexiga.map((e) => {
       if (e.includes("Volume vesical pré-miccional estimado em")) {
-        var index = FraseBexiga.indexOf(e);
+        const index = FraseBexiga.indexOf(e);
         if (index > -1) {
           FraseBexiga.splice(index, 1);
           setFraseBexiga((arr) => [...arr]);
@@ -414,9 +415,9 @@ function Bexiga({ Disable }) {
   }, [VolumePreMiccionalInput1, VolumePreMiccionalInput2, VolumePreMiccionalInput3, VolumePreMiccionalInput4, NaoCitarVolume])
 
   const criaStringResiduo = (dados1, dados2, dados3) => {
-    var string = 'Volume residuo estimado em'
+    let string = 'Volume residuo estimado em'
     removeFraseResiduo()
-    let volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
+    const volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
     setResiduoInput4(volume)
     if (!NaoCitarResiduo) {
       if (dados1 != '' && dados2 != '' && dados3 != '' && ResiduoInput4 != '') {
@@ -434,7 +435,7 @@ function Bexiga({ Disable }) {
   const removeFraseResiduo = () => {
     FraseBexiga.map((e) => {
       if (e.includes("Volume residuo estimado em")) {
-        var index = FraseBexiga.indexOf(e);
+        const index = FraseBexiga.indexOf(e);
         if (index > -1) {
           FraseBexiga.splice(index, 1);
           setFraseBexiga((arr) => [...arr]);
@@ -492,72 +493,60 @@ function Bexiga({ Disable }) {
 
       <RadioGroup
 
-        w='auto' onChange={setValue} value={value} padding="10px">
+        onChange={setValue} value={value} padding="10px">
         <Stack direction="column">
-          <Flex>
-            <Stack>
-              <Radio w='auto' value="1">Não citar Bexiga</Radio>
-              <Radio w='auto' value="Bexiga com boa repleção, paredes finas e regulares, conteúdo anecogênico.">
-                Normal
+
+          <Stack>
+            <Radio value="1">Não citar Bexiga</Radio>
+            <Radio value="Bexiga com boa repleção, paredes finas e regulares, conteúdo anecogênico.">
+              Normal
+            </Radio>
+            <Radio value="Bexiga com boa repleção, de conteúdo anecogênico, apresentando paredes difusamente espessadas e trabeculadas.">
+              Difusamente trabeculada (de esforço)
+            </Radio>
+            <Flex flexWrap={'wrap'}>
+              <Radio value="contendo cálculo medindo">
+                Contendo cálculo medindo
               </Radio>
-              <Radio value="Bexiga com boa repleção, de conteúdo anecogênico, apresentando paredes difusamente espessadas e trabeculadas.">
-                Difusamente trabeculada (de esforço)
+
+              <Input
+                p='0'
+                textAlign='center'
+                value={valueInputCalculo}
+                isDisabled={DisableInputCalculo}
+                w='60px'
+                placeholder="00"
+                onChange={(e) => setValueInputCalculo(e.target.value)}
+              />
+              <Text alignSelf='center'>cm com paredes</Text>
+              <Select w={'90px'}
+                isDisabled={DisableInputCalculo}
+                value={valueSelectCalculo}
+                onChange={(e) => setValueSelectCalculo(e.target.value)}
+              >
+                <option selected disabled value="">Selecione</option>
+                <option value="de espessura normal">de espessura normal</option>
+                <option value="difusamente trabeculadas">difusamente trabeculadas</option>
+              </Select>
+
+            </Flex>
+            <HStack>
+              <Radio value="Estudo ultrassonográfico">
+                Estudo ultrassonográfico
               </Radio>
-              <HStack>
-                <Radio value="contendo cálculo medindo">
-                  Contendo cálculo medindo
-                </Radio>
+              <Select w='150px'
+                isDisabled={DisableEstudoUltrassonografico}
+                value={valueSelect1EstudoUltrassonográfico}
+                onChange={(e) => setValueSelect1EstudoUltrassonográfico(e.target.value)}
+              >
+                <option selected disabled value="">Selecione</option>
+                <option value="média">Média</option>
+                <option value="repleção">Repleção</option>
+              </Select>
 
-                <Input
-                  p='0'
-                  textAlign='center'
-                  value={valueInputCalculo}
-                  isDisabled={DisableInputCalculo}
-                  w='60px'
-                  placeholder="00"
-                  onChange={(e) => setValueInputCalculo(e.target.value)}
-                />
-                <Text alignSelf='center'>cm com paredes</Text>
-                <Select w='150px'
-                  isDisabled={DisableInputCalculo}
-                  value={valueSelectCalculo}
-                  onChange={(e) => setValueSelectCalculo(e.target.value)}
-                >
-                  <option selected disabled value="">Selecione</option>
-                  <option value="de espessura normal">de espessura normal</option>
-                  <option value="difusamente trabeculadas">difusamente trabeculadas</option>
-                </Select>
-
-              </HStack>
-              <HStack>
-                <Radio value="Estudo ultrassonográfico">
-                  Estudo ultrassonográfico
-                </Radio>
-                <Select w='150px'
-                  isDisabled={DisableEstudoUltrassonografico}
-                  value={valueSelect1EstudoUltrassonográfico}
-                  onChange={(e) => setValueSelect1EstudoUltrassonográfico(e.target.value)}
-                >
-                  <option selected disabled value="">Selecione</option>
-                  <option value="média">Média</option>
-                  <option value="repleção">Repleção</option>
-                </Select>
-
-              </HStack>
-            </Stack>
-            <Spacer />
-            <Stack>
-              <Stack>
-                <Checkbox
-
-                  onChange={() => setSondaFoleyCheckbox(!SondaFoleyCheckbox)}>
-                  Presença de sonda Foley
-                </Checkbox>
-
-              </Stack>
-            </Stack>
-          </Flex>
-          <Box w='auto'>
+            </HStack>
+          </Stack>
+          <Box>
             <HStack >
               <Radio value="lesão vegetante">Lesão vegetante medindo</Radio>
               <Input
@@ -598,6 +587,12 @@ function Bexiga({ Disable }) {
         </Stack>
       </RadioGroup>
       <Box gap='25px' display='flex' flexWrap='wrap'>
+
+        <Checkbox w={'100%'}
+          onChange={() => setSondaFoleyCheckbox(!SondaFoleyCheckbox)}>
+          Presença de sonda Foley
+        </Checkbox>
+
         <Checkbox
           disabled={DisableCheia}
           onChange={() => {
@@ -678,14 +673,14 @@ function Bexiga({ Disable }) {
       <Box mb="20px" gap="10px" display="flex" flexWrap="wrap" mt="20px">
 
 
-        <Box display='flex' flexWrap='wrap' gap='10px'>
+        <Box>
           <Box>
             <Text>Vol. pré-miccional:</Text>
-            <HStack>
+            <HStack flexWrap="wrap" alignItems="center" gap={1}>
               <Input
                 p='0'
                 textAlign='center'
-                w="60px"
+                w="50px"
                 value={VolumePreMiccionalInput1}
                 onChange={(e) => {
                   setVolumePreMiccionalInput1(e.target.value);
@@ -696,7 +691,7 @@ function Bexiga({ Disable }) {
               <Input
                 p='0'
                 textAlign='center'
-                w="60px"
+                w="50px"
                 value={VolumePreMiccionalInput2}
                 onChange={(e) => {
                   setVolumePreMiccionalInput2(e.target.value);
@@ -707,7 +702,7 @@ function Bexiga({ Disable }) {
               <Input
                 p='0'
                 textAlign='center'
-                w="60px"
+                w="50px"
                 value={VolumePreMiccionalInput3}
                 onChange={(e) => {
                   setVolumePreMiccionalInput3(e.target.value);
@@ -718,7 +713,7 @@ function Bexiga({ Disable }) {
               <Input
                 p='0'
                 textAlign='center'
-                w="60px"
+                w="50px"
                 value={VolumePreMiccionalInput4}
                 onChange={(e) => {
                   setVolumePreMiccionalInput4(e.target.value);
@@ -735,11 +730,11 @@ function Bexiga({ Disable }) {
         </Box>
         <Box>
           <Text>Resíduo:</Text>
-          <HStack>
+          <HStack flexWrap="wrap" alignItems="center" gap={1}>
             <Input
               p='0'
               textAlign='center'
-              w="60px"
+              w="50px"
               value={ResiduoInput1}
               onChange={(e) => {
                 setResiduoInput1(e.target.value);
@@ -750,7 +745,7 @@ function Bexiga({ Disable }) {
             <Input
               p='0'
               textAlign='center'
-              w="60px"
+              w="50px"
               value={ResiduoInput2}
               onChange={(e) => {
                 setResiduoInput2(e.target.value);
@@ -761,7 +756,7 @@ function Bexiga({ Disable }) {
             <Input
               p='0'
               textAlign='center'
-              w="60px"
+              w="50px"
               value={ResiduoInput3}
               onChange={(e) => {
                 setResiduoInput3(e.target.value);
@@ -772,7 +767,7 @@ function Bexiga({ Disable }) {
             <Input
               p='0'
               textAlign='center'
-              w="60px"
+              w="50px"
               value={ResiduoInput4}
               onChange={(e) => {
                 setResiduoInput4(e.target.value);

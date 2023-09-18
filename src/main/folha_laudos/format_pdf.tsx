@@ -15,8 +15,9 @@ export default function Format_PDF() {
   const [titulo_exame, setTitulo_Exame] = useState("TÍTULO EXAME");
 
   const getUserClinica = () => {
+    let clinica
     if (localStorage.getItem("user") != null) {
-      var clinica = JSON.parse(localStorage.getItem("user")!);
+      clinica = JSON.parse(localStorage.getItem("user")!);
     }
     return clinica.clinica;
   };
@@ -44,14 +45,15 @@ export default function Format_PDF() {
   };
 
   const getUserMedico = () => {
+    let medico
     if (localStorage.getItem("user") != null) {
-      var medico = JSON.parse(localStorage.getItem("user")!);
+      medico = JSON.parse(localStorage.getItem("user")!);
     }
     return medico.medico;
   };
 
   const renderFrases = (exame) => {
-    var arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
+    const arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
 
     arrayLocal.map((e) => {
       setTitulo_Exame(e.titulo_exame);
@@ -348,7 +350,7 @@ export default function Format_PDF() {
                     </View>
 
                     <View style={styles.sectionColuna}>
-                      <Text>{clinicaSet.nomeClinica}</Text>
+                      <Text>{clinicaSet.nome}</Text>
                       <Text>{getPaciente()}</Text>
                       <Text>{getCurrentDate()}</Text>
                       <Text>{`Dr. ${getMedicoSolicitante()}`}</Text>

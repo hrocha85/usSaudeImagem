@@ -7,10 +7,10 @@ function Dilatacao() {
   const altura = "100%";
   const largura = "66%";
 
-  let selectRimEsquerdo = document.querySelector(
+  const selectRimEsquerdo = document.querySelector(
     "#SelectRimEsquerdo"
   ) as HTMLInputElement;
-  let selectRimDireito = document.querySelector(
+  const selectRimDireito = document.querySelector(
     "#SelectRimDireito"
   ) as HTMLInputElement;
 
@@ -33,7 +33,7 @@ function Dilatacao() {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesDilatacao.indexOf(value);
+    const index = frasesDilatacao.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesDilatacao.splice(index, 1);

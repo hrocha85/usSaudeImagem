@@ -19,7 +19,7 @@ function Epididimite() {
     removeStringEpididimiteLivre();
 
     if (EpididimiteCheckBox && posicaoEpididimiteSelect !== "") {
-      var string = `Epididimite no local: ${posicaoEpididimiteSelect}`;
+      const string = `Epididimite no local: ${posicaoEpididimiteSelect}`;
       setFrasesEpididimite((arr) => [...arr, string]);
     }
   };
@@ -27,7 +27,7 @@ function Epididimite() {
   const removeStringEpididimiteLivre = () => {
     frasesEpididimite.map((e) => {
       if (e.includes("Epididimite no local")) {
-        var index = frasesEpididimite.indexOf(e);
+        const index = frasesEpididimite.indexOf(e);
 
         if (index > -1) {
           frasesEpididimite.splice(index, 1);

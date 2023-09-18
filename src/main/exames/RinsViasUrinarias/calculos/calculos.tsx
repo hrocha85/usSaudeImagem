@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
-import { Box, Button, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Checkbox, HStack, Input, Select, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -8,11 +8,13 @@ import IndividualizarCalculos from "./individualizar_calculos";
 
 function Calculo() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [FrasesCalc, setFrasesCalc] = useState<any>([]);
   const [ConclusaoCalc, setConclusaoCalc] = useState<any>([]);
-  var ArrayConclusao = ['']
+  const ArrayConclusao = ['']
 
   const [tamanhoNoduloDireitoInput, settamanhoNoduloDireitoInput] =
     useState("");
@@ -62,7 +64,7 @@ function Calculo() {
   }, [UpdateCalculos]);
 
   const criaStringConclusao = () => {
-    let conclusao = 'Litíase renal.'
+    const conclusao = 'Litíase renal.'
     //  removeConclusao(conclusao)
     if (Calculo1CheckBox || Calculo2CheckBox || Calculo3CheckBox || Calculo4CheckBox || Calculo1RimDireitoCheckBox || Calculo1RimEsquerdoCheckBox) {
       FrasesCalc.map((e) => {
@@ -84,7 +86,7 @@ function Calculo() {
   }, [FrasesCalc])
 
   const criaStringCalculo1RimDireito = (tamanhoNoduloDireitoInput, localizado) => {
-    var string = 'Rim Direito: Sistema pielo-calicial apresentando  múltiplas imagens hiperecogênicas, com formação de sombra acústica posterior, limites precisos e contornos regulares, a maior em'
+    let string = 'Rim Direito: Sistema pielo-calicial apresentando  múltiplas imagens hiperecogênicas, com formação de sombra acústica posterior, limites precisos e contornos regulares, a maior em'
     const conclusao = 'Litíase renal.'
     removeItemConclusao(conclusao)
     removeItemStringSelect(string)
@@ -110,7 +112,7 @@ function Calculo() {
 
 
   const criaStringCalculo1RimEsquerdo = (tamanhoNoduloEsquerdoInput, localizado) => {
-    var string = 'Rim Esquerdo: Sistema pielo-calicial apresentando  múltiplas imagens hiperecogênicas, com formação de sombra acústica posterior, limites precisos e contornos regulares, a maior em'
+    let string = 'Rim Esquerdo: Sistema pielo-calicial apresentando  múltiplas imagens hiperecogênicas, com formação de sombra acústica posterior, limites precisos e contornos regulares, a maior em'
     const conclusao = 'Litíase renal.'
     removeItemConclusao(conclusao)
     removeItemStringSelect(string)
@@ -135,8 +137,8 @@ function Calculo() {
   ]);
 
   const criaStringCalculoUretal = (UreterSelect, posicaoUreterSelect, tamanhoUreterInput) => {
-    var conclusao = 'Litíase ureteral à'
-    var string = 'com formação de sombra acústica posterior, de limites precisos e contornos regulares, medindo'
+    let conclusao = 'Litíase ureteral à'
+    let string = 'com formação de sombra acústica posterior, de limites precisos e contornos regulares, medindo'
     removeItemConclusaoSelect(conclusao)
     removeItemStringSelect(string)
     if (UreterCheckBox) {
@@ -165,7 +167,7 @@ function Calculo() {
       if (
         e.includes(value)
       ) {
-        var index = FrasesCalc.indexOf(e);
+        const index = FrasesCalc.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           FrasesCalc.splice(index, 1);
@@ -179,7 +181,7 @@ function Calculo() {
       if (
         e.includes(value)
       ) {
-        var index = ConclusaoCalc.indexOf(e);
+        const index = ConclusaoCalc.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           ConclusaoCalc.splice(index, 1);
@@ -211,8 +213,8 @@ function Calculo() {
   const [Calculo4CheckBox, setCalculo4CheckBox] = useState(false);
 
   const criaStringCalculo = () => {
-    let conclusao = 'Litíase renal.'
-    var string = 'Presença de imagem hiperecogênica, com formação de sombra acústica posterior, de limites precisos e contornos regulares:'
+    const conclusao = 'Litíase renal.'
+    let string = 'Presença de imagem hiperecogênica, com formação de sombra acústica posterior, de limites precisos e contornos regulares:'
     removeCalculo(string);
     removeItemConclusao(conclusao)
     if (Calculo1CheckBox || Calculo2CheckBox || Calculo3CheckBox || Calculo4CheckBox) {
@@ -269,7 +271,7 @@ function Calculo() {
   const removeCalculo = (value) => {
     FrasesCalc.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesCalc.indexOf(e);
+        const index = FrasesCalc.indexOf(e);
 
         if (index > -1) {
           FrasesCalc.splice(index, 1);
@@ -279,7 +281,7 @@ function Calculo() {
     });
   };
   const removeItemConclusao = (value) => {
-    var index = ConclusaoCalc.indexOf(value);
+    const index = ConclusaoCalc.indexOf(value);
 
     if (index > -1) {
       ConclusaoCalc.splice(index, 1);

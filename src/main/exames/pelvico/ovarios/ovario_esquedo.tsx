@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Button,
@@ -8,7 +8,7 @@ import {
   Input,
   Select,
   Stack,
-  Text
+  Text, useMediaQuery
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -18,7 +18,9 @@ import IndividualizarCistosEsquerdo from "./individualizar_CistoEsquerda";
 
 function Ovario_Esquerdo() {
   const altura = "100%";
-  const largura = "40%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [frasesOvarioesquerdo, setFrasesOvarioesquerdo] = useState<any>([]);
   const [ConclusaoOvarioesquerdo, setConclusaoOvarioesquerdo] = useState<any>([]);
@@ -126,17 +128,17 @@ function Ovario_Esquerdo() {
 
   //Funcoes medidas ovario - Inicio
   const criaStringMedidasOvario = () => {
-    let medida1STR: string = medidaOvario1.toString().replace(',', '.');
-    let medida1: number = parseFloat(medida1STR);
-    let medida2STR: string = medidaOvario2.toString().replace(',', '.');
-    let medida2: number = parseFloat(medida2STR);
-    let medida3STR: string = medidaOvario3.toString().replace(',', '.');
-    let medida3: number = parseFloat(medida3STR);
+    const medida1STR: string = medidaOvario1.toString().replace(',', '.');
+    const medida1: number = parseFloat(medida1STR);
+    const medida2STR: string = medidaOvario2.toString().replace(',', '.');
+    const medida2: number = parseFloat(medida2STR);
+    const medida3STR: string = medidaOvario3.toString().replace(',', '.');
+    const medida3: number = parseFloat(medida3STR);
 
-    var string = 'Medida do ovário:'
+    let string = 'Medida do ovário:'
     removeStringSelect(string)
     if (medidaOvario1 != "" && medidaOvario2 != "" && medidaOvario3 != "") {
-      var medida4 = ((medida1) * (medida2) * (medida3) / 1000) / 2
+      const medida4 = ((medida1) * (medida2) * (medida3) / 1000) / 2
       setmedidaOvario4(medida4)
       string = `${string} ${medidaOvario1} x ${medidaOvario2} x ${medidaOvario3} mm (${medida4.toFixed(2)} cm³)`;
       setFrasesOvarioesquerdo((arr) => [...arr, string]);
@@ -148,7 +150,7 @@ function Ovario_Esquerdo() {
   const removeStringSelect = (value) => {
     frasesOvarioesquerdo.map((e) => {
       if (e.includes(value)) {
-        var index = frasesOvarioesquerdo.indexOf(e);
+        const index = frasesOvarioesquerdo.indexOf(e);
 
         if (index > -1) {
           frasesOvarioesquerdo.splice(index, 1);
@@ -167,7 +169,7 @@ function Ovario_Esquerdo() {
   //Funcoes Padrao Folicular - Inicio
   const criaStringPadraoFolicular = () => {
     const conclusao = 'Ovário esquerdo com padrão folicular.'
-    var string = "Ovário esquerdo com padrão folicular ";
+    const string = "Ovário esquerdo com padrão folicular ";
     setFrasesOvarioesquerdo((arr) => [...arr, string]);
     setConclusaoOvarioesquerdo((arr) => [...arr, conclusao]);
   };
@@ -175,7 +177,7 @@ function Ovario_Esquerdo() {
   const removePadraoFolicular = () => {
     frasesOvarioesquerdo.map((e) => {
       if (e.includes("folicular")) {
-        var index = frasesOvarioesquerdo.indexOf(e);
+        const index = frasesOvarioesquerdo.indexOf(e);
 
         if (index > -1) {
           frasesOvarioesquerdo.splice(index, 1);
@@ -185,7 +187,7 @@ function Ovario_Esquerdo() {
     });
     ConclusaoOvarioesquerdo.map((e) => {
       if (e.includes("Ovário esquerdo com padrão folicular.")) {
-        var index = ConclusaoOvarioesquerdo.indexOf(e);
+        const index = ConclusaoOvarioesquerdo.indexOf(e);
 
         if (index > -1) {
           ConclusaoOvarioesquerdo.splice(index, 1);
@@ -199,7 +201,7 @@ function Ovario_Esquerdo() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringPadraoMicropolicistico = () => {
-    var string =
+    const string =
       "Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe em seu interior múltiplas imagens císticas, distribuídas predominantemente na periferia, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris.";
     const conclusao = 'Ovário esquerdo com aspecto micropolicístico.'
     setFrasesOvarioesquerdo((arr) => [...arr, string]);
@@ -214,7 +216,7 @@ function Ovario_Esquerdo() {
           "Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe em seu interior múltiplas imagens císticas, distribuídas predominantemente na periferia, de paredes finas e regulares, conteúdo anecóide, sem septos ou debris."
         )
       ) {
-        var index = frasesOvarioesquerdo.indexOf(e);
+        const index = frasesOvarioesquerdo.indexOf(e);
 
         if (index > -1) {
           frasesOvarioesquerdo.splice(index, 1);
@@ -227,7 +229,7 @@ function Ovario_Esquerdo() {
         "Ovário esquerdo com aspecto micropolicístico."
       )
       ) {
-        var index = ConclusaoOvarioesquerdo.indexOf(e);
+        const index = ConclusaoOvarioesquerdo.indexOf(e);
         if (index > -1) {
           ConclusaoOvarioesquerdo.splice(index, 1);
           setConclusaoOvarioesquerdo((arr) => [...arr]);
@@ -241,8 +243,8 @@ function Ovario_Esquerdo() {
 
   //Funcoes Cisto - Inicio
   const criaStringCisto = (medida, cisto) => {
-    var conclusao = ' no ovário esquerdo.'
-    var SelectConclusao;
+    let conclusao = ' no ovário esquerdo.'
+    let SelectConclusao;
     removeCisto();
 
     if (cisto === 'Ovário esquerdo: para uterino, a forma é típica e os limites bem definidos. O parênquima exibe imagem cística anecóica, de limites precisos e contornos regulares, com reforço acústico posterior') {
@@ -263,7 +265,7 @@ function Ovario_Esquerdo() {
 
 
     if (medida !== "" && cisto !== "") {
-      var string = `${cisto}, medindo ${medida} mm `;
+      const string = `${cisto}, medindo ${medida} mm `;
       conclusao = `${SelectConclusao} ${conclusao}`
       setFrasesOvarioesquerdo((arr) => [...arr, string]);
       setConclusaoOvarioesquerdo((arr) => [...arr, conclusao]);
@@ -273,7 +275,7 @@ function Ovario_Esquerdo() {
   const removeCisto = () => {
     frasesOvarioesquerdo.map((e) => {
       if (e.includes("medindo")) {
-        var index = frasesOvarioesquerdo.indexOf(e);
+        const index = frasesOvarioesquerdo.indexOf(e);
 
         if (index > -1) {
           frasesOvarioesquerdo.splice(index, 1);
@@ -284,7 +286,7 @@ function Ovario_Esquerdo() {
 
     ConclusaoOvarioesquerdo.map((e) => {
       if (e.includes(" no ovário esquerdo.")) {
-        var index = ConclusaoOvarioesquerdo.indexOf(e);
+        const index = ConclusaoOvarioesquerdo.indexOf(e);
 
         if (index > -1) {
           ConclusaoOvarioesquerdo.splice(index, 1);
@@ -299,7 +301,7 @@ function Ovario_Esquerdo() {
 
   //Função Nao Visibilizado
   useEffect(() => {
-    var string = "Ovário esquerdo não visibilizado.";
+    const string = "Ovário esquerdo não visibilizado.";
     if (NaoVisibilizadoCheckBox) {
       setFrasesOvarioesquerdo((arr) => [...arr, string])
       setCistoInput("");
@@ -315,7 +317,7 @@ function Ovario_Esquerdo() {
   }, [NaoVisibilizadoCheckBox])
 
   const removeItemString = (value) => {
-    var index = frasesOvarioesquerdo.indexOf(value);
+    const index = frasesOvarioesquerdo.indexOf(value);
 
     if (index > -1) {
       frasesOvarioesquerdo.splice(index, 1);

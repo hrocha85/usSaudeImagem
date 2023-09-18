@@ -20,12 +20,10 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "noImplicitAny": false,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "outDir": "./build"
   },
   "include": [
-    "src",
-    "electron/**/*",
-    "public/electron.js",
-    "src/main/component/.tsx"
+    "src"
   ]
 }

@@ -1,14 +1,16 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+
+import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text, VStack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Bexiga({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [value, setValue] = useState("1");
   const [FraseBexiga, setFraseBexiga] = useState<any>([]);
@@ -65,7 +67,7 @@ function Bexiga({ Disable }) {
 
   const criaStringColecaoPelvica = () => {
     removeStringColecaoPelvica()
-    var string = `de massa ou de coleção pélvica de qualquer natureza.`
+    let string = `de massa ou de coleção pélvica de qualquer natureza.`
     if (ColecaoPelvicaCheckbox) {
       if (ColecaoPelvicaSelect != '') {
         string = `${ColecaoPelvicaSelect} ${string}`;
@@ -76,7 +78,7 @@ function Bexiga({ Disable }) {
     }
   }
   const removeStringColecaoPelvica = () => {
-    var index;
+    let index;
     FraseBexiga.map((e) => {
       if (e.includes("massa ou de coleção pélvica de qualquer natureza.")) {
         index = FraseBexiga.indexOf(e);
@@ -95,7 +97,7 @@ function Bexiga({ Disable }) {
 
   const criaStringImagensCalculosas = () => {
     removeStringImagensCalculosas()
-    var string = `${ImagensCalculosasSelect}`
+    const string = `${ImagensCalculosasSelect}`
     if (ImagensCalculosasCheckbox) {
       if (ImagensCalculosasSelect != '') {
         setFraseBexiga((arr) => [...arr, string])
@@ -105,7 +107,7 @@ function Bexiga({ Disable }) {
     }
   }
   const removeStringImagensCalculosas = () => {
-    var index;
+    let index;
     FraseBexiga.map((e) => {
       if (e.includes("Não se notam imagens calculosas.")) {
         index = FraseBexiga.indexOf(e);
@@ -131,7 +133,7 @@ function Bexiga({ Disable }) {
   }, [ImagensCalculosasCheckbox, ImagensCalculosasSelect])
 
   const removeSelectString = () => {
-    var index;
+    let index;
     FraseBexiga.map((e) => {
       if (e.includes("Bexiga")) {
         index = FraseBexiga.indexOf(e);
@@ -143,7 +145,7 @@ function Bexiga({ Disable }) {
     });
   };
   const removeStringConclusao = () => {
-    var index;
+    let index;
     ConclusoesBexiga.map((e) => {
       if (e.includes("Bexiga com trabeculações.")) {
         index = ConclusoesBexiga.indexOf(e);
@@ -156,7 +158,7 @@ function Bexiga({ Disable }) {
     });
   };
   const removeStringLesaoVegetanteConclusao = () => {
-    var index;
+    let index;
     ConclusoesBexiga.map((e) => {
       if (e.includes("Lesão vegetante na parede vesical.")) {
         index = ConclusoesBexiga.indexOf(e);
@@ -221,7 +223,7 @@ function Bexiga({ Disable }) {
 
   useEffect(() => {
     removeSelectString()
-    var frase;
+    let frase;
     if (valueSelect1EstudoUltrassonográfico != '') {
       frase = `Bexiga Apresentando ${valueSelect1EstudoUltrassonográfico} de caracterização limitada ao estudo ultrassonográfico.`;
       setFraseBexiga((arr) => [...arr, frase]);
@@ -231,7 +233,7 @@ function Bexiga({ Disable }) {
   useEffect(() => {
     removeSelectString()
     const conclusaoLesaoVegetante = 'Lesão vegetante na parede vesical.'
-    var select;
+    let select;
     if (valueInput1 != '' && valueInput2 != '' && valueSelect1 != '') {
       select = `Bexiga com boa repleção, notando-se lesão polipoide de superfície irregular medindo 
       ${valueInput1} x ${valueInput2} cm, fixa ${valueSelect1}.`;
@@ -243,14 +245,14 @@ function Bexiga({ Disable }) {
   }, [valueSelect1, valueInput1, valueInput2]);
 
   const removeItemStringConclusao = (value) => {
-    var index = ConclusoesBexiga.indexOf(value);
+    const index = ConclusoesBexiga.indexOf(value);
     if (index > -1) {
       ConclusoesBexiga.splice(index, 1);
       setConclusoesBexiga((arr) => [...arr]);
     }
   };
   const removeItemString = (value) => {
-    var index = FraseBexiga.indexOf(value);
+    const index = FraseBexiga.indexOf(value);
     if (index > -1) {
       FraseBexiga.splice(index, 1);
       setFraseBexiga((arr) => [...arr]);
@@ -259,7 +261,7 @@ function Bexiga({ Disable }) {
 
   useEffect(() => {
     removeSelectString()
-    var string;
+    let string;
     if (valueInputCalculo != '' && valueSelectCalculo != '') {
       string = `Bexiga com boa repleção, com paredes ${valueSelectCalculo}, notando-se no lúmen vesical imagem 
       hiperecogênica com sombra acústica posterior, móvel com as mudanças de decúbito, medindo ${valueInputCalculo} cm.`
@@ -283,7 +285,7 @@ function Bexiga({ Disable }) {
   const removeFraseSondaFoley = () => {
     FraseBexiga.map((e) => {
       if (e.includes("Presença de sonda com balão visível no lúmen vesical.")) {
-        var index = FraseBexiga.indexOf(e);
+        const index = FraseBexiga.indexOf(e);
         if (index > -1) {
           FraseBexiga.splice(index, 1);
           setFraseBexiga((arr) => [...arr]);
@@ -302,7 +304,7 @@ function Bexiga({ Disable }) {
 
 
   useEffect(() => {
-    var string = `${StringParedes} de paredes normo-espessas.`
+    const string = `${StringParedes} de paredes normo-espessas.`
     if (CheiaCheckbox || VaziaCheckbox || NaoVisibilizadaCheckbox) {
       if (NormoEspessasCheckbox) {
         setFraseBexiga((arr) => [...arr, string]);
@@ -317,7 +319,7 @@ function Bexiga({ Disable }) {
   }, [NormoEspessasCheckbox, CheiaCheckbox, VaziaCheckbox, NaoVisibilizadaCheckbox])
 
   useEffect(() => {
-    var string = `${StringParedes} de paredes espessadas.`
+    const string = `${StringParedes} de paredes espessadas.`
     if (CheiaCheckbox || VaziaCheckbox || NaoVisibilizadaCheckbox) {
       if (EspessadasCheckbox) {
         setFraseBexiga((arr) => [...arr, string]);
@@ -375,9 +377,9 @@ function Bexiga({ Disable }) {
   }, [Disable])
 
   const criaStringVolumePreMiccional = (dados1, dados2, dados3) => {
-    var string = 'Volume vesical pré-miccional estimado em'
+    let string = 'Volume vesical pré-miccional estimado em'
     removeFraseVolumePreMiccional()
-    let volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
+    const volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
     setVolumePreMiccionalInput4(volume)
     if (!NaoCitarVolume) {
       if (dados1 != '' && dados2 != '' && dados3 != '' && VolumePreMiccionalInput4 != '') {
@@ -395,7 +397,7 @@ function Bexiga({ Disable }) {
   const removeFraseVolumePreMiccional = () => {
     FraseBexiga.map((e) => {
       if (e.includes("Volume vesical pré-miccional estimado em")) {
-        var index = FraseBexiga.indexOf(e);
+        const index = FraseBexiga.indexOf(e);
         if (index > -1) {
           FraseBexiga.splice(index, 1);
           setFraseBexiga((arr) => [...arr]);
@@ -414,9 +416,9 @@ function Bexiga({ Disable }) {
   }, [VolumePreMiccionalInput1, VolumePreMiccionalInput2, VolumePreMiccionalInput3, VolumePreMiccionalInput4, NaoCitarVolume])
 
   const criaStringResiduo = (dados1, dados2, dados3) => {
-    var string = 'Volume residuo estimado em'
+    let string = 'Volume residuo estimado em'
     removeFraseResiduo()
-    let volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
+    const volume = (parseInt(dados1) + parseInt(dados2) + parseInt(dados3)) / 1000
     setResiduoInput4(volume)
     if (!NaoCitarResiduo) {
       if (dados1 != '' && dados2 != '' && dados3 != '' && ResiduoInput4 != '') {
@@ -434,7 +436,7 @@ function Bexiga({ Disable }) {
   const removeFraseResiduo = () => {
     FraseBexiga.map((e) => {
       if (e.includes("Volume residuo estimado em")) {
-        var index = FraseBexiga.indexOf(e);
+        const index = FraseBexiga.indexOf(e);
         if (index > -1) {
           FraseBexiga.splice(index, 1);
           setFraseBexiga((arr) => [...arr]);
@@ -494,7 +496,7 @@ function Bexiga({ Disable }) {
 
         w='auto' onChange={setValue} value={value} padding="10px">
         <Stack direction="column">
-          <Flex>
+
             <Stack>
               <Radio w='auto' value="1">Não citar Bexiga</Radio>
               <Radio w='auto' value="Bexiga com boa repleção, paredes finas e regulares, conteúdo anecogênico.">
@@ -503,7 +505,7 @@ function Bexiga({ Disable }) {
               <Radio value="Bexiga com boa repleção, de conteúdo anecogênico, apresentando paredes difusamente espessadas e trabeculadas.">
                 Difusamente trabeculada (de esforço)
               </Radio>
-              <HStack>
+              <Stack display={'flex'} flexDirection={'row'}>
                 <Radio value="contendo cálculo medindo">
                   Contendo cálculo medindo
                 </Radio>
@@ -528,8 +530,8 @@ function Bexiga({ Disable }) {
                   <option value="difusamente trabeculadas">difusamente trabeculadas</option>
                 </Select>
 
-              </HStack>
-              <HStack>
+              </Stack>
+              <Stack>
                 <Radio value="Estudo ultrassonográfico">
                   Estudo ultrassonográfico
                 </Radio>
@@ -543,7 +545,7 @@ function Bexiga({ Disable }) {
                   <option value="repleção">Repleção</option>
                 </Select>
 
-              </HStack>
+              </Stack>
             </Stack>
             <Spacer />
             <Stack>
@@ -556,8 +558,8 @@ function Bexiga({ Disable }) {
 
               </Stack>
             </Stack>
-          </Flex>
-          <Box w='auto'>
+ 
+          <Box>
             <HStack >
               <Radio value="lesão vegetante">Lesão vegetante medindo</Radio>
               <Input

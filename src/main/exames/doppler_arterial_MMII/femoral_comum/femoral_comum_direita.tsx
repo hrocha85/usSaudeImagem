@@ -15,14 +15,14 @@ function Femoral_Comum_Direita() {
   const [EstenoseCheckBox, setEstenoseCheckBox] = useState(false);
 
   const criaStringFluxoAusente = () => {
-    var string = "Fluxo ausente femoral direita ";
+    const string = "Fluxo ausente femoral direita ";
     setFrasesFemoralDireita((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
     frasesFemoralDireita.map((e) => {
       if (e.includes("Fluxo ausente femoral direita ")) {
-        var index = frasesFemoralDireita.indexOf(e);
+        const index = frasesFemoralDireita.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesFemoralDireita.splice(index, 1);
@@ -33,14 +33,14 @@ function Femoral_Comum_Direita() {
   };
 
   const criaStringPosEstenotico = () => {
-    var string = "Pós estenótico femoral direita ";
+    const string = "Pós estenótico femoral direita ";
     setFrasesFemoralDireita((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
     frasesFemoralDireita.map((e) => {
       if (e.includes("Pós estenótico femoral direita ")) {
-        var index = frasesFemoralDireita.indexOf(e);
+        const index = frasesFemoralDireita.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesFemoralDireita.splice(index, 1);
@@ -51,14 +51,14 @@ function Femoral_Comum_Direita() {
   };
 
   const criaStringEstenose = () => {
-    var string = "Estenose femoral direita acima de 50% ";
+    const string = "Estenose femoral direita acima de 50% ";
     setFrasesFemoralDireita((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
     frasesFemoralDireita.map((e) => {
       if (e.includes("Estenose femoral direita acima de 50% ")) {
-        var index = frasesFemoralDireita.indexOf(e);
+        const index = frasesFemoralDireita.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesFemoralDireita.splice(index, 1);

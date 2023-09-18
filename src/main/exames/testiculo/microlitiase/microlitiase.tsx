@@ -1,11 +1,13 @@
-import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Select, Stack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Microlitiase() {
   const altura = "100%";
-  const largura = "90%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [FrasesMicrolitiase, setFrasesMicrolitiase] = useState<any>([]);
   const [ConclusaoMicrolitiase, setConclusaoMicrolitiase] = useState<any>([]);
@@ -16,9 +18,9 @@ function Microlitiase() {
   const [DisableSelect, setDisableSelect] = useState(true);
 
   const criaStringMicrolitiaseLivre = () => {
-    var string = 'posicionado normalmente, com ecotextura homogênea, exceto por pequenos focos hiperecogênicos, desprovidos de sombra acústica posterior, distribuídos esparsamente, medindo de 0,1 a 0,3 cm, sugerindo microlitíase.'
+    let string = 'posicionado normalmente, com ecotextura homogênea, exceto por pequenos focos hiperecogênicos, desprovidos de sombra acústica posterior, distribuídos esparsamente, medindo de 0,1 a 0,3 cm, sugerindo microlitíase.'
     removeStringMicrolitiaseLivre(string);
-    var conclusao = 'Microlitíase testicular'
+    let conclusao = 'Microlitíase testicular'
     removeItemConclusao(conclusao)
     if (MicrolitiaseCheckBox && posicaoMicrolitiaseSelect !== "") {
       if (posicaoMicrolitiaseSelect === 'bilateral') {
@@ -35,7 +37,7 @@ function Microlitiase() {
   const removeStringMicrolitiaseLivre = (value) => {
     FrasesMicrolitiase.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesMicrolitiase.indexOf(e);
+        const index = FrasesMicrolitiase.indexOf(e);
 
         if (index > -1) {
           FrasesMicrolitiase.splice(index, 1);
@@ -47,7 +49,7 @@ function Microlitiase() {
   const removeItemConclusao = (value) => {
     ConclusaoMicrolitiase.map((e) => {
       if (e.includes(value)) {
-        var index = ConclusaoMicrolitiase.indexOf(e);
+        const index = ConclusaoMicrolitiase.indexOf(e);
 
         if (index > -1) {
           ConclusaoMicrolitiase.splice(index, 1);

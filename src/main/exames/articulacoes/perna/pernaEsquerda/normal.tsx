@@ -9,7 +9,7 @@ export function NormalEsquerdo() {
     const altura = '100%'
     const largura = '300px'
 
-    let { setPernaEsquerdoLaudoNormal } = useContext(PernaEsquerdoNormalContext)
+    const { setPernaEsquerdoLaudoNormal } = useContext(PernaEsquerdoNormalContext)
 
     const verificaChecked = (value) => {
         value.checked === true ? setPernaEsquerdoLaudoNormal(true) : setPernaEsquerdoLaudoNormal(false);

@@ -9,7 +9,7 @@ export function NormalEsquerdo() {
     const altura = '100%'
     const largura = '300px'
 
-    let { setPeEsquerdoLaudoNormal } = useContext(PeEsquerdoNormalContext)
+    const { setPeEsquerdoLaudoNormal } = useContext(PeEsquerdoNormalContext)
 
     const verificaChecked = (value) => {
         value.checked === true ? setPeEsquerdoLaudoNormal(true) : setPeEsquerdoLaudoNormal(false);

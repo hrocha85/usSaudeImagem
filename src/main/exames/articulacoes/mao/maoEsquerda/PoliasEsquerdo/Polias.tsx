@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -45,10 +45,10 @@ function Polias({ Disable }) {
   const [AV, setAV] = useState(false);
   const [AO, setAO] = useState(false);
 
-  var numberArray = [1, 2, 3, 4];
+  const numberArray = [1, 2, 3, 4];
 
   const removeItemString = (value) => {
-    var index = FrasePoliasEsquerdo.indexOf(value);
+    const index = FrasePoliasEsquerdo.indexOf(value);
     if (index > -1) {
       FrasePoliasEsquerdo.splice(index, 1);
       setFrasePoliasEsquerdo((arr) => [...arr]);
@@ -57,7 +57,7 @@ function Polias({ Disable }) {
 
 
   useEffect(() => {
-    var string = "Polias dos tendões flexores dos dedos sem anormalidades identificáveis."
+    const string = "Polias dos tendões flexores dos dedos sem anormalidades identificáveis."
     AspectoNormal ? setFrasePoliasEsquerdo((arr) => [...arr, string]) : removeItemString(string)
 
   }, [AspectoNormal])
@@ -69,13 +69,13 @@ function Polias({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = "Polias dos tendões flexores dos dedos sem anormalidades identificáveis."
+    const string = "Polias dos tendões flexores dos dedos sem anormalidades identificáveis."
     Normal ? setAspectoNormal(true) : setAspectoNormal(false)
   }, [Normal])
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos()
-    var string = 'Dedo 1 com descontinuidade das polias: '
+    let string = 'Dedo 1 com descontinuidade das polias: '
     if (PrimeiroDedo) {
       if (A1 || A2 || AV || AO) {
         if (A1) {
@@ -111,7 +111,7 @@ function Polias({ Disable }) {
   const removeMultiplosCalculos = () => {
     FrasePoliasEsquerdo.map((e) => {
       if (e.includes(`Dedo 1 com descontinuidade das polias: `)) {
-        var index = FrasePoliasEsquerdo.indexOf(e);
+        const index = FrasePoliasEsquerdo.indexOf(e);
 
         if (index > -1) {
           FrasePoliasEsquerdo.splice(index, 1);

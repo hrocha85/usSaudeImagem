@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -9,7 +9,7 @@ import {
   Radio,
   RadioGroup,
   Stack,
-  Text
+  Text, useMediaQuery
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -17,7 +17,9 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Doppler() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [FrasesDoppler, setFrasesDoppler] = useState<any>(
     []
@@ -40,7 +42,7 @@ function Doppler() {
   }, [Inflamacao])
 
   const criaStringDilatacao = () => {
-    var string = 'Dilatação e discreta tortuosidade de vasos do plexo pampiniforme, medindo no repouso'
+    let string = 'Dilatação e discreta tortuosidade de vasos do plexo pampiniforme, medindo no repouso'
     removeSelect(string)
     if (Dilatacao) {
       if (DilatacaoInput1 && CalibreInput1) {
@@ -60,7 +62,7 @@ function Doppler() {
   const removeSelect = (value) => {
     FrasesDoppler.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesDoppler.indexOf(e);
+        const index = FrasesDoppler.indexOf(e);
 
         if (index > -1) {
           FrasesDoppler.splice(index, 1);
@@ -73,7 +75,7 @@ function Doppler() {
   const removeItemString = (value) => {
     FrasesDoppler.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesDoppler.indexOf(e);
+        const index = FrasesDoppler.indexOf(e);
 
         if (index > -1) {
           FrasesDoppler.splice(index, 1);
@@ -91,7 +93,7 @@ function Doppler() {
   }, [DescreverDoppler]);
 
   const subExame = "Doppler";
-  var titulo_exame = "Testículo com doppler";
+  const titulo_exame = "Testículo com doppler";
 
   useEffect(() => {
     if (Object.keys(FrasesDoppler).length == 0) {

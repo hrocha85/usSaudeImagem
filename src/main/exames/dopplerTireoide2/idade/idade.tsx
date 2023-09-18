@@ -18,7 +18,7 @@ function Idade() {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesIdade.indexOf(value);
+    const index = frasesIdade.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesIdade.splice(index, 1);

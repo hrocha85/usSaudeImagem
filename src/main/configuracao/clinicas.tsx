@@ -1,32 +1,47 @@
 import { useEffect, useState } from "react";
 import { FaRegFolderOpen } from "react-icons/fa";
 import FieldDefaultIconCardClinicas from "../component/field_default_icon_card_clinicas";
+import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
+import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
+import Cookies from 'js-cookie';
 
 const Clinica = (props) => {
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
-  const pegarClinicas = () => {
-    var item;
-    var item_parse;
-    if (localStorage.getItem("minhasClinicas") != null) {
-      item = localStorage.getItem("minhasClinicas");
-
-      item_parse = JSON.parse(item);
-      setListaClinicas(item_parse);
-    }
-  };
+  // useEffect(() => {
+  //   const clinicas = GetClinicaFree();
+  //   setListaClinicas(clinicas);
+  // }, [props.atualizar]);
 
   useEffect(() => {
-    pegarClinicas();
-  }, [props.atualizar]);
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin) {
+      const clinicas = GetClinicaFree();
+      setListaClinicas(clinicas);
+    } else {
+      getClinicaAdmin()
+        .then(clinicas => {
+          setListaClinicas(clinicas);
+        })
+        .catch(error => {
+          console.error('Erro ao obter clínicas:', error);
+        });
+    }
+
+  }, [props.atualizar])
 
   return (
     <>
       {listaClinicas.map((item, key) => (
         <FieldDefaultIconCardClinicas
           key={key}
-          text={item.nomeClinica}
-          textColor="#4A5568"
+          text={item.nome}
+          textColor="black"
           icon={FaRegFolderOpen}
           clinica={item}
           clinicas={listaClinicas}

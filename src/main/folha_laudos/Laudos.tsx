@@ -9,6 +9,7 @@ import {
   Editable,
   EditableInput,
   EditablePreview,
+  Flex,
   Grid,
   HStack,
   Icon,
@@ -19,11 +20,15 @@ import {
   Modal,
   ModalContent,
   ModalOverlay,
+  Radio,
+  RadioGroup,
+  Select,
   Stack,
   Text,
   Tooltip,
   useDisclosure,
   useEditableControls,
+  useMediaQuery
 } from "@chakra-ui/react";
 import {
   Document,
@@ -35,7 +40,7 @@ import {
   Text as TextPDF,
   View as ViewPDF,
 } from "@react-pdf/renderer";
-import { useContext, useEffect, useRef, useState } from "react";
+import { Dispatch, useContext, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
 import { BsEye, BsFillCheckCircleFill } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
@@ -47,6 +52,9 @@ import { useNavigate } from "react-router-dom";
 import "./Laudos.css";
 import emailjs from '@emailjs/browser';
 import SubMenu from "../menu/subMenu";
+import { AiOutlineShareAlt } from "react-icons/ai";
+import { blob } from "stream/consumers";
+import { url } from "inspector";
 
 function Exames() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -260,6 +268,13 @@ function Exames() {
     ],
   });
   const navigate = useNavigate();
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  const [isLargerThan6001] = useMediaQuery('(min-width: 600px)')
+  let display = "block";
+  let display1 = "flex";
+  isLargerThan600 ? display = "block" : display = "none"
+  isLargerThan6001 ? display1 = "flex" : display1 = "none"
+
   const Laudo = () => {
 
 
@@ -341,7 +356,7 @@ function Exames() {
                 </ViewPDF>
 
                 <ViewPDF style={styles.sectionColuna}>
-                  <TextPDF>{clinicaSet.nomeClinica}</TextPDF>
+                  <TextPDF>{clinicaSet.nome}</TextPDF>
                   <TextPDF>{getPaciente()}</TextPDF>
                   <TextPDF>{getCurrentDate()}</TextPDF>
                   <TextPDF>{`Dr. ${getMedicoSolicitante()}`}</TextPDF>
@@ -422,16 +437,24 @@ function Exames() {
     );
   };
 
+  const [clinicaFoto, setClinicaFoto] = useState('')
+
   const getUserClinica = () => {
+    let clinica;
     if (localStorage.getItem("user") != null) {
-      var clinica = JSON.parse(localStorage.getItem("user")!);
+      clinica = localStorage.getItem("user");
     }
-    return clinica.clinica;
+    console.log('clinica', clinica)
+    // const clinicaParse = JSON.parse(clinica)
+    // setClinicaFoto(clinicaParse.foto)
+    // console.log(clinicaParse)
+    return clinica;
   };
 
   const getUserMedico = () => {
+    let medico;
     if (localStorage.getItem("user") != null) {
-      var medico = JSON.parse(localStorage.getItem("user")!);
+      medico = JSON.parse(localStorage.getItem("user")!);
     }
     return medico.medico;
   };
@@ -467,7 +490,7 @@ function Exames() {
   };
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
+  const [clinicaSet, setClinica] = useState<any>(getUserClinica());
   const [medico, setMedico] = useState(getUserMedico());
   const [urlLaudo, setUrlLaudo] = useState<any>();
   const [edit, setEdit] = useState(false);
@@ -479,7 +502,7 @@ function Exames() {
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
   const update = (laudos) => {
-    var array = JSON.parse(localStorage.getItem("medicos")!);
+    const array = JSON.parse(localStorage.getItem("medicos")!);
     array.map((medi) => {
       if (medi.nome == getUserMedico().nome) {
         medi.laudos = laudos;
@@ -503,11 +526,36 @@ function Exames() {
     update(laudos);
   };
 
+  const sharePdf = async (title, url) => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: title,
+          url: url,
+        });
+      } catch (error) {
+        console.error("Erro ao compartilhar:", error);
+      }
+    } else {
+      console.log("A API de compartilhamento não é suportada neste navegador.");
+    }
+  };
+
   const convertBlob = (blob) => {
-    var file = new Blob([blob], { type: "application/pdf" });
-    var fileURL = URL.createObjectURL(file);
+    const file = new Blob([blob], { type: "application/pdf" });
+    const fileURL = URL.createObjectURL(file);
     setUrlLaudo(fileURL);
   };
+
+
+  const handleShareButtonClick = () => {
+    const pdfUrl = `http://localhost:3000/eafec451-398a-4bc5-a1b5-d24c0c92958d`
+    sharePdf("Emaxes", pdfUrl);
+    console.log(pdfUrl)
+  };
+
+
+
 
   const getFormatLaudo = () => {
     setArrayLocal(JSON.parse(localStorage.getItem("format_laudo")!));
@@ -602,7 +650,7 @@ function Exames() {
     Index_Sub_Exame,
     Index_Frase
   ) => {
-    var array = JSON.parse(localStorage.getItem("format_laudo")!);
+    const array = JSON.parse(localStorage.getItem("format_laudo")!);
 
     array.map((Exames) => {
       Exames.subExames[Index_Sub_Exame].frases[Index_Frase] = event;
@@ -861,18 +909,18 @@ function Exames() {
   const verificaForm = () => {
     formPreenchido ? alert('funcionou') : onOpen()
   }
-  const [Input1, setInput1] = useState('')
-  const [Input2, setInput2] = useState('')
+  const [opiniaoSoftware, setOpiniaoSoftware] = useState('');
+  const [notaSoftware, setNotaSoftware] = useState('');
 
   const finalizaForm = (e) => {
-    console.log(Input1)
-    console.log(Input2)
+    console.log(opiniaoSoftware)
+    console.log(notaSoftware)
 
     emailjs.send('outlookMessage', 'template_6j5xp3j',
       {
         to_email: 'barbozagarcia@yahoo.com.br',
-        message: `Resposta 1: ${Input1}
-        Resposta 2: ${Input2}`
+        message: `Escolha a palavra que melhor identifica nosso Aplicativo: ${opiniaoSoftware}
+         De 1(ruim) a 5(excelente), qual seria a nota que você dá ao nosso Aplicativo?: ${notaSoftware}`
       }, 'qNFyg3V_FW8DLmNjL')
       .then((result) => {
         console.log(result.text);
@@ -880,8 +928,8 @@ function Exames() {
         console.log(error.text);
       });
 
-    setInput1('')
-    setInput2('')
+    setOpiniaoSoftware('')
+    setNotaSoftware('')
 
     localStorage.setItem("formPreenchido", dadoTeste)
     setFormPreenchido(true)
@@ -897,24 +945,50 @@ function Exames() {
       >
         <ModalOverlay />
         <ModalContent>
-          <Box>
-            <Input
-              placeholder="Input1"
-              value={Input1}
-              onChange={(e) => setInput1(e.target.value)}
-            />
-            <Input
-              placeholder="Input2"
-              value={Input2}
-              onChange={(e) => setInput2(e.target.value)}
-            />
-            <Button
-              onClick={(e) => finalizaForm(e)}>
-              Finaliza
-            </Button>
+          <Text textAlign={'center'} fontSize={'2rem'} fontWeight={'bold'}>Pesquisa de Satisfação</Text>
+          <Box p={3} borderWidth="1px" borderRadius="md" boxShadow="md" justifyContent={'center'}>
+            <RadioGroup onChange={(value) => setOpiniaoSoftware(value)} value={opiniaoSoftware} mb={4}>
+              <Text mb={4}>1 -Escolha a palavra que melhor identifica nosso Aplicativo:</Text>
+              <Flex justifyContent="center">
+                <Radio value="bom" mx={2}>
+                  Bom
+                </Radio>
+                <Radio value="regular" mx={2}>
+                  Regular
+                </Radio>
+                <Radio value="ruim" mx={2}>
+                  Ruim
+                </Radio>
+              </Flex>
+            </RadioGroup>
 
+            <RadioGroup onChange={(value) => setNotaSoftware(value)} value={notaSoftware} mb={4}>
+              <Text mb={4}>2 - De 1 a 5, qual seria a nota que você dá ao Aplicativo:</Text>
+              <Flex justifyContent="center">
+                <Radio value="1" mx={2}>
+                  1
+                </Radio>
+                <Radio value="2" mx={2}>
+                  2
+                </Radio>
+                <Radio value="3" mx={2}>
+                  3
+                </Radio>
+                <Radio value="4" mx={2}>
+                  4
+                </Radio>
+                <Radio value="5" mx={2}>
+                  5
+                </Radio>
+              </Flex>
+            </RadioGroup>
+
+            <Box textAlign="center">
+              <Button onClick={(e) => finalizaForm(e)} color="white" bg={'#2e4ad4'} mt={4} w={'11rem'}>
+                Enviar
+              </Button>
+            </Box>
           </Box>
-
         </ModalContent>
       </Modal>
     );
@@ -1012,7 +1086,7 @@ function Exames() {
               arrowSize={15}
               textColor="black"
             >
-              <Circle size="50px" bg="gray.200">
+              <Circle size="50px" bg="gray.200" display={display1}>
                 <Icon
                   w={30}
                   h={30}
@@ -1048,7 +1122,7 @@ function Exames() {
             </Tooltip>
           )}
           <Tooltip
-            label="Salvar laudo"
+            label="Compartilhar"
             fontSize="xl"
             backgroundColor="white"
             placement="top"
@@ -1056,12 +1130,34 @@ function Exames() {
             arrowSize={15}
             textColor="black"
           >
-            <Circle size="50px" bg="gray.200">
+            <Circle size="50px" bg="#e2e8f0">
+              <Icon
+                w={30}
+                h={30}
+                as={AiOutlineShareAlt}
+                color="twitter.600"
+                size="30px"
+                onClick={() => {
+                  handleShareButtonClick()
+                }}
+              />
+            </Circle>
+          </Tooltip>
+          <Tooltip
+            label="Concluir laudo"
+            fontSize="xl"
+            backgroundColor="white"
+            placement="top"
+            hasArrow
+            arrowSize={15}
+            textColor="black"
+          >
+            <Circle size="50px" bg="yellow.400">
               <Icon
                 w={30}
                 h={30}
                 as={BsFillCheckCircleFill}
-                color="twitter.600"
+                color="green"
                 size="30px"
                 onClick={() => {
                   verificaForm()
@@ -1072,27 +1168,28 @@ function Exames() {
         </Stack>
       </Center>
 
-      <Box className="zoom" boxShadow="xl" ref={ref} height="75vh">
+      <Box className="zoom" boxShadow="xl" ref={ref} height="75vh" display={display}>
         <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
           <Box>
             <Image
               src={clinicaSet.foto}
               alt="Imagem Clínica"
-              boxSize="130px"
+              boxSize="6.5rem"
               objectFit="scale-down"
               borderRadius="full"
               padding="5px"
-              marginStart="20px"
+              ml={2}
+              mt={'1rem'}
             />
           </Box>
 
           <Grid
             templateColumns="repeat(1, 1fr)"
-            marginStart="50px"
             justifyItems="center"
             justifySelf="center"
+            pl={'7rem'}
           >
-            <Text fontWeight="bold">{clinicaSet.nomeClinica}</Text>
+            <Text fontWeight="bold">{clinicaSet.nome}</Text>
             <Text>{getPaciente()}</Text>
             <Text>{getCurrentDate()}</Text>
             <Text>{`Dr. ${getMedicoSolicitante()}`}</Text>
@@ -1103,7 +1200,7 @@ function Exames() {
             inlineSize="95%"
             margin="5px"
             borderColor="black"
-            marginTop="15px"
+            marginTop="18px"
           />
         </Center>
         <Box margin="20px" key={+edit}>
@@ -1119,14 +1216,14 @@ function Exames() {
                 backgroundImage="none"
               />
               <Divider
-                inlineSize="30vh"
+                inlineSize="10rem"
                 margin="5px"
                 marginTop="0px"
                 borderColor="black"
               />
 
               <Text fontWeight="bold">{`Dr. ${medico.nome}`}</Text>
-              <Text fontWeight="bold">{`CRM ${medico.crm}`}</Text>
+              <Text fontWeight="bold">{`CRM ${medico.CRMUF}`}</Text>
             </Grid>
 
             <Text
@@ -1153,3 +1250,5 @@ function Exames() {
 }
 
 export default Exames;
+
+

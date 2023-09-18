@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -48,14 +48,14 @@ function VentreInfraespinhalEsquerdo({ Disable }) {
     }, [Disable])
 
     useEffect(() => {
-        var string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
+        const string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
         Normal ? setNormalCheckbox(true) : setNormalCheckbox(false)
     }, [Normal])
 
 
 
     const criaStringNormal = () => {
-        var string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
+        const string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
         NormalCheckbox ? setFraseVentreInfraespinhalEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
@@ -64,7 +64,7 @@ function VentreInfraespinhalEsquerdo({ Disable }) {
     }, [NormalCheckbox])
 
     const criaStringSubstituicaoAdiposa = () => {
-        var string = "Há sinais de infiltração adiposa do ventre muscular do infraespinhal.";
+        const string = "Há sinais de infiltração adiposa do ventre muscular do infraespinhal.";
         SubstituicaoAdiposaCheckbox ? setFraseVentreInfraespinhalEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
 
@@ -74,7 +74,7 @@ function VentreInfraespinhalEsquerdo({ Disable }) {
 
 
     const removeItemString = (value) => {
-        var index = fraseVentreInfraespinhalEsquerdo.indexOf(value);
+        const index = fraseVentreInfraespinhalEsquerdo.indexOf(value);
         if (index > -1) {
             fraseVentreInfraespinhalEsquerdo.splice(index, 1);
             setFraseVentreInfraespinhalEsquerdo((arr) => [...arr]);

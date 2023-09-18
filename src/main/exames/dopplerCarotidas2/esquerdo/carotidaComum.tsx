@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -41,7 +41,7 @@ function CarotidaComumEsquerda() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringSubOclusao = () => {
-    var string = "Carótida Comum Esquerda com SubOclusão";
+    const string = "Carótida Comum Esquerda com SubOclusão";
     if (SubOclusaoCheckBox) {
       setFrasesCarotidaEsquerda((arr) => [...arr, string]);
       setSubOclusaoCheckBox(false);
@@ -55,7 +55,7 @@ function CarotidaComumEsquerda() {
   const criaStringPlaca = (medida, Placa) => {
     removePlaca();
     if (medida !== "") {
-      var string = `Carótida comum Esquerda com placa ${Placa} medindo ${medida} mm `;
+      const string = `Carótida comum Esquerda com placa ${Placa} medindo ${medida} mm `;
       setFrasesCarotidaEsquerda((arr) => [...arr, string]);
     }
   };
@@ -63,7 +63,7 @@ function CarotidaComumEsquerda() {
   const removePlaca = () => {
     frasesCarotidaEsquerda.map((e) => {
       if (e.includes("Carótida comum Esquerda")) {
-        var index = frasesCarotidaEsquerda.indexOf(e);
+        const index = frasesCarotidaEsquerda.indexOf(e);
 
         if (index > -1) {
           frasesCarotidaEsquerda.splice(index, 1);
@@ -76,7 +76,7 @@ function CarotidaComumEsquerda() {
 
   //Função Nao Visibilizado
   const criaStringOclusao = () => {
-    var string = "Carótida comum Esquerda com oclusão";
+    const string = "Carótida comum Esquerda com oclusão";
     if (OclusaoCheckBox) {
       setFrasesCarotidaEsquerda((arr) => [...arr, string]);
       setOclusaoCheckBox(false);
@@ -86,7 +86,7 @@ function CarotidaComumEsquerda() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesCarotidaEsquerda.indexOf(value);
+    const index = frasesCarotidaEsquerda.indexOf(value);
 
     if (index > -1) {
       frasesCarotidaEsquerda.splice(index, 1);
@@ -97,14 +97,14 @@ function CarotidaComumEsquerda() {
   const criaStringMedidaEsquerdaVPS = (medida) => {
     removeStringMedidaEsquerdaVPS();
     if (MedidaEsquerdaVPS !== "") {
-      var string = `Carótida comum Esquerda medindo: VPS(ACCD)  ${medida} cm/s `;
+      const string = `Carótida comum Esquerda medindo: VPS(ACCD)  ${medida} cm/s `;
       setFrasesCarotidaEsquerda((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaEsquerdaVPS = () => {
     frasesCarotidaEsquerda.map((e) => {
       if (e.includes(`Carótida comum Esquerda medindo: VPS(ACCD) `)) {
-        var index = frasesCarotidaEsquerda.indexOf(e);
+        const index = frasesCarotidaEsquerda.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCarotidaEsquerda.splice(index, 1);
@@ -121,14 +121,14 @@ function CarotidaComumEsquerda() {
   const criaStringMedidaEsquerdaEMI = (medida) => {
     removeStringMedidaEsquerdaEMI();
     if (MedidaEsquerdaEMI !== "") {
-      var string = `Carótida comum Esquerda medindo: EMI(ACCD)  ${medida} cm/s `;
+      const string = `Carótida comum Esquerda medindo: EMI(ACCD)  ${medida} cm/s `;
       setFrasesCarotidaEsquerda((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaEsquerdaEMI = () => {
     frasesCarotidaEsquerda.map((e) => {
       if (e.includes(`Carótida comum Esquerda medindo: EMI(ACCD) `)) {
-        var index = frasesCarotidaEsquerda.indexOf(e);
+        const index = frasesCarotidaEsquerda.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCarotidaEsquerda.splice(index, 1);
@@ -145,14 +145,14 @@ function CarotidaComumEsquerda() {
   const criaStringMedidaEsquerdaVDF = (medida) => {
     removeStringMedidaEsquerdaVDF();
     if (MedidaEsquerdaVDF !== "") {
-      var string = `Carótida comum Esquerda medindo: VDF(ACCD) ${medida} cm/s `;
+      const string = `Carótida comum Esquerda medindo: VDF(ACCD) ${medida} cm/s `;
       setFrasesCarotidaEsquerda((arr) => [...arr, string]);
     }
   };
   const removeStringMedidaEsquerdaVDF = () => {
     frasesCarotidaEsquerda.map((e) => {
       if (e.includes(`Carótida comum Esquerda medindo: VDF(ACCD) `)) {
-        var index = frasesCarotidaEsquerda.indexOf(e);
+        const index = frasesCarotidaEsquerda.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCarotidaEsquerda.splice(index, 1);
@@ -247,7 +247,7 @@ function CarotidaComumEsquerda() {
                 h="77x"
                 padding="5px"
                 value={MedidaEsquerdaVPS}
-                
+
                 textAlign="center"
                 onChange={(e) => {
                   setMedidaEsquerdaVPS(e.target.value);
@@ -264,7 +264,7 @@ function CarotidaComumEsquerda() {
                 h="77x"
                 padding="5px"
                 value={MedidaEsquerdaVDF}
-                
+
                 textAlign="center"
                 onChange={(e) => {
                   setMedidaEsquerdaVDF(e.target.value);
@@ -281,7 +281,7 @@ function CarotidaComumEsquerda() {
                 h="77x"
                 padding="5px"
                 value={MedidaEsquerdaEMI}
-                
+
                 textAlign="center"
                 onChange={(e) => {
                   setMedidaEsquerdaEMI(e.target.value);
@@ -314,7 +314,7 @@ function CarotidaComumEsquerda() {
               w="45px"
               h="30px"
               padding="5px"
-              
+
               textAlign="center"
               onChange={(e) => {
                 setPlacaInput(e.target.value);

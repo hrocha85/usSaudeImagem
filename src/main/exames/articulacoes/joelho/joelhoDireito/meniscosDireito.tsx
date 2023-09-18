@@ -1,5 +1,6 @@
+/* eslint-disable no-dupe-else-if */
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Center, Checkbox, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -73,7 +74,7 @@ function MeniscosDireito({ Disable }) {
   const [LesaoMedialSelect2, setLesaoMedialSelect2] = useState("");
 
   const criaStringConclusaoLesao = () => {
-    var conclusao;
+    let conclusao;
     removeAlteracaoConclusaoLesao()
     if ((LesaoMedialSelect1 !== '' && LesaoMedialSelect2 !== '') && (LesaoMedialSelect1 !== '' && LesaoMedialSelect2 !== '')) {
       conclusao = 'Sinais compatíveis com lesão dos meniscos lateral e medial.'
@@ -95,7 +96,7 @@ function MeniscosDireito({ Disable }) {
   const removeAlteracaoConclusaoLesao = () => {
     ConclusaoMeniscosDireito.map((e) => {
       if (e.includes("Sinais compatíveis com lesão")) {
-        var index = ConclusaoMeniscosDireito.indexOf(e);
+        const index = ConclusaoMeniscosDireito.indexOf(e);
 
         if (index > -1) {
           ConclusaoMeniscosDireito.splice(index, 1);
@@ -108,7 +109,7 @@ function MeniscosDireito({ Disable }) {
 
 
   const criaStringSemAnomalidades = () => {
-    var string = `Meniscos medial e lateral sem anormalidades detectáveis pelo método.`;
+    const string = `Meniscos medial e lateral sem anormalidades detectáveis pelo método.`;
     SemAnomalidadesCheckbox ? setMeniscosDireito((arr) => [...arr, string]) : removeItemString(string)
   }
 
@@ -119,7 +120,7 @@ function MeniscosDireito({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = `Meniscos medial e lateral sem anormalidades detectáveis pelo método.`;
+    const string = `Meniscos medial e lateral sem anormalidades detectáveis pelo método.`;
 
     Normal ? setSemAnomalidadesCheckbox(true) : setSemAnomalidadesCheckbox(false)
   }, [Normal])
@@ -129,11 +130,11 @@ function MeniscosDireito({ Disable }) {
   }, [SemAnomalidadesCheckbox])
 
   const criaStringAlteracaoDegenerativaLateral = (Select) => {
-    var string = 'Alteração Degenerativa '
+    const string = 'Alteração Degenerativa '
     removeAlteracaoDegenerativaLateral()
     if (AlteracaoDegenerativaLateral) {
       if (Select !== "") {
-        var StringFinal = `${string} ${Select} do menisco lateral caracterizada por hipoecogenicidade e heterogeneidade.`;
+        const StringFinal = `${string} ${Select} do menisco lateral caracterizada por hipoecogenicidade e heterogeneidade.`;
         setMeniscosDireito((arr) => [...arr, StringFinal]);
       }
     } else {
@@ -144,7 +145,7 @@ function MeniscosDireito({ Disable }) {
   const removeAlteracaoDegenerativaLateral = () => {
     MeniscosDireito.map((e) => {
       if (e.includes("do menisco lateral caracterizada por hipoecogenicidade e heterogeneidade.")) {
-        var index = MeniscosDireito.indexOf(e);
+        const index = MeniscosDireito.indexOf(e);
 
         if (index > -1) {
           MeniscosDireito.splice(index, 1);
@@ -166,11 +167,11 @@ function MeniscosDireito({ Disable }) {
 
 
   const criaStringAlteracaoDegenerativaMedial = (Select) => {
-    var string = 'Alteração Degenerativa'
+    const string = 'Alteração Degenerativa'
     removeAlteracaoDegenerativaMedial()
     if (AlteracaoDegenerativaMedial) {
       if (Select !== "") {
-        var StringFinal = `${string} ${Select} do menisco medial caracterizada por hipoecogenicidade e heterogeneidade.`;
+        const StringFinal = `${string} ${Select} do menisco medial caracterizada por hipoecogenicidade e heterogeneidade.`;
         setMeniscosDireito((arr) => [...arr, StringFinal]);
       }
     } else {
@@ -181,7 +182,7 @@ function MeniscosDireito({ Disable }) {
   const removeAlteracaoDegenerativaMedial = () => {
     MeniscosDireito.map((e) => {
       if (e.includes("do menisco medial caracterizada por hipoecogenicidade e heterogeneidade.")) {
-        var index = MeniscosDireito.indexOf(e);
+        const index = MeniscosDireito.indexOf(e);
 
         if (index > -1) {
           MeniscosDireito.splice(index, 1);
@@ -202,7 +203,7 @@ function MeniscosDireito({ Disable }) {
   }, [AlteracaoDegenerativaMedial, AlteracaoDegenerativaMedialSelect]);
 
   const criaStringConclusaoExtrusao = () => {
-    var conclusao;
+    let conclusao;
     removeAlteracaoConclusaoExtrusao()
     if (ExtrusaoMedialSelect !== '' && ExtrusaoLateralSelect !== '') {
       conclusao = 'Extrusão dos meniscos lateral e medial.'
@@ -224,7 +225,7 @@ function MeniscosDireito({ Disable }) {
   const removeAlteracaoConclusaoExtrusao = () => {
     ConclusaoMeniscosDireito.map((e) => {
       if (e.includes("Extrusão")) {
-        var index = ConclusaoMeniscosDireito.indexOf(e);
+        const index = ConclusaoMeniscosDireito.indexOf(e);
 
         if (index > -1) {
           ConclusaoMeniscosDireito.splice(index, 1);
@@ -236,8 +237,8 @@ function MeniscosDireito({ Disable }) {
   };
 
   const criaStringExtrusaoMedial = (Select) => {
-    var string = 'Deslocamento periférico do menisco medial do'
-    var StringFinal;
+    const string = 'Deslocamento periférico do menisco medial do'
+    let StringFinal;
     removeExtrusaoMedial()
     if (ExtrusaoMedial) {
       if (Select !== "" && UltrapassandoMargemMedialInput !== '') {
@@ -255,7 +256,7 @@ function MeniscosDireito({ Disable }) {
   const removeExtrusaoMedial = () => {
     MeniscosDireito.map((e) => {
       if (e.includes("Deslocamento periférico do menisco medial do")) {
-        var index = MeniscosDireito.indexOf(e);
+        const index = MeniscosDireito.indexOf(e);
 
         if (index > -1) {
           MeniscosDireito.splice(index, 1);
@@ -277,8 +278,8 @@ function MeniscosDireito({ Disable }) {
   }, [ExtrusaoMedial, ExtrusaoMedialSelect, UltrapassandoMargemMedialInput])
 
   const criaStringExtrusaoLateral = (Select) => {
-    var string = 'Deslocamento periférico do menisco lateral do'
-    var StringFinal;
+    const string = 'Deslocamento periférico do menisco lateral do'
+    let StringFinal;
     removeExtrusaoLateral()
     if (ExtrusaoLateral) {
       if (Select !== "" && UltrapassandoMargemLateralInput !== '') {
@@ -296,7 +297,7 @@ function MeniscosDireito({ Disable }) {
   const removeExtrusaoLateral = () => {
     MeniscosDireito.map((e) => {
       if (e.includes("Deslocamento periférico do menisco lateral do")) {
-        var index = MeniscosDireito.indexOf(e);
+        const index = MeniscosDireito.indexOf(e);
 
         if (index > -1) {
           MeniscosDireito.splice(index, 1);
@@ -318,8 +319,8 @@ function MeniscosDireito({ Disable }) {
   }, [ExtrusaoLateral, ExtrusaoLateralSelect, UltrapassandoMargemLateralInput])
 
   const criaStringLesaoLateral = (Select1, Select2) => {
-    var string = 'do menisco lateral'
-    var StringFinal;
+    const string = 'do menisco lateral'
+    let StringFinal;
     removeLesaoLateral()
     if (LesaoLateral) {
       if (Select1 !== "" && Select2 && AtingindoSuperficieArtLateral) {
@@ -336,7 +337,7 @@ function MeniscosDireito({ Disable }) {
   const removeLesaoLateral = () => {
     MeniscosDireito.map((e) => {
       if (e.includes('do menisco lateral')) {
-        var index = MeniscosDireito.indexOf(e);
+        const index = MeniscosDireito.indexOf(e);
 
         if (index > -1) {
           MeniscosDireito.splice(index, 1);
@@ -361,8 +362,8 @@ function MeniscosDireito({ Disable }) {
   }, [LesaoLateral, LesaoLateralSelect1, LesaoLateralSelect2, AtingindoSuperficieArtLateral])
 
   const criaStringLesaoMedial = (Select1, Select2) => {
-    var string = 'Lesao do menisco Medial'
-    var StringFinal;
+    const string = 'Lesao do menisco Medial'
+    let StringFinal;
     removeLesaoMedial()
     if (LesaoMedial) {
       if (Select1 !== "" && Select2 && AtingindoSuperficieArtMedial) {
@@ -380,7 +381,7 @@ function MeniscosDireito({ Disable }) {
   const removeLesaoMedial = () => {
     MeniscosDireito.map((e) => {
       if (e.includes('Lesao do menisco Medial')) {
-        var index = MeniscosDireito.indexOf(e);
+        const index = MeniscosDireito.indexOf(e);
 
         if (index > -1) {
           MeniscosDireito.splice(index, 1);
@@ -405,7 +406,7 @@ function MeniscosDireito({ Disable }) {
   }, [LesaoMedial, LesaoMedialSelect1, LesaoMedialSelect2, AtingindoSuperficieArtMedial])
 
   const removeItemString = (value) => {
-    var index = MeniscosDireito.indexOf(value);
+    const index = MeniscosDireito.indexOf(value);
     if (index > -1) {
       MeniscosDireito.splice(index, 1);
       setMeniscosDireito((arr) => [...arr]);

@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Select, Stack } from "@chakra-ui/react";
+
+import { Box, Checkbox, Select, Stack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Simetria() {
   const altura = "100%";
-  const largura = "35%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "57.5%": largura = "100%"
 
   const [FraseSimetria, setFraseSimetria] = useState<any>([]);
 
@@ -24,7 +26,7 @@ function Simetria() {
   const [AssimetriaDesenvolvimentoCheckbox, setAssimetriaDesenvolvimentoCheckbox] = useState(false);
 
   const removeItemString = (value) => {
-    var index = FraseSimetria.indexOf(value);
+    const index = FraseSimetria.indexOf(value);
     if (index > -1) {
       FraseSimetria.splice(index, 1);
       setFraseSimetria((arr) => [...arr]);

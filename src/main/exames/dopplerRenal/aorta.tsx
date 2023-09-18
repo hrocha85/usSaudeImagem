@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../component/function_format_laudo";
@@ -23,7 +23,7 @@ function Aorta() {
   const criaStringCalibre = (medida) => {
     removeCalibre();
     if (medida !== "") {
-      var string = `Calibre aorta medindo ${medida} mm `;
+      const string = `Calibre aorta medindo ${medida} mm `;
       setFrasesAorta((arr) => [...arr, string]);
     }
   };
@@ -31,7 +31,7 @@ function Aorta() {
   const removeCalibre = () => {
     frasesAorta.map((e) => {
       if (e.includes("Calibre aorta")) {
-        var index = frasesAorta.indexOf(e);
+        const index = frasesAorta.indexOf(e);
 
         if (index > -1) {
           frasesAorta.splice(index, 1);
@@ -57,7 +57,7 @@ function Aorta() {
   const criaStringPVS = (medida) => {
     removePVS();
     if (medida !== "") {
-      var string = `PVS da aorta medindo ${medida} mm `;
+      const string = `PVS da aorta medindo ${medida} mm `;
       setFrasesAorta((arr) => [...arr, string]);
     }
   };
@@ -65,7 +65,7 @@ function Aorta() {
   const removePVS = () => {
     frasesAorta.map((e) => {
       if (e.includes("PVS da aorta")) {
-        var index = frasesAorta.indexOf(e);
+        const index = frasesAorta.indexOf(e);
 
         if (index > -1) {
           frasesAorta.splice(index, 1);
@@ -133,7 +133,7 @@ function Aorta() {
           w="45px"
           h="30px"
           padding="5px"
-          
+
           textAlign="center"
           onChange={(e) => {
             setCalibreInput(e.target.value);
@@ -151,7 +151,7 @@ function Aorta() {
           w="45px"
           h="30px"
           padding="5px"
-          
+
           textAlign="center"
           onChange={(e) => {
             setPVSInput(e.target.value);

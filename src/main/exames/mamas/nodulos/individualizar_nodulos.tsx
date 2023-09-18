@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -40,7 +40,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
       orientacaoNodulosSelect !== "" &&
       efeitoAcusticoNodulosSelect !== ""
     ) {
-      var string = `Presença do Nódulo ${numNodulo} na ${mamaNodulosSelect} com as seguintes características: \n 
+      const string = `Presença do Nódulo ${numNodulo} na ${mamaNodulosSelect} com as seguintes características: \n 
         - ${localizacaoNodulosSelect}, medindo ${tamanhoNoduloInput} cm, distando ${distanciaMamiloInput} cm
         do mamilo e ${distanciaPeleInput} cm da pele, com forma ${formaNodulosSelect}, ${ecogenicidadeNodulosSelect},
         com margens ${margensNodulosSelect}, limites ${limitesNodulosSelect}, com seu eixo ${orientacaoNodulosSelect} e 
@@ -52,7 +52,7 @@ export default function IndividualizarNodulos({ numNodulo }) {
   const removeMultiplosNodulos = () => {
     frasesINDNodulos.map((e) => {
       if (e.includes(`Presença do Nódulo ${numNodulo}`)) {
-        var index = frasesINDNodulos.indexOf(e);
+        const index = frasesINDNodulos.indexOf(e);
 
         if (index > -1) {
           frasesINDNodulos.splice(index, 1);

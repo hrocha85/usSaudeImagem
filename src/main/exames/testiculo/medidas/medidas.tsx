@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -6,7 +6,7 @@ import {
   Input,
   Select,
   Stack,
-  Text
+  Text, useMediaQuery
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -14,7 +14,9 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Testiculos() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const stringPadrao =
     "Testículos com forma, dimensões e contornos normais, medindo:";
@@ -36,7 +38,7 @@ function Testiculos() {
   const [epidimosCheckBox, setEpidimosCheckBox] = useState(false);
 
   const criaStringMedidasTesticuloDireito = () => {
-    var string = `TESTÍCULO D.: `
+    let string = `TESTÍCULO D.: `
     removeMedidas(string)
     removeMedidas(stringPadrao)
     if (medidaTesticuloDireito1 != '' && medidaTesticuloDireito2 != '' && medidaTesticuloDireito3 != '' && tecidoDireito != '') {
@@ -54,7 +56,7 @@ function Testiculos() {
   const removeMedidas = (value) => {
     frasesMedidas.map((e) => {
       if (e.includes(value)) {
-        var index = frasesMedidas.indexOf(e);
+        const index = frasesMedidas.indexOf(e);
 
         if (index > -1) {
           frasesMedidas.splice(index, 1);
@@ -65,7 +67,7 @@ function Testiculos() {
   };
 
   const criaStringMedidasTesticuloEsquerdo = () => {
-    var string = `TESTÍCULO E.: `
+    let string = `TESTÍCULO E.: `
     removeMedidas(string)
     removeMedidas(stringPadrao)
     if (medidaTesticuloEsquerdo1 != '' && medidaTesticuloEsquerdo2 != '' && medidaTesticuloEsquerdo3 != '' && tecidoEsquerdo != '') {
@@ -81,14 +83,14 @@ function Testiculos() {
   };
 
   const criaStringBolsaTesticular = () => {
-    var string = "Bolsa testicular com paredes regulares e de espessura normal";
+    const string = "Bolsa testicular com paredes regulares e de espessura normal";
     setFrasesMedidas((arr) => [...arr, string]);
   };
 
   const removeBolsaTesticular = () => {
     frasesMedidas.map((e) => {
       if (e.includes("Bolsa testicular ")) {
-        var index = frasesMedidas.indexOf(e);
+        const index = frasesMedidas.indexOf(e);
 
         if (index > -1) {
           frasesMedidas.splice(index, 1);
@@ -99,14 +101,14 @@ function Testiculos() {
   };
 
   const criaStringEpidimos = () => {
-    var string = "EPIDÍDIMOS com configuração, diâmetros e textura normais.";
+    const string = "EPIDÍDIMOS com configuração, diâmetros e textura normais.";
     setFrasesMedidas((arr) => [...arr, string]);
   };
 
   const removeEpidimos = () => {
     frasesMedidas.map((e) => {
       if (e.includes("EPIDÍDIMOS")) {
-        var index = frasesMedidas.indexOf(e);
+        const index = frasesMedidas.indexOf(e);
 
         if (index > -1) {
           frasesMedidas.splice(index, 1);
@@ -167,7 +169,7 @@ function Testiculos() {
   };
 
   const removeItemConclusao = (value) => {
-    var index = ConclusoesTesticulos.indexOf(value);
+    const index = ConclusoesTesticulos.indexOf(value);
 
     if (index > -1) {
       ConclusoesTesticulos.splice(index, 1);

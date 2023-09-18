@@ -1,11 +1,13 @@
-import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Select, Stack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidrocele() {
   const altura = "100%";
-  const largura = "27%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [FrasesHidrocelete, setFrasesHidrocelete] = useState<any>([]);
   const [ConclusaoHidrocelete, setConclusaoHidrocelete] = useState<any>([]);
@@ -14,9 +16,9 @@ function Hidrocele() {
   const [HidroceleCheckBox, setHidroceleCheckBox] = useState(false);
 
   const criaStringHidroceleLivre = () => {
-    var conclusao = 'Sinais ecográficos de hidrocele'
+    let conclusao = 'Sinais ecográficos de hidrocele'
     removeItemConclusao(conclusao)
-    var string = 'Observa-se presença de líquido aumentado entre as túnicas vaginais em cavidades escrotais'
+    let string = 'Observa-se presença de líquido aumentado entre as túnicas vaginais em cavidades escrotais'
     removeStringHidroceleLivre(string);
     if (HidroceleCheckBox) {
       if (posicaoHidroceleSelect !== "") {
@@ -33,7 +35,7 @@ function Hidrocele() {
   const removeStringHidroceleLivre = (value) => {
     FrasesHidrocelete.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesHidrocelete.indexOf(e);
+        const index = FrasesHidrocelete.indexOf(e);
 
         if (index > -1) {
           FrasesHidrocelete.splice(index, 1);
@@ -46,7 +48,7 @@ function Hidrocele() {
   const removeItemConclusao = (value) => {
     ConclusaoHidrocelete.map((e) => {
       if (e.includes(value)) {
-        var index = ConclusaoHidrocelete.indexOf(e);
+        const index = ConclusaoHidrocelete.indexOf(e);
 
         if (index > -1) {
           ConclusaoHidrocelete.splice(index, 1);

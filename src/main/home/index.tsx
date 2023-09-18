@@ -2,20 +2,15 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   HStack,
   Image,
   Link,
-  // Modal,
-  // ModalBody,
-  // ModalCloseButton,
-  // ModalContent,
-  // ModalFooter,
-  // ModalHeader,
-  // ModalOverlay,
   Spinner,
   Stack,
   Text,
   Tooltip,
+  useMediaQuery
   //useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -26,6 +21,7 @@ import ItemExamesHome from "../component/item_exames_home";
 import LayoutExame from "../component/layoutExames";
 import { Clear_Local_Storage } from "../component/remove_sub_exames_local_storage";
 import Configuracao from "../images/gear.webp";
+import FooterUpbase from "../component/FooterUpbase";
 
 //import Swal from "sweetalert2";
 //import withReactContent from "sweetalert2-react-content";
@@ -35,8 +31,12 @@ function Home() {
   const navigate = useNavigate();
   //const MySwal = withReactContent(Swal);
 
+  let flex = "";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? flex = "flex-end" : flex = "space-between"
 
-  let exames = [
+
+  const exames = [
     {
       key: 1,
       nomeExame: "Abdômen total",
@@ -212,9 +212,15 @@ function Home() {
     // },
   ];
 
-  var user = JSON.parse(localStorage.getItem("user")!);
-  var clinica = JSON.parse(user.clinica);
-  var medico = user.medico;
+  const user = JSON.parse(localStorage.getItem("user")!);
+  useEffect(() => {
+    console.log('user', user)
+  }, [])
+
+  const clinica = user.clinica;
+  const userData = JSON.parse(localStorage.getItem('userData')!);
+  const medico = user.medico;
+
 
   useEffect(() => {
     const existingObservacoes = localStorage.getItem("observacoes");
@@ -225,7 +231,7 @@ function Home() {
 
   const LogoutButton = () => {
     localStorage.removeItem("user");
-    navigate("/Login");
+    navigate("/");
   };
 
   useEffect(() => {
@@ -242,10 +248,18 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    var totalSize = JSON.stringify(localStorage).length;
-    var locals = totalSize / 1024 / 1024;
+    const totalSize = JSON.stringify(localStorage).length;
+    const locals = totalSize / 1024 / 1024;
     console.log(`USO DO LOCALSTORAGE: ${locals.toFixed(2)} MB`);
   }, []);
+
+  const now = new Date();
+  const formatDate = (date: Date) => {
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'long' });
+    const year = date.getFullYear();
+    return `${day} de ${month} de ${year}`;
+  };
 
   if (!isMounted) {
     return (
@@ -266,121 +280,103 @@ function Home() {
   } else {
     return (
 
-      < Box overflowX={"hidden"} height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'>
+      <>
+        <Box overflowX="hidden" minHeight="100vh" bgGradient="linear(to-b, blue.100, #fff)">
 
-        <Flex
-          justifyContent="space-between">
-            <Link href={"#/Home/Configuracoes"}>
-              <Button right="1" variant="ghost" top={0}>
-                
-                  <Image
-                    srcSet={Configuracao}
-                    alt="Second Icon Plus"
-                    h="30px"
-                    w="30px"
-                  />
-              </Button>
-          </Link>
+          <Flex mt={3} justifyContent="space-between" alignItems="center">
+            <Text textColor={'black'} fontSize={"20px"} fontWeight={700} pl={4}>
+              Bem-vindo, {medico.nome}
+            </Text>
+            <Text textColor={'rgba(0, 0, 0, 0.64)'} fontSize={"16px"} fontWeight={400}>
+              {formatDate(now)}
+            </Text>
+            <Flex justifyContent="flex-end">
+              <Link href="#/Home/Configuracoes" pr={4}>
+                <Tooltip
+                  label="Configurações gerais"
+                  backgroundColor="white"
+                  placement="bottom"
+                  hasArrow
+                  arrowSize={15}
+                  textColor="black"
+                  fontSize="20px"
+                  margin="20px"
+                  textAlign="center"
+                >
+                  <Button variant="solid" fontSize="20px" colorScheme="blue">
+                    Configurações
+                  </Button>
+                </Tooltip>
+              </Link>
+              <Tooltip
+                label="Voltar para Login"
+                backgroundColor="white"
+                placement="bottom"
+                hasArrow
+                arrowSize={15}
+                textColor="black"
+                fontSize="20px"
+                margin="20px"
+                textAlign="center"
+              >
+                <Button variant="solid" fontSize="20px" onClick={LogoutButton} colorScheme="blue" mr={3}>
+                  Sair
+                </Button>
+              </Tooltip>
+            </Flex>
+          </Flex>
+          <Text w="100%" fontSize="32px" fontWeight="thin" mt={1} textAlign="center">
+            Emissão dos Laudos
+          </Text>
+          <Center>
+            <CardPaciente />
+          </Center>
 
+          <Text textAlign="center" mt="5px" mb="5px" fontSize={23} fontWeight="thin">
+            Selecione um laudo para iniciar
+          </Text>
 
-          <Text
-            fontSize={'32px'}
-            fontWeight="thin"
-          >Emissão dos Laudos</Text>
-
-          <Tooltip
-            label="Voltar para Login"
-            backgroundColor="white"
-            placement="bottom"
-            hasArrow
-            arrowSize={15}
-            textColor="black"
-            fontSize="20px"
-            margin="20px"
-            textAlign="center"
-          >
-            <Button
-              variant="solid"
-              fontSize="20px"
-              onClick={() => LogoutButton()}
-              colorScheme="blue"
-              top={1}
-              right={3}
+          <Center>
+            <LayoutExame item={<ItemExamesHome />} />
+          </Center>
+          <Center>
+            <Box
+              justifyContent="center"
+              gap="10px"
+              display="flex"
+              flexWrap="wrap"
+              borderWidth="2px"
+              margin="10px 0px 5px 0px"
+              borderRadius="md"
+              borderColor="gray"
+              boxShadow="xl"
+              p={2}
             >
-              Sair
-            </Button>
-          </Tooltip>
-        </Flex>
-        <Center>
-          <CardPaciente />
-        </Center>
-
-        <Text
-
-          textAlign="center"
-          mt="5px" mb="5px"
-          fontSize={23}
-          fontWeight="thin">
-          Selecione um laudo para iniciar
-        </Text>
-
-
-        <Center>
-          <LayoutExame item={<ItemExamesHome />} />
-        </Center>
-        <Center >
-          <Box
-            justifyContent='center'
-            gap='10px' display="flex" flexWrap='wrap'
-            borderWidth="2px"
-            padding="20px"
-            borderRadius="md"
-            borderColor="grey"
-            boxShadow="xl"
-          >
-            <HStack>
-              <Text fontWeight="semibold" fontSize="xl">
-                Médico:
-              </Text>
-              <Text fontSize="xl">{medico.nome}</Text>
-            </HStack>
-            <HStack>
-              <Text fontWeight="semibold" fontSize="xl">
-                CRM:
-              </Text>
-              <Text fontSize="xl">{medico.crm}</Text>
-            </HStack>
-            <HStack>
-              <Text fontWeight="semibold" fontSize="xl">
-                Clínica:
-              </Text>
-              <Text fontSize="xl">{clinica.nomeClinica}</Text>
-            </HStack>
-          </Box>
-        </Center>
-        <Center marginTop="20px" paddingBottom="1%">
-          <Tooltip
-            label="Voltar para Login"
-            backgroundColor="white"
-            placement="bottom"
-            hasArrow
-            arrowSize={15}
-            textColor="black"
-            fontSize="20px"
-            margin="20px"
-            textAlign="center"
-          >
-            <Button
-              variant="solid"
-              fontSize="20px"
-              onClick={() => LogoutButton()}
-              colorScheme="blue"
-            >
-              Sair
-            </Button>
-          </Tooltip>
-        </Center>
-      </Box>
+              <HStack textAlign="center">
+                <Text fontWeight="semibold" fontSize="xl">
+                  Médico:
+                </Text>
+                <Text fontSize="xl">{medico.nome}</Text>
+              </HStack>
+              <HStack>
+                <Text fontWeight="semibold" fontSize="xl">
+                  CRM:
+                </Text>
+                <Text fontSize="xl">{medico.CRMUF}</Text>
+              </HStack>
+              <HStack>
+                <Text fontWeight="semibold" fontSize="xl">
+                  Clínica:
+                </Text>
+                <Text fontSize="xl">{clinica.nome}</Text>
+              </HStack>
+            </Box>
+          </Center>
+        </Box>
+        {/* <Box >
+          <FooterUpbase />
+        </Box> */}
+      </>
     );
   }
 }

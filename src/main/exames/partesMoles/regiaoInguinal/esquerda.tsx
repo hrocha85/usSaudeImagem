@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import {
   Box,
@@ -31,13 +31,13 @@ function Direita() {
   const [HerniaChecked, setHerniaChecked] = useState(false);
 
   const criaStringNormal = () => {
-    let string = `Região inguinal Direita Normal`;
+    const string = `Região inguinal Direita Normal`;
     setFrasesRegiaIgn((arr) => [...arr, string]);
   };
   const removeNormal = () => {
     frasesRegiaoIgn.map((e) => {
       if (e.includes("Região inguinal Direita Normal")) {
-        let index = frasesRegiaoIgn.indexOf(e);
+        const index = frasesRegiaoIgn.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesRegiaoIgn.splice(index, 1);
@@ -49,7 +49,7 @@ function Direita() {
   const criaStringHernia = (tamanhoHerniaInput) => {
     removeStringHernia();
     if (HerniaCheckBox && HerniaSelect !== "" && tamanhoHerniaInput !== "") {
-      var string = `Hérnia direita ${HerniaSelect} com espessura de ${tamanhoHerniaInput} mm`;
+      const string = `Hérnia direita ${HerniaSelect} com espessura de ${tamanhoHerniaInput} mm`;
 
       setFrasesRegiaIgn((arr) => [...arr, string]);
     }
@@ -58,7 +58,7 @@ function Direita() {
   const removeStringHernia = () => {
     frasesRegiaoIgn.map((e) => {
       if (e.includes("Hérnia direita")) {
-        var index = frasesRegiaoIgn.indexOf(e);
+        const index = frasesRegiaoIgn.indexOf(e);
 
         if (index > -1) {
           frasesRegiaoIgn.splice(index, 1);
@@ -177,7 +177,7 @@ function Direita() {
                   w="60px"
                   h="77x"
                   padding="5px"
-                  
+
                   textAlign="center"
                   placeholder={"mm"}
                   value={tamanhoHerniaInput}

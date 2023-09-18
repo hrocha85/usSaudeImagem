@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -48,7 +48,7 @@ function JoelhoDerrameArticularEsquerdo({ Disable }) {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAusente = () => {
-    var string = "Ausência de derrame articular.";
+    const string = "Ausência de derrame articular.";
     if (AusenteCheckbox) {
       setJoelhoDerrameArticularEsquerdo((arr) => [...arr, string]);
       setDisablePresente(true)
@@ -61,8 +61,8 @@ function JoelhoDerrameArticularEsquerdo({ Disable }) {
 
   const criaStringPresente = (Presente) => {
     removePresente();
-    var conclusao = 'Derrame articular'
-    var string;
+    let conclusao = 'Derrame articular'
+    let string;
     if (Presente !== "" && EspessamentoSinovialCheckbox) {
       string = `Preseça de ${Presente} derrame articular, associado a espessamento sinovial. `;
       conclusao = `${conclusao} associado a sinovite.`
@@ -80,7 +80,7 @@ function JoelhoDerrameArticularEsquerdo({ Disable }) {
   const removePresente = () => {
     JoelhoDerrameArticularEsquerdo.map((e) => {
       if (e.includes("Preseça de")) {
-        var index = JoelhoDerrameArticularEsquerdo.indexOf(e);
+        const index = JoelhoDerrameArticularEsquerdo.indexOf(e);
 
         if (index > -1) {
           JoelhoDerrameArticularEsquerdo.splice(index, 1);
@@ -90,7 +90,7 @@ function JoelhoDerrameArticularEsquerdo({ Disable }) {
     });
     ConclusaoJoelhoDerrameArticularEsquerdo.map((e) => {
       if (e.includes("Derrame articular")) {
-        var index = ConclusaoJoelhoDerrameArticularEsquerdo.indexOf(e);
+        const index = ConclusaoJoelhoDerrameArticularEsquerdo.indexOf(e);
 
         if (index > -1) {
           ConclusaoJoelhoDerrameArticularEsquerdo.splice(index, 1);
@@ -102,7 +102,7 @@ function JoelhoDerrameArticularEsquerdo({ Disable }) {
   };
 
   const removeItemString = (value) => {
-    var index = JoelhoDerrameArticularEsquerdo.indexOf(value);
+    const index = JoelhoDerrameArticularEsquerdo.indexOf(value);
 
     if (index > -1) {
       JoelhoDerrameArticularEsquerdo.splice(index, 1);

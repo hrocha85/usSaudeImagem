@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -24,7 +24,7 @@ function ArteriaSegmentarDireita() {
   const criaStringPVSSegmentar = (medida) => {
     removePVSSegmentar();
     if (medida !== "") {
-      var string = `PVS Segmentar medindo ${medida} mm`;
+      const string = `PVS Segmentar medindo ${medida} mm`;
       setFrasesArteriaS((arr) => [...arr, string]);
     }
   };
@@ -32,7 +32,7 @@ function ArteriaSegmentarDireita() {
   const removePVSSegmentar = () => {
     frasesArteriaS.map((e) => {
       if (e.includes("PVS Segmentar")) {
-        var index = frasesArteriaS.indexOf(e);
+        const index = frasesArteriaS.indexOf(e);
 
         if (index > -1) {
           frasesArteriaS.splice(index, 1);
@@ -60,7 +60,7 @@ function ArteriaSegmentarDireita() {
   const criaStringAceleracao = (AceleracaoInput) => {
     removeAceleracao();
     if (AceleracaoInput !== "") {
-      var string = `Aceleração ${AceleracaoInput} cm/s²`;
+      const string = `Aceleração ${AceleracaoInput} cm/s²`;
       setFrasesArteriaS((arr) => [...arr, string]);
     }
   };
@@ -68,7 +68,7 @@ function ArteriaSegmentarDireita() {
   const removeAceleracao = () => {
     frasesArteriaS.map((e) => {
       if (e.includes("Aceleração ")) {
-        var index = frasesArteriaS.indexOf(e);
+        const index = frasesArteriaS.indexOf(e);
 
         if (index > -1) {
           frasesArteriaS.splice(index, 1);
@@ -136,7 +136,7 @@ function ArteriaSegmentarDireita() {
           w="45px"
           h="30px"
           padding="5px"
-          
+
           textAlign="center"
           onChange={(e) => {
             setPVSSegmentarInput(e.target.value);
@@ -154,7 +154,7 @@ function ArteriaSegmentarDireita() {
           w="45px"
           h="30px"
           padding="5px"
-          
+
           textAlign="center"
           onChange={(e) => {
             setAceleracaoInput(e.target.value);

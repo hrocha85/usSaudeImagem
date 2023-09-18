@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -41,7 +41,7 @@ function CirurgiaSafenaMagmaDireito() {
   const removeAusenciaParcial = () => {
     frasesSafena.map((e) => {
       if (e.includes("Ausencia Parcial")) {
-        var index = frasesSafena.indexOf(e);
+        const index = frasesSafena.indexOf(e);
 
         if (index > -1) {
           frasesSafena.splice(index, 1);
@@ -56,7 +56,7 @@ function CirurgiaSafenaMagmaDireito() {
     localizado
   ) => {
     removeAusenciaParcial();
-    var string;
+    let string;
     if (LocalizacaoAusenciaParcialSelect !== "" && localizado !== "") {
       string = `Ausencia Parcial ${LocalizacaoAusenciaParcialSelect} e ${localizado}`;
       setFrasesSafena((arr) => [...arr, string]);
@@ -67,7 +67,7 @@ function CirurgiaSafenaMagmaDireito() {
 
   const criaStringMaterialEcogenico = (valorInicial, valorResidual) => {
     removeMaterialEcogenico();
-    var string;
+    let string;
     if (RefluxoResidualCheckBox) {
       if (valorInicial !== "") {
         string = `Material ecogênico na safena magma ${valorInicial} e ${valorResidual}`;
@@ -84,7 +84,7 @@ function CirurgiaSafenaMagmaDireito() {
   const removeMaterialEcogenico = () => {
     frasesSafena.map((e) => {
       if (e.includes("Material ecogênico na safena magma")) {
-        var index = frasesSafena.indexOf(e);
+        const index = frasesSafena.indexOf(e);
 
         if (index > -1) {
           frasesSafena.splice(index, 1);
@@ -95,7 +95,7 @@ function CirurgiaSafenaMagmaDireito() {
   };
 
   const criaStringAusenciaTotal = () => {
-    var string = "Ausência total de cirurgias Safena Magna lado direito";
+    const string = "Ausência total de cirurgias Safena Magna lado direito";
     if (AusenciaTotalCheckBox) {
       setFrasesSafena((arr) => [...arr, string]);
       setAusenciaTotalCheckBox(false);
@@ -107,7 +107,7 @@ function CirurgiaSafenaMagmaDireito() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesSafena.indexOf(value);
+    const index = frasesSafena.indexOf(value);
 
     if (index > -1) {
       frasesSafena.splice(index, 1);

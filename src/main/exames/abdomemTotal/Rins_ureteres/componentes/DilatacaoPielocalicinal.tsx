@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Select, Stack, Text } from "@chakra-ui/react";
+
+import { Box, Checkbox, Flex, HStack, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
 
@@ -28,7 +28,7 @@ export default function DilatacaoPielocalicinal({ Disable }) {
 
     useEffect(() => {
         if (ValueSelectDireita !== '' || ValueSelectEsquerda !== '') {
-            var conclusao = 'Dilatação do sistema coletor renal.'
+            const conclusao = 'Dilatação do sistema coletor renal.'
             setConclusoesRinsUreteres([conclusao]);
         } else {
             removeConclusão()
@@ -38,7 +38,7 @@ export default function DilatacaoPielocalicinal({ Disable }) {
     const removeConclusão = () => {
         ConclusoesRinsUreteres.map((e) => {
             if (e.includes("Dilatação do sistema coletor renal")) {
-                var index = ConclusoesRinsUreteres.indexOf(e);
+                const index = ConclusoesRinsUreteres.indexOf(e);
                 if (index > -1) {
                     ConclusoesRinsUreteres.splice(index, 1);
                     setConclusoesRinsUreteres((arr) => [...arr]);
@@ -70,7 +70,7 @@ export default function DilatacaoPielocalicinal({ Disable }) {
     const removeAmbos = () => {
         FraseRinsUreteres.map((e) => {
             if (e.includes("dilatação pielocalicinal bilateral")) {
-                var index = FraseRinsUreteres.indexOf(e);
+                const index = FraseRinsUreteres.indexOf(e);
 
                 if (index > -1) {
                     FraseRinsUreteres.splice(index, 1);
@@ -106,7 +106,7 @@ export default function DilatacaoPielocalicinal({ Disable }) {
     const removeDireita = () => {
         FraseRinsUreteres.map((e) => {
             if (e.includes("Presença de dilatação pielocalicinal à direita")) {
-                var index = FraseRinsUreteres.indexOf(e);
+                const index = FraseRinsUreteres.indexOf(e);
 
                 if (index > -1) {
                     FraseRinsUreteres.splice(index, 1);
@@ -148,7 +148,7 @@ export default function DilatacaoPielocalicinal({ Disable }) {
     const removeEsquerda = () => {
         FraseRinsUreteres.map((e) => {
             if (e.includes("Presença de dilatação pielocalicinal à esquerda")) {
-                var index = FraseRinsUreteres.indexOf(e);
+                const index = FraseRinsUreteres.indexOf(e);
 
                 if (index > -1) {
                     FraseRinsUreteres.splice(index, 1);
@@ -196,8 +196,8 @@ export default function DilatacaoPielocalicinal({ Disable }) {
                     <Checkbox onChange={() => setDireitaCheckbox(!DireitaCheckbox)}>
                         DIREITA:
                     </Checkbox>
-                    <Stack>
-                        <Select w='150px'
+                    <Flex flexWrap={'wrap'} gap={3}>
+                        <Select w='100%'
                             isDisabled={DisableSelectDireita}
                             value={ValueSelectDireita}
                             onChange={(e) => setValueSelectDireita(e.target.value)}
@@ -214,15 +214,15 @@ export default function DilatacaoPielocalicinal({ Disable }) {
                             onChange={() => setUreteralDireitaCheckbox(!UreteralDireitaCheckbox)}>
                             +Uretal
                         </Checkbox>
-                    </Stack>
+                    </Flex>
                 </HStack >
                 <HStack gap='10px'>
                     <Checkbox
                         onChange={() => setEsquerdaCheckbox(!EsquerdaCheckbox)}>
                         Esquerda:
                     </Checkbox>
-                    <Stack>
-                        <Select w='150px'
+                    <Flex display={'flex'} flexWrap={'wrap'} gap={3}>
+                        <Select w='100%'
                             isDisabled={DisableSelectEsquerda}
                             value={ValueSelectEsquerda}
                             onChange={(e) => setValueSelectEsquerda(e.target.value)}
@@ -239,7 +239,7 @@ export default function DilatacaoPielocalicinal({ Disable }) {
                             onChange={() => setUreteralEsquerdaCheckbox(!UreteralEsquerdaCheckbox)}>
                             +Uretal
                         </Checkbox>
-                    </Stack>
+                    </Flex>
                 </HStack >
             </Box>
         </Box>

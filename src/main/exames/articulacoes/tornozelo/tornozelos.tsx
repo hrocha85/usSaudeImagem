@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-pascal-case */
+
 import { Flex } from "@chakra-ui/react";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import Bolsa_Direito from "./direito/bolsa_direito";

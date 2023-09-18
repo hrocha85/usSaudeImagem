@@ -1,4 +1,4 @@
-import { Box, Checkbox } from "@chakra-ui/react";
+import { Box, Checkbox, useMediaQuery } from "@chakra-ui/react";
 import CalcificacoesPatologicas from "./CalcificacoesPatologicas/CalcificacoesPatologicas";
 import HerniaDireito from "./direito/HerniaDireito";
 import HerniaEsquerdo from "./esquerdo/HerniaEsquerdo";
@@ -13,7 +13,9 @@ import Hernia from "./hernia";
 
 function Regiao_Inguinal() {
     const altura = '100%'
-    const largura = '220px'
+    let largura = "60%";
+    const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+    isLargerThan600 ? largura = "60%": largura = "100%"
     const [Disable, SetDisable] = useState(false)
 
     const [FraseRegInguinal, setFraseRegInguinal] = useState<any>([]);
@@ -24,7 +26,7 @@ function Regiao_Inguinal() {
     }, [Disable])
 
     const removeItemString = (value) => {
-        var index = FraseRegInguinal.indexOf(value);
+        const index = FraseRegInguinal.indexOf(value);
 
         if (index > -1) {
             FraseRegInguinal.splice(index, 1);
@@ -71,26 +73,25 @@ function Regiao_Inguinal() {
                 >Região inguinal normal</Checkbox>
             </Box >
             <Box
-                gap='10px'
-                display='flex'
-                flexWrap='wrap'
-                w='66%'
-                ml="10px">
+                h={altura}
+                w={largura}
+                ml="10px"
+            >
                 <HerniaDireito Disable={Disable} />
 
                 <HerniaEsquerdo Disable={Disable} />
 
                 <FeixesMusculares Disable={Disable} />
+
                 <CalcificacoesPatologicas Disable={Disable} />
+
                 <Massas Disable={Disable} />
             </Box>
             <Box
                 mt='15px'
-                gap='15px'
-                display='flex'
-                flexWrap='wrap'
-                w='66%'
-                ml="10px">
+                w={largura}
+                ml="10px"
+            >
                 <HerniacaoDireito Disable={Disable} />
                 <HerniacaoEsquerdo Disable={Disable} />
             </Box>

@@ -1,13 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
-import { Box, Checkbox, HStack, Input, Select, Stack } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidatide({ Disable }) {
   const altura = "100%";
-  const largura = "33%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [frasesHidatide, setFrasesHidatide] = useState<any>([]);
   const [ConclusaoHidatide, setConclusaoHidatide] = useState<any>([]);
@@ -45,9 +47,9 @@ function Hidatide({ Disable }) {
 
   const criaStringHidatide = () => {
     removeStringHidatide();
-    var conclusao = 'Cisto anexial'
+    let conclusao = 'Cisto anexial'
     if (hidatideCheckBox && posicaoHidatideSelect !== "" && tamanhoHidatideInput !== "") {
-      var string = `Nota-se imagem em região anexial ${posicaoHidatideSelect} anecóica, arredondada, de limites precisos e contornos regulares, medindo ${tamanhoHidatideInput} mm. `;
+      const string = `Nota-se imagem em região anexial ${posicaoHidatideSelect} anecóica, arredondada, de limites precisos e contornos regulares, medindo ${tamanhoHidatideInput} mm. `;
       conclusao = `${conclusao} ${posicaoHidatideSelect} podendo corresponder a hidátide de Morgani.`;
       setFrasesHidatide((arr) => [...arr, string]);
       setConclusaoHidatide((arr) => [...arr, conclusao]);
@@ -57,7 +59,7 @@ function Hidatide({ Disable }) {
   const removeStringHidatide = () => {
     frasesHidatide.map((e) => {
       if (e.includes("Nota-se imagem em região anexial ")) {
-        var index = frasesHidatide.indexOf(e);
+        const index = frasesHidatide.indexOf(e);
 
         if (index > -1) {
           frasesHidatide.splice(index, 1);
@@ -67,7 +69,7 @@ function Hidatide({ Disable }) {
     });
     ConclusaoHidatide.map((e) => {
       if (e.includes("Cisto anexial")) {
-        var index = ConclusaoHidatide.indexOf(e);
+        const index = ConclusaoHidatide.indexOf(e);
 
         if (index > -1) {
           ConclusaoHidatide.splice(index, 1);

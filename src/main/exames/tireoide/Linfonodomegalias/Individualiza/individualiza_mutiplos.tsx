@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Spacer, Stack, Wrap, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -60,9 +60,9 @@ export default function Individualiza_MultiplosLinfonodos() {
     const criaStringLinfonodomegalia = () => {
         let string = 'Lindonodomegalias falta'
         removeStringLinfonodomegalia()
-        let medida1cm = new Convert_Medida(valueInput01LinfonodomegaliaDireita).Convert_Medida()
-        let medida2cm = new Convert_Medida(valueInput02LinfonodomegaliaDireita).Convert_Medida()
-        let medida3cm = new Convert_Medida(valueInput03Linfonodomegalia).Convert_Medida()
+        const medida1cm = new Convert_Medida(valueInput01LinfonodomegaliaDireita).Convert_Medida()
+        const medida2cm = new Convert_Medida(valueInput02LinfonodomegaliaDireita).Convert_Medida()
+        const medida3cm = new Convert_Medida(valueInput03Linfonodomegalia).Convert_Medida()
         if (valueInput01LinfonodomegaliaDireita != '' && valueInput02LinfonodomegaliaDireita != '' && valueInput03Linfonodomegalia != '' &&
             valueSelect01LinfonodomegaliaDireita != '' && valueSelect02Linfonodomegalia != '' && valueSelect03Linfonodomegalia != '' && valueSelect04Linfonodomegalia != '') {
             string = `${string} mede ${medida1cm}x${medida2cm}x${medida3cm} ${valueSelect01LinfonodomegaliaDireita} ${valueSelect02Linfonodomegalia} ${valueSelect03Linfonodomegalia} ${valueSelect04Linfonodomegalia}`
@@ -73,7 +73,7 @@ export default function Individualiza_MultiplosLinfonodos() {
     const removeStringLinfonodomegalia = () => {
         FrasesMultiplosLinfonodos.map((e) => {
             if (e.includes("Lindonodomegalias falta")) {
-                var index = FrasesMultiplosLinfonodos.indexOf(e);
+                const index = FrasesMultiplosLinfonodos.indexOf(e);
                 if (index > -1) {
                     FrasesMultiplosLinfonodos.splice(index, 1);
                     setFrasesMultiplosLinfonodos((arr) => [...arr]);
@@ -85,7 +85,7 @@ export default function Individualiza_MultiplosLinfonodos() {
     const removeStringVascularizacao = () => {
         FrasesMultiplosLinfonodos.map((e) => {
             if (e.includes("Vascularização falta")) {
-                var index = FrasesMultiplosLinfonodos.indexOf(e);
+                const index = FrasesMultiplosLinfonodos.indexOf(e);
                 if (index > -1) {
                     FrasesMultiplosLinfonodos.splice(index, 1);
                     setFrasesMultiplosLinfonodos((arr) => [...arr]);
@@ -94,7 +94,7 @@ export default function Individualiza_MultiplosLinfonodos() {
         });
     };
     const criaStringVascularizacao = () => {
-        var string = 'Vascularização falta'
+        let string = 'Vascularização falta'
         removeStringVascularizacao()
         if (VascularizacaoSelect != '') {
             string = `${string} ${VascularizacaoSelect}`
@@ -116,7 +116,7 @@ export default function Individualiza_MultiplosLinfonodos() {
     const removeStringResistividade = () => {
         FrasesMultiplosLinfonodos.map((e) => {
             if (e.includes("Vascularização falta")) {
-                var index = FrasesMultiplosLinfonodos.indexOf(e);
+                const index = FrasesMultiplosLinfonodos.indexOf(e);
                 if (index > -1) {
                     FrasesMultiplosLinfonodos.splice(index, 1);
                     setFrasesMultiplosLinfonodos((arr) => [...arr]);
@@ -125,7 +125,7 @@ export default function Individualiza_MultiplosLinfonodos() {
         });
     };
     const criaStringResistividade = () => {
-        var string = 'Vascularização falta'
+        let string = 'Vascularização falta'
         removeStringResistividade()
         if (InputResistividade != '') {
             string = `${string} ${InputResistividade}`
@@ -145,7 +145,7 @@ export default function Individualiza_MultiplosLinfonodos() {
     }, [IndiceResistividade, InputResistividade])
 
     useEffect(() => {
-        var string = 'Calcificações falta'
+        let string = 'Calcificações falta'
         if (CalcificacoesSelect != '') {
             removeStringCalcificacoes()
             string = `${string} ${CalcificacoesSelect}.`
@@ -157,7 +157,7 @@ export default function Individualiza_MultiplosLinfonodos() {
     const removeStringCalcificacoes = () => {
         FrasesMultiplosLinfonodos.map((e) => {
             if (e.includes("Calcificações falta")) {
-                var index = FrasesMultiplosLinfonodos.indexOf(e);
+                const index = FrasesMultiplosLinfonodos.indexOf(e);
                 if (index > -1) {
                     FrasesMultiplosLinfonodos.splice(index, 1);
                     setFrasesMultiplosLinfonodos((arr) => [...arr]);

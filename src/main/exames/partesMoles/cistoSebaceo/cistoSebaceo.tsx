@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -66,7 +66,7 @@ function CistoSebaceo({ Disable }) {
     const conclusao = 'Provável cisto sebáceo.'
     removeConclusaoCisto()
     if (local !== "" && local !== null) {
-      let string = `Presença de imagem cística superficial de conteúdo hipoecogênico, com contornos regulares,sugestiva de cisto sebáceo localizado ${local} `;
+      const string = `Presença de imagem cística superficial de conteúdo hipoecogênico, com contornos regulares,sugestiva de cisto sebáceo localizado ${local} `;
       setConclusaoCistoSeb((arr) => [...arr, conclusao])
       setFrasesCistoSeb((arr) => [...arr, string]);
     }
@@ -84,7 +84,7 @@ function CistoSebaceo({ Disable }) {
       medida2CistoUnico !== "" &&
       medida3CistoUnico !== ""
     ) {
-      let string = `Cisto único mede ${medida1CistoUnico}x${medida2CistoUnico}x${medida3CistoUnico}cm`;
+      const string = `Cisto único mede ${medida1CistoUnico}x${medida2CistoUnico}x${medida3CistoUnico}cm`;
       const conclusao = 'Provável cisto sebáceo.'
       setConclusaoCistoSeb((arr) => [...arr, conclusao])
       setFrasesCistoSeb((arr) => [...arr, string]);
@@ -94,7 +94,7 @@ function CistoSebaceo({ Disable }) {
     removeMultiplosCistos();
     removeConclusaoCisto()
     if (medida1MultiplosCistos !== "" && medida2MultiplosCistos !== "" && medida3MultiplosCistos !== "") {
-      let string = `Múltiplos cistos o maior mede ${medida1MultiplosCistos} x ${medida2MultiplosCistos} x ${medida3MultiplosCistos} cm`;
+      const string = `Múltiplos cistos o maior mede ${medida1MultiplosCistos} x ${medida2MultiplosCistos} x ${medida3MultiplosCistos} cm`;
       const conclusao = 'Provável cisto sebáceo.'
       setConclusaoCistoSeb((arr) => [...arr, conclusao])
       setFrasesCistoSeb((arr) => [...arr, string]);
@@ -104,7 +104,7 @@ function CistoSebaceo({ Disable }) {
   const removeLocalCistoSebaceo = () => {
     frasesCistoSeb.map((e) => {
       if (e.includes("Presença de imagem cística ")) {
-        let index = frasesCistoSeb.indexOf(e);
+        const index = frasesCistoSeb.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCistoSeb.splice(index, 1);
@@ -117,7 +117,7 @@ function CistoSebaceo({ Disable }) {
   const removeCistoUnico = () => {
     frasesCistoSeb.map((e) => {
       if (e.includes("Cisto único")) {
-        let index = frasesCistoSeb.indexOf(e);
+        const index = frasesCistoSeb.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCistoSeb.splice(index, 1);
@@ -129,7 +129,7 @@ function CistoSebaceo({ Disable }) {
   const removeMultiplosCistos = () => {
     frasesCistoSeb.map((e) => {
       if (e.includes("Múltiplos cistos")) {
-        let index = frasesCistoSeb.indexOf(e);
+        const index = frasesCistoSeb.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCistoSeb.splice(index, 1);
@@ -141,7 +141,7 @@ function CistoSebaceo({ Disable }) {
   const removeConclusaoCisto = () => {
     ConclusaoCistoSeb.map((e) => {
       if (e.includes("Provável cisto sebáceo.")) {
-        let index = ConclusaoCistoSeb.indexOf(e);
+        const index = ConclusaoCistoSeb.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           ConclusaoCistoSeb.splice(index, 1);

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -25,13 +25,13 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     removeItemConclusao(conclusao)
     removeMultiplosNodulos();
     if (tamanhoNoduloInput !== "" && NoduloSelect !== "" && localizado !== "") {
-      var string = `Nódulo Testícular ${numNodulo}: mede ${tamanhoNoduloInput} cm, conteúdo ${conteudoNoduloselect}, localizado no ${NoduloSelect}, do  ${localizado} `;
+      const string = `Nódulo Testícular ${numNodulo}: mede ${tamanhoNoduloInput} cm, conteúdo ${conteudoNoduloselect}, localizado no ${NoduloSelect}, do  ${localizado} `;
       setFrasesNodulos((arr) => [...arr, string]);
       setConclusaoNodulos((arr) => [...arr, conclusao]);
     }
   };
   const removeItemConclusao = (value) => {
-    var index = ConclusaoNodulos.indexOf(value);
+    const index = ConclusaoNodulos.indexOf(value);
 
     if (index > -1) {
       ConclusaoNodulos.splice(index, 1);
@@ -42,7 +42,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
   const removeMultiplosNodulos = () => {
     FrasesNodulos.map((e) => {
       if (e.includes(`Nódulo Testícular ${numNodulo}`)) {
-        var index = FrasesNodulos.indexOf(e);
+        const index = FrasesNodulos.indexOf(e);
 
         if (index > -1) {
           FrasesNodulos.splice(index, 1);

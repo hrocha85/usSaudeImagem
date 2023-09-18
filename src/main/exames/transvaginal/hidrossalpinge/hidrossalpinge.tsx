@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
+
+import { Box, Checkbox, HStack, Select, Stack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Hidrossalpinge({ Disable }) {
   const altura = "100%";
-  const largura = "33%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [frasesHidrossalpinge, setFrasesHidrossalpinge] = useState<any>([]);
   const [ConclusaoHidrossalpinge, setConclusaoHidrossalpinge] = useState<any>([]);
@@ -41,9 +43,9 @@ function Hidrossalpinge({ Disable }) {
 
   const criaStringHidrossalpinge = () => {
     removeStringHidrossalpinge();
-    var conclusao = 'Hidrossalpinge'
+    let conclusao = 'Hidrossalpinge'
     if (HidrossalpingeCheckBox && posicaoHidrossalpingeSelect !== "") {
-      var string = `Nota-se em região anexial ${posicaoHidrossalpingeSelect} imagem anecóica, tubular, tortuosa, de limites precisos e contornos regulares.`;
+      const string = `Nota-se em região anexial ${posicaoHidrossalpingeSelect} imagem anecóica, tubular, tortuosa, de limites precisos e contornos regulares.`;
       conclusao = `${conclusao} ${posicaoHidrossalpingeSelect}.`
       setFrasesHidrossalpinge((arr) => [...arr, string]);
       setConclusaoHidrossalpinge((arr) => [...arr, conclusao]);
@@ -53,7 +55,7 @@ function Hidrossalpinge({ Disable }) {
   const removeStringHidrossalpinge = () => {
     frasesHidrossalpinge.map((e) => {
       if (e.includes("Nota-se em região anexial")) {
-        var index = frasesHidrossalpinge.indexOf(e);
+        const index = frasesHidrossalpinge.indexOf(e);
 
         if (index > -1) {
           frasesHidrossalpinge.splice(index, 1);
@@ -63,7 +65,7 @@ function Hidrossalpinge({ Disable }) {
     });
     ConclusaoHidrossalpinge.map((e) => {
       if (e.includes("Hidrossalpinge")) {
-        var index = ConclusaoHidrossalpinge.indexOf(e);
+        const index = ConclusaoHidrossalpinge.indexOf(e);
 
         if (index > -1) {
           ConclusaoHidrossalpinge.splice(index, 1);
@@ -94,6 +96,7 @@ function Hidrossalpinge({ Disable }) {
       boxShadow="md"
       padding="24px 15px 20px 15px"
       mt="15px"
+      ml={5}
     >
       <TituloNomeExame titulo="Hidrossalpinge" />
 

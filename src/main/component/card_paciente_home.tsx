@@ -12,6 +12,7 @@ import {
   useToast,
   Wrap,
   WrapItem,
+  useMediaQuery
 } from "@chakra-ui/react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
@@ -21,7 +22,7 @@ import CreatableSelect from "react-select/creatable";
 import Medicos_Solicitantes from "../../Data/Medicos_Solicitantes.json";
 
 const CardPaciente = () => {
-  let { enableExames, setEnableExames } = useContext(EnableExamesContext);
+  const { enableExames, setEnableExames } = useContext(EnableExamesContext);
 
   const toast = useToast();
 
@@ -33,8 +34,8 @@ const CardPaciente = () => {
   const [isDisable, setisDisable] = useState(true);
 
   const getMedicos = () => {
-    var medicos;
-    var item;
+    let medicos;
+    let item;
     if (localStorage.getItem("medicos") != null) {
       item = localStorage.getItem("medicos");
       medicos = JSON.parse(item);
@@ -42,10 +43,10 @@ const CardPaciente = () => {
     return medicos;
   };
 
-  var lista_medico = getMedicos();
+  let lista_medico = getMedicos();
 
   const getPaciente = () => {
-    var paciente = JSON.parse(localStorage.getItem("paciente")!);
+    const paciente = JSON.parse(localStorage.getItem("paciente")!);
     if (paciente != null) {
       setNomePaciente(paciente.nome);
       setIdadePaciente(paciente.idadePaciente);
@@ -58,7 +59,10 @@ const CardPaciente = () => {
   };
 
   const handleIdadePacienteInput = (event) => {
-    setIdadePaciente(event.target.value);
+    const inputValue = event.target.value;
+
+    const MaskInputIdade = inputValue.replace(/\s+/g, '').slice(0, 3);
+    setIdadePaciente(MaskInputIdade);
   };
 
   const handleSexoPacienteInput = (event) => {
@@ -87,7 +91,7 @@ const CardPaciente = () => {
   };
 
   const addMedicosSolicitantes = () => {
-    let medicos_solicitantes =
+    const medicos_solicitantes =
       JSON.parse(localStorage.getItem("medicos_solicitantes")!) || [];
 
     const index = medicos_solicitantes.findIndex((medico) => {
@@ -104,7 +108,7 @@ const CardPaciente = () => {
   };
   const resetDados = () => {
     setNomePaciente("");
-    setIdadePaciente("");
+    setIdadePaciente('');
     setSexoPaciente("");
     setMedicoSolicitante("");
     setEnableExames(false);
@@ -123,6 +127,14 @@ const CardPaciente = () => {
       setisDisable(true);
     }
   };
+
+  let largura = "";
+  let largura2 = "";
+  let largura3 = "";
+  const [isLargerThan600] = useMediaQuery('(min-width: 800px)')
+  isLargerThan600 ? largura = "25%" : largura = "100%"
+  isLargerThan600 ? largura2 = "50%" : largura = "100%"
+  isLargerThan600 ? largura3 = "15%" : largura = "100%"
 
 
 
@@ -153,11 +165,13 @@ const CardPaciente = () => {
     checkDisable();
   }, [nomePaciente, idadePaciente, sexoPaciente, medico_solicitante]);
 
+
   return (
-    <Box borderRadius="1rem" border={'2px'} w="60vw" display="flex" flexWrap='wrap' justifyContent={'center'} marginTop={5}>
+    <Box borderRadius="1rem" border={'2px'} w="50%" justifyContent={'center'} marginTop={2}>
       <Stack>
         <Text
-          textAlign="center" mt="5px"
+          pt={'1rem'}
+          textAlign="center"
           mb="5px" pl={3}
           fontSize={22}
           textColor={'black'}>
@@ -171,7 +185,7 @@ const CardPaciente = () => {
             value={nomePaciente}
             size="lg"
             h="3.1rem"
-            w="30vw"
+            w={largura2}
             borderColor="#444"
             onChange={handleNomePacienteInput}
           />
@@ -181,7 +195,8 @@ const CardPaciente = () => {
             bgGradient='linear(to-b, blue.100, #fff)'
             size="lg"
             h="3.1rem"
-            w="6rem"
+            type="number"
+            w={largura3}
             borderColor="#444"
             onChange={handleIdadePacienteInput}
           />
@@ -191,7 +206,7 @@ const CardPaciente = () => {
             bgGradient='linear(to-b, blue.100, #fff)'
             size="lg"
             h="3.1rem"
-            w="8.7rem"
+            w={largura}
             borderColor="#444"
             onChange={handleSexoPacienteInput}
 

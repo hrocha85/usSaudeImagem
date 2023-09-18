@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -6,7 +6,7 @@ import {
   HStack,
   Input,
   Select,
-  Text
+  Text, useMediaQuery
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../component/function_format_laudo";
@@ -14,7 +14,9 @@ import TituloNomeExame from "../../component/titulo_nome_exame";
 
 function VesSeminais() {
   const altura = "100%";
-  const largura = "45%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [frasesProstata, setFrasesProstata] = useState<any>([]);
 
@@ -22,7 +24,7 @@ function VesSeminais() {
   const [VesiculaCheckBox, setVesiculaCheckBox] = useState(false);
 
   const removeItemString = (value) => {
-    var index = frasesProstata.indexOf(value);
+    const index = frasesProstata.indexOf(value);
 
     if (index > -1) {
       frasesProstata.splice(index, 1);
@@ -33,7 +35,7 @@ function VesSeminais() {
 
 
   useEffect(() => {
-    var string =
+    const string =
       "Vesícula Seminais: Bem individualizadas, com curso, configuração, diâmetros e ecotextura compatíveis com o normal.";
     VesiculaCheckBox ? setFrasesProstata((arr) => [...arr, string]) : removeItemString(string);
 

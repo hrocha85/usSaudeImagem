@@ -1,10 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../component/function_format_laudo";
 
 import Cirurgias from "./cirurgias/cirurgias";
-import Cisto from "./cisto/cisto";
 import EcotexturaParenquima from "./EcotexturaParenquima/EcotexturaParenquima";
 import Idade from "./idade/idade";
 import Medidas from "./medidas/medidas";
@@ -70,8 +69,6 @@ function DopplerTireoide() {
       <EcotexturaParenquima Disable={Disable} />
 
       <Cirurgias Disable={Disable} />
-
-      <Cisto Disable={Disable} />
 
       <Idade Disable={Disable} />
 

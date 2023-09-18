@@ -40,11 +40,11 @@ export default function Field_Observacoes({ exame }) {
   if (exame && exame.nomeExame) {
     titulo = `Observações ${exame.nomeExame}`;
   }
-  var observacoesLocalStorage = JSON.parse(localStorage.getItem("observacoes")!);
+  const observacoesLocalStorage = JSON.parse(localStorage.getItem("observacoes")!);
 
-  var ExameObservacoes = observacoesLocalStorage.filter((e) => e.key === exame.key)
+  const ExameObservacoes = observacoesLocalStorage.filter((e) => e.key === exame.key)
 
-  var observacoes = ExameObservacoes[0]
+  const observacoes = ExameObservacoes[0]
 
   const [items, setItems] = useState<{ id: string; values: string[] }>({
     id: exame.nomeExame,
@@ -417,7 +417,7 @@ export default function Field_Observacoes({ exame }) {
 
   return (
     <>
-      <Flex w="100%" h="327px" paddingStart="20px">
+      <Flex w={'100%'} h="327px" marginStart="22px">
         <Box
           bg="#FAFAFA"
           w={largura}
@@ -427,7 +427,6 @@ export default function Field_Observacoes({ exame }) {
           borderRadius="10.85px"
           boxShadow="md"
           padding="24px 15px 20px 15px"
-          overflow="auto"
         >
           <HStack width="100%">
             <TituloNomeExame titulo={titulo} />

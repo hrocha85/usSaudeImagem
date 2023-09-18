@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -20,7 +20,7 @@ function ArteriaInterlobarDireita() {
   const criaStringIRInterlobar = (medida) => {
     removeIRInterlobar();
     if (medida !== "") {
-      var string = `IR da artéria interlobar no rim direito ${medida}`;
+      const string = `IR da artéria interlobar no rim direito ${medida}`;
       setFrasesArterial((arr) => [...arr, string]);
     }
   };
@@ -28,7 +28,7 @@ function ArteriaInterlobarDireita() {
   const removeIRInterlobar = () => {
     frasesArterial.map((e) => {
       if (e.includes("IR da artéria interlobar no rim direito")) {
-        var index = frasesArterial.indexOf(e);
+        const index = frasesArterial.indexOf(e);
 
         if (index > -1) {
           frasesArterial.splice(index, 1);
@@ -96,7 +96,7 @@ function ArteriaInterlobarDireita() {
           w="45px"
           h="30px"
           padding="5px"
-          
+
           textAlign="center"
           onChange={(e) => {
             setIRInterlobarInput(e.target.value);

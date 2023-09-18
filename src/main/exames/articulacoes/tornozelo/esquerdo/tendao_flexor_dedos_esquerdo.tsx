@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable no-lone-blocks */
 import {
   Box,
@@ -40,7 +40,7 @@ export default function Tendao_Flexor_Dedos_Esquerdo({ Disable }) {
   const removeSelectString = () => {
     frasesTornozelo.map((e) => {
       if (e.includes("Derrame articular ")) {
-        var index = frasesTornozelo.indexOf(e);
+        const index = frasesTornozelo.indexOf(e);
 
         if (index > -1) {
           frasesTornozelo.splice(index, 1);
@@ -50,7 +50,7 @@ export default function Tendao_Flexor_Dedos_Esquerdo({ Disable }) {
     });
     frasesTornozelo.map((e) => {
       if (e.includes("Ausência de derrame ")) {
-        var index = frasesTornozelo.indexOf(e);
+        const index = frasesTornozelo.indexOf(e);
 
         if (index > -1) {
           frasesTornozelo.splice(index, 1);
@@ -63,7 +63,7 @@ export default function Tendao_Flexor_Dedos_Esquerdo({ Disable }) {
   const removeConclusao = () => {
     ConclusoesFrasesTornozelo.map((e) => {
       if (e.includes("Sinais de tendinopatia do flexor longo dos dedos")) {
-        var index = ConclusoesFrasesTornozelo.indexOf(e);
+        const index = ConclusoesFrasesTornozelo.indexOf(e);
 
         if (index > -1) {
           frasesTornozelo.splice(index, 1);

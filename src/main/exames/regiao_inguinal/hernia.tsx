@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
-import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, HStack, Input, Select, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 import { Format_Laudo } from "../../component/function_format_laudo";
@@ -8,7 +8,9 @@ import TituloNomeExame from "../../component/titulo_nome_exame";
 
 function Hernia({ Disable }) {
   const altura = 'auto';
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
 
   const [frasesHerniaUmb, setFrasesHerniaUmb] = useState<any>([]);
@@ -25,8 +27,8 @@ function Hernia({ Disable }) {
     removeHerniaConclusao();
     if (HerniacaoCheckbox) {
       if (medida1SacoHerniaco !== "" && HerniacaoSelect) {
-        let string = `Herniação de conteúdo omental do canal inguinal ${HerniacaoSelect} medindo ${medida1SacoHerniaco} cm de espessura, observado à manobra de valsalva.`;
-        let conclusao = `Imagem sugestiva de ${HerniacaoSelect} sem sinais de encarceramento.`
+        const string = `Herniação de conteúdo omental do canal inguinal ${HerniacaoSelect} medindo ${medida1SacoHerniaco} cm de espessura, observado à manobra de valsalva.`;
+        const conclusao = `Imagem sugestiva de ${HerniacaoSelect} sem sinais de encarceramento.`
         setFrasesHerniaUmb((arr) => [...arr, string]);
         setConclusaoHerniaUmb((arr) => [...arr, conclusao]);
       }
@@ -40,7 +42,7 @@ function Hernia({ Disable }) {
   const removeHernia = () => {
     frasesHerniaUmb.map((e) => {
       if (e.includes("Herniação de conteúdo omental do canal inguinal")) {
-        let index = frasesHerniaUmb.indexOf(e);
+        const index = frasesHerniaUmb.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesHerniaUmb.splice(index, 1);
@@ -52,7 +54,7 @@ function Hernia({ Disable }) {
   const removeHerniaConclusao = () => {
     ConclusaoHerniaUmb.map((e) => {
       if (e.includes("Imagem sugestiva de")) {
-        let index = ConclusaoHerniaUmb.indexOf(e);
+        const index = ConclusaoHerniaUmb.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           ConclusaoHerniaUmb.splice(index, 1);

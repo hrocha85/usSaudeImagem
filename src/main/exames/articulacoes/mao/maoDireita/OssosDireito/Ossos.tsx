@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -48,10 +48,10 @@ function OssosDireita({ Disable }) {
   const [Dedo4, setDedo4] = useState(false);
   const [Dedo5, setDedo5] = useState(false);
 
-  var numberArray = [1, 2, 3, 4];
+  const numberArray = [1, 2, 3, 4];
 
   const removeItemString = (value) => {
-    var index = OssosMaoDireita.indexOf(value);
+    const index = OssosMaoDireita.indexOf(value);
 
     if (index > -1) {
       OssosMaoDireita.splice(index, 1);
@@ -66,7 +66,7 @@ function OssosDireita({ Disable }) {
   })
 
   useEffect(() => {
-    var string = "Superfícies ósseas regulares."
+    const string = "Superfícies ósseas regulares."
     AspectoNormal ? setdisableDescontinuidade(true) : setdisableDescontinuidade(false)
     AspectoNormal ? setOssosMaoDireita((arr) => [...arr, string]) : removeItemString(string)
 
@@ -81,14 +81,14 @@ function OssosDireita({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = "Superfícies ósseas regulares."
+    const string = "Superfícies ósseas regulares."
     Normal ? setAspectoNormal(true) : setAspectoNormal(false)
   }, [Normal])
 
 
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
-    var string = `Dedo I com osteófitos marginais na falange`
+    let string = `Dedo I com osteófitos marginais na falange`
     if (PrimeiroDedo) {
       if (FalangeProximal && !FalangeDistal) {
         string = `${string} proximal.`
@@ -108,7 +108,7 @@ function OssosDireita({ Disable }) {
   const removeMultiplosCalculos = () => {
     OssosMaoDireita.map((e) => {
       if (e.includes(`Dedo I com osteófitos marginais na falange`)) {
-        var index = OssosMaoDireita.indexOf(e);
+        const index = OssosMaoDireita.indexOf(e);
 
         if (index > -1) {
           OssosMaoDireita.splice(index, 1);
@@ -135,7 +135,7 @@ function OssosDireita({ Disable }) {
 
   const criaStringMetacarpo = () => {
     removeMetacarpo();
-    var string = `Osteófitos marginais nas epífises distais:`
+    let string = `Osteófitos marginais nas epífises distais:`
     if (!DisableCheckbox) {
       if (Dedo1 || Dedo2 || Dedo3 || Dedo4 || Dedo5) {
         if (Dedo1) {
@@ -168,7 +168,7 @@ function OssosDireita({ Disable }) {
   const removeMetacarpo = () => {
     OssosMaoDireita.map((e) => {
       if (e.includes(`Osteófitos marginais nas epífises distais:`)) {
-        var index = OssosMaoDireita.indexOf(e);
+        const index = OssosMaoDireita.indexOf(e);
 
         if (index > -1) {
           OssosMaoDireita.splice(index, 1);

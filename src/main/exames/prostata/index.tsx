@@ -1,5 +1,5 @@
-/* eslint-disable react/jsx-pascal-case */
-import { Box, Checkbox } from "@chakra-ui/react";
+
+import { Box, Checkbox, useMediaQuery } from "@chakra-ui/react";
 
 import CalculoProstata from "./calculoProstata/calculoProstata";
 import CalculoVolume from "./calculoVolume/calculoVolume";
@@ -11,7 +11,9 @@ import { useState } from "react";
 import VesSeminais from "./VesSeminais";
 function Prostata() {
   const altura = '100%'
-  const largura = '40%'
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
   const [Disable, SetDisable] = useState(false)
 
 

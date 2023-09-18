@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Select } from "@chakra-ui/react";
+
+import { Box, Checkbox, Select, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Birads() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "57.5%": largura = "100%"
 
   const [frasesBirads, setFrasesBirads] = useState<any>([]);
 
@@ -20,7 +22,7 @@ function Birads() {
     if (checkboxCategoria) {
       setDisableSelectCategoria(false);
       if (valueSelectCategoria !== "") {
-        let string = `Birads categoria ${valueSelectCategoria}`;
+        const string = `Birads categoria ${valueSelectCategoria}`;
         setFrasesBirads((arr) => [...arr, string]);
       }
     } else {
@@ -31,7 +33,7 @@ function Birads() {
   const removeFraseCategoria = () => {
     frasesBirads.map((e) => {
       if (e.includes("Birads")) {
-        let index = frasesBirads.indexOf(e);
+        const index = frasesBirads.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesBirads.splice(index, 1);

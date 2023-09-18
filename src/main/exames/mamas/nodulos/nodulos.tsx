@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import {
   Box,
@@ -8,16 +8,20 @@ import {
   Input,
   Select,
   Stack,
-  Text
+  Text, 
+  useMediaQuery 
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 import IndividualizarNodulos from "./individualizar_nodulos";
 
 function Calculo() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "57.5%": largura = "100%"
+
 
   const [FrasesNodulos, setFrasesNodulos] = useState<any>([]);
   const [UpdateNodulos, setUpdateNodulos] = useState(false);
@@ -45,7 +49,7 @@ function Calculo() {
   const [AusenciaNodulosCheckbox, setAusenciaNodulosCheckbox] = useState(false);
 
   const removeItemString = (value) => {
-    var index = FrasesNodulos.indexOf(value);
+    const index = FrasesNodulos.indexOf(value);
     if (index > -1) {
       FrasesNodulos.splice(index, 1);
       setFrasesNodulos((arr) => [...arr]);
@@ -121,7 +125,7 @@ function Calculo() {
   const removeMultiplosNodulosMama = (value) => {
     FrasesNodulos.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesNodulos.indexOf(e);
+        const index = FrasesNodulos.indexOf(e);
 
         if (index > -1) {
           FrasesNodulos.splice(index, 1);

@@ -4,8 +4,8 @@ import { IoSettingsOutline } from "react-icons/io5";
 
 export const SidebarDataNaoLogado = [
   {
-    title: "Login",
-    path: "/Login",
+    title: "Selecionar médico",
+    path: "/SelectMedicos",
     icon: <AiOutlineHome />,
   },
   {

@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Button, Center, Checkbox, HStack, Input, Select, Stack, Text, Wrap } from "@chakra-ui/react";
+
+import { Box, Button, Center, Checkbox, HStack, Input, Select, Stack, Text, Wrap, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -9,7 +9,9 @@ import Cisto from "./individualiza_cisto";
 
 function CistosColoides() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%" : largura = "100%"
 
   const [numberArray, setNumberArray] = useState([1]);
 
@@ -42,10 +44,10 @@ function CistosColoides() {
 
   const criaStringCistosEsparsos = () => {
     removeCistosEsparsos()
-    let string = 'FALTA CistosEsparsos'
+    let string = 'Presença de cistos coloides de '
 
     if (ValueCistosEsparsosSelect != '' && ValueCistosEsparsosInput != '') {
-      string = `${string} ${ValueCistosEsparsosSelect} ${ValueCistosEsparsosInput} cm`
+      string = `${string} ${ValueCistosEsparsosInput} cm, o maior deles situado no ${ValueCistosEsparsosSelect}.`
       setFrasesCistosColoides((arr) => [...arr, string]);
     }
 
@@ -53,8 +55,8 @@ function CistosColoides() {
 
   const removeCistosEsparsos = () => {
     FrasesCistosColoides.map((e) => {
-      if (e.includes("FALTA CistosEsparsos")) {
-        var index = FrasesCistosColoides.indexOf(e);
+      if (e.includes("Presença de cistos coloides de ")) {
+        const index = FrasesCistosColoides.indexOf(e);
 
         if (index > -1) {
           FrasesCistosColoides.splice(index, 1);

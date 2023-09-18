@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   Box,
   Button,
@@ -50,13 +52,12 @@ import { FaRegEdit, FaRegFolderOpen } from "react-icons/fa";
 import SignatureCanvas from "react-signature-canvas";
 import FieldDefaultIcon from "../component/field_default_icon";
 import { lista_medicos } from "./configuracoes";
-
+import Cookies from 'js-cookie';
+import api from "../../api";
+import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
+import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
 const Medicos = ({ medico, id }) => {
-  let medicos: any[] = [];
-
-  useEffect(() => {
-    console.log('entrou')
-  }, [])
+  const medicos: any[] = [];
 
   medicos.push(medico);
 
@@ -77,7 +78,7 @@ const Medicos = ({ medico, id }) => {
 
   const [enableSelectedClinica, setSelectedClinica] = useState(true);
 
-  const [crm, setCRM] = useState(medico.crm);
+  const [crm, setCRM] = useState(medico.CRMUF);
 
   const [CRMenable, setCRMEnable] = useState(true);
 
@@ -121,14 +122,33 @@ const Medicos = ({ medico, id }) => {
 
   const [pngAssinaturaCheck, setpngAssinaturaCheck] = useState(false);
 
-  let padRef = React.useRef<SignatureCanvas>(null);
+  const padRef = React.useRef<SignatureCanvas>(null);
 
-  const [listaClinicas, setListaClinicas] = useState(
-    JSON.parse(localStorage.getItem("minhasClinicas")!)
-  );
+  const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
-  const [ClinicasMedico, setClinicaMedico] = useState<any[]>(medico.clinica);
+  const [ClinicasMedico, setClinicaMedico] = useState<any[]>([]);
+  useEffect(() => {
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin) {
+      setListaClinicas(GetClinicaFree())
+      setClinicaMedico([JSON.parse(medico.clinicas)])
+    } else {
+      getClinicaAdmin()
+        .then(clinicas => {
+          setListaClinicas(clinicas);
+        })
+        .catch(error => {
+          console.error('Erro ao obter clínicas:', error);
+        });
+      setClinicaMedico(medico.clinicas);
+    }
 
+  }, [])
   const openFiles = () => {
     inputFile.current?.click();
   };
@@ -148,10 +168,46 @@ const Medicos = ({ medico, id }) => {
     reader.readAsDataURL(file);
   };
 
+  const UpdateMedico = async (updateNome, updateCRM, updateClinica) => {
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin) {
+      UpdateLocalStorage(updateNome, updateCRM, updateClinica);
+    } else {
+      try {
+        const idClinicas: any = []
+        ClinicasMedico.map((clinica) => {
+          idClinicas.push(clinica.id)
+        })
+        console.log(idClinicas)
+        // const response = await api.put(`/medico/${medico.id}`, {
+        //   nome: updateNome ? updateNome : medico.nome,
+        //   CRMUF: updateCRM ? updateCRM : medico.CRMUF,
+        //        });
+        const responseMedicoClinca = await api.put(`/MedicoClinica/${medico.id}`, {
+
+          clinicas_id: idClinicas
+        });
+        console.log(responseMedicoClinca)
+        if (responseMedicoClinca.status === 201 || responseMedicoClinca.status === 204) {
+          window.location.reload();
+        }
+      } catch (erro) {
+        console.log(ClinicasMedico)
+        console.log(erro)
+      }
+    }
+
+  }
+
   const UpdateLocalStorage = (nomeUpdate, CRMupdate, clinicaUpdate) => {
     if (nomeUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      const item = array[id];
       lista_medicos[id].nome = nomeUpdate;
 
       item.nome = nomeUpdate;
@@ -160,9 +216,9 @@ const Medicos = ({ medico, id }) => {
       setUpdateNome(null);
     }
     if (CRMupdate != null) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
-      lista_medicos[id].crm = CRMupdate;
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      const item = array[id];
+      lista_medicos[id].CRMUF = CRMupdate;
 
       item.crm = CRMupdate;
       localStorage.setItem("medicos", JSON.stringify(array));
@@ -170,9 +226,9 @@ const Medicos = ({ medico, id }) => {
       setUpdateCRM(null);
     }
     if (clinicaUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
-      lista_medicos[id].clinica = ClinicasMedico;
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      const item = array[id];
+      lista_medicos[id].clinicas = ClinicasMedico;
 
       item.clinica = ClinicasMedico;
       localStorage.setItem("medicos", JSON.stringify(array));
@@ -180,8 +236,8 @@ const Medicos = ({ medico, id }) => {
       setUpdateClinica(null);
     }
     if (AssinaturaUpdate) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      const item = array[id];
       lista_medicos[id].assinatura = padRef.current
         ?.getTrimmedCanvas()
         .toDataURL("image/png")!;
@@ -194,16 +250,16 @@ const Medicos = ({ medico, id }) => {
       setAssinaturaUpdate(false);
     }
     if (FotoUpdate) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      const item = array[id];
       lista_medicos[id].foto = defaultUserImage;
       item.foto = defaultUserImage;
       localStorage.setItem("medicos", JSON.stringify(array));
       setFotoUpdate(false);
     }
     if (pngAssinaturaCheck) {
-      var array = JSON.parse(localStorage.getItem("medicos")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      const item = array[id];
       lista_medicos[id].assinatura = pngAssinatura!;
       item.assinatura = pngAssinatura!;
       localStorage.setItem("medicos", JSON.stringify(array));
@@ -236,18 +292,36 @@ const Medicos = ({ medico, id }) => {
     );
   };
 
-  const RemoveItem = () => {
-    var array = JSON.parse(localStorage.getItem("medicos")!);
-    array.splice(id, 1);
+  const RemoveItem = async () => {
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin) {
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      array.splice(id, 1);
 
-    localStorage.setItem("medicos", JSON.stringify(array));
-    window.location.reload();
+      localStorage.setItem("medicos", JSON.stringify(array));
+      window.location.reload();
+    } else {
+      const response = await api.delete(`/medico/${medico.id}`)
+      if (response.status === 200) window.location.reload();
+    }
+    // const array = JSON.parse(localStorage.getItem("medicos")!);
+    // array.splice(id, 1);
+
+    // localStorage.setItem("medicos", JSON.stringify(array));
+    // window.location.reload();
+
+
   };
 
   const RemoveTAG = () => {
-    var array = JSON.parse(localStorage.getItem("medicos")!);
-    var item = array[id];
-    lista_medicos[id].clinica = ClinicasMedico;
+    const array = JSON.parse(localStorage.getItem("medicos")!);
+    const item = array[id];
+    lista_medicos[id].clinicas = ClinicasMedico;
 
     item.clinica = ClinicasMedico;
     localStorage.setItem("medicos", JSON.stringify(array));
@@ -275,11 +349,11 @@ const Medicos = ({ medico, id }) => {
       <Center margin="25px">
         <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
           {ClinicasMedico.map((clinica, key) => {
-            var parseClinica = JSON.parse(clinica);
+            // const parseClinica = JSON.parse(clinica);
             return (
               <Tooltip
                 key={key}
-                label={parseClinica.nomeClinica}
+                label={clinica.nome}
                 size="md"
                 backgroundColor="white"
                 placement="top"
@@ -294,7 +368,7 @@ const Medicos = ({ medico, id }) => {
                   variant="solid"
                   colorScheme="twitter"
                 >
-                  <TagLabel key={key}>{parseClinica.nomeClinica}</TagLabel>
+                  <TagLabel key={key}>{clinica.nome}</TagLabel>
                   <TagCloseButton
                     onClick={() => {
                       ClinicasMedico.splice(key, 1);
@@ -315,11 +389,13 @@ const Medicos = ({ medico, id }) => {
     return (
       <div style={{ textAlign: 'center', borderRadius: '50rem' }}>
         {ClinicasMedico.map((clinica, key) => {
-          var parseClinica = JSON.parse(clinica);
+
+          // const parseClinica = JSON.parse(clinica);
+          const parseClinica = (clinica);
           return (
             <FieldDefaultIcon
               key={key}
-              text={parseClinica.nomeClinica}
+              text={parseClinica.nome}
               textColor="#4A5568"
               //icon={FaRegFolderOpen}
               clinica={medicos}
@@ -335,11 +411,43 @@ const Medicos = ({ medico, id }) => {
   };
 
   window.addEventListener("update_clinicas", () => {
-    setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin) {
+      setListaClinicas(GetClinicaFree())
+    } else {
+      getClinicaAdmin()
+        .then(clinicas => {
+          setListaClinicas(clinicas);
+        })
+        .catch(error => {
+          console.error('Erro ao obter clínicas:', error);
+        });
+    }
   });
 
   useEffect(() => {
-    setListaClinicas(JSON.parse(localStorage.getItem("minhasClinicas")!));
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin) {
+      setListaClinicas(GetClinicaFree())
+    } else {
+      getClinicaAdmin()
+        .then(clinicas => {
+          setListaClinicas(clinicas);
+        })
+        .catch(error => {
+          console.error('Erro ao obter clínicas:', error);
+        });
+    }
   }, [localStorage.getItem("minhasClinicas")!]);
 
   useEffect(() => {
@@ -364,7 +472,7 @@ const Medicos = ({ medico, id }) => {
   });
 
   const handleCRM = (event) => {
-    let input = event.target;
+    const input = event.target;
     input.value = CrmMask(input.value);
   };
 
@@ -398,6 +506,7 @@ const Medicos = ({ medico, id }) => {
 
   return (
     <Box
+      justifyContent={'center'}
       bg="#FAFAFA"
       w="19rem"
       h="12rem"
@@ -533,29 +642,6 @@ const Medicos = ({ medico, id }) => {
       </Center> */}
       <Box onClick={onOpen}>
 
-        {/* <Box>
-          {assinatura != "" ? (
-            <Box
-              flexGrow={1}
-              margin="10% 3% 3% 3%"
-              justifyContent="center"
-              boxShadow="xl"
-              h="100px"
-              backgroundColor={"#F7FAFC"}
-              borderRadius="10px"
-            >
-              <Image
-                w="100%"
-                h="100%"
-                src={assinatura}
-                alt="Assinatura Médico"
-                backgroundImage="none"
-                fit="scale-down"
-              />
-            </Box>
-          ) : null}
-        </Box> */}
-
         <Modal isOpen={isOpen} onClose={onClose} colorScheme="blackAlpha">
           <ModalOverlay />
           <ModalContent>
@@ -664,14 +750,14 @@ const Medicos = ({ medico, id }) => {
                           setUpdateClinica(e.target.value);
                           setClinicaMedico((prevClinicas) => [
                             ...prevClinicas,
-                            e.target.value,
+                            JSON.parse(e.target.value),
                           ]);
                         }}
                       >
                         {listaClinicas.map((clinica, key) => {
                           return (
                             <option key={key} value={JSON.stringify(clinica)}>
-                              {clinica.nomeClinica}
+                              {clinica.nome}
                             </option>
                           );
                         })}
@@ -847,7 +933,7 @@ const Medicos = ({ medico, id }) => {
               marginStart="23px"
               marginBottom="10px"
               onClick={() => {
-                UpdateLocalStorage(updateNome, updateCRM, updateClinica);
+                UpdateMedico(updateNome, updateCRM, updateClinica);
                 ResetStates();
                 onClose();
               }}

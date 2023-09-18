@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Select } from "@chakra-ui/react";
+
+import { Box, Checkbox, Select, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function MamaMasculina() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "84%": largura = "100%"
 
   const [frasesMamaMasc, setFrasesMamaMasc] = useState<any>([]);
 
@@ -22,7 +24,7 @@ function MamaMasculina() {
   const [valueSelectGinecomastia, setValueSelectGinecomastia] = useState("");
 
   const criaStringNormal = () => {
-    let string = `Mama masculina normal`;
+    const string = `Mama masculina normal`;
     if (checkboxNormal) {
       setDisabledCheckboxGinecomastia(true);
       setFrasesMamaMasc((arr) => [...arr, string]);
@@ -34,7 +36,7 @@ function MamaMasculina() {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesMamaMasc.indexOf(value);
+    const index = frasesMamaMasc.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesMamaMasc.splice(index, 1);
@@ -48,7 +50,7 @@ function MamaMasculina() {
       setDisableCheckboxNormal(true);
       setDisableSelectGinecomastia(false);
       if (valueSelectGinecomastia !== "") {
-        let string = `Ginecomastia na ${valueSelectGinecomastia}`;
+        const string = `Ginecomastia na ${valueSelectGinecomastia}`;
         setFrasesMamaMasc((arr) => [...arr, string]);
       }
     } else {
@@ -60,7 +62,7 @@ function MamaMasculina() {
   const removeFraseGinecomastia = () => {
     frasesMamaMasc.map((e) => {
       if (e.includes("Ginecomastia")) {
-        let index = frasesMamaMasc.indexOf(e);
+        const index = frasesMamaMasc.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesMamaMasc.splice(index, 1);

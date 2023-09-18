@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -45,7 +45,7 @@ function LigColTibialMedialDireito({ Disable }) {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringAspectoNormal = () => {
-    var string = "Ligamento colateral tibial e ligamento colateral fibular com ecotextura e espessura preservadas e contornos normais.";
+    const string = "Ligamento colateral tibial e ligamento colateral fibular com ecotextura e espessura preservadas e contornos normais.";
     if (AspectoNormalCheckbox) {
       setLigamentoTibialMedial((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)
@@ -64,14 +64,14 @@ function LigColTibialMedialDireito({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = "Ligamento colateral tibial e ligamento colateral fibular com ecotextura e espessura preservadas e contornos normais.";
+    const string = "Ligamento colateral tibial e ligamento colateral fibular com ecotextura e espessura preservadas e contornos normais.";
     Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
   }, [Normal])
   useEffect(() => {
     criaStringAspectoNormal()
   }, [AspectoNormalCheckbox])
   const criaStringLesaoAfilamento = () => {
-    var string = "Ligamento colateral afilado e com alteração ecotextural, com aspecto sugestivo de lesão parcial.";
+    const string = "Ligamento colateral afilado e com alteração ecotextural, com aspecto sugestivo de lesão parcial.";
     if (LesaoAfilamentoCheckbox) {
       setLigamentoTibialMedial((arr) => [...arr, string]);
       setdisableLesaoEspessamento(true)
@@ -89,7 +89,7 @@ function LigColTibialMedialDireito({ Disable }) {
 
   const criaStringLesaoEspessamento = () => {
     const conclusao = 'Sinais de lesão parcial/estiramento do ligamento colateral tibial.'
-    var string = "Ligamento colateral espessado e com alteração ecotextural, com aspecto compatível com lesão parcial/estiramento.";
+    const string = "Ligamento colateral espessado e com alteração ecotextural, com aspecto compatível com lesão parcial/estiramento.";
     if (LesaoEspessamentoCheckbox) {
       setConclusaoLigamentoTibialMedial((arr) => [...arr, conclusao]);
       setLigamentoTibialMedial((arr) => [...arr, string]);
@@ -108,7 +108,7 @@ function LigColTibialMedialDireito({ Disable }) {
   }, [LesaoEspessamentoCheckbox])
 
   const removeItemString = (value) => {
-    var index = LigamentoTibialMedial.indexOf(value);
+    const index = LigamentoTibialMedial.indexOf(value);
 
     if (index > -1) {
       LigamentoTibialMedial.splice(index, 1);
@@ -117,7 +117,7 @@ function LigColTibialMedialDireito({ Disable }) {
   };
 
   const removeItemStringConclusao = (value) => {
-    var index = ConclusaoLigamentoTibialMedial.indexOf(value);
+    const index = ConclusaoLigamentoTibialMedial.indexOf(value);
 
     if (index > -1) {
       ConclusaoLigamentoTibialMedial.splice(index, 1);

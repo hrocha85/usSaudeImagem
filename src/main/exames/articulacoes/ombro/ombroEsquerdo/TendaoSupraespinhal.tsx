@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -76,7 +76,7 @@ function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
     const medida3 = new Convert_Medida(medida3cm).Convert_Medida()
     if (RoturaParcialCheckbox) {
       if (medida1cm !== "" && medida2cm !== "" && medida3cm !== "" && selectRoturaParcial !== '') {
-        var string = `${selectRoturaParcial} espessado, com alteração ecotextural, observando-se sinais de rotura parcial ${medida1} x ${medida2} x ${medida3} cm`;
+        const string = `${selectRoturaParcial} espessado, com alteração ecotextural, observando-se sinais de rotura parcial ${medida1} x ${medida2} x ${medida3} cm`;
         setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
         setConclusaoOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, conclusao]);
       }
@@ -88,7 +88,7 @@ function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
   const removeRoturaParcial = () => {
     frasesOmbroTendaoSupraespinhalEsquerdo.map((e) => {
       if (e.includes("espessado, com alteração ecotextural, observando-se sinais de rotura parcial ")) {
-        var index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
+        const index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
         if (index > -1) {
           frasesOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
           setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr]);
@@ -97,7 +97,7 @@ function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
     });
     ConclusaoOmbroTendaoSupraespinhalEsquerdo.map((e) => {
       if (e.includes("Tendinopatia do supraespinhal, com sinais de rotura parcial.")) {
-        var index = ConclusaoOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
+        const index = ConclusaoOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
         if (index > -1) {
           ConclusaoOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
           setConclusaoOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr]);
@@ -108,7 +108,7 @@ function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
   };
 
   const criaStringAspectoNormal = () => {
-    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    const string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox ? setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]) : removeItemString(string);
 
   };
@@ -134,11 +134,11 @@ function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
   }, [PequenasCalcificacoesCheckbox])
 
   const criaStringTendinopatiaSemRotura = (select, medidacm) => {
-    var string = 'Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura.'
+    let string = 'Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura.'
     const conclusao = 'Tendinopatia do supraespinhal.'
     removeFraseTendinopatiaSemRotura()
 
-    var medida = new Convert_Medida(medidacm).Convert_Medida()
+    const medida = new Convert_Medida(medidacm).Convert_Medida()
 
     if (TendinopatiaSemRoturaCheckbox) {
       if (select !== '' && medidacm !== '') {
@@ -186,7 +186,7 @@ function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
   const removeFraseTendinopatiaSemRotura = () => {
     frasesOmbroTendaoSupraespinhalEsquerdo.map((e) => {
       if (e.includes("Tendão do supraespinhal espessado, com alteração ecotextural, sem evidências de rotura.")) {
-        var index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
+        const index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
 
         if (index > -1) {
           frasesOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
@@ -196,7 +196,7 @@ function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
     });
     ConclusaoOmbroTendaoSupraespinhalEsquerdo.map((e) => {
       if (e.includes('Tendinopatia do supraespinhal.')) {
-        var index = ConclusaoOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
+        const index = ConclusaoOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
 
         if (index > -1) {
           ConclusaoOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
@@ -210,7 +210,7 @@ function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
   const criaStringRoturaCompleta = (dados, medidaRetracao) => {
     const conclusao = 'Tendinopatia do supraespinhal, com sinais de rotura completa.'
     removeFraseRoturaCompleta()
-    var string;
+    let string;
     if (dados !== '' && medidaRetracao !== '') {
       string = `Hipoecogênico, heterogêneo, observando-se sinais de rotura completa com ${dados} mm de intervalo com retração de ${medidaRetracao} mm`;
       setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr, string]);
@@ -224,7 +224,7 @@ function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
   const removeFraseRoturaCompleta = () => {
     frasesOmbroTendaoSupraespinhalEsquerdo.map((e) => {
       if (e.includes("Hipoecogênico, heterogêneo, observando-se sinais de rotura completa")) {
-        var index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
+        const index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
         if (index > -1) {
           frasesOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
           setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr]);
@@ -233,7 +233,7 @@ function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
     });
     ConclusaoOmbroTendaoSupraespinhalEsquerdo.map((e) => {
       if (e.includes("Tendinopatia do supraespinhal, com sinais de rotura completa.")) {
-        var index = ConclusaoOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
+        const index = ConclusaoOmbroTendaoSupraespinhalEsquerdo.indexOf(e);
         if (index > -1) {
           ConclusaoOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
           setConclusaoOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr]);
@@ -266,7 +266,7 @@ function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
 
 
   const removeItemString = (value) => {
-    var index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(value);
+    const index = frasesOmbroTendaoSupraespinhalEsquerdo.indexOf(value);
     if (index > -1) {
       frasesOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
       setFrasesOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr]);
@@ -274,7 +274,7 @@ function OmbroTendaoSupraespinhalEsquerdo({ Disable }) {
   };
 
   const removeItemConclusao = (value) => {
-    var index = ConclusaoOmbroTendaoSupraespinhalEsquerdo.indexOf(value);
+    const index = ConclusaoOmbroTendaoSupraespinhalEsquerdo.indexOf(value);
     if (index > -1) {
       ConclusaoOmbroTendaoSupraespinhalEsquerdo.splice(index, 1);
       setConclusaoOmbroTendaoSupraespinhalEsquerdo((arr) => [...arr]);

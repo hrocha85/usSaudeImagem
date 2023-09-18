@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import {
   Box,
@@ -8,15 +8,17 @@ import {
   Input,
   Select,
   Stack,
-  Text,
+  Text, useMediaQuery
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Colecao({ Disable }) {
-  const altura = "auto";
-  const largura = "380px";
+  const altura = "100%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "87%": largura = "100%"
 
   const [frasesColecao, setFrasesColecao] = useState<any>([]);
   const [ConclusaoColecao, setConclusaoColecao] = useState<any>([]);
@@ -45,9 +47,9 @@ function Colecao({ Disable }) {
       medida2Colecao !== "" &&
       medida3Colecao !== ""
     ) {
-      var soma = (parseFloat(medida1Colecao.replace(",", ".")) + parseFloat(medida2Colecao.replace(",", ".")) + parseFloat(medida3Colecao.replace(",", ".")))
-      let conclusao = `Coleção líquida com volume estimado em ${soma} ml.`
-      let string = `Presença de coleção bem delimitada medindo ${medida1Colecao} x ${medida2Colecao} x ${medida3Colecao} cm (volume estimado em ${soma} ml), contendo ${planoColecaoSelect}.`;
+      const soma = (parseFloat(medida1Colecao.replace(",", ".")) + parseFloat(medida2Colecao.replace(",", ".")) + parseFloat(medida3Colecao.replace(",", ".")))
+      const conclusao = `Coleção líquida com volume estimado em ${soma} ml.`
+      const string = `Presença de coleção bem delimitada medindo ${medida1Colecao} x ${medida2Colecao} x ${medida3Colecao} cm (volume estimado em ${soma} ml), contendo ${planoColecaoSelect}.`;
       setVolume(soma)
       setFrasesColecao((arr) => [...arr, string]);
       setConclusaoColecao((arr) => [...arr, conclusao]);
@@ -57,7 +59,7 @@ function Colecao({ Disable }) {
   const removeLocalColecao = () => {
     frasesColecao.map((e) => {
       if (e.includes("Presença de coleção bem delimitada medindo ")) {
-        let index = frasesColecao.indexOf(e);
+        const index = frasesColecao.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesColecao.splice(index, 1);
@@ -70,7 +72,7 @@ function Colecao({ Disable }) {
   const removeConclusao = () => {
     ConclusaoColecao.map((e) => {
       if (e.includes("Coleção líquida com volume estimado em ")) {
-        let index = ConclusaoColecao.indexOf(e);
+        const index = ConclusaoColecao.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           ConclusaoColecao.splice(index, 1);

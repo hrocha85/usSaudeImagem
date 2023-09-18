@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Button, Checkbox, Flex, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";

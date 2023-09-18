@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Stack } from "@chakra-ui/react";
 import TituloNomeExame from "../../../../../component/titulo_nome_exame";
@@ -8,7 +8,7 @@ function TenossinoviteExtensores({ Disable }) {
   const altura = "100%";
   const largura = "100%";
 
-  var numberArray = [1, 2, 3, 4, 5];
+  const numberArray = [1, 2, 3, 4, 5];
 
   return (
     <Box

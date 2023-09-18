@@ -63,7 +63,7 @@ const FieldDefaultIcon = ({
 
   const inputFile = useRef<HTMLInputElement | null>(null);
 
-  const [nome, setNomeClinica] = useState(clinica.nomeClinica);
+  const [nome, setNomeClinica] = useState(clinica.nome);
 
   const [updateNome, setUpdateNome] = useState<string | null>(null);
 
@@ -77,9 +77,9 @@ const FieldDefaultIcon = ({
 
   const [endereco, setEndereco] = useState(clinica.endereco);
 
-  const [cep, setCep] = useState(clinica.cep);
+  const [CEP, setCep] = useState(clinica.CEP);
 
-  const [telefone, setTelefone] = useState(clinica.teleFone);
+  const [telefone, setTelefone] = useState(clinica.telefone);
 
   const [InputNomeClinica, setInputNomeClinica] = useState(false);
 
@@ -132,39 +132,39 @@ const FieldDefaultIcon = ({
     enderecoUpdate
   ) => {
     if (nomeUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
-      minhasClinicas[id].nomeClinica = nomeUpdate;
+      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const item = array[id];
+      minhasClinicas[id].nome = nomeUpdate;
 
-      item.nomeClinica = nomeUpdate;
+      item.nome = nomeUpdate;
       localStorage.setItem("minhasClinicas", JSON.stringify(array));
       setNomeClinica(nomeUpdate);
       setUpdateNome(null);
     }
 
     if (cepUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
-      minhasClinicas[id].cep = cepUpdate;
+      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const item = array[id];
+      minhasClinicas[id].CEP = cepUpdate;
 
-      item.cep = cepUpdate;
+      item.CEP = cepUpdate;
       localStorage.setItem("minhasClinicas", JSON.stringify(array));
       setCep(cepUpdate);
       setUpdateCEP(null);
     }
     if (telefoneUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
-      minhasClinicas[id].teleFone = telefoneUpdate;
+      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const item = array[id];
+      minhasClinicas[id].telefone = telefoneUpdate;
 
-      item.teleFone = telefoneUpdate;
+      item.telefone = telefoneUpdate;
       localStorage.setItem("minhasClinicas", JSON.stringify(array));
       setTelefone(telefoneUpdate);
       setUpdateTelefone(null);
     }
     if (enderecoUpdate != null) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const item = array[id];
       minhasClinicas[id].endereco = enderecoUpdate;
 
       item.endereco = enderecoUpdate;
@@ -173,8 +173,8 @@ const FieldDefaultIcon = ({
       setUpdateEndereco(null);
     }
     if (FotoUpdate) {
-      var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
-      var item = array[id];
+      const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+      const item = array[id];
       minhasClinicas[id].foto = defaultUserImage;
       item.foto = defaultUserImage;
       localStorage.setItem("minhasClinicas", JSON.stringify(array));
@@ -224,14 +224,14 @@ const FieldDefaultIcon = ({
   };
 
   const RemoveItem = () => {
-    var array = JSON.parse(localStorage.getItem("minhasClinicas")!);
+    const array = JSON.parse(localStorage.getItem("minhasClinicas")!);
     array.splice(id, 1);
     localStorage.setItem("minhasClinicas", JSON.stringify(array));
     window.location.reload();
   };
 
   const handlePhone = (event) => {
-    let input = event.target;
+    const input = event.target;
     input.value = phoneMask(input.value);
   };
 
@@ -312,7 +312,6 @@ const FieldDefaultIcon = ({
                 _placeholder={{ fontWeight: "bold", color: "black" }}
                 fontWeight="bold"
                 variant={"filled"}
-                onClick={() => { }}
                 onChange={(e) => {
                   setNomeClinica(e.target.value);
                   setUpdateNome(e.target.value);
@@ -333,7 +332,6 @@ const FieldDefaultIcon = ({
                 textColor={"black"}
                 _placeholder={{ fontWeight: "bold", color: "black" }}
                 variant={"unstyled"}
-                onClick={() => { }}
                 isDisabled={disableNome}
               ></Input>
             )}
@@ -417,14 +415,14 @@ const FieldDefaultIcon = ({
                   <Center paddingTop={"5px"}>
                     <InputGroup variant={"unstyled"} width={"215px"}>
                       <InputLeftAddon
-                        children="CEP:"
+                        children="  CEP:"
                         paddingEnd={"5px"}
                         fontWeight={"bold"}
                       />
                       <Input
                         textAlign={"center"}
                         justifySelf={"center"}
-                        defaultValue={cep}
+                        defaultValue={CEP}
                         isDisabled={disable}
                         variant={focusEdit}
                         borderStartRadius={"md"}

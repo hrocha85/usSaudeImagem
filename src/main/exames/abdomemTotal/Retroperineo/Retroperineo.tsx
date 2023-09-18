@@ -1,14 +1,14 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Retroperineo({ Disable }) {
     const altura = "100%";
-    const largura = "66%";
+    let largura = "60%";
+    const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+    isLargerThan600 ? largura = "60%" : largura = "100%"
 
     const [FraseRetroperineo, setFraseRetroperineo] = useState<any>([]);
     const [ConclusoesRetroperineo, setConclusoesRetroperineo] = useState<any>([]);
@@ -17,7 +17,7 @@ function Retroperineo({ Disable }) {
     const [PresenteCheckbox, setPresenteCheckbox] = useState(false);
 
     const removeItemString = (value) => {
-        var index = FraseRetroperineo.indexOf(value);
+        const index = FraseRetroperineo.indexOf(value);
         if (index > -1) {
             FraseRetroperineo.splice(index, 1);
             setFraseRetroperineo((arr) => [...arr]);
@@ -36,7 +36,7 @@ function Retroperineo({ Disable }) {
 
 
     const removeConclusaoString = (value) => {
-        var index;
+        let index;
         ConclusoesRetroperineo.map((e) => {
             if (e.includes(value)) {
                 index = ConclusoesRetroperineo.indexOf(e);

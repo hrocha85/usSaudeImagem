@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../../component/function_convert_medidas";
@@ -59,7 +59,7 @@ function TendaoPatelarDireito({ Disable }) {
   const criaStringLesaoParcial = (medida1, medida2, medida3) => {
     removeLesaoParcial();
     if (medida1 !== "" && medida2 !== "" && medida3 !== "") {
-      var string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
+      const string = `Espessado, com alteração ecotextural, observando-se sinais de rotura parcial medindo ${medida1} x ${medida2} x ${medida3} mm`;
       setTendaoPatelarDireito((arr) => [...arr, string]);
     }
   };
@@ -67,7 +67,7 @@ function TendaoPatelarDireito({ Disable }) {
   const removeLesaoParcial = () => {
     TendaoPatelarDireito.map((e) => {
       if (e.includes("Espessado, com alteração ecotextural,")) {
-        var index = TendaoPatelarDireito.indexOf(e);
+        const index = TendaoPatelarDireito.indexOf(e);
 
         if (index > -1) {
           TendaoPatelarDireito.splice(index, 1);
@@ -80,7 +80,7 @@ function TendaoPatelarDireito({ Disable }) {
 
 
   const criaStringAspectoNormal = () => {
-    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    const string = "com ecotextura e espessura preservadas e contornos normais.";
     AspectoNormalCheckbox ? setTendaoPatelarDireito((arr) => [...arr, string]) : removeItemString(string);
   };
 
@@ -91,7 +91,7 @@ function TendaoPatelarDireito({ Disable }) {
   }, [Disable])
 
   useEffect(() => {
-    var string = "com ecotextura e espessura preservadas e contornos normais.";
+    const string = "com ecotextura e espessura preservadas e contornos normais.";
     Normal ? setAspectoNormalCheckbox(true) : setAspectoNormalCheckbox(false)
   }, [Normal])
 
@@ -101,7 +101,7 @@ function TendaoPatelarDireito({ Disable }) {
   }, [AspectoNormalCheckbox])
 
   const criaStringAspectoPosCirurgico = () => {
-    var string = "Tendão patelar espessado e com alteração ecotextural (aspecto pós cirúrgico).";
+    const string = "Tendão patelar espessado e com alteração ecotextural (aspecto pós cirúrgico).";
     AspectoPosCirurgicoCheckbox ? setTendaoPatelarDireito((arr) => [...arr, string]) : removeItemString(string);
   };
 
@@ -110,7 +110,7 @@ function TendaoPatelarDireito({ Disable }) {
   }, [AspectoPosCirurgicoCheckbox])
 
   const criaStringTendinopatiaSemRotura = () => {
-    var string = "espessado, com alteração ecotextural, sem evidências de rotura.";
+    const string = "espessado, com alteração ecotextural, sem evidências de rotura.";
     if (TendinopatiaSemRoturaCheckbox) {
       setTendaoPatelarDireito((arr) => [...arr, string])
     } else {
@@ -123,8 +123,8 @@ function TendaoPatelarDireito({ Disable }) {
 
   const criaStringPresencaEntesofito = (dadoscm) => {
     removeFrasePresencaEntesofito()
-    var dados = new Convert_Medida(dadoscm).Convert_Medida()
-    var string;
+    const dados = new Convert_Medida(dadoscm).Convert_Medida()
+    let string;
     if (PresencaEntesofitoCheckbox && dadoscm !== '' && EntesofitoSelect !== '') {
       string = `Presença de entesófito ${EntesofitoSelect} do tendão patelar medindo ${dados} cm.`;
       setTendaoPatelarDireito((arr) => [...arr, string]);
@@ -140,7 +140,7 @@ function TendaoPatelarDireito({ Disable }) {
   const removeFrasePresencaEntesofito = () => {
     TendaoPatelarDireito.map((e) => {
       if (e.includes("Presença de entesófito")) {
-        var index = TendaoPatelarDireito.indexOf(e);
+        const index = TendaoPatelarDireito.indexOf(e);
 
         if (index > -1) {
           TendaoPatelarDireito.splice(index, 1);
@@ -163,7 +163,7 @@ function TendaoPatelarDireito({ Disable }) {
 
 
   const removeItemString = (value) => {
-    var index = TendaoPatelarDireito.indexOf(value);
+    const index = TendaoPatelarDireito.indexOf(value);
     if (index > -1) {
       TendaoPatelarDireito.splice(index, 1);
       setTendaoPatelarDireito((arr) => [...arr]);

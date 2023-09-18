@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -18,8 +18,8 @@ function Liquido_Livre() {
     removeStringLiquidoLivre();
     if (LiquidoCheckBox) {
       if (posicaoLiquidoSelect != "") {
-        var conclusao = `Líquido livre na pelve.`;
-        var string = `Presença de ${posicaoLiquidoSelect} quantidade de líquido livre no fundo de saco posterior.`;
+        const conclusao = `Líquido livre na pelve.`;
+        const string = `Presença de ${posicaoLiquidoSelect} quantidade de líquido livre no fundo de saco posterior.`;
         setFrasesLL((arr) => [...arr, string]);
         setConclusaoLL((arr) => [...arr, conclusao]);
       }
@@ -33,7 +33,7 @@ function Liquido_Livre() {
   const removeStringLiquidoLivre = () => {
     frasesLL.map((e) => {
       if (e.includes("quantidade de líquido livre no fundo de saco posterior.")) {
-        var index = frasesLL.indexOf(e);
+        const index = frasesLL.indexOf(e);
 
         if (index > -1) {
           frasesLL.splice(index, 1);
@@ -43,7 +43,7 @@ function Liquido_Livre() {
     });
     ConclusaoLL.map((e) => {
       if (e.includes('Líquido livre na pelve.')) {
-        var index = ConclusaoLL.indexOf(e);
+        const index = ConclusaoLL.indexOf(e);
 
         if (index > -1) {
           ConclusaoLL.splice(index, 1);

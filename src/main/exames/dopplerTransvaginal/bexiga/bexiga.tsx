@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -26,7 +26,7 @@ function Bexiga() {
   const [DisableParedes, setDisableParedes] = useState(true)
 
   const removeItemString = (value) => {
-    var index = FraseBexiga.indexOf(value);
+    const index = FraseBexiga.indexOf(value);
     if (index > -1) {
       FraseBexiga.splice(index, 1);
       setFraseBexiga((arr) => [...arr]);
@@ -35,7 +35,7 @@ function Bexiga() {
 
 
   useEffect(() => {
-    var string = `${StringParedes} de paredes normo-espessas.`
+    const string = `${StringParedes} de paredes normo-espessas.`
     if (NormoEspessasCheckbox) {
       console.log('aqui')
       setFraseBexiga((arr) => [...arr, string]);
@@ -46,7 +46,7 @@ function Bexiga() {
   }, [NormoEspessasCheckbox])
 
   useEffect(() => {
-    var string = `${StringParedes} de paredes espessadas.`
+    const string = `${StringParedes} de paredes espessadas.`
     if (EspessadasCheckbox) {
       setFraseBexiga((arr) => [...arr, string]);
     } else {

@@ -19,7 +19,7 @@ function Orquiepididimite() {
     removeStringOrquiepididimiteLivre();
 
     if (OrquiepididimiteCheckBox && posicaoOrquiepididimiteSelect !== "") {
-      var string = `Orquiepididimite no local: ${posicaoOrquiepididimiteSelect}`;
+      const string = `Orquiepididimite no local: ${posicaoOrquiepididimiteSelect}`;
       setFrasesOrquiepididimite((arr) => [...arr, string]);
     }
   };
@@ -27,7 +27,7 @@ function Orquiepididimite() {
   const removeStringOrquiepididimiteLivre = () => {
     frasesOrquiepididimite.map((e) => {
       if (e.includes("Orquiepididimite no local")) {
-        var index = frasesOrquiepididimite.indexOf(e);
+        const index = frasesOrquiepididimite.indexOf(e);
 
         if (index > -1) {
           frasesOrquiepididimite.splice(index, 1);

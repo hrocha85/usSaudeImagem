@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -17,7 +17,7 @@ function BracoEsquerdo() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringRoturaTendao = () => {
-    var string = "Rotura do tendão do biceps Esquerdo";
+    const string = "Rotura do tendão do biceps Esquerdo";
     if (RoturaTendaoCheckBox) {
       setFrasesBracoEsquerdo((arr) => [...arr, string]);
       setRoturaTendaoCheckBox(false);
@@ -27,7 +27,7 @@ function BracoEsquerdo() {
   };
 
   const removeItemString = (value) => {
-    var index = frasesBracoEsquerdo.indexOf(value);
+    const index = frasesBracoEsquerdo.indexOf(value);
 
     if (index > -1) {
       frasesBracoEsquerdo.splice(index, 1);

@@ -26,7 +26,7 @@ function RefluxoVeiasProfundasDireita() {
   const removeString = (string) => {
     frasesReflluxoVD.map((e) => {
       if (e == string) {
-        let index = frasesReflluxoVD.indexOf(e);
+        const index = frasesReflluxoVD.indexOf(e);
         if (index > -1) {
           frasesReflluxoVD.splice(index, 1);
           setFrasesRefluxoVD((arr) => [...arr]);

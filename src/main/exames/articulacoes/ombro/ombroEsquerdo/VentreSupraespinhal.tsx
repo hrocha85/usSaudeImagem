@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -42,7 +42,7 @@ function VentreSupraespinhalEsquerdo({ Disable }) {
     const [SubstituicaoAdiposaCheckbox, setSubstituicaoAdiposaCheckbox] = useState(false);
 
     const criaStringNormal = () => {
-        var string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
+        const string = "Ventres musculares do supraespinhal e infraespinhal de arquitetura, contornos e ecotextura preservados.";
         NormalCheckbox ? setFraseVentreSupraespinhalEsquerdo((arr) => [...arr, string]) : removeItemString(string);
 
     };
@@ -52,7 +52,7 @@ function VentreSupraespinhalEsquerdo({ Disable }) {
     }, [NormalCheckbox])
 
     const criaStringSubstituicaoAdiposa = () => {
-        var string = "Há sinais de infiltração adiposa do ventre muscular do supraespinhal.";
+        const string = "Há sinais de infiltração adiposa do ventre muscular do supraespinhal.";
         SubstituicaoAdiposaCheckbox ? setFraseVentreSupraespinhalEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     };
     useEffect(() => {
@@ -61,7 +61,7 @@ function VentreSupraespinhalEsquerdo({ Disable }) {
 
 
     const removeItemString = (value) => {
-        var index = fraseVentreSupraespinhalEsquerdo.indexOf(value);
+        const index = fraseVentreSupraespinhalEsquerdo.indexOf(value);
         if (index > -1) {
             fraseVentreSupraespinhalEsquerdo.splice(index, 1);
             setFraseVentreSupraespinhalEsquerdo((arr) => [...arr]);

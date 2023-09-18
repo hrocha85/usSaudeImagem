@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Select } from "@chakra-ui/react";
+
+import { Box, Checkbox, Select, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function OutrasPatologicas() {
   const altura = "100%";
-  const largura = "50%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "57.5%": largura = "100%"
 
   const [FrasePatologicas, setFrasePatologicas] = useState<any>([]);
 
@@ -17,7 +19,7 @@ function OutrasPatologicas() {
   const [CavosAxilaresCheckbox, setCavosAxilaresCheckbox] = useState(false);
 
   const removeItemString = (value) => {
-    var index = FrasePatologicas.indexOf(value);
+    const index = FrasePatologicas.indexOf(value);
     if (index > -1) {
       FrasePatologicas.splice(index, 1);
       setFrasePatologicas((arr) => [...arr]);

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -56,7 +56,7 @@ function RimEsquerdo({ Nefropatia, CheckboxNefropatia, RimPelvico, CheckboxRimPe
 
 
   const criaStringAusente = () => {
-    var string = 'não visibilizado.'
+    const string = 'não visibilizado.'
     removeItemConclusao('Interposição gasosa das alças intestinais.')
     removeItemConclusao('Nefrectomia à direita.')
     removeItemString(string);
@@ -95,7 +95,7 @@ function RimEsquerdo({ Nefropatia, CheckboxNefropatia, RimPelvico, CheckboxRimPe
   }, [checkboxPresente, checkboxDimensoes])
 
   const CriaStringMedidas = () => {
-    var string = 'Medida do rim Esquerdo:'
+    const string = 'Medida do rim Esquerdo:'
     removeFraseSelect(string);
     if (checkboxMedidas) {
       if (valueInput1Medida != '' && valueParenquima != '' && valueInput2Medida != '') {
@@ -114,7 +114,7 @@ function RimEsquerdo({ Nefropatia, CheckboxNefropatia, RimPelvico, CheckboxRimPe
   }, [checkboxMedidas, valueInput1Medida, valueInput2Medida, valueParenquima]);
 
   const removeItemString = (value) => {
-    var index = frasesRimD.indexOf(value);
+    const index = frasesRimD.indexOf(value);
 
     if (index > -1) {
       frasesRimD.splice(index, 1);
@@ -122,7 +122,7 @@ function RimEsquerdo({ Nefropatia, CheckboxNefropatia, RimPelvico, CheckboxRimPe
     }
   };
   const removeItemConclusao = (value) => {
-    var index = ConclusaoRimD.indexOf(value);
+    const index = ConclusaoRimD.indexOf(value);
 
     if (index > -1) {
       ConclusaoRimD.splice(index, 1);
@@ -136,7 +136,7 @@ function RimEsquerdo({ Nefropatia, CheckboxNefropatia, RimPelvico, CheckboxRimPe
   const removeFraseSelect = (value) => {
     frasesRimD.map((e) => {
       if (e.includes(value)) {
-        let index = frasesRimD.indexOf(e);
+        const index = frasesRimD.indexOf(e);
 
         if (index > -1) {
           frasesRimD.splice(index, 1);

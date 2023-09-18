@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Checkbox, HStack, Input, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -47,7 +47,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     removeItemStringConclusao(conclusao)
     removeMultiplosNodulos();
     if (tamanhoNoduloInput != "" && nodulosSelect != "" && localizado != "") {
-      var string = `Nódulo de mioma ${numNodulo}: ${nodulosSelect} localizado na parede ${localizado} e medindo ${tamanhoNoduloInput} mm.`;
+      const string = `Nódulo de mioma ${numNodulo}: ${nodulosSelect} localizado na parede ${localizado} e medindo ${tamanhoNoduloInput} mm.`;
       setFrasesMiometrio((arr) => [...arr, string]);
       setConclusaoMiometrio((arr) => [...arr, conclusao]);
     }
@@ -56,7 +56,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
   const removeMultiplosNodulos = () => {
     frasesMiometrio.map((e) => {
       if (e.includes(`Nódulo de mioma ${numNodulo}`)) {
-        var index = frasesMiometrio.indexOf(e);
+        const index = frasesMiometrio.indexOf(e);
 
         if (index > -1) {
           frasesMiometrio.splice(index, 1);
@@ -66,7 +66,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
     });
   };
   const removeItemStringConclusao = (value) => {
-    var index = ConclusaoMiometrio.indexOf(value);
+    const index = ConclusaoMiometrio.indexOf(value);
     if (index > -1) {
       ConclusaoMiometrio.splice(index, 1);
       setConclusaoMiometrio((arr) => [...arr]);

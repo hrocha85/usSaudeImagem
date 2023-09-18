@@ -1,12 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack } from "@chakra-ui/react";
+
+import { Box, Checkbox, HStack, Input, Radio, RadioGroup, Select, Stack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Impressoes({ Disable }) {
   const altura = "100%";
-  const largura = "50%";
+  let largura = "";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "59%": largura = "100%"
 
   const [FraseVagina, setFraseVagina] = useState<any>([]);
 
@@ -38,7 +40,7 @@ function Impressoes({ Disable }) {
   const removeSelectString = () => {
     FraseVagina.map((e) => {
       if (e.includes("Hernia inguinal")) {
-        var index = FraseVagina.indexOf(e);
+        const index = FraseVagina.indexOf(e);
 
         if (index > -1) {
           FraseVagina.splice(index, 1);
@@ -57,7 +59,7 @@ function Impressoes({ Disable }) {
   }, [value]);
 
   const removeItemString = (value) => {
-    var index = FraseVagina.indexOf(value);
+    const index = FraseVagina.indexOf(value);
 
     if (index > -1) {
       FraseVagina.splice(index, 1);

@@ -1,12 +1,14 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Select } from "@chakra-ui/react";
+
+import { Box, Checkbox, Select, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 
 function Extra() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "57.5%": largura = "100%"
 
   const [frasesExtra, setFrasesExtra] = useState<any>([]);
 
@@ -17,7 +19,7 @@ function Extra() {
   const [valueSelectEcstasia, setValueSelectEcstasia] = useState("");
 
   const criaStringAlteracoes = () => {
-    let string = `Alterações funcionais benignas`;
+    const string = `Alterações funcionais benignas`;
     if (checkboxAlteracoes) {
       setFrasesExtra((arr) => [...arr, string]);
     } else {
@@ -27,7 +29,7 @@ function Extra() {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesExtra.indexOf(value);
+    const index = frasesExtra.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesExtra.splice(index, 1);
@@ -40,7 +42,7 @@ function Extra() {
     if (checkboxEcstasia) {
       setDisableSelectEcstasia(false);
       if (valueSelectEcstasia !== "") {
-        let string = `Ecstasia Ductal na ${valueSelectEcstasia}`;
+        const string = `Ecstasia Ductal na ${valueSelectEcstasia}`;
         setFrasesExtra((arr) => [...arr, string]);
       }
     } else {
@@ -51,7 +53,7 @@ function Extra() {
   const removeFraseEcstasia = () => {
     frasesExtra.map((e) => {
       if (e.includes("Ecstasia")) {
-        let index = frasesExtra.indexOf(e);
+        const index = frasesExtra.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesExtra.splice(index, 1);

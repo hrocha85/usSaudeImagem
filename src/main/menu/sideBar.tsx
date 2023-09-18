@@ -1,4 +1,6 @@
-import { Box, Button, Center, HStack, Image } from "@chakra-ui/react";
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Box, Center, HStack, Image } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
@@ -6,10 +8,10 @@ import { IconContext } from "react-icons/lib";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { MenuContext } from "../../context/MenuContext";
-import logo from "../splashScreen/logoUsg2.png";
 import logo2 from "../images/logousbl.png";
-import { SidebarDataNaoLogado } from "./sideBarDataNaoLogado";
+import logo from "../splashScreen/logoUsg2.png";
 import { SidebarDataLogado } from "./sideBarDataLogado";
+import { SidebarDataNaoLogado } from "./sideBarDataNaoLogado";
 import SubMenu from "./subMenu";
 
 const Nav = styled.div`
@@ -48,15 +50,16 @@ const SidebarWrap = styled.div`
 const Sidebar = () => {
 
 
-  let { menuOpen, setMenuOpen } = useContext(MenuContext);
+  const { menuOpen, setMenuOpen } = useContext(MenuContext);
 
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
 
   const getUser = () => {
+    let user;
     if (localStorage.getItem("user") != null) {
-      var user = JSON.parse(localStorage.getItem("user")!);
+      user = JSON.parse(localStorage.getItem("user")!);
     }
 
     if (user != null) return user.isLogged;
@@ -82,17 +85,17 @@ const Sidebar = () => {
         w="100%"
         filter="none"
         blur="none"
-        >
+      >
         <IconContext.Provider value={{ color: "black" }}>
-                <Image
-                  src={logo2}
-                  w="12rem"
-                  h="3rem"
-                  marginLeft="18px"
-                  marginTop="1.1rem"
-                  mr={'2rem'}
-                  float={'right'}
-                /> 
+          <Image
+            src={logo2}
+            w="12rem"
+            h="3rem"
+            marginLeft="18px"
+            marginTop="1.1rem"
+            mr={'2rem'}
+            float={'right'}
+          />
           <Nav>
             <HStack>
               <Center>
@@ -111,7 +114,7 @@ const Sidebar = () => {
                   h="4rem"
                   marginLeft="30px"
                   marginTop="10px"
-                /> }
+                />}
 
                 <NavIcon to="#">
                   <IoIosArrowBack onClick={showSidebar} />

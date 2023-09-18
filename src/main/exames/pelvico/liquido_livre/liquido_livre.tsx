@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Select, Stack } from "@chakra-ui/react";
+
+import { Box, Checkbox, HStack, Select, Stack, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Liquido_Livre({ Disable }) {
   const altura = "100%";
-  const largura = "33%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [frasesLiquidoLivre, setFrasesLiquidoLivre] = useState<any>([]);
   const [ConclusaoLiquidoLivre, setConclusaoLiquidoLivre] = useState<any>([]);
@@ -43,7 +45,7 @@ function Liquido_Livre({ Disable }) {
     const conclusao = 'Líquido livre na pelve.'
     removeStringLiquidoLivre();
     if (LiquidoCheckBox && QuantidadeLiquidoSelect !== "" && PosicaoLiquidoSelect !== '') {
-      var string = `Presença de ${QuantidadeLiquidoSelect} quantidade de líquido livre no fundo de saco ${PosicaoLiquidoSelect}.`;
+      const string = `Presença de ${QuantidadeLiquidoSelect} quantidade de líquido livre no fundo de saco ${PosicaoLiquidoSelect}.`;
       setFrasesLiquidoLivre((arr) => [...arr, string]);
       setConclusaoLiquidoLivre((arr) => [...arr, conclusao]);
     }
@@ -52,7 +54,7 @@ function Liquido_Livre({ Disable }) {
   const removeStringLiquidoLivre = () => {
     frasesLiquidoLivre.map((e) => {
       if (e.includes("Presença de ")) {
-        var index = frasesLiquidoLivre.indexOf(e);
+        const index = frasesLiquidoLivre.indexOf(e);
 
         if (index > -1) {
           frasesLiquidoLivre.splice(index, 1);
@@ -62,7 +64,7 @@ function Liquido_Livre({ Disable }) {
     });
     ConclusaoLiquidoLivre.map((e) => {
       if (e.includes("Líquido livre na pelve.")) {
-        var index = ConclusaoLiquidoLivre.indexOf(e);
+        const index = ConclusaoLiquidoLivre.indexOf(e);
 
         if (index > -1) {
           ConclusaoLiquidoLivre.splice(index, 1);

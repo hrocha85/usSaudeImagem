@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/jsx-pascal-case */
-import { Box, Checkbox, Select } from "@chakra-ui/react";
+
+
+import { Box, Checkbox, Select, useMediaQuery } from "@chakra-ui/react";
 
 
 import { useEffect, useState } from "react";
@@ -14,7 +14,9 @@ import Baco from "./baco/baco";
 
 function AbdomemSuperior() {
   const altura = '100%'
-  const largura = '40%'
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [frasesAdomenSuperior, setFrasesAdomenSuperior] = useState<any>([]);
 
@@ -28,7 +30,7 @@ function AbdomemSuperior() {
   const removeStringSelect = (value) => {
     frasesAdomenSuperior.map((e) => {
       if (e.includes(value)) {
-        var index = frasesAdomenSuperior.indexOf(e);
+        const index = frasesAdomenSuperior.indexOf(e);
         if (index > -1) {
           frasesAdomenSuperior.splice(index, 1);
           setFrasesAdomenSuperior((arr) => [...arr]);
@@ -37,7 +39,7 @@ function AbdomemSuperior() {
     });
   };
   useEffect(() => {
-    var frase = 'Com situação, forma, contornos e dimensões'
+    let frase = 'Com situação, forma, contornos e dimensões'
     removeStringSelect(frase)
     if (Disable) {
       if (NormalSelect && NormalEstruturasSelect) {
@@ -87,16 +89,16 @@ function AbdomemSuperior() {
         mb='5px'
         display='flex'
         flexWrap='wrap'
-        alignItems='center' gap='5px'>
+        justifyContent='center' gap='5px'>
 
-        <Box w='150px' >
+        <Box w='100%' >
           <Checkbox
             onChange={(e) => { SetDisable(!Disable) }}
           >Abdômen normal</Checkbox>
         </Box>
         <Select
           borderColor='black'
-          w='150px'
+          w='40%'
           isDisabled={!Disable}
           value={NormalSelect}
           onChange={(e) => {
@@ -112,7 +114,7 @@ function AbdomemSuperior() {
         </Select>
         <Select
           borderColor='black'
-          w='150px'
+          w='40%'
           isDisabled={!Disable}
           value={NormalEstruturasSelect}
           onChange={(e) => {

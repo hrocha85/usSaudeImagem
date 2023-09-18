@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Button, Checkbox, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../../component/function_format_laudo";
@@ -9,7 +9,7 @@ export default function Cistos({ Disable }) {
     const [FraseCisto, setFraseCisto] = useState<any>([]);
     const [ConclusoesCisto, setConclusoesCisto] = useState<any>([]);
 
-    var ArrayConclusao = ['']
+    const ArrayConclusao = ['']
 
     const [numberArray, setNumberArray] = useState([1]);
 
@@ -66,7 +66,7 @@ export default function Cistos({ Disable }) {
     const removeConclusao = (value) => {
         ConclusoesCisto.map((e) => {
             if (e.includes(value)) {
-                var index = ConclusoesCisto.indexOf(e);
+                const index = ConclusoesCisto.indexOf(e);
 
                 if (index > -1) {
                     ConclusoesCisto.splice(index, 1);
@@ -90,7 +90,7 @@ export default function Cistos({ Disable }) {
     const removeVarios = () => {
         FraseCisto.map((e) => {
             if (e.includes("Varios: Cisto de conteúdo anecogênico, com paredes finas e contornos regulares, medindo")) {
-                var index = FraseCisto.indexOf(e);
+                const index = FraseCisto.indexOf(e);
 
                 if (index > -1) {
                     FraseCisto.splice(index, 1);

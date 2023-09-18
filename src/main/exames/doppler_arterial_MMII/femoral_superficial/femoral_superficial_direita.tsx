@@ -15,14 +15,14 @@ function Femoral_Superficial_Direita() {
   const [EstenoseCheckBox, setEstenoseCheckBox] = useState(false);
 
   const criaStringFluxoAusente = () => {
-    var string = "Fluxo ausente femoral superficial direita ";
+    const string = "Fluxo ausente femoral superficial direita ";
     setFrasesFemoralSuperficialDireita((arr) => [...arr, string]);
   };
 
   const removeFluxoAusente = () => {
     frasesFemoralSuperficialDireita.map((e) => {
       if (e.includes("Fluxo ausente femoral superficial direita ")) {
-        var index = frasesFemoralSuperficialDireita.indexOf(e);
+        const index = frasesFemoralSuperficialDireita.indexOf(e);
 
         if (index > -1) {
           frasesFemoralSuperficialDireita.splice(index, 1);
@@ -33,14 +33,14 @@ function Femoral_Superficial_Direita() {
   };
 
   const criaStringPosEstenotico = () => {
-    var string = "Pós estenótico femoral superficial direita ";
+    const string = "Pós estenótico femoral superficial direita ";
     setFrasesFemoralSuperficialDireita((arr) => [...arr, string]);
   };
 
   const removePosEstenotico = () => {
     frasesFemoralSuperficialDireita.map((e) => {
       if (e.includes("Pós estenótico femoral superficial direita ")) {
-        var index = frasesFemoralSuperficialDireita.indexOf(e);
+        const index = frasesFemoralSuperficialDireita.indexOf(e);
 
         if (index > -1) {
           frasesFemoralSuperficialDireita.splice(index, 1);
@@ -51,14 +51,14 @@ function Femoral_Superficial_Direita() {
   };
 
   const criaStringEstenose = () => {
-    var string = "Estenose femoral superficial direita acima de 50% ";
+    const string = "Estenose femoral superficial direita acima de 50% ";
     setFrasesFemoralSuperficialDireita((arr) => [...arr, string]);
   };
 
   const removeEstenose = () => {
     frasesFemoralSuperficialDireita.map((e) => {
       if (e.includes("Estenose femoral superficial direita acima de 50% ")) {
-        var index = frasesFemoralSuperficialDireita.indexOf(e);
+        const index = frasesFemoralSuperficialDireita.indexOf(e);
 
         if (index > -1) {
           frasesFemoralSuperficialDireita.splice(index, 1);

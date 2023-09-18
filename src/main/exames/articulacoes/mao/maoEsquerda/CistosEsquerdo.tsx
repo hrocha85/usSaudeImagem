@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -60,12 +60,12 @@ function MaoCistosEsquerdo({ Disable }) {
         removeFraseCisto1_Cisto2()
         if (Cistos1Checkbox && Cistos2Checkbox && Cistos1Select1 === Cistos2Select1) {
 
-            var string = 'Cistos de paredes finas e regulares e conteúdo anecogênico situados superficialmente ao tendão flexor do '
-            var StringFinal;
-            var medida1cisto1 = Cistos1Input / 10
-            var medida2cisto1 = Cistos1Input2 / 10
-            var medida1cisto2 = Cistos2Input / 10
-            var medida2cisto2 = Cistos2Input2 / 10
+            const string = 'Cistos de paredes finas e regulares e conteúdo anecogênico situados superficialmente ao tendão flexor do '
+            let StringFinal;
+            const medida1cisto1 = Cistos1Input / 10
+            const medida2cisto1 = Cistos1Input2 / 10
+            const medida1cisto2 = Cistos2Input / 10
+            const medida2cisto2 = Cistos2Input2 / 10
             removeFraseCisto1_Cisto2()
             if (medida1cisto1 !== 0 && medida2cisto1 !== 0 && medida1cisto2 !== 0 && medida2cisto2 !== 0 && Cistos1Select1 !== '' && Cistos1Select2 !== '') {
                 StringFinal = `${string} ${Cistos1Select1}, medindo ${medida1cisto1} x ${medida2cisto1} cm (ao nível ${Cistos1Select2}) e ${medida1cisto2} x ${medida2cisto2} cm (ao nível ${Cistos2Select2}).`;
@@ -80,7 +80,7 @@ function MaoCistosEsquerdo({ Disable }) {
     const removeFraseCisto1_Cisto2 = () => {
         CistosEsquerdo.map((e) => {
             if (e.includes(`Cistos de paredes finas e regulares e conteúdo anecogênico situados superficialmente ao tendão flexor do `)) {
-                var index = CistosEsquerdo.indexOf(e);
+                const index = CistosEsquerdo.indexOf(e);
 
                 if (index > -1) {
                     CistosEsquerdo.splice(index, 1);
@@ -93,14 +93,14 @@ function MaoCistosEsquerdo({ Disable }) {
 
     const criaStringConclusao = (dedo) => {
         removeFraseConclusao()
-        var conclusao = `Cisto no ${dedo} dedo.`
+        const conclusao = `Cisto no ${dedo} dedo.`
         setConclusaoEsquerdo((arr) => [...arr, conclusao]);
     }
 
     const removeFraseConclusao = () => {
         ConclusaoEsquerdo.map((e) => {
             if (e.includes(`Cisto no`)) {
-                var index = ConclusaoEsquerdo.indexOf(e);
+                const index = ConclusaoEsquerdo.indexOf(e);
 
                 if (index > -1) {
                     ConclusaoEsquerdo.splice(index, 1);
@@ -114,10 +114,10 @@ function MaoCistosEsquerdo({ Disable }) {
     const criaStringCistos1 = () => {
         removeFraseCisto1()
 
-        var string = 'Cisto anecogênico de paredes finas e regulares situado superficialmente ao tendão flexor do '
-        var StringFinal;
-        var medida1 = Cistos1Input / 10
-        var medida2 = Cistos1Input2 / 10
+        const string = 'Cisto anecogênico de paredes finas e regulares situado superficialmente ao tendão flexor do '
+        let StringFinal;
+        const medida1 = Cistos1Input / 10
+        const medida2 = Cistos1Input2 / 10
         removeFraseCisto1()
         if (medida1 !== 0 && medida2 !== 0 && Cistos1Select1 !== '' && Cistos1Select2 !== '') {
             StringFinal = `${string} ${Cistos1Select1}, ao nível ${Cistos1Select2}, medindo ${medida1} x ${medida2} cm, `;
@@ -128,7 +128,7 @@ function MaoCistosEsquerdo({ Disable }) {
     const removeFraseCisto1 = () => {
         CistosEsquerdo.map((e) => {
             if (e.includes(`Cisto anecogênico de paredes finas e regulares situado superficialmente ao tendão flexor do `)) {
-                var index = CistosEsquerdo.indexOf(e);
+                const index = CistosEsquerdo.indexOf(e);
 
                 if (index > -1) {
                     CistosEsquerdo.splice(index, 1);
@@ -140,10 +140,10 @@ function MaoCistosEsquerdo({ Disable }) {
 
     const criaStringCistos2 = () => {
         removeFraseCisto2()
-        var string = '2º Cisto anecogênico de paredes finas e regulares situado superficialmente ao tendão flexor do '
-        var StringFinal;
-        var medida1 = Cistos2Input / 10
-        var medida2 = Cistos2Input2 / 10
+        const string = '2º Cisto anecogênico de paredes finas e regulares situado superficialmente ao tendão flexor do '
+        let StringFinal;
+        const medida1 = Cistos2Input / 10
+        const medida2 = Cistos2Input2 / 10
         removeFraseCisto2()
         if (medida1 !== 0 && medida2 !== 0 && Cistos2Select1 !== '' && Cistos2Select2 !== '') {
             StringFinal = `${string} ${Cistos2Select1}, ao nível ${Cistos2Select2}, medindo ${medida1} x ${medida2} cm, `;
@@ -154,7 +154,7 @@ function MaoCistosEsquerdo({ Disable }) {
     const removeFraseCisto2 = () => {
         CistosEsquerdo.map((e) => {
             if (e.includes(`2º Cisto anecogênico de paredes finas e regulares situado superficialmente ao tendão flexor do`)) {
-                var index = CistosEsquerdo.indexOf(e);
+                const index = CistosEsquerdo.indexOf(e);
 
                 if (index > -1) {
                     CistosEsquerdo.splice(index, 1);

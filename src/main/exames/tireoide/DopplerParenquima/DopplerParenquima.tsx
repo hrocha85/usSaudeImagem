@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import {
   Box,
   Checkbox,
@@ -9,7 +9,8 @@ import {
   Radio,
   RadioGroup,
   Stack,
-  Text
+  Text, 
+  useMediaQuery
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -17,7 +18,9 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function DopplerParenquima() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [value, setValue] = useState("1");
   const [FrasesDopplerParenquima, setFrasesDopplerParenquima] = useState<any>(
@@ -101,7 +104,7 @@ function DopplerParenquima() {
   }, [DescreverDoppler]);
 
   const subExame = "Doppler Parênquima";
-  var titulo_exame = "Tireóide com doppler";
+  const titulo_exame = "Tireóide com doppler";
 
   useEffect(() => {
     if (Object.keys(FrasesDopplerParenquima).length == 0) {
@@ -149,7 +152,7 @@ function DopplerParenquima() {
   const removeVelSistolicaSuperiorDir = () => {
     FrasesDopplerParenquima.map((e) => {
       if (e.includes("Artéria tiredoideana Superior Direita")) {
-        var index = FrasesDopplerParenquima.indexOf(e);
+        const index = FrasesDopplerParenquima.indexOf(e);
         if (index > -1) {
           FrasesDopplerParenquima.splice(index, 1);
           setFrasesDopplerParenquima((arr) => [...arr]);
@@ -202,7 +205,7 @@ function DopplerParenquima() {
   const removeVelSistolicaInferiorDir = () => {
     FrasesDopplerParenquima.map((e) => {
       if (e.includes("Artéria tiredoideana Inferior Direita")) {
-        var index = FrasesDopplerParenquima.indexOf(e);
+        const index = FrasesDopplerParenquima.indexOf(e);
         if (index > -1) {
           FrasesDopplerParenquima.splice(index, 1);
           setFrasesDopplerParenquima((arr) => [...arr]);
@@ -255,7 +258,7 @@ function DopplerParenquima() {
   const removeVelSistolicaSuperiorEsq = () => {
     FrasesDopplerParenquima.map((e) => {
       if (e.includes("Artéria tiredoideana Superior Esqeita")) {
-        var index = FrasesDopplerParenquima.indexOf(e);
+        const index = FrasesDopplerParenquima.indexOf(e);
         if (index > -1) {
           FrasesDopplerParenquima.splice(index, 1);
           setFrasesDopplerParenquima((arr) => [...arr]);
@@ -308,7 +311,7 @@ function DopplerParenquima() {
   const removeVelSistolicaInferiorEsq = () => {
     FrasesDopplerParenquima.map((e) => {
       if (e.includes("Artéria tiredoideana Inferior Esqeita")) {
-        var index = FrasesDopplerParenquima.indexOf(e);
+        const index = FrasesDopplerParenquima.indexOf(e);
         if (index > -1) {
           FrasesDopplerParenquima.splice(index, 1);
           setFrasesDopplerParenquima((arr) => [...arr]);

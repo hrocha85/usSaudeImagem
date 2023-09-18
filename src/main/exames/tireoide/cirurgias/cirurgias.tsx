@@ -1,12 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Select } from "@chakra-ui/react";
+
+import { Box, Checkbox, Select, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Cirurgias() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%" : largura = "100%"
 
   const [TireoidectomiaTotalCheckbox, setTireoidectomiaTotalCheckbox] =
     useState(false);
@@ -23,7 +25,7 @@ function Cirurgias() {
   const [FrasesCirurgias, setFrasesCirurgias] = useState<any>([]);
 
   const removeItemString = (value) => {
-    var index = FrasesCirurgias.indexOf(value);
+    const index = FrasesCirurgias.indexOf(value);
     if (index > -1) {
       FrasesCirurgias.splice(index, 1);
       setFrasesCirurgias((arr) => [...arr]);
@@ -32,19 +34,19 @@ function Cirurgias() {
 
   const criaStringHemitireoidectomia = () => {
     removeHemitireoidectomia();
-    let string = "FALTA Hemitireoidectomia";
+    let string = "Hemitireoidectomia";
     if (HemitireoidectomiaCheckbox) {
       if (ValueHemitireoidectomiaSelect != "") {
-        string = `${string} ${ValueHemitireoidectomiaSelect}`;
+        string = `${string} ${ValueHemitireoidectomiaSelect} aumentada.`;
+        setFrasesCirurgias((arr) => [...arr, string]);
       }
-      setFrasesCirurgias((arr) => [...arr, string]);
     }
   };
 
   const removeHemitireoidectomia = () => {
     FrasesCirurgias.map((e) => {
-      if (e.includes("FALTA Hemitireoidectomia")) {
-        var index = FrasesCirurgias.indexOf(e);
+      if (e.includes("Hemitireoidectomia")) {
+        const index = FrasesCirurgias.indexOf(e);
 
         if (index > -1) {
           FrasesCirurgias.splice(index, 1);
@@ -57,7 +59,7 @@ function Cirurgias() {
   const removeConclusao = (value) => {
     ConclusaoCirurgia.map((e) => {
       if (e.includes(value)) {
-        var index = ConclusaoCirurgia.indexOf(e);
+        const index = ConclusaoCirurgia.indexOf(e);
 
         if (index > -1) {
           ConclusaoCirurgia.splice(index, 1);

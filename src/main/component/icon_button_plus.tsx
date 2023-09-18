@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import {
   Button,
   Center,
@@ -5,7 +6,6 @@ import {
   Divider,
   Grid,
   Icon,
-  IconButton,
   Image,
   Input,
   InputGroup,
@@ -21,21 +21,30 @@ import {
   Tooltip,
   useDisclosure,
   useOutsideClick,
-  useToast,
+  useToast
 } from "@chakra-ui/react";
+import axios from "axios";
+import Cookies from 'js-cookie';
 import React, { useEffect, useRef, useState } from "react";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 import { BiCamera } from "react-icons/bi";
 import infoClinicas from "../../Data/Clinicas.json";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
-import { AiOutlineClear, AiOutlinePlusCircle } from "react-icons/ai";
+import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
+import api from "../../api";
 
 const button = React.createElement("img", { src: PlusButton });
 
-var dados;
+let dados;
 export let minhasClinicas = infoClinicas.clinicas;
 
 const IconButtonPlus = (props) => {
+  // useEffect(() => {
+  //   const clinicas = GetClinicaFree()
+  //   minhasClinicas.push(clinicas)
+  // }, [])
+
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -43,11 +52,13 @@ const IconButtonPlus = (props) => {
 
   const [endereco, setEndereco] = useState("");
 
-  const [cep, setCep] = useState("");
+  const [CEP, setCep] = useState("");
+  const [NumeroEndereco, setNumeroEndereco] = useState("");
 
   const [telefone, setTelefone] = useState("");
+  const [CNPJ, setCNPJ] = useState("");
 
-  const [placeHolderAddClinica, setplaceHolderAddClinica] = useState("Nome");
+  const [placeHolderAddClinica, setplaceHolderAddClinica] = useState("Insira o nome da Clínica");
 
   const [selectedFile, setSelectedFile] = useState();
 
@@ -58,33 +69,109 @@ const IconButtonPlus = (props) => {
   const [InputNomeClinica, setInputNomeClinica] = useState(false);
 
   const [InputTelefone, setInputTelefone] = useState(false);
+  const [InputCNPJ, setInputCNPJ] = useState(false);
 
   const [InputCEP, setInputCEP] = useState(false);
+  const [DisableButton, setDisableButton] = useState(true);
 
+  const refCNPJ = useRef<HTMLInputElement | null>(null);
   const refTelefone = useRef<HTMLInputElement | null>(null);
 
   const refCEP = useRef<HTMLInputElement | null>(null);
 
   const refNomeClinica = useRef<HTMLInputElement | null>(null);
 
-  console.log("minhasClinicas", minhasClinicas);
 
-  const AddClinica = () => {
-    const obj = {
-      nomeClinica: nome,
-      endereco: endereco,
-      cep: cep,
-      foto: defaultUserImage,
-      teleFone: telefone,
-    };
-    minhasClinicas.push(obj);
-    minhasClinicas.map((e) => {
-      if (e.nomeClinica == "clinica") {
-        minhasClinicas.shift();
+  useEffect(() => {
+    if (CEP !== '' && NumeroEndereco !== '') {
+      setDisableButton(false)
+    } else {
+      setDisableButton(true)
+    }
+  }, [NumeroEndereco, CEP])
+
+
+  const AddClinica = async () => {
+
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    const userString = Cookies.get('USGImage_user')
+    const user = JSON.parse(userString)
+    if (!isAdmin) {
+      const TodasClinicasString = localStorage.getItem("minhasClinicas")
+      const TodasClinicas = TodasClinicasString ? JSON.parse(TodasClinicasString) : []
+      const id = TodasClinicas.length + 1
+      const obj = {
+        id: id,
+        userID: user.id,
+        nome: nome,
+        endereco: endereco,
+        CEP: CEP,
+        NumeroEndereco: NumeroEndereco,
+        foto: defaultUserImage,
+        telefone: telefone,
+      };
+      TodasClinicas.push(obj);
+      TodasClinicas.map((e) => {
+        if (e.nome == "clinica") {
+          minhasClinicas.shift();
+        }
+      });
+      localStorage.setItem("minhasClinicas", JSON.stringify(TodasClinicas));
+      props.setAtualizar(!props.atualizar);
+
+      const clinicasUser: any = []
+      TodasClinicas.map((clinica) => {
+        if (clinica.userID === user.id) {
+          clinicasUser.push(clinica)
+        }
+      })
+      if (!isAdmin && clinicasUser.length >= 2) {
+        setLimiteClinicas(true)
       }
-    });
-    localStorage.setItem("minhasClinicas", JSON.stringify(minhasClinicas));
-    props.setAtualizar(!props.atualizar);
+    } else {
+      try {
+        const obj = {
+          userID: user.id,
+          CNPJ: CNPJ,
+          nome: nome,
+          endereco: endereco,
+          CEP: CEP,
+          NumeroEndereco: NumeroEndereco,
+          foto: defaultUserImage,
+          telefone: telefone,
+        };
+
+        const response = await api.post(`/clinica/${user.id}`, obj)
+        if (response.status === 201) {
+          toast({
+            duration: 3000,
+            title: `Clínica cadastrado com sucesso!`,
+            position: "bottom",
+            isClosable: true,
+          });
+          ResetDados();
+          props.setAtualizar(!props.atualizar);
+
+        } else {
+          toast({
+            duration: 3000,
+            title: `Preencha todos os campos corretamente para cadastrar.`,
+            status: "error",
+            position: "bottom",
+            isClosable: true,
+          });
+        }
+      } catch (error) {
+        console.log('error', error)
+      }
+    }
+
+
     onClose();
   };
 
@@ -129,13 +216,13 @@ const IconButtonPlus = (props) => {
       if (nome.length != 0) {
         setplaceHolderAddClinica(nome);
       } else {
-        setplaceHolderAddClinica("Nome");
+        setplaceHolderAddClinica("Insira o nome da Clínica");
       }
     },
   });
 
   const handlePhone = (event) => {
-    let input = event.target;
+    const input = event.target;
     input.value = phoneMask(input.value);
   };
 
@@ -146,9 +233,34 @@ const IconButtonPlus = (props) => {
     value = value.replace(/(\d)(\d{4})$/, "$1-$2");
     return value;
   };
+  const handleCnpj = (event) => {
+    const input = event.target;
+    input.value = cnpjMask(input.value);
+  };
+
+  const cnpjMask = (value) => {
+    if (!value) return "";
+    // Remove qualquer caractere não numérico
+    value = value.replace(/\D/g, "");
+    // Adicione a máscara: 00.000.000/0000-00
+    if (value.length <= 2) {
+      value = value.replace(/^(\d{0,2})/, "$1");
+    } else if (value.length <= 5) {
+      value = value.replace(/^(\d{2})(\d{0,3})/, "$1.$2");
+    } else if (value.length <= 8) {
+      value = value.replace(/^(\d{2})(\d{3})(\d{0,3})/, "$1.$2.$3");
+    } else if (value.length <= 12) {
+      value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,4})/, "$1.$2.$3/$4");
+    } else {
+      value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2})/, "$1.$2.$3/$4-$5");
+    }
+
+    return value;
+  };
+
 
   const handleCep = (event) => {
-    let input = event.target;
+    const input = event.target;
     input.value = cepMask(input.value);
   };
 
@@ -161,17 +273,50 @@ const IconButtonPlus = (props) => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("minhasClinicas") != null) {
-      dados = localStorage.getItem("minhasClinicas");
+    const clinicas = GetClinicaFree()
+    if (clinicas) {
+      minhasClinicas = clinicas
+    } else {
+      minhasClinicas = []
+    }
 
-      minhasClinicas = JSON.parse(dados);
-    } else minhasClinicas = [];
   }, []);
+
+  const buscarEndereco = async () => {
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${CEP}/json/`);
+      const data = response.data;
+      const enderecoCompleto = `${data.logradouro}, ${NumeroEndereco} - ${data.bairro}, ${data.localidade} - ${data.uf}, ${data.cep}`
+
+      setEndereco(enderecoCompleto);
+    } catch (error) {
+      console.log(error);
+      setEndereco('Endereço não encontrado.');
+    }
+  };
+
+  const [LimiteClinicas, setLimiteClinicas] = useState<boolean>(false)
+
+  const CheckClinicasGratuito = () => {
+    let isAdmin;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'admin' ? isAdmin = true : isAdmin = false
+    }
+    if (!isAdmin && minhasClinicas.length >= 2) {
+      setLimiteClinicas(true)
+    }
+  }
+
+  useEffect(() => {
+    CheckClinicasGratuito()
+  }, [])
 
   return (
     <>
       <Tooltip
-        label="Adicionar Clínica"
+        label={!LimiteClinicas ? "Adicionar Clínica" : "Limite de clinicas do plano gratuito atingido"}
         backgroundColor="white"
         placement="top"
         defaultIsOpen={false}
@@ -179,17 +324,24 @@ const IconButtonPlus = (props) => {
         arrowSize={15}
         textColor="black"
         fontSize="20px"
+        borderRadius={8}
+        textAlign={'center'}
       >
         <Button
+          isDisabled={LimiteClinicas}
           borderRadius="xl"
+          backgroundColor="white"
+          w="10rem"
+          h="2.4rem"
+          top={1}
           boxShadow="md"
           textColor="#4CBFF0"
           fontSize="19px"
           fontWeight="semibold"
           onClick={onOpen}
-          variant="ghost"
         >
           <Icon as={AiOutlinePlusCircle} w="30px" h="30px" />
+          Adicionar
         </Button>
       </Tooltip>
 
@@ -227,12 +379,12 @@ const IconButtonPlus = (props) => {
                 fontSize="20px"
                 placeholder={placeHolderAddClinica}
                 fontWeight="bold"
-                _placeholder={{ fontWeight: "bold", color: "black" }}
+                _placeholder={{ fontWeight: "bold", color: "#b8bfca", opacity: 0.7 }}
                 onChange={(e) => setClinica(e.target.value)}
                 variant={"unstyled"}
                 onClick={() => {
                   setInputNomeClinica(true);
-                  setplaceHolderAddClinica("");
+                  setplaceHolderAddClinica("Insira o nome da Clínica");
                 }}
               ></Input>
             )}
@@ -269,7 +421,51 @@ const IconButtonPlus = (props) => {
                 <Center>
                   <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
                     <Center paddingTop={"5px"}>
-                      <InputGroup variant={"unstyled"} width={"210px"}>
+                      <InputGroup variant={"unstyled"} width={"220px"}>
+                        <InputLeftAddon
+                          children="CNPJ:"
+                          paddingEnd={"5px"}
+                          fontWeight={"bold"}
+                        />
+
+                        {InputCNPJ ? (
+                          <Input
+                            p='0'
+                            ref={refCNPJ}
+                            placeholder="00.000.000/0000-00"
+                            textAlign={"center"}
+                            maxLength={18}
+                            onChange={(e) => {
+                              handleCnpj(e);
+                              setCNPJ(e.target.value);
+                            }}
+                            variant="filled"
+                            borderStartRadius={"md"}
+                            borderEndRadius={"md"}
+
+                            onClick={() => { }}
+                          />
+                        ) : (
+                          <Input
+                            p='0'
+                            ref={refCNPJ}
+                            placeholder="00.000.000/0000-00"
+                            textAlign={"center"}
+                            maxLength={18}
+                            onChange={(e) => {
+                              handleCnpj(e);
+                              setCNPJ(e.target.value);
+                            }}
+                            variant={"unstyled"}
+                            onClick={() => {
+                              setInputCNPJ(true);
+                            }}
+                          />
+                        )}
+                      </InputGroup>
+                    </Center>
+                    <Center paddingTop={"5px"}>
+                      <InputGroup variant={"unstyled"} width={"200px"}>
                         <InputLeftAddon
                           children="TEL:"
                           paddingEnd={"5px"}
@@ -312,45 +508,83 @@ const IconButtonPlus = (props) => {
                     </Center>
 
                     <Center paddingTop={"5px"}>
-                      <InputGroup variant={"unstyled"} width={"210px"}>
+                      <InputGroup variant={"unstyled"} width={"200px"}>
                         <InputLeftAddon
-                          children="CEP:"
+                          children="  CEP:"
                           paddingEnd={"5px"}
                           marginEnd={"5px"}
                           fontWeight={"bold"}
                         />
 
                         {InputCEP ? (
-                          <Input
-                            ref={refCEP}
-                            placeholder="13000-000"
-                            textAlign={"center"}
-                            onChange={(e) => {
-                              handleCep(e);
-                              setCep(e.target.value);
-                            }}
-                            variant="filled"
-                            borderStartRadius={"md"}
-                            borderEndRadius={"md"}
-
-                            onClick={() => { }}
-                          />
+                          <InputGroup>
+                            <Input
+                              ref={refCEP}
+                              placeholder="13000-000"
+                              textAlign="center"
+                              onChange={(e) => {
+                                handleCep(e);
+                                setCep(e.target.value);
+                              }}
+                              variant="filled"
+                              borderRadius="md"// Remove o raio de borda na extremidade direita
+                            />
+                          </InputGroup>
                         ) : (
-                          <Input
-                            ref={refCEP}
-                            placeholder="13000-000"
-                            textAlign={"center"}
-                            onChange={(e) => {
-                              handleCep(e);
-                              setCep(e.target.value);
-                            }}
-                            variant={"unstyled"}
-                            onClick={() => {
-                              setInputCEP(true);
-                            }}
-                          />
+                          <InputGroup>
+                            <Input
+                              ref={refCEP}
+                              placeholder="13000-000"
+                              textAlign={"center"}
+                              onChange={(e) => {
+                                handleCep(e);
+                                setCep(e.target.value);
+                              }}
+                              variant={"unstyled"}
+                              onClick={() => {
+                                setInputCEP(true);
+                              }}
+                            />
+                          </InputGroup>
                         )}
                       </InputGroup>
+                    </Center>
+                    <Center paddingTop={"5px"}>
+                      <InputGroup variant={"unstyled"} width={"100px"}>
+                        <InputLeftAddon
+                          children="Nº:"
+                          paddingEnd={"5px"}
+                          marginEnd={"5px"}
+                          fontWeight={"bold"}
+                        />
+
+                        {NumeroEndereco ? (
+                          <InputGroup>
+                            <Input
+                              placeholder="Nº"
+                              textAlign="center"
+                              onChange={(e) => {
+                                setNumeroEndereco(e.target.value);
+                              }}
+                              borderRadius="md"
+                            />
+                          </InputGroup>
+                        ) : (
+                          <InputGroup>
+                            <Input
+                              placeholder="Nº"
+                              textAlign={"center"}
+                              onChange={(e) => {
+                                setNumeroEndereco(e.target.value);
+                              }}
+
+                            />
+                          </InputGroup>
+                        )}
+                      </InputGroup>
+                      <Button isDisabled={DisableButton} ml='5px' size="sm" backgroundColor={'#3d82ff'} color='white' onClick={buscarEndereco}>
+                        Buscar
+                      </Button>
                     </Center>
                   </Grid>
                 </Center>
@@ -371,15 +605,10 @@ const IconButtonPlus = (props) => {
               marginStart="23px"
               marginBottom="10px"
               onClick={() => {
-                if (nome !== "" && telefone !== "") {
+                if (nome !== "" && telefone !== "" && CNPJ !== "") {
                   AddClinica();
                   ResetDados();
-                  toast({
-                    duration: 3000,
-                    title: `Clínica cadastrado com sucesso!`,
-                    position: "bottom",
-                    isClosable: true,
-                  });
+
                 } else {
                   toast({
                     duration: 3000,

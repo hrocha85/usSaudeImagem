@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Select } from "@chakra-ui/react";
+
+import { Box, Checkbox, Select, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Extra1() {
   const altura = "100%";
-  const largura = "500px";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "57.5%": largura = "100%"
 
   const [FraseExtra1, setFraseExtra1] = useState<any>([]);
 
@@ -19,7 +21,7 @@ function Extra1() {
   const [MamasDensasCheckbox, setMamasDensasCheckbox] = useState(false);
 
   const removeItemString = (value) => {
-    var index = FraseExtra1.indexOf(value);
+    const index = FraseExtra1.indexOf(value);
     if (index > -1) {
       FraseExtra1.splice(index, 1);
       setFraseExtra1((arr) => [...arr]);

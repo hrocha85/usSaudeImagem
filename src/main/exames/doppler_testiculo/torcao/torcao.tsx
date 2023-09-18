@@ -17,7 +17,7 @@ function Torcao() {
     removeStringTorcaoLivre();
 
     if (TorcaoCheckBox && posicaoTorcaoSelect !== "") {
-      var string = `Torção no local: ${posicaoTorcaoSelect}`;
+      const string = `Torção no local: ${posicaoTorcaoSelect}`;
       setFrasesTorcao((arr) => [...arr, string]);
     }
   };
@@ -25,7 +25,7 @@ function Torcao() {
   const removeStringTorcaoLivre = () => {
     frasesTorcao.map((e) => {
       if (e.includes("Torção no local")) {
-        var index = frasesTorcao.indexOf(e);
+        const index = frasesTorcao.indexOf(e);
 
         if (index > -1) {
           frasesTorcao.splice(index, 1);

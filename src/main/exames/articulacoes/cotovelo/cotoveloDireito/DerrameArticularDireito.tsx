@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -42,7 +42,7 @@ function DerrameArticularDireito({ Disable }) {
     const [PresenteCheckbox, setPresenteCheckbox] = useState(false);
 
     const criaStringPresente = () => {
-        var string = "Presença de líquido intra-articular.";
+        const string = "Presença de líquido intra-articular.";
         const conclusao = 'Derrame articular.'
         if (PresenteCheckbox) {
             setFraseDerrameArticularDireito((arr) => [...arr, string])
@@ -58,14 +58,14 @@ function DerrameArticularDireito({ Disable }) {
     }, [PresenteCheckbox])
 
     const removeItemString = (value) => {
-        var index = fraseDerrameArticularDireito.indexOf(value);
+        const index = fraseDerrameArticularDireito.indexOf(value);
         if (index > -1) {
             fraseDerrameArticularDireito.splice(index, 1);
             setFraseDerrameArticularDireito((arr) => [...arr]);
         }
     };
     const removeItemConclusao = (value) => {
-        var index = ConclusaoDerrameArticularDireito.indexOf(value);
+        const index = ConclusaoDerrameArticularDireito.indexOf(value);
         if (index > -1) {
             ConclusaoDerrameArticularDireito.splice(index, 1);
             setConclusaoDerrameArticularDireito((arr) => [...arr]);

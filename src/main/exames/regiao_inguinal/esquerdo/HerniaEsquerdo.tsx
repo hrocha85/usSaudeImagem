@@ -1,13 +1,15 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Radio, RadioGroup, Select, Stack, Text } from "@chakra-ui/react";
+
+import { Box, Radio, RadioGroup, Select, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function HerniaEsquerdo({ Disable }) {
   const altura = "100%";
-  const largura = "350px";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "98.5%": largura = "100%"
 
   const [FraseHerniaEsquerdo, setFraseHerniaEsquerdo] = useState<any>([]);
 
@@ -27,7 +29,7 @@ function HerniaEsquerdo({ Disable }) {
   const removeSelectString = () => {
     FraseHerniaEsquerdo.map((e) => {
       if (e.includes("Derrame Pleural ")) {
-        var index = FraseHerniaEsquerdo.indexOf(e);
+        const index = FraseHerniaEsquerdo.indexOf(e);
 
         if (index > -1) {
           FraseHerniaEsquerdo.splice(index, 1);
@@ -37,7 +39,7 @@ function HerniaEsquerdo({ Disable }) {
     });
     FraseHerniaEsquerdo.map((e) => {
       if (e.includes("Ausência de derrame ")) {
-        var index = FraseHerniaEsquerdo.indexOf(e);
+        const index = FraseHerniaEsquerdo.indexOf(e);
 
         if (index > -1) {
           FraseHerniaEsquerdo.splice(index, 1);
@@ -49,7 +51,7 @@ function HerniaEsquerdo({ Disable }) {
   const removeSelectStringMobilidade = () => {
     FraseHerniaEsquerdo.map((e) => {
       if (e.includes("Mobilidade da cúpula frênica ")) {
-        var index = FraseHerniaEsquerdo.indexOf(e);
+        const index = FraseHerniaEsquerdo.indexOf(e);
 
         if (index > -1) {
           FraseHerniaEsquerdo.splice(index, 1);
@@ -78,7 +80,7 @@ function HerniaEsquerdo({ Disable }) {
   }, [value]);
 
   useEffect(() => {
-    var select = `Derrame Pleural ${valueSelect1} ${valueSelect2}`;
+    const select = `Derrame Pleural ${valueSelect1} ${valueSelect2}`;
 
 
     if (valueSelect1 != "" && valueSelect2 != "") {
@@ -88,7 +90,7 @@ function HerniaEsquerdo({ Disable }) {
 
     removeSelectStringMobilidade();
     if (valueSelect3 != "") {
-      var mobilidade =
+      const mobilidade =
         `Mobilidade da cúpula frênica ${valueSelect3}`
       setFraseHerniaEsquerdo((arr) => [...arr, mobilidade]);
     } else {

@@ -1,8 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/jsx-pascal-case */
-import { Box, Checkbox, Select } from "@chakra-ui/react";
-
-
+import { Box, Checkbox, HStack, Select, useMediaQuery } from "@chakra-ui/react";
 import Baco from "./baco/baco";
 import Bexiga from "./bexiga/bexiga";
 import Figado from "./figado/figado";
@@ -10,17 +6,16 @@ import LiquidoLivre from "./liquido_livre/liquido_livre";
 import Pancreas from "./pancreas/pancreas";
 import VesiculaBiliar from "./vesicula_bliar/vesicula_biliar";
 import ViasBiliares from "./vias biliares/vias_biliares";
-import Volume_vesical from "./volume_vesical/volume_vesical";
 
-import RinsUreteres from "./Rins_ureteres/rins_ureteres";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../component/function_format_laudo";
 import Retroperineo from "./Retroperineo/Retroperineo";
+import RinsUreteres from "./Rins_ureteres/rins_ureteres";
 import Aorta from "./aorta/aorta";
 
 function AbdomemTotal() {
-  const altura = '100%'
-  const largura = '40%'
+  const altura = '100vh'
+  let largura = '10rem'
 
   const [frasesAdomenTotal, setFrasesAdomenTotal] = useState<any>([]);
 
@@ -30,10 +25,15 @@ function AbdomemTotal() {
 
   const subExame = "Abdômen total";
   const titulo_exame = "Abdômen total";
+
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+
+  isLargerThan600 ? largura = "60%" : largura = "100%"
+
   const removeStringSelect = (value) => {
     frasesAdomenTotal.map((e) => {
       if (e.includes(value)) {
-        var index = frasesAdomenTotal.indexOf(e);
+        const index = frasesAdomenTotal.indexOf(e);
         if (index > -1) {
           frasesAdomenTotal.splice(index, 1);
           setFrasesAdomenTotal((arr) => [...arr]);
@@ -42,7 +42,7 @@ function AbdomemTotal() {
     });
   };
   useEffect(() => {
-    var frase = 'Com situação, forma, contornos e dimensões'
+    let frase = 'Com situação, forma, contornos e dimensões'
     removeStringSelect(frase)
     if (Disable) {
       if (NormalSelect && NormalEstruturasSelect) {
@@ -77,12 +77,12 @@ function AbdomemTotal() {
   }, [frasesAdomenTotal]);
 
   return (
-
     <Box>
+
       <Box
         bg="#FAFAFA"
         w={largura}
-        h={altura}
+        h='8rem'
         bgPosition="center"
         bgRepeat="no-repeat"
         borderRadius="10.85px"
@@ -92,44 +92,48 @@ function AbdomemTotal() {
         mb='5px'
         display='flex'
         flexWrap='wrap'
-        alignItems='center' gap='5px'>
+        justifyContent={'center'}
+        alignItems='center' gap='5px'
+      >
 
-        <Box w='150px' >
+        <Box textAlign={'center'} p={4}>
           <Checkbox
             onChange={(e) => { SetDisable(!Disable) }}
           >Abdômen normal</Checkbox>
         </Box>
-        <Select
-          borderColor='black'
-          w='150px'
-          isDisabled={!Disable}
-          value={NormalSelect}
-          onChange={(e) => {
-            SetNormalSelect(e.target.value);
-          }}
-        >
-          <option value="" disabled selected>
-            Dimensões
-          </option>
-          <option value="normais">Normais</option>
-          <option value="aumentado">Aumentado</option>
-          <option value="diminuído">Diminuído</option>
-        </Select>
-        <Select
-          borderColor='black'
-          w='150px'
-          isDisabled={!Disable}
-          value={NormalEstruturasSelect}
-          onChange={(e) => {
-            SetNormalEstruturasSelect(e.target.value);
-          }}
-        >
-          <option value="" disabled selected>
-            Estruturas vasculares
-          </option>
-          <option value="normais">Normais</option>
-          <option value="não visibilizados">Não visibilizados</option>
-        </Select>
+        <HStack align="center" spacing={4}>
+          <Select
+            borderColor='black'
+            w='45%'
+            isDisabled={!Disable}
+            value={NormalSelect}
+            onChange={(e) => {
+              SetNormalSelect(e.target.value);
+            }}
+          >
+            <option value="" disabled selected>
+              Dimensões
+            </option>
+            <option value="normais">Normais</option>
+            <option value="aumentado">Aumentado</option>
+            <option value="diminuído">Diminuído</option>
+          </Select>
+          <Select
+            borderColor='black'
+            w='45%'
+            isDisabled={!Disable}
+            value={NormalEstruturasSelect}
+            onChange={(e) => {
+              SetNormalEstruturasSelect(e.target.value);
+            }}
+          >
+            <option value="" disabled selected>
+              Estruturas vasculares
+            </option>
+            <option value="normais">Normais</option>
+            <option value="não visibilizados">Não visibilizados</option>
+          </Select>
+        </HStack>
       </Box >
 
       <Figado Disable={Disable} />

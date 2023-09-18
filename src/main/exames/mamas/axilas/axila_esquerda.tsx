@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Input, Select, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -37,7 +37,7 @@ function Axila_esquerda() {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesAxilas.indexOf(value);
+    const index = frasesAxilas.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesAxilas.splice(index, 1);
@@ -72,7 +72,7 @@ function Axila_esquerda() {
 
 
   const criaStringHperecogenicaContornos = () => {
-    var string = 'Hiperecogênica de contornos '
+    let string = 'Hiperecogênica de contornos '
     removeFraseSelect(string);
     if (CheckboxHiperecogenicaContornos) {
       if (ValueSelectHiperecogenicaContornos !== "") {
@@ -115,7 +115,7 @@ function Axila_esquerda() {
     removeFrasePeleTecido();
     if (CheckboxPeleTecido) {
       if (valueSelectPeleTecido !== "") {
-        let string = `Pele e tecido subcutâneo de espessura  ${valueSelectPeleTecido}`;
+        const string = `Pele e tecido subcutâneo de espessura  ${valueSelectPeleTecido}`;
         setFrasesAxilas((arr) => [...arr, string]);
       }
     } else {
@@ -125,7 +125,7 @@ function Axila_esquerda() {
   const removeFrasePeleTecido = () => {
     frasesAxilas.map((e) => {
       if (e.includes("Pele e tecido subcutâneo de espessura ")) {
-        let index = frasesAxilas.indexOf(e);
+        const index = frasesAxilas.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesAxilas.splice(index, 1);
@@ -141,7 +141,7 @@ function Axila_esquerda() {
 
 
   const criaStringParcialmentePrecisos = () => {
-    var string = 'parcialmente precisos e bordos finos, bem circunscrito, de orientação'
+    let string = 'parcialmente precisos e bordos finos, bem circunscrito, de orientação'
     removeFraseSelect(string)
     if (ParcialmentePrecisosCheckbox) {
       if (PerpendicularPeleInput != '' && PerpendicularPeleSelect != '') {
@@ -159,7 +159,7 @@ function Axila_esquerda() {
   const removeFraseSelect = (value) => {
     frasesAxilas.map((e) => {
       if (e.includes(value)) {
-        let index = frasesAxilas.indexOf(e);
+        const index = frasesAxilas.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesAxilas.splice(index, 1);

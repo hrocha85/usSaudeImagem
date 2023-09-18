@@ -1,8 +1,7 @@
 export class Clear_Local_Storage {
-  constructor() { }
 
   Clear_Sub_Exames_Local_Storage(): void {
-    var array = JSON.parse(localStorage.getItem("format_laudo")!);
+    const array = JSON.parse(localStorage.getItem("format_laudo")!);
     if (array != null) {
       array.map((exames) => {
         exames.subExames.map((subExame) => {

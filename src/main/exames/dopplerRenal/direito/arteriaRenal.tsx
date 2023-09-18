@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -27,11 +27,11 @@ function ArteriaRenalDireita() {
     removePVSProximal();
     if (medida !== "" && PVSProximalValueCheckbox === true) {
       setPVSProximalValueCheckbox(true);
-      var string = `PVS (Proximal) da artéria renal direita medindo ${medida} mm, Não insonável `;
+      const string = `PVS (Proximal) da artéria renal direita medindo ${medida} mm, Não insonável `;
       setFrasesArteriaR((arr) => [...arr, string]);
     } else if (medida !== "" && PVSProximalValueCheckbox === false) {
       setPVSProximalValueCheckbox(false);
-      string = `PVS (Proximal) da artéria renal direita medindo ${medida} mm `;
+      const string = `PVS (Proximal) da artéria renal direita medindo ${medida} mm `;
       setFrasesArteriaR((arr) => [...arr, string]);
     }
   };
@@ -39,7 +39,7 @@ function ArteriaRenalDireita() {
   const removePVSProximal = () => {
     frasesArteriaR.map((e) => {
       if (e.includes("PVS (Proximal) da artéria renal direita")) {
-        var index = frasesArteriaR.indexOf(e);
+        const index = frasesArteriaR.indexOf(e);
 
         if (index > -1) {
           frasesArteriaR.splice(index, 1);
@@ -68,18 +68,18 @@ function ArteriaRenalDireita() {
     removePVSDistal();
     if (medida !== "" && PVSDistalValueCheckBox === true) {
       setPVSDistalValueCheckBox(true);
-      var string = `PVS (Distal) da artéria renal direita medindo ${medida} mm, Não insonável `;
+      const string = `PVS (Distal) da artéria renal direita medindo ${medida} mm, Não insonável `;
       setFrasesArteriaR((arr) => [...arr, string]);
     } else if (medida !== "" && PVSDistalValueCheckBox === false) {
       setPVSDistalValueCheckBox(false);
-      string = `PVS (Distal) da artéria renal direita medindo ${medida} mm `;
+      const string = `PVS (Distal) da artéria renal direita medindo ${medida} mm `;
       setFrasesArteriaR((arr) => [...arr, string]);
     }
   };
   const removePVSDistal = () => {
     frasesArteriaR.map((e) => {
       if (e.includes("PVS (Distal) da artéria renal direita ")) {
-        var index = frasesArteriaR.indexOf(e);
+        const index = frasesArteriaR.indexOf(e);
 
         if (index > -1) {
           frasesArteriaR.splice(index, 1);
@@ -148,7 +148,7 @@ function ArteriaRenalDireita() {
           w="45px"
           h="30px"
           padding="5px"
-          
+
           textAlign="center"
           onChange={(e) => {
             setPVSProximalInput(e.target.value);
@@ -176,7 +176,7 @@ function ArteriaRenalDireita() {
           w="45px"
           h="30px"
           padding="5px"
-          
+
           textAlign="center"
           onChange={(e) => {
             setPVSDistalInput(e.target.value);

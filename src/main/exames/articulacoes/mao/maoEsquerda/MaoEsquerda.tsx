@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, HStack, Input, Select, Stack, Text, } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { LaudosContext } from "../../../../../context/LuadosContext";
@@ -11,7 +11,7 @@ function MaoEsquerdo() {
   const largura = "100%";
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  let { MaoEsquerdoLaudoNormal } = useContext(MaoEsquerdoNormalContext)
+  const { MaoEsquerdoLaudoNormal } = useContext(MaoEsquerdoNormalContext)
   const [disableTudo, setDisableTudo] = useState(false)
 
   //States TenossinoviteExtensores - input,checkbox e select - Inicio
@@ -34,7 +34,7 @@ function MaoEsquerdo() {
 
   //Funcoes Padrao Micropolicistico - Inicio
   const criaStringTenossinoviteFlexores = () => {
-    var string = "Mao Esquerdo com TenossinoviteFlexores";
+    const string = "Mao Esquerdo com TenossinoviteFlexores";
     if (TenossinoviteFlexoresCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
       setTenossinoviteFlexoresCheckbox(false);
@@ -43,7 +43,7 @@ function MaoEsquerdo() {
     }
   };
   const criaStringRizartrose = () => {
-    var string = "Mao Esquerdo com Rizartrose";
+    const string = "Mao Esquerdo com Rizartrose";
     if (RizartroseCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
       setRizartroseCheckbox(false);
@@ -52,7 +52,7 @@ function MaoEsquerdo() {
     }
   };
   const criaStringDupuytren = () => {
-    var string = "Mao Esquerdo com Dupuytren";
+    const string = "Mao Esquerdo com Dupuytren";
     if (DupuytrenCheckbox) {
       setLaudoPrin((arr) => [...arr, string]);
       setDupuytrenCheckbox(false);
@@ -66,7 +66,7 @@ function MaoEsquerdo() {
   const criaStringTenossinoviteExtensores = (TenossinoviteExtensores) => {
     removeTenossinoviteExtensores();
     if (TenossinoviteExtensores !== "") {
-      var string = `Mao Esquerdo com TenossinoviteExtensores Supraespinhal ${TenossinoviteExtensores}. `;
+      const string = `Mao Esquerdo com TenossinoviteExtensores Supraespinhal ${TenossinoviteExtensores}. `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -74,7 +74,7 @@ function MaoEsquerdo() {
   const removeTenossinoviteExtensores = () => {
     laudoPrin.map((e) => {
       if (e.includes("Mao Esquerdo com TenossinoviteExtensores Supraespinhal")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -86,7 +86,7 @@ function MaoEsquerdo() {
   const criaStringDedoGatilho = (DedoGatilho) => {
     removeDedoGatilho();
     if (DedoGatilho !== "") {
-      var string = `Mao Esquerdo com DedoGatilho Supraespinhal ${DedoGatilho}. `;
+      const string = `Mao Esquerdo com DedoGatilho Supraespinhal ${DedoGatilho}. `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -94,7 +94,7 @@ function MaoEsquerdo() {
   const removeDedoGatilho = () => {
     laudoPrin.map((e) => {
       if (e.includes("Mao Esquerdo com DedoGatilho Supraespinhal")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -107,7 +107,7 @@ function MaoEsquerdo() {
   const criaStringCisto = (medida1, medida2, Cisto) => {
     removeCisto();
     if (medida1 !== "" && medida2 !== "") {
-      var string = `Mao Esquerdo com Cisto Supraespinhal ${Cisto} com intervalo de ${medida1}x${medida2} mm `;
+      const string = `Mao Esquerdo com Cisto Supraespinhal ${Cisto} com intervalo de ${medida1}x${medida2} mm `;
       setLaudoPrin((arr) => [...arr, string]);
     }
   };
@@ -115,7 +115,7 @@ function MaoEsquerdo() {
   const removeCisto = () => {
     laudoPrin.map((e) => {
       if (e.includes("Mao Esquerdo com Cisto Supraespinhal")) {
-        var index = laudoPrin.indexOf(e);
+        const index = laudoPrin.indexOf(e);
 
         if (index > -1) {
           laudoPrin.splice(index, 1);
@@ -126,7 +126,7 @@ function MaoEsquerdo() {
   };
 
   const removeItemString = (value) => {
-    var index = laudoPrin.indexOf(value);
+    const index = laudoPrin.indexOf(value);
 
     if (index > -1) {
       laudoPrin.splice(index, 1);
@@ -272,7 +272,7 @@ function MaoEsquerdo() {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setCistoInput(e.target.value) }}
           />
@@ -284,7 +284,7 @@ function MaoEsquerdo() {
             w="45px"
             h="30px"
             padding="5px"
-            
+
             textAlign="center"
             onChange={(e) => { setCistoInput2(e.target.value) }}
           />

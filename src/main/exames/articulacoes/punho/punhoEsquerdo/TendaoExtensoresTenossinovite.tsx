@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -42,37 +42,37 @@ function TendaoExtensoresTenossinoviteEsquerdo({ Disable }) {
     const [VICheckbox, setVICheckbox] = useState(false);
 
     useEffect(() => {
-        var string = "Tendões abdutor longo do polegar e extensor curto do polegar com alteração ecotextural, espessados e com líquido na bainha sinovial.";
+        const string = "Tendões abdutor longo do polegar e extensor curto do polegar com alteração ecotextural, espessados e com líquido na bainha sinovial.";
         ICheckbox ? setFraseTendaoExtensoresTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     }, [ICheckbox])
 
     useEffect(() => {
-        var string = "Tendões extensor longo radial do carpo e extensor curto radial do carpo com alteração ecotextural, espessados e com líquido na bainha sinovial.";
+        const string = "Tendões extensor longo radial do carpo e extensor curto radial do carpo com alteração ecotextural, espessados e com líquido na bainha sinovial.";
         IICheckbox ? setFraseTendaoExtensoresTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     }, [IICheckbox])
 
     useEffect(() => {
-        var string = "Tendão extensor longo do polegar com alteração ecotextural, espessado e com líquido na bainha sinovial.";
+        const string = "Tendão extensor longo do polegar com alteração ecotextural, espessado e com líquido na bainha sinovial.";
         IIICheckbox ? setFraseTendaoExtensoresTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     }, [IIICheckbox])
 
     useEffect(() => {
-        var string = "Tendões extensor comum dos dedos e extensor do indicador com alteração ecotextural, espessados e com líquido na bainha sinovial.";
+        const string = "Tendões extensor comum dos dedos e extensor do indicador com alteração ecotextural, espessados e com líquido na bainha sinovial.";
         IVCheckbox ? setFraseTendaoExtensoresTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     }, [IVCheckbox])
 
     useEffect(() => {
-        var string = "Tendão extensor do V dedo com alteração ecotextural, espessado e com líquido na bainha sinovial.";
+        const string = "Tendão extensor do V dedo com alteração ecotextural, espessado e com líquido na bainha sinovial.";
         VCheckbox ? setFraseTendaoExtensoresTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     }, [VCheckbox])
 
     useEffect(() => {
-        var string = "Tendão extensor ulnar do carpo com alteração ecotextural, espessado e com líquido na bainha sinovial.";
+        const string = "Tendão extensor ulnar do carpo com alteração ecotextural, espessado e com líquido na bainha sinovial.";
         VICheckbox ? setFraseTendaoExtensoresTenossinoviteEsquerdo((arr) => [...arr, string]) : removeItemString(string);
     }, [VICheckbox])
 
     const removeItemString = (value) => {
-        var index = fraseTendaoExtensoresTenossinoviteEsquerdo.indexOf(value);
+        const index = fraseTendaoExtensoresTenossinoviteEsquerdo.indexOf(value);
 
         if (index > -1) {
             fraseTendaoExtensoresTenossinoviteEsquerdo.splice(index, 1);

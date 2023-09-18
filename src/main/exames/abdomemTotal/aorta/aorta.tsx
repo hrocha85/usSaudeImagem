@@ -1,6 +1,5 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -8,7 +7,9 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Aorta({ Disable }) {
     const altura = "100%";
-    const largura = "66%";
+    let largura = "60%";
+    const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+    isLargerThan600 ? largura = "60%": largura = "100%"
 
     const [value, setValue] = useState("1");
     const [FraseAorta, setFraseAorta] = useState<any>([]);
@@ -34,7 +35,7 @@ function Aorta({ Disable }) {
     const [DisableCitarVPSCheckbox, setDisableCitarVPSCheckbox] = useState(true);
 
     const removeSelectString = () => {
-        var index;
+        let index;
         FraseAorta.map((e) => {
             if (e.includes("Aneurisma")) {
                 index = FraseAorta.indexOf(e);
@@ -54,7 +55,7 @@ function Aorta({ Disable }) {
         });
     };
     const removeConclusaoString = () => {
-        var index;
+        let index;
         ConclusoesAorta.map((e) => {
             if (e.includes("Aneurisma aórtico.")) {
                 index = ConclusoesAorta.indexOf(e);
@@ -75,9 +76,9 @@ function Aorta({ Disable }) {
             setEnableSelects(true);
         } else if (value.includes("Aorta ateromatosa e ectasiada")) {
             setDisableCitarCalibreCheckbox(false)
-            var string;
+            let string;
             if (valueInputCitarCalibre != '') {
-                var medida = new Convert_Medida(valueInputCitarCalibre).Convert_Medida()
+                const medida = new Convert_Medida(valueInputCitarCalibre).Convert_Medida()
                 string = `Aorta com paredes hiperecogênicas e irregulares, com calibre transverso máximo ${medida} cm nos segmentos acessíveis.`
                 setFraseAorta([]);
                 setFraseAorta((arr) => [...arr, string]);
@@ -106,7 +107,7 @@ function Aorta({ Disable }) {
         const conclusao = 'Aneurisma aórtico.'
         removeSelectString()
         removeConclusaoString()
-        var select;
+        let select;
         if (valueInput1 != '' && valueInput2 != '' && valueInput1 != '' && valueInput2 != '' && TromboPerietalCheckbox) {
             select = `Aorta com paredes irregulares, apresentando dilatação aneurismática ${valueSelect1} ${valueSelect2} com calibre máximo de  ${valueInput1} cm e extensão de ${valueInput2} cm, com trombo parietal.`;
             setFraseAorta((arr) => [...arr, select]);
@@ -128,7 +129,7 @@ function Aorta({ Disable }) {
     }, [CitarCalibreCheckbox])
 
     const criaStringCitarFluxo = () => {
-        var string = 'A avaliação da aorta com Doppler demonstra fluxo de padrão trifásico normal e velocidades preservadas'
+        let string = 'A avaliação da aorta com Doppler demonstra fluxo de padrão trifásico normal e velocidades preservadas'
         removeFraseCitarFluxo()
         const medida = new Convert_Medida(valueInputVPS).Convert_Medida()
         if (valueInputVPS != '' && CitarFluxoCheckbox) {
@@ -143,7 +144,7 @@ function Aorta({ Disable }) {
     const removeFraseCitarFluxo = () => {
         FraseAorta.map((e) => {
             if (e.includes("A avaliação da aorta com Doppler demonstra fluxo de padrão trifásico normal e velocidades preservadas")) {
-                var index = FraseAorta.indexOf(e);
+                const index = FraseAorta.indexOf(e);
                 if (index > -1) {
                     FraseAorta.splice(index, 1);
                     setFraseAorta((arr) => [...arr]);
@@ -214,21 +215,21 @@ function Aorta({ Disable }) {
             <TituloNomeExame titulo="Aorta" />
 
 
-            <RadioGroup w='auto' onChange={setValue} value={value} padding="10px">
+            <RadioGroup onChange={setValue} value={value} >
                 <Stack direction="column">
                     <Flex>
                         <Stack>
-                            <Radio w='auto' value="1">Não citar</Radio>
-                            <Radio w='auto' value={'De diâmetro preservado. \n Paredes aórticas com espessura e a ecogenicidade normais, regulares.'}>
+                            <Radio value="1">Não citar</Radio>
+                            <Radio value={'De diâmetro preservado. \n Paredes aórticas com espessura e a ecogenicidade normais, regulares.'}>
                                 Aorta Normal
                             </Radio>
-                            <Radio w='auto' value="Presença de adenopatia para aórtica ou ao redor dos demais grandes vasos abdominais.">
+                            <Radio value="Presença de adenopatia para aórtica ou ao redor dos demais grandes vasos abdominais.">
                                 Aorta Alterada
                             </Radio>
                             <Radio value="Aorta com paredes hiperecogênicas e discretamente irregulares, conservando calibre normal.">
                                 Aorta ateromatosa
                             </Radio>
-                            <HStack>
+                            <Stack>
                                 <Radio value="Aorta ateromatosa e ectasiada">
                                     Aorta ateromatosa e ectasiada
                                 </Radio>
@@ -243,17 +244,17 @@ function Aorta({ Disable }) {
                                         textAlign='center'
                                         value={valueInputCitarCalibre}
                                         isDisabled={DisableInputCitarCalibre}
-                                        w='60px'
+                                        w='20%'
                                         placeholder="00"
                                         onChange={(e) => setValueInputCitarCalibre(e.target.value)}
                                     />
                                     <Text alignSelf='center'>cm</Text>
                                 </HStack>
-                            </HStack>
+                            </Stack>
                         </Stack>
                         <Spacer />
                         <Stack>
-                            <Stack>
+                            <Flex flexWrap={'wrap'}>
                                 <Checkbox
                                     onChange={() => setCitarFluxoCheckbox(!CitarFluxoCheckbox)}>
                                     Citar Fluxo normal ao Doppler
@@ -270,12 +271,12 @@ function Aorta({ Disable }) {
                                         isDisabled={DisableInputCitarVPS}
                                         value={valueInputVPS}
                                         onChange={(e) => setValueInputVPS(e.target.value)}
-                                        w='60px'
+                                        w='30px'
                                         placeholder="00"
                                     />
                                     <Text alignSelf='center'>cm/s</Text>
                                 </HStack>
-                            </Stack>
+                            </Flex>
                         </Stack>
                     </Flex>
                     <Box w='auto'>
@@ -305,7 +306,7 @@ function Aorta({ Disable }) {
                             <Text alignSelf='center'>com calibre máximo de </Text>
                             <Input
                                 p='0'
-                                textAlign='center' w='60px'
+                                textAlign='center' w='20%'
                                 value={valueInput1}
                                 placeholder="00"
                                 isDisabled={!enableSelects}

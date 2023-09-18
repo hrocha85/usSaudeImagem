@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { Box, Checkbox, Radio, RadioGroup, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../../component/function_format_laudo";
@@ -54,7 +54,7 @@ function TendaoGluteoMinimoDireito({ Disable }) {
 
 
     const criaStringPequenaCalcificacao = () => {
-        var string = `Pequena calcificação junto à inserção do glúteo mínimo.`;
+        const string = `Pequena calcificação junto à inserção do glúteo mínimo.`;
         const conclusao = 'Pequenas calcificações junto às inserções do glúteo mínimo.'
         if (PequenaCalcificacaoCheckbox) {
             setFrasesQuadrilTendaoGluteoMinimoDireito((arr) => [...arr, string])
@@ -75,7 +75,7 @@ function TendaoGluteoMinimoDireito({ Disable }) {
     }, [PequenaCalcificacaoCheckbox])
 
     const removeItemString = (value) => {
-        var index = frasesQuadrilTendaoGluteoMinimoDireito.indexOf(value);
+        const index = frasesQuadrilTendaoGluteoMinimoDireito.indexOf(value);
 
         if (index > -1) {
             frasesQuadrilTendaoGluteoMinimoDireito.splice(index, 1);
@@ -83,7 +83,7 @@ function TendaoGluteoMinimoDireito({ Disable }) {
         }
     };
     const removeItemStringConclusao = (value) => {
-        var index = ConclusaoQuadrilTendaoGluteoMinimoDireito.indexOf(value);
+        const index = ConclusaoQuadrilTendaoGluteoMinimoDireito.indexOf(value);
         if (index > -1) {
             ConclusaoQuadrilTendaoGluteoMinimoDireito.splice(index, 1);
             setConclusaoQuadrilTendaoGluteoMinimoDireito((arr) => [...arr]);

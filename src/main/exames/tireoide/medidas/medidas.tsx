@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+
+import { Box, Checkbox, Flex, HStack, Input, Radio, RadioGroup, Select, Spacer, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { StyleSheet } from "@react-pdf/renderer";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -8,7 +8,9 @@ import TituloNomeExame from "../../../component/titulo_nome_exame";
 
 function Medidas() {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [value, setValue] = useState("1");
   const [FrasesMedidas, setFrasesMedidas] = useState<any>([]);
@@ -56,11 +58,11 @@ function Medidas() {
   }, [ValueInput4LoboDireito, ValueInput4LoboEsquerdo, ValueInput4Istmo])
 
   const criaStringLoboDireito = () => {
-    var string = 'Lobo Direito: '
+    let string = 'Lobo Direito: '
     removeFraseLobo(string)
     if (LoboDireitoCheckbox) {
       if (ValueInput1LoboDireito && ValueInput2LoboDireito && ValueInput3LoboDireito) {
-        let medida4 = +(parseFloat(ValueInput1LoboDireito.replace(",", ".")) * parseFloat(ValueInput2LoboDireito.replace(",", ".")) * parseFloat(ValueInput3LoboDireito.replace(",", ".")))
+        const medida4 = +(parseFloat(ValueInput1LoboDireito.replace(",", ".")) * parseFloat(ValueInput2LoboDireito.replace(",", ".")) * parseFloat(ValueInput3LoboDireito.replace(",", ".")))
         setValueInput4LoboDireito(parseFloat(medida4.toFixed(2)))
         string = `${string} ${ValueInput1LoboDireito} x ${ValueInput2LoboDireito} x ${ValueInput3LoboDireito} cm (${medida4.toFixed(2)} cm³) `
         setFrasesMedidas((arr) => [...arr, string]);
@@ -81,11 +83,11 @@ function Medidas() {
   }, [LoboDireitoCheckbox, ValueInput1LoboDireito, ValueInput3LoboDireito, ValueInput2LoboDireito])
 
   const criaStringLoboEsquerdo = () => {
-    var string = 'Lobo Esquerdo: '
+    let string = 'Lobo Esquerdo: '
     removeFraseLobo(string)
     if (LoboEsquerdoCheckbox) {
       if (ValueInput1LoboEsquerdo && ValueInput2LoboEsquerdo && ValueInput3LoboEsquerdo) {
-        var medida4 = (parseFloat(ValueInput1LoboEsquerdo.replace(",", ".")) * parseFloat(ValueInput2LoboEsquerdo.replace(",", ".")) * parseFloat(ValueInput3LoboEsquerdo.replace(",", ".")))
+        const medida4 = (parseFloat(ValueInput1LoboEsquerdo.replace(",", ".")) * parseFloat(ValueInput2LoboEsquerdo.replace(",", ".")) * parseFloat(ValueInput3LoboEsquerdo.replace(",", ".")))
         setValueInput4LoboEsquerdo(parseFloat(medida4.toFixed(2)))
         string = `${string} ${ValueInput1LoboEsquerdo} x ${ValueInput2LoboEsquerdo} x ${ValueInput3LoboEsquerdo} cm (${medida4.toFixed(2)} cm³)`
         setFrasesMedidas((arr) => [...arr, string]);
@@ -101,7 +103,7 @@ function Medidas() {
   const removeFraseLobo = (value) => {
     FrasesMedidas.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesMedidas.indexOf(e);
+        const index = FrasesMedidas.indexOf(e);
         if (index > -1) {
           FrasesMedidas.splice(index, 1);
           setFrasesMedidas((arr) => [...arr]);
@@ -116,12 +118,12 @@ function Medidas() {
   }, [LoboEsquerdoCheckbox, ValueInput1LoboEsquerdo, ValueInput3LoboEsquerdo, ValueInput2LoboEsquerdo])
 
   const criaStringIstmo = () => {
-    var string = 'Istmo: '
+    let string = 'Istmo: '
     removeFraseLobo(string)
 
     if (IstmoCheckbox) {
       if (ValueInput1Istmo && ValueInput2Istmo && ValueInput3Istmo) {
-        var medida4 = (parseFloat(ValueInput1Istmo.replace(",", ".")) * parseFloat(ValueInput2Istmo.replace(",", ".")) * parseFloat(ValueInput3Istmo.replace(",", ".")))
+        const medida4 = (parseFloat(ValueInput1Istmo.replace(",", ".")) * parseFloat(ValueInput2Istmo.replace(",", ".")) * parseFloat(ValueInput3Istmo.replace(",", ".")))
         setValueInput4Istmo(parseFloat(medida4.toFixed(2)))
         string = `${string} ${ValueInput1Istmo} x ${ValueInput2Istmo} x ${ValueInput3Istmo} cm ${(parseFloat(medida4.toFixed(2)))} cm³`
         setFrasesMedidas((arr) => [...arr, string]);
@@ -134,7 +136,7 @@ function Medidas() {
     }
   }
   const removeString = (value) => {
-    var index = FrasesMedidas.indexOf(value);
+    const index = FrasesMedidas.indexOf(value);
     if (index > -1) {
       FrasesMedidas.splice(index, 1);
       setFrasesMedidas((arr) => [...arr]);
@@ -165,7 +167,7 @@ function Medidas() {
   const removeFraseRADS = () => {
     FrasesMedidas.map((e) => {
       if (e.includes("TI-RADS global")) {
-        var index = FrasesMedidas.indexOf(e);
+        const index = FrasesMedidas.indexOf(e);
         if (index > -1) {
           FrasesMedidas.splice(index, 1);
           setFrasesMedidas((arr) => [...arr]);
@@ -183,7 +185,7 @@ function Medidas() {
   }, [ValueSelectRADS])
 
   useEffect(() => {
-    var string = `VOLUME TOTAL:`
+    let string = `VOLUME TOTAL:`
     removeFraseLobo(string)
     if (ValueInput4Soma) {
       string = `${string} ${ValueInput4Soma.toFixed(2)} cm³ (normal 6 a 15cm³)`
@@ -221,7 +223,7 @@ function Medidas() {
       bgRepeat="no-repeat"
       borderRadius="10.85px"
       boxShadow="md"
-      padding="24px 15px 10px 15px"
+      padding="24px 8px 10px 8px"
       mt="20px"
     >
       <TituloNomeExame titulo="Medidas" />

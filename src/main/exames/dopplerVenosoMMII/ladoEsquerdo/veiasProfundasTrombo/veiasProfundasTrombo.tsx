@@ -28,7 +28,7 @@ function VeiasProfundasTromboEsquerdo() {
   const removeString = (string) => {
     frasesVeiasTrombo.map((e) => {
       if (e == string) {
-        let index = frasesVeiasTrombo.indexOf(e);
+        const index = frasesVeiasTrombo.indexOf(e);
         if (index > -1) {
           frasesVeiasTrombo.splice(index, 1);
           setFrasesVeiasTrombo((arr) => [...arr]);

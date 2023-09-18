@@ -22,7 +22,7 @@ function EcotexturaParenquima({ Disable }) {
 
   const removeItemString = (value) => {
     // console.log("valor remove = ", value);
-    var index = frasesECO.indexOf(value);
+    const index = frasesECO.indexOf(value);
     //caso o valor enviado exista no array, vai remover com splice e setar array novamente
     if (index > -1) {
       frasesECO.splice(index, 1);

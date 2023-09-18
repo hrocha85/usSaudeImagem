@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Button, Checkbox, HStack, Input, Select, Stack, Text } from "@chakra-ui/react";
+
+import { Box, Button, Checkbox, HStack, Input, Select, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Convert_Medida } from "../../../component/function_convert_medidas";
 import { Format_Laudo } from "../../../component/function_format_laudo";
@@ -10,7 +10,9 @@ import IndividualizarNodulos from "./individualizarNodulos";
 
 function Figado({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
   const [numberArray, setNumberArray] = useState([1]);
 
@@ -140,14 +142,14 @@ function Figado({ Disable }) {
   }, [frasesFigado]);
 
   const removeItemString = (value) => {
-    var index = frasesFigado.indexOf(value);
+    const index = frasesFigado.indexOf(value);
     if (index > -1) {
       frasesFigado.splice(index, 1);
       setFrasesFigado((arr) => [...arr]);
     }
   };
   const removeItemStringConclusao = (value) => {
-    var index = ConclusoesFigado.indexOf(value);
+    const index = ConclusoesFigado.indexOf(value);
     if (index > -1) {
       ConclusoesFigado.splice(index, 1);
       setConclusoesFigado((arr) => [...arr]);
@@ -156,13 +158,13 @@ function Figado({ Disable }) {
   };
 
   useEffect(() => {
-    var string = 'Fígado com dimensões normais, contornos regulares, bordas finas e ecotextura homogênea.'
+    const string = 'Fígado com dimensões normais, contornos regulares, bordas finas e ecotextura homogênea.'
     HomogeneoCheckbox ? setFrasesFigado((arr) => [...arr, string]) : removeItemString(string)
   }, [HomogeneoCheckbox])
 
 
   const criaStringEsteatose = (select) => {
-    var string = 'Fígado com dimensões normais, contornos regulares e bordas finas, apresentando '
+    let string = 'Fígado com dimensões normais, contornos regulares e bordas finas, apresentando '
     removeFraseEsteatose()
     if (select !== '') {
       string = `${string} ${select}`;
@@ -172,7 +174,7 @@ function Figado({ Disable }) {
   const removeFraseEsteatose = () => {
     frasesFigado.map((e) => {
       if (e.includes("Fígado com dimensões normais, contornos regulares e bordas finas, apresentando ")) {
-        var index = frasesFigado.indexOf(e);
+        const index = frasesFigado.indexOf(e);
 
         if (index > -1) {
           frasesFigado.splice(index, 1);
@@ -194,7 +196,7 @@ function Figado({ Disable }) {
   }, [EsteatoseCheckbox, EsteatoseSelect])
 
   const criaStringHepatopatiaCronica = (select) => {
-    var string = 'Fígado com dimensões normais e ecotextura difusamente heterogênea '
+    let string = 'Fígado com dimensões normais e ecotextura difusamente heterogênea '
     removeFraseHepatopatiaCronica()
     if (select !== '') {
       string = `${string} ${select}`;
@@ -204,7 +206,7 @@ function Figado({ Disable }) {
   const removeFraseHepatopatiaCronica = () => {
     frasesFigado.map((e) => {
       if (e.includes("Fígado com dimensões normais e ecotextura difusamente heterogênea")) {
-        var index = frasesFigado.indexOf(e);
+        const index = frasesFigado.indexOf(e);
 
         if (index > -1) {
           frasesFigado.splice(index, 1);
@@ -228,9 +230,9 @@ function Figado({ Disable }) {
 
 
   const criaStringVariosCistos = (select, input) => {
-    var string = 'Cistos de conteúdo anecogênico, com paredes finas e contornos regulares '
+    let string = 'Cistos de conteúdo anecogênico, com paredes finas e contornos regulares '
     removeFraseVariosCistos()
-    var medida = new Convert_Medida(input).Convert_Medida()
+    const medida = new Convert_Medida(input).Convert_Medida()
     if (select !== '' && input !== '') {
       string = `${string}, medindo até ${medida} cm, o maior localizado no ${select}. Veia porta e veias hepáticas sem alterações.`;
       setFrasesFigado((arr) => [...arr, string]);
@@ -239,7 +241,7 @@ function Figado({ Disable }) {
   const removeFraseVariosCistos = () => {
     frasesFigado.map((e) => {
       if (e.includes("Cistos de conteúdo anecogênico, com paredes finas e contornos regulares")) {
-        var index = frasesFigado.indexOf(e);
+        const index = frasesFigado.indexOf(e);
 
         if (index > -1) {
           frasesFigado.splice(index, 1);
@@ -267,7 +269,7 @@ function Figado({ Disable }) {
   const removeFraseConclusaoNodulo = () => {
     ConclusoesFigado.map((e) => {
       if (e.includes("Nódulo hepático.")) {
-        var index = ConclusoesFigado.indexOf(e);
+        const index = ConclusoesFigado.indexOf(e);
 
         if (index > -1) {
           ConclusoesFigado.splice(index, 1);
@@ -280,7 +282,7 @@ function Figado({ Disable }) {
 
 
   const criaStringVariosNodulos = (select1, select2, select3, select4, input1, input2) => {
-    var string = 'Presença de'
+    let string = 'Presença de'
     const conclusaoNodulos = 'Nódulo hepático.'
 
     removeFraseVariosNodulos()
@@ -294,7 +296,7 @@ function Figado({ Disable }) {
   const removeFraseVariosNodulos = () => {
     frasesFigado.map((e) => {
       if (e.includes("Presença de")) {
-        var index = frasesFigado.indexOf(e);
+        const index = frasesFigado.indexOf(e);
 
         if (index > -1) {
           frasesFigado.splice(index, 1);
@@ -322,7 +324,7 @@ function Figado({ Disable }) {
   }, [VariosNodulosCheckbox, VariosNodulosSelect1, VariosNodulosSelect2, VariosNodulosSelect3, VariosNodulosSelect4, VariosNodulosInput1, VariosNodulosInput2])
 
   const criaStringCalcificacaoGrosseira = (select, input) => {
-    var string = 'Nota-se uma calcificação grosseira de '
+    let string = 'Nota-se uma calcificação grosseira de '
 
     removeFraseCalcificacaoGrosseira()
     if (select !== '' && input !== '') {
@@ -333,7 +335,7 @@ function Figado({ Disable }) {
   const removeFraseCalcificacaoGrosseira = () => {
     frasesFigado.map((e) => {
       if (e.includes("Nota-se uma calcificação grosseira de")) {
-        var index = frasesFigado.indexOf(e);
+        const index = frasesFigado.indexOf(e);
 
         if (index > -1) {
           frasesFigado.splice(index, 1);
@@ -356,7 +358,7 @@ function Figado({ Disable }) {
   }, [CalcificacaoGrosseiraCheckbox, CalcificacaoGrosseiraSelect, CalcificacaoGrosseiraInput])
 
   const criaStringDimensoes = (select, LDMedida, LEMedida, LCMedida) => {
-    var string = 'Fígado com dimensões'
+    let string = 'Fígado com dimensões'
     removeFraseDimensoes()
     if (select !== '') {
       string = `${string} ${select}, contornos regulares, bordas finas e ecotextura homogênea. Veia 
@@ -382,7 +384,7 @@ function Figado({ Disable }) {
   const removeFraseDimensoes = () => {
     frasesFigado.map((e) => {
       if (e.includes("Fígado com dimensões")) {
-        var index = frasesFigado.indexOf(e);
+        const index = frasesFigado.indexOf(e);
 
         if (index > -1) {
           frasesFigado.splice(index, 1);

@@ -20,7 +20,7 @@ import Observacoes from "../../Data/Observacoes.json";
 
 const FieldDefault = ({ observacao, textColor }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [descricao, setDescricao] = useState<string|null>(null);
+  const [descricao, setDescricao] = useState<string | null>(null);
 
   const [id_observacao, setId] = useState(0);
 
@@ -29,7 +29,7 @@ const FieldDefault = ({ observacao, textColor }) => {
   );
   const observacoes = Observacoes.observacoes;
 
-  var descricoes:any|string = []
+  const descricoes: any | string = []
 
   const addObservacoes = () => {
     descricoes.push(descricao)
@@ -50,11 +50,11 @@ const FieldDefault = ({ observacao, textColor }) => {
     });
     localStorage.setItem("observacoes", JSON.stringify(observacoes));
   };
- 
+
 
   /*const updateObservacao = (observacao, id) => {
    
-    var array = JSON.parse(localStorage.getItem("observacoes")!);
+    letarray = JSON.parse(localStorage.getItem("observacoes")!);
     array.forEach((element) => {
       if (element.id == id_observacao) {
         element.oberservacao = observacoes
@@ -112,21 +112,21 @@ const FieldDefault = ({ observacao, textColor }) => {
 
             {localStorageObservacoes != null
               ? observacoes.map((e) => {
-                  return (
-                    <>
-                      <Box
-                        w="400px"
-                        h="40px"
-                        borderColor={"#e3e8f1"}
-                        borderWidth="1px"
-                        borderRadius="md"
-                        marginTop="5px"
-                      >
-                        <Text>{descricao}</Text>
-                      </Box>
-                    </>
-                  );
-                })
+                return (
+                  <>
+                    <Box
+                      w="400px"
+                      h="40px"
+                      borderColor={"#e3e8f1"}
+                      borderWidth="1px"
+                      borderRadius="md"
+                      marginTop="5px"
+                    >
+                      <Text>{descricao}</Text>
+                    </Box>
+                  </>
+                );
+              })
               : null}
           </ModalBody>
           <ModalFooter>

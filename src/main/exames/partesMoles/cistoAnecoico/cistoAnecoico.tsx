@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -60,7 +60,7 @@ function CistoAnecoico({ Disable }) {
   const criaStringLocalCistoAnecoico = (local) => {
     removeLocalCistoAnecoico();
     if (local !== "" && local != null) {
-      let string = `Cisto Anecóico localizado ${local} `;
+      const string = `Cisto Anecóico localizado ${local} `;
       setFrasesCistoAne((arr) => [...arr, string]);
     }
   };
@@ -76,7 +76,7 @@ function CistoAnecoico({ Disable }) {
       medida2CistoUnico !== "" &&
       medida3CistoUnico !== ""
     ) {
-      let string = `Cisto único mede ${medida1CistoUnico}x${medida2CistoUnico}x${medida3CistoUnico}cm`;
+      const string = `Cisto único mede ${medida1CistoUnico}x${medida2CistoUnico}x${medida3CistoUnico}cm`;
       setFrasesCistoAne((arr) => [...arr, string]);
     }
   };
@@ -91,7 +91,7 @@ function CistoAnecoico({ Disable }) {
       medida2MultiplosCistos !== "" &&
       medida3MultiplosCistos !== ""
     ) {
-      let string = `Múltiplos cistos o maior mede ${medida1MultiplosCistos}x${medida2MultiplosCistos}x${medida3MultiplosCistos}cm`;
+      const string = `Múltiplos cistos o maior mede ${medida1MultiplosCistos}x${medida2MultiplosCistos}x${medida3MultiplosCistos}cm`;
       setFrasesCistoAne((arr) => [...arr, string]);
     }
   };
@@ -99,7 +99,7 @@ function CistoAnecoico({ Disable }) {
   const removeLocalCistoAnecoico = () => {
     frasesCistoAne.map((e) => {
       if (e.includes("Cisto Anecóico ")) {
-        let index = frasesCistoAne.indexOf(e);
+        const index = frasesCistoAne.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCistoAne.splice(index, 1);
@@ -112,7 +112,7 @@ function CistoAnecoico({ Disable }) {
   const removeCistoUnico = () => {
     frasesCistoAne.map((e) => {
       if (e.includes("Cisto único")) {
-        let index = frasesCistoAne.indexOf(e);
+        const index = frasesCistoAne.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCistoAne.splice(index, 1);
@@ -124,7 +124,7 @@ function CistoAnecoico({ Disable }) {
   const removeMultiplosCistos = () => {
     frasesCistoAne.map((e) => {
       if (e.includes("Múltiplos cistos")) {
-        let index = frasesCistoAne.indexOf(e);
+        const index = frasesCistoAne.indexOf(e);
         //caso o valor enviado exista no array, vai remover com splice e setar array novamente
         if (index > -1) {
           frasesCistoAne.splice(index, 1);

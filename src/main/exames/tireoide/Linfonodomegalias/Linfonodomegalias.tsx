@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox } from "@chakra-ui/react";
+
+import { Box, Checkbox, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 import TituloNomeExame from "../../../component/titulo_nome_exame";
@@ -10,7 +10,9 @@ import Individualiza_MultiplosLinfonodos from "./Individualiza/individualiza_mut
 
 function Linfonodomegalias({ Disable }) {
   const altura = "100%";
-  const largura = "66%";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "60%": largura = "100%"
 
 
   const [FrasesLinfonodomegalias, setFrasesLinfonodomegalias] = useState<any>([]);
@@ -34,7 +36,7 @@ function Linfonodomegalias({ Disable }) {
   const removeFrase = (value) => {
     FrasesLinfonodomegalias.map((e) => {
       if (e.includes(value)) {
-        var index = FrasesLinfonodomegalias.indexOf(e);
+        const index = FrasesLinfonodomegalias.indexOf(e);
         if (index > -1) {
           FrasesLinfonodomegalias.splice(index, 1);
           setFrasesLinfonodomegalias((arr) => [...arr]);

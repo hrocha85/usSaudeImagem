@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable array-callback-return */
 import { Box, Checkbox } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -41,7 +41,7 @@ export default function IndividualizarTenossinoviteFlexores({ numCalculo, Disabl
   const removeDedosConclusao = () => {
     ConclusaoTenossinoviteFlexoresEsquerdo.map((e) => {
       if (e.includes(`${numCalculo}`)) {
-        var index = ConclusaoTenossinoviteFlexoresEsquerdo.indexOf(e);
+        const index = ConclusaoTenossinoviteFlexoresEsquerdo.indexOf(e);
 
         if (index > -1) {
           ConclusaoTenossinoviteFlexoresEsquerdo.splice(index, 1);
@@ -55,8 +55,8 @@ export default function IndividualizarTenossinoviteFlexores({ numCalculo, Disabl
   const criaStringMultiplosCalculos = () => {
     removeMultiplosCalculos();
     removeDedosConclusao();
-    var string;
-    var conclusao = `Tenossinovite dos flexores do dedo ${numCalculo}.`
+    let string;
+    const conclusao = `Tenossinovite dos flexores do dedo ${numCalculo}.`
     if (EspessamentoSinovialCheckbox && EspassamentoTendineoCheckbox) {
       string = `Dedo ${numCalculo} com espessamento dos tendões e da bainha sinovial.`;
       setFraseTenossinoviteFlexoresEsquerdo((arr) => [...arr, string]);
@@ -71,7 +71,7 @@ export default function IndividualizarTenossinoviteFlexores({ numCalculo, Disabl
   const removeMultiplosCalculos = () => {
     fraseTenossinoviteFlexoresEsquerdo.map((e) => {
       if (e.includes(`Dedo ${numCalculo}`)) {
-        var index = fraseTenossinoviteFlexoresEsquerdo.indexOf(e);
+        const index = fraseTenossinoviteFlexoresEsquerdo.indexOf(e);
 
         if (index > -1) {
           fraseTenossinoviteFlexoresEsquerdo.splice(index, 1);

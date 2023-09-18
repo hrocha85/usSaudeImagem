@@ -1,12 +1,14 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Checkbox, HStack, Input, Stack, Text } from "@chakra-ui/react";
+
+import { Box, Checkbox, HStack, Input, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Format_Laudo } from "../../../component/function_format_laudo";
 
 function Obs() {
   const altura = "100%";
-  const largura = "350px";
+  let largura = "60%";
+  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  isLargerThan600 ? largura = "57.5%": largura = "100%"
 
   const [items, setItems] = useState<{ id: string; values: string[] }>({
     id: 'Mamas',
@@ -39,7 +41,7 @@ function Obs() {
     }
   }
   const criaStringMamografia = () => {
-    var string = 'Exame correlacionado com mamografia de'
+    let string = 'Exame correlacionado com mamografia de'
     new Format_Laudo(titulo_exame).Remove_Observacao_Select(string);
     if (MamografiaCheckbox) {
       if (MamografiaInput1 != '' && MamografiaInput2 != '' && MamografiaInput3.length == 4) {
@@ -110,7 +112,7 @@ function Obs() {
             textAlign='center'
             w='30px'
             p='0px'
-            
+
             isDisabled={!MamografiaCheckbox}
             value={MamografiaInput1}
             onChange={(e) => setMamografiaInput1(e.target.value)} />
@@ -119,7 +121,7 @@ function Obs() {
             textAlign='center'
             w='30px'
             p='0px'
-            
+
             isDisabled={!MamografiaCheckbox}
             value={MamografiaInput2}
             onChange={(e) => setMamografiaInput2(e.target.value)} />
@@ -128,7 +130,7 @@ function Obs() {
             textAlign='center'
             w='60px'
             p='0px'
-            
+
             isDisabled={!MamografiaCheckbox}
             value={MamografiaInput3}
             onChange={(e) => setMamografiaInput3(e.target.value)} />

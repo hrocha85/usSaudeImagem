@@ -19,7 +19,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
 
   const criaStringMultiplosNodulos = (tamanhoNoduloInput, nodulosSelect, localizado, DopplerNodulosSelect) => {
     removeMultiplosNodulos();
-    var string;
+    let string;
     if (DopplerNodulosSelect !== "" && tamanhoNoduloInput !== "" && nodulosSelect !== "" && localizado !== "") {
       string = `Nódulo ${numNodulo}: ${nodulosSelect}, localizado na parede, ${localizado} medindo ${tamanhoNoduloInput} mm, com vascularização ${DopplerNodulosSelect}.`;
       setFrasesNodulos((arr) => [...arr, string]);
@@ -29,7 +29,7 @@ export default function IndividualizarNodulos({ numNodulo, disable }) {
   const removeMultiplosNodulos = () => {
     frasesNodulos.map((e) => {
       if (e.includes(`Nódulo ${numNodulo}`)) {
-        var index = frasesNodulos.indexOf(e);
+        const index = frasesNodulos.indexOf(e);
 
         if (index > -1) {
           frasesNodulos.splice(index, 1);
