@@ -4,8 +4,7 @@
 
 /* custom scrollbar */
 ::-webkit-scrollbar {
-  width: 20px;
-  background-color: #c2e1f7;
+  width:0.5rem;
 }
 
 ::-webkit-scrollbar-track {
@@ -13,14 +12,11 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #0DC7E2;
-  border-radius: 20px;
-  border: 6px solid transparent;
-  background-clip: content-box;
+  background: transparent; 
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #3182ce;
+  background: transparent; 
 }
 .App-logo {
   height: 40vmin;

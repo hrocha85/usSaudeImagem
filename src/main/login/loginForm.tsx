@@ -52,14 +52,14 @@ export default function LoginForm() {
     await api.post("login", User).then(async (response) => {
       if (response.status === 200) {
         User = {
-          // name: response.data.user.name,
+          name: response.data.user.name,
           email: Email,
           password: Senha
         }
         setTimeout(() => {
           toast({
             duration: 3000,
-            title: `lucas Seja bem vindo!`,
+            title: `${User.name} Seja bem vindo!`,
             position: "top",
             isClosable: true,
           });
@@ -132,7 +132,7 @@ export default function LoginForm() {
             w="12rem"
             h="3rem"
           />
-          <Text textAlign={'center'} fontWeight={600} fontSize={20} pt={5} textColor={'rgba(56, 100, 100, 2)'}>Para acessar o seu apimel faça o login com usuário e senha</Text>
+          <Text textAlign={'center'} fontWeight={600} fontSize={20} pt={5} textColor={'rgba(56, 100, 100, 2)'}>Para acessar o seu painel faça o login com usuário e senha</Text>
         </VStack>
         <FormControl pos={'relative'}>
           <FormLabel

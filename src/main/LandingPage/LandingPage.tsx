@@ -6,9 +6,17 @@ import { ExamesLp } from "./exames/ExamesLP";
 import { System } from "./system/System";
 import { Planos } from "./planos/Planos";
 import { Footer } from "./footer/Footer";
+import Cookies from 'js-cookie';
+import { useEffect } from "react";
 
 
 function LandingPage() {
+  useEffect(()=>{
+    Cookies.remove('USGImage_token')
+    Cookies.remove('USGImage_user')
+    Cookies.remove('USGImage_role')
+    },[])
+
   return (
     <Box overflow="hidden">
       <Header />

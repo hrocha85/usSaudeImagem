@@ -2,8 +2,8 @@ import {
   Box,
   Button,
   Flex,
-  Link,
   Text,
+  Link,
   Image,
   useMediaQuery,
   extendTheme,
@@ -15,6 +15,7 @@ import {
 import marca from "../../images/Marca.png";
 import { useState } from "react";
 import { ChevronLeftIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { Link as ScrollLink } from "react-scroll";
 
 function Header() {
 
@@ -24,6 +25,8 @@ function Header() {
   let width = ""
   let width1 = ""
   isLargerThan600 ? display = "flex" : display = "none"
+
+
 
   isLargerThan600 ? width = "20%" : width = "45%"
   isLargerThan600 ? width1 = "150px" : width1 = "110px"
@@ -88,33 +91,22 @@ function Header() {
           src={marca}
           w={width}
         />
-        <Flex flexWrap={'wrap'} alignItems="center">
-          <Link href={`#/LoginFree`} display={display}>
+        <Flex justifyContent="space-between">
+          <Link href={`#/Login`} display={display}>
             <Button
               mr={3}
               bg={'transparent'}
+              px={'40px'}
               fontFamily={"Sora, sans-serif"}
               fontSize={"16px"}
               fontStyle={'normal'}
               fontWeight={'600'}
               lineHeight={'24px'}
-            >Login Gratuito</Button>
+            >
+              Login
+            </Button>
           </Link>
-          <Text display={display}>|</Text>
-          <Link href={`#/Login`} display={display}>
-            <Button
-              ml={2}
-              mr={2}
-              bg={'transparent'}
-              fontFamily={"Sora, sans-serif"}
-              fontSize={"16px"}
-              fontStyle={'normal'}
-              fontWeight={'600'}
-              lineHeight={'24px'}
-            >Login Integral</Button>
-          </Link>
-
-          <Link href={`#/Cadastro`}>
+          <ScrollLink to="planos" smooth={true} duration={500}>
             <Button
               border="1px solid #1C49B0"
               color="#1C49B0"
@@ -124,8 +116,8 @@ function Header() {
               bg="transparent"
               _hover={{ background: 'transparent', color: '#1C49B0', }}
             >
-              Contato</Button>
-          </Link>
+              Planos</Button>
+          </ScrollLink>
 
           <ChakraProvider>
             <Box >
@@ -172,16 +164,6 @@ function Header() {
                 >
                   <VStack align="center" p={4}>
                     <Flex flexDir={'column'} w={'100%'}>
-                      <Link href={`#/LoginFree`} borderBottom={'2px solid #aaa'} pt={'6%'}>
-                        <Button
-                          bg={'transparent'}
-                          fontFamily={"Sora, sans-serif"}
-                          fontSize={"13px"}
-                          fontStyle={'normal'}
-                          fontWeight={'600'}
-                          lineHeight={'24px'}
-                        >Login Gratuito</Button>
-                      </Link>
                       <Link href={`#/Login`} borderBottom={'2px solid #aaa'} pt={'6%'}>
                         <Button
                           bg={'transparent'}
@@ -190,7 +172,7 @@ function Header() {
                           fontStyle={'normal'}
                           fontWeight={'600'}
                           lineHeight={'24px'}
-                        >Login Integral</Button>
+                        >Login</Button>
                       </Link>
                     </Flex>
                   </VStack>

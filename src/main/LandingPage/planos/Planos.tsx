@@ -7,7 +7,7 @@ import checkPremium from '../../images/landing/CheckPremium.svg'
 function Planos() {
 
     return (
-        <Box mb={'2%'}>
+        <Box mb={'2%'} id="planos">
             <Text
                 fontSize={"35px"}
                 fontFamily={'Rubik, sans-serif'}
@@ -19,9 +19,9 @@ function Planos() {
                 textAlign={'center'}
                 w={'100%'}
             >
-                Encontre o plano perfeito para você!
+               Encontre o plano perfeito para você!
             </Text>
-            <Text
+            {/* <Text
                 fontSize={"14px"}
                 fontFamily={'Inter, sans-serif'}
                 fontStyle={'normal'}
@@ -34,7 +34,7 @@ function Planos() {
 
             >
                 lorem ipsum sit amet
-            </Text>
+            </Text> */}
             <Box>
                 <Flex pt={10} justifyContent={'center'} flexDirection={['column', 'row']} px={'5%'}>
                     <Box w={['100%', '30%']} h={'100%'} border="3px solid #1C49B0" rounded={10} py={'1%'} mb={['5%', '0']}  mx={'2%'} px={'3%'}>
@@ -225,7 +225,7 @@ function Planos() {
                                 </Button>
                             </Link>
                     </Box>
-                    <Box w={['100%', '30%']} h={'100%'} border="3px solid #1C49B0" rounded={10} py={'1%'}  mx={'2%'} px={'3%'} bg={'#1C49B0'}>
+                    {/* <Box w={['100%', '30%']} h={'100%'} border="3px solid #1C49B0" rounded={10} py={'1%'}  mx={'2%'} px={'3%'} bg={'#1C49B0'}>
                         <Image
                             src={free}
                             bg={'#FFF'}
@@ -444,7 +444,7 @@ function Planos() {
 
                                 </Button>
                             </Link>
-                    </Box>
+                    </Box> */}
                 </Flex>
             </Box>
         </Box>
