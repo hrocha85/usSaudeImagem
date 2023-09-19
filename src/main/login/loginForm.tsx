@@ -132,7 +132,7 @@ export default function LoginForm() {
             w="12rem"
             h="3rem"
           />
-          <Text textAlign={'center'} fontWeight={600} fontSize={20} pt={5} textColor={'rgba(56, 100, 100, 2)'}>Para acessar o seu apimel faça o login com usuário e senha</Text>
+          <Text textAlign={'center'} fontWeight={600} fontSize={20} pt={5} textColor={'rgba(56, 100, 100, 2)'}>Para acessar o seu painel faça o login com usuário e senha</Text>
         </VStack>
         <FormControl pos={'relative'}>
           <FormLabel
