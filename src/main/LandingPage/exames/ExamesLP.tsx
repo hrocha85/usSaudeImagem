@@ -201,7 +201,7 @@ function ExamesLp() {
                             {words.map((word, index) => (
                                 <Text
                                     key={index}
-                                    fontSize={['30px',Math.floor(Math.random() * 40) + 20]}
+                                    fontSize={['30px','30px']}
                                     fontWeight="extrabold"
                                     fontFamily={'Inter, sans-serif'}
                                     bg={'#FFF'}
@@ -210,7 +210,12 @@ function ExamesLp() {
                                     textAlign={'center'}
                                     p={'15px'}
                                     rounded={'50px'}
-                                    m={2} 
+                                    m={2}
+                                    _hover={{ 
+                                        fontSize:'38px',
+                                        fontWeight: '100',
+                                        transition: 'font-size 0.5s ease'
+                                      }} 
                                 >
                                     {word}
                                 </Text>
