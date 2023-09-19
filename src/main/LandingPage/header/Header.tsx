@@ -92,7 +92,7 @@ function Header() {
           w={width}
         />
         <Flex justifyContent="space-between">
-          <Link href={`#/LoginFree`} display={display}>
+          <Link href={`#/Login`} display={display}>
             <Button
               mr={3}
               bg={'transparent'}
@@ -164,7 +164,7 @@ function Header() {
                 >
                   <VStack align="center" p={4}>
                     <Flex flexDir={'column'} w={'100%'}>
-                      <Link href={`#/LoginFree`} borderBottom={'2px solid #aaa'} pt={'6%'}>
+                      <Link href={`#/Login`} borderBottom={'2px solid #aaa'} pt={'6%'}>
                         <Button
                           bg={'transparent'}
                           fontFamily={"Sora, sans-serif"}
