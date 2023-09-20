@@ -43,6 +43,7 @@ import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
 let dados;
 export const lista_medicos = MedicosJSON.medicos;
 
+
 const Configuracoes = () => {
 
   const getMedicos = () => {
@@ -80,6 +81,10 @@ const Configuracoes = () => {
 
 
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
+
+  const getClinicasNull = () => {
+    return listaClinicas.length === 0 ? "none" : "block";
+  };
 
   const [stateClickAddMedico, setStateClickAddMedico] = useState(false);
 
@@ -338,7 +343,7 @@ const Configuracoes = () => {
     //   setListaClinicas(item_parse);
     // }
     setListaClinicas(GetClinicaFree());
-  }, [stateClickAddMedico]);
+  }, [stateClickAddMedico, getClinicasNull]);
 
   useEffect(() => {
     setMedicos(getMedicos);
@@ -395,7 +400,7 @@ const Configuracoes = () => {
             </Box>
 
 
-            <Box pl={3}>
+            <Box pl={3} display={getClinicasNull()}>
               <MainCard titulo="Médicos" icon={true} clinica={listaClinicas} medicos={null} />
             </Box>
 
