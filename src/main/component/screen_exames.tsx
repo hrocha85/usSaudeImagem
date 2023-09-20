@@ -73,7 +73,7 @@ export default function Box_Default_With_Sidebar() {
 
   let maxLargura = "58%";
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
-  isLargerThan600 ? maxLargura = "58%": maxLargura = "94%"
+  isLargerThan600 ? maxLargura = "58%" : maxLargura = "94%"
 
   const exames = [
     {
@@ -311,7 +311,7 @@ export default function Box_Default_With_Sidebar() {
     return <Conclusoes exame={currentExame} clean={clean} />;
   };
 
- 
+
 
 
   useEffect(() => {
@@ -373,9 +373,9 @@ export default function Box_Default_With_Sidebar() {
         backgroundClip="padding-box"
       >
         <Sidebar />
-        {isLargerThan600 ? 
-           <Exames /> :   <Box display={'none'}><Exames /></Box>
-          }
+        {isLargerThan600 ?
+          <Exames /> : <Box display={'none'}><Exames /></Box>
+        }
         <Tabs
           size="lg"
           variant="soft-rounded"
@@ -614,9 +614,9 @@ export default function Box_Default_With_Sidebar() {
           </ModalContent>
         </Modal>
         <VStack w={'60vw'}>
-          {isLargerThan600 ? 
-              <Box display={'none'}><Exames /></Box>: <Box display={'block'}><Exames /></Box>
-            }
+          {isLargerThan600 ?
+            <Box display={'none'}><Exames /></Box> : <Box display={'block'}><Exames /></Box>
+          }
         </VStack>
       </Box>
     );
