@@ -1004,6 +1004,7 @@ function Exames() {
       top={1}
       transition="0.2"
       marginEnd="1%"
+      zIndex={'999'}
     >
       <Center paddingBottom="30px">
         <Stack
