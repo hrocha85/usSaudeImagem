@@ -19,7 +19,7 @@ export default function Format_PDF() {
     if (localStorage.getItem("user") != null) {
       clinica = JSON.parse(localStorage.getItem("user")!);
     }
-    return clinica.clinica;
+    return JSON.stringify(clinica.clinica);
   };
 
   const getPaciente = () => {
