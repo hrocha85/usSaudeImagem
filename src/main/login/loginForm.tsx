@@ -59,7 +59,7 @@ export default function LoginForm() {
         setTimeout(() => {
           toast({
             duration: 3000,
-            title: `${User.name} Seja bem vindo!`,
+            title: `Olá ${User.name}, seja bem vindo!`,
             position: "top",
             isClosable: true,
           });

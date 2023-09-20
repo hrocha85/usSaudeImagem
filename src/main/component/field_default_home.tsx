@@ -3,7 +3,7 @@ import PropsTypes from "prop-types";
 import { useContext, useState } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
 import { TabExamesContext } from "../../context/TabExameContext";
-import { useNavigate } from 'react-router-dom';
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 
 const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
   const { enableExames, setEnableExames } = useContext(EnableExamesContext);
@@ -208,9 +208,10 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
     }
   };
   const usenavigate = useNavigate()
-  const navigate = () => [
-    usenavigate('#/Exames/')
-  ]
+  const navigate = () => {
+    console.log('navigate')
+    usenavigate('/Exames/')
+  }
 
   return (
     <GridItem
@@ -235,7 +236,6 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
         borderColor={'gray'}
         padding={19.9}
       >
-
         <Tooltip
           isDisabled={enableExames}
           label="Insira os dados do paciente"
@@ -263,10 +263,8 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
               whiteSpace: "normal",
               wordWrap: "break-word",
             }}
-            onClick={() => navigate
-            }
+            onClick={navigate}
           >
-
             {text}
           </Button>
         </Tooltip>
