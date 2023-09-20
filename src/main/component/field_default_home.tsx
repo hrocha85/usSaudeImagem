@@ -3,6 +3,7 @@ import PropsTypes from "prop-types";
 import { useContext, useState } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
 import { TabExamesContext } from "../../context/TabExameContext";
+import { useNavigate } from 'react-router-dom';
 
 const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
   const { enableExames, setEnableExames } = useContext(EnableExamesContext);
@@ -206,6 +207,10 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
       setTabExames(exameEncontrado);
     }
   };
+  const usenavigate = useNavigate()
+  const navigate = () => [
+    usenavigate('#/Exames/')
+  ]
 
   return (
     <GridItem
@@ -228,6 +233,7 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
         border={'1px'}
         bg={'#2e4ad4'}
         borderColor={'gray'}
+        padding={19.9}
       >
 
         <Tooltip
@@ -243,34 +249,26 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
           margin="20px"
           textAlign="center"
         >
-          <Link
-            href={`#/Exames/`}
-            fontWeight="bold"
-            z-index="1"
-            padding={19.9}
+          <Button
+            isDisabled={!enableExames}
+            _hover={{ padding: "3px" }}
+            fontSize="15.9px"
+            variant="link"
+            alignContent={'center'}
+            textAlign={'center'}
+            textColor={'white'}
+            w="130px"
+            h="30px"
+            style={{
+              whiteSpace: "normal",
+              wordWrap: "break-word",
+            }}
+            onClick={() => navigate
+            }
           >
-            <Button
-              _hover={{ padding: "3px" }}
-              isDisabled={!enableExames}
-              fontSize="15.9px"
-              variant="link"
-              alignContent={'center'}
-              textAlign={'center'}
-              textColor={'white'}
-              w="130px"
-              h="30px"
-              style={{
-                whiteSpace: "normal",
-                wordWrap: "break-word",
-              }}
-              onClick={() => {
-                // AddExameID(id)
-              }}
-            >
 
-              {text}
-            </Button>
-          </Link>
+            {text}
+          </Button>
         </Tooltip>
       </Box>
     </GridItem>
