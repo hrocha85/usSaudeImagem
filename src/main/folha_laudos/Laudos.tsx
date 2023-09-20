@@ -436,15 +436,12 @@ function Exames() {
       </Document>
     );
   };
-
-  const [clinicaFoto, setClinicaFoto] = useState('')
-
   const getUserClinica = () => {
     let clinica;
     if (localStorage.getItem("user") != null) {
       clinica = localStorage.getItem("user");
     }
-    console.log('clinica', clinica)
+    // console.log('clinica', clinica)
     // const clinicaParse = JSON.parse(clinica)
     // setClinicaFoto(clinicaParse.foto)
     // console.log(clinicaParse)
@@ -500,6 +497,21 @@ function Exames() {
   );
   const [laudo, setLaudo] = useState<any>(Laudo());
   const [updateSuccess, setUpdateSuccess] = useState(false);
+
+  const clinFoto = () => {
+    const clin = JSON.parse(clinicaSet)
+    const clinFoto = clin.clinica.foto
+    return clinFoto
+  }
+  const [clinicaFoto, setclinicaFoto] = useState(clinFoto())
+
+  const teste = () => {
+    const clin = JSON.parse(clinicaSet)
+    const clinFoto = clin.clinica.foto
+    console.log('clinFoto', clinFoto)
+  }
+
+
 
   const update = (laudos) => {
     const array = JSON.parse(localStorage.getItem("medicos")!);
@@ -994,6 +1006,7 @@ function Exames() {
     );
   }
 
+
   return (
     <Box
       w="32%"
@@ -1173,7 +1186,7 @@ function Exames() {
         <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
           <Box>
             <Image
-              src={clinicaSet.foto}
+              src={clinicaFoto}
               alt="Imagem Clínica"
               boxSize="6.5rem"
               objectFit="scale-down"
