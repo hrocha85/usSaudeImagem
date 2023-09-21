@@ -554,6 +554,7 @@ function Exames() {
   };
 
   const convertBlob = (blob) => {
+    console.log('casawasf')
     const file = new Blob([blob], { type: "application/pdf" });
     const fileURL = URL.createObjectURL(file);
     setUrlLaudo(fileURL);
@@ -878,6 +879,7 @@ function Exames() {
   };
 
   useEffect(() => {
+    console.log(urlLaudo)
     if (urlLaudo != null) {
       AddLaudoSalvo();
     }
@@ -1065,27 +1067,34 @@ function Exames() {
                 loading ? (
                   <Icon as={BiLoaderAlt} color="#4658fc" w={50} h={40} />
                 ) : (
-                  <Tooltip
-                    label="Baixar Laudo"
-                    fontSize="xl"
-                    backgroundColor="white"
-                    placement="top"
-                    hasArrow
-                    arrowSize={15}
-                    textColor="black"
+
+                  <Link
+                    onClick={() => {
+                      convertBlob(blob!);
+                    }}
                   >
-                    <Circle size="50px" bg="gray.200">
-                      <Icon
-                        as={GoDesktopDownload}
-                        w={30}
-                        h={30}
-                        color="twitter.600"
-                        onClick={() => {
-                          convertBlob(blob!);
-                        }}
-                      />
-                    </Circle>
-                  </Tooltip>
+                    <Tooltip
+                      label="Baixar Laudo"
+                      fontSize="xl"
+                      backgroundColor="white"
+                      placement="top"
+                      hasArrow
+                      arrowSize={15}
+                      textColor="black"
+                    >
+                      <Circle
+                        _hover={{ pointerEvents: 'auto' }}
+                        size="50px" bg="gray.200">
+                        <Icon
+                          as={GoDesktopDownload}
+                          w={30}
+                          h={30}
+                          color="twitter.600"
+
+                        />
+                      </Circle>
+                    </Tooltip>
+                  </Link>
                 )
               }
             </PDFDownloadLink>
@@ -1100,17 +1109,19 @@ function Exames() {
               arrowSize={15}
               textColor="black"
             >
-              <Circle size="50px" bg="gray.200" display={display1}>
-                <Icon
-                  w={30}
-                  h={30}
-                  as={FiEdit}
-                  color="twitter.600"
-                  onClick={() => {
-                    setEdit(true);
-                  }}
-                />
-              </Circle>
+              <Link>
+                <Circle size="50px" bg="gray.200" display={display1}>
+                  <Icon
+                    w={30}
+                    h={30}
+                    as={FiEdit}
+                    color="twitter.600"
+                    onClick={() => {
+                      setEdit(true);
+                    }}
+                  />
+                </Circle>
+              </Link>
             </Tooltip>
           ) : (
             <Tooltip
@@ -1122,17 +1133,19 @@ function Exames() {
               arrowSize={15}
               textColor="black"
             >
-              <Circle size="50px" bg="gray.200">
-                <Icon
-                  w={30}
-                  h={30}
-                  as={RiCloseLine}
-                  color="twitter.600"
-                  onClick={() => {
-                    setEdit(false);
-                  }}
-                />
-              </Circle>
+              <Link>
+                <Circle size="50px" bg="gray.200">
+                  <Icon
+                    w={30}
+                    h={30}
+                    as={RiCloseLine}
+                    color="twitter.600"
+                    onClick={() => {
+                      setEdit(false);
+                    }}
+                  />
+                </Circle>
+              </Link>
             </Tooltip>
           )}
           <Tooltip
@@ -1144,18 +1157,20 @@ function Exames() {
             arrowSize={15}
             textColor="black"
           >
-            <Circle size="50px" bg="#e2e8f0">
-              <Icon
-                w={30}
-                h={30}
-                as={AiOutlineShareAlt}
-                color="twitter.600"
-                size="30px"
-                onClick={() => {
-                  handleShareButtonClick()
-                }}
-              />
-            </Circle>
+            <Link>
+              <Circle size="50px" bg="#e2e8f0">
+                <Icon
+                  w={30}
+                  h={30}
+                  as={AiOutlineShareAlt}
+                  color="twitter.600"
+                  size="30px"
+                  onClick={() => {
+                    handleShareButtonClick()
+                  }}
+                />
+              </Circle>
+            </Link>
           </Tooltip>
           <Tooltip
             label="Concluir laudo"
@@ -1166,18 +1181,20 @@ function Exames() {
             arrowSize={15}
             textColor="black"
           >
-            <Circle size="50px" bg="yellow.400">
-              <Icon
-                w={30}
-                h={30}
-                as={BsFillCheckCircleFill}
-                color="green"
-                size="30px"
-                onClick={() => {
-                  verificaForm()
-                }}
-              />
-            </Circle>
+            <Link>
+              <Circle size="50px" bg="yellow.400">
+                <Icon
+                  w={30}
+                  h={30}
+                  as={BsFillCheckCircleFill}
+                  color="green"
+                  size="30px"
+                  onClick={() => {
+                    verificaForm()
+                  }}
+                />
+              </Circle>
+            </Link>
           </Tooltip>
         </Stack>
       </Center>

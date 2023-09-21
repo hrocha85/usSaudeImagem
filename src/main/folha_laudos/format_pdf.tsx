@@ -410,7 +410,7 @@ export default function Format_PDF() {
                             >{`Dr. ${medico.nome}`}</Text>
                             <Text
                               style={styles.textDadosMedico}
-                            >{`CRM ${medico.crm}`}</Text>
+                            >{`CRM ${medico.CRMUF}`}</Text>
                           </View>
                         </View>
                         <Text style={styles.textSantaImagem}>

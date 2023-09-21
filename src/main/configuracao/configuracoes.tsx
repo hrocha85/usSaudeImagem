@@ -408,7 +408,7 @@ const Configuracoes = () => {
 
           {/* {returnObservacoes()} */}
         </Stack>
-        {/* {returnObservacoes()} */}
+        {returnObservacoes()}
 
       </Box>
       {/* <Box bottom={0}><FooterUpbase /></Box> */}
