@@ -12,6 +12,7 @@ import LoginForm from "../main/login/loginForm";
 import CadastroUsuario from "../main/CadastroFree/Cadastro";
 import LoginFormFree from "../main/login/loginFormFree";
 import PrivateRoute from "./PrivateRoute";
+import Error from "../main/error/error";
 
 function Rotas() {
   return (
@@ -20,6 +21,7 @@ function Rotas() {
       <Route path="/Cadastro" element={<CadastroUsuario />} />
       <Route path="/Login" element={<LoginForm />} />
       <Route path="/LoginFree" element={<LoginFormFree />} />
+      <Route path="/Error" element={<Error/>} />
       <Route path="/Splash" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<SplashScreen />} />} />
       <Route path="/Home" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Home />} />} />
       <Route path="/SelectMedicos" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<SelectMedicos />} />} />
