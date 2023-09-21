@@ -3,12 +3,15 @@ import {
   Button,
   Checkbox,
   Container,
+  Flex,
   FormControl,
   FormLabel,
   HStack,
   Heading,
   Input,
   Link,
+  Radio,
+  RadioGroup,
   Select,
   Text,
   VStack,
@@ -18,6 +21,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api';
+import { Header } from '../LandingPage/header/Header';
+import { Footer } from '../LandingPage/footer/Footer';
+import fundo1 from '../images/landing/Rectangle2.png'
 
 type data = {
   name: string,
@@ -157,154 +163,219 @@ function CadastroUsuario() {
   }, [nome, senha, email, telefone, rua, cidade, CEP, estado, clinicaOuMedico, Numero]);
 
   return (
-    <Container maxW="container.lg" centerContent>
-      <Box p={6} shadow="md" borderRadius="md" w="100%" maxW="auto">
-        <VStack spacing={4} align="stretch">
-          <Heading as="h1" size="lg" textAlign="center">
-            Cadastro:
-          </Heading>
+    <Box>
+      <Header />
+      <Container maxW="container.lg" centerContent pt={'2%'}>
 
-          <FormControl isRequired>
-            <FormLabel>Nome</FormLabel>
-            <Input
-              placeholder="Digite seu nome"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-            />
-          </FormControl>
+        <Box p={6} shadow="md" borderRadius="md" w="100%" maxW="auto">
+          <VStack spacing={4} align="stretch">
+            <Heading as="h1" size="lg" textAlign="center">
+              <Box
+                backgroundImage={fundo1}
+                backgroundSize="cover"
+                backgroundPosition="center"
+                backgroundRepeat="no-repeat"
+                pt={'5%'}
+              >
+                <Box textAlign={'center'} py={'3%'}>
+                  <Text
+                    fontSize={"46px"}
+                    fontFamily={'Rubik, sans-serif'}
+                    fontStyle={'normal'}
+                    fontWeight={'700'}
+                    lineHeight={'normal'}
+                    textColor={'#fff'}
+                    alignSelf={'stretch'}
+                    textAlign={'center'}
+                  >
+                    Cadastro
+                  </Text>
+                  <Text
+                    fontSize={"25px"}
+                    fontFamily={'Rubik, sans-serif'}
+                    fontStyle={'normal'}
+                    fontWeight={'400'}
+                    lineHeight={'normal'}
+                    textColor={'#fff'}
+                    textAlign={'center'}
+                    pt={'20px'}
 
-          <FormControl isRequired>
-            <FormLabel display={'flex'}>Email <Text opacity={0.6} pl={2}> (name@dominio.com)</Text></FormLabel>
-            <Input
-              type="email"
-              placeholder="Digite seu email"
-              value={email}
-              onChange={handleEmailChange}
-            />
-          </FormControl>
+                  >
+                    Preencha o formulário
+                  </Text>
+                </Box>
+              </Box>
+            </Heading>
 
-          <FormControl isRequired>
-            <FormLabel display={'flex'}>Senha <Text opacity={0.6} pl={2}> (Conter no mínimo 8 caracteres)</Text></FormLabel>
-            <Input
-              type="password"
-              placeholder="Digite sua senha"
-              value={senha}
-              onChange={handleSenhaChange}
-            />
-          </FormControl>
+            <Flex flexDir={['column', 'row']}>
+              <FormControl isRequired w={['100%', '50%']} pr={'2%'}>
+                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Nome</FormLabel>
+                <Input
+                  placeholder="Digite seu nome"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                />
+              </FormControl>
 
-          <FormControl isRequired>
-            <FormLabel>Telefone</FormLabel>
-            <Input
-              type="text"
-              placeholder="(99)99999-9999"
-              value={telefone}
-              onChange={(e) => setTelefone(formatPhoneNumber(e.target.value))}
-              maxLength={14}
-            />
-          </FormControl>
+              <FormControl isRequired w={['100%', '50%']}>
+                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Email</FormLabel>
+                <Input
+                  type="email"
+                  placeholder="Digite seu email"
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+              </FormControl>
+            </Flex>
 
-          <HStack>
+            <Flex flexDir={['column', 'row']}>
+              <FormControl isRequired w={['100%', '70%']} pr={'2%'}>
+                <FormLabel fontFamily={'Outfit, sans-serif'}
+                  fontWeight={'800'} fontSize={'18px'} display={'flex'}
+                >Senha
+                  <Text opacity={0.6} pl={2} display={['none', 'block']}> (Conter no mínimo 8 caracteres)</Text>
+                </FormLabel>
+                <Input
+                  type="password"
+                  placeholder="Digite sua senha"
+                  value={senha}
+                  onChange={handleSenhaChange}
+                />
+              </FormControl>
+
+              <FormControl isRequired w={['100%', '30%']} >
+                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Telefone</FormLabel>
+                <Input
+                  type="text"
+                  placeholder="(99)99999-9999"
+                  value={telefone}
+                  onChange={(e) => setTelefone(formatPhoneNumber(e.target.value))}
+                  maxLength={14}
+                />
+              </FormControl>
+            </Flex>
+
+            <Flex flexDir={['column', 'row']}>
+
+              <FormControl isRequired pr={'2%'} w={['100%', '30%']}>
+                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>  CEP</FormLabel>
+                <Input
+                  type='text'
+                  placeholder="00000-000"
+                  value={CEP}
+                  onChange={(e) => setCep(formatCEP(e.target.value))}
+                  onBlur={(e) => consultarCEP(e.target.value)}
+                  maxLength={9}
+                />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Rua</FormLabel>
+                <Input
+                  placeholder="Digite sua rua"
+                  value={rua}
+                  onChange={(e) => setRua(e.target.value)}
+                />
+              </FormControl>
+            </Flex>
+
+            <Flex flexDir={['column', 'row']}>
+              <FormControl isRequired pr={'2%'} w={['100%', '30%']}>
+                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Número</FormLabel>
+                <Input
+                  type='text'
+                  placeholder="0000"
+                  value={Numero}
+                  onChange={(e) => setNumero(e.target.value)}
+                  maxLength={9}
+                />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Cidade</FormLabel>
+                <Input
+                  placeholder="São Paulo-SP"
+                  value={cidade}
+                  onChange={(e) => setCidade(e.target.value)}
+                />
+              </FormControl>
+            </Flex>
+
+            <Flex flexDir={['column', 'row']}>
+              <FormControl isRequired pr={'2%'}>
+                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Bairro</FormLabel>
+                <Input
+                  placeholder="Digite seu bairro"
+                  value={Bairro}
+                  onChange={(e) => setBairro(e.target.value)}
+                />
+              </FormControl>
+
+              <FormControl isRequired w={['100%', '30%']}>
+                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Estado</FormLabel>
+                <Input
+                  placeholder="São Paulo"
+                  value={estado}
+                  onChange={(e) => setEstado(e.target.value)}
+                />
+              </FormControl>
+            </Flex>
+
+            <FormControl isRequired w={'100%'} pt={'3%'}>
+              <Flex flexDir={['column', 'row']} justifyContent={'center'}>
+                <FormLabel
+                  fontFamily={'Outfit, sans-serif'}
+                  fontWeight={'800'}
+                  fontSize={'18px'}
+
+                >
+                  Clínica ou Médico independente
+                </FormLabel>
+                <RadioGroup
+                  value={clinicaOuMedico}
+                  onChange={(e) => setClinicaOuMedico(e)}
+                  display={'flex'}
+                  flexDir={['column', 'row']}
+                  justifyContent={'space-around'}
+                  w={['100%','45%']}
+                  gap={'10px'}
+                >
+                  <Box p={'15px'} bg={'gray.100'} rounded={'10px'}><Radio value="clinica">Clínica</Radio></Box>
+
+                  <Box p={'15px'} bg={'gray.100'} rounded={'10px'}><Radio value="medico">Médico Independente</Radio></Box>
+                </RadioGroup>
+              </Flex>
+            </FormControl>
+
 
             <FormControl isRequired>
-              <FormLabel>  CEP</FormLabel>
-              <Input
-                type='text'
-                placeholder="00000-000"
-                value={CEP}
-                onChange={(e) => setCep(formatCEP(e.target.value))}
-                onBlur={(e) => consultarCEP(e.target.value)}
-                maxLength={9}
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel>Número</FormLabel>
-              <Input
-                type='text'
-                placeholder=""
-                value={Numero}
-                onChange={(e) => setNumero(e.target.value)}
-                maxLength={9}
-              />
+              <Checkbox
+                isChecked={aceitouTermo}
+                onChange={() => setAceitouTermo(!aceitouTermo)}
+              >
+                <FormLabel w={'100%'} >
+                  Li e aceito os
+                  <Link pl={'2%'} color="blue.500" href="/pagina-do-contrato" isExternal>
+                    termos de uso
+                  </Link>
+                </FormLabel>
+              </Checkbox>
             </FormControl>
 
-            <FormControl isRequired>
-              <FormLabel>Rua</FormLabel>
-              <Input
-                placeholder="Digite sua rua"
-                value={rua}
-                onChange={(e) => setRua(e.target.value)}
-              />
-            </FormControl>
-          </HStack>
-
-          <HStack>
-            <FormControl isRequired>
-              <FormLabel>Cidade</FormLabel>
-              <Input
-                placeholder="Digite sua cidade"
-                value={cidade}
-                onChange={(e) => setCidade(e.target.value)}
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel>Bairro</FormLabel>
-              <Input
-                placeholder="Digite sua cidade"
-                value={Bairro}
-                onChange={(e) => setBairro(e.target.value)}
-              />
-            </FormControl>
-
-            <FormControl isRequired>
-              <FormLabel>Estado</FormLabel>
-              <Input
-                placeholder="Digite seu estado"
-                value={estado}
-                onChange={(e) => setEstado(e.target.value)}
-              />
-            </FormControl>
-          </HStack>
-
-          <FormControl isRequired>
-            <FormLabel>Clinica ou Médico independente</FormLabel>
-            <Select
-              placeholder="Selecione"
-              value={clinicaOuMedico}
-              onChange={(e) => setClinicaOuMedico(e.target.value)}
+            <Button
+              bg={'#1C49B0'}
+              textColor={'white'}
+              fontFamily={'Sora, sans-serif'} 
+              isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
+              onClick={handleCadastro}
+              mx={'20%'}
             >
-              <option value="clinica">Clínica</option>
-              <option value="medico">Médico Independente</option>
-            </Select>
-          </FormControl>
+              Cadastrar
+            </Button>
 
-          <FormControl isRequired>
-            <Checkbox
-              isChecked={aceitouTermo}
-              onChange={() => setAceitouTermo(!aceitouTermo)}
-            >
-              Aceito os termos de uso
-            </Checkbox>
-            <FormLabel>
-              Leia os{' '}
-              <Link color="blue.500" href="/pagina-do-contrato" isExternal>
-                termos de uso
-              </Link>{' '}
-              antes de prosseguir.
-            </FormLabel>
-          </FormControl>
-
-          <Button
-            colorScheme="blue"
-            isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
-            onClick={handleCadastro}
-          >
-            Cadastrar
-          </Button>
-
-        </VStack>
-      </Box>
-    </Container>
+          </VStack>
+        </Box>
+      </Container>
+      <Footer />
+    </Box>
   );
 }
 
