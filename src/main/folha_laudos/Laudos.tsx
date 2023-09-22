@@ -1084,7 +1084,7 @@ function Exames() {
 
                   <Link
                     onClick={() => {
-                      handleShareButtonClick(blob!)
+                      // handleShareButtonClick(blob!)
                       convertBlob(blob!);
                     }}
                   >
