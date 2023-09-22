@@ -144,10 +144,10 @@ function SelectMedicos() {
       if (lista_medico.length > 0) {
         return (
           <Center>
-            <Stack>
+            <Stack w={'100%'}>
               <Select
                 defaultValue=""
-                w="30vw"
+                w={['100%', '100%']}
                 borderColor="#ccc"
                 textAlign="center"
                 onChange={(event) => setmedicoString(event.currentTarget.value)}
@@ -167,7 +167,7 @@ function SelectMedicos() {
               {medicoSelecionado != null || undefined ? (
                 <Select
                   defaultValue=""
-                  w="30vw"
+                  w={['100%', '100%']}
                   borderColor="#ccc"
                   textAlign="center"
                   onChange={(e) => setclinicaString(e.currentTarget.value)}
@@ -242,7 +242,7 @@ function SelectMedicos() {
             <Stack>
               <Select
                 defaultValue=""
-                w="30vw"
+                w="100%"
                 borderColor="#ccc"
                 textAlign="center"
                 onChange={(event) => setmedicoString(event.currentTarget.value)}
@@ -340,7 +340,7 @@ function SelectMedicos() {
     <Box
       w="100%"
       h="100vh"
-      height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'
+      bgGradient='linear(to-b, blue.100, #fff)'
       backgroundSize="cover"
       backgroundClip="padding-box"
       backgroundRepeat="no-repeat"
@@ -352,7 +352,7 @@ function SelectMedicos() {
           position="absolute"
           top="30%"
           bg="#FAFAFA"
-          w="auto"
+          w={['90%',"40%"]}
           h="auto"
           borderRadius="10.85px"
           boxShadow="md"
