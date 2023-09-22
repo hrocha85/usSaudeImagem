@@ -38,6 +38,7 @@ import {
   Page,
   StyleSheet,
   Text as TextPDF,
+  View,
   View as ViewPDF,
 } from "@react-pdf/renderer";
 import { Dispatch, useContext, useEffect, useRef, useState } from "react";
@@ -275,9 +276,28 @@ function Exames() {
   isLargerThan600 ? display = "block" : display = "none"
   isLargerThan6001 ? display1 = "flex" : display1 = "none"
 
+  const getUserClinica = () => {
+    let clinica;
+    if (localStorage.getItem("user") != null) {
+      clinica = localStorage.getItem("user");
+    }
+    // console.log('clinica', clinica)
+    // const clinicaParse = JSON.parse(clinica)
+    // setClinicaFoto(clinicaParse.foto)
+    // console.log(clinicaParse)
+    return clinica;
+  };
+
+  const [clinicaSet, setClinica] = useState<any>(getUserClinica());
+  const clinFoto = () => {
+    const clin = JSON.parse(clinicaSet)
+    const clinFoto = clin.clinica.foto
+    return clinFoto
+  }
+  const [clinicaFoto, setclinicaFoto] = useState(clinFoto())
+
+
   const Laudo = () => {
-
-
     const renderFrases = (exame) => {
       return exame.subExames.map((sub, key) => {
         return sub.subExameNome != null && sub.subExameNome != "" ? (
@@ -352,7 +372,7 @@ function Exames() {
             >
               <ViewPDF fixed style={styles.section}>
                 <ViewPDF style={styles.viewAssinatura}>
-                  <ImagePDF style={styles.imageClinica} src={clinicaSet.foto} />
+                  <ImagePDF style={styles.imageClinica} src={clinicaFoto} />
                 </ViewPDF>
 
                 <ViewPDF style={styles.sectionColuna}>
@@ -415,7 +435,7 @@ function Exames() {
                         >{`Dr. ${medico.nome}`}</TextPDF>
                         <TextPDF
                           style={styles.textDadosMedico}
-                        >{`CRM ${medico.crm}`}</TextPDF>
+                        >{`CRM ${medico.CRMUF}`}</TextPDF>
                       </ViewPDF>
                     </ViewPDF>
                     <TextPDF style={styles.textSantaImagem}>
@@ -435,17 +455,6 @@ function Exames() {
         })}
       </Document>
     );
-  };
-  const getUserClinica = () => {
-    let clinica;
-    if (localStorage.getItem("user") != null) {
-      clinica = localStorage.getItem("user");
-    }
-    // console.log('clinica', clinica)
-    // const clinicaParse = JSON.parse(clinica)
-    // setClinicaFoto(clinicaParse.foto)
-    // console.log(clinicaParse)
-    return clinica;
   };
 
   const getUserMedico = () => {
@@ -487,7 +496,6 @@ function Exames() {
   };
 
   const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  const [clinicaSet, setClinica] = useState<any>(getUserClinica());
   const [medico, setMedico] = useState(getUserMedico());
   const [urlLaudo, setUrlLaudo] = useState<any>();
   const [edit, setEdit] = useState(false);
@@ -497,19 +505,6 @@ function Exames() {
   );
   const [laudo, setLaudo] = useState<any>(Laudo());
   const [updateSuccess, setUpdateSuccess] = useState(false);
-
-  const clinFoto = () => {
-    const clin = JSON.parse(clinicaSet)
-    const clinFoto = clin.clinica.foto
-    return clinFoto
-  }
-  const [clinicaFoto, setclinicaFoto] = useState(clinFoto())
-
-  const teste = () => {
-    const clin = JSON.parse(clinicaSet)
-    const clinFoto = clin.clinica.foto
-    console.log('clinFoto', clinFoto)
-  }
 
 
 
@@ -537,13 +532,19 @@ function Exames() {
     laudos.push(getCurrentData);
     update(laudos);
   };
-
+  function removeBlobPrefix(url) {
+    if (url.startsWith('blob:')) {
+      return url.substring(5);
+    }
+    return url;
+  }
   const sharePdf = async (title, url) => {
+    console.log("url", url)
     if (navigator.share) {
       try {
         await navigator.share({
           title: title,
-          url: url,
+          url: removeBlobPrefix(url),
         });
       } catch (error) {
         console.error("Erro ao compartilhar:", error);
@@ -554,17 +555,19 @@ function Exames() {
   };
 
   const convertBlob = (blob) => {
-    console.log('casawasf')
     const file = new Blob([blob], { type: "application/pdf" });
     const fileURL = URL.createObjectURL(file);
+    console.log(fileURL)
     setUrlLaudo(fileURL);
   };
 
 
-  const handleShareButtonClick = () => {
+  const handleShareButtonClick = (blob) => {
+    const file = new Blob([blob], { type: "application/pdf" });
+    const fileURL = URL.createObjectURL(file);
     const pdfUrl = `http://localhost:3000/eafec451-398a-4bc5-a1b5-d24c0c92958d`
-    sharePdf("Emaxes", pdfUrl);
-    console.log(pdfUrl)
+    console.log(fileURL)
+    sharePdf("Emaxes", fileURL);
   };
 
 
@@ -879,7 +882,6 @@ function Exames() {
   };
 
   useEffect(() => {
-    console.log(urlLaudo)
     if (urlLaudo != null) {
       AddLaudoSalvo();
     }
@@ -1007,7 +1009,18 @@ function Exames() {
       </Modal>
     );
   }
-
+  const MyDoc = () => (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.section}>
+          <Text>Section #1</Text>
+        </View>
+        <View style={styles.section}>
+          <Text>Section #2</Text>
+        </View>
+      </Page>
+    </Document>
+  );
 
   return (
     <Box
@@ -1052,13 +1065,14 @@ function Exames() {
                   color="twitter.600"
                   size="30px"
                   onClick={() => {
-                    //<Format_PDF />;
+                    // <Format_PDF />;
                   }}
                 />
               </Circle>
             </Tooltip>
           </Link>
           <Box>
+
             <PDFDownloadLink
               document={laudo != null ? laudo : Laudo()}
               fileName={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
@@ -1070,6 +1084,7 @@ function Exames() {
 
                   <Link
                     onClick={() => {
+                      handleShareButtonClick(blob!)
                       convertBlob(blob!);
                     }}
                   >
@@ -1157,7 +1172,12 @@ function Exames() {
             arrowSize={15}
             textColor="black"
           >
-            <Link>
+
+            <Link
+            // onClick={() => {
+            //   handleShareButtonClick()
+            // }}
+            >
               <Circle size="50px" bg="#e2e8f0">
                 <Icon
                   w={30}
@@ -1165,9 +1185,6 @@ function Exames() {
                   as={AiOutlineShareAlt}
                   color="twitter.600"
                   size="30px"
-                  onClick={() => {
-                    handleShareButtonClick()
-                  }}
                 />
               </Circle>
             </Link>

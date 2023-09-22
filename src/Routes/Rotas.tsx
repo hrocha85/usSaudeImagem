@@ -21,7 +21,6 @@ function Rotas() {
       <Route path="/Cadastro" element={<CadastroUsuario />} />
       <Route path="/Login" element={<LoginForm />} />
       <Route path="/LoginFree" element={<LoginFormFree />} />
-      <Route path="/Error" element={<Error/>} />
       <Route path="/Splash" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<SplashScreen />} />} />
       <Route path="/Home" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Home />} />} />
       <Route path="/SelectMedicos" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<SelectMedicos />} />} />
@@ -29,6 +28,7 @@ function Rotas() {
       <Route path="/Format_PDF" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Format_PDF />} />} />
       <Route path="/Exames" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Box_Default_With_Sidebar />} />}
       />
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 }

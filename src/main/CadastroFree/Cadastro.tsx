@@ -86,7 +86,7 @@ function CadastroUsuario() {
               isClosable: true,
             });
           }, 500);
-          usenavigate('/LoginFree')
+          usenavigate('/Login')
         }
       }).catch((e) => {
         console.log('erro aqui', e)
@@ -335,7 +335,7 @@ function CadastroUsuario() {
                   display={'flex'}
                   flexDir={['column', 'row']}
                   justifyContent={'space-around'}
-                  w={['100%','45%']}
+                  w={['100%', '45%']}
                   gap={'10px'}
                 >
                   <Box p={'15px'} bg={'gray.100'} rounded={'10px'}><Radio value="clinica">Clínica</Radio></Box>
@@ -363,7 +363,7 @@ function CadastroUsuario() {
             <Button
               bg={'#1C49B0'}
               textColor={'white'}
-              fontFamily={'Sora, sans-serif'} 
+              fontFamily={'Sora, sans-serif'}
               isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
               onClick={handleCadastro}
               mx={'20%'}
