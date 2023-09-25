@@ -450,7 +450,7 @@ export default function Box_Default_With_Sidebar() {
             {tabExames.map((e, key) => {
               if (e.key > 0) {
                 return (
-                  <TabPanel key={key} maxW="98%">
+                  <TabPanel key={key} maxW="98%" pt={'2.6%'} ml={'0.8%'}>
                     {
                       {
                         1: <AbdomemTotal />,
