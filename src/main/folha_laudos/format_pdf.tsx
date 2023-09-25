@@ -321,15 +321,8 @@ export default function Format_PDF() {
     },
   });
 
-  const clinFoto = () => {
-    const clin = JSON.parse(clinicaSet)
-    const clinFoto = clin.clinica.foto
-    return clinFoto
-  }
-  const [clinicaFoto, setclinicaFoto] = useState(clinFoto())
 
   const Laudo = () => {
-    console.log("laudo laudo laudo")
     return (
       <PDFViewer style={styles.viewer} showToolbar={true}>
         <Document
@@ -353,7 +346,7 @@ export default function Format_PDF() {
                     <View style={styles.viewAssinatura}>
                       <Image
                         style={styles.imageClinica}
-                        src={clinicaFoto}
+                        src={clinicaSet.foto}
                       />
                     </View>
 
