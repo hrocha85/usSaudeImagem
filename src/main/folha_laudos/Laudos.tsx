@@ -557,6 +557,7 @@ function Exames() {
   const convertBlob = (blob) => {
     const file = new Blob([blob], { type: "application/pdf" });
     const fileURL = URL.createObjectURL(file);
+    console.log("aqui")
     console.log(fileURL)
     setUrlLaudo(fileURL);
   };
@@ -1072,6 +1073,7 @@ function Exames() {
 
                   <Link
                     onClick={() => {
+                      console.log('error', error)
                       // handleShareButtonClick(blob!)
                       convertBlob(blob!);
                     }}
