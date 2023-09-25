@@ -176,7 +176,7 @@ function Exames() {
       marginTop: "10vh",
       marginLeft: 50,
       fontSize: "11",
-      fontFamily: "Montserrat",
+      // fontFamily: "Montserrat",
     },
     textDiagnostico: {
       marginTop: 5,
