@@ -244,45 +244,45 @@ function Exames() {
     },
   });
 
-  Font.register({
-    family: "Montserrat",
+  // Font.register({
+  //   family: "Montserrat",
 
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jqw16aX9-p7K5ILg.ttf",
-      },
-    ],
-  });
+  //   fonts: [
+  //     {
+  //       src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jqw16aX9-p7K5ILg.ttf",
+  //     },
+  //   ],
+  // });
 
-  Font.register({
-    family: "Montserrat2",
+  // Font.register({
+  //   family: "Montserrat2",
 
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jq5Z9aX9-p7K5ILg.ttf",
-      },
-    ],
-  });
+  //   fonts: [
+  //     {
+  //       src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jq5Z9aX9-p7K5ILg.ttf",
+  //     },
+  //   ],
+  // });
 
-  Font.register({
-    family: "MontserratBold",
+  // Font.register({
+  //   family: "MontserratBold",
 
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf",
-      },
-    ],
-  });
+  //   fonts: [
+  //     {
+  //       src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf",
+  //     },
+  //   ],
+  // });
 
-  Font.register({
-    family: "MontserratRegular",
+  // Font.register({
+  //   family: "MontserratRegular",
 
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf",
-      },
-    ],
-  });
+  //   fonts: [
+  //     {
+  //       src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf",
+  //     },
+  //   ],
+  // });
   const navigate = useNavigate();
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
   const [isLargerThan6001] = useMediaQuery('(min-width: 600px)')

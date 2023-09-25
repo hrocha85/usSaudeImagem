@@ -26,57 +26,35 @@ export default function LoginForm() {
   const usenavigate = useNavigate()
 
   const login = async () => {
-    let User: data = {
-      email: Email,
-      password: Senha
-    }
-    // const user = {
-    //   address: "address",
-    //   created_at: "2023-09-12T21:21:03.263Z",
-    //   email: "user@hotmail.com",
-    //   id: 8,
-    //   ip: "ip",
-    //   ip_address: null,
-    //   name: "user",
-    //   telefone: null,
-    //   timesLaudos: null,
-    //   timesLogin: 17,
-    //   tipo: "Médico",
-    //   updated_at: "2023-09-15T21:56:04.297Z"
-    // }
-    // const role = 'userFree'
+    try {
+      const user = {
+        email: Email,
+        password: Senha
+      };
 
-    // Cookies.set('USGImage_user', JSON.stringify(user));
-    // Cookies.set('USGImage_role', JSON.stringify(role));
-    // usenavigate("/Splash")
-    await api.post("login", User).then(async (response) => {
+      const response = await api.post("login", user);
+
       if (response.status === 200) {
-        User = {
-          name: response.data.user.name,
-          email: Email,
-          password: Senha
-        }
+        const { name } = response.data.user;
+
         setTimeout(() => {
           toast({
             duration: 3000,
-            title: `Olá ${User.name}, seja bem vindo!`,
+            title: `Olá ${name}, seja bem-vindo!`,
             position: "top",
             isClosable: true,
           });
         }, 500);
+
         Cookies.set('USGImage_token', JSON.stringify(response.data.token));
         Cookies.set('USGImage_user', JSON.stringify(response.data.user));
 
-        try {
-          await api.get(`usuario/${response.data.user.id}`).then((response) => {
-            setIsAdmin(response.data.roles[0].name === 'admin' ? true : false)
-            Cookies.set('USGImage_role', JSON.stringify(response.data.roles[0].name));
-          })
-          usenavigate("/Splash")
+        const roleResponse = await api.get(`usuario/${response.data.user.id}`);
+        const isAdmin = roleResponse.data.roles[0].name === 'admin';
 
-        } catch (error) {
-          console.log('erro no role', error)
-        }
+        Cookies.set('USGImage_role', JSON.stringify(roleResponse.data.roles[0].name));
+        setIsAdmin(isAdmin);
+        usenavigate("/Splash");
       } else {
         setTimeout(() => {
           toast({
@@ -87,7 +65,9 @@ export default function LoginForm() {
           });
         }, 500);
       }
-    }).catch((e) => {
+    } catch (error) {
+      console.log('Erro:', error);
+
       setTimeout(() => {
         toast({
           duration: 3000,
@@ -96,9 +76,8 @@ export default function LoginForm() {
           isClosable: true,
         });
       }, 500);
-      console.log(e);
-    })
-  }
+    }
+  };
 
   const handleInputChange = (event, setter) => {
     setter(event.target.value);
