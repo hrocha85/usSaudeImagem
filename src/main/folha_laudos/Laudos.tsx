@@ -58,6 +58,21 @@ import { blob } from "stream/consumers";
 import { url } from "inspector";
 
 function Exames() {
+
+  const getUserClinica = () => {
+    let clinica;
+    if (localStorage.getItem("user") != null) {
+      clinica = localStorage.getItem("user");
+    }
+    // console.log('clinica', clinica)
+    // const clinicaParse = JSON.parse(clinica)
+    // setClinicaFoto(clinicaParse.foto)
+    // console.log(clinicaParse)
+    return clinica;
+  };
+
+  const [clinicaSet, setClinica] = useState<any>(getUserClinica());
+
   const ref = useRef<HTMLDivElement | null>(null);
   const laudos = LaudosJSON.laudo;
   const styles = StyleSheet.create({
@@ -276,19 +291,7 @@ function Exames() {
   isLargerThan600 ? display = "block" : display = "none"
   isLargerThan6001 ? display1 = "flex" : display1 = "none"
 
-  const getUserClinica = () => {
-    let clinica;
-    if (localStorage.getItem("user") != null) {
-      clinica = localStorage.getItem("user");
-    }
-    // console.log('clinica', clinica)
-    // const clinicaParse = JSON.parse(clinica)
-    // setClinicaFoto(clinicaParse.foto)
-    // console.log(clinicaParse)
-    return clinica;
-  };
 
-  const [clinicaSet, setClinica] = useState<any>(getUserClinica());
   const clinFoto = () => {
     const clin = JSON.parse(clinicaSet)
     const clinFoto = clin.clinica.foto
@@ -495,7 +498,6 @@ function Exames() {
       }/${timeStamp.getFullYear()}`;
   };
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
   const [medico, setMedico] = useState(getUserMedico());
   const [urlLaudo, setUrlLaudo] = useState<any>();
   const [edit, setEdit] = useState(false);
@@ -504,8 +506,6 @@ function Exames() {
     JSON.parse(localStorage.getItem("format_laudo")!)
   );
   const [laudo, setLaudo] = useState<any>(Laudo());
-  const [updateSuccess, setUpdateSuccess] = useState(false);
-
 
 
   const update = (laudos) => {
@@ -1009,18 +1009,6 @@ function Exames() {
       </Modal>
     );
   }
-  const MyDoc = () => (
-    <Document>
-      <Page size="A4" style={styles.page}>
-        <View style={styles.section}>
-          <Text>Section #1</Text>
-        </View>
-        <View style={styles.section}>
-          <Text>Section #2</Text>
-        </View>
-      </Page>
-    </Document>
-  );
 
   return (
     <Box
