@@ -1,6 +1,6 @@
 import { Box, Flex, Text, Image, ChakraProvider } from "@chakra-ui/react";
 import photoExam from '../../images/landing/Rectangle 8.png'
-import abmomen from '../../images/landing/abdomen.png'
+import abmomen from '../../images/landing/musculo.png'
 import transvarginal from '../../images/landing/vagina.png'
 import tireoide from '../../images/landing/tireoide.png'
 import mama from '../../images/landing/seio.png'
@@ -62,8 +62,8 @@ function ExamesLp() {
                                 Dentro de Abdmômen total sera possível encontrar diversos exames, dentre eles estão, Fígado, Vesícula biliar, Vias Biliares...
                             </Text>
                         </Box>
-                        <Box w={['90%', '50%']} pl={['0', '6%']} pb={'5%'} order={[0, 1]} display={'flex'} justifyContent={['center', 'flex-start']}>
-                            <Image src={abmomen} />
+                        <Box w={['90%', '50%']} h={'250px'} pl={['0', '6%']} pb={'5%'} order={[0, 1]} display={'flex'} justifyContent={['center', 'flex-start']}>
+                            <Image src={abmomen} h={['80%','100%']} />
                         </Box>
                     </Flex>
 

@@ -96,7 +96,6 @@ function Hidrossalpinge({ Disable }) {
       boxShadow="md"
       padding="24px 15px 20px 15px"
       mt="15px"
-      ml={5}
     >
       <TituloNomeExame titulo="Hidrossalpinge" />
 

@@ -1204,8 +1204,8 @@ function Exames() {
         </Stack>
       </Center>
 
-      <Box className="zoom" boxShadow="xl" ref={ref} height="75vh" display={display}>
-        <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
+      <Box className="zoom" boxShadow="xl" ref={ref} height="80vh" display={display}>
+        <Grid w="100%" gridTemplateRows={"15px 1fr 15px"} px={'3%'}>
           <Box>
             <Image
               src={clinicaFoto}
@@ -1215,7 +1215,7 @@ function Exames() {
               borderRadius="full"
               padding="5px"
               ml={2}
-              mt={'1rem'}
+              mt={'2%'}
             />
           </Box>
 
@@ -1242,7 +1242,7 @@ function Exames() {
         <Box margin="20px" key={+edit}>
           {edit ? RenderLaudoEditTrue() : RenderLaudoEditFalse()}
         </Box>
-        <Box position="absolute" w="100%">
+        <Box position="absolute" w="100%" px={'5%'}>
           <HStack w="100%" justify="space-between">
             <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
               <Image
