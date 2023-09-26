@@ -1,9 +1,11 @@
-import { Box, Button, Card, CardBody, Flex, HStack, Heading, Icon, Image, Link, Stack, Text, useMediaQuery } from "@chakra-ui/react"
+import { Box, Button, Card, CardBody, Flex, HStack, Heading, Icon, Image, Input, Link, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, Textarea, useMediaQuery } from "@chakra-ui/react"
 import offline from '../../images/landing/offiline.svg'
 import fast from '../../images/landing/fast.svg'
 import phone from '../../images/landing/Group.svg'
 import print from '../../images/landing/print.svg'
 import { Link as ScrollLink } from "react-scroll";
+import { useState } from "react"
+import emailjs from '@emailjs/browser';
 
 
 function About() {
@@ -20,6 +22,35 @@ function About() {
   isLargerThan600 ? width1 = "20rem" : width1 = "100%"
   isLargerThan600 ? display = "" : display = "none"
   isLargerThan600 ? display1 = "flex" : display1 = "block"
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [mensagem, setMensagem] = useState('');
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const enviarEmail = () => {
+    const mensagemCompleta = `Nome: ${nome}\nEmail: ${email}\n\n${mensagem}`;
+    emailjs.send('outlookMessage', 'template_6j5xp3j',
+      {
+        to_email: 'barbozagarcia@yahoo.com.br',
+        message: mensagemCompleta
+      }, 'qNFyg3V_FW8DLmNjL')
+      .then((result) => {
+        console.log(result.text);
+      }, (error) => {
+        console.log(error.text);
+      });
+
+    closeModal();
+  };
 
   return (
     <Box w={'100%'} px={4}>
@@ -146,25 +177,25 @@ function About() {
       </Flex>
 
       <Flex display={display1} gap={10} justifyContent={'center'} mt={10} fontFamily={"Sora, sans-serif"} fontWeight={'600'}>
-        <Link href={`#/`}>
-          <Button
-            border="1px solid #1C49B0"
-            color="#1C49B0"
-            bg="transparent"
-            height="50px"
-            fontSize={'16px'}
-            _hover={{
-              background: 'transparent',
-              color: '#1C49B0',
-            }}
-            width={width1}
 
-            my={3}
-          >
-            Entrar em contato
+        <Button
+          border="1px solid #1C49B0"
+          color="#1C49B0"
+          bg="transparent"
+          height="50px"
+          fontSize={'16px'}
+          onClick={openModal}
+          _hover={{
+            background: 'transparent',
+            color: '#1C49B0',
+          }}
+          width={width1}
 
-          </Button>
-        </Link>
+          my={3}
+        >
+          Entrar em contato
+
+        </Button>
 
         <ScrollLink to="planos" smooth={true} duration={500} ml={5}>
           <Button
@@ -185,6 +216,37 @@ function About() {
           </Button>
         </ScrollLink>
       </Flex>
+      <Modal isOpen={isOpen} onClose={closeModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader fontFamily={'Rubik, sans-serif'}>Entre em Contato</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Input type="text" placeholder="Nome" mb={2} onChange={(e) => setNome(e.target.value)} />
+            <Input type="email" placeholder="Email" mb={2} onChange={(e) => setEmail(e.target.value)}/>
+            <Textarea
+              placeholder="Digite sua mensagem..."
+              size="lg"
+              resize="none"
+              onChange={(e) => setMensagem(e.target.value)}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button fontFamily={'Sora, sans-serif'}
+              bg="#1c49b0"
+              mr={3} onClick={enviarEmail}
+              textColor={'#fff'}
+              _hover={{
+                background: '#1C49B0',
+                color: '#FFF',
+              }}
+            >
+              Enviar
+            </Button>
+            <Button fontFamily={'Sora, sans-serif'} onClick={closeModal}>Cancelar</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   )
 
