@@ -49,7 +49,7 @@ import { GoDesktopDownload } from "react-icons/go";
 import { RiCloseLine } from "react-icons/ri";
 import LaudosJSON from "../../Data/Laudos.json";
 import { LaudosContext } from "../../context/LuadosContext";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import "./Laudos.css";
 import emailjs from '@emailjs/browser';
 import SubMenu from "../menu/subMenu";
@@ -532,20 +532,18 @@ function Exames() {
     laudos.push(getCurrentData);
     update(laudos);
   };
-  function removeBlobPrefix(url) {
-    if (url.startsWith('blob:')) {
-      return url.substring(5);
-    }
-    return url;
-  }
+
   const sharePdf = async (title, url) => {
     console.log("url", url)
     if (navigator.share) {
       try {
+        const pdfUrl = URL.createObjectURL(url);
+        console.log(pdfUrl)
         await navigator.share({
           title: title,
-          url: removeBlobPrefix(url),
+          url: pdfUrl,
         });
+        URL.revokeObjectURL(pdfUrl);
       } catch (error) {
         console.error("Erro ao compartilhar:", error);
       }
@@ -557,22 +555,15 @@ function Exames() {
   const convertBlob = (blob) => {
     const file = new Blob([blob], { type: "application/pdf" });
     const fileURL = URL.createObjectURL(file);
-    console.log("aqui")
-    console.log(fileURL)
     setUrlLaudo(fileURL);
   };
 
-
-  const handleShareButtonClick = (blob) => {
-    const file = new Blob([blob], { type: "application/pdf" });
-    const fileURL = URL.createObjectURL(file);
+  const handleShareButtonClick = () => {
+    // const file = new Blob([blob], { type: "application/pdf" });
+    // const fileURL = URL.createObjectURL(file);
     const pdfUrl = `http://localhost:3000/eafec451-398a-4bc5-a1b5-d24c0c92958d`
-    console.log(fileURL)
-    sharePdf("Emaxes", fileURL);
+    sharePdf("Emaxes", pdfUrl);
   };
-
-
-
 
   const getFormatLaudo = () => {
     setArrayLocal(JSON.parse(localStorage.getItem("format_laudo")!));
@@ -906,8 +897,7 @@ function Exames() {
     }
   }, [edit, localStorage.getItem("format_laudo")!]);*/
 
-  const [formPreenchido, setFormPreenchido] = useState(true)
-  const [dadoTeste, setDadoteste] = useState('verdade')
+  const [formPreenchido, setFormPreenchido] = useState(false)
 
   const {
     isOpen,
@@ -924,15 +914,12 @@ function Exames() {
   }, [])
 
   const verificaForm = () => {
-    formPreenchido ? alert('funcionou') : onOpen()
+    formPreenchido ? navigate('/home') : onOpen()
   }
   const [opiniaoSoftware, setOpiniaoSoftware] = useState('');
   const [notaSoftware, setNotaSoftware] = useState('');
 
   const finalizaForm = (e) => {
-    console.log(opiniaoSoftware)
-    console.log(notaSoftware)
-
     emailjs.send('outlookMessage', 'template_6j5xp3j',
       {
         to_email: 'barbozagarcia@yahoo.com.br',
@@ -948,7 +935,7 @@ function Exames() {
     setOpiniaoSoftware('')
     setNotaSoftware('')
 
-    localStorage.setItem("formPreenchido", dadoTeste)
+    localStorage.setItem("formPreenchido", 'preenchido')
     setFormPreenchido(true)
     onClose()
   }
@@ -1031,7 +1018,7 @@ function Exames() {
           h="70px"
           alignItems="center"
         >
-          <Link
+          <Button
             //href={`#/Format_PDF`}
             //target="_blank"
             style={{ textDecoration: "none" }}
@@ -1053,13 +1040,10 @@ function Exames() {
                   as={BsEye}
                   color="twitter.600"
                   size="30px"
-                  onClick={() => {
-                    // <Format_PDF />;
-                  }}
                 />
               </Circle>
             </Tooltip>
-          </Link>
+          </Button>
           <Box>
 
             <PDFDownloadLink
@@ -1074,7 +1058,6 @@ function Exames() {
                   <Link
                     onClick={() => {
                       console.log('error', error)
-                      // handleShareButtonClick(blob!)
                       convertBlob(blob!);
                     }}
                   >
@@ -1114,19 +1097,20 @@ function Exames() {
               arrowSize={15}
               textColor="black"
             >
-              <Link>
+              <Button
+                onClick={() => {
+                  setEdit(true);
+                }}>
                 <Circle size="50px" bg="gray.200" display={display1}>
                   <Icon
                     w={30}
                     h={30}
                     as={FiEdit}
                     color="twitter.600"
-                    onClick={() => {
-                      setEdit(true);
-                    }}
+
                   />
                 </Circle>
-              </Link>
+              </Button>
             </Tooltip>
           ) : (
             <Tooltip
@@ -1138,23 +1122,24 @@ function Exames() {
               arrowSize={15}
               textColor="black"
             >
-              <Link>
+              <Button
+                onClick={() => {
+                  setEdit(false);
+                }}>
                 <Circle size="50px" bg="gray.200">
                   <Icon
                     w={30}
                     h={30}
                     as={RiCloseLine}
                     color="twitter.600"
-                    onClick={() => {
-                      setEdit(false);
-                    }}
+
                   />
                 </Circle>
-              </Link>
+              </Button>
             </Tooltip>
           )}
           <Tooltip
-            label="Compartilhar"
+            label="Compartilhamento bloqueado para teste gratuito"
             fontSize="xl"
             backgroundColor="white"
             placement="top"
@@ -1162,11 +1147,13 @@ function Exames() {
             arrowSize={15}
             textColor="black"
           >
-
-            <Link
-            // onClick={() => {
-            //   handleShareButtonClick()
-            // }}
+            <Button
+              ml='3px'
+              mr='3px'
+              isDisabled={true}
+              onClick={() => {
+                handleShareButtonClick()
+              }}
             >
               <Circle size="50px" bg="#e2e8f0">
                 <Icon
@@ -1177,7 +1164,7 @@ function Exames() {
                   size="30px"
                 />
               </Circle>
-            </Link>
+            </Button>
           </Tooltip>
           <Tooltip
             label="Concluir laudo"
@@ -1188,7 +1175,10 @@ function Exames() {
             arrowSize={15}
             textColor="black"
           >
-            <Link>
+            <Button
+              onClick={() => {
+                verificaForm()
+              }}>
               <Circle size="50px" bg="yellow.400">
                 <Icon
                   w={30}
@@ -1196,12 +1186,10 @@ function Exames() {
                   as={BsFillCheckCircleFill}
                   color="green"
                   size="30px"
-                  onClick={() => {
-                    verificaForm()
-                  }}
+
                 />
               </Circle>
-            </Link>
+            </Button>
           </Tooltip>
         </Stack>
       </Center>
