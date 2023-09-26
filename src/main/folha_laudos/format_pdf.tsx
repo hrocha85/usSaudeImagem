@@ -112,45 +112,45 @@ export default function Format_PDF() {
   const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
   const [medico, setMedico] = useState(getUserMedico());
 
-  Font.register({
-    family: "Montserrat",
+  // Font.register({
+  //   family: "Montserrat",
 
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jqw16aX9-p7K5ILg.ttf",
-      },
-    ],
-  });
+  //   fonts: [
+  //     {
+  //       src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jqw16aX9-p7K5ILg.ttf",
+  //     },
+  //   ],
+  // });
 
-  Font.register({
-    family: "Montserrat2",
+  // Font.register({
+  //   family: "Montserrat2",
 
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jq5Z9aX9-p7K5ILg.ttf",
-      },
-    ],
-  });
+  //   fonts: [
+  //     {
+  //       src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jq5Z9aX9-p7K5ILg.ttf",
+  //     },
+  //   ],
+  // });
 
-  Font.register({
-    family: "MontserratBold",
+  // Font.register({
+  //   family: "MontserratBold",
 
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf",
-      },
-    ],
-  });
+  //   fonts: [
+  //     {
+  //       src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf",
+  //     },
+  //   ],
+  // });
 
-  Font.register({
-    family: "MontserratRegular",
+  // Font.register({
+  //   family: "MontserratRegular",
 
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf",
-      },
-    ],
-  });
+  //   fonts: [
+  //     {
+  //       src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf",
+  //     },
+  //   ],
+  // });
 
   const styles = StyleSheet.create({
     inline: {
@@ -245,7 +245,7 @@ export default function Format_PDF() {
       margin: 10,
     },
     textDadosMedico: {
-      fontFamily: "MontserratBold",
+      // fontFamily: "MontserratBold",
       fontSize: 13,
       color: "black",
     },
@@ -253,7 +253,7 @@ export default function Format_PDF() {
       marginTop: "10vh",
       marginLeft: 50,
       fontSize: "11",
-      fontFamily: "Montserrat",
+      // fontFamily: "Montserrat",
     },
     textDiagnostico: {
       marginTop: 5,
@@ -261,20 +261,20 @@ export default function Format_PDF() {
       marginRigh: 10,
       marginBottom: 10,
       fontSize: "10",
-      fontFamily: "Montserrat2",
+      // fontFamily: "Montserrat2",
     },
     textTituloExame: {
       fontWeigh: "bold",
       textAlign: "center",
       fontSize: "17",
-      fontFamily: "MontserratBold",
+      // fontFamily: "MontserratBold",
       marginTop: "5px",
     },
     textConclusao: {
       fontWeigh: "bold",
       textAlign: "center",
       fontSize: "17",
-      fontFamily: "MontserratBold",
+      // fontFamily: "MontserratBold",
       marginTop: "1%",
       marginBottom: "1%",
     },
@@ -282,7 +282,7 @@ export default function Format_PDF() {
       fontWeigh: "bold",
       textAlign: "center",
       fontSize: "12",
-      fontFamily: "MontserratBold",
+      // fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
       maxWidth: "18%",
@@ -291,7 +291,7 @@ export default function Format_PDF() {
     frasesSubExame: {
       textAlign: "justify",
       fontSize: "12",
-      fontFamily: "MontserratRegular",
+      // fontFamily: "MontserratRegular",
       marginBottom: "5px",
       justifyContent: "space-between",
       lineHeight: 1.5,
@@ -299,7 +299,7 @@ export default function Format_PDF() {
     frasesConclusoes: {
       textAlign: "justify",
       fontSize: "12",
-      fontFamily: "MontserratRegular",
+      // fontFamily: "MontserratRegular",
       lineHeight: 1.5,
       marginLeft: 4,
     },
