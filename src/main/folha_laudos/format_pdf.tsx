@@ -107,8 +107,6 @@ export default function Format_PDF() {
       });
     }
   };
-
-  const { laudoPrin } = useContext(LaudosContext);
   const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
   const [medico, setMedico] = useState(getUserMedico());
 

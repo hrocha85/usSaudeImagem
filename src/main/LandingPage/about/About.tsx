@@ -3,6 +3,7 @@ import offline from '../../images/landing/offiline.svg'
 import fast from '../../images/landing/fast.svg'
 import phone from '../../images/landing/Group.svg'
 import print from '../../images/landing/print.svg'
+import { Link as ScrollLink } from "react-scroll";
 
 
 function About() {
@@ -13,16 +14,16 @@ function About() {
   let width = ""
   let width1 = ""
 
-  let flexCol=''
-  isLargerThan600 ? flexCol = "row": width = "column"  
-  isLargerThan600 ? width = "50%": width = "100%"
-  isLargerThan600 ? width1 = "20rem": width1 = "100%"
-  isLargerThan600 ? display = "": display = "none"
-  isLargerThan600 ? display1 = "flex": display1 = "block"
+  let flexCol = ''
+  isLargerThan600 ? flexCol = "row" : width = "column"
+  isLargerThan600 ? width = "50%" : width = "100%"
+  isLargerThan600 ? width1 = "20rem" : width1 = "100%"
+  isLargerThan600 ? display = "" : display = "none"
+  isLargerThan600 ? display1 = "flex" : display1 = "block"
 
-    return(
-        <Box w={'100%'} px={4}>
-          <Box   mt={10} px={{ base: '0rem', md: '15rem' }}>
+  return (
+    <Box w={'100%'} px={4}>
+      <Box mt={10} px={{ base: '0rem', md: '15rem' }}>
 
         <Text
           fontSize={"35px"}
@@ -72,7 +73,7 @@ function About() {
 
       <Flex justifyContent={'space-around'} flexDir={{ base: 'column', md: 'row' }} mt={'5%'} alignItems={'center'} px={5}>
         <Card maxW='sm'>
-          <CardBody  alignItems={'center'} fontFamily={'Inter, sans-serif'}>
+          <CardBody alignItems={'center'} fontFamily={'Inter, sans-serif'}>
             <Image
               src={offline}
               alt='Sistema rapido'
@@ -165,7 +166,7 @@ function About() {
           </Button>
         </Link>
 
-        <Link href={`#/`}>
+        <ScrollLink to="planos" smooth={true} duration={500} ml={5}>
           <Button
             border="1px solid #1C49B0"
             color="#FFF"
@@ -182,7 +183,7 @@ function About() {
             Seja um parceiro USGImagem
 
           </Button>
-        </Link>
+        </ScrollLink>
       </Flex>
     </Box>
   )
