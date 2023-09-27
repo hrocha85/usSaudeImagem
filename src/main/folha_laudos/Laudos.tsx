@@ -22,40 +22,37 @@ import {
   ModalOverlay,
   Radio,
   RadioGroup,
-  Select,
   Stack,
   Text,
   Tooltip,
   useDisclosure,
   useEditableControls,
-  useMediaQuery
+  useMediaQuery,
+  useToast
 } from "@chakra-ui/react";
+import emailjs from '@emailjs/browser';
 import {
   Document,
-  Font,
   Image as ImagePDF,
   PDFDownloadLink,
   Page,
   StyleSheet,
   Text as TextPDF,
-  View,
-  View as ViewPDF,
+  View as ViewPDF
 } from "@react-pdf/renderer";
-import { Dispatch, useContext, useEffect, useRef, useState } from "react";
+import Cookies from 'js-cookie';
+import { useEffect, useRef, useState } from "react";
+import { AiOutlineShareAlt } from "react-icons/ai";
 import { BiLoaderAlt } from "react-icons/bi";
 import { BsEye, BsFillCheckCircleFill } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { GoDesktopDownload } from "react-icons/go";
 import { RiCloseLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 import LaudosJSON from "../../Data/Laudos.json";
-import { LaudosContext } from "../../context/LuadosContext";
-import { Navigate, useNavigate } from "react-router-dom";
 import "./Laudos.css";
-import emailjs from '@emailjs/browser';
-import SubMenu from "../menu/subMenu";
-import { AiOutlineShareAlt } from "react-icons/ai";
-import { blob } from "stream/consumers";
-import { url } from "inspector";
+import api from "../../api";
+
 
 function Exames() {
 
@@ -918,26 +915,48 @@ function Exames() {
   }
   const [opiniaoSoftware, setOpiniaoSoftware] = useState('');
   const [notaSoftware, setNotaSoftware] = useState('');
+  const toast = useToast();
 
-  const finalizaForm = (e) => {
-    emailjs.send('outlookMessage', 'template_6j5xp3j',
-      {
-        to_email: 'barbozagarcia@yahoo.com.br',
-        message: `Escolha a palavra que melhor identifica nosso Aplicativo: ${opiniaoSoftware}
-         De 1(ruim) a 5(excelente), qual seria a nota que você dá ao nosso Aplicativo?: ${notaSoftware}`
-      }, 'qNFyg3V_FW8DLmNjL')
-      .then((result) => {
-        console.log(result.text);
-      }, (error) => {
-        console.log(error.text);
-      });
+  const finalizaForm = async (e) => {
+    const Email = `contato@usgimagem.com.br`
+    const userString = Cookies.get('USGImage_user')
+    const userParse = JSON.parse(userString)
+    const email = userParse.email
+    const name = userParse.name
+    const html = `<p>Nome: ${name} \n
+    Email: ${email}\n
+    Avaliação:\n
+  Escolha a palavra que melhor identifica nosso Aplicativo: ${opiniaoSoftware}\n
+  De 1(ruim) a 5(excelente), qual seria a nota que você dá ao nosso Aplicativo?: ${notaSoftware}<p>`
+    const subject = 'Nova avaliação USG'
+    const dest = { Email, html, subject }
 
-    setOpiniaoSoftware('')
-    setNotaSoftware('')
+    const response = await api.post('sendEmail', dest)
+    if (response.status === 200) {
+      setOpiniaoSoftware('')
+      setNotaSoftware('')
 
-    localStorage.setItem("formPreenchido", 'preenchido')
-    setFormPreenchido(true)
-    onClose()
+      localStorage.setItem("formPreenchido", 'preenchido')
+      setFormPreenchido(true)
+      onClose()
+      setTimeout(() => {
+        toast({
+          duration: 3000,
+          title: `Obrigado por contribuir, sua avaliação é muito importante!`,
+          position: "top",
+          isClosable: true,
+        });
+      }, 500);
+    } else {
+      setTimeout(() => {
+        toast({
+          duration: 3000,
+          title: `Ops, algo deu errado, avalie novamente!`,
+          position: "top",
+          isClosable: true,
+        });
+      }, 500);
+    }
   }
 
   const ModalForm = () => {
