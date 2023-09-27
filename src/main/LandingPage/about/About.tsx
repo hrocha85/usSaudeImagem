@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardBody, Flex, HStack, Heading, Icon, Image, Input, Link, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, Textarea, useMediaQuery } from "@chakra-ui/react"
+import { Box, Button, Card, CardBody, Flex, HStack, Heading, Icon, Image, Input, Link, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, Textarea, useMediaQuery, useToast } from "@chakra-ui/react"
 import offline from '../../images/landing/offiline.svg'
 import fast from '../../images/landing/fast.svg'
 import phone from '../../images/landing/Group.svg'
@@ -6,6 +6,9 @@ import print from '../../images/landing/print.svg'
 import { Link as ScrollLink } from "react-scroll";
 import { useState } from "react"
 import emailjs from '@emailjs/browser';
+import Cookies from 'js-cookie';
+import api from "../../../api"
+
 
 
 function About() {
@@ -36,18 +39,52 @@ function About() {
     setIsOpen(false);
   };
 
-  const enviarEmail = () => {
-    const mensagemCompleta = `Nome: ${nome}\nEmail: ${email}\n\n${mensagem}`;
-    emailjs.send('outlookMessage', 'template_6j5xp3j',
-      {
-        to_email: 'barbozagarcia@yahoo.com.br',
-        message: mensagemCompleta
-      }, 'qNFyg3V_FW8DLmNjL')
-      .then((result) => {
-        console.log(result.text);
-      }, (error) => {
-        console.log(error.text);
-      });
+  const toast = useToast();
+
+  const enviarEmail = async () => {
+    // const Email = `contato@usgimagem.com.br`
+    const Email = `contato@usgimagem.com.br`
+    const subject = 'Contato USG'
+    const html = `<p>Nome: ${nome}\n 
+    Email: ${email}\n
+    \n${mensagem}<p>`
+    const dest = { Email, html, subject }
+    console.log(Email)
+    console.log(subject)
+    console.log(html)
+    const response = await api.post('sendEmailContato', dest)
+    console.log('response', response.data)
+    if (response.status === 200) {
+
+      setTimeout(() => {
+        toast({
+          duration: 3000,
+          title: `Obrigado por contribuir, sua avaliação é muito importante!`,
+          position: "top",
+          isClosable: true,
+        });
+      }, 500);
+    } else {
+      setTimeout(() => {
+        toast({
+          duration: 3000,
+          title: `Ops, algo deu errado, avalie novamente!`,
+          position: "top",
+          isClosable: true,
+        });
+      }, 500);
+    }
+
+    // emailjs.send('outlookMessage', 'template_6j5xp3j',
+    //   {
+    //     to_email: 'barbozagarcia@yahoo.com.br',
+    //     message: mensagemCompleta
+    //   }, 'qNFyg3V_FW8DLmNjL')
+    //   .then((result) => {
+    //     console.log(result.text);
+    //   }, (error) => {
+    //     console.log(error.text);
+    //   });
 
     closeModal();
   };
@@ -223,7 +260,7 @@ function About() {
           <ModalCloseButton />
           <ModalBody>
             <Input type="text" placeholder="Nome" mb={2} onChange={(e) => setNome(e.target.value)} />
-            <Input type="email" placeholder="Email" mb={2} onChange={(e) => setEmail(e.target.value)}/>
+            <Input type="email" placeholder="Email" mb={2} onChange={(e) => setEmail(e.target.value)} />
             <Textarea
               placeholder="Digite sua mensagem..."
               size="lg"
