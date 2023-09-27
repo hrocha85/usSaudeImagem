@@ -13,6 +13,7 @@ import CadastroUsuario from "../main/CadastroFree/Cadastro";
 import LoginFormFree from "../main/login/loginFormFree";
 import PrivateRoute from "./PrivateRoute";
 import Error from "../main/error/error";
+import AdmMaster from "../main/adminMaster/admMaster";
 
 function Rotas() {
   return (
@@ -28,6 +29,7 @@ function Rotas() {
       <Route path="/Format_PDF" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Format_PDF />} />} />
       <Route path="/Exames" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Box_Default_With_Sidebar />} />}
       />
+      <Route path="/AdminMaster" element={<PrivateRoute RouteRoles={['adminMaster']} element={<AdmMaster />} />} />
       <Route path="*" element={<Error />} />
     </Routes>
   );
