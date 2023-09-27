@@ -196,7 +196,6 @@ const ItemExamesHome = () => {
           text={exame.nomeExame}
           textColor={"#1A202C"}
           id={exame.key.toString()}
-          obs={exame.observacao}
           exame={exame}
         />
       ))}

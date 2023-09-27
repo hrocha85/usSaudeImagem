@@ -5,7 +5,7 @@ import { EnableExamesContext } from "../../context/ExamesEnableContext";
 import { TabExamesContext } from "../../context/TabExameContext";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 
-const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
+const FieldDefaultHome = ({ text, textColor, id, exame }) => {
   const { enableExames, setEnableExames } = useContext(EnableExamesContext);
   const { tabExames, setTabExames } = useContext(TabExamesContext);
   const [observacoes, SetObservacoes] = useState([])
@@ -149,7 +149,7 @@ const FieldDefaultHome = ({ text, textColor, id, obs, exame }) => {
         if (exame.titulo_exame === text) {
           return {
             ...exame,
-            observacoes: [...exame.observacoes, obs],
+            observacoes: [...exame.observacoes],
           };
         }
         return exame;
