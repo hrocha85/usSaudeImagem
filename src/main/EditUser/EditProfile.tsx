@@ -10,15 +10,19 @@ function EditProfile() {
   const [userData, setUserData] = useState({});
   const toast = useToast();
 
-  const [usuarios, setUsuarios] = useState<any[]>([]);
+  const [userID, setUserID] = useState();
+  const [userNome, setUserNome] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   useEffect(() => {
     const userLogged = Cookies.get('USGImage_user')
     const userParse = JSON.parse(userLogged)
     const getUsers = async () => {
       try {
         const response = await api.get(`/usuario/${userParse.id}`);
-        setUsuarios(response.data);
-        console.log(response.data)
+        const usuario = response.data
+        setUserNome(usuario.name)
+        setUserEmail(usuario.email)
+        setUserID(usuario.id)
       } catch (error) {
         console.error("Erro ao obter usuários:", error);
       }
@@ -27,50 +31,34 @@ function EditProfile() {
     getUsers();
   }, []);
 
-  const [userToUpdate, setUserToUpdate] = useState({
-    id: 1,
-    nome: 'Nome Atual',
-    email: 'emailatual@example.com',
-    senha: 'emailatual@example.com',
-    confirmSenha: 'emailatual@example.com',
-    telefone: 'emailatual@example.com',
-    cep: 'emailatual@example.com',
-    rua: 'emailatual@example.com',
-    numero: 'emailatual@example.com',
-    cidade: 'emailatual@example.com',
-    bairro: 'emailatual@example.com',
-    estado: 'emailatual@example.com',
-  });
 
-  useEffect(() => {
-    async function updateUser() {
-      try {
-        const response = await api.put(`usuario/${userToUpdate.id}`, userToUpdate);
-        if (response.status === 200) {
-          toast({
-            duration: 3000,
-            title: 'Usuário atualizado com sucesso!',
-            status: 'success',
-            position: 'top',
-            isClosable: true,
-          });
-        }
-      } catch (error) {
-        console.error('Erro ao atualizar o usuário', error);
+  const Edita = async () => {
+    const obj = {
+      name: userNome,
+      email: userEmail
+    }
+    try {
+      const response = await api.put(`usuario/${userID}`, obj);
+      if (response.status === 200) {
         toast({
           duration: 3000,
-          title: 'Erro ao atualizar o usuário',
-          status: 'error',
+          title: 'Usuário atualizado com sucesso!',
+          status: 'success',
           position: 'top',
           isClosable: true,
         });
       }
+    } catch (error) {
+      console.error('Erro ao atualizar o usuário', error);
+      toast({
+        duration: 3000,
+        title: 'Erro ao atualizar o usuário',
+        status: 'error',
+        position: 'top',
+        isClosable: true,
+      });
     }
-
-    if (userToUpdate.id) {
-      updateUser();
-    }
-  }, [toast]);
+  }
 
   return (
 
@@ -109,8 +97,8 @@ function EditProfile() {
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Nome</FormLabel>
                 <Input
                   placeholder="Digite seu nome"
-                  value={userToUpdate.nome}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, nome: e.target.value })}
+                  defaultValue={userNome}
+                  onChange={(e) => setUserNome(e.target.value)}
                 />
               </FormControl>
 
@@ -119,8 +107,8 @@ function EditProfile() {
                 <Input
                   type="email"
                   placeholder="Digite seu email"
-                  value={userToUpdate.email}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, email: e.target.value })}
+                  defaultValue={userEmail}
+                  onChange={(e) => setUserEmail(e.target.value)}
                 />
               </FormControl>
             </Flex>
@@ -234,6 +222,7 @@ function EditProfile() {
                 textColor={'white'}
                 fontFamily={'Sora, sans-serif'}
                 w={'40%'}
+                onClick={Editar}
               >
                 Salvar
               </Button>
