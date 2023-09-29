@@ -125,7 +125,7 @@ export default function Field_Observacoes({ exame }) {
         {observacoes.observacao != null && observacoes.observacao != undefined
           ? observacoes.observacao.map((e) => {
 
-            if (observacoes.nomeExame == exame.nomeExame) {
+            if (observacoes.nomeExame === exame.nomeExame) {
               return (
                 <HStack
                   isInline={true}
