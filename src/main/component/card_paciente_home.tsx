@@ -12,7 +12,11 @@ import {
   useToast,
   Wrap,
   WrapItem,
-  useMediaQuery
+  useMediaQuery,
+  FormControl,
+  FormLabel,
+  InputGroup,
+  InputRightElement
 } from "@chakra-ui/react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
@@ -30,6 +34,22 @@ const CardPaciente = () => {
   const [idadePaciente, setIdadePaciente] = useState<string>("");
   const [sexoPaciente, setSexoPaciente] = useState<string>("m");
   const [medico_solicitante, setMedicoSolicitante] = useState<string>("");
+  const [opcoes, setOpcoes] = useState(['Marcos']);
+
+  const handleChange1 = (event) => {
+    setMedicoSolicitante(event.target.value);
+  };
+
+  const handleClear = () => {
+    setMedicoSolicitante('');
+  };
+
+  const handleCreateOption = () => {
+    if (medico_solicitante.trim() !== '') {
+      setOpcoes([...opcoes, medico_solicitante]);
+      setMedicoSolicitante('');
+    }
+  };
 
   const [isDisable, setisDisable] = useState(true);
 
@@ -132,7 +152,7 @@ const CardPaciente = () => {
   let largura2 = "";
   let largura3 = "";
   const [isLargerThan600] = useMediaQuery('(min-width: 800px)')
-  isLargerThan600 ? largura = "25%" : largura = "100%"
+  isLargerThan600 ? largura = "25%" : largura = "20%"
   isLargerThan600 ? largura2 = "50%" : largura = "100%"
   isLargerThan600 ? largura3 = "15%" : largura = "100%"
 
@@ -167,7 +187,7 @@ const CardPaciente = () => {
 
 
   return (
-    <Box borderRadius="1rem" border={'2px'} w="50%" justifyContent={'center'} marginTop={2}>
+    <Box borderRadius="1rem" border={'2px'} w={['100%',"50%"]} mx={'2%'} justifyContent={'center'} marginTop={2}>
       <Stack>
         <Text
           pt={'1rem'}
@@ -193,6 +213,7 @@ const CardPaciente = () => {
             placeholder="Idade"
             value={idadePaciente}
             bgGradient='linear(to-b, blue.100, #fff)'
+            bg={'transparent'}
             size="lg"
             h="3.1rem"
             type="number"
@@ -204,9 +225,10 @@ const CardPaciente = () => {
             placeholder="Gênero"
             value={sexoPaciente}
             bgGradient='linear(to-b, blue.100, #fff)'
+            bg={'transparent'}
             size="lg"
             h="3.1rem"
-            w={largura}
+            w={['80%', '30%']}
             borderColor="#444"
             onChange={handleSexoPacienteInput}
 
@@ -216,24 +238,39 @@ const CardPaciente = () => {
             <option value="Feminino">Feminino</option>
           </Select>
 
-          <CreatableSelect
-            isClearable={true}
-            onChange={handleSelectChange}
-            onCreateOption={(inputValue: string) => {
-              setMedicoSolicitante(inputValue);
-            }}
-            options={options}
-            value={{
-              value:
-                medico_solicitante != null && medico_solicitante != ""
-                  ? medico_solicitante
-                  : null,
-              label:
-                medico_solicitante != null && medico_solicitante != ""
-                  ? medico_solicitante
-                  : "Insira Médico Solicitante",
-            }}
-          />
+          <FormControl px={'10%'}>
+            {/* <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>
+              Clínica ou Médico independente
+            </FormLabel> */}
+            {/* <Select
+        placeholder="Selecione ou insira um novo médico solicitante"
+        value={medico_solicitante}
+        onChange={handleChange1}
+      >
+        {opcoes.map((opcao, index) => (
+          <option key={index} value={opcao}>
+            {opcao}
+          </option>
+        ))}
+      </Select> */}
+            <InputGroup>
+              <Input
+                placeholder={"Médico solicitante"}
+                value={medico_solicitante}
+                onChange={handleChange1}
+                borderColor="#444"
+              />
+              <InputRightElement width="5.0rem">
+                {/* <Button size="sm" onClick={handleCreateOption}>
+                  confirmar
+                </Button> */}
+                <Button size="sm"
+                  bg={'#2e4ad4'} _hover={{ background: '#3182ce' }}
+                  textColor={'#FFF'} onClick={handleClear}>Limpar</Button>
+
+              </InputRightElement>
+            </InputGroup>
+          </FormControl>
           <Wrap>
             <WrapItem>
               <Button

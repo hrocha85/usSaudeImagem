@@ -22,41 +22,54 @@ import {
   ModalOverlay,
   Radio,
   RadioGroup,
-  Select,
   Stack,
   Text,
   Tooltip,
   useDisclosure,
   useEditableControls,
-  useMediaQuery
+  useMediaQuery,
+  useToast
 } from "@chakra-ui/react";
+import emailjs from '@emailjs/browser';
 import {
   Document,
-  Font,
   Image as ImagePDF,
   PDFDownloadLink,
   Page,
   StyleSheet,
   Text as TextPDF,
-  View as ViewPDF,
+  View as ViewPDF
 } from "@react-pdf/renderer";
-import { Dispatch, useContext, useEffect, useRef, useState } from "react";
+import Cookies from 'js-cookie';
+import { useEffect, useRef, useState } from "react";
+import { AiOutlineShareAlt } from "react-icons/ai";
 import { BiLoaderAlt } from "react-icons/bi";
 import { BsEye, BsFillCheckCircleFill } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { GoDesktopDownload } from "react-icons/go";
 import { RiCloseLine } from "react-icons/ri";
-import LaudosJSON from "../../Data/Laudos.json";
-import { LaudosContext } from "../../context/LuadosContext";
 import { useNavigate } from "react-router-dom";
+import LaudosJSON from "../../Data/Laudos.json";
 import "./Laudos.css";
-import emailjs from '@emailjs/browser';
-import SubMenu from "../menu/subMenu";
-import { AiOutlineShareAlt } from "react-icons/ai";
-import { blob } from "stream/consumers";
-import { url } from "inspector";
+import api from "../../api";
+
 
 function Exames() {
+
+  const getUserClinica = () => {
+    let clinica;
+    if (localStorage.getItem("user") != null) {
+      clinica = localStorage.getItem("user");
+    }
+    // console.log('clinica', clinica)
+    // const clinicaParse = JSON.parse(clinica)
+    // setClinicaFoto(clinicaParse.foto)
+    // console.log(clinicaParse)
+    return clinica;
+  };
+
+  const [clinicaSet, setClinica] = useState<any>(getUserClinica());
+
   const ref = useRef<HTMLDivElement | null>(null);
   const laudos = LaudosJSON.laudo;
   const styles = StyleSheet.create({
@@ -152,7 +165,7 @@ function Exames() {
       margin: 10,
     },
     textDadosMedico: {
-      fontFamily: "MontserratBold",
+      // fontFamily: "MontserratBold",
       fontSize: 13,
       color: "black",
     },
@@ -160,7 +173,7 @@ function Exames() {
       marginTop: "10vh",
       marginLeft: 50,
       fontSize: "11",
-      fontFamily: "Montserrat",
+      // fontFamily: "Montserrat",
     },
     textDiagnostico: {
       marginTop: 5,
@@ -168,20 +181,20 @@ function Exames() {
       marginRigh: 10,
       marginBottom: 10,
       fontSize: "10",
-      fontFamily: "Montserrat2",
+      // fontFamily: "Montserrat2",
     },
     textTituloExame: {
       fontWeigh: "bold",
       textAlign: "center",
       fontSize: "17",
-      fontFamily: "MontserratBold",
+      // fontFamily: "MontserratBold",
       marginTop: "5px",
     },
     textConclusao: {
       fontWeigh: "bold",
       textAlign: "center",
       fontSize: "17",
-      fontFamily: "MontserratBold",
+      // fontFamily: "MontserratBold",
       marginTop: "1%",
       marginBottom: "1%",
     },
@@ -189,7 +202,7 @@ function Exames() {
       fontWeigh: "bold",
       textAlign: "center",
       fontSize: "12",
-      fontFamily: "MontserratBold",
+      // fontFamily: "MontserratBold",
       textDecoration: "underline",
       marginRight: "20px",
       maxWidth: "18%",
@@ -198,7 +211,7 @@ function Exames() {
     frasesSubExame: {
       textAlign: "justify",
       fontSize: "12",
-      fontFamily: "MontserratRegular",
+      // fontFamily: "MontserratRegular",
       marginBottom: "5px",
       justifyContent: "space-between",
       lineHeight: 1.5,
@@ -206,7 +219,7 @@ function Exames() {
     frasesConclusoes: {
       textAlign: "justify",
       fontSize: "12",
-      fontFamily: "MontserratRegular",
+      // fontFamily: "MontserratRegular",
       lineHeight: 1.5,
       marginLeft: 4,
     },
@@ -228,45 +241,45 @@ function Exames() {
     },
   });
 
-  Font.register({
-    family: "Montserrat",
+  // Font.register({
+  //   family: "Montserrat",
 
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jqw16aX9-p7K5ILg.ttf",
-      },
-    ],
-  });
+  //   fonts: [
+  //     {
+  //       src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jqw16aX9-p7K5ILg.ttf",
+  //     },
+  //   ],
+  // });
 
-  Font.register({
-    family: "Montserrat2",
+  // Font.register({
+  //   family: "Montserrat2",
 
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jq5Z9aX9-p7K5ILg.ttf",
-      },
-    ],
-  });
+  //   fonts: [
+  //     {
+  //       src: "http://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jq5Z9aX9-p7K5ILg.ttf",
+  //     },
+  //   ],
+  // });
 
-  Font.register({
-    family: "MontserratBold",
+  // Font.register({
+  //   family: "MontserratBold",
 
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf",
-      },
-    ],
-  });
+  //   fonts: [
+  //     {
+  //       src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-Y3tcoqK5.ttf",
+  //     },
+  //   ],
+  // });
 
-  Font.register({
-    family: "MontserratRegular",
+  // Font.register({
+  //   family: "MontserratRegular",
 
-    fonts: [
-      {
-        src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf",
-      },
-    ],
-  });
+  //   fonts: [
+  //     {
+  //       src: "http://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-Y3tcoqK5.ttf",
+  //     },
+  //   ],
+  // });
   const navigate = useNavigate();
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
   const [isLargerThan6001] = useMediaQuery('(min-width: 600px)')
@@ -275,9 +288,16 @@ function Exames() {
   isLargerThan600 ? display = "block" : display = "none"
   isLargerThan6001 ? display1 = "flex" : display1 = "none"
 
+
+  const clinFoto = () => {
+    const clin = JSON.parse(clinicaSet)
+    const clinFoto = clin.clinica.foto
+    return clinFoto
+  }
+  const [clinicaFoto, setclinicaFoto] = useState(clinFoto())
+
+
   const Laudo = () => {
-
-
     const renderFrases = (exame) => {
       return exame.subExames.map((sub, key) => {
         return sub.subExameNome != null && sub.subExameNome != "" ? (
@@ -352,7 +372,7 @@ function Exames() {
             >
               <ViewPDF fixed style={styles.section}>
                 <ViewPDF style={styles.viewAssinatura}>
-                  <ImagePDF style={styles.imageClinica} src={clinicaSet.foto} />
+                  <ImagePDF style={styles.imageClinica} src={clinicaFoto} />
                 </ViewPDF>
 
                 <ViewPDF style={styles.sectionColuna}>
@@ -415,7 +435,7 @@ function Exames() {
                         >{`Dr. ${medico.nome}`}</TextPDF>
                         <TextPDF
                           style={styles.textDadosMedico}
-                        >{`CRM ${medico.crm}`}</TextPDF>
+                        >{`CRM ${medico.CRMUF}`}</TextPDF>
                       </ViewPDF>
                     </ViewPDF>
                     <TextPDF style={styles.textSantaImagem}>
@@ -435,20 +455,6 @@ function Exames() {
         })}
       </Document>
     );
-  };
-
-  const [clinicaFoto, setClinicaFoto] = useState('')
-
-  const getUserClinica = () => {
-    let clinica;
-    if (localStorage.getItem("user") != null) {
-      clinica = localStorage.getItem("user");
-    }
-    console.log('clinica', clinica)
-    // const clinicaParse = JSON.parse(clinica)
-    // setClinicaFoto(clinicaParse.foto)
-    // console.log(clinicaParse)
-    return clinica;
   };
 
   const getUserMedico = () => {
@@ -489,8 +495,6 @@ function Exames() {
       }/${timeStamp.getFullYear()}`;
   };
 
-  const { laudoPrin, setLaudoPrin } = useContext(LaudosContext);
-  const [clinicaSet, setClinica] = useState<any>(getUserClinica());
   const [medico, setMedico] = useState(getUserMedico());
   const [urlLaudo, setUrlLaudo] = useState<any>();
   const [edit, setEdit] = useState(false);
@@ -499,7 +503,7 @@ function Exames() {
     JSON.parse(localStorage.getItem("format_laudo")!)
   );
   const [laudo, setLaudo] = useState<any>(Laudo());
-  const [updateSuccess, setUpdateSuccess] = useState(false);
+
 
   const update = (laudos) => {
     const array = JSON.parse(localStorage.getItem("medicos")!);
@@ -527,12 +531,16 @@ function Exames() {
   };
 
   const sharePdf = async (title, url) => {
+    console.log("url", url)
     if (navigator.share) {
       try {
+        const pdfUrl = URL.createObjectURL(url);
+        console.log(pdfUrl)
         await navigator.share({
           title: title,
-          url: url,
+          url: pdfUrl,
         });
+        URL.revokeObjectURL(pdfUrl);
       } catch (error) {
         console.error("Erro ao compartilhar:", error);
       }
@@ -547,15 +555,12 @@ function Exames() {
     setUrlLaudo(fileURL);
   };
 
-
   const handleShareButtonClick = () => {
+    // const file = new Blob([blob], { type: "application/pdf" });
+    // const fileURL = URL.createObjectURL(file);
     const pdfUrl = `http://localhost:3000/eafec451-398a-4bc5-a1b5-d24c0c92958d`
     sharePdf("Emaxes", pdfUrl);
-    console.log(pdfUrl)
   };
-
-
-
 
   const getFormatLaudo = () => {
     setArrayLocal(JSON.parse(localStorage.getItem("format_laudo")!));
@@ -889,8 +894,7 @@ function Exames() {
     }
   }, [edit, localStorage.getItem("format_laudo")!]);*/
 
-  const [formPreenchido, setFormPreenchido] = useState(true)
-  const [dadoTeste, setDadoteste] = useState('verdade')
+  const [formPreenchido, setFormPreenchido] = useState(false)
 
   const {
     isOpen,
@@ -907,33 +911,52 @@ function Exames() {
   }, [])
 
   const verificaForm = () => {
-    formPreenchido ? alert('funcionou') : onOpen()
+    formPreenchido ? navigate('/home') : onOpen()
   }
   const [opiniaoSoftware, setOpiniaoSoftware] = useState('');
   const [notaSoftware, setNotaSoftware] = useState('');
+  const toast = useToast();
 
-  const finalizaForm = (e) => {
-    console.log(opiniaoSoftware)
-    console.log(notaSoftware)
+  const finalizaForm = async (e) => {
+    const Email = `contato@usgimagem.com.br`
+    const userString = Cookies.get('USGImage_user')
+    const userParse = JSON.parse(userString)
+    const email = userParse.email
+    const name = userParse.name
+    const html = `<p>Nome: ${name} \n
+    Email: ${email}\n
+    Avaliação:\n
+  Escolha a palavra que melhor identifica nosso Aplicativo: ${opiniaoSoftware}\n
+  De 1(ruim) a 5(excelente), qual seria a nota que você dá ao nosso Aplicativo?: ${notaSoftware}<p>`
+    const subject = 'Nova avaliação USG'
+    const dest = { Email, html, subject }
 
-    emailjs.send('outlookMessage', 'template_6j5xp3j',
-      {
-        to_email: 'barbozagarcia@yahoo.com.br',
-        message: `Escolha a palavra que melhor identifica nosso Aplicativo: ${opiniaoSoftware}
-         De 1(ruim) a 5(excelente), qual seria a nota que você dá ao nosso Aplicativo?: ${notaSoftware}`
-      }, 'qNFyg3V_FW8DLmNjL')
-      .then((result) => {
-        console.log(result.text);
-      }, (error) => {
-        console.log(error.text);
-      });
+    const response = await api.post('sendEmailContato', dest)
+    if (response.status === 200) {
+      setOpiniaoSoftware('')
+      setNotaSoftware('')
 
-    setOpiniaoSoftware('')
-    setNotaSoftware('')
-
-    localStorage.setItem("formPreenchido", dadoTeste)
-    setFormPreenchido(true)
-    onClose()
+      localStorage.setItem("formPreenchido", 'preenchido')
+      setFormPreenchido(true)
+      onClose()
+      setTimeout(() => {
+        toast({
+          duration: 3000,
+          title: `Obrigado por contribuir, sua avaliação é muito importante!`,
+          position: "top",
+          isClosable: true,
+        });
+      }, 500);
+    } else {
+      setTimeout(() => {
+        toast({
+          duration: 3000,
+          title: `Ops, algo deu errado, avalie novamente!`,
+          position: "top",
+          isClosable: true,
+        });
+      }, 500);
+    }
   }
 
   const ModalForm = () => {
@@ -1004,6 +1027,7 @@ function Exames() {
       top={1}
       transition="0.2"
       marginEnd="1%"
+      zIndex={'999'}
     >
       <Center paddingBottom="30px">
         <Stack
@@ -1013,7 +1037,7 @@ function Exames() {
           h="70px"
           alignItems="center"
         >
-          <Link
+          <Button
             //href={`#/Format_PDF`}
             //target="_blank"
             style={{ textDecoration: "none" }}
@@ -1035,14 +1059,12 @@ function Exames() {
                   as={BsEye}
                   color="twitter.600"
                   size="30px"
-                  onClick={() => {
-                    //<Format_PDF />;
-                  }}
                 />
               </Circle>
             </Tooltip>
-          </Link>
+          </Button>
           <Box>
+
             <PDFDownloadLink
               document={laudo != null ? laudo : Laudo()}
               fileName={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
@@ -1051,27 +1073,35 @@ function Exames() {
                 loading ? (
                   <Icon as={BiLoaderAlt} color="#4658fc" w={50} h={40} />
                 ) : (
-                  <Tooltip
-                    label="Baixar Laudo"
-                    fontSize="xl"
-                    backgroundColor="white"
-                    placement="top"
-                    hasArrow
-                    arrowSize={15}
-                    textColor="black"
+
+                  <Link
+                    onClick={() => {
+                      console.log('error', error)
+                      convertBlob(blob!);
+                    }}
                   >
-                    <Circle size="50px" bg="gray.200">
-                      <Icon
-                        as={GoDesktopDownload}
-                        w={30}
-                        h={30}
-                        color="twitter.600"
-                        onClick={() => {
-                          convertBlob(blob!);
-                        }}
-                      />
-                    </Circle>
-                  </Tooltip>
+                    <Tooltip
+                      label="Baixar Laudo"
+                      fontSize="xl"
+                      backgroundColor="white"
+                      placement="top"
+                      hasArrow
+                      arrowSize={15}
+                      textColor="black"
+                    >
+                      <Circle
+                        _hover={{ pointerEvents: 'auto' }}
+                        size="50px" bg="gray.200">
+                        <Icon
+                          as={GoDesktopDownload}
+                          w={30}
+                          h={30}
+                          color="twitter.600"
+
+                        />
+                      </Circle>
+                    </Tooltip>
+                  </Link>
                 )
               }
             </PDFDownloadLink>
@@ -1086,17 +1116,20 @@ function Exames() {
               arrowSize={15}
               textColor="black"
             >
-              <Circle size="50px" bg="gray.200" display={display1}>
-                <Icon
-                  w={30}
-                  h={30}
-                  as={FiEdit}
-                  color="twitter.600"
-                  onClick={() => {
-                    setEdit(true);
-                  }}
-                />
-              </Circle>
+              <Button
+                onClick={() => {
+                  setEdit(true);
+                }}>
+                <Circle size="50px" bg="gray.200" display={display1}>
+                  <Icon
+                    w={30}
+                    h={30}
+                    as={FiEdit}
+                    color="twitter.600"
+
+                  />
+                </Circle>
+              </Button>
             </Tooltip>
           ) : (
             <Tooltip
@@ -1108,21 +1141,24 @@ function Exames() {
               arrowSize={15}
               textColor="black"
             >
-              <Circle size="50px" bg="gray.200">
-                <Icon
-                  w={30}
-                  h={30}
-                  as={RiCloseLine}
-                  color="twitter.600"
-                  onClick={() => {
-                    setEdit(false);
-                  }}
-                />
-              </Circle>
+              <Button
+                onClick={() => {
+                  setEdit(false);
+                }}>
+                <Circle size="50px" bg="gray.200">
+                  <Icon
+                    w={30}
+                    h={30}
+                    as={RiCloseLine}
+                    color="twitter.600"
+
+                  />
+                </Circle>
+              </Button>
             </Tooltip>
           )}
           <Tooltip
-            label="Compartilhar"
+            label="Compartilhamento bloqueado para teste gratuito"
             fontSize="xl"
             backgroundColor="white"
             placement="top"
@@ -1130,18 +1166,24 @@ function Exames() {
             arrowSize={15}
             textColor="black"
           >
-            <Circle size="50px" bg="#e2e8f0">
-              <Icon
-                w={30}
-                h={30}
-                as={AiOutlineShareAlt}
-                color="twitter.600"
-                size="30px"
-                onClick={() => {
-                  handleShareButtonClick()
-                }}
-              />
-            </Circle>
+            <Button
+              ml='3px'
+              mr='3px'
+              isDisabled={true}
+              onClick={() => {
+                handleShareButtonClick()
+              }}
+            >
+              <Circle size="50px" bg="#e2e8f0">
+                <Icon
+                  w={30}
+                  h={30}
+                  as={AiOutlineShareAlt}
+                  color="twitter.600"
+                  size="30px"
+                />
+              </Circle>
+            </Button>
           </Tooltip>
           <Tooltip
             label="Concluir laudo"
@@ -1152,34 +1194,37 @@ function Exames() {
             arrowSize={15}
             textColor="black"
           >
-            <Circle size="50px" bg="yellow.400">
-              <Icon
-                w={30}
-                h={30}
-                as={BsFillCheckCircleFill}
-                color="green"
-                size="30px"
-                onClick={() => {
-                  verificaForm()
-                }}
-              />
-            </Circle>
+            <Button
+              onClick={() => {
+                verificaForm()
+              }}>
+              <Circle size="50px" bg="yellow.400">
+                <Icon
+                  w={30}
+                  h={30}
+                  as={BsFillCheckCircleFill}
+                  color="green"
+                  size="30px"
+
+                />
+              </Circle>
+            </Button>
           </Tooltip>
         </Stack>
       </Center>
 
-      <Box className="zoom" boxShadow="xl" ref={ref} height="75vh" display={display}>
-        <Grid w="100%" gridTemplateRows={"15px 1fr 15px"}>
+      <Box className="zoom" boxShadow="xl" ref={ref} height="80vh" display={display}>
+        <Grid w="100%" gridTemplateRows={"15px 1fr 15px"} px={'3%'}>
           <Box>
             <Image
-              src={clinicaSet.foto}
+              src={clinicaFoto}
               alt="Imagem Clínica"
               boxSize="6.5rem"
               objectFit="scale-down"
               borderRadius="full"
               padding="5px"
               ml={2}
-              mt={'1rem'}
+              mt={'2%'}
             />
           </Box>
 
@@ -1206,7 +1251,7 @@ function Exames() {
         <Box margin="20px" key={+edit}>
           {edit ? RenderLaudoEditTrue() : RenderLaudoEditFalse()}
         </Box>
-        <Box position="absolute" w="100%">
+        <Box position="absolute" w="100%" px={'5%'}>
           <HStack w="100%" justify="space-between">
             <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
               <Image

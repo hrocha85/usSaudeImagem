@@ -13,10 +13,10 @@ import Cookies from 'js-cookie';
 import GetMedicosFree from "../Helpers/UserFree/GetMedicos";
 import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
 import GetMedicosAdmin from "../Helpers/UserAdmin/GetMedicos";
+import { useNavigate } from "react-router-dom";
 
 function SelectMedicos() {
 
-  const { isAdmin } = useContext(AuthContext);
   const [medicoString, setmedicoString] = useState<any>();
   const [medicoAdm, setMedicoAdm] = useState<any>();
   const [medicoSelecionado, setmedicoSelecionado] = useState<any | null>(null);
@@ -26,6 +26,7 @@ function SelectMedicos() {
   const [clinicasMedSelect, setClinicaMedSelect] = useState<any[]>([]);
 
   const [isDisabledEntrar, setisDisabledEntrar] = useState(true);
+  const [AdminMaster, setAdminMaster] = useState(false);
 
   const [lista_medico, setlista_medico] = useState<any[]>([]);
 
@@ -34,7 +35,8 @@ function SelectMedicos() {
     const roleString = Cookies.get('USGImage_role');
     if (roleString) {
       const role = JSON.parse(roleString);
-      role == 'admin' ? isAdmin = true : isAdmin = false
+      role === 'admin' ? isAdmin = true : isAdmin = false
+      role === 'adminMaster' ? setAdminMaster(true) : setAdminMaster(false)
     }
     if (!isAdmin) {
       setlista_medico(GetMedicosFree())
@@ -144,10 +146,10 @@ function SelectMedicos() {
       if (lista_medico.length > 0) {
         return (
           <Center>
-            <Stack>
+            <Stack w={'100%'}>
               <Select
                 defaultValue=""
-                w="30vw"
+                w={['100%', '100%']}
                 borderColor="#ccc"
                 textAlign="center"
                 onChange={(event) => setmedicoString(event.currentTarget.value)}
@@ -167,7 +169,7 @@ function SelectMedicos() {
               {medicoSelecionado != null || undefined ? (
                 <Select
                   defaultValue=""
-                  w="30vw"
+                  w={['100%', '100%']}
                   borderColor="#ccc"
                   textAlign="center"
                   onChange={(e) => setclinicaString(e.currentTarget.value)}
@@ -242,7 +244,7 @@ function SelectMedicos() {
             <Stack>
               <Select
                 defaultValue=""
-                w="30vw"
+                w="100%"
                 borderColor="#ccc"
                 textAlign="center"
                 onChange={(event) => setmedicoString(event.currentTarget.value)}
@@ -331,16 +333,26 @@ function SelectMedicos() {
         );
       }
     }
-
-
-
   };
+
+  const navigate = useNavigate()
+  const areaAdm = () => {
+    let isAdminMaster;
+    const roleString = Cookies.get('USGImage_role');
+    if (roleString) {
+      const role = JSON.parse(roleString);
+      role == 'adminMaster' ? isAdminMaster = true : isAdminMaster = false
+    }
+    if (isAdminMaster) {
+      navigate('/AdminMaster')
+    }
+  }
 
   return (
     <Box
       w="100%"
       h="100vh"
-      height={'100vh'} bgGradient='linear(to-b, blue.100, #fff)'
+      bgGradient='linear(to-b, blue.100, #fff)'
       backgroundSize="cover"
       backgroundClip="padding-box"
       backgroundRepeat="no-repeat"
@@ -352,7 +364,7 @@ function SelectMedicos() {
           position="absolute"
           top="30%"
           bg="#FAFAFA"
-          w="auto"
+          w={['90%', "40%"]}
           h="auto"
           borderRadius="10.85px"
           boxShadow="md"
@@ -360,6 +372,13 @@ function SelectMedicos() {
         >
           {verificaMedico()}
         </Box>
+
+        {AdminMaster ?
+
+          <Button onClick={() => areaAdm()} mt={6}>Área administrativa</Button>
+          :
+          null
+        }
       </Center>
     </Box>
   );

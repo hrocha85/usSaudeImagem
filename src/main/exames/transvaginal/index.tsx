@@ -48,11 +48,11 @@ function Transvaginal() {
         <Ovario_Direito Disable={Disable} />
 
 
-        <Stack alignItems="baseline">
+        <Stack>
           <Hidatide Disable={Disable} />
           <Hidrossalpinge Disable={Disable} />
         </Stack>
-        <Stack alignItems="baseline">
+        <Stack>
           <Liquido_Livre Disable={Disable} />
           <Extras Disable={Disable} />
         </Stack>

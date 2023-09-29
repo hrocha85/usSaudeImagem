@@ -1,8 +1,14 @@
-import { Box, Button, Card, CardBody, Flex, HStack, Heading, Icon, Image, Link, Stack, Text, useMediaQuery } from "@chakra-ui/react"
+import { Box, Button, Card, CardBody, Flex, HStack, Heading, Icon, Image, Input, Link, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, Textarea, useMediaQuery, useToast } from "@chakra-ui/react"
 import offline from '../../images/landing/offiline.svg'
 import fast from '../../images/landing/fast.svg'
 import phone from '../../images/landing/Group.svg'
 import print from '../../images/landing/print.svg'
+import { Link as ScrollLink } from "react-scroll";
+import { useState } from "react"
+import emailjs from '@emailjs/browser';
+import Cookies from 'js-cookie';
+import api from "../../../api"
+
 
 
 function About() {
@@ -13,16 +19,79 @@ function About() {
   let width = ""
   let width1 = ""
 
-  let flexCol=''
-  isLargerThan600 ? flexCol = "row": width = "column"  
-  isLargerThan600 ? width = "50%": width = "100%"
-  isLargerThan600 ? width1 = "20rem": width1 = "100%"
-  isLargerThan600 ? display = "": display = "none"
-  isLargerThan600 ? display1 = "flex": display1 = "block"
+  let flexCol = ''
+  isLargerThan600 ? flexCol = "row" : width = "column"
+  isLargerThan600 ? width = "50%" : width = "100%"
+  isLargerThan600 ? width1 = "20rem" : width1 = "100%"
+  isLargerThan600 ? display = "" : display = "none"
+  isLargerThan600 ? display1 = "flex" : display1 = "block"
 
-    return(
-        <Box w={'100%'} px={4}>
-          <Box   mt={10} px={{ base: '0rem', md: '15rem' }}>
+  const [isOpen, setIsOpen] = useState(false);
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [mensagem, setMensagem] = useState('');
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const toast = useToast();
+
+  const enviarEmail = async () => {
+    // const Email = `contato@usgimagem.com.br`
+    const Email = `contato@usgimagem.com.br`
+    const subject = 'Contato USG'
+    const html = `<p>Nome: ${nome}\n 
+    Email: ${email}\n
+    \n${mensagem}<p>`
+    const dest = { Email, html, subject }
+    console.log(Email)
+    console.log(subject)
+    console.log(html)
+    const response = await api.post('sendEmailContato', dest)
+    console.log('response', response.data)
+    if (response.status === 200) {
+
+      setTimeout(() => {
+        toast({
+          duration: 3000,
+          title: `Obrigado por contribuir, sua avaliação é muito importante!`,
+          position: "top",
+          isClosable: true,
+        });
+      }, 500);
+    } else {
+      setTimeout(() => {
+        toast({
+          duration: 3000,
+          title: `Ops, algo deu errado, avalie novamente!`,
+          position: "top",
+          isClosable: true,
+        });
+      }, 500);
+    }
+
+    // emailjs.send('outlookMessage', 'template_6j5xp3j',
+    //   {
+    //     to_email: 'barbozagarcia@yahoo.com.br',
+    //     message: mensagemCompleta
+    //   }, 'qNFyg3V_FW8DLmNjL')
+    //   .then((result) => {
+    //     console.log(result.text);
+    //   }, (error) => {
+    //     console.log(error.text);
+    //   });
+
+    closeModal();
+  };
+
+  return (
+    <Box w={'100%'} px={4}>
+      <Box mt={10} px={{ base: '0rem', md: '15rem' }}>
 
         <Text
           fontSize={"35px"}
@@ -72,7 +141,7 @@ function About() {
 
       <Flex justifyContent={'space-around'} flexDir={{ base: 'column', md: 'row' }} mt={'5%'} alignItems={'center'} px={5}>
         <Card maxW='sm'>
-          <CardBody  alignItems={'center'} fontFamily={'Inter, sans-serif'}>
+          <CardBody alignItems={'center'} fontFamily={'Inter, sans-serif'}>
             <Image
               src={offline}
               alt='Sistema rapido'
@@ -145,27 +214,27 @@ function About() {
       </Flex>
 
       <Flex display={display1} gap={10} justifyContent={'center'} mt={10} fontFamily={"Sora, sans-serif"} fontWeight={'600'}>
-        <Link href={`#/`}>
-          <Button
-            border="1px solid #1C49B0"
-            color="#1C49B0"
-            bg="transparent"
-            height="50px"
-            fontSize={'16px'}
-            _hover={{
-              background: 'transparent',
-              color: '#1C49B0',
-            }}
-            width={width1}
 
-            my={3}
-          >
-            Entrar em contato
+        <Button
+          border="1px solid #1C49B0"
+          color="#1C49B0"
+          bg="transparent"
+          height="50px"
+          fontSize={'16px'}
+          onClick={openModal}
+          _hover={{
+            background: 'transparent',
+            color: '#1C49B0',
+          }}
+          width={width1}
 
-          </Button>
-        </Link>
+          my={3}
+        >
+          Entrar em contato
 
-        <Link href={`#/`}>
+        </Button>
+
+        <ScrollLink to="planos" smooth={true} duration={500} ml={5}>
           <Button
             border="1px solid #1C49B0"
             color="#FFF"
@@ -182,8 +251,39 @@ function About() {
             Seja um parceiro USGImagem
 
           </Button>
-        </Link>
+        </ScrollLink>
       </Flex>
+      <Modal isOpen={isOpen} onClose={closeModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader fontFamily={'Rubik, sans-serif'}>Entre em Contato</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Input type="text" placeholder="Nome" mb={2} onChange={(e) => setNome(e.target.value)} />
+            <Input type="email" placeholder="Email" mb={2} onChange={(e) => setEmail(e.target.value)} />
+            <Textarea
+              placeholder="Digite sua mensagem..."
+              size="lg"
+              resize="none"
+              onChange={(e) => setMensagem(e.target.value)}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button fontFamily={'Sora, sans-serif'}
+              bg="#1c49b0"
+              mr={3} onClick={enviarEmail}
+              textColor={'#fff'}
+              _hover={{
+                background: '#1C49B0',
+                color: '#FFF',
+              }}
+            >
+              Enviar
+            </Button>
+            <Button fontFamily={'Sora, sans-serif'} onClick={closeModal}>Cancelar</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   )
 

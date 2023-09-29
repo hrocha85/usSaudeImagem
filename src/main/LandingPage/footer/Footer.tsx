@@ -1,8 +1,7 @@
 import { Box, Button, Flex, HStack, Image, Link, Text } from "@chakra-ui/react";
 import logo from '../../images/landing/Marca.png'
-import whatapp from '../../images/landing/whatsapp.svg'
+import whatapp from '../../images/landing/llinkedin.svg'
 import facebook from '../../images/landing/facebook.svg'
-import twitter from '../../images/landing/twitter.svg'
 import instagras from '../../images/landing/instagram.svg'
 
 
@@ -62,22 +61,18 @@ function Footer() {
                     </Link>
                 </Flex>
                 <Flex justifyContent={'space-between'} w={['100%', '20%']} px={['20%', 0]} py={['3%', 0]}>
-                    <Link href={`#/`}>
+                    <Link href={`https://www.linkedin.com/company/usg-imagem/`} target="_blank">
                         <Image
                             src={whatapp}
+                            w={'28px'}
                         />
                     </Link>
-                    <Link href={`#/`}>
+                    <Link href={`https://www.facebook.com/profile.php?id=61551257969410&mibextid=LQQJ4d`} target="_blank">
                         <Image
                             src={facebook}
                         />
                     </Link>
-                    <Link href={`#/`}>
-                        <Image
-                            src={twitter}
-                        />
-                    </Link>
-                    <Link href={`#/`}>
+                    <Link href={`https://instagram.com/usgimagem?igshid=NzZhOTFlYzFmZQ==`} target="_blank">
                         <Image
                             src={instagras}
                         />

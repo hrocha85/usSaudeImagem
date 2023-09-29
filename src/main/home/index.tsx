@@ -272,12 +272,12 @@ function Home() {
       <>
         <Box overflowX="hidden" minHeight="100vh" bgGradient="linear(to-b, blue.100, #fff)">
 
-          <Flex mt={3} justifyContent="space-between" alignItems="center">
-            <Text textColor={'black'} fontSize={"20px"} fontWeight={700} pl={4}>
+          <Flex mt={3} justifyContent="space-between" alignItems="center" pt={'1%'}>
+            <Text textColor={'black'} fontSize={"20px"} fontWeight={700} pl={4} display={['none', 'block']}>
               Bem-vindo, {medico.nome}
             </Text>
             <Clock />
-            <Flex justifyContent="flex-end">
+            <Flex justifyContent={'center'} w={['100%', 'auto']}>
               <Link href="#/Home/Configuracoes" pr={4}>
                 <Tooltip
                   label="Configurações gerais"

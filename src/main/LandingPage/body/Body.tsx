@@ -20,12 +20,12 @@ import { Link as ScrollLink } from "react-scroll";
     return (
       <Box
       backgroundImage={fundo1}
-      backgroundSize="100% 100%"
+      backgroundSize={['cover',"100% 100%"]}
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
       px={'2%'}
       pt={'5%'}
-      pl={[0,'10%']}
+      pl={['5%','10%']}
     >
       <Flex alignItems={'center'} display={display1} px={'2%'}>
        <Box w={width}>

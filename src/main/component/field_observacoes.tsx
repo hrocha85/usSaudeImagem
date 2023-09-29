@@ -125,7 +125,7 @@ export default function Field_Observacoes({ exame }) {
         {observacoes.observacao != null && observacoes.observacao != undefined
           ? observacoes.observacao.map((e) => {
 
-            if (observacoes.nomeExame == exame.nomeExame) {
+            if (observacoes.nomeExame === exame.nomeExame) {
               return (
                 <HStack
                   isInline={true}
@@ -417,11 +417,10 @@ export default function Field_Observacoes({ exame }) {
 
   return (
     <>
-      <Flex w={'100%'} h="327px" marginStart="22px">
+      <Flex w="100%" marginStart="22px">
         <Box
           bg="#FAFAFA"
           w={largura}
-          h={altura}
           bgPosition="center"
           bgRepeat="no-repeat"
           borderRadius="10.85px"
@@ -442,6 +441,7 @@ export default function Field_Observacoes({ exame }) {
           {Render_Box_Observacoes()}
         </Box>
       </Flex>
+
 
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />

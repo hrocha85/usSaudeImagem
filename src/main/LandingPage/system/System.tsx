@@ -9,6 +9,9 @@ import {
 import { Carousel } from "react-responsive-carousel";
 import background from '../../images/landing/background2.jpeg'
 import photoExam from '../../images/landing/Rectangle 8.png'
+import laudo from '../../images/landing/Home3.png'
+import exames from '../../images/landing/Exames1.png'
+import home from '../../images/landing/Home2.png'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import fast from '../../images/landing/fast.svg'
 
@@ -51,14 +54,14 @@ function System() {
                 interval={3000}
                 transitionTime={500}
               >
-                <Box>
-                  <Image src={photoExam} alt="Imagem 1"  h={['100%','100%']}/>
+                <Box h={'100%'}>
+                  <Image src={laudo} alt="Imagem 1"  h={['100%','100%']}  rounded={'10px'}/>
                 </Box>
-                <Box>
-                  <Image src={photoExam} alt="Imagem 1" h={['100%','100%']}/>
+                <Box h={'100%'}>
+                  <Image src={exames} alt="Imagem 1" h={['100%','100%']} rounded={'10px'}/>
                 </Box>
-                <Box>
-                  <Image src={photoExam} alt="Imagem 1" h={['100%','100%']}/>
+                <Box h={'100%'}>
+                  <Image src={home} alt="Imagem 1" h={['100%','100%']} rounded={'20px'}/>
                 </Box>
 
               </Carousel>
