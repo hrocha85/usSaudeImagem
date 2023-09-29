@@ -931,7 +931,7 @@ function Exames() {
     const subject = 'Nova avaliação USG'
     const dest = { Email, html, subject }
 
-    const response = await api.post('sendEmail', dest)
+    const response = await api.post('sendEmailContato', dest)
     if (response.status === 200) {
       setOpiniaoSoftware('')
       setNotaSoftware('')
