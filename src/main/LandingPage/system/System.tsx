@@ -9,9 +9,9 @@ import {
 import { Carousel } from "react-responsive-carousel";
 import background from '../../images/landing/background2.jpeg'
 import photoExam from '../../images/landing/Rectangle 8.png'
-import laudo from '../../images/landing/config1.png'
+import laudo from '../../images/landing/Home3.png'
 import exames from '../../images/landing/Exames1.png'
-import home from '../../images/landing/homeSys.png'
+import home from '../../images/landing/Home2.png'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import fast from '../../images/landing/fast.svg'
 
