@@ -1,11 +1,11 @@
-import { Box, Button, Checkbox, FormControl, FormLabel, HStack, Heading, Input, Link, useToast, Text, VStack, InputGroup, InputRightElement, Image } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { Box, Button, Checkbox, FormControl, FormLabel, HStack, Heading, Input, Link, useToast, Text, VStack, InputGroup, InputRightElement, Image, Spinner } from "@chakra-ui/react";
+import { useContext, useState } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import api from "../../../src/api";
 import Cookies from 'js-cookie';
-import { IoEye, IoEyeOff, IoEyeOffSharp, IoArrowForward } from "react-icons/io5";
-import marca from "../images/Marca.png"
+import { IoEye, IoEyeOff, IoArrowForward } from "react-icons/io5";
+import marca from "../images/Marca.png";
 
 type data = {
   name?: string,
@@ -15,18 +15,17 @@ type data = {
 
 export default function LoginForm() {
   const toast = useToast();
-
   const { setIsAdmin } = useContext(AuthContext);
-  const [Email, setEmail] = useState('user@hotmail.com')
-  const [Senha, setSenha] = useState('12345678')
-  const [show, setShow] = useState(false)
-  const handleClickShow = () => setShow(!show)
-  const [focusedInput, setFocusedInput] = useState('');
 
-  const usenavigate = useNavigate()
+  const [Email, setEmail] = useState('');
+  const [Senha, setSenha] = useState('');
+  const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Estado de carregamento
+  const usenavigate = useNavigate();
 
   const login = async () => {
     try {
+      setIsLoading(true); // Ativar carregamento
       const user = {
         email: Email,
         password: Senha
@@ -50,6 +49,7 @@ export default function LoginForm() {
         Cookies.set('USGImage_user', JSON.stringify(response.data.user));
 
         const roleResponse = await api.get(`usuario/${response.data.user.id}`);
+        console.log(roleResponse)
         const isAdmin = roleResponse.data.roles[0].name === 'admin';
 
         Cookies.set('USGImage_role', JSON.stringify(roleResponse.data.roles[0].name));
@@ -76,6 +76,8 @@ export default function LoginForm() {
           isClosable: true,
         });
       }, 500);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -83,9 +85,6 @@ export default function LoginForm() {
     setter(event.target.value);
   };
 
-  const handleInputFocus = (inputName) => {
-    setFocusedInput(inputName);
-  };
 
   return (
 
@@ -109,10 +108,10 @@ export default function LoginForm() {
         </VStack>
         <FormControl pos={'relative'}>
           <FormLabel
-            pos={(Email || focusedInput === 'email') ? 'relative' : 'absolute'}
-            top={(Email || focusedInput === 'email') ? '-10px' : '0'}
-            fontSize={(Email || focusedInput === 'email') ? '16px' : '14px'}
-            color={(Email || focusedInput === 'email') ? 'black' : 'gray.400'}
+            pos={(Email) ? 'relative' : 'absolute'}
+            top={(Email) ? '-10px' : '0'}
+            fontSize={(Email) ? '16px' : '14px'}
+            color={(Email) ? 'black' : 'gray.400'}
             transition="top 0.3s, font-size 0.3s, color 0.3s"
           >
             Email
@@ -133,10 +132,10 @@ export default function LoginForm() {
         </FormControl>
         <FormControl pos={'relative'}>
           <FormLabel
-            pos={(Senha || focusedInput === 'senha') ? 'relative' : 'absolute'}
-            top={(Senha || focusedInput === 'senha') ? '-1px' : '0'}
-            fontSize={(Senha || focusedInput === 'senha') ? '16px' : '14px'}
-            color={(Senha || focusedInput === 'senha') ? 'black' : 'gray.400'}
+            pos={(Senha) ? 'relative' : 'absolute'}
+            top={(Senha) ? '-1px' : '0'}
+            fontSize={(Senha) ? '16px' : '14px'}
+            color={(Senha) ? 'black' : 'gray.400'}
           >Senha</FormLabel>
           <InputGroup>
             <Input
@@ -163,15 +162,25 @@ export default function LoginForm() {
           <Link href="/#/RedSenha" variant='link' color="#306eee" >Esqueci minha senha</Link>
         </HStack>
 
-        <Button rounded='9px' colorScheme="blue" w={"100%"}
-          //Descomentar onClick do login quando API estiver online
+        <Button
+          rounded='9px'
+          colorScheme="blue"
+          w={"100%"}
           onClick={() => login()}
-        //onClick={() => usenavigate('/Splash')}
-        >Acessar meu painel <Box display={'flex'} alignItems={'center'}><IoArrowForward size={25} style={{ marginLeft: '10px' }} /></Box>
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <Spinner size='sm' color='white' style={{ marginRight: '10px' }} />
+          ) : (
+            <>
+              Acessar meu painel
+              <Box display={'flex'} alignItems={'center'}>
+                <IoArrowForward size={25} style={{ marginLeft: '10px' }} />
+              </Box>
+            </>
+          )}
         </Button>
-
       </VStack>
-
     </Box>
   )
 }
