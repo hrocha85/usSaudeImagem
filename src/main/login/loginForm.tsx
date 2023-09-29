@@ -88,6 +88,7 @@ export default function LoginForm() {
   };
 
   return (
+
     <Box
       w={['full', 'md']}
       p={[8, 10]}
@@ -97,13 +98,6 @@ export default function LoginForm() {
       borderColor={['', 'gray.300']}
       borderRadius={10}
     >
-      <Text>
-        admin: admin@hotmail.com 12345678
-      </Text>
-      <Text>
-        UNICO FUNCIONANDO POR ENQUANTO
-        userFree: user@hotmail.com 12345678
-      </Text>
       <VStack spacing={4} align={['flex-start', 'center']} w='full' mb={3}>
         <VStack>
           <Image
@@ -164,10 +158,10 @@ export default function LoginForm() {
             </InputRightElement>
           </InputGroup>
         </FormControl>
-        {/* <HStack w='full' justify='space-between'>
-          <Checkbox>Remember me.</Checkbox>
-          <Button variant='link' colorScheme="blue"> Forgot Password</Button>
-        </HStack> */}
+        <HStack w='full' justify='space-between'>
+          {/* <Checkbox>Remember me.</Checkbox> */}
+          <Link href="/#/RedSenha" variant='link' color="#306eee" >Esqueci minha senha</Link>
+        </HStack>
 
         <Button rounded='9px' colorScheme="blue" w={"100%"}
           //Descomentar onClick do login quando API estiver online

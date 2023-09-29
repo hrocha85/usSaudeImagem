@@ -87,6 +87,15 @@ function CadastroUsuario() {
             });
           }, 500);
           usenavigate('/Login')
+        } else if (response.status === 200) {
+          setTimeout(() => {
+            toast({
+              duration: 3000,
+              title: `Email já cadastrado!`,
+              position: "top",
+              isClosable: true,
+            });
+          }, 500);
         }
       }).catch((e) => {
         console.log('erro aqui', e)

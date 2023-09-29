@@ -15,6 +15,8 @@ import PrivateRoute from "./PrivateRoute";
 import Error from "../main/error/error";
 import AdmMaster from "../main/adminMaster/admMaster";
 import EditProfile from "../main/EditUser/EditProfile";
+import EsqueciSenha from "../main/login/EsqueciSenha";
+
 
 function Rotas() {
   return (
@@ -22,6 +24,7 @@ function Rotas() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/Cadastro" element={<CadastroUsuario />} />
       <Route path="/Login" element={<LoginForm />} />
+      <Route path="/RedSenha" element={<EsqueciSenha />} />
       <Route path="/LoginFree" element={<LoginFormFree />} />
       <Route path="/Splash" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<SplashScreen />} />} />
       <Route path="/Home" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Home />} />} />
