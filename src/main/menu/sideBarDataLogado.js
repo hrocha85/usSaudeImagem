@@ -8,11 +8,11 @@ export const SidebarDataLogado = [
     path: "/Home/",
     icon: <AiOutlineHome />,
   },
-  {
-    title: "Editar Perfil",
-    path: '/Home/Perfil',
-    icon: <AiOutlineUser />,
-  },
+  // {
+  //   title: "Editar Perfil",
+  //   path: '/Home/Perfil',
+  //   icon: <AiOutlineUser />,
+  // },
   {
     title: "Configurações",
     path: "/Home/Configuracoes",
