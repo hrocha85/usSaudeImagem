@@ -23,6 +23,8 @@ import { Clear_Local_Storage } from "../component/remove_sub_exames_local_storag
 import Configuracao from "../images/gear.webp";
 import FooterUpbase from "../component/FooterUpbase";
 import Clock from "../component/Clock";
+import Sidebar from "../menu/sideBar";
+import SidebarHome from "../menu/sideBarHome";
 
 //import Swal from "sweetalert2";
 //import withReactContent from "sweetalert2-react-content";
@@ -271,13 +273,11 @@ function Home() {
 
       <>
         <Box overflowX="hidden" minHeight="100vh" bgGradient="linear(to-b, blue.100, #fff)">
-
-          <Flex mt={3} justifyContent="space-between" alignItems="center" pt={'1%'}>
-            <Text textColor={'black'} fontSize={"20px"} fontWeight={700} pl={4} display={['none', 'block']}>
-              Bem-vindo, {medico.nome}
-            </Text>
-            <Clock />
-            <Flex justifyContent={'center'} w={['100%', 'auto']}>
+          <Flex justifyContent="space-between" alignItems="center" px={'3%'}>
+            <Box w={'100%'}>
+              <SidebarHome />
+            </Box>
+            {/* <Flex justifyContent={'center'} w={['100%', 'auto']}>
               <Link href="#/Home/Configuracoes" pr={4}>
                 <Tooltip
                   label="Configurações gerais"
@@ -310,7 +310,7 @@ function Home() {
                   Sair
                 </Button>
               </Tooltip>
-            </Flex>
+            </Flex> */}
           </Flex>
           <Text w="100%" fontSize="32px" fontWeight="thin" mt={1} textAlign="center">
             Emissão dos Laudos

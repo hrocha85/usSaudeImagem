@@ -5,6 +5,7 @@ import { Footer } from '../LandingPage/footer/Footer';
 import { Header } from '../LandingPage/header/Header';
 import fundo1 from '../images/landing/Rectangle2.png'
 import Cookies from 'js-cookie'
+import axios from 'axios';
 
 function EditProfile() {
   const [userData, setUserData] = useState({});
@@ -13,8 +14,6 @@ function EditProfile() {
   const [userID, setUserID] = useState();
   const [userNome, setUserNome] = useState('');
   const [userEmail, setUserEmail] = useState('');
-  const [userSenha, setUserSenha] = useState('');
-  const [userConfirmSenha, setUserConfirmSenha] = useState('');
   const [userTelefone, setUserTelefone] = useState('');
   const [userCep, setUserCep] = useState('');
   const [userRua, setUserRua] = useState('');
@@ -25,22 +24,26 @@ function EditProfile() {
   useEffect(() => {
     const userLogged = Cookies.get('USGImage_user')
     const userParse = JSON.parse(userLogged)
+    setUserID(userParse.id)
     const getUsers = async () => {
       try {
         const response = await api.get(`/usuario/${userParse.id}`);
         const usuario = response.data
-        console.log(response.data)
+        console.log(usuario)
+        const endereco = usuario.address
+        const enderecoSplit = endereco.split(',')
+        const cep = enderecoSplit[3].trim()
+        const ruaBairro = enderecoSplit[1].split('- ')
+        const cidadeEstado = enderecoSplit[2].split('- ')
         setUserNome(usuario.name)
+        setUserCep(cep)
         setUserEmail(usuario.email)
-        setUserSenha(usuario.senha)
-        setUserConfirmSenha(usuario.confirmSenha)
         setUserTelefone(usuario.telefone)
-        setUserCep(usuario.cep)
-        setUserRua(usuario.rua)
-        setUserNumero(usuario.numero)
-        setUserCidade(usuario.cidade)
-        setUserBairro(usuario.bairro)
-        setUserEstado(usuario.estado)
+        setUserRua(enderecoSplit[0])
+        setUserNumero(ruaBairro[0])
+        setUserCidade(enderecoSplit[2])
+        setUserBairro(ruaBairro[1])
+        setUserEstado(cidadeEstado[1])
       } catch (error) {
         console.error("Erro ao obter usuários:", error);
       }
@@ -49,14 +52,19 @@ function EditProfile() {
     getUsers();
   }, []);
 
-
+  
+  
   const Edita = async () => {
+    const endereco = `${userRua}, ${userNumero}- ${userBairro}, ${userCidade}- ${userEstado}, ${userCep}`
     const obj = {
       name: userNome,
-      email: userEmail
+      email: userEmail,
+      telefone: userTelefone,
+      adress: endereco
     }
     try {
-      const response = await api.put(`usuario/${userID}`, obj);
+      console.log(userID)
+      const response = await api.put(`usuarioUpdate/${userID}`, obj);
       if (response.status === 200) {
         toast({
           duration: 3000,
@@ -77,6 +85,41 @@ function EditProfile() {
       });
     }
   }
+  
+  const formatPhoneNumber = (value) => {
+    const cleanedValue = value.replace(/\D/g, '');
+    const match = cleanedValue.match(/^(\d{2})(\d{5})(\d{4})$/);
+    if (match) {
+      return `(${match[1]}) ${match[2]}-${match[3]}`;
+    }
+    return cleanedValue;
+  };
+
+  const consultarCEP = async (CEP) => {
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${CEP}/json/`);
+      const data = response.data;
+
+      if (!data.erro) {
+        setUserRua(data.logradouro);
+        setUserCidade(data.localidade);
+        setUserEstado(data.uf);
+        setUserBairro(data.bairro);
+      } else {
+        console.log('  CEP inválido ou não encontrado');
+      }
+    } catch (error) {
+      console.error('Erro ao consultar o   CEP', error);
+    }
+  };
+
+  const formatCEP = (value) => {
+    const cleanedValue = value.replace(/\D/g, '');
+    if (cleanedValue.length == 8) {
+      return `${cleanedValue.substring(0, 5)}-${cleanedValue.substring(5, 8)}`;
+    }
+    return cleanedValue;
+  };
 
   return (
 
@@ -131,33 +174,6 @@ function EditProfile() {
               </FormControl>
             </Flex>
 
-            <Flex flexDir={['column', 'row']}>
-              <FormControl isRequired w={['100%', '70%']} pr={'2%'}>
-                <FormLabel fontFamily={'Outfit, sans-serif'}
-                  fontWeight={'800'} fontSize={'18px'} display={'flex'}
-                >Senha
-                  <Text opacity={0.6} pl={2} display={['none', 'block']}> (Conter no mínimo 8 caracteres)</Text>
-                </FormLabel>
-                <Input
-                  type="password"
-                  placeholder="Digite sua senha"
-                  defaultValue={userSenha}
-                  onChange={(e) => setUserSenha(e.target.value)}
-                />
-              </FormControl>
-              <FormControl isRequired w={['100%', '70%']} pr={'2%'}>
-                <FormLabel fontFamily={'Outfit, sans-serif'}
-                  fontWeight={'800'} fontSize={'18px'} display={'flex'}
-                >Confirme sua senha
-                </FormLabel>
-                <Input
-                  type="password"
-                  placeholder="Digite sua senha"
-                  defaultValue={userConfirmSenha}
-                  onChange={(e) => setUserConfirmSenha(e.target.value)}
-                />
-              </FormControl>
-            </Flex>
 
             <FormControl isRequired w={['100%', '30%']} >
               <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Telefone</FormLabel>
@@ -165,8 +181,8 @@ function EditProfile() {
                 type="text"
                 placeholder="(99)99999-9999"
                 maxLength={14}
-                defaultValue={userTelefone}
-                onChange={(e) => setUserTelefone(e.target.value)}
+                value={userTelefone}
+                onChange={(e) => setUserTelefone(formatPhoneNumber(e.target.value))}
               />
             </FormControl>
 
@@ -177,9 +193,10 @@ function EditProfile() {
                 <Input
                   type='text'
                   placeholder="00000-000"
-                  maxLength={9}
                   defaultValue={userCep}
-                  onChange={(e) => setUserCep(e.target.value)}
+                  onChange={(e) => setUserCep(formatCEP(e.target.value))}
+                  onBlur={(e) => consultarCEP(e.target.value)}
+                  maxLength={9}
                 />
               </FormControl>
               <FormControl isRequired>

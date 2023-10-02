@@ -28,7 +28,7 @@ const Clock = () => {
     };
 
     return (
-        <Box display={['none', 'block']}>
+        <Box display={['none', 'block']} pt={'2px'}>
             <Text textColor={'rgba(0, 0, 0, 0.64)'} fontSize={"16px"} fontWeight={400}>
                 {formatDate(currentTime)}
             </Text>
