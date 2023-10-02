@@ -13,6 +13,15 @@ function EditProfile() {
   const [userID, setUserID] = useState();
   const [userNome, setUserNome] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const [userSenha, setUserSenha] = useState('');
+  const [userConfirmSenha, setUserConfirmSenha] = useState('');
+  const [userTelefone, setUserTelefone] = useState('');
+  const [userCep, setUserCep] = useState('');
+  const [userRua, setUserRua] = useState('');
+  const [userNumero, setUserNumero] = useState('');
+  const [userCidade, setUserCidade] = useState('');
+  const [userBairro, setUserBairro] = useState('');
+  const [userEstado, setUserEstado] = useState('');
   useEffect(() => {
     const userLogged = Cookies.get('USGImage_user')
     const userParse = JSON.parse(userLogged)
@@ -20,9 +29,18 @@ function EditProfile() {
       try {
         const response = await api.get(`/usuario/${userParse.id}`);
         const usuario = response.data
+        console.log(response.data)
         setUserNome(usuario.name)
         setUserEmail(usuario.email)
-        setUserID(usuario.id)
+        setUserSenha(usuario.senha)
+        setUserConfirmSenha(usuario.confirmSenha)
+        setUserTelefone(usuario.telefone)
+        setUserCep(usuario.cep)
+        setUserRua(usuario.rua)
+        setUserNumero(usuario.numero)
+        setUserCidade(usuario.cidade)
+        setUserBairro(usuario.bairro)
+        setUserEstado(usuario.estado)
       } catch (error) {
         console.error("Erro ao obter usuários:", error);
       }
@@ -123,8 +141,8 @@ function EditProfile() {
                 <Input
                   type="password"
                   placeholder="Digite sua senha"
-                  value={userToUpdate.senha}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, senha: e.target.value })}
+                  defaultValue={userSenha}
+                  onChange={(e) => setUserSenha(e.target.value)}
                 />
               </FormControl>
               <FormControl isRequired w={['100%', '70%']} pr={'2%'}>
@@ -135,8 +153,8 @@ function EditProfile() {
                 <Input
                   type="password"
                   placeholder="Digite sua senha"
-                  value={userToUpdate.confirmSenha}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, confirmSenha: e.target.value })}
+                  defaultValue={userConfirmSenha}
+                  onChange={(e) => setUserConfirmSenha(e.target.value)}
                 />
               </FormControl>
             </Flex>
@@ -147,8 +165,8 @@ function EditProfile() {
                 type="text"
                 placeholder="(99)99999-9999"
                 maxLength={14}
-                value={userToUpdate.telefone}
-                onChange={(e) => setUserToUpdate({ ...userToUpdate, telefone: e.target.value })}
+                defaultValue={userTelefone}
+                onChange={(e) => setUserTelefone(e.target.value)}
               />
             </FormControl>
 
@@ -160,16 +178,16 @@ function EditProfile() {
                   type='text'
                   placeholder="00000-000"
                   maxLength={9}
-                  value={userToUpdate.cep}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, cep: e.target.value })}
+                  defaultValue={userCep}
+                  onChange={(e) => setUserCep(e.target.value)}
                 />
               </FormControl>
               <FormControl isRequired>
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Rua</FormLabel>
                 <Input
                   placeholder="Digite sua rua"
-                  value={userToUpdate.rua}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, rua: e.target.value })}
+                  defaultValue={userRua}
+                  onChange={(e) => setUserRua(e.target.value)}
                 />
               </FormControl>
             </Flex>
@@ -181,16 +199,16 @@ function EditProfile() {
                   type='text'
                   placeholder="0000"
                   maxLength={9}
-                  value={userToUpdate.numero}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, numero: e.target.value })}
+                  defaultValue={userNumero}
+                  onChange={(e) => setUserNumero(e.target.value)}
                 />
               </FormControl>
               <FormControl isRequired>
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Cidade</FormLabel>
                 <Input
                   placeholder="São Paulo-SP"
-                  value={userToUpdate.cidade}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, cidade: e.target.value })}
+                  defaultValue={userCidade}
+                  onChange={(e) => setUserCidade(e.target.value)}
                 />
               </FormControl>
             </Flex>
@@ -200,8 +218,8 @@ function EditProfile() {
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Bairro</FormLabel>
                 <Input
                   placeholder="Digite seu bairro"
-                  value={userToUpdate.bairro}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, bairro: e.target.value })}
+                  defaultValue={userBairro}
+                  onChange={(e) => setUserBairro(e.target.value)}
                 />
               </FormControl>
 
@@ -209,8 +227,8 @@ function EditProfile() {
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Estado</FormLabel>
                 <Input
                   placeholder="São Paulo"
-                  value={userToUpdate.estado}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, estado: e.target.value })}
+                  defaultValue={userEstado}
+                  onChange={(e) => setUserEstado(e.target.value)}
                 />
               </FormControl>
             </Flex>
@@ -222,7 +240,7 @@ function EditProfile() {
                 textColor={'white'}
                 fontFamily={'Sora, sans-serif'}
                 w={'40%'}
-                onClick={Editar}
+                onClick={Edita}
               >
                 Salvar
               </Button>

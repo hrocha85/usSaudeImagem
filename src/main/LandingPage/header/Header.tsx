@@ -116,7 +116,7 @@ function Header() {
               bg="transparent"
               _hover={{ background: 'transparent', color: '#1C49B0', }}
             >
-              Planos</Button>
+              Plano Grátis</Button>
           </ScrollLink>
 
           <ChakraProvider>
