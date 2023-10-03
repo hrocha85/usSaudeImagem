@@ -29,10 +29,20 @@ function About() {
   const [isOpen, setIsOpen] = useState(false);
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
+  const [telefone, setTelefone] = useState('');
   const [mensagem, setMensagem] = useState('');
 
   const openModal = () => {
     setIsOpen(true);
+  };
+
+  const formatPhoneNumber = (value) => {
+    const cleanedValue = value.replace(/\D/g, '');
+    const match = cleanedValue.match(/^(\d{2})(\d{5})(\d{4})$/);
+    if (match) {
+      return `(${match[1]}) ${match[2]}-${match[3]}`;
+    }
+    return cleanedValue;
   };
 
   const closeModal = () => {
@@ -47,6 +57,7 @@ function About() {
     const subject = 'Contato USG'
     const html = `<p>Nome: ${nome}\n 
     Email: ${email}\n
+    Telefone: ${telefone}\n
     \n${mensagem}<p>`
     const dest = { Email, html, subject }
     console.log(Email)
@@ -261,6 +272,13 @@ function About() {
           <ModalBody>
             <Input type="text" placeholder="Nome" mb={2} onChange={(e) => setNome(e.target.value)} />
             <Input type="email" placeholder="Email" mb={2} onChange={(e) => setEmail(e.target.value)} />
+            <Input
+              type="text" placeholder="Telefone"
+              mb={2}
+              value={telefone}
+              onChange={(e) => setTelefone(formatPhoneNumber(e.target.value))}
+              maxLength={14}
+            />
             <Textarea
               placeholder="Digite sua mensagem..."
               size="lg"

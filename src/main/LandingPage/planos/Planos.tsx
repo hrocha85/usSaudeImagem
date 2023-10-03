@@ -72,7 +72,7 @@ function Planos() {
                                 textColor={'#000'}
                                 alignSelf={'stretch'}
                             >
-                                Limite de 3 médicos
+                                Limite de 2 médicos
                             </Text>
                         </HStack>
                         <HStack mb={4}>
@@ -89,7 +89,7 @@ function Planos() {
                                 textColor={'#000'}
                                 alignSelf={'stretch'}
                             >
-                                Limite de 1 clinica
+                                Limite de 2 clinica
                             </Text>
                         </HStack>
                         <HStack mb={4}>
@@ -160,23 +160,6 @@ function Planos() {
                                 Download dos laudos
                             </Text>
                         </HStack>
-                        <HStack mb={4}>
-                            <Image
-                                src={checkfree}
-                            />
-                            <Text
-                                fontSize={"16px"}
-                                fontFamily={'Inter, sans-serif'}
-                                fontStyle={'normal'}
-                                fontWeight={'600'}
-                                textAlign={'center'}
-                                lineHeight={'40px'}
-                                textColor={'#000'}
-                                alignSelf={'stretch'}
-                            >
-                                Limite de 3 médicos
-                            </Text>
-                        </HStack>
 
                             <Link href={`#/Cadastro`}>
                                 <Button
@@ -193,7 +176,7 @@ function Planos() {
 
                                     my={3}
                                 >
-                                    Escolher
+                                    Acessar
 
                                 </Button>
                             </Link>

@@ -5,20 +5,45 @@ import { Footer } from '../LandingPage/footer/Footer';
 import { Header } from '../LandingPage/header/Header';
 import fundo1 from '../images/landing/Rectangle2.png'
 import Cookies from 'js-cookie'
+import axios from 'axios';
 
 function EditProfile() {
   const [userData, setUserData] = useState({});
   const toast = useToast();
 
-  const [usuarios, setUsuarios] = useState<any[]>([]);
+  const [userID, setUserID] = useState();
+  const [userNome, setUserNome] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userTelefone, setUserTelefone] = useState('');
+  const [userCep, setUserCep] = useState('');
+  const [userRua, setUserRua] = useState('');
+  const [userNumero, setUserNumero] = useState('');
+  const [userCidade, setUserCidade] = useState('');
+  const [userBairro, setUserBairro] = useState('');
+  const [userEstado, setUserEstado] = useState('');
   useEffect(() => {
     const userLogged = Cookies.get('USGImage_user')
     const userParse = JSON.parse(userLogged)
+    setUserID(userParse.id)
     const getUsers = async () => {
       try {
         const response = await api.get(`/usuario/${userParse.id}`);
-        setUsuarios(response.data);
-        console.log(response.data)
+        const usuario = response.data
+        console.log(usuario)
+        const endereco = usuario.address
+        const enderecoSplit = endereco.split(',')
+        const cep = enderecoSplit[3].trim()
+        const ruaBairro = enderecoSplit[1].split('- ')
+        const cidadeEstado = enderecoSplit[2].split('- ')
+        setUserNome(usuario.name)
+        setUserCep(cep)
+        setUserEmail(usuario.email)
+        setUserTelefone(usuario.telefone)
+        setUserRua(enderecoSplit[0])
+        setUserNumero(ruaBairro[0])
+        setUserCidade(enderecoSplit[2])
+        setUserBairro(ruaBairro[1])
+        setUserEstado(cidadeEstado[1])
       } catch (error) {
         console.error("Erro ao obter usuários:", error);
       }
@@ -27,50 +52,74 @@ function EditProfile() {
     getUsers();
   }, []);
 
-  const [userToUpdate, setUserToUpdate] = useState({
-    id: 1,
-    nome: 'Nome Atual',
-    email: 'emailatual@example.com',
-    senha: 'emailatual@example.com',
-    confirmSenha: 'emailatual@example.com',
-    telefone: 'emailatual@example.com',
-    cep: 'emailatual@example.com',
-    rua: 'emailatual@example.com',
-    numero: 'emailatual@example.com',
-    cidade: 'emailatual@example.com',
-    bairro: 'emailatual@example.com',
-    estado: 'emailatual@example.com',
-  });
-
-  useEffect(() => {
-    async function updateUser() {
-      try {
-        const response = await api.put(`usuario/${userToUpdate.id}`, userToUpdate);
-        if (response.status === 200) {
-          toast({
-            duration: 3000,
-            title: 'Usuário atualizado com sucesso!',
-            status: 'success',
-            position: 'top',
-            isClosable: true,
-          });
-        }
-      } catch (error) {
-        console.error('Erro ao atualizar o usuário', error);
+  
+  
+  const Edita = async () => {
+    const endereco = `${userRua}, ${userNumero}- ${userBairro}, ${userCidade}- ${userEstado}, ${userCep}`
+    const obj = {
+      name: userNome,
+      email: userEmail,
+      telefone: userTelefone,
+      adress: endereco
+    }
+    try {
+      console.log(userID)
+      const response = await api.put(`usuarioUpdate/${userID}`, obj);
+      if (response.status === 200) {
         toast({
           duration: 3000,
-          title: 'Erro ao atualizar o usuário',
-          status: 'error',
+          title: 'Usuário atualizado com sucesso!',
+          status: 'success',
           position: 'top',
           isClosable: true,
         });
       }
+    } catch (error) {
+      console.error('Erro ao atualizar o usuário', error);
+      toast({
+        duration: 3000,
+        title: 'Erro ao atualizar o usuário',
+        status: 'error',
+        position: 'top',
+        isClosable: true,
+      });
     }
+  }
+  
+  const formatPhoneNumber = (value) => {
+    const cleanedValue = value.replace(/\D/g, '');
+    const match = cleanedValue.match(/^(\d{2})(\d{5})(\d{4})$/);
+    if (match) {
+      return `(${match[1]}) ${match[2]}-${match[3]}`;
+    }
+    return cleanedValue;
+  };
 
-    if (userToUpdate.id) {
-      updateUser();
+  const consultarCEP = async (CEP) => {
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${CEP}/json/`);
+      const data = response.data;
+
+      if (!data.erro) {
+        setUserRua(data.logradouro);
+        setUserCidade(data.localidade);
+        setUserEstado(data.uf);
+        setUserBairro(data.bairro);
+      } else {
+        console.log('  CEP inválido ou não encontrado');
+      }
+    } catch (error) {
+      console.error('Erro ao consultar o   CEP', error);
     }
-  }, [toast]);
+  };
+
+  const formatCEP = (value) => {
+    const cleanedValue = value.replace(/\D/g, '');
+    if (cleanedValue.length == 8) {
+      return `${cleanedValue.substring(0, 5)}-${cleanedValue.substring(5, 8)}`;
+    }
+    return cleanedValue;
+  };
 
   return (
 
@@ -109,8 +158,8 @@ function EditProfile() {
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Nome</FormLabel>
                 <Input
                   placeholder="Digite seu nome"
-                  value={userToUpdate.nome}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, nome: e.target.value })}
+                  defaultValue={userNome}
+                  onChange={(e) => setUserNome(e.target.value)}
                 />
               </FormControl>
 
@@ -119,39 +168,12 @@ function EditProfile() {
                 <Input
                   type="email"
                   placeholder="Digite seu email"
-                  value={userToUpdate.email}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, email: e.target.value })}
+                  defaultValue={userEmail}
+                  onChange={(e) => setUserEmail(e.target.value)}
                 />
               </FormControl>
             </Flex>
 
-            <Flex flexDir={['column', 'row']}>
-              <FormControl isRequired w={['100%', '70%']} pr={'2%'}>
-                <FormLabel fontFamily={'Outfit, sans-serif'}
-                  fontWeight={'800'} fontSize={'18px'} display={'flex'}
-                >Senha
-                  <Text opacity={0.6} pl={2} display={['none', 'block']}> (Conter no mínimo 8 caracteres)</Text>
-                </FormLabel>
-                <Input
-                  type="password"
-                  placeholder="Digite sua senha"
-                  value={userToUpdate.senha}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, senha: e.target.value })}
-                />
-              </FormControl>
-              <FormControl isRequired w={['100%', '70%']} pr={'2%'}>
-                <FormLabel fontFamily={'Outfit, sans-serif'}
-                  fontWeight={'800'} fontSize={'18px'} display={'flex'}
-                >Confirme sua senha
-                </FormLabel>
-                <Input
-                  type="password"
-                  placeholder="Digite sua senha"
-                  value={userToUpdate.confirmSenha}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, confirmSenha: e.target.value })}
-                />
-              </FormControl>
-            </Flex>
 
             <FormControl isRequired w={['100%', '30%']} >
               <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Telefone</FormLabel>
@@ -159,8 +181,8 @@ function EditProfile() {
                 type="text"
                 placeholder="(99)99999-9999"
                 maxLength={14}
-                value={userToUpdate.telefone}
-                onChange={(e) => setUserToUpdate({ ...userToUpdate, telefone: e.target.value })}
+                value={userTelefone}
+                onChange={(e) => setUserTelefone(formatPhoneNumber(e.target.value))}
               />
             </FormControl>
 
@@ -171,17 +193,18 @@ function EditProfile() {
                 <Input
                   type='text'
                   placeholder="00000-000"
+                  defaultValue={userCep}
+                  onChange={(e) => setUserCep(formatCEP(e.target.value))}
+                  onBlur={(e) => consultarCEP(e.target.value)}
                   maxLength={9}
-                  value={userToUpdate.cep}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, cep: e.target.value })}
                 />
               </FormControl>
               <FormControl isRequired>
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Rua</FormLabel>
                 <Input
                   placeholder="Digite sua rua"
-                  value={userToUpdate.rua}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, rua: e.target.value })}
+                  defaultValue={userRua}
+                  onChange={(e) => setUserRua(e.target.value)}
                 />
               </FormControl>
             </Flex>
@@ -193,16 +216,16 @@ function EditProfile() {
                   type='text'
                   placeholder="0000"
                   maxLength={9}
-                  value={userToUpdate.numero}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, numero: e.target.value })}
+                  defaultValue={userNumero}
+                  onChange={(e) => setUserNumero(e.target.value)}
                 />
               </FormControl>
               <FormControl isRequired>
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Cidade</FormLabel>
                 <Input
                   placeholder="São Paulo-SP"
-                  value={userToUpdate.cidade}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, cidade: e.target.value })}
+                  defaultValue={userCidade}
+                  onChange={(e) => setUserCidade(e.target.value)}
                 />
               </FormControl>
             </Flex>
@@ -212,8 +235,8 @@ function EditProfile() {
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Bairro</FormLabel>
                 <Input
                   placeholder="Digite seu bairro"
-                  value={userToUpdate.bairro}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, bairro: e.target.value })}
+                  defaultValue={userBairro}
+                  onChange={(e) => setUserBairro(e.target.value)}
                 />
               </FormControl>
 
@@ -221,8 +244,8 @@ function EditProfile() {
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Estado</FormLabel>
                 <Input
                   placeholder="São Paulo"
-                  value={userToUpdate.estado}
-                  onChange={(e) => setUserToUpdate({ ...userToUpdate, estado: e.target.value })}
+                  defaultValue={userEstado}
+                  onChange={(e) => setUserEstado(e.target.value)}
                 />
               </FormControl>
             </Flex>
@@ -234,6 +257,7 @@ function EditProfile() {
                 textColor={'white'}
                 fontFamily={'Sora, sans-serif'}
                 w={'40%'}
+                onClick={Edita}
               >
                 Salvar
               </Button>

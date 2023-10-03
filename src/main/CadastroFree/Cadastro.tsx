@@ -369,16 +369,33 @@ function CadastroUsuario() {
               </Checkbox>
             </FormControl>
 
-            <Button
-              bg={'#1C49B0'}
-              textColor={'white'}
-              fontFamily={'Sora, sans-serif'}
-              isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
-              onClick={handleCadastro}
-              mx={'20%'}
+
+            <Link
+              w={'100%'}
+              display={'flex'}
+              justifyContent={'center'}
+              textDecoration={'none'}
+              href='/#/Login'
+              _hover={{
+                textDecoration: 'none'
+              }} 
             >
-              Cadastrar
-            </Button>
+              <Button
+                bg={'#1C49B0'}
+                textColor={'white'}
+                fontFamily={'Sora, sans-serif'}
+                isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
+                onClick={handleCadastro}
+                w={'80%'}
+                _hover={{
+                  background: '#1C49B0',
+                  color: '#FFF',
+                  textDecoration: 'none'
+                }}            
+                >
+                Cadastrar
+              </Button>
+            </Link>
 
           </VStack>
         </Box>
