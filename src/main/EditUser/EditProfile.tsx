@@ -54,10 +54,10 @@ function EditProfile() {
     getUsers();
   }, []);
 
+
   const openModal = () => {
     setIsModalOpen(true);
   };
-
 
   const Edita = async () => {
     const endereco = `${userRua}, ${userNumero}- ${userBairro}, ${userCidade}- ${userEstado}, ${userCep}`
@@ -70,7 +70,7 @@ function EditProfile() {
     try {
       console.log(userID)
       const response = await api.put(`usuarioUpdate/${userID}`, obj);
-      if (response.status === 200) {
+      if (response.status === 201) {
         toast({
           duration: 3000,
           title: 'Usuário atualizado com sucesso!',
@@ -289,7 +289,7 @@ function EditProfile() {
                   fontFamily={'Sora, sans-serif'}
                   w={'100%'}
                 >
-                  Cancelar
+                  voltar
                 </Button>
               </Link>
 
