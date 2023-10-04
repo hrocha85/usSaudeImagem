@@ -362,7 +362,7 @@ function CadastroUsuario() {
               >
                 <FormLabel w={'100%'} >
                   Li e aceito os
-                  <Link pl={'2%'} color="blue.500" href="/pagina-do-contrato" isExternal>
+                  <Link pl={'2%'} color="blue.500" href="https://drive.google.com/file/d/1vBw3Y52Pq0bfadCiTHw0EJt2bu7J88gz/view?usp=sharing" isExternal target='_blank'>
                     termos de uso
                   </Link>
                 </FormLabel>

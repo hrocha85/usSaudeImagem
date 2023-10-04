@@ -6,10 +6,12 @@ import { Header } from '../LandingPage/header/Header';
 import fundo1 from '../images/landing/Rectangle2.png'
 import Cookies from 'js-cookie'
 import axios from 'axios';
+import PasswordReset from './PasswordReset';
 
 function EditProfile() {
   const [userData, setUserData] = useState({});
   const toast = useToast();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [userID, setUserID] = useState();
   const [userNome, setUserNome] = useState('');
@@ -52,15 +54,18 @@ function EditProfile() {
     getUsers();
   }, []);
 
-  
-  
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+
   const Edita = async () => {
     const endereco = `${userRua}, ${userNumero}- ${userBairro}, ${userCidade}- ${userEstado}, ${userCep}`
     const obj = {
       name: userNome,
       email: userEmail,
       telefone: userTelefone,
-      adress: endereco
+      address: endereco
     }
     try {
       console.log(userID)
@@ -85,7 +90,7 @@ function EditProfile() {
       });
     }
   }
-  
+
   const formatPhoneNumber = (value) => {
     const cleanedValue = value.replace(/\D/g, '');
     const match = cleanedValue.match(/^(\d{2})(\d{5})(\d{4})$/);
@@ -174,17 +179,32 @@ function EditProfile() {
               </FormControl>
             </Flex>
 
+            <Flex flexDir={['column', 'row']} justifyContent={'space-between'}>
+              <FormControl isRequired w={['100%', '30%']}>
+                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Telefone</FormLabel>
+                <Input
+                  type="text"
+                  placeholder="(99)99999-9999"
+                  maxLength={14}
+                  value={userTelefone}
+                  onChange={(e) => setUserTelefone(formatPhoneNumber(e.target.value))}
+                />
+              </FormControl>
 
-            <FormControl isRequired w={['100%', '30%']} >
-              <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Telefone</FormLabel>
-              <Input
-                type="text"
-                placeholder="(99)99999-9999"
-                maxLength={14}
-                value={userTelefone}
-                onChange={(e) => setUserTelefone(formatPhoneNumber(e.target.value))}
-              />
-            </FormControl>
+              <Link w={'50%'} pt={'3.8%'} >
+                <Button
+                  bg={'#fff'}
+                  textColor={'black'}
+                  fontFamily={'Sora, sans-serif'}
+                  w={'100%'}
+                  border={'1px solid #aaa'}
+                  onClick={openModal}
+                >
+                  alterar Senha
+                </Button>
+                <PasswordReset isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+              </Link>
+            </Flex>
 
             <Flex flexDir={['column', 'row']}>
 
