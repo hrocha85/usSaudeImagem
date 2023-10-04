@@ -36,13 +36,16 @@ export default function LoginForm() {
 
 
         if (response.data.token) {
+          console.log("no if")
           Cookies.remove('USGImage_token')
           setAuthToken(response.data.token)
           Cookies.set('USGImage_token', JSON.stringify(response.data.token));
+        } else {
+          console.log("fora if")
+          const token = Cookies.get('USGImage_token');
+          setAuthToken(JSON.parse(token))
         }
         Cookies.set('USGImage_user', JSON.stringify(response.data.user));
-        const token = Cookies.get('USGImage_token');
-        setAuthToken(JSON.parse(token))
         const roleResponse = await api.get(`usuario/${response.data.user.id}`);
 
         Cookies.set('USGImage_role', JSON.stringify(roleResponse.data.roles[0].name));
