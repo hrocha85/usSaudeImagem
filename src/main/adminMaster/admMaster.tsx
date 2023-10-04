@@ -1,9 +1,9 @@
 import { Box, Button, Center, Table, TableCaption, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import api from "../../api";
+import api, { setAuthToken } from "../../api";
 import { IoIosEye } from "react-icons/io";
 import ModalAdminMaster from "./modalAdminMaster";
-
+import Cookies from 'js-cookie';
 function AdmMaster() {
     const [usuarios, setUsuarios] = useState<any[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,6 +16,8 @@ function AdmMaster() {
     };
     useEffect(() => {
         const getUsers = async () => {
+            const token = Cookies.get("USGImage_token")
+            setAuthToken(JSON.parse(token))
             try {
                 const response = await api.get('/usuario');
                 setUsuarios(response.data);

@@ -2,7 +2,7 @@ import { Box, Button, Checkbox, FormControl, FormLabel, HStack, Heading, Input, 
 import { useContext, useState } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import api from "../../../src/api";
+import api, { setAuthToken } from "../../../src/api";
 import Cookies from 'js-cookie';
 import { IoEye, IoEyeOff, IoArrowForward } from "react-icons/io5";
 import marca from "../images/Marca.png";
@@ -15,8 +15,6 @@ type data = {
 
 export default function LoginForm() {
   const toast = useToast();
-  const { setIsAdmin } = useContext(AuthContext);
-
   const [Email, setEmail] = useState('');
   const [Senha, setSenha] = useState('');
   const [show, setShow] = useState(false);
@@ -32,10 +30,22 @@ export default function LoginForm() {
       };
 
       const response = await api.post("login", user);
-
+      console.log(response);
       if (response.status === 200) {
         const { name } = response.data.user;
 
+
+        if (response.data.token) {
+          Cookies.remove('USGImage_token')
+          setAuthToken(response.data.token)
+          Cookies.set('USGImage_token', JSON.stringify(response.data.token));
+        }
+        Cookies.set('USGImage_user', JSON.stringify(response.data.user));
+        const token = Cookies.get('USGImage_token');
+        setAuthToken(JSON.parse(token))
+        const roleResponse = await api.get(`usuario/${response.data.user.id}`);
+
+        Cookies.set('USGImage_role', JSON.stringify(roleResponse.data.roles[0].name));
         setTimeout(() => {
           toast({
             duration: 3000,
@@ -44,16 +54,6 @@ export default function LoginForm() {
             isClosable: true,
           });
         }, 500);
-
-        Cookies.set('USGImage_token', JSON.stringify(response.data.token));
-        Cookies.set('USGImage_user', JSON.stringify(response.data.user));
-
-        const roleResponse = await api.get(`usuario/${response.data.user.id}`);
-        console.log(roleResponse)
-        const isAdmin = roleResponse.data.roles[0].name === 'admin';
-
-        Cookies.set('USGImage_role', JSON.stringify(roleResponse.data.roles[0].name));
-        setIsAdmin(isAdmin);
         usenavigate("/Splash");
       } else {
         setTimeout(() => {

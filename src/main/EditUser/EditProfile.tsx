@@ -52,19 +52,20 @@ function EditProfile() {
     getUsers();
   }, []);
 
-  
-  
+
+
   const Edita = async () => {
     const endereco = `${userRua}, ${userNumero}- ${userBairro}, ${userCidade}- ${userEstado}, ${userCep}`
     const obj = {
       name: userNome,
       email: userEmail,
       telefone: userTelefone,
-      adress: endereco
+      address: endereco
     }
     try {
       console.log(userID)
       const response = await api.put(`usuarioUpdate/${userID}`, obj);
+      console.log(response)
       if (response.status === 200) {
         toast({
           duration: 3000,
@@ -85,7 +86,7 @@ function EditProfile() {
       });
     }
   }
-  
+
   const formatPhoneNumber = (value) => {
     const cleanedValue = value.replace(/\D/g, '');
     const match = cleanedValue.match(/^(\d{2})(\d{5})(\d{4})$/);
