@@ -52,20 +52,20 @@ function EditProfile() {
     getUsers();
   }, []);
 
-  
-  
+
+
   const Edita = async () => {
     const endereco = `${userRua}, ${userNumero}- ${userBairro}, ${userCidade}- ${userEstado}, ${userCep}`
     const obj = {
       name: userNome,
       email: userEmail,
       telefone: userTelefone,
-      adress: endereco
+      address: endereco
     }
     try {
       console.log(userID)
       const response = await api.put(`usuarioUpdate/${userID}`, obj);
-      if (response.status === 200) {
+      if (response.status === 201) {
         toast({
           duration: 3000,
           title: 'Usuário atualizado com sucesso!',
@@ -85,7 +85,7 @@ function EditProfile() {
       });
     }
   }
-  
+
   const formatPhoneNumber = (value) => {
     const cleanedValue = value.replace(/\D/g, '');
     const match = cleanedValue.match(/^(\d{2})(\d{5})(\d{4})$/);
@@ -269,7 +269,7 @@ function EditProfile() {
                   fontFamily={'Sora, sans-serif'}
                   w={'100%'}
                 >
-                  Cancelar
+                  voltar
                 </Button>
               </Link>
 
