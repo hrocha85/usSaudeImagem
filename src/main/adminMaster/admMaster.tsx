@@ -15,10 +15,10 @@ import {
     Spinner, // Importe o componente Spinner do Chakra UI
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import api from "../../api";
+import api, { setAuthToken } from "../../api";
 import { IoIosEye } from "react-icons/io";
 import ModalAdminMaster from "./modalAdminMaster";
-
+import Cookies from 'js-cookie';
 function AdmMaster() {
     const [usuarios, setUsuarios] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true); // Estado para controlar o carregamento
@@ -27,6 +27,8 @@ function AdmMaster() {
 
     useEffect(() => {
         const getUsers = async () => {
+            const token = Cookies.get("USGImage_token")
+            setAuthToken(JSON.parse(token))
             try {
                 const response = await api.get("/usuario");
                 setUsuarios(response.data);
