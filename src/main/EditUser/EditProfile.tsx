@@ -55,9 +55,11 @@ function EditProfile() {
   }, []);
 
 
+
   const openModal = () => {
     setIsModalOpen(true);
   };
+
 
   const Edita = async () => {
     const endereco = `${userRua}, ${userNumero}- ${userBairro}, ${userCidade}- ${userEstado}, ${userCep}`
@@ -70,6 +72,7 @@ function EditProfile() {
     try {
       console.log(userID)
       const response = await api.put(`usuarioUpdate/${userID}`, obj);
+
       if (response.status === 201) {
         toast({
           duration: 3000,

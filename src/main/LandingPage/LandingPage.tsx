@@ -12,7 +12,7 @@ import { useEffect } from "react";
 
 function LandingPage() {
   useEffect(() => {
-    Cookies.remove('USGImage_token')
+    // Cookies.remove('USGImage_token')
     Cookies.remove('USGImage_user')
     Cookies.remove('USGImage_role')
     localStorage.removeItem('user')
