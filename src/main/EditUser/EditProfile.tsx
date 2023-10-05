@@ -306,15 +306,17 @@ function EditProfile() {
 
               <Flex gap={'5%'} justifyContent={'space-around'} pt={'5%'}>
 
-                <Button
-                  bg={'#1C49B0'}
-                  textColor={'white'}
-                  fontFamily={'Sora, sans-serif'}
-                  w={'40%'}
-                  onClick={Edita}
-                >
-                  Salvar
-                </Button>
+              <Link href='#/Home/Configuracoes' w={'40%'}>
+                  <Button
+                    bg={'#1C49B0'}
+                    textColor={'white'}
+                    fontFamily={'Sora, sans-serif'}
+                    w={'100%'}
+                    onClick={Edita}
+                  >
+                    Salvar
+                  </Button>
+                </Link>
 
                 <Link href='#/Home/Configuracoes' w={'40%'}>
                   <Button
