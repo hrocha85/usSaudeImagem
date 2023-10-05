@@ -14,6 +14,7 @@ import {
   RadioGroup,
   Select,
   Text,
+  Tooltip,
   VStack,
   useToast
 } from '@chakra-ui/react';
@@ -369,33 +370,65 @@ function CadastroUsuario() {
               </Checkbox>
             </FormControl>
 
-
-            <Link
-              w={'100%'}
-              display={'flex'}
-              justifyContent={'center'}
-              textDecoration={'none'}
-              href='/#/Login'
-              _hover={{
-                textDecoration: 'none'
-              }} 
-            >
-              <Button
-                bg={'#1C49B0'}
-                textColor={'white'}
-                fontFamily={'Sora, sans-serif'}
-                isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
-                onClick={handleCadastro}
-                w={'80%'}
+            {!isDisabledCadastro ?
+              <Link
+                w={'100%'}
+                display={'flex'}
+                justifyContent={'center'}
+                textDecoration={'none'}
+                href='/#/Login'
                 _hover={{
-                  background: '#1C49B0',
-                  color: '#FFF',
                   textDecoration: 'none'
-                }}            
+                }}
+              >
+                <Button
+                  bg={'#1C49B0'}
+                  textColor={'white'}
+                  fontFamily={'Sora, sans-serif'}
+                  //  isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
+                  onClick={handleCadastro}
+                  w={'80%'}
+                  _hover={{
+                    background: '#1C49B0',
+                    color: '#FFF',
+                    textDecoration: 'none'
+                  }}
                 >
-                Cadastrar
-              </Button>
-            </Link>
+                  Cadastrar
+                </Button>
+              </Link>
+              :
+              <Tooltip hasArrow fontSize={'15px'} label='Preencha todos os campos para cadastrar.' bg='gray.300' color='black'>
+
+                <Link
+                  w={'100%'}
+                  display={'flex'}
+                  justifyContent={'center'}
+                  textDecoration={'none'}
+                  href='/#/Login'
+                  _hover={{
+                    textDecoration: 'none'
+                  }}
+                >
+                  <Button
+                    bg={'#1C49B0'}
+                    textColor={'white'}
+                    fontFamily={'Sora, sans-serif'}
+                    isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
+                    onClick={handleCadastro}
+                    w={'80%'}
+                    _hover={{
+                      background: '#1C49B0',
+                      color: '#FFF',
+                      textDecoration: 'none'
+                    }}
+                  >
+                    Cadastrar
+                  </Button>
+                </Link>
+              </Tooltip>
+            }
+
 
           </VStack>
         </Box>

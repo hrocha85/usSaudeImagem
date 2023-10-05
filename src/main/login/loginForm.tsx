@@ -19,6 +19,7 @@ export default function LoginForm() {
   const [Senha, setSenha] = useState('');
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Estado de carregamento
+  const [isUser, setIsUser] = useState(true); // Estado de carregamento
   const usenavigate = useNavigate();
 
   const login = async () => {
@@ -34,14 +35,12 @@ export default function LoginForm() {
       if (response.status === 200) {
         const { name } = response.data.user;
 
-
+        console.log(response)
         if (response.data.token) {
-          console.log("no if")
           Cookies.remove('USGImage_token')
           setAuthToken(response.data.token)
           Cookies.set('USGImage_token', JSON.stringify(response.data.token));
         } else {
-          console.log("fora if")
           const token = Cookies.get('USGImage_token');
           setAuthToken(JSON.parse(token))
         }
@@ -59,6 +58,7 @@ export default function LoginForm() {
         }, 500);
         usenavigate("/Splash");
       } else {
+        setIsUser(false)
         setTimeout(() => {
           toast({
             duration: 3000,
@@ -70,7 +70,7 @@ export default function LoginForm() {
       }
     } catch (error) {
       console.log('Erro:', error);
-
+      setIsUser(false)
       setTimeout(() => {
         toast({
           duration: 3000,
@@ -107,7 +107,14 @@ export default function LoginForm() {
             w="12rem"
             h="3rem"
           />
-          <Text textAlign={'center'} fontWeight={600} fontSize={20} pt={5} textColor={'rgba(56, 100, 100, 2)'}>Para acessar o seu painel faça o login com usuário e senha</Text>
+          {isUser ?
+            <Text textAlign={'center'} fontWeight={600} fontSize={20} pt={5} textColor={'rgba(56, 100, 100, 2)'}>Para acessar o seu painel faça o login com usuário e senha</Text>
+            :
+            <>
+              <Text textAlign={'center'} fontWeight={600} fontSize={20} pt={5} textColor={'rgba(56, 100, 100, 2)'}>Para acessar o seu painel faça o login com usuário e senha</Text>
+              <Text textAlign={'center'} fontWeight={600} fontSize={15} pt={2} textColor={'rgb(171, 0, 0)'}>Usuário ou senha incorretos. Tente novamente ou <Link variant={'rgb(130, 0, 0)'} textDecoration={'underline '} href="/#/Cadastro">crie uma conta</Link></Text>
+            </>
+          }
         </VStack>
         <FormControl pos={'relative'}>
           <FormLabel
