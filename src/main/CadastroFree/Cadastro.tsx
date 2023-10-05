@@ -362,23 +362,40 @@ function CadastroUsuario() {
               >
                 <FormLabel w={'100%'} >
                   Li e aceito os
-                  <Link pl={'2%'} color="blue.500" href="/pagina-do-contrato" isExternal>
+                  <Link pl={'2%'} color="blue.500" href="https://drive.google.com/file/d/1vBw3Y52Pq0bfadCiTHw0EJt2bu7J88gz/view?usp=sharing" isExternal target='_blank'>
                     termos de uso
                   </Link>
                 </FormLabel>
               </Checkbox>
             </FormControl>
 
-            <Button
-              bg={'#1C49B0'}
-              textColor={'white'}
-              fontFamily={'Sora, sans-serif'}
-              isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
-              onClick={handleCadastro}
-              mx={'20%'}
+
+            <Link
+              w={'100%'}
+              display={'flex'}
+              justifyContent={'center'}
+              textDecoration={'none'}
+              href='/#/Login'
+              _hover={{
+                textDecoration: 'none'
+              }} 
             >
-              Cadastrar
-            </Button>
+              <Button
+                bg={'#1C49B0'}
+                textColor={'white'}
+                fontFamily={'Sora, sans-serif'}
+                isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
+                onClick={handleCadastro}
+                w={'80%'}
+                _hover={{
+                  background: '#1C49B0',
+                  color: '#FFF',
+                  textDecoration: 'none'
+                }}            
+                >
+                Cadastrar
+              </Button>
+            </Link>
 
           </VStack>
         </Box>
