@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Checkbox, Container, Flex, FormControl, FormLabel, Heading, Input, Text, Link, Radio, RadioGroup, Stack, VStack, useToast } from '@chakra-ui/react';
+import { Box, Button, Checkbox, Container, Flex, FormControl, Image, FormLabel, Heading, Input, Text, Link, Radio, RadioGroup, Stack, VStack, useToast } from '@chakra-ui/react';
 import api from '../../api';
 import { Footer } from '../LandingPage/footer/Footer';
 import { Header } from '../LandingPage/header/Header';
@@ -7,6 +7,9 @@ import fundo1 from '../images/landing/Rectangle2.png'
 import Cookies from 'js-cookie'
 import axios from 'axios';
 import PasswordReset from './PasswordReset';
+import { Spinner } from "@chakra-ui/react";
+import marca from "../images/Marca.png";
+import { motion } from "framer-motion";
 
 function EditProfile() {
   const [userData, setUserData] = useState({});
@@ -23,6 +26,8 @@ function EditProfile() {
   const [userCidade, setUserCidade] = useState('');
   const [userBairro, setUserBairro] = useState('');
   const [userEstado, setUserEstado] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSpinnerVisible, setIsSpinnerVisible] = useState(true);
   useEffect(() => {
     const userLogged = Cookies.get('USGImage_user')
     const userParse = JSON.parse(userLogged)
@@ -52,6 +57,13 @@ function EditProfile() {
     };
 
     getUsers();
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsSpinnerVisible(false);
+    }, 3000);
   }, []);
 
 
@@ -132,178 +144,208 @@ function EditProfile() {
   return (
 
     <Box>
-      <Container maxW="container.lg" centerContent>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isLoading ? 1 : 0 }}
+        transition={{ duration: 1 }}
+        style={{ display: isSpinnerVisible ? 'block' : 'none' }}
+      >
+        <Box display={'flex'} alignItems={'center'} flexDir={'column'} pt={'15%'}>
+          <Box w={'60%'}>
+            <Image src={marca} />
+          </Box>
+          <Spinner size="xl" color="blue.500" />
+        </Box>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isLoading ? 0 : 1 }}
+        transition={{ duration: 1 }}
+        style={{ display: isSpinnerVisible ? 'none' : 'block' }}
+      >
+        <Container maxW="container.lg" centerContent>
 
-        <Box p={6} shadow="md" borderRadius="md" w="100%" maxW="auto">
-          <VStack spacing={4} align="stretch">
-            <Heading as="h1" size="lg" textAlign="center">
-              <Box
-                backgroundImage={fundo1}
-                backgroundSize="cover"
-                backgroundPosition="center"
-                backgroundRepeat="no-repeat"
-                pt={'5%'}
-              >
-                <Box textAlign={'center'} py={'3%'}>
-                  <Text
-                    fontSize={"46px"}
-                    fontFamily={'Rubik, sans-serif'}
-                    fontStyle={'normal'}
-                    fontWeight={'700'}
-                    lineHeight={'normal'}
-                    textColor={'#fff'}
-                    alignSelf={'stretch'}
-                    textAlign={'center'}
-                  >
-                    Editar Perfil
-                  </Text>
-                </Box>
-              </Box>
-            </Heading>
-
-            <Flex flexDir={['column', 'row']}>
-              <FormControl isRequired w={['100%', '50%']} pr={'2%'}>
-                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Nome</FormLabel>
-                <Input
-                  placeholder="Digite seu nome"
-                  defaultValue={userNome}
-                  onChange={(e) => setUserNome(e.target.value)}
-                />
-              </FormControl>
-
-              <FormControl isRequired w={['100%', '50%']}>
-                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Email</FormLabel>
-                <Input
-                  type="email"
-                  placeholder="Digite seu email"
-                  defaultValue={userEmail}
-                  onChange={(e) => setUserEmail(e.target.value)}
-                />
-              </FormControl>
-            </Flex>
-
-            <Flex flexDir={['column', 'row']} justifyContent={'space-between'}>
-              <FormControl isRequired w={['100%', '30%']}>
-                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Telefone</FormLabel>
-                <Input
-                  type="text"
-                  placeholder="(99)99999-9999"
-                  maxLength={14}
-                  value={userTelefone}
-                  onChange={(e) => setUserTelefone(formatPhoneNumber(e.target.value))}
-                />
-              </FormControl>
-
-              <Link w={'50%'} pt={'3.8%'} >
-                <Button
-                  bg={'#fff'}
-                  textColor={'black'}
-                  fontFamily={'Sora, sans-serif'}
-                  w={'100%'}
-                  border={'1px solid #aaa'}
-                  onClick={openModal}
+          <Box p={6} shadow="md" borderRadius="md" w="100%" maxW="auto">
+            <VStack spacing={4} align="stretch">
+              <Heading as="h1" size="lg" textAlign="center">
+                <Box
+                  backgroundImage={fundo1}
+                  backgroundSize="cover"
+                  backgroundPosition="center"
+                  backgroundRepeat="no-repeat"
+                  pt={'5%'}
                 >
-                  alterar Senha
-                </Button>
-                <PasswordReset isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-              </Link>
-            </Flex>
+                  <Box textAlign={'center'} py={'3%'}>
+                    <Text
+                      fontSize={"46px"}
+                      fontFamily={'Rubik, sans-serif'}
+                      fontStyle={'normal'}
+                      fontWeight={'700'}
+                      lineHeight={'normal'}
+                      textColor={'#fff'}
+                      alignSelf={'stretch'}
+                      textAlign={'center'}
+                    >
+                      Editar Perfil
+                    </Text>
+                  </Box>
+                </Box>
+              </Heading>
 
-            <Flex flexDir={['column', 'row']}>
+              <Flex flexDir={['column', 'row']}>
+                <FormControl isRequired w={['100%', '50%']} pr={'2%'}>
+                  <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Nome</FormLabel>
+                  <Input
+                    placeholder="Digite seu nome"
+                    defaultValue={userNome}
+                    onChange={(e) => setUserNome(e.target.value)}
+                  />
+                </FormControl>
 
-              <FormControl isRequired pr={'2%'} w={['100%', '30%']}>
-                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>  CEP</FormLabel>
-                <Input
-                  type='text'
-                  placeholder="00000-000"
-                  defaultValue={userCep}
-                  onChange={(e) => setUserCep(formatCEP(e.target.value))}
-                  onBlur={(e) => consultarCEP(e.target.value)}
-                  maxLength={9}
-                />
-              </FormControl>
-              <FormControl isRequired>
-                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Rua</FormLabel>
-                <Input
-                  placeholder="Digite sua rua"
-                  defaultValue={userRua}
-                  onChange={(e) => setUserRua(e.target.value)}
-                />
-              </FormControl>
-            </Flex>
+                <FormControl isRequired w={['100%', '50%']}>
+                  <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Email</FormLabel>
+                  <Input
+                    type="email"
+                    placeholder="Digite seu email"
+                    defaultValue={userEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
+                  />
+                </FormControl>
+              </Flex>
 
-            <Flex flexDir={['column', 'row']}>
-              <FormControl isRequired pr={'2%'} w={['100%', '30%']}>
-                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Número</FormLabel>
-                <Input
-                  type='text'
-                  placeholder="0000"
-                  maxLength={9}
-                  defaultValue={userNumero}
-                  onChange={(e) => setUserNumero(e.target.value)}
-                />
-              </FormControl>
-              <FormControl isRequired>
-                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Cidade</FormLabel>
-                <Input
-                  placeholder="São Paulo-SP"
-                  defaultValue={userCidade}
-                  onChange={(e) => setUserCidade(e.target.value)}
-                />
-              </FormControl>
-            </Flex>
+              <Flex flexDir={['column', 'row']} justifyContent={'space-between'}>
+                <FormControl isRequired w={['100%', '30%']}>
+                  <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Telefone</FormLabel>
+                  <Input
+                    type="text"
+                    placeholder="(99)99999-9999"
+                    maxLength={14}
+                    value={userTelefone}
+                    onChange={(e) => setUserTelefone(formatPhoneNumber(e.target.value))}
+                  />
+                </FormControl>
 
-            <Flex flexDir={['column', 'row']}>
-              <FormControl isRequired pr={'2%'}>
-                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Bairro</FormLabel>
-                <Input
-                  placeholder="Digite seu bairro"
-                  defaultValue={userBairro}
-                  onChange={(e) => setUserBairro(e.target.value)}
-                />
-              </FormControl>
+                <Link w={'50%'} pt={'3.8%'} >
+                  <Button
+                    bg={'#fff'}
+                    textColor={'black'}
+                    fontFamily={'Sora, sans-serif'}
+                    w={'100%'}
+                    border={'1px solid #aaa'}
+                    onClick={openModal}
+                  >
+                    alterar Senha
+                  </Button>
+                  <PasswordReset isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+                </Link>
+              </Flex>
 
-              <FormControl isRequired w={['100%', '30%']}>
-                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Estado</FormLabel>
-                <Input
-                  placeholder="São Paulo"
-                  defaultValue={userEstado}
-                  onChange={(e) => setUserEstado(e.target.value)}
-                />
-              </FormControl>
-            </Flex>
+              <Flex flexDir={['column', 'row']}>
 
-            <Flex gap={'5%'} justifyContent={'space-around'} pt={'5%'}>
+                <FormControl isRequired pr={'2%'} w={['100%', '30%']}>
+                  <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>  CEP</FormLabel>
+                  <Input
+                    type='text'
+                    placeholder="00000-000"
+                    defaultValue={userCep}
+                    onChange={(e) => setUserCep(formatCEP(e.target.value))}
+                    onBlur={(e) => consultarCEP(e.target.value)}
+                    maxLength={9}
+                  />
+                </FormControl>
+                <FormControl isRequired>
+                  <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Rua</FormLabel>
+                  <Input
+                    placeholder="Digite sua rua"
+                    defaultValue={userRua}
+                    onChange={(e) => setUserRua(e.target.value)}
+                  />
+                </FormControl>
+              </Flex>
 
-              <Button
-                bg={'#1C49B0'}
-                textColor={'white'}
-                fontFamily={'Sora, sans-serif'}
-                w={'40%'}
-                onClick={Edita}
-              >
-                Salvar
-              </Button>
+              <Flex flexDir={['column', 'row']}>
+                <FormControl isRequired pr={'2%'} w={['100%', '30%']}>
+                  <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Número</FormLabel>
+                  <Input
+                    type='text'
+                    placeholder="0000"
+                    maxLength={9}
+                    defaultValue={userNumero}
+                    onChange={(e) => setUserNumero(e.target.value)}
+                  />
+                </FormControl>
+                <FormControl isRequired>
+                  <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Cidade</FormLabel>
+                  <Input
+                    placeholder="São Paulo-SP"
+                    defaultValue={userCidade}
+                    onChange={(e) => setUserCidade(e.target.value)}
+                  />
+                </FormControl>
+              </Flex>
+
+              <Flex flexDir={['column', 'row']}>
+                <FormControl isRequired pr={'2%'}>
+                  <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Bairro</FormLabel>
+                  <Input
+                    placeholder="Digite seu bairro"
+                    defaultValue={userBairro}
+                    onChange={(e) => setUserBairro(e.target.value)}
+                  />
+                </FormControl>
+
+                <FormControl isRequired w={['100%', '30%']}>
+                  <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Estado</FormLabel>
+                  <Input
+                    placeholder="São Paulo"
+                    defaultValue={userEstado}
+                    onChange={(e) => setUserEstado(e.target.value)}
+                  />
+                </FormControl>
+              </Flex>
+
+              <Flex gap={'5%'} justifyContent={'space-around'} pt={'5%'}>
 
               <Link href='#/Home/Configuracoes' w={'40%'}>
-                <Button
-                  bg={'#1C49B0'}
-                  textColor={'white'}
-                  fontFamily={'Sora, sans-serif'}
-                  w={'100%'}
-                >
-                  voltar
-                </Button>
-              </Link>
+                  <Button
+                    bg={'#1C49B0'}
+                    textColor={'white'}
+                    fontFamily={'Sora, sans-serif'}
+                    w={'100%'}
+                    onClick={Edita}
+                  >
+                    Salvar
+                  </Button>
+                </Link>
 
-            </Flex>
+                <Link href='#/Home/Configuracoes' w={'40%'}>
+                  <Button
+                    bg={'#1C49B0'}
+                    textColor={'white'}
+                    fontFamily={'Sora, sans-serif'}
+                    w={'100%'}
+                  >
+                    voltar
+                  </Button>
+                </Link>
 
-          </VStack>
-        </Box>
-      </Container>
-      <Footer />
+              </Flex>
+
+            </VStack>
+          </Box>
+        </Container>
+        <Footer />
+      </motion.div>
     </Box>
   );
 }
 
 export default EditProfile;
+function setIsLoading(arg0: boolean) {
+  throw new Error('Function not implemented.');
+}
+
+function setIsSpinnerVisible(arg0: boolean) {
+  throw new Error('Function not implemented.');
+}
+
