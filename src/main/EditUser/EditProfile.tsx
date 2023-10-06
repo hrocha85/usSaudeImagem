@@ -10,11 +10,13 @@ import PasswordReset from './PasswordReset';
 import { Spinner } from "@chakra-ui/react";
 import marca from "../images/Marca.png";
 import { motion } from "framer-motion";
+import UserDelete from './UserDelete';
 
 function EditProfile() {
   const [userData, setUserData] = useState({});
   const toast = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenExc, setIsModalOpenExc] = useState(false);
 
   const [userID, setUserID] = useState();
   const [userNome, setUserNome] = useState('');
@@ -42,6 +44,7 @@ function EditProfile() {
         const cep = enderecoSplit[3].trim()
         const ruaBairro = enderecoSplit[1].split('- ')
         const cidadeEstado = enderecoSplit[2].split('- ')
+        console.log(cidadeEstado)
         setUserNome(usuario.name)
         setUserCep(cep)
         setUserEmail(usuario.email)
@@ -50,7 +53,7 @@ function EditProfile() {
         setUserNumero(ruaBairro[0])
         setUserCidade(enderecoSplit[2])
         setUserBairro(ruaBairro[1])
-        setUserEstado(cidadeEstado[1])
+        setUserEstado(cidadeEstado[0])
       } catch (error) {
         console.error("Erro ao obter usuários:", error);
       }
@@ -70,6 +73,9 @@ function EditProfile() {
 
   const openModal = () => {
     setIsModalOpen(true);
+  };
+  const openModal1 = () => {
+    setIsModalOpenExc(true);
   };
 
 
@@ -236,7 +242,7 @@ function EditProfile() {
                   >
                     alterar Senha
                   </Button>
-                  <PasswordReset isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+                  <PasswordReset isOpen={isModalOpenExc} onClose={() => setIsModalOpenExc(false)} />
                 </Link>
               </Flex>
 
@@ -302,11 +308,25 @@ function EditProfile() {
                     onChange={(e) => setUserEstado(e.target.value)}
                   />
                 </FormControl>
+
+                <Link w={'50%'} pt={'3.8%'} pl={'2%'}>
+                  <Button
+                    bg={'#fff'}
+                    textColor={'black'}
+                    fontFamily={'Sora, sans-serif'}
+                    w={'100%'}
+                    border={'1px solid #aaa'}
+                    onClick={openModal}
+                  >
+                    Excluir Conta
+                  </Button>
+                  <UserDelete isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+                </Link>
               </Flex>
 
               <Flex gap={'5%'} justifyContent={'space-around'} pt={'5%'}>
 
-              <Link href='#/Home/Configuracoes' w={'40%'}>
+                <Link href='#/Home/Configuracoes' w={'40%'}>
                   <Button
                     bg={'#1C49B0'}
                     textColor={'white'}
