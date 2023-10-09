@@ -58,7 +58,6 @@ import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
 import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
 const Medicos = ({ medico, id }) => {
   const medicos: any[] = [];
-
   medicos.push(medico);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -136,7 +135,7 @@ const Medicos = ({ medico, id }) => {
     }
     if (!isAdmin) {
       setListaClinicas(GetClinicaFree())
-      setClinicaMedico([JSON.parse(medico.clinicas)])
+      setClinicaMedico(medico.clinicas)
     } else {
       getClinicaAdmin()
         .then(clinicas => {
@@ -207,61 +206,72 @@ const Medicos = ({ medico, id }) => {
   const UpdateLocalStorage = (nomeUpdate, CRMupdate, clinicaUpdate) => {
     if (nomeUpdate != null) {
       const array = JSON.parse(localStorage.getItem("medicos")!);
-      const item = array[id];
-      lista_medicos[id].nome = nomeUpdate;
-
-      item.nome = nomeUpdate;
+      const item = array.filter((obj) => obj.id === medico.id);
+      const itemPosicao = array.indexOf(item[0])
+      lista_medicos[0].nome = nomeUpdate;
+      item[0].nome = nomeUpdate;
+      array.splice(itemPosicao, 1, item[0])
       localStorage.setItem("medicos", JSON.stringify(array));
       setNomeMedico(nomeUpdate);
       setUpdateNome(null);
     }
     if (CRMupdate != null) {
       const array = JSON.parse(localStorage.getItem("medicos")!);
-      const item = array[id];
-      lista_medicos[id].CRMUF = CRMupdate;
-
-      item.crm = CRMupdate;
+      const item = array.filter((obj) => obj.id === medico.id);
+      const itemPosicao = array.indexOf(item[0])
+      lista_medicos[0].CRMUF = CRMupdate;
+      item[0].CRMUF = CRMupdate;
+      array.splice(itemPosicao, 1, item[0])
       localStorage.setItem("medicos", JSON.stringify(array));
+
       setCRM(CRMupdate);
       setUpdateCRM(null);
     }
     if (clinicaUpdate != null) {
       const array = JSON.parse(localStorage.getItem("medicos")!);
-      const item = array[id];
-      lista_medicos[id].clinicas = ClinicasMedico;
-
-      item.clinica = ClinicasMedico;
+      const item = array.filter((obj) => obj.id === medico.id);
+      const itemPosicao = array.indexOf(item[0])
+      lista_medicos[0].clinicas = clinicaUpdate;
+      item[0].clinicas.push(clinicaUpdate);
+      array.splice(itemPosicao, 1, item[0])
       localStorage.setItem("medicos", JSON.stringify(array));
+
       setClinica(updateClinica);
       setUpdateClinica(null);
     }
     if (AssinaturaUpdate) {
       const array = JSON.parse(localStorage.getItem("medicos")!);
-      const item = array[id];
-      lista_medicos[id].assinatura = padRef.current
+      const item = array.filter((obj) => obj.id === medico.id);
+      const itemPosicao = array.indexOf(item[0])
+      lista_medicos[0].assinatura = padRef.current
         ?.getTrimmedCanvas()
         .toDataURL("image/png")!;
 
-      item.assinatura = padRef.current
+      item[0].assinatura = padRef.current
         ?.getTrimmedCanvas()
         .toDataURL("image/png")!;
+      array.splice(itemPosicao, 1, item[0])
       localStorage.setItem("medicos", JSON.stringify(array));
       setAssinatura(padRef.current?.getTrimmedCanvas().toDataURL("image/png")!);
       setAssinaturaUpdate(false);
     }
     if (FotoUpdate) {
       const array = JSON.parse(localStorage.getItem("medicos")!);
-      const item = array[id];
-      lista_medicos[id].foto = defaultUserImage;
-      item.foto = defaultUserImage;
+      const item = array.filter((obj) => obj.id === medico.id);
+      const itemPosicao = array.indexOf(item[0])
+      lista_medicos[0].foto = defaultUserImage;
+      item[0].foto = defaultUserImage;
+      array.splice(itemPosicao, 1, item[0])
       localStorage.setItem("medicos", JSON.stringify(array));
       setFotoUpdate(false);
     }
     if (pngAssinaturaCheck) {
       const array = JSON.parse(localStorage.getItem("medicos")!);
-      const item = array[id];
-      lista_medicos[id].assinatura = pngAssinatura!;
-      item.assinatura = pngAssinatura!;
+      const item = array.filter((obj) => obj.id === medico.id);
+      const itemPosicao = array.indexOf(item[0])
+      lista_medicos[0].assinatura = pngAssinatura!;
+      item[0].assinatura = pngAssinatura!;
+      array.splice(itemPosicao, 1, item[0])
       localStorage.setItem("medicos", JSON.stringify(array));
       setpngAssinaturaCheck(false);
       setpngAssinatura(null);
@@ -301,7 +311,10 @@ const Medicos = ({ medico, id }) => {
     }
     if (!isAdmin) {
       const array = JSON.parse(localStorage.getItem("medicos")!);
+      console.log(array)
+      console.log(id)
       array.splice(id, 1);
+      console.log(array)
 
       localStorage.setItem("medicos", JSON.stringify(array));
       window.location.reload();
@@ -389,9 +402,8 @@ const Medicos = ({ medico, id }) => {
     return (
       <div style={{ textAlign: 'center', borderRadius: '50rem' }}>
         {ClinicasMedico.map((clinica, key) => {
-
-          // const parseClinica = JSON.parse(clinica);
-          const parseClinica = (clinica);
+          const parseClinica = JSON.parse(clinica);
+          // const parseClinica = (clinica);
           return (
             <FieldDefaultIcon
               key={key}
@@ -729,7 +741,43 @@ const Medicos = ({ medico, id }) => {
                     onClick={openFiles}
                   />
                 </Center>
-                <TAGS />
+                <Center margin="25px">
+                  <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
+                    {ClinicasMedico.map((clinica, key) => {
+                      // console.log('clinca', clinica)
+                      const parseClinica = JSON.parse(clinica);
+                      return (
+                        <Tooltip
+                          key={key}
+                          label={clinica.nome}
+                          size="md"
+                          backgroundColor="white"
+                          placement="top"
+                          hasArrow
+                          arrowSize={15}
+                          textColor="black"
+                        >
+                          <Tag
+                            key={key}
+                            size="md"
+                            borderRadius="full"
+                            variant="solid"
+                            colorScheme="twitter"
+                          >
+                            <TagLabel key={key}>{parseClinica.nome}</TagLabel>
+                            <TagCloseButton
+                              onClick={() => {
+                                ClinicasMedico.splice(key, 1);
+                                setUpdateTAGS(true);
+                                RemoveTAG();
+                              }}
+                            />
+                          </Tag>
+                        </Tooltip>
+                      );
+                    })}
+                  </Flex>
+                </Center>
                 {listaClinicas ? (
                   <Center>
                     <HStack margin="10px">
@@ -750,7 +798,7 @@ const Medicos = ({ medico, id }) => {
                           setUpdateClinica(e.target.value);
                           setClinicaMedico((prevClinicas) => [
                             ...prevClinicas,
-                            JSON.parse(e.target.value),
+                            e.target.value,
                           ]);
                         }}
                       >
@@ -933,9 +981,10 @@ const Medicos = ({ medico, id }) => {
               marginStart="23px"
               marginBottom="10px"
               onClick={() => {
+                console.log('medico', medico)
                 UpdateMedico(updateNome, updateCRM, updateClinica);
-                ResetStates();
-                onClose();
+                // ResetStates();
+                // onClose();
               }}
             >
               Salvar

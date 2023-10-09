@@ -35,7 +35,6 @@ export default function LoginForm() {
       if (response.status === 200) {
         const { name } = response.data.user;
 
-        console.log(response)
         if (response.data.token) {
           Cookies.remove('USGImage_token')
           setAuthToken(response.data.token)
