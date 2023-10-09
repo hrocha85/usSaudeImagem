@@ -13,6 +13,7 @@ import {
   Radio,
   RadioGroup,
   Select,
+  Spinner,
   Text,
   Tooltip,
   VStack,
@@ -57,9 +58,11 @@ function CadastroUsuario() {
   const [isDisabledCadastro, setIsDisabledCadastro] = useState(true);
   const [senhaValida, setSenhaValida] = useState(false);
   const [emailValido, setEmailValido] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCadastro = async () => {
     try {
+      setIsLoading(true);
       const ip = await axios.get('https://ipapi.co/json')
 
       const endereco = `${rua}, ${Numero}- ${Bairro}, ${cidade}- ${estado}, ${CEP}`
@@ -79,6 +82,7 @@ function CadastroUsuario() {
 
       await api.post('usuario', userData).then((response) => {
         if (response.status === 201) {
+          setIsLoading(false);
           setTimeout(() => {
             toast({
               duration: 3000,
@@ -90,6 +94,7 @@ function CadastroUsuario() {
           usenavigate('/Login')
         } else if (response.status === 200) {
           setTimeout(() => {
+            setIsLoading(false);
             toast({
               duration: 3000,
               title: `Email já cadastrado!`,
@@ -99,10 +104,15 @@ function CadastroUsuario() {
           }, 500);
         }
       }).catch((e) => {
+        setIsLoading(false);
         console.log('erro aqui', e)
       })
     } catch (error) {
+      setIsLoading(false);
       console.log('erro error', error)
+    }
+    finally {
+      setIsLoading(false);
     }
   };
 
@@ -165,12 +175,12 @@ function CadastroUsuario() {
 
   useEffect(() => {
     if (nome && senha && email && telefone && rua && cidade
-      && CEP && estado && clinicaOuMedico && Numero) {
+      && CEP && estado && clinicaOuMedico && Numero && aceitouTermo) {
       setIsDisabledCadastro(false);
     } else {
       setIsDisabledCadastro(true);
     }
-  }, [nome, senha, email, telefone, rua, cidade, CEP, estado, clinicaOuMedico, Numero]);
+  }, [nome, senha, email, telefone, rua, cidade, CEP, estado, clinicaOuMedico, Numero, aceitouTermo]);
 
   return (
     <Box>
@@ -369,67 +379,51 @@ function CadastroUsuario() {
                 </FormLabel>
               </Checkbox>
             </FormControl>
+            {isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido || isLoading ?
+              <Tooltip textAlign={'center'} hasArrow fontSize={'16px'} label='Preencha todos os campos corretamente para cadastrar.' bg='gray.300' color='black'>
 
-            {!isDisabledCadastro ?
-              <Link
-                w={'100%'}
-                display={'flex'}
-                justifyContent={'center'}
-                textDecoration={'none'}
-                href='/#/Login'
-                _hover={{
-                  textDecoration: 'none'
-                }}
-              >
                 <Button
                   bg={'#1C49B0'}
                   textColor={'white'}
                   fontFamily={'Sora, sans-serif'}
-                  //  isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
+                  isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido || isLoading}
                   onClick={handleCadastro}
-                  w={'80%'}
+                  w={'100%'}
                   _hover={{
                     background: '#1C49B0',
                     color: '#FFF',
                     textDecoration: 'none'
                   }}
                 >
+                  <Spinner size='sm' color='white' style={{ marginRight: '10px' }} />
+
                   Cadastrar
+
                 </Button>
-              </Link>
-              :
-              <Tooltip hasArrow fontSize={'15px'} label='Preencha todos os campos para cadastrar.' bg='gray.300' color='black'>
-
-                <Link
-                  w={'100%'}
-                  display={'flex'}
-                  justifyContent={'center'}
-                  textDecoration={'none'}
-                  href='/#/Login'
-                  _hover={{
-                    textDecoration: 'none'
-                  }}
-                >
-                  <Button
-                    bg={'#1C49B0'}
-                    textColor={'white'}
-                    fontFamily={'Sora, sans-serif'}
-                    isDisabled={isDisabledCadastro || !aceitouTermo || !senhaValida || !emailValido}
-                    onClick={handleCadastro}
-                    w={'80%'}
-                    _hover={{
-                      background: '#1C49B0',
-                      color: '#FFF',
-                      textDecoration: 'none'
-                    }}
-                  >
-                    Cadastrar
-                  </Button>
-                </Link>
               </Tooltip>
+              :
+              <Button
+                bg={'#1C49B0'}
+                textColor={'white'}
+                fontFamily={'Sora, sans-serif'}
+                onClick={handleCadastro}
+                w={'100%'}
+                _hover={{
+                  background: '#1C49B0',
+                  color: '#FFF',
+                  textDecoration: 'none'
+                }}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <Spinner size='sm' color='white' style={{ marginRight: '10px' }} />
+                ) : (
+                  <>
+                    Cadastrar
+                  </>
+                )}
+              </Button>
             }
-
-
           </VStack>
         </Box>
       </Container>
