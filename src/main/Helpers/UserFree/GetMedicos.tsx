@@ -8,9 +8,9 @@ const GetMedicosFree = () => {
     if (localStorage.getItem("medicos") != null) {
         item = localStorage.getItem("medicos");
         item_parse = JSON.parse(item);
-        item_parse.map((clinica) => {
-            if (clinica.userID === userID) {
-                medicos.push(clinica)
+        item_parse.map((medico) => {
+            if (medico.userID === userID) {
+                medicos.push(medico)
             }
         })
     }

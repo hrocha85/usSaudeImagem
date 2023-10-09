@@ -130,7 +130,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
   const [userLogged, setuserLogged] = useState(getUser());
 
   const PegaClinicas = () => {
-
+    setClinica([])
 
     let isAdmin;
     const roleString = Cookies.get('USGImage_role');
@@ -372,53 +372,12 @@ const IconButtonPlusMedicos = (props, clinica) => {
     if (!isAdmin && medicos.length >= 2) {
       setLimiteMedicos(true)
     }
-    console.log(medicos)
   }
 
   useEffect(() => {
     CheckClinicasGratuito()
   }, [])
 
-  const TAGS = () => {
-    return (
-      <Center margin="25px">
-        <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
-          {clinicas.map((clinica, key) => {
-            console.log('clinicas', clinica)
-            const clinicaParse = JSON.parse(clinica);
-            return (
-              <Tooltip
-                key={key}
-                label={clinicaParse.nome}
-                size="md"
-                backgroundColor="white"
-                placement="top"
-                hasArrow
-                arrowSize={15}
-                textColor="black"
-              >
-                <Tag
-                  key={key}
-                  size="md"
-                  borderRadius="full"
-                  variant="solid"
-                  colorScheme="twitter"
-                >
-                  <TagLabel key={key}>{clinicaParse.nome}</TagLabel>
-                  <TagCloseButton
-                    onClick={() => {
-                      clinicas.splice(key, 1);
-                      setUpdateTAGS(true);
-                    }}
-                  />
-                </Tag>
-              </Tooltip>
-            );
-          })}
-        </Flex>
-      </Center>
-    );
-  };
 
   const handleCRM = (event) => {
     const input = event.target;
@@ -556,7 +515,43 @@ const IconButtonPlusMedicos = (props, clinica) => {
                   onClick={openFiles}
                 />
               </Center>
-              <TAGS />
+              <Center margin="25px">
+                <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
+                  {clinicas.map((clinica, key) => {
+                    const clinicaParse = JSON.parse(clinica);
+                    return (
+                      <Tooltip
+                        key={key}
+                        label={clinicaParse.nome}
+                        size="md"
+                        backgroundColor="white"
+                        placement="top"
+                        hasArrow
+                        arrowSize={15}
+                        textColor="black"
+                      >
+                        <Tag
+                          key={key}
+                          size="md"
+                          borderRadius="full"
+                          variant="solid"
+                          colorScheme="twitter"
+                        >
+                          <TagLabel key={key}>{clinicaParse.nome}</TagLabel>
+                          <TagCloseButton
+                            onClick={(e) => {
+                              // removeItemTag(key)
+                              clinicas.splice(key, 1);
+                              setUpdateTAGS(true);
+                            }}
+                          />
+                        </Tag>
+                      </Tooltip>
+                    );
+                  })}
+                </Flex>
+              </Center>
+              {/* <TAGS /> */}
               <Center>
                 <HStack>
                   <Text marginEnd="5px" fontWeight="bold">
@@ -566,9 +561,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
                     variant="filled"
                     textAlign="center"
                     onChange={(e) => {
-                      console.log("eVALUE", e.target.value);
                       setClinica((prevClin) => [...prevClin, e.target.value]);
-                      TAGS();
                     }}
                   >
                     <option value="" disabled selected>
