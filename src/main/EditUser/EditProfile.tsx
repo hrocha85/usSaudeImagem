@@ -41,19 +41,20 @@ function EditProfile() {
         console.log(usuario)
         const endereco = usuario.address
         const enderecoSplit = endereco.split(',')
+        console.log(enderecoSplit)
         const cep = enderecoSplit[3].trim()
-        const ruaBairro = enderecoSplit[1].split('- ')
-        const cidadeEstado = enderecoSplit[2].split('- ')
+        const ruaBairro = enderecoSplit[1].trim().split('- ')
+        const cidadeEstado = enderecoSplit[2].trim().split('- ')
         console.log(cidadeEstado)
         setUserNome(usuario.name)
         setUserCep(cep)
         setUserEmail(usuario.email)
         setUserTelefone(usuario.telefone)
         setUserRua(enderecoSplit[0])
-        setUserNumero(ruaBairro[0])
-        setUserCidade(enderecoSplit[2])
+        setUserNumero(ruaBairro[0].trim())
+        setUserCidade(cidadeEstado[0])
         setUserBairro(ruaBairro[1])
-        setUserEstado(cidadeEstado[0])
+        setUserEstado(cidadeEstado[1])
       } catch (error) {
         console.error("Erro ao obter usuários:", error);
       }
@@ -238,7 +239,7 @@ function EditProfile() {
                     fontFamily={'Sora, sans-serif'}
                     w={'100%'}
                     border={'1px solid #aaa'}
-                    onClick={openModal}
+                    onClick={openModal1}
                   >
                     alterar Senha
                   </Button>

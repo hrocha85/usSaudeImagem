@@ -30,7 +30,6 @@ import {
   useMediaQuery,
   useToast
 } from "@chakra-ui/react";
-import emailjs from '@emailjs/browser';
 import {
   Document,
   Image as ImagePDF,
@@ -531,16 +530,12 @@ function Exames() {
   };
 
   const sharePdf = async (title, url) => {
-    console.log("url", url)
     if (navigator.share) {
       try {
-        const pdfUrl = URL.createObjectURL(url);
-        console.log(pdfUrl)
         await navigator.share({
           title: title,
-          url: pdfUrl,
+          url: url,
         });
-        URL.revokeObjectURL(pdfUrl);
       } catch (error) {
         console.error("Erro ao compartilhar:", error);
       }
@@ -556,10 +551,9 @@ function Exames() {
   };
 
   const handleShareButtonClick = () => {
-    // const file = new Blob([blob], { type: "application/pdf" });
-    // const fileURL = URL.createObjectURL(file);
-    const pdfUrl = `http://localhost:3000/eafec451-398a-4bc5-a1b5-d24c0c92958d`
-    sharePdf("Emaxes", pdfUrl);
+    const pdfUrl = setUrlLaudo
+    sharePdf("Emaxes" , pdfUrl);
+    console.log(pdfUrl)
   };
 
   const getFormatLaudo = () => {
