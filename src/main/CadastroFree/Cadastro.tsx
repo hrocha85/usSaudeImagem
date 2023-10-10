@@ -395,9 +395,13 @@ function CadastroUsuario() {
                     textDecoration: 'none'
                   }}
                 >
+                {isLoading ? (
                   <Spinner size='sm' color='white' style={{ marginRight: '10px' }} />
-
-                  Cadastrar
+                ) : (
+                  <>
+                    Cadastrar
+                  </>
+                )}
 
                 </Button>
               </Tooltip>
