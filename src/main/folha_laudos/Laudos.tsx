@@ -552,7 +552,7 @@ function Exames() {
 
   const handleShareButtonClick = () => {
     const pdfUrl = setUrlLaudo
-    sharePdf("Emaxes" , pdfUrl);
+    sharePdf("Emaxes", pdfUrl);
     console.log(pdfUrl)
   };
 
@@ -895,63 +895,103 @@ function Exames() {
     onOpen,
     onClose,
   } = useDisclosure();
-
+  const [userID, setUserID] = useState('')
+  const [userLaudos, setuserLaudos] = useState(0)
   useEffect(() => {
     if (localStorage.getItem("formPreenchido")) {
       setFormPreenchido(true)
     } else {
       setFormPreenchido(false)
     }
+
+    const CapturaIDelaudos = async () => {
+      const userString = Cookies.get('USGImage_user');
+      const userParse = JSON.parse(userString);
+      const response = await api.get(`usuarioLaudos/${userParse.id}`);
+      setUserID(userParse.id)
+      setuserLaudos(response.data)
+    }
+    CapturaIDelaudos()
   }, [])
 
-  const verificaForm = () => {
-    formPreenchido ? navigate('/home') : onOpen()
+
+  const verificaForm = async () => {
+
+    const valor = { timesLaudos: userLaudos + 1 };
+    if (formPreenchido) {
+
+      await api.put(`usuarioUpdate/${userID}`, valor);
+      navigate('/home')
+
+    } else {
+      onOpen()
+    }
   }
   const [opiniaoSoftware, setOpiniaoSoftware] = useState('');
   const [notaSoftware, setNotaSoftware] = useState('');
   const toast = useToast();
 
   const finalizaForm = async (e) => {
-    const Email = `contato@usgimagem.com.br`
-    const userString = Cookies.get('USGImage_user')
-    const userParse = JSON.parse(userString)
-    const email = userParse.email
-    const name = userParse.name
-    const html = `<p>Nome: ${name} \n
-    Email: ${email}\n
-    Avaliação:\n
-  Escolha a palavra que melhor identifica nosso Aplicativo: ${opiniaoSoftware}\n
-  De 1(ruim) a 5(excelente), qual seria a nota que você dá ao nosso Aplicativo?: ${notaSoftware}<p>`
-    const subject = 'Nova avaliação USG'
-    const dest = { Email, html, subject }
+    try {
+      const userString = Cookies.get('USGImage_user');
+      const userParse = JSON.parse(userString);
+      const email = userParse.email;
+      const name = userParse.name;
+      const Email = 'contato@usgimagem.com.br';
+      const html = `
+            <p>Nome: ${name}</p>
+            <p>Email: ${email}</p>
+            <p>Avaliação:</p>
+            <p>Escolha a palavra que melhor identifica nosso Aplicativo: ${opiniaoSoftware}</p>
+            <p>De 1 (ruim) a 5 (excelente), qual seria a nota que você dá ao nosso Aplicativo?: ${notaSoftware}</p>
+        `;
+      const subject = 'Nova avaliação USG';
+      const dest = { Email, html, subject };
 
-    const response = await api.post('sendEmailContato', dest)
-    if (response.status === 200) {
-      setOpiniaoSoftware('')
-      setNotaSoftware('')
+      const avaliacao = { bom_regular_ruim: opiniaoSoftware, nota1a5: notaSoftware, timesLaudos: userLaudos + 1 };
+      const response = await api.put(`usuarioUpdate/${userID}`, avaliacao);
 
-      localStorage.setItem("formPreenchido", 'preenchido')
-      setFormPreenchido(true)
-      onClose()
+      if (response.status === 201) {
+        const responseEmail = await api.post('sendEmailContato', dest);
+
+        if (responseEmail.status === 200) {
+          // Limpeza e configuração de sucesso
+          setOpiniaoSoftware('');
+          setNotaSoftware('');
+          localStorage.setItem('formPreenchido', 'preenchido');
+          setFormPreenchido(true);
+          onClose();
+
+          setTimeout(() => {
+            toast({
+              duration: 3000,
+              title: 'Obrigado por contribuir, sua avaliação é muito importante!',
+              position: 'top',
+              isClosable: true,
+            });
+          }, 500);
+          navigate('/home')
+        } else {
+          // Erro no envio do e-mail
+          throw new Error('Erro no envio de e-mail');
+        }
+      } else {
+        // Erro na atualização do usuário
+        throw new Error('Erro na atualização do usuário');
+      }
+    } catch (error) {
+      console.error(error);
+
       setTimeout(() => {
         toast({
           duration: 3000,
-          title: `Obrigado por contribuir, sua avaliação é muito importante!`,
-          position: "top",
-          isClosable: true,
-        });
-      }, 500);
-    } else {
-      setTimeout(() => {
-        toast({
-          duration: 3000,
-          title: `Ops, algo deu errado, avalie novamente!`,
-          position: "top",
+          title: 'Ops, algo deu errado, avalie novamente!',
+          position: 'top',
           isClosable: true,
         });
       }, 500);
     }
-  }
+  };
 
   const ModalForm = () => {
     return (
