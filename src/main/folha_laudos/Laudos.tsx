@@ -552,7 +552,7 @@ function Exames() {
 
   const handleShareButtonClick = () => {
     const pdfUrl = setUrlLaudo
-    sharePdf("Emaxes" , pdfUrl);
+    sharePdf("Emaxes", pdfUrl);
     console.log(pdfUrl)
   };
 
@@ -895,17 +895,37 @@ function Exames() {
     onOpen,
     onClose,
   } = useDisclosure();
-
+  const [userID, setUserID] = useState('')
+  const [userLaudos, setuserLaudos] = useState(0)
   useEffect(() => {
     if (localStorage.getItem("formPreenchido")) {
       setFormPreenchido(true)
     } else {
       setFormPreenchido(false)
     }
+
+    const CapturaIDelaudos = async () => {
+      const userString = Cookies.get('USGImage_user');
+      const userParse = JSON.parse(userString);
+      const response = await api.get(`usuarioLaudos/${userParse.id}`);
+      setUserID(userParse.id)
+      setuserLaudos(response.data)
+    }
+    CapturaIDelaudos()
   }, [])
 
-  const verificaForm = () => {
-    formPreenchido ? navigate('/home') : onOpen()
+
+  const verificaForm = async () => {
+
+    const valor = { timesLaudos: userLaudos + 1 };
+    if (formPreenchido) {
+
+      await api.put(`usuarioUpdate/${userID}`, valor);
+      navigate('/home')
+
+    } else {
+      onOpen()
+    }
   }
   const [opiniaoSoftware, setOpiniaoSoftware] = useState('');
   const [notaSoftware, setNotaSoftware] = useState('');
@@ -918,7 +938,6 @@ function Exames() {
       const email = userParse.email;
       const name = userParse.name;
       const Email = 'contato@usgimagem.com.br';
-
       const html = `
             <p>Nome: ${name}</p>
             <p>Email: ${email}</p>
@@ -927,11 +946,10 @@ function Exames() {
             <p>De 1 (ruim) a 5 (excelente), qual seria a nota que você dá ao nosso Aplicativo?: ${notaSoftware}</p>
         `;
       const subject = 'Nova avaliação USG';
-
       const dest = { Email, html, subject };
 
-      const avaliacao = { bom_regular_ruim: opiniaoSoftware, nota1a5: notaSoftware };
-      const response = await api.put(`usuarioUpdate/${userParse.id}`, avaliacao);
+      const avaliacao = { bom_regular_ruim: opiniaoSoftware, nota1a5: notaSoftware, timesLaudos: userLaudos + 1 };
+      const response = await api.put(`usuarioUpdate/${userID}`, avaliacao);
 
       if (response.status === 201) {
         const responseEmail = await api.post('sendEmailContato', dest);
@@ -952,6 +970,7 @@ function Exames() {
               isClosable: true,
             });
           }, 500);
+          navigate('/home')
         } else {
           // Erro no envio do e-mail
           throw new Error('Erro no envio de e-mail');
