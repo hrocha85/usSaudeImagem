@@ -2,23 +2,23 @@ import {
     Box,
     Button,
     Center,
+    HStack,
+    Spinner,
     Table,
-    TableCaption,
     TableContainer,
     Tbody,
     Td,
     Text,
-    Tfoot,
     Th,
     Thead,
     Tr,
-    Spinner, // Importe o componente Spinner do Chakra UI
+    Link
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import api, { setAuthToken } from "../../api";
-import { IoIosEye } from "react-icons/io";
-import ModalAdminMaster from "./modalAdminMaster";
 import Cookies from 'js-cookie';
+import { useEffect, useState } from "react";
+import { IoIosArrowBack, IoIosEye } from "react-icons/io";
+import api, { setAuthToken } from "../../api";
+import ModalAdminMaster from "./modalAdminMaster";
 function AdmMaster() {
     const [usuarios, setUsuarios] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true); // Estado para controlar o carregamento
@@ -27,19 +27,33 @@ function AdmMaster() {
 
     useEffect(() => {
         const getUsers = async () => {
-            const token = Cookies.get("USGImage_token")
-            setAuthToken(JSON.parse(token))
-            try {
-                const response = await api.get("/usuario");
-                setUsuarios(response.data);
-                setIsLoading(false); // Defina isLoading como falso após o carregamento
-            } catch (error) {
-                console.error("Erro ao obter usuários:", error);
-            }
+            const token = Cookies.get("USGImage_token");
+            setAuthToken(JSON.parse(token));
+            api.get("/usuario")
+                .then((response) => {
+                    setUsuarios(response.data);
+                    setIsLoading(false); // Defina isLoading como falso após o carregamento
+                })
+                .catch((error) => {
+                    console.error("Erro ao obter usuários:", error);
+                });
         };
 
         getUsers();
     }, []);
+
+    const updateTable = () => {
+        const token = Cookies.get("USGImage_token");
+        setAuthToken(JSON.parse(token));
+        api.get("/usuario")
+            .then((response) => {
+                setUsuarios(response.data);
+                setIsLoading(false); // Defina isLoading como falso após o carregamento
+            })
+            .catch((error) => {
+                console.error("Erro ao obter usuários:", error);
+            });
+    };
 
     function converterDataParaBrasileiro(dataISO: string) {
         const data = new Date(dataISO);
@@ -59,69 +73,71 @@ function AdmMaster() {
         }
 
         return (
-            <Table variant="striped" colorScheme="teal">
-                <Thead>
-                    <Tr>
-                        <Th p="5px" textAlign={"center"}>
-                            id
-                        </Th>
-                        <Th p="5px" textAlign={"center"}>
-                            Nome
-                        </Th>
-                        <Th p="5px" textAlign={"center"}>
-                            Email
-                        </Th>
-                        <Th p="5px" textAlign={"center"}>
-                            Criado em
-                        </Th>
-                        <Th p="5px" textAlign={"center"}>
-                            Qnt. Laudos
-                        </Th>
-                        <Th p="5px" textAlign={"center"}>
-                            Qnt. Login
-                        </Th>
-                        <Th p="5px" textAlign={"center"}>
-                            Tipo
-                        </Th>
-                        <Th p="5px" textAlign={"center"}>
-                            Ações
-                        </Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {usuarios.map((user) => (
-                        <Tr key={user.id}>
-                            <Td p="5px" textAlign={"center"}>
-                                {user.id}
-                            </Td>
-                            <Td p='5px' textAlign={'center'}>
-                                {user ? user.name : "N/A"}
-                            </Td>
-
-                            <Td p="5px" textAlign={"center"}>
-                                {user.email}
-                            </Td>
-                            <Td p="5px" textAlign={"center"}>
-                                {converterDataParaBrasileiro(user.created_at)}
-                            </Td>
-                            <Td p="5px" textAlign={"center"}>
-                                {user.timesLaudos}
-                            </Td>
-                            <Td p="5px" textAlign={"center"}>
-                                {user.timesLogin}
-                            </Td>
-                            <Td p="5px" textAlign={"center"}>
-                                {user.tipo}
-                            </Td>
-                            <Td p="5px" textAlign={"center"}>
-                                <Button onClick={() => toggleModal(user)}>
-                                    <IoIosEye />
-                                </Button>
-                            </Td>
+            <div style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+                <Table variant="striped" colorScheme="blue">
+                    <Thead>
+                        <Tr>
+                            <Th p="5px" textAlign={"center"}>
+                                id
+                            </Th>
+                            <Th p="5px" textAlign={"center"}>
+                                Nome
+                            </Th>
+                            <Th p="5px" textAlign={"center"}>
+                                Email
+                            </Th>
+                            <Th p="5px" textAlign={"center"}>
+                                Criado em
+                            </Th>
+                            <Th p="5px" textAlign={"center"}>
+                                Qnt. Laudos
+                            </Th>
+                            <Th p="5px" textAlign={"center"}>
+                                Qnt. Login
+                            </Th>
+                            <Th p="5px" textAlign={"center"}>
+                                Tipo
+                            </Th>
+                            <Th p="5px" textAlign={"center"}>
+                                Ações
+                            </Th>
                         </Tr>
-                    ))}
-                </Tbody>
-            </Table>
+                    </Thead>
+                    <Tbody>
+                        {usuarios.map((user) => (
+                            <Tr key={user.id}>
+                                <Td p="5px" textAlign={"center"}>
+                                    {user.id}
+                                </Td>
+                                <Td p='5px' textAlign={'center'}>
+                                    {user ? user.name : "N/A"}
+                                </Td>
+
+                                <Td p="5px" textAlign={"center"}>
+                                    {user.email}
+                                </Td>
+                                <Td p="5px" textAlign={"center"}>
+                                    {converterDataParaBrasileiro(user.created_at)}
+                                </Td>
+                                <Td p="5px" textAlign={"center"}>
+                                    {user.timesLaudos}
+                                </Td>
+                                <Td p="5px" textAlign={"center"}>
+                                    {user.timesLogin}
+                                </Td>
+                                <Td p="5px" textAlign={"center"}>
+                                    {user.tipo}
+                                </Td>
+                                <Td p="5px" textAlign={"center"}>
+                                    <Button onClick={() => toggleModal(user)}>
+                                        <IoIosEye />
+                                    </Button>
+                                </Td>
+                            </Tr>
+                        ))}
+                    </Tbody>
+                </Table>
+            </div>
         );
     };
 
@@ -144,6 +160,12 @@ function AdmMaster() {
                 paddingBottom="10px"
                 alignItems="center"
             >
+                <Link href="/#/SelectMedicos">
+                    <HStack p='10px'>
+                        <IoIosArrowBack /><Text fontWeight={'bold'} >Voltar</Text>
+                    </HStack>
+                </Link>
+
                 <Center>
                     <Box
                         position="absolute"
@@ -159,7 +181,7 @@ function AdmMaster() {
                     </Box>
                 </Center>
             </Box>
-            <ModalAdminMaster isOpen={isModalOpen} onClose={toggleModal} user={selectedUser} />
+            <ModalAdminMaster isOpen={isModalOpen} onClose={toggleModal} user={selectedUser} updateTable={updateTable} />
         </>
     );
 }
