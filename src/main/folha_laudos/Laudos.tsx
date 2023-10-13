@@ -1203,7 +1203,7 @@ function Exames() {
             <Button
               ml='3px'
               mr='3px'
-              isDisabled={true}
+              isDisabled={false}
               onClick={() => {
                 handleShareButtonClick()
               }}
