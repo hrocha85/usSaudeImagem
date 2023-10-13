@@ -1191,7 +1191,7 @@ function Exames() {
               </Button>
             </Tooltip>
           )}
-          <Tooltip
+          {/* <Tooltip
             label="Compartilhamento bloqueado para teste gratuito"
             fontSize="xl"
             backgroundColor="white"
@@ -1199,26 +1199,26 @@ function Exames() {
             hasArrow
             arrowSize={15}
             textColor="black"
+          > */}
+          <Button
+            ml='3px'
+            mr='3px'
+            isDisabled={false}
+            onClick={() => {
+              handleShareButtonClick()
+            }}
           >
-            <Button
-              ml='3px'
-              mr='3px'
-              isDisabled={true}
-              onClick={() => {
-                handleShareButtonClick()
-              }}
-            >
-              <Circle size="50px" bg="#e2e8f0">
-                <Icon
-                  w={30}
-                  h={30}
-                  as={AiOutlineShareAlt}
-                  color="twitter.600"
-                  size="30px"
-                />
-              </Circle>
-            </Button>
-          </Tooltip>
+            <Circle size="50px" bg="#e2e8f0">
+              <Icon
+                w={30}
+                h={30}
+                as={AiOutlineShareAlt}
+                color="twitter.600"
+                size="30px"
+              />
+            </Circle>
+          </Button>
+          {/* </Tooltip> */}
           <Tooltip
             label="Concluir laudo"
             fontSize="xl"
