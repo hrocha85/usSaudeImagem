@@ -534,7 +534,7 @@ function Exames() {
       try {
         await navigator.share({
           title: title,
-          url: '#/Format_PDF',
+          url: '#/Compartilha_PDF',
         });
       } catch (error) {
         console.error("Erro ao compartilhar:", error);
