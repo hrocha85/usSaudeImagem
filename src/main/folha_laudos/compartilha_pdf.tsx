@@ -12,103 +12,103 @@ import { useContext, useState } from "react";
 import { LaudosContext } from "../../context/LuadosContext";
 
 export default function Compartilha_PDF() {
-  const [titulo_exame, setTitulo_Exame] = useState("TÍTULO EXAME");
+  // const [titulo_exame, setTitulo_Exame] = useState("TÍTULO EXAME");
 
-  const getUserClinica = () => {
-    let clinica
-    if (localStorage.getItem("user") != null) {
-      clinica = JSON.parse(localStorage.getItem("user")!);
-    }
-    return JSON.stringify(clinica.clinica);
-  };
+  // const getUserClinica = () => {
+  //   let clinica
+  //   if (localStorage.getItem("user") != null) {
+  //     clinica = JSON.parse(localStorage.getItem("user")!);
+  //   }
+  //   return JSON.stringify(clinica.clinica);
+  // };
 
-  const getPaciente = () => {
-    if (localStorage.getItem("paciente") != null) {
-      return JSON.parse(localStorage.getItem("paciente")!).nome;
-    } else {
-      return "Nome paciente";
-    }
-  };
-  const getMedicoSolicitante = () => {
-    if (localStorage.getItem("paciente") != null) {
-      return JSON.parse(localStorage.getItem("paciente")!).medico_solicitante;
-    } else {
-      return "Médico Solicitante";
-    }
-  };
+  // const getPaciente = () => {
+  //   if (localStorage.getItem("paciente") != null) {
+  //     return JSON.parse(localStorage.getItem("paciente")!).nome;
+  //   } else {
+  //     return "Nome paciente";
+  //   }
+  // };
+  // const getMedicoSolicitante = () => {
+  //   if (localStorage.getItem("paciente") != null) {
+  //     return JSON.parse(localStorage.getItem("paciente")!).medico_solicitante;
+  //   } else {
+  //     return "Médico Solicitante";
+  //   }
+  // };
 
-  const getCurrentDate = () => {
-    const timeStamp = new Date();
+  // const getCurrentDate = () => {
+  //   const timeStamp = new Date();
 
-    return `${timeStamp.getDate()}/${timeStamp.getMonth() + 1
-      }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
-  };
+  //   return `${timeStamp.getDate()}/${timeStamp.getMonth() + 1
+  //     }/${timeStamp.getFullYear()}  ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}h`;
+  // };
 
-  const getUserMedico = () => {
-    let medico
-    if (localStorage.getItem("user") != null) {
-      medico = JSON.parse(localStorage.getItem("user")!);
-    }
-    return medico.medico;
-  };
+  // const getUserMedico = () => {
+  //   let medico
+  //   if (localStorage.getItem("user") != null) {
+  //     medico = JSON.parse(localStorage.getItem("user")!);
+  //   }
+  //   return medico.medico;
+  // };
 
-  const renderFrases = (exame) => {
-    const arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
+  // const renderFrases = (exame) => {
+  //   const arrayLocal = JSON.parse(localStorage.getItem("format_laudo")!);
 
-    arrayLocal.map((e) => {
-      setTitulo_Exame(e.titulo_exame);
-    });
+  //   arrayLocal.map((e) => {
+  //     setTitulo_Exame(e.titulo_exame);
+  //   });
 
-    return exame.subExames.map((sub, key) => {
-      return sub.subExameNome != null && sub.subExameNome != "" ? (
-        <View style={styles.inline} wrap={false} key={key}>
-          <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
-          <View style={styles.view_frases}>
-            {typeof sub.frases != "string" && sub.frases != null ? (
-              sub.frases.map((frase, key) => {
-                return (
-                  <Text style={styles.frasesSubExame} key={key}>
-                    {frase}
-                  </Text>
-                );
-              })
-            ) : (
-              <Text style={styles.frasesSubExame}>{sub.frases}</Text>
-            )}
-          </View>
-          {sub.image != null && sub.image != "" ? (
-            <Image src={sub.image} />
-          ) : null}
-        </View>
-      ) : null;
-    });
-  };
+  //   return exame.subExames.map((sub, key) => {
+  //     return sub.subExameNome != null && sub.subExameNome != "" ? (
+  //       <View style={styles.inline} wrap={false} key={key}>
+  //         <Text style={styles.textNomeSubExame}>{sub.subExameNome}:</Text>
+  //         <View style={styles.view_frases}>
+  //           {typeof sub.frases != "string" && sub.frases != null ? (
+  //             sub.frases.map((frase, key) => {
+  //               return (
+  //                 <Text style={styles.frasesSubExame} key={key}>
+  //                   {frase}
+  //                 </Text>
+  //               );
+  //             })
+  //           ) : (
+  //             <Text style={styles.frasesSubExame}>{sub.frases}</Text>
+  //           )}
+  //         </View>
+  //         {sub.image != null && sub.image != "" ? (
+  //           <Image src={sub.image} />
+  //         ) : null}
+  //       </View>
+  //     ) : null;
+  //   });
+  // };
 
-  const renderConclusoes = (exame) => {
-    if (exame.conclusoes != null && exame.conclusoes != undefined) {
-      return exame.conclusoes.map((conclusao, key) => {
-        return conclusao != null && conclusao != "" ? (
-          <Text style={styles.frasesConclusoes} orphans={3} key={key}>
-            {conclusao}
-          </Text>
-        ) : null;
-      });
-    }
-  };
+  // const renderConclusoes = (exame) => {
+  //   if (exame.conclusoes != null && exame.conclusoes != undefined) {
+  //     return exame.conclusoes.map((conclusao, key) => {
+  //       return conclusao != null && conclusao != "" ? (
+  //         <Text style={styles.frasesConclusoes} orphans={3} key={key}>
+  //           {conclusao}
+  //         </Text>
+  //       ) : null;
+  //     });
+  //   }
+  // };
 
-  const renderObservacoes = (exame) => {
-    if (exame.observacoes != null && exame.observacoes != undefined) {
-      return exame.observacoes.map((observacao, key) => {
-        return observacao != null && observacao != "" ? (
-          <Text style={styles.frasesSubExame} orphans={3} key={key}>
-            {observacao}
-          </Text>
-        ) : null;
-      });
-    }
-  };
-  const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
-  const [medico, setMedico] = useState(getUserMedico());
+  // const renderObservacoes = (exame) => {
+  //   if (exame.observacoes != null && exame.observacoes != undefined) {
+  //     return exame.observacoes.map((observacao, key) => {
+  //       return observacao != null && observacao != "" ? (
+  //         <Text style={styles.frasesSubExame} orphans={3} key={key}>
+  //           {observacao}
+  //         </Text>
+  //       ) : null;
+  //     });
+  //   }
+  // };
+  // const [clinicaSet, setClinica] = useState<any>(JSON.parse(getUserClinica()));
+  // const [medico, setMedico] = useState(getUserMedico());
 
   // Font.register({
   //   family: "Montserrat",
@@ -342,15 +342,15 @@ export default function Compartilha_PDF() {
               <View style={styles.viewAssinatura}>
                 <Image
                   style={styles.imageClinica}
-                  src={clinicaSet.foto}
+                  src={'clinicaSet.foto'}
                 />
               </View>
 
               <View style={styles.sectionColuna}>
-                <Text>{clinicaSet.nome}</Text>
-                <Text>{getPaciente()}</Text>
-                <Text>{getCurrentDate()}</Text>
-                <Text>{`Dr. ${getMedicoSolicitante()}`}</Text>
+                <Text>{'clinicaSet.nome'}</Text>
+                <Text>{'getPaciente'}</Text>
+                <Text>{'getCurrentDate'}</Text>
+                <Text>{`Dr. 'getMedicoSolicitante'()}`}</Text>
               </View>
             </View>
             <View fixed style={styles.line}></View>
@@ -384,16 +384,16 @@ export default function Compartilha_PDF() {
                   <View style={styles.footerColuna}>
                     <Image
                       style={styles.imageAssinatura}
-                      src={medico.assinatura}
+                      src={'medico.assinatura'}
                     />
                     <span style={styles.borderFooter}></span>
                     <View style={styles.viewdadosMedico}>
                       <Text
                         style={styles.textDadosMedico}
-                      >{`Dr. ${medico.nome}`}</Text>
+                      >{`Dr. ss`}</Text>
                       <Text
                         style={styles.textDadosMedico}
-                      >{`CRM ${medico.CRMUF}`}</Text>
+                      >{`CRM ss'`}</Text>
                     </View>
                   </View>
                   <Text style={styles.textSantaImagem}>
