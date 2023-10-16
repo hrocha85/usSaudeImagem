@@ -74,7 +74,7 @@ function AdmMaster() {
 
         return (
             <div style={{ maxHeight: '80vh', overflowY: 'auto' }}>
-                <Table variant="striped" colorScheme="blue">
+                <Table variant="striped" colorScheme="customBlue">
                     <Thead>
                         <Tr>
                             <Th p="5px" textAlign={"center"}>
@@ -106,29 +106,29 @@ function AdmMaster() {
                     <Tbody>
                         {usuarios.map((user) => (
                             <Tr key={user.id}>
-                                <Td p="5px" textAlign={"center"}>
+                                <Td fontWeight={'bold'} p="5px" textAlign={"center"}>
                                     {user.id}
                                 </Td>
-                                <Td p='5px' textAlign={'center'}>
+                                <Td fontWeight={'bold'} p='5px' textAlign={'center'}>
                                     {user ? user.name : "N/A"}
                                 </Td>
 
-                                <Td p="5px" textAlign={"center"}>
+                                <Td fontWeight={'bold'} p="5px" textAlign={"center"}>
                                     {user.email}
                                 </Td>
-                                <Td p="5px" textAlign={"center"}>
+                                <Td fontWeight={'bold'} p="5px" textAlign={"center"}>
                                     {converterDataParaBrasileiro(user.created_at)}
                                 </Td>
-                                <Td p="5px" textAlign={"center"}>
+                                <Td fontWeight={'bold'} p="5px" textAlign={"center"}>
                                     {user.timesLaudos}
                                 </Td>
-                                <Td p="5px" textAlign={"center"}>
+                                <Td fontWeight={'bold'} p="5px" textAlign={"center"}>
                                     {user.timesLogin}
                                 </Td>
-                                <Td p="5px" textAlign={"center"}>
+                                <Td fontWeight={'bold'} p="5px" textAlign={"center"}>
                                     {user.tipo}
                                 </Td>
-                                <Td p="5px" textAlign={"center"}>
+                                <Td fontWeight={'bold'} p="5px" textAlign={"center"}>
                                     <Button onClick={() => toggleModal(user)}>
                                         <IoIosEye />
                                     </Button>
