@@ -67,7 +67,7 @@ function EditProfile() {
     setTimeout(() => {
       setIsLoading(false);
       setIsSpinnerVisible(false);
-    }, 3000);
+    }, 1000);
   }, []);
 
 
