@@ -8,13 +8,14 @@ const getClinicaAdmin = async () => {
         const userIDString = Cookies.get('USGImage_user')
         const userID = JSON.parse(userIDString).id
         const response = await api.get('/clinica');
-        AllClinicas = response.data
+        AllClinicas = response.data.data
         AllClinicas.map((clinica) => {
             if (clinica.usuario.id === userID) {
                 clinicas.push(clinica)
             }
         })
         return clinicas;
+        // return [];
     } catch (error) {
         console.error('Error', error);
         throw error;

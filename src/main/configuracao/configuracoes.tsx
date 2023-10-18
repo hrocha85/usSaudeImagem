@@ -30,14 +30,14 @@ import { FaRegFolderOpen } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import SignatureCanvas from "react-signature-canvas";
 import MedicosJSON from "../../Data/Medicos.json";
-import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
-import GetMedicosFree from "../Helpers/UserFree/GetMedicos";
+import GetClinicaFree from "../Helpers/UserFree/GetClinicasFree";
+import GetMedicosFree from "../Helpers/UserFree/GetMedicosFree";
 import RectangularCard from "../component/card_observations";
 import ItemObservation from "../component/item_obeservation";
 import MainCard from "../component/main_card";
 import MainCardClinica from "../component/main_cardClinica";
 import Sidebar from "../menu/sideBar";
-import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
+import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicasAdmin";
 
 
 let dados;
@@ -104,46 +104,46 @@ const Configuracoes = () => {
   }, [localStorage.getItem("medicos")!]);
 
 
-  const showImageAssinatura = () => {
-    return (
-      <>
-        {imageAssinatura == true ? (
-          <Box
-            boxShadow="lg"
-            width="400px"
-            height="200px"
-            backgroundPosition="center"
-            backgroundSize="cover"
-            backgroundClip="padding-box"
-            backgroundRepeat="no-repeat"
-            onClickCapture={() => setImageAssinatura(false)}
-          ></Box>
-        ) : (
-          <Box boxShadow="lg">
-            <SignatureCanvas
-              ref={padRef}
-              backgroundColor="#F7FAFC"
-              penColor="black"
-              canvasProps={{
-                width: 400,
-                height: 200,
-                className: "sigCanvas",
-              }}
-            />
-            <Flex justify="end">
-              <Icon
-                as={AiOutlineClear}
-                color="#4658fc"
-                margin="5px"
-                alignItems="end"
-                onClick={clearAssinatura}
-              />
-            </Flex>
-          </Box>
-        )}
-      </>
-    );
-  };
+  // const showImageAssinatura = () => {
+  //   return (
+  //     <>
+  //       {imageAssinatura == true ? (
+  //         <Box
+  //           boxShadow="lg"
+  //           width="400px"
+  //           height="200px"
+  //           backgroundPosition="center"
+  //           backgroundSize="cover"
+  //           backgroundClip="padding-box"
+  //           backgroundRepeat="no-repeat"
+  //           onClickCapture={() => setImageAssinatura(false)}
+  //         ></Box>
+  //       ) : (
+  //         <Box boxShadow="lg">
+  //           <SignatureCanvas
+  //             ref={padRef}
+  //             backgroundColor="#F7FAFC"
+  //             penColor="black"
+  //             canvasProps={{
+  //               width: 400,
+  //               height: 200,
+  //               className: "sigCanvas",
+  //             }}
+  //           />
+  //           <Flex justify="end">
+  //             <Icon
+  //               as={AiOutlineClear}
+  //               color="#4658fc"
+  //               margin="5px"
+  //               alignItems="end"
+  //               onClick={clearAssinatura}
+  //             />
+  //           </Flex>
+  //         </Box>
+  //       )}
+  //     </>
+  //   );
+  // };
 
   const getUserMedico = () => {
     if (localStorage.getItem("user") != null) {
@@ -288,7 +288,7 @@ const Configuracoes = () => {
     return userLogged ? (
       <Stack display={'flex'} flexDirection="row" justifyContent="center" w={'99%'} p={3}>
         <RectangularCard
-          titulo="Observações: Adicione novas observações aos Laudos aqui."
+          titulo="Observações: Adicione novas observações aos laudos aqui."
           item={<ItemObservation />}
         />
       </Stack>
@@ -325,24 +325,22 @@ const Configuracoes = () => {
     );
   };
 
-  const checkMedicosLocalStorage = () => {
-    GetMedicosFree()
-    // if (localStorage.getItem("medicos") != null) {
-    //   dados = localStorage.getItem("medicos");
-
-    //   lista_medicos = JSON.parse(dados);
-    // } else lista_medicos = [];
-  };
 
   useEffect(() => {
-    // let item;
-    // let item_parse;
-    // if (localStorage.getItem("minhasClinicas") != null) {
-    //   item = localStorage.getItem("minhasClinicas");
-    //   item_parse = JSON.parse(item);
-    //   setListaClinicas(item_parse);
-    // }
-    setListaClinicas(GetClinicaFree());
+    const fetchData = async () => {
+      const roleString = Cookies.get('USGImage_role');
+      if (roleString) {
+        const role = JSON.parse(roleString);
+        if (role === 'admin') {
+          setListaClinicas(await getClinicaAdmin());
+        } else {
+          setListaClinicas(GetClinicaFree());
+        }
+      }
+    };
+
+    // setListaClinicas(GetClinicaFree());
+    fetchData();
   }, [stateClickAddMedico, getClinicasNull]);
 
   useEffect(() => {
@@ -350,9 +348,9 @@ const Configuracoes = () => {
     Laudos();
   }, [localStorage.getItem("medicos")]);
 
-  useEffect(() => {
-    showImageAssinatura();
-  }, [imageAssinatura]);
+  // useEffect(() => {
+  //   showImageAssinatura();
+  // }, [imageAssinatura]);
 
   useOutsideClick({
     ref: refNomeDoutor,
@@ -366,14 +364,12 @@ const Configuracoes = () => {
     },
   });
 
-  useEffect(() => {
-    TAGS();
-    setUpdateTAGS(false);
-  }, [updateTAGS == true]);
+  // useEffect(() => {
+  //   TAGS();
+  //   setUpdateTAGS(false);
+  // }, [updateTAGS == true]);
 
-  useEffect(() => {
-    checkMedicosLocalStorage();
-  }, []);
+
 
 
 

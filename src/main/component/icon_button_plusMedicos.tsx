@@ -52,9 +52,9 @@ import MedicosJSON from "../../Data/Medicos.json";
 import { AuthContext } from "../../context/AuthContext";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
-import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
-import GetMedicosFree from "../Helpers/UserFree/GetMedicos";
-import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
+import GetClinicaFree from "../Helpers/UserFree/GetClinicasFree";
+import GetMedicosFree from "../Helpers/UserFree/GetMedicosFree";
+import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicasAdmin";
 import api from "../../api";
 const button = React.createElement("img", { src: PlusButton });
 

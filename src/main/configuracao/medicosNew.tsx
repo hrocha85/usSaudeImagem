@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
-import GetMedicosAdmin from "../Helpers/UserAdmin/GetMedicos";
-import GetMedicosFree from "../Helpers/UserFree/GetMedicos";
+import GetMedicosAdmin from "../Helpers/UserAdmin/GetMedicosAdmin";
+import GetMedicosFree from "../Helpers/UserFree/GetMedicosFree";
 import Medicos from "./medicos";
 
 const Medico = (props, clinica) => {
