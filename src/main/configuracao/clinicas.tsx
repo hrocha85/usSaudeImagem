@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { FaRegFolderOpen } from "react-icons/fa";
 import FieldDefaultIconCardClinicas from "../component/field_default_icon_card_clinicas";
-import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
-import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
+import GetClinicaFree from "../Helpers/UserFree/GetClinicasFree";
+import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicasAdmin";
 import Cookies from 'js-cookie';
 
 const Clinica = (props) => {

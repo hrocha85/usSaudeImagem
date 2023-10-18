@@ -54,8 +54,8 @@ import FieldDefaultIcon from "../component/field_default_icon";
 import { lista_medicos } from "./configuracoes";
 import Cookies from 'js-cookie';
 import api from "../../api";
-import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
-import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
+import GetClinicaFree from "../Helpers/UserFree/GetClinicasFree";
+import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicasAdmin";
 const Medicos = ({ medico, id }) => {
   const medicos: any[] = [];
   medicos.push(medico);
@@ -402,12 +402,12 @@ const Medicos = ({ medico, id }) => {
     return (
       <div style={{ textAlign: 'center', borderRadius: '50rem' }}>
         {ClinicasMedico.map((clinica, key) => {
-          const parseClinica = JSON.parse(clinica);
+          // const parseClinica = JSON.parse(clinica);
           // const parseClinica = (clinica);
           return (
             <FieldDefaultIcon
               key={key}
-              text={parseClinica.nome}
+              text={clinica.nome}
               textColor="#4A5568"
               //icon={FaRegFolderOpen}
               clinica={medicos}
@@ -745,7 +745,7 @@ const Medicos = ({ medico, id }) => {
                   <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
                     {ClinicasMedico.map((clinica, key) => {
                       // console.log('clinca', clinica)
-                      const parseClinica = JSON.parse(clinica);
+                      // const parseClinica = JSON.parse(clinica);
                       return (
                         <Tooltip
                           key={key}
@@ -764,7 +764,7 @@ const Medicos = ({ medico, id }) => {
                             variant="solid"
                             colorScheme="twitter"
                           >
-                            <TagLabel key={key}>{parseClinica.nome}</TagLabel>
+                            <TagLabel key={key}>{clinica.nome}</TagLabel>
                             <TagCloseButton
                               onClick={() => {
                                 ClinicasMedico.splice(key, 1);

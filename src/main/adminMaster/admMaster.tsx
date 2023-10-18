@@ -105,7 +105,8 @@ function AdmMaster() {
                     </Thead>
                     <Tbody>
                         {usuarios.map((user) => (
-                            <Tr key={user.id}>
+
+                            < Tr key={user.id} >
                                 <Td fontWeight={'bold'} p="5px" textAlign={"center"}>
                                     {user.id}
                                 </Td>
@@ -137,7 +138,7 @@ function AdmMaster() {
                         ))}
                     </Tbody>
                 </Table>
-            </div>
+            </div >
         );
     };
 

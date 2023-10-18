@@ -42,7 +42,7 @@ import { BiCamera } from "react-icons/bi";
 import { BsThreeDotsVertical, BsTrash } from "react-icons/bs";
 import { minhasClinicas } from "./icon_button_plus";
 import axios from "axios";
-import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
+import GetClinicaFree from "../Helpers/UserFree/GetClinicasFree";
 
 const FieldDefaultIconCardClinicas = ({
   text,

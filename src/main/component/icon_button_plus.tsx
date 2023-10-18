@@ -31,7 +31,7 @@ import { BiCamera } from "react-icons/bi";
 import infoClinicas from "../../Data/Clinicas.json";
 import PlusButton from "../images/button_plus.png";
 import DefaultImageClinica from "../images/clinica_default.png";
-import GetClinicaFree from "../Helpers/UserFree/GetClinicas";
+import GetClinicaFree from "../Helpers/UserFree/GetClinicasFree";
 import api from "../../api";
 
 const button = React.createElement("img", { src: PlusButton });
