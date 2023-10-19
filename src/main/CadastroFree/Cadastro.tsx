@@ -184,8 +184,7 @@ function CadastroUsuario() {
 
   return (
     <Box>
-      <Header />
-      <Container maxW="container.lg" centerContent pt={'2%'}>
+      <Container maxW="container.lg" centerContent>
 
         <Box p={6} shadow="md" borderRadius="md" w="100%" maxW="auto">
           <VStack spacing={4} align="stretch">
@@ -195,7 +194,7 @@ function CadastroUsuario() {
                 backgroundSize="cover"
                 backgroundPosition="center"
                 backgroundRepeat="no-repeat"
-                pt={'5%'}
+                pt={'1%'}
               >
                 <Box textAlign={'center'} py={'3%'}>
                   <Text
@@ -288,17 +287,6 @@ function CadastroUsuario() {
                   maxLength={9}
                 />
               </FormControl>
-              <FormControl isRequired>
-                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Rua</FormLabel>
-                <Input
-                  placeholder="Digite sua rua"
-                  value={rua}
-                  onChange={(e) => setRua(e.target.value)}
-                />
-              </FormControl>
-            </Flex>
-
-            <Flex flexDir={['column', 'row']}>
               <FormControl isRequired pr={'2%'} w={['100%', '30%']}>
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Número</FormLabel>
                 <Input
@@ -310,6 +298,17 @@ function CadastroUsuario() {
                 />
               </FormControl>
               <FormControl isRequired>
+                <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Rua</FormLabel>
+                <Input
+                  placeholder="Digite sua rua"
+                  value={rua}
+                  onChange={(e) => setRua(e.target.value)}
+                />
+              </FormControl>
+            </Flex>
+
+            <Flex flexDir={['column', 'row']} pr={'2%'}>
+              <FormControl isRequired>
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Cidade</FormLabel>
                 <Input
                   placeholder="São Paulo-SP"
@@ -317,10 +316,7 @@ function CadastroUsuario() {
                   onChange={(e) => setCidade(e.target.value)}
                 />
               </FormControl>
-            </Flex>
-
-            <Flex flexDir={['column', 'row']}>
-              <FormControl isRequired pr={'2%'}>
+              <FormControl pl={'2%'} pr={'2%'}>
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Bairro</FormLabel>
                 <Input
                   placeholder="Digite seu bairro"
@@ -395,13 +391,13 @@ function CadastroUsuario() {
                     textDecoration: 'none'
                   }}
                 >
-                {isLoading ? (
-                  <Spinner size='sm' color='white' style={{ marginRight: '10px' }} />
-                ) : (
-                  <>
-                    Cadastrar
-                  </>
-                )}
+                  {isLoading ? (
+                    <Spinner size='sm' color='white' style={{ marginRight: '10px' }} />
+                  ) : (
+                    <>
+                      Cadastrar
+                    </>
+                  )}
 
                 </Button>
               </Tooltip>
@@ -428,6 +424,21 @@ function CadastroUsuario() {
                 )}
               </Button>
             }
+            <Link href={`#/`}>
+              <Button
+                bg={'red'}
+                textColor={'white'}
+                fontFamily={'Sora, sans-serif'}
+                w={'100%'}
+                _hover={{
+                  background: 'red',
+                  color: '#FFF',
+                  textDecoration: 'none'
+                }}
+              >
+                Voltar
+              </Button>
+            </Link>
           </VStack>
         </Box>
       </Container>
