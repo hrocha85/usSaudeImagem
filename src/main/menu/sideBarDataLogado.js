@@ -25,7 +25,7 @@ export const SidebarDataLogado = [
   },
   {
     title: "Trocar Usuário",
-    path: "/Splash",
+    path: "/SelectMedicos",
     icon: <BsPeople />,
   },
   {
