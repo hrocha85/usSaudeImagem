@@ -134,8 +134,9 @@ const Medicos = ({ medico, id }) => {
       role == 'admin' ? isAdmin = true : isAdmin = false
     }
     if (!isAdmin) {
+      const clinicas = medico.clinicas
       setListaClinicas(GetClinicaFree())
-      setClinicaMedico(medico.clinicas)
+      setClinicaMedico([JSON.parse(clinicas)])
     } else {
       getClinicaAdmin()
         .then(clinicas => {
