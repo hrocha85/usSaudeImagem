@@ -181,9 +181,10 @@ export default function LoginForm() {
               </InputRightElement>
             </InputGroup>
           </FormControl>
-          <HStack w='full' justify='space-between'>
+          <HStack w='full' justify='space-around'>
             {/* <Checkbox>Remember me.</Checkbox> */}
             <Link href="/#/RedSenha" variant='link' color="#306eee" >Esqueci minha senha</Link>
+            <Link href="/#/Cadastro" variant='link' color="#306eee" target="_blank">Cadastre -se</Link>
           </HStack>
 
           <Button
