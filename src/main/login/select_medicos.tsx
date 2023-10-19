@@ -10,9 +10,9 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Cookies from 'js-cookie';
-import GetMedicosFree from "../Helpers/UserFree/GetMedicos";
-import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicas";
-import GetMedicosAdmin from "../Helpers/UserAdmin/GetMedicos";
+import GetMedicosFree from "../Helpers/UserFree/GetMedicosFree";
+import getClinicaAdmin from "../Helpers/UserAdmin/GetClinicasAdmin";
+import GetMedicosAdmin from "../Helpers/UserAdmin/GetMedicosAdmin";
 import { useNavigate } from "react-router-dom";
 
 function SelectMedicos() {

@@ -67,7 +67,7 @@ function EditProfile() {
     setTimeout(() => {
       setIsLoading(false);
       setIsSpinnerVisible(false);
-    }, 3000);
+    }, 1000);
   }, []);
 
 
@@ -232,7 +232,7 @@ function EditProfile() {
                   />
                 </FormControl>
 
-                <Link w={'50%'} pt={'3.8%'} >
+                <Link w={'50%'} pt={'3.8%'} pl={'2%'} >
                   <Button
                     bg={'#fff'}
                     textColor={'black'}
@@ -244,6 +244,19 @@ function EditProfile() {
                     alterar Senha
                   </Button>
                   <PasswordReset isOpen={isModalOpenExc} onClose={() => setIsModalOpenExc(false)} />
+                </Link>
+                <Link w={'50%'} pt={'3.8%'} pl={'2%'}>
+                  <Button
+                    bg={'#fff'}
+                    textColor={'black'}
+                    fontFamily={'Sora, sans-serif'}
+                    w={'100%'}
+                    border={'1px solid #aaa'}
+                    onClick={openModal}
+                  >
+                    Excluir Conta
+                  </Button>
+                  <UserDelete isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
                 </Link>
               </Flex>
 
@@ -260,17 +273,6 @@ function EditProfile() {
                     maxLength={9}
                   />
                 </FormControl>
-                <FormControl isRequired>
-                  <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Rua</FormLabel>
-                  <Input
-                    placeholder="Digite sua rua"
-                    defaultValue={userRua}
-                    onChange={(e) => setUserRua(e.target.value)}
-                  />
-                </FormControl>
-              </Flex>
-
-              <Flex flexDir={['column', 'row']}>
                 <FormControl isRequired pr={'2%'} w={['100%', '30%']}>
                   <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Número</FormLabel>
                   <Input
@@ -282,6 +284,18 @@ function EditProfile() {
                   />
                 </FormControl>
                 <FormControl isRequired>
+                  <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Rua</FormLabel>
+                  <Input
+                    placeholder="Digite sua rua"
+                    defaultValue={userRua}
+                    onChange={(e) => setUserRua(e.target.value)}
+                  />
+                </FormControl>
+              </Flex>
+
+              <Flex flexDir={['column', 'row']}>
+
+                <FormControl isRequired>
                   <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Cidade</FormLabel>
                   <Input
                     placeholder="São Paulo-SP"
@@ -289,10 +303,7 @@ function EditProfile() {
                     onChange={(e) => setUserCidade(e.target.value)}
                   />
                 </FormControl>
-              </Flex>
-
-              <Flex flexDir={['column', 'row']}>
-                <FormControl isRequired pr={'2%'}>
+                <FormControl isRequired pr={'2%'} pl={'2%'}>
                   <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Bairro</FormLabel>
                   <Input
                     placeholder="Digite seu bairro"
@@ -309,20 +320,6 @@ function EditProfile() {
                     onChange={(e) => setUserEstado(e.target.value)}
                   />
                 </FormControl>
-
-                <Link w={'50%'} pt={'3.8%'} pl={'2%'}>
-                  <Button
-                    bg={'#fff'}
-                    textColor={'black'}
-                    fontFamily={'Sora, sans-serif'}
-                    w={'100%'}
-                    border={'1px solid #aaa'}
-                    onClick={openModal}
-                  >
-                    Excluir Conta
-                  </Button>
-                  <UserDelete isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-                </Link>
               </Flex>
 
               <Flex gap={'5%'} justifyContent={'space-around'} pt={'5%'}>

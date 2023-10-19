@@ -534,7 +534,7 @@ function Exames() {
       try {
         await navigator.share({
           title: title,
-          url: url,
+          url: '#/Compartilha_PDF',
         });
       } catch (error) {
         console.error("Erro ao compartilhar:", error);
@@ -551,7 +551,7 @@ function Exames() {
   };
 
   const handleShareButtonClick = () => {
-    const pdfUrl = setUrlLaudo
+    const pdfUrl = urlLaudo
     sharePdf("Emaxes", pdfUrl);
     console.log(pdfUrl)
   };

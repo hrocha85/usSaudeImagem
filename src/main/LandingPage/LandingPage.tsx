@@ -27,7 +27,7 @@ function LandingPage() {
     setTimeout(() => {
       setIsLoading(false);
       setIsSpinnerVisible(false);
-    }, 3000);
+    }, 1000);
   }, []);
 
   return (

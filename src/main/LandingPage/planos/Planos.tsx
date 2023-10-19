@@ -19,7 +19,7 @@ function Planos() {
                 textAlign={'center'}
                 w={'100%'}
             >
-               Encontre o plano perfeito para você!
+               Acesse e se surpreenda!
             </Text>
             {/* <Text
                 fontSize={"14px"}
@@ -56,7 +56,7 @@ function Planos() {
                             w={'100%'}
                             mb={4}
                         >
-                            Plano Grátis
+                            Teste Grátis
                         </Text>
                         <HStack mb={4}>
                             <Image
@@ -161,7 +161,7 @@ function Planos() {
                             </Text>
                         </HStack>
 
-                            <Link href={`#/Cadastro`}>
+                            <Link href={`#/Login`}>
                                 <Button
                                     border="1px solid #1C49B0"
                                     color="#1C49B0"

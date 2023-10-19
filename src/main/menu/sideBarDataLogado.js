@@ -1,5 +1,5 @@
-import { AiOutlineHome, AiOutlinePoweroff, AiOutlineUser } from "react-icons/ai";
-import { BsFolder2Open } from "react-icons/bs";
+import { AiOutlineHome, AiOutlinePoweroff, AiOutlineUser,  } from "react-icons/ai";
+import { BsFolder2Open, BsPeople  } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
 
 export const SidebarDataLogado = [
@@ -22,6 +22,11 @@ export const SidebarDataLogado = [
     title: "Laudos",
     path: "/Home/Configuracoes",
     icon: <BsFolder2Open />,
+  },
+  {
+    title: "Trocar Usuário",
+    path: "/SelectMedicos",
+    icon: <BsPeople />,
   },
   {
     title: "Sair",
