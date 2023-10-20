@@ -1,11 +1,13 @@
-import { Box, Button, Flex, HStack, Image, Link, Text } from "@chakra-ui/react"
+import { Box, Button, Flex, HStack, Image, Link, Text, useMediaQuery } from "@chakra-ui/react"
 import premiun from '../../images/landing/premium.svg'
 import free from '../../images/landing/free.svg'
 import checkfree from '../../images/landing/CheckFree.svg'
 import checkPremium from '../../images/landing/CheckPremium.svg'
 
 function Planos() {
-
+    const [isLargerThan600] = useMediaQuery('(min-width: 900px)')
+    let width = ""
+    isLargerThan600 ? width = "30%" : width = "100%"
     return (
         <Box mb={'2%'} id="planos">
             <Text
@@ -19,7 +21,7 @@ function Planos() {
                 textAlign={'center'}
                 w={'100%'}
             >
-               Acesse e se surpreenda!
+                Cadastre-se e se surpreenda!
             </Text>
             {/* <Text
                 fontSize={"14px"}
@@ -37,7 +39,12 @@ function Planos() {
             </Text> */}
             <Box>
                 <Flex pt={10} justifyContent={'center'} flexDirection={['column', 'row']} px={'5%'}>
-                    <Box w={['100%', '30%']} h={'100%'} border="3px solid #1C49B0" rounded={10} py={'1%'} mb={['5%', '0']}  mx={'2%'} px={'3%'}>
+                    <Box
+                        w={width}
+                        h={'100%'}
+                        border="3px solid #1C49B0"
+                        rounded={10} py={'1%'} mb={['5%', '0']} mx={'2%'} px={'3%'}
+                        >
                         <Image
                             src={premiun}
                             bg={'#8fa5f5'}
@@ -161,25 +168,25 @@ function Planos() {
                             </Text>
                         </HStack>
 
-                            <Link href={`#/Login`}>
-                                <Button
-                                    border="1px solid #1C49B0"
-                                    color="#1C49B0"
-                                    bg="transparent"
-                                    height="50px"
-                                    fontSize={'22px'}
-                                    _hover={{
-                                        background: 'transparent',
-                                        color: '#1C49B0',
-                                    }}
-                                    width={'100%'}
+                        <Link href={`#/Cadastro`} target="_blank">
+                            <Button
+                                border="1px solid #1C49B0"
+                                color="#1C49B0"
+                                bg="transparent"
+                                height="50px"
+                                fontSize={'22px'}
+                                _hover={{
+                                    background: 'transparent',
+                                    color: '#1C49B0',
+                                }}
+                                width={'100%'}
 
-                                    my={3}
-                                >
-                                    Acessar
+                                my={3}
+                            >
+                                Cadastro
 
-                                </Button>
-                            </Link>
+                            </Button>
+                        </Link>
                     </Box>
                     {/* <Box w={['100%', '30%']} h={'100%'} border="3px solid #1C49B0" rounded={10} py={'1%'}  mx={'2%'} px={'3%'} bg={'#1C49B0'}>
                         <Image

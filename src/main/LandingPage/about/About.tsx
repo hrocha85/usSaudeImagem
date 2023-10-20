@@ -70,7 +70,7 @@ function About() {
       setTimeout(() => {
         toast({
           duration: 3000,
-          title: `Obrigado por contribuir, sua avaliação é muito importante!`,
+          title: `Agradecemos o contato, em breve lhe retornaremos!`,
           position: "top",
           isClosable: true,
         });
@@ -102,7 +102,7 @@ function About() {
 
   return (
     <Box w={'100%'} px={4}>
-      <Box mt={10} px={{ base: '0rem', md: '15rem' }}>
+      <Box mt={10} px={{ base: '0rem', md: '5rem'}}>
 
         <Text
           fontSize={"35px"}
@@ -150,7 +150,7 @@ function About() {
         </Text>
       </Box>
 
-      <Flex justifyContent={'space-around'} flexDir={{ base: 'column', md: 'row' }} mt={'5%'} alignItems={'center'} px={5}>
+      <Flex justifyContent={'space-around'} flexDir={{ base: 'column', md: 'row' }} mt={'5%'} alignItems={'center'} px={[0,5]}>
         <Card maxW='sm'>
           <CardBody alignItems={'center'} fontFamily={'Inter, sans-serif'}>
             <Image

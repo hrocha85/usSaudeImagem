@@ -175,6 +175,7 @@ const CardPaciente = () => {
 
   useEffect(() => {
     getPaciente();
+    resetDados()
   }, []);
 
   useEffect(() => {
