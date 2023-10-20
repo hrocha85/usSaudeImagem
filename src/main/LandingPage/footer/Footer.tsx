@@ -34,18 +34,6 @@ function Footer() {
                     >
                         USGImagem - Todos os direitos reservados
                     </Text>
-                    <Text
-                        color={'#fff'}
-                        fontFamily={'Inter, sans-serif'}
-                        fontSize={'16px'}
-                        fontStyle={'normal'}
-                        fontWeight={'500'}
-                        lineHeight={'normal'}
-                        pr={'3%'}
-                        textAlign={{ base: 'center', md: 'left' }}
-                    >
-                        123.456.789/0001-90
-                    </Text>
                     <Link>
                         <Text
                             color={'#fff'}
@@ -56,7 +44,7 @@ function Footer() {
                             lineHeight={'normal'}
                             textAlign={{ base: 'center', md: 'left' }}
                         >
-                            Dev@usgimagem.com.br
+                             contato@usgimagem.com.br
                         </Text>
                     </Link>
                 </Flex>

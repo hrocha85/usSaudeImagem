@@ -252,7 +252,7 @@ function CadastroUsuario() {
                 <FormLabel fontFamily={'Outfit, sans-serif'}
                   fontWeight={'800'} fontSize={'18px'} display={'flex'}
                 >Senha
-                  <Text opacity={0.6} pl={2} display={['none', 'block']}> (Conter no mínimo 8 caracteres)</Text>
+                  <Text opacity={0.6} pl={2} display={['none', 'block']}> (Conter no mínimo 8 Dígitos)</Text>
                 </FormLabel>
                 <Input
                   type="password"
@@ -341,6 +341,7 @@ function CadastroUsuario() {
                   fontFamily={'Outfit, sans-serif'}
                   fontWeight={'800'}
                   fontSize={'18px'}
+                  pt={'1.5%'}
 
                 >
                   Clínica ou Médico independente
@@ -367,8 +368,8 @@ function CadastroUsuario() {
                 isChecked={aceitouTermo}
                 onChange={() => setAceitouTermo(!aceitouTermo)}
               >
-                <FormLabel w={'100%'} >
-                  Li e aceito os
+                <FormLabel w={'100%'} display={'flex'} justifyContent={'center'} mt={'3%'}>
+                  <span>Li e aceito os </span>
                   <Link pl={'2%'} color="blue.500" href="https://drive.google.com/file/d/1vBw3Y52Pq0bfadCiTHw0EJt2bu7J88gz/view?usp=sharing" isExternal target='_blank'>
                     termos de uso
                   </Link>
