@@ -5,6 +5,7 @@ import {
   Container,
   Divider,
   Grid,
+  HStack,
   Icon,
   Image,
   Input,
@@ -17,6 +18,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Text,
   Textarea,
   Tooltip,
   useDisclosure,
@@ -46,6 +48,7 @@ const IconButtonPlus = (props) => {
   // }, [])
 
   const toast = useToast();
+  const [errorMsg, setErrorMsg] = useState<any>(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [nome, setClinica] = useState("");
@@ -180,17 +183,24 @@ const IconButtonPlus = (props) => {
   };
 
   const onChangeFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const MAX_FILE_SIZE = 5120 // 5MB
     const file = e.target.files![0];
     const reader = new FileReader();
-
-    reader.onload = (event) => {
-      const result = event.target?.result;
-      if (typeof result === "string") {
-        setDefaultUserImage(result);
+    if (file) {
+      const fileSizeKiloBytes = file.size / 1024
+      if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+        setErrorMsg("Imagem acima do tamanho permitido");
+        return
       }
-    };
+      reader.onload = (event) => {
+        const result = event.target?.result;
+        if (typeof result === "string") {
+          setDefaultUserImage(result);
+        }
+      };
 
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
+    }
   };
 
   const ResetDados = () => {
@@ -348,7 +358,7 @@ const IconButtonPlus = (props) => {
       <>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent m='2vw'>
             <ModalHeader></ModalHeader>
             <Divider orientation="horizontal" marginTop="10px" />
             <ModalCloseButton
@@ -413,10 +423,16 @@ const IconButtonPlus = (props) => {
 
                   <Icon
                     as={BiCamera}
-                    margin="10px"
+                    margin="5px"
                     color="#4658fc"
                     onClick={openFiles}
                   />
+                </Center>
+                <Center>
+                  <HStack h='15px' gap='5px'>
+                    <Text color={'#808080'} as={'sub'} fontWeight={'bold'}>Tam. Máx.: 5mb</Text>
+                    <Text color={'#FF7F50'} as={'sub'} fontWeight={'bold'}>{errorMsg}</Text>
+                  </HStack>
                 </Center>
                 <Center>
                   <Grid templateColumns="repeat(1, 1fr)" justifyItems="center">
