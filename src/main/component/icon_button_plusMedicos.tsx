@@ -79,7 +79,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
     return medicos;
   };
 
-
+  const [errorMsg, setErrorMsg] = useState<any>(false);
   const [nome, setNome] = useState("");
 
   const [crm, setCrm] = useState("");
@@ -178,17 +178,26 @@ const IconButtonPlusMedicos = (props, clinica) => {
   const onChangeFile = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
+    const MAX_FILE_SIZE = 5120 // 5MB
     const file = e.target.files![0];
     const reader = new FileReader();
-
-    reader.onload = (event) => {
-      const result = event.target?.result;
-      if (typeof result === "string") {
-        setDefaultUserImage(result);
+    if (file) {
+      const fileSizeKiloBytes = file.size / 1024
+      if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+        setErrorMsg("Imagem acima do tamanho permitido");
+        return
       }
-    };
 
-    reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const result = event.target?.result;
+        if (typeof result === "string") {
+          setErrorMsg(false)
+          setDefaultUserImage(result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
   };
 
   const onChangeFilePNGAssinatura = async (
@@ -442,7 +451,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
           colorScheme="blackAlpha"
         >
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent m='1vw'>
             <ModalHeader></ModalHeader>
             <Divider orientation="horizontal" marginTop="10px" />
             <ModalCloseButton
@@ -488,7 +497,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
 
             <Divider orientation="horizontal" />
 
-            <ModalBody>
+            <ModalBody >
               <Center>
                 <Image
                   borderRadius="full"
@@ -511,11 +520,17 @@ const IconButtonPlusMedicos = (props, clinica) => {
                   as={BiCamera}
                   marginTop="2px"
                   color="#4658fc"
-                  margin="10px"
+                  margin="5px"
                   onClick={openFiles}
                 />
               </Center>
-              <Center margin="25px">
+              <Center>
+                <HStack h='15px' gap='5px'>
+                  <Text color={'#808080'} as={'sub'} fontWeight={'bold'}>Tam. Máx.: 5mb</Text>
+                  <Text color={'#FF7F50'} as={'sub'} fontWeight={'bold'}>{errorMsg}</Text>
+                </HStack>
+              </Center>
+              <Center margin="5px">
                 <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
                   {clinicas.map((clinica, key) => {
                     const clinicaParse = JSON.parse(clinica);
@@ -580,7 +595,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
                 </HStack>
               </Center>
 
-              <Center paddingTop={"30px"}>
+              <Center paddingTop={"10px"}>
                 <InputGroup variant={"unstyled"} width={"250px"} marginEnd="50px">
                   <InputLeftAddon
                     children="CRM/UF:"
@@ -602,7 +617,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
             </ModalBody>
             <Text
               marginStart="25px"
-              marginTop="20px"
+              marginTop="10px"
               fontSize="19px"
               fontWeight="semibold"
               marginBottom="-20px"
