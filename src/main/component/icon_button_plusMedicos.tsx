@@ -617,7 +617,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
             </ModalBody>
             <Text
               marginStart="25px"
-              marginTop="10px"
+              marginTop={'-5px'}
               fontSize="19px"
               fontWeight="semibold"
               marginBottom="-20px"
@@ -625,70 +625,102 @@ const IconButtonPlusMedicos = (props, clinica) => {
               Assinatura:
             </Text>
             <ModalFooter>
-              {pngAssinatura == null || pngAssinatura == undefined ? (
-                <Box
-                  w="100%"
-                  h="100%"
-                  backgroundColor={"#F7FAFC"}
-                  borderColor={propsBoxAssinatura === true ? "#3183cf" : "white"}
-                  borderWidth={propsBoxAssinatura === true ? "2px" : "0px"}
-                  boxShadow="md"
-                  borderRadius={"md"}
-                  onClick={() => setpropsBoxAssinatura(true)}
-                >
-                  <SignatureCanvas
-                    ref={padRef}
-                    backgroundColor="transparent"
-                    onBegin={() => setpropsBoxAssinatura(true)}
-                    penColor="black"
-                    canvasProps={{
-                      width: 390,
-                      height: 230,
-                      className: "sigCanvas",
-                    }}
-                  />
-
-                  <Flex justify="end">
-                    <input
-                      accept="image/png, image/jpeg"
-                      type="file"
-                      id="file"
-                      ref={inputFileAssinatura}
-                      style={{ display: "none" }}
-                      onChange={onChangeFilePNGAssinatura.bind(this)}
-                    />
-                    <Icon
-                      as={AiOutlineCloudUpload}
-                      color="#4658fc"
-                      margin="5px"
-                      alignItems="end"
-                      onClick={add_png_assinatura}
-                    />
-                    <Icon
-                      as={AiOutlineClear}
-                      color="#4658fc"
-                      margin="5px"
-                      alignItems="end"
-                      onClick={clearAssinatura}
-                    />
-                  </Flex>
-                </Box>
-              ) : (
-                <Box
-                  w="100%"
-                  h="100%"
-                  backgroundColor={"#F7FAFC"}
-                  boxShadow="md"
-                  borderRadius={"md"}
-                >
-                  <Image
+              <>
+                {pngAssinatura == null || pngAssinatura == undefined ? (
+                  <Box
                     w="100%"
                     h="100%"
-                    srcSet={pngAssinatura}
-                    alt="Image DR"
-                  />
-                </Box>
-              )}
+                    backgroundColor={"#F7FAFC"}
+                    borderColor={propsBoxAssinatura === true ? "#3183cf" : "white"}
+                    borderWidth={propsBoxAssinatura === true ? "2px" : "0px"}
+                    boxShadow="md"
+                    borderRadius={"md"}
+                    onClick={() => setpropsBoxAssinatura(true)}
+                  >
+                    <SignatureCanvas
+                      ref={padRef}
+                      backgroundColor="transparent"
+                      onBegin={() => setpropsBoxAssinatura(true)}
+                      penColor="black"
+                      canvasProps={{
+                        width: 390,
+                        height: 120,
+                        className: "sigCanvas",
+                      }}
+                    />
+
+                    <Flex justify="end">
+                      <input
+                        accept="image/png, image/jpeg"
+                        type="file"
+                        id="file"
+                        ref={inputFileAssinatura}
+                        style={{ display: "none" }}
+                        onChange={onChangeFilePNGAssinatura.bind(this)}
+                      />
+                      <Icon
+                        as={AiOutlineCloudUpload}
+                        color="#4658fc"
+                        margin="5px"
+                        alignItems="end"
+                        onClick={add_png_assinatura}
+                      />
+                      <Icon
+                        as={AiOutlineClear}
+                        color="#4658fc"
+                        margin="5px"
+                        alignItems="end"
+                        onClick={clearAssinatura}
+                      />
+                    </Flex>
+                  </Box>
+                ) : (
+                  <Box
+                    w="100%"
+                    h="100%"
+                    backgroundColor={"#F7FAFC"}
+                    boxShadow="md"
+                    borderRadius={"md"}
+                  >
+                    <Image
+                      w="100%"
+                      h="100%"
+                      srcSet={pngAssinatura}
+                      alt="Image DR"
+                    />
+                  </Box>
+                )}
+                {/* {pngAssinatura == null || pngAssinatura == undefined ? (
+                  <Box
+                    w="100%"
+                    h="100%"
+
+                    boxShadow="md"
+                    borderRadius={"md"}
+                    onClick={() => setpropsBoxAssinatura(true)}
+                  >
+                    <Center gap='15px'>
+                      <Button>Desenhar</Button>
+                      <Button>Upload</Button>
+                    </Center>
+                  </Box>
+                ) : (
+                  <Box
+                    w="100%"
+                    h="100%"
+                    backgroundColor={"#F7FAFC"}
+                    boxShadow="md"
+                    borderRadius={"md"}
+                  >
+                    <Image
+                      w="100%"
+                      h="100%"
+                      srcSet={pngAssinatura}
+                      alt="Image DR"
+                    />
+                  </Box>
+                )} */}
+              </>
             </ModalFooter>
 
 
@@ -697,7 +729,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
               width="400px"
               textColor="white"
               backgroundColor="#0e63fe"
-              margin="10px"
+              margin="5px"
               onClick={() => {
                 if (nome !== "" && crm !== "" && clinicas.length >= 1) {
                   AddMedico();
