@@ -26,6 +26,7 @@ import api from '../../api';
 import { Header } from '../LandingPage/header/Header';
 import { Footer } from '../LandingPage/footer/Footer';
 import fundo1 from '../images/landing/Rectangle2.png'
+import Cookies from 'js-cookie';
 
 type data = {
   name: string,
@@ -82,6 +83,8 @@ function CadastroUsuario() {
 
       await api.post('usuario', userData).then((response) => {
         if (response.status === 201) {
+          finalizaForm()
+
           setIsLoading(false);
           setTimeout(() => {
             toast({
@@ -172,6 +175,41 @@ function CadastroUsuario() {
     return cleanedValue;
   };
 
+  const finalizaForm = async () => {
+    try {
+
+      const Email = 'contato@usgimagem.com.br';
+      const html = `
+            <p>Nome: ${nome}</p>
+            <p>Email: ${email}</p>
+            <p>Telefone: ${telefone}</p>
+            <p>um Novo usuario foi Cadastrado no sistema UsgImagem</p>`;
+      const subject = 'Novo cadastro USG';
+      const dest = { Email, html, subject };
+
+      const responseEmail = await api.post('sendEmailContato', dest);
+
+      if (responseEmail.status === 200) {
+        // Limpeza e configuração de sucesso
+        console.log('enviou email')
+      } else {
+        // Erro no envio do e-mail
+        throw new Error('Erro no envio de e-mail');
+      }
+
+    } catch (error) {
+      console.error(error);
+
+      setTimeout(() => {
+        toast({
+          duration: 3000,
+          title: 'Ops, algo deu errado, avalie novamente!',
+          position: 'top',
+          isClosable: true,
+        });
+      }, 500);
+    }
+  };
 
   useEffect(() => {
     if (nome && senha && email && telefone && rua && cidade
