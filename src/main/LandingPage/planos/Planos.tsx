@@ -188,7 +188,7 @@ function Planos() {
                             </Button>
                         </Link>
                     </Box>
-                    {/* <Box w={['100%', '30%']} h={'100%'} border="3px solid #1C49B0" rounded={10} py={'1%'}  mx={'2%'} px={'3%'} bg={'#1C49B0'}>
+                    { <Box w={['100%', '30%']} h={'100%'} border="3px solid #1C49B0" rounded={10} py={'1%'}  mx={'2%'} px={'3%'} bg={'#1C49B0'}>
                         <Image
                             src={free}
                             bg={'#FFF'}
@@ -209,7 +209,7 @@ function Planos() {
                         >
                             Versão Integral
                         </Text>
-                        <HStack gap={'10%'}>
+                        {/* <HStack gap={'10%'}>
                             <Text
                                 fontSize={"35px"}
                                 fontFamily={'Outfit, sans-serif'}
@@ -235,7 +235,7 @@ function Planos() {
                             >
                                 por mês
                             </Text>
-                        </HStack>
+                        </HStack> */}
                         <HStack mb={4}>
                             <Image
                                 src={checkPremium}
@@ -392,6 +392,7 @@ function Planos() {
 
                             <Link href={`#/`}>
                                 <Button
+                                    isDisabled
                                     border="1px solid #1C49B0"
                                     color="#1C49B0"
                                     height="50px"
@@ -403,11 +404,11 @@ function Planos() {
 
                                     my={3}
                                 >
-                                    Escolher
+                                    Em Breve
 
                                 </Button>
                             </Link>
-                    </Box> */}
+                    </Box> }
                 </Flex>
             </Box>
         </Box>
