@@ -341,10 +341,10 @@ const Configuracoes = () => {
         }
       }
     };
-    getClinicasNull()
+    
     // setListaClinicas(GetClinicaFree());
     fetchData();
-  }, [stateClickAddMedico]);
+  }, [stateClickAddMedico, getClinicasNull]);
 
   useEffect(() => {
     setMedicos(getMedicos);
