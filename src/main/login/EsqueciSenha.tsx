@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, FormControl, FormLabel, HStack, Heading, Input, Link, useToast, Text, VStack, InputGroup, InputRightElement, Image, PinInput, PinInputField, Stack } from "@chakra-ui/react";
+import { Box, Button, Checkbox, FormControl, FormLabel, HStack, Heading, Input, Link, useToast, Text, VStack, InputGroup, InputRightElement, Image, PinInput, PinInputField, Stack, Spinner } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -22,29 +22,48 @@ export default function EsqueciSenha() {
   const [ConfirmaSenha, setConfirmaSenha] = useState('')
   const [TokenEnviado, setTokenEnviado] = useState(false)
   const [focusedInput, setFocusedInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const [pin, setPin] = useState<any>();
 
   const usenavigate = useNavigate()
 
   const SendEmailToken = async () => {
-    try {
-      const User = {
-        email: Email
-      };
+    if (Email !== '' && Email !== null) {
+      try {
+        setIsLoading(true);
+        const User = {
+          email: Email
+        };
 
-      const response = await api.post("ForgotPassword", User)
-      if (response.status === 200) {
-        setTimeout(() => {
-          toast({
-            duration: 3000,
-            title: `E-mail com token de recuperação enviado.`,
-            position: "top",
-            isClosable: true,
-          });
-        }, 500);
-        setTokenEnviado(true)
-      } else {
+
+        const response = await api.post("ForgotPassword", User)
+        if (response.status === 200) {
+          setIsLoading(false);
+          setTimeout(() => {
+            toast({
+              duration: 3000,
+              title: `E-mail com token de recuperação enviado.`,
+              position: "top",
+              isClosable: true,
+            });
+          }, 500);
+          setTokenEnviado(true)
+        } else {
+          setTimeout(() => {
+            setIsLoading(false);
+            toast({
+              duration: 3000,
+              title: `Email não cadastrado!`,
+              position: "top",
+              isClosable: true,
+            });
+          }, 500);
+        }
+      } catch (error) {
+        setIsLoading(false);
+        console.log('Erro:', error);
+
         setTimeout(() => {
           toast({
             duration: 3000,
@@ -54,13 +73,12 @@ export default function EsqueciSenha() {
           });
         }, 500);
       }
-    } catch (error) {
-      console.log('Erro:', error);
-
+    } else {
+      setIsLoading(false);
       setTimeout(() => {
         toast({
           duration: 3000,
-          title: `Email não cadastrado!`,
+          title: `Preencha os dados Corretamente`,
           position: "top",
           isClosable: true,
         });
@@ -171,7 +189,14 @@ export default function EsqueciSenha() {
           //Descomentar onClick do login quando API estiver online
           onClick={() => SendEmailToken()}
         //onClick={() => usenavigate('/Splash')}
-        >Enviar Token <Box display={'flex'} alignItems={'center'}><IoArrowForward size={25} style={{ marginLeft: '10px' }} /></Box>
+        >                {isLoading ? (
+          <Spinner size='sm' color='white' style={{ marginRight: '10px' }} />
+        ) : (
+          <>
+            Enviar Token
+            <Box display={'flex'} alignItems={'center'}><IoArrowForward size={25} style={{ marginLeft: '10px' }} /></Box>
+          </>
+        )}
         </Button>
         {TokenEnviado ?
           <Box>
@@ -237,8 +262,11 @@ export default function EsqueciSenha() {
               <Button rounded='9px' colorScheme="blue" w={"100%"}
                 //Descomentar onClick do login quando API estiver online
                 onClick={() => RedefinirSenha()}
+                isDisabled={(pin =="" || pin ==null )? true: false}
               //onClick={() => usenavigate('/Splash')}
-              >Redefinir senha <Box display={'flex'} alignItems={'center'}><IoArrowForward size={25} style={{ marginLeft: '10px' }} /></Box>
+              >
+                Redefinir senha 
+                <Box display={'flex'} alignItems={'center'}><IoArrowForward size={25} style={{ marginLeft: '10px' }} /></Box>
               </Button>
             </Stack>
 
