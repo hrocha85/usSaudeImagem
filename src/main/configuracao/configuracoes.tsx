@@ -70,10 +70,7 @@ const Configuracoes = () => {
 
   const padRef = React.useRef<SignatureCanvas>(null);
 
-
-
   const [nome, setNome] = useState("");
-
 
   const [clinicas, setClinica] = useState<string[] | any[]>([]);
 
@@ -83,6 +80,7 @@ const Configuracoes = () => {
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
   const getClinicasNull = () => {
+    console.log("aqui")
     return listaClinicas.length === 0 ? "none" : "block";
   };
 
@@ -169,7 +167,8 @@ const Configuracoes = () => {
     return (
       <>
         {getUserMedico() != null
-          ? getMedicos().map((medi) => {
+          ? GetMedicosFree().map((medi) => {
+            console.log('aquidentro', medi)
             if (medi.nome == getUserMedico().nome) {
               return medi.laudos.map((laudos, key) => {
                 if (
@@ -338,10 +337,10 @@ const Configuracoes = () => {
         }
       }
     };
-
+    getClinicasNull()
     // setListaClinicas(GetClinicaFree());
     fetchData();
-  }, [stateClickAddMedico, getClinicasNull]);
+  }, [stateClickAddMedico]);
 
   useEffect(() => {
     setMedicos(getMedicos);
