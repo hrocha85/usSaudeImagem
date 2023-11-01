@@ -329,65 +329,6 @@ const Configuracoes = () => {
     );
   };
 
-  const authParaLogar = () => {
-    if ( listaClinicas.length == 0) {
-      const loginCriado = toast({
-        duration: 300000,
-        status: "success",
-        position: "top",
-        render: () => (
-          <Flex flexWrap={"wrap"} bg={"green.500"} p={4} alignItems="center" rounded={5}>
-            <Text color="white" mr={4}>
-              Aperte o botão "Adicionar" para adicionar uma clinica 
-            </Text>
-              <Button
-                colorScheme="whiteAlpha"
-                _focus={{ boxShadow: "none" }}
-                _active={{ bgColor: "transparent" }}
-                onClick={() => {
-                  toast.close(loginCriado); // Fechar o Toast ao clicar no botão
-                }}
-              >
-                ok
-              </Button>
-          </Flex>
-        )
-      });
-      return loginCriado;
-    }
-  };
-  const medicosAdd = () => {
-    if ( lista_medicos.length === 0) {
-      const loginCriado = toast({
-        duration: 300000,
-        status: "success",
-        position: "top",
-        render: () => (
-          <Flex flexWrap={"wrap"} bg={"green.500"} p={4} alignItems="center" rounded={5}>
-            <Text color="white" mr={4}>
-              Aperte o botão "Adicionar" para adicionar um médico
-            </Text>
-              <Button
-                colorScheme="whiteAlpha"
-                _focus={{ boxShadow: "none" }}
-                _active={{ bgColor: "transparent" }}
-                onClick={() => {
-                  toast.close(loginCriado); // Fechar o Toast ao clicar no botão
-                }}
-              >
-                ok
-              </Button>
-          </Flex>
-        )
-      });
-      return loginCriado;
-    }
-  };
-
-  useEffect(() => {
-    authParaLogar();
-    medicosAdd();
-  },[])
   
   useEffect(() => {
     const fetchData = async () => {
