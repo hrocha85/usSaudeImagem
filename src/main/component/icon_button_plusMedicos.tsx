@@ -260,10 +260,16 @@ const IconButtonPlusMedicos = (props, clinica) => {
     if (!isAdmin) {
       const TodosMedicosString = localStorage.getItem("medicos")
       const TodosMedicos = TodosMedicosString ? JSON.parse(TodosMedicosString) : []
-      const id = TodosMedicos.length + 1
-
+      let idProv = TodosMedicos.length + 1
+      TodosMedicos.map((medico) => {
+        if (idProv === medico.id) {
+          console.log(medico)
+          console.log(idProv)
+          idProv = idProv + 1
+        }
+      })
       const obj = {
-        id: id,
+        id: idProv,
         userID: user.id,
         nome: nome,
         CRMUF: crm,
