@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import { Spinner } from "@chakra-ui/react";
 import marca from "../images/Marca.png";
 import { motion } from "framer-motion";
+import  PerguntaFreq  from "./perguntaFequ/PerguntaFreqLand";
+import FAQ from "./perguntaFequ/PerguntaFreqLand";
 
 
 function LandingPage() {
@@ -58,6 +60,7 @@ function LandingPage() {
           <ExamesLp />
           <System />
           <Planos />
+          <FAQ/>
           <Footer />
         </Box>
       </motion.div>
