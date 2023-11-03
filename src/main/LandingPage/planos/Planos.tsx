@@ -1,9 +1,10 @@
-import { Box, Button, Flex, HStack, Image, Input, Link, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, Textarea, useMediaQuery } from "@chakra-ui/react"
+import { Box, Button, Flex, HStack, Image, Input, Link, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, Textarea, useMediaQuery, useToast } from "@chakra-ui/react"
 import premiun from '../../images/landing/premium.svg'
 import free from '../../images/landing/free.svg'
 import checkfree from '../../images/landing/CheckFree.svg'
 import checkPremium from '../../images/landing/CheckPremium.svg'
 import { useState } from "react"
+import api from "../../../api"
 
 function Planos() {
     const [isLargerThan600] = useMediaQuery('(min-width: 900px)')
@@ -13,6 +14,7 @@ function Planos() {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
+    const toast = useToast();
 
     const openModal = () => {
         setIsOpen(true);
@@ -30,8 +32,42 @@ function Planos() {
         }
         return cleanedValue;
     };
-    const enviarEmail =  () => {
-        console.log('funcionou')
+    const enviarEmail = async () => {
+        const dest = { email, telefone, nome }
+        const response = await api.post('Leads', dest)
+        console.log('response', response.data)
+
+        if(response.status===200){
+            setTimeout(() => {
+                toast({
+                    duration: 3000,
+                    title: `Usuário já Cadastrado na nossa lista exclusiva`,
+                    position: "top",
+                    isClosable: true,
+                });
+            }, 500);
+            return
+        }
+        if (response.status === 201) {
+
+            setTimeout(() => {
+                toast({
+                    duration: 3000,
+                    title: `Agradecemos interesse pelo plano pago, em breve lhe retornaremos!`,
+                    position: "top",
+                    isClosable: true,
+                });
+            }, 500);
+        } else {
+            setTimeout(() => {
+                toast({
+                    duration: 3000,
+                    title: `Ops, algo deu errado!`,
+                    position: "top",
+                    isClosable: true,
+                });
+            }, 500);
+        }
     }
     return (
         <Box mb={'2%'} id="planos">
