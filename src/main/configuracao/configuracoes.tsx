@@ -84,7 +84,6 @@ const Configuracoes = () => {
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
   const getClinicasNull = () => {
-    console.log("aqui")
     return listaClinicas.length === 0 ? "none" : "block";
   };
 
@@ -172,7 +171,6 @@ const Configuracoes = () => {
       <>
         {getUserMedico() != null
           ? GetMedicosFree().map((medi) => {
-            console.log('aquidentro', medi)
             if (medi.nome == getUserMedico().nome) {
               return medi.laudos.map((laudos, key) => {
                 if (
@@ -328,7 +326,6 @@ const Configuracoes = () => {
     );
   };
 
-  
   useEffect(() => {
     const fetchData = async () => {
       const roleString = Cookies.get('USGImage_role');
