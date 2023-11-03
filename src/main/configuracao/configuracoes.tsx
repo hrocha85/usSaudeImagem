@@ -84,7 +84,6 @@ const Configuracoes = () => {
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
   const getClinicasNull = () => {
-    console.log("aqui")
     return listaClinicas.length === 0 ? "none" : "block";
   };
 
@@ -172,7 +171,6 @@ const Configuracoes = () => {
       <>
         {getUserMedico() != null
           ? GetMedicosFree().map((medi) => {
-            console.log('aquidentro', medi)
             if (medi.nome == getUserMedico().nome) {
               return medi.laudos.map((laudos, key) => {
                 if (
@@ -329,7 +327,7 @@ const Configuracoes = () => {
   };
 
   const authParaLogar = () => {
-    if ( listaClinicas.length == 0) {
+    if (listaClinicas.length == 0) {
       const loginCriado = toast({
         duration: 300000,
         status: "success",
@@ -337,18 +335,18 @@ const Configuracoes = () => {
         render: () => (
           <Flex flexWrap={"wrap"} bg={"green.500"} p={4} alignItems="center" rounded={5}>
             <Text color="white" mr={4}>
-              Aperte o botão "Adicionar" para adicionar uma clinica 
+              Aperte o botão "Adicionar" para adicionar uma clinica
             </Text>
-              <Button
-                colorScheme="whiteAlpha"
-                _focus={{ boxShadow: "none" }}
-                _active={{ bgColor: "transparent" }}
-                onClick={() => {
-                  toast.close(loginCriado); // Fechar o Toast ao clicar no botão
-                }}
-              >
-                ok
-              </Button>
+            <Button
+              colorScheme="whiteAlpha"
+              _focus={{ boxShadow: "none" }}
+              _active={{ bgColor: "transparent" }}
+              onClick={() => {
+                toast.close(loginCriado); // Fechar o Toast ao clicar no botão
+              }}
+            >
+              ok
+            </Button>
           </Flex>
         )
       });
@@ -356,7 +354,7 @@ const Configuracoes = () => {
     }
   };
   const medicosAdd = () => {
-    if ( lista_medicos.length === 0) {
+    if (lista_medicos.length === 0) {
       const loginCriado = toast({
         duration: 300000,
         status: "success",
@@ -366,16 +364,16 @@ const Configuracoes = () => {
             <Text color="white" mr={4}>
               Aperte o botão "Adicionar" para adicionar um médico
             </Text>
-              <Button
-                colorScheme="whiteAlpha"
-                _focus={{ boxShadow: "none" }}
-                _active={{ bgColor: "transparent" }}
-                onClick={() => {
-                  toast.close(loginCriado); // Fechar o Toast ao clicar no botão
-                }}
-              >
-                ok
-              </Button>
+            <Button
+              colorScheme="whiteAlpha"
+              _focus={{ boxShadow: "none" }}
+              _active={{ bgColor: "transparent" }}
+              onClick={() => {
+                toast.close(loginCriado); // Fechar o Toast ao clicar no botão
+              }}
+            >
+              ok
+            </Button>
           </Flex>
         )
       });
@@ -386,8 +384,8 @@ const Configuracoes = () => {
   useEffect(() => {
     authParaLogar();
     medicosAdd();
-  },[])
-  
+  }, [])
+
   useEffect(() => {
     const fetchData = async () => {
       const roleString = Cookies.get('USGImage_role');
