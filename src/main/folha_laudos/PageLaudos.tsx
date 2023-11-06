@@ -50,23 +50,24 @@ const PageLaudos = () => {
 
         if (user != null) return user.isLogged;
     };
-    const [exames, setExames] = useState([
-        { id: 1, paciente: 'Paciente 1', medico: 'Médico 1', data: '01/01/2022' },
-        { id: 2, paciente: 'Marcos', medico: 'Paulo', data: '01/01/2022' },
-        { id: 3, paciente: 'Paciente 1', medico: 'Médico 1', data: '01/05/2022' },
-        { id: 4, paciente: 'Paciente 1', medico: 'João', data: '10/01/2022' },
-        { id: 5, paciente: 'Leandro', medico: 'Médico 1', data: '01/07/2022' },
-        { id: 6, paciente: 'Paciente 1', medico: 'Médico 1', data: '18/01/2022' },
-        { id: 7, paciente: 'Paciente 1', medico: 'Médico 1', data: '01/01/2022' },
-        { id: 8, paciente: 'José', medico: 'Médico 1', data: '01/01/2022' },
-        { id: 9, paciente: 'Paciente 1', medico: 'Pedro', data: '01/01/2022' },
-        { id: 10, paciente: 'Paciente 1', medico: 'Médico 1', data: '10/03/2022' },
-        { id: 11, paciente: 'Paciente 1', medico: 'Médico 1', data: '01/01/2022' },
-        { id: 12, paciente: 'Paciente 1', medico: 'Médico 1', data: '01/08/2022' },
-        { id: 13, paciente: 'Paciente 1', medico: 'Médico 1', data: '01/01/2022' },
 
-        // Adicione os outros exames aqui...
-    ]);
+    // const [exames, setExames] = useState([
+    //     { id: 1, paciente: 'Paciente 1', medico: 'Médico 1', data: '01/01/2022' },
+    //     { id: 2, paciente: 'Marcos', medico: 'Paulo', data: '01/01/2022' },
+    //     { id: 3, paciente: 'Paciente 1', medico: 'Médico 1', data: '01/05/2022' },
+    //     { id: 4, paciente: 'Paciente 1', medico: 'João', data: '10/01/2022' },
+    //     { id: 5, paciente: 'Leandro', medico: 'Médico 1', data: '01/07/2022' },
+    //     { id: 6, paciente: 'Paciente 1', medico: 'Médico 1', data: '18/01/2022' },
+    //     { id: 7, paciente: 'Paciente 1', medico: 'Médico 1', data: '01/01/2022' },
+    //     { id: 8, paciente: 'José', medico: 'Médico 1', data: '01/01/2022' },
+    //     { id: 9, paciente: 'Paciente 1', medico: 'Pedro', data: '01/01/2022' },
+    //     { id: 10, paciente: 'Paciente 1', medico: 'Médico 1', data: '10/03/2022' },
+    //     { id: 11, paciente: 'Paciente 1', medico: 'Médico 1', data: '01/01/2022' },
+    //     { id: 12, paciente: 'Paciente 1', medico: 'Médico 1', data: '01/08/2022' },
+    //     { id: 13, paciente: 'Paciente 1', medico: 'Médico 1', data: '01/01/2022' },
+
+    //     // Adicione os outros exames aqui...
+    // ]);
 
     const [currentPage, setCurrentPage] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
@@ -84,16 +85,29 @@ const PageLaudos = () => {
     const refNomeDoutor = useRef<HTMLInputElement | null>(null);
     const [medicos, setMedicos] = useState<any[]>(GetMedicosFree());
 
+    const pegaLaudos = () => {
+        if (localStorage.getItem("user") != null) {
+            const medico = JSON.parse(localStorage.getItem("user")!);
+            console.log(medico)
+            return medico.medico;
+
+        } else return null;
+    }
+
     useEffect(() => {
         setMedicos(GetMedicosFree());
     }, [localStorage.getItem("medicos")!]);
 
-    const getUserMedico = () => {
+    const [exames, setExames] = useState<any>([]);
+    const [MedicoLogado, setMedicoLogado] = useState<string>('');
+    useEffect(() => {
         if (localStorage.getItem("user") != null) {
             const medico = JSON.parse(localStorage.getItem("user")!);
-            return medico.medico;
-        } else return null;
-    };
+            setExames(medico.medico.laudos)
+            setMedicoLogado(medico.nome)
+        }
+    })
+
 
     const showSavedLaudo = (laudo) => {
         return window.open(laudo);
@@ -103,17 +117,19 @@ const PageLaudos = () => {
         setCurrentPage(selectedPage.selected);
     };
 
-    const filteredExames = exames.filter(
-        (exame) =>
-            exame.paciente.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            exame.medico.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            exame.data.includes(searchTerm)
-    );
+    // const filteredExames = exames.filter(
+    //     (exame) =>
+    //         exame.paciente.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    //         exame.medico.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    //         exame.data.includes(searchTerm)
+    // );
 
-    const paginatedExames = filteredExames.slice(
-        currentPage * perPage,
-        (currentPage + 1) * perPage
-    );
+    // const paginatedExames = filteredExames.slice(
+    //     currentPage * perPage,
+    //     (currentPage + 1) * perPage
+    // );
+
+
 
     const listaLaudosVazia = () => {
         return (
@@ -131,90 +147,75 @@ const PageLaudos = () => {
     return (
         <>
             <Sidebar />
-            {getUserMedico() != null
-                ? getMedicos().map((medi) => {
-                    if (medi.nome == getUserMedico().nome) {
-                        return medi.laudos.map((laudos, key) => {
-                            if (
-                                laudos.laudo != null &&
-                                laudos.laudo != "" &&
-                                laudos != undefined
-                            ) {
-                                return (
-                                    <Box>
-                                        <Text textAlign={'center'} p={'3%'} fontSize={'2rem'}>Laudos</Text>
-                                        <InputGroup>
-                                            <Input
-                                                type="text"
-                                                placeholder="Pesquisar paciente"
-                                                value={searchTerm}
-                                                onChange={(e) => setSearchTerm(e.target.value)}
-                                            />
-                                            <InputLeftElement pointerEvents="none">
-                                                <SearchIcon color="gray.400" />
-                                            </InputLeftElement>
-                                        </InputGroup>
-                                        <Table variant="simple" className="custom-table">
-                                            <Thead>
-                                                <Tr>
-                                                    <Th>Paciente</Th>
-                                                    <Th>Médico</Th>
-                                                    <Th>Data</Th>
-                                                    <Th>Procedimento</Th>
-                                                    <Th>Visualizar</Th>
-                                                    <Th>Baixar Exame</Th>
-                                                </Tr>
-                                            </Thead>
-                                            <Tbody>
-                                                {paginatedExames.map((exame, index) => (
-                                                    <Tr key={index}>
-                                                        <Td>{laudos.paciente}</Td>
-                                                        <Td>{exame.medico}</Td>
-                                                        <Td>{laudos.data}</Td>
-                                                        <Td>{laudos.data}</Td>
-                                                        <Td><Button onClick={() => { showSavedLaudo(laudos.laudo); }}><IoIosEye /></Button></Td>
-                                                        <Td><Button><IoMdDownload /></Button></Td>
-                                                    </Tr>
-                                                ))}
-                                            </Tbody>
-                                        </Table>
-                                        <Center mt={4}>
-                                            <Box display={'flex'}>
-                                                <ReactPaginate
-                                                    previousLabel={
-                                                        <IconButton
-                                                            as={ChevronLeftIcon}
-                                                            aria-label="Anterior"
-                                                            color="blue.500"
-                                                            boxSize={6}
-                                                        />
-                                                    }
-                                                    nextLabel={
-                                                        <IconButton
-                                                            as={ChevronRightIcon}
-                                                            aria-label="Próximo"
-                                                            color="blue.500"
-                                                            boxSize={6}
-                                                        />
-                                                    }
-                                                    breakLabel="..."
-                                                    breakClassName="break-me"
-                                                    pageCount={Math.ceil(exames.length / perPage)}
-                                                    marginPagesDisplayed={2}
-                                                    pageRangeDisplayed={5}
-                                                    onPageChange={handlePageChange}
-                                                    containerClassName={'pagination custom-pagination'}
-                                                    activeClassName={'active'}
-                                                />
-                                            </Box>
-                                        </Center>
-                                    </Box>
-                                );
+
+            <Box>
+                <Text textAlign={'center'} p={'3%'} fontSize={'2rem'}>Laudos</Text>
+                <InputGroup>
+                    <Input
+                        type="text"
+                        placeholder="Pesquisar paciente"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <InputLeftElement pointerEvents="none">
+                        <SearchIcon color="gray.400" />
+                    </InputLeftElement>
+                </InputGroup>
+                <Table variant="simple" className="custom-table">
+                    <Thead>
+                        <Tr>
+                            <Th>Paciente</Th>
+                            <Th>Médico</Th>
+                            <Th>Data</Th>
+                            <Th>Procedimento</Th>
+                            <Th>Visualizar</Th>
+                            <Th>Baixar Exame</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {exames.map((exame, index) => (
+                            <Tr key={index}>
+                                <Td>{exame.paciente}</Td>
+                                <Td>{MedicoLogado}</Td>
+                                <Td>{exame.data}</Td>
+                                {/* <Td><Button onClick={() => { showSavedLaudo(laudos.laudo); }}><IoIosEye /></Button></Td> */}
+                                <Td><Button><IoMdDownload /></Button></Td>
+                            </Tr>
+                        ))}
+                    </Tbody>
+                </Table>
+                <Center mt={4}>
+                    <Box display={'flex'}>
+                        <ReactPaginate
+                            previousLabel={
+                                <IconButton
+                                    as={ChevronLeftIcon}
+                                    aria-label="Anterior"
+                                    color="blue.500"
+                                    boxSize={6}
+                                />
                             }
-                        });
-                    }
-                })
-                : listaLaudosVazia()}
+                            nextLabel={
+                                <IconButton
+                                    as={ChevronRightIcon}
+                                    aria-label="Próximo"
+                                    color="blue.500"
+                                    boxSize={6}
+                                />
+                            }
+                            breakLabel="..."
+                            breakClassName="break-me"
+                            pageCount={Math.ceil(exames.length / perPage)}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={handlePageChange}
+                            containerClassName={'pagination custom-pagination'}
+                            activeClassName={'active'}
+                        />
+                    </Box>
+                </Center>
+            </Box>
+
         </>
     );
 };
