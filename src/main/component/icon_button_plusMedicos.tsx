@@ -178,7 +178,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
   const onChangeFile = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const MAX_FILE_SIZE = 5120 // 5MB
+    const MAX_FILE_SIZE = 800 // 5MB
     const file = e.target.files![0];
     const reader = new FileReader();
     if (file) {
@@ -532,7 +532,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
               </Center>
               <Center>
                 <HStack h='15px' gap='5px'>
-                  <Text color={'#808080'} as={'sub'} fontWeight={'bold'}>Tam. Máx.: 5mb</Text>
+                  <Text color={'#808080'} as={'sub'} fontWeight={'bold'}>Tam. Máx.:800 Kb</Text>
                   <Text color={'#FF7F50'} as={'sub'} fontWeight={'bold'}>{errorMsg}</Text>
                 </HStack>
               </Center>
