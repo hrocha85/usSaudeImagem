@@ -126,6 +126,8 @@ const Medicos = ({ medico, id }) => {
   const [listaClinicas, setListaClinicas] = useState<any[]>([]);
 
   const [ClinicasMedico, setClinicaMedico] = useState<any[]>([]);
+  const [errorMsg, setErrorMsg] = useState<any>(false);
+
   useEffect(() => {
     let isAdmin;
     const roleString = Cookies.get('USGImage_role');
@@ -155,18 +157,26 @@ const Medicos = ({ medico, id }) => {
   };
 
   const onChangeFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const MAX_FILE_SIZE = 800 // 5MB
     const file = e.target.files![0];
     const reader = new FileReader();
-
-    reader.onload = (event) => {
-      const result = event.target?.result;
-      if (typeof result === "string") {
-        setDefaultUserImage(result);
-        setFotoUpdate(true);
+    if (file) {
+      const fileSizeKiloBytes = file.size / 1024
+      if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+        setErrorMsg("Imagem acima do tamanho permitido");
+        return
       }
-    };
+      reader.onload = (event) => {
+        const result = event.target?.result;
+        if (typeof result === "string") {
+          setErrorMsg(false)
+          setDefaultUserImage(result);
+          setFotoUpdate(true);
+        }
+      };
 
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
+    }
   };
 
   const UpdateMedico = async (updateNome, updateCRM, updateClinica) => {
@@ -184,7 +194,6 @@ const Medicos = ({ medico, id }) => {
         ClinicasMedico.map((clinica) => {
           idClinicas.push(clinica.id)
         })
-        console.log(idClinicas)
         // const response = await api.put(`/medico/${medico.id}`, {
         //   nome: updateNome ? updateNome : medico.nome,
         //   CRMUF: updateCRM ? updateCRM : medico.CRMUF,
@@ -742,6 +751,12 @@ const Medicos = ({ medico, id }) => {
                     color="#4658fc"
                     onClick={openFiles}
                   />
+                </Center>
+                <Center>
+                  <HStack h='15px' gap='5px'>
+                    <Text color={'#808080'} as={'sub'} fontWeight={'bold'}>Tam. Máx.: 800 Kb</Text>
+                    <Text color={'#FF7F50'} as={'sub'} fontWeight={'bold'}>{errorMsg}</Text>
+                  </HStack>
                 </Center>
                 <Center margin="25px">
                   <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
