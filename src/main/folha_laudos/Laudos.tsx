@@ -518,6 +518,8 @@ function Exames() {
         paciente: getPaciente(),
         laudo: urlLaudo,
         data: getCurrentDateLaudo(),
+        medicoSolicitante: getMedicoSolicitante(),
+        tituloLaudo:titulo_exame
       };
       laudos.map((e) => {
         if (e.laudo == undefined || e.laudo == "") {

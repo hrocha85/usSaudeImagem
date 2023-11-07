@@ -3,7 +3,9 @@
     {
       "paciente": "",
       "laudo": "",
-      "data":""
+      "data":"",
+      "medicoSolicitante":"",
+      "tituloLaudo":""
     }
   ]
 }
