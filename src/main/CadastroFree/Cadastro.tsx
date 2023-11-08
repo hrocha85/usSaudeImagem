@@ -26,6 +26,7 @@ import api from '../../api';
 import { Header } from '../LandingPage/header/Header';
 import { Footer } from '../LandingPage/footer/Footer';
 import fundo1 from '../images/landing/Rectangle2.png'
+import Cookies from 'js-cookie';
 
 type data = {
   name: string,
@@ -82,6 +83,8 @@ function CadastroUsuario() {
 
       await api.post('usuario', userData).then((response) => {
         if (response.status === 201) {
+          finalizaForm()
+
           setIsLoading(false);
           setTimeout(() => {
             toast({
@@ -172,6 +175,41 @@ function CadastroUsuario() {
     return cleanedValue;
   };
 
+  const finalizaForm = async () => {
+    try {
+
+      const Email = 'contato@usgimagem.com.br';
+      const html = `
+            <p>Nome: ${nome}</p>
+            <p>Email: ${email}</p>
+            <p>Telefone: ${telefone}</p>
+            <p>um Novo usuario foi Cadastrado no sistema UsgImagem</p>`;
+      const subject = 'Novo cadastro USG';
+      const dest = { Email, html, subject };
+
+      const responseEmail = await api.post('sendEmailContato', dest);
+
+      if (responseEmail.status === 200) {
+        // Limpeza e configuração de sucesso
+        console.log('enviou email')
+      } else {
+        // Erro no envio do e-mail
+        throw new Error('Erro no envio de e-mail');
+      }
+
+    } catch (error) {
+      console.error(error);
+
+      setTimeout(() => {
+        toast({
+          duration: 3000,
+          title: 'Ops, algo deu errado, avalie novamente!',
+          position: 'top',
+          isClosable: true,
+        });
+      }, 500);
+    }
+  };
 
   useEffect(() => {
     if (nome && senha && email && telefone && rua && cidade
@@ -252,7 +290,7 @@ function CadastroUsuario() {
                 <FormLabel fontFamily={'Outfit, sans-serif'}
                   fontWeight={'800'} fontSize={'18px'} display={'flex'}
                 >Senha
-                  <Text opacity={0.6} pl={2} display={['none', 'block']}> (Conter no mínimo 8 caracteres)</Text>
+                  <Text opacity={0.6} pl={2} display={['none', 'block']}> (Conter no mínimo 8 Dígitos)</Text>
                 </FormLabel>
                 <Input
                   type="password"
@@ -341,6 +379,7 @@ function CadastroUsuario() {
                   fontFamily={'Outfit, sans-serif'}
                   fontWeight={'800'}
                   fontSize={'18px'}
+                  pt={'1.5%'}
 
                 >
                   Clínica ou Médico independente
@@ -367,8 +406,8 @@ function CadastroUsuario() {
                 isChecked={aceitouTermo}
                 onChange={() => setAceitouTermo(!aceitouTermo)}
               >
-                <FormLabel w={'100%'} >
-                  Li e aceito os
+                <FormLabel w={'100%'} display={'flex'} justifyContent={'center'} mt={'3%'}>
+                  <span>Li e aceito os </span>
                   <Link pl={'2%'} color="blue.500" href="https://drive.google.com/file/d/1vBw3Y52Pq0bfadCiTHw0EJt2bu7J88gz/view?usp=sharing" isExternal target='_blank'>
                     termos de uso
                   </Link>

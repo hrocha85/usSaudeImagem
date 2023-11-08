@@ -19,7 +19,9 @@ import {
   TagLabel,
   Tooltip,
   useMediaQuery,
-  useOutsideClick
+  useOutsideClick,
+  Text,
+  useToast
 } from "@chakra-ui/react";
 import Cookies from 'js-cookie';
 import React, { memo, useEffect, useRef, useState } from "react";
@@ -70,10 +72,9 @@ const Configuracoes = () => {
 
   const padRef = React.useRef<SignatureCanvas>(null);
 
-
+  const toast = useToast();
 
   const [nome, setNome] = useState("");
-
 
   const [clinicas, setClinica] = useState<string[] | any[]>([]);
 
@@ -169,7 +170,7 @@ const Configuracoes = () => {
     return (
       <>
         {getUserMedico() != null
-          ? getMedicos().map((medi) => {
+          ? GetMedicosFree().map((medi) => {
             if (medi.nome == getUserMedico().nome) {
               return medi.laudos.map((laudos, key) => {
                 if (
@@ -325,7 +326,6 @@ const Configuracoes = () => {
     );
   };
 
-
   useEffect(() => {
     const fetchData = async () => {
       const roleString = Cookies.get('USGImage_role');
@@ -338,7 +338,7 @@ const Configuracoes = () => {
         }
       }
     };
-
+    
     // setListaClinicas(GetClinicaFree());
     fetchData();
   }, [stateClickAddMedico, getClinicasNull]);

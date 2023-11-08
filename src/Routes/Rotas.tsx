@@ -17,6 +17,9 @@ import AdmMaster from "../main/adminMaster/admMaster";
 import EditProfile from "../main/EditUser/EditProfile";
 import EsqueciSenha from "../main/login/EsqueciSenha";
 import Compartilha_PDF from "../main/folha_laudos/compartilha_pdf";
+import  PageLaudos  from "../main/folha_laudos/PageLaudos";
+import PerguntaFreq from "../main/LandingPage/perguntaFequ/PerguntaFreq";
+
 
 
 function Rotas() {
@@ -25,12 +28,14 @@ function Rotas() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/Cadastro" element={<CadastroUsuario />} />
       <Route path="/Login" element={<LoginForm />} />
+      <Route path="/PerguntaFrequente" element={<PerguntaFreq/>} />
       <Route path="/RedSenha" element={<EsqueciSenha />} />
       <Route path="/LoginFree" element={<LoginFormFree />} />
       <Route path="/Splash" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<SplashScreen />} />} />
       <Route path="/Home" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Home />} />} />
       <Route path="/SelectMedicos" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<SelectMedicos />} />} />
       <Route path="/Home/Configuracoes" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Configuracoes />} />} />
+      <Route path="/Home/Laudos" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<PageLaudos />} />} />
       <Route path="/Home/Perfil" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<EditProfile />} />} />
       <Route path="/Format_PDF" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Format_PDF />} />} />
       <Route path="/Compartilha_PDF" element={<Compartilha_PDF />} />

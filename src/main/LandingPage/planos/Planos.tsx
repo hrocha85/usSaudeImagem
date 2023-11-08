@@ -1,11 +1,74 @@
-import { Box, Button, Flex, HStack, Image, Link, Text } from "@chakra-ui/react"
+import { Box, Button, Flex, HStack, Image, Input, Link, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, Textarea, useMediaQuery, useToast } from "@chakra-ui/react"
 import premiun from '../../images/landing/premium.svg'
 import free from '../../images/landing/free.svg'
 import checkfree from '../../images/landing/CheckFree.svg'
 import checkPremium from '../../images/landing/CheckPremium.svg'
+import { useState } from "react"
+import api from "../../../api"
 
 function Planos() {
+    const [isLargerThan600] = useMediaQuery('(min-width: 900px)')
+    let width = ""
+    isLargerThan600 ? width = "30%" : width = "100%"
+    const [isOpen, setIsOpen] = useState(false);
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const toast = useToast();
 
+    const openModal = () => {
+        setIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsOpen(false);
+    };
+
+    const formatPhoneNumber = (value) => {
+        const cleanedValue = value.replace(/\D/g, '');
+        const match = cleanedValue.match(/^(\d{2})(\d{5})(\d{4})$/);
+        if (match) {
+            return `(${match[1]}) ${match[2]}-${match[3]}`;
+        }
+        return cleanedValue;
+    };
+    const enviarEmail = async () => {
+        const dest = { email, telefone, nome }
+        const response = await api.post('Leads', dest)
+        console.log('response', response.data)
+
+        if(response.status===200){
+            setTimeout(() => {
+                toast({
+                    duration: 3000,
+                    title: `Usuário já Cadastrado na nossa lista exclusiva`,
+                    position: "top",
+                    isClosable: true,
+                });
+            }, 500);
+            return
+        }
+        if (response.status === 201) {
+
+            setTimeout(() => {
+                toast({
+                    duration: 3000,
+                    title: `Agradecemos interesse pelo plano pago, em breve lhe retornaremos!`,
+                    position: "top",
+                    isClosable: true,
+                });
+            }, 500);
+        } else {
+            setTimeout(() => {
+                toast({
+                    duration: 3000,
+                    title: `Ops, algo deu errado!`,
+                    position: "top",
+                    isClosable: true,
+                });
+            }, 500);
+        }
+    }
     return (
         <Box mb={'2%'} id="planos">
             <Text
@@ -19,7 +82,7 @@ function Planos() {
                 textAlign={'center'}
                 w={'100%'}
             >
-               Acesse e se surpreenda!
+                Cadastre-se e se surpreenda!
             </Text>
             {/* <Text
                 fontSize={"14px"}
@@ -37,7 +100,12 @@ function Planos() {
             </Text> */}
             <Box>
                 <Flex pt={10} justifyContent={'center'} flexDirection={['column', 'row']} px={'5%'}>
-                    <Box w={['100%', '30%']} h={'100%'} border="3px solid #1C49B0" rounded={10} py={'1%'} mb={['5%', '0']}  mx={'2%'} px={'3%'}>
+                    <Box
+                        w={width}
+                        h={'100%'}
+                        border="3px solid #1C49B0"
+                        rounded={10} py={'1%'} mb={['5%', '0']} mx={'2%'} px={'3%'}
+                    >
                         <Image
                             src={premiun}
                             bg={'#8fa5f5'}
@@ -161,27 +229,27 @@ function Planos() {
                             </Text>
                         </HStack>
 
-                            <Link href={`#/Login`}>
-                                <Button
-                                    border="1px solid #1C49B0"
-                                    color="#1C49B0"
-                                    bg="transparent"
-                                    height="50px"
-                                    fontSize={'22px'}
-                                    _hover={{
-                                        background: 'transparent',
-                                        color: '#1C49B0',
-                                    }}
-                                    width={'100%'}
+                        <Link href={`#/Cadastro`} target="_blank">
+                            <Button
+                                border="1px solid #1C49B0"
+                                color="#1C49B0"
+                                bg="transparent"
+                                height="50px"
+                                fontSize={'22px'}
+                                _hover={{
+                                    background: 'transparent',
+                                    color: '#1C49B0',
+                                }}
+                                width={'100%'}
 
-                                    my={3}
-                                >
-                                    Acessar
+                                my={3}
+                            >
+                                Cadastro
 
-                                </Button>
-                            </Link>
+                            </Button>
+                        </Link>
                     </Box>
-                    {/* <Box w={['100%', '30%']} h={'100%'} border="3px solid #1C49B0" rounded={10} py={'1%'}  mx={'2%'} px={'3%'} bg={'#1C49B0'}>
+                    {<Box w={['100%', '30%']} h={'100%'} border="3px solid #1C49B0" rounded={10} py={'1%'} mx={'2%'} px={'3%'} bg={'#1C49B0'}>
                         <Image
                             src={free}
                             bg={'#FFF'}
@@ -202,7 +270,7 @@ function Planos() {
                         >
                             Versão Integral
                         </Text>
-                        <HStack gap={'10%'}>
+                        {/* <HStack gap={'10%'}>
                             <Text
                                 fontSize={"35px"}
                                 fontFamily={'Outfit, sans-serif'}
@@ -228,7 +296,7 @@ function Planos() {
                             >
                                 por mês
                             </Text>
-                        </HStack>
+                        </HStack> */}
                         <HStack mb={4}>
                             <Image
                                 src={checkPremium}
@@ -383,26 +451,60 @@ function Planos() {
                             </Text>
                         </HStack>
 
-                            <Link href={`#/`}>
-                                <Button
-                                    border="1px solid #1C49B0"
-                                    color="#1C49B0"
-                                    height="50px"
-                                    fontSize={'22px'}
-                                    _hover={{
-                                        color: '#1C49B0',
-                                    }}
-                                    width={'100%'}
+                        <Link href={`#/`}>
+                            <Button
+                                onClick={openModal}
+                                border="1px solid #1C49B0"
+                                color="#1C49B0"
+                                height="50px"
+                                fontSize={'22px'}
+                                _hover={{
+                                    color: '#1C49B0',
+                                }}
+                                width={'100%'}
 
-                                    my={3}
-                                >
-                                    Escolher
+                                my={3}
+                            >
+                                Pré Registro
 
-                                </Button>
-                            </Link>
-                    </Box> */}
+                            </Button>
+                        </Link>
+                    </Box>}
                 </Flex>
             </Box>
+
+            <Modal isOpen={isOpen} onClose={closeModal}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader fontFamily={'Rubik, sans-serif'}>Faça seu Pré registro</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <Input type="text" placeholder="Nome" mb={2} onChange={(e) => setNome(e.target.value)} />
+                        <Input type="email" placeholder="Email" mb={2} onChange={(e) => setEmail(e.target.value)} />
+                        <Input
+                            type="text" placeholder="Telefone"
+                            mb={2}
+                            value={telefone}
+                            onChange={(e) => setTelefone(formatPhoneNumber(e.target.value))}
+                            maxLength={14}
+                        />
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button fontFamily={'Sora, sans-serif'}
+                            bg="#1c49b0"
+                            mr={3} onClick={enviarEmail}
+                            textColor={'#fff'}
+                            _hover={{
+                                background: '#1C49B0',
+                                color: '#FFF',
+                            }}
+                        >
+                            Enviar
+                        </Button>
+                        <Button fontFamily={'Sora, sans-serif'} onClick={closeModal}>Cancelar</Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </Box>
     )
 }

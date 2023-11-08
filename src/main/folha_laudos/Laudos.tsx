@@ -60,10 +60,8 @@ function Exames() {
     if (localStorage.getItem("user") != null) {
       clinica = localStorage.getItem("user");
     }
-    // console.log('clinica', clinica)
     // const clinicaParse = JSON.parse(clinica)
     // setClinicaFoto(clinicaParse.foto)
-    // console.log(clinicaParse)
     return clinica;
   };
 
@@ -515,18 +513,22 @@ function Exames() {
   };
 
   const AddLaudoSalvo = () => {
-    const getCurrentData = {
-      paciente: getPaciente(),
-      laudo: urlLaudo,
-      data: getCurrentDateLaudo(),
-    };
-    laudos.map((e) => {
-      if (e.laudo == undefined || e.laudo == "") {
-        laudos.shift();
-      }
-    });
-    laudos.push(getCurrentData);
-    update(laudos);
+    if (urlLaudo !== undefined) {
+      const getCurrentData = {
+        paciente: getPaciente(),
+        laudo: urlLaudo,
+        data: getCurrentDateLaudo(),
+        medicoSolicitante: getMedicoSolicitante(),
+        tituloLaudo:titulo_exame
+      };
+      laudos.map((e) => {
+        if (e.laudo == undefined || e.laudo == "") {
+          laudos.shift();
+        }
+      });
+      laudos.push(getCurrentData);
+      update(laudos);
+    }
   };
 
   const sharePdf = async (title, url) => {
@@ -539,8 +541,6 @@ function Exames() {
       } catch (error) {
         console.error("Erro ao compartilhar:", error);
       }
-    } else {
-      console.log("A API de compartilhamento não é suportada neste navegador.");
     }
   };
 
@@ -548,12 +548,19 @@ function Exames() {
     const file = new Blob([blob], { type: "application/pdf" });
     const fileURL = URL.createObjectURL(file);
     setUrlLaudo(fileURL);
+    AddLaudoSalvo()
+  };
+  const convertBlobFinaliza = (blob) => {
+    const file = new Blob([blob], { type: "application/pdf" });
+    const fileURL = URL.createObjectURL(file);
+    setUrlLaudo(fileURL);
+    AddLaudoSalvo()
+    verificaForm()
   };
 
   const handleShareButtonClick = () => {
     const pdfUrl = urlLaudo
     sharePdf("Emaxes", pdfUrl);
-    console.log(pdfUrl)
   };
 
   const getFormatLaudo = () => {
@@ -880,7 +887,6 @@ function Exames() {
   }, [localStorage.getItem("format_laudo")!]);
 
   /* useEffect(() => {
-    console.log("edit", edit);
     if (edit) {
       RenderLaudoEditTrue();
     } else {
@@ -916,7 +922,7 @@ function Exames() {
 
 
   const verificaForm = async () => {
-
+    AddLaudoSalvo()
     const valor = { timesLaudos: userLaudos + 1 };
     if (formPreenchido) {
 
@@ -1110,7 +1116,6 @@ function Exames() {
 
                   <Link
                     onClick={() => {
-                      console.log('error', error)
                       convertBlob(blob!);
                     }}
                   >
@@ -1219,31 +1224,51 @@ function Exames() {
               </Circle>
             </Button>
           </Tooltip>
-          <Tooltip
-            label="Concluir laudo"
-            fontSize="xl"
-            backgroundColor="white"
-            placement="top"
-            hasArrow
-            arrowSize={15}
-            textColor="black"
+          <PDFDownloadLink
+            document={laudo != null ? laudo : Laudo()}
+            fileName={`Laudo Paciente ${getPaciente()} Data - ${getCurrentDate()}`}
           >
-            <Button
-              onClick={() => {
-                verificaForm()
-              }}>
-              <Circle size="50px" bg="yellow.400">
-                <Icon
-                  w={30}
-                  h={30}
-                  as={BsFillCheckCircleFill}
-                  color="green"
-                  size="30px"
+            {({ blob, url, loading, error }) =>
+              loading ? (
+                <Icon as={BiLoaderAlt} color="#4658fc" w={50} h={40} />
+              ) : (
+                <Link
+                  onClick={() => {
+                    convertBlobFinaliza(blob!);
+                  }}
+                >
+                  <Tooltip
+                    label="Concluir laudo"
+                    fontSize="xl"
+                    backgroundColor="white"
+                    placement="top"
+                    hasArrow
+                    arrowSize={15}
+                    textColor="black"
+                  >
+                    <Circle size="40px" bg="yellow.400">
+                      <Button
+                        onClick={() => {
+                          convertBlob(blob!);
 
-                />
-              </Circle>
-            </Button>
-          </Tooltip>
+                        }}>
+                        <Circle size="50px" bg="yellow.400">
+                          <Icon
+                            w={30}
+                            h={30}
+                            as={BsFillCheckCircleFill}
+                            color="green"
+                            size="30px"
+
+                          />
+                        </Circle>
+                      </Button>
+                    </Circle>
+                  </Tooltip>
+                </Link>
+              )
+            }
+          </PDFDownloadLink>
         </Stack>
       </Center>
 

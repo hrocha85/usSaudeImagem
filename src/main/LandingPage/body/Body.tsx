@@ -7,14 +7,17 @@ import { FaApple } from 'react-icons/fa';
 import { Link as ScrollLink } from "react-scroll";
 
 function Body() {
-  const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
+  const [isLargerThan600] = useMediaQuery('(min-width: 700px)')
+  const [isLargerThan1100] = useMediaQuery('(min-width: 1300px)')
   let display = ""
   let display1 = ""
+  let display2 = ""
   let width = ""
   let paddLe = "left"
-  isLargerThan600 ? width = "50%" : width = "100%"
+  isLargerThan1100 ? width = "50%" : width = "100%"
   isLargerThan600 ? display = "" : display = "none"
-  isLargerThan600 ? paddLe = "0" : paddLe = "center"
+  isLargerThan1100 ? display2 = "block" : display2 = "none"
+  isLargerThan1100 ? paddLe = "left" : paddLe = "center"
   isLargerThan600 ? display1 = "flex" : display1 = "block"
 
   return (
@@ -23,12 +26,11 @@ function Body() {
       backgroundSize={['cover', "100% 100%"]}
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
-      px={'2%'}
       pt={'5%'}
       pl={['5%', '10%']}
     >
       <Flex alignItems={'center'} display={display1} px={'2%'}>
-        <Box w={width}>
+        <Box w={width} pb={['2%',0]}>
           <Text
             fontSize={"46px"}
             fontFamily={'Rubik, sans-serif'}
@@ -40,7 +42,7 @@ function Body() {
             textAlign={{ base: 'center', md: 'left' }}
             pt={"3%"}
           >
-            Transformando Experiências Médicas
+            Tecnologia avançada para emissão de laudos detalhados e personalizados
           </Text>
           <Text
             fontSize={"25px"}
@@ -53,7 +55,8 @@ function Body() {
             pt={'20px'}
 
           >
-            com tecnologia avançada para emissão de laudos detalhados e personalizados!
+
+            transformando experiências médicas
           </Text>
           <Text
             fontSize={"18px"}
@@ -69,19 +72,21 @@ function Body() {
             Um sistema de inovação de ultrassom, o futuro da medicina transformando vidas, aqui a tecnologia e a medicina se unem para cuidar de pessoas com precisão em tempo real, laudos feitos com qualidade de ponta.
           </Text>
           <ScrollLink to="planos" smooth={true} duration={500} ml={5}>
-            <Button
-              border="1px solid #1C49B0"
-              color="#1C49B0"
-              bg="#FFF"
-              fontSize={'20px'}
-              paddingX={"12%"}
-              borderRadius={"15px"}
-              paddingY={"25px"}
-              fontFamily={"Sora, sans-serif"}
-              fontWeight={'600'}
-            >
-              Conheça nossos planos
-            </Button>
+            <Box display={'flex'} justifyContent={['center', 'left']}>
+              <Button
+                border="1px solid #1C49B0"
+                color="#1C49B0"
+                bg="#FFF"
+                fontSize={'20px'}
+                paddingX={"12%"}
+                borderRadius={"15px"}
+                paddingY={"25px"}
+                fontFamily={"Sora, sans-serif"}
+                fontWeight={'600'}
+              >
+                Conheça nossos planos
+              </Button>
+            </Box>
           </ScrollLink>
           <Box pt={'5%'} display={display}>
             <Text
@@ -164,9 +169,10 @@ function Body() {
             </HStack>
           </Box>
         </Box>
-        <Box>
+        <Box display={display2} w={'100%'} p={0}>
           <Image
             src={doctor}
+            w={'600px'}
           />
         </Box>
       </Flex>

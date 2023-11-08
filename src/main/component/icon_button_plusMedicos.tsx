@@ -79,7 +79,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
     return medicos;
   };
 
-
+  const [errorMsg, setErrorMsg] = useState<any>(false);
   const [nome, setNome] = useState("");
 
   const [crm, setCrm] = useState("");
@@ -178,17 +178,26 @@ const IconButtonPlusMedicos = (props, clinica) => {
   const onChangeFile = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
+    const MAX_FILE_SIZE = 800 // 5MB
     const file = e.target.files![0];
     const reader = new FileReader();
-
-    reader.onload = (event) => {
-      const result = event.target?.result;
-      if (typeof result === "string") {
-        setDefaultUserImage(result);
+    if (file) {
+      const fileSizeKiloBytes = file.size / 1024
+      if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+        setErrorMsg("Imagem acima do tamanho permitido");
+        return
       }
-    };
 
-    reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const result = event.target?.result;
+        if (typeof result === "string") {
+          setErrorMsg(false)
+          setDefaultUserImage(result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
   };
 
   const onChangeFilePNGAssinatura = async (
@@ -251,10 +260,16 @@ const IconButtonPlusMedicos = (props, clinica) => {
     if (!isAdmin) {
       const TodosMedicosString = localStorage.getItem("medicos")
       const TodosMedicos = TodosMedicosString ? JSON.parse(TodosMedicosString) : []
-      const id = TodosMedicos.length + 1
-
+      let idProv = TodosMedicos.length + 1
+      TodosMedicos.map((medico) => {
+        if (idProv === medico.id) {
+          console.log(medico)
+          console.log(idProv)
+          idProv = idProv + 1
+        }
+      })
       const obj = {
-        id: id,
+        id: idProv,
         userID: user.id,
         nome: nome,
         CRMUF: crm,
@@ -442,7 +457,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
           colorScheme="blackAlpha"
         >
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent m='1vw'>
             <ModalHeader></ModalHeader>
             <Divider orientation="horizontal" marginTop="10px" />
             <ModalCloseButton
@@ -488,7 +503,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
 
             <Divider orientation="horizontal" />
 
-            <ModalBody>
+            <ModalBody >
               <Center>
                 <Image
                   borderRadius="full"
@@ -511,11 +526,17 @@ const IconButtonPlusMedicos = (props, clinica) => {
                   as={BiCamera}
                   marginTop="2px"
                   color="#4658fc"
-                  margin="10px"
+                  margin="5px"
                   onClick={openFiles}
                 />
               </Center>
-              <Center margin="25px">
+              <Center>
+                <HStack h='15px' gap='5px'>
+                  <Text color={'#808080'} as={'sub'} fontWeight={'bold'}>Tam. Máx.:800 Kb</Text>
+                  <Text color={'#FF7F50'} as={'sub'} fontWeight={'bold'}>{errorMsg}</Text>
+                </HStack>
+              </Center>
+              <Center margin="5px">
                 <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
                   {clinicas.map((clinica, key) => {
                     const clinicaParse = JSON.parse(clinica);
@@ -580,7 +601,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
                 </HStack>
               </Center>
 
-              <Center paddingTop={"30px"}>
+              <Center paddingTop={"10px"}>
                 <InputGroup variant={"unstyled"} width={"250px"} marginEnd="50px">
                   <InputLeftAddon
                     children="CRM/UF:"
@@ -602,7 +623,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
             </ModalBody>
             <Text
               marginStart="25px"
-              marginTop="20px"
+              marginTop={'-5px'}
               fontSize="19px"
               fontWeight="semibold"
               marginBottom="-20px"
@@ -610,70 +631,102 @@ const IconButtonPlusMedicos = (props, clinica) => {
               Assinatura:
             </Text>
             <ModalFooter>
-              {pngAssinatura == null || pngAssinatura == undefined ? (
-                <Box
-                  w="100%"
-                  h="100%"
-                  backgroundColor={"#F7FAFC"}
-                  borderColor={propsBoxAssinatura === true ? "#3183cf" : "white"}
-                  borderWidth={propsBoxAssinatura === true ? "2px" : "0px"}
-                  boxShadow="md"
-                  borderRadius={"md"}
-                  onClick={() => setpropsBoxAssinatura(true)}
-                >
-                  <SignatureCanvas
-                    ref={padRef}
-                    backgroundColor="transparent"
-                    onBegin={() => setpropsBoxAssinatura(true)}
-                    penColor="black"
-                    canvasProps={{
-                      width: 390,
-                      height: 230,
-                      className: "sigCanvas",
-                    }}
-                  />
-
-                  <Flex justify="end">
-                    <input
-                      accept="image/png, image/jpeg"
-                      type="file"
-                      id="file"
-                      ref={inputFileAssinatura}
-                      style={{ display: "none" }}
-                      onChange={onChangeFilePNGAssinatura.bind(this)}
-                    />
-                    <Icon
-                      as={AiOutlineCloudUpload}
-                      color="#4658fc"
-                      margin="5px"
-                      alignItems="end"
-                      onClick={add_png_assinatura}
-                    />
-                    <Icon
-                      as={AiOutlineClear}
-                      color="#4658fc"
-                      margin="5px"
-                      alignItems="end"
-                      onClick={clearAssinatura}
-                    />
-                  </Flex>
-                </Box>
-              ) : (
-                <Box
-                  w="100%"
-                  h="100%"
-                  backgroundColor={"#F7FAFC"}
-                  boxShadow="md"
-                  borderRadius={"md"}
-                >
-                  <Image
+              <>
+                {pngAssinatura == null || pngAssinatura == undefined ? (
+                  <Box
                     w="100%"
                     h="100%"
-                    srcSet={pngAssinatura}
-                    alt="Image DR"
-                  />
-                </Box>
-              )}
+                    backgroundColor={"#F7FAFC"}
+                    borderColor={propsBoxAssinatura === true ? "#3183cf" : "white"}
+                    borderWidth={propsBoxAssinatura === true ? "2px" : "0px"}
+                    boxShadow="md"
+                    borderRadius={"md"}
+                    onClick={() => setpropsBoxAssinatura(true)}
+                  >
+                    <SignatureCanvas
+                      ref={padRef}
+                      backgroundColor="transparent"
+                      onBegin={() => setpropsBoxAssinatura(true)}
+                      penColor="black"
+                      canvasProps={{
+                        width: 390,
+                        height: 120,
+                        className: "sigCanvas",
+                      }}
+                    />
+
+                    <Flex justify="end">
+                      <input
+                        accept="image/png, image/jpeg"
+                        type="file"
+                        id="file"
+                        ref={inputFileAssinatura}
+                        style={{ display: "none" }}
+                        onChange={onChangeFilePNGAssinatura.bind(this)}
+                      />
+                      <Icon
+                        as={AiOutlineCloudUpload}
+                        color="#4658fc"
+                        margin="5px"
+                        alignItems="end"
+                        onClick={add_png_assinatura}
+                      />
+                      <Icon
+                        as={AiOutlineClear}
+                        color="#4658fc"
+                        margin="5px"
+                        alignItems="end"
+                        onClick={clearAssinatura}
+                      />
+                    </Flex>
+                  </Box>
+                ) : (
+                  <Box
+                    w="100%"
+                    h="100%"
+                    backgroundColor={"#F7FAFC"}
+                    boxShadow="md"
+                    borderRadius={"md"}
+                  >
+                    <Image
+                      w="100%"
+                      h="100%"
+                      srcSet={pngAssinatura}
+                      alt="Image DR"
+                    />
+                  </Box>
+                )}
+                {/* {pngAssinatura == null || pngAssinatura == undefined ? (
+                  <Box
+                    w="100%"
+                    h="100%"
+
+                    boxShadow="md"
+                    borderRadius={"md"}
+                    onClick={() => setpropsBoxAssinatura(true)}
+                  >
+                    <Center gap='15px'>
+                      <Button>Desenhar</Button>
+                      <Button>Upload</Button>
+                    </Center>
+                  </Box>
+                ) : (
+                  <Box
+                    w="100%"
+                    h="100%"
+                    backgroundColor={"#F7FAFC"}
+                    boxShadow="md"
+                    borderRadius={"md"}
+                  >
+                    <Image
+                      w="100%"
+                      h="100%"
+                      srcSet={pngAssinatura}
+                      alt="Image DR"
+                    />
+                  </Box>
+                )} */}
+              </>
             </ModalFooter>
 
 
@@ -682,7 +735,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
               width="400px"
               textColor="white"
               backgroundColor="#0e63fe"
-              margin="10px"
+              margin="5px"
               onClick={() => {
                 if (nome !== "" && crm !== "" && clinicas.length >= 1) {
                   AddMedico();
