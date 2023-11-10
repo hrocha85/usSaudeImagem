@@ -136,10 +136,13 @@ const Medicos = ({ medico, id }) => {
       role == 'admin' ? isAdmin = true : isAdmin = false
     }
     if (!isAdmin) {
+      const ParseClinicas: any = []
       const clinicas = medico.clinicas
       setListaClinicas(GetClinicaFree())
-      console.log([clinicas])
-      setClinicaMedico(clinicas)
+      clinicas.map((clinica) => {
+        ParseClinicas.push(JSON.parse(clinica))
+      })
+      setClinicaMedico(ParseClinicas)
     } else {
       getClinicaAdmin()
         .then(clinicas => {
@@ -373,11 +376,11 @@ const Medicos = ({ medico, id }) => {
       <Center margin="25px">
         <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
           {ClinicasMedico.map((clinica, key) => {
-            const parseClinica = JSON.parse(clinica);
+            // const parseClinica = JSON.parse(clinica);
             return (
               <Tooltip
                 key={key}
-                label={parseClinica.nome}
+                label={clinica.nome}
                 size="md"
                 backgroundColor="white"
                 placement="top"
@@ -392,7 +395,7 @@ const Medicos = ({ medico, id }) => {
                   variant="solid"
                   colorScheme="twitter"
                 >
-                  <TagLabel key={key}>{parseClinica.nome}</TagLabel>
+                  <TagLabel key={key}>{clinica.nome}</TagLabel>
                   <TagCloseButton
                     onClick={() => {
                       ClinicasMedico.splice(key, 1);
@@ -413,12 +416,12 @@ const Medicos = ({ medico, id }) => {
     return (
       <div style={{ textAlign: 'center', borderRadius: '50rem' }}>
         {ClinicasMedico.map((clinica, key) => {
-          const parseClinica = JSON.parse(clinica);
+          // const parseClinica = JSON.parse(clinica);
           // const parseClinica = (clinica);
           return (
             <FieldDefaultIcon
               key={key}
-              text={parseClinica.nome}
+              text={clinica.nome}
               textColor="#4A5568"
               //icon={FaRegFolderOpen}
               clinica={medicos}
@@ -762,11 +765,11 @@ const Medicos = ({ medico, id }) => {
                   <Flex direction="row" justify="center" flexWrap="wrap" gap="5px">
                     {ClinicasMedico.map((clinica, key) => {
                       // console.log('clinca', clinica)
-                      const parseClinica = JSON.parse(clinica);
+                      // const parseClinica = JSON.parse(clinica);
                       return (
                         <Tooltip
                           key={key}
-                          label={parseClinica.nome}
+                          label={clinica.nome}
                           size="md"
                           backgroundColor="white"
                           placement="top"
@@ -781,7 +784,7 @@ const Medicos = ({ medico, id }) => {
                             variant="solid"
                             colorScheme="twitter"
                           >
-                            <TagLabel key={key}>{parseClinica.nome}</TagLabel>
+                            <TagLabel key={key}>{clinica.nome}</TagLabel>
                             <TagCloseButton
                               onClick={() => {
                                 ClinicasMedico.splice(key, 1);

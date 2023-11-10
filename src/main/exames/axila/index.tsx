@@ -2,13 +2,16 @@ import { Box, useMediaQuery } from "@chakra-ui/react";
 
 import Axila_direita from "./axilas/axila_direita";
 import Axila_esquerda from "./axilas/axila_esquerda";
+import { useEffect } from "react";
 
 
 function Axila() {
-
+  useEffect(() => {
+    console.log('ta caindo na axila')
+  })
   let disp = 'block';
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
-  isLargerThan600 ? disp = 'flex': disp = 'block'
+  isLargerThan600 ? disp = 'flex' : disp = 'block'
   return (
     <>
       <Box ml="10px" rowGap='20px' >

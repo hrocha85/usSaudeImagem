@@ -1,16 +1,31 @@
 import { Box, Button, GridItem, Link, Tooltip } from "@chakra-ui/react";
 import PropsTypes from "prop-types";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { EnableExamesContext } from "../../context/ExamesEnableContext";
 import { TabExamesContext } from "../../context/TabExameContext";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import api from "../../api";
 
 const FieldDefaultHome = ({ text, textColor, id, exame }) => {
   const { enableExames, setEnableExames } = useContext(EnableExamesContext);
   const { tabExames, setTabExames } = useContext(TabExamesContext);
   const [observacoes, SetObservacoes] = useState([])
 
+  const [Exames, setExames] = useState<any>([])
 
+  useEffect(() => {
+    const ExamesBD = async () => {
+      try {
+        const response = await api.get('/exame');
+        setExames(response.data)
+      } catch (error) {
+        console.error('Error', error);
+        throw error;
+      }
+    }
+
+    ExamesBD()
+  }, [])
 
   const exames = [
     {
@@ -200,7 +215,7 @@ const FieldDefaultHome = ({ text, textColor, id, exame }) => {
     //   (e) => e.key.toString() === id.toString()
     // );
 
-    const exameEncontrado = exames.filter((e) => e.key == idExame)
+    const exameEncontrado = Exames.filter((e) => e.id == idExame)
 
 
     if (exameEncontrado) {

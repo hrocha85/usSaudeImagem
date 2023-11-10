@@ -338,7 +338,7 @@ const Configuracoes = () => {
         }
       }
     };
-    
+
     // setListaClinicas(GetClinicaFree());
     fetchData();
   }, [stateClickAddMedico, getClinicasNull]);

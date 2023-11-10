@@ -54,6 +54,7 @@ import Sidebar from "../menu/sideBar";
 import Conclusoes from "./conclusoes";
 import Field_Observacoes from "./field_observacoes";
 import FooterUpbase from "./FooterUpbase";
+import api from "../../api";
 
 export default function Box_Default_With_Sidebar() {
   const {
@@ -74,11 +75,25 @@ export default function Box_Default_With_Sidebar() {
   let maxLargura = "58%";
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
   isLargerThan600 ? maxLargura = "58%" : maxLargura = "94%"
+  const [exames, setExames] = useState<any>([])
 
-  const exames = [
+  useEffect(() => {
+    const ExamesBD = async () => {
+      try {
+        const response = await api.get('/exame');
+        setExames(response.data)
+      } catch (error) {
+        console.error('Error', error);
+        throw error;
+      }
+    }
+
+    ExamesBD()
+  }, [])
+  const Examess = [
     {
       key: 1,
-      nomeExame: "Abdômen total",
+      titulo_exame: "Abdômen total",
       link: `#/Exames/${1}`,
       observacao: [
         "Exame prejudicado devido grande presença de gases intestinais.",
@@ -91,7 +106,7 @@ export default function Box_Default_With_Sidebar() {
 
     {
       key: 3,
-      nomeExame: "Mamas",
+      titulo_exame: "Mamas",
       link: `#/Exames/${3}`,
       observacao: [
         "Conviria controle ecográfico periódico, a critério clínico.",
@@ -104,35 +119,35 @@ export default function Box_Default_With_Sidebar() {
 
     {
       key: 5,
-      nomeExame: "Abdomen Superior",
+      titulo_exame: "Abdomen Superior",
       link: `#/Exames/${5}`,
     },
     {
       key: 6,
-      nomeExame: "Transvaginal",
+      titulo_exame: "Transvaginal",
       link: `#/Exames/${6}`,
     },
 
     {
       key: 8,
-      nomeExame: "Tireóide",
+      titulo_exame: "Tireóide",
       link: `#/Exames/${8}`,
     },
 
     {
       key: 11,
-      nomeExame: "Rins e Vias Urinárias",
+      titulo_exame: "Rins e Vias Urinárias",
       link: `#/Exames/${11}`,
     },
 
     {
       key: 13,
-      nomeExame: "Partes Moles",
+      titulo_exame: "Partes Moles",
       link: `#/Exames/${13}`,
     },
     {
       key: 14,
-      nomeExame: "Testículo",
+      titulo_exame: "Testículo",
       link: `#/Exames/${14}`,
       observacao: [
         "Conviria controle ecográfico periódico, a critério clínico.",
@@ -143,12 +158,12 @@ export default function Box_Default_With_Sidebar() {
 
     {
       key: 16,
-      nomeExame: "Pélvico",
+      titulo_exame: "Pélvico",
       link: `#/Exames/${16}`,
     },
     {
       key: 17,
-      nomeExame: "Próstata",
+      titulo_exame: "Próstata",
       link: `#/Exames/${17}`,
       observacao: [
         "Exame restrito para avaliação do volume prostático, devendo ser correlacionado com os dados clínicos e exames laboratoriais específicos para pesquisa de neoplasia.",
@@ -159,12 +174,12 @@ export default function Box_Default_With_Sidebar() {
     },
     {
       key: 18,
-      nomeExame: "Articulações",
+      titulo_exame: "Articulações",
       link: `#/Exames/${18}`,
     },
     {
       key: 19,
-      nomeExame: "Região Inguinal",
+      titulo_exame: "Região Inguinal",
       link: `#/Exames/${19}`,
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
@@ -174,7 +189,7 @@ export default function Box_Default_With_Sidebar() {
     },
     {
       key: 20,
-      nomeExame: "Axila",
+      titulo_exame: "Axila",
       link: `#/Exames/${20}`,
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
@@ -184,7 +199,7 @@ export default function Box_Default_With_Sidebar() {
     },
     {
       key: 21,
-      nomeExame: "Torax",
+      titulo_exame: "Torax",
       link: `#/Exames/${21}`,
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
@@ -194,7 +209,7 @@ export default function Box_Default_With_Sidebar() {
     },
     {
       key: 22,
-      nomeExame: "Parede Abdominal",
+      titulo_exame: "Parede Abdominal",
       link: `#/Exames/${22}`,
       observacao: [
         "Exames anteriores não disponíveis para estudo comparativo.",
@@ -204,7 +219,7 @@ export default function Box_Default_With_Sidebar() {
     },
     // {
     //   key: 20,
-    //   nomeExame: "Doppler Testículo",
+    //   titulo_exame: "Doppler Testículo",
     //   link: `#/Home/${20}`,
     //   observacao: [
     //     "Conviria controle ecográfico periódico, a critério clínico.",
@@ -245,7 +260,7 @@ export default function Box_Default_With_Sidebar() {
 
       const array = JSON.parse(localStorage.getItem("format_laudo")!);
       array.map((i, key) => {
-        if (i.titulo_exame == currentExame!.nomeExame) {
+        if (i.titulo_exame == currentExame!.titulo_exame) {
           array.splice(key, 1);
         }
       });
@@ -266,7 +281,7 @@ export default function Box_Default_With_Sidebar() {
     const existingFormatLaudo = localStorage.getItem("format_laudo");
 
     const newFormatLaudo = {
-      titulo_exame: exame.nomeExame,
+      titulo_exame: exame.titulo_exame,
       subExames: [{ subExameNome: "", frases: [] }],
       conclusoes: [""],
       observacoes: [""],
@@ -277,14 +292,14 @@ export default function Box_Default_With_Sidebar() {
 
     //   const newObservacao = {
     //     id: exame.key,
-    //     titulo_observacao: exame.nomeExame,
+    //     titulo_observacao: exame.titulo_exame,
     //     observacao: exame.observacao!,
     //   };
 
     //   if (existingObservacoes !== null) {
     //     const parsedObservacoes = JSON.parse(existingObservacoes);
     //     const existingObservacaoIndex = parsedObservacoes.findIndex(
-    //       (obs) => obs.titulo_observacao === exame.nomeExame
+    //       (obs) => obs.titulo_observacao === exame.titulo_exame
     //     );
     //     if (existingObservacaoIndex !== -1) {
     //       parsedObservacoes[existingObservacaoIndex].observacao =
@@ -315,7 +330,7 @@ export default function Box_Default_With_Sidebar() {
 
 
   useEffect(() => {
-    const exame = tabExames.find((e) => e.nomeExame !== undefined);
+    const exame = tabExames.find((e) => e.titulo_exame !== undefined);
     console.log('EXAME', exame)
     if (exame !== undefined) {
       console.log('tabExames', tabExames)
@@ -328,7 +343,7 @@ export default function Box_Default_With_Sidebar() {
   }, []);
 
   // useEffect(() => {
-  //   const exame = tabExames.find((e) => e.nomeExame !== undefined);
+  //   const exame = tabExames.find((e) => e.titulo_exame !== undefined);
   //   if (exame !== undefined) {
   //     setCurrentExame(exame);
   //     setIsMounted(true);
@@ -388,7 +403,7 @@ export default function Box_Default_With_Sidebar() {
           <TabList paddingStart="20px">
             <Flex direction="row" flexWrap="wrap" gap="5px" maxW="65%">
               {tabExames.map((e, key) => {
-                if (e.nomeExame != undefined) {
+                if (e.titulo_exame != undefined) {
                   return (
                     <Stack direction="row" key={key}>
                       <Tab
@@ -398,9 +413,9 @@ export default function Box_Default_With_Sidebar() {
                         _selected={{ color: "white", bg: "blue.500" }}
                         onClick={() => setCurrentExame(e)}
                       >
-                        {e.nomeExame}
+                        {e.titulo_exame}
                         <Tooltip
-                          label={`Fechar ${e.nomeExame}`}
+                          label={`Fechar ${e.titulo_exame}`}
                           backgroundColor="white"
                           placement="top"
                           hasArrow
@@ -448,34 +463,29 @@ export default function Box_Default_With_Sidebar() {
           </TabList>
           <TabPanels>
             {tabExames.map((e, key) => {
-              if (e.key > 0) {
+              if (e.id > 0) {
                 return (
                   <TabPanel key={key} maxW="98%" pt={'2.6%'} ml={'0.8%'}>
                     {
                       {
-                        1: <AbdomemTotal />,
-                        2: <DopplerTransvaginal />,
-                        3: <Mamas />,
-
-                        5: <AbdomemSuperior />,
-                        6: <Transvaginal />,
-
-                        8: <Tireoide />,
-
-                        11: <RinseViasUrinarias />,
-
+                        1: <ParedeAbdominal />,
+                        2: <AbdomemSuperior />,
+                        3: <AbdomemTotal />,
+                        4: <Prostata />,
+                        5: <Articulacoes />,
+                        6: <Regiao_Inguinal />,
+                        7: <Axila />,
+                        8: <Torax />,
+                        9: <Mamas />,
+                        10: <Tireoide />,
+                        11: <Transvaginal />,
+                        12: <RinseViasUrinarias />,
                         13: <PartesMoles />,
-                        14: <Testiculo />,
+                        14: <Pelvico />,
+                        15: <Testiculo />,
+                        16: <DopplerTransvaginal />,
 
-                        16: <Pelvico />,
-                        17: <Prostata />,
-                        18: <Articulacoes />,
-                        19: <Regiao_Inguinal />,
-                        20: <Axila />,
-                        21: <Torax />,
-                        22: <ParedeAbdominal />,
-
-                      }[e.key]
+                      }[e.id]
                     }
                   </TabPanel>
                 );
@@ -535,8 +545,8 @@ export default function Box_Default_With_Sidebar() {
                       setTabExames((tabExames) => {
                         const found = tabExames.find(
                           (obj) =>
-                            obj.nomeExame === exame.nomeExame &&
-                            obj.nomeExame === exame.nomeExame
+                            obj.titulo_exame === exame.titulo_exame &&
+                            obj.titulo_exame === exame.titulo_exame
                         );
                         if (!found) {
                           AddNewExame(exame);
@@ -563,7 +573,7 @@ export default function Box_Default_With_Sidebar() {
                       paddingTop="4.5"
                       paddingStart="12px"
                     >
-                      {exame.nomeExame}
+                      {exame.titulo_exame}
                     </Text>
                   </GridItem>
                 ))}

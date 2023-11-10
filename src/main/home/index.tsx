@@ -324,7 +324,7 @@ function Home() {
           </Text>
 
           <Center>
-            <LayoutExame item={<ItemExamesHome />} />
+            <ItemExamesHome />
           </Center>
           <Center>
             <Box

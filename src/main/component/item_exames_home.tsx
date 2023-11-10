@@ -1,7 +1,12 @@
+import { useEffect, useState } from "react";
+import api from "../../api";
 import FieldDefaultHome from "./field_default_home";
+import { Center, Grid, Spinner, Text } from "@chakra-ui/react";
 
 const ItemExamesHome = () => {
-  let exames = [
+  const [Exames, setExames] = useState<any>([])
+  let exames: any = []
+  const examesAntigo = [
     {
       key: 1,
       nomeExame: "Abdômen total",
@@ -170,6 +175,7 @@ const ItemExamesHome = () => {
     // },
   ];
 
+
   function validaCampos(obj) {
     for (const key in obj) {
       if (obj[key] === null || obj[key] === undefined || obj[key] === "") {
@@ -179,26 +185,72 @@ const ItemExamesHome = () => {
     return true;
   }
 
-  const examesOriginais = [...exames];
+  const examesOriginais = [...Exames];
 
   let examesFiltrados = examesOriginais.filter((exame) => validaCampos(exame));
-
   while (examesFiltrados.length !== examesOriginais.length) {
     exames = examesFiltrados;
     examesFiltrados = exames.filter((exame) => validaCampos(exame));
   }
 
+  useEffect(() => {
+    const ExamesBD = async () => {
+      try {
+        const response = await api.get('/exame');
+        setExames(response.data)
+        console.log(response.data)
+      } catch (error) {
+        console.error('Error', error);
+        throw error;
+      }
+    }
+
+    ExamesBD()
+
+    let examesFiltrados = examesOriginais.filter((exame) => validaCampos(exame));
+    while (examesFiltrados.length !== examesOriginais.length) {
+      exames = examesFiltrados;
+      examesFiltrados = exames.filter((exame) => validaCampos(exame));
+    }
+  }, [])
+
+  const renderExames = () => {
+    if (Exames.length === 0) {
+      return (
+        <Center>
+          <Spinner size='xl' color='blue' />
+        </Center>
+      )
+    } else {
+      return (
+
+        <>
+          <Grid
+            templateColumns={{ base: "repeat(2, 1fr)", lg: "repeat(5, 1fr)" }}
+            templateRows={{ base: "repeat(3, 1fr)", lg: "repeat(3, 1fr)" }}
+            gap={0.5}
+          >
+            {
+              examesFiltrados.map((exame, key) => (
+                <FieldDefaultHome
+                  key={key}
+                  text={exame.titulo_exame}
+                  textColor={"#1A202C"}
+                  id={exame.id}
+                  exame={exame}
+                />
+              ))
+            }
+          </Grid>
+        </>
+      )
+    }
+
+  }
+
   return (
     <>
-      {examesFiltrados.map((exame, key) => (
-        <FieldDefaultHome
-          key={key}
-          text={exame.nomeExame}
-          textColor={"#1A202C"}
-          id={exame.key.toString()}
-          exame={exame}
-        />
-      ))}
+      {renderExames()}
     </>
   );
 };
