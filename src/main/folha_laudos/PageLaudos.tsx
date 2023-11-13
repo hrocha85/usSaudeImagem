@@ -47,10 +47,15 @@ const PageLaudos = () => {
             const medico = JSON.parse(localStorage.getItem("user")!);
             setExames(medico.medico.laudos)
             setMedicoLogado(medico.medico.nome)
-            console.log(MedicoLogado)
-            console.log(medico)
         }
     }, [])
+
+    const getUserMedico = () => {
+        if (localStorage.getItem("user") != null) {
+          const medico = JSON.parse(localStorage.getItem("user")!);
+          return medico.medico;
+        } else return null;
+      };
 
 
     const showSavedLaudo = (laudo) => {
