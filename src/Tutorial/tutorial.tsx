@@ -169,7 +169,7 @@ const VideoPage = () => {
     if (lista_medico.length > 0) {
       setPrimeiroLogin(false)
     }
-  }, [])
+  }, [[lista_medico]])
 
   return (
     <Box h={'100vh'}>
