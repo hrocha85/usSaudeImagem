@@ -39,7 +39,8 @@ const SplashScreen = () => {
     if (lista_medico.length > 0) {
       setPrimeiroLogin(false)
     }
-  }, [])
+    console.log(lista_medico.length)
+  }, [lista_medico])
   //está sendo jogado para abdomen total pqe nao temos a pagina principal, ajustar isso futuramente
   // };
   return redirectNow ? (

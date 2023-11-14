@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Button, Center, Input, Link, HStack } from '@chakra-ui/react';
+import { Box, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Button, Center, Input, Link, HStack, InputGroup, InputRightElement } from '@chakra-ui/react';
 import { Header } from '../header/Header';
 import { Footer } from '../footer/Footer';
 import { IoIosArrowBack } from 'react-icons/io';
+import { SearchIcon } from '@chakra-ui/icons';
 
 
 
@@ -64,6 +65,27 @@ function PerguntaFreq() {
             answer: `Sim, nosso software oferece treinamento para ajudar os
             usuários a utilizar o nosso software de forma rápida e eficaz, temos um
             vídeo demonstrativo de como funciona nosso software.` },
+        {
+            question: "O que é um sistema de laudos de ultrassom? ",
+            answer: `É um software projetado para criar, gerenciar e arquivar laudos médicos
+            gerados a partir de exames de ultrassom. Ele simplifica o processo de criação de laudos, armazenamentos e 
+            informações médicas.` },
+        {
+            question: "O sistema é pago? ",
+            answer: `Sim, nosso sistema  de ultrassom oferece opções tanto gratuita quanto paga para atender às
+            diversas necessidades dos usuários.` },
+        {
+            question: "Posso compartilhar minha senha do sistema de ultrassom com outro médico? ",
+            answer: `Não é recomendado compartilhar login e senha do sistema de ultrassom, para a segurança dos dados
+            do paciente e violar protocolos de privacidade.` },
+        {
+            question: "O sistema é compatível com vários tipos de equipamentos de ultrassom?",
+            answer: `Sim, é compatível com uma variedade de equipamentos de ultrassom, mas é importante verificar
+            a compatibilidade com seu equipamento específico.` },
+        {
+            question: "Caso falte algumas opção de laudo, consigo adicionar?",
+            answer: `Sim, o sistema conta com diversas frases pré-definidas para diversas situações de laudo, caso
+            o usuário ache necessário adicionar uma nova frase ao sistema, será possível adicionar em configurações.` },
     ];
 
     const filteredFAQData = faqData.filter((item) => {
@@ -103,11 +125,21 @@ function PerguntaFreq() {
                 </Text>
                 <Box px={'3%'}>
                     <Box px={'5%'} py={'2%'}>
-                        <Input
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder="Pesquisar perguntas"
-                        />
+                    <InputGroup mb={'2%'} width="50vw">
+                    <Input
+                        type="text"
+                        placeholder="Pesquisar"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        borderBottom="2px"
+                        borderColor="gray.500"
+                        variant='flushed'
+                        
+                    />
+                    <InputRightElement pointerEvents="none" width="40px" lineHeight="inherit">
+                        <SearchIcon color="gray.500" />
+                    </InputRightElement>
+                </InputGroup>
                     </Box>
                     <Accordion allowMultiple px={'3%'}>
                         {visibleFAQData.map((item, index) => (
