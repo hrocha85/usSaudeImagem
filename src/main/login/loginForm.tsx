@@ -46,7 +46,7 @@ export default function LoginForm() {
         }
         Cookies.set('USGImage_user', JSON.stringify(response.data.user));
         const roleResponse = await api.get(`usuario/${response.data.user.id}`);
-
+        console.log(roleResponse)
         Cookies.set('USGImage_role', JSON.stringify(roleResponse.data.roles[0].name));
         setTimeout(() => {
           toast({

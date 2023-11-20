@@ -20,6 +20,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { GrSubtractCircle } from "react-icons/gr";
 import Observacoes from "../../Data/Observacoes.json";
+import api from "../../api";
 
 const ItemObservation = () => {
   const refText = useRef<HTMLTextAreaElement | null>(null);
@@ -50,6 +51,32 @@ const ItemObservation = () => {
   const observacoesLocalStorage = JSON.parse(
     localStorage.getItem("observacoes")!
   );
+  useEffect(() => {
+    const getOBSMedico = async () => {
+      const userStringfy = localStorage.getItem("user")
+      const userParse = JSON.parse(userStringfy!)
+
+      const response = await api.get(`usuario/${userParse.medico.userID}`)
+      console.log(response.data)
+    }
+    getOBSMedico()
+  }, [])
+
+  const buscaOBS = async () => {
+    const response = await api.get(`OBSexame/1`)
+    console.log(response)
+  }
+
+  useEffect(() => {
+    const getOBSMedico = async () => {
+      const userStringfy = localStorage.getItem("user")
+      const userParse = JSON.parse(userStringfy!)
+
+      const response = await api.get(`exame/${userParse.medico.userID}`)
+      console.log(response.data)
+    }
+    getOBSMedico()
+  }, [])
 
   const observacoesArray = [
     {
@@ -411,6 +438,7 @@ const ItemObservation = () => {
               onOpen();
               setTitulo(observacoes.nomeExame);
               setId(observacoes.key);
+              buscaOBS()
               console.log('obs412', observacoes.key)
               console.log('obs412', observacoes)
             }}
