@@ -46,9 +46,14 @@ const PageLaudos = () => {
     const [MedicoLogado, setMedicoLogado] = useState<string>('');
     useEffect(() => {
         if (localStorage.getItem("user") != null) {
-            const medico = JSON.parse(localStorage.getItem("user")!);
-            setExames(medico.medico.laudos)
-            setMedicoLogado(medico.medico.nome)
+            const Medico = JSON.parse(localStorage.getItem("user")!);
+            const MedicoFree = GetMedicosFree()
+            MedicoFree.map((medico) => {
+                if (Medico.medico.nome === medico.nome) {
+                    setExames(medico.laudos)
+                    setMedicoLogado(medico.nome)
+                }
+            })
         }
     }, [])
 
@@ -61,6 +66,7 @@ const PageLaudos = () => {
 
 
     const showSavedLaudo = (laudo) => {
+        console.log('laudo', laudo)
         return window.open(laudo);
 
     };
@@ -88,7 +94,7 @@ const PageLaudos = () => {
             <Sidebar />
 
             <Box px={'4%'} pb={'5%'}>
-                <Text  p={'1%'} fontSize={'2rem'}>Laudos</Text>
+                <Text p={'1%'} fontSize={'2rem'}>Laudos</Text>
                 <InputGroup mb={'2%'} width="50vw">
                     <Input
                         type="text"
@@ -98,7 +104,7 @@ const PageLaudos = () => {
                         borderBottom="2px"
                         borderColor="gray.500"
                         variant='flushed'
-                        
+
                     />
                     <InputRightElement pointerEvents="none" width="40px" lineHeight="inherit">
                         <SearchIcon color="gray.500" />
@@ -116,16 +122,20 @@ const PageLaudos = () => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {paginatedExames.map((exame, index) => (
-                            <Tr key={index}>
-                                <Td borderBottom={'1px solid gray'}>{exame.paciente}</Td>
-                                <Td borderBottom={'1px solid gray'}>{MedicoLogado}</Td>
-                                <Td borderBottom={'1px solid gray'}>{exame.data}</Td>
-                                <Td borderBottom={'1px solid gray'}>{exame.tituloLaudo}</Td>
-                                <Td borderBottom={'1px solid gray'}>{exame.medicoSolicitante}</Td>
-                                <Td borderBottom={'1px solid gray'}><Button bg={'transparent'} onClick={() => { showSavedLaudo(exame.laudo); }}><IoIosEye /></Button></Td>
-                            </Tr>
-                        ))}
+                        {paginatedExames.map((exame, index) => {
+                            console.log('Dados do exame:', exame); // Adiciona este console.log
+
+                            return (
+                                <Tr key={index}>
+                                    <Td borderBottom={'1px solid gray'}>{exame.paciente}</Td>
+                                    <Td borderBottom={'1px solid gray'}>{MedicoLogado}</Td>
+                                    <Td borderBottom={'1px solid gray'}>{exame.data}</Td>
+                                    <Td borderBottom={'1px solid gray'}>{exame.tituloLaudo}</Td>
+                                    <Td borderBottom={'1px solid gray'}>{exame.medicoSolicitante}</Td>
+                                    <Td borderBottom={'1px solid gray'}><Button bg={'transparent'} onClick={() => { showSavedLaudo(exame.laudo) }}><IoIosEye /></Button></Td>
+                                </Tr>
+                            );
+                        })}
                     </Tbody>
                 </Table>
                 <Center mt={4}>
@@ -155,12 +165,12 @@ const PageLaudos = () => {
                             onPageChange={handlePageChange}
                             containerClassName={'pagination custom-pagination'}
                             activeClassName={'active'}
-                            
+
                         />
                     </Box>
                 </Center>
             </Box>
-            <Footer/>
+            <Footer />
         </>
     );
 };
