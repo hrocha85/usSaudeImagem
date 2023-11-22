@@ -17,7 +17,8 @@ import {
   Text,
   Tooltip,
   VStack,
-  useToast
+  useToast,
+  FormErrorMessage 
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -60,6 +61,8 @@ function CadastroUsuario() {
   const [senhaValida, setSenhaValida] = useState(false);
   const [emailValido, setEmailValido] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [cepInvalido, setCepInvalido] = useState(false);
+  const [emailInvalido, setEmailInvalido] = useState(false);
 
   const handleCadastro = async () => {
     try {
@@ -131,6 +134,7 @@ function CadastroUsuario() {
 
   const validarEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    regex.test(email)? setEmailInvalido(false) : setEmailInvalido(true)
     return regex.test(email);
   };
 
@@ -150,8 +154,9 @@ function CadastroUsuario() {
         setCidade(data.localidade);
         setEstado(data.uf);
         setBairro(data.bairro);
+        setCepInvalido(false)
       } else {
-        console.log('  CEP inválido ou não encontrado');
+        setCepInvalido(true);
       }
     } catch (error) {
       console.error('Erro ao consultar o   CEP', error);
@@ -274,14 +279,16 @@ function CadastroUsuario() {
                 />
               </FormControl>
 
-              <FormControl isRequired w={['100%', '50%']}>
+              <FormControl isRequired w={['100%', '50%']} isInvalid={!validarEmail}>
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Email</FormLabel>
                 <Input
                   type="email"
                   placeholder="Digite seu email"
                   value={email}
                   onChange={handleEmailChange}
+                  errorBorderColor={!validarEmail ? 'red.300' : 'yellow'}
                 />
+                 {emailInvalido && <small style={{ color: 'red' }}>Email invalido</small>}
               </FormControl>
             </Flex>
 
@@ -314,7 +321,7 @@ function CadastroUsuario() {
 
             <Flex flexDir={['column', 'row']}>
 
-              <FormControl isRequired pr={'2%'} w={['100%', '30%']}>
+              <FormControl isRequired pr={'2%'} w={['100%', '30%']}  isInvalid={!formatCEP}>
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>  CEP</FormLabel>
                 <Input
                   type='text'
@@ -323,7 +330,9 @@ function CadastroUsuario() {
                   onChange={(e) => setCep(formatCEP(e.target.value))}
                   onBlur={(e) => consultarCEP(e.target.value)}
                   maxLength={9}
+                  errorBorderColor={!formatCEP ? 'red.300' : undefined}
                 />
+                {cepInvalido && <small style={{ color: 'red' }}>CEP inválido</small>}
               </FormControl>
               <FormControl isRequired pr={'2%'} w={['100%', '30%']}>
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>Número</FormLabel>
