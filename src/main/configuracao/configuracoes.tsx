@@ -149,6 +149,7 @@ const Configuracoes = () => {
   const getUserMedico = () => {
     if (localStorage.getItem("user") != null) {
       const medico = JSON.parse(localStorage.getItem("user")!);
+      console.log('medico configurações', medico)
       return medico.medico;
     } else return null;
   };
@@ -172,6 +173,7 @@ const Configuracoes = () => {
         {getUserMedico() != null
           ? GetMedicosFree().map((medi) => {
             if (medi.nome == getUserMedico().nome) {
+              console.log('medi', medi)
               return medi.laudos.map((laudos, key) => {
                 if (
                   laudos.laudo != null &&
@@ -237,6 +239,7 @@ const Configuracoes = () => {
   };
 
   const showSavedLaudo = (laudo) => {
+    console.log('laudo conf', laudo)
     return window.open(laudo);
   };
 
@@ -338,7 +341,7 @@ const Configuracoes = () => {
         }
       }
     };
-    
+
     // setListaClinicas(GetClinicaFree());
     fetchData();
   }, [stateClickAddMedico, getClinicasNull]);

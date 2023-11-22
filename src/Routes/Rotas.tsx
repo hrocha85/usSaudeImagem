@@ -19,6 +19,7 @@ import EsqueciSenha from "../main/login/EsqueciSenha";
 import Compartilha_PDF from "../main/folha_laudos/compartilha_pdf";
 import  PageLaudos  from "../main/folha_laudos/PageLaudos";
 import PerguntaFreq from "../main/LandingPage/perguntaFequ/PerguntaFreq";
+import Tutorial from "../Tutorial/tutorial";
 
 
 
@@ -33,6 +34,7 @@ function Rotas() {
       <Route path="/LoginFree" element={<LoginFormFree />} />
       <Route path="/Splash" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<SplashScreen />} />} />
       <Route path="/Home" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Home />} />} />
+      <Route path="/Home/Tutorial" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Tutorial/>} />} />
       <Route path="/SelectMedicos" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<SelectMedicos />} />} />
       <Route path="/Home/Configuracoes" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Configuracoes />} />} />
       <Route path="/Home/Laudos" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<PageLaudos />} />} />

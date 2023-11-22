@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
-import { Box, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Button, Center, Input, Link, HStack } from '@chakra-ui/react';
+import { Box, Text, Accordion, Image, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Button, Center, Input, Link, HStack, InputGroup, InputRightElement, Flex, Heading, Stack } from '@chakra-ui/react';
 import { Header } from '../header/Header';
 import { Footer } from '../footer/Footer';
 import { IoIosArrowBack } from 'react-icons/io';
+import { SearchIcon } from '@chakra-ui/icons';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import laudo1 from '../../images/Usgexame1.png'
+import laudo2 from '../../images/Usgexames2.png'
+import laudo3 from '../../images/Usgexame3.png'
+import { Carousel } from 'react-responsive-carousel';
+import background from '../../images/landing/background2.jpeg'
+import home from '../../home';
+import fast from '../../images/landing/fast.svg'
 
 
 
@@ -64,6 +73,27 @@ function PerguntaFreq() {
             answer: `Sim, nosso software oferece treinamento para ajudar os
             usuários a utilizar o nosso software de forma rápida e eficaz, temos um
             vídeo demonstrativo de como funciona nosso software.` },
+        {
+            question: "O que é um sistema de laudos de ultrassom? ",
+            answer: `É um software projetado para criar, gerenciar e arquivar laudos médicos
+            gerados a partir de exames de ultrassom. Ele simplifica o processo de criação de laudos, armazenamentos e 
+            informações médicas.` },
+        {
+            question: "O sistema é pago? ",
+            answer: `Sim, nosso sistema  de ultrassom oferece opções tanto gratuita quanto paga para atender às
+            diversas necessidades dos usuários.` },
+        {
+            question: "Posso compartilhar minha senha do sistema de ultrassom com outro médico? ",
+            answer: `Não é recomendado compartilhar login e senha do sistema de ultrassom, para a segurança dos dados
+            do paciente e violar protocolos de privacidade.` },
+        {
+            question: "O sistema é compatível com vários tipos de equipamentos de ultrassom?",
+            answer: `Sim, é compatível com uma variedade de equipamentos de ultrassom, mas é importante verificar
+            a compatibilidade com seu equipamento específico.` },
+        {
+            question: "Caso falte algumas opção de laudo, consigo adicionar?",
+            answer: `Sim, o sistema conta com diversas frases pré-definidas para diversas situações de laudo, caso
+            o usuário ache necessário adicionar uma nova frase ao sistema, será possível adicionar em configurações.` },
     ];
 
     const filteredFAQData = faqData.filter((item) => {
@@ -78,6 +108,7 @@ function PerguntaFreq() {
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
+    const overlayColor = 'rgba(28,73,176, 0.9)'
     return (
         <Box>
             <Header />
@@ -86,7 +117,7 @@ function PerguntaFreq() {
                     <IoIosArrowBack /><Text fontWeight={'bold'} >Voltar</Text>
                 </HStack>
             </Link>
-            <Box pt={'5%'}>
+            <Box pt={'2%'} pb={'2%'}>
                 <Text
                     fontSize={"35px"}
                     fontFamily={'Rubik, sans-serif'}
@@ -97,17 +128,26 @@ function PerguntaFreq() {
                     alignSelf={'stretch'}
                     textAlign={'center'}
                     w={'100%'}
-                    pb={'3%'}
                 >
                     Perguntas Frequentes
                 </Text>
                 <Box px={'3%'}>
                     <Box px={'5%'} py={'2%'}>
-                        <Input
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder="Pesquisar perguntas"
-                        />
+                        <InputGroup mb={'2%'} width="50vw">
+                            <Input
+                                type="text"
+                                placeholder="Pesquisar"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                borderBottom="2px"
+                                borderColor="gray.500"
+                                variant='flushed'
+
+                            />
+                            <InputRightElement pointerEvents="none" width="40px" lineHeight="inherit">
+                                <SearchIcon color="gray.500" />
+                            </InputRightElement>
+                        </InputGroup>
                     </Box>
                     <Accordion allowMultiple px={'3%'}>
                         {visibleFAQData.map((item, index) => (
@@ -128,6 +168,67 @@ function PerguntaFreq() {
                         ))}
                     </Center>
                 </Box>
+            </Box>
+            <Box
+                backgroundImage={background}
+                backgroundSize="100% 100%"
+                backgroundPosition="center"
+                backgroundRepeat="no-repeat"
+                pos="relative"
+                px="2%"
+                pt="5%"
+                pb="5%"
+                mb="5%"
+            >
+                <Box pos="relative" zIndex={1} mx="auto" maxWidth={['100%', '80%']}>
+                    <Text
+                        color="#fff"
+                        textAlign="center"
+                        fontFamily="Inter"
+                        fontSize="35px"
+                        fontStyle="normal"
+                        fontWeight={900}
+                        lineHeight="normal"
+                    >
+                        Resultado do laudo concluído
+                    </Text>
+
+                    <Flex justifyContent={'center'} alignItems={'center'} mt="5%" flexDir={{ base: 'column', md: 'row' }}>
+                        <Box width={['100%', '50%']} px={'1%'}>
+                            <Carousel
+                                showThumbs={false}
+                                showStatus={false}
+                                infiniteLoop={true}
+                                autoPlay={true}
+                                interval={3000}
+                                transitionTime={500}
+                            >
+                                <Box h={'600px'} w={'600px'}>
+                                    <Image src={laudo1} alt="Imagem 1" h={['100%', '100%']} />
+                                </Box>
+                                <Box w={'600px'} h={'600px'}>
+                                    <Image src={laudo2} alt="Imagem 1" h={['100%', '100%']}/>
+                                </Box>
+                                <Box h={'600px'} w={'600px'}>
+                                    <Image src={laudo3} alt="Imagem 1" h={['100%', '100%']}  />
+                                </Box>
+
+                            </Carousel>
+                        </Box>
+                    </Flex>
+                </Box>
+
+                <Box
+                    pos="absolute"
+                    top={0}
+                    left={0}
+                    right={0}
+                    bottom={0}
+                    width="100%"
+                    height="100%"
+                    backgroundColor={overlayColor}
+                    zIndex={0}
+                />
             </Box>
             <Footer />
         </Box>
