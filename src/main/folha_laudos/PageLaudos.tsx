@@ -43,19 +43,30 @@ const PageLaudos = () => {
     }, [localStorage.getItem("medicos")!]);
 
     const [exames, setExames] = useState<any>([]);
+    const [haExames, setHaExames] = useState(false);
+
     const [MedicoLogado, setMedicoLogado] = useState<string>('');
-    useEffect(() => {
+
+
+    const fetchExames = () => {
         if (localStorage.getItem("user") != null) {
-            const Medico = JSON.parse(localStorage.getItem("user")!);
-            const MedicoFree = GetMedicosFree()
-            MedicoFree.map((medico) => {
-                if (Medico.medico.nome === medico.nome) {
-                    setExames(medico.laudos)
-                    setMedicoLogado(medico.nome)
-                }
-            })
+          const Medico = JSON.parse(localStorage.getItem("user")!);
+          const MedicoFree = GetMedicosFree()
+          MedicoFree.forEach((medico) => {
+            if (Medico.medico.nome === medico.nome) {
+              setExames(Medico.medico.laudos)
+              setMedicoLogado(Medico.medico.nome)
+              setHaExames(medico.laudos.length > 0 ? true : false)
+            }
+            
+          })
+          console.log(haExames)
         }
-    }, [])
+      };
+      
+      useEffect(() => {
+        fetchExames();
+      }, [setExames, setHaExames, setMedicoLogado]);
 
     const getUserMedico = () => {
         if (localStorage.getItem("user") != null) {
@@ -74,17 +85,60 @@ const PageLaudos = () => {
         setCurrentPage(selectedPage.selected);
     };
 
-    const filteredExames = exames.filter(
-        (exame: { paciente: string | string[]; medicoSolicitante: string; data: string | string[]; }) =>
-            exame.paciente.includes(searchTerm.toLowerCase()) ||
-            exame.medicoSolicitante.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            exame.data.includes(searchTerm)
-    );
 
-    const paginatedExames = filteredExames.slice(
-        currentPage * perPage,
-        (currentPage + 1) * perPage
-    );
+    const exibeLaudos = () => {
+
+        if (haExames == true) {
+            const filteredExames = exames.filter(
+                (exame: { paciente: string | string[]; medicoSolicitante: string; data: string | string[]; }) =>
+
+                    exame.medicoSolicitante.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    exame.data.includes(searchTerm)
+            );
+
+            const paginatedExames = filteredExames.slice(
+                currentPage * perPage,
+                (currentPage + 1) * perPage
+            );
+            return (
+                <Table variant="simple">
+                    <Thead>
+                        <Tr>
+                            <Th textColor={'blue.600'} borderBottom={'1px solid gray'}>Paciente</Th>
+                            <Th textColor={'blue.600'} borderBottom={'1px solid gray'}>Usuário</Th>
+                            <Th textColor={'blue.600'} borderBottom={'1px solid gray'}>Data</Th>
+                            <Th textColor={'blue.600'} borderBottom={'1px solid gray'}>Procedimento</Th>
+                            <Th textColor={'blue.600'} borderBottom={'1px solid gray'}>Médico Solicitante</Th>
+                            <Th textColor={'blue.600'} borderBottom={'1px solid gray'}>Visualizar</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {paginatedExames.map((exame, index) => {
+                            return (
+                                <Tr key={index}>
+                                    <Td borderBottom={'1px solid gray'}>{exame.paciente}</Td>
+                                    <Td borderBottom={'1px solid gray'}>{MedicoLogado}</Td>
+                                    <Td borderBottom={'1px solid gray'}>{exame.data}</Td>
+                                    <Td borderBottom={'1px solid gray'}>{exame.tituloLaudo}</Td>
+                                    <Td borderBottom={'1px solid gray'}>{exame.medicoSolicitante}</Td>
+                                    <Td borderBottom={'1px solid gray'}><Button bg={'transparent'} onClick={() => { showSavedLaudo(exame.laudo) }}><IoIosEye /></Button></Td>
+                                </Tr>
+                            );
+                        })}
+                    </Tbody>
+                </Table>
+            )
+        }
+        else {
+            return (
+                <Text textAlign="center" mt="20px" fontSize="6rem" color="gray.500" opacity={'0.6'}>
+                    Não há laudos para mostrar
+                </Text>
+
+            )
+
+        }
+    }
 
 
 
@@ -110,34 +164,8 @@ const PageLaudos = () => {
                         <SearchIcon color="gray.500" />
                     </InputRightElement>
                 </InputGroup>
-                <Table variant="simple">
-                    <Thead>
-                        <Tr>
-                            <Th textColor={'blue.600'} borderBottom={'1px solid gray'}>Paciente</Th>
-                            <Th textColor={'blue.600'} borderBottom={'1px solid gray'}>Usuário</Th>
-                            <Th textColor={'blue.600'} borderBottom={'1px solid gray'}>Data</Th>
-                            <Th textColor={'blue.600'} borderBottom={'1px solid gray'}>Procedimento</Th>
-                            <Th textColor={'blue.600'} borderBottom={'1px solid gray'}>Médico Solicitante</Th>
-                            <Th textColor={'blue.600'} borderBottom={'1px solid gray'}>Visualizar</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {paginatedExames.map((exame, index) => {
-                            console.log('Dados do exame:', exame); // Adiciona este console.log
 
-                            return (
-                                <Tr key={index}>
-                                    <Td borderBottom={'1px solid gray'}>{exame.paciente}</Td>
-                                    <Td borderBottom={'1px solid gray'}>{MedicoLogado}</Td>
-                                    <Td borderBottom={'1px solid gray'}>{exame.data}</Td>
-                                    <Td borderBottom={'1px solid gray'}>{exame.tituloLaudo}</Td>
-                                    <Td borderBottom={'1px solid gray'}>{exame.medicoSolicitante}</Td>
-                                    <Td borderBottom={'1px solid gray'}><Button bg={'transparent'} onClick={() => { showSavedLaudo(exame.laudo) }}><IoIosEye /></Button></Td>
-                                </Tr>
-                            );
-                        })}
-                    </Tbody>
-                </Table>
+                {exibeLaudos()}
                 <Center mt={4}>
                     <Box display={'flex'}>
                         <ReactPaginate

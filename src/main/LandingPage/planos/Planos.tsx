@@ -465,7 +465,7 @@ function Planos() {
 
                                 my={3}
                             >
-                                Pré Registro
+                                Cadastro
 
                             </Button>
                         </Link>
@@ -476,7 +476,15 @@ function Planos() {
             <Modal isOpen={isOpen} onClose={closeModal}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader fontFamily={'Rubik, sans-serif'}>Faça seu Pré registro</ModalHeader>
+                    <ModalHeader fontFamily={'Rubik, sans-serif'}>Agradecemos pelo seu Interesse</ModalHeader>
+                    <Text
+                    textAlign={'center'}
+                    px={'2%'}
+                    >
+                        Temos uma oportunidade <strong>Limitada</strong> para o acesso a <strong>Versão Integral</strong>, deixe seu melhor contato
+                        para está na lista exclusiva e receber as novidades do nosso sistema. Não deixe pra depois,
+                         garanta seu lugar na <strong>lista exclusiva</strong> do nosso sistema.
+                    </Text>
                     <ModalCloseButton />
                     <ModalBody>
                         <Input type="text" placeholder="Nome" mb={2} onChange={(e) => setNome(e.target.value)} />

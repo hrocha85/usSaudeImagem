@@ -246,6 +246,7 @@ const VideoPage = () => {
             bg="transparent"
             height="50px"
             fontSize={'16px'}
+            isDisabled={true}
             onClick={handleOpenModal}
             _hover={{
               background: 'transparent',

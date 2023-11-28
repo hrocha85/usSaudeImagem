@@ -13,6 +13,7 @@ import marca from "../images/Marca.png";
 import { motion } from "framer-motion";
 import  PerguntaFreq  from "./perguntaFequ/PerguntaFreqLand";
 import FAQ from "./perguntaFequ/PerguntaFreqLand";
+import SpanFlutuante from "./span/SpanFlutuante";
 
 
 function LandingPage() {
@@ -55,6 +56,7 @@ function LandingPage() {
       >
         <Box>
           <Header />
+          <SpanFlutuante/>
           <Body />
           <About />
           <ExamesLp />
