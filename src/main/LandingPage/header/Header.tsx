@@ -10,15 +10,25 @@ import {
   VStack,
   IconButton,
   ChakraProvider,
-  Collapse
+  Collapse,
+  useToast,
+  Spinner
 } from "@chakra-ui/react";
+import Cookies from 'js-cookie';
+
 import marca from "../../images/Marca.png";
+import Assinatura from "../../images/signature.png";
+import imgMed from "../../images/logoMed.jpeg";
+import imgHosp from "../../images/logoHosp.jpeg";
 import { useState } from "react";
 import { ChevronLeftIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Link as ScrollLink } from "react-scroll";
+import { useNavigate } from "react-router-dom";
+import api, { setAuthToken } from "../../../api";
 
 function Header() {
-
+  const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false); // Estado de carregamento
   const AlreadyRegistered = localStorage.getItem("AlreadyRegistered");
   const [isLargerThan600] = useMediaQuery('(min-width: 600px)')
   let display = ""
@@ -70,7 +80,119 @@ function Header() {
       );
     }
   }
+  const login = async () => {
+    try {
+      setIsLoading(true); // Ativar carregamento
+      const user = {
+        email: 'usuariogratuito@hotmail.com',
+        password: 'Contatousg*123'
+      }
 
+      const response = await api.post("login", user);
+      console.log(response);
+      if (response.status === 200) {
+        const { name } = response.data.user;
+
+        if (response.data.token) {
+          Cookies.remove('USGImage_token')
+          setAuthToken(response.data.token)
+          Cookies.set('USGImage_token', JSON.stringify(response.data.token));
+        } else {
+          const token = Cookies.get('USGImage_token');
+          setAuthToken(JSON.parse(token))
+        }
+        Cookies.set('USGImage_user', JSON.stringify(response.data.user));
+        const roleResponse = await api.get(`usuario/${response.data.user.id}`);
+
+        Cookies.set('USGImage_role', JSON.stringify(roleResponse.data.roles[0].name));
+        setTimeout(() => {
+          toast({
+            duration: 3000,
+            title: `Olá ${name}, seja bem-vindo!`,
+            position: "top",
+            isClosable: true,
+          });
+        }, 500);
+        usenavigate("/Splash");
+      } else {
+        setTimeout(() => {
+          toast({
+            duration: 3000,
+            title: `Email ou senha inválido`,
+            position: "top",
+            isClosable: true,
+          });
+        }, 500);
+      }
+    } catch (error) {
+      console.log('Erro:', error);
+      setTimeout(() => {
+        toast({
+          duration: 3000,
+          title: `Email ou senha inválido`,
+          position: "top",
+          isClosable: true,
+        });
+      }, 500);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const usenavigate = useNavigate()
+  const TesteSemLogin = () => {
+    const verify = localStorage.getItem("testeSemLogin")
+    if (!verify) {
+      localStorage.setItem("testeSemLogin", 'true')
+      const TodasClinicasString = localStorage.getItem("minhasClinicas")
+      const TodasClinicas = TodasClinicasString ? JSON.parse(TodasClinicasString) : []
+      let idClinica = TodasClinicas.length + 1
+      TodasClinicas.map((Clinica: any) => {
+        if (idClinica === Clinica.id) {
+          console.log(Clinica)
+          console.log(idClinica)
+          idClinica = idClinica + 1
+        }
+      })
+      const Clinica = {
+        id: idClinica,
+        userID: 12,
+        CNPJ: '82.622.141/0001-00',
+        nome: 'Clínica teste gratuito',
+        endereco: 'endereco teste gratuito',
+        CEP: '12345-123',
+        NumeroEndereco: '123',
+        foto: imgHosp,
+        telefone: '(12)3456-7891',
+      };
+      TodasClinicas.push(Clinica);
+      localStorage.setItem("minhasClinicas", JSON.stringify(TodasClinicas));
+
+      const TodosMedicosString = localStorage.getItem("medicos")
+      const TodosMedicos = TodosMedicosString ? JSON.parse(TodosMedicosString) : []
+      let idMedico = TodosMedicos.length + 1
+      TodosMedicos.map((medico) => {
+        if (idMedico === medico.id) {
+          idMedico = idMedico + 1
+        }
+      })
+      const obj = {
+        id: idMedico,
+        userID: 12,
+        nome: 'Médico teste gratuito',
+        CRMUF: '123456789-1/BR',
+        assinatura: Assinatura,
+        foto: imgMed,
+        clinicas: [JSON.stringify(Clinica)],
+        laudos: [{}],
+      };
+      TodosMedicos.push(obj);
+      localStorage.setItem("medicos", JSON.stringify(TodosMedicos));
+      login()
+    } else {
+      login()
+    }
+  }
 
   return (
     <Box
@@ -106,6 +228,37 @@ function Header() {
               Login
             </Button>
           </Link>
+          {/* <Link href={`#/Login`} display={display}> */}
+          {isLoading ? (
+            <Button
+              mr={3}
+              bg={'transparent'}
+              px={'40px'}
+              fontFamily={"Sora, sans-serif"}
+              fontSize={"16px"}
+              fontStyle={'normal'}
+              fontWeight={'600'}
+              lineHeight={'24px'}
+            >
+              Teste sem login <Spinner size='md' color='blue' style={{ marginRight: '10px' }} />
+            </Button>
+            // <Spinner size='lg' color='blue' style={{ marginRight: '10px' }} />
+          ) : (
+            <Button
+              mr={3}
+              bg={'transparent'}
+              px={'40px'}
+              fontFamily={"Sora, sans-serif"}
+              fontSize={"16px"}
+              fontStyle={'normal'}
+              fontWeight={'600'}
+              lineHeight={'24px'}
+              onClick={(e) => TesteSemLogin()}
+            >
+              Teste sem login
+            </Button>
+          )}
+          {/* </Link> */}
           <ScrollLink to="planos" smooth={true} duration={500}>
             <Button
               border="1px solid #1C49B0"
