@@ -7,7 +7,7 @@ import instagras from '../../images/landing/instagram.svg'
 
 function Footer() {
     return (
-        <Box bg={'#101E40'} mt={'5%'}>
+        <Box bg={'#101E40'} mt={'2%'}>
             <Box display={'flex'} flexDir={'column'} alignItems={'center'} py={'2%'}>
                 <Box py={['5%', 0]}>
                     <Image
@@ -44,7 +44,7 @@ function Footer() {
                             lineHeight={'normal'}
                             textAlign={{ base: 'center', md: 'left' }}
                         >
-                             contato@usgimagem.com.br
+                            contato@usgimagem.com.br
                         </Text>
                     </Link>
                 </Flex>
