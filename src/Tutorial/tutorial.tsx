@@ -38,7 +38,6 @@ const VideoModal = ({ isOpen, onClose }) => {
   ];
   const [time, setTime] = useState(false)
 
-
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [progress, setProgress] = useState(0);
 
@@ -72,6 +71,9 @@ const VideoModal = ({ isOpen, onClose }) => {
     setProgress(0);
   }, [onClose])
 
+  useEffect(() => {
+    console.log(videos[currentVideoIndex])
+  }, [currentVideoIndex])
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="2xl">
