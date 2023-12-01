@@ -8,7 +8,7 @@ const CaixaFlutuante = () => {
             position="fixed"
             bottom="20px"
             right="20px"
-            display={showBox ? "block" : "none"}
+            display={["none" , showBox ? "block" : "none"]}
             width="400px"
             backgroundColor="white"
             border="1px solid #ccc"
