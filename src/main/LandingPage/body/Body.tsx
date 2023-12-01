@@ -15,7 +15,7 @@ function Body() {
   let width = ""
   let paddLe = "left"
   isLargerThan1100 ? width = "50%" : width = "100%"
-  isLargerThan600 ? display = "" : display = "none"
+  isLargerThan600 ? display = "" : display = ""
   isLargerThan1100 ? display2 = "block" : display2 = "none"
   isLargerThan1100 ? paddLe = "left" : paddLe = "center"
   isLargerThan600 ? display1 = "flex" : display1 = "block"
@@ -103,8 +103,8 @@ function Body() {
             >Em breve disponível para
             </Text>
 
-            <HStack pt={'5%'} pb={'5%'}>
-              <Link href={`#/`}>
+            <Flex flexDirection={['column', 'row']}  pt={'5%'} pb={'5%'} gap={'2%'} alignItems={'center'}>
+              <Link href={`#/`} pb={["2%",0]}>
                 <Button
                   border="2px solid #FFF"
                   color="#FFF"
@@ -118,35 +118,35 @@ function Body() {
                     color: '#FFF',
                   }}
                 >
-                  <Flex alignItems="center" fontFamily={"Inter, sans-serif"} gap={5}>
+                  <Flex alignItems="center" fontFamily={"Inter, sans-serif"} gap={3}>
                     <Icon as={AiFillWindows} fontSize="40px" />
                     <Text>Windows</Text>
                   </Flex>
                 </Button>
               </Link>
 
-              <Link href={`#/`}>
+              <Link href={`#/`} pb={["2%",0]}>
                 <Button
                   border="2px solid #FFF"
                   color="#FFF"
                   bg="transparent"
                   height="50px"
                   w={'150x'}
-                  px={12}
+                  px={10}
                   fontSize={'16px'}
                   _hover={{
                     background: 'transparent',
                     color: '#FFF',
                   }}
                 >
-                  <Flex alignItems="center" fontFamily={"Inter, sans-serif"} gap={5}>
+                  <Flex alignItems="center" fontFamily={"Inter, sans-serif"} gap={10}>
                     <Icon as={FaLinux} fontSize="40px" />
                     Linux
                   </Flex>
                 </Button>
               </Link>
 
-              <Link href={`#/`}>
+              <Link href={`#/`} pb={["2%",0]}>
                 <Button
                   border="2px solid #FFF"
                   color="#FFF"
@@ -166,7 +166,7 @@ function Body() {
                   </Flex>
                 </Button>
               </Link>
-            </HStack>
+            </Flex>
           </Box>
         </Box>
         <Box display={display2} w={'100%'} p={0}>
