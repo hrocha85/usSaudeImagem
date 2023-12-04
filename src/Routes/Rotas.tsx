@@ -24,9 +24,17 @@ import Tutorial from "../Tutorial/tutorial";
 
 
 function Rotas() {
+  if (process.env.REACT_APP_PLATFORM === 'web') {
+    console.log('web', process.env.REACT_APP_PLATFORM)
+  } else {
+    console.log('desk', process.env.REACT_APP_PLATFORM)
+  }
+
+  const landingPageElement = process.env.REACT_APP_PLATFORM === 'web' ? <LandingPage /> : <SelectMedicos />;
+
   return (
     <Routes>
-      <Route path="/" element={<SplashScreen />} />
+      <Route path="/" element={landingPageElement} />
       <Route path="/Home" element={<Home />} />
       <Route path="/Home/Tutorial" element={<Tutorial />} />
       <Route path="/SelectMedicos" element={<SelectMedicos />} />
