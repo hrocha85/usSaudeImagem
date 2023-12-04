@@ -140,7 +140,7 @@ const VideoPage = () => {
   isLargerThan600 ? display1 = "flex" : display1 = "block"
 
   const [redirectNow, setRedirectNow] = useState(false);
-  const [PrimeiroLogin, setPrimeiroLogin] = useState(true);
+  const [PrimeiroLogin, setPrimeiroLogin] = useState(false);
   const [AdminMaster, setAdminMaster] = useState(false);
   const [lista_medico, setlista_medico] = useState<any[]>([]);
   //tempo de 5 segundos para sair da pagina
@@ -166,8 +166,8 @@ const VideoPage = () => {
         });
     }
 
-    if (lista_medico.length > 0) {
-      setPrimeiroLogin(false)
+    if (lista_medico) {
+      setPrimeiroLogin(true)
     }
   }, [[lista_medico]])
 

@@ -24,33 +24,20 @@ const Medico = (props, clinica) => {
   // }, [props.atualizar]);
 
   useEffect(() => {
-    let isAdmin;
-    const roleString = Cookies.get('USGImage_role');
-    if (roleString) {
-      const role = JSON.parse(roleString);
-      role == 'admin' ? isAdmin = true : isAdmin = false
-    }
-    if (!isAdmin) {
-      const medicos = GetMedicosFree()
-      setmedicos(medicos);
-    } else {
-      GetMedicosAdmin()
-        .then(medicos => {
-          setmedicos(medicos);
-        })
-        .catch(error => {
-          console.error('Erro ao obter medicos:', error);
-        });
-    }
-
+    const medicos = GetMedicosFree()
+    setmedicos(medicos);
   }, [props.atualizar])
 
 
   return (
     <>
-      {medicos.map((medico, key) => {
-        return <Medicos key={key} medico={medico} id={key} />;
-      })}
+      {
+        medicos ?
+          medicos.map((medico, key) => {
+            return <Medicos key={key} medico={medico} id={key} />;
+          })
+          : null
+      }
     </>
   );
 };

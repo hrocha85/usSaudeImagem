@@ -143,7 +143,7 @@ function SelectMedicos() {
       role == 'admin' ? isAdmin = true : isAdmin = false
     }
     if (!isAdmin) {
-      if (lista_medico.length > 0) {
+      if (lista_medico) {
         return (
           <Center>
             <Stack w={'100%'}>
@@ -372,13 +372,6 @@ function SelectMedicos() {
         >
           {verificaMedico()}
         </Box>
-
-        {AdminMaster ?
-
-          <Button onClick={() => areaAdm()} mt={6}>Área administrativa</Button>
-          :
-          null
-        }
       </Center>
     </Box>
   );

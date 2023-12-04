@@ -96,84 +96,28 @@ const IconButtonPlus = (props) => {
 
   const AddClinica = async () => {
 
-    let isAdmin;
-    const roleString = Cookies.get('USGImage_role');
-    if (roleString) {
-      const role = JSON.parse(roleString);
-      role == 'admin' ? isAdmin = true : isAdmin = false
-    }
-    const userString = Cookies.get('USGImage_user')
-    const user = JSON.parse(userString)
-    if (!isAdmin) {
-      const TodasClinicasString = localStorage.getItem("minhasClinicas")
-      const TodasClinicas = TodasClinicasString ? JSON.parse(TodasClinicasString) : []
-      const id = TodasClinicas.length + 1
-      const obj = {
-        id: id,
-        userID: user.id,
-        nome: nome,
-        endereco: endereco,
-        CEP: CEP,
-        NumeroEndereco: NumeroEndereco,
-        foto: defaultUserImage,
-        telefone: telefone,
-      };
-      TodasClinicas.push(obj);
-      TodasClinicas.map((e) => {
-        if (e.nome == "clinica") {
-          minhasClinicas.shift();
-        }
-      });
-      localStorage.setItem("minhasClinicas", JSON.stringify(TodasClinicas));
-      props.setAtualizar(!props.atualizar);
 
-      const clinicasUser: any = []
-      TodasClinicas.map((clinica) => {
-        if (clinica.userID === user.id) {
-          clinicasUser.push(clinica)
-        }
-      })
-      if (!isAdmin && clinicasUser.length >= 2) {
-        setLimiteClinicas(true)
+    const TodasClinicasString = localStorage.getItem("minhasClinicas")
+    const TodasClinicas = TodasClinicasString ? JSON.parse(TodasClinicasString) : []
+    const id = TodasClinicas.length + 1
+    const obj = {
+      id: id,
+      userID: 1,
+      nome: nome,
+      endereco: endereco,
+      CEP: CEP,
+      NumeroEndereco: NumeroEndereco,
+      foto: defaultUserImage,
+      telefone: telefone,
+    };
+    TodasClinicas.push(obj);
+    TodasClinicas.map((e) => {
+      if (e.nome == "clinica") {
+        minhasClinicas.shift();
       }
-    } else {
-      try {
-        const obj = {
-          userID: user.id,
-          CNPJ: CNPJ,
-          nome: nome,
-          endereco: endereco,
-          CEP: CEP,
-          NumeroEndereco: NumeroEndereco,
-          foto: defaultUserImage,
-          telefone: telefone,
-        };
-
-        const response = await api.post(`/clinica/${user.id}`, obj)
-        if (response.status === 201) {
-          toast({
-            duration: 3000,
-            title: `Clínica cadastrado com sucesso!`,
-            position: "bottom",
-            isClosable: true,
-          });
-          ResetDados();
-          props.setAtualizar(!props.atualizar);
-
-        } else {
-          toast({
-            duration: 3000,
-            title: `Preencha todos os campos corretamente para cadastrar.`,
-            status: "error",
-            position: "bottom",
-            isClosable: true,
-          });
-        }
-      } catch (error) {
-        console.log('error', error)
-      }
-    }
-
+    });
+    localStorage.setItem("minhasClinicas", JSON.stringify(TodasClinicas));
+    props.setAtualizar(!props.atualizar);
 
     onClose();
   };
@@ -289,21 +233,7 @@ const IconButtonPlus = (props) => {
     } else {
       minhasClinicas = []
     }
-
   }, []);
-
-  const buscarEndereco = async () => {
-    try {
-      const response = await axios.get(`https://viacep.com.br/ws/${CEP}/json/`);
-      const data = response.data;
-      const enderecoCompleto = `${data.logradouro}, ${NumeroEndereco} - ${data.bairro}, ${data.localidade} - ${data.uf}, ${data.cep}`
-
-      setEndereco(enderecoCompleto);
-    } catch (error) {
-      console.log(error);
-      setEndereco('Endereço não encontrado.');
-    }
-  };
 
   const [LimiteClinicas, setLimiteClinicas] = useState<boolean>(false)
 
@@ -598,9 +528,6 @@ const IconButtonPlus = (props) => {
                           </InputGroup>
                         )}
                       </InputGroup>
-                      <Button isDisabled={DisableButton} ml='5px' size="sm" backgroundColor={'#3d82ff'} color='white' onClick={buscarEndereco}>
-                        Buscar
-                      </Button>
                     </Center>
                   </Grid>
                 </Center>

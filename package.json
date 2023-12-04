@@ -64,7 +64,7 @@
   },
   "build": {
     "appId": "com.exemple.electron",
-    "productName": "Santa Imagem",
+    "productName": "USG Imagem",
     "files": [
       "build/**/*",
       "node_modules/**/*"
@@ -73,13 +73,13 @@
       "buildResources": "public"
     },
     "win": {
-      "icon": "public/logo_sem_background.ico"
+      "icon": "public/Simbolo.png"
     },
     "linux": {
-      "icon": "public/logo_sem_background.png"
+      "icon": "public/Simbolo.png"
     },
     "mac": {
-      "icon": "public/logo.icns"
+      "icon": "public/Simbolo.png"
     }
   },
   "eslintConfig": {
