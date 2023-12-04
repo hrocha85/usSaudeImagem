@@ -359,6 +359,7 @@ function SelectMedicos() {
       paddingBottom="10px"
       alignItems="center"
     >
+      <Text bgColor={'red'}>Atualizado</Text>
       <Center>
         <Box
           position="absolute"
