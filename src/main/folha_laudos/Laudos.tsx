@@ -513,13 +513,14 @@ function Exames() {
   };
 
   const AddLaudoSalvo = () => {
+    console.log(urlLaudo)
     if (urlLaudo !== undefined) {
       const getCurrentData = {
         paciente: getPaciente(),
         laudo: urlLaudo,
         data: getCurrentDateLaudo(),
         medicoSolicitante: getMedicoSolicitante(),
-        tituloLaudo:titulo_exame
+        tituloLaudo: titulo_exame
       };
       laudos.map((e) => {
         if (e.laudo == undefined || e.laudo == "") {
@@ -554,8 +555,23 @@ function Exames() {
     const file = new Blob([blob], { type: "application/pdf" });
     const fileURL = URL.createObjectURL(file);
     setUrlLaudo(fileURL);
-    AddLaudoSalvo()
-    verificaForm()
+    if (fileURL !== undefined) {
+      const getCurrentData = {
+        paciente: getPaciente(),
+        laudo: fileURL,
+        data: getCurrentDateLaudo(),
+        medicoSolicitante: getMedicoSolicitante(),
+        tituloLaudo: titulo_exame
+      };
+      laudos.map((e) => {
+        if (e.laudo == undefined || e.laudo == "") {
+          laudos.shift();
+        }
+      });
+      laudos.push(getCurrentData);
+      update(laudos);
+    }
+    navigate('/home')
   };
 
   const handleShareButtonClick = () => {
@@ -901,161 +917,36 @@ function Exames() {
     onOpen,
     onClose,
   } = useDisclosure();
-  const [userID, setUserID] = useState('')
-  const [userLaudos, setuserLaudos] = useState(0)
-  useEffect(() => {
-    if (localStorage.getItem("formPreenchido")) {
-      setFormPreenchido(true)
-    } else {
-      setFormPreenchido(false)
-    }
 
-    const CapturaIDelaudos = async () => {
-      const userString = Cookies.get('USGImage_user');
-      const userParse = JSON.parse(userString);
-      const response = await api.get(`usuarioLaudos/${userParse.id}`);
-      setUserID(userParse.id)
-      setuserLaudos(response.data)
-    }
-    CapturaIDelaudos()
-  }, [])
 
 
   const verificaForm = async () => {
     AddLaudoSalvo()
-    const valor = { timesLaudos: userLaudos + 1 };
-    if (formPreenchido) {
-
-      await api.put(`usuarioUpdate/${userID}`, valor);
-      navigate('/home')
-
-    } else {
-      onOpen()
-    }
+    navigate('/home')
   }
   const [opiniaoSoftware, setOpiniaoSoftware] = useState('');
   const [notaSoftware, setNotaSoftware] = useState('');
   const toast = useToast();
 
   const finalizaForm = async (e) => {
-    try {
-      const userString = Cookies.get('USGImage_user');
-      const userParse = JSON.parse(userString);
-      const email = userParse.email;
-      const name = userParse.name;
-      const Email = 'contato@usgimagem.com.br';
-      const html = `
-            <p>Nome: ${name}</p>
-            <p>Email: ${email}</p>
-            <p>Avaliação:</p>
-            <p>Escolha a palavra que melhor identifica nosso Aplicativo: ${opiniaoSoftware}</p>
-            <p>De 1 (ruim) a 5 (excelente), qual seria a nota que você dá ao nosso Aplicativo?: ${notaSoftware}</p>
-        `;
-      const subject = 'Nova avaliação USG';
-      const dest = { Email, html, subject };
+    setOpiniaoSoftware('');
+    setNotaSoftware('');
+    localStorage.setItem('formPreenchido', 'preenchido');
+    setFormPreenchido(true);
+    onClose();
 
-      const avaliacao = { bom_regular_ruim: opiniaoSoftware, nota1a5: notaSoftware, timesLaudos: userLaudos + 1 };
-      const response = await api.put(`usuarioUpdate/${userID}`, avaliacao);
-
-      if (response.status === 201) {
-        const responseEmail = await api.post('sendEmailContato', dest);
-
-        if (responseEmail.status === 200) {
-          // Limpeza e configuração de sucesso
-          setOpiniaoSoftware('');
-          setNotaSoftware('');
-          localStorage.setItem('formPreenchido', 'preenchido');
-          setFormPreenchido(true);
-          onClose();
-
-          setTimeout(() => {
-            toast({
-              duration: 3000,
-              title: 'Obrigado por contribuir, sua avaliação é muito importante!',
-              position: 'top',
-              isClosable: true,
-            });
-          }, 500);
-          navigate('/home')
-        } else {
-          // Erro no envio do e-mail
-          throw new Error('Erro no envio de e-mail');
-        }
-      } else {
-        // Erro na atualização do usuário
-        throw new Error('Erro na atualização do usuário');
-      }
-    } catch (error) {
-      console.error(error);
-
-      setTimeout(() => {
-        toast({
-          duration: 3000,
-          title: 'Ops, algo deu errado, avalie novamente!',
-          position: 'top',
-          isClosable: true,
-        });
-      }, 500);
-    }
+    setTimeout(() => {
+      toast({
+        duration: 3000,
+        title: 'Obrigado por contribuir, sua avaliação é muito importante!',
+        position: 'top',
+        isClosable: true,
+      });
+    }, 500);
+    navigate('/home')
   };
 
-  const ModalForm = () => {
-    return (
-      <Modal
-        isOpen={isOpen}
-        onClose={onOpen}
-        colorScheme="blackAlpha"
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <Text textAlign={'center'} fontSize={'2rem'} fontWeight={'bold'}>Pesquisa de Satisfação</Text>
-          <Box p={3} borderWidth="1px" borderRadius="md" boxShadow="md" justifyContent={'center'}>
-            <RadioGroup onChange={(value) => setOpiniaoSoftware(value)} value={opiniaoSoftware} mb={4}>
-              <Text mb={4}>1 -Escolha a palavra que melhor identifica nosso Aplicativo:</Text>
-              <Flex justifyContent="center">
-                <Radio value="bom" mx={2}>
-                  Bom
-                </Radio>
-                <Radio value="regular" mx={2}>
-                  Regular
-                </Radio>
-                <Radio value="ruim" mx={2}>
-                  Ruim
-                </Radio>
-              </Flex>
-            </RadioGroup>
 
-            <RadioGroup onChange={(value) => setNotaSoftware(value)} value={notaSoftware} mb={4}>
-              <Text mb={4}>2 - De 1 a 5, qual seria a nota que você dá ao Aplicativo:</Text>
-              <Flex justifyContent="center">
-                <Radio value="1" mx={2}>
-                  1
-                </Radio>
-                <Radio value="2" mx={2}>
-                  2
-                </Radio>
-                <Radio value="3" mx={2}>
-                  3
-                </Radio>
-                <Radio value="4" mx={2}>
-                  4
-                </Radio>
-                <Radio value="5" mx={2}>
-                  5
-                </Radio>
-              </Flex>
-            </RadioGroup>
-
-            <Box textAlign="center">
-              <Button onClick={(e) => finalizaForm(e)} color="white" bg={'#2e4ad4'} mt={4} w={'11rem'}>
-                Enviar
-              </Button>
-            </Box>
-          </Box>
-        </ModalContent>
-      </Modal>
-    );
-  }
 
   return (
     <Box
@@ -1197,7 +1088,7 @@ function Exames() {
             </Tooltip>
           )}
           <Tooltip
-            label="Compartilhamento bloqueado para teste gratuito"
+            label="Em desenvolvimento"
             fontSize="xl"
             backgroundColor="white"
             placement="top"
@@ -1249,7 +1140,7 @@ function Exames() {
                     <Circle size="40px" bg="yellow.400">
                       <Button
                         onClick={() => {
-                          convertBlob(blob!);
+                          // convertBlob(blob!);
 
                         }}>
                         <Circle size="50px" bg="yellow.400">
@@ -1348,7 +1239,6 @@ function Exames() {
           </Text>
         </Box>
       </Box>
-      {ModalForm()}
     </Box>
   );
 }

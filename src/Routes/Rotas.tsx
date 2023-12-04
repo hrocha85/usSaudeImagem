@@ -17,7 +17,7 @@ import AdmMaster from "../main/adminMaster/admMaster";
 import EditProfile from "../main/EditUser/EditProfile";
 import EsqueciSenha from "../main/login/EsqueciSenha";
 import Compartilha_PDF from "../main/folha_laudos/compartilha_pdf";
-import  PageLaudos  from "../main/folha_laudos/PageLaudos";
+import PageLaudos from "../main/folha_laudos/PageLaudos";
 import PerguntaFreq from "../main/LandingPage/perguntaFequ/PerguntaFreq";
 import Tutorial from "../Tutorial/tutorial";
 
@@ -26,23 +26,14 @@ import Tutorial from "../Tutorial/tutorial";
 function Rotas() {
   return (
     <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/Cadastro" element={<CadastroUsuario />} />
-      <Route path="/Login" element={<LoginForm />} />
-      <Route path="/PerguntaFrequente" element={<PerguntaFreq/>} />
-      <Route path="/RedSenha" element={<EsqueciSenha />} />
-      <Route path="/LoginFree" element={<LoginFormFree />} />
-      <Route path="/Splash" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<SplashScreen />} />} />
-      <Route path="/Home" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Home />} />} />
-      <Route path="/Home/Tutorial" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Tutorial/>} />} />
-      <Route path="/SelectMedicos" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<SelectMedicos />} />} />
-      <Route path="/Home/Configuracoes" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Configuracoes />} />} />
-      <Route path="/Home/Laudos" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<PageLaudos />} />} />
-      <Route path="/Home/Perfil" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<EditProfile />} />} />
-      <Route path="/Format_PDF" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Format_PDF />} />} />
+      <Route path="/" element={<SplashScreen />} />
+      <Route path="/Home" element={<Home />} />
+      <Route path="/Home/Tutorial" element={<Tutorial />} />
+      <Route path="/SelectMedicos" element={<SelectMedicos />} />
+      <Route path="/Home/Configuracoes" element={<Configuracoes />} />
+      <Route path="/Format_PDF" element={<Format_PDF />} />
       <Route path="/Compartilha_PDF" element={<Compartilha_PDF />} />
-      <Route path="/Exames" element={<PrivateRoute RouteRoles={['userFree', 'admin']} element={<Box_Default_With_Sidebar />} />} />
-      <Route path="/AdminMaster" element={<PrivateRoute RouteRoles={['adminMaster']} element={<AdmMaster />} />} />
+      <Route path="/Exames" element={<Box_Default_With_Sidebar />} />
       <Route path="*" element={<Error />} />
     </Routes>
   );

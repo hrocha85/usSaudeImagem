@@ -1,5 +1,5 @@
-import { AiOutlineHome, AiOutlinePoweroff, AiOutlineUser, AiFillReconciliation  } from "react-icons/ai";
-import { BsFolder2Open, BsPeople  } from "react-icons/bs";
+import { AiOutlineHome, AiOutlinePoweroff, AiOutlineUser, AiFillReconciliation } from "react-icons/ai";
+import { BsFolder2Open, BsPeople } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
 
 export const SidebarDataLogado = [
@@ -9,18 +9,13 @@ export const SidebarDataLogado = [
     icon: <AiOutlineHome />,
   },
   {
-    title: "Editar Perfil",
-    path: '/Home/Perfil',
-    icon: <AiOutlineUser />,
-  },
-  {
     title: "Configurações",
     path: "/Home/Configuracoes",
     icon: <IoSettingsOutline />,
   },
   {
     title: "Laudos",
-    path: "/Home/Laudos",
+    path: "/Home/Configuracoes",
     icon: <BsFolder2Open />,
   },
   {

@@ -170,68 +170,66 @@ const Configuracoes = () => {
   const Laudos = () => {
     return (
       <>
-        {getUserMedico() != null
+        {GetMedicosFree()
           ? GetMedicosFree().map((medi) => {
-            if (medi.nome == getUserMedico().nome) {
-              console.log('medi', medi)
-              return medi.laudos.map((laudos, key) => {
-                if (
-                  laudos.laudo != null &&
-                  laudos.laudo != "" &&
-                  laudos != undefined
-                ) {
-                  return (
-                    <Center>
-                      <List spacing={3} size="20px" key={key}>
-                        <ListItem
-                          padding="10px"
-                          onClick={() => {
-                            showSavedLaudo(laudos.laudo);
-                          }}
-                          cursor="pointer"
-                          _hover={{
-                            bg: "blue.100",
-                            fontWeight: "semibold",
-                            borderRadius: "10px",
-                          }}
-                        >
-                          <ListIcon
-                            as={VscFilePdf}
-                            color="blue.600"
-                            h="25px"
-                            w="25px"
-                            fontSize="xxx-large"
-                          />
-                          {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
-                        </ListItem>
-                        <Divider
-                          orientation="horizontal"
-                          marginBottom="10px"
+            console.log('medi', medi)
+            return medi.laudos.map((laudos, key) => {
+              if (
+                laudos.laudo != null &&
+                laudos.laudo != "" &&
+                laudos != undefined
+              ) {
+                return (
+                  <Center>
+                    <List spacing={3} size="20px" key={key}>
+                      <ListItem
+                        padding="10px"
+                        onClick={() => {
+                          showSavedLaudo(laudos.laudo);
+                        }}
+                        cursor="pointer"
+                        _hover={{
+                          bg: "blue.100",
+                          fontWeight: "semibold",
+                          borderRadius: "10px",
+                        }}
+                      >
+                        <ListIcon
+                          as={VscFilePdf}
+                          color="blue.600"
+                          h="25px"
+                          w="25px"
+                          fontSize="xxx-large"
                         />
-                      </List>
-                    </Center>
-                  );
-                } else {
-                  return (
-                    <Center>
-                      <List size="20px">
-                        <ListItem
-                          fontSize="17px"
-                          textAlign="center"
-                          fontWeight="semibold"
-                        >
-                          Nenhum laudo encontrado
-                        </ListItem>
-                        <Divider
-                          orientation="horizontal"
-                          marginBottom="10px"
-                        />
-                      </List>
-                    </Center>
-                  );
-                }
-              });
-            }
+                        {`Laudo Paciente ${laudos.paciente} - ${laudos.data}`}
+                      </ListItem>
+                      <Divider
+                        orientation="horizontal"
+                        marginBottom="10px"
+                      />
+                    </List>
+                  </Center>
+                );
+              } else {
+                return (
+                  <Center>
+                    <List size="20px">
+                      <ListItem
+                        fontSize="17px"
+                        textAlign="center"
+                        fontWeight="semibold"
+                      >
+                        Nenhum laudo encontrado
+                      </ListItem>
+                      <Divider
+                        orientation="horizontal"
+                        marginBottom="10px"
+                      />
+                    </List>
+                  </Center>
+                );
+              }
+            });
           })
           : listaLaudosVazia()}
       </>
@@ -330,21 +328,10 @@ const Configuracoes = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const roleString = Cookies.get('USGImage_role');
-      if (roleString) {
-        const role = JSON.parse(roleString);
-        if (role === 'admin') {
-          setListaClinicas(await getClinicaAdmin());
-        } else {
-          setListaClinicas(GetClinicaFree());
-        }
-      }
-    };
-
-    // setListaClinicas(GetClinicaFree());
-    fetchData();
-  }, [stateClickAddMedico, getClinicasNull]);
+    setListaClinicas(GetClinicaFree());
+    console.log('aa')
+  }, []);
+  // }, [stateClickAddMedico, getClinicasNull]);
 
   useEffect(() => {
     setMedicos(getMedicos);
@@ -398,8 +385,7 @@ const Configuracoes = () => {
               <MainCardClinica titulo="Clínicas" icon={true} clinica={null} medicos={null} />
             </Box>
 
-
-            <Box pl={3} display={getClinicasNull()}>
+            <Box pl={3} >
               <MainCard titulo="Médicos" icon={true} clinica={listaClinicas} medicos={null} />
             </Box>
 

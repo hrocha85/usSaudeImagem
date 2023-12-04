@@ -131,26 +131,6 @@ const IconButtonPlusMedicos = (props, clinica) => {
 
   const PegaClinicas = () => {
     setClinica([])
-
-    let isAdmin;
-    const roleString = Cookies.get('USGImage_role');
-    if (roleString) {
-      const role = JSON.parse(roleString);
-      role == 'admin' ? isAdmin = true : isAdmin = false
-    }
-    if (!isAdmin) {
-      const clinicas = GetClinicaFree()
-      setListaClinicas(clinicas);
-
-    } else {
-      getClinicaAdmin()
-        .then(clinicas => {
-          setListaClinicas(clinicas);
-        })
-        .catch(error => {
-          console.error('Erro ao obter clínicas:', error);
-        });
-    }
     const clinicas = GetClinicaFree()
     setListaClinicas(clinicas);
     onOpenModalAddMedico()
@@ -227,14 +207,14 @@ const IconButtonPlusMedicos = (props, clinica) => {
             <Text color="white" mr={4}>
               Cadastro concluido! clique no botão para iniciar a sessão
             </Text>
-            <Link href="#/Splash" _hover={{ textDecoration: "underline" }}>
+            <Link href="#/SelectMedicos" _hover={{ textDecoration: "underline" }}>
               <Button
                 colorScheme="whiteAlpha"
                 _focus={{ boxShadow: "none" }}
                 _active={{ bgColor: "transparent" }}
                 onClick={() => {
                   toast.close(loginCriado); // Fechar o Toast ao clicar no botão
-                  usenavigate('/Splash');
+                  usenavigate('/SelectMedicos');
                 }}
               >
                 Login
@@ -246,152 +226,58 @@ const IconButtonPlusMedicos = (props, clinica) => {
       return loginCriado;
     }
   };
-  const [LimiteMedicos, setLimiteMedicos] = useState<boolean>(false)
 
   const AddMedico = async () => {
-    const userString = Cookies.get('USGImage_user')
-    const user = JSON.parse(userString)
-    let isAdmin;
-    const roleString = Cookies.get('USGImage_role');
-    if (roleString) {
-      const role = JSON.parse(roleString);
-      role == 'admin' ? isAdmin = true : isAdmin = false
-    }
-    if (!isAdmin) {
-      const TodosMedicosString = localStorage.getItem("medicos")
-      const TodosMedicos = TodosMedicosString ? JSON.parse(TodosMedicosString) : []
-      let idProv = TodosMedicos.length + 1
-      TodosMedicos.map((medico) => {
-        if (idProv === medico.id) {
-          console.log(medico)
-          console.log(idProv)
-          idProv = idProv + 1
-        }
-      })
-      const obj = {
-        id: idProv,
-        userID: user.id,
-        nome: nome,
-        CRMUF: crm,
-        assinatura:
-          padRef.current?.getTrimmedCanvas().toDataURL("image/png") != null
-            ? padRef.current?.getTrimmedCanvas().toDataURL("image/png")
-            : pngAssinatura!,
-        foto: defaultUserImage,
-        clinicas: clinicas,
-        laudos: [{}],
-      };
-      TodosMedicos.push(obj);
 
-      TodosMedicos.map((e) => {
-        if (e.nome == "NOME") {
-          TodosMedicos.shift();
-        }
-      });
-
-      localStorage.setItem("medicos", JSON.stringify(TodosMedicos));
-      props.setAtualizar(!props.atualizar);
-      setMedicos(TodosMedicos);
-
-      let isAdmin;
-      const roleString = Cookies.get('USGImage_role');
-      if (roleString) {
-        const role = JSON.parse(roleString);
-        role == 'admin' ? isAdmin = true : isAdmin = false
+    const TodosMedicosString = localStorage.getItem("medicos")
+    const TodosMedicos = TodosMedicosString ? JSON.parse(TodosMedicosString) : []
+    let idProv = TodosMedicos.length + 1
+    TodosMedicos.map((medico) => {
+      if (idProv === medico.id) {
+        console.log(medico)
+        console.log(idProv)
+        idProv = idProv + 1
       }
-      const MedicosUser: any = []
-      TodosMedicos.map((medico) => {
-        if (medico.userID === user.id) {
-          MedicosUser.push(medico)
-        }
-      })
-      if (!isAdmin && MedicosUser.length >= 2) {
-        setLimiteMedicos(true)
+    })
+    const obj = {
+      id: idProv,
+      userID: 1,
+      nome: nome,
+      CRMUF: crm,
+      assinatura:
+        padRef.current?.getTrimmedCanvas().toDataURL("image/png") != null
+          ? padRef.current?.getTrimmedCanvas().toDataURL("image/png")
+          : pngAssinatura!,
+      foto: defaultUserImage,
+      clinicas: clinicas,
+      laudos: [{}],
+    };
+    TodosMedicos.push(obj);
+
+    TodosMedicos.map((e) => {
+      if (e.nome == "NOME") {
+        TodosMedicos.shift();
       }
-      ResetDados();
-      onCloseModalAddMedico();
-      authParaLogar();
-      toast({
-        duration: 3000,
-        title: `Médico cadastrado com sucesso!`,
-        position: "bottom",
-        isClosable: true,
-      });
-    } else {
-      try {
-        const idClinicas: any = []
-        let clinicaParse
-        clinicas.map((clinica) => {
-          clinicaParse = JSON.parse(clinica)
-          idClinicas.push(clinicaParse.id)
-        })
+    });
 
-        const obj = {
-
-          id: user.id,
-          nome: nome,
-          CRMUF: crm,
-          assinatura:
-            padRef.current?.getTrimmedCanvas().toDataURL("image/png") != null
-              ? padRef.current?.getTrimmedCanvas().toDataURL("image/png")
-              : pngAssinatura!,
-          foto: defaultUserImage,
-          clinica_id: idClinicas,
-          laudos: [{}],
-        };
-        const response = await api.post(`/medico/${user.id}`, obj)
-        if (response.status === 201) {
-          toast({
-            duration: 3000,
-            title: `Clínica cadastrado com sucesso!`,
-            position: "bottom",
-            isClosable: true,
-          });
-          ResetDados();
-          props.setAtualizar(!props.atualizar);
-          ResetDados();
-          onCloseModalAddMedico();
-          authParaLogar();
-          toast({
-            duration: 3000,
-            title: `Médico cadastrado com sucesso!`,
-            position: "bottom",
-            isClosable: true,
-          });
-
-        } else {
-          toast({
-            duration: 3000,
-            title: `Preencha todos os campos corretamente para cadastrar.`,
-            status: "error",
-            position: "bottom",
-            isClosable: true,
-          });
-        }
+    localStorage.setItem("medicos", JSON.stringify(TodosMedicos));
+    props.setAtualizar(!props.atualizar);
+    setMedicos(TodosMedicos);
 
 
-      } catch (error) {
-        console.log('error', error)
-      }
-    }
+    ResetDados();
+    onCloseModalAddMedico();
+    authParaLogar();
+    toast({
+      duration: 3000,
+      title: `Médico cadastrado com sucesso!`,
+      position: "bottom",
+      isClosable: true,
+    });
+
   };
 
 
-  const CheckClinicasGratuito = () => {
-    let isAdmin;
-    const roleString = Cookies.get('USGImage_role');
-    if (roleString) {
-      const role = JSON.parse(roleString);
-      role == 'admin' ? isAdmin = true : isAdmin = false
-    }
-    if (!isAdmin && medicos.length >= 2) {
-      setLimiteMedicos(true)
-    }
-  }
-
-  useEffect(() => {
-    CheckClinicasGratuito()
-  }, [])
 
 
   const handleCRM = (event) => {
@@ -420,7 +306,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
   return (
     <>
       <Tooltip
-        label={!LimiteMedicos ? "Adicionar Médico" : "Limite de médicos do plano gratuito atingido"}
+        label={"Adicionar Médico"}
         backgroundColor="white"
         // placement="top"
         defaultIsOpen={false}
@@ -432,7 +318,6 @@ const IconButtonPlusMedicos = (props, clinica) => {
         textAlign={'center'}
       >
         <Button
-          isDisabled={LimiteMedicos}
           borderRadius="xl"
           backgroundColor="white"
           w="10rem"

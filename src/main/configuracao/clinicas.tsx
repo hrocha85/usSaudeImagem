@@ -14,42 +14,29 @@ const Clinica = (props) => {
   // }, [props.atualizar]);
 
   useEffect(() => {
-    let isAdmin;
-    const roleString = Cookies.get('USGImage_role');
-    if (roleString) {
-      const role = JSON.parse(roleString);
-      role == 'admin' ? isAdmin = true : isAdmin = false
-    }
-    if (!isAdmin) {
-      const clinicas = GetClinicaFree();
-      setListaClinicas(clinicas);
-    } else {
-      getClinicaAdmin()
-        .then(clinicas => {
-          setListaClinicas(clinicas);
-        })
-        .catch(error => {
-          console.error('Erro ao obter clínicas:', error);
-        });
-    }
-
+    const clinicas = GetClinicaFree();
+    setListaClinicas(clinicas);
   }, [props.atualizar])
 
   return (
     <>
-      {listaClinicas.map((item, key) => (
-        <FieldDefaultIconCardClinicas
-          key={key}
-          text={item.nome}
-          textColor="black"
-          icon={FaRegFolderOpen}
-          clinica={item}
-          clinicas={listaClinicas}
-          onClickModal={true}
-          id={key}
-          isMedic={false}
-        />
-      ))}
+      {
+        listaClinicas ?
+          listaClinicas.map((item, key) => (
+            <FieldDefaultIconCardClinicas
+              key={key}
+              text={item.nome}
+              textColor="black"
+              icon={FaRegFolderOpen}
+              clinica={item}
+              clinicas={listaClinicas}
+              onClickModal={true}
+              id={key}
+              isMedic={false}
+            />
+          ))
+          : null
+      }
     </>
   );
 };
