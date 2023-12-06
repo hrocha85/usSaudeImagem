@@ -31,6 +31,7 @@ function Rotas() {
       <Route path="/Home/Tutorial" element={<Tutorial />} />
       <Route path="/SelectMedicos" element={<SelectMedicos />} />
       <Route path="/Home/Configuracoes" element={<Configuracoes />} />
+      <Route path="/Home/Laudos" element={<PageLaudos />} />
       <Route path="/Format_PDF" element={<Format_PDF />} />
       <Route path="/Compartilha_PDF" element={<Compartilha_PDF />} />
       <Route path="/Exames" element={<Box_Default_With_Sidebar />} />

@@ -49,24 +49,25 @@ const PageLaudos = () => {
 
 
     const fetchExames = () => {
-        if (localStorage.getItem("user") != null) {
+        if (localStorage.getItem("user") !== null) {
           const Medico = JSON.parse(localStorage.getItem("user")!);
           const MedicoFree = GetMedicosFree()
-          MedicoFree.forEach((medico) => {
-            if (Medico.medico.nome === medico.nome) {
-              setExames(Medico.medico.laudos)
+          MedicoFree.map((medico) => {
+            if (medico.nome == medico.nome) {
+              setExames(medico.laudos)
               setMedicoLogado(Medico.medico.nome)
-              setHaExames(medico.laudos.length > 0 ? true : false)
+              setHaExames(medico.laudos.length >= 0 ? true : false)
+              console.log(medico)
             }
             
           })
-          console.log(haExames)
+          console.log(Medico.medico.laudos)
         }
       };
       
       useEffect(() => {
         fetchExames();
-      }, [setExames, setHaExames, setMedicoLogado]);
+      }, [setExames, setHaExames]);
 
     const getUserMedico = () => {
         if (localStorage.getItem("user") != null) {
