@@ -7,7 +7,7 @@
     "email": "comercial@upbase.com.br"
   },
   "description": "Gerador de Laudos",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^2.0.15",
@@ -26,6 +26,7 @@
     "@types/typescript": "^2.0.0",
     "axios": "^1.4.0",
     "electron-is-dev": "^2.0.0",
+    "electron-updater": "^6.1.7",
     "emailjs": "^4.0.2",
     "framer-motion": "^6.5.1",
     "js-cookie": "^3.0.5",
