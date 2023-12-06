@@ -1,10 +1,15 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // import { app, BrowserWindow } from "electron";
 // import * as path from "path";
+const { autoUpdater, AppUpdater } = require("electron-updater")
 
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 
 const isDev = require("electron-is-dev")
+
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = true;
 
 function createWindow() {
   // Create the browser window.
@@ -29,6 +34,22 @@ function createWindow() {
   //mainWindow.webContents.openDevTools();
 }
 
+autoUpdater.on("update-available", (info) => {
+  console.log('update available')
+  let pth = autoUpdater.downloadUpdate()
+  console.log('pth', pth)
+})
+
+autoUpdater.on("update-not-available", (info) => {
+  console.log('update not available')
+})
+
+autoUpdater.on("update-downloaded", (info) => {
+  console.log('update downloaded')
+})
+
+
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -40,6 +61,8 @@ app.on("ready", () => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+
+  autoUpdater.checkForUpdates()
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
