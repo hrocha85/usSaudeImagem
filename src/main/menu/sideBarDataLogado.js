@@ -15,7 +15,7 @@ export const SidebarDataLogado = [
   },
   {
     title: "Laudos",
-    path: "/Home/Configuracoes",
+    path: "/Home/Laudos",
     icon: <BsFolder2Open />,
   },
   {
