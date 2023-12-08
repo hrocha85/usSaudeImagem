@@ -409,7 +409,7 @@ function Exames() {
                   <ViewPDF style={styles.viewConclusoes}>
                     <ViewPDF style={styles.lineConclusoes} break={true} />
                     <TextPDF style={styles.textConclusao}>
-                      {`Conclusão ${exame.titulo_exame} aasda`}
+                      {`Conclusão ${exame.titulo_exame}`}
                     </TextPDF>
                     <ViewPDF wrap={false}>{renderConclusoes(exame)}</ViewPDF>
                     <ViewPDF style={styles.lineConclusoes} />
@@ -504,10 +504,13 @@ function Exames() {
 
   const update = (laudos) => {
     const array = JSON.parse(localStorage.getItem("medicos")!);
+    console.log('laudos fora do map', laudos)
     array.map((medi) => {
       if (medi.nome == getUserMedico().nome) {
+        console.log('laudos dentro do map', laudos)
         medi.laudos = laudos;
       }
+      console.log("array para medicos", array)
       localStorage.setItem("medicos", JSON.stringify(array));
     });
   };
@@ -555,6 +558,7 @@ function Exames() {
     const file = new Blob([blob], { type: "application/pdf" });
     const fileURL = URL.createObjectURL(file);
     setUrlLaudo(fileURL);
+    const laudosFinaliza: any = []
     if (fileURL !== undefined) {
       const getCurrentData = {
         paciente: getPaciente(),
@@ -563,15 +567,23 @@ function Exames() {
         medicoSolicitante: getMedicoSolicitante(),
         tituloLaudo: titulo_exame
       };
-      laudos.map((e) => {
-        if (e.laudo == undefined || e.laudo == "") {
-          laudos.shift();
+      const array = JSON.parse(localStorage.getItem("medicos")!);
+      array.map((medi) => {
+        if (medi.nome == getUserMedico().nome) {
+          medi.laudos.map((e: any) => {
+            laudosFinaliza.push(e)
+          })
         }
       });
-      laudos.push(getCurrentData);
-      update(laudos);
+      // array.map((e, index) => {
+      //   if (e.laudo == undefined || e.laudo == "") {
+      //     laudos.splice(index, 1);
+      //   }
+      // });
+      laudosFinaliza.push(getCurrentData);
+      update(laudosFinaliza);
     }
-    navigate('/home')
+    // navigate('/home')
   };
 
   const handleShareButtonClick = () => {
@@ -887,11 +899,11 @@ function Exames() {
     );
   };
 
-  useEffect(() => {
-    if (urlLaudo != null) {
-      AddLaudoSalvo();
-    }
-  }, [urlLaudo]);
+  // useEffect(() => {
+  //   if (urlLaudo != null) {
+  //     AddLaudoSalvo();
+  //   }
+  // }, [urlLaudo]);
 
   window.addEventListener("storage", () => {
     getFormatLaudo();
@@ -1138,11 +1150,7 @@ function Exames() {
                     textColor="black"
                   >
                     <Circle size="40px" bg="yellow.400">
-                      <Button
-                        onClick={() => {
-                          // convertBlob(blob!);
-
-                        }}>
+                      <Button                       >
                         <Circle size="50px" bg="yellow.400">
                           <Icon
                             w={30}
