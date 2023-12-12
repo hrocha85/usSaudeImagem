@@ -7,31 +7,34 @@ import Splash_Screen from '../images/SplashOnly.png'
 import GetMedicosAdmin from "../Helpers/UserAdmin/GetMedicosAdmin";
 import GetMedicosFree from "../Helpers/UserFree/GetMedicosFree";
 import Cookies from 'js-cookie';
+import verificarTesteGratuito from "../Helpers/verificaTeste";
 
 const SplashScreen = () => {
   const [redirectNow, setRedirectNow] = useState(false);
   const [PrimeiroLogin, setPrimeiroLogin] = useState(false);
   const [AdminMaster, setAdminMaster] = useState(false);
+  const [TesteGratuito, setTesteGratuito] = useState(false);
   const [lista_medico, setlista_medico] = useState<any[]>([]);
-  //tempo de 5 segundos para sair da pagina
+  //tempo de 4 segundos para sair da pagina
   setTimeout(() => setRedirectNow(true), 4000);
 
+  const firstLogin = localStorage.getItem('USGImagem_firstLogin');
+
   useEffect(() => {
-
-    setlista_medico(GetMedicosFree())
-
-    if (lista_medico.length > 0) {
-      setPrimeiroLogin(true)
+    if (!firstLogin) {
+      const dataInicioTeste = new Date();
+      console.log(dataInicioTeste)
+      localStorage.setItem('USGImagem_firstLogin', dataInicioTeste.toString());
+    } else {
+      setTesteGratuito(verificarTesteGratuito(firstLogin.toString()));
     }
   }, [])
-  //está sendo jogado para abdomen total pqe nao temos a pagina principal, ajustar isso futuramente
-  // };
+
   return redirectNow ? (
-    PrimeiroLogin ?
-      <Navigate to="/Home/Tutorial" />
+    TesteGratuito ?
+      <Navigate to="/Expired" />
       :
       <Navigate to="/SelectMedicos" />
-
   ) : (
     <Box
       w="100vw"

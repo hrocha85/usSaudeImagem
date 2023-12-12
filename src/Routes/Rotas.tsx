@@ -20,6 +20,7 @@ import Compartilha_PDF from "../main/folha_laudos/compartilha_pdf";
 import PageLaudos from "../main/folha_laudos/PageLaudos";
 import PerguntaFreq from "../main/LandingPage/perguntaFequ/PerguntaFreq";
 import Tutorial from "../Tutorial/tutorial";
+import PeriodoTesteExpired from "../main/Periodo_Teste";
 
 
 
@@ -27,6 +28,7 @@ function Rotas() {
   return (
     <Routes>
       <Route path="/" element={<SplashScreen />} />
+      <Route path="/Expired" element={<PeriodoTesteExpired />} />
       <Route path="/Home" element={<Home />} />
       <Route path="/Home/Tutorial" element={<Tutorial />} />
       <Route path="/SelectMedicos" element={<SelectMedicos />} />

@@ -34,19 +34,6 @@ function createWindow() {
   //mainWindow.webContents.openDevTools();
 }
 
-autoUpdater.on("update-available", (info) => {
-  console.log('update available')
-  let pth = autoUpdater.downloadUpdate()
-  console.log('pth', pth)
-})
-
-autoUpdater.on("update-not-available", (info) => {
-  console.log('update not available')
-})
-
-autoUpdater.on("update-downloaded", (info) => {
-  console.log('update downloaded')
-})
 
 
 
@@ -62,7 +49,6 @@ app.on("ready", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 
-  autoUpdater.checkForUpdates()
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
