@@ -70,7 +70,7 @@
   },
   "build": {
     "appId": "com.exemple.electron",
-    "productName": "USG Imagem",
+    "productName": "USG Imagem TRIAL",
     "files": [
       "build/**/*",
       "node_modules/**/*"
@@ -85,7 +85,7 @@
       "icon": "public/Simbolo.png"
     },
     "mac": {
-      "icon": "public/Simbolo.png"
+      "icon": "public/SimboloMAC.png"
     }
   },
   "eslintConfig": {

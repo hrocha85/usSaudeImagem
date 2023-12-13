@@ -30,7 +30,7 @@ function Body() {
       pl={['5%', '10%']}
     >
       <Flex alignItems={'center'} display={display1} px={'2%'}>
-        <Box w={width} pb={['2%',0]}>
+        <Box w={width} pb={['2%', 0]}>
           <Text
             fontSize={"46px"}
             fontFamily={'Rubik, sans-serif'}
@@ -100,11 +100,11 @@ function Body() {
               pt={'2%'}
               pb={'3%'}
               textAlign={{ base: 'center', md: 'left' }}
-            >Em breve disponível para
+            >Faça o teste da versão desktop
             </Text>
 
-            <Flex flexDirection={['column', 'row']}  pt={'5%'} pb={'5%'} gap={'2%'} alignItems={'center'}>
-              <Link href={`#/`} pb={["2%",0]}>
+            <Flex flexDirection={['column', 'row']} pt={'5%'} pb={'5%'} gap={'2%'} alignItems={'center'}>
+              <Link href={`https://github.com/LucasBGarcia/USGTRIAL/releases/download/TRIAL/USG.Imagem.TRIAL.Setup.1.0.6.exe`} pb={["2%", 0]}>
                 <Button
                   border="2px solid #FFF"
                   color="#FFF"
@@ -125,7 +125,7 @@ function Body() {
                 </Button>
               </Link>
 
-              <Link href={`#/`} pb={["2%",0]}>
+              <Link href={`#/`} pb={["2%", 0]}>
                 <Button
                   border="2px solid #FFF"
                   color="#FFF"
@@ -146,7 +146,7 @@ function Body() {
                 </Button>
               </Link>
 
-              <Link href={`#/`} pb={["2%",0]}>
+              <Link href={`#/`} pb={["2%", 0]}>
                 <Button
                   border="2px solid #FFF"
                   color="#FFF"
