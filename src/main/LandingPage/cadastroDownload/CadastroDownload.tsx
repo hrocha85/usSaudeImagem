@@ -237,7 +237,7 @@ const ModalDownload = ({ isOpen, onClose, sistema }: Props) => {
             setUrlDownload('https://github.com/LucasBGarcia/USGTRIAL/releases/download/TRIA_linux/USG.Imagem.TRIAL-1.0.6.AppImage')
         }
         if (sistema === 3) {
-            setUrlDownload('https://www.linkedin.com/feed/')
+            setUrlDownload('https://github.com/LucasBGarcia/USGTRIAL/releases/download/TRIAL_macOS/USG.Imagem.TRIAL-1.0.6.dmg')
         }
 
     }

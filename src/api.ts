@@ -15,7 +15,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:3333/',
+    baseURL: 'https://api.usgimagem.com.br/',
     headers: {
         'Content-Type': 'application/json',
 
