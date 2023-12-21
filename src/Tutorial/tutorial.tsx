@@ -142,24 +142,26 @@ const VideoPage = () => {
   const [redirectNow, setRedirectNow] = useState(false);
   const [PrimeiroLogin, setPrimeiroLogin] = useState(true);
   const [AdminMaster, setAdminMaster] = useState(false);
-  const [lista_medico, setlista_medico] = useState<any[]>([]);
+  const lista_medico: any[] = [];
+
   //tempo de 5 segundos para sair da pagina
   setTimeout(() => setRedirectNow(true), 4000);
 
-  useEffect(() => {
+  const verificaMedicos = () => {
     let isAdmin;
     const roleString = Cookies.get('USGImage_role');
     if (roleString) {
       const role = JSON.parse(roleString);
       role === 'admin' ? isAdmin = true : isAdmin = false
-      role === 'adminMaster' ? setAdminMaster(true) : setAdminMaster(false)
     }
     if (!isAdmin) {
-      setlista_medico(GetMedicosFree())
+      if (GetMedicosFree().length > 0) {
+        lista_medico.push(GetMedicosFree())
+      }
     } else {
       GetMedicosAdmin()
         .then(medicos => {
-          setlista_medico(medicos)
+          lista_medico.push(((arr) => [...arr, medicos]))
         })
         .catch(error => {
           console.error('Erro ao obter clínicas:', error);
@@ -169,8 +171,11 @@ const VideoPage = () => {
     if (lista_medico.length > 0) {
       setPrimeiroLogin(false)
     }
-  }, [[lista_medico]])
+  }
 
+  useEffect(() => {
+    verificaMedicos()
+  }, [])
   return (
     <Box h={'100vh'}>
       <Sidebar />

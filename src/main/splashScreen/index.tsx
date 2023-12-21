@@ -11,25 +11,25 @@ import Cookies from 'js-cookie';
 const SplashScreen = () => {
   const [redirectNow, setRedirectNow] = useState(false);
   const [PrimeiroLogin, setPrimeiroLogin] = useState(true);
-  const [AdminMaster, setAdminMaster] = useState(false);
-  const [lista_medico, setlista_medico] = useState<any[]>([]);
+  const lista_medico: any[] = [];
   //tempo de 5 segundos para sair da pagina
   setTimeout(() => setRedirectNow(true), 4000);
 
-  useEffect(() => {
+  const verificaMedicos = () => {
     let isAdmin;
     const roleString = Cookies.get('USGImage_role');
     if (roleString) {
       const role = JSON.parse(roleString);
       role === 'admin' ? isAdmin = true : isAdmin = false
-      role === 'adminMaster' ? setAdminMaster(true) : setAdminMaster(false)
     }
     if (!isAdmin) {
-      setlista_medico(GetMedicosFree())
+      if (GetMedicosFree().length > 0) {
+        lista_medico.push(GetMedicosFree())
+      }
     } else {
       GetMedicosAdmin()
         .then(medicos => {
-          setlista_medico(medicos)
+          lista_medico.push(((arr) => [...arr, medicos]))
         })
         .catch(error => {
           console.error('Erro ao obter clínicas:', error);
@@ -39,8 +39,37 @@ const SplashScreen = () => {
     if (lista_medico.length > 0) {
       setPrimeiroLogin(false)
     }
-    console.log(lista_medico.length)
-  }, [lista_medico])
+  }
+
+  useEffect(() => {
+    verificaMedicos()
+  }, [])
+
+  // useEffect(() => {
+  //   let isAdmin;
+  //   const roleString = Cookies.get('USGImage_role');
+  //   if (roleString) {
+  //     const role = JSON.parse(roleString);
+  //     role === 'admin' ? isAdmin = true : isAdmin = false
+  //     role === 'adminMaster' ? setAdminMaster(true) : setAdminMaster(false)
+  //   }
+  //   if (!isAdmin) {
+  //     setlista_medico(GetMedicosFree())
+  //   } else {
+  //     GetMedicosAdmin()
+  //       .then(medicos => {
+  //         setlista_medico(medicos)
+  //       })
+  //       .catch(error => {
+  //         console.error('Erro ao obter clínicas:', error);
+  //       });
+  //   }
+
+  //   if (lista_medico.length > 0) {
+  //     setPrimeiroLogin(false)
+  //   }
+  //   console.log(lista_medico.length)
+  // }, [])
   //está sendo jogado para abdomen total pqe nao temos a pagina principal, ajustar isso futuramente
   // };
   return redirectNow ? (

@@ -18,7 +18,7 @@ import {
   Tooltip,
   VStack,
   useToast,
-  FormErrorMessage 
+  FormErrorMessage
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -134,13 +134,13 @@ function CadastroUsuario() {
 
   const validarEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    regex.test(email)? setEmailInvalido(false) : setEmailInvalido(true)
+    regex.test(email) ? setEmailInvalido(false) : setEmailInvalido(true)
     return regex.test(email);
   };
 
   const handleEmailChange = (event) => {
     const newEmail = event.target.value;
-    setEmail(newEmail);
+    setEmail(newEmail.trim().toLowerCase());
     setEmailValido(validarEmail(newEmail));
   };
 
@@ -288,7 +288,7 @@ function CadastroUsuario() {
                   onChange={handleEmailChange}
                   errorBorderColor={!validarEmail ? 'red.300' : 'yellow'}
                 />
-                 {emailInvalido && <small style={{ color: 'red' }}>Email invalido</small>}
+                {emailInvalido && <small style={{ color: 'red' }}>Email invalido</small>}
               </FormControl>
             </Flex>
 
@@ -321,7 +321,7 @@ function CadastroUsuario() {
 
             <Flex flexDir={['column', 'row']}>
 
-              <FormControl isRequired pr={'2%'} w={['100%', '30%']}  isInvalid={!formatCEP}>
+              <FormControl isRequired pr={'2%'} w={['100%', '30%']} isInvalid={!formatCEP}>
                 <FormLabel fontFamily={'Outfit, sans-serif'} fontWeight={'800'} fontSize={'18px'}>  CEP</FormLabel>
                 <Input
                   type='text'

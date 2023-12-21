@@ -27,7 +27,7 @@ export default function LoginForm() {
     try {
       setIsLoading(true); // Ativar carregamento
       const user = {
-        email: Email.trim(),
+        email: Email.trim().toLowerCase(),
         password: Senha
       };
 
@@ -84,7 +84,6 @@ export default function LoginForm() {
   const handleInputChange = (event, setter) => {
     setter(event.target.value);
   };
-
 
   return (
     <Box
