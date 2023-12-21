@@ -5,6 +5,8 @@ import { AiFillWindows } from "react-icons/ai";
 import { FaLinux } from 'react-icons/fa';
 import { FaApple } from 'react-icons/fa';
 import { Link as ScrollLink } from "react-scroll";
+import ModalDownload from "../cadastroDownload/CadastroDownload";
+import { useState } from "react";
 
 function Body() {
   const [isLargerThan600] = useMediaQuery('(min-width: 700px)')
@@ -15,10 +17,17 @@ function Body() {
   let width = ""
   let paddLe = "left"
   isLargerThan1100 ? width = "50%" : width = "100%"
-  isLargerThan600 ? display = "" : display = "none"
+  isLargerThan600 ? display = "" : display = ""
   isLargerThan1100 ? display2 = "block" : display2 = "none"
   isLargerThan1100 ? paddLe = "left" : paddLe = "center"
   isLargerThan600 ? display1 = "flex" : display1 = "block"
+
+  const [isOpenModalDownload, setIsOpenModalDownload] = useState(false)
+  const [SistemaOperacional, setSistemaOperacional] = useState<number>(0)
+
+  const toggleModalDownload = () => {
+    setIsOpenModalDownload(!isOpenModalDownload)
+  }
 
   return (
     <Box
@@ -30,7 +39,7 @@ function Body() {
       pl={['5%', '10%']}
     >
       <Flex alignItems={'center'} display={display1} px={'2%'}>
-        <Box w={width} pb={['2%',0]}>
+        <Box w={width} pb={['2%', 0]}>
           <Text
             fontSize={"46px"}
             fontFamily={'Rubik, sans-serif'}
@@ -53,9 +62,7 @@ function Body() {
             textColor={'#fff'}
             textAlign={{ base: 'center', md: 'left' }}
             pt={'20px'}
-
           >
-
             transformando experiências médicas
           </Text>
           <Text
@@ -100,73 +107,79 @@ function Body() {
               pt={'2%'}
               pb={'3%'}
               textAlign={{ base: 'center', md: 'left' }}
-            >Em breve disponível para
+            >Baixe a versão de teste agora mesmo
             </Text>
 
-            <HStack pt={'5%'} pb={'5%'}>
-              <Link href={`#/`}>
-                <Button
-                  border="2px solid #FFF"
-                  color="#FFF"
-                  bg="transparent"
-                  height="50px"
-                  w={'150x'}
-                  px={10}
-                  fontSize={'16px'}
-                  _hover={{
-                    background: 'transparent',
-                    color: '#FFF',
-                  }}
-                >
-                  <Flex alignItems="center" fontFamily={"Inter, sans-serif"} gap={5}>
-                    <Icon as={AiFillWindows} fontSize="40px" />
-                    <Text>Windows</Text>
-                  </Flex>
-                </Button>
-              </Link>
+            <Flex flexDirection={['column', 'row']} pt={'5%'} pb={'5%'} gap={'2%'} alignItems={'center'}>
+              <Button
+                border="2px solid #FFF"
+                color="#FFF"
+                bg="transparent"
+                height="50px"
+                w={'150x'}
+                px={10}
+                fontSize={'16px'}
+                _hover={{
+                  background: 'transparent',
+                  color: '#FFF',
+                }}
+                onClick={(e) => {
+                  setSistemaOperacional(1)
+                  toggleModalDownload()
+                }}
+              >
+                <Flex alignItems="center" fontFamily={"Inter, sans-serif"} gap={3}>
+                  <Icon as={AiFillWindows} fontSize="40px" />
+                  <Text>Windows</Text>
+                </Flex>
+              </Button>
 
-              <Link href={`#/`}>
-                <Button
-                  border="2px solid #FFF"
-                  color="#FFF"
-                  bg="transparent"
-                  height="50px"
-                  w={'150x'}
-                  px={12}
-                  fontSize={'16px'}
-                  _hover={{
-                    background: 'transparent',
-                    color: '#FFF',
-                  }}
-                >
-                  <Flex alignItems="center" fontFamily={"Inter, sans-serif"} gap={5}>
-                    <Icon as={FaLinux} fontSize="40px" />
-                    Linux
-                  </Flex>
-                </Button>
-              </Link>
+              <Button
+                border="2px solid #FFF"
+                color="#FFF"
+                bg="transparent"
+                height="50px"
+                w={'150x'}
+                px={10}
+                fontSize={'16px'}
+                _hover={{
+                  background: 'transparent',
+                  color: '#FFF',
+                }}
+                onClick={(e) => {
+                  setSistemaOperacional(2)
+                  toggleModalDownload()
+                }}
+              >
+                <Flex alignItems="center" fontFamily={"Inter, sans-serif"} gap={10}>
+                  <Icon as={FaLinux} fontSize="40px" />
+                  Linux
+                </Flex>
+              </Button>
 
-              <Link href={`#/`}>
-                <Button
-                  border="2px solid #FFF"
-                  color="#FFF"
-                  bg="transparent"
-                  height="50px"
-                  w={'150x'}
-                  px={10}
-                  fontSize={'16px'}
-                  _hover={{
-                    background: 'transparent',
-                    color: '#FFF',
-                  }}
-                >
-                  <Flex alignItems="center" fontFamily={"Inter, sans-serif"} gap={5}>
-                    <Icon as={FaApple} fontSize="40px" />
-                    Mac OS
-                  </Flex>
-                </Button>
-              </Link>
-            </HStack>
+              <Button
+                border="2px solid #FFF"
+                color="#FFF"
+                bg="transparent"
+                height="50px"
+                w={'150x'}
+                px={10}
+                fontSize={'16px'}
+                _hover={{
+                  background: 'transparent',
+                  color: '#FFF',
+                }}
+                onClick={(e) => {
+                  setSistemaOperacional(3)
+                  toggleModalDownload()
+                }}
+              >
+                <Flex alignItems="center" fontFamily={"Inter, sans-serif"} gap={5}>
+                  <Icon as={FaApple} fontSize="40px" />
+                  Mac OS
+                </Flex>
+              </Button>
+            </Flex>
           </Box>
         </Box>
         <Box display={display2} w={'100%'} p={0}>
@@ -176,7 +189,7 @@ function Body() {
           />
         </Box>
       </Flex>
-
+      <ModalDownload isOpen={isOpenModalDownload} onClose={toggleModalDownload} sistema={SistemaOperacional} />
     </Box>
   );
 }

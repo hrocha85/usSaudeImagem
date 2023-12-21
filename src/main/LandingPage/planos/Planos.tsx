@@ -311,7 +311,7 @@ function Planos() {
                                 textColor={'#FFF'}
                                 alignSelf={'stretch'}
                             >
-                                Limite de 3 médicos
+                                7 dias ou seu dinheiro de volta
                             </Text>
                         </HStack>
                         <HStack mb={4}>
@@ -345,7 +345,58 @@ function Planos() {
                                 textColor={'#FFF'}
                                 alignSelf={'stretch'}
                             >
-                                Laudos ilimitados
+                                90 dias de acompanhamento
+                            </Text>
+                        </HStack>
+                        <HStack mb={4}>
+                            <Image
+                                src={checkPremium}
+                            />
+                            <Text
+                                fontSize={"16px"}
+                                fontFamily={'Inter, sans-serif'}
+                                fontStyle={'normal'}
+                                fontWeight={'600'}
+                                textAlign={'center'}
+                                lineHeight={'40px'}
+                                textColor={'#FFF'}
+                                alignSelf={'stretch'}
+                            >
+                                1 ano de suporte para atualizações
+                            </Text>
+                        </HStack>
+                        <HStack mb={4}>
+                            <Image
+                                src={checkPremium}
+                            />
+                            <Text
+                                fontSize={"16px"}
+                                fontFamily={'Inter, sans-serif'}
+                                fontStyle={'normal'}
+                                fontWeight={'600'}
+                                textAlign={'center'}
+                                lineHeight={'40px'}
+                                textColor={'#FFF'}
+                                alignSelf={'stretch'}
+                            >
+                                Acesso ao treinamento
+                            </Text>
+                        </HStack>
+                        <HStack mb={4}>
+                            <Image
+                                src={checkPremium}
+                            />
+                            <Text
+                                fontSize={"16px"}
+                                fontFamily={'Inter, sans-serif'}
+                                fontStyle={'normal'}
+                                fontWeight={'600'}
+                                textAlign={'center'}
+                                lineHeight={'40px'}
+                                textColor={'#FFF'}
+                                alignSelf={'stretch'}
+                            >
+                                Suporte para instalação
                             </Text>
                         </HStack>
                         <HStack mb={4}>
@@ -397,23 +448,6 @@ function Planos() {
                                 alignSelf={'stretch'}
                             >
                                 Download de laudos
-                            </Text>
-                        </HStack>
-                        <HStack mb={4}>
-                            <Image
-                                src={checkPremium}
-                            />
-                            <Text
-                                fontSize={"16px"}
-                                fontFamily={'Inter, sans-serif'}
-                                fontStyle={'normal'}
-                                fontWeight={'600'}
-                                textAlign={'center'}
-                                lineHeight={'40px'}
-                                textColor={'#FFF'}
-                                alignSelf={'stretch'}
-                            >
-                                Laudos salvos na nuvem
                             </Text>
                         </HStack>
                         <HStack mb={4}>

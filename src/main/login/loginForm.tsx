@@ -27,7 +27,7 @@ export default function LoginForm() {
     try {
       setIsLoading(true); // Ativar carregamento
       const user = {
-        email: Email.trim(),
+        email: Email.trim().toLowerCase(),
         password: Senha
       };
 
@@ -40,9 +40,6 @@ export default function LoginForm() {
           Cookies.remove('USGImage_token')
           setAuthToken(response.data.token)
           Cookies.set('USGImage_token', JSON.stringify(response.data.token));
-        } else {
-          const token = Cookies.get('USGImage_token');
-          setAuthToken(JSON.parse(token))
         }
         Cookies.set('USGImage_user', JSON.stringify(response.data.user));
         const roleResponse = await api.get(`usuario/${response.data.user.id}`);
@@ -87,7 +84,6 @@ export default function LoginForm() {
   const handleInputChange = (event, setter) => {
     setter(event.target.value);
   };
-
 
   return (
     <Box
