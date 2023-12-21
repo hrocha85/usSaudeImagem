@@ -16,20 +16,27 @@ import {
   Flex,
   useMediaQuery,
   Link,
+  Spinner,
 } from '@chakra-ui/react';
 import Sidebar from '../main/menu/sideBar';
 import { Footer } from '../main/LandingPage/footer/Footer';
 import GetMedicosFree from '../main/Helpers/UserFree/GetMedicosFree';
 import GetMedicosAdmin from '../main/Helpers/UserAdmin/GetMedicosAdmin';
 import Cookies from 'js-cookie';
+import video1 from './videos/video1.mp4';
+import video2 from './videos/video2.mp4';
+import video3 from './videos/video3.mp4';
+import video4 from './videos/video4.mp4';
 
 const VideoModal = ({ isOpen, onClose }) => {
-  const videos = ['video1.mp4', 'video2.mp4', 'video3.mp4'];
+  const videos = [video1, video2, video3, video4];
   const videoCaptions = [
-    { title: 'Vídeo 1', description: 'Este é o vídeo 1 explicativo.' },
-    { title: 'Vídeo 2', description: 'Este é o vídeo 2 explicativo.' },
-    { title: 'Vídeo 3', description: 'Este é o vídeo 3 explicativo.' },
+    { title: 'Tutorial 1', description: 'Inicialmente é necessário cadastrar uma clínica e um médico para dar seguimento' },
+    { title: 'Tutorial 2', description: 'Inicie cadastrando uma clínica e logo após cadastre um médico.' },
+    { title: 'Tutorial 3', description: <><Text>`Com a clínica e o médico cadastrados, selecione quem está usando o sistema e avance para a próxima página.</Text><Text>Cadastre o paciente e o médico solicitante e selecione um exame para iniciar o laudo.</Text></> },
+    { title: 'Tutorial 4', description: 'Este é o vídeo 4 explicativo.' },
   ];
+  const [time, setTime] = useState(false)
 
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -37,21 +44,19 @@ const VideoModal = ({ isOpen, onClose }) => {
   useEffect(() => {
     const initialProgress = (currentVideoIndex / (videos.length - 1)) * 100;
     setProgress(initialProgress);
+    setTime(true)
+    setTimeout(() => setTime(false), 1000);
   }, [currentVideoIndex]);
 
   const handleNext = () => {
     if (currentVideoIndex < videos.length - 1) {
-      setCurrentVideoIndex(currentVideoIndex + 1);
-      const newProgress = ((currentVideoIndex + 1) / (videos.length - 1)) * 100;
-      setProgress(newProgress);
+      setCurrentVideoIndex((prevIndex) => prevIndex + 1);
     }
   };
 
   const handlePrevious = () => {
     if (currentVideoIndex > 0) {
-      setCurrentVideoIndex(currentVideoIndex - 1);
-      const newProgress = ((currentVideoIndex - 1) / (videos.length - 1)) * 100;
-      setProgress(newProgress);
+      setCurrentVideoIndex((prevIndex) => prevIndex - 1);
     }
   };
 
@@ -61,22 +66,35 @@ const VideoModal = ({ isOpen, onClose }) => {
     setProgress(0);
   };
 
+  useEffect(() => {
+    setCurrentVideoIndex(0);
+    setProgress(0);
+  }, [onClose])
+
+  useEffect(() => {
+    console.log(videos[currentVideoIndex])
+  }, [currentVideoIndex])
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="2xl">
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent margin='1vw'>
         <ModalHeader textAlign="center">{videoCaptions[currentVideoIndex].title}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody position="relative" mb={4}>
+        <ModalBody position="relative" mb={4} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
           <Text fontSize="lg" mb={2} textAlign="center">
             {videoCaptions[currentVideoIndex].description}
           </Text>
-          <video controls width="100%" height="auto">
-            <source src={videos[currentVideoIndex]} type="video/mp4" />
-            Seu navegador não suporta o elemento de vídeo.
-          </video>
-          <Box position="absolute" bottom="0" left="0" width="100%" height="30px" borderRadius="md" top={'380px'} px={'4%'}>
+          {time ?
+            <Box>
+              <Spinner size={'xl'} />
+            </Box> :
+            <video controls width="100%" height="auto">
+              <source src={videos[currentVideoIndex]} type="video/mp4" />
+              Seu navegador não suporta o elemento de vídeo.
+            </video>
+          }
+          <Box bottom="0" left="0" width="100%" height="30px" borderRadius="md" px={'4%'} position="relative">
             <Box
               bg="gray.200"
               height="100%"
@@ -90,20 +108,20 @@ const VideoModal = ({ isOpen, onClose }) => {
                 borderRadius="md"
                 transition="width 0.3s ease-in"
               />
-              <Text
-                position="absolute"
-                top="50%"
-                left="50%"
-                transform="translate(-50%, -50%)"
-                color="white"
-                fontWeight="bold"
-              >
-                {`${Math.round(progress)}%`}
-              </Text>
             </Box>
+            <Text
+              position="absolute"
+              top="50%"
+              left="50%"
+              transform="translate(-50%, -50%)"
+              color="black"
+              fontWeight="bold"
+            >
+              {`${Math.round(progress)}%`}
+            </Text>
           </Box>
         </ModalBody>
-        <ModalFooter pt={'8%'}>
+        <ModalFooter gap='10px' pt={'1%'}>
           {currentVideoIndex === videos.length - 1 ? (
             <Button onClick={handleComplete}>Concluir</Button>
           ) : (
@@ -121,6 +139,7 @@ const VideoModal = ({ isOpen, onClose }) => {
     </Modal>
   );
 };
+
 
 const VideoPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -173,6 +192,7 @@ const VideoPage = () => {
     }
   }
 
+
   useEffect(() => {
     verificaMedicos()
   }, [])
@@ -194,7 +214,7 @@ const VideoPage = () => {
           Bem vindo ao Tutorial Usg Imagem
         </Text>
         <Box px={'2%'}>
-          <UnorderedList spacing={'3%'}>
+          <UnorderedList spacing={'1.5%'}>
             <Text
               fontSize={"25px"}
               fontFamily={'Inter, sans-serif'}
@@ -205,7 +225,7 @@ const VideoPage = () => {
               alignSelf={'stretch'}
               textAlign={'center'}
               w={'100%'}
-              pt={'5%'}
+              pt={'1%'}
             >
               Como usar o sistema:
             </Text>
@@ -237,21 +257,19 @@ const VideoPage = () => {
         textColor={'#101E40'}
         alignSelf={'stretch'}
         w={'100%'}
-        pt={'5%'}
+        pt={'1%'}
         textAlign={'center'}
       >
         Caso ainda esteja com dúvidas assista nossos vídeos didádicos de como dar os primeiros passos na Usg Imagem
       </Text>
       <Box display={'flex'} justifyContent={'center'}>
-        <Flex display={display1} gap={10} justifyContent={'center'} mt={10} fontFamily={"Sora, sans-serif"} fontWeight={'600'}>
-
+        <Flex display={display1} gap={10} justifyContent={'center'} mt={5} fontFamily={"Sora, sans-serif"} fontWeight={'600'}>
           <Button
             border="1px solid #1C49B0"
             color="#1C49B0"
             bg="transparent"
             height="50px"
             fontSize={'16px'}
-            isDisabled={true}
             onClick={handleOpenModal}
             _hover={{
               background: 'transparent',

@@ -348,6 +348,16 @@ function SelectMedicos() {
     }
   }
 
+  const tutorialButton = () => {
+    if (lista_medico.length <= 0) {
+      return (
+        <Button onClick={(e) => navigate('/Home/Tutorial')} m='1vw 0 0 1vw'>
+          Tutorial
+        </Button>
+      )
+    }
+  }
+
   return (
     <Box
       w="100%"
@@ -359,6 +369,7 @@ function SelectMedicos() {
       paddingBottom="10px"
       alignItems="center"
     >
+      {tutorialButton()}
       <Center>
         <Box
           position="absolute"
