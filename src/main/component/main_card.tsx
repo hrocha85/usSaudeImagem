@@ -32,8 +32,8 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
   return (
     <div>
       <Box
-        w="50%"
-        h="50%"
+        w="100%"
+        h="100%"
         color="white"
         borderRadius="10.85px"
         mt={'5%'}
@@ -56,7 +56,7 @@ const MainCard = ({ titulo, icon, clinica, medicos }) => {
         </Box>
 
         <Box
-          h='50%'
+          h='100%'
           overflow='auto'
           css={{ '&::-webkit-scrollbar': { width: '0.4em' }, '&::-webkit-scrollbar-thumb': { backgroundColor: 'transparent' } }}
         >{Cards(titulo)}
