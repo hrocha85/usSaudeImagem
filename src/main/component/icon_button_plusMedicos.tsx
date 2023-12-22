@@ -65,7 +65,6 @@ export const lista_medicos = MedicosJSON.medicos;
 
 const IconButtonPlusMedicos = (props, clinica) => {
   const toast = useToast();
-
   const padRef = React.useRef<SignatureCanvas>(null);
 
   const getMedicos = () => {
