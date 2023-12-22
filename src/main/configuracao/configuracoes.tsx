@@ -397,7 +397,7 @@ const Configuracoes = () => {
             </Box>
 
 
-            <Box pl={3} display={getClinicasNull()}>
+            <Box display={getClinicasNull()}>
               <MainCard titulo="Médicos" icon={true} clinica={listaClinicas} medicos={null} />
             </Box>
 
