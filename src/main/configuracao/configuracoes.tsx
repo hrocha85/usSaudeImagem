@@ -392,17 +392,14 @@ const Configuracoes = () => {
               :
               <Box width={width}>{returnPOPoverLaudos()}</Box>
             }
-            <Box>
+            <Box >
               <MainCardClinica titulo="Clínicas" icon={true} clinica={null} medicos={null} />
             </Box>
-
 
             <Box display={getClinicasNull()}>
               <MainCard titulo="Médicos" icon={true} clinica={listaClinicas} medicos={null} />
             </Box>
-
           </Box>
-
           {/* {returnObservacoes()} */}
         </Stack>
         {returnObservacoes()}

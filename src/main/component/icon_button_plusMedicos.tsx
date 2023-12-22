@@ -223,7 +223,7 @@ const IconButtonPlusMedicos = (props, clinica) => {
         status: "success",
         position: "top",
         render: () => (
-          <Flex flexWrap={"wrap"} bg={"green.500"} p={4} alignItems="center" rounded={5}>
+          <Flex flexWrap={"wrap"} zIndex={''} bg={"green.500"} p={4} alignItems="center" rounded={5}>
             <Text color="white" mr={4}>
               Cadastro concluido! clique no botão para iniciar a sessão
             </Text>
