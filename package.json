@@ -7,7 +7,7 @@
     "email": "comercial@upbase.com.br"
   },
   "description": "Gerador de Laudos",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^2.0.15",
